@@ -28,6 +28,9 @@ import (
 
 func (r *Cluster) validate() error {
 
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"NodePools", "InitialNodeCount", "NodeConfig"}, r.NodePools, r.InitialNodeCount, r.NodeConfig); err != nil {
+		return err
+	}
 	if err := dcl.Required(r, "name"); err != nil {
 		return err
 	}
@@ -722,7 +725,7 @@ type updateClusterSetMaintenancePolicyOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -803,7 +806,7 @@ type updateClusterUpdateAddonsConfigOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -884,7 +887,7 @@ type updateClusterUpdateAutoscalingOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -965,7 +968,7 @@ type updateClusterUpdateBinaryAuthorizationOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -1046,7 +1049,7 @@ type updateClusterUpdateDatabaseEncryptionOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -1127,7 +1130,7 @@ type updateClusterUpdateLegacyAbacOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -1206,7 +1209,7 @@ type updateClusterUpdateLocationsOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -1287,7 +1290,7 @@ type updateClusterUpdateMasterAuthorizedNetworksConfigOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -1366,7 +1369,7 @@ type updateClusterUpdateMasterVersionOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -1448,7 +1451,7 @@ type updateClusterUpdateMonitoringAndLoggingServiceOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -1529,7 +1532,7 @@ type updateClusterUpdateShieldedNodesOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -1610,7 +1613,7 @@ type updateClusterUpdateVerticalPodAutoscalingOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -1691,7 +1694,7 @@ type updateClusterUpdateWorkloadIdentityConfigOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -2031,6 +2034,28 @@ func clusterWaitForRestingState(ctx context.Context, r *Cluster, c *Client) erro
 
 func canonicalizeClusterInitialState(rawInitial, rawDesired *Cluster) (*Cluster, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
+
+	if !dcl.IsZeroValue(rawInitial.NodePools) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.InitialNodeCount, rawInitial.NodeConfig) {
+			rawInitial.NodePools = []ClusterNodePools{}
+		}
+	}
+
+	if !dcl.IsZeroValue(rawInitial.InitialNodeCount) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.NodePools, rawInitial.NodeConfig) {
+			rawInitial.InitialNodeCount = dcl.Int64(0)
+		}
+	}
+
+	if !dcl.IsZeroValue(rawInitial.NodeConfig) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.NodePools, rawInitial.InitialNodeCount) {
+			rawInitial.NodeConfig = EmptyClusterNodeConfig
+		}
+	}
+
 	return rawInitial, nil
 }
 
@@ -2077,101 +2102,170 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 		return rawDesired, nil
 	}
 
+	if rawDesired.NodePools != nil || rawInitial.NodePools != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.InitialNodeCount, rawDesired.NodeConfig) {
+			rawDesired.NodePools = nil
+			rawInitial.NodePools = nil
+		}
+	}
+
+	if rawDesired.InitialNodeCount != nil || rawInitial.InitialNodeCount != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.NodePools, rawDesired.NodeConfig) {
+			rawDesired.InitialNodeCount = nil
+			rawInitial.InitialNodeCount = nil
+		}
+	}
+
+	if rawDesired.NodeConfig != nil || rawInitial.NodeConfig != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.NodePools, rawDesired.InitialNodeCount) {
+			rawDesired.NodeConfig = nil
+			rawInitial.NodeConfig = nil
+		}
+	}
+
+	canonicalDesired := &Cluster{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.InitialNodeCount) {
-		rawDesired.InitialNodeCount = rawInitial.InitialNodeCount
+		canonicalDesired.InitialNodeCount = rawInitial.InitialNodeCount
+	} else {
+		canonicalDesired.InitialNodeCount = rawDesired.InitialNodeCount
 	}
-	rawDesired.MasterAuth = canonicalizeClusterMasterAuth(rawDesired.MasterAuth, rawInitial.MasterAuth, opts...)
+	canonicalDesired.MasterAuth = canonicalizeClusterMasterAuth(rawDesired.MasterAuth, rawInitial.MasterAuth, opts...)
 	if dcl.StringCanonicalize(rawDesired.LoggingService, rawInitial.LoggingService) {
-		rawDesired.LoggingService = rawInitial.LoggingService
+		canonicalDesired.LoggingService = rawInitial.LoggingService
+	} else {
+		canonicalDesired.LoggingService = rawDesired.LoggingService
 	}
 	if dcl.StringCanonicalize(rawDesired.MonitoringService, rawInitial.MonitoringService) {
-		rawDesired.MonitoringService = rawInitial.MonitoringService
+		canonicalDesired.MonitoringService = rawInitial.MonitoringService
+	} else {
+		canonicalDesired.MonitoringService = rawDesired.MonitoringService
 	}
 	if dcl.StringCanonicalize(rawDesired.Network, rawInitial.Network) {
-		rawDesired.Network = rawInitial.Network
+		canonicalDesired.Network = rawInitial.Network
+	} else {
+		canonicalDesired.Network = rawDesired.Network
 	}
 	if dcl.StringCanonicalize(rawDesired.ClusterIPv4Cidr, rawInitial.ClusterIPv4Cidr) {
-		rawDesired.ClusterIPv4Cidr = rawInitial.ClusterIPv4Cidr
+		canonicalDesired.ClusterIPv4Cidr = rawInitial.ClusterIPv4Cidr
+	} else {
+		canonicalDesired.ClusterIPv4Cidr = rawDesired.ClusterIPv4Cidr
 	}
-	rawDesired.AddonsConfig = canonicalizeClusterAddonsConfig(rawDesired.AddonsConfig, rawInitial.AddonsConfig, opts...)
-	if dcl.StringCanonicalize(rawDesired.Subnetwork, rawInitial.Subnetwork) {
-		rawDesired.Subnetwork = rawInitial.Subnetwork
+	canonicalDesired.AddonsConfig = canonicalizeClusterAddonsConfig(rawDesired.AddonsConfig, rawInitial.AddonsConfig, opts...)
+	if dcl.NameToSelfLink(rawDesired.Subnetwork, rawInitial.Subnetwork) {
+		canonicalDesired.Subnetwork = rawInitial.Subnetwork
+	} else {
+		canonicalDesired.Subnetwork = rawDesired.Subnetwork
 	}
 	if dcl.IsZeroValue(rawDesired.NodePools) {
-		rawDesired.NodePools = rawInitial.NodePools
+		canonicalDesired.NodePools = rawInitial.NodePools
+	} else {
+		canonicalDesired.NodePools = rawDesired.NodePools
 	}
 	if dcl.IsZeroValue(rawDesired.Locations) {
-		rawDesired.Locations = rawInitial.Locations
+		canonicalDesired.Locations = rawInitial.Locations
+	} else {
+		canonicalDesired.Locations = rawDesired.Locations
 	}
 	if dcl.BoolCanonicalize(rawDesired.EnableKubernetesAlpha, rawInitial.EnableKubernetesAlpha) {
-		rawDesired.EnableKubernetesAlpha = rawInitial.EnableKubernetesAlpha
+		canonicalDesired.EnableKubernetesAlpha = rawInitial.EnableKubernetesAlpha
+	} else {
+		canonicalDesired.EnableKubernetesAlpha = rawDesired.EnableKubernetesAlpha
 	}
 	if dcl.IsZeroValue(rawDesired.ResourceLabels) {
-		rawDesired.ResourceLabels = rawInitial.ResourceLabels
+		canonicalDesired.ResourceLabels = rawInitial.ResourceLabels
+	} else {
+		canonicalDesired.ResourceLabels = rawDesired.ResourceLabels
 	}
 	if dcl.StringCanonicalize(rawDesired.LabelFingerprint, rawInitial.LabelFingerprint) {
-		rawDesired.LabelFingerprint = rawInitial.LabelFingerprint
+		canonicalDesired.LabelFingerprint = rawInitial.LabelFingerprint
+	} else {
+		canonicalDesired.LabelFingerprint = rawDesired.LabelFingerprint
 	}
-	rawDesired.LegacyAbac = canonicalizeClusterLegacyAbac(rawDesired.LegacyAbac, rawInitial.LegacyAbac, opts...)
-	rawDesired.NetworkPolicy = canonicalizeClusterNetworkPolicy(rawDesired.NetworkPolicy, rawInitial.NetworkPolicy, opts...)
-	rawDesired.IPAllocationPolicy = canonicalizeClusterIPAllocationPolicy(rawDesired.IPAllocationPolicy, rawInitial.IPAllocationPolicy, opts...)
-	rawDesired.MasterAuthorizedNetworksConfig = canonicalizeClusterMasterAuthorizedNetworksConfig(rawDesired.MasterAuthorizedNetworksConfig, rawInitial.MasterAuthorizedNetworksConfig, opts...)
-	rawDesired.BinaryAuthorization = canonicalizeClusterBinaryAuthorization(rawDesired.BinaryAuthorization, rawInitial.BinaryAuthorization, opts...)
-	rawDesired.Autoscaling = canonicalizeClusterAutoscaling(rawDesired.Autoscaling, rawInitial.Autoscaling, opts...)
-	rawDesired.NetworkConfig = canonicalizeClusterNetworkConfig(rawDesired.NetworkConfig, rawInitial.NetworkConfig, opts...)
-	rawDesired.MaintenancePolicy = canonicalizeClusterMaintenancePolicy(rawDesired.MaintenancePolicy, rawInitial.MaintenancePolicy, opts...)
-	rawDesired.DefaultMaxPodsConstraint = canonicalizeClusterDefaultMaxPodsConstraint(rawDesired.DefaultMaxPodsConstraint, rawInitial.DefaultMaxPodsConstraint, opts...)
-	rawDesired.ResourceUsageExportConfig = canonicalizeClusterResourceUsageExportConfig(rawDesired.ResourceUsageExportConfig, rawInitial.ResourceUsageExportConfig, opts...)
-	rawDesired.AuthenticatorGroupsConfig = canonicalizeClusterAuthenticatorGroupsConfig(rawDesired.AuthenticatorGroupsConfig, rawInitial.AuthenticatorGroupsConfig, opts...)
-	rawDesired.PrivateClusterConfig = canonicalizeClusterPrivateClusterConfig(rawDesired.PrivateClusterConfig, rawInitial.PrivateClusterConfig, opts...)
-	rawDesired.DatabaseEncryption = canonicalizeClusterDatabaseEncryption(rawDesired.DatabaseEncryption, rawInitial.DatabaseEncryption, opts...)
-	rawDesired.VerticalPodAutoscaling = canonicalizeClusterVerticalPodAutoscaling(rawDesired.VerticalPodAutoscaling, rawInitial.VerticalPodAutoscaling, opts...)
-	rawDesired.ShieldedNodes = canonicalizeClusterShieldedNodes(rawDesired.ShieldedNodes, rawInitial.ShieldedNodes, opts...)
+	canonicalDesired.LegacyAbac = canonicalizeClusterLegacyAbac(rawDesired.LegacyAbac, rawInitial.LegacyAbac, opts...)
+	canonicalDesired.NetworkPolicy = canonicalizeClusterNetworkPolicy(rawDesired.NetworkPolicy, rawInitial.NetworkPolicy, opts...)
+	canonicalDesired.IPAllocationPolicy = canonicalizeClusterIPAllocationPolicy(rawDesired.IPAllocationPolicy, rawInitial.IPAllocationPolicy, opts...)
+	canonicalDesired.MasterAuthorizedNetworksConfig = canonicalizeClusterMasterAuthorizedNetworksConfig(rawDesired.MasterAuthorizedNetworksConfig, rawInitial.MasterAuthorizedNetworksConfig, opts...)
+	canonicalDesired.BinaryAuthorization = canonicalizeClusterBinaryAuthorization(rawDesired.BinaryAuthorization, rawInitial.BinaryAuthorization, opts...)
+	canonicalDesired.Autoscaling = canonicalizeClusterAutoscaling(rawDesired.Autoscaling, rawInitial.Autoscaling, opts...)
+	canonicalDesired.NetworkConfig = canonicalizeClusterNetworkConfig(rawDesired.NetworkConfig, rawInitial.NetworkConfig, opts...)
+	canonicalDesired.MaintenancePolicy = canonicalizeClusterMaintenancePolicy(rawDesired.MaintenancePolicy, rawInitial.MaintenancePolicy, opts...)
+	canonicalDesired.DefaultMaxPodsConstraint = canonicalizeClusterDefaultMaxPodsConstraint(rawDesired.DefaultMaxPodsConstraint, rawInitial.DefaultMaxPodsConstraint, opts...)
+	canonicalDesired.ResourceUsageExportConfig = canonicalizeClusterResourceUsageExportConfig(rawDesired.ResourceUsageExportConfig, rawInitial.ResourceUsageExportConfig, opts...)
+	canonicalDesired.AuthenticatorGroupsConfig = canonicalizeClusterAuthenticatorGroupsConfig(rawDesired.AuthenticatorGroupsConfig, rawInitial.AuthenticatorGroupsConfig, opts...)
+	canonicalDesired.PrivateClusterConfig = canonicalizeClusterPrivateClusterConfig(rawDesired.PrivateClusterConfig, rawInitial.PrivateClusterConfig, opts...)
+	canonicalDesired.DatabaseEncryption = canonicalizeClusterDatabaseEncryption(rawDesired.DatabaseEncryption, rawInitial.DatabaseEncryption, opts...)
+	canonicalDesired.VerticalPodAutoscaling = canonicalizeClusterVerticalPodAutoscaling(rawDesired.VerticalPodAutoscaling, rawInitial.VerticalPodAutoscaling, opts...)
+	canonicalDesired.ShieldedNodes = canonicalizeClusterShieldedNodes(rawDesired.ShieldedNodes, rawInitial.ShieldedNodes, opts...)
 	if dcl.MatchingSemverInterface(rawDesired.MasterVersion, rawInitial.MasterVersion) {
-		rawDesired.MasterVersion = rawInitial.MasterVersion
+		canonicalDesired.MasterVersion = rawInitial.MasterVersion
+	} else {
+		canonicalDesired.MasterVersion = rawDesired.MasterVersion
 	}
 	if dcl.StringCanonicalize(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 	if dcl.BoolCanonicalize(rawDesired.EnableTPU, rawInitial.EnableTPU) {
-		rawDesired.EnableTPU = rawInitial.EnableTPU
+		canonicalDesired.EnableTPU = rawInitial.EnableTPU
+	} else {
+		canonicalDesired.EnableTPU = rawDesired.EnableTPU
 	}
 	if dcl.IsZeroValue(rawDesired.Conditions) {
-		rawDesired.Conditions = rawInitial.Conditions
+		canonicalDesired.Conditions = rawInitial.Conditions
+	} else {
+		canonicalDesired.Conditions = rawDesired.Conditions
 	}
-	rawDesired.Autopilot = canonicalizeClusterAutopilot(rawDesired.Autopilot, rawInitial.Autopilot, opts...)
+	canonicalDesired.Autopilot = canonicalizeClusterAutopilot(rawDesired.Autopilot, rawInitial.Autopilot, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
-	rawDesired.NodeConfig = canonicalizeClusterNodeConfig(rawDesired.NodeConfig, rawInitial.NodeConfig, opts...)
-	rawDesired.ReleaseChannel = canonicalizeClusterReleaseChannel(rawDesired.ReleaseChannel, rawInitial.ReleaseChannel, opts...)
-	rawDesired.WorkloadIdentityConfig = canonicalizeClusterWorkloadIdentityConfig(rawDesired.WorkloadIdentityConfig, rawInitial.WorkloadIdentityConfig, opts...)
-	rawDesired.NotificationConfig = canonicalizeClusterNotificationConfig(rawDesired.NotificationConfig, rawInitial.NotificationConfig, opts...)
-	rawDesired.ConfidentialNodes = canonicalizeClusterConfidentialNodes(rawDesired.ConfidentialNodes, rawInitial.ConfidentialNodes, opts...)
+	canonicalDesired.NodeConfig = canonicalizeClusterNodeConfig(rawDesired.NodeConfig, rawInitial.NodeConfig, opts...)
+	canonicalDesired.ReleaseChannel = canonicalizeClusterReleaseChannel(rawDesired.ReleaseChannel, rawInitial.ReleaseChannel, opts...)
+	canonicalDesired.WorkloadIdentityConfig = canonicalizeClusterWorkloadIdentityConfig(rawDesired.WorkloadIdentityConfig, rawInitial.WorkloadIdentityConfig, opts...)
+	canonicalDesired.NotificationConfig = canonicalizeClusterNotificationConfig(rawDesired.NotificationConfig, rawInitial.NotificationConfig, opts...)
+	canonicalDesired.ConfidentialNodes = canonicalizeClusterConfidentialNodes(rawDesired.ConfidentialNodes, rawInitial.ConfidentialNodes, opts...)
 	if dcl.StringCanonicalize(rawDesired.InitialClusterVersion, rawInitial.InitialClusterVersion) {
-		rawDesired.InitialClusterVersion = rawInitial.InitialClusterVersion
+		canonicalDesired.InitialClusterVersion = rawInitial.InitialClusterVersion
+	} else {
+		canonicalDesired.InitialClusterVersion = rawDesired.InitialClusterVersion
 	}
 	if dcl.IsZeroValue(rawDesired.InstanceGroupUrls) {
-		rawDesired.InstanceGroupUrls = rawInitial.InstanceGroupUrls
+		canonicalDesired.InstanceGroupUrls = rawInitial.InstanceGroupUrls
+	} else {
+		canonicalDesired.InstanceGroupUrls = rawDesired.InstanceGroupUrls
 	}
-	rawDesired.PodSecurityPolicyConfig = canonicalizeClusterPodSecurityPolicyConfig(rawDesired.PodSecurityPolicyConfig, rawInitial.PodSecurityPolicyConfig, opts...)
+	canonicalDesired.PodSecurityPolicyConfig = canonicalizeClusterPodSecurityPolicyConfig(rawDesired.PodSecurityPolicyConfig, rawInitial.PodSecurityPolicyConfig, opts...)
 	if dcl.BoolCanonicalize(rawDesired.PrivateCluster, rawInitial.PrivateCluster) {
-		rawDesired.PrivateCluster = rawInitial.PrivateCluster
+		canonicalDesired.PrivateCluster = rawInitial.PrivateCluster
+	} else {
+		canonicalDesired.PrivateCluster = rawDesired.PrivateCluster
 	}
 	if dcl.StringCanonicalize(rawDesired.MasterIPv4CidrBlock, rawInitial.MasterIPv4CidrBlock) {
-		rawDesired.MasterIPv4CidrBlock = rawInitial.MasterIPv4CidrBlock
+		canonicalDesired.MasterIPv4CidrBlock = rawInitial.MasterIPv4CidrBlock
+	} else {
+		canonicalDesired.MasterIPv4CidrBlock = rawDesired.MasterIPv4CidrBlock
 	}
-	rawDesired.ClusterTelemetry = canonicalizeClusterClusterTelemetry(rawDesired.ClusterTelemetry, rawInitial.ClusterTelemetry, opts...)
-	rawDesired.TPUConfig = canonicalizeClusterTPUConfig(rawDesired.TPUConfig, rawInitial.TPUConfig, opts...)
-	rawDesired.Master = canonicalizeClusterMaster(rawDesired.Master, rawInitial.Master, opts...)
+	canonicalDesired.ClusterTelemetry = canonicalizeClusterClusterTelemetry(rawDesired.ClusterTelemetry, rawInitial.ClusterTelemetry, opts...)
+	canonicalDesired.TPUConfig = canonicalizeClusterTPUConfig(rawDesired.TPUConfig, rawInitial.TPUConfig, opts...)
+	canonicalDesired.Master = canonicalizeClusterMaster(rawDesired.Master, rawInitial.Master, opts...)
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Cluster, error) {
@@ -2244,7 +2338,7 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 	if dcl.IsEmptyValueIndirect(rawNew.Subnetwork) && dcl.IsEmptyValueIndirect(rawDesired.Subnetwork) {
 		rawNew.Subnetwork = rawDesired.Subnetwork
 	} else {
-		if dcl.StringCanonicalize(rawDesired.Subnetwork, rawNew.Subnetwork) {
+		if dcl.NameToSelfLink(rawDesired.Subnetwork, rawNew.Subnetwork) {
 			rawNew.Subnetwork = rawDesired.Subnetwork
 		}
 	}
@@ -2604,15 +2698,21 @@ func canonicalizeClusterMasterAuth(des, initial *ClusterMasterAuth, opts ...dcl.
 		return des
 	}
 
+	cDes := &ClusterMasterAuth{}
+
 	if dcl.StringCanonicalize(des.Username, initial.Username) || dcl.IsZeroValue(des.Username) {
-		des.Username = initial.Username
+		cDes.Username = initial.Username
+	} else {
+		cDes.Username = des.Username
 	}
 	if dcl.StringCanonicalize(des.Password, initial.Password) || dcl.IsZeroValue(des.Password) {
-		des.Password = initial.Password
+		cDes.Password = initial.Password
+	} else {
+		cDes.Password = des.Password
 	}
-	des.ClientCertificateConfig = canonicalizeClusterMasterAuthClientCertificateConfig(des.ClientCertificateConfig, initial.ClientCertificateConfig, opts...)
+	cDes.ClientCertificateConfig = canonicalizeClusterMasterAuthClientCertificateConfig(des.ClientCertificateConfig, initial.ClientCertificateConfig, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterMasterAuth(c *Client, des, nw *ClusterMasterAuth) *ClusterMasterAuth {
@@ -2695,11 +2795,15 @@ func canonicalizeClusterMasterAuthClientCertificateConfig(des, initial *ClusterM
 		return des
 	}
 
+	cDes := &ClusterMasterAuthClientCertificateConfig{}
+
 	if dcl.BoolCanonicalize(des.IssueClientCertificate, initial.IssueClientCertificate) || dcl.IsZeroValue(des.IssueClientCertificate) {
-		des.IssueClientCertificate = initial.IssueClientCertificate
+		cDes.IssueClientCertificate = initial.IssueClientCertificate
+	} else {
+		cDes.IssueClientCertificate = des.IssueClientCertificate
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterMasterAuthClientCertificateConfig(c *Client, des, nw *ClusterMasterAuthClientCertificateConfig) *ClusterMasterAuthClientCertificateConfig {
@@ -2769,18 +2873,20 @@ func canonicalizeClusterAddonsConfig(des, initial *ClusterAddonsConfig, opts ...
 		return des
 	}
 
-	des.HttpLoadBalancing = canonicalizeClusterAddonsConfigHttpLoadBalancing(des.HttpLoadBalancing, initial.HttpLoadBalancing, opts...)
-	des.HorizontalPodAutoscaling = canonicalizeClusterAddonsConfigHorizontalPodAutoscaling(des.HorizontalPodAutoscaling, initial.HorizontalPodAutoscaling, opts...)
-	des.KubernetesDashboard = canonicalizeClusterAddonsConfigKubernetesDashboard(des.KubernetesDashboard, initial.KubernetesDashboard, opts...)
-	des.NetworkPolicyConfig = canonicalizeClusterAddonsConfigNetworkPolicyConfig(des.NetworkPolicyConfig, initial.NetworkPolicyConfig, opts...)
-	des.CloudRunConfig = canonicalizeClusterAddonsConfigCloudRunConfig(des.CloudRunConfig, initial.CloudRunConfig, opts...)
-	des.DnsCacheConfig = canonicalizeClusterAddonsConfigDnsCacheConfig(des.DnsCacheConfig, initial.DnsCacheConfig, opts...)
-	des.ConfigConnectorConfig = canonicalizeClusterAddonsConfigConfigConnectorConfig(des.ConfigConnectorConfig, initial.ConfigConnectorConfig, opts...)
-	des.GcePersistentDiskCsiDriverConfig = canonicalizeClusterAddonsConfigGcePersistentDiskCsiDriverConfig(des.GcePersistentDiskCsiDriverConfig, initial.GcePersistentDiskCsiDriverConfig, opts...)
-	des.IstioConfig = canonicalizeClusterAddonsConfigIstioConfig(des.IstioConfig, initial.IstioConfig, opts...)
-	des.KalmConfig = canonicalizeClusterAddonsConfigKalmConfig(des.KalmConfig, initial.KalmConfig, opts...)
+	cDes := &ClusterAddonsConfig{}
 
-	return des
+	cDes.HttpLoadBalancing = canonicalizeClusterAddonsConfigHttpLoadBalancing(des.HttpLoadBalancing, initial.HttpLoadBalancing, opts...)
+	cDes.HorizontalPodAutoscaling = canonicalizeClusterAddonsConfigHorizontalPodAutoscaling(des.HorizontalPodAutoscaling, initial.HorizontalPodAutoscaling, opts...)
+	cDes.KubernetesDashboard = canonicalizeClusterAddonsConfigKubernetesDashboard(des.KubernetesDashboard, initial.KubernetesDashboard, opts...)
+	cDes.NetworkPolicyConfig = canonicalizeClusterAddonsConfigNetworkPolicyConfig(des.NetworkPolicyConfig, initial.NetworkPolicyConfig, opts...)
+	cDes.CloudRunConfig = canonicalizeClusterAddonsConfigCloudRunConfig(des.CloudRunConfig, initial.CloudRunConfig, opts...)
+	cDes.DnsCacheConfig = canonicalizeClusterAddonsConfigDnsCacheConfig(des.DnsCacheConfig, initial.DnsCacheConfig, opts...)
+	cDes.ConfigConnectorConfig = canonicalizeClusterAddonsConfigConfigConnectorConfig(des.ConfigConnectorConfig, initial.ConfigConnectorConfig, opts...)
+	cDes.GcePersistentDiskCsiDriverConfig = canonicalizeClusterAddonsConfigGcePersistentDiskCsiDriverConfig(des.GcePersistentDiskCsiDriverConfig, initial.GcePersistentDiskCsiDriverConfig, opts...)
+	cDes.IstioConfig = canonicalizeClusterAddonsConfigIstioConfig(des.IstioConfig, initial.IstioConfig, opts...)
+	cDes.KalmConfig = canonicalizeClusterAddonsConfigKalmConfig(des.KalmConfig, initial.KalmConfig, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewClusterAddonsConfig(c *Client, des, nw *ClusterAddonsConfig) *ClusterAddonsConfig {
@@ -2857,11 +2963,15 @@ func canonicalizeClusterAddonsConfigHttpLoadBalancing(des, initial *ClusterAddon
 		return des
 	}
 
+	cDes := &ClusterAddonsConfigHttpLoadBalancing{}
+
 	if dcl.BoolCanonicalize(des.Disabled, initial.Disabled) || dcl.IsZeroValue(des.Disabled) {
-		des.Disabled = initial.Disabled
+		cDes.Disabled = initial.Disabled
+	} else {
+		cDes.Disabled = des.Disabled
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterAddonsConfigHttpLoadBalancing(c *Client, des, nw *ClusterAddonsConfigHttpLoadBalancing) *ClusterAddonsConfigHttpLoadBalancing {
@@ -2931,11 +3041,15 @@ func canonicalizeClusterAddonsConfigHorizontalPodAutoscaling(des, initial *Clust
 		return des
 	}
 
+	cDes := &ClusterAddonsConfigHorizontalPodAutoscaling{}
+
 	if dcl.BoolCanonicalize(des.Disabled, initial.Disabled) || dcl.IsZeroValue(des.Disabled) {
-		des.Disabled = initial.Disabled
+		cDes.Disabled = initial.Disabled
+	} else {
+		cDes.Disabled = des.Disabled
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterAddonsConfigHorizontalPodAutoscaling(c *Client, des, nw *ClusterAddonsConfigHorizontalPodAutoscaling) *ClusterAddonsConfigHorizontalPodAutoscaling {
@@ -3005,11 +3119,15 @@ func canonicalizeClusterAddonsConfigKubernetesDashboard(des, initial *ClusterAdd
 		return des
 	}
 
+	cDes := &ClusterAddonsConfigKubernetesDashboard{}
+
 	if dcl.BoolCanonicalize(des.Disabled, initial.Disabled) || dcl.IsZeroValue(des.Disabled) {
-		des.Disabled = initial.Disabled
+		cDes.Disabled = initial.Disabled
+	} else {
+		cDes.Disabled = des.Disabled
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterAddonsConfigKubernetesDashboard(c *Client, des, nw *ClusterAddonsConfigKubernetesDashboard) *ClusterAddonsConfigKubernetesDashboard {
@@ -3079,11 +3197,15 @@ func canonicalizeClusterAddonsConfigNetworkPolicyConfig(des, initial *ClusterAdd
 		return des
 	}
 
+	cDes := &ClusterAddonsConfigNetworkPolicyConfig{}
+
 	if dcl.BoolCanonicalize(des.Disabled, initial.Disabled) || dcl.IsZeroValue(des.Disabled) {
-		des.Disabled = initial.Disabled
+		cDes.Disabled = initial.Disabled
+	} else {
+		cDes.Disabled = des.Disabled
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterAddonsConfigNetworkPolicyConfig(c *Client, des, nw *ClusterAddonsConfigNetworkPolicyConfig) *ClusterAddonsConfigNetworkPolicyConfig {
@@ -3153,14 +3275,20 @@ func canonicalizeClusterAddonsConfigCloudRunConfig(des, initial *ClusterAddonsCo
 		return des
 	}
 
+	cDes := &ClusterAddonsConfigCloudRunConfig{}
+
 	if dcl.BoolCanonicalize(des.Disabled, initial.Disabled) || dcl.IsZeroValue(des.Disabled) {
-		des.Disabled = initial.Disabled
+		cDes.Disabled = initial.Disabled
+	} else {
+		cDes.Disabled = des.Disabled
 	}
 	if dcl.IsZeroValue(des.LoadBalancerType) {
 		des.LoadBalancerType = initial.LoadBalancerType
+	} else {
+		cDes.LoadBalancerType = des.LoadBalancerType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterAddonsConfigCloudRunConfig(c *Client, des, nw *ClusterAddonsConfigCloudRunConfig) *ClusterAddonsConfigCloudRunConfig {
@@ -3233,11 +3361,15 @@ func canonicalizeClusterAddonsConfigDnsCacheConfig(des, initial *ClusterAddonsCo
 		return des
 	}
 
+	cDes := &ClusterAddonsConfigDnsCacheConfig{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterAddonsConfigDnsCacheConfig(c *Client, des, nw *ClusterAddonsConfigDnsCacheConfig) *ClusterAddonsConfigDnsCacheConfig {
@@ -3307,11 +3439,15 @@ func canonicalizeClusterAddonsConfigConfigConnectorConfig(des, initial *ClusterA
 		return des
 	}
 
+	cDes := &ClusterAddonsConfigConfigConnectorConfig{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterAddonsConfigConfigConnectorConfig(c *Client, des, nw *ClusterAddonsConfigConfigConnectorConfig) *ClusterAddonsConfigConfigConnectorConfig {
@@ -3381,11 +3517,15 @@ func canonicalizeClusterAddonsConfigGcePersistentDiskCsiDriverConfig(des, initia
 		return des
 	}
 
+	cDes := &ClusterAddonsConfigGcePersistentDiskCsiDriverConfig{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterAddonsConfigGcePersistentDiskCsiDriverConfig(c *Client, des, nw *ClusterAddonsConfigGcePersistentDiskCsiDriverConfig) *ClusterAddonsConfigGcePersistentDiskCsiDriverConfig {
@@ -3455,14 +3595,20 @@ func canonicalizeClusterAddonsConfigIstioConfig(des, initial *ClusterAddonsConfi
 		return des
 	}
 
+	cDes := &ClusterAddonsConfigIstioConfig{}
+
 	if dcl.BoolCanonicalize(des.Disabled, initial.Disabled) || dcl.IsZeroValue(des.Disabled) {
-		des.Disabled = initial.Disabled
+		cDes.Disabled = initial.Disabled
+	} else {
+		cDes.Disabled = des.Disabled
 	}
 	if dcl.IsZeroValue(des.Auth) {
 		des.Auth = initial.Auth
+	} else {
+		cDes.Auth = des.Auth
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterAddonsConfigIstioConfig(c *Client, des, nw *ClusterAddonsConfigIstioConfig) *ClusterAddonsConfigIstioConfig {
@@ -3535,11 +3681,15 @@ func canonicalizeClusterAddonsConfigKalmConfig(des, initial *ClusterAddonsConfig
 		return des
 	}
 
+	cDes := &ClusterAddonsConfigKalmConfig{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterAddonsConfigKalmConfig(c *Client, des, nw *ClusterAddonsConfigKalmConfig) *ClusterAddonsConfigKalmConfig {
@@ -3609,44 +3759,56 @@ func canonicalizeClusterNodePools(des, initial *ClusterNodePools, opts ...dcl.Ap
 		return des
 	}
 
+	cDes := &ClusterNodePools{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
-	des.Config = canonicalizeClusterNodePoolsConfig(des.Config, initial.Config, opts...)
+	cDes.Config = canonicalizeClusterNodePoolsConfig(des.Config, initial.Config, opts...)
 	if dcl.IsZeroValue(des.InitialNodeCount) {
 		des.InitialNodeCount = initial.InitialNodeCount
+	} else {
+		cDes.InitialNodeCount = des.InitialNodeCount
 	}
 	if dcl.IsZeroValue(des.Locations) {
 		des.Locations = initial.Locations
-	}
-	if dcl.StringCanonicalize(des.SelfLink, initial.SelfLink) || dcl.IsZeroValue(des.SelfLink) {
-		des.SelfLink = initial.SelfLink
+	} else {
+		cDes.Locations = des.Locations
 	}
 	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
-		des.Version = initial.Version
+		cDes.Version = initial.Version
+	} else {
+		cDes.Version = des.Version
 	}
 	if dcl.IsZeroValue(des.InstanceGroupUrls) {
 		des.InstanceGroupUrls = initial.InstanceGroupUrls
+	} else {
+		cDes.InstanceGroupUrls = des.InstanceGroupUrls
 	}
 	if dcl.IsZeroValue(des.Status) {
 		des.Status = initial.Status
+	} else {
+		cDes.Status = des.Status
 	}
-	if dcl.StringCanonicalize(des.StatusMessage, initial.StatusMessage) || dcl.IsZeroValue(des.StatusMessage) {
-		des.StatusMessage = initial.StatusMessage
-	}
-	des.Autoscaling = canonicalizeClusterNodePoolsAutoscaling(des.Autoscaling, initial.Autoscaling, opts...)
-	des.Management = canonicalizeClusterNodePoolsManagement(des.Management, initial.Management, opts...)
-	des.MaxPodsConstraint = canonicalizeClusterNodePoolsMaxPodsConstraint(des.MaxPodsConstraint, initial.MaxPodsConstraint, opts...)
+	cDes.Autoscaling = canonicalizeClusterNodePoolsAutoscaling(des.Autoscaling, initial.Autoscaling, opts...)
+	cDes.Management = canonicalizeClusterNodePoolsManagement(des.Management, initial.Management, opts...)
+	cDes.MaxPodsConstraint = canonicalizeClusterNodePoolsMaxPodsConstraint(des.MaxPodsConstraint, initial.MaxPodsConstraint, opts...)
 	if dcl.IsZeroValue(des.Conditions) {
 		des.Conditions = initial.Conditions
+	} else {
+		cDes.Conditions = des.Conditions
 	}
 	if dcl.IsZeroValue(des.PodIPv4CidrSize) {
 		des.PodIPv4CidrSize = initial.PodIPv4CidrSize
+	} else {
+		cDes.PodIPv4CidrSize = des.PodIPv4CidrSize
 	}
-	des.UpgradeSettings = canonicalizeClusterNodePoolsUpgradeSettings(des.UpgradeSettings, initial.UpgradeSettings, opts...)
-	des.NetworkConfig = canonicalizeClusterNodePoolsNetworkConfig(des.NetworkConfig, initial.NetworkConfig, opts...)
+	cDes.UpgradeSettings = canonicalizeClusterNodePoolsUpgradeSettings(des.UpgradeSettings, initial.UpgradeSettings, opts...)
+	cDes.NetworkConfig = canonicalizeClusterNodePoolsNetworkConfig(des.NetworkConfig, initial.NetworkConfig, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodePools(c *Client, des, nw *ClusterNodePools) *ClusterNodePools {
@@ -3747,63 +3909,97 @@ func canonicalizeClusterNodePoolsConfig(des, initial *ClusterNodePoolsConfig, op
 		return des
 	}
 
+	cDes := &ClusterNodePoolsConfig{}
+
 	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
-		des.MachineType = initial.MachineType
+		cDes.MachineType = initial.MachineType
+	} else {
+		cDes.MachineType = des.MachineType
 	}
 	if dcl.IsZeroValue(des.DiskSizeGb) {
 		des.DiskSizeGb = initial.DiskSizeGb
+	} else {
+		cDes.DiskSizeGb = des.DiskSizeGb
 	}
 	if dcl.IsZeroValue(des.OAuthScopes) {
 		des.OAuthScopes = initial.OAuthScopes
+	} else {
+		cDes.OAuthScopes = des.OAuthScopes
 	}
 	if dcl.StringCanonicalize(des.ServiceAccount, initial.ServiceAccount) || dcl.IsZeroValue(des.ServiceAccount) {
-		des.ServiceAccount = initial.ServiceAccount
+		cDes.ServiceAccount = initial.ServiceAccount
+	} else {
+		cDes.ServiceAccount = des.ServiceAccount
 	}
 	if dcl.IsZeroValue(des.Metadata) {
 		des.Metadata = initial.Metadata
+	} else {
+		cDes.Metadata = des.Metadata
 	}
 	if dcl.StringCanonicalize(des.ImageType, initial.ImageType) || dcl.IsZeroValue(des.ImageType) {
-		des.ImageType = initial.ImageType
+		cDes.ImageType = initial.ImageType
+	} else {
+		cDes.ImageType = des.ImageType
 	}
 	if dcl.IsZeroValue(des.Labels) {
 		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
 	}
 	if dcl.IsZeroValue(des.LocalSsdCount) {
 		des.LocalSsdCount = initial.LocalSsdCount
+	} else {
+		cDes.LocalSsdCount = des.LocalSsdCount
 	}
 	if dcl.IsZeroValue(des.Tags) {
 		des.Tags = initial.Tags
+	} else {
+		cDes.Tags = des.Tags
 	}
 	if dcl.BoolCanonicalize(des.Preemptible, initial.Preemptible) || dcl.IsZeroValue(des.Preemptible) {
-		des.Preemptible = initial.Preemptible
+		cDes.Preemptible = initial.Preemptible
+	} else {
+		cDes.Preemptible = des.Preemptible
 	}
 	if dcl.IsZeroValue(des.Accelerators) {
 		des.Accelerators = initial.Accelerators
+	} else {
+		cDes.Accelerators = des.Accelerators
 	}
 	if dcl.StringCanonicalize(des.DiskType, initial.DiskType) || dcl.IsZeroValue(des.DiskType) {
-		des.DiskType = initial.DiskType
+		cDes.DiskType = initial.DiskType
+	} else {
+		cDes.DiskType = des.DiskType
 	}
 	if dcl.StringCanonicalize(des.MinCpuPlatform, initial.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
-		des.MinCpuPlatform = initial.MinCpuPlatform
+		cDes.MinCpuPlatform = initial.MinCpuPlatform
+	} else {
+		cDes.MinCpuPlatform = des.MinCpuPlatform
 	}
-	des.WorkloadMetadataConfig = canonicalizeClusterNodePoolsConfigWorkloadMetadataConfig(des.WorkloadMetadataConfig, initial.WorkloadMetadataConfig, opts...)
+	cDes.WorkloadMetadataConfig = canonicalizeClusterNodePoolsConfigWorkloadMetadataConfig(des.WorkloadMetadataConfig, initial.WorkloadMetadataConfig, opts...)
 	if dcl.IsZeroValue(des.Taints) {
 		des.Taints = initial.Taints
+	} else {
+		cDes.Taints = des.Taints
 	}
-	des.SandboxConfig = canonicalizeClusterNodePoolsConfigSandboxConfig(des.SandboxConfig, initial.SandboxConfig, opts...)
+	cDes.SandboxConfig = canonicalizeClusterNodePoolsConfigSandboxConfig(des.SandboxConfig, initial.SandboxConfig, opts...)
 	if dcl.StringCanonicalize(des.NodeGroup, initial.NodeGroup) || dcl.IsZeroValue(des.NodeGroup) {
-		des.NodeGroup = initial.NodeGroup
+		cDes.NodeGroup = initial.NodeGroup
+	} else {
+		cDes.NodeGroup = des.NodeGroup
 	}
-	des.ReservationAffinity = canonicalizeClusterNodePoolsConfigReservationAffinity(des.ReservationAffinity, initial.ReservationAffinity, opts...)
-	des.ShieldedInstanceConfig = canonicalizeClusterNodePoolsConfigShieldedInstanceConfig(des.ShieldedInstanceConfig, initial.ShieldedInstanceConfig, opts...)
-	des.LinuxNodeConfig = canonicalizeClusterNodePoolsConfigLinuxNodeConfig(des.LinuxNodeConfig, initial.LinuxNodeConfig, opts...)
-	des.KubeletConfig = canonicalizeClusterNodePoolsConfigKubeletConfig(des.KubeletConfig, initial.KubeletConfig, opts...)
+	cDes.ReservationAffinity = canonicalizeClusterNodePoolsConfigReservationAffinity(des.ReservationAffinity, initial.ReservationAffinity, opts...)
+	cDes.ShieldedInstanceConfig = canonicalizeClusterNodePoolsConfigShieldedInstanceConfig(des.ShieldedInstanceConfig, initial.ShieldedInstanceConfig, opts...)
+	cDes.LinuxNodeConfig = canonicalizeClusterNodePoolsConfigLinuxNodeConfig(des.LinuxNodeConfig, initial.LinuxNodeConfig, opts...)
+	cDes.KubeletConfig = canonicalizeClusterNodePoolsConfigKubeletConfig(des.KubeletConfig, initial.KubeletConfig, opts...)
 	if dcl.StringCanonicalize(des.BootDiskKmsKey, initial.BootDiskKmsKey) || dcl.IsZeroValue(des.BootDiskKmsKey) {
-		des.BootDiskKmsKey = initial.BootDiskKmsKey
+		cDes.BootDiskKmsKey = initial.BootDiskKmsKey
+	} else {
+		cDes.BootDiskKmsKey = des.BootDiskKmsKey
 	}
-	des.EphemeralStorageConfig = canonicalizeClusterNodePoolsConfigEphemeralStorageConfig(des.EphemeralStorageConfig, initial.EphemeralStorageConfig, opts...)
+	cDes.EphemeralStorageConfig = canonicalizeClusterNodePoolsConfigEphemeralStorageConfig(des.EphemeralStorageConfig, initial.EphemeralStorageConfig, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodePoolsConfig(c *Client, des, nw *ClusterNodePoolsConfig) *ClusterNodePoolsConfig {
@@ -3921,14 +4117,20 @@ func canonicalizeClusterNodePoolsConfigAccelerators(des, initial *ClusterNodePoo
 		return des
 	}
 
+	cDes := &ClusterNodePoolsConfigAccelerators{}
+
 	if dcl.IsZeroValue(des.AcceleratorCount) {
 		des.AcceleratorCount = initial.AcceleratorCount
+	} else {
+		cDes.AcceleratorCount = des.AcceleratorCount
 	}
 	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
-		des.AcceleratorType = initial.AcceleratorType
+		cDes.AcceleratorType = initial.AcceleratorType
+	} else {
+		cDes.AcceleratorType = des.AcceleratorType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodePoolsConfigAccelerators(c *Client, des, nw *ClusterNodePoolsConfigAccelerators) *ClusterNodePoolsConfigAccelerators {
@@ -4001,14 +4203,20 @@ func canonicalizeClusterNodePoolsConfigWorkloadMetadataConfig(des, initial *Clus
 		return des
 	}
 
+	cDes := &ClusterNodePoolsConfigWorkloadMetadataConfig{}
+
 	if dcl.IsZeroValue(des.Mode) {
 		des.Mode = initial.Mode
+	} else {
+		cDes.Mode = des.Mode
 	}
 	if dcl.IsZeroValue(des.NodeMetadata) {
 		des.NodeMetadata = initial.NodeMetadata
+	} else {
+		cDes.NodeMetadata = des.NodeMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodePoolsConfigWorkloadMetadataConfig(c *Client, des, nw *ClusterNodePoolsConfigWorkloadMetadataConfig) *ClusterNodePoolsConfigWorkloadMetadataConfig {
@@ -4081,17 +4289,25 @@ func canonicalizeClusterNodePoolsConfigTaints(des, initial *ClusterNodePoolsConf
 		return des
 	}
 
+	cDes := &ClusterNodePoolsConfigTaints{}
+
 	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
+		cDes.Key = initial.Key
+	} else {
+		cDes.Key = des.Key
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 	if dcl.IsZeroValue(des.Effect) {
 		des.Effect = initial.Effect
+	} else {
+		cDes.Effect = des.Effect
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodePoolsConfigTaints(c *Client, des, nw *ClusterNodePoolsConfigTaints) *ClusterNodePoolsConfigTaints {
@@ -4167,14 +4383,20 @@ func canonicalizeClusterNodePoolsConfigSandboxConfig(des, initial *ClusterNodePo
 		return des
 	}
 
+	cDes := &ClusterNodePoolsConfigSandboxConfig{}
+
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.SandboxType, initial.SandboxType) || dcl.IsZeroValue(des.SandboxType) {
-		des.SandboxType = initial.SandboxType
+		cDes.SandboxType = initial.SandboxType
+	} else {
+		cDes.SandboxType = des.SandboxType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodePoolsConfigSandboxConfig(c *Client, des, nw *ClusterNodePoolsConfigSandboxConfig) *ClusterNodePoolsConfigSandboxConfig {
@@ -4247,17 +4469,25 @@ func canonicalizeClusterNodePoolsConfigReservationAffinity(des, initial *Cluster
 		return des
 	}
 
+	cDes := &ClusterNodePoolsConfigReservationAffinity{}
+
 	if dcl.IsZeroValue(des.ConsumeReservationType) {
 		des.ConsumeReservationType = initial.ConsumeReservationType
+	} else {
+		cDes.ConsumeReservationType = des.ConsumeReservationType
 	}
 	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
+		cDes.Key = initial.Key
+	} else {
+		cDes.Key = des.Key
 	}
 	if dcl.IsZeroValue(des.Values) {
 		des.Values = initial.Values
+	} else {
+		cDes.Values = des.Values
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodePoolsConfigReservationAffinity(c *Client, des, nw *ClusterNodePoolsConfigReservationAffinity) *ClusterNodePoolsConfigReservationAffinity {
@@ -4333,14 +4563,20 @@ func canonicalizeClusterNodePoolsConfigShieldedInstanceConfig(des, initial *Clus
 		return des
 	}
 
+	cDes := &ClusterNodePoolsConfigShieldedInstanceConfig{}
+
 	if dcl.BoolCanonicalize(des.EnableSecureBoot, initial.EnableSecureBoot) || dcl.IsZeroValue(des.EnableSecureBoot) {
-		des.EnableSecureBoot = initial.EnableSecureBoot
+		cDes.EnableSecureBoot = initial.EnableSecureBoot
+	} else {
+		cDes.EnableSecureBoot = des.EnableSecureBoot
 	}
 	if dcl.BoolCanonicalize(des.EnableIntegrityMonitoring, initial.EnableIntegrityMonitoring) || dcl.IsZeroValue(des.EnableIntegrityMonitoring) {
-		des.EnableIntegrityMonitoring = initial.EnableIntegrityMonitoring
+		cDes.EnableIntegrityMonitoring = initial.EnableIntegrityMonitoring
+	} else {
+		cDes.EnableIntegrityMonitoring = des.EnableIntegrityMonitoring
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodePoolsConfigShieldedInstanceConfig(c *Client, des, nw *ClusterNodePoolsConfigShieldedInstanceConfig) *ClusterNodePoolsConfigShieldedInstanceConfig {
@@ -4413,11 +4649,15 @@ func canonicalizeClusterNodePoolsConfigLinuxNodeConfig(des, initial *ClusterNode
 		return des
 	}
 
+	cDes := &ClusterNodePoolsConfigLinuxNodeConfig{}
+
 	if dcl.IsZeroValue(des.Sysctls) {
 		des.Sysctls = initial.Sysctls
+	} else {
+		cDes.Sysctls = des.Sysctls
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodePoolsConfigLinuxNodeConfig(c *Client, des, nw *ClusterNodePoolsConfigLinuxNodeConfig) *ClusterNodePoolsConfigLinuxNodeConfig {
@@ -4487,17 +4727,25 @@ func canonicalizeClusterNodePoolsConfigKubeletConfig(des, initial *ClusterNodePo
 		return des
 	}
 
+	cDes := &ClusterNodePoolsConfigKubeletConfig{}
+
 	if dcl.StringCanonicalize(des.CpuManagerPolicy, initial.CpuManagerPolicy) || dcl.IsZeroValue(des.CpuManagerPolicy) {
-		des.CpuManagerPolicy = initial.CpuManagerPolicy
+		cDes.CpuManagerPolicy = initial.CpuManagerPolicy
+	} else {
+		cDes.CpuManagerPolicy = des.CpuManagerPolicy
 	}
 	if dcl.BoolCanonicalize(des.CpuCfsQuota, initial.CpuCfsQuota) || dcl.IsZeroValue(des.CpuCfsQuota) {
-		des.CpuCfsQuota = initial.CpuCfsQuota
+		cDes.CpuCfsQuota = initial.CpuCfsQuota
+	} else {
+		cDes.CpuCfsQuota = des.CpuCfsQuota
 	}
 	if dcl.StringCanonicalize(des.CpuCfsQuotaPeriod, initial.CpuCfsQuotaPeriod) || dcl.IsZeroValue(des.CpuCfsQuotaPeriod) {
-		des.CpuCfsQuotaPeriod = initial.CpuCfsQuotaPeriod
+		cDes.CpuCfsQuotaPeriod = initial.CpuCfsQuotaPeriod
+	} else {
+		cDes.CpuCfsQuotaPeriod = des.CpuCfsQuotaPeriod
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodePoolsConfigKubeletConfig(c *Client, des, nw *ClusterNodePoolsConfigKubeletConfig) *ClusterNodePoolsConfigKubeletConfig {
@@ -4573,11 +4821,15 @@ func canonicalizeClusterNodePoolsConfigEphemeralStorageConfig(des, initial *Clus
 		return des
 	}
 
+	cDes := &ClusterNodePoolsConfigEphemeralStorageConfig{}
+
 	if dcl.IsZeroValue(des.LocalSsdCount) {
 		des.LocalSsdCount = initial.LocalSsdCount
+	} else {
+		cDes.LocalSsdCount = des.LocalSsdCount
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodePoolsConfigEphemeralStorageConfig(c *Client, des, nw *ClusterNodePoolsConfigEphemeralStorageConfig) *ClusterNodePoolsConfigEphemeralStorageConfig {
@@ -4647,20 +4899,30 @@ func canonicalizeClusterNodePoolsAutoscaling(des, initial *ClusterNodePoolsAutos
 		return des
 	}
 
+	cDes := &ClusterNodePoolsAutoscaling{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 	if dcl.IsZeroValue(des.MinNodeCount) {
 		des.MinNodeCount = initial.MinNodeCount
+	} else {
+		cDes.MinNodeCount = des.MinNodeCount
 	}
 	if dcl.IsZeroValue(des.MaxNodeCount) {
 		des.MaxNodeCount = initial.MaxNodeCount
+	} else {
+		cDes.MaxNodeCount = des.MaxNodeCount
 	}
 	if dcl.BoolCanonicalize(des.Autoprovisioned, initial.Autoprovisioned) || dcl.IsZeroValue(des.Autoprovisioned) {
-		des.Autoprovisioned = initial.Autoprovisioned
+		cDes.Autoprovisioned = initial.Autoprovisioned
+	} else {
+		cDes.Autoprovisioned = des.Autoprovisioned
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodePoolsAutoscaling(c *Client, des, nw *ClusterNodePoolsAutoscaling) *ClusterNodePoolsAutoscaling {
@@ -4739,15 +5001,21 @@ func canonicalizeClusterNodePoolsManagement(des, initial *ClusterNodePoolsManage
 		return des
 	}
 
+	cDes := &ClusterNodePoolsManagement{}
+
 	if dcl.BoolCanonicalize(des.AutoUpgrade, initial.AutoUpgrade) || dcl.IsZeroValue(des.AutoUpgrade) {
-		des.AutoUpgrade = initial.AutoUpgrade
+		cDes.AutoUpgrade = initial.AutoUpgrade
+	} else {
+		cDes.AutoUpgrade = des.AutoUpgrade
 	}
 	if dcl.BoolCanonicalize(des.AutoRepair, initial.AutoRepair) || dcl.IsZeroValue(des.AutoRepair) {
-		des.AutoRepair = initial.AutoRepair
+		cDes.AutoRepair = initial.AutoRepair
+	} else {
+		cDes.AutoRepair = des.AutoRepair
 	}
-	des.UpgradeOptions = canonicalizeClusterNodePoolsManagementUpgradeOptions(des.UpgradeOptions, initial.UpgradeOptions, opts...)
+	cDes.UpgradeOptions = canonicalizeClusterNodePoolsManagementUpgradeOptions(des.UpgradeOptions, initial.UpgradeOptions, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodePoolsManagement(c *Client, des, nw *ClusterNodePoolsManagement) *ClusterNodePoolsManagement {
@@ -4821,14 +5089,20 @@ func canonicalizeClusterNodePoolsManagementUpgradeOptions(des, initial *ClusterN
 		return des
 	}
 
+	cDes := &ClusterNodePoolsManagementUpgradeOptions{}
+
 	if dcl.StringCanonicalize(des.AutoUpgradeStartTime, initial.AutoUpgradeStartTime) || dcl.IsZeroValue(des.AutoUpgradeStartTime) {
-		des.AutoUpgradeStartTime = initial.AutoUpgradeStartTime
+		cDes.AutoUpgradeStartTime = initial.AutoUpgradeStartTime
+	} else {
+		cDes.AutoUpgradeStartTime = des.AutoUpgradeStartTime
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodePoolsManagementUpgradeOptions(c *Client, des, nw *ClusterNodePoolsManagementUpgradeOptions) *ClusterNodePoolsManagementUpgradeOptions {
@@ -4901,11 +5175,15 @@ func canonicalizeClusterNodePoolsMaxPodsConstraint(des, initial *ClusterNodePool
 		return des
 	}
 
+	cDes := &ClusterNodePoolsMaxPodsConstraint{}
+
 	if dcl.IsZeroValue(des.MaxPodsPerNode) {
 		des.MaxPodsPerNode = initial.MaxPodsPerNode
+	} else {
+		cDes.MaxPodsPerNode = des.MaxPodsPerNode
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodePoolsMaxPodsConstraint(c *Client, des, nw *ClusterNodePoolsMaxPodsConstraint) *ClusterNodePoolsMaxPodsConstraint {
@@ -4975,17 +5253,25 @@ func canonicalizeClusterNodePoolsConditions(des, initial *ClusterNodePoolsCondit
 		return des
 	}
 
+	cDes := &ClusterNodePoolsConditions{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.CanonicalCode) {
 		des.CanonicalCode = initial.CanonicalCode
+	} else {
+		cDes.CanonicalCode = des.CanonicalCode
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodePoolsConditions(c *Client, des, nw *ClusterNodePoolsConditions) *ClusterNodePoolsConditions {
@@ -5061,14 +5347,20 @@ func canonicalizeClusterNodePoolsUpgradeSettings(des, initial *ClusterNodePoolsU
 		return des
 	}
 
+	cDes := &ClusterNodePoolsUpgradeSettings{}
+
 	if dcl.IsZeroValue(des.MaxSurge) {
 		des.MaxSurge = initial.MaxSurge
+	} else {
+		cDes.MaxSurge = des.MaxSurge
 	}
 	if dcl.IsZeroValue(des.MaxUnavailable) {
 		des.MaxUnavailable = initial.MaxUnavailable
+	} else {
+		cDes.MaxUnavailable = des.MaxUnavailable
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodePoolsUpgradeSettings(c *Client, des, nw *ClusterNodePoolsUpgradeSettings) *ClusterNodePoolsUpgradeSettings {
@@ -5141,17 +5433,25 @@ func canonicalizeClusterNodePoolsNetworkConfig(des, initial *ClusterNodePoolsNet
 		return des
 	}
 
+	cDes := &ClusterNodePoolsNetworkConfig{}
+
 	if dcl.BoolCanonicalize(des.CreatePodRange, initial.CreatePodRange) || dcl.IsZeroValue(des.CreatePodRange) {
-		des.CreatePodRange = initial.CreatePodRange
+		cDes.CreatePodRange = initial.CreatePodRange
+	} else {
+		cDes.CreatePodRange = des.CreatePodRange
 	}
 	if dcl.StringCanonicalize(des.PodRange, initial.PodRange) || dcl.IsZeroValue(des.PodRange) {
-		des.PodRange = initial.PodRange
+		cDes.PodRange = initial.PodRange
+	} else {
+		cDes.PodRange = des.PodRange
 	}
 	if dcl.StringCanonicalize(des.PodIPv4CidrBlock, initial.PodIPv4CidrBlock) || dcl.IsZeroValue(des.PodIPv4CidrBlock) {
-		des.PodIPv4CidrBlock = initial.PodIPv4CidrBlock
+		cDes.PodIPv4CidrBlock = initial.PodIPv4CidrBlock
+	} else {
+		cDes.PodIPv4CidrBlock = des.PodIPv4CidrBlock
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodePoolsNetworkConfig(c *Client, des, nw *ClusterNodePoolsNetworkConfig) *ClusterNodePoolsNetworkConfig {
@@ -5225,11 +5525,15 @@ func canonicalizeClusterLegacyAbac(des, initial *ClusterLegacyAbac, opts ...dcl.
 		return des
 	}
 
+	cDes := &ClusterLegacyAbac{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterLegacyAbac(c *Client, des, nw *ClusterLegacyAbac) *ClusterLegacyAbac {
@@ -5299,14 +5603,20 @@ func canonicalizeClusterNetworkPolicy(des, initial *ClusterNetworkPolicy, opts .
 		return des
 	}
 
+	cDes := &ClusterNetworkPolicy{}
+
 	if dcl.IsZeroValue(des.Provider) {
 		des.Provider = initial.Provider
+	} else {
+		cDes.Provider = des.Provider
 	}
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNetworkPolicy(c *Client, des, nw *ClusterNetworkPolicy) *ClusterNetworkPolicy {
@@ -5379,50 +5689,70 @@ func canonicalizeClusterIPAllocationPolicy(des, initial *ClusterIPAllocationPoli
 		return des
 	}
 
+	cDes := &ClusterIPAllocationPolicy{}
+
 	if dcl.BoolCanonicalize(des.UseIPAliases, initial.UseIPAliases) || dcl.IsZeroValue(des.UseIPAliases) {
-		des.UseIPAliases = initial.UseIPAliases
+		cDes.UseIPAliases = initial.UseIPAliases
+	} else {
+		cDes.UseIPAliases = des.UseIPAliases
 	}
 	if dcl.BoolCanonicalize(des.CreateSubnetwork, initial.CreateSubnetwork) || dcl.IsZeroValue(des.CreateSubnetwork) {
-		des.CreateSubnetwork = initial.CreateSubnetwork
+		cDes.CreateSubnetwork = initial.CreateSubnetwork
+	} else {
+		cDes.CreateSubnetwork = des.CreateSubnetwork
 	}
 	if dcl.StringCanonicalize(des.SubnetworkName, initial.SubnetworkName) || dcl.IsZeroValue(des.SubnetworkName) {
-		des.SubnetworkName = initial.SubnetworkName
+		cDes.SubnetworkName = initial.SubnetworkName
+	} else {
+		cDes.SubnetworkName = des.SubnetworkName
 	}
 	if dcl.StringCanonicalize(des.ClusterSecondaryRangeName, initial.ClusterSecondaryRangeName) || dcl.IsZeroValue(des.ClusterSecondaryRangeName) {
-		des.ClusterSecondaryRangeName = initial.ClusterSecondaryRangeName
+		cDes.ClusterSecondaryRangeName = initial.ClusterSecondaryRangeName
+	} else {
+		cDes.ClusterSecondaryRangeName = des.ClusterSecondaryRangeName
 	}
 	if dcl.StringCanonicalize(des.ServicesSecondaryRangeName, initial.ServicesSecondaryRangeName) || dcl.IsZeroValue(des.ServicesSecondaryRangeName) {
-		des.ServicesSecondaryRangeName = initial.ServicesSecondaryRangeName
+		cDes.ServicesSecondaryRangeName = initial.ServicesSecondaryRangeName
+	} else {
+		cDes.ServicesSecondaryRangeName = des.ServicesSecondaryRangeName
 	}
 	if dcl.StringCanonicalize(des.ClusterIPv4CidrBlock, initial.ClusterIPv4CidrBlock) || dcl.IsZeroValue(des.ClusterIPv4CidrBlock) {
-		des.ClusterIPv4CidrBlock = initial.ClusterIPv4CidrBlock
-	}
-	if dcl.StringCanonicalize(des.NodeIPv4CidrBlock, initial.NodeIPv4CidrBlock) || dcl.IsZeroValue(des.NodeIPv4CidrBlock) {
-		des.NodeIPv4CidrBlock = initial.NodeIPv4CidrBlock
-	}
-	if dcl.StringCanonicalize(des.ServicesIPv4CidrBlock, initial.ServicesIPv4CidrBlock) || dcl.IsZeroValue(des.ServicesIPv4CidrBlock) {
-		des.ServicesIPv4CidrBlock = initial.ServicesIPv4CidrBlock
+		cDes.ClusterIPv4CidrBlock = initial.ClusterIPv4CidrBlock
+	} else {
+		cDes.ClusterIPv4CidrBlock = des.ClusterIPv4CidrBlock
 	}
 	if dcl.StringCanonicalize(des.TPUIPv4CidrBlock, initial.TPUIPv4CidrBlock) || dcl.IsZeroValue(des.TPUIPv4CidrBlock) {
-		des.TPUIPv4CidrBlock = initial.TPUIPv4CidrBlock
+		cDes.TPUIPv4CidrBlock = initial.TPUIPv4CidrBlock
+	} else {
+		cDes.TPUIPv4CidrBlock = des.TPUIPv4CidrBlock
 	}
 	if dcl.StringCanonicalize(des.ClusterIPv4Cidr, initial.ClusterIPv4Cidr) || dcl.IsZeroValue(des.ClusterIPv4Cidr) {
-		des.ClusterIPv4Cidr = initial.ClusterIPv4Cidr
+		cDes.ClusterIPv4Cidr = initial.ClusterIPv4Cidr
+	} else {
+		cDes.ClusterIPv4Cidr = des.ClusterIPv4Cidr
 	}
 	if dcl.StringCanonicalize(des.NodeIPv4Cidr, initial.NodeIPv4Cidr) || dcl.IsZeroValue(des.NodeIPv4Cidr) {
-		des.NodeIPv4Cidr = initial.NodeIPv4Cidr
+		cDes.NodeIPv4Cidr = initial.NodeIPv4Cidr
+	} else {
+		cDes.NodeIPv4Cidr = des.NodeIPv4Cidr
 	}
 	if dcl.StringCanonicalize(des.ServicesIPv4Cidr, initial.ServicesIPv4Cidr) || dcl.IsZeroValue(des.ServicesIPv4Cidr) {
-		des.ServicesIPv4Cidr = initial.ServicesIPv4Cidr
+		cDes.ServicesIPv4Cidr = initial.ServicesIPv4Cidr
+	} else {
+		cDes.ServicesIPv4Cidr = des.ServicesIPv4Cidr
 	}
 	if dcl.BoolCanonicalize(des.UseRoutes, initial.UseRoutes) || dcl.IsZeroValue(des.UseRoutes) {
-		des.UseRoutes = initial.UseRoutes
+		cDes.UseRoutes = initial.UseRoutes
+	} else {
+		cDes.UseRoutes = des.UseRoutes
 	}
 	if dcl.BoolCanonicalize(des.AllowRouteOverlap, initial.AllowRouteOverlap) || dcl.IsZeroValue(des.AllowRouteOverlap) {
-		des.AllowRouteOverlap = initial.AllowRouteOverlap
+		cDes.AllowRouteOverlap = initial.AllowRouteOverlap
+	} else {
+		cDes.AllowRouteOverlap = des.AllowRouteOverlap
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterIPAllocationPolicy(c *Client, des, nw *ClusterIPAllocationPolicy) *ClusterIPAllocationPolicy {
@@ -5531,14 +5861,20 @@ func canonicalizeClusterMasterAuthorizedNetworksConfig(des, initial *ClusterMast
 		return des
 	}
 
+	cDes := &ClusterMasterAuthorizedNetworksConfig{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 	if dcl.IsZeroValue(des.CidrBlocks) {
 		des.CidrBlocks = initial.CidrBlocks
+	} else {
+		cDes.CidrBlocks = des.CidrBlocks
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterMasterAuthorizedNetworksConfig(c *Client, des, nw *ClusterMasterAuthorizedNetworksConfig) *ClusterMasterAuthorizedNetworksConfig {
@@ -5609,14 +5945,20 @@ func canonicalizeClusterMasterAuthorizedNetworksConfigCidrBlocks(des, initial *C
 		return des
 	}
 
+	cDes := &ClusterMasterAuthorizedNetworksConfigCidrBlocks{}
+
 	if dcl.StringCanonicalize(des.DisplayName, initial.DisplayName) || dcl.IsZeroValue(des.DisplayName) {
-		des.DisplayName = initial.DisplayName
+		cDes.DisplayName = initial.DisplayName
+	} else {
+		cDes.DisplayName = des.DisplayName
 	}
 	if dcl.StringCanonicalize(des.CidrBlock, initial.CidrBlock) || dcl.IsZeroValue(des.CidrBlock) {
-		des.CidrBlock = initial.CidrBlock
+		cDes.CidrBlock = initial.CidrBlock
+	} else {
+		cDes.CidrBlock = des.CidrBlock
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterMasterAuthorizedNetworksConfigCidrBlocks(c *Client, des, nw *ClusterMasterAuthorizedNetworksConfigCidrBlocks) *ClusterMasterAuthorizedNetworksConfigCidrBlocks {
@@ -5689,11 +6031,15 @@ func canonicalizeClusterBinaryAuthorization(des, initial *ClusterBinaryAuthoriza
 		return des
 	}
 
+	cDes := &ClusterBinaryAuthorization{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterBinaryAuthorization(c *Client, des, nw *ClusterBinaryAuthorization) *ClusterBinaryAuthorization {
@@ -5763,21 +6109,31 @@ func canonicalizeClusterAutoscaling(des, initial *ClusterAutoscaling, opts ...dc
 		return des
 	}
 
+	cDes := &ClusterAutoscaling{}
+
 	if dcl.BoolCanonicalize(des.EnableNodeAutoprovisioning, initial.EnableNodeAutoprovisioning) || dcl.IsZeroValue(des.EnableNodeAutoprovisioning) {
-		des.EnableNodeAutoprovisioning = initial.EnableNodeAutoprovisioning
+		cDes.EnableNodeAutoprovisioning = initial.EnableNodeAutoprovisioning
+	} else {
+		cDes.EnableNodeAutoprovisioning = des.EnableNodeAutoprovisioning
 	}
 	if dcl.IsZeroValue(des.ResourceLimits) {
 		des.ResourceLimits = initial.ResourceLimits
+	} else {
+		cDes.ResourceLimits = des.ResourceLimits
 	}
-	des.AutoprovisioningNodePoolDefaults = canonicalizeClusterAutoscalingAutoprovisioningNodePoolDefaults(des.AutoprovisioningNodePoolDefaults, initial.AutoprovisioningNodePoolDefaults, opts...)
+	cDes.AutoprovisioningNodePoolDefaults = canonicalizeClusterAutoscalingAutoprovisioningNodePoolDefaults(des.AutoprovisioningNodePoolDefaults, initial.AutoprovisioningNodePoolDefaults, opts...)
 	if dcl.IsZeroValue(des.AutoprovisioningLocations) {
 		des.AutoprovisioningLocations = initial.AutoprovisioningLocations
+	} else {
+		cDes.AutoprovisioningLocations = des.AutoprovisioningLocations
 	}
 	if dcl.IsZeroValue(des.AutoscalingProfile) {
 		des.AutoscalingProfile = initial.AutoscalingProfile
+	} else {
+		cDes.AutoscalingProfile = des.AutoscalingProfile
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterAutoscaling(c *Client, des, nw *ClusterAutoscaling) *ClusterAutoscaling {
@@ -5855,17 +6211,25 @@ func canonicalizeClusterAutoscalingResourceLimits(des, initial *ClusterAutoscali
 		return des
 	}
 
+	cDes := &ClusterAutoscalingResourceLimits{}
+
 	if dcl.StringCanonicalize(des.ResourceType, initial.ResourceType) || dcl.IsZeroValue(des.ResourceType) {
-		des.ResourceType = initial.ResourceType
+		cDes.ResourceType = initial.ResourceType
+	} else {
+		cDes.ResourceType = des.ResourceType
 	}
 	if dcl.IsZeroValue(des.Minimum) {
 		des.Minimum = initial.Minimum
+	} else {
+		cDes.Minimum = des.Minimum
 	}
 	if dcl.IsZeroValue(des.Maximum) {
 		des.Maximum = initial.Maximum
+	} else {
+		cDes.Maximum = des.Maximum
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterAutoscalingResourceLimits(c *Client, des, nw *ClusterAutoscalingResourceLimits) *ClusterAutoscalingResourceLimits {
@@ -5941,29 +6305,43 @@ func canonicalizeClusterAutoscalingAutoprovisioningNodePoolDefaults(des, initial
 		return des
 	}
 
+	cDes := &ClusterAutoscalingAutoprovisioningNodePoolDefaults{}
+
 	if dcl.IsZeroValue(des.OAuthScopes) {
 		des.OAuthScopes = initial.OAuthScopes
+	} else {
+		cDes.OAuthScopes = des.OAuthScopes
 	}
 	if dcl.StringCanonicalize(des.ServiceAccount, initial.ServiceAccount) || dcl.IsZeroValue(des.ServiceAccount) {
-		des.ServiceAccount = initial.ServiceAccount
+		cDes.ServiceAccount = initial.ServiceAccount
+	} else {
+		cDes.ServiceAccount = des.ServiceAccount
 	}
-	des.UpgradeSettings = canonicalizeClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings(des.UpgradeSettings, initial.UpgradeSettings, opts...)
-	des.Management = canonicalizeClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement(des.Management, initial.Management, opts...)
+	cDes.UpgradeSettings = canonicalizeClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings(des.UpgradeSettings, initial.UpgradeSettings, opts...)
+	cDes.Management = canonicalizeClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement(des.Management, initial.Management, opts...)
 	if dcl.StringCanonicalize(des.MinCpuPlatform, initial.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
-		des.MinCpuPlatform = initial.MinCpuPlatform
+		cDes.MinCpuPlatform = initial.MinCpuPlatform
+	} else {
+		cDes.MinCpuPlatform = des.MinCpuPlatform
 	}
 	if dcl.IsZeroValue(des.DiskSizeGb) {
 		des.DiskSizeGb = initial.DiskSizeGb
+	} else {
+		cDes.DiskSizeGb = des.DiskSizeGb
 	}
 	if dcl.StringCanonicalize(des.DiskType, initial.DiskType) || dcl.IsZeroValue(des.DiskType) {
-		des.DiskType = initial.DiskType
+		cDes.DiskType = initial.DiskType
+	} else {
+		cDes.DiskType = des.DiskType
 	}
-	des.ShieldedInstanceConfig = canonicalizeClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig(des.ShieldedInstanceConfig, initial.ShieldedInstanceConfig, opts...)
+	cDes.ShieldedInstanceConfig = canonicalizeClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig(des.ShieldedInstanceConfig, initial.ShieldedInstanceConfig, opts...)
 	if dcl.StringCanonicalize(des.BootDiskKmsKey, initial.BootDiskKmsKey) || dcl.IsZeroValue(des.BootDiskKmsKey) {
-		des.BootDiskKmsKey = initial.BootDiskKmsKey
+		cDes.BootDiskKmsKey = initial.BootDiskKmsKey
+	} else {
+		cDes.BootDiskKmsKey = des.BootDiskKmsKey
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterAutoscalingAutoprovisioningNodePoolDefaults(c *Client, des, nw *ClusterAutoscalingAutoprovisioningNodePoolDefaults) *ClusterAutoscalingAutoprovisioningNodePoolDefaults {
@@ -6051,14 +6429,20 @@ func canonicalizeClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettin
 		return des
 	}
 
+	cDes := &ClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings{}
+
 	if dcl.IsZeroValue(des.MaxSurge) {
 		des.MaxSurge = initial.MaxSurge
+	} else {
+		cDes.MaxSurge = des.MaxSurge
 	}
 	if dcl.IsZeroValue(des.MaxUnavailable) {
 		des.MaxUnavailable = initial.MaxUnavailable
+	} else {
+		cDes.MaxUnavailable = des.MaxUnavailable
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings(c *Client, des, nw *ClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings) *ClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings {
@@ -6131,15 +6515,21 @@ func canonicalizeClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement(de
 		return des
 	}
 
+	cDes := &ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement{}
+
 	if dcl.BoolCanonicalize(des.AutoUpgrade, initial.AutoUpgrade) || dcl.IsZeroValue(des.AutoUpgrade) {
-		des.AutoUpgrade = initial.AutoUpgrade
+		cDes.AutoUpgrade = initial.AutoUpgrade
+	} else {
+		cDes.AutoUpgrade = des.AutoUpgrade
 	}
 	if dcl.BoolCanonicalize(des.AutoRepair, initial.AutoRepair) || dcl.IsZeroValue(des.AutoRepair) {
-		des.AutoRepair = initial.AutoRepair
+		cDes.AutoRepair = initial.AutoRepair
+	} else {
+		cDes.AutoRepair = des.AutoRepair
 	}
-	des.UpgradeOptions = canonicalizeClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions(des.UpgradeOptions, initial.UpgradeOptions, opts...)
+	cDes.UpgradeOptions = canonicalizeClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions(des.UpgradeOptions, initial.UpgradeOptions, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement(c *Client, des, nw *ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement) *ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement {
@@ -6213,14 +6603,20 @@ func canonicalizeClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpg
 		return des
 	}
 
+	cDes := &ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions{}
+
 	if dcl.StringCanonicalize(des.AutoUpgradeStartTime, initial.AutoUpgradeStartTime) || dcl.IsZeroValue(des.AutoUpgradeStartTime) {
-		des.AutoUpgradeStartTime = initial.AutoUpgradeStartTime
+		cDes.AutoUpgradeStartTime = initial.AutoUpgradeStartTime
+	} else {
+		cDes.AutoUpgradeStartTime = des.AutoUpgradeStartTime
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions(c *Client, des, nw *ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions) *ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions {
@@ -6293,14 +6689,20 @@ func canonicalizeClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInsta
 		return des
 	}
 
+	cDes := &ClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig{}
+
 	if dcl.BoolCanonicalize(des.EnableSecureBoot, initial.EnableSecureBoot) || dcl.IsZeroValue(des.EnableSecureBoot) {
-		des.EnableSecureBoot = initial.EnableSecureBoot
+		cDes.EnableSecureBoot = initial.EnableSecureBoot
+	} else {
+		cDes.EnableSecureBoot = des.EnableSecureBoot
 	}
 	if dcl.BoolCanonicalize(des.EnableIntegrityMonitoring, initial.EnableIntegrityMonitoring) || dcl.IsZeroValue(des.EnableIntegrityMonitoring) {
-		des.EnableIntegrityMonitoring = initial.EnableIntegrityMonitoring
+		cDes.EnableIntegrityMonitoring = initial.EnableIntegrityMonitoring
+	} else {
+		cDes.EnableIntegrityMonitoring = des.EnableIntegrityMonitoring
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig(c *Client, des, nw *ClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig) *ClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig {
@@ -6373,18 +6775,26 @@ func canonicalizeClusterNetworkConfig(des, initial *ClusterNetworkConfig, opts .
 		return des
 	}
 
+	cDes := &ClusterNetworkConfig{}
+
 	if dcl.BoolCanonicalize(des.EnableIntraNodeVisibility, initial.EnableIntraNodeVisibility) || dcl.IsZeroValue(des.EnableIntraNodeVisibility) {
-		des.EnableIntraNodeVisibility = initial.EnableIntraNodeVisibility
+		cDes.EnableIntraNodeVisibility = initial.EnableIntraNodeVisibility
+	} else {
+		cDes.EnableIntraNodeVisibility = des.EnableIntraNodeVisibility
 	}
-	des.DefaultSnatStatus = canonicalizeClusterNetworkConfigDefaultSnatStatus(des.DefaultSnatStatus, initial.DefaultSnatStatus, opts...)
+	cDes.DefaultSnatStatus = canonicalizeClusterNetworkConfigDefaultSnatStatus(des.DefaultSnatStatus, initial.DefaultSnatStatus, opts...)
 	if dcl.IsZeroValue(des.PrivateIPv6GoogleAccess) {
 		des.PrivateIPv6GoogleAccess = initial.PrivateIPv6GoogleAccess
+	} else {
+		cDes.PrivateIPv6GoogleAccess = des.PrivateIPv6GoogleAccess
 	}
 	if dcl.IsZeroValue(des.DatapathProvider) {
 		des.DatapathProvider = initial.DatapathProvider
+	} else {
+		cDes.DatapathProvider = des.DatapathProvider
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNetworkConfig(c *Client, des, nw *ClusterNetworkConfig) *ClusterNetworkConfig {
@@ -6467,11 +6877,15 @@ func canonicalizeClusterNetworkConfigDefaultSnatStatus(des, initial *ClusterNetw
 		return des
 	}
 
+	cDes := &ClusterNetworkConfigDefaultSnatStatus{}
+
 	if dcl.BoolCanonicalize(des.Disabled, initial.Disabled) || dcl.IsZeroValue(des.Disabled) {
-		des.Disabled = initial.Disabled
+		cDes.Disabled = initial.Disabled
+	} else {
+		cDes.Disabled = des.Disabled
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNetworkConfigDefaultSnatStatus(c *Client, des, nw *ClusterNetworkConfigDefaultSnatStatus) *ClusterNetworkConfigDefaultSnatStatus {
@@ -6541,12 +6955,16 @@ func canonicalizeClusterMaintenancePolicy(des, initial *ClusterMaintenancePolicy
 		return des
 	}
 
-	des.Window = canonicalizeClusterMaintenancePolicyWindow(des.Window, initial.Window, opts...)
+	cDes := &ClusterMaintenancePolicy{}
+
+	cDes.Window = canonicalizeClusterMaintenancePolicyWindow(des.Window, initial.Window, opts...)
 	if dcl.StringCanonicalize(des.ResourceVersion, initial.ResourceVersion) || dcl.IsZeroValue(des.ResourceVersion) {
-		des.ResourceVersion = initial.ResourceVersion
+		cDes.ResourceVersion = initial.ResourceVersion
+	} else {
+		cDes.ResourceVersion = des.ResourceVersion
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterMaintenancePolicy(c *Client, des, nw *ClusterMaintenancePolicy) *ClusterMaintenancePolicy {
@@ -6617,13 +7035,17 @@ func canonicalizeClusterMaintenancePolicyWindow(des, initial *ClusterMaintenance
 		return des
 	}
 
-	des.DailyMaintenanceWindow = canonicalizeClusterMaintenancePolicyWindowDailyMaintenanceWindow(des.DailyMaintenanceWindow, initial.DailyMaintenanceWindow, opts...)
-	des.RecurringWindow = canonicalizeClusterMaintenancePolicyWindowRecurringWindow(des.RecurringWindow, initial.RecurringWindow, opts...)
+	cDes := &ClusterMaintenancePolicyWindow{}
+
+	cDes.DailyMaintenanceWindow = canonicalizeClusterMaintenancePolicyWindowDailyMaintenanceWindow(des.DailyMaintenanceWindow, initial.DailyMaintenanceWindow, opts...)
+	cDes.RecurringWindow = canonicalizeClusterMaintenancePolicyWindowRecurringWindow(des.RecurringWindow, initial.RecurringWindow, opts...)
 	if dcl.IsZeroValue(des.MaintenanceExclusions) {
 		des.MaintenanceExclusions = initial.MaintenanceExclusions
+	} else {
+		cDes.MaintenanceExclusions = des.MaintenanceExclusions
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterMaintenancePolicyWindow(c *Client, des, nw *ClusterMaintenancePolicyWindow) *ClusterMaintenancePolicyWindow {
@@ -6695,14 +7117,15 @@ func canonicalizeClusterMaintenancePolicyWindowDailyMaintenanceWindow(des, initi
 		return des
 	}
 
+	cDes := &ClusterMaintenancePolicyWindowDailyMaintenanceWindow{}
+
 	if dcl.IsZeroValue(des.StartTime) {
 		des.StartTime = initial.StartTime
-	}
-	if dcl.StringCanonicalize(des.Duration, initial.Duration) || dcl.IsZeroValue(des.Duration) {
-		des.Duration = initial.Duration
+	} else {
+		cDes.StartTime = des.StartTime
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterMaintenancePolicyWindowDailyMaintenanceWindow(c *Client, des, nw *ClusterMaintenancePolicyWindowDailyMaintenanceWindow) *ClusterMaintenancePolicyWindowDailyMaintenanceWindow {
@@ -6775,12 +7198,16 @@ func canonicalizeClusterMaintenancePolicyWindowRecurringWindow(des, initial *Clu
 		return des
 	}
 
-	des.Window = canonicalizeClusterMaintenancePolicyWindowRecurringWindowWindow(des.Window, initial.Window, opts...)
+	cDes := &ClusterMaintenancePolicyWindowRecurringWindow{}
+
+	cDes.Window = canonicalizeClusterMaintenancePolicyWindowRecurringWindowWindow(des.Window, initial.Window, opts...)
 	if dcl.StringCanonicalize(des.Recurrence, initial.Recurrence) || dcl.IsZeroValue(des.Recurrence) {
-		des.Recurrence = initial.Recurrence
+		cDes.Recurrence = initial.Recurrence
+	} else {
+		cDes.Recurrence = des.Recurrence
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterMaintenancePolicyWindowRecurringWindow(c *Client, des, nw *ClusterMaintenancePolicyWindowRecurringWindow) *ClusterMaintenancePolicyWindowRecurringWindow {
@@ -6851,14 +7278,20 @@ func canonicalizeClusterMaintenancePolicyWindowRecurringWindowWindow(des, initia
 		return des
 	}
 
+	cDes := &ClusterMaintenancePolicyWindowRecurringWindowWindow{}
+
 	if dcl.IsZeroValue(des.StartTime) {
 		des.StartTime = initial.StartTime
+	} else {
+		cDes.StartTime = des.StartTime
 	}
 	if dcl.IsZeroValue(des.EndTime) {
 		des.EndTime = initial.EndTime
+	} else {
+		cDes.EndTime = des.EndTime
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterMaintenancePolicyWindowRecurringWindowWindow(c *Client, des, nw *ClusterMaintenancePolicyWindowRecurringWindowWindow) *ClusterMaintenancePolicyWindowRecurringWindowWindow {
@@ -6931,11 +7364,15 @@ func canonicalizeClusterDefaultMaxPodsConstraint(des, initial *ClusterDefaultMax
 		return des
 	}
 
+	cDes := &ClusterDefaultMaxPodsConstraint{}
+
 	if dcl.StringCanonicalize(des.MaxPodsPerNode, initial.MaxPodsPerNode) || dcl.IsZeroValue(des.MaxPodsPerNode) {
-		des.MaxPodsPerNode = initial.MaxPodsPerNode
+		cDes.MaxPodsPerNode = initial.MaxPodsPerNode
+	} else {
+		cDes.MaxPodsPerNode = des.MaxPodsPerNode
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterDefaultMaxPodsConstraint(c *Client, des, nw *ClusterDefaultMaxPodsConstraint) *ClusterDefaultMaxPodsConstraint {
@@ -7005,16 +7442,22 @@ func canonicalizeClusterResourceUsageExportConfig(des, initial *ClusterResourceU
 		return des
 	}
 
-	des.BigqueryDestination = canonicalizeClusterResourceUsageExportConfigBigqueryDestination(des.BigqueryDestination, initial.BigqueryDestination, opts...)
+	cDes := &ClusterResourceUsageExportConfig{}
+
+	cDes.BigqueryDestination = canonicalizeClusterResourceUsageExportConfigBigqueryDestination(des.BigqueryDestination, initial.BigqueryDestination, opts...)
 	if dcl.BoolCanonicalize(des.EnableNetworkEgressMonitoring, initial.EnableNetworkEgressMonitoring) || dcl.IsZeroValue(des.EnableNetworkEgressMonitoring) {
-		des.EnableNetworkEgressMonitoring = initial.EnableNetworkEgressMonitoring
+		cDes.EnableNetworkEgressMonitoring = initial.EnableNetworkEgressMonitoring
+	} else {
+		cDes.EnableNetworkEgressMonitoring = des.EnableNetworkEgressMonitoring
 	}
-	des.ConsumptionMeteringConfig = canonicalizeClusterResourceUsageExportConfigConsumptionMeteringConfig(des.ConsumptionMeteringConfig, initial.ConsumptionMeteringConfig, opts...)
+	cDes.ConsumptionMeteringConfig = canonicalizeClusterResourceUsageExportConfigConsumptionMeteringConfig(des.ConsumptionMeteringConfig, initial.ConsumptionMeteringConfig, opts...)
 	if dcl.BoolCanonicalize(des.EnableNetworkEgressMetering, initial.EnableNetworkEgressMetering) || dcl.IsZeroValue(des.EnableNetworkEgressMetering) {
-		des.EnableNetworkEgressMetering = initial.EnableNetworkEgressMetering
+		cDes.EnableNetworkEgressMetering = initial.EnableNetworkEgressMetering
+	} else {
+		cDes.EnableNetworkEgressMetering = des.EnableNetworkEgressMetering
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterResourceUsageExportConfig(c *Client, des, nw *ClusterResourceUsageExportConfig) *ClusterResourceUsageExportConfig {
@@ -7089,11 +7532,15 @@ func canonicalizeClusterResourceUsageExportConfigBigqueryDestination(des, initia
 		return des
 	}
 
+	cDes := &ClusterResourceUsageExportConfigBigqueryDestination{}
+
 	if dcl.StringCanonicalize(des.DatasetId, initial.DatasetId) || dcl.IsZeroValue(des.DatasetId) {
-		des.DatasetId = initial.DatasetId
+		cDes.DatasetId = initial.DatasetId
+	} else {
+		cDes.DatasetId = des.DatasetId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterResourceUsageExportConfigBigqueryDestination(c *Client, des, nw *ClusterResourceUsageExportConfigBigqueryDestination) *ClusterResourceUsageExportConfigBigqueryDestination {
@@ -7163,11 +7610,15 @@ func canonicalizeClusterResourceUsageExportConfigConsumptionMeteringConfig(des, 
 		return des
 	}
 
+	cDes := &ClusterResourceUsageExportConfigConsumptionMeteringConfig{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterResourceUsageExportConfigConsumptionMeteringConfig(c *Client, des, nw *ClusterResourceUsageExportConfigConsumptionMeteringConfig) *ClusterResourceUsageExportConfigConsumptionMeteringConfig {
@@ -7237,14 +7688,20 @@ func canonicalizeClusterAuthenticatorGroupsConfig(des, initial *ClusterAuthentic
 		return des
 	}
 
+	cDes := &ClusterAuthenticatorGroupsConfig{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 	if dcl.StringCanonicalize(des.SecurityGroup, initial.SecurityGroup) || dcl.IsZeroValue(des.SecurityGroup) {
-		des.SecurityGroup = initial.SecurityGroup
+		cDes.SecurityGroup = initial.SecurityGroup
+	} else {
+		cDes.SecurityGroup = des.SecurityGroup
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterAuthenticatorGroupsConfig(c *Client, des, nw *ClusterAuthenticatorGroupsConfig) *ClusterAuthenticatorGroupsConfig {
@@ -7317,18 +7774,26 @@ func canonicalizeClusterPrivateClusterConfig(des, initial *ClusterPrivateCluster
 		return des
 	}
 
+	cDes := &ClusterPrivateClusterConfig{}
+
 	if dcl.BoolCanonicalize(des.EnablePrivateNodes, initial.EnablePrivateNodes) || dcl.IsZeroValue(des.EnablePrivateNodes) {
-		des.EnablePrivateNodes = initial.EnablePrivateNodes
+		cDes.EnablePrivateNodes = initial.EnablePrivateNodes
+	} else {
+		cDes.EnablePrivateNodes = des.EnablePrivateNodes
 	}
 	if dcl.BoolCanonicalize(des.EnablePrivateEndpoint, initial.EnablePrivateEndpoint) || dcl.IsZeroValue(des.EnablePrivateEndpoint) {
-		des.EnablePrivateEndpoint = initial.EnablePrivateEndpoint
+		cDes.EnablePrivateEndpoint = initial.EnablePrivateEndpoint
+	} else {
+		cDes.EnablePrivateEndpoint = des.EnablePrivateEndpoint
 	}
 	if dcl.StringCanonicalize(des.MasterIPv4CidrBlock, initial.MasterIPv4CidrBlock) || dcl.IsZeroValue(des.MasterIPv4CidrBlock) {
-		des.MasterIPv4CidrBlock = initial.MasterIPv4CidrBlock
+		cDes.MasterIPv4CidrBlock = initial.MasterIPv4CidrBlock
+	} else {
+		cDes.MasterIPv4CidrBlock = des.MasterIPv4CidrBlock
 	}
-	des.MasterGlobalAccessConfig = canonicalizeClusterPrivateClusterConfigMasterGlobalAccessConfig(des.MasterGlobalAccessConfig, initial.MasterGlobalAccessConfig, opts...)
+	cDes.MasterGlobalAccessConfig = canonicalizeClusterPrivateClusterConfigMasterGlobalAccessConfig(des.MasterGlobalAccessConfig, initial.MasterGlobalAccessConfig, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterPrivateClusterConfig(c *Client, des, nw *ClusterPrivateClusterConfig) *ClusterPrivateClusterConfig {
@@ -7414,11 +7879,15 @@ func canonicalizeClusterPrivateClusterConfigMasterGlobalAccessConfig(des, initia
 		return des
 	}
 
+	cDes := &ClusterPrivateClusterConfigMasterGlobalAccessConfig{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterPrivateClusterConfigMasterGlobalAccessConfig(c *Client, des, nw *ClusterPrivateClusterConfigMasterGlobalAccessConfig) *ClusterPrivateClusterConfigMasterGlobalAccessConfig {
@@ -7488,14 +7957,20 @@ func canonicalizeClusterDatabaseEncryption(des, initial *ClusterDatabaseEncrypti
 		return des
 	}
 
+	cDes := &ClusterDatabaseEncryption{}
+
 	if dcl.IsZeroValue(des.State) {
 		des.State = initial.State
+	} else {
+		cDes.State = des.State
 	}
 	if dcl.StringCanonicalize(des.KeyName, initial.KeyName) || dcl.IsZeroValue(des.KeyName) {
-		des.KeyName = initial.KeyName
+		cDes.KeyName = initial.KeyName
+	} else {
+		cDes.KeyName = des.KeyName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterDatabaseEncryption(c *Client, des, nw *ClusterDatabaseEncryption) *ClusterDatabaseEncryption {
@@ -7568,14 +8043,20 @@ func canonicalizeClusterVerticalPodAutoscaling(des, initial *ClusterVerticalPodA
 		return des
 	}
 
+	cDes := &ClusterVerticalPodAutoscaling{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 	if dcl.BoolCanonicalize(des.EnableExperimentalFeatures, initial.EnableExperimentalFeatures) || dcl.IsZeroValue(des.EnableExperimentalFeatures) {
-		des.EnableExperimentalFeatures = initial.EnableExperimentalFeatures
+		cDes.EnableExperimentalFeatures = initial.EnableExperimentalFeatures
+	} else {
+		cDes.EnableExperimentalFeatures = des.EnableExperimentalFeatures
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterVerticalPodAutoscaling(c *Client, des, nw *ClusterVerticalPodAutoscaling) *ClusterVerticalPodAutoscaling {
@@ -7648,11 +8129,15 @@ func canonicalizeClusterShieldedNodes(des, initial *ClusterShieldedNodes, opts .
 		return des
 	}
 
+	cDes := &ClusterShieldedNodes{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterShieldedNodes(c *Client, des, nw *ClusterShieldedNodes) *ClusterShieldedNodes {
@@ -7722,17 +8207,25 @@ func canonicalizeClusterConditions(des, initial *ClusterConditions, opts ...dcl.
 		return des
 	}
 
+	cDes := &ClusterConditions{}
+
 	if dcl.StringCanonicalize(des.Code, initial.Code) || dcl.IsZeroValue(des.Code) {
-		des.Code = initial.Code
+		cDes.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.CanonicalCode) {
 		des.CanonicalCode = initial.CanonicalCode
+	} else {
+		cDes.CanonicalCode = des.CanonicalCode
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterConditions(c *Client, des, nw *ClusterConditions) *ClusterConditions {
@@ -7808,11 +8301,15 @@ func canonicalizeClusterAutopilot(des, initial *ClusterAutopilot, opts ...dcl.Ap
 		return des
 	}
 
+	cDes := &ClusterAutopilot{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterAutopilot(c *Client, des, nw *ClusterAutopilot) *ClusterAutopilot {
@@ -7882,63 +8379,97 @@ func canonicalizeClusterNodeConfig(des, initial *ClusterNodeConfig, opts ...dcl.
 		return des
 	}
 
+	cDes := &ClusterNodeConfig{}
+
 	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
-		des.MachineType = initial.MachineType
+		cDes.MachineType = initial.MachineType
+	} else {
+		cDes.MachineType = des.MachineType
 	}
 	if dcl.IsZeroValue(des.DiskSizeGb) {
 		des.DiskSizeGb = initial.DiskSizeGb
+	} else {
+		cDes.DiskSizeGb = des.DiskSizeGb
 	}
 	if dcl.IsZeroValue(des.OAuthScopes) {
 		des.OAuthScopes = initial.OAuthScopes
+	} else {
+		cDes.OAuthScopes = des.OAuthScopes
 	}
 	if dcl.StringCanonicalize(des.ServiceAccount, initial.ServiceAccount) || dcl.IsZeroValue(des.ServiceAccount) {
-		des.ServiceAccount = initial.ServiceAccount
+		cDes.ServiceAccount = initial.ServiceAccount
+	} else {
+		cDes.ServiceAccount = des.ServiceAccount
 	}
 	if dcl.IsZeroValue(des.Metadata) {
 		des.Metadata = initial.Metadata
+	} else {
+		cDes.Metadata = des.Metadata
 	}
 	if dcl.StringCanonicalize(des.ImageType, initial.ImageType) || dcl.IsZeroValue(des.ImageType) {
-		des.ImageType = initial.ImageType
+		cDes.ImageType = initial.ImageType
+	} else {
+		cDes.ImageType = des.ImageType
 	}
 	if dcl.IsZeroValue(des.Labels) {
 		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
 	}
 	if dcl.IsZeroValue(des.LocalSsdCount) {
 		des.LocalSsdCount = initial.LocalSsdCount
+	} else {
+		cDes.LocalSsdCount = des.LocalSsdCount
 	}
 	if dcl.IsZeroValue(des.Tags) {
 		des.Tags = initial.Tags
+	} else {
+		cDes.Tags = des.Tags
 	}
 	if dcl.BoolCanonicalize(des.Preemptible, initial.Preemptible) || dcl.IsZeroValue(des.Preemptible) {
-		des.Preemptible = initial.Preemptible
+		cDes.Preemptible = initial.Preemptible
+	} else {
+		cDes.Preemptible = des.Preemptible
 	}
 	if dcl.IsZeroValue(des.Accelerators) {
 		des.Accelerators = initial.Accelerators
+	} else {
+		cDes.Accelerators = des.Accelerators
 	}
 	if dcl.StringCanonicalize(des.DiskType, initial.DiskType) || dcl.IsZeroValue(des.DiskType) {
-		des.DiskType = initial.DiskType
+		cDes.DiskType = initial.DiskType
+	} else {
+		cDes.DiskType = des.DiskType
 	}
 	if dcl.StringCanonicalize(des.MinCpuPlatform, initial.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
-		des.MinCpuPlatform = initial.MinCpuPlatform
+		cDes.MinCpuPlatform = initial.MinCpuPlatform
+	} else {
+		cDes.MinCpuPlatform = des.MinCpuPlatform
 	}
-	des.WorkloadMetadataConfig = canonicalizeClusterNodeConfigWorkloadMetadataConfig(des.WorkloadMetadataConfig, initial.WorkloadMetadataConfig, opts...)
+	cDes.WorkloadMetadataConfig = canonicalizeClusterNodeConfigWorkloadMetadataConfig(des.WorkloadMetadataConfig, initial.WorkloadMetadataConfig, opts...)
 	if dcl.IsZeroValue(des.Taints) {
 		des.Taints = initial.Taints
+	} else {
+		cDes.Taints = des.Taints
 	}
-	des.SandboxConfig = canonicalizeClusterNodeConfigSandboxConfig(des.SandboxConfig, initial.SandboxConfig, opts...)
+	cDes.SandboxConfig = canonicalizeClusterNodeConfigSandboxConfig(des.SandboxConfig, initial.SandboxConfig, opts...)
 	if dcl.StringCanonicalize(des.NodeGroup, initial.NodeGroup) || dcl.IsZeroValue(des.NodeGroup) {
-		des.NodeGroup = initial.NodeGroup
+		cDes.NodeGroup = initial.NodeGroup
+	} else {
+		cDes.NodeGroup = des.NodeGroup
 	}
-	des.ReservationAffinity = canonicalizeClusterNodeConfigReservationAffinity(des.ReservationAffinity, initial.ReservationAffinity, opts...)
-	des.ShieldedInstanceConfig = canonicalizeClusterNodeConfigShieldedInstanceConfig(des.ShieldedInstanceConfig, initial.ShieldedInstanceConfig, opts...)
-	des.LinuxNodeConfig = canonicalizeClusterNodeConfigLinuxNodeConfig(des.LinuxNodeConfig, initial.LinuxNodeConfig, opts...)
-	des.KubeletConfig = canonicalizeClusterNodeConfigKubeletConfig(des.KubeletConfig, initial.KubeletConfig, opts...)
+	cDes.ReservationAffinity = canonicalizeClusterNodeConfigReservationAffinity(des.ReservationAffinity, initial.ReservationAffinity, opts...)
+	cDes.ShieldedInstanceConfig = canonicalizeClusterNodeConfigShieldedInstanceConfig(des.ShieldedInstanceConfig, initial.ShieldedInstanceConfig, opts...)
+	cDes.LinuxNodeConfig = canonicalizeClusterNodeConfigLinuxNodeConfig(des.LinuxNodeConfig, initial.LinuxNodeConfig, opts...)
+	cDes.KubeletConfig = canonicalizeClusterNodeConfigKubeletConfig(des.KubeletConfig, initial.KubeletConfig, opts...)
 	if dcl.StringCanonicalize(des.BootDiskKmsKey, initial.BootDiskKmsKey) || dcl.IsZeroValue(des.BootDiskKmsKey) {
-		des.BootDiskKmsKey = initial.BootDiskKmsKey
+		cDes.BootDiskKmsKey = initial.BootDiskKmsKey
+	} else {
+		cDes.BootDiskKmsKey = des.BootDiskKmsKey
 	}
-	des.EphemeralStorageConfig = canonicalizeClusterNodeConfigEphemeralStorageConfig(des.EphemeralStorageConfig, initial.EphemeralStorageConfig, opts...)
+	cDes.EphemeralStorageConfig = canonicalizeClusterNodeConfigEphemeralStorageConfig(des.EphemeralStorageConfig, initial.EphemeralStorageConfig, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodeConfig(c *Client, des, nw *ClusterNodeConfig) *ClusterNodeConfig {
@@ -8056,14 +8587,20 @@ func canonicalizeClusterNodeConfigAccelerators(des, initial *ClusterNodeConfigAc
 		return des
 	}
 
+	cDes := &ClusterNodeConfigAccelerators{}
+
 	if dcl.IsZeroValue(des.AcceleratorCount) {
 		des.AcceleratorCount = initial.AcceleratorCount
+	} else {
+		cDes.AcceleratorCount = des.AcceleratorCount
 	}
 	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
-		des.AcceleratorType = initial.AcceleratorType
+		cDes.AcceleratorType = initial.AcceleratorType
+	} else {
+		cDes.AcceleratorType = des.AcceleratorType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodeConfigAccelerators(c *Client, des, nw *ClusterNodeConfigAccelerators) *ClusterNodeConfigAccelerators {
@@ -8136,14 +8673,20 @@ func canonicalizeClusterNodeConfigWorkloadMetadataConfig(des, initial *ClusterNo
 		return des
 	}
 
+	cDes := &ClusterNodeConfigWorkloadMetadataConfig{}
+
 	if dcl.IsZeroValue(des.Mode) {
 		des.Mode = initial.Mode
+	} else {
+		cDes.Mode = des.Mode
 	}
 	if dcl.IsZeroValue(des.NodeMetadata) {
 		des.NodeMetadata = initial.NodeMetadata
+	} else {
+		cDes.NodeMetadata = des.NodeMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodeConfigWorkloadMetadataConfig(c *Client, des, nw *ClusterNodeConfigWorkloadMetadataConfig) *ClusterNodeConfigWorkloadMetadataConfig {
@@ -8216,17 +8759,25 @@ func canonicalizeClusterNodeConfigTaints(des, initial *ClusterNodeConfigTaints, 
 		return des
 	}
 
+	cDes := &ClusterNodeConfigTaints{}
+
 	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
+		cDes.Key = initial.Key
+	} else {
+		cDes.Key = des.Key
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 	if dcl.IsZeroValue(des.Effect) {
 		des.Effect = initial.Effect
+	} else {
+		cDes.Effect = des.Effect
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodeConfigTaints(c *Client, des, nw *ClusterNodeConfigTaints) *ClusterNodeConfigTaints {
@@ -8302,14 +8853,20 @@ func canonicalizeClusterNodeConfigSandboxConfig(des, initial *ClusterNodeConfigS
 		return des
 	}
 
+	cDes := &ClusterNodeConfigSandboxConfig{}
+
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.SandboxType, initial.SandboxType) || dcl.IsZeroValue(des.SandboxType) {
-		des.SandboxType = initial.SandboxType
+		cDes.SandboxType = initial.SandboxType
+	} else {
+		cDes.SandboxType = des.SandboxType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodeConfigSandboxConfig(c *Client, des, nw *ClusterNodeConfigSandboxConfig) *ClusterNodeConfigSandboxConfig {
@@ -8382,17 +8939,25 @@ func canonicalizeClusterNodeConfigReservationAffinity(des, initial *ClusterNodeC
 		return des
 	}
 
+	cDes := &ClusterNodeConfigReservationAffinity{}
+
 	if dcl.IsZeroValue(des.ConsumeReservationType) {
 		des.ConsumeReservationType = initial.ConsumeReservationType
+	} else {
+		cDes.ConsumeReservationType = des.ConsumeReservationType
 	}
 	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
+		cDes.Key = initial.Key
+	} else {
+		cDes.Key = des.Key
 	}
 	if dcl.IsZeroValue(des.Values) {
 		des.Values = initial.Values
+	} else {
+		cDes.Values = des.Values
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodeConfigReservationAffinity(c *Client, des, nw *ClusterNodeConfigReservationAffinity) *ClusterNodeConfigReservationAffinity {
@@ -8468,14 +9033,20 @@ func canonicalizeClusterNodeConfigShieldedInstanceConfig(des, initial *ClusterNo
 		return des
 	}
 
+	cDes := &ClusterNodeConfigShieldedInstanceConfig{}
+
 	if dcl.BoolCanonicalize(des.EnableSecureBoot, initial.EnableSecureBoot) || dcl.IsZeroValue(des.EnableSecureBoot) {
-		des.EnableSecureBoot = initial.EnableSecureBoot
+		cDes.EnableSecureBoot = initial.EnableSecureBoot
+	} else {
+		cDes.EnableSecureBoot = des.EnableSecureBoot
 	}
 	if dcl.BoolCanonicalize(des.EnableIntegrityMonitoring, initial.EnableIntegrityMonitoring) || dcl.IsZeroValue(des.EnableIntegrityMonitoring) {
-		des.EnableIntegrityMonitoring = initial.EnableIntegrityMonitoring
+		cDes.EnableIntegrityMonitoring = initial.EnableIntegrityMonitoring
+	} else {
+		cDes.EnableIntegrityMonitoring = des.EnableIntegrityMonitoring
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodeConfigShieldedInstanceConfig(c *Client, des, nw *ClusterNodeConfigShieldedInstanceConfig) *ClusterNodeConfigShieldedInstanceConfig {
@@ -8548,11 +9119,15 @@ func canonicalizeClusterNodeConfigLinuxNodeConfig(des, initial *ClusterNodeConfi
 		return des
 	}
 
+	cDes := &ClusterNodeConfigLinuxNodeConfig{}
+
 	if dcl.IsZeroValue(des.Sysctls) {
 		des.Sysctls = initial.Sysctls
+	} else {
+		cDes.Sysctls = des.Sysctls
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodeConfigLinuxNodeConfig(c *Client, des, nw *ClusterNodeConfigLinuxNodeConfig) *ClusterNodeConfigLinuxNodeConfig {
@@ -8622,17 +9197,25 @@ func canonicalizeClusterNodeConfigKubeletConfig(des, initial *ClusterNodeConfigK
 		return des
 	}
 
+	cDes := &ClusterNodeConfigKubeletConfig{}
+
 	if dcl.StringCanonicalize(des.CpuManagerPolicy, initial.CpuManagerPolicy) || dcl.IsZeroValue(des.CpuManagerPolicy) {
-		des.CpuManagerPolicy = initial.CpuManagerPolicy
+		cDes.CpuManagerPolicy = initial.CpuManagerPolicy
+	} else {
+		cDes.CpuManagerPolicy = des.CpuManagerPolicy
 	}
 	if dcl.BoolCanonicalize(des.CpuCfsQuota, initial.CpuCfsQuota) || dcl.IsZeroValue(des.CpuCfsQuota) {
-		des.CpuCfsQuota = initial.CpuCfsQuota
+		cDes.CpuCfsQuota = initial.CpuCfsQuota
+	} else {
+		cDes.CpuCfsQuota = des.CpuCfsQuota
 	}
 	if dcl.StringCanonicalize(des.CpuCfsQuotaPeriod, initial.CpuCfsQuotaPeriod) || dcl.IsZeroValue(des.CpuCfsQuotaPeriod) {
-		des.CpuCfsQuotaPeriod = initial.CpuCfsQuotaPeriod
+		cDes.CpuCfsQuotaPeriod = initial.CpuCfsQuotaPeriod
+	} else {
+		cDes.CpuCfsQuotaPeriod = des.CpuCfsQuotaPeriod
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodeConfigKubeletConfig(c *Client, des, nw *ClusterNodeConfigKubeletConfig) *ClusterNodeConfigKubeletConfig {
@@ -8708,11 +9291,15 @@ func canonicalizeClusterNodeConfigEphemeralStorageConfig(des, initial *ClusterNo
 		return des
 	}
 
+	cDes := &ClusterNodeConfigEphemeralStorageConfig{}
+
 	if dcl.IsZeroValue(des.LocalSsdCount) {
 		des.LocalSsdCount = initial.LocalSsdCount
+	} else {
+		cDes.LocalSsdCount = des.LocalSsdCount
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNodeConfigEphemeralStorageConfig(c *Client, des, nw *ClusterNodeConfigEphemeralStorageConfig) *ClusterNodeConfigEphemeralStorageConfig {
@@ -8782,11 +9369,15 @@ func canonicalizeClusterReleaseChannel(des, initial *ClusterReleaseChannel, opts
 		return des
 	}
 
+	cDes := &ClusterReleaseChannel{}
+
 	if dcl.IsZeroValue(des.Channel) {
 		des.Channel = initial.Channel
+	} else {
+		cDes.Channel = des.Channel
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterReleaseChannel(c *Client, des, nw *ClusterReleaseChannel) *ClusterReleaseChannel {
@@ -8856,17 +9447,25 @@ func canonicalizeClusterWorkloadIdentityConfig(des, initial *ClusterWorkloadIden
 		return des
 	}
 
+	cDes := &ClusterWorkloadIdentityConfig{}
+
 	if dcl.StringCanonicalize(des.WorkloadPool, initial.WorkloadPool) || dcl.IsZeroValue(des.WorkloadPool) {
-		des.WorkloadPool = initial.WorkloadPool
+		cDes.WorkloadPool = initial.WorkloadPool
+	} else {
+		cDes.WorkloadPool = des.WorkloadPool
 	}
 	if dcl.StringCanonicalize(des.IdentityNamespace, initial.IdentityNamespace) || dcl.IsZeroValue(des.IdentityNamespace) {
-		des.IdentityNamespace = initial.IdentityNamespace
+		cDes.IdentityNamespace = initial.IdentityNamespace
+	} else {
+		cDes.IdentityNamespace = des.IdentityNamespace
 	}
 	if dcl.StringCanonicalize(des.IdentityProvider, initial.IdentityProvider) || dcl.IsZeroValue(des.IdentityProvider) {
-		des.IdentityProvider = initial.IdentityProvider
+		cDes.IdentityProvider = initial.IdentityProvider
+	} else {
+		cDes.IdentityProvider = des.IdentityProvider
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterWorkloadIdentityConfig(c *Client, des, nw *ClusterWorkloadIdentityConfig) *ClusterWorkloadIdentityConfig {
@@ -8942,9 +9541,11 @@ func canonicalizeClusterNotificationConfig(des, initial *ClusterNotificationConf
 		return des
 	}
 
-	des.Pubsub = canonicalizeClusterNotificationConfigPubsub(des.Pubsub, initial.Pubsub, opts...)
+	cDes := &ClusterNotificationConfig{}
 
-	return des
+	cDes.Pubsub = canonicalizeClusterNotificationConfigPubsub(des.Pubsub, initial.Pubsub, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewClusterNotificationConfig(c *Client, des, nw *ClusterNotificationConfig) *ClusterNotificationConfig {
@@ -9012,14 +9613,20 @@ func canonicalizeClusterNotificationConfigPubsub(des, initial *ClusterNotificati
 		return des
 	}
 
+	cDes := &ClusterNotificationConfigPubsub{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 	if dcl.NameToSelfLink(des.Topic, initial.Topic) || dcl.IsZeroValue(des.Topic) {
-		des.Topic = initial.Topic
+		cDes.Topic = initial.Topic
+	} else {
+		cDes.Topic = des.Topic
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterNotificationConfigPubsub(c *Client, des, nw *ClusterNotificationConfigPubsub) *ClusterNotificationConfigPubsub {
@@ -9092,11 +9699,15 @@ func canonicalizeClusterConfidentialNodes(des, initial *ClusterConfidentialNodes
 		return des
 	}
 
+	cDes := &ClusterConfidentialNodes{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterConfidentialNodes(c *Client, des, nw *ClusterConfidentialNodes) *ClusterConfidentialNodes {
@@ -9166,11 +9777,15 @@ func canonicalizeClusterPodSecurityPolicyConfig(des, initial *ClusterPodSecurity
 		return des
 	}
 
+	cDes := &ClusterPodSecurityPolicyConfig{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterPodSecurityPolicyConfig(c *Client, des, nw *ClusterPodSecurityPolicyConfig) *ClusterPodSecurityPolicyConfig {
@@ -9240,11 +9855,15 @@ func canonicalizeClusterClusterTelemetry(des, initial *ClusterClusterTelemetry, 
 		return des
 	}
 
+	cDes := &ClusterClusterTelemetry{}
+
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterClusterTelemetry(c *Client, des, nw *ClusterClusterTelemetry) *ClusterClusterTelemetry {
@@ -9314,17 +9933,25 @@ func canonicalizeClusterTPUConfig(des, initial *ClusterTPUConfig, opts ...dcl.Ap
 		return des
 	}
 
+	cDes := &ClusterTPUConfig{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 	if dcl.BoolCanonicalize(des.UseServiceNetworking, initial.UseServiceNetworking) || dcl.IsZeroValue(des.UseServiceNetworking) {
-		des.UseServiceNetworking = initial.UseServiceNetworking
+		cDes.UseServiceNetworking = initial.UseServiceNetworking
+	} else {
+		cDes.UseServiceNetworking = des.UseServiceNetworking
 	}
 	if dcl.StringCanonicalize(des.IPv4CidrBlock, initial.IPv4CidrBlock) || dcl.IsZeroValue(des.IPv4CidrBlock) {
-		des.IPv4CidrBlock = initial.IPv4CidrBlock
+		cDes.IPv4CidrBlock = initial.IPv4CidrBlock
+	} else {
+		cDes.IPv4CidrBlock = des.IPv4CidrBlock
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClusterTPUConfig(c *Client, des, nw *ClusterTPUConfig) *ClusterTPUConfig {
@@ -9400,7 +10027,9 @@ func canonicalizeClusterMaster(des, initial *ClusterMaster, opts ...dcl.ApplyOpt
 		return des
 	}
 
-	return des
+	cDes := &ClusterMaster{}
+
+	return cDes
 }
 
 func canonicalizeNewClusterMaster(c *Client, des, nw *ClusterMaster) *ClusterMaster {
@@ -9532,7 +10161,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Subnetwork")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Subnetwork")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10449,7 +11078,7 @@ func compareClusterNodePoolsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10477,7 +11106,7 @@ func compareClusterNodePoolsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.StatusMessage, actual.StatusMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StatusMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StatusMessage, actual.StatusMessage, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StatusMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11456,14 +12085,14 @@ func compareClusterIPAllocationPolicyNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NodeIPv4CidrBlock, actual.NodeIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeIpv4CidrBlock")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NodeIPv4CidrBlock, actual.NodeIPv4CidrBlock, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeIpv4CidrBlock")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServicesIPv4CidrBlock, actual.ServicesIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServicesIpv4CidrBlock")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServicesIPv4CidrBlock, actual.ServicesIPv4CidrBlock, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServicesIpv4CidrBlock")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -12150,7 +12779,7 @@ func compareClusterMaintenancePolicyWindowDailyMaintenanceWindowNewStyle(d, a in
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24848,67 +25477,81 @@ type clusterDiff struct {
 	UpdateOp         clusterApiOperation
 }
 
-func convertFieldDiffToClusterOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]clusterDiff, error) {
+func convertFieldDiffsToClusterDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]clusterDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []clusterDiff
-	for _, op := range ops {
+	// For each operation name, create a clusterDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := clusterDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToclusterApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToClusterApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToclusterApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (clusterApiOperation, error) {
-	switch op {
+func convertOpNameToClusterApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (clusterApiOperation, error) {
+	switch opName {
 
 	case "updateClusterSetMaintenancePolicyOperation":
-		return &updateClusterSetMaintenancePolicyOperation{Diffs: diffs}, nil
+		return &updateClusterSetMaintenancePolicyOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateClusterUpdateAddonsConfigOperation":
-		return &updateClusterUpdateAddonsConfigOperation{Diffs: diffs}, nil
+		return &updateClusterUpdateAddonsConfigOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateClusterUpdateAutoscalingOperation":
-		return &updateClusterUpdateAutoscalingOperation{Diffs: diffs}, nil
+		return &updateClusterUpdateAutoscalingOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateClusterUpdateBinaryAuthorizationOperation":
-		return &updateClusterUpdateBinaryAuthorizationOperation{Diffs: diffs}, nil
+		return &updateClusterUpdateBinaryAuthorizationOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateClusterUpdateDatabaseEncryptionOperation":
-		return &updateClusterUpdateDatabaseEncryptionOperation{Diffs: diffs}, nil
+		return &updateClusterUpdateDatabaseEncryptionOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateClusterUpdateLegacyAbacOperation":
-		return &updateClusterUpdateLegacyAbacOperation{Diffs: diffs}, nil
+		return &updateClusterUpdateLegacyAbacOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateClusterUpdateLocationsOperation":
-		return &updateClusterUpdateLocationsOperation{Diffs: diffs}, nil
+		return &updateClusterUpdateLocationsOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateClusterUpdateMasterAuthorizedNetworksConfigOperation":
-		return &updateClusterUpdateMasterAuthorizedNetworksConfigOperation{Diffs: diffs}, nil
+		return &updateClusterUpdateMasterAuthorizedNetworksConfigOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateClusterUpdateMasterVersionOperation":
-		return &updateClusterUpdateMasterVersionOperation{Diffs: diffs}, nil
+		return &updateClusterUpdateMasterVersionOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateClusterUpdateMonitoringAndLoggingServiceOperation":
-		return &updateClusterUpdateMonitoringAndLoggingServiceOperation{Diffs: diffs}, nil
+		return &updateClusterUpdateMonitoringAndLoggingServiceOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateClusterUpdateShieldedNodesOperation":
-		return &updateClusterUpdateShieldedNodesOperation{Diffs: diffs}, nil
+		return &updateClusterUpdateShieldedNodesOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateClusterUpdateVerticalPodAutoscalingOperation":
-		return &updateClusterUpdateVerticalPodAutoscalingOperation{Diffs: diffs}, nil
+		return &updateClusterUpdateVerticalPodAutoscalingOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateClusterUpdateWorkloadIdentityConfigOperation":
-		return &updateClusterUpdateWorkloadIdentityConfigOperation{Diffs: diffs}, nil
+		return &updateClusterUpdateWorkloadIdentityConfigOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

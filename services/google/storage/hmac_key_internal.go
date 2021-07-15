@@ -98,7 +98,7 @@ type updateHmacKeyUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -355,21 +355,29 @@ func canonicalizeHmacKeyDesiredState(rawDesired, rawInitial *HmacKey, opts ...dc
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &HmacKey{}
 	if dcl.IsZeroValue(rawDesired.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.IsZeroValue(rawDesired.State) {
-		rawDesired.State = rawInitial.State
+		canonicalDesired.State = rawInitial.State
+	} else {
+		canonicalDesired.State = rawDesired.State
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.StringCanonicalize(rawDesired.ServiceAccountEmail, rawInitial.ServiceAccountEmail) {
-		rawDesired.ServiceAccountEmail = rawInitial.ServiceAccountEmail
+		canonicalDesired.ServiceAccountEmail = rawInitial.ServiceAccountEmail
+	} else {
+		canonicalDesired.ServiceAccountEmail = rawDesired.ServiceAccountEmail
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeHmacKeyNewState(c *Client, rawNew, rawDesired *HmacKey) (*HmacKey, error) {
@@ -671,31 +679,45 @@ type hmacKeyDiff struct {
 	UpdateOp         hmacKeyApiOperation
 }
 
-func convertFieldDiffToHmacKeyOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]hmacKeyDiff, error) {
+func convertFieldDiffsToHmacKeyDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]hmacKeyDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []hmacKeyDiff
-	for _, op := range ops {
+	// For each operation name, create a hmacKeyDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := hmacKeyDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTohmacKeyApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToHmacKeyApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTohmacKeyApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (hmacKeyApiOperation, error) {
-	switch op {
+func convertOpNameToHmacKeyApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (hmacKeyApiOperation, error) {
+	switch opName {
 
 	case "updateHmacKeyUpdateOperation":
-		return &updateHmacKeyUpdateOperation{Diffs: diffs}, nil
+		return &updateHmacKeyUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

@@ -245,18 +245,24 @@ func canonicalizeFirewallPolicyAssociationDesiredState(rawDesired, rawInitial *F
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &FirewallPolicyAssociation{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.NameToSelfLink(rawDesired.AttachmentTarget, rawInitial.AttachmentTarget) {
-		rawDesired.AttachmentTarget = rawInitial.AttachmentTarget
+		canonicalDesired.AttachmentTarget = rawInitial.AttachmentTarget
+	} else {
+		canonicalDesired.AttachmentTarget = rawDesired.AttachmentTarget
 	}
 	if dcl.NameToSelfLink(rawDesired.FirewallPolicy, rawInitial.FirewallPolicy) {
-		rawDesired.FirewallPolicy = rawInitial.FirewallPolicy
+		canonicalDesired.FirewallPolicy = rawInitial.FirewallPolicy
+	} else {
+		canonicalDesired.FirewallPolicy = rawDesired.FirewallPolicy
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeFirewallPolicyAssociationNewState(c *Client, rawNew, rawDesired *FirewallPolicyAssociation) (*FirewallPolicyAssociation, error) {
@@ -485,28 +491,42 @@ type firewallPolicyAssociationDiff struct {
 	UpdateOp         firewallPolicyAssociationApiOperation
 }
 
-func convertFieldDiffToFirewallPolicyAssociationOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]firewallPolicyAssociationDiff, error) {
+func convertFieldDiffsToFirewallPolicyAssociationDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]firewallPolicyAssociationDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []firewallPolicyAssociationDiff
-	for _, op := range ops {
+	// For each operation name, create a firewallPolicyAssociationDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := firewallPolicyAssociationDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTofirewallPolicyAssociationApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToFirewallPolicyAssociationApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTofirewallPolicyAssociationApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (firewallPolicyAssociationApiOperation, error) {
-	switch op {
+func convertOpNameToFirewallPolicyAssociationApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (firewallPolicyAssociationApiOperation, error) {
+	switch opName {
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

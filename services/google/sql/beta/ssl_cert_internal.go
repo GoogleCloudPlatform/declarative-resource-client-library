@@ -355,21 +355,29 @@ func canonicalizeSslCertDesiredState(rawDesired, rawInitial *SslCert, opts ...dc
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &SslCert{}
 	if dcl.StringCanonicalize(rawDesired.CommonName, rawInitial.CommonName) {
-		rawDesired.CommonName = rawInitial.CommonName
+		canonicalDesired.CommonName = rawInitial.CommonName
+	} else {
+		canonicalDesired.CommonName = rawDesired.CommonName
 	}
 	if dcl.IsZeroValue(rawDesired.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Instance, rawInitial.Instance) {
-		rawDesired.Instance = rawInitial.Instance
+		canonicalDesired.Instance = rawInitial.Instance
+	} else {
+		canonicalDesired.Instance = rawDesired.Instance
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeSslCertNewState(c *Client, rawNew, rawDesired *SslCert) (*SslCert, error) {
@@ -650,28 +658,42 @@ type sslCertDiff struct {
 	UpdateOp         sslCertApiOperation
 }
 
-func convertFieldDiffToSslCertOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]sslCertDiff, error) {
+func convertFieldDiffsToSslCertDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]sslCertDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []sslCertDiff
-	for _, op := range ops {
+	// For each operation name, create a sslCertDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := sslCertDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTosslCertApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToSslCertApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTosslCertApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (sslCertApiOperation, error) {
-	switch op {
+func convertOpNameToSslCertApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (sslCertApiOperation, error) {
+	switch opName {
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

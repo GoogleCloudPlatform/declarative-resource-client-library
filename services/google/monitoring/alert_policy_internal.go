@@ -570,7 +570,7 @@ type updateAlertPolicyUpdateAlertPolicyOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -884,40 +884,56 @@ func canonicalizeAlertPolicyDesiredState(rawDesired, rawInitial *AlertPolicy, op
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &AlertPolicy{}
 	if dcl.IsZeroValue(rawDesired.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
-		rawDesired.DisplayName = rawInitial.DisplayName
+		canonicalDesired.DisplayName = rawInitial.DisplayName
+	} else {
+		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
-	rawDesired.Documentation = canonicalizeAlertPolicyDocumentation(rawDesired.Documentation, rawInitial.Documentation, opts...)
+	canonicalDesired.Documentation = canonicalizeAlertPolicyDocumentation(rawDesired.Documentation, rawInitial.Documentation, opts...)
 	if dcl.IsZeroValue(rawDesired.UserLabels) {
-		rawDesired.UserLabels = rawInitial.UserLabels
+		canonicalDesired.UserLabels = rawInitial.UserLabels
+	} else {
+		canonicalDesired.UserLabels = rawDesired.UserLabels
 	}
 	if dcl.IsZeroValue(rawDesired.Conditions) {
-		rawDesired.Conditions = rawInitial.Conditions
+		canonicalDesired.Conditions = rawInitial.Conditions
+	} else {
+		canonicalDesired.Conditions = rawDesired.Conditions
 	}
 	if dcl.IsZeroValue(rawDesired.Combiner) {
-		rawDesired.Combiner = rawInitial.Combiner
+		canonicalDesired.Combiner = rawInitial.Combiner
+	} else {
+		canonicalDesired.Combiner = rawDesired.Combiner
 	}
 	if dcl.BoolCanonicalize(rawDesired.Disabled, rawInitial.Disabled) {
-		rawDesired.Disabled = rawInitial.Disabled
+		canonicalDesired.Disabled = rawInitial.Disabled
+	} else {
+		canonicalDesired.Disabled = rawDesired.Disabled
 	}
-	rawDesired.Enabled = canonicalizeAlertPolicyEnabled(rawDesired.Enabled, rawInitial.Enabled, opts...)
-	rawDesired.Validity = canonicalizeAlertPolicyValidity(rawDesired.Validity, rawInitial.Validity, opts...)
+	canonicalDesired.Enabled = canonicalizeAlertPolicyEnabled(rawDesired.Enabled, rawInitial.Enabled, opts...)
+	canonicalDesired.Validity = canonicalizeAlertPolicyValidity(rawDesired.Validity, rawInitial.Validity, opts...)
 	if dcl.IsZeroValue(rawDesired.NotificationChannels) {
-		rawDesired.NotificationChannels = rawInitial.NotificationChannels
+		canonicalDesired.NotificationChannels = rawInitial.NotificationChannels
+	} else {
+		canonicalDesired.NotificationChannels = rawDesired.NotificationChannels
 	}
-	rawDesired.CreationRecord = canonicalizeAlertPolicyCreationRecord(rawDesired.CreationRecord, rawInitial.CreationRecord, opts...)
-	rawDesired.MutationRecord = canonicalizeAlertPolicyMutationRecord(rawDesired.MutationRecord, rawInitial.MutationRecord, opts...)
-	rawDesired.IncidentStrategy = canonicalizeAlertPolicyIncidentStrategy(rawDesired.IncidentStrategy, rawInitial.IncidentStrategy, opts...)
-	rawDesired.Metadata = canonicalizeAlertPolicyMetadata(rawDesired.Metadata, rawInitial.Metadata, opts...)
+	canonicalDesired.CreationRecord = canonicalizeAlertPolicyCreationRecord(rawDesired.CreationRecord, rawInitial.CreationRecord, opts...)
+	canonicalDesired.MutationRecord = canonicalizeAlertPolicyMutationRecord(rawDesired.MutationRecord, rawInitial.MutationRecord, opts...)
+	canonicalDesired.IncidentStrategy = canonicalizeAlertPolicyIncidentStrategy(rawDesired.IncidentStrategy, rawInitial.IncidentStrategy, opts...)
+	canonicalDesired.Metadata = canonicalizeAlertPolicyMetadata(rawDesired.Metadata, rawInitial.Metadata, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeAlertPolicyNewState(c *Client, rawNew, rawDesired *AlertPolicy) (*AlertPolicy, error) {
@@ -1023,14 +1039,20 @@ func canonicalizeAlertPolicyDocumentation(des, initial *AlertPolicyDocumentation
 		return des
 	}
 
+	cDes := &AlertPolicyDocumentation{}
+
 	if dcl.StringCanonicalize(des.Content, initial.Content) || dcl.IsZeroValue(des.Content) {
-		des.Content = initial.Content
+		cDes.Content = initial.Content
+	} else {
+		cDes.Content = des.Content
 	}
 	if dcl.StringCanonicalize(des.MimeType, initial.MimeType) || dcl.IsZeroValue(des.MimeType) {
-		des.MimeType = initial.MimeType
+		cDes.MimeType = initial.MimeType
+	} else {
+		cDes.MimeType = des.MimeType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyDocumentation(c *Client, des, nw *AlertPolicyDocumentation) *AlertPolicyDocumentation {
@@ -1103,26 +1125,34 @@ func canonicalizeAlertPolicyConditions(des, initial *AlertPolicyConditions, opts
 		return des
 	}
 
+	cDes := &AlertPolicyConditions{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.DisplayName, initial.DisplayName) || dcl.IsZeroValue(des.DisplayName) {
-		des.DisplayName = initial.DisplayName
+		cDes.DisplayName = initial.DisplayName
+	} else {
+		cDes.DisplayName = des.DisplayName
 	}
 	if dcl.IsZeroValue(des.ResourceStateFilter) {
 		des.ResourceStateFilter = initial.ResourceStateFilter
+	} else {
+		cDes.ResourceStateFilter = des.ResourceStateFilter
 	}
-	des.ConditionThreshold = canonicalizeAlertPolicyConditionsConditionThreshold(des.ConditionThreshold, initial.ConditionThreshold, opts...)
-	des.ConditionAbsent = canonicalizeAlertPolicyConditionsConditionAbsent(des.ConditionAbsent, initial.ConditionAbsent, opts...)
-	des.ConditionMatchedLog = canonicalizeAlertPolicyConditionsConditionMatchedLog(des.ConditionMatchedLog, initial.ConditionMatchedLog, opts...)
-	des.ConditionClusterOutlier = canonicalizeAlertPolicyConditionsConditionClusterOutlier(des.ConditionClusterOutlier, initial.ConditionClusterOutlier, opts...)
-	des.ConditionRate = canonicalizeAlertPolicyConditionsConditionRate(des.ConditionRate, initial.ConditionRate, opts...)
-	des.ConditionUpMon = canonicalizeAlertPolicyConditionsConditionUpMon(des.ConditionUpMon, initial.ConditionUpMon, opts...)
-	des.ConditionProcessCount = canonicalizeAlertPolicyConditionsConditionProcessCount(des.ConditionProcessCount, initial.ConditionProcessCount, opts...)
-	des.ConditionTimeSeriesQueryLanguage = canonicalizeAlertPolicyConditionsConditionTimeSeriesQueryLanguage(des.ConditionTimeSeriesQueryLanguage, initial.ConditionTimeSeriesQueryLanguage, opts...)
-	des.ConditionMonitoringQueryLanguage = canonicalizeAlertPolicyConditionsConditionMonitoringQueryLanguage(des.ConditionMonitoringQueryLanguage, initial.ConditionMonitoringQueryLanguage, opts...)
+	cDes.ConditionThreshold = canonicalizeAlertPolicyConditionsConditionThreshold(des.ConditionThreshold, initial.ConditionThreshold, opts...)
+	cDes.ConditionAbsent = canonicalizeAlertPolicyConditionsConditionAbsent(des.ConditionAbsent, initial.ConditionAbsent, opts...)
+	cDes.ConditionMatchedLog = canonicalizeAlertPolicyConditionsConditionMatchedLog(des.ConditionMatchedLog, initial.ConditionMatchedLog, opts...)
+	cDes.ConditionClusterOutlier = canonicalizeAlertPolicyConditionsConditionClusterOutlier(des.ConditionClusterOutlier, initial.ConditionClusterOutlier, opts...)
+	cDes.ConditionRate = canonicalizeAlertPolicyConditionsConditionRate(des.ConditionRate, initial.ConditionRate, opts...)
+	cDes.ConditionUpMon = canonicalizeAlertPolicyConditionsConditionUpMon(des.ConditionUpMon, initial.ConditionUpMon, opts...)
+	cDes.ConditionProcessCount = canonicalizeAlertPolicyConditionsConditionProcessCount(des.ConditionProcessCount, initial.ConditionProcessCount, opts...)
+	cDes.ConditionTimeSeriesQueryLanguage = canonicalizeAlertPolicyConditionsConditionTimeSeriesQueryLanguage(des.ConditionTimeSeriesQueryLanguage, initial.ConditionTimeSeriesQueryLanguage, opts...)
+	cDes.ConditionMonitoringQueryLanguage = canonicalizeAlertPolicyConditionsConditionMonitoringQueryLanguage(des.ConditionMonitoringQueryLanguage, initial.ConditionMonitoringQueryLanguage, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditions(c *Client, des, nw *AlertPolicyConditions) *AlertPolicyConditions {
@@ -1207,30 +1237,46 @@ func canonicalizeAlertPolicyConditionsConditionThreshold(des, initial *AlertPoli
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionThreshold{}
+
 	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
-		des.Filter = initial.Filter
+		cDes.Filter = initial.Filter
+	} else {
+		cDes.Filter = des.Filter
 	}
 	if dcl.IsZeroValue(des.Aggregations) {
 		des.Aggregations = initial.Aggregations
+	} else {
+		cDes.Aggregations = des.Aggregations
 	}
 	if dcl.StringCanonicalize(des.DenominatorFilter, initial.DenominatorFilter) || dcl.IsZeroValue(des.DenominatorFilter) {
-		des.DenominatorFilter = initial.DenominatorFilter
+		cDes.DenominatorFilter = initial.DenominatorFilter
+	} else {
+		cDes.DenominatorFilter = des.DenominatorFilter
 	}
 	if dcl.IsZeroValue(des.DenominatorAggregations) {
 		des.DenominatorAggregations = initial.DenominatorAggregations
+	} else {
+		cDes.DenominatorAggregations = des.DenominatorAggregations
 	}
 	if dcl.IsZeroValue(des.Comparison) {
 		des.Comparison = initial.Comparison
+	} else {
+		cDes.Comparison = des.Comparison
 	}
 	if dcl.IsZeroValue(des.ThresholdValue) {
 		des.ThresholdValue = initial.ThresholdValue
+	} else {
+		cDes.ThresholdValue = des.ThresholdValue
 	}
 	if dcl.StringCanonicalize(des.Duration, initial.Duration) || dcl.IsZeroValue(des.Duration) {
-		des.Duration = initial.Duration
+		cDes.Duration = initial.Duration
+	} else {
+		cDes.Duration = des.Duration
 	}
-	des.Trigger = canonicalizeAlertPolicyConditionsConditionThresholdTrigger(des.Trigger, initial.Trigger, opts...)
+	cDes.Trigger = canonicalizeAlertPolicyConditionsConditionThresholdTrigger(des.Trigger, initial.Trigger, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionThreshold(c *Client, des, nw *AlertPolicyConditionsConditionThreshold) *AlertPolicyConditionsConditionThreshold {
@@ -1315,22 +1361,32 @@ func canonicalizeAlertPolicyConditionsConditionThresholdAggregations(des, initia
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionThresholdAggregations{}
+
 	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
-		des.AlignmentPeriod = initial.AlignmentPeriod
+		cDes.AlignmentPeriod = initial.AlignmentPeriod
+	} else {
+		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
+	} else {
+		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
 		des.CrossSeriesReducer = initial.CrossSeriesReducer
+	} else {
+		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
 	if dcl.IsZeroValue(des.GroupByFields) {
 		des.GroupByFields = initial.GroupByFields
+	} else {
+		cDes.GroupByFields = des.GroupByFields
 	}
-	des.ReduceFractionLessThanParams = canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams(des.ReduceFractionLessThanParams, initial.ReduceFractionLessThanParams, opts...)
-	des.ReduceMakeDistributionParams = canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams(des.ReduceMakeDistributionParams, initial.ReduceMakeDistributionParams, opts...)
+	cDes.ReduceFractionLessThanParams = canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams(des.ReduceFractionLessThanParams, initial.ReduceFractionLessThanParams, opts...)
+	cDes.ReduceMakeDistributionParams = canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams(des.ReduceMakeDistributionParams, initial.ReduceMakeDistributionParams, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregations(c *Client, des, nw *AlertPolicyConditionsConditionThresholdAggregations) *AlertPolicyConditionsConditionThresholdAggregations {
@@ -1411,11 +1467,15 @@ func canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceFracti
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams{}
+
 	if dcl.IsZeroValue(des.Threshold) {
 		des.Threshold = initial.Threshold
+	} else {
+		cDes.Threshold = des.Threshold
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams(c *Client, des, nw *AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams) *AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams {
@@ -1485,10 +1545,12 @@ func canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDi
 		return des
 	}
 
-	des.BucketOptions = canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions(des.BucketOptions, initial.BucketOptions, opts...)
-	des.ExemplarSampling = canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling(des.ExemplarSampling, initial.ExemplarSampling, opts...)
+	cDes := &AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams{}
 
-	return des
+	cDes.BucketOptions = canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions(des.BucketOptions, initial.BucketOptions, opts...)
+	cDes.ExemplarSampling = canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling(des.ExemplarSampling, initial.ExemplarSampling, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams(c *Client, des, nw *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams) *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams {
@@ -1557,11 +1619,13 @@ func canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDi
 		return des
 	}
 
-	des.LinearBuckets = canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(des.LinearBuckets, initial.LinearBuckets, opts...)
-	des.ExponentialBuckets = canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des.ExponentialBuckets, initial.ExponentialBuckets, opts...)
-	des.ExplicitBuckets = canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des.ExplicitBuckets, initial.ExplicitBuckets, opts...)
+	cDes := &AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions{}
 
-	return des
+	cDes.LinearBuckets = canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(des.LinearBuckets, initial.LinearBuckets, opts...)
+	cDes.ExponentialBuckets = canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des.ExponentialBuckets, initial.ExponentialBuckets, opts...)
+	cDes.ExplicitBuckets = canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des.ExplicitBuckets, initial.ExplicitBuckets, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions(c *Client, des, nw *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions) *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions {
@@ -1631,17 +1695,25 @@ func canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDi
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets{}
+
 	if dcl.IsZeroValue(des.NumFiniteBuckets) {
 		des.NumFiniteBuckets = initial.NumFiniteBuckets
+	} else {
+		cDes.NumFiniteBuckets = des.NumFiniteBuckets
 	}
 	if dcl.IsZeroValue(des.Width) {
 		des.Width = initial.Width
+	} else {
+		cDes.Width = des.Width
 	}
 	if dcl.IsZeroValue(des.Offset) {
 		des.Offset = initial.Offset
+	} else {
+		cDes.Offset = des.Offset
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, des, nw *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets {
@@ -1717,17 +1789,25 @@ func canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDi
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets{}
+
 	if dcl.IsZeroValue(des.NumFiniteBuckets) {
 		des.NumFiniteBuckets = initial.NumFiniteBuckets
+	} else {
+		cDes.NumFiniteBuckets = des.NumFiniteBuckets
 	}
 	if dcl.IsZeroValue(des.GrowthFactor) {
 		des.GrowthFactor = initial.GrowthFactor
+	} else {
+		cDes.GrowthFactor = des.GrowthFactor
 	}
 	if dcl.IsZeroValue(des.Scale) {
 		des.Scale = initial.Scale
+	} else {
+		cDes.Scale = des.Scale
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, des, nw *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
@@ -1803,11 +1883,15 @@ func canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDi
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets{}
+
 	if dcl.IsZeroValue(des.Bounds) {
 		des.Bounds = initial.Bounds
+	} else {
+		cDes.Bounds = des.Bounds
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, des, nw *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
@@ -1877,11 +1961,15 @@ func canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDi
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling{}
+
 	if dcl.IsZeroValue(des.MinimumValue) {
 		des.MinimumValue = initial.MinimumValue
+	} else {
+		cDes.MinimumValue = des.MinimumValue
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling(c *Client, des, nw *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling) *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling {
@@ -1951,22 +2039,32 @@ func canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregations(
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionThresholdDenominatorAggregations{}
+
 	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
-		des.AlignmentPeriod = initial.AlignmentPeriod
+		cDes.AlignmentPeriod = initial.AlignmentPeriod
+	} else {
+		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
+	} else {
+		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
 		des.CrossSeriesReducer = initial.CrossSeriesReducer
+	} else {
+		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
 	if dcl.IsZeroValue(des.GroupByFields) {
 		des.GroupByFields = initial.GroupByFields
+	} else {
+		cDes.GroupByFields = des.GroupByFields
 	}
-	des.ReduceFractionLessThanParams = canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams(des.ReduceFractionLessThanParams, initial.ReduceFractionLessThanParams, opts...)
-	des.ReduceMakeDistributionParams = canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams(des.ReduceMakeDistributionParams, initial.ReduceMakeDistributionParams, opts...)
+	cDes.ReduceFractionLessThanParams = canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams(des.ReduceFractionLessThanParams, initial.ReduceFractionLessThanParams, opts...)
+	cDes.ReduceMakeDistributionParams = canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams(des.ReduceMakeDistributionParams, initial.ReduceMakeDistributionParams, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregations(c *Client, des, nw *AlertPolicyConditionsConditionThresholdDenominatorAggregations) *AlertPolicyConditionsConditionThresholdDenominatorAggregations {
@@ -2047,11 +2145,15 @@ func canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsR
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams{}
+
 	if dcl.IsZeroValue(des.Threshold) {
 		des.Threshold = initial.Threshold
+	} else {
+		cDes.Threshold = des.Threshold
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams(c *Client, des, nw *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams) *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams {
@@ -2121,10 +2223,12 @@ func canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsR
 		return des
 	}
 
-	des.BucketOptions = canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions(des.BucketOptions, initial.BucketOptions, opts...)
-	des.ExemplarSampling = canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling(des.ExemplarSampling, initial.ExemplarSampling, opts...)
+	cDes := &AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams{}
 
-	return des
+	cDes.BucketOptions = canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions(des.BucketOptions, initial.BucketOptions, opts...)
+	cDes.ExemplarSampling = canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling(des.ExemplarSampling, initial.ExemplarSampling, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams(c *Client, des, nw *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams) *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams {
@@ -2193,11 +2297,13 @@ func canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsR
 		return des
 	}
 
-	des.LinearBuckets = canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(des.LinearBuckets, initial.LinearBuckets, opts...)
-	des.ExponentialBuckets = canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des.ExponentialBuckets, initial.ExponentialBuckets, opts...)
-	des.ExplicitBuckets = canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des.ExplicitBuckets, initial.ExplicitBuckets, opts...)
+	cDes := &AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions{}
 
-	return des
+	cDes.LinearBuckets = canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(des.LinearBuckets, initial.LinearBuckets, opts...)
+	cDes.ExponentialBuckets = canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des.ExponentialBuckets, initial.ExponentialBuckets, opts...)
+	cDes.ExplicitBuckets = canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des.ExplicitBuckets, initial.ExplicitBuckets, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions(c *Client, des, nw *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions) *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions {
@@ -2267,17 +2373,25 @@ func canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsR
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets{}
+
 	if dcl.IsZeroValue(des.NumFiniteBuckets) {
 		des.NumFiniteBuckets = initial.NumFiniteBuckets
+	} else {
+		cDes.NumFiniteBuckets = des.NumFiniteBuckets
 	}
 	if dcl.IsZeroValue(des.Width) {
 		des.Width = initial.Width
+	} else {
+		cDes.Width = des.Width
 	}
 	if dcl.IsZeroValue(des.Offset) {
 		des.Offset = initial.Offset
+	} else {
+		cDes.Offset = des.Offset
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, des, nw *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets {
@@ -2353,17 +2467,25 @@ func canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsR
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets{}
+
 	if dcl.IsZeroValue(des.NumFiniteBuckets) {
 		des.NumFiniteBuckets = initial.NumFiniteBuckets
+	} else {
+		cDes.NumFiniteBuckets = des.NumFiniteBuckets
 	}
 	if dcl.IsZeroValue(des.GrowthFactor) {
 		des.GrowthFactor = initial.GrowthFactor
+	} else {
+		cDes.GrowthFactor = des.GrowthFactor
 	}
 	if dcl.IsZeroValue(des.Scale) {
 		des.Scale = initial.Scale
+	} else {
+		cDes.Scale = des.Scale
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, des, nw *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
@@ -2439,11 +2561,15 @@ func canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsR
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets{}
+
 	if dcl.IsZeroValue(des.Bounds) {
 		des.Bounds = initial.Bounds
+	} else {
+		cDes.Bounds = des.Bounds
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, des, nw *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
@@ -2513,11 +2639,15 @@ func canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsR
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling{}
+
 	if dcl.IsZeroValue(des.MinimumValue) {
 		des.MinimumValue = initial.MinimumValue
+	} else {
+		cDes.MinimumValue = des.MinimumValue
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling(c *Client, des, nw *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling) *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling {
@@ -2587,14 +2717,20 @@ func canonicalizeAlertPolicyConditionsConditionThresholdTrigger(des, initial *Al
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionThresholdTrigger{}
+
 	if dcl.IsZeroValue(des.Count) {
 		des.Count = initial.Count
+	} else {
+		cDes.Count = des.Count
 	}
 	if dcl.IsZeroValue(des.Percent) {
 		des.Percent = initial.Percent
+	} else {
+		cDes.Percent = des.Percent
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionThresholdTrigger(c *Client, des, nw *AlertPolicyConditionsConditionThresholdTrigger) *AlertPolicyConditionsConditionThresholdTrigger {
@@ -2667,16 +2803,22 @@ func canonicalizeAlertPolicyConditionsConditionAbsent(des, initial *AlertPolicyC
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionAbsent{}
+
 	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
-		des.Filter = initial.Filter
+		cDes.Filter = initial.Filter
+	} else {
+		cDes.Filter = des.Filter
 	}
 	if dcl.IsZeroValue(des.Aggregations) {
 		des.Aggregations = initial.Aggregations
+	} else {
+		cDes.Aggregations = des.Aggregations
 	}
-	des.Duration = canonicalizeAlertPolicyConditionsConditionAbsentDuration(des.Duration, initial.Duration, opts...)
-	des.Trigger = canonicalizeAlertPolicyConditionsConditionAbsentTrigger(des.Trigger, initial.Trigger, opts...)
+	cDes.Duration = canonicalizeAlertPolicyConditionsConditionAbsentDuration(des.Duration, initial.Duration, opts...)
+	cDes.Trigger = canonicalizeAlertPolicyConditionsConditionAbsentTrigger(des.Trigger, initial.Trigger, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionAbsent(c *Client, des, nw *AlertPolicyConditionsConditionAbsent) *AlertPolicyConditionsConditionAbsent {
@@ -2749,22 +2891,32 @@ func canonicalizeAlertPolicyConditionsConditionAbsentAggregations(des, initial *
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionAbsentAggregations{}
+
 	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
-		des.AlignmentPeriod = initial.AlignmentPeriod
+		cDes.AlignmentPeriod = initial.AlignmentPeriod
+	} else {
+		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
+	} else {
+		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
 		des.CrossSeriesReducer = initial.CrossSeriesReducer
+	} else {
+		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
 	if dcl.IsZeroValue(des.GroupByFields) {
 		des.GroupByFields = initial.GroupByFields
+	} else {
+		cDes.GroupByFields = des.GroupByFields
 	}
-	des.ReduceFractionLessThanParams = canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams(des.ReduceFractionLessThanParams, initial.ReduceFractionLessThanParams, opts...)
-	des.ReduceMakeDistributionParams = canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams(des.ReduceMakeDistributionParams, initial.ReduceMakeDistributionParams, opts...)
+	cDes.ReduceFractionLessThanParams = canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams(des.ReduceFractionLessThanParams, initial.ReduceFractionLessThanParams, opts...)
+	cDes.ReduceMakeDistributionParams = canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams(des.ReduceMakeDistributionParams, initial.ReduceMakeDistributionParams, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregations(c *Client, des, nw *AlertPolicyConditionsConditionAbsentAggregations) *AlertPolicyConditionsConditionAbsentAggregations {
@@ -2845,11 +2997,15 @@ func canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceFractionL
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams{}
+
 	if dcl.IsZeroValue(des.Threshold) {
 		des.Threshold = initial.Threshold
+	} else {
+		cDes.Threshold = des.Threshold
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams(c *Client, des, nw *AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams) *AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams {
@@ -2919,10 +3075,12 @@ func canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistr
 		return des
 	}
 
-	des.BucketOptions = canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions(des.BucketOptions, initial.BucketOptions, opts...)
-	des.ExemplarSampling = canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling(des.ExemplarSampling, initial.ExemplarSampling, opts...)
+	cDes := &AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams{}
 
-	return des
+	cDes.BucketOptions = canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions(des.BucketOptions, initial.BucketOptions, opts...)
+	cDes.ExemplarSampling = canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling(des.ExemplarSampling, initial.ExemplarSampling, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams(c *Client, des, nw *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams) *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams {
@@ -2991,11 +3149,13 @@ func canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistr
 		return des
 	}
 
-	des.LinearBuckets = canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(des.LinearBuckets, initial.LinearBuckets, opts...)
-	des.ExponentialBuckets = canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des.ExponentialBuckets, initial.ExponentialBuckets, opts...)
-	des.ExplicitBuckets = canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des.ExplicitBuckets, initial.ExplicitBuckets, opts...)
+	cDes := &AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions{}
 
-	return des
+	cDes.LinearBuckets = canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(des.LinearBuckets, initial.LinearBuckets, opts...)
+	cDes.ExponentialBuckets = canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des.ExponentialBuckets, initial.ExponentialBuckets, opts...)
+	cDes.ExplicitBuckets = canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des.ExplicitBuckets, initial.ExplicitBuckets, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions(c *Client, des, nw *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions) *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions {
@@ -3065,17 +3225,25 @@ func canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistr
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets{}
+
 	if dcl.IsZeroValue(des.NumFiniteBuckets) {
 		des.NumFiniteBuckets = initial.NumFiniteBuckets
+	} else {
+		cDes.NumFiniteBuckets = des.NumFiniteBuckets
 	}
 	if dcl.IsZeroValue(des.Width) {
 		des.Width = initial.Width
+	} else {
+		cDes.Width = des.Width
 	}
 	if dcl.IsZeroValue(des.Offset) {
 		des.Offset = initial.Offset
+	} else {
+		cDes.Offset = des.Offset
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, des, nw *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets {
@@ -3151,17 +3319,25 @@ func canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistr
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets{}
+
 	if dcl.IsZeroValue(des.NumFiniteBuckets) {
 		des.NumFiniteBuckets = initial.NumFiniteBuckets
+	} else {
+		cDes.NumFiniteBuckets = des.NumFiniteBuckets
 	}
 	if dcl.IsZeroValue(des.GrowthFactor) {
 		des.GrowthFactor = initial.GrowthFactor
+	} else {
+		cDes.GrowthFactor = des.GrowthFactor
 	}
 	if dcl.IsZeroValue(des.Scale) {
 		des.Scale = initial.Scale
+	} else {
+		cDes.Scale = des.Scale
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, des, nw *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
@@ -3237,11 +3413,15 @@ func canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistr
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets{}
+
 	if dcl.IsZeroValue(des.Bounds) {
 		des.Bounds = initial.Bounds
+	} else {
+		cDes.Bounds = des.Bounds
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, des, nw *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
@@ -3311,11 +3491,15 @@ func canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistr
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling{}
+
 	if dcl.IsZeroValue(des.MinimumValue) {
 		des.MinimumValue = initial.MinimumValue
+	} else {
+		cDes.MinimumValue = des.MinimumValue
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling(c *Client, des, nw *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling) *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling {
@@ -3385,14 +3569,20 @@ func canonicalizeAlertPolicyConditionsConditionAbsentDuration(des, initial *Aler
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionAbsentDuration{}
+
 	if dcl.IsZeroValue(des.Seconds) {
 		des.Seconds = initial.Seconds
+	} else {
+		cDes.Seconds = des.Seconds
 	}
 	if dcl.IsZeroValue(des.Nanos) {
 		des.Nanos = initial.Nanos
+	} else {
+		cDes.Nanos = des.Nanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionAbsentDuration(c *Client, des, nw *AlertPolicyConditionsConditionAbsentDuration) *AlertPolicyConditionsConditionAbsentDuration {
@@ -3465,14 +3655,20 @@ func canonicalizeAlertPolicyConditionsConditionAbsentTrigger(des, initial *Alert
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionAbsentTrigger{}
+
 	if dcl.IsZeroValue(des.Count) {
 		des.Count = initial.Count
+	} else {
+		cDes.Count = des.Count
 	}
 	if dcl.IsZeroValue(des.Percent) {
 		des.Percent = initial.Percent
+	} else {
+		cDes.Percent = des.Percent
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionAbsentTrigger(c *Client, des, nw *AlertPolicyConditionsConditionAbsentTrigger) *AlertPolicyConditionsConditionAbsentTrigger {
@@ -3545,14 +3741,20 @@ func canonicalizeAlertPolicyConditionsConditionMatchedLog(des, initial *AlertPol
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionMatchedLog{}
+
 	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
-		des.Filter = initial.Filter
+		cDes.Filter = initial.Filter
+	} else {
+		cDes.Filter = des.Filter
 	}
 	if dcl.IsZeroValue(des.LabelExtractors) {
 		des.LabelExtractors = initial.LabelExtractors
+	} else {
+		cDes.LabelExtractors = des.LabelExtractors
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionMatchedLog(c *Client, des, nw *AlertPolicyConditionsConditionMatchedLog) *AlertPolicyConditionsConditionMatchedLog {
@@ -3625,11 +3827,15 @@ func canonicalizeAlertPolicyConditionsConditionClusterOutlier(des, initial *Aler
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionClusterOutlier{}
+
 	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
-		des.Filter = initial.Filter
+		cDes.Filter = initial.Filter
+	} else {
+		cDes.Filter = des.Filter
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionClusterOutlier(c *Client, des, nw *AlertPolicyConditionsConditionClusterOutlier) *AlertPolicyConditionsConditionClusterOutlier {
@@ -3699,22 +3905,32 @@ func canonicalizeAlertPolicyConditionsConditionRate(des, initial *AlertPolicyCon
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionRate{}
+
 	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
-		des.Filter = initial.Filter
+		cDes.Filter = initial.Filter
+	} else {
+		cDes.Filter = des.Filter
 	}
 	if dcl.IsZeroValue(des.Aggregations) {
 		des.Aggregations = initial.Aggregations
+	} else {
+		cDes.Aggregations = des.Aggregations
 	}
 	if dcl.IsZeroValue(des.Comparison) {
 		des.Comparison = initial.Comparison
+	} else {
+		cDes.Comparison = des.Comparison
 	}
 	if dcl.IsZeroValue(des.ThresholdValue) {
 		des.ThresholdValue = initial.ThresholdValue
+	} else {
+		cDes.ThresholdValue = des.ThresholdValue
 	}
-	des.TimeWindow = canonicalizeAlertPolicyConditionsConditionRateTimeWindow(des.TimeWindow, initial.TimeWindow, opts...)
-	des.Trigger = canonicalizeAlertPolicyConditionsConditionRateTrigger(des.Trigger, initial.Trigger, opts...)
+	cDes.TimeWindow = canonicalizeAlertPolicyConditionsConditionRateTimeWindow(des.TimeWindow, initial.TimeWindow, opts...)
+	cDes.Trigger = canonicalizeAlertPolicyConditionsConditionRateTrigger(des.Trigger, initial.Trigger, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionRate(c *Client, des, nw *AlertPolicyConditionsConditionRate) *AlertPolicyConditionsConditionRate {
@@ -3793,22 +4009,32 @@ func canonicalizeAlertPolicyConditionsConditionRateAggregations(des, initial *Al
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionRateAggregations{}
+
 	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
-		des.AlignmentPeriod = initial.AlignmentPeriod
+		cDes.AlignmentPeriod = initial.AlignmentPeriod
+	} else {
+		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
+	} else {
+		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
 		des.CrossSeriesReducer = initial.CrossSeriesReducer
+	} else {
+		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
 	if dcl.IsZeroValue(des.GroupByFields) {
 		des.GroupByFields = initial.GroupByFields
+	} else {
+		cDes.GroupByFields = des.GroupByFields
 	}
-	des.ReduceFractionLessThanParams = canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams(des.ReduceFractionLessThanParams, initial.ReduceFractionLessThanParams, opts...)
-	des.ReduceMakeDistributionParams = canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams(des.ReduceMakeDistributionParams, initial.ReduceMakeDistributionParams, opts...)
+	cDes.ReduceFractionLessThanParams = canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams(des.ReduceFractionLessThanParams, initial.ReduceFractionLessThanParams, opts...)
+	cDes.ReduceMakeDistributionParams = canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams(des.ReduceMakeDistributionParams, initial.ReduceMakeDistributionParams, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionRateAggregations(c *Client, des, nw *AlertPolicyConditionsConditionRateAggregations) *AlertPolicyConditionsConditionRateAggregations {
@@ -3889,11 +4115,15 @@ func canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceFractionLes
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams{}
+
 	if dcl.IsZeroValue(des.Threshold) {
 		des.Threshold = initial.Threshold
+	} else {
+		cDes.Threshold = des.Threshold
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams(c *Client, des, nw *AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams) *AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams {
@@ -3963,10 +4193,12 @@ func canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistrib
 		return des
 	}
 
-	des.BucketOptions = canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions(des.BucketOptions, initial.BucketOptions, opts...)
-	des.ExemplarSampling = canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling(des.ExemplarSampling, initial.ExemplarSampling, opts...)
+	cDes := &AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams{}
 
-	return des
+	cDes.BucketOptions = canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions(des.BucketOptions, initial.BucketOptions, opts...)
+	cDes.ExemplarSampling = canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling(des.ExemplarSampling, initial.ExemplarSampling, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams(c *Client, des, nw *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams) *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams {
@@ -4035,11 +4267,13 @@ func canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistrib
 		return des
 	}
 
-	des.LinearBuckets = canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(des.LinearBuckets, initial.LinearBuckets, opts...)
-	des.ExponentialBuckets = canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des.ExponentialBuckets, initial.ExponentialBuckets, opts...)
-	des.ExplicitBuckets = canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des.ExplicitBuckets, initial.ExplicitBuckets, opts...)
+	cDes := &AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions{}
 
-	return des
+	cDes.LinearBuckets = canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(des.LinearBuckets, initial.LinearBuckets, opts...)
+	cDes.ExponentialBuckets = canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(des.ExponentialBuckets, initial.ExponentialBuckets, opts...)
+	cDes.ExplicitBuckets = canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(des.ExplicitBuckets, initial.ExplicitBuckets, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions(c *Client, des, nw *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions) *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions {
@@ -4109,17 +4343,25 @@ func canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistrib
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets{}
+
 	if dcl.IsZeroValue(des.NumFiniteBuckets) {
 		des.NumFiniteBuckets = initial.NumFiniteBuckets
+	} else {
+		cDes.NumFiniteBuckets = des.NumFiniteBuckets
 	}
 	if dcl.IsZeroValue(des.Width) {
 		des.Width = initial.Width
+	} else {
+		cDes.Width = des.Width
 	}
 	if dcl.IsZeroValue(des.Offset) {
 		des.Offset = initial.Offset
+	} else {
+		cDes.Offset = des.Offset
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, des, nw *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets {
@@ -4195,17 +4437,25 @@ func canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistrib
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets{}
+
 	if dcl.IsZeroValue(des.NumFiniteBuckets) {
 		des.NumFiniteBuckets = initial.NumFiniteBuckets
+	} else {
+		cDes.NumFiniteBuckets = des.NumFiniteBuckets
 	}
 	if dcl.IsZeroValue(des.GrowthFactor) {
 		des.GrowthFactor = initial.GrowthFactor
+	} else {
+		cDes.GrowthFactor = des.GrowthFactor
 	}
 	if dcl.IsZeroValue(des.Scale) {
 		des.Scale = initial.Scale
+	} else {
+		cDes.Scale = des.Scale
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, des, nw *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets {
@@ -4281,11 +4531,15 @@ func canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistrib
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets{}
+
 	if dcl.IsZeroValue(des.Bounds) {
 		des.Bounds = initial.Bounds
+	} else {
+		cDes.Bounds = des.Bounds
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, des, nw *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets {
@@ -4355,11 +4609,15 @@ func canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistrib
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling{}
+
 	if dcl.IsZeroValue(des.MinimumValue) {
 		des.MinimumValue = initial.MinimumValue
+	} else {
+		cDes.MinimumValue = des.MinimumValue
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling(c *Client, des, nw *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling) *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling {
@@ -4429,14 +4687,20 @@ func canonicalizeAlertPolicyConditionsConditionRateTimeWindow(des, initial *Aler
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionRateTimeWindow{}
+
 	if dcl.IsZeroValue(des.Seconds) {
 		des.Seconds = initial.Seconds
+	} else {
+		cDes.Seconds = des.Seconds
 	}
 	if dcl.IsZeroValue(des.Nanos) {
 		des.Nanos = initial.Nanos
+	} else {
+		cDes.Nanos = des.Nanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionRateTimeWindow(c *Client, des, nw *AlertPolicyConditionsConditionRateTimeWindow) *AlertPolicyConditionsConditionRateTimeWindow {
@@ -4509,14 +4773,20 @@ func canonicalizeAlertPolicyConditionsConditionRateTrigger(des, initial *AlertPo
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionRateTrigger{}
+
 	if dcl.IsZeroValue(des.Count) {
 		des.Count = initial.Count
+	} else {
+		cDes.Count = des.Count
 	}
 	if dcl.IsZeroValue(des.Percent) {
 		des.Percent = initial.Percent
+	} else {
+		cDes.Percent = des.Percent
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionRateTrigger(c *Client, des, nw *AlertPolicyConditionsConditionRateTrigger) *AlertPolicyConditionsConditionRateTrigger {
@@ -4589,19 +4859,27 @@ func canonicalizeAlertPolicyConditionsConditionUpMon(des, initial *AlertPolicyCo
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionUpMon{}
+
 	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
-		des.Filter = initial.Filter
+		cDes.Filter = initial.Filter
+	} else {
+		cDes.Filter = des.Filter
 	}
 	if dcl.StringCanonicalize(des.EndpointId, initial.EndpointId) || dcl.IsZeroValue(des.EndpointId) {
-		des.EndpointId = initial.EndpointId
+		cDes.EndpointId = initial.EndpointId
+	} else {
+		cDes.EndpointId = des.EndpointId
 	}
 	if dcl.StringCanonicalize(des.CheckId, initial.CheckId) || dcl.IsZeroValue(des.CheckId) {
-		des.CheckId = initial.CheckId
+		cDes.CheckId = initial.CheckId
+	} else {
+		cDes.CheckId = des.CheckId
 	}
-	des.Duration = canonicalizeAlertPolicyConditionsConditionUpMonDuration(des.Duration, initial.Duration, opts...)
-	des.Trigger = canonicalizeAlertPolicyConditionsConditionUpMonTrigger(des.Trigger, initial.Trigger, opts...)
+	cDes.Duration = canonicalizeAlertPolicyConditionsConditionUpMonDuration(des.Duration, initial.Duration, opts...)
+	cDes.Trigger = canonicalizeAlertPolicyConditionsConditionUpMonTrigger(des.Trigger, initial.Trigger, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionUpMon(c *Client, des, nw *AlertPolicyConditionsConditionUpMon) *AlertPolicyConditionsConditionUpMon {
@@ -4679,14 +4957,20 @@ func canonicalizeAlertPolicyConditionsConditionUpMonDuration(des, initial *Alert
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionUpMonDuration{}
+
 	if dcl.IsZeroValue(des.Seconds) {
 		des.Seconds = initial.Seconds
+	} else {
+		cDes.Seconds = des.Seconds
 	}
 	if dcl.IsZeroValue(des.Nanos) {
 		des.Nanos = initial.Nanos
+	} else {
+		cDes.Nanos = des.Nanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionUpMonDuration(c *Client, des, nw *AlertPolicyConditionsConditionUpMonDuration) *AlertPolicyConditionsConditionUpMonDuration {
@@ -4759,14 +5043,20 @@ func canonicalizeAlertPolicyConditionsConditionUpMonTrigger(des, initial *AlertP
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionUpMonTrigger{}
+
 	if dcl.IsZeroValue(des.Count) {
 		des.Count = initial.Count
+	} else {
+		cDes.Count = des.Count
 	}
 	if dcl.IsZeroValue(des.Percent) {
 		des.Percent = initial.Percent
+	} else {
+		cDes.Percent = des.Percent
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionUpMonTrigger(c *Client, des, nw *AlertPolicyConditionsConditionUpMonTrigger) *AlertPolicyConditionsConditionUpMonTrigger {
@@ -4839,25 +5129,37 @@ func canonicalizeAlertPolicyConditionsConditionProcessCount(des, initial *AlertP
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionProcessCount{}
+
 	if dcl.StringCanonicalize(des.Process, initial.Process) || dcl.IsZeroValue(des.Process) {
-		des.Process = initial.Process
+		cDes.Process = initial.Process
+	} else {
+		cDes.Process = des.Process
 	}
 	if dcl.StringCanonicalize(des.User, initial.User) || dcl.IsZeroValue(des.User) {
-		des.User = initial.User
+		cDes.User = initial.User
+	} else {
+		cDes.User = des.User
 	}
 	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
-		des.Filter = initial.Filter
+		cDes.Filter = initial.Filter
+	} else {
+		cDes.Filter = des.Filter
 	}
 	if dcl.IsZeroValue(des.Comparison) {
 		des.Comparison = initial.Comparison
+	} else {
+		cDes.Comparison = des.Comparison
 	}
 	if dcl.IsZeroValue(des.ProcessCountThreshold) {
 		des.ProcessCountThreshold = initial.ProcessCountThreshold
+	} else {
+		cDes.ProcessCountThreshold = des.ProcessCountThreshold
 	}
-	des.Trigger = canonicalizeAlertPolicyConditionsConditionProcessCountTrigger(des.Trigger, initial.Trigger, opts...)
-	des.Duration = canonicalizeAlertPolicyConditionsConditionProcessCountDuration(des.Duration, initial.Duration, opts...)
+	cDes.Trigger = canonicalizeAlertPolicyConditionsConditionProcessCountTrigger(des.Trigger, initial.Trigger, opts...)
+	cDes.Duration = canonicalizeAlertPolicyConditionsConditionProcessCountDuration(des.Duration, initial.Duration, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionProcessCount(c *Client, des, nw *AlertPolicyConditionsConditionProcessCount) *AlertPolicyConditionsConditionProcessCount {
@@ -4941,14 +5243,20 @@ func canonicalizeAlertPolicyConditionsConditionProcessCountTrigger(des, initial 
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionProcessCountTrigger{}
+
 	if dcl.IsZeroValue(des.Count) {
 		des.Count = initial.Count
+	} else {
+		cDes.Count = des.Count
 	}
 	if dcl.IsZeroValue(des.Percent) {
 		des.Percent = initial.Percent
+	} else {
+		cDes.Percent = des.Percent
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionProcessCountTrigger(c *Client, des, nw *AlertPolicyConditionsConditionProcessCountTrigger) *AlertPolicyConditionsConditionProcessCountTrigger {
@@ -5021,14 +5329,20 @@ func canonicalizeAlertPolicyConditionsConditionProcessCountDuration(des, initial
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionProcessCountDuration{}
+
 	if dcl.IsZeroValue(des.Seconds) {
 		des.Seconds = initial.Seconds
+	} else {
+		cDes.Seconds = des.Seconds
 	}
 	if dcl.IsZeroValue(des.Nanos) {
 		des.Nanos = initial.Nanos
+	} else {
+		cDes.Nanos = des.Nanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionProcessCountDuration(c *Client, des, nw *AlertPolicyConditionsConditionProcessCountDuration) *AlertPolicyConditionsConditionProcessCountDuration {
@@ -5101,14 +5415,20 @@ func canonicalizeAlertPolicyConditionsConditionTimeSeriesQueryLanguage(des, init
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionTimeSeriesQueryLanguage{}
+
 	if dcl.StringCanonicalize(des.Query, initial.Query) || dcl.IsZeroValue(des.Query) {
-		des.Query = initial.Query
+		cDes.Query = initial.Query
+	} else {
+		cDes.Query = des.Query
 	}
 	if dcl.StringCanonicalize(des.Summary, initial.Summary) || dcl.IsZeroValue(des.Summary) {
-		des.Summary = initial.Summary
+		cDes.Summary = initial.Summary
+	} else {
+		cDes.Summary = des.Summary
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionTimeSeriesQueryLanguage(c *Client, des, nw *AlertPolicyConditionsConditionTimeSeriesQueryLanguage) *AlertPolicyConditionsConditionTimeSeriesQueryLanguage {
@@ -5181,13 +5501,17 @@ func canonicalizeAlertPolicyConditionsConditionMonitoringQueryLanguage(des, init
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.Query, initial.Query) || dcl.IsZeroValue(des.Query) {
-		des.Query = initial.Query
-	}
-	des.Duration = canonicalizeAlertPolicyConditionsConditionMonitoringQueryLanguageDuration(des.Duration, initial.Duration, opts...)
-	des.Trigger = canonicalizeAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger(des.Trigger, initial.Trigger, opts...)
+	cDes := &AlertPolicyConditionsConditionMonitoringQueryLanguage{}
 
-	return des
+	if dcl.StringCanonicalize(des.Query, initial.Query) || dcl.IsZeroValue(des.Query) {
+		cDes.Query = initial.Query
+	} else {
+		cDes.Query = des.Query
+	}
+	cDes.Duration = canonicalizeAlertPolicyConditionsConditionMonitoringQueryLanguageDuration(des.Duration, initial.Duration, opts...)
+	cDes.Trigger = canonicalizeAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger(des.Trigger, initial.Trigger, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguage(c *Client, des, nw *AlertPolicyConditionsConditionMonitoringQueryLanguage) *AlertPolicyConditionsConditionMonitoringQueryLanguage {
@@ -5259,14 +5583,20 @@ func canonicalizeAlertPolicyConditionsConditionMonitoringQueryLanguageDuration(d
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionMonitoringQueryLanguageDuration{}
+
 	if dcl.IsZeroValue(des.Seconds) {
 		des.Seconds = initial.Seconds
+	} else {
+		cDes.Seconds = des.Seconds
 	}
 	if dcl.IsZeroValue(des.Nanos) {
 		des.Nanos = initial.Nanos
+	} else {
+		cDes.Nanos = des.Nanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguageDuration(c *Client, des, nw *AlertPolicyConditionsConditionMonitoringQueryLanguageDuration) *AlertPolicyConditionsConditionMonitoringQueryLanguageDuration {
@@ -5339,14 +5669,20 @@ func canonicalizeAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger(de
 		return des
 	}
 
+	cDes := &AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger{}
+
 	if dcl.IsZeroValue(des.Count) {
 		des.Count = initial.Count
+	} else {
+		cDes.Count = des.Count
 	}
 	if dcl.IsZeroValue(des.Percent) {
 		des.Percent = initial.Percent
+	} else {
+		cDes.Percent = des.Percent
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger(c *Client, des, nw *AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger) *AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger {
@@ -5419,11 +5755,15 @@ func canonicalizeAlertPolicyEnabled(des, initial *AlertPolicyEnabled, opts ...dc
 		return des
 	}
 
+	cDes := &AlertPolicyEnabled{}
+
 	if dcl.BoolCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyEnabled(c *Client, des, nw *AlertPolicyEnabled) *AlertPolicyEnabled {
@@ -5493,17 +5833,25 @@ func canonicalizeAlertPolicyValidity(des, initial *AlertPolicyValidity, opts ...
 		return des
 	}
 
+	cDes := &AlertPolicyValidity{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyValidity(c *Client, des, nw *AlertPolicyValidity) *AlertPolicyValidity {
@@ -5577,14 +5925,20 @@ func canonicalizeAlertPolicyValidityDetails(des, initial *AlertPolicyValidityDet
 		return des
 	}
 
+	cDes := &AlertPolicyValidityDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyValidityDetails(c *Client, des, nw *AlertPolicyValidityDetails) *AlertPolicyValidityDetails {
@@ -5657,12 +6011,16 @@ func canonicalizeAlertPolicyCreationRecord(des, initial *AlertPolicyCreationReco
 		return des
 	}
 
-	des.MutateTime = canonicalizeAlertPolicyCreationRecordMutateTime(des.MutateTime, initial.MutateTime, opts...)
+	cDes := &AlertPolicyCreationRecord{}
+
+	cDes.MutateTime = canonicalizeAlertPolicyCreationRecordMutateTime(des.MutateTime, initial.MutateTime, opts...)
 	if dcl.StringCanonicalize(des.MutatedBy, initial.MutatedBy) || dcl.IsZeroValue(des.MutatedBy) {
-		des.MutatedBy = initial.MutatedBy
+		cDes.MutatedBy = initial.MutatedBy
+	} else {
+		cDes.MutatedBy = des.MutatedBy
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyCreationRecord(c *Client, des, nw *AlertPolicyCreationRecord) *AlertPolicyCreationRecord {
@@ -5733,14 +6091,20 @@ func canonicalizeAlertPolicyCreationRecordMutateTime(des, initial *AlertPolicyCr
 		return des
 	}
 
+	cDes := &AlertPolicyCreationRecordMutateTime{}
+
 	if dcl.IsZeroValue(des.Seconds) {
 		des.Seconds = initial.Seconds
+	} else {
+		cDes.Seconds = des.Seconds
 	}
 	if dcl.IsZeroValue(des.Nanos) {
 		des.Nanos = initial.Nanos
+	} else {
+		cDes.Nanos = des.Nanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyCreationRecordMutateTime(c *Client, des, nw *AlertPolicyCreationRecordMutateTime) *AlertPolicyCreationRecordMutateTime {
@@ -5813,12 +6177,16 @@ func canonicalizeAlertPolicyMutationRecord(des, initial *AlertPolicyMutationReco
 		return des
 	}
 
-	des.MutateTime = canonicalizeAlertPolicyMutationRecordMutateTime(des.MutateTime, initial.MutateTime, opts...)
+	cDes := &AlertPolicyMutationRecord{}
+
+	cDes.MutateTime = canonicalizeAlertPolicyMutationRecordMutateTime(des.MutateTime, initial.MutateTime, opts...)
 	if dcl.StringCanonicalize(des.MutatedBy, initial.MutatedBy) || dcl.IsZeroValue(des.MutatedBy) {
-		des.MutatedBy = initial.MutatedBy
+		cDes.MutatedBy = initial.MutatedBy
+	} else {
+		cDes.MutatedBy = des.MutatedBy
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyMutationRecord(c *Client, des, nw *AlertPolicyMutationRecord) *AlertPolicyMutationRecord {
@@ -5889,14 +6257,20 @@ func canonicalizeAlertPolicyMutationRecordMutateTime(des, initial *AlertPolicyMu
 		return des
 	}
 
+	cDes := &AlertPolicyMutationRecordMutateTime{}
+
 	if dcl.IsZeroValue(des.Seconds) {
 		des.Seconds = initial.Seconds
+	} else {
+		cDes.Seconds = des.Seconds
 	}
 	if dcl.IsZeroValue(des.Nanos) {
 		des.Nanos = initial.Nanos
+	} else {
+		cDes.Nanos = des.Nanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyMutationRecordMutateTime(c *Client, des, nw *AlertPolicyMutationRecordMutateTime) *AlertPolicyMutationRecordMutateTime {
@@ -5969,11 +6343,15 @@ func canonicalizeAlertPolicyIncidentStrategy(des, initial *AlertPolicyIncidentSt
 		return des
 	}
 
+	cDes := &AlertPolicyIncidentStrategy{}
+
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyIncidentStrategy(c *Client, des, nw *AlertPolicyIncidentStrategy) *AlertPolicyIncidentStrategy {
@@ -6043,11 +6421,15 @@ func canonicalizeAlertPolicyMetadata(des, initial *AlertPolicyMetadata, opts ...
 		return des
 	}
 
+	cDes := &AlertPolicyMetadata{}
+
 	if dcl.IsZeroValue(des.SloNames) {
 		des.SloNames = initial.SloNames
+	} else {
+		cDes.SloNames = des.SloNames
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAlertPolicyMetadata(c *Client, des, nw *AlertPolicyMetadata) *AlertPolicyMetadata {
@@ -17152,31 +17534,45 @@ type alertPolicyDiff struct {
 	UpdateOp         alertPolicyApiOperation
 }
 
-func convertFieldDiffToAlertPolicyOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]alertPolicyDiff, error) {
+func convertFieldDiffsToAlertPolicyDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]alertPolicyDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []alertPolicyDiff
-	for _, op := range ops {
+	// For each operation name, create a alertPolicyDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := alertPolicyDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToalertPolicyApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToAlertPolicyApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToalertPolicyApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (alertPolicyApiOperation, error) {
-	switch op {
+func convertOpNameToAlertPolicyApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (alertPolicyApiOperation, error) {
+	switch opName {
 
 	case "updateAlertPolicyUpdateAlertPolicyOperation":
-		return &updateAlertPolicyUpdateAlertPolicyOperation{Diffs: diffs}, nil
+		return &updateAlertPolicyUpdateAlertPolicyOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

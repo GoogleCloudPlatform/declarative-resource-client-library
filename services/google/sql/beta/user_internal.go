@@ -115,7 +115,7 @@ type updateUserUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -429,31 +429,45 @@ func canonicalizeUserDesiredState(rawDesired, rawInitial *User, opts ...dcl.Appl
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &User{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Password, rawInitial.Password) {
-		rawDesired.Password = rawInitial.Password
+		canonicalDesired.Password = rawInitial.Password
+	} else {
+		canonicalDesired.Password = rawDesired.Password
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Instance, rawInitial.Instance) {
-		rawDesired.Instance = rawInitial.Instance
+		canonicalDesired.Instance = rawInitial.Instance
+	} else {
+		canonicalDesired.Instance = rawDesired.Instance
 	}
-	rawDesired.SqlserverUserDetails = canonicalizeUserSqlserverUserDetails(rawDesired.SqlserverUserDetails, rawInitial.SqlserverUserDetails, opts...)
+	canonicalDesired.SqlserverUserDetails = canonicalizeUserSqlserverUserDetails(rawDesired.SqlserverUserDetails, rawInitial.SqlserverUserDetails, opts...)
 	if dcl.IsZeroValue(rawDesired.Type) {
-		rawDesired.Type = rawInitial.Type
+		canonicalDesired.Type = rawInitial.Type
+	} else {
+		canonicalDesired.Type = rawDesired.Type
 	}
 	if dcl.StringCanonicalize(rawDesired.Etag, rawInitial.Etag) {
-		rawDesired.Etag = rawInitial.Etag
+		canonicalDesired.Etag = rawInitial.Etag
+	} else {
+		canonicalDesired.Etag = rawDesired.Etag
 	}
 	if dcl.StringCanonicalize(rawDesired.Host, rawInitial.Host) {
-		rawDesired.Host = rawInitial.Host
+		canonicalDesired.Host = rawInitial.Host
+	} else {
+		canonicalDesired.Host = rawDesired.Host
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeUserNewState(c *Client, rawNew, rawDesired *User) (*User, error) {
@@ -514,14 +528,20 @@ func canonicalizeUserSqlserverUserDetails(des, initial *UserSqlserverUserDetails
 		return des
 	}
 
+	cDes := &UserSqlserverUserDetails{}
+
 	if dcl.BoolCanonicalize(des.Disabled, initial.Disabled) || dcl.IsZeroValue(des.Disabled) {
-		des.Disabled = initial.Disabled
+		cDes.Disabled = initial.Disabled
+	} else {
+		cDes.Disabled = des.Disabled
 	}
 	if dcl.IsZeroValue(des.ServerRoles) {
 		des.ServerRoles = initial.ServerRoles
+	} else {
+		cDes.ServerRoles = des.ServerRoles
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewUserSqlserverUserDetails(c *Client, des, nw *UserSqlserverUserDetails) *UserSqlserverUserDetails {
@@ -1013,31 +1033,45 @@ type userDiff struct {
 	UpdateOp         userApiOperation
 }
 
-func convertFieldDiffToUserOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]userDiff, error) {
+func convertFieldDiffsToUserDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]userDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []userDiff
-	for _, op := range ops {
+	// For each operation name, create a userDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := userDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTouserApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToUserApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTouserApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (userApiOperation, error) {
-	switch op {
+func convertOpNameToUserApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (userApiOperation, error) {
+	switch opName {
 
 	case "updateUserUpdateOperation":
-		return &updateUserUpdateOperation{Diffs: diffs}, nil
+		return &updateUserUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

@@ -169,7 +169,7 @@ type updateFunctionUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -186,7 +186,7 @@ func (op *updateFunctionUpdateOperation) do(ctx context.Context, r *Function, c 
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -466,28 +466,28 @@ func (c *Client) functionDiffsForRawDesired(ctx context.Context, rawDesired *Fun
 func canonicalizeFunctionInitialState(rawInitial, rawDesired *Function) (*Function, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
-	if dcl.IsZeroValue(rawInitial.SourceArchiveUrl) {
+	if !dcl.IsZeroValue(rawInitial.SourceArchiveUrl) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.SourceRepository) {
 			rawInitial.SourceArchiveUrl = dcl.String("")
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.SourceRepository) {
+	if !dcl.IsZeroValue(rawInitial.SourceRepository) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.SourceArchiveUrl) {
 			rawInitial.SourceRepository = EmptyFunctionSourceRepository
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.EventTrigger) {
+	if !dcl.IsZeroValue(rawInitial.EventTrigger) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.HttpsTrigger) {
 			rawInitial.EventTrigger = EmptyFunctionEventTrigger
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.HttpsTrigger) {
+	if !dcl.IsZeroValue(rawInitial.HttpsTrigger) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.EventTrigger) {
 			rawInitial.HttpsTrigger = EmptyFunctionHttpsTrigger
@@ -548,62 +548,97 @@ func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...
 		}
 	}
 
+	canonicalDesired := &Function{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.StringCanonicalize(rawDesired.SourceArchiveUrl, rawInitial.SourceArchiveUrl) {
-		rawDesired.SourceArchiveUrl = rawInitial.SourceArchiveUrl
+		canonicalDesired.SourceArchiveUrl = rawInitial.SourceArchiveUrl
+	} else {
+		canonicalDesired.SourceArchiveUrl = rawDesired.SourceArchiveUrl
 	}
-	rawDesired.SourceRepository = canonicalizeFunctionSourceRepository(rawDesired.SourceRepository, rawInitial.SourceRepository, opts...)
-	rawDesired.HttpsTrigger = canonicalizeFunctionHttpsTrigger(rawDesired.HttpsTrigger, rawInitial.HttpsTrigger, opts...)
-	rawDesired.EventTrigger = canonicalizeFunctionEventTrigger(rawDesired.EventTrigger, rawInitial.EventTrigger, opts...)
+	canonicalDesired.SourceRepository = canonicalizeFunctionSourceRepository(rawDesired.SourceRepository, rawInitial.SourceRepository, opts...)
+	canonicalDesired.HttpsTrigger = canonicalizeFunctionHttpsTrigger(rawDesired.HttpsTrigger, rawInitial.HttpsTrigger, opts...)
+	canonicalDesired.EventTrigger = canonicalizeFunctionEventTrigger(rawDesired.EventTrigger, rawInitial.EventTrigger, opts...)
 	if dcl.StringCanonicalize(rawDesired.EntryPoint, rawInitial.EntryPoint) {
-		rawDesired.EntryPoint = rawInitial.EntryPoint
+		canonicalDesired.EntryPoint = rawInitial.EntryPoint
+	} else {
+		canonicalDesired.EntryPoint = rawDesired.EntryPoint
 	}
 	if dcl.StringCanonicalize(rawDesired.Runtime, rawInitial.Runtime) {
-		rawDesired.Runtime = rawInitial.Runtime
+		canonicalDesired.Runtime = rawInitial.Runtime
+	} else {
+		canonicalDesired.Runtime = rawDesired.Runtime
 	}
 	if dcl.StringCanonicalize(rawDesired.Timeout, rawInitial.Timeout) {
-		rawDesired.Timeout = rawInitial.Timeout
+		canonicalDesired.Timeout = rawInitial.Timeout
+	} else {
+		canonicalDesired.Timeout = rawDesired.Timeout
 	}
 	if dcl.IsZeroValue(rawDesired.AvailableMemoryMb) {
-		rawDesired.AvailableMemoryMb = rawInitial.AvailableMemoryMb
+		canonicalDesired.AvailableMemoryMb = rawInitial.AvailableMemoryMb
+	} else {
+		canonicalDesired.AvailableMemoryMb = rawDesired.AvailableMemoryMb
 	}
 	if dcl.NameToSelfLink(rawDesired.ServiceAccountEmail, rawInitial.ServiceAccountEmail) {
-		rawDesired.ServiceAccountEmail = rawInitial.ServiceAccountEmail
+		canonicalDesired.ServiceAccountEmail = rawInitial.ServiceAccountEmail
+	} else {
+		canonicalDesired.ServiceAccountEmail = rawDesired.ServiceAccountEmail
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.IsZeroValue(rawDesired.EnvironmentVariables) {
-		rawDesired.EnvironmentVariables = rawInitial.EnvironmentVariables
+		canonicalDesired.EnvironmentVariables = rawInitial.EnvironmentVariables
+	} else {
+		canonicalDesired.EnvironmentVariables = rawDesired.EnvironmentVariables
 	}
 	if dcl.NameToSelfLink(rawDesired.Network, rawInitial.Network) {
-		rawDesired.Network = rawInitial.Network
+		canonicalDesired.Network = rawInitial.Network
+	} else {
+		canonicalDesired.Network = rawDesired.Network
 	}
 	if dcl.IsZeroValue(rawDesired.MaxInstances) {
-		rawDesired.MaxInstances = rawInitial.MaxInstances
+		canonicalDesired.MaxInstances = rawInitial.MaxInstances
+	} else {
+		canonicalDesired.MaxInstances = rawDesired.MaxInstances
 	}
 	if dcl.NameToSelfLink(rawDesired.VPCConnector, rawInitial.VPCConnector) {
-		rawDesired.VPCConnector = rawInitial.VPCConnector
+		canonicalDesired.VPCConnector = rawInitial.VPCConnector
+	} else {
+		canonicalDesired.VPCConnector = rawDesired.VPCConnector
 	}
 	if dcl.IsZeroValue(rawDesired.VPCConnectorEgressSettings) {
-		rawDesired.VPCConnectorEgressSettings = rawInitial.VPCConnectorEgressSettings
+		canonicalDesired.VPCConnectorEgressSettings = rawInitial.VPCConnectorEgressSettings
+	} else {
+		canonicalDesired.VPCConnectorEgressSettings = rawDesired.VPCConnectorEgressSettings
 	}
 	if dcl.IsZeroValue(rawDesired.IngressSettings) {
-		rawDesired.IngressSettings = rawInitial.IngressSettings
+		canonicalDesired.IngressSettings = rawInitial.IngressSettings
+	} else {
+		canonicalDesired.IngressSettings = rawDesired.IngressSettings
 	}
 	if dcl.NameToSelfLink(rawDesired.Region, rawInitial.Region) {
-		rawDesired.Region = rawInitial.Region
+		canonicalDesired.Region = rawInitial.Region
+	} else {
+		canonicalDesired.Region = rawDesired.Region
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeFunctionNewState(c *Client, rawNew, rawDesired *Function) (*Function, error) {
@@ -765,11 +800,15 @@ func canonicalizeFunctionSourceRepository(des, initial *FunctionSourceRepository
 		return des
 	}
 
+	cDes := &FunctionSourceRepository{}
+
 	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
-		des.Url = initial.Url
+		cDes.Url = initial.Url
+	} else {
+		cDes.Url = des.Url
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewFunctionSourceRepository(c *Client, des, nw *FunctionSourceRepository) *FunctionSourceRepository {
@@ -842,11 +881,15 @@ func canonicalizeFunctionHttpsTrigger(des, initial *FunctionHttpsTrigger, opts .
 		return des
 	}
 
+	cDes := &FunctionHttpsTrigger{}
+
 	if dcl.IsZeroValue(des.SecurityLevel) {
 		des.SecurityLevel = initial.SecurityLevel
+	} else {
+		cDes.SecurityLevel = des.SecurityLevel
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewFunctionHttpsTrigger(c *Client, des, nw *FunctionHttpsTrigger) *FunctionHttpsTrigger {
@@ -919,20 +962,30 @@ func canonicalizeFunctionEventTrigger(des, initial *FunctionEventTrigger, opts .
 		return des
 	}
 
+	cDes := &FunctionEventTrigger{}
+
 	if dcl.StringCanonicalize(des.EventType, initial.EventType) || dcl.IsZeroValue(des.EventType) {
-		des.EventType = initial.EventType
+		cDes.EventType = initial.EventType
+	} else {
+		cDes.EventType = des.EventType
 	}
 	if dcl.NameToSelfLink(des.Resource, initial.Resource) || dcl.IsZeroValue(des.Resource) {
-		des.Resource = initial.Resource
+		cDes.Resource = initial.Resource
+	} else {
+		cDes.Resource = des.Resource
 	}
 	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
-		des.Service = initial.Service
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
 	}
 	if dcl.BoolCanonicalize(des.FailurePolicy, initial.FailurePolicy) || dcl.IsZeroValue(des.FailurePolicy) {
-		des.FailurePolicy = initial.FailurePolicy
+		cDes.FailurePolicy = initial.FailurePolicy
+	} else {
+		cDes.FailurePolicy = des.FailurePolicy
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewFunctionEventTrigger(c *Client, des, nw *FunctionEventTrigger) *FunctionEventTrigger {
@@ -2017,31 +2070,45 @@ type functionDiff struct {
 	UpdateOp         functionApiOperation
 }
 
-func convertFieldDiffToFunctionOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]functionDiff, error) {
+func convertFieldDiffsToFunctionDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]functionDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []functionDiff
-	for _, op := range ops {
+	// For each operation name, create a functionDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := functionDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTofunctionApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToFunctionApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTofunctionApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (functionApiOperation, error) {
-	switch op {
+func convertOpNameToFunctionApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (functionApiOperation, error) {
+	switch opName {
 
 	case "updateFunctionUpdateOperation":
-		return &updateFunctionUpdateOperation{Diffs: diffs}, nil
+		return &updateFunctionUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

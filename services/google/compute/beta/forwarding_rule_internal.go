@@ -361,81 +361,129 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &ForwardingRule{}
 	if dcl.BoolCanonicalize(rawDesired.AllPorts, rawInitial.AllPorts) {
-		rawDesired.AllPorts = rawInitial.AllPorts
+		canonicalDesired.AllPorts = rawInitial.AllPorts
+	} else {
+		canonicalDesired.AllPorts = rawDesired.AllPorts
 	}
 	if dcl.BoolCanonicalize(rawDesired.AllowGlobalAccess, rawInitial.AllowGlobalAccess) {
-		rawDesired.AllowGlobalAccess = rawInitial.AllowGlobalAccess
+		canonicalDesired.AllowGlobalAccess = rawInitial.AllowGlobalAccess
+	} else {
+		canonicalDesired.AllowGlobalAccess = rawDesired.AllowGlobalAccess
 	}
 	if dcl.StringCanonicalize(rawDesired.BackendService, rawInitial.BackendService) {
-		rawDesired.BackendService = rawInitial.BackendService
+		canonicalDesired.BackendService = rawInitial.BackendService
+	} else {
+		canonicalDesired.BackendService = rawDesired.BackendService
 	}
 	if dcl.StringCanonicalize(rawDesired.CreationTimestamp, rawInitial.CreationTimestamp) {
-		rawDesired.CreationTimestamp = rawInitial.CreationTimestamp
+		canonicalDesired.CreationTimestamp = rawInitial.CreationTimestamp
+	} else {
+		canonicalDesired.CreationTimestamp = rawDesired.CreationTimestamp
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.StringCanonicalize(rawDesired.IPAddress, rawInitial.IPAddress) {
-		rawDesired.IPAddress = rawInitial.IPAddress
+		canonicalDesired.IPAddress = rawInitial.IPAddress
+	} else {
+		canonicalDesired.IPAddress = rawDesired.IPAddress
 	}
 	if dcl.IsZeroValue(rawDesired.IPProtocol) {
-		rawDesired.IPProtocol = rawInitial.IPProtocol
+		canonicalDesired.IPProtocol = rawInitial.IPProtocol
+	} else {
+		canonicalDesired.IPProtocol = rawDesired.IPProtocol
 	}
 	if dcl.IsZeroValue(rawDesired.IPVersion) {
-		rawDesired.IPVersion = rawInitial.IPVersion
+		canonicalDesired.IPVersion = rawInitial.IPVersion
+	} else {
+		canonicalDesired.IPVersion = rawDesired.IPVersion
 	}
 	if dcl.BoolCanonicalize(rawDesired.IsMirroringCollector, rawInitial.IsMirroringCollector) {
-		rawDesired.IsMirroringCollector = rawInitial.IsMirroringCollector
+		canonicalDesired.IsMirroringCollector = rawInitial.IsMirroringCollector
+	} else {
+		canonicalDesired.IsMirroringCollector = rawDesired.IsMirroringCollector
 	}
 	if dcl.IsZeroValue(rawDesired.LoadBalancingScheme) {
-		rawDesired.LoadBalancingScheme = rawInitial.LoadBalancingScheme
+		canonicalDesired.LoadBalancingScheme = rawInitial.LoadBalancingScheme
+	} else {
+		canonicalDesired.LoadBalancingScheme = rawDesired.LoadBalancingScheme
 	}
 	if dcl.IsZeroValue(rawDesired.MetadataFilter) {
-		rawDesired.MetadataFilter = rawInitial.MetadataFilter
+		canonicalDesired.MetadataFilter = rawInitial.MetadataFilter
+	} else {
+		canonicalDesired.MetadataFilter = rawDesired.MetadataFilter
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Network, rawInitial.Network) {
-		rawDesired.Network = rawInitial.Network
+		canonicalDesired.Network = rawInitial.Network
+	} else {
+		canonicalDesired.Network = rawDesired.Network
 	}
 	if dcl.IsZeroValue(rawDesired.NetworkTier) {
-		rawDesired.NetworkTier = rawInitial.NetworkTier
+		canonicalDesired.NetworkTier = rawInitial.NetworkTier
+	} else {
+		canonicalDesired.NetworkTier = rawDesired.NetworkTier
 	}
 	if dcl.StringCanonicalize(rawDesired.PortRange, rawInitial.PortRange) {
-		rawDesired.PortRange = rawInitial.PortRange
+		canonicalDesired.PortRange = rawInitial.PortRange
+	} else {
+		canonicalDesired.PortRange = rawDesired.PortRange
 	}
 	if dcl.IsZeroValue(rawDesired.Ports) {
-		rawDesired.Ports = rawInitial.Ports
+		canonicalDesired.Ports = rawInitial.Ports
+	} else {
+		canonicalDesired.Ports = rawDesired.Ports
 	}
 	if dcl.StringCanonicalize(rawDesired.Region, rawInitial.Region) {
-		rawDesired.Region = rawInitial.Region
+		canonicalDesired.Region = rawInitial.Region
+	} else {
+		canonicalDesired.Region = rawDesired.Region
 	}
 	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
+		canonicalDesired.SelfLink = rawInitial.SelfLink
+	} else {
+		canonicalDesired.SelfLink = rawDesired.SelfLink
 	}
 	if dcl.StringCanonicalize(rawDesired.ServiceLabel, rawInitial.ServiceLabel) {
-		rawDesired.ServiceLabel = rawInitial.ServiceLabel
+		canonicalDesired.ServiceLabel = rawInitial.ServiceLabel
+	} else {
+		canonicalDesired.ServiceLabel = rawDesired.ServiceLabel
 	}
 	if dcl.StringCanonicalize(rawDesired.ServiceName, rawInitial.ServiceName) {
-		rawDesired.ServiceName = rawInitial.ServiceName
+		canonicalDesired.ServiceName = rawInitial.ServiceName
+	} else {
+		canonicalDesired.ServiceName = rawDesired.ServiceName
 	}
 	if dcl.StringCanonicalize(rawDesired.Subnetwork, rawInitial.Subnetwork) {
-		rawDesired.Subnetwork = rawInitial.Subnetwork
+		canonicalDesired.Subnetwork = rawInitial.Subnetwork
+	} else {
+		canonicalDesired.Subnetwork = rawDesired.Subnetwork
 	}
 	if dcl.StringCanonicalize(rawDesired.Target, rawInitial.Target) {
-		rawDesired.Target = rawInitial.Target
+		canonicalDesired.Target = rawInitial.Target
+	} else {
+		canonicalDesired.Target = rawDesired.Target
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *ForwardingRule) (*ForwardingRule, error) {
@@ -624,14 +672,20 @@ func canonicalizeForwardingRuleMetadataFilter(des, initial *ForwardingRuleMetada
 		return des
 	}
 
+	cDes := &ForwardingRuleMetadataFilter{}
+
 	if dcl.IsZeroValue(des.FilterMatchCriteria) {
 		des.FilterMatchCriteria = initial.FilterMatchCriteria
+	} else {
+		cDes.FilterMatchCriteria = des.FilterMatchCriteria
 	}
 	if dcl.IsZeroValue(des.FilterLabel) {
 		des.FilterLabel = initial.FilterLabel
+	} else {
+		cDes.FilterLabel = des.FilterLabel
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewForwardingRuleMetadataFilter(c *Client, des, nw *ForwardingRuleMetadataFilter) *ForwardingRuleMetadataFilter {
@@ -702,14 +756,20 @@ func canonicalizeForwardingRuleMetadataFilterFilterLabel(des, initial *Forwardin
 		return des
 	}
 
+	cDes := &ForwardingRuleMetadataFilterFilterLabel{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewForwardingRuleMetadataFilterFilterLabel(c *Client, des, nw *ForwardingRuleMetadataFilterFilterLabel) *ForwardingRuleMetadataFilterFilterLabel {
@@ -1636,28 +1696,42 @@ type forwardingRuleDiff struct {
 	UpdateOp         forwardingRuleApiOperation
 }
 
-func convertFieldDiffToForwardingRuleOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]forwardingRuleDiff, error) {
+func convertFieldDiffsToForwardingRuleDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]forwardingRuleDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []forwardingRuleDiff
-	for _, op := range ops {
+	// For each operation name, create a forwardingRuleDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := forwardingRuleDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToforwardingRuleApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToForwardingRuleApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToforwardingRuleApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (forwardingRuleApiOperation, error) {
-	switch op {
+func convertOpNameToForwardingRuleApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (forwardingRuleApiOperation, error) {
+	switch opName {
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

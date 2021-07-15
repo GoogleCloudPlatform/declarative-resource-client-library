@@ -64,7 +64,6 @@ components:
         project:
           type: string
           x-dcl-go-name: Project
-          readOnly: true
           description: The resource name of the consumer project.
           x-kubernetes-immutable: true
           x-dcl-references:

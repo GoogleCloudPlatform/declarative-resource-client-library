@@ -90,7 +90,7 @@ type updateAccessPolicyUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -107,7 +107,7 @@ func (op *updateAccessPolicyUpdateOperation) do(ctx context.Context, r *AccessPo
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -422,15 +422,19 @@ func canonicalizeAccessPolicyDesiredState(rawDesired, rawInitial *AccessPolicy, 
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &AccessPolicy{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Parent, rawInitial.Parent) {
-		rawDesired.Parent = rawInitial.Parent
+		canonicalDesired.Parent = rawInitial.Parent
+	} else {
+		canonicalDesired.Parent = rawDesired.Parent
 	}
 	if dcl.StringCanonicalize(rawDesired.Title, rawInitial.Title) {
-		rawDesired.Title = rawInitial.Title
+		canonicalDesired.Title = rawInitial.Title
+	} else {
+		canonicalDesired.Title = rawDesired.Title
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeAccessPolicyNewState(c *Client, rawNew, rawDesired *AccessPolicy) (*AccessPolicy, error) {
@@ -651,31 +655,45 @@ type accessPolicyDiff struct {
 	UpdateOp         accessPolicyApiOperation
 }
 
-func convertFieldDiffToAccessPolicyOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]accessPolicyDiff, error) {
+func convertFieldDiffsToAccessPolicyDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]accessPolicyDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []accessPolicyDiff
-	for _, op := range ops {
+	// For each operation name, create a accessPolicyDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := accessPolicyDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToaccessPolicyApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToAccessPolicyApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToaccessPolicyApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (accessPolicyApiOperation, error) {
-	switch op {
+func convertOpNameToAccessPolicyApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (accessPolicyApiOperation, error) {
+	switch opName {
 
 	case "updateAccessPolicyUpdateOperation":
-		return &updateAccessPolicyUpdateOperation{Diffs: diffs}, nil
+		return &updateAccessPolicyUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

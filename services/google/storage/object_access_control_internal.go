@@ -132,7 +132,7 @@ type updateObjectAccessControlUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -419,24 +419,34 @@ func canonicalizeObjectAccessControlDesiredState(rawDesired, rawInitial *ObjectA
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &ObjectAccessControl{}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Bucket, rawInitial.Bucket) {
-		rawDesired.Bucket = rawInitial.Bucket
+		canonicalDesired.Bucket = rawInitial.Bucket
+	} else {
+		canonicalDesired.Bucket = rawDesired.Bucket
 	}
 	if dcl.StringCanonicalize(rawDesired.Entity, rawInitial.Entity) {
-		rawDesired.Entity = rawInitial.Entity
+		canonicalDesired.Entity = rawInitial.Entity
+	} else {
+		canonicalDesired.Entity = rawDesired.Entity
 	}
 	if dcl.IsZeroValue(rawDesired.Role) {
-		rawDesired.Role = rawInitial.Role
+		canonicalDesired.Role = rawInitial.Role
+	} else {
+		canonicalDesired.Role = rawDesired.Role
 	}
 	if dcl.StringCanonicalize(rawDesired.Object, rawInitial.Object) {
-		rawDesired.Object = rawInitial.Object
+		canonicalDesired.Object = rawInitial.Object
+	} else {
+		canonicalDesired.Object = rawDesired.Object
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeObjectAccessControlNewState(c *Client, rawNew, rawDesired *ObjectAccessControl) (*ObjectAccessControl, error) {
@@ -530,14 +540,20 @@ func canonicalizeObjectAccessControlProjectTeam(des, initial *ObjectAccessContro
 		return des
 	}
 
+	cDes := &ObjectAccessControlProjectTeam{}
+
 	if dcl.NameToSelfLink(des.ProjectNumber, initial.ProjectNumber) || dcl.IsZeroValue(des.ProjectNumber) {
-		des.ProjectNumber = initial.ProjectNumber
+		cDes.ProjectNumber = initial.ProjectNumber
+	} else {
+		cDes.ProjectNumber = des.ProjectNumber
 	}
 	if dcl.IsZeroValue(des.Team) {
 		des.Team = initial.Team
+	} else {
+		cDes.Team = des.Team
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewObjectAccessControlProjectTeam(c *Client, des, nw *ObjectAccessControlProjectTeam) *ObjectAccessControlProjectTeam {
@@ -1091,31 +1107,45 @@ type objectAccessControlDiff struct {
 	UpdateOp         objectAccessControlApiOperation
 }
 
-func convertFieldDiffToObjectAccessControlOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]objectAccessControlDiff, error) {
+func convertFieldDiffsToObjectAccessControlDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]objectAccessControlDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []objectAccessControlDiff
-	for _, op := range ops {
+	// For each operation name, create a objectAccessControlDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := objectAccessControlDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToobjectAccessControlApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToObjectAccessControlApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToobjectAccessControlApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (objectAccessControlApiOperation, error) {
-	switch op {
+func convertOpNameToObjectAccessControlApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (objectAccessControlApiOperation, error) {
+	switch opName {
 
 	case "updateObjectAccessControlUpdateOperation":
-		return &updateObjectAccessControlUpdateOperation{Diffs: diffs}, nil
+		return &updateObjectAccessControlUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

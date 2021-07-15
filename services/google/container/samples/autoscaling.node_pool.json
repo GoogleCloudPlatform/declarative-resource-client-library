@@ -1,0 +1,11 @@
+{
+  "name": "{{ref:basic.node_pool.json:name}}",
+  "project": "{{project}}",
+  "location": "{{region}}",
+  "cluster": "{{ref:basic.cluster.json:name}}",
+  "autoscaling": {
+    "enabled": true,
+    "minNodeCount": 1,
+    "maxNodeCount": 5
+  }
+}

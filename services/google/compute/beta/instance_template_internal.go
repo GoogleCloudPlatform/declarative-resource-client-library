@@ -201,7 +201,7 @@ type updateInstanceTemplateUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -510,22 +510,30 @@ func canonicalizeInstanceTemplateDesiredState(rawDesired, rawInitial *InstanceTe
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &InstanceTemplate{}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
+		canonicalDesired.SelfLink = rawInitial.SelfLink
+	} else {
+		canonicalDesired.SelfLink = rawDesired.SelfLink
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
-	rawDesired.Properties = canonicalizeInstanceTemplateProperties(rawDesired.Properties, rawInitial.Properties, opts...)
+	canonicalDesired.Properties = canonicalizeInstanceTemplateProperties(rawDesired.Properties, rawInitial.Properties, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeInstanceTemplateNewState(c *Client, rawNew, rawDesired *InstanceTemplate) (*InstanceTemplate, error) {
@@ -587,44 +595,68 @@ func canonicalizeInstanceTemplateProperties(des, initial *InstanceTemplateProper
 		return des
 	}
 
+	cDes := &InstanceTemplateProperties{}
+
 	if dcl.BoolCanonicalize(des.CanIPForward, initial.CanIPForward) || dcl.IsZeroValue(des.CanIPForward) {
-		des.CanIPForward = initial.CanIPForward
+		cDes.CanIPForward = initial.CanIPForward
+	} else {
+		cDes.CanIPForward = des.CanIPForward
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.Disks) {
 		des.Disks = initial.Disks
+	} else {
+		cDes.Disks = des.Disks
 	}
 	if dcl.IsZeroValue(des.Labels) {
 		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
 	}
 	if dcl.NameToSelfLink(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
-		des.MachineType = initial.MachineType
+		cDes.MachineType = initial.MachineType
+	} else {
+		cDes.MachineType = des.MachineType
 	}
 	if dcl.StringCanonicalize(des.MinCpuPlatform, initial.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
-		des.MinCpuPlatform = initial.MinCpuPlatform
+		cDes.MinCpuPlatform = initial.MinCpuPlatform
+	} else {
+		cDes.MinCpuPlatform = des.MinCpuPlatform
 	}
 	if dcl.IsZeroValue(des.Metadata) {
 		des.Metadata = initial.Metadata
+	} else {
+		cDes.Metadata = des.Metadata
 	}
-	des.ReservationAffinity = canonicalizeInstanceTemplatePropertiesReservationAffinity(des.ReservationAffinity, initial.ReservationAffinity, opts...)
+	cDes.ReservationAffinity = canonicalizeInstanceTemplatePropertiesReservationAffinity(des.ReservationAffinity, initial.ReservationAffinity, opts...)
 	if dcl.IsZeroValue(des.GuestAccelerators) {
 		des.GuestAccelerators = initial.GuestAccelerators
+	} else {
+		cDes.GuestAccelerators = des.GuestAccelerators
 	}
 	if dcl.IsZeroValue(des.NetworkInterfaces) {
 		des.NetworkInterfaces = initial.NetworkInterfaces
+	} else {
+		cDes.NetworkInterfaces = des.NetworkInterfaces
 	}
-	des.ShieldedInstanceConfig = canonicalizeInstanceTemplatePropertiesShieldedInstanceConfig(des.ShieldedInstanceConfig, initial.ShieldedInstanceConfig, opts...)
-	des.Scheduling = canonicalizeInstanceTemplatePropertiesScheduling(des.Scheduling, initial.Scheduling, opts...)
+	cDes.ShieldedInstanceConfig = canonicalizeInstanceTemplatePropertiesShieldedInstanceConfig(des.ShieldedInstanceConfig, initial.ShieldedInstanceConfig, opts...)
+	cDes.Scheduling = canonicalizeInstanceTemplatePropertiesScheduling(des.Scheduling, initial.Scheduling, opts...)
 	if dcl.IsZeroValue(des.ServiceAccounts) {
 		des.ServiceAccounts = initial.ServiceAccounts
+	} else {
+		cDes.ServiceAccounts = des.ServiceAccounts
 	}
 	if dcl.IsZeroValue(des.Tags) {
 		des.Tags = initial.Tags
+	} else {
+		cDes.Tags = des.Tags
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceTemplateProperties(c *Client, des, nw *InstanceTemplateProperties) *InstanceTemplateProperties {
@@ -719,37 +751,57 @@ func canonicalizeInstanceTemplatePropertiesDisks(des, initial *InstanceTemplateP
 		return des
 	}
 
+	cDes := &InstanceTemplatePropertiesDisks{}
+
 	if dcl.BoolCanonicalize(des.AutoDelete, initial.AutoDelete) || dcl.IsZeroValue(des.AutoDelete) {
-		des.AutoDelete = initial.AutoDelete
+		cDes.AutoDelete = initial.AutoDelete
+	} else {
+		cDes.AutoDelete = des.AutoDelete
 	}
 	if dcl.BoolCanonicalize(des.Boot, initial.Boot) || dcl.IsZeroValue(des.Boot) {
-		des.Boot = initial.Boot
+		cDes.Boot = initial.Boot
+	} else {
+		cDes.Boot = des.Boot
 	}
 	if dcl.StringCanonicalize(des.DeviceName, initial.DeviceName) || dcl.IsZeroValue(des.DeviceName) {
-		des.DeviceName = initial.DeviceName
+		cDes.DeviceName = initial.DeviceName
+	} else {
+		cDes.DeviceName = des.DeviceName
 	}
-	des.DiskEncryptionKey = canonicalizeInstanceTemplatePropertiesDisksDiskEncryptionKey(des.DiskEncryptionKey, initial.DiskEncryptionKey, opts...)
+	cDes.DiskEncryptionKey = canonicalizeInstanceTemplatePropertiesDisksDiskEncryptionKey(des.DiskEncryptionKey, initial.DiskEncryptionKey, opts...)
 	if dcl.IsZeroValue(des.Index) {
 		des.Index = initial.Index
+	} else {
+		cDes.Index = des.Index
 	}
-	des.InitializeParams = canonicalizeInstanceTemplatePropertiesDisksInitializeParams(des.InitializeParams, initial.InitializeParams, opts...)
+	cDes.InitializeParams = canonicalizeInstanceTemplatePropertiesDisksInitializeParams(des.InitializeParams, initial.InitializeParams, opts...)
 	if dcl.IsZeroValue(des.GuestOsFeatures) {
 		des.GuestOsFeatures = initial.GuestOsFeatures
+	} else {
+		cDes.GuestOsFeatures = des.GuestOsFeatures
 	}
 	if dcl.IsZeroValue(des.Interface) {
 		des.Interface = initial.Interface
+	} else {
+		cDes.Interface = des.Interface
 	}
 	if dcl.IsZeroValue(des.Mode) {
 		des.Mode = initial.Mode
+	} else {
+		cDes.Mode = des.Mode
 	}
 	if dcl.NameToSelfLink(des.Source, initial.Source) || dcl.IsZeroValue(des.Source) {
-		des.Source = initial.Source
+		cDes.Source = initial.Source
+	} else {
+		cDes.Source = des.Source
 	}
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceTemplatePropertiesDisks(c *Client, des, nw *InstanceTemplatePropertiesDisks) *InstanceTemplatePropertiesDisks {
@@ -843,14 +895,20 @@ func canonicalizeInstanceTemplatePropertiesDisksDiskEncryptionKey(des, initial *
 		return des
 	}
 
+	cDes := &InstanceTemplatePropertiesDisksDiskEncryptionKey{}
+
 	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) || dcl.IsZeroValue(des.RawKey) {
-		des.RawKey = initial.RawKey
+		cDes.RawKey = initial.RawKey
+	} else {
+		cDes.RawKey = des.RawKey
 	}
 	if dcl.StringCanonicalize(des.RsaEncryptedKey, initial.RsaEncryptedKey) || dcl.IsZeroValue(des.RsaEncryptedKey) {
-		des.RsaEncryptedKey = initial.RsaEncryptedKey
+		cDes.RsaEncryptedKey = initial.RsaEncryptedKey
+	} else {
+		cDes.RsaEncryptedKey = des.RsaEncryptedKey
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceTemplatePropertiesDisksDiskEncryptionKey(c *Client, des, nw *InstanceTemplatePropertiesDisksDiskEncryptionKey) *InstanceTemplatePropertiesDisksDiskEncryptionKey {
@@ -926,37 +984,57 @@ func canonicalizeInstanceTemplatePropertiesDisksInitializeParams(des, initial *I
 		return des
 	}
 
+	cDes := &InstanceTemplatePropertiesDisksInitializeParams{}
+
 	if dcl.StringCanonicalize(des.DiskName, initial.DiskName) || dcl.IsZeroValue(des.DiskName) {
-		des.DiskName = initial.DiskName
+		cDes.DiskName = initial.DiskName
+	} else {
+		cDes.DiskName = des.DiskName
 	}
 	if dcl.IsZeroValue(des.DiskSizeGb) {
 		des.DiskSizeGb = initial.DiskSizeGb
+	} else {
+		cDes.DiskSizeGb = des.DiskSizeGb
 	}
 	if dcl.NameToSelfLink(des.DiskType, initial.DiskType) || dcl.IsZeroValue(des.DiskType) {
-		des.DiskType = initial.DiskType
+		cDes.DiskType = initial.DiskType
+	} else {
+		cDes.DiskType = des.DiskType
 	}
 	if dcl.StringCanonicalize(des.SourceImage, initial.SourceImage) || dcl.IsZeroValue(des.SourceImage) {
-		des.SourceImage = initial.SourceImage
+		cDes.SourceImage = initial.SourceImage
+	} else {
+		cDes.SourceImage = des.SourceImage
 	}
 	if dcl.IsZeroValue(des.Labels) {
 		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
 	}
 	if dcl.StringCanonicalize(des.SourceSnapshot, initial.SourceSnapshot) || dcl.IsZeroValue(des.SourceSnapshot) {
-		des.SourceSnapshot = initial.SourceSnapshot
+		cDes.SourceSnapshot = initial.SourceSnapshot
+	} else {
+		cDes.SourceSnapshot = des.SourceSnapshot
 	}
-	des.SourceSnapshotEncryptionKey = canonicalizeInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey(des.SourceSnapshotEncryptionKey, initial.SourceSnapshotEncryptionKey, opts...)
+	cDes.SourceSnapshotEncryptionKey = canonicalizeInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey(des.SourceSnapshotEncryptionKey, initial.SourceSnapshotEncryptionKey, opts...)
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.ResourcePolicies) {
 		des.ResourcePolicies = initial.ResourcePolicies
+	} else {
+		cDes.ResourcePolicies = des.ResourcePolicies
 	}
 	if dcl.StringCanonicalize(des.OnUpdateAction, initial.OnUpdateAction) || dcl.IsZeroValue(des.OnUpdateAction) {
-		des.OnUpdateAction = initial.OnUpdateAction
+		cDes.OnUpdateAction = initial.OnUpdateAction
+	} else {
+		cDes.OnUpdateAction = des.OnUpdateAction
 	}
-	des.SourceImageEncryptionKey = canonicalizeInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey(des.SourceImageEncryptionKey, initial.SourceImageEncryptionKey, opts...)
+	cDes.SourceImageEncryptionKey = canonicalizeInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey(des.SourceImageEncryptionKey, initial.SourceImageEncryptionKey, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceTemplatePropertiesDisksInitializeParams(c *Client, des, nw *InstanceTemplatePropertiesDisksInitializeParams) *InstanceTemplatePropertiesDisksInitializeParams {
@@ -1052,14 +1130,20 @@ func canonicalizeInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEn
 		return des
 	}
 
+	cDes := &InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey{}
+
 	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) || dcl.IsZeroValue(des.RawKey) {
-		des.RawKey = initial.RawKey
+		cDes.RawKey = initial.RawKey
+	} else {
+		cDes.RawKey = des.RawKey
 	}
 	if dcl.StringCanonicalize(des.KmsKeyName, initial.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
-		des.KmsKeyName = initial.KmsKeyName
+		cDes.KmsKeyName = initial.KmsKeyName
+	} else {
+		cDes.KmsKeyName = des.KmsKeyName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey(c *Client, des, nw *InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey) *InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey {
@@ -1135,14 +1219,20 @@ func canonicalizeInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncry
 		return des
 	}
 
+	cDes := &InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey{}
+
 	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) || dcl.IsZeroValue(des.RawKey) {
-		des.RawKey = initial.RawKey
+		cDes.RawKey = initial.RawKey
+	} else {
+		cDes.RawKey = des.RawKey
 	}
 	if dcl.StringCanonicalize(des.KmsKeyName, initial.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
-		des.KmsKeyName = initial.KmsKeyName
+		cDes.KmsKeyName = initial.KmsKeyName
+	} else {
+		cDes.KmsKeyName = des.KmsKeyName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey(c *Client, des, nw *InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey) *InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey {
@@ -1218,11 +1308,15 @@ func canonicalizeInstanceTemplatePropertiesDisksGuestOsFeatures(des, initial *In
 		return des
 	}
 
+	cDes := &InstanceTemplatePropertiesDisksGuestOsFeatures{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceTemplatePropertiesDisksGuestOsFeatures(c *Client, des, nw *InstanceTemplatePropertiesDisksGuestOsFeatures) *InstanceTemplatePropertiesDisksGuestOsFeatures {
@@ -1292,14 +1386,20 @@ func canonicalizeInstanceTemplatePropertiesReservationAffinity(des, initial *Ins
 		return des
 	}
 
+	cDes := &InstanceTemplatePropertiesReservationAffinity{}
+
 	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
+		cDes.Key = initial.Key
+	} else {
+		cDes.Key = des.Key
 	}
 	if dcl.IsZeroValue(des.Value) {
 		des.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceTemplatePropertiesReservationAffinity(c *Client, des, nw *InstanceTemplatePropertiesReservationAffinity) *InstanceTemplatePropertiesReservationAffinity {
@@ -1372,14 +1472,20 @@ func canonicalizeInstanceTemplatePropertiesGuestAccelerators(des, initial *Insta
 		return des
 	}
 
+	cDes := &InstanceTemplatePropertiesGuestAccelerators{}
+
 	if dcl.IsZeroValue(des.AcceleratorCount) {
 		des.AcceleratorCount = initial.AcceleratorCount
+	} else {
+		cDes.AcceleratorCount = des.AcceleratorCount
 	}
 	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
-		des.AcceleratorType = initial.AcceleratorType
+		cDes.AcceleratorType = initial.AcceleratorType
+	} else {
+		cDes.AcceleratorType = des.AcceleratorType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceTemplatePropertiesGuestAccelerators(c *Client, des, nw *InstanceTemplatePropertiesGuestAccelerators) *InstanceTemplatePropertiesGuestAccelerators {
@@ -1452,23 +1558,35 @@ func canonicalizeInstanceTemplatePropertiesNetworkInterfaces(des, initial *Insta
 		return des
 	}
 
+	cDes := &InstanceTemplatePropertiesNetworkInterfaces{}
+
 	if dcl.IsZeroValue(des.AccessConfigs) {
 		des.AccessConfigs = initial.AccessConfigs
+	} else {
+		cDes.AccessConfigs = des.AccessConfigs
 	}
 	if dcl.IsZeroValue(des.AliasIPRanges) {
 		des.AliasIPRanges = initial.AliasIPRanges
+	} else {
+		cDes.AliasIPRanges = des.AliasIPRanges
 	}
 	if dcl.NameToSelfLink(des.Network, initial.Network) || dcl.IsZeroValue(des.Network) {
-		des.Network = initial.Network
+		cDes.Network = initial.Network
+	} else {
+		cDes.Network = des.Network
 	}
 	if dcl.StringCanonicalize(des.NetworkIP, initial.NetworkIP) || dcl.IsZeroValue(des.NetworkIP) {
-		des.NetworkIP = initial.NetworkIP
+		cDes.NetworkIP = initial.NetworkIP
+	} else {
+		cDes.NetworkIP = des.NetworkIP
 	}
 	if dcl.NameToSelfLink(des.Subnetwork, initial.Subnetwork) || dcl.IsZeroValue(des.Subnetwork) {
-		des.Subnetwork = initial.Subnetwork
+		cDes.Subnetwork = initial.Subnetwork
+	} else {
+		cDes.Subnetwork = des.Subnetwork
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceTemplatePropertiesNetworkInterfaces(c *Client, des, nw *InstanceTemplatePropertiesNetworkInterfaces) *InstanceTemplatePropertiesNetworkInterfaces {
@@ -1549,26 +1667,40 @@ func canonicalizeInstanceTemplatePropertiesNetworkInterfacesAccessConfigs(des, i
 		return des
 	}
 
+	cDes := &InstanceTemplatePropertiesNetworkInterfacesAccessConfigs{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.NameToSelfLink(des.NatIP, initial.NatIP) || dcl.IsZeroValue(des.NatIP) {
-		des.NatIP = initial.NatIP
+		cDes.NatIP = initial.NatIP
+	} else {
+		cDes.NatIP = des.NatIP
 	}
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.BoolCanonicalize(des.SetPublicPtr, initial.SetPublicPtr) || dcl.IsZeroValue(des.SetPublicPtr) {
-		des.SetPublicPtr = initial.SetPublicPtr
+		cDes.SetPublicPtr = initial.SetPublicPtr
+	} else {
+		cDes.SetPublicPtr = des.SetPublicPtr
 	}
 	if dcl.StringCanonicalize(des.PublicPtrDomainName, initial.PublicPtrDomainName) || dcl.IsZeroValue(des.PublicPtrDomainName) {
-		des.PublicPtrDomainName = initial.PublicPtrDomainName
+		cDes.PublicPtrDomainName = initial.PublicPtrDomainName
+	} else {
+		cDes.PublicPtrDomainName = des.PublicPtrDomainName
 	}
 	if dcl.IsZeroValue(des.NetworkTier) {
 		des.NetworkTier = initial.NetworkTier
+	} else {
+		cDes.NetworkTier = des.NetworkTier
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceTemplatePropertiesNetworkInterfacesAccessConfigs(c *Client, des, nw *InstanceTemplatePropertiesNetworkInterfacesAccessConfigs) *InstanceTemplatePropertiesNetworkInterfacesAccessConfigs {
@@ -1653,14 +1785,20 @@ func canonicalizeInstanceTemplatePropertiesNetworkInterfacesAliasIPRanges(des, i
 		return des
 	}
 
+	cDes := &InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges{}
+
 	if dcl.StringCanonicalize(des.IPCidrRange, initial.IPCidrRange) || dcl.IsZeroValue(des.IPCidrRange) {
-		des.IPCidrRange = initial.IPCidrRange
+		cDes.IPCidrRange = initial.IPCidrRange
+	} else {
+		cDes.IPCidrRange = des.IPCidrRange
 	}
 	if dcl.StringCanonicalize(des.SubnetworkRangeName, initial.SubnetworkRangeName) || dcl.IsZeroValue(des.SubnetworkRangeName) {
-		des.SubnetworkRangeName = initial.SubnetworkRangeName
+		cDes.SubnetworkRangeName = initial.SubnetworkRangeName
+	} else {
+		cDes.SubnetworkRangeName = des.SubnetworkRangeName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceTemplatePropertiesNetworkInterfacesAliasIPRanges(c *Client, des, nw *InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges) *InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges {
@@ -1733,17 +1871,25 @@ func canonicalizeInstanceTemplatePropertiesShieldedInstanceConfig(des, initial *
 		return des
 	}
 
+	cDes := &InstanceTemplatePropertiesShieldedInstanceConfig{}
+
 	if dcl.BoolCanonicalize(des.EnableSecureBoot, initial.EnableSecureBoot) || dcl.IsZeroValue(des.EnableSecureBoot) {
-		des.EnableSecureBoot = initial.EnableSecureBoot
+		cDes.EnableSecureBoot = initial.EnableSecureBoot
+	} else {
+		cDes.EnableSecureBoot = des.EnableSecureBoot
 	}
 	if dcl.BoolCanonicalize(des.EnableVtpm, initial.EnableVtpm) || dcl.IsZeroValue(des.EnableVtpm) {
-		des.EnableVtpm = initial.EnableVtpm
+		cDes.EnableVtpm = initial.EnableVtpm
+	} else {
+		cDes.EnableVtpm = des.EnableVtpm
 	}
 	if dcl.BoolCanonicalize(des.EnableIntegrityMonitoring, initial.EnableIntegrityMonitoring) || dcl.IsZeroValue(des.EnableIntegrityMonitoring) {
-		des.EnableIntegrityMonitoring = initial.EnableIntegrityMonitoring
+		cDes.EnableIntegrityMonitoring = initial.EnableIntegrityMonitoring
+	} else {
+		cDes.EnableIntegrityMonitoring = des.EnableIntegrityMonitoring
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceTemplatePropertiesShieldedInstanceConfig(c *Client, des, nw *InstanceTemplatePropertiesShieldedInstanceConfig) *InstanceTemplatePropertiesShieldedInstanceConfig {
@@ -1819,20 +1965,30 @@ func canonicalizeInstanceTemplatePropertiesScheduling(des, initial *InstanceTemp
 		return des
 	}
 
+	cDes := &InstanceTemplatePropertiesScheduling{}
+
 	if dcl.BoolCanonicalize(des.AutomaticRestart, initial.AutomaticRestart) || dcl.IsZeroValue(des.AutomaticRestart) {
-		des.AutomaticRestart = initial.AutomaticRestart
+		cDes.AutomaticRestart = initial.AutomaticRestart
+	} else {
+		cDes.AutomaticRestart = des.AutomaticRestart
 	}
 	if dcl.StringCanonicalize(des.OnHostMaintenance, initial.OnHostMaintenance) || dcl.IsZeroValue(des.OnHostMaintenance) {
-		des.OnHostMaintenance = initial.OnHostMaintenance
+		cDes.OnHostMaintenance = initial.OnHostMaintenance
+	} else {
+		cDes.OnHostMaintenance = des.OnHostMaintenance
 	}
 	if dcl.BoolCanonicalize(des.Preemptible, initial.Preemptible) || dcl.IsZeroValue(des.Preemptible) {
-		des.Preemptible = initial.Preemptible
+		cDes.Preemptible = initial.Preemptible
+	} else {
+		cDes.Preemptible = des.Preemptible
 	}
 	if dcl.IsZeroValue(des.NodeAffinities) {
 		des.NodeAffinities = initial.NodeAffinities
+	} else {
+		cDes.NodeAffinities = des.NodeAffinities
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceTemplatePropertiesScheduling(c *Client, des, nw *InstanceTemplatePropertiesScheduling) *InstanceTemplatePropertiesScheduling {
@@ -1909,17 +2065,25 @@ func canonicalizeInstanceTemplatePropertiesSchedulingNodeAffinities(des, initial
 		return des
 	}
 
+	cDes := &InstanceTemplatePropertiesSchedulingNodeAffinities{}
+
 	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
+		cDes.Key = initial.Key
+	} else {
+		cDes.Key = des.Key
 	}
 	if dcl.IsZeroValue(des.Operator) {
 		des.Operator = initial.Operator
+	} else {
+		cDes.Operator = des.Operator
 	}
 	if dcl.IsZeroValue(des.Values) {
 		des.Values = initial.Values
+	} else {
+		cDes.Values = des.Values
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceTemplatePropertiesSchedulingNodeAffinities(c *Client, des, nw *InstanceTemplatePropertiesSchedulingNodeAffinities) *InstanceTemplatePropertiesSchedulingNodeAffinities {
@@ -1995,14 +2159,20 @@ func canonicalizeInstanceTemplatePropertiesServiceAccounts(des, initial *Instanc
 		return des
 	}
 
+	cDes := &InstanceTemplatePropertiesServiceAccounts{}
+
 	if dcl.StringCanonicalize(des.Email, initial.Email) || dcl.IsZeroValue(des.Email) {
-		des.Email = initial.Email
+		cDes.Email = initial.Email
+	} else {
+		cDes.Email = des.Email
 	}
 	if dcl.IsZeroValue(des.Scopes) {
 		des.Scopes = initial.Scopes
+	} else {
+		cDes.Scopes = des.Scopes
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceTemplatePropertiesServiceAccounts(c *Client, des, nw *InstanceTemplatePropertiesServiceAccounts) *InstanceTemplatePropertiesServiceAccounts {
@@ -5463,31 +5633,45 @@ type instanceTemplateDiff struct {
 	UpdateOp         instanceTemplateApiOperation
 }
 
-func convertFieldDiffToInstanceTemplateOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]instanceTemplateDiff, error) {
+func convertFieldDiffsToInstanceTemplateDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]instanceTemplateDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []instanceTemplateDiff
-	for _, op := range ops {
+	// For each operation name, create a instanceTemplateDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := instanceTemplateDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToinstanceTemplateApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToInstanceTemplateApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToinstanceTemplateApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (instanceTemplateApiOperation, error) {
-	switch op {
+func convertOpNameToInstanceTemplateApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (instanceTemplateApiOperation, error) {
+	switch opName {
 
 	case "updateInstanceTemplateUpdateOperation":
-		return &updateInstanceTemplateUpdateOperation{Diffs: diffs}, nil
+		return &updateInstanceTemplateUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

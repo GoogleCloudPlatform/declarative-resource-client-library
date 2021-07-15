@@ -420,8 +420,7 @@ func applySubscriptionHelper(c *Client, ctx context.Context, rawDesired *Subscri
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToSubscriptionOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToSubscriptionDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -449,7 +448,6 @@ func applySubscriptionHelper(c *Client, ctx context.Context, rawDesired *Subscri
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

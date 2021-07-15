@@ -129,7 +129,7 @@ type updateOAuthIdpConfigUpdateConfigOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -414,31 +414,45 @@ func canonicalizeOAuthIdpConfigDesiredState(rawDesired, rawInitial *OAuthIdpConf
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &OAuthIdpConfig{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.ClientId, rawInitial.ClientId) {
-		rawDesired.ClientId = rawInitial.ClientId
+		canonicalDesired.ClientId = rawInitial.ClientId
+	} else {
+		canonicalDesired.ClientId = rawDesired.ClientId
 	}
 	if dcl.StringCanonicalize(rawDesired.Issuer, rawInitial.Issuer) {
-		rawDesired.Issuer = rawInitial.Issuer
+		canonicalDesired.Issuer = rawInitial.Issuer
+	} else {
+		canonicalDesired.Issuer = rawDesired.Issuer
 	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
-		rawDesired.DisplayName = rawInitial.DisplayName
+		canonicalDesired.DisplayName = rawInitial.DisplayName
+	} else {
+		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
 	if dcl.BoolCanonicalize(rawDesired.Enabled, rawInitial.Enabled) {
-		rawDesired.Enabled = rawInitial.Enabled
+		canonicalDesired.Enabled = rawInitial.Enabled
+	} else {
+		canonicalDesired.Enabled = rawDesired.Enabled
 	}
 	if dcl.StringCanonicalize(rawDesired.ClientSecret, rawInitial.ClientSecret) {
-		rawDesired.ClientSecret = rawInitial.ClientSecret
+		canonicalDesired.ClientSecret = rawInitial.ClientSecret
+	} else {
+		canonicalDesired.ClientSecret = rawDesired.ClientSecret
 	}
-	rawDesired.ResponseType = canonicalizeOAuthIdpConfigResponseType(rawDesired.ResponseType, rawInitial.ResponseType, opts...)
+	canonicalDesired.ResponseType = canonicalizeOAuthIdpConfigResponseType(rawDesired.ResponseType, rawInitial.ResponseType, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeOAuthIdpConfigNewState(c *Client, rawNew, rawDesired *OAuthIdpConfig) (*OAuthIdpConfig, error) {
@@ -514,17 +528,25 @@ func canonicalizeOAuthIdpConfigResponseType(des, initial *OAuthIdpConfigResponse
 		return des
 	}
 
+	cDes := &OAuthIdpConfigResponseType{}
+
 	if dcl.BoolCanonicalize(des.IdToken, initial.IdToken) || dcl.IsZeroValue(des.IdToken) {
-		des.IdToken = initial.IdToken
+		cDes.IdToken = initial.IdToken
+	} else {
+		cDes.IdToken = des.IdToken
 	}
 	if dcl.BoolCanonicalize(des.Code, initial.Code) || dcl.IsZeroValue(des.Code) {
-		des.Code = initial.Code
+		cDes.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.BoolCanonicalize(des.Token, initial.Token) || dcl.IsZeroValue(des.Token) {
-		des.Token = initial.Token
+		cDes.Token = initial.Token
+	} else {
+		cDes.Token = des.Token
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOAuthIdpConfigResponseType(c *Client, des, nw *OAuthIdpConfigResponseType) *OAuthIdpConfigResponseType {
@@ -984,31 +1006,45 @@ type oAuthIdpConfigDiff struct {
 	UpdateOp         oAuthIdpConfigApiOperation
 }
 
-func convertFieldDiffToOAuthIdpConfigOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]oAuthIdpConfigDiff, error) {
+func convertFieldDiffsToOAuthIdpConfigDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]oAuthIdpConfigDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []oAuthIdpConfigDiff
-	for _, op := range ops {
+	// For each operation name, create a oAuthIdpConfigDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := oAuthIdpConfigDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTooAuthIdpConfigApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToOAuthIdpConfigApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTooAuthIdpConfigApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (oAuthIdpConfigApiOperation, error) {
-	switch op {
+func convertOpNameToOAuthIdpConfigApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (oAuthIdpConfigApiOperation, error) {
+	switch opName {
 
 	case "updateOAuthIdpConfigUpdateConfigOperation":
-		return &updateOAuthIdpConfigUpdateConfigOperation{Diffs: diffs}, nil
+		return &updateOAuthIdpConfigUpdateConfigOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

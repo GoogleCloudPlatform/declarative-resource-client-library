@@ -171,7 +171,7 @@ type updateManagedZoneUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -459,34 +459,48 @@ func canonicalizeManagedZoneDesiredState(rawDesired, rawInitial *ManagedZone, op
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &ManagedZone{}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.StringCanonicalize(rawDesired.DnsName, rawInitial.DnsName) {
-		rawDesired.DnsName = rawInitial.DnsName
+		canonicalDesired.DnsName = rawInitial.DnsName
+	} else {
+		canonicalDesired.DnsName = rawDesired.DnsName
 	}
-	rawDesired.DnssecConfig = canonicalizeManagedZoneDnssecConfig(rawDesired.DnssecConfig, rawInitial.DnssecConfig, opts...)
+	canonicalDesired.DnssecConfig = canonicalizeManagedZoneDnssecConfig(rawDesired.DnssecConfig, rawInitial.DnssecConfig, opts...)
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.IsZeroValue(rawDesired.Visibility) {
-		rawDesired.Visibility = rawInitial.Visibility
+		canonicalDesired.Visibility = rawInitial.Visibility
+	} else {
+		canonicalDesired.Visibility = rawDesired.Visibility
 	}
-	rawDesired.PrivateVisibilityConfig = canonicalizeManagedZonePrivateVisibilityConfig(rawDesired.PrivateVisibilityConfig, rawInitial.PrivateVisibilityConfig, opts...)
-	rawDesired.ForwardingConfig = canonicalizeManagedZoneForwardingConfig(rawDesired.ForwardingConfig, rawInitial.ForwardingConfig, opts...)
+	canonicalDesired.PrivateVisibilityConfig = canonicalizeManagedZonePrivateVisibilityConfig(rawDesired.PrivateVisibilityConfig, rawInitial.PrivateVisibilityConfig, opts...)
+	canonicalDesired.ForwardingConfig = canonicalizeManagedZoneForwardingConfig(rawDesired.ForwardingConfig, rawInitial.ForwardingConfig, opts...)
 	if dcl.BoolCanonicalize(rawDesired.ReverseLookup, rawInitial.ReverseLookup) {
-		rawDesired.ReverseLookup = rawInitial.ReverseLookup
+		canonicalDesired.ReverseLookup = rawInitial.ReverseLookup
+	} else {
+		canonicalDesired.ReverseLookup = rawDesired.ReverseLookup
 	}
-	rawDesired.PeeringConfig = canonicalizeManagedZonePeeringConfig(rawDesired.PeeringConfig, rawInitial.PeeringConfig, opts...)
+	canonicalDesired.PeeringConfig = canonicalizeManagedZonePeeringConfig(rawDesired.PeeringConfig, rawInitial.PeeringConfig, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeManagedZoneNewState(c *Client, rawNew, rawDesired *ManagedZone) (*ManagedZone, error) {
@@ -573,20 +587,30 @@ func canonicalizeManagedZoneDnssecConfig(des, initial *ManagedZoneDnssecConfig, 
 		return des
 	}
 
+	cDes := &ManagedZoneDnssecConfig{}
+
 	if dcl.StringCanonicalize(des.Kind, initial.Kind) || dcl.IsZeroValue(des.Kind) {
-		des.Kind = initial.Kind
+		cDes.Kind = initial.Kind
+	} else {
+		cDes.Kind = des.Kind
 	}
 	if dcl.IsZeroValue(des.NonExistence) {
 		des.NonExistence = initial.NonExistence
+	} else {
+		cDes.NonExistence = des.NonExistence
 	}
 	if dcl.IsZeroValue(des.State) {
 		des.State = initial.State
+	} else {
+		cDes.State = des.State
 	}
 	if dcl.IsZeroValue(des.DefaultKeySpecs) {
 		des.DefaultKeySpecs = initial.DefaultKeySpecs
+	} else {
+		cDes.DefaultKeySpecs = des.DefaultKeySpecs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewManagedZoneDnssecConfig(c *Client, des, nw *ManagedZoneDnssecConfig) *ManagedZoneDnssecConfig {
@@ -663,20 +687,30 @@ func canonicalizeManagedZoneDnssecConfigDefaultKeySpecs(des, initial *ManagedZon
 		return des
 	}
 
+	cDes := &ManagedZoneDnssecConfigDefaultKeySpecs{}
+
 	if dcl.IsZeroValue(des.Algorithm) {
 		des.Algorithm = initial.Algorithm
+	} else {
+		cDes.Algorithm = des.Algorithm
 	}
 	if dcl.IsZeroValue(des.KeyLength) {
 		des.KeyLength = initial.KeyLength
+	} else {
+		cDes.KeyLength = des.KeyLength
 	}
 	if dcl.IsZeroValue(des.KeyType) {
 		des.KeyType = initial.KeyType
+	} else {
+		cDes.KeyType = des.KeyType
 	}
 	if dcl.StringCanonicalize(des.Kind, initial.Kind) || dcl.IsZeroValue(des.Kind) {
-		des.Kind = initial.Kind
+		cDes.Kind = initial.Kind
+	} else {
+		cDes.Kind = des.Kind
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewManagedZoneDnssecConfigDefaultKeySpecs(c *Client, des, nw *ManagedZoneDnssecConfigDefaultKeySpecs) *ManagedZoneDnssecConfigDefaultKeySpecs {
@@ -755,11 +789,15 @@ func canonicalizeManagedZonePrivateVisibilityConfig(des, initial *ManagedZonePri
 		return des
 	}
 
+	cDes := &ManagedZonePrivateVisibilityConfig{}
+
 	if dcl.IsZeroValue(des.Networks) {
 		des.Networks = initial.Networks
+	} else {
+		cDes.Networks = des.Networks
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewManagedZonePrivateVisibilityConfig(c *Client, des, nw *ManagedZonePrivateVisibilityConfig) *ManagedZonePrivateVisibilityConfig {
@@ -827,11 +865,15 @@ func canonicalizeManagedZonePrivateVisibilityConfigNetworks(des, initial *Manage
 		return des
 	}
 
+	cDes := &ManagedZonePrivateVisibilityConfigNetworks{}
+
 	if dcl.NameToSelfLink(des.NetworkUrl, initial.NetworkUrl) || dcl.IsZeroValue(des.NetworkUrl) {
-		des.NetworkUrl = initial.NetworkUrl
+		cDes.NetworkUrl = initial.NetworkUrl
+	} else {
+		cDes.NetworkUrl = des.NetworkUrl
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewManagedZonePrivateVisibilityConfigNetworks(c *Client, des, nw *ManagedZonePrivateVisibilityConfigNetworks) *ManagedZonePrivateVisibilityConfigNetworks {
@@ -901,11 +943,15 @@ func canonicalizeManagedZoneForwardingConfig(des, initial *ManagedZoneForwarding
 		return des
 	}
 
+	cDes := &ManagedZoneForwardingConfig{}
+
 	if dcl.IsZeroValue(des.TargetNameServers) {
 		des.TargetNameServers = initial.TargetNameServers
+	} else {
+		cDes.TargetNameServers = des.TargetNameServers
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewManagedZoneForwardingConfig(c *Client, des, nw *ManagedZoneForwardingConfig) *ManagedZoneForwardingConfig {
@@ -973,14 +1019,20 @@ func canonicalizeManagedZoneForwardingConfigTargetNameServers(des, initial *Mana
 		return des
 	}
 
+	cDes := &ManagedZoneForwardingConfigTargetNameServers{}
+
 	if dcl.StringCanonicalize(des.IPv4Address, initial.IPv4Address) || dcl.IsZeroValue(des.IPv4Address) {
-		des.IPv4Address = initial.IPv4Address
+		cDes.IPv4Address = initial.IPv4Address
+	} else {
+		cDes.IPv4Address = des.IPv4Address
 	}
 	if dcl.IsZeroValue(des.ForwardingPath) {
 		des.ForwardingPath = initial.ForwardingPath
+	} else {
+		cDes.ForwardingPath = des.ForwardingPath
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewManagedZoneForwardingConfigTargetNameServers(c *Client, des, nw *ManagedZoneForwardingConfigTargetNameServers) *ManagedZoneForwardingConfigTargetNameServers {
@@ -1053,9 +1105,11 @@ func canonicalizeManagedZonePeeringConfig(des, initial *ManagedZonePeeringConfig
 		return des
 	}
 
-	des.TargetNetwork = canonicalizeManagedZonePeeringConfigTargetNetwork(des.TargetNetwork, initial.TargetNetwork, opts...)
+	cDes := &ManagedZonePeeringConfig{}
 
-	return des
+	cDes.TargetNetwork = canonicalizeManagedZonePeeringConfigTargetNetwork(des.TargetNetwork, initial.TargetNetwork, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewManagedZonePeeringConfig(c *Client, des, nw *ManagedZonePeeringConfig) *ManagedZonePeeringConfig {
@@ -1123,11 +1177,15 @@ func canonicalizeManagedZonePeeringConfigTargetNetwork(des, initial *ManagedZone
 		return des
 	}
 
+	cDes := &ManagedZonePeeringConfigTargetNetwork{}
+
 	if dcl.NameToSelfLink(des.NetworkUrl, initial.NetworkUrl) || dcl.IsZeroValue(des.NetworkUrl) {
-		des.NetworkUrl = initial.NetworkUrl
+		cDes.NetworkUrl = initial.NetworkUrl
+	} else {
+		cDes.NetworkUrl = des.NetworkUrl
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewManagedZonePeeringConfigTargetNetwork(c *Client, des, nw *ManagedZonePeeringConfigTargetNetwork) *ManagedZonePeeringConfigTargetNetwork {
@@ -2878,31 +2936,45 @@ type managedZoneDiff struct {
 	UpdateOp         managedZoneApiOperation
 }
 
-func convertFieldDiffToManagedZoneOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]managedZoneDiff, error) {
+func convertFieldDiffsToManagedZoneDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]managedZoneDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []managedZoneDiff
-	for _, op := range ops {
+	// For each operation name, create a managedZoneDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := managedZoneDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTomanagedZoneApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToManagedZoneApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTomanagedZoneApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (managedZoneApiOperation, error) {
-	switch op {
+func convertOpNameToManagedZoneApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (managedZoneApiOperation, error) {
+	switch opName {
 
 	case "updateManagedZoneUpdateOperation":
-		return &updateManagedZoneUpdateOperation{Diffs: diffs}, nil
+		return &updateManagedZoneUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

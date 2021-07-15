@@ -253,7 +253,7 @@ type updateBuildTriggerUpdateBuildTriggerOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -520,14 +520,14 @@ func (c *Client) buildTriggerDiffsForRawDesired(ctx context.Context, rawDesired 
 func canonicalizeBuildTriggerInitialState(rawInitial, rawDesired *BuildTrigger) (*BuildTrigger, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
-	if dcl.IsZeroValue(rawInitial.Filename) {
+	if !dcl.IsZeroValue(rawInitial.Filename) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.Build) {
 			rawInitial.Filename = dcl.String("")
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.Build) {
+	if !dcl.IsZeroValue(rawInitial.Build) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.Filename) {
 			rawInitial.Build = EmptyBuildTriggerBuild
@@ -572,38 +572,57 @@ func canonicalizeBuildTriggerDesiredState(rawDesired, rawInitial *BuildTrigger, 
 		}
 	}
 
+	canonicalDesired := &BuildTrigger{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.Tags) {
-		rawDesired.Tags = rawInitial.Tags
+		canonicalDesired.Tags = rawInitial.Tags
+	} else {
+		canonicalDesired.Tags = rawDesired.Tags
 	}
 	if dcl.BoolCanonicalize(rawDesired.Disabled, rawInitial.Disabled) {
-		rawDesired.Disabled = rawInitial.Disabled
+		canonicalDesired.Disabled = rawInitial.Disabled
+	} else {
+		canonicalDesired.Disabled = rawDesired.Disabled
 	}
 	if dcl.IsZeroValue(rawDesired.Substitutions) {
-		rawDesired.Substitutions = rawInitial.Substitutions
+		canonicalDesired.Substitutions = rawInitial.Substitutions
+	} else {
+		canonicalDesired.Substitutions = rawDesired.Substitutions
 	}
 	if dcl.StringCanonicalize(rawDesired.Filename, rawInitial.Filename) {
-		rawDesired.Filename = rawInitial.Filename
+		canonicalDesired.Filename = rawInitial.Filename
+	} else {
+		canonicalDesired.Filename = rawDesired.Filename
 	}
 	if dcl.IsZeroValue(rawDesired.IgnoredFiles) {
-		rawDesired.IgnoredFiles = rawInitial.IgnoredFiles
+		canonicalDesired.IgnoredFiles = rawInitial.IgnoredFiles
+	} else {
+		canonicalDesired.IgnoredFiles = rawDesired.IgnoredFiles
 	}
 	if dcl.IsZeroValue(rawDesired.IncludedFiles) {
-		rawDesired.IncludedFiles = rawInitial.IncludedFiles
+		canonicalDesired.IncludedFiles = rawInitial.IncludedFiles
+	} else {
+		canonicalDesired.IncludedFiles = rawDesired.IncludedFiles
 	}
-	rawDesired.TriggerTemplate = canonicalizeBuildTriggerTriggerTemplate(rawDesired.TriggerTemplate, rawInitial.TriggerTemplate, opts...)
-	rawDesired.Github = canonicalizeBuildTriggerGithub(rawDesired.Github, rawInitial.Github, opts...)
+	canonicalDesired.TriggerTemplate = canonicalizeBuildTriggerTriggerTemplate(rawDesired.TriggerTemplate, rawInitial.TriggerTemplate, opts...)
+	canonicalDesired.Github = canonicalizeBuildTriggerGithub(rawDesired.Github, rawInitial.Github, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
-	rawDesired.Build = canonicalizeBuildTriggerBuild(rawDesired.Build, rawInitial.Build, opts...)
+	canonicalDesired.Build = canonicalizeBuildTriggerBuild(rawDesired.Build, rawInitial.Build, opts...)
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeBuildTriggerNewState(c *Client, rawNew, rawDesired *BuildTrigger) (*BuildTrigger, error) {
@@ -715,29 +734,45 @@ func canonicalizeBuildTriggerTriggerTemplate(des, initial *BuildTriggerTriggerTe
 		return des
 	}
 
+	cDes := &BuildTriggerTriggerTemplate{}
+
 	if dcl.StringCanonicalize(des.ProjectId, initial.ProjectId) || dcl.IsZeroValue(des.ProjectId) {
-		des.ProjectId = initial.ProjectId
+		cDes.ProjectId = initial.ProjectId
+	} else {
+		cDes.ProjectId = des.ProjectId
 	}
 	if dcl.StringCanonicalize(des.RepoName, initial.RepoName) || dcl.IsZeroValue(des.RepoName) {
-		des.RepoName = initial.RepoName
+		cDes.RepoName = initial.RepoName
+	} else {
+		cDes.RepoName = des.RepoName
 	}
 	if dcl.StringCanonicalize(des.BranchName, initial.BranchName) || dcl.IsZeroValue(des.BranchName) {
-		des.BranchName = initial.BranchName
+		cDes.BranchName = initial.BranchName
+	} else {
+		cDes.BranchName = des.BranchName
 	}
 	if dcl.StringCanonicalize(des.TagName, initial.TagName) || dcl.IsZeroValue(des.TagName) {
-		des.TagName = initial.TagName
+		cDes.TagName = initial.TagName
+	} else {
+		cDes.TagName = des.TagName
 	}
 	if dcl.StringCanonicalize(des.CommitSha, initial.CommitSha) || dcl.IsZeroValue(des.CommitSha) {
-		des.CommitSha = initial.CommitSha
+		cDes.CommitSha = initial.CommitSha
+	} else {
+		cDes.CommitSha = des.CommitSha
 	}
 	if dcl.StringCanonicalize(des.Dir, initial.Dir) || dcl.IsZeroValue(des.Dir) {
-		des.Dir = initial.Dir
+		cDes.Dir = initial.Dir
+	} else {
+		cDes.Dir = des.Dir
 	}
 	if dcl.BoolCanonicalize(des.InvertRegex, initial.InvertRegex) || dcl.IsZeroValue(des.InvertRegex) {
-		des.InvertRegex = initial.InvertRegex
+		cDes.InvertRegex = initial.InvertRegex
+	} else {
+		cDes.InvertRegex = des.InvertRegex
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBuildTriggerTriggerTemplate(c *Client, des, nw *BuildTriggerTriggerTemplate) *BuildTriggerTriggerTemplate {
@@ -829,16 +864,22 @@ func canonicalizeBuildTriggerGithub(des, initial *BuildTriggerGithub, opts ...dc
 		return des
 	}
 
+	cDes := &BuildTriggerGithub{}
+
 	if dcl.StringCanonicalize(des.Owner, initial.Owner) || dcl.IsZeroValue(des.Owner) {
-		des.Owner = initial.Owner
+		cDes.Owner = initial.Owner
+	} else {
+		cDes.Owner = des.Owner
 	}
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
-	des.PullRequest = canonicalizeBuildTriggerGithubPullRequest(des.PullRequest, initial.PullRequest, opts...)
-	des.Push = canonicalizeBuildTriggerGithubPush(des.Push, initial.Push, opts...)
+	cDes.PullRequest = canonicalizeBuildTriggerGithubPullRequest(des.PullRequest, initial.PullRequest, opts...)
+	cDes.Push = canonicalizeBuildTriggerGithubPush(des.Push, initial.Push, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBuildTriggerGithub(c *Client, des, nw *BuildTriggerGithub) *BuildTriggerGithub {
@@ -913,17 +954,25 @@ func canonicalizeBuildTriggerGithubPullRequest(des, initial *BuildTriggerGithubP
 		return des
 	}
 
+	cDes := &BuildTriggerGithubPullRequest{}
+
 	if dcl.StringCanonicalize(des.Branch, initial.Branch) || dcl.IsZeroValue(des.Branch) {
-		des.Branch = initial.Branch
+		cDes.Branch = initial.Branch
+	} else {
+		cDes.Branch = des.Branch
 	}
 	if dcl.IsZeroValue(des.CommentControl) {
 		des.CommentControl = initial.CommentControl
+	} else {
+		cDes.CommentControl = des.CommentControl
 	}
 	if dcl.BoolCanonicalize(des.InvertRegex, initial.InvertRegex) || dcl.IsZeroValue(des.InvertRegex) {
-		des.InvertRegex = initial.InvertRegex
+		cDes.InvertRegex = initial.InvertRegex
+	} else {
+		cDes.InvertRegex = des.InvertRegex
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBuildTriggerGithubPullRequest(c *Client, des, nw *BuildTriggerGithubPullRequest) *BuildTriggerGithubPullRequest {
@@ -999,17 +1048,25 @@ func canonicalizeBuildTriggerGithubPush(des, initial *BuildTriggerGithubPush, op
 		return des
 	}
 
+	cDes := &BuildTriggerGithubPush{}
+
 	if dcl.StringCanonicalize(des.Branch, initial.Branch) || dcl.IsZeroValue(des.Branch) {
-		des.Branch = initial.Branch
+		cDes.Branch = initial.Branch
+	} else {
+		cDes.Branch = des.Branch
 	}
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.BoolCanonicalize(des.InvertRegex, initial.InvertRegex) || dcl.IsZeroValue(des.InvertRegex) {
-		des.InvertRegex = initial.InvertRegex
+		cDes.InvertRegex = initial.InvertRegex
+	} else {
+		cDes.InvertRegex = des.InvertRegex
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBuildTriggerGithubPush(c *Client, des, nw *BuildTriggerGithubPush) *BuildTriggerGithubPush {
@@ -1089,33 +1146,51 @@ func canonicalizeBuildTriggerBuild(des, initial *BuildTriggerBuild, opts ...dcl.
 		return des
 	}
 
+	cDes := &BuildTriggerBuild{}
+
 	if dcl.IsZeroValue(des.Tags) {
 		des.Tags = initial.Tags
+	} else {
+		cDes.Tags = des.Tags
 	}
 	if dcl.IsZeroValue(des.Images) {
 		des.Images = initial.Images
+	} else {
+		cDes.Images = des.Images
 	}
 	if dcl.IsZeroValue(des.Substitutions) {
 		des.Substitutions = initial.Substitutions
+	} else {
+		cDes.Substitutions = des.Substitutions
 	}
 	if dcl.StringCanonicalize(des.QueueTtl, initial.QueueTtl) || dcl.IsZeroValue(des.QueueTtl) {
-		des.QueueTtl = initial.QueueTtl
+		cDes.QueueTtl = initial.QueueTtl
+	} else {
+		cDes.QueueTtl = des.QueueTtl
 	}
 	if dcl.StringCanonicalize(des.LogsBucket, initial.LogsBucket) || dcl.IsZeroValue(des.LogsBucket) {
-		des.LogsBucket = initial.LogsBucket
+		cDes.LogsBucket = initial.LogsBucket
+	} else {
+		cDes.LogsBucket = des.LogsBucket
 	}
 	if dcl.StringCanonicalize(des.Timeout, initial.Timeout) || dcl.IsZeroValue(des.Timeout) {
-		des.Timeout = initial.Timeout
+		cDes.Timeout = initial.Timeout
+	} else {
+		cDes.Timeout = des.Timeout
 	}
 	if dcl.IsZeroValue(des.Secrets) {
 		des.Secrets = initial.Secrets
+	} else {
+		cDes.Secrets = des.Secrets
 	}
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
-	des.Source = canonicalizeBuildTriggerBuildSource(des.Source, initial.Source, opts...)
+	cDes.Source = canonicalizeBuildTriggerBuildSource(des.Source, initial.Source, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBuildTriggerBuild(c *Client, des, nw *BuildTriggerBuild) *BuildTriggerBuild {
@@ -1207,14 +1282,20 @@ func canonicalizeBuildTriggerBuildSecrets(des, initial *BuildTriggerBuildSecrets
 		return des
 	}
 
+	cDes := &BuildTriggerBuildSecrets{}
+
 	if dcl.StringCanonicalize(des.KmsKeyName, initial.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
-		des.KmsKeyName = initial.KmsKeyName
+		cDes.KmsKeyName = initial.KmsKeyName
+	} else {
+		cDes.KmsKeyName = des.KmsKeyName
 	}
 	if dcl.IsZeroValue(des.SecretEnv) {
 		des.SecretEnv = initial.SecretEnv
+	} else {
+		cDes.SecretEnv = des.SecretEnv
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBuildTriggerBuildSecrets(c *Client, des, nw *BuildTriggerBuildSecrets) *BuildTriggerBuildSecrets {
@@ -1291,38 +1372,60 @@ func canonicalizeBuildTriggerBuildSteps(des, initial *BuildTriggerBuildSteps, op
 		return des
 	}
 
+	cDes := &BuildTriggerBuildSteps{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.IsZeroValue(des.Env) {
 		des.Env = initial.Env
+	} else {
+		cDes.Env = des.Env
 	}
 	if dcl.IsZeroValue(des.Args) {
 		des.Args = initial.Args
+	} else {
+		cDes.Args = des.Args
 	}
 	if dcl.StringCanonicalize(des.Dir, initial.Dir) || dcl.IsZeroValue(des.Dir) {
-		des.Dir = initial.Dir
+		cDes.Dir = initial.Dir
+	} else {
+		cDes.Dir = des.Dir
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.IsZeroValue(des.WaitFor) {
 		des.WaitFor = initial.WaitFor
+	} else {
+		cDes.WaitFor = des.WaitFor
 	}
 	if dcl.StringCanonicalize(des.Entrypoint, initial.Entrypoint) || dcl.IsZeroValue(des.Entrypoint) {
-		des.Entrypoint = initial.Entrypoint
+		cDes.Entrypoint = initial.Entrypoint
+	} else {
+		cDes.Entrypoint = des.Entrypoint
 	}
 	if dcl.IsZeroValue(des.SecretEnv) {
 		des.SecretEnv = initial.SecretEnv
+	} else {
+		cDes.SecretEnv = des.SecretEnv
 	}
 	if dcl.IsZeroValue(des.Volumes) {
 		des.Volumes = initial.Volumes
+	} else {
+		cDes.Volumes = des.Volumes
 	}
 	if dcl.StringCanonicalize(des.Timeout, initial.Timeout) || dcl.IsZeroValue(des.Timeout) {
-		des.Timeout = initial.Timeout
+		cDes.Timeout = initial.Timeout
+	} else {
+		cDes.Timeout = des.Timeout
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBuildTriggerBuildSteps(c *Client, des, nw *BuildTriggerBuildSteps) *BuildTriggerBuildSteps {
@@ -1426,14 +1529,20 @@ func canonicalizeBuildTriggerBuildStepsVolumes(des, initial *BuildTriggerBuildSt
 		return des
 	}
 
+	cDes := &BuildTriggerBuildStepsVolumes{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
-		des.Path = initial.Path
+		cDes.Path = initial.Path
+	} else {
+		cDes.Path = des.Path
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBuildTriggerBuildStepsVolumes(c *Client, des, nw *BuildTriggerBuildStepsVolumes) *BuildTriggerBuildStepsVolumes {
@@ -1506,14 +1615,20 @@ func canonicalizeBuildTriggerBuildStepsTiming(des, initial *BuildTriggerBuildSte
 		return des
 	}
 
+	cDes := &BuildTriggerBuildStepsTiming{}
+
 	if dcl.StringCanonicalize(des.StartTime, initial.StartTime) || dcl.IsZeroValue(des.StartTime) {
-		des.StartTime = initial.StartTime
+		cDes.StartTime = initial.StartTime
+	} else {
+		cDes.StartTime = des.StartTime
 	}
 	if dcl.StringCanonicalize(des.EndTime, initial.EndTime) || dcl.IsZeroValue(des.EndTime) {
-		des.EndTime = initial.EndTime
+		cDes.EndTime = initial.EndTime
+	} else {
+		cDes.EndTime = des.EndTime
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBuildTriggerBuildStepsTiming(c *Client, des, nw *BuildTriggerBuildStepsTiming) *BuildTriggerBuildStepsTiming {
@@ -1586,14 +1701,20 @@ func canonicalizeBuildTriggerBuildStepsPullTiming(des, initial *BuildTriggerBuil
 		return des
 	}
 
+	cDes := &BuildTriggerBuildStepsPullTiming{}
+
 	if dcl.StringCanonicalize(des.StartTime, initial.StartTime) || dcl.IsZeroValue(des.StartTime) {
-		des.StartTime = initial.StartTime
+		cDes.StartTime = initial.StartTime
+	} else {
+		cDes.StartTime = des.StartTime
 	}
 	if dcl.StringCanonicalize(des.EndTime, initial.EndTime) || dcl.IsZeroValue(des.EndTime) {
-		des.EndTime = initial.EndTime
+		cDes.EndTime = initial.EndTime
+	} else {
+		cDes.EndTime = des.EndTime
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBuildTriggerBuildStepsPullTiming(c *Client, des, nw *BuildTriggerBuildStepsPullTiming) *BuildTriggerBuildStepsPullTiming {
@@ -1666,10 +1787,12 @@ func canonicalizeBuildTriggerBuildSource(des, initial *BuildTriggerBuildSource, 
 		return des
 	}
 
-	des.StorageSource = canonicalizeBuildTriggerBuildSourceStorageSource(des.StorageSource, initial.StorageSource, opts...)
-	des.RepoSource = canonicalizeBuildTriggerBuildSourceRepoSource(des.RepoSource, initial.RepoSource, opts...)
+	cDes := &BuildTriggerBuildSource{}
 
-	return des
+	cDes.StorageSource = canonicalizeBuildTriggerBuildSourceStorageSource(des.StorageSource, initial.StorageSource, opts...)
+	cDes.RepoSource = canonicalizeBuildTriggerBuildSourceRepoSource(des.RepoSource, initial.RepoSource, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewBuildTriggerBuildSource(c *Client, des, nw *BuildTriggerBuildSource) *BuildTriggerBuildSource {
@@ -1738,17 +1861,25 @@ func canonicalizeBuildTriggerBuildSourceStorageSource(des, initial *BuildTrigger
 		return des
 	}
 
+	cDes := &BuildTriggerBuildSourceStorageSource{}
+
 	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) || dcl.IsZeroValue(des.Bucket) {
-		des.Bucket = initial.Bucket
+		cDes.Bucket = initial.Bucket
+	} else {
+		cDes.Bucket = des.Bucket
 	}
 	if dcl.StringCanonicalize(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
-		des.Object = initial.Object
+		cDes.Object = initial.Object
+	} else {
+		cDes.Object = des.Object
 	}
 	if dcl.StringCanonicalize(des.Generation, initial.Generation) || dcl.IsZeroValue(des.Generation) {
-		des.Generation = initial.Generation
+		cDes.Generation = initial.Generation
+	} else {
+		cDes.Generation = des.Generation
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBuildTriggerBuildSourceStorageSource(c *Client, des, nw *BuildTriggerBuildSourceStorageSource) *BuildTriggerBuildSourceStorageSource {
@@ -1824,32 +1955,50 @@ func canonicalizeBuildTriggerBuildSourceRepoSource(des, initial *BuildTriggerBui
 		return des
 	}
 
+	cDes := &BuildTriggerBuildSourceRepoSource{}
+
 	if dcl.StringCanonicalize(des.ProjectId, initial.ProjectId) || dcl.IsZeroValue(des.ProjectId) {
-		des.ProjectId = initial.ProjectId
+		cDes.ProjectId = initial.ProjectId
+	} else {
+		cDes.ProjectId = des.ProjectId
 	}
 	if dcl.StringCanonicalize(des.RepoName, initial.RepoName) || dcl.IsZeroValue(des.RepoName) {
-		des.RepoName = initial.RepoName
+		cDes.RepoName = initial.RepoName
+	} else {
+		cDes.RepoName = des.RepoName
 	}
 	if dcl.StringCanonicalize(des.BranchName, initial.BranchName) || dcl.IsZeroValue(des.BranchName) {
-		des.BranchName = initial.BranchName
+		cDes.BranchName = initial.BranchName
+	} else {
+		cDes.BranchName = des.BranchName
 	}
 	if dcl.StringCanonicalize(des.TagName, initial.TagName) || dcl.IsZeroValue(des.TagName) {
-		des.TagName = initial.TagName
+		cDes.TagName = initial.TagName
+	} else {
+		cDes.TagName = des.TagName
 	}
 	if dcl.StringCanonicalize(des.CommitSha, initial.CommitSha) || dcl.IsZeroValue(des.CommitSha) {
-		des.CommitSha = initial.CommitSha
+		cDes.CommitSha = initial.CommitSha
+	} else {
+		cDes.CommitSha = des.CommitSha
 	}
 	if dcl.StringCanonicalize(des.Dir, initial.Dir) || dcl.IsZeroValue(des.Dir) {
-		des.Dir = initial.Dir
+		cDes.Dir = initial.Dir
+	} else {
+		cDes.Dir = des.Dir
 	}
 	if dcl.BoolCanonicalize(des.InvertRegex, initial.InvertRegex) || dcl.IsZeroValue(des.InvertRegex) {
-		des.InvertRegex = initial.InvertRegex
+		cDes.InvertRegex = initial.InvertRegex
+	} else {
+		cDes.InvertRegex = des.InvertRegex
 	}
 	if dcl.IsZeroValue(des.Substitutions) {
 		des.Substitutions = initial.Substitutions
+	} else {
+		cDes.Substitutions = des.Substitutions
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBuildTriggerBuildSourceRepoSource(c *Client, des, nw *BuildTriggerBuildSourceRepoSource) *BuildTriggerBuildSourceRepoSource {
@@ -4694,31 +4843,45 @@ type buildTriggerDiff struct {
 	UpdateOp         buildTriggerApiOperation
 }
 
-func convertFieldDiffToBuildTriggerOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]buildTriggerDiff, error) {
+func convertFieldDiffsToBuildTriggerDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]buildTriggerDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []buildTriggerDiff
-	for _, op := range ops {
+	// For each operation name, create a buildTriggerDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := buildTriggerDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTobuildTriggerApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToBuildTriggerApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTobuildTriggerApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (buildTriggerApiOperation, error) {
-	switch op {
+func convertOpNameToBuildTriggerApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (buildTriggerApiOperation, error) {
+	switch opName {
 
 	case "updateBuildTriggerUpdateBuildTriggerOperation":
-		return &updateBuildTriggerUpdateBuildTriggerOperation{Diffs: diffs}, nil
+		return &updateBuildTriggerUpdateBuildTriggerOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

@@ -150,7 +150,7 @@ type updateKeyUpdateKeyOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -167,7 +167,7 @@ func (op *updateKeyUpdateKeyOperation) do(ctx context.Context, r *Key, c *Client
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -430,19 +430,25 @@ func canonicalizeKeyDesiredState(rawDesired, rawInitial *Key, opts ...dcl.ApplyO
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Key{}
 	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
-		rawDesired.DisplayName = rawInitial.DisplayName
+		canonicalDesired.DisplayName = rawInitial.DisplayName
+	} else {
+		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
-	rawDesired.Restrictions = canonicalizeKeyRestrictions(rawDesired.Restrictions, rawInitial.Restrictions, opts...)
+	canonicalDesired.Restrictions = canonicalizeKeyRestrictions(rawDesired.Restrictions, rawInitial.Restrictions, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeKeyNewState(c *Client, rawNew, rawDesired *Key) (*Key, error) {
@@ -519,15 +525,19 @@ func canonicalizeKeyRestrictions(des, initial *KeyRestrictions, opts ...dcl.Appl
 		return des
 	}
 
-	des.BrowserKeyRestrictions = canonicalizeKeyRestrictionsBrowserKeyRestrictions(des.BrowserKeyRestrictions, initial.BrowserKeyRestrictions, opts...)
-	des.ServerKeyRestrictions = canonicalizeKeyRestrictionsServerKeyRestrictions(des.ServerKeyRestrictions, initial.ServerKeyRestrictions, opts...)
-	des.AndroidKeyRestrictions = canonicalizeKeyRestrictionsAndroidKeyRestrictions(des.AndroidKeyRestrictions, initial.AndroidKeyRestrictions, opts...)
-	des.IosKeyRestrictions = canonicalizeKeyRestrictionsIosKeyRestrictions(des.IosKeyRestrictions, initial.IosKeyRestrictions, opts...)
+	cDes := &KeyRestrictions{}
+
+	cDes.BrowserKeyRestrictions = canonicalizeKeyRestrictionsBrowserKeyRestrictions(des.BrowserKeyRestrictions, initial.BrowserKeyRestrictions, opts...)
+	cDes.ServerKeyRestrictions = canonicalizeKeyRestrictionsServerKeyRestrictions(des.ServerKeyRestrictions, initial.ServerKeyRestrictions, opts...)
+	cDes.AndroidKeyRestrictions = canonicalizeKeyRestrictionsAndroidKeyRestrictions(des.AndroidKeyRestrictions, initial.AndroidKeyRestrictions, opts...)
+	cDes.IosKeyRestrictions = canonicalizeKeyRestrictionsIosKeyRestrictions(des.IosKeyRestrictions, initial.IosKeyRestrictions, opts...)
 	if dcl.IsZeroValue(des.ApiTargets) {
 		des.ApiTargets = initial.ApiTargets
+	} else {
+		cDes.ApiTargets = des.ApiTargets
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewKeyRestrictions(c *Client, des, nw *KeyRestrictions) *KeyRestrictions {
@@ -599,11 +609,15 @@ func canonicalizeKeyRestrictionsBrowserKeyRestrictions(des, initial *KeyRestrict
 		return des
 	}
 
+	cDes := &KeyRestrictionsBrowserKeyRestrictions{}
+
 	if dcl.IsZeroValue(des.AllowedReferrers) {
 		des.AllowedReferrers = initial.AllowedReferrers
+	} else {
+		cDes.AllowedReferrers = des.AllowedReferrers
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewKeyRestrictionsBrowserKeyRestrictions(c *Client, des, nw *KeyRestrictionsBrowserKeyRestrictions) *KeyRestrictionsBrowserKeyRestrictions {
@@ -673,11 +687,15 @@ func canonicalizeKeyRestrictionsServerKeyRestrictions(des, initial *KeyRestricti
 		return des
 	}
 
+	cDes := &KeyRestrictionsServerKeyRestrictions{}
+
 	if dcl.IsZeroValue(des.AllowedIps) {
 		des.AllowedIps = initial.AllowedIps
+	} else {
+		cDes.AllowedIps = des.AllowedIps
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewKeyRestrictionsServerKeyRestrictions(c *Client, des, nw *KeyRestrictionsServerKeyRestrictions) *KeyRestrictionsServerKeyRestrictions {
@@ -747,11 +765,15 @@ func canonicalizeKeyRestrictionsAndroidKeyRestrictions(des, initial *KeyRestrict
 		return des
 	}
 
+	cDes := &KeyRestrictionsAndroidKeyRestrictions{}
+
 	if dcl.IsZeroValue(des.AllowedApplications) {
 		des.AllowedApplications = initial.AllowedApplications
+	} else {
+		cDes.AllowedApplications = des.AllowedApplications
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewKeyRestrictionsAndroidKeyRestrictions(c *Client, des, nw *KeyRestrictionsAndroidKeyRestrictions) *KeyRestrictionsAndroidKeyRestrictions {
@@ -819,14 +841,20 @@ func canonicalizeKeyRestrictionsAndroidKeyRestrictionsAllowedApplications(des, i
 		return des
 	}
 
+	cDes := &KeyRestrictionsAndroidKeyRestrictionsAllowedApplications{}
+
 	if dcl.StringCanonicalize(des.Sha1Fingerprint, initial.Sha1Fingerprint) || dcl.IsZeroValue(des.Sha1Fingerprint) {
-		des.Sha1Fingerprint = initial.Sha1Fingerprint
+		cDes.Sha1Fingerprint = initial.Sha1Fingerprint
+	} else {
+		cDes.Sha1Fingerprint = des.Sha1Fingerprint
 	}
 	if dcl.StringCanonicalize(des.PackageName, initial.PackageName) || dcl.IsZeroValue(des.PackageName) {
-		des.PackageName = initial.PackageName
+		cDes.PackageName = initial.PackageName
+	} else {
+		cDes.PackageName = des.PackageName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewKeyRestrictionsAndroidKeyRestrictionsAllowedApplications(c *Client, des, nw *KeyRestrictionsAndroidKeyRestrictionsAllowedApplications) *KeyRestrictionsAndroidKeyRestrictionsAllowedApplications {
@@ -899,11 +927,15 @@ func canonicalizeKeyRestrictionsIosKeyRestrictions(des, initial *KeyRestrictions
 		return des
 	}
 
+	cDes := &KeyRestrictionsIosKeyRestrictions{}
+
 	if dcl.IsZeroValue(des.AllowedBundleIds) {
 		des.AllowedBundleIds = initial.AllowedBundleIds
+	} else {
+		cDes.AllowedBundleIds = des.AllowedBundleIds
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewKeyRestrictionsIosKeyRestrictions(c *Client, des, nw *KeyRestrictionsIosKeyRestrictions) *KeyRestrictionsIosKeyRestrictions {
@@ -973,14 +1005,20 @@ func canonicalizeKeyRestrictionsApiTargets(des, initial *KeyRestrictionsApiTarge
 		return des
 	}
 
+	cDes := &KeyRestrictionsApiTargets{}
+
 	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
-		des.Service = initial.Service
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
 	}
 	if dcl.IsZeroValue(des.Methods) {
 		des.Methods = initial.Methods
+	} else {
+		cDes.Methods = des.Methods
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewKeyRestrictionsApiTargets(c *Client, des, nw *KeyRestrictionsApiTargets) *KeyRestrictionsApiTargets {
@@ -2370,31 +2408,45 @@ type keyDiff struct {
 	UpdateOp         keyApiOperation
 }
 
-func convertFieldDiffToKeyOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]keyDiff, error) {
+func convertFieldDiffsToKeyDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]keyDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []keyDiff
-	for _, op := range ops {
+	// For each operation name, create a keyDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := keyDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTokeyApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToKeyApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTokeyApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (keyApiOperation, error) {
-	switch op {
+func convertOpNameToKeyApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (keyApiOperation, error) {
+	switch opName {
 
 	case "updateKeyUpdateKeyOperation":
-		return &updateKeyUpdateKeyOperation{Diffs: diffs}, nil
+		return &updateKeyUpdateKeyOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

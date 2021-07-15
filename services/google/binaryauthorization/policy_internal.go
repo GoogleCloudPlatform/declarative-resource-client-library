@@ -139,7 +139,7 @@ type updatePolicyUpdatePolicyOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -257,28 +257,28 @@ func (c *Client) policyDiffsForRawDesired(ctx context.Context, rawDesired *Polic
 func canonicalizePolicyInitialState(rawInitial, rawDesired *Policy) (*Policy, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
-	if dcl.IsZeroValue(rawInitial.KubernetesNamespaceAdmissionRules) {
+	if !dcl.IsZeroValue(rawInitial.KubernetesNamespaceAdmissionRules) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.KubernetesServiceAccountAdmissionRules, rawInitial.IstioServiceIdentityAdmissionRules, rawInitial.ClusterAdmissionRules) {
 			rawInitial.KubernetesNamespaceAdmissionRules = map[string]PolicyAdmissionRule{}
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.KubernetesServiceAccountAdmissionRules) {
+	if !dcl.IsZeroValue(rawInitial.KubernetesServiceAccountAdmissionRules) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.KubernetesNamespaceAdmissionRules, rawInitial.IstioServiceIdentityAdmissionRules, rawInitial.ClusterAdmissionRules) {
 			rawInitial.KubernetesServiceAccountAdmissionRules = map[string]PolicyAdmissionRule{}
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.IstioServiceIdentityAdmissionRules) {
+	if !dcl.IsZeroValue(rawInitial.IstioServiceIdentityAdmissionRules) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.KubernetesNamespaceAdmissionRules, rawInitial.KubernetesServiceAccountAdmissionRules, rawInitial.ClusterAdmissionRules) {
 			rawInitial.IstioServiceIdentityAdmissionRules = map[string]PolicyAdmissionRule{}
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.ClusterAdmissionRules) {
+	if !dcl.IsZeroValue(rawInitial.ClusterAdmissionRules) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.KubernetesNamespaceAdmissionRules, rawInitial.KubernetesServiceAccountAdmissionRules, rawInitial.IstioServiceIdentityAdmissionRules) {
 			rawInitial.ClusterAdmissionRules = map[string]PolicyAdmissionRule{}
@@ -337,33 +337,50 @@ func canonicalizePolicyDesiredState(rawDesired, rawInitial *Policy, opts ...dcl.
 		}
 	}
 
+	canonicalDesired := &Policy{}
 	if dcl.IsZeroValue(rawDesired.AdmissionWhitelistPatterns) {
-		rawDesired.AdmissionWhitelistPatterns = rawInitial.AdmissionWhitelistPatterns
+		canonicalDesired.AdmissionWhitelistPatterns = rawInitial.AdmissionWhitelistPatterns
+	} else {
+		canonicalDesired.AdmissionWhitelistPatterns = rawDesired.AdmissionWhitelistPatterns
 	}
 	if dcl.IsZeroValue(rawDesired.ClusterAdmissionRules) {
-		rawDesired.ClusterAdmissionRules = rawInitial.ClusterAdmissionRules
+		canonicalDesired.ClusterAdmissionRules = rawInitial.ClusterAdmissionRules
+	} else {
+		canonicalDesired.ClusterAdmissionRules = rawDesired.ClusterAdmissionRules
 	}
 	if dcl.IsZeroValue(rawDesired.KubernetesNamespaceAdmissionRules) {
-		rawDesired.KubernetesNamespaceAdmissionRules = rawInitial.KubernetesNamespaceAdmissionRules
+		canonicalDesired.KubernetesNamespaceAdmissionRules = rawInitial.KubernetesNamespaceAdmissionRules
+	} else {
+		canonicalDesired.KubernetesNamespaceAdmissionRules = rawDesired.KubernetesNamespaceAdmissionRules
 	}
 	if dcl.IsZeroValue(rawDesired.KubernetesServiceAccountAdmissionRules) {
-		rawDesired.KubernetesServiceAccountAdmissionRules = rawInitial.KubernetesServiceAccountAdmissionRules
+		canonicalDesired.KubernetesServiceAccountAdmissionRules = rawInitial.KubernetesServiceAccountAdmissionRules
+	} else {
+		canonicalDesired.KubernetesServiceAccountAdmissionRules = rawDesired.KubernetesServiceAccountAdmissionRules
 	}
 	if canonicalizePolicyISIAR(rawDesired.IstioServiceIdentityAdmissionRules, rawInitial.IstioServiceIdentityAdmissionRules) {
-		rawDesired.IstioServiceIdentityAdmissionRules = rawInitial.IstioServiceIdentityAdmissionRules
+		canonicalDesired.IstioServiceIdentityAdmissionRules = rawInitial.IstioServiceIdentityAdmissionRules
+	} else {
+		canonicalDesired.IstioServiceIdentityAdmissionRules = rawDesired.IstioServiceIdentityAdmissionRules
 	}
-	rawDesired.DefaultAdmissionRule = canonicalizePolicyAdmissionRule(rawDesired.DefaultAdmissionRule, rawInitial.DefaultAdmissionRule, opts...)
+	canonicalDesired.DefaultAdmissionRule = canonicalizePolicyAdmissionRule(rawDesired.DefaultAdmissionRule, rawInitial.DefaultAdmissionRule, opts...)
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.GlobalPolicyEvaluationMode) {
-		rawDesired.GlobalPolicyEvaluationMode = rawInitial.GlobalPolicyEvaluationMode
+		canonicalDesired.GlobalPolicyEvaluationMode = rawInitial.GlobalPolicyEvaluationMode
+	} else {
+		canonicalDesired.GlobalPolicyEvaluationMode = rawDesired.GlobalPolicyEvaluationMode
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizePolicyNewState(c *Client, rawNew, rawDesired *Policy) (*Policy, error) {
@@ -446,11 +463,15 @@ func canonicalizePolicyAdmissionWhitelistPatterns(des, initial *PolicyAdmissionW
 		return des
 	}
 
+	cDes := &PolicyAdmissionWhitelistPatterns{}
+
 	if dcl.StringCanonicalize(des.NamePattern, initial.NamePattern) || dcl.IsZeroValue(des.NamePattern) {
-		des.NamePattern = initial.NamePattern
+		cDes.NamePattern = initial.NamePattern
+	} else {
+		cDes.NamePattern = des.NamePattern
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewPolicyAdmissionWhitelistPatterns(c *Client, des, nw *PolicyAdmissionWhitelistPatterns) *PolicyAdmissionWhitelistPatterns {
@@ -520,17 +541,25 @@ func canonicalizePolicyAdmissionRule(des, initial *PolicyAdmissionRule, opts ...
 		return des
 	}
 
+	cDes := &PolicyAdmissionRule{}
+
 	if dcl.IsZeroValue(des.EvaluationMode) {
 		des.EvaluationMode = initial.EvaluationMode
+	} else {
+		cDes.EvaluationMode = des.EvaluationMode
 	}
 	if dcl.IsZeroValue(des.RequireAttestationsBy) {
 		des.RequireAttestationsBy = initial.RequireAttestationsBy
+	} else {
+		cDes.RequireAttestationsBy = des.RequireAttestationsBy
 	}
 	if dcl.IsZeroValue(des.EnforcementMode) {
 		des.EnforcementMode = initial.EnforcementMode
+	} else {
+		cDes.EnforcementMode = des.EnforcementMode
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewPolicyAdmissionRule(c *Client, des, nw *PolicyAdmissionRule) *PolicyAdmissionRule {
@@ -1238,31 +1267,45 @@ type policyDiff struct {
 	UpdateOp         policyApiOperation
 }
 
-func convertFieldDiffToPolicyOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]policyDiff, error) {
+func convertFieldDiffsToPolicyDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]policyDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []policyDiff
-	for _, op := range ops {
+	// For each operation name, create a policyDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := policyDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTopolicyApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToPolicyApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTopolicyApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (policyApiOperation, error) {
-	switch op {
+func convertOpNameToPolicyApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (policyApiOperation, error) {
+	switch opName {
 
 	case "updatePolicyUpdatePolicyOperation":
-		return &updatePolicyUpdatePolicyOperation{Diffs: diffs}, nil
+		return &updatePolicyUpdatePolicyOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

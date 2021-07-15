@@ -245,8 +245,7 @@ func applyHttpsHealthCheckHelper(c *Client, ctx context.Context, rawDesired *Htt
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToHttpsHealthCheckOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToHttpsHealthCheckDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -274,7 +273,6 @@ func applyHttpsHealthCheckHelper(c *Client, ctx context.Context, rawDesired *Htt
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

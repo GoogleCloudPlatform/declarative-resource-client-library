@@ -340,21 +340,29 @@ func canonicalizeIdentityAwareProxyClientDesiredState(rawDesired, rawInitial *Id
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &IdentityAwareProxyClient{}
 	if dcl.IsZeroValue(rawDesired.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
-		rawDesired.DisplayName = rawInitial.DisplayName
+		canonicalDesired.DisplayName = rawInitial.DisplayName
+	} else {
+		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Brand, rawInitial.Brand) {
-		rawDesired.Brand = rawInitial.Brand
+		canonicalDesired.Brand = rawInitial.Brand
+	} else {
+		canonicalDesired.Brand = rawDesired.Brand
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeIdentityAwareProxyClientNewState(c *Client, rawNew, rawDesired *IdentityAwareProxyClient) (*IdentityAwareProxyClient, error) {
@@ -582,28 +590,42 @@ type identityAwareProxyClientDiff struct {
 	UpdateOp         identityAwareProxyClientApiOperation
 }
 
-func convertFieldDiffToIdentityAwareProxyClientOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]identityAwareProxyClientDiff, error) {
+func convertFieldDiffsToIdentityAwareProxyClientDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]identityAwareProxyClientDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []identityAwareProxyClientDiff
-	for _, op := range ops {
+	// For each operation name, create a identityAwareProxyClientDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := identityAwareProxyClientDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToidentityAwareProxyClientApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToIdentityAwareProxyClientApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToidentityAwareProxyClientApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (identityAwareProxyClientApiOperation, error) {
-	switch op {
+func convertOpNameToIdentityAwareProxyClientApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (identityAwareProxyClientApiOperation, error) {
+	switch opName {
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

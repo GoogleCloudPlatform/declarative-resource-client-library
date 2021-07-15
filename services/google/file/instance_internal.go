@@ -124,7 +124,7 @@ type updateInstanceUpdateInstanceOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -141,7 +141,7 @@ func (op *updateInstanceUpdateInstanceOperation) do(ctx context.Context, r *Inst
 	if err != nil {
 		return err
 	}
-	mask := dcl.TopLevelUpdateMask(op.Diffs)
+	mask := dcl.TopLevelUpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -400,36 +400,54 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Instance{}
 	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.Tier) {
-		rawDesired.Tier = rawInitial.Tier
+		canonicalDesired.Tier = rawInitial.Tier
+	} else {
+		canonicalDesired.Tier = rawDesired.Tier
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.IsZeroValue(rawDesired.FileShares) {
-		rawDesired.FileShares = rawInitial.FileShares
+		canonicalDesired.FileShares = rawInitial.FileShares
+	} else {
+		canonicalDesired.FileShares = rawDesired.FileShares
 	}
 	if dcl.IsZeroValue(rawDesired.Networks) {
-		rawDesired.Networks = rawInitial.Networks
+		canonicalDesired.Networks = rawInitial.Networks
+	} else {
+		canonicalDesired.Networks = rawDesired.Networks
 	}
 	if dcl.StringCanonicalize(rawDesired.Etag, rawInitial.Etag) {
-		rawDesired.Etag = rawInitial.Etag
+		canonicalDesired.Etag = rawInitial.Etag
+	} else {
+		canonicalDesired.Etag = rawDesired.Etag
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Instance, error) {
@@ -511,20 +529,30 @@ func canonicalizeInstanceFileShares(des, initial *InstanceFileShares, opts ...dc
 		return des
 	}
 
+	cDes := &InstanceFileShares{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.IsZeroValue(des.CapacityGb) {
 		des.CapacityGb = initial.CapacityGb
+	} else {
+		cDes.CapacityGb = des.CapacityGb
 	}
 	if dcl.NameToSelfLink(des.SourceBackup, initial.SourceBackup) || dcl.IsZeroValue(des.SourceBackup) {
-		des.SourceBackup = initial.SourceBackup
+		cDes.SourceBackup = initial.SourceBackup
+	} else {
+		cDes.SourceBackup = des.SourceBackup
 	}
 	if dcl.IsZeroValue(des.NfsExportOptions) {
 		des.NfsExportOptions = initial.NfsExportOptions
+	} else {
+		cDes.NfsExportOptions = des.NfsExportOptions
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceFileShares(c *Client, des, nw *InstanceFileShares) *InstanceFileShares {
@@ -601,23 +629,35 @@ func canonicalizeInstanceFileSharesNfsExportOptions(des, initial *InstanceFileSh
 		return des
 	}
 
+	cDes := &InstanceFileSharesNfsExportOptions{}
+
 	if dcl.IsZeroValue(des.IPRanges) {
 		des.IPRanges = initial.IPRanges
+	} else {
+		cDes.IPRanges = des.IPRanges
 	}
 	if dcl.IsZeroValue(des.AccessMode) {
 		des.AccessMode = initial.AccessMode
+	} else {
+		cDes.AccessMode = des.AccessMode
 	}
 	if dcl.IsZeroValue(des.SquashMode) {
 		des.SquashMode = initial.SquashMode
+	} else {
+		cDes.SquashMode = des.SquashMode
 	}
 	if dcl.IsZeroValue(des.AnonUid) {
 		des.AnonUid = initial.AnonUid
+	} else {
+		cDes.AnonUid = des.AnonUid
 	}
 	if dcl.IsZeroValue(des.AnonGid) {
 		des.AnonGid = initial.AnonGid
+	} else {
+		cDes.AnonGid = des.AnonGid
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceFileSharesNfsExportOptions(c *Client, des, nw *InstanceFileSharesNfsExportOptions) *InstanceFileSharesNfsExportOptions {
@@ -699,17 +739,25 @@ func canonicalizeInstanceNetworks(des, initial *InstanceNetworks, opts ...dcl.Ap
 		return des
 	}
 
+	cDes := &InstanceNetworks{}
+
 	if dcl.NameToSelfLink(des.Network, initial.Network) || dcl.IsZeroValue(des.Network) {
-		des.Network = initial.Network
+		cDes.Network = initial.Network
+	} else {
+		cDes.Network = des.Network
 	}
 	if dcl.IsZeroValue(des.Modes) {
 		des.Modes = initial.Modes
+	} else {
+		cDes.Modes = des.Modes
 	}
 	if dcl.StringCanonicalize(des.ReservedIPRange, initial.ReservedIPRange) || dcl.IsZeroValue(des.ReservedIPRange) {
-		des.ReservedIPRange = initial.ReservedIPRange
+		cDes.ReservedIPRange = initial.ReservedIPRange
+	} else {
+		cDes.ReservedIPRange = des.ReservedIPRange
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNetworks(c *Client, des, nw *InstanceNetworks) *InstanceNetworks {
@@ -1759,31 +1807,45 @@ type instanceDiff struct {
 	UpdateOp         instanceApiOperation
 }
 
-func convertFieldDiffToInstanceOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]instanceDiff, error) {
+func convertFieldDiffsToInstanceDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]instanceDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []instanceDiff
-	for _, op := range ops {
+	// For each operation name, create a instanceDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := instanceDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToinstanceApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToInstanceApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToinstanceApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (instanceApiOperation, error) {
-	switch op {
+func convertOpNameToInstanceApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (instanceApiOperation, error) {
+	switch opName {
 
 	case "updateInstanceUpdateInstanceOperation":
-		return &updateInstanceUpdateInstanceOperation{Diffs: diffs}, nil
+		return &updateInstanceUpdateInstanceOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

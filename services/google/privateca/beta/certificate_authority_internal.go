@@ -874,38 +874,54 @@ func canonicalizeCertificateAuthorityDesiredState(rawDesired, rawInitial *Certif
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &CertificateAuthority{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.IsZeroValue(rawDesired.Type) {
-		rawDesired.Type = rawInitial.Type
+		canonicalDesired.Type = rawInitial.Type
+	} else {
+		canonicalDesired.Type = rawDesired.Type
 	}
-	rawDesired.Config = canonicalizeCertificateAuthorityConfig(rawDesired.Config, rawInitial.Config, opts...)
+	canonicalDesired.Config = canonicalizeCertificateAuthorityConfig(rawDesired.Config, rawInitial.Config, opts...)
 	if dcl.StringCanonicalize(rawDesired.Lifetime, rawInitial.Lifetime) {
-		rawDesired.Lifetime = rawInitial.Lifetime
+		canonicalDesired.Lifetime = rawInitial.Lifetime
+	} else {
+		canonicalDesired.Lifetime = rawDesired.Lifetime
 	}
-	rawDesired.KeySpec = canonicalizeCertificateAuthorityKeySpec(rawDesired.KeySpec, rawInitial.KeySpec, opts...)
-	rawDesired.SubordinateConfig = canonicalizeCertificateAuthoritySubordinateConfig(rawDesired.SubordinateConfig, rawInitial.SubordinateConfig, opts...)
+	canonicalDesired.KeySpec = canonicalizeCertificateAuthorityKeySpec(rawDesired.KeySpec, rawInitial.KeySpec, opts...)
+	canonicalDesired.SubordinateConfig = canonicalizeCertificateAuthoritySubordinateConfig(rawDesired.SubordinateConfig, rawInitial.SubordinateConfig, opts...)
 	if dcl.IsZeroValue(rawDesired.Tier) {
-		rawDesired.Tier = rawInitial.Tier
+		canonicalDesired.Tier = rawInitial.Tier
+	} else {
+		canonicalDesired.Tier = rawDesired.Tier
 	}
 	if dcl.StringCanonicalize(rawDesired.GcsBucket, rawInitial.GcsBucket) {
-		rawDesired.GcsBucket = rawInitial.GcsBucket
+		canonicalDesired.GcsBucket = rawInitial.GcsBucket
+	} else {
+		canonicalDesired.GcsBucket = rawDesired.GcsBucket
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
-	rawDesired.CertificatePolicy = canonicalizeCertificateAuthorityCertificatePolicy(rawDesired.CertificatePolicy, rawInitial.CertificatePolicy, opts...)
-	rawDesired.IssuingOptions = canonicalizeCertificateAuthorityIssuingOptions(rawDesired.IssuingOptions, rawInitial.IssuingOptions, opts...)
+	canonicalDesired.CertificatePolicy = canonicalizeCertificateAuthorityCertificatePolicy(rawDesired.CertificatePolicy, rawInitial.CertificatePolicy, opts...)
+	canonicalDesired.IssuingOptions = canonicalizeCertificateAuthorityIssuingOptions(rawDesired.IssuingOptions, rawInitial.IssuingOptions, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeCertificateAuthorityNewState(c *Client, rawNew, rawDesired *CertificateAuthority) (*CertificateAuthority, error) {
@@ -1035,11 +1051,13 @@ func canonicalizeCertificateAuthorityConfig(des, initial *CertificateAuthorityCo
 		return des
 	}
 
-	des.SubjectConfig = canonicalizeCertificateAuthorityConfigSubjectConfig(des.SubjectConfig, initial.SubjectConfig, opts...)
-	des.PublicKey = canonicalizeCertificateAuthorityConfigPublicKey(des.PublicKey, initial.PublicKey, opts...)
-	des.ReusableConfig = canonicalizeCertificateAuthorityConfigReusableConfig(des.ReusableConfig, initial.ReusableConfig, opts...)
+	cDes := &CertificateAuthorityConfig{}
 
-	return des
+	cDes.SubjectConfig = canonicalizeCertificateAuthorityConfigSubjectConfig(des.SubjectConfig, initial.SubjectConfig, opts...)
+	cDes.PublicKey = canonicalizeCertificateAuthorityConfigPublicKey(des.PublicKey, initial.PublicKey, opts...)
+	cDes.ReusableConfig = canonicalizeCertificateAuthorityConfigReusableConfig(des.ReusableConfig, initial.ReusableConfig, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityConfig(c *Client, des, nw *CertificateAuthorityConfig) *CertificateAuthorityConfig {
@@ -1109,13 +1127,17 @@ func canonicalizeCertificateAuthorityConfigSubjectConfig(des, initial *Certifica
 		return des
 	}
 
-	des.Subject = canonicalizeCertificateAuthorityConfigSubjectConfigSubject(des.Subject, initial.Subject, opts...)
-	if dcl.StringCanonicalize(des.CommonName, initial.CommonName) || dcl.IsZeroValue(des.CommonName) {
-		des.CommonName = initial.CommonName
-	}
-	des.SubjectAltName = canonicalizeCertificateAuthorityConfigSubjectConfigSubjectAltName(des.SubjectAltName, initial.SubjectAltName, opts...)
+	cDes := &CertificateAuthorityConfigSubjectConfig{}
 
-	return des
+	cDes.Subject = canonicalizeCertificateAuthorityConfigSubjectConfigSubject(des.Subject, initial.Subject, opts...)
+	if dcl.StringCanonicalize(des.CommonName, initial.CommonName) || dcl.IsZeroValue(des.CommonName) {
+		cDes.CommonName = initial.CommonName
+	} else {
+		cDes.CommonName = des.CommonName
+	}
+	cDes.SubjectAltName = canonicalizeCertificateAuthorityConfigSubjectConfigSubjectAltName(des.SubjectAltName, initial.SubjectAltName, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityConfigSubjectConfig(c *Client, des, nw *CertificateAuthorityConfigSubjectConfig) *CertificateAuthorityConfigSubjectConfig {
@@ -1187,29 +1209,45 @@ func canonicalizeCertificateAuthorityConfigSubjectConfigSubject(des, initial *Ce
 		return des
 	}
 
+	cDes := &CertificateAuthorityConfigSubjectConfigSubject{}
+
 	if dcl.StringCanonicalize(des.CountryCode, initial.CountryCode) || dcl.IsZeroValue(des.CountryCode) {
-		des.CountryCode = initial.CountryCode
+		cDes.CountryCode = initial.CountryCode
+	} else {
+		cDes.CountryCode = des.CountryCode
 	}
 	if dcl.StringCanonicalize(des.Organization, initial.Organization) || dcl.IsZeroValue(des.Organization) {
-		des.Organization = initial.Organization
+		cDes.Organization = initial.Organization
+	} else {
+		cDes.Organization = des.Organization
 	}
 	if dcl.StringCanonicalize(des.OrganizationalUnit, initial.OrganizationalUnit) || dcl.IsZeroValue(des.OrganizationalUnit) {
-		des.OrganizationalUnit = initial.OrganizationalUnit
+		cDes.OrganizationalUnit = initial.OrganizationalUnit
+	} else {
+		cDes.OrganizationalUnit = des.OrganizationalUnit
 	}
 	if dcl.StringCanonicalize(des.Locality, initial.Locality) || dcl.IsZeroValue(des.Locality) {
-		des.Locality = initial.Locality
+		cDes.Locality = initial.Locality
+	} else {
+		cDes.Locality = des.Locality
 	}
 	if dcl.StringCanonicalize(des.Province, initial.Province) || dcl.IsZeroValue(des.Province) {
-		des.Province = initial.Province
+		cDes.Province = initial.Province
+	} else {
+		cDes.Province = des.Province
 	}
 	if dcl.StringCanonicalize(des.StreetAddress, initial.StreetAddress) || dcl.IsZeroValue(des.StreetAddress) {
-		des.StreetAddress = initial.StreetAddress
+		cDes.StreetAddress = initial.StreetAddress
+	} else {
+		cDes.StreetAddress = des.StreetAddress
 	}
 	if dcl.StringCanonicalize(des.PostalCode, initial.PostalCode) || dcl.IsZeroValue(des.PostalCode) {
-		des.PostalCode = initial.PostalCode
+		cDes.PostalCode = initial.PostalCode
+	} else {
+		cDes.PostalCode = des.PostalCode
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityConfigSubjectConfigSubject(c *Client, des, nw *CertificateAuthorityConfigSubjectConfigSubject) *CertificateAuthorityConfigSubjectConfigSubject {
@@ -1297,23 +1335,35 @@ func canonicalizeCertificateAuthorityConfigSubjectConfigSubjectAltName(des, init
 		return des
 	}
 
+	cDes := &CertificateAuthorityConfigSubjectConfigSubjectAltName{}
+
 	if dcl.IsZeroValue(des.DnsNames) {
 		des.DnsNames = initial.DnsNames
+	} else {
+		cDes.DnsNames = des.DnsNames
 	}
 	if dcl.IsZeroValue(des.Uris) {
 		des.Uris = initial.Uris
+	} else {
+		cDes.Uris = des.Uris
 	}
 	if dcl.IsZeroValue(des.EmailAddresses) {
 		des.EmailAddresses = initial.EmailAddresses
+	} else {
+		cDes.EmailAddresses = des.EmailAddresses
 	}
 	if dcl.IsZeroValue(des.IPAddresses) {
 		des.IPAddresses = initial.IPAddresses
+	} else {
+		cDes.IPAddresses = des.IPAddresses
 	}
 	if dcl.IsZeroValue(des.CustomSans) {
 		des.CustomSans = initial.CustomSans
+	} else {
+		cDes.CustomSans = des.CustomSans
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityConfigSubjectConfigSubjectAltName(c *Client, des, nw *CertificateAuthorityConfigSubjectConfigSubjectAltName) *CertificateAuthorityConfigSubjectConfigSubjectAltName {
@@ -1393,15 +1443,21 @@ func canonicalizeCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans
 		return des
 	}
 
-	des.ObjectId = canonicalizeCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId(des.ObjectId, initial.ObjectId, opts...)
+	cDes := &CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans{}
+
+	cDes.ObjectId = canonicalizeCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId(des.ObjectId, initial.ObjectId, opts...)
 	if dcl.BoolCanonicalize(des.Critical, initial.Critical) || dcl.IsZeroValue(des.Critical) {
-		des.Critical = initial.Critical
+		cDes.Critical = initial.Critical
+	} else {
+		cDes.Critical = des.Critical
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans(c *Client, des, nw *CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans) *CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans {
@@ -1475,11 +1531,15 @@ func canonicalizeCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans
 		return des
 	}
 
+	cDes := &CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId{}
+
 	if dcl.IsZeroValue(des.ObjectIdPath) {
 		des.ObjectIdPath = initial.ObjectIdPath
+	} else {
+		cDes.ObjectIdPath = des.ObjectIdPath
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId(c *Client, des, nw *CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId) *CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId {
@@ -1549,14 +1609,20 @@ func canonicalizeCertificateAuthorityConfigPublicKey(des, initial *CertificateAu
 		return des
 	}
 
+	cDes := &CertificateAuthorityConfigPublicKey{}
+
 	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
+		cDes.Key = initial.Key
+	} else {
+		cDes.Key = des.Key
 	}
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityConfigPublicKey(c *Client, des, nw *CertificateAuthorityConfigPublicKey) *CertificateAuthorityConfigPublicKey {
@@ -1629,12 +1695,16 @@ func canonicalizeCertificateAuthorityConfigReusableConfig(des, initial *Certific
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.ReusableConfig, initial.ReusableConfig) || dcl.IsZeroValue(des.ReusableConfig) {
-		des.ReusableConfig = initial.ReusableConfig
-	}
-	des.ReusableConfigValues = canonicalizeCertificateAuthorityConfigReusableConfigReusableConfigValues(des.ReusableConfigValues, initial.ReusableConfigValues, opts...)
+	cDes := &CertificateAuthorityConfigReusableConfig{}
 
-	return des
+	if dcl.StringCanonicalize(des.ReusableConfig, initial.ReusableConfig) || dcl.IsZeroValue(des.ReusableConfig) {
+		cDes.ReusableConfig = initial.ReusableConfig
+	} else {
+		cDes.ReusableConfig = des.ReusableConfig
+	}
+	cDes.ReusableConfigValues = canonicalizeCertificateAuthorityConfigReusableConfigReusableConfigValues(des.ReusableConfigValues, initial.ReusableConfigValues, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityConfigReusableConfig(c *Client, des, nw *CertificateAuthorityConfigReusableConfig) *CertificateAuthorityConfigReusableConfig {
@@ -1705,19 +1775,27 @@ func canonicalizeCertificateAuthorityConfigReusableConfigReusableConfigValues(de
 		return des
 	}
 
-	des.KeyUsage = canonicalizeCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage(des.KeyUsage, initial.KeyUsage, opts...)
-	des.CaOptions = canonicalizeCertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions(des.CaOptions, initial.CaOptions, opts...)
+	cDes := &CertificateAuthorityConfigReusableConfigReusableConfigValues{}
+
+	cDes.KeyUsage = canonicalizeCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage(des.KeyUsage, initial.KeyUsage, opts...)
+	cDes.CaOptions = canonicalizeCertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions(des.CaOptions, initial.CaOptions, opts...)
 	if dcl.IsZeroValue(des.PolicyIds) {
 		des.PolicyIds = initial.PolicyIds
+	} else {
+		cDes.PolicyIds = des.PolicyIds
 	}
 	if dcl.IsZeroValue(des.AiaOcspServers) {
 		des.AiaOcspServers = initial.AiaOcspServers
+	} else {
+		cDes.AiaOcspServers = des.AiaOcspServers
 	}
 	if dcl.IsZeroValue(des.AdditionalExtensions) {
 		des.AdditionalExtensions = initial.AdditionalExtensions
+	} else {
+		cDes.AdditionalExtensions = des.AdditionalExtensions
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityConfigReusableConfigReusableConfigValues(c *Client, des, nw *CertificateAuthorityConfigReusableConfigReusableConfigValues) *CertificateAuthorityConfigReusableConfigReusableConfigValues {
@@ -1791,13 +1869,17 @@ func canonicalizeCertificateAuthorityConfigReusableConfigReusableConfigValuesKey
 		return des
 	}
 
-	des.BaseKeyUsage = canonicalizeCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage(des.BaseKeyUsage, initial.BaseKeyUsage, opts...)
-	des.ExtendedKeyUsage = canonicalizeCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage(des.ExtendedKeyUsage, initial.ExtendedKeyUsage, opts...)
+	cDes := &CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage{}
+
+	cDes.BaseKeyUsage = canonicalizeCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage(des.BaseKeyUsage, initial.BaseKeyUsage, opts...)
+	cDes.ExtendedKeyUsage = canonicalizeCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage(des.ExtendedKeyUsage, initial.ExtendedKeyUsage, opts...)
 	if dcl.IsZeroValue(des.UnknownExtendedKeyUsages) {
 		des.UnknownExtendedKeyUsages = initial.UnknownExtendedKeyUsages
+	} else {
+		cDes.UnknownExtendedKeyUsages = des.UnknownExtendedKeyUsages
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage(c *Client, des, nw *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage) *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage {
@@ -1867,35 +1949,55 @@ func canonicalizeCertificateAuthorityConfigReusableConfigReusableConfigValuesKey
 		return des
 	}
 
+	cDes := &CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage{}
+
 	if dcl.BoolCanonicalize(des.DigitalSignature, initial.DigitalSignature) || dcl.IsZeroValue(des.DigitalSignature) {
-		des.DigitalSignature = initial.DigitalSignature
+		cDes.DigitalSignature = initial.DigitalSignature
+	} else {
+		cDes.DigitalSignature = des.DigitalSignature
 	}
 	if dcl.BoolCanonicalize(des.ContentCommitment, initial.ContentCommitment) || dcl.IsZeroValue(des.ContentCommitment) {
-		des.ContentCommitment = initial.ContentCommitment
+		cDes.ContentCommitment = initial.ContentCommitment
+	} else {
+		cDes.ContentCommitment = des.ContentCommitment
 	}
 	if dcl.BoolCanonicalize(des.KeyEncipherment, initial.KeyEncipherment) || dcl.IsZeroValue(des.KeyEncipherment) {
-		des.KeyEncipherment = initial.KeyEncipherment
+		cDes.KeyEncipherment = initial.KeyEncipherment
+	} else {
+		cDes.KeyEncipherment = des.KeyEncipherment
 	}
 	if dcl.BoolCanonicalize(des.DataEncipherment, initial.DataEncipherment) || dcl.IsZeroValue(des.DataEncipherment) {
-		des.DataEncipherment = initial.DataEncipherment
+		cDes.DataEncipherment = initial.DataEncipherment
+	} else {
+		cDes.DataEncipherment = des.DataEncipherment
 	}
 	if dcl.BoolCanonicalize(des.KeyAgreement, initial.KeyAgreement) || dcl.IsZeroValue(des.KeyAgreement) {
-		des.KeyAgreement = initial.KeyAgreement
+		cDes.KeyAgreement = initial.KeyAgreement
+	} else {
+		cDes.KeyAgreement = des.KeyAgreement
 	}
 	if dcl.BoolCanonicalize(des.CertSign, initial.CertSign) || dcl.IsZeroValue(des.CertSign) {
-		des.CertSign = initial.CertSign
+		cDes.CertSign = initial.CertSign
+	} else {
+		cDes.CertSign = des.CertSign
 	}
 	if dcl.BoolCanonicalize(des.CrlSign, initial.CrlSign) || dcl.IsZeroValue(des.CrlSign) {
-		des.CrlSign = initial.CrlSign
+		cDes.CrlSign = initial.CrlSign
+	} else {
+		cDes.CrlSign = des.CrlSign
 	}
 	if dcl.BoolCanonicalize(des.EncipherOnly, initial.EncipherOnly) || dcl.IsZeroValue(des.EncipherOnly) {
-		des.EncipherOnly = initial.EncipherOnly
+		cDes.EncipherOnly = initial.EncipherOnly
+	} else {
+		cDes.EncipherOnly = des.EncipherOnly
 	}
 	if dcl.BoolCanonicalize(des.DecipherOnly, initial.DecipherOnly) || dcl.IsZeroValue(des.DecipherOnly) {
-		des.DecipherOnly = initial.DecipherOnly
+		cDes.DecipherOnly = initial.DecipherOnly
+	} else {
+		cDes.DecipherOnly = des.DecipherOnly
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage(c *Client, des, nw *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage) *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage {
@@ -1989,26 +2091,40 @@ func canonicalizeCertificateAuthorityConfigReusableConfigReusableConfigValuesKey
 		return des
 	}
 
+	cDes := &CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage{}
+
 	if dcl.BoolCanonicalize(des.ServerAuth, initial.ServerAuth) || dcl.IsZeroValue(des.ServerAuth) {
-		des.ServerAuth = initial.ServerAuth
+		cDes.ServerAuth = initial.ServerAuth
+	} else {
+		cDes.ServerAuth = des.ServerAuth
 	}
 	if dcl.BoolCanonicalize(des.ClientAuth, initial.ClientAuth) || dcl.IsZeroValue(des.ClientAuth) {
-		des.ClientAuth = initial.ClientAuth
+		cDes.ClientAuth = initial.ClientAuth
+	} else {
+		cDes.ClientAuth = des.ClientAuth
 	}
 	if dcl.BoolCanonicalize(des.CodeSigning, initial.CodeSigning) || dcl.IsZeroValue(des.CodeSigning) {
-		des.CodeSigning = initial.CodeSigning
+		cDes.CodeSigning = initial.CodeSigning
+	} else {
+		cDes.CodeSigning = des.CodeSigning
 	}
 	if dcl.BoolCanonicalize(des.EmailProtection, initial.EmailProtection) || dcl.IsZeroValue(des.EmailProtection) {
-		des.EmailProtection = initial.EmailProtection
+		cDes.EmailProtection = initial.EmailProtection
+	} else {
+		cDes.EmailProtection = des.EmailProtection
 	}
 	if dcl.BoolCanonicalize(des.TimeStamping, initial.TimeStamping) || dcl.IsZeroValue(des.TimeStamping) {
-		des.TimeStamping = initial.TimeStamping
+		cDes.TimeStamping = initial.TimeStamping
+	} else {
+		cDes.TimeStamping = des.TimeStamping
 	}
 	if dcl.BoolCanonicalize(des.OcspSigning, initial.OcspSigning) || dcl.IsZeroValue(des.OcspSigning) {
-		des.OcspSigning = initial.OcspSigning
+		cDes.OcspSigning = initial.OcspSigning
+	} else {
+		cDes.OcspSigning = des.OcspSigning
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage(c *Client, des, nw *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage) *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage {
@@ -2093,11 +2209,15 @@ func canonicalizeCertificateAuthorityConfigReusableConfigReusableConfigValuesKey
 		return des
 	}
 
+	cDes := &CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnknownExtendedKeyUsages{}
+
 	if dcl.IsZeroValue(des.ObjectIdPath) {
 		des.ObjectIdPath = initial.ObjectIdPath
+	} else {
+		cDes.ObjectIdPath = des.ObjectIdPath
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnknownExtendedKeyUsages(c *Client, des, nw *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnknownExtendedKeyUsages) *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnknownExtendedKeyUsages {
@@ -2167,14 +2287,20 @@ func canonicalizeCertificateAuthorityConfigReusableConfigReusableConfigValuesCaO
 		return des
 	}
 
+	cDes := &CertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions{}
+
 	if dcl.BoolCanonicalize(des.IsCa, initial.IsCa) || dcl.IsZeroValue(des.IsCa) {
-		des.IsCa = initial.IsCa
+		cDes.IsCa = initial.IsCa
+	} else {
+		cDes.IsCa = des.IsCa
 	}
 	if dcl.IsZeroValue(des.MaxIssuerPathLength) {
 		des.MaxIssuerPathLength = initial.MaxIssuerPathLength
+	} else {
+		cDes.MaxIssuerPathLength = des.MaxIssuerPathLength
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions(c *Client, des, nw *CertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions) *CertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions {
@@ -2247,11 +2373,15 @@ func canonicalizeCertificateAuthorityConfigReusableConfigReusableConfigValuesPol
 		return des
 	}
 
+	cDes := &CertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds{}
+
 	if dcl.IsZeroValue(des.ObjectIdPath) {
 		des.ObjectIdPath = initial.ObjectIdPath
+	} else {
+		cDes.ObjectIdPath = des.ObjectIdPath
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds(c *Client, des, nw *CertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds) *CertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds {
@@ -2321,15 +2451,21 @@ func canonicalizeCertificateAuthorityConfigReusableConfigReusableConfigValuesAdd
 		return des
 	}
 
-	des.ObjectId = canonicalizeCertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId(des.ObjectId, initial.ObjectId, opts...)
+	cDes := &CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensions{}
+
+	cDes.ObjectId = canonicalizeCertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId(des.ObjectId, initial.ObjectId, opts...)
 	if dcl.BoolCanonicalize(des.Critical, initial.Critical) || dcl.IsZeroValue(des.Critical) {
-		des.Critical = initial.Critical
+		cDes.Critical = initial.Critical
+	} else {
+		cDes.Critical = des.Critical
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensions(c *Client, des, nw *CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensions) *CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensions {
@@ -2403,11 +2539,15 @@ func canonicalizeCertificateAuthorityConfigReusableConfigReusableConfigValuesAdd
 		return des
 	}
 
+	cDes := &CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId{}
+
 	if dcl.IsZeroValue(des.ObjectIdPath) {
 		des.ObjectIdPath = initial.ObjectIdPath
+	} else {
+		cDes.ObjectIdPath = des.ObjectIdPath
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId(c *Client, des, nw *CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId) *CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId {
@@ -2477,14 +2617,20 @@ func canonicalizeCertificateAuthorityKeySpec(des, initial *CertificateAuthorityK
 		return des
 	}
 
+	cDes := &CertificateAuthorityKeySpec{}
+
 	if dcl.StringCanonicalize(des.CloudKmsKeyVersion, initial.CloudKmsKeyVersion) || dcl.IsZeroValue(des.CloudKmsKeyVersion) {
-		des.CloudKmsKeyVersion = initial.CloudKmsKeyVersion
+		cDes.CloudKmsKeyVersion = initial.CloudKmsKeyVersion
+	} else {
+		cDes.CloudKmsKeyVersion = des.CloudKmsKeyVersion
 	}
 	if dcl.IsZeroValue(des.Algorithm) {
 		des.Algorithm = initial.Algorithm
+	} else {
+		cDes.Algorithm = des.Algorithm
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityKeySpec(c *Client, des, nw *CertificateAuthorityKeySpec) *CertificateAuthorityKeySpec {
@@ -2557,12 +2703,16 @@ func canonicalizeCertificateAuthoritySubordinateConfig(des, initial *Certificate
 		return des
 	}
 
-	if dcl.NameToSelfLink(des.CertificateAuthority, initial.CertificateAuthority) || dcl.IsZeroValue(des.CertificateAuthority) {
-		des.CertificateAuthority = initial.CertificateAuthority
-	}
-	des.PemIssuerChain = canonicalizeCertificateAuthoritySubordinateConfigPemIssuerChain(des.PemIssuerChain, initial.PemIssuerChain, opts...)
+	cDes := &CertificateAuthoritySubordinateConfig{}
 
-	return des
+	if dcl.NameToSelfLink(des.CertificateAuthority, initial.CertificateAuthority) || dcl.IsZeroValue(des.CertificateAuthority) {
+		cDes.CertificateAuthority = initial.CertificateAuthority
+	} else {
+		cDes.CertificateAuthority = des.CertificateAuthority
+	}
+	cDes.PemIssuerChain = canonicalizeCertificateAuthoritySubordinateConfigPemIssuerChain(des.PemIssuerChain, initial.PemIssuerChain, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthoritySubordinateConfig(c *Client, des, nw *CertificateAuthoritySubordinateConfig) *CertificateAuthoritySubordinateConfig {
@@ -2633,11 +2783,15 @@ func canonicalizeCertificateAuthoritySubordinateConfigPemIssuerChain(des, initia
 		return des
 	}
 
+	cDes := &CertificateAuthoritySubordinateConfigPemIssuerChain{}
+
 	if dcl.IsZeroValue(des.PemCertificates) {
 		des.PemCertificates = initial.PemCertificates
+	} else {
+		cDes.PemCertificates = des.PemCertificates
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthoritySubordinateConfigPemIssuerChain(c *Client, des, nw *CertificateAuthoritySubordinateConfigPemIssuerChain) *CertificateAuthoritySubordinateConfigPemIssuerChain {
@@ -2707,20 +2861,26 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptions(des, initial *Cer
 		return des
 	}
 
-	des.SubjectDescription = canonicalizeCertificateAuthorityCaCertificateDescriptionsSubjectDescription(des.SubjectDescription, initial.SubjectDescription, opts...)
-	des.PublicKey = canonicalizeCertificateAuthorityCaCertificateDescriptionsPublicKey(des.PublicKey, initial.PublicKey, opts...)
-	des.SubjectKeyId = canonicalizeCertificateAuthorityCaCertificateDescriptionsSubjectKeyId(des.SubjectKeyId, initial.SubjectKeyId, opts...)
-	des.AuthorityKeyId = canonicalizeCertificateAuthorityCaCertificateDescriptionsAuthorityKeyId(des.AuthorityKeyId, initial.AuthorityKeyId, opts...)
+	cDes := &CertificateAuthorityCaCertificateDescriptions{}
+
+	cDes.SubjectDescription = canonicalizeCertificateAuthorityCaCertificateDescriptionsSubjectDescription(des.SubjectDescription, initial.SubjectDescription, opts...)
+	cDes.PublicKey = canonicalizeCertificateAuthorityCaCertificateDescriptionsPublicKey(des.PublicKey, initial.PublicKey, opts...)
+	cDes.SubjectKeyId = canonicalizeCertificateAuthorityCaCertificateDescriptionsSubjectKeyId(des.SubjectKeyId, initial.SubjectKeyId, opts...)
+	cDes.AuthorityKeyId = canonicalizeCertificateAuthorityCaCertificateDescriptionsAuthorityKeyId(des.AuthorityKeyId, initial.AuthorityKeyId, opts...)
 	if dcl.IsZeroValue(des.CrlDistributionPoints) {
 		des.CrlDistributionPoints = initial.CrlDistributionPoints
+	} else {
+		cDes.CrlDistributionPoints = des.CrlDistributionPoints
 	}
 	if dcl.IsZeroValue(des.AiaIssuingCertificateUrls) {
 		des.AiaIssuingCertificateUrls = initial.AiaIssuingCertificateUrls
+	} else {
+		cDes.AiaIssuingCertificateUrls = des.AiaIssuingCertificateUrls
 	}
-	des.CertFingerprint = canonicalizeCertificateAuthorityCaCertificateDescriptionsCertFingerprint(des.CertFingerprint, initial.CertFingerprint, opts...)
-	des.ConfigValues = canonicalizeCertificateAuthorityCaCertificateDescriptionsConfigValues(des.ConfigValues, initial.ConfigValues, opts...)
+	cDes.CertFingerprint = canonicalizeCertificateAuthorityCaCertificateDescriptionsCertFingerprint(des.CertFingerprint, initial.CertFingerprint, opts...)
+	cDes.ConfigValues = canonicalizeCertificateAuthorityCaCertificateDescriptionsConfigValues(des.ConfigValues, initial.ConfigValues, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCaCertificateDescriptions(c *Client, des, nw *CertificateAuthorityCaCertificateDescriptions) *CertificateAuthorityCaCertificateDescriptions {
@@ -2799,25 +2959,37 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsSubjectDescription
 		return des
 	}
 
-	des.Subject = canonicalizeCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject(des.Subject, initial.Subject, opts...)
-	des.SubjectAltName = canonicalizeCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName(des.SubjectAltName, initial.SubjectAltName, opts...)
+	cDes := &CertificateAuthorityCaCertificateDescriptionsSubjectDescription{}
+
+	cDes.Subject = canonicalizeCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject(des.Subject, initial.Subject, opts...)
+	cDes.SubjectAltName = canonicalizeCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName(des.SubjectAltName, initial.SubjectAltName, opts...)
 	if dcl.StringCanonicalize(des.HexSerialNumber, initial.HexSerialNumber) || dcl.IsZeroValue(des.HexSerialNumber) {
-		des.HexSerialNumber = initial.HexSerialNumber
+		cDes.HexSerialNumber = initial.HexSerialNumber
+	} else {
+		cDes.HexSerialNumber = des.HexSerialNumber
 	}
 	if dcl.StringCanonicalize(des.Lifetime, initial.Lifetime) || dcl.IsZeroValue(des.Lifetime) {
-		des.Lifetime = initial.Lifetime
+		cDes.Lifetime = initial.Lifetime
+	} else {
+		cDes.Lifetime = des.Lifetime
 	}
 	if dcl.IsZeroValue(des.NotBeforeTime) {
 		des.NotBeforeTime = initial.NotBeforeTime
+	} else {
+		cDes.NotBeforeTime = des.NotBeforeTime
 	}
 	if dcl.IsZeroValue(des.NotAfterTime) {
 		des.NotAfterTime = initial.NotAfterTime
+	} else {
+		cDes.NotAfterTime = des.NotAfterTime
 	}
 	if dcl.StringCanonicalize(des.CommonName, initial.CommonName) || dcl.IsZeroValue(des.CommonName) {
-		des.CommonName = initial.CommonName
+		cDes.CommonName = initial.CommonName
+	} else {
+		cDes.CommonName = des.CommonName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsSubjectDescription(c *Client, des, nw *CertificateAuthorityCaCertificateDescriptionsSubjectDescription) *CertificateAuthorityCaCertificateDescriptionsSubjectDescription {
@@ -2901,32 +3073,50 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsSubjectDescription
 		return des
 	}
 
+	cDes := &CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject{}
+
 	if dcl.StringCanonicalize(des.CommonName, initial.CommonName) || dcl.IsZeroValue(des.CommonName) {
-		des.CommonName = initial.CommonName
+		cDes.CommonName = initial.CommonName
+	} else {
+		cDes.CommonName = des.CommonName
 	}
 	if dcl.StringCanonicalize(des.CountryCode, initial.CountryCode) || dcl.IsZeroValue(des.CountryCode) {
-		des.CountryCode = initial.CountryCode
+		cDes.CountryCode = initial.CountryCode
+	} else {
+		cDes.CountryCode = des.CountryCode
 	}
 	if dcl.StringCanonicalize(des.Organization, initial.Organization) || dcl.IsZeroValue(des.Organization) {
-		des.Organization = initial.Organization
+		cDes.Organization = initial.Organization
+	} else {
+		cDes.Organization = des.Organization
 	}
 	if dcl.StringCanonicalize(des.OrganizationalUnit, initial.OrganizationalUnit) || dcl.IsZeroValue(des.OrganizationalUnit) {
-		des.OrganizationalUnit = initial.OrganizationalUnit
+		cDes.OrganizationalUnit = initial.OrganizationalUnit
+	} else {
+		cDes.OrganizationalUnit = des.OrganizationalUnit
 	}
 	if dcl.StringCanonicalize(des.Locality, initial.Locality) || dcl.IsZeroValue(des.Locality) {
-		des.Locality = initial.Locality
+		cDes.Locality = initial.Locality
+	} else {
+		cDes.Locality = des.Locality
 	}
 	if dcl.StringCanonicalize(des.Province, initial.Province) || dcl.IsZeroValue(des.Province) {
-		des.Province = initial.Province
+		cDes.Province = initial.Province
+	} else {
+		cDes.Province = des.Province
 	}
 	if dcl.StringCanonicalize(des.StreetAddress, initial.StreetAddress) || dcl.IsZeroValue(des.StreetAddress) {
-		des.StreetAddress = initial.StreetAddress
+		cDes.StreetAddress = initial.StreetAddress
+	} else {
+		cDes.StreetAddress = des.StreetAddress
 	}
 	if dcl.StringCanonicalize(des.PostalCode, initial.PostalCode) || dcl.IsZeroValue(des.PostalCode) {
-		des.PostalCode = initial.PostalCode
+		cDes.PostalCode = initial.PostalCode
+	} else {
+		cDes.PostalCode = des.PostalCode
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject(c *Client, des, nw *CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject) *CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject {
@@ -3017,23 +3207,35 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsSubjectDescription
 		return des
 	}
 
+	cDes := &CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName{}
+
 	if dcl.IsZeroValue(des.DnsNames) {
 		des.DnsNames = initial.DnsNames
+	} else {
+		cDes.DnsNames = des.DnsNames
 	}
 	if dcl.IsZeroValue(des.Uris) {
 		des.Uris = initial.Uris
+	} else {
+		cDes.Uris = des.Uris
 	}
 	if dcl.IsZeroValue(des.EmailAddresses) {
 		des.EmailAddresses = initial.EmailAddresses
+	} else {
+		cDes.EmailAddresses = des.EmailAddresses
 	}
 	if dcl.IsZeroValue(des.IPAddresses) {
 		des.IPAddresses = initial.IPAddresses
+	} else {
+		cDes.IPAddresses = des.IPAddresses
 	}
 	if dcl.IsZeroValue(des.CustomSans) {
 		des.CustomSans = initial.CustomSans
+	} else {
+		cDes.CustomSans = des.CustomSans
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName(c *Client, des, nw *CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName) *CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName {
@@ -3113,15 +3315,21 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsSubjectDescription
 		return des
 	}
 
-	des.ObjectId = canonicalizeCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId(des.ObjectId, initial.ObjectId, opts...)
+	cDes := &CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans{}
+
+	cDes.ObjectId = canonicalizeCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId(des.ObjectId, initial.ObjectId, opts...)
 	if dcl.BoolCanonicalize(des.Critical, initial.Critical) || dcl.IsZeroValue(des.Critical) {
-		des.Critical = initial.Critical
+		cDes.Critical = initial.Critical
+	} else {
+		cDes.Critical = des.Critical
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans(c *Client, des, nw *CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans) *CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans {
@@ -3195,11 +3403,15 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsSubjectDescription
 		return des
 	}
 
+	cDes := &CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId{}
+
 	if dcl.IsZeroValue(des.ObjectIdPath) {
 		des.ObjectIdPath = initial.ObjectIdPath
+	} else {
+		cDes.ObjectIdPath = des.ObjectIdPath
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId(c *Client, des, nw *CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId) *CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId {
@@ -3269,17 +3481,25 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsPublicKey(des, ini
 		return des
 	}
 
+	cDes := &CertificateAuthorityCaCertificateDescriptionsPublicKey{}
+
 	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
+		cDes.Key = initial.Key
+	} else {
+		cDes.Key = des.Key
 	}
 	if dcl.IsZeroValue(des.Format) {
 		des.Format = initial.Format
+	} else {
+		cDes.Format = des.Format
 	}
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsPublicKey(c *Client, des, nw *CertificateAuthorityCaCertificateDescriptionsPublicKey) *CertificateAuthorityCaCertificateDescriptionsPublicKey {
@@ -3355,11 +3575,15 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsSubjectKeyId(des, 
 		return des
 	}
 
+	cDes := &CertificateAuthorityCaCertificateDescriptionsSubjectKeyId{}
+
 	if dcl.StringCanonicalize(des.KeyId, initial.KeyId) || dcl.IsZeroValue(des.KeyId) {
-		des.KeyId = initial.KeyId
+		cDes.KeyId = initial.KeyId
+	} else {
+		cDes.KeyId = des.KeyId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsSubjectKeyId(c *Client, des, nw *CertificateAuthorityCaCertificateDescriptionsSubjectKeyId) *CertificateAuthorityCaCertificateDescriptionsSubjectKeyId {
@@ -3429,11 +3653,15 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsAuthorityKeyId(des
 		return des
 	}
 
+	cDes := &CertificateAuthorityCaCertificateDescriptionsAuthorityKeyId{}
+
 	if dcl.StringCanonicalize(des.KeyId, initial.KeyId) || dcl.IsZeroValue(des.KeyId) {
-		des.KeyId = initial.KeyId
+		cDes.KeyId = initial.KeyId
+	} else {
+		cDes.KeyId = des.KeyId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsAuthorityKeyId(c *Client, des, nw *CertificateAuthorityCaCertificateDescriptionsAuthorityKeyId) *CertificateAuthorityCaCertificateDescriptionsAuthorityKeyId {
@@ -3503,11 +3731,15 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsCertFingerprint(de
 		return des
 	}
 
+	cDes := &CertificateAuthorityCaCertificateDescriptionsCertFingerprint{}
+
 	if dcl.StringCanonicalize(des.Sha256Hash, initial.Sha256Hash) || dcl.IsZeroValue(des.Sha256Hash) {
-		des.Sha256Hash = initial.Sha256Hash
+		cDes.Sha256Hash = initial.Sha256Hash
+	} else {
+		cDes.Sha256Hash = des.Sha256Hash
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsCertFingerprint(c *Client, des, nw *CertificateAuthorityCaCertificateDescriptionsCertFingerprint) *CertificateAuthorityCaCertificateDescriptionsCertFingerprint {
@@ -3577,19 +3809,27 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsConfigValues(des, 
 		return des
 	}
 
-	des.KeyUsage = canonicalizeCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage(des.KeyUsage, initial.KeyUsage, opts...)
-	des.CaOptions = canonicalizeCertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions(des.CaOptions, initial.CaOptions, opts...)
+	cDes := &CertificateAuthorityCaCertificateDescriptionsConfigValues{}
+
+	cDes.KeyUsage = canonicalizeCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage(des.KeyUsage, initial.KeyUsage, opts...)
+	cDes.CaOptions = canonicalizeCertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions(des.CaOptions, initial.CaOptions, opts...)
 	if dcl.IsZeroValue(des.PolicyIds) {
 		des.PolicyIds = initial.PolicyIds
+	} else {
+		cDes.PolicyIds = des.PolicyIds
 	}
 	if dcl.IsZeroValue(des.AiaOcspServers) {
 		des.AiaOcspServers = initial.AiaOcspServers
+	} else {
+		cDes.AiaOcspServers = des.AiaOcspServers
 	}
 	if dcl.IsZeroValue(des.AdditionalExtensions) {
 		des.AdditionalExtensions = initial.AdditionalExtensions
+	} else {
+		cDes.AdditionalExtensions = des.AdditionalExtensions
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsConfigValues(c *Client, des, nw *CertificateAuthorityCaCertificateDescriptionsConfigValues) *CertificateAuthorityCaCertificateDescriptionsConfigValues {
@@ -3663,13 +3903,17 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsa
 		return des
 	}
 
-	des.BaseKeyUsage = canonicalizeCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage(des.BaseKeyUsage, initial.BaseKeyUsage, opts...)
-	des.ExtendedKeyUsage = canonicalizeCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage(des.ExtendedKeyUsage, initial.ExtendedKeyUsage, opts...)
+	cDes := &CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage{}
+
+	cDes.BaseKeyUsage = canonicalizeCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage(des.BaseKeyUsage, initial.BaseKeyUsage, opts...)
+	cDes.ExtendedKeyUsage = canonicalizeCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage(des.ExtendedKeyUsage, initial.ExtendedKeyUsage, opts...)
 	if dcl.IsZeroValue(des.UnknownExtendedKeyUsages) {
 		des.UnknownExtendedKeyUsages = initial.UnknownExtendedKeyUsages
+	} else {
+		cDes.UnknownExtendedKeyUsages = des.UnknownExtendedKeyUsages
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage(c *Client, des, nw *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage) *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage {
@@ -3739,35 +3983,55 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsa
 		return des
 	}
 
+	cDes := &CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage{}
+
 	if dcl.BoolCanonicalize(des.DigitalSignature, initial.DigitalSignature) || dcl.IsZeroValue(des.DigitalSignature) {
-		des.DigitalSignature = initial.DigitalSignature
+		cDes.DigitalSignature = initial.DigitalSignature
+	} else {
+		cDes.DigitalSignature = des.DigitalSignature
 	}
 	if dcl.BoolCanonicalize(des.ContentCommitment, initial.ContentCommitment) || dcl.IsZeroValue(des.ContentCommitment) {
-		des.ContentCommitment = initial.ContentCommitment
+		cDes.ContentCommitment = initial.ContentCommitment
+	} else {
+		cDes.ContentCommitment = des.ContentCommitment
 	}
 	if dcl.BoolCanonicalize(des.KeyEncipherment, initial.KeyEncipherment) || dcl.IsZeroValue(des.KeyEncipherment) {
-		des.KeyEncipherment = initial.KeyEncipherment
+		cDes.KeyEncipherment = initial.KeyEncipherment
+	} else {
+		cDes.KeyEncipherment = des.KeyEncipherment
 	}
 	if dcl.BoolCanonicalize(des.DataEncipherment, initial.DataEncipherment) || dcl.IsZeroValue(des.DataEncipherment) {
-		des.DataEncipherment = initial.DataEncipherment
+		cDes.DataEncipherment = initial.DataEncipherment
+	} else {
+		cDes.DataEncipherment = des.DataEncipherment
 	}
 	if dcl.BoolCanonicalize(des.KeyAgreement, initial.KeyAgreement) || dcl.IsZeroValue(des.KeyAgreement) {
-		des.KeyAgreement = initial.KeyAgreement
+		cDes.KeyAgreement = initial.KeyAgreement
+	} else {
+		cDes.KeyAgreement = des.KeyAgreement
 	}
 	if dcl.BoolCanonicalize(des.CertSign, initial.CertSign) || dcl.IsZeroValue(des.CertSign) {
-		des.CertSign = initial.CertSign
+		cDes.CertSign = initial.CertSign
+	} else {
+		cDes.CertSign = des.CertSign
 	}
 	if dcl.BoolCanonicalize(des.CrlSign, initial.CrlSign) || dcl.IsZeroValue(des.CrlSign) {
-		des.CrlSign = initial.CrlSign
+		cDes.CrlSign = initial.CrlSign
+	} else {
+		cDes.CrlSign = des.CrlSign
 	}
 	if dcl.BoolCanonicalize(des.EncipherOnly, initial.EncipherOnly) || dcl.IsZeroValue(des.EncipherOnly) {
-		des.EncipherOnly = initial.EncipherOnly
+		cDes.EncipherOnly = initial.EncipherOnly
+	} else {
+		cDes.EncipherOnly = des.EncipherOnly
 	}
 	if dcl.BoolCanonicalize(des.DecipherOnly, initial.DecipherOnly) || dcl.IsZeroValue(des.DecipherOnly) {
-		des.DecipherOnly = initial.DecipherOnly
+		cDes.DecipherOnly = initial.DecipherOnly
+	} else {
+		cDes.DecipherOnly = des.DecipherOnly
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage(c *Client, des, nw *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage) *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage {
@@ -3861,26 +4125,40 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsa
 		return des
 	}
 
+	cDes := &CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage{}
+
 	if dcl.BoolCanonicalize(des.ServerAuth, initial.ServerAuth) || dcl.IsZeroValue(des.ServerAuth) {
-		des.ServerAuth = initial.ServerAuth
+		cDes.ServerAuth = initial.ServerAuth
+	} else {
+		cDes.ServerAuth = des.ServerAuth
 	}
 	if dcl.BoolCanonicalize(des.ClientAuth, initial.ClientAuth) || dcl.IsZeroValue(des.ClientAuth) {
-		des.ClientAuth = initial.ClientAuth
+		cDes.ClientAuth = initial.ClientAuth
+	} else {
+		cDes.ClientAuth = des.ClientAuth
 	}
 	if dcl.BoolCanonicalize(des.CodeSigning, initial.CodeSigning) || dcl.IsZeroValue(des.CodeSigning) {
-		des.CodeSigning = initial.CodeSigning
+		cDes.CodeSigning = initial.CodeSigning
+	} else {
+		cDes.CodeSigning = des.CodeSigning
 	}
 	if dcl.BoolCanonicalize(des.EmailProtection, initial.EmailProtection) || dcl.IsZeroValue(des.EmailProtection) {
-		des.EmailProtection = initial.EmailProtection
+		cDes.EmailProtection = initial.EmailProtection
+	} else {
+		cDes.EmailProtection = des.EmailProtection
 	}
 	if dcl.BoolCanonicalize(des.TimeStamping, initial.TimeStamping) || dcl.IsZeroValue(des.TimeStamping) {
-		des.TimeStamping = initial.TimeStamping
+		cDes.TimeStamping = initial.TimeStamping
+	} else {
+		cDes.TimeStamping = des.TimeStamping
 	}
 	if dcl.BoolCanonicalize(des.OcspSigning, initial.OcspSigning) || dcl.IsZeroValue(des.OcspSigning) {
-		des.OcspSigning = initial.OcspSigning
+		cDes.OcspSigning = initial.OcspSigning
+	} else {
+		cDes.OcspSigning = des.OcspSigning
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage(c *Client, des, nw *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage) *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage {
@@ -3965,11 +4243,15 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsa
 		return des
 	}
 
+	cDes := &CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnknownExtendedKeyUsages{}
+
 	if dcl.IsZeroValue(des.ObjectIdPath) {
 		des.ObjectIdPath = initial.ObjectIdPath
+	} else {
+		cDes.ObjectIdPath = des.ObjectIdPath
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnknownExtendedKeyUsages(c *Client, des, nw *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnknownExtendedKeyUsages) *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnknownExtendedKeyUsages {
@@ -4039,14 +4321,20 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsConfigValuesCaOpti
 		return des
 	}
 
+	cDes := &CertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions{}
+
 	if dcl.BoolCanonicalize(des.IsCa, initial.IsCa) || dcl.IsZeroValue(des.IsCa) {
-		des.IsCa = initial.IsCa
+		cDes.IsCa = initial.IsCa
+	} else {
+		cDes.IsCa = des.IsCa
 	}
 	if dcl.IsZeroValue(des.MaxIssuerPathLength) {
 		des.MaxIssuerPathLength = initial.MaxIssuerPathLength
+	} else {
+		cDes.MaxIssuerPathLength = des.MaxIssuerPathLength
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions(c *Client, des, nw *CertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions) *CertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions {
@@ -4119,11 +4407,15 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsConfigValuesPolicy
 		return des
 	}
 
+	cDes := &CertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds{}
+
 	if dcl.IsZeroValue(des.ObjectIdPath) {
 		des.ObjectIdPath = initial.ObjectIdPath
+	} else {
+		cDes.ObjectIdPath = des.ObjectIdPath
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds(c *Client, des, nw *CertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds) *CertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds {
@@ -4193,15 +4485,21 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsConfigValuesAdditi
 		return des
 	}
 
-	des.ObjectId = canonicalizeCertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId(des.ObjectId, initial.ObjectId, opts...)
+	cDes := &CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensions{}
+
+	cDes.ObjectId = canonicalizeCertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId(des.ObjectId, initial.ObjectId, opts...)
 	if dcl.BoolCanonicalize(des.Critical, initial.Critical) || dcl.IsZeroValue(des.Critical) {
-		des.Critical = initial.Critical
+		cDes.Critical = initial.Critical
+	} else {
+		cDes.Critical = des.Critical
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensions(c *Client, des, nw *CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensions) *CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensions {
@@ -4275,11 +4573,15 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsConfigValuesAdditi
 		return des
 	}
 
+	cDes := &CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId{}
+
 	if dcl.IsZeroValue(des.ObjectIdPath) {
 		des.ObjectIdPath = initial.ObjectIdPath
+	} else {
+		cDes.ObjectIdPath = des.ObjectIdPath
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId(c *Client, des, nw *CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId) *CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId {
@@ -4349,17 +4651,25 @@ func canonicalizeCertificateAuthorityAccessUrls(des, initial *CertificateAuthori
 		return des
 	}
 
+	cDes := &CertificateAuthorityAccessUrls{}
+
 	if dcl.StringCanonicalize(des.CaCertificateAccessUrl, initial.CaCertificateAccessUrl) || dcl.IsZeroValue(des.CaCertificateAccessUrl) {
-		des.CaCertificateAccessUrl = initial.CaCertificateAccessUrl
+		cDes.CaCertificateAccessUrl = initial.CaCertificateAccessUrl
+	} else {
+		cDes.CaCertificateAccessUrl = des.CaCertificateAccessUrl
 	}
 	if dcl.IsZeroValue(des.CrlAccessUrls) {
 		des.CrlAccessUrls = initial.CrlAccessUrls
+	} else {
+		cDes.CrlAccessUrls = des.CrlAccessUrls
 	}
 	if dcl.StringCanonicalize(des.CrlAccessUrl, initial.CrlAccessUrl) || dcl.IsZeroValue(des.CrlAccessUrl) {
-		des.CrlAccessUrl = initial.CrlAccessUrl
+		cDes.CrlAccessUrl = initial.CrlAccessUrl
+	} else {
+		cDes.CrlAccessUrl = des.CrlAccessUrl
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityAccessUrls(c *Client, des, nw *CertificateAuthorityAccessUrls) *CertificateAuthorityAccessUrls {
@@ -4435,21 +4745,29 @@ func canonicalizeCertificateAuthorityCertificatePolicy(des, initial *Certificate
 		return des
 	}
 
-	des.AllowedConfigList = canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigList(des.AllowedConfigList, initial.AllowedConfigList, opts...)
-	des.OverwriteConfigValues = canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValues(des.OverwriteConfigValues, initial.OverwriteConfigValues, opts...)
+	cDes := &CertificateAuthorityCertificatePolicy{}
+
+	cDes.AllowedConfigList = canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigList(des.AllowedConfigList, initial.AllowedConfigList, opts...)
+	cDes.OverwriteConfigValues = canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValues(des.OverwriteConfigValues, initial.OverwriteConfigValues, opts...)
 	if dcl.IsZeroValue(des.AllowedLocationsAndOrganizations) {
 		des.AllowedLocationsAndOrganizations = initial.AllowedLocationsAndOrganizations
+	} else {
+		cDes.AllowedLocationsAndOrganizations = des.AllowedLocationsAndOrganizations
 	}
 	if dcl.IsZeroValue(des.AllowedCommonNames) {
 		des.AllowedCommonNames = initial.AllowedCommonNames
+	} else {
+		cDes.AllowedCommonNames = des.AllowedCommonNames
 	}
-	des.AllowedSans = canonicalizeCertificateAuthorityCertificatePolicyAllowedSans(des.AllowedSans, initial.AllowedSans, opts...)
+	cDes.AllowedSans = canonicalizeCertificateAuthorityCertificatePolicyAllowedSans(des.AllowedSans, initial.AllowedSans, opts...)
 	if dcl.StringCanonicalize(des.MaximumLifetime, initial.MaximumLifetime) || dcl.IsZeroValue(des.MaximumLifetime) {
-		des.MaximumLifetime = initial.MaximumLifetime
+		cDes.MaximumLifetime = initial.MaximumLifetime
+	} else {
+		cDes.MaximumLifetime = des.MaximumLifetime
 	}
-	des.AllowedIssuanceModes = canonicalizeCertificateAuthorityCertificatePolicyAllowedIssuanceModes(des.AllowedIssuanceModes, initial.AllowedIssuanceModes, opts...)
+	cDes.AllowedIssuanceModes = canonicalizeCertificateAuthorityCertificatePolicyAllowedIssuanceModes(des.AllowedIssuanceModes, initial.AllowedIssuanceModes, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicy(c *Client, des, nw *CertificateAuthorityCertificatePolicy) *CertificateAuthorityCertificatePolicy {
@@ -4527,11 +4845,15 @@ func canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigList(des, ini
 		return des
 	}
 
+	cDes := &CertificateAuthorityCertificatePolicyAllowedConfigList{}
+
 	if dcl.IsZeroValue(des.AllowedConfigValues) {
 		des.AllowedConfigValues = initial.AllowedConfigValues
+	} else {
+		cDes.AllowedConfigValues = des.AllowedConfigValues
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyAllowedConfigList(c *Client, des, nw *CertificateAuthorityCertificatePolicyAllowedConfigList) *CertificateAuthorityCertificatePolicyAllowedConfigList {
@@ -4599,12 +4921,16 @@ func canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedCo
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.ReusableConfig, initial.ReusableConfig) || dcl.IsZeroValue(des.ReusableConfig) {
-		des.ReusableConfig = initial.ReusableConfig
-	}
-	des.ReusableConfigValues = canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues(des.ReusableConfigValues, initial.ReusableConfigValues, opts...)
+	cDes := &CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues{}
 
-	return des
+	if dcl.StringCanonicalize(des.ReusableConfig, initial.ReusableConfig) || dcl.IsZeroValue(des.ReusableConfig) {
+		cDes.ReusableConfig = initial.ReusableConfig
+	} else {
+		cDes.ReusableConfig = des.ReusableConfig
+	}
+	cDes.ReusableConfigValues = canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues(des.ReusableConfigValues, initial.ReusableConfigValues, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues(c *Client, des, nw *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues) *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues {
@@ -4675,19 +5001,27 @@ func canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedCo
 		return des
 	}
 
-	des.KeyUsage = canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage(des.KeyUsage, initial.KeyUsage, opts...)
-	des.CaOptions = canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions(des.CaOptions, initial.CaOptions, opts...)
+	cDes := &CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues{}
+
+	cDes.KeyUsage = canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage(des.KeyUsage, initial.KeyUsage, opts...)
+	cDes.CaOptions = canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions(des.CaOptions, initial.CaOptions, opts...)
 	if dcl.IsZeroValue(des.PolicyIds) {
 		des.PolicyIds = initial.PolicyIds
+	} else {
+		cDes.PolicyIds = des.PolicyIds
 	}
 	if dcl.IsZeroValue(des.AiaOcspServers) {
 		des.AiaOcspServers = initial.AiaOcspServers
+	} else {
+		cDes.AiaOcspServers = des.AiaOcspServers
 	}
 	if dcl.IsZeroValue(des.AdditionalExtensions) {
 		des.AdditionalExtensions = initial.AdditionalExtensions
+	} else {
+		cDes.AdditionalExtensions = des.AdditionalExtensions
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues(c *Client, des, nw *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues) *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues {
@@ -4761,13 +5095,17 @@ func canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedCo
 		return des
 	}
 
-	des.BaseKeyUsage = canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage(des.BaseKeyUsage, initial.BaseKeyUsage, opts...)
-	des.ExtendedKeyUsage = canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage(des.ExtendedKeyUsage, initial.ExtendedKeyUsage, opts...)
+	cDes := &CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage{}
+
+	cDes.BaseKeyUsage = canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage(des.BaseKeyUsage, initial.BaseKeyUsage, opts...)
+	cDes.ExtendedKeyUsage = canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage(des.ExtendedKeyUsage, initial.ExtendedKeyUsage, opts...)
 	if dcl.IsZeroValue(des.UnknownExtendedKeyUsages) {
 		des.UnknownExtendedKeyUsages = initial.UnknownExtendedKeyUsages
+	} else {
+		cDes.UnknownExtendedKeyUsages = des.UnknownExtendedKeyUsages
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage(c *Client, des, nw *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage) *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage {
@@ -4837,35 +5175,55 @@ func canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedCo
 		return des
 	}
 
+	cDes := &CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage{}
+
 	if dcl.BoolCanonicalize(des.DigitalSignature, initial.DigitalSignature) || dcl.IsZeroValue(des.DigitalSignature) {
-		des.DigitalSignature = initial.DigitalSignature
+		cDes.DigitalSignature = initial.DigitalSignature
+	} else {
+		cDes.DigitalSignature = des.DigitalSignature
 	}
 	if dcl.BoolCanonicalize(des.ContentCommitment, initial.ContentCommitment) || dcl.IsZeroValue(des.ContentCommitment) {
-		des.ContentCommitment = initial.ContentCommitment
+		cDes.ContentCommitment = initial.ContentCommitment
+	} else {
+		cDes.ContentCommitment = des.ContentCommitment
 	}
 	if dcl.BoolCanonicalize(des.KeyEncipherment, initial.KeyEncipherment) || dcl.IsZeroValue(des.KeyEncipherment) {
-		des.KeyEncipherment = initial.KeyEncipherment
+		cDes.KeyEncipherment = initial.KeyEncipherment
+	} else {
+		cDes.KeyEncipherment = des.KeyEncipherment
 	}
 	if dcl.BoolCanonicalize(des.DataEncipherment, initial.DataEncipherment) || dcl.IsZeroValue(des.DataEncipherment) {
-		des.DataEncipherment = initial.DataEncipherment
+		cDes.DataEncipherment = initial.DataEncipherment
+	} else {
+		cDes.DataEncipherment = des.DataEncipherment
 	}
 	if dcl.BoolCanonicalize(des.KeyAgreement, initial.KeyAgreement) || dcl.IsZeroValue(des.KeyAgreement) {
-		des.KeyAgreement = initial.KeyAgreement
+		cDes.KeyAgreement = initial.KeyAgreement
+	} else {
+		cDes.KeyAgreement = des.KeyAgreement
 	}
 	if dcl.BoolCanonicalize(des.CertSign, initial.CertSign) || dcl.IsZeroValue(des.CertSign) {
-		des.CertSign = initial.CertSign
+		cDes.CertSign = initial.CertSign
+	} else {
+		cDes.CertSign = des.CertSign
 	}
 	if dcl.BoolCanonicalize(des.CrlSign, initial.CrlSign) || dcl.IsZeroValue(des.CrlSign) {
-		des.CrlSign = initial.CrlSign
+		cDes.CrlSign = initial.CrlSign
+	} else {
+		cDes.CrlSign = des.CrlSign
 	}
 	if dcl.BoolCanonicalize(des.EncipherOnly, initial.EncipherOnly) || dcl.IsZeroValue(des.EncipherOnly) {
-		des.EncipherOnly = initial.EncipherOnly
+		cDes.EncipherOnly = initial.EncipherOnly
+	} else {
+		cDes.EncipherOnly = des.EncipherOnly
 	}
 	if dcl.BoolCanonicalize(des.DecipherOnly, initial.DecipherOnly) || dcl.IsZeroValue(des.DecipherOnly) {
-		des.DecipherOnly = initial.DecipherOnly
+		cDes.DecipherOnly = initial.DecipherOnly
+	} else {
+		cDes.DecipherOnly = des.DecipherOnly
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage(c *Client, des, nw *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage) *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage {
@@ -4959,26 +5317,40 @@ func canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedCo
 		return des
 	}
 
+	cDes := &CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage{}
+
 	if dcl.BoolCanonicalize(des.ServerAuth, initial.ServerAuth) || dcl.IsZeroValue(des.ServerAuth) {
-		des.ServerAuth = initial.ServerAuth
+		cDes.ServerAuth = initial.ServerAuth
+	} else {
+		cDes.ServerAuth = des.ServerAuth
 	}
 	if dcl.BoolCanonicalize(des.ClientAuth, initial.ClientAuth) || dcl.IsZeroValue(des.ClientAuth) {
-		des.ClientAuth = initial.ClientAuth
+		cDes.ClientAuth = initial.ClientAuth
+	} else {
+		cDes.ClientAuth = des.ClientAuth
 	}
 	if dcl.BoolCanonicalize(des.CodeSigning, initial.CodeSigning) || dcl.IsZeroValue(des.CodeSigning) {
-		des.CodeSigning = initial.CodeSigning
+		cDes.CodeSigning = initial.CodeSigning
+	} else {
+		cDes.CodeSigning = des.CodeSigning
 	}
 	if dcl.BoolCanonicalize(des.EmailProtection, initial.EmailProtection) || dcl.IsZeroValue(des.EmailProtection) {
-		des.EmailProtection = initial.EmailProtection
+		cDes.EmailProtection = initial.EmailProtection
+	} else {
+		cDes.EmailProtection = des.EmailProtection
 	}
 	if dcl.BoolCanonicalize(des.TimeStamping, initial.TimeStamping) || dcl.IsZeroValue(des.TimeStamping) {
-		des.TimeStamping = initial.TimeStamping
+		cDes.TimeStamping = initial.TimeStamping
+	} else {
+		cDes.TimeStamping = des.TimeStamping
 	}
 	if dcl.BoolCanonicalize(des.OcspSigning, initial.OcspSigning) || dcl.IsZeroValue(des.OcspSigning) {
-		des.OcspSigning = initial.OcspSigning
+		cDes.OcspSigning = initial.OcspSigning
+	} else {
+		cDes.OcspSigning = des.OcspSigning
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage(c *Client, des, nw *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage) *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage {
@@ -5063,11 +5435,15 @@ func canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedCo
 		return des
 	}
 
+	cDes := &CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages{}
+
 	if dcl.IsZeroValue(des.ObjectIdPath) {
 		des.ObjectIdPath = initial.ObjectIdPath
+	} else {
+		cDes.ObjectIdPath = des.ObjectIdPath
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages(c *Client, des, nw *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages) *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages {
@@ -5137,14 +5513,20 @@ func canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedCo
 		return des
 	}
 
+	cDes := &CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions{}
+
 	if dcl.BoolCanonicalize(des.IsCa, initial.IsCa) || dcl.IsZeroValue(des.IsCa) {
-		des.IsCa = initial.IsCa
+		cDes.IsCa = initial.IsCa
+	} else {
+		cDes.IsCa = des.IsCa
 	}
 	if dcl.IsZeroValue(des.MaxIssuerPathLength) {
 		des.MaxIssuerPathLength = initial.MaxIssuerPathLength
+	} else {
+		cDes.MaxIssuerPathLength = des.MaxIssuerPathLength
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions(c *Client, des, nw *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions) *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions {
@@ -5217,11 +5599,15 @@ func canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedCo
 		return des
 	}
 
+	cDes := &CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesPolicyIds{}
+
 	if dcl.IsZeroValue(des.ObjectIdPath) {
 		des.ObjectIdPath = initial.ObjectIdPath
+	} else {
+		cDes.ObjectIdPath = des.ObjectIdPath
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesPolicyIds(c *Client, des, nw *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesPolicyIds) *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesPolicyIds {
@@ -5291,15 +5677,21 @@ func canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedCo
 		return des
 	}
 
-	des.ObjectId = canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId(des.ObjectId, initial.ObjectId, opts...)
+	cDes := &CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensions{}
+
+	cDes.ObjectId = canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId(des.ObjectId, initial.ObjectId, opts...)
 	if dcl.BoolCanonicalize(des.Critical, initial.Critical) || dcl.IsZeroValue(des.Critical) {
-		des.Critical = initial.Critical
+		cDes.Critical = initial.Critical
+	} else {
+		cDes.Critical = des.Critical
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensions(c *Client, des, nw *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensions) *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensions {
@@ -5373,11 +5765,15 @@ func canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedCo
 		return des
 	}
 
+	cDes := &CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId{}
+
 	if dcl.IsZeroValue(des.ObjectIdPath) {
 		des.ObjectIdPath = initial.ObjectIdPath
+	} else {
+		cDes.ObjectIdPath = des.ObjectIdPath
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId(c *Client, des, nw *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId) *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId {
@@ -5447,12 +5843,16 @@ func canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValues(des,
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.ReusableConfig, initial.ReusableConfig) || dcl.IsZeroValue(des.ReusableConfig) {
-		des.ReusableConfig = initial.ReusableConfig
-	}
-	des.ReusableConfigValues = canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues(des.ReusableConfigValues, initial.ReusableConfigValues, opts...)
+	cDes := &CertificateAuthorityCertificatePolicyOverwriteConfigValues{}
 
-	return des
+	if dcl.StringCanonicalize(des.ReusableConfig, initial.ReusableConfig) || dcl.IsZeroValue(des.ReusableConfig) {
+		cDes.ReusableConfig = initial.ReusableConfig
+	} else {
+		cDes.ReusableConfig = des.ReusableConfig
+	}
+	cDes.ReusableConfigValues = canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues(des.ReusableConfigValues, initial.ReusableConfigValues, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyOverwriteConfigValues(c *Client, des, nw *CertificateAuthorityCertificatePolicyOverwriteConfigValues) *CertificateAuthorityCertificatePolicyOverwriteConfigValues {
@@ -5523,19 +5923,27 @@ func canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusa
 		return des
 	}
 
-	des.KeyUsage = canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage(des.KeyUsage, initial.KeyUsage, opts...)
-	des.CaOptions = canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions(des.CaOptions, initial.CaOptions, opts...)
+	cDes := &CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues{}
+
+	cDes.KeyUsage = canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage(des.KeyUsage, initial.KeyUsage, opts...)
+	cDes.CaOptions = canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions(des.CaOptions, initial.CaOptions, opts...)
 	if dcl.IsZeroValue(des.PolicyIds) {
 		des.PolicyIds = initial.PolicyIds
+	} else {
+		cDes.PolicyIds = des.PolicyIds
 	}
 	if dcl.IsZeroValue(des.AiaOcspServers) {
 		des.AiaOcspServers = initial.AiaOcspServers
+	} else {
+		cDes.AiaOcspServers = des.AiaOcspServers
 	}
 	if dcl.IsZeroValue(des.AdditionalExtensions) {
 		des.AdditionalExtensions = initial.AdditionalExtensions
+	} else {
+		cDes.AdditionalExtensions = des.AdditionalExtensions
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues(c *Client, des, nw *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues) *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues {
@@ -5609,13 +6017,17 @@ func canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusa
 		return des
 	}
 
-	des.BaseKeyUsage = canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage(des.BaseKeyUsage, initial.BaseKeyUsage, opts...)
-	des.ExtendedKeyUsage = canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage(des.ExtendedKeyUsage, initial.ExtendedKeyUsage, opts...)
+	cDes := &CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage{}
+
+	cDes.BaseKeyUsage = canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage(des.BaseKeyUsage, initial.BaseKeyUsage, opts...)
+	cDes.ExtendedKeyUsage = canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage(des.ExtendedKeyUsage, initial.ExtendedKeyUsage, opts...)
 	if dcl.IsZeroValue(des.UnknownExtendedKeyUsages) {
 		des.UnknownExtendedKeyUsages = initial.UnknownExtendedKeyUsages
+	} else {
+		cDes.UnknownExtendedKeyUsages = des.UnknownExtendedKeyUsages
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage(c *Client, des, nw *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage) *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage {
@@ -5685,35 +6097,55 @@ func canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusa
 		return des
 	}
 
+	cDes := &CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage{}
+
 	if dcl.BoolCanonicalize(des.DigitalSignature, initial.DigitalSignature) || dcl.IsZeroValue(des.DigitalSignature) {
-		des.DigitalSignature = initial.DigitalSignature
+		cDes.DigitalSignature = initial.DigitalSignature
+	} else {
+		cDes.DigitalSignature = des.DigitalSignature
 	}
 	if dcl.BoolCanonicalize(des.ContentCommitment, initial.ContentCommitment) || dcl.IsZeroValue(des.ContentCommitment) {
-		des.ContentCommitment = initial.ContentCommitment
+		cDes.ContentCommitment = initial.ContentCommitment
+	} else {
+		cDes.ContentCommitment = des.ContentCommitment
 	}
 	if dcl.BoolCanonicalize(des.KeyEncipherment, initial.KeyEncipherment) || dcl.IsZeroValue(des.KeyEncipherment) {
-		des.KeyEncipherment = initial.KeyEncipherment
+		cDes.KeyEncipherment = initial.KeyEncipherment
+	} else {
+		cDes.KeyEncipherment = des.KeyEncipherment
 	}
 	if dcl.BoolCanonicalize(des.DataEncipherment, initial.DataEncipherment) || dcl.IsZeroValue(des.DataEncipherment) {
-		des.DataEncipherment = initial.DataEncipherment
+		cDes.DataEncipherment = initial.DataEncipherment
+	} else {
+		cDes.DataEncipherment = des.DataEncipherment
 	}
 	if dcl.BoolCanonicalize(des.KeyAgreement, initial.KeyAgreement) || dcl.IsZeroValue(des.KeyAgreement) {
-		des.KeyAgreement = initial.KeyAgreement
+		cDes.KeyAgreement = initial.KeyAgreement
+	} else {
+		cDes.KeyAgreement = des.KeyAgreement
 	}
 	if dcl.BoolCanonicalize(des.CertSign, initial.CertSign) || dcl.IsZeroValue(des.CertSign) {
-		des.CertSign = initial.CertSign
+		cDes.CertSign = initial.CertSign
+	} else {
+		cDes.CertSign = des.CertSign
 	}
 	if dcl.BoolCanonicalize(des.CrlSign, initial.CrlSign) || dcl.IsZeroValue(des.CrlSign) {
-		des.CrlSign = initial.CrlSign
+		cDes.CrlSign = initial.CrlSign
+	} else {
+		cDes.CrlSign = des.CrlSign
 	}
 	if dcl.BoolCanonicalize(des.EncipherOnly, initial.EncipherOnly) || dcl.IsZeroValue(des.EncipherOnly) {
-		des.EncipherOnly = initial.EncipherOnly
+		cDes.EncipherOnly = initial.EncipherOnly
+	} else {
+		cDes.EncipherOnly = des.EncipherOnly
 	}
 	if dcl.BoolCanonicalize(des.DecipherOnly, initial.DecipherOnly) || dcl.IsZeroValue(des.DecipherOnly) {
-		des.DecipherOnly = initial.DecipherOnly
+		cDes.DecipherOnly = initial.DecipherOnly
+	} else {
+		cDes.DecipherOnly = des.DecipherOnly
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage(c *Client, des, nw *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage) *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage {
@@ -5807,26 +6239,40 @@ func canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusa
 		return des
 	}
 
+	cDes := &CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage{}
+
 	if dcl.BoolCanonicalize(des.ServerAuth, initial.ServerAuth) || dcl.IsZeroValue(des.ServerAuth) {
-		des.ServerAuth = initial.ServerAuth
+		cDes.ServerAuth = initial.ServerAuth
+	} else {
+		cDes.ServerAuth = des.ServerAuth
 	}
 	if dcl.BoolCanonicalize(des.ClientAuth, initial.ClientAuth) || dcl.IsZeroValue(des.ClientAuth) {
-		des.ClientAuth = initial.ClientAuth
+		cDes.ClientAuth = initial.ClientAuth
+	} else {
+		cDes.ClientAuth = des.ClientAuth
 	}
 	if dcl.BoolCanonicalize(des.CodeSigning, initial.CodeSigning) || dcl.IsZeroValue(des.CodeSigning) {
-		des.CodeSigning = initial.CodeSigning
+		cDes.CodeSigning = initial.CodeSigning
+	} else {
+		cDes.CodeSigning = des.CodeSigning
 	}
 	if dcl.BoolCanonicalize(des.EmailProtection, initial.EmailProtection) || dcl.IsZeroValue(des.EmailProtection) {
-		des.EmailProtection = initial.EmailProtection
+		cDes.EmailProtection = initial.EmailProtection
+	} else {
+		cDes.EmailProtection = des.EmailProtection
 	}
 	if dcl.BoolCanonicalize(des.TimeStamping, initial.TimeStamping) || dcl.IsZeroValue(des.TimeStamping) {
-		des.TimeStamping = initial.TimeStamping
+		cDes.TimeStamping = initial.TimeStamping
+	} else {
+		cDes.TimeStamping = des.TimeStamping
 	}
 	if dcl.BoolCanonicalize(des.OcspSigning, initial.OcspSigning) || dcl.IsZeroValue(des.OcspSigning) {
-		des.OcspSigning = initial.OcspSigning
+		cDes.OcspSigning = initial.OcspSigning
+	} else {
+		cDes.OcspSigning = des.OcspSigning
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage(c *Client, des, nw *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage) *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage {
@@ -5911,11 +6357,15 @@ func canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusa
 		return des
 	}
 
+	cDes := &CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages{}
+
 	if dcl.IsZeroValue(des.ObjectIdPath) {
 		des.ObjectIdPath = initial.ObjectIdPath
+	} else {
+		cDes.ObjectIdPath = des.ObjectIdPath
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages(c *Client, des, nw *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages) *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages {
@@ -5985,14 +6435,20 @@ func canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusa
 		return des
 	}
 
+	cDes := &CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions{}
+
 	if dcl.BoolCanonicalize(des.IsCa, initial.IsCa) || dcl.IsZeroValue(des.IsCa) {
-		des.IsCa = initial.IsCa
+		cDes.IsCa = initial.IsCa
+	} else {
+		cDes.IsCa = des.IsCa
 	}
 	if dcl.IsZeroValue(des.MaxIssuerPathLength) {
 		des.MaxIssuerPathLength = initial.MaxIssuerPathLength
+	} else {
+		cDes.MaxIssuerPathLength = des.MaxIssuerPathLength
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions(c *Client, des, nw *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions) *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions {
@@ -6065,11 +6521,15 @@ func canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusa
 		return des
 	}
 
+	cDes := &CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesPolicyIds{}
+
 	if dcl.IsZeroValue(des.ObjectIdPath) {
 		des.ObjectIdPath = initial.ObjectIdPath
+	} else {
+		cDes.ObjectIdPath = des.ObjectIdPath
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesPolicyIds(c *Client, des, nw *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesPolicyIds) *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesPolicyIds {
@@ -6139,15 +6599,21 @@ func canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusa
 		return des
 	}
 
-	des.ObjectId = canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId(des.ObjectId, initial.ObjectId, opts...)
+	cDes := &CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensions{}
+
+	cDes.ObjectId = canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId(des.ObjectId, initial.ObjectId, opts...)
 	if dcl.BoolCanonicalize(des.Critical, initial.Critical) || dcl.IsZeroValue(des.Critical) {
-		des.Critical = initial.Critical
+		cDes.Critical = initial.Critical
+	} else {
+		cDes.Critical = des.Critical
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensions(c *Client, des, nw *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensions) *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensions {
@@ -6221,11 +6687,15 @@ func canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusa
 		return des
 	}
 
+	cDes := &CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId{}
+
 	if dcl.IsZeroValue(des.ObjectIdPath) {
 		des.ObjectIdPath = initial.ObjectIdPath
+	} else {
+		cDes.ObjectIdPath = des.ObjectIdPath
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId(c *Client, des, nw *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId) *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId {
@@ -6295,29 +6765,45 @@ func canonicalizeCertificateAuthorityCertificatePolicyAllowedLocationsAndOrganiz
 		return des
 	}
 
+	cDes := &CertificateAuthorityCertificatePolicyAllowedLocationsAndOrganizations{}
+
 	if dcl.StringCanonicalize(des.CountryCode, initial.CountryCode) || dcl.IsZeroValue(des.CountryCode) {
-		des.CountryCode = initial.CountryCode
+		cDes.CountryCode = initial.CountryCode
+	} else {
+		cDes.CountryCode = des.CountryCode
 	}
 	if dcl.StringCanonicalize(des.Organization, initial.Organization) || dcl.IsZeroValue(des.Organization) {
-		des.Organization = initial.Organization
+		cDes.Organization = initial.Organization
+	} else {
+		cDes.Organization = des.Organization
 	}
 	if dcl.StringCanonicalize(des.OrganizationalUnit, initial.OrganizationalUnit) || dcl.IsZeroValue(des.OrganizationalUnit) {
-		des.OrganizationalUnit = initial.OrganizationalUnit
+		cDes.OrganizationalUnit = initial.OrganizationalUnit
+	} else {
+		cDes.OrganizationalUnit = des.OrganizationalUnit
 	}
 	if dcl.StringCanonicalize(des.Locality, initial.Locality) || dcl.IsZeroValue(des.Locality) {
-		des.Locality = initial.Locality
+		cDes.Locality = initial.Locality
+	} else {
+		cDes.Locality = des.Locality
 	}
 	if dcl.StringCanonicalize(des.Province, initial.Province) || dcl.IsZeroValue(des.Province) {
-		des.Province = initial.Province
+		cDes.Province = initial.Province
+	} else {
+		cDes.Province = des.Province
 	}
 	if dcl.StringCanonicalize(des.StreetAddress, initial.StreetAddress) || dcl.IsZeroValue(des.StreetAddress) {
-		des.StreetAddress = initial.StreetAddress
+		cDes.StreetAddress = initial.StreetAddress
+	} else {
+		cDes.StreetAddress = des.StreetAddress
 	}
 	if dcl.StringCanonicalize(des.PostalCode, initial.PostalCode) || dcl.IsZeroValue(des.PostalCode) {
-		des.PostalCode = initial.PostalCode
+		cDes.PostalCode = initial.PostalCode
+	} else {
+		cDes.PostalCode = des.PostalCode
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyAllowedLocationsAndOrganizations(c *Client, des, nw *CertificateAuthorityCertificatePolicyAllowedLocationsAndOrganizations) *CertificateAuthorityCertificatePolicyAllowedLocationsAndOrganizations {
@@ -6405,26 +6891,40 @@ func canonicalizeCertificateAuthorityCertificatePolicyAllowedSans(des, initial *
 		return des
 	}
 
+	cDes := &CertificateAuthorityCertificatePolicyAllowedSans{}
+
 	if dcl.IsZeroValue(des.AllowedDnsNames) {
 		des.AllowedDnsNames = initial.AllowedDnsNames
+	} else {
+		cDes.AllowedDnsNames = des.AllowedDnsNames
 	}
 	if dcl.IsZeroValue(des.AllowedUris) {
 		des.AllowedUris = initial.AllowedUris
+	} else {
+		cDes.AllowedUris = des.AllowedUris
 	}
 	if dcl.IsZeroValue(des.AllowedEmailAddresses) {
 		des.AllowedEmailAddresses = initial.AllowedEmailAddresses
+	} else {
+		cDes.AllowedEmailAddresses = des.AllowedEmailAddresses
 	}
 	if dcl.IsZeroValue(des.AllowedIps) {
 		des.AllowedIps = initial.AllowedIps
+	} else {
+		cDes.AllowedIps = des.AllowedIps
 	}
 	if dcl.BoolCanonicalize(des.AllowGlobbingDnsWildcards, initial.AllowGlobbingDnsWildcards) || dcl.IsZeroValue(des.AllowGlobbingDnsWildcards) {
-		des.AllowGlobbingDnsWildcards = initial.AllowGlobbingDnsWildcards
+		cDes.AllowGlobbingDnsWildcards = initial.AllowGlobbingDnsWildcards
+	} else {
+		cDes.AllowGlobbingDnsWildcards = des.AllowGlobbingDnsWildcards
 	}
 	if dcl.BoolCanonicalize(des.AllowCustomSans, initial.AllowCustomSans) || dcl.IsZeroValue(des.AllowCustomSans) {
-		des.AllowCustomSans = initial.AllowCustomSans
+		cDes.AllowCustomSans = initial.AllowCustomSans
+	} else {
+		cDes.AllowCustomSans = des.AllowCustomSans
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyAllowedSans(c *Client, des, nw *CertificateAuthorityCertificatePolicyAllowedSans) *CertificateAuthorityCertificatePolicyAllowedSans {
@@ -6509,14 +7009,20 @@ func canonicalizeCertificateAuthorityCertificatePolicyAllowedIssuanceModes(des, 
 		return des
 	}
 
+	cDes := &CertificateAuthorityCertificatePolicyAllowedIssuanceModes{}
+
 	if dcl.BoolCanonicalize(des.AllowCsrBasedIssuance, initial.AllowCsrBasedIssuance) || dcl.IsZeroValue(des.AllowCsrBasedIssuance) {
-		des.AllowCsrBasedIssuance = initial.AllowCsrBasedIssuance
+		cDes.AllowCsrBasedIssuance = initial.AllowCsrBasedIssuance
+	} else {
+		cDes.AllowCsrBasedIssuance = des.AllowCsrBasedIssuance
 	}
 	if dcl.BoolCanonicalize(des.AllowConfigBasedIssuance, initial.AllowConfigBasedIssuance) || dcl.IsZeroValue(des.AllowConfigBasedIssuance) {
-		des.AllowConfigBasedIssuance = initial.AllowConfigBasedIssuance
+		cDes.AllowConfigBasedIssuance = initial.AllowConfigBasedIssuance
+	} else {
+		cDes.AllowConfigBasedIssuance = des.AllowConfigBasedIssuance
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityCertificatePolicyAllowedIssuanceModes(c *Client, des, nw *CertificateAuthorityCertificatePolicyAllowedIssuanceModes) *CertificateAuthorityCertificatePolicyAllowedIssuanceModes {
@@ -6589,14 +7095,20 @@ func canonicalizeCertificateAuthorityIssuingOptions(des, initial *CertificateAut
 		return des
 	}
 
+	cDes := &CertificateAuthorityIssuingOptions{}
+
 	if dcl.BoolCanonicalize(des.IncludeCaCertUrl, initial.IncludeCaCertUrl) || dcl.IsZeroValue(des.IncludeCaCertUrl) {
-		des.IncludeCaCertUrl = initial.IncludeCaCertUrl
+		cDes.IncludeCaCertUrl = initial.IncludeCaCertUrl
+	} else {
+		cDes.IncludeCaCertUrl = des.IncludeCaCertUrl
 	}
 	if dcl.BoolCanonicalize(des.IncludeCrlAccessUrl, initial.IncludeCrlAccessUrl) || dcl.IsZeroValue(des.IncludeCrlAccessUrl) {
-		des.IncludeCrlAccessUrl = initial.IncludeCrlAccessUrl
+		cDes.IncludeCrlAccessUrl = initial.IncludeCrlAccessUrl
+	} else {
+		cDes.IncludeCrlAccessUrl = des.IncludeCrlAccessUrl
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewCertificateAuthorityIssuingOptions(c *Client, des, nw *CertificateAuthorityIssuingOptions) *CertificateAuthorityIssuingOptions {
@@ -18552,28 +19064,42 @@ type certificateAuthorityDiff struct {
 	UpdateOp         certificateAuthorityApiOperation
 }
 
-func convertFieldDiffToCertificateAuthorityOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]certificateAuthorityDiff, error) {
+func convertFieldDiffsToCertificateAuthorityDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]certificateAuthorityDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []certificateAuthorityDiff
-	for _, op := range ops {
+	// For each operation name, create a certificateAuthorityDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := certificateAuthorityDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTocertificateAuthorityApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToCertificateAuthorityApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTocertificateAuthorityApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (certificateAuthorityApiOperation, error) {
-	switch op {
+func convertOpNameToCertificateAuthorityApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (certificateAuthorityApiOperation, error) {
+	switch opName {
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

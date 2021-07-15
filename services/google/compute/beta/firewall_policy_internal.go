@@ -109,7 +109,7 @@ type updateFirewallPolicyPatchOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -297,21 +297,29 @@ func canonicalizeFirewallPolicyDesiredState(rawDesired, rawInitial *FirewallPoli
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &FirewallPolicy{}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.StringCanonicalize(rawDesired.Fingerprint, rawInitial.Fingerprint) {
-		rawDesired.Fingerprint = rawInitial.Fingerprint
+		canonicalDesired.Fingerprint = rawInitial.Fingerprint
+	} else {
+		canonicalDesired.Fingerprint = rawDesired.Fingerprint
 	}
 	if dcl.StringCanonicalize(rawDesired.ShortName, rawInitial.ShortName) {
-		rawDesired.ShortName = rawInitial.ShortName
+		canonicalDesired.ShortName = rawInitial.ShortName
+	} else {
+		canonicalDesired.ShortName = rawDesired.ShortName
 	}
 	if dcl.StringCanonicalize(rawDesired.Parent, rawInitial.Parent) {
-		rawDesired.Parent = rawInitial.Parent
+		canonicalDesired.Parent = rawInitial.Parent
+	} else {
+		canonicalDesired.Parent = rawDesired.Parent
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeFirewallPolicyNewState(c *Client, rawNew, rawDesired *FirewallPolicy) (*FirewallPolicy, error) {
@@ -629,31 +637,45 @@ type firewallPolicyDiff struct {
 	UpdateOp         firewallPolicyApiOperation
 }
 
-func convertFieldDiffToFirewallPolicyOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]firewallPolicyDiff, error) {
+func convertFieldDiffsToFirewallPolicyDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]firewallPolicyDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []firewallPolicyDiff
-	for _, op := range ops {
+	// For each operation name, create a firewallPolicyDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := firewallPolicyDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTofirewallPolicyApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToFirewallPolicyApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTofirewallPolicyApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (firewallPolicyApiOperation, error) {
-	switch op {
+func convertOpNameToFirewallPolicyApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (firewallPolicyApiOperation, error) {
+	switch opName {
 
 	case "updateFirewallPolicyPatchOperation":
-		return &updateFirewallPolicyPatchOperation{Diffs: diffs}, nil
+		return &updateFirewallPolicyPatchOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

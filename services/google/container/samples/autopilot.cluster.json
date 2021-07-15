@@ -9,6 +9,7 @@
   "autopilot": {
     "enabled": true
   },
+  "description": "A sample cluster with autopilot enabled.",
   "project": "{{project}}",
   "location": "{{region}}"
 }

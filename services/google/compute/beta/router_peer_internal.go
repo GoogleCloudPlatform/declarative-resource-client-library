@@ -132,7 +132,7 @@ type updateRouterPeerUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -536,45 +536,69 @@ func canonicalizeRouterPeerDesiredState(rawDesired, rawInitial *RouterPeer, opts
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &RouterPeer{}
 	if dcl.NameToSelfLink(rawDesired.Router, rawInitial.Router) {
-		rawDesired.Router = rawInitial.Router
+		canonicalDesired.Router = rawInitial.Router
+	} else {
+		canonicalDesired.Router = rawDesired.Router
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.InterfaceName, rawInitial.InterfaceName) {
-		rawDesired.InterfaceName = rawInitial.InterfaceName
+		canonicalDesired.InterfaceName = rawInitial.InterfaceName
+	} else {
+		canonicalDesired.InterfaceName = rawDesired.InterfaceName
 	}
 	if dcl.StringCanonicalize(rawDesired.IPAddress, rawInitial.IPAddress) {
-		rawDesired.IPAddress = rawInitial.IPAddress
+		canonicalDesired.IPAddress = rawInitial.IPAddress
+	} else {
+		canonicalDesired.IPAddress = rawDesired.IPAddress
 	}
 	if dcl.StringCanonicalize(rawDesired.PeerIPAddress, rawInitial.PeerIPAddress) {
-		rawDesired.PeerIPAddress = rawInitial.PeerIPAddress
+		canonicalDesired.PeerIPAddress = rawInitial.PeerIPAddress
+	} else {
+		canonicalDesired.PeerIPAddress = rawDesired.PeerIPAddress
 	}
 	if dcl.IsZeroValue(rawDesired.PeerAsn) {
-		rawDesired.PeerAsn = rawInitial.PeerAsn
+		canonicalDesired.PeerAsn = rawInitial.PeerAsn
+	} else {
+		canonicalDesired.PeerAsn = rawDesired.PeerAsn
 	}
 	if dcl.IsZeroValue(rawDesired.AdvertisedRoutePriority) {
-		rawDesired.AdvertisedRoutePriority = rawInitial.AdvertisedRoutePriority
+		canonicalDesired.AdvertisedRoutePriority = rawInitial.AdvertisedRoutePriority
+	} else {
+		canonicalDesired.AdvertisedRoutePriority = rawDesired.AdvertisedRoutePriority
 	}
 	if dcl.StringCanonicalize(rawDesired.AdvertiseMode, rawInitial.AdvertiseMode) {
-		rawDesired.AdvertiseMode = rawInitial.AdvertiseMode
+		canonicalDesired.AdvertiseMode = rawInitial.AdvertiseMode
+	} else {
+		canonicalDesired.AdvertiseMode = rawDesired.AdvertiseMode
 	}
 	if dcl.IsZeroValue(rawDesired.AdvertisedGroups) {
-		rawDesired.AdvertisedGroups = rawInitial.AdvertisedGroups
+		canonicalDesired.AdvertisedGroups = rawInitial.AdvertisedGroups
+	} else {
+		canonicalDesired.AdvertisedGroups = rawDesired.AdvertisedGroups
 	}
 	if dcl.IsZeroValue(rawDesired.AdvertisedIPRanges) {
-		rawDesired.AdvertisedIPRanges = rawInitial.AdvertisedIPRanges
+		canonicalDesired.AdvertisedIPRanges = rawInitial.AdvertisedIPRanges
+	} else {
+		canonicalDesired.AdvertisedIPRanges = rawDesired.AdvertisedIPRanges
 	}
 	if dcl.NameToSelfLink(rawDesired.Region, rawInitial.Region) {
-		rawDesired.Region = rawInitial.Region
+		canonicalDesired.Region = rawInitial.Region
+	} else {
+		canonicalDesired.Region = rawDesired.Region
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeRouterPeerNewState(c *Client, rawNew, rawDesired *RouterPeer) (*RouterPeer, error) {
@@ -680,14 +704,20 @@ func canonicalizeRouterPeerAdvertisedIPRanges(des, initial *RouterPeerAdvertised
 		return des
 	}
 
+	cDes := &RouterPeerAdvertisedIPRanges{}
+
 	if dcl.StringCanonicalize(des.Range, initial.Range) || dcl.IsZeroValue(des.Range) {
-		des.Range = initial.Range
+		cDes.Range = initial.Range
+	} else {
+		cDes.Range = des.Range
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewRouterPeerAdvertisedIPRanges(c *Client, des, nw *RouterPeerAdvertisedIPRanges) *RouterPeerAdvertisedIPRanges {
@@ -1213,31 +1243,45 @@ type routerPeerDiff struct {
 	UpdateOp         routerPeerApiOperation
 }
 
-func convertFieldDiffToRouterPeerOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]routerPeerDiff, error) {
+func convertFieldDiffsToRouterPeerDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]routerPeerDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []routerPeerDiff
-	for _, op := range ops {
+	// For each operation name, create a routerPeerDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := routerPeerDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTorouterPeerApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToRouterPeerApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTorouterPeerApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (routerPeerApiOperation, error) {
-	switch op {
+func convertOpNameToRouterPeerApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (routerPeerApiOperation, error) {
+	switch opName {
 
 	case "updateRouterPeerUpdateOperation":
-		return &updateRouterPeerUpdateOperation{Diffs: diffs}, nil
+		return &updateRouterPeerUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

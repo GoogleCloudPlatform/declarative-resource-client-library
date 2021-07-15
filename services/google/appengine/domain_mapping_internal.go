@@ -109,7 +109,7 @@ type updateDomainMappingUpdateDomainMappingOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -418,19 +418,25 @@ func canonicalizeDomainMappingDesiredState(rawDesired, rawInitial *DomainMapping
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &DomainMapping{}
 	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
+		canonicalDesired.SelfLink = rawInitial.SelfLink
+	} else {
+		canonicalDesired.SelfLink = rawDesired.SelfLink
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
-	rawDesired.SslSettings = canonicalizeDomainMappingSslSettings(rawDesired.SslSettings, rawInitial.SslSettings, opts...)
+	canonicalDesired.SslSettings = canonicalizeDomainMappingSslSettings(rawDesired.SslSettings, rawInitial.SslSettings, opts...)
 	if dcl.NameToSelfLink(rawDesired.App, rawInitial.App) {
-		rawDesired.App = rawInitial.App
+		canonicalDesired.App = rawInitial.App
+	} else {
+		canonicalDesired.App = rawDesired.App
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeDomainMappingNewState(c *Client, rawNew, rawDesired *DomainMapping) (*DomainMapping, error) {
@@ -480,14 +486,20 @@ func canonicalizeDomainMappingSslSettings(des, initial *DomainMappingSslSettings
 		return des
 	}
 
+	cDes := &DomainMappingSslSettings{}
+
 	if dcl.StringCanonicalize(des.CertificateId, initial.CertificateId) || dcl.IsZeroValue(des.CertificateId) {
-		des.CertificateId = initial.CertificateId
+		cDes.CertificateId = initial.CertificateId
+	} else {
+		cDes.CertificateId = des.CertificateId
 	}
 	if dcl.IsZeroValue(des.SslManagementType) {
 		des.SslManagementType = initial.SslManagementType
+	} else {
+		cDes.SslManagementType = des.SslManagementType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDomainMappingSslSettings(c *Client, des, nw *DomainMappingSslSettings) *DomainMappingSslSettings {
@@ -563,17 +575,25 @@ func canonicalizeDomainMappingResourceRecords(des, initial *DomainMappingResourc
 		return des
 	}
 
+	cDes := &DomainMappingResourceRecords{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.Rrdata, initial.Rrdata) || dcl.IsZeroValue(des.Rrdata) {
-		des.Rrdata = initial.Rrdata
+		cDes.Rrdata = initial.Rrdata
+	} else {
+		cDes.Rrdata = des.Rrdata
 	}
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDomainMappingResourceRecords(c *Client, des, nw *DomainMappingResourceRecords) *DomainMappingResourceRecords {
@@ -1224,31 +1244,45 @@ type domainMappingDiff struct {
 	UpdateOp         domainMappingApiOperation
 }
 
-func convertFieldDiffToDomainMappingOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]domainMappingDiff, error) {
+func convertFieldDiffsToDomainMappingDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]domainMappingDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []domainMappingDiff
-	for _, op := range ops {
+	// For each operation name, create a domainMappingDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := domainMappingDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTodomainMappingApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToDomainMappingApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTodomainMappingApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (domainMappingApiOperation, error) {
-	switch op {
+func convertOpNameToDomainMappingApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (domainMappingApiOperation, error) {
+	switch opName {
 
 	case "updateDomainMappingUpdateDomainMappingOperation":
-		return &updateDomainMappingUpdateDomainMappingOperation{Diffs: diffs}, nil
+		return &updateDomainMappingUpdateDomainMappingOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

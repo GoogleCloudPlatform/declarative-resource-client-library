@@ -435,8 +435,7 @@ func applyAutoscalingPolicyHelper(c *Client, ctx context.Context, rawDesired *Au
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToAutoscalingPolicyOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToAutoscalingPolicyDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -464,7 +463,6 @@ func applyAutoscalingPolicyHelper(c *Client, ctx context.Context, rawDesired *Au
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

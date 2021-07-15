@@ -158,7 +158,7 @@ type updateFirewallUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -474,58 +474,90 @@ func canonicalizeFirewallDesiredState(rawDesired, rawInitial *Firewall, opts ...
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Firewall{}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.Direction) {
-		rawDesired.Direction = rawInitial.Direction
+		canonicalDesired.Direction = rawInitial.Direction
+	} else {
+		canonicalDesired.Direction = rawDesired.Direction
 	}
 	if dcl.BoolCanonicalize(rawDesired.Disabled, rawInitial.Disabled) {
-		rawDesired.Disabled = rawInitial.Disabled
+		canonicalDesired.Disabled = rawInitial.Disabled
+	} else {
+		canonicalDesired.Disabled = rawDesired.Disabled
 	}
 	if dcl.StringCanonicalize(rawDesired.Id, rawInitial.Id) {
-		rawDesired.Id = rawInitial.Id
+		canonicalDesired.Id = rawInitial.Id
+	} else {
+		canonicalDesired.Id = rawDesired.Id
 	}
-	rawDesired.LogConfig = canonicalizeFirewallLogConfig(rawDesired.LogConfig, rawInitial.LogConfig, opts...)
+	canonicalDesired.LogConfig = canonicalizeFirewallLogConfig(rawDesired.LogConfig, rawInitial.LogConfig, opts...)
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.IsZeroValue(rawDesired.Network) {
-		rawDesired.Network = rawInitial.Network
+		canonicalDesired.Network = rawInitial.Network
+	} else {
+		canonicalDesired.Network = rawDesired.Network
 	}
 	if dcl.IsZeroValue(rawDesired.Priority) {
-		rawDesired.Priority = rawInitial.Priority
+		canonicalDesired.Priority = rawInitial.Priority
+	} else {
+		canonicalDesired.Priority = rawDesired.Priority
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.IsZeroValue(rawDesired.Allowed) {
-		rawDesired.Allowed = rawInitial.Allowed
+		canonicalDesired.Allowed = rawInitial.Allowed
+	} else {
+		canonicalDesired.Allowed = rawDesired.Allowed
 	}
 	if dcl.IsZeroValue(rawDesired.Denied) {
-		rawDesired.Denied = rawInitial.Denied
+		canonicalDesired.Denied = rawInitial.Denied
+	} else {
+		canonicalDesired.Denied = rawDesired.Denied
 	}
 	if dcl.IsZeroValue(rawDesired.DestinationRanges) {
-		rawDesired.DestinationRanges = rawInitial.DestinationRanges
+		canonicalDesired.DestinationRanges = rawInitial.DestinationRanges
+	} else {
+		canonicalDesired.DestinationRanges = rawDesired.DestinationRanges
 	}
 	if dcl.IsZeroValue(rawDesired.SourceRanges) {
-		rawDesired.SourceRanges = rawInitial.SourceRanges
+		canonicalDesired.SourceRanges = rawInitial.SourceRanges
+	} else {
+		canonicalDesired.SourceRanges = rawDesired.SourceRanges
 	}
 	if dcl.IsZeroValue(rawDesired.SourceServiceAccounts) {
-		rawDesired.SourceServiceAccounts = rawInitial.SourceServiceAccounts
+		canonicalDesired.SourceServiceAccounts = rawInitial.SourceServiceAccounts
+	} else {
+		canonicalDesired.SourceServiceAccounts = rawDesired.SourceServiceAccounts
 	}
 	if dcl.IsZeroValue(rawDesired.SourceTags) {
-		rawDesired.SourceTags = rawInitial.SourceTags
+		canonicalDesired.SourceTags = rawInitial.SourceTags
+	} else {
+		canonicalDesired.SourceTags = rawDesired.SourceTags
 	}
 	if dcl.IsZeroValue(rawDesired.TargetServiceAccounts) {
-		rawDesired.TargetServiceAccounts = rawInitial.TargetServiceAccounts
+		canonicalDesired.TargetServiceAccounts = rawInitial.TargetServiceAccounts
+	} else {
+		canonicalDesired.TargetServiceAccounts = rawDesired.TargetServiceAccounts
 	}
 	if dcl.IsZeroValue(rawDesired.TargetTags) {
-		rawDesired.TargetTags = rawInitial.TargetTags
+		canonicalDesired.TargetTags = rawInitial.TargetTags
+	} else {
+		canonicalDesired.TargetTags = rawDesired.TargetTags
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeFirewallNewState(c *Client, rawNew, rawDesired *Firewall) (*Firewall, error) {
@@ -655,11 +687,15 @@ func canonicalizeFirewallLogConfig(des, initial *FirewallLogConfig, opts ...dcl.
 		return des
 	}
 
+	cDes := &FirewallLogConfig{}
+
 	if dcl.BoolCanonicalize(des.Enable, initial.Enable) || dcl.IsZeroValue(des.Enable) {
-		des.Enable = initial.Enable
+		cDes.Enable = initial.Enable
+	} else {
+		cDes.Enable = des.Enable
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewFirewallLogConfig(c *Client, des, nw *FirewallLogConfig) *FirewallLogConfig {
@@ -729,17 +765,25 @@ func canonicalizeFirewallAllowed(des, initial *FirewallAllowed, opts ...dcl.Appl
 		return des
 	}
 
+	cDes := &FirewallAllowed{}
+
 	if dcl.StringCanonicalize(des.IPProtocol, initial.IPProtocol) || dcl.IsZeroValue(des.IPProtocol) {
-		des.IPProtocol = initial.IPProtocol
+		cDes.IPProtocol = initial.IPProtocol
+	} else {
+		cDes.IPProtocol = des.IPProtocol
 	}
 	if dcl.IsZeroValue(des.Ports) {
 		des.Ports = initial.Ports
+	} else {
+		cDes.Ports = des.Ports
 	}
 	if dcl.IsZeroValue(des.IPProtocolAlt) {
 		des.IPProtocolAlt = initial.IPProtocolAlt
+	} else {
+		cDes.IPProtocolAlt = des.IPProtocolAlt
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewFirewallAllowed(c *Client, des, nw *FirewallAllowed) *FirewallAllowed {
@@ -815,17 +859,25 @@ func canonicalizeFirewallDenied(des, initial *FirewallDenied, opts ...dcl.ApplyO
 		return des
 	}
 
+	cDes := &FirewallDenied{}
+
 	if dcl.StringCanonicalize(des.IPProtocol, initial.IPProtocol) || dcl.IsZeroValue(des.IPProtocol) {
-		des.IPProtocol = initial.IPProtocol
+		cDes.IPProtocol = initial.IPProtocol
+	} else {
+		cDes.IPProtocol = des.IPProtocol
 	}
 	if dcl.IsZeroValue(des.Ports) {
 		des.Ports = initial.Ports
+	} else {
+		cDes.Ports = des.Ports
 	}
 	if dcl.IsZeroValue(des.IPProtocolAlt) {
 		des.IPProtocolAlt = initial.IPProtocolAlt
+	} else {
+		cDes.IPProtocolAlt = des.IPProtocolAlt
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewFirewallDenied(c *Client, des, nw *FirewallDenied) *FirewallDenied {
@@ -1748,31 +1800,45 @@ type firewallDiff struct {
 	UpdateOp         firewallApiOperation
 }
 
-func convertFieldDiffToFirewallOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]firewallDiff, error) {
+func convertFieldDiffsToFirewallDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]firewallDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []firewallDiff
-	for _, op := range ops {
+	// For each operation name, create a firewallDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := firewallDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTofirewallApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToFirewallApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTofirewallApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (firewallApiOperation, error) {
-	switch op {
+func convertOpNameToFirewallApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (firewallApiOperation, error) {
+	switch opName {
 
 	case "updateFirewallUpdateOperation":
-		return &updateFirewallUpdateOperation{Diffs: diffs}, nil
+		return &updateFirewallUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

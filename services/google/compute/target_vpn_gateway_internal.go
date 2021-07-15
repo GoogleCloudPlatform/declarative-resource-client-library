@@ -339,24 +339,34 @@ func canonicalizeTargetVpnGatewayDesiredState(rawDesired, rawInitial *TargetVpnG
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &TargetVpnGateway{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.StringCanonicalize(rawDesired.Region, rawInitial.Region) {
-		rawDesired.Region = rawInitial.Region
+		canonicalDesired.Region = rawInitial.Region
+	} else {
+		canonicalDesired.Region = rawDesired.Region
 	}
 	if dcl.StringCanonicalize(rawDesired.Network, rawInitial.Network) {
-		rawDesired.Network = rawInitial.Network
+		canonicalDesired.Network = rawInitial.Network
+	} else {
+		canonicalDesired.Network = rawDesired.Network
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeTargetVpnGatewayNewState(c *Client, rawNew, rawDesired *TargetVpnGateway) (*TargetVpnGateway, error) {
@@ -703,28 +713,42 @@ type targetVpnGatewayDiff struct {
 	UpdateOp         targetVpnGatewayApiOperation
 }
 
-func convertFieldDiffToTargetVpnGatewayOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]targetVpnGatewayDiff, error) {
+func convertFieldDiffsToTargetVpnGatewayDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]targetVpnGatewayDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []targetVpnGatewayDiff
-	for _, op := range ops {
+	// For each operation name, create a targetVpnGatewayDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := targetVpnGatewayDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTotargetVpnGatewayApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToTargetVpnGatewayApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTotargetVpnGatewayApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (targetVpnGatewayApiOperation, error) {
-	switch op {
+func convertOpNameToTargetVpnGatewayApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (targetVpnGatewayApiOperation, error) {
+	switch opName {
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

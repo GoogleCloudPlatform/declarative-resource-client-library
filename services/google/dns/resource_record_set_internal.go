@@ -124,7 +124,7 @@ type updateResourceRecordSetUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -288,27 +288,39 @@ func canonicalizeResourceRecordSetDesiredState(rawDesired, rawInitial *ResourceR
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &ResourceRecordSet{}
 	if dcl.StringCanonicalize(rawDesired.DnsName, rawInitial.DnsName) {
-		rawDesired.DnsName = rawInitial.DnsName
+		canonicalDesired.DnsName = rawInitial.DnsName
+	} else {
+		canonicalDesired.DnsName = rawDesired.DnsName
 	}
 	if dcl.StringCanonicalize(rawDesired.DnsType, rawInitial.DnsType) {
-		rawDesired.DnsType = rawInitial.DnsType
+		canonicalDesired.DnsType = rawInitial.DnsType
+	} else {
+		canonicalDesired.DnsType = rawDesired.DnsType
 	}
 	if dcl.IsZeroValue(rawDesired.Ttl) {
-		rawDesired.Ttl = rawInitial.Ttl
+		canonicalDesired.Ttl = rawInitial.Ttl
+	} else {
+		canonicalDesired.Ttl = rawDesired.Ttl
 	}
 	if dcl.QuoteAndCaseInsensitiveStringArray(rawDesired.Target, rawInitial.Target) {
-		rawDesired.Target = rawInitial.Target
+		canonicalDesired.Target = rawInitial.Target
+	} else {
+		canonicalDesired.Target = rawDesired.Target
 	}
 	if dcl.NameToSelfLink(rawDesired.ManagedZone, rawInitial.ManagedZone) {
-		rawDesired.ManagedZone = rawInitial.ManagedZone
+		canonicalDesired.ManagedZone = rawInitial.ManagedZone
+	} else {
+		canonicalDesired.ManagedZone = rawDesired.ManagedZone
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeResourceRecordSetNewState(c *Client, rawNew, rawDesired *ResourceRecordSet) (*ResourceRecordSet, error) {
@@ -399,7 +411,7 @@ func diffResourceRecordSet(c *Client, desired, actual *ResourceRecordSet, opts .
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -571,31 +583,45 @@ type resourceRecordSetDiff struct {
 	UpdateOp         resourceRecordSetApiOperation
 }
 
-func convertFieldDiffToResourceRecordSetOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]resourceRecordSetDiff, error) {
+func convertFieldDiffsToResourceRecordSetDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]resourceRecordSetDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []resourceRecordSetDiff
-	for _, op := range ops {
+	// For each operation name, create a resourceRecordSetDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := resourceRecordSetDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToresourceRecordSetApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToResourceRecordSetApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToresourceRecordSetApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (resourceRecordSetApiOperation, error) {
-	switch op {
+func convertOpNameToResourceRecordSetApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (resourceRecordSetApiOperation, error) {
+	switch opName {
 
 	case "updateResourceRecordSetUpdateOperation":
-		return &updateResourceRecordSetUpdateOperation{ApplyOptions: opts, Diffs: diffs}, nil
+		return &updateResourceRecordSetUpdateOperation{ApplyOptions: opts, FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

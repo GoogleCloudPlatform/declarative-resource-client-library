@@ -360,40 +360,60 @@ func canonicalizeMetricDescriptorDesiredState(rawDesired, rawInitial *MetricDesc
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &MetricDescriptor{}
 	if dcl.StringCanonicalize(rawDesired.Type, rawInitial.Type) {
-		rawDesired.Type = rawInitial.Type
+		canonicalDesired.Type = rawInitial.Type
+	} else {
+		canonicalDesired.Type = rawDesired.Type
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.IsZeroValue(rawDesired.MetricKind) {
-		rawDesired.MetricKind = rawInitial.MetricKind
+		canonicalDesired.MetricKind = rawInitial.MetricKind
+	} else {
+		canonicalDesired.MetricKind = rawDesired.MetricKind
 	}
 	if canonicalizeMetricDescriptorValueType(rawDesired.ValueType, rawInitial.ValueType) {
-		rawDesired.ValueType = rawInitial.ValueType
+		canonicalDesired.ValueType = rawInitial.ValueType
+	} else {
+		canonicalDesired.ValueType = rawDesired.ValueType
 	}
 	if dcl.StringCanonicalize(rawDesired.Unit, rawInitial.Unit) {
-		rawDesired.Unit = rawInitial.Unit
+		canonicalDesired.Unit = rawInitial.Unit
+	} else {
+		canonicalDesired.Unit = rawDesired.Unit
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
-		rawDesired.DisplayName = rawInitial.DisplayName
+		canonicalDesired.DisplayName = rawInitial.DisplayName
+	} else {
+		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
-	rawDesired.Metadata = canonicalizeMetricDescriptorMetadata(rawDesired.Metadata, rawInitial.Metadata, opts...)
+	canonicalDesired.Metadata = canonicalizeMetricDescriptorMetadata(rawDesired.Metadata, rawInitial.Metadata, opts...)
 	if dcl.IsZeroValue(rawDesired.LaunchStage) {
-		rawDesired.LaunchStage = rawInitial.LaunchStage
+		canonicalDesired.LaunchStage = rawInitial.LaunchStage
+	} else {
+		canonicalDesired.LaunchStage = rawDesired.LaunchStage
 	}
 	if dcl.IsZeroValue(rawDesired.MonitoredResourceTypes) {
-		rawDesired.MonitoredResourceTypes = rawInitial.MonitoredResourceTypes
+		canonicalDesired.MonitoredResourceTypes = rawInitial.MonitoredResourceTypes
+	} else {
+		canonicalDesired.MonitoredResourceTypes = rawDesired.MonitoredResourceTypes
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeMetricDescriptorNewState(c *Client, rawNew, rawDesired *MetricDescriptor) (*MetricDescriptor, error) {
@@ -483,17 +503,25 @@ func canonicalizeMetricDescriptorLabels(des, initial *MetricDescriptorLabels, op
 		return des
 	}
 
+	cDes := &MetricDescriptorLabels{}
+
 	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
+		cDes.Key = initial.Key
+	} else {
+		cDes.Key = des.Key
 	}
 	if canonicalizeMetricDescriptorLabelsValueType(des.ValueType, initial.ValueType) || dcl.IsZeroValue(des.ValueType) {
-		des.ValueType = initial.ValueType
+		cDes.ValueType = initial.ValueType
+	} else {
+		cDes.ValueType = des.ValueType
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewMetricDescriptorLabels(c *Client, des, nw *MetricDescriptorLabels) *MetricDescriptorLabels {
@@ -569,17 +597,25 @@ func canonicalizeMetricDescriptorMetadata(des, initial *MetricDescriptorMetadata
 		return des
 	}
 
+	cDes := &MetricDescriptorMetadata{}
+
 	if dcl.IsZeroValue(des.LaunchStage) {
 		des.LaunchStage = initial.LaunchStage
+	} else {
+		cDes.LaunchStage = des.LaunchStage
 	}
 	if dcl.StringCanonicalize(des.SamplePeriod, initial.SamplePeriod) || dcl.IsZeroValue(des.SamplePeriod) {
-		des.SamplePeriod = initial.SamplePeriod
+		cDes.SamplePeriod = initial.SamplePeriod
+	} else {
+		cDes.SamplePeriod = des.SamplePeriod
 	}
 	if dcl.StringCanonicalize(des.IngestDelay, initial.IngestDelay) || dcl.IsZeroValue(des.IngestDelay) {
-		des.IngestDelay = initial.IngestDelay
+		cDes.IngestDelay = initial.IngestDelay
+	} else {
+		cDes.IngestDelay = des.IngestDelay
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewMetricDescriptorMetadata(c *Client, des, nw *MetricDescriptorMetadata) *MetricDescriptorMetadata {
@@ -1391,28 +1427,42 @@ type metricDescriptorDiff struct {
 	UpdateOp         metricDescriptorApiOperation
 }
 
-func convertFieldDiffToMetricDescriptorOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]metricDescriptorDiff, error) {
+func convertFieldDiffsToMetricDescriptorDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]metricDescriptorDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []metricDescriptorDiff
-	for _, op := range ops {
+	// For each operation name, create a metricDescriptorDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := metricDescriptorDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTometricDescriptorApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToMetricDescriptorApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTometricDescriptorApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (metricDescriptorApiOperation, error) {
-	switch op {
+func convertOpNameToMetricDescriptorApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (metricDescriptorApiOperation, error) {
+	switch opName {
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

@@ -353,22 +353,30 @@ func canonicalizeSslCertificateDesiredState(rawDesired, rawInitial *SslCertifica
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &SslCertificate{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
-	rawDesired.SelfManaged = canonicalizeSslCertificateSelfManaged(rawDesired.SelfManaged, rawInitial.SelfManaged, opts...)
+	canonicalDesired.SelfManaged = canonicalizeSslCertificateSelfManaged(rawDesired.SelfManaged, rawInitial.SelfManaged, opts...)
 	if dcl.IsZeroValue(rawDesired.Type) {
-		rawDesired.Type = rawInitial.Type
+		canonicalDesired.Type = rawInitial.Type
+	} else {
+		canonicalDesired.Type = rawDesired.Type
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeSslCertificateNewState(c *Client, rawNew, rawDesired *SslCertificate) (*SslCertificate, error) {
@@ -443,14 +451,20 @@ func canonicalizeSslCertificateSelfManaged(des, initial *SslCertificateSelfManag
 		return des
 	}
 
+	cDes := &SslCertificateSelfManaged{}
+
 	if dcl.StringCanonicalize(des.Certificate, initial.Certificate) || dcl.IsZeroValue(des.Certificate) {
-		des.Certificate = initial.Certificate
+		cDes.Certificate = initial.Certificate
+	} else {
+		cDes.Certificate = des.Certificate
 	}
 	if dcl.StringCanonicalize(des.PrivateKey, initial.PrivateKey) || dcl.IsZeroValue(des.PrivateKey) {
-		des.PrivateKey = initial.PrivateKey
+		cDes.PrivateKey = initial.PrivateKey
+	} else {
+		cDes.PrivateKey = des.PrivateKey
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewSslCertificateSelfManaged(c *Client, des, nw *SslCertificateSelfManaged) *SslCertificateSelfManaged {
@@ -926,28 +940,42 @@ type sslCertificateDiff struct {
 	UpdateOp         sslCertificateApiOperation
 }
 
-func convertFieldDiffToSslCertificateOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]sslCertificateDiff, error) {
+func convertFieldDiffsToSslCertificateDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]sslCertificateDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []sslCertificateDiff
-	for _, op := range ops {
+	// For each operation name, create a sslCertificateDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := sslCertificateDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTosslCertificateApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToSslCertificateApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTosslCertificateApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (sslCertificateApiOperation, error) {
-	switch op {
+func convertOpNameToSslCertificateApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (sslCertificateApiOperation, error) {
+	switch opName {
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

@@ -154,7 +154,7 @@ type updateFeatureMembershipUpdateFeatureMembershipOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -262,22 +262,30 @@ func canonicalizeFeatureMembershipDesiredState(rawDesired, rawInitial *FeatureMe
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &FeatureMembership{}
 	if dcl.NameToSelfLink(rawDesired.Membership, rawInitial.Membership) {
-		rawDesired.Membership = rawInitial.Membership
+		canonicalDesired.Membership = rawInitial.Membership
+	} else {
+		canonicalDesired.Membership = rawDesired.Membership
 	}
 	if dcl.NameToSelfLink(rawDesired.Feature, rawInitial.Feature) {
-		rawDesired.Feature = rawInitial.Feature
+		canonicalDesired.Feature = rawInitial.Feature
+	} else {
+		canonicalDesired.Feature = rawDesired.Feature
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
-	rawDesired.Configmanagement = canonicalizeFeatureMembershipConfigmanagement(rawDesired.Configmanagement, rawInitial.Configmanagement, opts...)
+	canonicalDesired.Configmanagement = canonicalizeFeatureMembershipConfigmanagement(rawDesired.Configmanagement, rawInitial.Configmanagement, opts...)
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeFeatureMembershipNewState(c *Client, rawNew, rawDesired *FeatureMembership) (*FeatureMembership, error) {
@@ -311,15 +319,19 @@ func canonicalizeFeatureMembershipConfigmanagement(des, initial *FeatureMembersh
 		return des
 	}
 
-	des.ConfigSync = canonicalizeFeatureMembershipConfigmanagementConfigSync(des.ConfigSync, initial.ConfigSync, opts...)
-	des.PolicyController = canonicalizeFeatureMembershipConfigmanagementPolicyController(des.PolicyController, initial.PolicyController, opts...)
-	des.Binauthz = canonicalizeFeatureMembershipConfigmanagementBinauthz(des.Binauthz, initial.Binauthz, opts...)
-	des.HierarchyController = canonicalizeFeatureMembershipConfigmanagementHierarchyController(des.HierarchyController, initial.HierarchyController, opts...)
+	cDes := &FeatureMembershipConfigmanagement{}
+
+	cDes.ConfigSync = canonicalizeFeatureMembershipConfigmanagementConfigSync(des.ConfigSync, initial.ConfigSync, opts...)
+	cDes.PolicyController = canonicalizeFeatureMembershipConfigmanagementPolicyController(des.PolicyController, initial.PolicyController, opts...)
+	cDes.Binauthz = canonicalizeFeatureMembershipConfigmanagementBinauthz(des.Binauthz, initial.Binauthz, opts...)
+	cDes.HierarchyController = canonicalizeFeatureMembershipConfigmanagementHierarchyController(des.HierarchyController, initial.HierarchyController, opts...)
 	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
-		des.Version = initial.Version
+		cDes.Version = initial.Version
+	} else {
+		cDes.Version = des.Version
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewFeatureMembershipConfigmanagement(c *Client, des, nw *FeatureMembershipConfigmanagement) *FeatureMembershipConfigmanagement {
@@ -393,12 +405,16 @@ func canonicalizeFeatureMembershipConfigmanagementConfigSync(des, initial *Featu
 		return des
 	}
 
-	des.Git = canonicalizeFeatureMembershipConfigmanagementConfigSyncGit(des.Git, initial.Git, opts...)
+	cDes := &FeatureMembershipConfigmanagementConfigSync{}
+
+	cDes.Git = canonicalizeFeatureMembershipConfigmanagementConfigSyncGit(des.Git, initial.Git, opts...)
 	if dcl.StringCanonicalize(des.SourceFormat, initial.SourceFormat) || dcl.IsZeroValue(des.SourceFormat) {
-		des.SourceFormat = initial.SourceFormat
+		cDes.SourceFormat = initial.SourceFormat
+	} else {
+		cDes.SourceFormat = des.SourceFormat
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewFeatureMembershipConfigmanagementConfigSync(c *Client, des, nw *FeatureMembershipConfigmanagementConfigSync) *FeatureMembershipConfigmanagementConfigSync {
@@ -469,29 +485,45 @@ func canonicalizeFeatureMembershipConfigmanagementConfigSyncGit(des, initial *Fe
 		return des
 	}
 
+	cDes := &FeatureMembershipConfigmanagementConfigSyncGit{}
+
 	if dcl.StringCanonicalize(des.SyncRepo, initial.SyncRepo) || dcl.IsZeroValue(des.SyncRepo) {
-		des.SyncRepo = initial.SyncRepo
+		cDes.SyncRepo = initial.SyncRepo
+	} else {
+		cDes.SyncRepo = des.SyncRepo
 	}
 	if dcl.StringCanonicalize(des.SyncBranch, initial.SyncBranch) || dcl.IsZeroValue(des.SyncBranch) {
-		des.SyncBranch = initial.SyncBranch
+		cDes.SyncBranch = initial.SyncBranch
+	} else {
+		cDes.SyncBranch = des.SyncBranch
 	}
 	if dcl.StringCanonicalize(des.PolicyDir, initial.PolicyDir) || dcl.IsZeroValue(des.PolicyDir) {
-		des.PolicyDir = initial.PolicyDir
+		cDes.PolicyDir = initial.PolicyDir
+	} else {
+		cDes.PolicyDir = des.PolicyDir
 	}
 	if dcl.StringCanonicalize(des.SyncWaitSecs, initial.SyncWaitSecs) || dcl.IsZeroValue(des.SyncWaitSecs) {
-		des.SyncWaitSecs = initial.SyncWaitSecs
+		cDes.SyncWaitSecs = initial.SyncWaitSecs
+	} else {
+		cDes.SyncWaitSecs = des.SyncWaitSecs
 	}
 	if dcl.StringCanonicalize(des.SyncRev, initial.SyncRev) || dcl.IsZeroValue(des.SyncRev) {
-		des.SyncRev = initial.SyncRev
+		cDes.SyncRev = initial.SyncRev
+	} else {
+		cDes.SyncRev = des.SyncRev
 	}
 	if dcl.StringCanonicalize(des.SecretType, initial.SecretType) || dcl.IsZeroValue(des.SecretType) {
-		des.SecretType = initial.SecretType
+		cDes.SecretType = initial.SecretType
+	} else {
+		cDes.SecretType = des.SecretType
 	}
 	if dcl.StringCanonicalize(des.HttpsProxy, initial.HttpsProxy) || dcl.IsZeroValue(des.HttpsProxy) {
-		des.HttpsProxy = initial.HttpsProxy
+		cDes.HttpsProxy = initial.HttpsProxy
+	} else {
+		cDes.HttpsProxy = des.HttpsProxy
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewFeatureMembershipConfigmanagementConfigSyncGit(c *Client, des, nw *FeatureMembershipConfigmanagementConfigSyncGit) *FeatureMembershipConfigmanagementConfigSyncGit {
@@ -579,26 +611,40 @@ func canonicalizeFeatureMembershipConfigmanagementPolicyController(des, initial 
 		return des
 	}
 
+	cDes := &FeatureMembershipConfigmanagementPolicyController{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 	if dcl.IsZeroValue(des.ExemptableNamespaces) {
 		des.ExemptableNamespaces = initial.ExemptableNamespaces
+	} else {
+		cDes.ExemptableNamespaces = des.ExemptableNamespaces
 	}
 	if dcl.BoolCanonicalize(des.ReferentialRulesEnabled, initial.ReferentialRulesEnabled) || dcl.IsZeroValue(des.ReferentialRulesEnabled) {
-		des.ReferentialRulesEnabled = initial.ReferentialRulesEnabled
+		cDes.ReferentialRulesEnabled = initial.ReferentialRulesEnabled
+	} else {
+		cDes.ReferentialRulesEnabled = des.ReferentialRulesEnabled
 	}
 	if dcl.BoolCanonicalize(des.LogDeniesEnabled, initial.LogDeniesEnabled) || dcl.IsZeroValue(des.LogDeniesEnabled) {
-		des.LogDeniesEnabled = initial.LogDeniesEnabled
+		cDes.LogDeniesEnabled = initial.LogDeniesEnabled
+	} else {
+		cDes.LogDeniesEnabled = des.LogDeniesEnabled
 	}
 	if dcl.BoolCanonicalize(des.TemplateLibraryInstalled, initial.TemplateLibraryInstalled) || dcl.IsZeroValue(des.TemplateLibraryInstalled) {
-		des.TemplateLibraryInstalled = initial.TemplateLibraryInstalled
+		cDes.TemplateLibraryInstalled = initial.TemplateLibraryInstalled
+	} else {
+		cDes.TemplateLibraryInstalled = des.TemplateLibraryInstalled
 	}
 	if dcl.StringCanonicalize(des.AuditIntervalSeconds, initial.AuditIntervalSeconds) || dcl.IsZeroValue(des.AuditIntervalSeconds) {
-		des.AuditIntervalSeconds = initial.AuditIntervalSeconds
+		cDes.AuditIntervalSeconds = initial.AuditIntervalSeconds
+	} else {
+		cDes.AuditIntervalSeconds = des.AuditIntervalSeconds
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewFeatureMembershipConfigmanagementPolicyController(c *Client, des, nw *FeatureMembershipConfigmanagementPolicyController) *FeatureMembershipConfigmanagementPolicyController {
@@ -683,11 +729,15 @@ func canonicalizeFeatureMembershipConfigmanagementBinauthz(des, initial *Feature
 		return des
 	}
 
+	cDes := &FeatureMembershipConfigmanagementBinauthz{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewFeatureMembershipConfigmanagementBinauthz(c *Client, des, nw *FeatureMembershipConfigmanagementBinauthz) *FeatureMembershipConfigmanagementBinauthz {
@@ -757,17 +807,25 @@ func canonicalizeFeatureMembershipConfigmanagementHierarchyController(des, initi
 		return des
 	}
 
+	cDes := &FeatureMembershipConfigmanagementHierarchyController{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 	if dcl.BoolCanonicalize(des.EnablePodTreeLabels, initial.EnablePodTreeLabels) || dcl.IsZeroValue(des.EnablePodTreeLabels) {
-		des.EnablePodTreeLabels = initial.EnablePodTreeLabels
+		cDes.EnablePodTreeLabels = initial.EnablePodTreeLabels
+	} else {
+		cDes.EnablePodTreeLabels = des.EnablePodTreeLabels
 	}
 	if dcl.BoolCanonicalize(des.EnableHierarchicalResourceQuota, initial.EnableHierarchicalResourceQuota) || dcl.IsZeroValue(des.EnableHierarchicalResourceQuota) {
-		des.EnableHierarchicalResourceQuota = initial.EnableHierarchicalResourceQuota
+		cDes.EnableHierarchicalResourceQuota = initial.EnableHierarchicalResourceQuota
+	} else {
+		cDes.EnableHierarchicalResourceQuota = des.EnableHierarchicalResourceQuota
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewFeatureMembershipConfigmanagementHierarchyController(c *Client, des, nw *FeatureMembershipConfigmanagementHierarchyController) *FeatureMembershipConfigmanagementHierarchyController {
@@ -2105,31 +2163,45 @@ type featureMembershipDiff struct {
 	UpdateOp         featureMembershipApiOperation
 }
 
-func convertFieldDiffToFeatureMembershipOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]featureMembershipDiff, error) {
+func convertFieldDiffsToFeatureMembershipDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]featureMembershipDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []featureMembershipDiff
-	for _, op := range ops {
+	// For each operation name, create a featureMembershipDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := featureMembershipDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTofeatureMembershipApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToFeatureMembershipApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTofeatureMembershipApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (featureMembershipApiOperation, error) {
-	switch op {
+func convertOpNameToFeatureMembershipApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (featureMembershipApiOperation, error) {
+	switch opName {
 
 	case "updateFeatureMembershipUpdateFeatureMembershipOperation":
-		return &updateFeatureMembershipUpdateFeatureMembershipOperation{Diffs: diffs}, nil
+		return &updateFeatureMembershipUpdateFeatureMembershipOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

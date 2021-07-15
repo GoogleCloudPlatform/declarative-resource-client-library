@@ -120,7 +120,7 @@ type updateHttpHealthCheckUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -470,39 +470,59 @@ func canonicalizeHttpHealthCheckDesiredState(rawDesired, rawInitial *HttpHealthC
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &HttpHealthCheck{}
 	if dcl.IsZeroValue(rawDesired.CheckIntervalSec) {
-		rawDesired.CheckIntervalSec = rawInitial.CheckIntervalSec
+		canonicalDesired.CheckIntervalSec = rawInitial.CheckIntervalSec
+	} else {
+		canonicalDesired.CheckIntervalSec = rawDesired.CheckIntervalSec
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.HealthyThreshold) {
-		rawDesired.HealthyThreshold = rawInitial.HealthyThreshold
+		canonicalDesired.HealthyThreshold = rawInitial.HealthyThreshold
+	} else {
+		canonicalDesired.HealthyThreshold = rawDesired.HealthyThreshold
 	}
 	if dcl.StringCanonicalize(rawDesired.Host, rawInitial.Host) {
-		rawDesired.Host = rawInitial.Host
+		canonicalDesired.Host = rawInitial.Host
+	} else {
+		canonicalDesired.Host = rawDesired.Host
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.IsZeroValue(rawDesired.Port) {
-		rawDesired.Port = rawInitial.Port
+		canonicalDesired.Port = rawInitial.Port
+	} else {
+		canonicalDesired.Port = rawDesired.Port
 	}
 	if dcl.StringCanonicalize(rawDesired.RequestPath, rawInitial.RequestPath) {
-		rawDesired.RequestPath = rawInitial.RequestPath
+		canonicalDesired.RequestPath = rawInitial.RequestPath
+	} else {
+		canonicalDesired.RequestPath = rawDesired.RequestPath
 	}
 	if dcl.IsZeroValue(rawDesired.TimeoutSec) {
-		rawDesired.TimeoutSec = rawInitial.TimeoutSec
+		canonicalDesired.TimeoutSec = rawInitial.TimeoutSec
+	} else {
+		canonicalDesired.TimeoutSec = rawDesired.TimeoutSec
 	}
 	if dcl.IsZeroValue(rawDesired.UnhealthyThreshold) {
-		rawDesired.UnhealthyThreshold = rawInitial.UnhealthyThreshold
+		canonicalDesired.UnhealthyThreshold = rawInitial.UnhealthyThreshold
+	} else {
+		canonicalDesired.UnhealthyThreshold = rawDesired.UnhealthyThreshold
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeHttpHealthCheckNewState(c *Client, rawNew, rawDesired *HttpHealthCheck) (*HttpHealthCheck, error) {
@@ -878,31 +898,45 @@ type httpHealthCheckDiff struct {
 	UpdateOp         httpHealthCheckApiOperation
 }
 
-func convertFieldDiffToHttpHealthCheckOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]httpHealthCheckDiff, error) {
+func convertFieldDiffsToHttpHealthCheckDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]httpHealthCheckDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []httpHealthCheckDiff
-	for _, op := range ops {
+	// For each operation name, create a httpHealthCheckDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := httpHealthCheckDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTohttpHealthCheckApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToHttpHealthCheckApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTohttpHealthCheckApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (httpHealthCheckApiOperation, error) {
-	switch op {
+func convertOpNameToHttpHealthCheckApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (httpHealthCheckApiOperation, error) {
+	switch opName {
 
 	case "updateHttpHealthCheckUpdateOperation":
-		return &updateHttpHealthCheckUpdateOperation{Diffs: diffs}, nil
+		return &updateHttpHealthCheckUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

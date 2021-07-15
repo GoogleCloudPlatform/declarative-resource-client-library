@@ -613,8 +613,7 @@ func applyServerTlsPolicyHelper(c *Client, ctx context.Context, rawDesired *Serv
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToServerTlsPolicyOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToServerTlsPolicyDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -642,7 +641,6 @@ func applyServerTlsPolicyHelper(c *Client, ctx context.Context, rawDesired *Serv
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

@@ -109,7 +109,7 @@ type updateNotificationChannelUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -126,7 +126,7 @@ func (op *updateNotificationChannelUpdateOperation) do(ctx context.Context, r *N
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -418,30 +418,44 @@ func canonicalizeNotificationChannelDesiredState(rawDesired, rawInitial *Notific
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &NotificationChannel{}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
-		rawDesired.DisplayName = rawInitial.DisplayName
+		canonicalDesired.DisplayName = rawInitial.DisplayName
+	} else {
+		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
 	if dcl.BoolCanonicalize(rawDesired.Enabled, rawInitial.Enabled) {
-		rawDesired.Enabled = rawInitial.Enabled
+		canonicalDesired.Enabled = rawInitial.Enabled
+	} else {
+		canonicalDesired.Enabled = rawDesired.Enabled
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.StringCanonicalize(rawDesired.Type, rawInitial.Type) {
-		rawDesired.Type = rawInitial.Type
+		canonicalDesired.Type = rawInitial.Type
+	} else {
+		canonicalDesired.Type = rawDesired.Type
 	}
 	if dcl.IsZeroValue(rawDesired.UserLabels) {
-		rawDesired.UserLabels = rawInitial.UserLabels
+		canonicalDesired.UserLabels = rawInitial.UserLabels
+	} else {
+		canonicalDesired.UserLabels = rawDesired.UserLabels
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeNotificationChannelNewState(c *Client, rawNew, rawDesired *NotificationChannel) (*NotificationChannel, error) {
@@ -774,31 +788,45 @@ type notificationChannelDiff struct {
 	UpdateOp         notificationChannelApiOperation
 }
 
-func convertFieldDiffToNotificationChannelOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]notificationChannelDiff, error) {
+func convertFieldDiffsToNotificationChannelDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]notificationChannelDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []notificationChannelDiff
-	for _, op := range ops {
+	// For each operation name, create a notificationChannelDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := notificationChannelDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTonotificationChannelApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToNotificationChannelApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTonotificationChannelApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (notificationChannelApiOperation, error) {
-	switch op {
+func convertOpNameToNotificationChannelApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (notificationChannelApiOperation, error) {
+	switch opName {
 
 	case "updateNotificationChannelUpdateOperation":
-		return &updateNotificationChannelUpdateOperation{Diffs: diffs}, nil
+		return &updateNotificationChannelUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

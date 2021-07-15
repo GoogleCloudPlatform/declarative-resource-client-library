@@ -349,60 +349,94 @@ func canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial *VpnTunnel, opts .
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &VpnTunnel{}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.StringCanonicalize(rawDesired.Region, rawInitial.Region) {
-		rawDesired.Region = rawInitial.Region
+		canonicalDesired.Region = rawInitial.Region
+	} else {
+		canonicalDesired.Region = rawDesired.Region
 	}
 	if dcl.NameToSelfLink(rawDesired.TargetVpnGateway, rawInitial.TargetVpnGateway) {
-		rawDesired.TargetVpnGateway = rawInitial.TargetVpnGateway
+		canonicalDesired.TargetVpnGateway = rawInitial.TargetVpnGateway
+	} else {
+		canonicalDesired.TargetVpnGateway = rawDesired.TargetVpnGateway
 	}
 	if dcl.NameToSelfLink(rawDesired.VpnGateway, rawInitial.VpnGateway) {
-		rawDesired.VpnGateway = rawInitial.VpnGateway
+		canonicalDesired.VpnGateway = rawInitial.VpnGateway
+	} else {
+		canonicalDesired.VpnGateway = rawDesired.VpnGateway
 	}
 	if dcl.IsZeroValue(rawDesired.VpnGatewayInterface) {
-		rawDesired.VpnGatewayInterface = rawInitial.VpnGatewayInterface
+		canonicalDesired.VpnGatewayInterface = rawInitial.VpnGatewayInterface
+	} else {
+		canonicalDesired.VpnGatewayInterface = rawDesired.VpnGatewayInterface
 	}
 	if dcl.StringCanonicalize(rawDesired.PeerExternalGateway, rawInitial.PeerExternalGateway) {
-		rawDesired.PeerExternalGateway = rawInitial.PeerExternalGateway
+		canonicalDesired.PeerExternalGateway = rawInitial.PeerExternalGateway
+	} else {
+		canonicalDesired.PeerExternalGateway = rawDesired.PeerExternalGateway
 	}
 	if dcl.IsZeroValue(rawDesired.PeerExternalGatewayInterface) {
-		rawDesired.PeerExternalGatewayInterface = rawInitial.PeerExternalGatewayInterface
+		canonicalDesired.PeerExternalGatewayInterface = rawInitial.PeerExternalGatewayInterface
+	} else {
+		canonicalDesired.PeerExternalGatewayInterface = rawDesired.PeerExternalGatewayInterface
 	}
 	if dcl.StringCanonicalize(rawDesired.PeerGcpGateway, rawInitial.PeerGcpGateway) {
-		rawDesired.PeerGcpGateway = rawInitial.PeerGcpGateway
+		canonicalDesired.PeerGcpGateway = rawInitial.PeerGcpGateway
+	} else {
+		canonicalDesired.PeerGcpGateway = rawDesired.PeerGcpGateway
 	}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Router, rawInitial.Router) {
-		rawDesired.Router = rawInitial.Router
+		canonicalDesired.Router = rawInitial.Router
+	} else {
+		canonicalDesired.Router = rawDesired.Router
 	}
 	if dcl.StringCanonicalize(rawDesired.PeerIP, rawInitial.PeerIP) {
-		rawDesired.PeerIP = rawInitial.PeerIP
+		canonicalDesired.PeerIP = rawInitial.PeerIP
+	} else {
+		canonicalDesired.PeerIP = rawDesired.PeerIP
 	}
 	if dcl.StringCanonicalize(rawDesired.SharedSecret, rawInitial.SharedSecret) {
-		rawDesired.SharedSecret = rawInitial.SharedSecret
+		canonicalDesired.SharedSecret = rawInitial.SharedSecret
+	} else {
+		canonicalDesired.SharedSecret = rawDesired.SharedSecret
 	}
 	if dcl.IsZeroValue(rawDesired.IkeVersion) {
-		rawDesired.IkeVersion = rawInitial.IkeVersion
+		canonicalDesired.IkeVersion = rawInitial.IkeVersion
+	} else {
+		canonicalDesired.IkeVersion = rawDesired.IkeVersion
 	}
 	if dcl.IsZeroValue(rawDesired.LocalTrafficSelector) {
-		rawDesired.LocalTrafficSelector = rawInitial.LocalTrafficSelector
+		canonicalDesired.LocalTrafficSelector = rawInitial.LocalTrafficSelector
+	} else {
+		canonicalDesired.LocalTrafficSelector = rawDesired.LocalTrafficSelector
 	}
 	if dcl.IsZeroValue(rawDesired.RemoteTrafficSelector) {
-		rawDesired.RemoteTrafficSelector = rawInitial.RemoteTrafficSelector
+		canonicalDesired.RemoteTrafficSelector = rawInitial.RemoteTrafficSelector
+	} else {
+		canonicalDesired.RemoteTrafficSelector = rawDesired.RemoteTrafficSelector
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*VpnTunnel, error) {
@@ -965,28 +999,42 @@ type vpnTunnelDiff struct {
 	UpdateOp         vpnTunnelApiOperation
 }
 
-func convertFieldDiffToVpnTunnelOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]vpnTunnelDiff, error) {
+func convertFieldDiffsToVpnTunnelDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]vpnTunnelDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []vpnTunnelDiff
-	for _, op := range ops {
+	// For each operation name, create a vpnTunnelDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := vpnTunnelDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTovpnTunnelApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToVpnTunnelApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTovpnTunnelApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (vpnTunnelApiOperation, error) {
-	switch op {
+func convertOpNameToVpnTunnelApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (vpnTunnelApiOperation, error) {
+	switch opName {
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

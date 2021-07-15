@@ -511,8 +511,7 @@ func applyFunctionHelper(c *Client, ctx context.Context, rawDesired *Function, o
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToFunctionOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToFunctionDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -540,7 +539,6 @@ func applyFunctionHelper(c *Client, ctx context.Context, rawDesired *Function, o
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

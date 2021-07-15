@@ -461,8 +461,7 @@ func applyWorkloadHelper(c *Client, ctx context.Context, rawDesired *Workload, o
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToWorkloadOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToWorkloadDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -490,7 +489,6 @@ func applyWorkloadHelper(c *Client, ctx context.Context, rawDesired *Workload, o
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

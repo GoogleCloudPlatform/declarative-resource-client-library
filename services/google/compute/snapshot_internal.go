@@ -140,7 +140,7 @@ type updateSnapshotSetLabelsOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -450,29 +450,41 @@ func canonicalizeSnapshotDesiredState(rawDesired, rawInitial *Snapshot, opts ...
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Snapshot{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.NameToSelfLink(rawDesired.SourceDisk, rawInitial.SourceDisk) {
-		rawDesired.SourceDisk = rawInitial.SourceDisk
+		canonicalDesired.SourceDisk = rawInitial.SourceDisk
+	} else {
+		canonicalDesired.SourceDisk = rawDesired.SourceDisk
 	}
-	rawDesired.SnapshotEncryptionKey = canonicalizeSnapshotSnapshotEncryptionKey(rawDesired.SnapshotEncryptionKey, rawInitial.SnapshotEncryptionKey, opts...)
-	rawDesired.SourceDiskEncryptionKey = canonicalizeSnapshotSourceDiskEncryptionKey(rawDesired.SourceDiskEncryptionKey, rawInitial.SourceDiskEncryptionKey, opts...)
+	canonicalDesired.SnapshotEncryptionKey = canonicalizeSnapshotSnapshotEncryptionKey(rawDesired.SnapshotEncryptionKey, rawInitial.SnapshotEncryptionKey, opts...)
+	canonicalDesired.SourceDiskEncryptionKey = canonicalizeSnapshotSourceDiskEncryptionKey(rawDesired.SourceDiskEncryptionKey, rawInitial.SourceDiskEncryptionKey, opts...)
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Zone, rawInitial.Zone) {
-		rawDesired.Zone = rawInitial.Zone
+		canonicalDesired.Zone = rawInitial.Zone
+	} else {
+		canonicalDesired.Zone = rawDesired.Zone
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeSnapshotNewState(c *Client, rawNew, rawDesired *Snapshot) (*Snapshot, error) {
@@ -557,11 +569,15 @@ func canonicalizeSnapshotSnapshotEncryptionKey(des, initial *SnapshotSnapshotEnc
 		return des
 	}
 
+	cDes := &SnapshotSnapshotEncryptionKey{}
+
 	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) || dcl.IsZeroValue(des.RawKey) {
-		des.RawKey = initial.RawKey
+		cDes.RawKey = initial.RawKey
+	} else {
+		cDes.RawKey = des.RawKey
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewSnapshotSnapshotEncryptionKey(c *Client, des, nw *SnapshotSnapshotEncryptionKey) *SnapshotSnapshotEncryptionKey {
@@ -632,11 +648,15 @@ func canonicalizeSnapshotSourceDiskEncryptionKey(des, initial *SnapshotSourceDis
 		return des
 	}
 
+	cDes := &SnapshotSourceDiskEncryptionKey{}
+
 	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) || dcl.IsZeroValue(des.RawKey) {
-		des.RawKey = initial.RawKey
+		cDes.RawKey = initial.RawKey
+	} else {
+		cDes.RawKey = des.RawKey
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewSnapshotSourceDiskEncryptionKey(c *Client, des, nw *SnapshotSourceDiskEncryptionKey) *SnapshotSourceDiskEncryptionKey {
@@ -1276,31 +1296,45 @@ type snapshotDiff struct {
 	UpdateOp         snapshotApiOperation
 }
 
-func convertFieldDiffToSnapshotOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]snapshotDiff, error) {
+func convertFieldDiffsToSnapshotDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]snapshotDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []snapshotDiff
-	for _, op := range ops {
+	// For each operation name, create a snapshotDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := snapshotDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTosnapshotApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToSnapshotApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTosnapshotApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (snapshotApiOperation, error) {
-	switch op {
+func convertOpNameToSnapshotApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (snapshotApiOperation, error) {
+	switch opName {
 
 	case "updateSnapshotSetLabelsOperation":
-		return &updateSnapshotSetLabelsOperation{Diffs: diffs}, nil
+		return &updateSnapshotSetLabelsOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

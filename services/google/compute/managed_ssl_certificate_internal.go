@@ -353,22 +353,30 @@ func canonicalizeManagedSslCertificateDesiredState(rawDesired, rawInitial *Manag
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &ManagedSslCertificate{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
-	rawDesired.Managed = canonicalizeManagedSslCertificateManaged(rawDesired.Managed, rawInitial.Managed, opts...)
+	canonicalDesired.Managed = canonicalizeManagedSslCertificateManaged(rawDesired.Managed, rawInitial.Managed, opts...)
 	if dcl.IsZeroValue(rawDesired.Type) {
-		rawDesired.Type = rawInitial.Type
+		canonicalDesired.Type = rawInitial.Type
+	} else {
+		canonicalDesired.Type = rawDesired.Type
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeManagedSslCertificateNewState(c *Client, rawNew, rawDesired *ManagedSslCertificate) (*ManagedSslCertificate, error) {
@@ -443,11 +451,15 @@ func canonicalizeManagedSslCertificateManaged(des, initial *ManagedSslCertificat
 		return des
 	}
 
+	cDes := &ManagedSslCertificateManaged{}
+
 	if dcl.WithoutTrailingDotArrayInterface(des.Domains, initial.Domains) || dcl.IsZeroValue(des.Domains) {
-		des.Domains = initial.Domains
+		cDes.Domains = initial.Domains
+	} else {
+		cDes.Domains = des.Domains
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewManagedSslCertificateManaged(c *Client, des, nw *ManagedSslCertificateManaged) *ManagedSslCertificateManaged {
@@ -970,28 +982,42 @@ type managedSslCertificateDiff struct {
 	UpdateOp         managedSslCertificateApiOperation
 }
 
-func convertFieldDiffToManagedSslCertificateOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]managedSslCertificateDiff, error) {
+func convertFieldDiffsToManagedSslCertificateDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]managedSslCertificateDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []managedSslCertificateDiff
-	for _, op := range ops {
+	// For each operation name, create a managedSslCertificateDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := managedSslCertificateDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTomanagedSslCertificateApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToManagedSslCertificateApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTomanagedSslCertificateApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (managedSslCertificateApiOperation, error) {
-	switch op {
+func convertOpNameToManagedSslCertificateApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (managedSslCertificateApiOperation, error) {
+	switch opName {
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

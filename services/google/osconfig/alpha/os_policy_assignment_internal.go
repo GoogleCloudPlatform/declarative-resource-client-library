@@ -491,7 +491,7 @@ type updateOsPolicyAssignmentUpdateOSPolicyAssignmentOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -508,7 +508,7 @@ func (op *updateOsPolicyAssignmentUpdateOSPolicyAssignmentOperation) do(ctx cont
 	if err != nil {
 		return err
 	}
-	mask := dcl.TopLevelUpdateMask(op.Diffs)
+	mask := dcl.TopLevelUpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -811,26 +811,36 @@ func canonicalizeOsPolicyAssignmentDesiredState(rawDesired, rawInitial *OsPolicy
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &OsPolicyAssignment{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.OsPolicies) {
-		rawDesired.OsPolicies = rawInitial.OsPolicies
+		canonicalDesired.OsPolicies = rawInitial.OsPolicies
+	} else {
+		canonicalDesired.OsPolicies = rawDesired.OsPolicies
 	}
-	rawDesired.InstanceFilter = canonicalizeOsPolicyAssignmentInstanceFilter(rawDesired.InstanceFilter, rawInitial.InstanceFilter, opts...)
-	rawDesired.Rollout = canonicalizeOsPolicyAssignmentRollout(rawDesired.Rollout, rawInitial.Rollout, opts...)
+	canonicalDesired.InstanceFilter = canonicalizeOsPolicyAssignmentInstanceFilter(rawDesired.InstanceFilter, rawInitial.InstanceFilter, opts...)
+	canonicalDesired.Rollout = canonicalizeOsPolicyAssignmentRollout(rawDesired.Rollout, rawInitial.Rollout, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeOsPolicyAssignmentNewState(c *Client, rawNew, rawDesired *OsPolicyAssignment) (*OsPolicyAssignment, error) {
@@ -938,23 +948,35 @@ func canonicalizeOsPolicyAssignmentOsPolicies(des, initial *OsPolicyAssignmentOs
 		return des
 	}
 
+	cDes := &OsPolicyAssignmentOsPolicies{}
+
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.Mode) {
 		des.Mode = initial.Mode
+	} else {
+		cDes.Mode = des.Mode
 	}
 	if dcl.IsZeroValue(des.ResourceGroups) {
 		des.ResourceGroups = initial.ResourceGroups
+	} else {
+		cDes.ResourceGroups = des.ResourceGroups
 	}
 	if dcl.BoolCanonicalize(des.AllowNoResourceGroupMatch, initial.AllowNoResourceGroupMatch) || dcl.IsZeroValue(des.AllowNoResourceGroupMatch) {
-		des.AllowNoResourceGroupMatch = initial.AllowNoResourceGroupMatch
+		cDes.AllowNoResourceGroupMatch = initial.AllowNoResourceGroupMatch
+	} else {
+		cDes.AllowNoResourceGroupMatch = des.AllowNoResourceGroupMatch
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPolicies(c *Client, des, nw *OsPolicyAssignmentOsPolicies) *OsPolicyAssignmentOsPolicies {
@@ -1034,12 +1056,16 @@ func canonicalizeOsPolicyAssignmentOsPoliciesResourceGroups(des, initial *OsPoli
 		return des
 	}
 
-	des.OsFilter = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsOsFilter(des.OsFilter, initial.OsFilter, opts...)
+	cDes := &OsPolicyAssignmentOsPoliciesResourceGroups{}
+
+	cDes.OsFilter = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsOsFilter(des.OsFilter, initial.OsFilter, opts...)
 	if dcl.IsZeroValue(des.Resources) {
 		des.Resources = initial.Resources
+	} else {
+		cDes.Resources = des.Resources
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPoliciesResourceGroups(c *Client, des, nw *OsPolicyAssignmentOsPoliciesResourceGroups) *OsPolicyAssignmentOsPoliciesResourceGroups {
@@ -1108,14 +1134,20 @@ func canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsOsFilter(des, initial
 		return des
 	}
 
+	cDes := &OsPolicyAssignmentOsPoliciesResourceGroupsOsFilter{}
+
 	if dcl.StringCanonicalize(des.OsShortName, initial.OsShortName) || dcl.IsZeroValue(des.OsShortName) {
-		des.OsShortName = initial.OsShortName
+		cDes.OsShortName = initial.OsShortName
+	} else {
+		cDes.OsShortName = des.OsShortName
 	}
 	if dcl.StringCanonicalize(des.OsVersion, initial.OsVersion) || dcl.IsZeroValue(des.OsVersion) {
-		des.OsVersion = initial.OsVersion
+		cDes.OsVersion = initial.OsVersion
+	} else {
+		cDes.OsVersion = des.OsVersion
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPoliciesResourceGroupsOsFilter(c *Client, des, nw *OsPolicyAssignmentOsPoliciesResourceGroupsOsFilter) *OsPolicyAssignmentOsPoliciesResourceGroupsOsFilter {
@@ -1188,15 +1220,19 @@ func canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResources(des, initia
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
-	}
-	des.Pkg = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg(des.Pkg, initial.Pkg, opts...)
-	des.Repository = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository(des.Repository, initial.Repository, opts...)
-	des.Exec = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec(des.Exec, initial.Exec, opts...)
-	des.File = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile(des.File, initial.File, opts...)
+	cDes := &OsPolicyAssignmentOsPoliciesResourceGroupsResources{}
 
-	return des
+	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
+	}
+	cDes.Pkg = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg(des.Pkg, initial.Pkg, opts...)
+	cDes.Repository = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository(des.Repository, initial.Repository, opts...)
+	cDes.Exec = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec(des.Exec, initial.Exec, opts...)
+	cDes.File = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile(des.File, initial.File, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPoliciesResourceGroupsResources(c *Client, des, nw *OsPolicyAssignmentOsPoliciesResourceGroupsResources) *OsPolicyAssignmentOsPoliciesResourceGroupsResources {
@@ -1270,18 +1306,22 @@ func canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg(des, ini
 		return des
 	}
 
+	cDes := &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg{}
+
 	if dcl.IsZeroValue(des.DesiredState) {
 		des.DesiredState = initial.DesiredState
+	} else {
+		cDes.DesiredState = des.DesiredState
 	}
-	des.Apt = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt(des.Apt, initial.Apt, opts...)
-	des.Deb = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb(des.Deb, initial.Deb, opts...)
-	des.Yum = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum(des.Yum, initial.Yum, opts...)
-	des.Zypper = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper(des.Zypper, initial.Zypper, opts...)
-	des.Rpm = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm(des.Rpm, initial.Rpm, opts...)
-	des.Googet = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget(des.Googet, initial.Googet, opts...)
-	des.Msi = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi(des.Msi, initial.Msi, opts...)
+	cDes.Apt = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt(des.Apt, initial.Apt, opts...)
+	cDes.Deb = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb(des.Deb, initial.Deb, opts...)
+	cDes.Yum = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum(des.Yum, initial.Yum, opts...)
+	cDes.Zypper = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper(des.Zypper, initial.Zypper, opts...)
+	cDes.Rpm = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm(des.Rpm, initial.Rpm, opts...)
+	cDes.Googet = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget(des.Googet, initial.Googet, opts...)
+	cDes.Msi = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi(des.Msi, initial.Msi, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg(c *Client, des, nw *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg) *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg {
@@ -1358,11 +1398,15 @@ func canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt(des, 
 		return des
 	}
 
+	cDes := &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt(c *Client, des, nw *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt) *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt {
@@ -1432,12 +1476,16 @@ func canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb(des, 
 		return des
 	}
 
-	des.Source = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource(des.Source, initial.Source, opts...)
+	cDes := &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb{}
+
+	cDes.Source = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource(des.Source, initial.Source, opts...)
 	if dcl.BoolCanonicalize(des.PullDeps, initial.PullDeps) || dcl.IsZeroValue(des.PullDeps) {
-		des.PullDeps = initial.PullDeps
+		cDes.PullDeps = initial.PullDeps
+	} else {
+		cDes.PullDeps = des.PullDeps
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb(c *Client, des, nw *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb) *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb {
@@ -1508,16 +1556,22 @@ func canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource
 		return des
 	}
 
-	des.Remote = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote(des.Remote, initial.Remote, opts...)
-	des.Gcs = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs(des.Gcs, initial.Gcs, opts...)
+	cDes := &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource{}
+
+	cDes.Remote = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote(des.Remote, initial.Remote, opts...)
+	cDes.Gcs = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs(des.Gcs, initial.Gcs, opts...)
 	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) || dcl.IsZeroValue(des.LocalPath) {
-		des.LocalPath = initial.LocalPath
+		cDes.LocalPath = initial.LocalPath
+	} else {
+		cDes.LocalPath = des.LocalPath
 	}
 	if dcl.BoolCanonicalize(des.AllowInsecure, initial.AllowInsecure) || dcl.IsZeroValue(des.AllowInsecure) {
-		des.AllowInsecure = initial.AllowInsecure
+		cDes.AllowInsecure = initial.AllowInsecure
+	} else {
+		cDes.AllowInsecure = des.AllowInsecure
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource(c *Client, des, nw *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource) *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource {
@@ -1592,14 +1646,20 @@ func canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource
 		return des
 	}
 
+	cDes := &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote{}
+
 	if dcl.StringCanonicalize(des.Uri, initial.Uri) || dcl.IsZeroValue(des.Uri) {
-		des.Uri = initial.Uri
+		cDes.Uri = initial.Uri
+	} else {
+		cDes.Uri = des.Uri
 	}
 	if dcl.StringCanonicalize(des.Sha256Checksum, initial.Sha256Checksum) || dcl.IsZeroValue(des.Sha256Checksum) {
-		des.Sha256Checksum = initial.Sha256Checksum
+		cDes.Sha256Checksum = initial.Sha256Checksum
+	} else {
+		cDes.Sha256Checksum = des.Sha256Checksum
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote(c *Client, des, nw *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote) *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote {
@@ -1672,17 +1732,25 @@ func canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource
 		return des
 	}
 
+	cDes := &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs{}
+
 	if dcl.NameToSelfLink(des.Bucket, initial.Bucket) || dcl.IsZeroValue(des.Bucket) {
-		des.Bucket = initial.Bucket
+		cDes.Bucket = initial.Bucket
+	} else {
+		cDes.Bucket = des.Bucket
 	}
 	if dcl.NameToSelfLink(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
-		des.Object = initial.Object
+		cDes.Object = initial.Object
+	} else {
+		cDes.Object = des.Object
 	}
 	if dcl.IsZeroValue(des.Generation) {
 		des.Generation = initial.Generation
+	} else {
+		cDes.Generation = des.Generation
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs(c *Client, des, nw *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs) *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs {
@@ -1758,11 +1826,15 @@ func canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum(des, 
 		return des
 	}
 
+	cDes := &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum(c *Client, des, nw *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum) *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum {
@@ -1832,11 +1904,15 @@ func canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper(de
 		return des
 	}
 
+	cDes := &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper(c *Client, des, nw *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper) *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper {
@@ -1906,12 +1982,16 @@ func canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm(des, 
 		return des
 	}
 
-	des.Source = canonicalizeOsPolicyAssignmentFile(des.Source, initial.Source, opts...)
+	cDes := &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm{}
+
+	cDes.Source = canonicalizeOsPolicyAssignmentFile(des.Source, initial.Source, opts...)
 	if dcl.BoolCanonicalize(des.PullDeps, initial.PullDeps) || dcl.IsZeroValue(des.PullDeps) {
-		des.PullDeps = initial.PullDeps
+		cDes.PullDeps = initial.PullDeps
+	} else {
+		cDes.PullDeps = des.PullDeps
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm(c *Client, des, nw *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm) *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm {
@@ -1982,16 +2062,22 @@ func canonicalizeOsPolicyAssignmentFile(des, initial *OsPolicyAssignmentFile, op
 		return des
 	}
 
-	des.Remote = canonicalizeOsPolicyAssignmentFileRemote(des.Remote, initial.Remote, opts...)
-	des.Gcs = canonicalizeOsPolicyAssignmentFileGcs(des.Gcs, initial.Gcs, opts...)
+	cDes := &OsPolicyAssignmentFile{}
+
+	cDes.Remote = canonicalizeOsPolicyAssignmentFileRemote(des.Remote, initial.Remote, opts...)
+	cDes.Gcs = canonicalizeOsPolicyAssignmentFileGcs(des.Gcs, initial.Gcs, opts...)
 	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) || dcl.IsZeroValue(des.LocalPath) {
-		des.LocalPath = initial.LocalPath
+		cDes.LocalPath = initial.LocalPath
+	} else {
+		cDes.LocalPath = des.LocalPath
 	}
 	if dcl.BoolCanonicalize(des.AllowInsecure, initial.AllowInsecure) || dcl.IsZeroValue(des.AllowInsecure) {
-		des.AllowInsecure = initial.AllowInsecure
+		cDes.AllowInsecure = initial.AllowInsecure
+	} else {
+		cDes.AllowInsecure = des.AllowInsecure
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentFile(c *Client, des, nw *OsPolicyAssignmentFile) *OsPolicyAssignmentFile {
@@ -2066,14 +2152,20 @@ func canonicalizeOsPolicyAssignmentFileRemote(des, initial *OsPolicyAssignmentFi
 		return des
 	}
 
+	cDes := &OsPolicyAssignmentFileRemote{}
+
 	if dcl.StringCanonicalize(des.Uri, initial.Uri) || dcl.IsZeroValue(des.Uri) {
-		des.Uri = initial.Uri
+		cDes.Uri = initial.Uri
+	} else {
+		cDes.Uri = des.Uri
 	}
 	if dcl.StringCanonicalize(des.Sha256Checksum, initial.Sha256Checksum) || dcl.IsZeroValue(des.Sha256Checksum) {
-		des.Sha256Checksum = initial.Sha256Checksum
+		cDes.Sha256Checksum = initial.Sha256Checksum
+	} else {
+		cDes.Sha256Checksum = des.Sha256Checksum
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentFileRemote(c *Client, des, nw *OsPolicyAssignmentFileRemote) *OsPolicyAssignmentFileRemote {
@@ -2146,17 +2238,25 @@ func canonicalizeOsPolicyAssignmentFileGcs(des, initial *OsPolicyAssignmentFileG
 		return des
 	}
 
+	cDes := &OsPolicyAssignmentFileGcs{}
+
 	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) || dcl.IsZeroValue(des.Bucket) {
-		des.Bucket = initial.Bucket
+		cDes.Bucket = initial.Bucket
+	} else {
+		cDes.Bucket = des.Bucket
 	}
 	if dcl.StringCanonicalize(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
-		des.Object = initial.Object
+		cDes.Object = initial.Object
+	} else {
+		cDes.Object = des.Object
 	}
 	if dcl.IsZeroValue(des.Generation) {
 		des.Generation = initial.Generation
+	} else {
+		cDes.Generation = des.Generation
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentFileGcs(c *Client, des, nw *OsPolicyAssignmentFileGcs) *OsPolicyAssignmentFileGcs {
@@ -2232,11 +2332,15 @@ func canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget(de
 		return des
 	}
 
+	cDes := &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget(c *Client, des, nw *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget) *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget {
@@ -2306,12 +2410,16 @@ func canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi(des, 
 		return des
 	}
 
-	des.Source = canonicalizeOsPolicyAssignmentFile(des.Source, initial.Source, opts...)
+	cDes := &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi{}
+
+	cDes.Source = canonicalizeOsPolicyAssignmentFile(des.Source, initial.Source, opts...)
 	if dcl.IsZeroValue(des.Properties) {
 		des.Properties = initial.Properties
+	} else {
+		cDes.Properties = des.Properties
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi(c *Client, des, nw *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi) *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi {
@@ -2382,12 +2490,14 @@ func canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository(d
 		return des
 	}
 
-	des.Apt = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt(des.Apt, initial.Apt, opts...)
-	des.Yum = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum(des.Yum, initial.Yum, opts...)
-	des.Zypper = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper(des.Zypper, initial.Zypper, opts...)
-	des.Goo = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo(des.Goo, initial.Goo, opts...)
+	cDes := &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository{}
 
-	return des
+	cDes.Apt = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt(des.Apt, initial.Apt, opts...)
+	cDes.Yum = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum(des.Yum, initial.Yum, opts...)
+	cDes.Zypper = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper(des.Zypper, initial.Zypper, opts...)
+	cDes.Goo = canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo(des.Goo, initial.Goo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository(c *Client, des, nw *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository) *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository {
@@ -2458,23 +2568,35 @@ func canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAp
 		return des
 	}
 
+	cDes := &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt{}
+
 	if dcl.IsZeroValue(des.ArchiveType) {
 		des.ArchiveType = initial.ArchiveType
+	} else {
+		cDes.ArchiveType = des.ArchiveType
 	}
 	if dcl.StringCanonicalize(des.Uri, initial.Uri) || dcl.IsZeroValue(des.Uri) {
-		des.Uri = initial.Uri
+		cDes.Uri = initial.Uri
+	} else {
+		cDes.Uri = des.Uri
 	}
 	if dcl.StringCanonicalize(des.Distribution, initial.Distribution) || dcl.IsZeroValue(des.Distribution) {
-		des.Distribution = initial.Distribution
+		cDes.Distribution = initial.Distribution
+	} else {
+		cDes.Distribution = des.Distribution
 	}
 	if dcl.IsZeroValue(des.Components) {
 		des.Components = initial.Components
+	} else {
+		cDes.Components = des.Components
 	}
 	if dcl.StringCanonicalize(des.GpgKey, initial.GpgKey) || dcl.IsZeroValue(des.GpgKey) {
-		des.GpgKey = initial.GpgKey
+		cDes.GpgKey = initial.GpgKey
+	} else {
+		cDes.GpgKey = des.GpgKey
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt(c *Client, des, nw *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt) *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt {
@@ -2556,20 +2678,30 @@ func canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYu
 		return des
 	}
 
+	cDes := &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum{}
+
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.DisplayName, initial.DisplayName) || dcl.IsZeroValue(des.DisplayName) {
-		des.DisplayName = initial.DisplayName
+		cDes.DisplayName = initial.DisplayName
+	} else {
+		cDes.DisplayName = des.DisplayName
 	}
 	if dcl.StringCanonicalize(des.BaseUrl, initial.BaseUrl) || dcl.IsZeroValue(des.BaseUrl) {
-		des.BaseUrl = initial.BaseUrl
+		cDes.BaseUrl = initial.BaseUrl
+	} else {
+		cDes.BaseUrl = des.BaseUrl
 	}
 	if dcl.IsZeroValue(des.GpgKeys) {
 		des.GpgKeys = initial.GpgKeys
+	} else {
+		cDes.GpgKeys = des.GpgKeys
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum(c *Client, des, nw *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum) *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum {
@@ -2648,20 +2780,30 @@ func canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZy
 		return des
 	}
 
+	cDes := &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper{}
+
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.DisplayName, initial.DisplayName) || dcl.IsZeroValue(des.DisplayName) {
-		des.DisplayName = initial.DisplayName
+		cDes.DisplayName = initial.DisplayName
+	} else {
+		cDes.DisplayName = des.DisplayName
 	}
 	if dcl.StringCanonicalize(des.BaseUrl, initial.BaseUrl) || dcl.IsZeroValue(des.BaseUrl) {
-		des.BaseUrl = initial.BaseUrl
+		cDes.BaseUrl = initial.BaseUrl
+	} else {
+		cDes.BaseUrl = des.BaseUrl
 	}
 	if dcl.IsZeroValue(des.GpgKeys) {
 		des.GpgKeys = initial.GpgKeys
+	} else {
+		cDes.GpgKeys = des.GpgKeys
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper(c *Client, des, nw *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper) *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper {
@@ -2740,14 +2882,20 @@ func canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGo
 		return des
 	}
 
+	cDes := &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
-		des.Url = initial.Url
+		cDes.Url = initial.Url
+	} else {
+		cDes.Url = des.Url
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo(c *Client, des, nw *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo) *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo {
@@ -2820,10 +2968,12 @@ func canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec(des, in
 		return des
 	}
 
-	des.Validate = canonicalizeOsPolicyAssignmentExec(des.Validate, initial.Validate, opts...)
-	des.Enforce = canonicalizeOsPolicyAssignmentExec(des.Enforce, initial.Enforce, opts...)
+	cDes := &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec{}
 
-	return des
+	cDes.Validate = canonicalizeOsPolicyAssignmentExec(des.Validate, initial.Validate, opts...)
+	cDes.Enforce = canonicalizeOsPolicyAssignmentExec(des.Enforce, initial.Enforce, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec(c *Client, des, nw *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec) *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec {
@@ -2892,18 +3042,26 @@ func canonicalizeOsPolicyAssignmentExec(des, initial *OsPolicyAssignmentExec, op
 		return des
 	}
 
-	des.File = canonicalizeOsPolicyAssignmentFile(des.File, initial.File, opts...)
+	cDes := &OsPolicyAssignmentExec{}
+
+	cDes.File = canonicalizeOsPolicyAssignmentFile(des.File, initial.File, opts...)
 	if dcl.StringCanonicalize(des.Script, initial.Script) || dcl.IsZeroValue(des.Script) {
-		des.Script = initial.Script
+		cDes.Script = initial.Script
+	} else {
+		cDes.Script = des.Script
 	}
 	if dcl.IsZeroValue(des.Args) {
 		des.Args = initial.Args
+	} else {
+		cDes.Args = des.Args
 	}
 	if dcl.IsZeroValue(des.Interpreter) {
 		des.Interpreter = initial.Interpreter
+	} else {
+		cDes.Interpreter = des.Interpreter
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentExec(c *Client, des, nw *OsPolicyAssignmentExec) *OsPolicyAssignmentExec {
@@ -2980,21 +3138,31 @@ func canonicalizeOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile(des, in
 		return des
 	}
 
-	des.File = canonicalizeOsPolicyAssignmentFile(des.File, initial.File, opts...)
+	cDes := &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile{}
+
+	cDes.File = canonicalizeOsPolicyAssignmentFile(des.File, initial.File, opts...)
 	if dcl.StringCanonicalize(des.Content, initial.Content) || dcl.IsZeroValue(des.Content) {
-		des.Content = initial.Content
+		cDes.Content = initial.Content
+	} else {
+		cDes.Content = des.Content
 	}
 	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
-		des.Path = initial.Path
+		cDes.Path = initial.Path
+	} else {
+		cDes.Path = des.Path
 	}
 	if dcl.IsZeroValue(des.State) {
 		des.State = initial.State
+	} else {
+		cDes.State = des.State
 	}
 	if dcl.StringCanonicalize(des.Permissions, initial.Permissions) || dcl.IsZeroValue(des.Permissions) {
-		des.Permissions = initial.Permissions
+		cDes.Permissions = initial.Permissions
+	} else {
+		cDes.Permissions = des.Permissions
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile(c *Client, des, nw *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile) *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile {
@@ -3074,20 +3242,30 @@ func canonicalizeOsPolicyAssignmentInstanceFilter(des, initial *OsPolicyAssignme
 		return des
 	}
 
+	cDes := &OsPolicyAssignmentInstanceFilter{}
+
 	if dcl.BoolCanonicalize(des.All, initial.All) || dcl.IsZeroValue(des.All) {
-		des.All = initial.All
+		cDes.All = initial.All
+	} else {
+		cDes.All = des.All
 	}
 	if dcl.IsZeroValue(des.OsShortNames) {
 		des.OsShortNames = initial.OsShortNames
+	} else {
+		cDes.OsShortNames = des.OsShortNames
 	}
 	if dcl.IsZeroValue(des.InclusionLabels) {
 		des.InclusionLabels = initial.InclusionLabels
+	} else {
+		cDes.InclusionLabels = des.InclusionLabels
 	}
 	if dcl.IsZeroValue(des.ExclusionLabels) {
 		des.ExclusionLabels = initial.ExclusionLabels
+	} else {
+		cDes.ExclusionLabels = des.ExclusionLabels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentInstanceFilter(c *Client, des, nw *OsPolicyAssignmentInstanceFilter) *OsPolicyAssignmentInstanceFilter {
@@ -3162,11 +3340,15 @@ func canonicalizeOsPolicyAssignmentInstanceFilterInclusionLabels(des, initial *O
 		return des
 	}
 
+	cDes := &OsPolicyAssignmentInstanceFilterInclusionLabels{}
+
 	if dcl.IsZeroValue(des.Labels) {
 		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentInstanceFilterInclusionLabels(c *Client, des, nw *OsPolicyAssignmentInstanceFilterInclusionLabels) *OsPolicyAssignmentInstanceFilterInclusionLabels {
@@ -3236,11 +3418,15 @@ func canonicalizeOsPolicyAssignmentInstanceFilterExclusionLabels(des, initial *O
 		return des
 	}
 
+	cDes := &OsPolicyAssignmentInstanceFilterExclusionLabels{}
+
 	if dcl.IsZeroValue(des.Labels) {
 		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentInstanceFilterExclusionLabels(c *Client, des, nw *OsPolicyAssignmentInstanceFilterExclusionLabels) *OsPolicyAssignmentInstanceFilterExclusionLabels {
@@ -3310,12 +3496,16 @@ func canonicalizeOsPolicyAssignmentRollout(des, initial *OsPolicyAssignmentRollo
 		return des
 	}
 
-	des.DisruptionBudget = canonicalizeOsPolicyAssignmentRolloutDisruptionBudget(des.DisruptionBudget, initial.DisruptionBudget, opts...)
+	cDes := &OsPolicyAssignmentRollout{}
+
+	cDes.DisruptionBudget = canonicalizeOsPolicyAssignmentRolloutDisruptionBudget(des.DisruptionBudget, initial.DisruptionBudget, opts...)
 	if canonicalizeOSPolicyAssignmentRolloutMinWaitDuration(des.MinWaitDuration, initial.MinWaitDuration) || dcl.IsZeroValue(des.MinWaitDuration) {
-		des.MinWaitDuration = initial.MinWaitDuration
+		cDes.MinWaitDuration = initial.MinWaitDuration
+	} else {
+		cDes.MinWaitDuration = des.MinWaitDuration
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentRollout(c *Client, des, nw *OsPolicyAssignmentRollout) *OsPolicyAssignmentRollout {
@@ -3386,14 +3576,20 @@ func canonicalizeOsPolicyAssignmentRolloutDisruptionBudget(des, initial *OsPolic
 		return des
 	}
 
+	cDes := &OsPolicyAssignmentRolloutDisruptionBudget{}
+
 	if dcl.IsZeroValue(des.Fixed) {
 		des.Fixed = initial.Fixed
+	} else {
+		cDes.Fixed = des.Fixed
 	}
 	if dcl.IsZeroValue(des.Percent) {
 		des.Percent = initial.Percent
+	} else {
+		cDes.Percent = des.Percent
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOsPolicyAssignmentRolloutDisruptionBudget(c *Client, des, nw *OsPolicyAssignmentRolloutDisruptionBudget) *OsPolicyAssignmentRolloutDisruptionBudget {
@@ -9095,31 +9291,45 @@ type osPolicyAssignmentDiff struct {
 	UpdateOp         osPolicyAssignmentApiOperation
 }
 
-func convertFieldDiffToOsPolicyAssignmentOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]osPolicyAssignmentDiff, error) {
+func convertFieldDiffsToOsPolicyAssignmentDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]osPolicyAssignmentDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []osPolicyAssignmentDiff
-	for _, op := range ops {
+	// For each operation name, create a osPolicyAssignmentDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := osPolicyAssignmentDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToosPolicyAssignmentApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToOsPolicyAssignmentApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToosPolicyAssignmentApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (osPolicyAssignmentApiOperation, error) {
-	switch op {
+func convertOpNameToOsPolicyAssignmentApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (osPolicyAssignmentApiOperation, error) {
+	switch opName {
 
 	case "updateOsPolicyAssignmentUpdateOSPolicyAssignmentOperation":
-		return &updateOsPolicyAssignmentUpdateOSPolicyAssignmentOperation{Diffs: diffs}, nil
+		return &updateOsPolicyAssignmentUpdateOSPolicyAssignmentOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

@@ -199,7 +199,7 @@ type updateHealthCheckUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -513,44 +513,64 @@ func canonicalizeHealthCheckDesiredState(rawDesired, rawInitial *HealthCheck, op
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &HealthCheck{}
 	if dcl.IsZeroValue(rawDesired.CheckIntervalSec) {
-		rawDesired.CheckIntervalSec = rawInitial.CheckIntervalSec
+		canonicalDesired.CheckIntervalSec = rawInitial.CheckIntervalSec
+	} else {
+		canonicalDesired.CheckIntervalSec = rawDesired.CheckIntervalSec
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.HealthyThreshold) {
-		rawDesired.HealthyThreshold = rawInitial.HealthyThreshold
+		canonicalDesired.HealthyThreshold = rawInitial.HealthyThreshold
+	} else {
+		canonicalDesired.HealthyThreshold = rawDesired.HealthyThreshold
 	}
-	rawDesired.Http2HealthCheck = canonicalizeHealthCheckHttp2HealthCheck(rawDesired.Http2HealthCheck, rawInitial.Http2HealthCheck, opts...)
-	rawDesired.HttpHealthCheck = canonicalizeHealthCheckHttpHealthCheck(rawDesired.HttpHealthCheck, rawInitial.HttpHealthCheck, opts...)
-	rawDesired.HttpsHealthCheck = canonicalizeHealthCheckHttpsHealthCheck(rawDesired.HttpsHealthCheck, rawInitial.HttpsHealthCheck, opts...)
+	canonicalDesired.Http2HealthCheck = canonicalizeHealthCheckHttp2HealthCheck(rawDesired.Http2HealthCheck, rawInitial.Http2HealthCheck, opts...)
+	canonicalDesired.HttpHealthCheck = canonicalizeHealthCheckHttpHealthCheck(rawDesired.HttpHealthCheck, rawInitial.HttpHealthCheck, opts...)
+	canonicalDesired.HttpsHealthCheck = canonicalizeHealthCheckHttpsHealthCheck(rawDesired.HttpsHealthCheck, rawInitial.HttpsHealthCheck, opts...)
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
-	rawDesired.SslHealthCheck = canonicalizeHealthCheckSslHealthCheck(rawDesired.SslHealthCheck, rawInitial.SslHealthCheck, opts...)
-	rawDesired.TcpHealthCheck = canonicalizeHealthCheckTcpHealthCheck(rawDesired.TcpHealthCheck, rawInitial.TcpHealthCheck, opts...)
+	canonicalDesired.SslHealthCheck = canonicalizeHealthCheckSslHealthCheck(rawDesired.SslHealthCheck, rawInitial.SslHealthCheck, opts...)
+	canonicalDesired.TcpHealthCheck = canonicalizeHealthCheckTcpHealthCheck(rawDesired.TcpHealthCheck, rawInitial.TcpHealthCheck, opts...)
 	if dcl.IsZeroValue(rawDesired.Type) {
-		rawDesired.Type = rawInitial.Type
+		canonicalDesired.Type = rawInitial.Type
+	} else {
+		canonicalDesired.Type = rawDesired.Type
 	}
 	if dcl.IsZeroValue(rawDesired.UnhealthyThreshold) {
-		rawDesired.UnhealthyThreshold = rawInitial.UnhealthyThreshold
+		canonicalDesired.UnhealthyThreshold = rawInitial.UnhealthyThreshold
+	} else {
+		canonicalDesired.UnhealthyThreshold = rawDesired.UnhealthyThreshold
 	}
 	if dcl.IsZeroValue(rawDesired.TimeoutSec) {
-		rawDesired.TimeoutSec = rawInitial.TimeoutSec
+		canonicalDesired.TimeoutSec = rawInitial.TimeoutSec
+	} else {
+		canonicalDesired.TimeoutSec = rawDesired.TimeoutSec
 	}
 	if dcl.NameToSelfLink(rawDesired.Region, rawInitial.Region) {
-		rawDesired.Region = rawInitial.Region
+		canonicalDesired.Region = rawInitial.Region
+	} else {
+		canonicalDesired.Region = rawDesired.Region
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeHealthCheckNewState(c *Client, rawNew, rawDesired *HealthCheck) (*HealthCheck, error) {
@@ -655,29 +675,45 @@ func canonicalizeHealthCheckHttp2HealthCheck(des, initial *HealthCheckHttp2Healt
 		return des
 	}
 
+	cDes := &HealthCheckHttp2HealthCheck{}
+
 	if dcl.IsZeroValue(des.Port) {
 		des.Port = initial.Port
+	} else {
+		cDes.Port = des.Port
 	}
 	if dcl.StringCanonicalize(des.PortName, initial.PortName) || dcl.IsZeroValue(des.PortName) {
-		des.PortName = initial.PortName
+		cDes.PortName = initial.PortName
+	} else {
+		cDes.PortName = des.PortName
 	}
 	if dcl.IsZeroValue(des.PortSpecification) {
 		des.PortSpecification = initial.PortSpecification
+	} else {
+		cDes.PortSpecification = des.PortSpecification
 	}
 	if dcl.StringCanonicalize(des.Host, initial.Host) || dcl.IsZeroValue(des.Host) {
-		des.Host = initial.Host
+		cDes.Host = initial.Host
+	} else {
+		cDes.Host = des.Host
 	}
 	if dcl.StringCanonicalize(des.RequestPath, initial.RequestPath) || dcl.IsZeroValue(des.RequestPath) {
-		des.RequestPath = initial.RequestPath
+		cDes.RequestPath = initial.RequestPath
+	} else {
+		cDes.RequestPath = des.RequestPath
 	}
 	if dcl.IsZeroValue(des.ProxyHeader) {
 		des.ProxyHeader = initial.ProxyHeader
+	} else {
+		cDes.ProxyHeader = des.ProxyHeader
 	}
 	if dcl.StringCanonicalize(des.Response, initial.Response) || dcl.IsZeroValue(des.Response) {
-		des.Response = initial.Response
+		cDes.Response = initial.Response
+	} else {
+		cDes.Response = des.Response
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewHealthCheckHttp2HealthCheck(c *Client, des, nw *HealthCheckHttp2HealthCheck) *HealthCheckHttp2HealthCheck {
@@ -765,29 +801,45 @@ func canonicalizeHealthCheckHttpHealthCheck(des, initial *HealthCheckHttpHealthC
 		return des
 	}
 
+	cDes := &HealthCheckHttpHealthCheck{}
+
 	if dcl.IsZeroValue(des.Port) {
 		des.Port = initial.Port
+	} else {
+		cDes.Port = des.Port
 	}
 	if dcl.StringCanonicalize(des.PortName, initial.PortName) || dcl.IsZeroValue(des.PortName) {
-		des.PortName = initial.PortName
+		cDes.PortName = initial.PortName
+	} else {
+		cDes.PortName = des.PortName
 	}
 	if dcl.IsZeroValue(des.PortSpecification) {
 		des.PortSpecification = initial.PortSpecification
+	} else {
+		cDes.PortSpecification = des.PortSpecification
 	}
 	if dcl.StringCanonicalize(des.Host, initial.Host) || dcl.IsZeroValue(des.Host) {
-		des.Host = initial.Host
+		cDes.Host = initial.Host
+	} else {
+		cDes.Host = des.Host
 	}
 	if dcl.StringCanonicalize(des.RequestPath, initial.RequestPath) || dcl.IsZeroValue(des.RequestPath) {
-		des.RequestPath = initial.RequestPath
+		cDes.RequestPath = initial.RequestPath
+	} else {
+		cDes.RequestPath = des.RequestPath
 	}
 	if dcl.IsZeroValue(des.ProxyHeader) {
 		des.ProxyHeader = initial.ProxyHeader
+	} else {
+		cDes.ProxyHeader = des.ProxyHeader
 	}
 	if dcl.StringCanonicalize(des.Response, initial.Response) || dcl.IsZeroValue(des.Response) {
-		des.Response = initial.Response
+		cDes.Response = initial.Response
+	} else {
+		cDes.Response = des.Response
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewHealthCheckHttpHealthCheck(c *Client, des, nw *HealthCheckHttpHealthCheck) *HealthCheckHttpHealthCheck {
@@ -875,29 +927,45 @@ func canonicalizeHealthCheckHttpsHealthCheck(des, initial *HealthCheckHttpsHealt
 		return des
 	}
 
+	cDes := &HealthCheckHttpsHealthCheck{}
+
 	if dcl.IsZeroValue(des.Port) {
 		des.Port = initial.Port
+	} else {
+		cDes.Port = des.Port
 	}
 	if dcl.StringCanonicalize(des.PortName, initial.PortName) || dcl.IsZeroValue(des.PortName) {
-		des.PortName = initial.PortName
+		cDes.PortName = initial.PortName
+	} else {
+		cDes.PortName = des.PortName
 	}
 	if dcl.IsZeroValue(des.PortSpecification) {
 		des.PortSpecification = initial.PortSpecification
+	} else {
+		cDes.PortSpecification = des.PortSpecification
 	}
 	if dcl.StringCanonicalize(des.Host, initial.Host) || dcl.IsZeroValue(des.Host) {
-		des.Host = initial.Host
+		cDes.Host = initial.Host
+	} else {
+		cDes.Host = des.Host
 	}
 	if dcl.StringCanonicalize(des.RequestPath, initial.RequestPath) || dcl.IsZeroValue(des.RequestPath) {
-		des.RequestPath = initial.RequestPath
+		cDes.RequestPath = initial.RequestPath
+	} else {
+		cDes.RequestPath = des.RequestPath
 	}
 	if dcl.IsZeroValue(des.ProxyHeader) {
 		des.ProxyHeader = initial.ProxyHeader
+	} else {
+		cDes.ProxyHeader = des.ProxyHeader
 	}
 	if dcl.StringCanonicalize(des.Response, initial.Response) || dcl.IsZeroValue(des.Response) {
-		des.Response = initial.Response
+		cDes.Response = initial.Response
+	} else {
+		cDes.Response = des.Response
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewHealthCheckHttpsHealthCheck(c *Client, des, nw *HealthCheckHttpsHealthCheck) *HealthCheckHttpsHealthCheck {
@@ -985,26 +1053,40 @@ func canonicalizeHealthCheckSslHealthCheck(des, initial *HealthCheckSslHealthChe
 		return des
 	}
 
+	cDes := &HealthCheckSslHealthCheck{}
+
 	if dcl.IsZeroValue(des.Port) {
 		des.Port = initial.Port
+	} else {
+		cDes.Port = des.Port
 	}
 	if dcl.StringCanonicalize(des.PortName, initial.PortName) || dcl.IsZeroValue(des.PortName) {
-		des.PortName = initial.PortName
+		cDes.PortName = initial.PortName
+	} else {
+		cDes.PortName = des.PortName
 	}
 	if dcl.IsZeroValue(des.PortSpecification) {
 		des.PortSpecification = initial.PortSpecification
+	} else {
+		cDes.PortSpecification = des.PortSpecification
 	}
 	if dcl.StringCanonicalize(des.Request, initial.Request) || dcl.IsZeroValue(des.Request) {
-		des.Request = initial.Request
+		cDes.Request = initial.Request
+	} else {
+		cDes.Request = des.Request
 	}
 	if dcl.StringCanonicalize(des.Response, initial.Response) || dcl.IsZeroValue(des.Response) {
-		des.Response = initial.Response
+		cDes.Response = initial.Response
+	} else {
+		cDes.Response = des.Response
 	}
 	if dcl.IsZeroValue(des.ProxyHeader) {
 		des.ProxyHeader = initial.ProxyHeader
+	} else {
+		cDes.ProxyHeader = des.ProxyHeader
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewHealthCheckSslHealthCheck(c *Client, des, nw *HealthCheckSslHealthCheck) *HealthCheckSslHealthCheck {
@@ -1089,26 +1171,40 @@ func canonicalizeHealthCheckTcpHealthCheck(des, initial *HealthCheckTcpHealthChe
 		return des
 	}
 
+	cDes := &HealthCheckTcpHealthCheck{}
+
 	if dcl.IsZeroValue(des.Port) {
 		des.Port = initial.Port
+	} else {
+		cDes.Port = des.Port
 	}
 	if dcl.StringCanonicalize(des.PortName, initial.PortName) || dcl.IsZeroValue(des.PortName) {
-		des.PortName = initial.PortName
+		cDes.PortName = initial.PortName
+	} else {
+		cDes.PortName = des.PortName
 	}
 	if dcl.IsZeroValue(des.PortSpecification) {
 		des.PortSpecification = initial.PortSpecification
+	} else {
+		cDes.PortSpecification = des.PortSpecification
 	}
 	if dcl.StringCanonicalize(des.Request, initial.Request) || dcl.IsZeroValue(des.Request) {
-		des.Request = initial.Request
+		cDes.Request = initial.Request
+	} else {
+		cDes.Request = des.Request
 	}
 	if dcl.StringCanonicalize(des.Response, initial.Response) || dcl.IsZeroValue(des.Response) {
-		des.Response = initial.Response
+		cDes.Response = initial.Response
+	} else {
+		cDes.Response = des.Response
 	}
 	if dcl.IsZeroValue(des.ProxyHeader) {
 		des.ProxyHeader = initial.ProxyHeader
+	} else {
+		cDes.ProxyHeader = des.ProxyHeader
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewHealthCheckTcpHealthCheck(c *Client, des, nw *HealthCheckTcpHealthCheck) *HealthCheckTcpHealthCheck {
@@ -1287,7 +1383,7 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2884,31 +2980,45 @@ type healthCheckDiff struct {
 	UpdateOp         healthCheckApiOperation
 }
 
-func convertFieldDiffToHealthCheckOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]healthCheckDiff, error) {
+func convertFieldDiffsToHealthCheckDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]healthCheckDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []healthCheckDiff
-	for _, op := range ops {
+	// For each operation name, create a healthCheckDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := healthCheckDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTohealthCheckApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToHealthCheckApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTohealthCheckApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (healthCheckApiOperation, error) {
-	switch op {
+func convertOpNameToHealthCheckApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (healthCheckApiOperation, error) {
+	switch opName {
 
 	case "updateHealthCheckUpdateOperation":
-		return &updateHealthCheckUpdateOperation{Diffs: diffs}, nil
+		return &updateHealthCheckUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

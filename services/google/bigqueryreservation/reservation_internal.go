@@ -109,7 +109,7 @@ type updateReservationUpdateReservationOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -126,7 +126,7 @@ func (op *updateReservationUpdateReservationOperation) do(ctx context.Context, r
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -399,24 +399,34 @@ func canonicalizeReservationDesiredState(rawDesired, rawInitial *Reservation, op
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Reservation{}
 	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.IsZeroValue(rawDesired.SlotCapacity) {
-		rawDesired.SlotCapacity = rawInitial.SlotCapacity
+		canonicalDesired.SlotCapacity = rawInitial.SlotCapacity
+	} else {
+		canonicalDesired.SlotCapacity = rawDesired.SlotCapacity
 	}
 	if dcl.BoolCanonicalize(rawDesired.IgnoreIdleSlots, rawInitial.IgnoreIdleSlots) {
-		rawDesired.IgnoreIdleSlots = rawInitial.IgnoreIdleSlots
+		canonicalDesired.IgnoreIdleSlots = rawInitial.IgnoreIdleSlots
+	} else {
+		canonicalDesired.IgnoreIdleSlots = rawDesired.IgnoreIdleSlots
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeReservationNewState(c *Client, rawNew, rawDesired *Reservation) (*Reservation, error) {
@@ -680,31 +690,45 @@ type reservationDiff struct {
 	UpdateOp         reservationApiOperation
 }
 
-func convertFieldDiffToReservationOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]reservationDiff, error) {
+func convertFieldDiffsToReservationDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]reservationDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []reservationDiff
-	for _, op := range ops {
+	// For each operation name, create a reservationDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := reservationDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToreservationApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToReservationApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToreservationApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (reservationApiOperation, error) {
-	switch op {
+func convertOpNameToReservationApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (reservationApiOperation, error) {
+	switch opName {
 
 	case "updateReservationUpdateReservationOperation":
-		return &updateReservationUpdateReservationOperation{Diffs: diffs}, nil
+		return &updateReservationUpdateReservationOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

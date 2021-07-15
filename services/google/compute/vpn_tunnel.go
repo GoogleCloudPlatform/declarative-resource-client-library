@@ -279,8 +279,7 @@ func applyVpnTunnelHelper(c *Client, ctx context.Context, rawDesired *VpnTunnel,
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToVpnTunnelOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToVpnTunnelDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -308,7 +307,6 @@ func applyVpnTunnelHelper(c *Client, ctx context.Context, rawDesired *VpnTunnel,
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

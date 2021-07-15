@@ -479,8 +479,7 @@ func applyEndpointPolicyHelper(c *Client, ctx context.Context, rawDesired *Endpo
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToEndpointPolicyOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToEndpointPolicyDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -508,7 +507,6 @@ func applyEndpointPolicyHelper(c *Client, ctx context.Context, rawDesired *Endpo
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

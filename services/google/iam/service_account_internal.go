@@ -143,7 +143,7 @@ type updateServiceAccountPatchServiceAccountOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -438,19 +438,25 @@ func canonicalizeServiceAccountDesiredState(rawDesired, rawInitial *ServiceAccou
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &ServiceAccount{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
-		rawDesired.DisplayName = rawInitial.DisplayName
+		canonicalDesired.DisplayName = rawInitial.DisplayName
+	} else {
+		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
-	rawDesired.ActasResources = canonicalizeServiceAccountActasResources(rawDesired.ActasResources, rawInitial.ActasResources, opts...)
+	canonicalDesired.ActasResources = canonicalizeServiceAccountActasResources(rawDesired.ActasResources, rawInitial.ActasResources, opts...)
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeServiceAccountNewState(c *Client, rawNew, rawDesired *ServiceAccount) (*ServiceAccount, error) {
@@ -540,11 +546,15 @@ func canonicalizeServiceAccountActasResources(des, initial *ServiceAccountActasR
 		return des
 	}
 
+	cDes := &ServiceAccountActasResources{}
+
 	if dcl.IsZeroValue(des.Resources) {
 		des.Resources = initial.Resources
+	} else {
+		cDes.Resources = des.Resources
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewServiceAccountActasResources(c *Client, des, nw *ServiceAccountActasResources) *ServiceAccountActasResources {
@@ -612,11 +622,15 @@ func canonicalizeServiceAccountActasResourcesResources(des, initial *ServiceAcco
 		return des
 	}
 
+	cDes := &ServiceAccountActasResourcesResources{}
+
 	if dcl.StringCanonicalize(des.FullResourceName, initial.FullResourceName) || dcl.IsZeroValue(des.FullResourceName) {
-		des.FullResourceName = initial.FullResourceName
+		cDes.FullResourceName = initial.FullResourceName
+	} else {
+		cDes.FullResourceName = des.FullResourceName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewServiceAccountActasResourcesResources(c *Client, des, nw *ServiceAccountActasResourcesResources) *ServiceAccountActasResourcesResources {
@@ -1210,31 +1224,45 @@ type serviceAccountDiff struct {
 	UpdateOp         serviceAccountApiOperation
 }
 
-func convertFieldDiffToServiceAccountOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]serviceAccountDiff, error) {
+func convertFieldDiffsToServiceAccountDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]serviceAccountDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []serviceAccountDiff
-	for _, op := range ops {
+	// For each operation name, create a serviceAccountDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := serviceAccountDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToserviceAccountApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToServiceAccountApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToserviceAccountApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (serviceAccountApiOperation, error) {
-	switch op {
+func convertOpNameToServiceAccountApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (serviceAccountApiOperation, error) {
+	switch opName {
 
 	case "updateServiceAccountPatchServiceAccountOperation":
-		return &updateServiceAccountPatchServiceAccountOperation{Diffs: diffs}, nil
+		return &updateServiceAccountPatchServiceAccountOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

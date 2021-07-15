@@ -147,7 +147,7 @@ type updateServicePerimeterUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -164,7 +164,7 @@ func (op *updateServicePerimeterUpdateOperation) do(ctx context.Context, r *Serv
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -469,29 +469,41 @@ func canonicalizeServicePerimeterDesiredState(rawDesired, rawInitial *ServicePer
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &ServicePerimeter{}
 	if dcl.StringCanonicalize(rawDesired.Title, rawInitial.Title) {
-		rawDesired.Title = rawInitial.Title
+		canonicalDesired.Title = rawInitial.Title
+	} else {
+		canonicalDesired.Title = rawDesired.Title
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.PerimeterType) {
-		rawDesired.PerimeterType = rawInitial.PerimeterType
+		canonicalDesired.PerimeterType = rawInitial.PerimeterType
+	} else {
+		canonicalDesired.PerimeterType = rawDesired.PerimeterType
 	}
-	rawDesired.Status = canonicalizeServicePerimeterStatus(rawDesired.Status, rawInitial.Status, opts...)
+	canonicalDesired.Status = canonicalizeServicePerimeterStatus(rawDesired.Status, rawInitial.Status, opts...)
 	if dcl.NameToSelfLink(rawDesired.Policy, rawInitial.Policy) {
-		rawDesired.Policy = rawInitial.Policy
+		canonicalDesired.Policy = rawInitial.Policy
+	} else {
+		canonicalDesired.Policy = rawDesired.Policy
 	}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.BoolCanonicalize(rawDesired.UseExplicitDryRunSpec, rawInitial.UseExplicitDryRunSpec) {
-		rawDesired.UseExplicitDryRunSpec = rawInitial.UseExplicitDryRunSpec
+		canonicalDesired.UseExplicitDryRunSpec = rawInitial.UseExplicitDryRunSpec
+	} else {
+		canonicalDesired.UseExplicitDryRunSpec = rawDesired.UseExplicitDryRunSpec
 	}
-	rawDesired.Spec = canonicalizeServicePerimeterSpec(rawDesired.Spec, rawInitial.Spec, opts...)
+	canonicalDesired.Spec = canonicalizeServicePerimeterSpec(rawDesired.Spec, rawInitial.Spec, opts...)
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeServicePerimeterNewState(c *Client, rawNew, rawDesired *ServicePerimeter) (*ServicePerimeter, error) {
@@ -572,18 +584,26 @@ func canonicalizeServicePerimeterStatus(des, initial *ServicePerimeterStatus, op
 		return des
 	}
 
+	cDes := &ServicePerimeterStatus{}
+
 	if dcl.IsZeroValue(des.Resources) {
 		des.Resources = initial.Resources
+	} else {
+		cDes.Resources = des.Resources
 	}
 	if dcl.IsZeroValue(des.AccessLevels) {
 		des.AccessLevels = initial.AccessLevels
+	} else {
+		cDes.AccessLevels = des.AccessLevels
 	}
 	if dcl.IsZeroValue(des.RestrictedServices) {
 		des.RestrictedServices = initial.RestrictedServices
+	} else {
+		cDes.RestrictedServices = des.RestrictedServices
 	}
-	des.VPCAccessibleServices = canonicalizeServicePerimeterStatusVPCAccessibleServices(des.VPCAccessibleServices, initial.VPCAccessibleServices, opts...)
+	cDes.VPCAccessibleServices = canonicalizeServicePerimeterStatusVPCAccessibleServices(des.VPCAccessibleServices, initial.VPCAccessibleServices, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewServicePerimeterStatus(c *Client, des, nw *ServicePerimeterStatus) *ServicePerimeterStatus {
@@ -660,14 +680,20 @@ func canonicalizeServicePerimeterStatusVPCAccessibleServices(des, initial *Servi
 		return des
 	}
 
+	cDes := &ServicePerimeterStatusVPCAccessibleServices{}
+
 	if dcl.BoolCanonicalize(des.EnableRestriction, initial.EnableRestriction) || dcl.IsZeroValue(des.EnableRestriction) {
-		des.EnableRestriction = initial.EnableRestriction
+		cDes.EnableRestriction = initial.EnableRestriction
+	} else {
+		cDes.EnableRestriction = des.EnableRestriction
 	}
 	if dcl.IsZeroValue(des.AllowedServices) {
 		des.AllowedServices = initial.AllowedServices
+	} else {
+		cDes.AllowedServices = des.AllowedServices
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewServicePerimeterStatusVPCAccessibleServices(c *Client, des, nw *ServicePerimeterStatusVPCAccessibleServices) *ServicePerimeterStatusVPCAccessibleServices {
@@ -740,18 +766,26 @@ func canonicalizeServicePerimeterSpec(des, initial *ServicePerimeterSpec, opts .
 		return des
 	}
 
+	cDes := &ServicePerimeterSpec{}
+
 	if dcl.IsZeroValue(des.Resources) {
 		des.Resources = initial.Resources
+	} else {
+		cDes.Resources = des.Resources
 	}
 	if dcl.IsZeroValue(des.AccessLevels) {
 		des.AccessLevels = initial.AccessLevels
+	} else {
+		cDes.AccessLevels = des.AccessLevels
 	}
 	if dcl.IsZeroValue(des.RestrictedServices) {
 		des.RestrictedServices = initial.RestrictedServices
+	} else {
+		cDes.RestrictedServices = des.RestrictedServices
 	}
-	des.VPCAccessibleServices = canonicalizeServicePerimeterSpecVPCAccessibleServices(des.VPCAccessibleServices, initial.VPCAccessibleServices, opts...)
+	cDes.VPCAccessibleServices = canonicalizeServicePerimeterSpecVPCAccessibleServices(des.VPCAccessibleServices, initial.VPCAccessibleServices, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewServicePerimeterSpec(c *Client, des, nw *ServicePerimeterSpec) *ServicePerimeterSpec {
@@ -828,14 +862,20 @@ func canonicalizeServicePerimeterSpecVPCAccessibleServices(des, initial *Service
 		return des
 	}
 
+	cDes := &ServicePerimeterSpecVPCAccessibleServices{}
+
 	if dcl.BoolCanonicalize(des.EnableRestriction, initial.EnableRestriction) || dcl.IsZeroValue(des.EnableRestriction) {
-		des.EnableRestriction = initial.EnableRestriction
+		cDes.EnableRestriction = initial.EnableRestriction
+	} else {
+		cDes.EnableRestriction = des.EnableRestriction
 	}
 	if dcl.IsZeroValue(des.AllowedServices) {
 		des.AllowedServices = initial.AllowedServices
+	} else {
+		cDes.AllowedServices = des.AllowedServices
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewServicePerimeterSpecVPCAccessibleServices(c *Client, des, nw *ServicePerimeterSpecVPCAccessibleServices) *ServicePerimeterSpecVPCAccessibleServices {
@@ -1847,31 +1887,45 @@ type servicePerimeterDiff struct {
 	UpdateOp         servicePerimeterApiOperation
 }
 
-func convertFieldDiffToServicePerimeterOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]servicePerimeterDiff, error) {
+func convertFieldDiffsToServicePerimeterDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]servicePerimeterDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []servicePerimeterDiff
-	for _, op := range ops {
+	// For each operation name, create a servicePerimeterDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := servicePerimeterDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToservicePerimeterApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToServicePerimeterApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToservicePerimeterApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (servicePerimeterApiOperation, error) {
-	switch op {
+func convertOpNameToServicePerimeterApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (servicePerimeterApiOperation, error) {
+	switch opName {
 
 	case "updateServicePerimeterUpdateOperation":
-		return &updateServicePerimeterUpdateOperation{Diffs: diffs}, nil
+		return &updateServicePerimeterUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

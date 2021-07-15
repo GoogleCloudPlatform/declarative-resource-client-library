@@ -111,7 +111,7 @@ type updateApplicationPatchApplicationOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -128,7 +128,7 @@ func (op *updateApplicationPatchApplicationOperation) do(ctx context.Context, r 
 	if err != nil {
 		return err
 	}
-	mask := dcl.SnakeCaseUpdateMask(op.Diffs)
+	mask := dcl.SnakeCaseUpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -300,35 +300,51 @@ func canonicalizeApplicationDesiredState(rawDesired, rawInitial *Application, op
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Application{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.IsZeroValue(rawDesired.DispatchRules) {
-		rawDesired.DispatchRules = rawInitial.DispatchRules
+		canonicalDesired.DispatchRules = rawInitial.DispatchRules
+	} else {
+		canonicalDesired.DispatchRules = rawDesired.DispatchRules
 	}
 	if dcl.StringCanonicalize(rawDesired.AuthDomain, rawInitial.AuthDomain) {
-		rawDesired.AuthDomain = rawInitial.AuthDomain
+		canonicalDesired.AuthDomain = rawInitial.AuthDomain
+	} else {
+		canonicalDesired.AuthDomain = rawDesired.AuthDomain
 	}
 	if dcl.StringCanonicalize(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 	if dcl.StringCanonicalize(rawDesired.DefaultCookieExpiration, rawInitial.DefaultCookieExpiration) {
-		rawDesired.DefaultCookieExpiration = rawInitial.DefaultCookieExpiration
+		canonicalDesired.DefaultCookieExpiration = rawInitial.DefaultCookieExpiration
+	} else {
+		canonicalDesired.DefaultCookieExpiration = rawDesired.DefaultCookieExpiration
 	}
 	if dcl.IsZeroValue(rawDesired.ServingStatus) {
-		rawDesired.ServingStatus = rawInitial.ServingStatus
+		canonicalDesired.ServingStatus = rawInitial.ServingStatus
+	} else {
+		canonicalDesired.ServingStatus = rawDesired.ServingStatus
 	}
-	rawDesired.Iap = canonicalizeApplicationIap(rawDesired.Iap, rawInitial.Iap, opts...)
+	canonicalDesired.Iap = canonicalizeApplicationIap(rawDesired.Iap, rawInitial.Iap, opts...)
 	if dcl.StringCanonicalize(rawDesired.GcrDomain, rawInitial.GcrDomain) {
-		rawDesired.GcrDomain = rawInitial.GcrDomain
+		canonicalDesired.GcrDomain = rawInitial.GcrDomain
+	} else {
+		canonicalDesired.GcrDomain = rawDesired.GcrDomain
 	}
 	if dcl.IsZeroValue(rawDesired.DatabaseType) {
-		rawDesired.DatabaseType = rawInitial.DatabaseType
+		canonicalDesired.DatabaseType = rawInitial.DatabaseType
+	} else {
+		canonicalDesired.DatabaseType = rawDesired.DatabaseType
 	}
-	rawDesired.FeatureSettings = canonicalizeApplicationFeatureSettings(rawDesired.FeatureSettings, rawInitial.FeatureSettings, opts...)
+	canonicalDesired.FeatureSettings = canonicalizeApplicationFeatureSettings(rawDesired.FeatureSettings, rawInitial.FeatureSettings, opts...)
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeApplicationNewState(c *Client, rawNew, rawDesired *Application) (*Application, error) {
@@ -440,17 +456,25 @@ func canonicalizeApplicationDispatchRules(des, initial *ApplicationDispatchRules
 		return des
 	}
 
+	cDes := &ApplicationDispatchRules{}
+
 	if dcl.StringCanonicalize(des.Domain, initial.Domain) || dcl.IsZeroValue(des.Domain) {
-		des.Domain = initial.Domain
+		cDes.Domain = initial.Domain
+	} else {
+		cDes.Domain = des.Domain
 	}
 	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
-		des.Path = initial.Path
+		cDes.Path = initial.Path
+	} else {
+		cDes.Path = des.Path
 	}
 	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
-		des.Service = initial.Service
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewApplicationDispatchRules(c *Client, des, nw *ApplicationDispatchRules) *ApplicationDispatchRules {
@@ -526,17 +550,25 @@ func canonicalizeApplicationIap(des, initial *ApplicationIap, opts ...dcl.ApplyO
 		return des
 	}
 
+	cDes := &ApplicationIap{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 	if dcl.StringCanonicalize(des.OAuth2ClientId, initial.OAuth2ClientId) || dcl.IsZeroValue(des.OAuth2ClientId) {
-		des.OAuth2ClientId = initial.OAuth2ClientId
+		cDes.OAuth2ClientId = initial.OAuth2ClientId
+	} else {
+		cDes.OAuth2ClientId = des.OAuth2ClientId
 	}
 	if dcl.StringCanonicalize(des.OAuth2ClientSecret, initial.OAuth2ClientSecret) || dcl.IsZeroValue(des.OAuth2ClientSecret) {
-		des.OAuth2ClientSecret = initial.OAuth2ClientSecret
+		cDes.OAuth2ClientSecret = initial.OAuth2ClientSecret
+	} else {
+		cDes.OAuth2ClientSecret = des.OAuth2ClientSecret
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewApplicationIap(c *Client, des, nw *ApplicationIap) *ApplicationIap {
@@ -613,14 +645,20 @@ func canonicalizeApplicationFeatureSettings(des, initial *ApplicationFeatureSett
 		return des
 	}
 
+	cDes := &ApplicationFeatureSettings{}
+
 	if dcl.BoolCanonicalize(des.SplitHealthChecks, initial.SplitHealthChecks) || dcl.IsZeroValue(des.SplitHealthChecks) {
-		des.SplitHealthChecks = initial.SplitHealthChecks
+		cDes.SplitHealthChecks = initial.SplitHealthChecks
+	} else {
+		cDes.SplitHealthChecks = des.SplitHealthChecks
 	}
 	if dcl.BoolCanonicalize(des.UseContainerOptimizedOs, initial.UseContainerOptimizedOs) || dcl.IsZeroValue(des.UseContainerOptimizedOs) {
-		des.UseContainerOptimizedOs = initial.UseContainerOptimizedOs
+		cDes.UseContainerOptimizedOs = initial.UseContainerOptimizedOs
+	} else {
+		cDes.UseContainerOptimizedOs = des.UseContainerOptimizedOs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewApplicationFeatureSettings(c *Client, des, nw *ApplicationFeatureSettings) *ApplicationFeatureSettings {
@@ -1506,31 +1544,45 @@ type applicationDiff struct {
 	UpdateOp         applicationApiOperation
 }
 
-func convertFieldDiffToApplicationOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]applicationDiff, error) {
+func convertFieldDiffsToApplicationDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]applicationDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []applicationDiff
-	for _, op := range ops {
+	// For each operation name, create a applicationDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := applicationDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToapplicationApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToApplicationApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToapplicationApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (applicationApiOperation, error) {
-	switch op {
+func convertOpNameToApplicationApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (applicationApiOperation, error) {
+	switch opName {
 
 	case "updateApplicationPatchApplicationOperation":
-		return &updateApplicationPatchApplicationOperation{Diffs: diffs}, nil
+		return &updateApplicationPatchApplicationOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

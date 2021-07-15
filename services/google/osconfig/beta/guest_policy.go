@@ -1981,8 +1981,7 @@ func applyGuestPolicyHelper(c *Client, ctx context.Context, rawDesired *GuestPol
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToGuestPolicyOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToGuestPolicyDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -2010,7 +2009,6 @@ func applyGuestPolicyHelper(c *Client, ctx context.Context, rawDesired *GuestPol
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

@@ -200,7 +200,7 @@ type updateInstanceSetDeletionProtectionOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -292,7 +292,7 @@ type updateInstanceSetLabelsOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -367,7 +367,7 @@ type updateInstanceSetMachineTypeOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -461,7 +461,7 @@ type updateInstanceSetMetadataOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -553,7 +553,7 @@ type updateInstanceSetTagsOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -625,7 +625,7 @@ type updateInstanceStartOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -697,7 +697,7 @@ type updateInstanceStopOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -769,7 +769,7 @@ type updateInstanceUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -846,7 +846,7 @@ type updateInstanceUpdateShieldedInstanceConfigOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -1157,62 +1157,96 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Instance{}
 	if dcl.BoolCanonicalize(rawDesired.CanIPForward, rawInitial.CanIPForward) {
-		rawDesired.CanIPForward = rawInitial.CanIPForward
+		canonicalDesired.CanIPForward = rawInitial.CanIPForward
+	} else {
+		canonicalDesired.CanIPForward = rawDesired.CanIPForward
 	}
 	if dcl.BoolCanonicalize(rawDesired.DeletionProtection, rawInitial.DeletionProtection) {
-		rawDesired.DeletionProtection = rawInitial.DeletionProtection
+		canonicalDesired.DeletionProtection = rawInitial.DeletionProtection
+	} else {
+		canonicalDesired.DeletionProtection = rawDesired.DeletionProtection
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.Disks) {
-		rawDesired.Disks = rawInitial.Disks
+		canonicalDesired.Disks = rawInitial.Disks
+	} else {
+		canonicalDesired.Disks = rawDesired.Disks
 	}
 	if dcl.IsZeroValue(rawDesired.GuestAccelerators) {
-		rawDesired.GuestAccelerators = rawInitial.GuestAccelerators
+		canonicalDesired.GuestAccelerators = rawInitial.GuestAccelerators
+	} else {
+		canonicalDesired.GuestAccelerators = rawDesired.GuestAccelerators
 	}
 	if dcl.StringCanonicalize(rawDesired.Hostname, rawInitial.Hostname) {
-		rawDesired.Hostname = rawInitial.Hostname
+		canonicalDesired.Hostname = rawInitial.Hostname
+	} else {
+		canonicalDesired.Hostname = rawDesired.Hostname
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.IsZeroValue(rawDesired.Metadata) {
-		rawDesired.Metadata = rawInitial.Metadata
+		canonicalDesired.Metadata = rawInitial.Metadata
+	} else {
+		canonicalDesired.Metadata = rawDesired.Metadata
 	}
 	if dcl.NameToSelfLink(rawDesired.MachineType, rawInitial.MachineType) {
-		rawDesired.MachineType = rawInitial.MachineType
+		canonicalDesired.MachineType = rawInitial.MachineType
+	} else {
+		canonicalDesired.MachineType = rawDesired.MachineType
 	}
 	if dcl.StringCanonicalize(rawDesired.MinCpuPlatform, rawInitial.MinCpuPlatform) {
-		rawDesired.MinCpuPlatform = rawInitial.MinCpuPlatform
+		canonicalDesired.MinCpuPlatform = rawInitial.MinCpuPlatform
+	} else {
+		canonicalDesired.MinCpuPlatform = rawDesired.MinCpuPlatform
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.IsZeroValue(rawDesired.NetworkInterfaces) {
-		rawDesired.NetworkInterfaces = rawInitial.NetworkInterfaces
+		canonicalDesired.NetworkInterfaces = rawInitial.NetworkInterfaces
+	} else {
+		canonicalDesired.NetworkInterfaces = rawDesired.NetworkInterfaces
 	}
-	rawDesired.Scheduling = canonicalizeInstanceScheduling(rawDesired.Scheduling, rawInitial.Scheduling, opts...)
+	canonicalDesired.Scheduling = canonicalizeInstanceScheduling(rawDesired.Scheduling, rawInitial.Scheduling, opts...)
 	if dcl.IsZeroValue(rawDesired.ServiceAccounts) {
-		rawDesired.ServiceAccounts = rawInitial.ServiceAccounts
+		canonicalDesired.ServiceAccounts = rawInitial.ServiceAccounts
+	} else {
+		canonicalDesired.ServiceAccounts = rawDesired.ServiceAccounts
 	}
-	rawDesired.ShieldedInstanceConfig = canonicalizeInstanceShieldedInstanceConfig(rawDesired.ShieldedInstanceConfig, rawInitial.ShieldedInstanceConfig, opts...)
+	canonicalDesired.ShieldedInstanceConfig = canonicalizeInstanceShieldedInstanceConfig(rawDesired.ShieldedInstanceConfig, rawInitial.ShieldedInstanceConfig, opts...)
 	if dcl.IsZeroValue(rawDesired.Status) {
-		rawDesired.Status = rawInitial.Status
+		canonicalDesired.Status = rawInitial.Status
+	} else {
+		canonicalDesired.Status = rawDesired.Status
 	}
 	if dcl.IsZeroValue(rawDesired.Tags) {
-		rawDesired.Tags = rawInitial.Tags
+		canonicalDesired.Tags = rawInitial.Tags
+	} else {
+		canonicalDesired.Tags = rawDesired.Tags
 	}
 	if dcl.NameToSelfLink(rawDesired.Zone, rawInitial.Zone) {
-		rawDesired.Zone = rawInitial.Zone
+		canonicalDesired.Zone = rawInitial.Zone
+	} else {
+		canonicalDesired.Zone = rawDesired.Zone
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Instance, error) {
@@ -1390,34 +1424,52 @@ func canonicalizeInstanceDisks(des, initial *InstanceDisks, opts ...dcl.ApplyOpt
 		return des
 	}
 
+	cDes := &InstanceDisks{}
+
 	if dcl.BoolCanonicalize(des.AutoDelete, initial.AutoDelete) || dcl.IsZeroValue(des.AutoDelete) {
-		des.AutoDelete = initial.AutoDelete
+		cDes.AutoDelete = initial.AutoDelete
+	} else {
+		cDes.AutoDelete = des.AutoDelete
 	}
 	if dcl.BoolCanonicalize(des.Boot, initial.Boot) || dcl.IsZeroValue(des.Boot) {
-		des.Boot = initial.Boot
+		cDes.Boot = initial.Boot
+	} else {
+		cDes.Boot = des.Boot
 	}
 	if dcl.StringCanonicalize(des.DeviceName, initial.DeviceName) || dcl.IsZeroValue(des.DeviceName) {
-		des.DeviceName = initial.DeviceName
+		cDes.DeviceName = initial.DeviceName
+	} else {
+		cDes.DeviceName = des.DeviceName
 	}
-	des.DiskEncryptionKey = canonicalizeInstanceDisksDiskEncryptionKey(des.DiskEncryptionKey, initial.DiskEncryptionKey, opts...)
+	cDes.DiskEncryptionKey = canonicalizeInstanceDisksDiskEncryptionKey(des.DiskEncryptionKey, initial.DiskEncryptionKey, opts...)
 	if dcl.IsZeroValue(des.Index) {
 		des.Index = initial.Index
+	} else {
+		cDes.Index = des.Index
 	}
-	des.InitializeParams = canonicalizeInstanceDisksInitializeParams(des.InitializeParams, initial.InitializeParams, opts...)
+	cDes.InitializeParams = canonicalizeInstanceDisksInitializeParams(des.InitializeParams, initial.InitializeParams, opts...)
 	if dcl.IsZeroValue(des.Interface) {
 		des.Interface = initial.Interface
+	} else {
+		cDes.Interface = des.Interface
 	}
 	if dcl.IsZeroValue(des.Mode) {
 		des.Mode = initial.Mode
+	} else {
+		cDes.Mode = des.Mode
 	}
 	if dcl.NameToSelfLink(des.Source, initial.Source) || dcl.IsZeroValue(des.Source) {
-		des.Source = initial.Source
+		cDes.Source = initial.Source
+	} else {
+		cDes.Source = des.Source
 	}
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceDisks(c *Client, des, nw *InstanceDisks) *InstanceDisks {
@@ -1510,14 +1562,20 @@ func canonicalizeInstanceDisksDiskEncryptionKey(des, initial *InstanceDisksDiskE
 		return des
 	}
 
+	cDes := &InstanceDisksDiskEncryptionKey{}
+
 	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) || dcl.IsZeroValue(des.RawKey) {
-		des.RawKey = initial.RawKey
+		cDes.RawKey = initial.RawKey
+	} else {
+		cDes.RawKey = des.RawKey
 	}
 	if dcl.StringCanonicalize(des.RsaEncryptedKey, initial.RsaEncryptedKey) || dcl.IsZeroValue(des.RsaEncryptedKey) {
-		des.RsaEncryptedKey = initial.RsaEncryptedKey
+		cDes.RsaEncryptedKey = initial.RsaEncryptedKey
+	} else {
+		cDes.RsaEncryptedKey = des.RsaEncryptedKey
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceDisksDiskEncryptionKey(c *Client, des, nw *InstanceDisksDiskEncryptionKey) *InstanceDisksDiskEncryptionKey {
@@ -1593,21 +1651,31 @@ func canonicalizeInstanceDisksInitializeParams(des, initial *InstanceDisksInitia
 		return des
 	}
 
+	cDes := &InstanceDisksInitializeParams{}
+
 	if dcl.StringCanonicalize(des.DiskName, initial.DiskName) || dcl.IsZeroValue(des.DiskName) {
-		des.DiskName = initial.DiskName
+		cDes.DiskName = initial.DiskName
+	} else {
+		cDes.DiskName = des.DiskName
 	}
 	if dcl.IsZeroValue(des.DiskSizeGb) {
 		des.DiskSizeGb = initial.DiskSizeGb
+	} else {
+		cDes.DiskSizeGb = des.DiskSizeGb
 	}
 	if dcl.NameToSelfLink(des.DiskType, initial.DiskType) || dcl.IsZeroValue(des.DiskType) {
-		des.DiskType = initial.DiskType
+		cDes.DiskType = initial.DiskType
+	} else {
+		cDes.DiskType = des.DiskType
 	}
 	if dcl.StringCanonicalize(des.SourceImage, initial.SourceImage) || dcl.IsZeroValue(des.SourceImage) {
-		des.SourceImage = initial.SourceImage
+		cDes.SourceImage = initial.SourceImage
+	} else {
+		cDes.SourceImage = des.SourceImage
 	}
-	des.SourceImageEncryptionKey = canonicalizeInstanceDisksInitializeParamsSourceImageEncryptionKey(des.SourceImageEncryptionKey, initial.SourceImageEncryptionKey, opts...)
+	cDes.SourceImageEncryptionKey = canonicalizeInstanceDisksInitializeParamsSourceImageEncryptionKey(des.SourceImageEncryptionKey, initial.SourceImageEncryptionKey, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceDisksInitializeParams(c *Client, des, nw *InstanceDisksInitializeParams) *InstanceDisksInitializeParams {
@@ -1687,11 +1755,15 @@ func canonicalizeInstanceDisksInitializeParamsSourceImageEncryptionKey(des, init
 		return des
 	}
 
+	cDes := &InstanceDisksInitializeParamsSourceImageEncryptionKey{}
+
 	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) || dcl.IsZeroValue(des.RawKey) {
-		des.RawKey = initial.RawKey
+		cDes.RawKey = initial.RawKey
+	} else {
+		cDes.RawKey = des.RawKey
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceDisksInitializeParamsSourceImageEncryptionKey(c *Client, des, nw *InstanceDisksInitializeParamsSourceImageEncryptionKey) *InstanceDisksInitializeParamsSourceImageEncryptionKey {
@@ -1764,14 +1836,20 @@ func canonicalizeInstanceGuestAccelerators(des, initial *InstanceGuestAccelerato
 		return des
 	}
 
+	cDes := &InstanceGuestAccelerators{}
+
 	if dcl.IsZeroValue(des.AcceleratorCount) {
 		des.AcceleratorCount = initial.AcceleratorCount
+	} else {
+		cDes.AcceleratorCount = des.AcceleratorCount
 	}
 	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
-		des.AcceleratorType = initial.AcceleratorType
+		cDes.AcceleratorType = initial.AcceleratorType
+	} else {
+		cDes.AcceleratorType = des.AcceleratorType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceGuestAccelerators(c *Client, des, nw *InstanceGuestAccelerators) *InstanceGuestAccelerators {
@@ -1844,23 +1922,35 @@ func canonicalizeInstanceNetworkInterfaces(des, initial *InstanceNetworkInterfac
 		return des
 	}
 
+	cDes := &InstanceNetworkInterfaces{}
+
 	if dcl.IsZeroValue(des.AccessConfigs) {
 		des.AccessConfigs = initial.AccessConfigs
+	} else {
+		cDes.AccessConfigs = des.AccessConfigs
 	}
 	if dcl.IsZeroValue(des.AliasIPRanges) {
 		des.AliasIPRanges = initial.AliasIPRanges
+	} else {
+		cDes.AliasIPRanges = des.AliasIPRanges
 	}
 	if dcl.NameToSelfLink(des.Network, initial.Network) || dcl.IsZeroValue(des.Network) {
-		des.Network = initial.Network
+		cDes.Network = initial.Network
+	} else {
+		cDes.Network = des.Network
 	}
 	if dcl.StringCanonicalize(des.NetworkIP, initial.NetworkIP) || dcl.IsZeroValue(des.NetworkIP) {
-		des.NetworkIP = initial.NetworkIP
+		cDes.NetworkIP = initial.NetworkIP
+	} else {
+		cDes.NetworkIP = des.NetworkIP
 	}
 	if dcl.NameToSelfLink(des.Subnetwork, initial.Subnetwork) || dcl.IsZeroValue(des.Subnetwork) {
-		des.Subnetwork = initial.Subnetwork
+		cDes.Subnetwork = initial.Subnetwork
+	} else {
+		cDes.Subnetwork = des.Subnetwork
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNetworkInterfaces(c *Client, des, nw *InstanceNetworkInterfaces) *InstanceNetworkInterfaces {
@@ -1941,17 +2031,25 @@ func canonicalizeInstanceNetworkInterfacesAccessConfigs(des, initial *InstanceNe
 		return des
 	}
 
+	cDes := &InstanceNetworkInterfacesAccessConfigs{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.NatIP, initial.NatIP) || dcl.IsZeroValue(des.NatIP) {
-		des.NatIP = initial.NatIP
+		cDes.NatIP = initial.NatIP
+	} else {
+		cDes.NatIP = des.NatIP
 	}
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNetworkInterfacesAccessConfigs(c *Client, des, nw *InstanceNetworkInterfacesAccessConfigs) *InstanceNetworkInterfacesAccessConfigs {
@@ -2027,14 +2125,20 @@ func canonicalizeInstanceNetworkInterfacesAliasIPRanges(des, initial *InstanceNe
 		return des
 	}
 
+	cDes := &InstanceNetworkInterfacesAliasIPRanges{}
+
 	if dcl.StringCanonicalize(des.IPCidrRange, initial.IPCidrRange) || dcl.IsZeroValue(des.IPCidrRange) {
-		des.IPCidrRange = initial.IPCidrRange
+		cDes.IPCidrRange = initial.IPCidrRange
+	} else {
+		cDes.IPCidrRange = des.IPCidrRange
 	}
 	if dcl.StringCanonicalize(des.SubnetworkRangeName, initial.SubnetworkRangeName) || dcl.IsZeroValue(des.SubnetworkRangeName) {
-		des.SubnetworkRangeName = initial.SubnetworkRangeName
+		cDes.SubnetworkRangeName = initial.SubnetworkRangeName
+	} else {
+		cDes.SubnetworkRangeName = des.SubnetworkRangeName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNetworkInterfacesAliasIPRanges(c *Client, des, nw *InstanceNetworkInterfacesAliasIPRanges) *InstanceNetworkInterfacesAliasIPRanges {
@@ -2107,17 +2211,25 @@ func canonicalizeInstanceScheduling(des, initial *InstanceScheduling, opts ...dc
 		return des
 	}
 
+	cDes := &InstanceScheduling{}
+
 	if dcl.BoolCanonicalize(des.AutomaticRestart, initial.AutomaticRestart) || dcl.IsZeroValue(des.AutomaticRestart) {
-		des.AutomaticRestart = initial.AutomaticRestart
+		cDes.AutomaticRestart = initial.AutomaticRestart
+	} else {
+		cDes.AutomaticRestart = des.AutomaticRestart
 	}
 	if dcl.StringCanonicalize(des.OnHostMaintenance, initial.OnHostMaintenance) || dcl.IsZeroValue(des.OnHostMaintenance) {
-		des.OnHostMaintenance = initial.OnHostMaintenance
+		cDes.OnHostMaintenance = initial.OnHostMaintenance
+	} else {
+		cDes.OnHostMaintenance = des.OnHostMaintenance
 	}
 	if dcl.BoolCanonicalize(des.Preemptible, initial.Preemptible) || dcl.IsZeroValue(des.Preemptible) {
-		des.Preemptible = initial.Preemptible
+		cDes.Preemptible = initial.Preemptible
+	} else {
+		cDes.Preemptible = des.Preemptible
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceScheduling(c *Client, des, nw *InstanceScheduling) *InstanceScheduling {
@@ -2193,14 +2305,20 @@ func canonicalizeInstanceServiceAccounts(des, initial *InstanceServiceAccounts, 
 		return des
 	}
 
+	cDes := &InstanceServiceAccounts{}
+
 	if dcl.StringCanonicalize(des.Email, initial.Email) || dcl.IsZeroValue(des.Email) {
-		des.Email = initial.Email
+		cDes.Email = initial.Email
+	} else {
+		cDes.Email = des.Email
 	}
 	if dcl.IsZeroValue(des.Scopes) {
 		des.Scopes = initial.Scopes
+	} else {
+		cDes.Scopes = des.Scopes
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceServiceAccounts(c *Client, des, nw *InstanceServiceAccounts) *InstanceServiceAccounts {
@@ -2273,17 +2391,25 @@ func canonicalizeInstanceShieldedInstanceConfig(des, initial *InstanceShieldedIn
 		return des
 	}
 
+	cDes := &InstanceShieldedInstanceConfig{}
+
 	if dcl.BoolCanonicalize(des.EnableSecureBoot, initial.EnableSecureBoot) || dcl.IsZeroValue(des.EnableSecureBoot) {
-		des.EnableSecureBoot = initial.EnableSecureBoot
+		cDes.EnableSecureBoot = initial.EnableSecureBoot
+	} else {
+		cDes.EnableSecureBoot = des.EnableSecureBoot
 	}
 	if dcl.BoolCanonicalize(des.EnableVtpm, initial.EnableVtpm) || dcl.IsZeroValue(des.EnableVtpm) {
-		des.EnableVtpm = initial.EnableVtpm
+		cDes.EnableVtpm = initial.EnableVtpm
+	} else {
+		cDes.EnableVtpm = des.EnableVtpm
 	}
 	if dcl.BoolCanonicalize(des.EnableIntegrityMonitoring, initial.EnableIntegrityMonitoring) || dcl.IsZeroValue(des.EnableIntegrityMonitoring) {
-		des.EnableIntegrityMonitoring = initial.EnableIntegrityMonitoring
+		cDes.EnableIntegrityMonitoring = initial.EnableIntegrityMonitoring
+	} else {
+		cDes.EnableIntegrityMonitoring = des.EnableIntegrityMonitoring
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceShieldedInstanceConfig(c *Client, des, nw *InstanceShieldedInstanceConfig) *InstanceShieldedInstanceConfig {
@@ -4927,55 +5053,69 @@ type instanceDiff struct {
 	UpdateOp         instanceApiOperation
 }
 
-func convertFieldDiffToInstanceOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]instanceDiff, error) {
+func convertFieldDiffsToInstanceDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]instanceDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []instanceDiff
-	for _, op := range ops {
+	// For each operation name, create a instanceDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := instanceDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToinstanceApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToInstanceApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToinstanceApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (instanceApiOperation, error) {
-	switch op {
+func convertOpNameToInstanceApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (instanceApiOperation, error) {
+	switch opName {
 
 	case "updateInstanceSetDeletionProtectionOperation":
-		return &updateInstanceSetDeletionProtectionOperation{Diffs: diffs}, nil
+		return &updateInstanceSetDeletionProtectionOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateInstanceSetLabelsOperation":
-		return &updateInstanceSetLabelsOperation{Diffs: diffs}, nil
+		return &updateInstanceSetLabelsOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateInstanceSetMachineTypeOperation":
-		return &updateInstanceSetMachineTypeOperation{Diffs: diffs}, nil
+		return &updateInstanceSetMachineTypeOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateInstanceSetMetadataOperation":
-		return &updateInstanceSetMetadataOperation{Diffs: diffs}, nil
+		return &updateInstanceSetMetadataOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateInstanceSetTagsOperation":
-		return &updateInstanceSetTagsOperation{Diffs: diffs}, nil
+		return &updateInstanceSetTagsOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateInstanceStartOperation":
-		return &updateInstanceStartOperation{Diffs: diffs}, nil
+		return &updateInstanceStartOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateInstanceStopOperation":
-		return &updateInstanceStopOperation{Diffs: diffs}, nil
+		return &updateInstanceStopOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateInstanceUpdateOperation":
-		return &updateInstanceUpdateOperation{Diffs: diffs}, nil
+		return &updateInstanceUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateInstanceUpdateShieldedInstanceConfigOperation":
-		return &updateInstanceUpdateShieldedInstanceConfigOperation{Diffs: diffs}, nil
+		return &updateInstanceUpdateShieldedInstanceConfigOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

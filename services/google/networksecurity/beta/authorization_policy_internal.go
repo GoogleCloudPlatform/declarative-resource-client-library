@@ -178,7 +178,7 @@ type updateAuthorizationPolicyUpdateAuthorizationPolicyOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -487,30 +487,44 @@ func canonicalizeAuthorizationPolicyDesiredState(rawDesired, rawInitial *Authori
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &AuthorizationPolicy{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.IsZeroValue(rawDesired.Action) {
-		rawDesired.Action = rawInitial.Action
+		canonicalDesired.Action = rawInitial.Action
+	} else {
+		canonicalDesired.Action = rawDesired.Action
 	}
 	if dcl.IsZeroValue(rawDesired.Rules) {
-		rawDesired.Rules = rawInitial.Rules
+		canonicalDesired.Rules = rawInitial.Rules
+	} else {
+		canonicalDesired.Rules = rawDesired.Rules
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeAuthorizationPolicyNewState(c *Client, rawNew, rawDesired *AuthorizationPolicy) (*AuthorizationPolicy, error) {
@@ -576,14 +590,20 @@ func canonicalizeAuthorizationPolicyRules(des, initial *AuthorizationPolicyRules
 		return des
 	}
 
+	cDes := &AuthorizationPolicyRules{}
+
 	if dcl.IsZeroValue(des.Sources) {
 		des.Sources = initial.Sources
+	} else {
+		cDes.Sources = des.Sources
 	}
 	if dcl.IsZeroValue(des.Destinations) {
 		des.Destinations = initial.Destinations
+	} else {
+		cDes.Destinations = des.Destinations
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAuthorizationPolicyRules(c *Client, des, nw *AuthorizationPolicyRules) *AuthorizationPolicyRules {
@@ -652,14 +672,20 @@ func canonicalizeAuthorizationPolicyRulesSources(des, initial *AuthorizationPoli
 		return des
 	}
 
+	cDes := &AuthorizationPolicyRulesSources{}
+
 	if dcl.IsZeroValue(des.Principals) {
 		des.Principals = initial.Principals
+	} else {
+		cDes.Principals = des.Principals
 	}
 	if dcl.IsZeroValue(des.IPBlocks) {
 		des.IPBlocks = initial.IPBlocks
+	} else {
+		cDes.IPBlocks = des.IPBlocks
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAuthorizationPolicyRulesSources(c *Client, des, nw *AuthorizationPolicyRulesSources) *AuthorizationPolicyRulesSources {
@@ -732,18 +758,26 @@ func canonicalizeAuthorizationPolicyRulesDestinations(des, initial *Authorizatio
 		return des
 	}
 
+	cDes := &AuthorizationPolicyRulesDestinations{}
+
 	if dcl.IsZeroValue(des.Hosts) {
 		des.Hosts = initial.Hosts
+	} else {
+		cDes.Hosts = des.Hosts
 	}
 	if dcl.IsZeroValue(des.Ports) {
 		des.Ports = initial.Ports
+	} else {
+		cDes.Ports = des.Ports
 	}
 	if dcl.IsZeroValue(des.Methods) {
 		des.Methods = initial.Methods
+	} else {
+		cDes.Methods = des.Methods
 	}
-	des.HttpHeaderMatch = canonicalizeAuthorizationPolicyRulesDestinationsHttpHeaderMatch(des.HttpHeaderMatch, initial.HttpHeaderMatch, opts...)
+	cDes.HttpHeaderMatch = canonicalizeAuthorizationPolicyRulesDestinationsHttpHeaderMatch(des.HttpHeaderMatch, initial.HttpHeaderMatch, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAuthorizationPolicyRulesDestinations(c *Client, des, nw *AuthorizationPolicyRulesDestinations) *AuthorizationPolicyRulesDestinations {
@@ -820,14 +854,20 @@ func canonicalizeAuthorizationPolicyRulesDestinationsHttpHeaderMatch(des, initia
 		return des
 	}
 
+	cDes := &AuthorizationPolicyRulesDestinationsHttpHeaderMatch{}
+
 	if dcl.StringCanonicalize(des.HeaderName, initial.HeaderName) || dcl.IsZeroValue(des.HeaderName) {
-		des.HeaderName = initial.HeaderName
+		cDes.HeaderName = initial.HeaderName
+	} else {
+		cDes.HeaderName = des.HeaderName
 	}
 	if dcl.StringCanonicalize(des.RegexMatch, initial.RegexMatch) || dcl.IsZeroValue(des.RegexMatch) {
-		des.RegexMatch = initial.RegexMatch
+		cDes.RegexMatch = initial.RegexMatch
+	} else {
+		cDes.RegexMatch = des.RegexMatch
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c *Client, des, nw *AuthorizationPolicyRulesDestinationsHttpHeaderMatch) *AuthorizationPolicyRulesDestinationsHttpHeaderMatch {
@@ -1813,31 +1853,45 @@ type authorizationPolicyDiff struct {
 	UpdateOp         authorizationPolicyApiOperation
 }
 
-func convertFieldDiffToAuthorizationPolicyOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]authorizationPolicyDiff, error) {
+func convertFieldDiffsToAuthorizationPolicyDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]authorizationPolicyDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []authorizationPolicyDiff
-	for _, op := range ops {
+	// For each operation name, create a authorizationPolicyDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := authorizationPolicyDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToauthorizationPolicyApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToAuthorizationPolicyApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToauthorizationPolicyApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (authorizationPolicyApiOperation, error) {
-	switch op {
+func convertOpNameToAuthorizationPolicyApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (authorizationPolicyApiOperation, error) {
+	switch opName {
 
 	case "updateAuthorizationPolicyUpdateAuthorizationPolicyOperation":
-		return &updateAuthorizationPolicyUpdateAuthorizationPolicyOperation{Diffs: diffs}, nil
+		return &updateAuthorizationPolicyUpdateAuthorizationPolicyOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

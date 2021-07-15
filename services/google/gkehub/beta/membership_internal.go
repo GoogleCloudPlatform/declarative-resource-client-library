@@ -188,7 +188,7 @@ type updateMembershipUpdateMembershipOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -205,7 +205,7 @@ func (op *updateMembershipUpdateMembershipOperation) do(ctx context.Context, r *
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -505,32 +505,46 @@ func canonicalizeMembershipDesiredState(rawDesired, rawInitial *Membership, opts
 
 		return rawDesired, nil
 	}
-
-	rawDesired.Endpoint = canonicalizeMembershipEndpoint(rawDesired.Endpoint, rawInitial.Endpoint, opts...)
+	canonicalDesired := &Membership{}
+	canonicalDesired.Endpoint = canonicalizeMembershipEndpoint(rawDesired.Endpoint, rawInitial.Endpoint, opts...)
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.StringCanonicalize(rawDesired.ExternalId, rawInitial.ExternalId) {
-		rawDesired.ExternalId = rawInitial.ExternalId
+		canonicalDesired.ExternalId = rawInitial.ExternalId
+	} else {
+		canonicalDesired.ExternalId = rawDesired.ExternalId
 	}
-	rawDesired.Authority = canonicalizeMembershipAuthority(rawDesired.Authority, rawInitial.Authority, opts...)
+	canonicalDesired.Authority = canonicalizeMembershipAuthority(rawDesired.Authority, rawInitial.Authority, opts...)
 	if dcl.IsZeroValue(rawDesired.InfrastructureType) {
-		rawDesired.InfrastructureType = rawInitial.InfrastructureType
+		canonicalDesired.InfrastructureType = rawInitial.InfrastructureType
+	} else {
+		canonicalDesired.InfrastructureType = rawDesired.InfrastructureType
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeMembershipNewState(c *Client, rawNew, rawDesired *Membership) (*Membership, error) {
@@ -634,10 +648,12 @@ func canonicalizeMembershipEndpoint(des, initial *MembershipEndpoint, opts ...dc
 		return des
 	}
 
-	des.GkeCluster = canonicalizeMembershipEndpointGkeCluster(des.GkeCluster, initial.GkeCluster, opts...)
-	des.KubernetesResource = canonicalizeMembershipEndpointKubernetesResource(des.KubernetesResource, initial.KubernetesResource, opts...)
+	cDes := &MembershipEndpoint{}
 
-	return des
+	cDes.GkeCluster = canonicalizeMembershipEndpointGkeCluster(des.GkeCluster, initial.GkeCluster, opts...)
+	cDes.KubernetesResource = canonicalizeMembershipEndpointKubernetesResource(des.KubernetesResource, initial.KubernetesResource, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewMembershipEndpoint(c *Client, des, nw *MembershipEndpoint) *MembershipEndpoint {
@@ -707,11 +723,15 @@ func canonicalizeMembershipEndpointGkeCluster(des, initial *MembershipEndpointGk
 		return des
 	}
 
+	cDes := &MembershipEndpointGkeCluster{}
+
 	if dcl.NameToSelfLink(des.ResourceLink, initial.ResourceLink) || dcl.IsZeroValue(des.ResourceLink) {
-		des.ResourceLink = initial.ResourceLink
+		cDes.ResourceLink = initial.ResourceLink
+	} else {
+		cDes.ResourceLink = des.ResourceLink
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewMembershipEndpointGkeCluster(c *Client, des, nw *MembershipEndpointGkeCluster) *MembershipEndpointGkeCluster {
@@ -781,7 +801,9 @@ func canonicalizeMembershipEndpointKubernetesMetadata(des, initial *MembershipEn
 		return des
 	}
 
-	return des
+	cDes := &MembershipEndpointKubernetesMetadata{}
+
+	return cDes
 }
 
 func canonicalizeNewMembershipEndpointKubernetesMetadata(c *Client, des, nw *MembershipEndpointKubernetesMetadata) *MembershipEndpointKubernetesMetadata {
@@ -866,12 +888,16 @@ func canonicalizeMembershipEndpointKubernetesResource(des, initial *MembershipEn
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.MembershipCrManifest, initial.MembershipCrManifest) || dcl.IsZeroValue(des.MembershipCrManifest) {
-		des.MembershipCrManifest = initial.MembershipCrManifest
-	}
-	des.ResourceOptions = canonicalizeMembershipEndpointKubernetesResourceResourceOptions(des.ResourceOptions, initial.ResourceOptions, opts...)
+	cDes := &MembershipEndpointKubernetesResource{}
 
-	return des
+	if dcl.StringCanonicalize(des.MembershipCrManifest, initial.MembershipCrManifest) || dcl.IsZeroValue(des.MembershipCrManifest) {
+		cDes.MembershipCrManifest = initial.MembershipCrManifest
+	} else {
+		cDes.MembershipCrManifest = des.MembershipCrManifest
+	}
+	cDes.ResourceOptions = canonicalizeMembershipEndpointKubernetesResourceResourceOptions(des.ResourceOptions, initial.ResourceOptions, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewMembershipEndpointKubernetesResource(c *Client, des, nw *MembershipEndpointKubernetesResource) *MembershipEndpointKubernetesResource {
@@ -942,14 +968,20 @@ func canonicalizeMembershipEndpointKubernetesResourceMembershipResources(des, in
 		return des
 	}
 
+	cDes := &MembershipEndpointKubernetesResourceMembershipResources{}
+
 	if dcl.StringCanonicalize(des.Manifest, initial.Manifest) || dcl.IsZeroValue(des.Manifest) {
-		des.Manifest = initial.Manifest
+		cDes.Manifest = initial.Manifest
+	} else {
+		cDes.Manifest = des.Manifest
 	}
 	if dcl.BoolCanonicalize(des.ClusterScoped, initial.ClusterScoped) || dcl.IsZeroValue(des.ClusterScoped) {
-		des.ClusterScoped = initial.ClusterScoped
+		cDes.ClusterScoped = initial.ClusterScoped
+	} else {
+		cDes.ClusterScoped = des.ClusterScoped
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewMembershipEndpointKubernetesResourceMembershipResources(c *Client, des, nw *MembershipEndpointKubernetesResourceMembershipResources) *MembershipEndpointKubernetesResourceMembershipResources {
@@ -1022,14 +1054,20 @@ func canonicalizeMembershipEndpointKubernetesResourceConnectResources(des, initi
 		return des
 	}
 
+	cDes := &MembershipEndpointKubernetesResourceConnectResources{}
+
 	if dcl.StringCanonicalize(des.Manifest, initial.Manifest) || dcl.IsZeroValue(des.Manifest) {
-		des.Manifest = initial.Manifest
+		cDes.Manifest = initial.Manifest
+	} else {
+		cDes.Manifest = des.Manifest
 	}
 	if dcl.BoolCanonicalize(des.ClusterScoped, initial.ClusterScoped) || dcl.IsZeroValue(des.ClusterScoped) {
-		des.ClusterScoped = initial.ClusterScoped
+		cDes.ClusterScoped = initial.ClusterScoped
+	} else {
+		cDes.ClusterScoped = des.ClusterScoped
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewMembershipEndpointKubernetesResourceConnectResources(c *Client, des, nw *MembershipEndpointKubernetesResourceConnectResources) *MembershipEndpointKubernetesResourceConnectResources {
@@ -1102,14 +1140,20 @@ func canonicalizeMembershipEndpointKubernetesResourceResourceOptions(des, initia
 		return des
 	}
 
+	cDes := &MembershipEndpointKubernetesResourceResourceOptions{}
+
 	if dcl.StringCanonicalize(des.ConnectVersion, initial.ConnectVersion) || dcl.IsZeroValue(des.ConnectVersion) {
-		des.ConnectVersion = initial.ConnectVersion
+		cDes.ConnectVersion = initial.ConnectVersion
+	} else {
+		cDes.ConnectVersion = des.ConnectVersion
 	}
 	if dcl.BoolCanonicalize(des.V1Beta1Crd, initial.V1Beta1Crd) || dcl.IsZeroValue(des.V1Beta1Crd) {
-		des.V1Beta1Crd = initial.V1Beta1Crd
+		cDes.V1Beta1Crd = initial.V1Beta1Crd
+	} else {
+		cDes.V1Beta1Crd = des.V1Beta1Crd
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewMembershipEndpointKubernetesResourceResourceOptions(c *Client, des, nw *MembershipEndpointKubernetesResourceResourceOptions) *MembershipEndpointKubernetesResourceResourceOptions {
@@ -1182,7 +1226,9 @@ func canonicalizeMembershipState(des, initial *MembershipState, opts ...dcl.Appl
 		return des
 	}
 
-	return des
+	cDes := &MembershipState{}
+
+	return cDes
 }
 
 func canonicalizeNewMembershipState(c *Client, des, nw *MembershipState) *MembershipState {
@@ -1252,11 +1298,15 @@ func canonicalizeMembershipAuthority(des, initial *MembershipAuthority, opts ...
 		return des
 	}
 
+	cDes := &MembershipAuthority{}
+
 	if dcl.StringCanonicalize(des.Issuer, initial.Issuer) || dcl.IsZeroValue(des.Issuer) {
-		des.Issuer = initial.Issuer
+		cDes.Issuer = initial.Issuer
+	} else {
+		cDes.Issuer = des.Issuer
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewMembershipAuthority(c *Client, des, nw *MembershipAuthority) *MembershipAuthority {
@@ -3168,31 +3218,45 @@ type membershipDiff struct {
 	UpdateOp         membershipApiOperation
 }
 
-func convertFieldDiffToMembershipOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]membershipDiff, error) {
+func convertFieldDiffsToMembershipDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]membershipDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []membershipDiff
-	for _, op := range ops {
+	// For each operation name, create a membershipDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := membershipDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTomembershipApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToMembershipApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTomembershipApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (membershipApiOperation, error) {
-	switch op {
+func convertOpNameToMembershipApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (membershipApiOperation, error) {
+	switch opName {
 
 	case "updateMembershipUpdateMembershipOperation":
-		return &updateMembershipUpdateMembershipOperation{Diffs: diffs}, nil
+		return &updateMembershipUpdateMembershipOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

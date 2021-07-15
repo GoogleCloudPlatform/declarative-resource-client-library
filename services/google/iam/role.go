@@ -307,8 +307,7 @@ func applyRoleHelper(c *Client, ctx context.Context, rawDesired *Role, opts ...d
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToRoleOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToRoleDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -336,7 +335,6 @@ func applyRoleHelper(c *Client, ctx context.Context, rawDesired *Role, opts ...d
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

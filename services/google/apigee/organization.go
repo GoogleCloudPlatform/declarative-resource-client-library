@@ -392,8 +392,7 @@ func applyOrganizationHelper(c *Client, ctx context.Context, rawDesired *Organiz
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToOrganizationOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToOrganizationDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -421,7 +420,6 @@ func applyOrganizationHelper(c *Client, ctx context.Context, rawDesired *Organiz
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

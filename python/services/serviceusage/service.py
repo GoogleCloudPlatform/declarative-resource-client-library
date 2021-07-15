@@ -30,6 +30,7 @@ class Service(object):
         channel.initialize()
         self.name = name
         self.state = state
+        self.project = project
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -40,6 +41,9 @@ class Service(object):
 
         if ServiceStateEnum.to_proto(self.state):
             request.resource.state = ServiceStateEnum.to_proto(self.state)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         request.service_account_file = self.service_account_file
 
@@ -58,6 +62,9 @@ class Service(object):
         if ServiceStateEnum.to_proto(self.state):
             request.resource.state = ServiceStateEnum.to_proto(self.state)
 
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
         response = stub.DeleteServiceusageService(request)
 
     @classmethod
@@ -75,6 +82,8 @@ class Service(object):
             resource.name = Primitive.to_proto(self.name)
         if ServiceStateEnum.to_proto(self.state):
             resource.state = ServiceStateEnum.to_proto(self.state)
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
         return resource
 
 

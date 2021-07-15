@@ -253,8 +253,7 @@ func applyLogBucketHelper(c *Client, ctx context.Context, rawDesired *LogBucket,
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToLogBucketOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToLogBucketDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -282,7 +281,6 @@ func applyLogBucketHelper(c *Client, ctx context.Context, rawDesired *LogBucket,
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

@@ -160,7 +160,7 @@ type updateInstanceUpdateInstanceOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -177,7 +177,7 @@ func (op *updateInstanceUpdateInstanceOperation) do(ctx context.Context, r *Inst
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -476,58 +476,90 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Instance{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
-		rawDesired.DisplayName = rawInitial.DisplayName
+		canonicalDesired.DisplayName = rawInitial.DisplayName
+	} else {
+		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.StringCanonicalize(rawDesired.LocationId, rawInitial.LocationId) {
-		rawDesired.LocationId = rawInitial.LocationId
+		canonicalDesired.LocationId = rawInitial.LocationId
+	} else {
+		canonicalDesired.LocationId = rawDesired.LocationId
 	}
 	if dcl.StringCanonicalize(rawDesired.AlternativeLocationId, rawInitial.AlternativeLocationId) {
-		rawDesired.AlternativeLocationId = rawInitial.AlternativeLocationId
+		canonicalDesired.AlternativeLocationId = rawInitial.AlternativeLocationId
+	} else {
+		canonicalDesired.AlternativeLocationId = rawDesired.AlternativeLocationId
 	}
 	if dcl.StringCanonicalize(rawDesired.RedisVersion, rawInitial.RedisVersion) {
-		rawDesired.RedisVersion = rawInitial.RedisVersion
+		canonicalDesired.RedisVersion = rawInitial.RedisVersion
+	} else {
+		canonicalDesired.RedisVersion = rawDesired.RedisVersion
 	}
 	if dcl.StringCanonicalize(rawDesired.ReservedIPRange, rawInitial.ReservedIPRange) {
-		rawDesired.ReservedIPRange = rawInitial.ReservedIPRange
+		canonicalDesired.ReservedIPRange = rawInitial.ReservedIPRange
+	} else {
+		canonicalDesired.ReservedIPRange = rawDesired.ReservedIPRange
 	}
 	if dcl.IsZeroValue(rawDesired.RedisConfigs) {
-		rawDesired.RedisConfigs = rawInitial.RedisConfigs
+		canonicalDesired.RedisConfigs = rawInitial.RedisConfigs
+	} else {
+		canonicalDesired.RedisConfigs = rawDesired.RedisConfigs
 	}
 	if dcl.IsZeroValue(rawDesired.Tier) {
-		rawDesired.Tier = rawInitial.Tier
+		canonicalDesired.Tier = rawInitial.Tier
+	} else {
+		canonicalDesired.Tier = rawDesired.Tier
 	}
 	if dcl.IsZeroValue(rawDesired.MemorySizeGb) {
-		rawDesired.MemorySizeGb = rawInitial.MemorySizeGb
+		canonicalDesired.MemorySizeGb = rawInitial.MemorySizeGb
+	} else {
+		canonicalDesired.MemorySizeGb = rawDesired.MemorySizeGb
 	}
 	if dcl.StringCanonicalize(rawDesired.AuthorizedNetwork, rawInitial.AuthorizedNetwork) {
-		rawDesired.AuthorizedNetwork = rawInitial.AuthorizedNetwork
+		canonicalDesired.AuthorizedNetwork = rawInitial.AuthorizedNetwork
+	} else {
+		canonicalDesired.AuthorizedNetwork = rawDesired.AuthorizedNetwork
 	}
 	if dcl.IsZeroValue(rawDesired.ConnectMode) {
-		rawDesired.ConnectMode = rawInitial.ConnectMode
+		canonicalDesired.ConnectMode = rawInitial.ConnectMode
+	} else {
+		canonicalDesired.ConnectMode = rawDesired.ConnectMode
 	}
 	if dcl.BoolCanonicalize(rawDesired.AuthEnabled, rawInitial.AuthEnabled) {
-		rawDesired.AuthEnabled = rawInitial.AuthEnabled
+		canonicalDesired.AuthEnabled = rawInitial.AuthEnabled
+	} else {
+		canonicalDesired.AuthEnabled = rawDesired.AuthEnabled
 	}
 	if dcl.IsZeroValue(rawDesired.TransitEncryptionMode) {
-		rawDesired.TransitEncryptionMode = rawInitial.TransitEncryptionMode
+		canonicalDesired.TransitEncryptionMode = rawInitial.TransitEncryptionMode
+	} else {
+		canonicalDesired.TransitEncryptionMode = rawDesired.TransitEncryptionMode
 	}
-	rawDesired.MaintenancePolicy = canonicalizeInstanceMaintenancePolicy(rawDesired.MaintenancePolicy, rawInitial.MaintenancePolicy, opts...)
+	canonicalDesired.MaintenancePolicy = canonicalizeInstanceMaintenancePolicy(rawDesired.MaintenancePolicy, rawInitial.MaintenancePolicy, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Instance, error) {
@@ -710,17 +742,25 @@ func canonicalizeInstanceServerCaCerts(des, initial *InstanceServerCaCerts, opts
 		return des
 	}
 
+	cDes := &InstanceServerCaCerts{}
+
 	if dcl.StringCanonicalize(des.SerialNumber, initial.SerialNumber) || dcl.IsZeroValue(des.SerialNumber) {
-		des.SerialNumber = initial.SerialNumber
+		cDes.SerialNumber = initial.SerialNumber
+	} else {
+		cDes.SerialNumber = des.SerialNumber
 	}
 	if dcl.StringCanonicalize(des.Cert, initial.Cert) || dcl.IsZeroValue(des.Cert) {
-		des.Cert = initial.Cert
+		cDes.Cert = initial.Cert
+	} else {
+		cDes.Cert = des.Cert
 	}
 	if dcl.StringCanonicalize(des.Sha1Fingerprint, initial.Sha1Fingerprint) || dcl.IsZeroValue(des.Sha1Fingerprint) {
-		des.Sha1Fingerprint = initial.Sha1Fingerprint
+		cDes.Sha1Fingerprint = initial.Sha1Fingerprint
+	} else {
+		cDes.Sha1Fingerprint = des.Sha1Fingerprint
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceServerCaCerts(c *Client, des, nw *InstanceServerCaCerts) *InstanceServerCaCerts {
@@ -802,14 +842,20 @@ func canonicalizeInstanceMaintenancePolicy(des, initial *InstanceMaintenancePoli
 		return des
 	}
 
+	cDes := &InstanceMaintenancePolicy{}
+
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.WeeklyMaintenanceWindow) {
 		des.WeeklyMaintenanceWindow = initial.WeeklyMaintenanceWindow
+	} else {
+		cDes.WeeklyMaintenanceWindow = des.WeeklyMaintenanceWindow
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceMaintenancePolicy(c *Client, des, nw *InstanceMaintenancePolicy) *InstanceMaintenancePolicy {
@@ -886,12 +932,16 @@ func canonicalizeInstanceMaintenancePolicyWeeklyMaintenanceWindow(des, initial *
 		return des
 	}
 
+	cDes := &InstanceMaintenancePolicyWeeklyMaintenanceWindow{}
+
 	if dcl.IsZeroValue(des.Day) {
 		des.Day = initial.Day
+	} else {
+		cDes.Day = des.Day
 	}
-	des.StartTime = canonicalizeInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(des.StartTime, initial.StartTime, opts...)
+	cDes.StartTime = canonicalizeInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(des.StartTime, initial.StartTime, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindow(c *Client, des, nw *InstanceMaintenancePolicyWeeklyMaintenanceWindow) *InstanceMaintenancePolicyWeeklyMaintenanceWindow {
@@ -965,20 +1015,30 @@ func canonicalizeInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(des, 
 		return des
 	}
 
+	cDes := &InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime{}
+
 	if dcl.IsZeroValue(des.Hours) {
 		des.Hours = initial.Hours
+	} else {
+		cDes.Hours = des.Hours
 	}
 	if dcl.IsZeroValue(des.Minutes) {
 		des.Minutes = initial.Minutes
+	} else {
+		cDes.Minutes = des.Minutes
 	}
 	if dcl.IsZeroValue(des.Seconds) {
 		des.Seconds = initial.Seconds
+	} else {
+		cDes.Seconds = des.Seconds
 	}
 	if dcl.IsZeroValue(des.Nanos) {
 		des.Nanos = initial.Nanos
+	} else {
+		cDes.Nanos = des.Nanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c *Client, des, nw *InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime) *InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime {
@@ -1057,11 +1117,15 @@ func canonicalizeInstanceMaintenanceSchedule(des, initial *InstanceMaintenanceSc
 		return des
 	}
 
+	cDes := &InstanceMaintenanceSchedule{}
+
 	if dcl.BoolCanonicalize(des.CanReschedule, initial.CanReschedule) || dcl.IsZeroValue(des.CanReschedule) {
-		des.CanReschedule = initial.CanReschedule
+		cDes.CanReschedule = initial.CanReschedule
+	} else {
+		cDes.CanReschedule = des.CanReschedule
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceMaintenanceSchedule(c *Client, des, nw *InstanceMaintenanceSchedule) *InstanceMaintenanceSchedule {
@@ -2606,31 +2670,45 @@ type instanceDiff struct {
 	UpdateOp         instanceApiOperation
 }
 
-func convertFieldDiffToInstanceOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]instanceDiff, error) {
+func convertFieldDiffsToInstanceDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]instanceDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []instanceDiff
-	for _, op := range ops {
+	// For each operation name, create a instanceDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := instanceDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToinstanceApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToInstanceApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToinstanceApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (instanceApiOperation, error) {
-	switch op {
+func convertOpNameToInstanceApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (instanceApiOperation, error) {
+	switch opName {
 
 	case "updateInstanceUpdateInstanceOperation":
-		return &updateInstanceUpdateInstanceOperation{Diffs: diffs}, nil
+		return &updateInstanceUpdateInstanceOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

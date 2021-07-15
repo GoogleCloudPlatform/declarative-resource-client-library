@@ -259,21 +259,29 @@ func canonicalizeBrandDesiredState(rawDesired, rawInitial *Brand, opts ...dcl.Ap
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Brand{}
 	if dcl.StringCanonicalize(rawDesired.ApplicationTitle, rawInitial.ApplicationTitle) {
-		rawDesired.ApplicationTitle = rawInitial.ApplicationTitle
+		canonicalDesired.ApplicationTitle = rawInitial.ApplicationTitle
+	} else {
+		canonicalDesired.ApplicationTitle = rawDesired.ApplicationTitle
 	}
 	if dcl.IsZeroValue(rawDesired.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.SupportEmail, rawInitial.SupportEmail) {
-		rawDesired.SupportEmail = rawInitial.SupportEmail
+		canonicalDesired.SupportEmail = rawInitial.SupportEmail
+	} else {
+		canonicalDesired.SupportEmail = rawDesired.SupportEmail
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeBrandNewState(c *Client, rawNew, rawDesired *Brand) (*Brand, error) {
@@ -492,28 +500,42 @@ type brandDiff struct {
 	UpdateOp         brandApiOperation
 }
 
-func convertFieldDiffToBrandOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]brandDiff, error) {
+func convertFieldDiffsToBrandDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]brandDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []brandDiff
-	for _, op := range ops {
+	// For each operation name, create a brandDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := brandDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTobrandApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToBrandApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTobrandApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (brandApiOperation, error) {
-	switch op {
+func convertOpNameToBrandApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (brandApiOperation, error) {
+	switch opName {
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

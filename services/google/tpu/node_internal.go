@@ -149,7 +149,7 @@ type updateNodeReimageNodeOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -460,40 +460,60 @@ func canonicalizeNodeDesiredState(rawDesired, rawInitial *Node, opts ...dcl.Appl
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Node{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.StringCanonicalize(rawDesired.AcceleratorType, rawInitial.AcceleratorType) {
-		rawDesired.AcceleratorType = rawInitial.AcceleratorType
+		canonicalDesired.AcceleratorType = rawInitial.AcceleratorType
+	} else {
+		canonicalDesired.AcceleratorType = rawDesired.AcceleratorType
 	}
 	if dcl.StringCanonicalize(rawDesired.TensorflowVersion, rawInitial.TensorflowVersion) {
-		rawDesired.TensorflowVersion = rawInitial.TensorflowVersion
+		canonicalDesired.TensorflowVersion = rawInitial.TensorflowVersion
+	} else {
+		canonicalDesired.TensorflowVersion = rawDesired.TensorflowVersion
 	}
 	if dcl.NameToSelfLink(rawDesired.Network, rawInitial.Network) {
-		rawDesired.Network = rawInitial.Network
+		canonicalDesired.Network = rawInitial.Network
+	} else {
+		canonicalDesired.Network = rawDesired.Network
 	}
 	if dcl.StringCanonicalize(rawDesired.CidrBlock, rawInitial.CidrBlock) {
-		rawDesired.CidrBlock = rawInitial.CidrBlock
+		canonicalDesired.CidrBlock = rawInitial.CidrBlock
+	} else {
+		canonicalDesired.CidrBlock = rawDesired.CidrBlock
 	}
-	rawDesired.SchedulingConfig = canonicalizeNodeSchedulingConfig(rawDesired.SchedulingConfig, rawInitial.SchedulingConfig, opts...)
+	canonicalDesired.SchedulingConfig = canonicalizeNodeSchedulingConfig(rawDesired.SchedulingConfig, rawInitial.SchedulingConfig, opts...)
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.BoolCanonicalize(rawDesired.UseServiceNetworking, rawInitial.UseServiceNetworking) {
-		rawDesired.UseServiceNetworking = rawInitial.UseServiceNetworking
+		canonicalDesired.UseServiceNetworking = rawInitial.UseServiceNetworking
+	} else {
+		canonicalDesired.UseServiceNetworking = rawDesired.UseServiceNetworking
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeNodeNewState(c *Client, rawNew, rawDesired *Node) (*Node, error) {
@@ -644,14 +664,20 @@ func canonicalizeNodeCreateTime(des, initial *NodeCreateTime, opts ...dcl.ApplyO
 		return des
 	}
 
+	cDes := &NodeCreateTime{}
+
 	if dcl.IsZeroValue(des.Seconds) {
 		des.Seconds = initial.Seconds
+	} else {
+		cDes.Seconds = des.Seconds
 	}
 	if dcl.IsZeroValue(des.Nanos) {
 		des.Nanos = initial.Nanos
+	} else {
+		cDes.Nanos = des.Nanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNodeCreateTime(c *Client, des, nw *NodeCreateTime) *NodeCreateTime {
@@ -724,14 +750,20 @@ func canonicalizeNodeSchedulingConfig(des, initial *NodeSchedulingConfig, opts .
 		return des
 	}
 
+	cDes := &NodeSchedulingConfig{}
+
 	if dcl.BoolCanonicalize(des.Preemptible, initial.Preemptible) || dcl.IsZeroValue(des.Preemptible) {
-		des.Preemptible = initial.Preemptible
+		cDes.Preemptible = initial.Preemptible
+	} else {
+		cDes.Preemptible = des.Preemptible
 	}
 	if dcl.BoolCanonicalize(des.Reserved, initial.Reserved) || dcl.IsZeroValue(des.Reserved) {
-		des.Reserved = initial.Reserved
+		cDes.Reserved = initial.Reserved
+	} else {
+		cDes.Reserved = des.Reserved
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNodeSchedulingConfig(c *Client, des, nw *NodeSchedulingConfig) *NodeSchedulingConfig {
@@ -804,7 +836,9 @@ func canonicalizeNodeNetworkEndpoints(des, initial *NodeNetworkEndpoints, opts .
 		return des
 	}
 
-	return des
+	cDes := &NodeNetworkEndpoints{}
+
+	return cDes
 }
 
 func canonicalizeNewNodeNetworkEndpoints(c *Client, des, nw *NodeNetworkEndpoints) *NodeNetworkEndpoints {
@@ -877,18 +911,26 @@ func canonicalizeNodeSymptoms(des, initial *NodeSymptoms, opts ...dcl.ApplyOptio
 		return des
 	}
 
-	des.CreateTime = canonicalizeNodeSymptomsCreateTime(des.CreateTime, initial.CreateTime, opts...)
+	cDes := &NodeSymptoms{}
+
+	cDes.CreateTime = canonicalizeNodeSymptomsCreateTime(des.CreateTime, initial.CreateTime, opts...)
 	if dcl.IsZeroValue(des.SymptomType) {
 		des.SymptomType = initial.SymptomType
+	} else {
+		cDes.SymptomType = des.SymptomType
 	}
 	if dcl.StringCanonicalize(des.Details, initial.Details) || dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
+		cDes.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 	if dcl.StringCanonicalize(des.WorkerId, initial.WorkerId) || dcl.IsZeroValue(des.WorkerId) {
-		des.WorkerId = initial.WorkerId
+		cDes.WorkerId = initial.WorkerId
+	} else {
+		cDes.WorkerId = des.WorkerId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNodeSymptoms(c *Client, des, nw *NodeSymptoms) *NodeSymptoms {
@@ -965,14 +1007,20 @@ func canonicalizeNodeSymptomsCreateTime(des, initial *NodeSymptomsCreateTime, op
 		return des
 	}
 
+	cDes := &NodeSymptomsCreateTime{}
+
 	if dcl.IsZeroValue(des.Seconds) {
 		des.Seconds = initial.Seconds
+	} else {
+		cDes.Seconds = des.Seconds
 	}
 	if dcl.IsZeroValue(des.Nanos) {
 		des.Nanos = initial.Nanos
+	} else {
+		cDes.Nanos = des.Nanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNodeSymptomsCreateTime(c *Client, des, nw *NodeSymptomsCreateTime) *NodeSymptomsCreateTime {
@@ -2295,31 +2343,45 @@ type nodeDiff struct {
 	UpdateOp         nodeApiOperation
 }
 
-func convertFieldDiffToNodeOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]nodeDiff, error) {
+func convertFieldDiffsToNodeDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]nodeDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []nodeDiff
-	for _, op := range ops {
+	// For each operation name, create a nodeDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := nodeDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTonodeApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToNodeApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTonodeApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (nodeApiOperation, error) {
-	switch op {
+func convertOpNameToNodeApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (nodeApiOperation, error) {
+	switch opName {
 
 	case "updateNodeReimageNodeOperation":
-		return &updateNodeReimageNodeOperation{Diffs: diffs}, nil
+		return &updateNodeReimageNodeOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

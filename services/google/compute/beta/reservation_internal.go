@@ -368,31 +368,45 @@ func canonicalizeReservationDesiredState(rawDesired, rawInitial *Reservation, op
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Reservation{}
 	if dcl.IsZeroValue(rawDesired.Id) {
-		rawDesired.Id = rawInitial.Id
+		canonicalDesired.Id = rawInitial.Id
+	} else {
+		canonicalDesired.Id = rawDesired.Id
 	}
 	if dcl.StringCanonicalize(rawDesired.Zone, rawInitial.Zone) {
-		rawDesired.Zone = rawInitial.Zone
+		canonicalDesired.Zone = rawInitial.Zone
+	} else {
+		canonicalDesired.Zone = rawDesired.Zone
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
-	rawDesired.SpecificReservation = canonicalizeReservationSpecificReservation(rawDesired.SpecificReservation, rawInitial.SpecificReservation, opts...)
+	canonicalDesired.SpecificReservation = canonicalizeReservationSpecificReservation(rawDesired.SpecificReservation, rawInitial.SpecificReservation, opts...)
 	if dcl.StringCanonicalize(rawDesired.Commitment, rawInitial.Commitment) {
-		rawDesired.Commitment = rawInitial.Commitment
+		canonicalDesired.Commitment = rawInitial.Commitment
+	} else {
+		canonicalDesired.Commitment = rawDesired.Commitment
 	}
 	if dcl.BoolCanonicalize(rawDesired.SpecificReservationRequired, rawInitial.SpecificReservationRequired) {
-		rawDesired.SpecificReservationRequired = rawInitial.SpecificReservationRequired
+		canonicalDesired.SpecificReservationRequired = rawInitial.SpecificReservationRequired
+	} else {
+		canonicalDesired.SpecificReservationRequired = rawDesired.SpecificReservationRequired
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeReservationNewState(c *Client, rawNew, rawDesired *Reservation) (*Reservation, error) {
@@ -478,15 +492,21 @@ func canonicalizeReservationSpecificReservation(des, initial *ReservationSpecifi
 		return des
 	}
 
-	des.InstanceProperties = canonicalizeReservationSpecificReservationInstanceProperties(des.InstanceProperties, initial.InstanceProperties, opts...)
+	cDes := &ReservationSpecificReservation{}
+
+	cDes.InstanceProperties = canonicalizeReservationSpecificReservationInstanceProperties(des.InstanceProperties, initial.InstanceProperties, opts...)
 	if dcl.IsZeroValue(des.Count) {
 		des.Count = initial.Count
+	} else {
+		cDes.Count = des.Count
 	}
 	if dcl.IsZeroValue(des.InUseCount) {
 		des.InUseCount = initial.InUseCount
+	} else {
+		cDes.InUseCount = des.InUseCount
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewReservationSpecificReservation(c *Client, des, nw *ReservationSpecificReservation) *ReservationSpecificReservation {
@@ -560,20 +580,30 @@ func canonicalizeReservationSpecificReservationInstanceProperties(des, initial *
 		return des
 	}
 
+	cDes := &ReservationSpecificReservationInstanceProperties{}
+
 	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
-		des.MachineType = initial.MachineType
+		cDes.MachineType = initial.MachineType
+	} else {
+		cDes.MachineType = des.MachineType
 	}
 	if dcl.IsZeroValue(des.GuestAccelerators) {
 		des.GuestAccelerators = initial.GuestAccelerators
+	} else {
+		cDes.GuestAccelerators = des.GuestAccelerators
 	}
 	if canonicalizeReservationCPUPlatform(des.MinCpuPlatform, initial.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
-		des.MinCpuPlatform = initial.MinCpuPlatform
+		cDes.MinCpuPlatform = initial.MinCpuPlatform
+	} else {
+		cDes.MinCpuPlatform = des.MinCpuPlatform
 	}
 	if dcl.IsZeroValue(des.LocalSsds) {
 		des.LocalSsds = initial.LocalSsds
+	} else {
+		cDes.LocalSsds = des.LocalSsds
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewReservationSpecificReservationInstanceProperties(c *Client, des, nw *ReservationSpecificReservationInstanceProperties) *ReservationSpecificReservationInstanceProperties {
@@ -648,14 +678,20 @@ func canonicalizeReservationSpecificReservationInstancePropertiesGuestAccelerato
 		return des
 	}
 
+	cDes := &ReservationSpecificReservationInstancePropertiesGuestAccelerators{}
+
 	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
-		des.AcceleratorType = initial.AcceleratorType
+		cDes.AcceleratorType = initial.AcceleratorType
+	} else {
+		cDes.AcceleratorType = des.AcceleratorType
 	}
 	if dcl.IsZeroValue(des.AcceleratorCount) {
 		des.AcceleratorCount = initial.AcceleratorCount
+	} else {
+		cDes.AcceleratorCount = des.AcceleratorCount
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewReservationSpecificReservationInstancePropertiesGuestAccelerators(c *Client, des, nw *ReservationSpecificReservationInstancePropertiesGuestAccelerators) *ReservationSpecificReservationInstancePropertiesGuestAccelerators {
@@ -728,14 +764,20 @@ func canonicalizeReservationSpecificReservationInstancePropertiesLocalSsds(des, 
 		return des
 	}
 
+	cDes := &ReservationSpecificReservationInstancePropertiesLocalSsds{}
+
 	if dcl.IsZeroValue(des.DiskSizeGb) {
 		des.DiskSizeGb = initial.DiskSizeGb
+	} else {
+		cDes.DiskSizeGb = des.DiskSizeGb
 	}
 	if dcl.IsZeroValue(des.Interface) {
 		des.Interface = initial.Interface
+	} else {
+		cDes.Interface = des.Interface
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewReservationSpecificReservationInstancePropertiesLocalSsds(c *Client, des, nw *ReservationSpecificReservationInstancePropertiesLocalSsds) *ReservationSpecificReservationInstancePropertiesLocalSsds {
@@ -1760,28 +1802,42 @@ type reservationDiff struct {
 	UpdateOp         reservationApiOperation
 }
 
-func convertFieldDiffToReservationOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]reservationDiff, error) {
+func convertFieldDiffsToReservationDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]reservationDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []reservationDiff
-	for _, op := range ops {
+	// For each operation name, create a reservationDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := reservationDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToreservationApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToReservationApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToreservationApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (reservationApiOperation, error) {
-	switch op {
+func convertOpNameToReservationApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (reservationApiOperation, error) {
+	switch opName {
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

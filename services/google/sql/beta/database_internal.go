@@ -106,7 +106,7 @@ type updateDatabaseUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -415,24 +415,34 @@ func canonicalizeDatabaseDesiredState(rawDesired, rawInitial *Database, opts ...
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Database{}
 	if dcl.StringCanonicalize(rawDesired.Charset, rawInitial.Charset) {
-		rawDesired.Charset = rawInitial.Charset
+		canonicalDesired.Charset = rawInitial.Charset
+	} else {
+		canonicalDesired.Charset = rawDesired.Charset
 	}
 	if dcl.StringCanonicalize(rawDesired.Collation, rawInitial.Collation) {
-		rawDesired.Collation = rawInitial.Collation
+		canonicalDesired.Collation = rawInitial.Collation
+	} else {
+		canonicalDesired.Collation = rawDesired.Collation
 	}
 	if dcl.StringCanonicalize(rawDesired.Instance, rawInitial.Instance) {
-		rawDesired.Instance = rawInitial.Instance
+		canonicalDesired.Instance = rawInitial.Instance
+	} else {
+		canonicalDesired.Instance = rawDesired.Instance
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeDatabaseNewState(c *Client, rawNew, rawDesired *Database) (*Database, error) {
@@ -698,31 +708,45 @@ type databaseDiff struct {
 	UpdateOp         databaseApiOperation
 }
 
-func convertFieldDiffToDatabaseOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]databaseDiff, error) {
+func convertFieldDiffsToDatabaseDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]databaseDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []databaseDiff
-	for _, op := range ops {
+	// For each operation name, create a databaseDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := databaseDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTodatabaseApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToDatabaseApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTodatabaseApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (databaseApiOperation, error) {
-	switch op {
+func convertOpNameToDatabaseApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (databaseApiOperation, error) {
+	switch opName {
 
 	case "updateDatabaseUpdateOperation":
-		return &updateDatabaseUpdateOperation{Diffs: diffs}, nil
+		return &updateDatabaseUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

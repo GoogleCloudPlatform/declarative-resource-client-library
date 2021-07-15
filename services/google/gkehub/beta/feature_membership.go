@@ -475,8 +475,7 @@ func applyFeatureMembershipHelper(c *Client, ctx context.Context, rawDesired *Fe
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToFeatureMembershipOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToFeatureMembershipDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -504,7 +503,6 @@ func applyFeatureMembershipHelper(c *Client, ctx context.Context, rawDesired *Fe
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

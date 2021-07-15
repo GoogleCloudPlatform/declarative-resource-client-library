@@ -304,33 +304,49 @@ func canonicalizeNetworkEndpointDesiredState(rawDesired, rawInitial *NetworkEndp
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &NetworkEndpoint{}
 	if dcl.IsZeroValue(rawDesired.Port) {
-		rawDesired.Port = rawInitial.Port
+		canonicalDesired.Port = rawInitial.Port
+	} else {
+		canonicalDesired.Port = rawDesired.Port
 	}
 	if dcl.StringCanonicalize(rawDesired.IPAddress, rawInitial.IPAddress) {
-		rawDesired.IPAddress = rawInitial.IPAddress
+		canonicalDesired.IPAddress = rawInitial.IPAddress
+	} else {
+		canonicalDesired.IPAddress = rawDesired.IPAddress
 	}
 	if dcl.StringCanonicalize(rawDesired.Fqdn, rawInitial.Fqdn) {
-		rawDesired.Fqdn = rawInitial.Fqdn
+		canonicalDesired.Fqdn = rawInitial.Fqdn
+	} else {
+		canonicalDesired.Fqdn = rawDesired.Fqdn
 	}
 	if dcl.NameToSelfLink(rawDesired.Instance, rawInitial.Instance) {
-		rawDesired.Instance = rawInitial.Instance
+		canonicalDesired.Instance = rawInitial.Instance
+	} else {
+		canonicalDesired.Instance = rawDesired.Instance
 	}
 	if dcl.IsZeroValue(rawDesired.Annotations) {
-		rawDesired.Annotations = rawInitial.Annotations
+		canonicalDesired.Annotations = rawInitial.Annotations
+	} else {
+		canonicalDesired.Annotations = rawDesired.Annotations
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 	if dcl.NameToSelfLink(rawDesired.Group, rawInitial.Group) {
-		rawDesired.Group = rawInitial.Group
+		canonicalDesired.Group = rawInitial.Group
+	} else {
+		canonicalDesired.Group = rawDesired.Group
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeNetworkEndpointNewState(c *Client, rawNew, rawDesired *NetworkEndpoint) (*NetworkEndpoint, error) {
@@ -607,28 +623,42 @@ type networkEndpointDiff struct {
 	UpdateOp         networkEndpointApiOperation
 }
 
-func convertFieldDiffToNetworkEndpointOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]networkEndpointDiff, error) {
+func convertFieldDiffsToNetworkEndpointDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]networkEndpointDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []networkEndpointDiff
-	for _, op := range ops {
+	// For each operation name, create a networkEndpointDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := networkEndpointDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTonetworkEndpointApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToNetworkEndpointApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTonetworkEndpointApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (networkEndpointApiOperation, error) {
-	switch op {
+func convertOpNameToNetworkEndpointApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (networkEndpointApiOperation, error) {
+	switch opName {
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

@@ -115,7 +115,7 @@ type updateFeatureUpdateFeatureOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -388,22 +388,30 @@ func canonicalizeFeatureDesiredState(rawDesired, rawInitial *Feature, opts ...dc
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Feature{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
-	rawDesired.Spec = canonicalizeFeatureSpec(rawDesired.Spec, rawInitial.Spec, opts...)
+	canonicalDesired.Spec = canonicalizeFeatureSpec(rawDesired.Spec, rawInitial.Spec, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeFeatureNewState(c *Client, rawNew, rawDesired *Feature) (*Feature, error) {
@@ -473,7 +481,9 @@ func canonicalizeFeatureResourceState(des, initial *FeatureResourceState, opts .
 		return des
 	}
 
-	return des
+	cDes := &FeatureResourceState{}
+
+	return cDes
 }
 
 func canonicalizeNewFeatureResourceState(c *Client, des, nw *FeatureResourceState) *FeatureResourceState {
@@ -546,9 +556,11 @@ func canonicalizeFeatureSpec(des, initial *FeatureSpec, opts ...dcl.ApplyOption)
 		return des
 	}
 
-	des.Multiclusteringress = canonicalizeFeatureSpecMulticlusteringress(des.Multiclusteringress, initial.Multiclusteringress, opts...)
+	cDes := &FeatureSpec{}
 
-	return des
+	cDes.Multiclusteringress = canonicalizeFeatureSpecMulticlusteringress(des.Multiclusteringress, initial.Multiclusteringress, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewFeatureSpec(c *Client, des, nw *FeatureSpec) *FeatureSpec {
@@ -616,11 +628,15 @@ func canonicalizeFeatureSpecMulticlusteringress(des, initial *FeatureSpecMulticl
 		return des
 	}
 
+	cDes := &FeatureSpecMulticlusteringress{}
+
 	if dcl.NameToSelfLink(des.ConfigMembership, initial.ConfigMembership) || dcl.IsZeroValue(des.ConfigMembership) {
-		des.ConfigMembership = initial.ConfigMembership
+		cDes.ConfigMembership = initial.ConfigMembership
+	} else {
+		cDes.ConfigMembership = des.ConfigMembership
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewFeatureSpecMulticlusteringress(c *Client, des, nw *FeatureSpecMulticlusteringress) *FeatureSpecMulticlusteringress {
@@ -690,7 +706,9 @@ func canonicalizeFeatureState(des, initial *FeatureState, opts ...dcl.ApplyOptio
 		return des
 	}
 
-	return des
+	cDes := &FeatureState{}
+
+	return cDes
 }
 
 func canonicalizeNewFeatureState(c *Client, des, nw *FeatureState) *FeatureState {
@@ -758,7 +776,9 @@ func canonicalizeFeatureStateState(des, initial *FeatureStateState, opts ...dcl.
 		return des
 	}
 
-	return des
+	cDes := &FeatureStateState{}
+
+	return cDes
 }
 
 func canonicalizeNewFeatureStateState(c *Client, des, nw *FeatureStateState) *FeatureStateState {
@@ -1901,31 +1921,45 @@ type featureDiff struct {
 	UpdateOp         featureApiOperation
 }
 
-func convertFieldDiffToFeatureOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]featureDiff, error) {
+func convertFieldDiffsToFeatureDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]featureDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []featureDiff
-	for _, op := range ops {
+	// For each operation name, create a featureDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := featureDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTofeatureApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToFeatureApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTofeatureApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (featureApiOperation, error) {
-	switch op {
+func convertOpNameToFeatureApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (featureApiOperation, error) {
+	switch opName {
 
 	case "updateFeatureUpdateFeatureOperation":
-		return &updateFeatureUpdateFeatureOperation{Diffs: diffs}, nil
+		return &updateFeatureUpdateFeatureOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

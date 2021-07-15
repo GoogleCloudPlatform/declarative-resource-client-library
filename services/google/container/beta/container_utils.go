@@ -132,7 +132,7 @@ func SetAddonsConfig(m map[string]interface{}) (map[string]interface{}, error) {
 func EncodeClusterLegacyAbacUpdateRequest(m map[string]interface{}) map[string]interface{} {
 	req := make(map[string]interface{})
 	// TODO(b/150883761): Check and return the error on the GetMapEntry() call.
-	i, _ := dcl.GetMapEntry(req, []string{"legacy_abac", "enabled"})
+	i, _ := dcl.GetMapEntry(m, []string{"legacyAbac", "enabled"})
 	dcl.PutMapEntry(req, []string{"enabled"}, i)
 	return req
 }

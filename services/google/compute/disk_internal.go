@@ -161,7 +161,7 @@ type updateDiskResizeOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -251,7 +251,7 @@ type updateDiskSetLabelsOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -563,81 +563,127 @@ func canonicalizeDiskDesiredState(rawDesired, rawInitial *Disk, opts ...dcl.Appl
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Disk{}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
-	rawDesired.DiskEncryptionKey = canonicalizeDiskEncryptionKey(rawDesired.DiskEncryptionKey, rawInitial.DiskEncryptionKey, opts...)
+	canonicalDesired.DiskEncryptionKey = canonicalizeDiskEncryptionKey(rawDesired.DiskEncryptionKey, rawInitial.DiskEncryptionKey, opts...)
 	if dcl.IsZeroValue(rawDesired.GuestOsFeature) {
-		rawDesired.GuestOsFeature = rawInitial.GuestOsFeature
+		canonicalDesired.GuestOsFeature = rawInitial.GuestOsFeature
+	} else {
+		canonicalDesired.GuestOsFeature = rawDesired.GuestOsFeature
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.IsZeroValue(rawDesired.License) {
-		rawDesired.License = rawInitial.License
+		canonicalDesired.License = rawInitial.License
+	} else {
+		canonicalDesired.License = rawDesired.License
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Region, rawInitial.Region) {
-		rawDesired.Region = rawInitial.Region
+		canonicalDesired.Region = rawInitial.Region
+	} else {
+		canonicalDesired.Region = rawDesired.Region
 	}
 	if dcl.IsZeroValue(rawDesired.ReplicaZones) {
-		rawDesired.ReplicaZones = rawInitial.ReplicaZones
+		canonicalDesired.ReplicaZones = rawInitial.ReplicaZones
+	} else {
+		canonicalDesired.ReplicaZones = rawDesired.ReplicaZones
 	}
 	if dcl.IsZeroValue(rawDesired.ResourcePolicy) {
-		rawDesired.ResourcePolicy = rawInitial.ResourcePolicy
+		canonicalDesired.ResourcePolicy = rawInitial.ResourcePolicy
+	} else {
+		canonicalDesired.ResourcePolicy = rawDesired.ResourcePolicy
 	}
 	if dcl.IsZeroValue(rawDesired.SizeGb) {
-		rawDesired.SizeGb = rawInitial.SizeGb
+		canonicalDesired.SizeGb = rawInitial.SizeGb
+	} else {
+		canonicalDesired.SizeGb = rawDesired.SizeGb
 	}
 	if dcl.NameToSelfLink(rawDesired.SourceImage, rawInitial.SourceImage) {
-		rawDesired.SourceImage = rawInitial.SourceImage
+		canonicalDesired.SourceImage = rawInitial.SourceImage
+	} else {
+		canonicalDesired.SourceImage = rawDesired.SourceImage
 	}
-	rawDesired.SourceImageEncryptionKey = canonicalizeDiskEncryptionKey(rawDesired.SourceImageEncryptionKey, rawInitial.SourceImageEncryptionKey, opts...)
+	canonicalDesired.SourceImageEncryptionKey = canonicalizeDiskEncryptionKey(rawDesired.SourceImageEncryptionKey, rawInitial.SourceImageEncryptionKey, opts...)
 	if dcl.StringCanonicalize(rawDesired.SourceSnapshot, rawInitial.SourceSnapshot) {
-		rawDesired.SourceSnapshot = rawInitial.SourceSnapshot
+		canonicalDesired.SourceSnapshot = rawInitial.SourceSnapshot
+	} else {
+		canonicalDesired.SourceSnapshot = rawDesired.SourceSnapshot
 	}
-	rawDesired.SourceSnapshotEncryptionKey = canonicalizeDiskEncryptionKey(rawDesired.SourceSnapshotEncryptionKey, rawInitial.SourceSnapshotEncryptionKey, opts...)
+	canonicalDesired.SourceSnapshotEncryptionKey = canonicalizeDiskEncryptionKey(rawDesired.SourceSnapshotEncryptionKey, rawInitial.SourceSnapshotEncryptionKey, opts...)
 	if dcl.NameToSelfLink(rawDesired.Type, rawInitial.Type) {
-		rawDesired.Type = rawInitial.Type
+		canonicalDesired.Type = rawInitial.Type
+	} else {
+		canonicalDesired.Type = rawDesired.Type
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.IsZeroValue(rawDesired.Id) {
-		rawDesired.Id = rawInitial.Id
+		canonicalDesired.Id = rawInitial.Id
+	} else {
+		canonicalDesired.Id = rawDesired.Id
 	}
 	if dcl.StringCanonicalize(rawDesired.Options, rawInitial.Options) {
-		rawDesired.Options = rawInitial.Options
+		canonicalDesired.Options = rawInitial.Options
+	} else {
+		canonicalDesired.Options = rawDesired.Options
 	}
 	if dcl.IsZeroValue(rawDesired.Licenses) {
-		rawDesired.Licenses = rawInitial.Licenses
+		canonicalDesired.Licenses = rawInitial.Licenses
+	} else {
+		canonicalDesired.Licenses = rawDesired.Licenses
 	}
 	if dcl.IsZeroValue(rawDesired.GuestOsFeatures) {
-		rawDesired.GuestOsFeatures = rawInitial.GuestOsFeatures
+		canonicalDesired.GuestOsFeatures = rawInitial.GuestOsFeatures
+	} else {
+		canonicalDesired.GuestOsFeatures = rawDesired.GuestOsFeatures
 	}
 	if dcl.IsZeroValue(rawDesired.LicenseCodes) {
-		rawDesired.LicenseCodes = rawInitial.LicenseCodes
+		canonicalDesired.LicenseCodes = rawInitial.LicenseCodes
+	} else {
+		canonicalDesired.LicenseCodes = rawDesired.LicenseCodes
 	}
 	if dcl.IsZeroValue(rawDesired.PhysicalBlockSizeBytes) {
-		rawDesired.PhysicalBlockSizeBytes = rawInitial.PhysicalBlockSizeBytes
+		canonicalDesired.PhysicalBlockSizeBytes = rawInitial.PhysicalBlockSizeBytes
+	} else {
+		canonicalDesired.PhysicalBlockSizeBytes = rawDesired.PhysicalBlockSizeBytes
 	}
 	if dcl.IsZeroValue(rawDesired.ResourcePolicies) {
-		rawDesired.ResourcePolicies = rawInitial.ResourcePolicies
+		canonicalDesired.ResourcePolicies = rawInitial.ResourcePolicies
+	} else {
+		canonicalDesired.ResourcePolicies = rawDesired.ResourcePolicies
 	}
 	if dcl.StringCanonicalize(rawDesired.SourceDisk, rawInitial.SourceDisk) {
-		rawDesired.SourceDisk = rawInitial.SourceDisk
+		canonicalDesired.SourceDisk = rawInitial.SourceDisk
+	} else {
+		canonicalDesired.SourceDisk = rawDesired.SourceDisk
 	}
 	if dcl.StringCanonicalize(rawDesired.SourceDiskId, rawInitial.SourceDiskId) {
-		rawDesired.SourceDiskId = rawInitial.SourceDiskId
+		canonicalDesired.SourceDiskId = rawInitial.SourceDiskId
+	} else {
+		canonicalDesired.SourceDiskId = rawDesired.SourceDiskId
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeDiskNewState(c *Client, rawNew, rawDesired *Disk) (*Disk, error) {
@@ -879,14 +925,20 @@ func canonicalizeDiskGuestOsFeature(des, initial *DiskGuestOsFeature, opts ...dc
 		return des
 	}
 
+	cDes := &DiskGuestOsFeature{}
+
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.IsZeroValue(des.TypeAlt) {
 		des.TypeAlt = initial.TypeAlt
+	} else {
+		cDes.TypeAlt = des.TypeAlt
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDiskGuestOsFeature(c *Client, des, nw *DiskGuestOsFeature) *DiskGuestOsFeature {
@@ -959,17 +1011,25 @@ func canonicalizeDiskEncryptionKey(des, initial *DiskEncryptionKey, opts ...dcl.
 		return des
 	}
 
+	cDes := &DiskEncryptionKey{}
+
 	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) || dcl.IsZeroValue(des.RawKey) {
-		des.RawKey = initial.RawKey
+		cDes.RawKey = initial.RawKey
+	} else {
+		cDes.RawKey = des.RawKey
 	}
 	if dcl.StringCanonicalize(des.KmsKeyName, initial.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
-		des.KmsKeyName = initial.KmsKeyName
+		cDes.KmsKeyName = initial.KmsKeyName
+	} else {
+		cDes.KmsKeyName = des.KmsKeyName
 	}
 	if dcl.StringCanonicalize(des.KmsKeyServiceAccount, initial.KmsKeyServiceAccount) || dcl.IsZeroValue(des.KmsKeyServiceAccount) {
-		des.KmsKeyServiceAccount = initial.KmsKeyServiceAccount
+		cDes.KmsKeyServiceAccount = initial.KmsKeyServiceAccount
+	} else {
+		cDes.KmsKeyServiceAccount = des.KmsKeyServiceAccount
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDiskEncryptionKey(c *Client, des, nw *DiskEncryptionKey) *DiskEncryptionKey {
@@ -1046,14 +1106,20 @@ func canonicalizeDiskGuestOsFeatures(des, initial *DiskGuestOsFeatures, opts ...
 		return des
 	}
 
+	cDes := &DiskGuestOsFeatures{}
+
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.IsZeroValue(des.TypeAlts) {
 		des.TypeAlts = initial.TypeAlts
+	} else {
+		cDes.TypeAlts = des.TypeAlts
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDiskGuestOsFeatures(c *Client, des, nw *DiskGuestOsFeatures) *DiskGuestOsFeatures {
@@ -2320,34 +2386,48 @@ type diskDiff struct {
 	UpdateOp         diskApiOperation
 }
 
-func convertFieldDiffToDiskOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]diskDiff, error) {
+func convertFieldDiffsToDiskDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]diskDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []diskDiff
-	for _, op := range ops {
+	// For each operation name, create a diskDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := diskDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTodiskApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToDiskApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTodiskApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (diskApiOperation, error) {
-	switch op {
+func convertOpNameToDiskApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (diskApiOperation, error) {
+	switch opName {
 
 	case "updateDiskResizeOperation":
-		return &updateDiskResizeOperation{Diffs: diffs}, nil
+		return &updateDiskResizeOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateDiskSetLabelsOperation":
-		return &updateDiskSetLabelsOperation{Diffs: diffs}, nil
+		return &updateDiskSetLabelsOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

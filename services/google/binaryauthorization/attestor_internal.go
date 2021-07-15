@@ -126,7 +126,7 @@ type updateAttestorUpdateAttestorOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -411,19 +411,25 @@ func canonicalizeAttestorDesiredState(rawDesired, rawInitial *Attestor, opts ...
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Attestor{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
-	rawDesired.UserOwnedDrydockNote = canonicalizeAttestorUserOwnedDrydockNote(rawDesired.UserOwnedDrydockNote, rawInitial.UserOwnedDrydockNote, opts...)
+	canonicalDesired.UserOwnedDrydockNote = canonicalizeAttestorUserOwnedDrydockNote(rawDesired.UserOwnedDrydockNote, rawInitial.UserOwnedDrydockNote, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeAttestorNewState(c *Client, rawNew, rawDesired *Attestor) (*Attestor, error) {
@@ -472,14 +478,20 @@ func canonicalizeAttestorUserOwnedDrydockNote(des, initial *AttestorUserOwnedDry
 		return des
 	}
 
+	cDes := &AttestorUserOwnedDrydockNote{}
+
 	if dcl.NameToSelfLink(des.NoteReference, initial.NoteReference) || dcl.IsZeroValue(des.NoteReference) {
-		des.NoteReference = initial.NoteReference
+		cDes.NoteReference = initial.NoteReference
+	} else {
+		cDes.NoteReference = des.NoteReference
 	}
 	if dcl.IsZeroValue(des.PublicKeys) {
 		des.PublicKeys = initial.PublicKeys
+	} else {
+		cDes.PublicKeys = des.PublicKeys
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAttestorUserOwnedDrydockNote(c *Client, des, nw *AttestorUserOwnedDrydockNote) *AttestorUserOwnedDrydockNote {
@@ -553,18 +565,26 @@ func canonicalizeAttestorUserOwnedDrydockNotePublicKeys(des, initial *AttestorUs
 		return des
 	}
 
+	cDes := &AttestorUserOwnedDrydockNotePublicKeys{}
+
 	if dcl.StringCanonicalize(des.Comment, initial.Comment) || dcl.IsZeroValue(des.Comment) {
-		des.Comment = initial.Comment
+		cDes.Comment = initial.Comment
+	} else {
+		cDes.Comment = des.Comment
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.AsciiArmoredPgpPublicKey, initial.AsciiArmoredPgpPublicKey) || dcl.IsZeroValue(des.AsciiArmoredPgpPublicKey) {
-		des.AsciiArmoredPgpPublicKey = initial.AsciiArmoredPgpPublicKey
+		cDes.AsciiArmoredPgpPublicKey = initial.AsciiArmoredPgpPublicKey
+	} else {
+		cDes.AsciiArmoredPgpPublicKey = des.AsciiArmoredPgpPublicKey
 	}
-	des.PkixPublicKey = canonicalizeAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(des.PkixPublicKey, initial.PkixPublicKey, opts...)
+	cDes.PkixPublicKey = canonicalizeAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(des.PkixPublicKey, initial.PkixPublicKey, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAttestorUserOwnedDrydockNotePublicKeys(c *Client, des, nw *AttestorUserOwnedDrydockNotePublicKeys) *AttestorUserOwnedDrydockNotePublicKeys {
@@ -641,14 +661,20 @@ func canonicalizeAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(des, initia
 		return des
 	}
 
+	cDes := &AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey{}
+
 	if dcl.StringCanonicalize(des.PublicKeyPem, initial.PublicKeyPem) || dcl.IsZeroValue(des.PublicKeyPem) {
-		des.PublicKeyPem = initial.PublicKeyPem
+		cDes.PublicKeyPem = initial.PublicKeyPem
+	} else {
+		cDes.PublicKeyPem = des.PublicKeyPem
 	}
 	if dcl.IsZeroValue(des.SignatureAlgorithm) {
 		des.SignatureAlgorithm = initial.SignatureAlgorithm
+	} else {
+		cDes.SignatureAlgorithm = des.SignatureAlgorithm
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c *Client, des, nw *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
@@ -1434,31 +1460,45 @@ type attestorDiff struct {
 	UpdateOp         attestorApiOperation
 }
 
-func convertFieldDiffToAttestorOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]attestorDiff, error) {
+func convertFieldDiffsToAttestorDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]attestorDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []attestorDiff
-	for _, op := range ops {
+	// For each operation name, create a attestorDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := attestorDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToattestorApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToAttestorApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToattestorApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (attestorApiOperation, error) {
-	switch op {
+func convertOpNameToAttestorApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (attestorApiOperation, error) {
+	switch opName {
 
 	case "updateAttestorUpdateAttestorOperation":
-		return &updateAttestorUpdateAttestorOperation{Diffs: diffs}, nil
+		return &updateAttestorUpdateAttestorOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

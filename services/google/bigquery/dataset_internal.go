@@ -187,7 +187,7 @@ type updateDatasetPatchDatasetOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -472,40 +472,60 @@ func canonicalizeDatasetDesiredState(rawDesired, rawInitial *Dataset, opts ...dc
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Dataset{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.StringCanonicalize(rawDesired.FriendlyName, rawInitial.FriendlyName) {
-		rawDesired.FriendlyName = rawInitial.FriendlyName
+		canonicalDesired.FriendlyName = rawInitial.FriendlyName
+	} else {
+		canonicalDesired.FriendlyName = rawDesired.FriendlyName
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.StringCanonicalize(rawDesired.DefaultTableExpirationMs, rawInitial.DefaultTableExpirationMs) {
-		rawDesired.DefaultTableExpirationMs = rawInitial.DefaultTableExpirationMs
+		canonicalDesired.DefaultTableExpirationMs = rawInitial.DefaultTableExpirationMs
+	} else {
+		canonicalDesired.DefaultTableExpirationMs = rawDesired.DefaultTableExpirationMs
 	}
 	if dcl.StringCanonicalize(rawDesired.DefaultPartitionExpirationMs, rawInitial.DefaultPartitionExpirationMs) {
-		rawDesired.DefaultPartitionExpirationMs = rawInitial.DefaultPartitionExpirationMs
+		canonicalDesired.DefaultPartitionExpirationMs = rawInitial.DefaultPartitionExpirationMs
+	} else {
+		canonicalDesired.DefaultPartitionExpirationMs = rawDesired.DefaultPartitionExpirationMs
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.IsZeroValue(rawDesired.Access) {
-		rawDesired.Access = rawInitial.Access
+		canonicalDesired.Access = rawInitial.Access
+	} else {
+		canonicalDesired.Access = rawDesired.Access
 	}
 	if dcl.StringCanonicalize(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 	if dcl.BoolCanonicalize(rawDesired.Published, rawInitial.Published) {
-		rawDesired.Published = rawInitial.Published
+		canonicalDesired.Published = rawInitial.Published
+	} else {
+		canonicalDesired.Published = rawDesired.Published
 	}
-	rawDesired.DefaultEncryptionConfiguration = canonicalizeDatasetDefaultEncryptionConfiguration(rawDesired.DefaultEncryptionConfiguration, rawInitial.DefaultEncryptionConfiguration, opts...)
+	canonicalDesired.DefaultEncryptionConfiguration = canonicalizeDatasetDefaultEncryptionConfiguration(rawDesired.DefaultEncryptionConfiguration, rawInitial.DefaultEncryptionConfiguration, opts...)
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Dataset, error) {
@@ -640,28 +660,42 @@ func canonicalizeDatasetAccess(des, initial *DatasetAccess, opts ...dcl.ApplyOpt
 		return des
 	}
 
+	cDes := &DatasetAccess{}
+
 	if canonicalizeDatasetAccessRole(des.Role, initial.Role) || dcl.IsZeroValue(des.Role) {
-		des.Role = initial.Role
+		cDes.Role = initial.Role
+	} else {
+		cDes.Role = des.Role
 	}
 	if dcl.StringCanonicalize(des.UserByEmail, initial.UserByEmail) || dcl.IsZeroValue(des.UserByEmail) {
-		des.UserByEmail = initial.UserByEmail
+		cDes.UserByEmail = initial.UserByEmail
+	} else {
+		cDes.UserByEmail = des.UserByEmail
 	}
 	if dcl.StringCanonicalize(des.GroupByEmail, initial.GroupByEmail) || dcl.IsZeroValue(des.GroupByEmail) {
-		des.GroupByEmail = initial.GroupByEmail
+		cDes.GroupByEmail = initial.GroupByEmail
+	} else {
+		cDes.GroupByEmail = des.GroupByEmail
 	}
 	if dcl.StringCanonicalize(des.Domain, initial.Domain) || dcl.IsZeroValue(des.Domain) {
-		des.Domain = initial.Domain
+		cDes.Domain = initial.Domain
+	} else {
+		cDes.Domain = des.Domain
 	}
 	if dcl.StringCanonicalize(des.SpecialGroup, initial.SpecialGroup) || dcl.IsZeroValue(des.SpecialGroup) {
-		des.SpecialGroup = initial.SpecialGroup
+		cDes.SpecialGroup = initial.SpecialGroup
+	} else {
+		cDes.SpecialGroup = des.SpecialGroup
 	}
 	if dcl.StringCanonicalize(des.IamMember, initial.IamMember) || dcl.IsZeroValue(des.IamMember) {
-		des.IamMember = initial.IamMember
+		cDes.IamMember = initial.IamMember
+	} else {
+		cDes.IamMember = des.IamMember
 	}
-	des.View = canonicalizeDatasetAccessView(des.View, initial.View, opts...)
-	des.Routine = canonicalizeDatasetAccessRoutine(des.Routine, initial.Routine, opts...)
+	cDes.View = canonicalizeDatasetAccessView(des.View, initial.View, opts...)
+	cDes.Routine = canonicalizeDatasetAccessRoutine(des.Routine, initial.Routine, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDatasetAccess(c *Client, des, nw *DatasetAccess) *DatasetAccess {
@@ -748,17 +782,25 @@ func canonicalizeDatasetAccessView(des, initial *DatasetAccessView, opts ...dcl.
 		return des
 	}
 
+	cDes := &DatasetAccessView{}
+
 	if dcl.NameToSelfLink(des.ProjectId, initial.ProjectId) || dcl.IsZeroValue(des.ProjectId) {
-		des.ProjectId = initial.ProjectId
+		cDes.ProjectId = initial.ProjectId
+	} else {
+		cDes.ProjectId = des.ProjectId
 	}
 	if dcl.NameToSelfLink(des.DatasetId, initial.DatasetId) || dcl.IsZeroValue(des.DatasetId) {
-		des.DatasetId = initial.DatasetId
+		cDes.DatasetId = initial.DatasetId
+	} else {
+		cDes.DatasetId = des.DatasetId
 	}
 	if dcl.NameToSelfLink(des.TableId, initial.TableId) || dcl.IsZeroValue(des.TableId) {
-		des.TableId = initial.TableId
+		cDes.TableId = initial.TableId
+	} else {
+		cDes.TableId = des.TableId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDatasetAccessView(c *Client, des, nw *DatasetAccessView) *DatasetAccessView {
@@ -834,17 +876,25 @@ func canonicalizeDatasetAccessRoutine(des, initial *DatasetAccessRoutine, opts .
 		return des
 	}
 
+	cDes := &DatasetAccessRoutine{}
+
 	if dcl.NameToSelfLink(des.ProjectId, initial.ProjectId) || dcl.IsZeroValue(des.ProjectId) {
-		des.ProjectId = initial.ProjectId
+		cDes.ProjectId = initial.ProjectId
+	} else {
+		cDes.ProjectId = des.ProjectId
 	}
 	if dcl.NameToSelfLink(des.DatasetId, initial.DatasetId) || dcl.IsZeroValue(des.DatasetId) {
-		des.DatasetId = initial.DatasetId
+		cDes.DatasetId = initial.DatasetId
+	} else {
+		cDes.DatasetId = des.DatasetId
 	}
 	if dcl.NameToSelfLink(des.RoutineId, initial.RoutineId) || dcl.IsZeroValue(des.RoutineId) {
-		des.RoutineId = initial.RoutineId
+		cDes.RoutineId = initial.RoutineId
+	} else {
+		cDes.RoutineId = des.RoutineId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDatasetAccessRoutine(c *Client, des, nw *DatasetAccessRoutine) *DatasetAccessRoutine {
@@ -920,11 +970,15 @@ func canonicalizeDatasetDefaultEncryptionConfiguration(des, initial *DatasetDefa
 		return des
 	}
 
+	cDes := &DatasetDefaultEncryptionConfiguration{}
+
 	if dcl.NameToSelfLink(des.KmsKeyName, initial.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
-		des.KmsKeyName = initial.KmsKeyName
+		cDes.KmsKeyName = initial.KmsKeyName
+	} else {
+		cDes.KmsKeyName = des.KmsKeyName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDatasetDefaultEncryptionConfiguration(c *Client, des, nw *DatasetDefaultEncryptionConfiguration) *DatasetDefaultEncryptionConfiguration {
@@ -2013,31 +2067,45 @@ type datasetDiff struct {
 	UpdateOp         datasetApiOperation
 }
 
-func convertFieldDiffToDatasetOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]datasetDiff, error) {
+func convertFieldDiffsToDatasetDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]datasetDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []datasetDiff
-	for _, op := range ops {
+	// For each operation name, create a datasetDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := datasetDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTodatasetApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToDatasetApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTodatasetApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (datasetApiOperation, error) {
-	switch op {
+func convertOpNameToDatasetApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (datasetApiOperation, error) {
+	switch opName {
 
 	case "updateDatasetPatchDatasetOperation":
-		return &updateDatasetPatchDatasetOperation{Diffs: diffs}, nil
+		return &updateDatasetPatchDatasetOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

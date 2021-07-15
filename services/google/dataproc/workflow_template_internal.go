@@ -393,7 +393,7 @@ type updateWorkflowTemplateUpdateWorkflowTemplateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -690,34 +690,50 @@ func canonicalizeWorkflowTemplateDesiredState(rawDesired, rawInitial *WorkflowTe
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &WorkflowTemplate{}
 	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.IsZeroValue(rawDesired.Version) {
-		rawDesired.Version = rawInitial.Version
+		canonicalDesired.Version = rawInitial.Version
+	} else {
+		canonicalDesired.Version = rawDesired.Version
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
-	rawDesired.Placement = canonicalizeWorkflowTemplatePlacement(rawDesired.Placement, rawInitial.Placement, opts...)
+	canonicalDesired.Placement = canonicalizeWorkflowTemplatePlacement(rawDesired.Placement, rawInitial.Placement, opts...)
 	if dcl.IsZeroValue(rawDesired.Jobs) {
-		rawDesired.Jobs = rawInitial.Jobs
+		canonicalDesired.Jobs = rawInitial.Jobs
+	} else {
+		canonicalDesired.Jobs = rawDesired.Jobs
 	}
 	if dcl.IsZeroValue(rawDesired.Parameters) {
-		rawDesired.Parameters = rawInitial.Parameters
+		canonicalDesired.Parameters = rawInitial.Parameters
+	} else {
+		canonicalDesired.Parameters = rawDesired.Parameters
 	}
 	if dcl.StringCanonicalize(rawDesired.DagTimeout, rawInitial.DagTimeout) {
-		rawDesired.DagTimeout = rawInitial.DagTimeout
+		canonicalDesired.DagTimeout = rawInitial.DagTimeout
+	} else {
+		canonicalDesired.DagTimeout = rawDesired.DagTimeout
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeWorkflowTemplateNewState(c *Client, rawNew, rawDesired *WorkflowTemplate) (*WorkflowTemplate, error) {
@@ -789,10 +805,12 @@ func canonicalizeWorkflowTemplatePlacement(des, initial *WorkflowTemplatePlaceme
 		return des
 	}
 
-	des.ManagedCluster = canonicalizeWorkflowTemplatePlacementManagedCluster(des.ManagedCluster, initial.ManagedCluster, opts...)
-	des.ClusterSelector = canonicalizeWorkflowTemplatePlacementClusterSelector(des.ClusterSelector, initial.ClusterSelector, opts...)
+	cDes := &WorkflowTemplatePlacement{}
 
-	return des
+	cDes.ManagedCluster = canonicalizeWorkflowTemplatePlacementManagedCluster(des.ManagedCluster, initial.ManagedCluster, opts...)
+	cDes.ClusterSelector = canonicalizeWorkflowTemplatePlacementClusterSelector(des.ClusterSelector, initial.ClusterSelector, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplatePlacement(c *Client, des, nw *WorkflowTemplatePlacement) *WorkflowTemplatePlacement {
@@ -861,15 +879,21 @@ func canonicalizeWorkflowTemplatePlacementManagedCluster(des, initial *WorkflowT
 		return des
 	}
 
+	cDes := &WorkflowTemplatePlacementManagedCluster{}
+
 	if dcl.StringCanonicalize(des.ClusterName, initial.ClusterName) || dcl.IsZeroValue(des.ClusterName) {
-		des.ClusterName = initial.ClusterName
+		cDes.ClusterName = initial.ClusterName
+	} else {
+		cDes.ClusterName = des.ClusterName
 	}
-	des.Config = canonicalizeClusterClusterConfig(des.Config, initial.Config, opts...)
+	cDes.Config = canonicalizeClusterClusterConfig(des.Config, initial.Config, opts...)
 	if dcl.IsZeroValue(des.Labels) {
 		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplatePlacementManagedCluster(c *Client, des, nw *WorkflowTemplatePlacementManagedCluster) *WorkflowTemplatePlacementManagedCluster {
@@ -943,14 +967,20 @@ func canonicalizeWorkflowTemplatePlacementClusterSelector(des, initial *Workflow
 		return des
 	}
 
+	cDes := &WorkflowTemplatePlacementClusterSelector{}
+
 	if dcl.StringCanonicalize(des.Zone, initial.Zone) || dcl.IsZeroValue(des.Zone) {
-		des.Zone = initial.Zone
+		cDes.Zone = initial.Zone
+	} else {
+		cDes.Zone = des.Zone
 	}
 	if dcl.IsZeroValue(des.ClusterLabels) {
 		des.ClusterLabels = initial.ClusterLabels
+	} else {
+		cDes.ClusterLabels = des.ClusterLabels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplatePlacementClusterSelector(c *Client, des, nw *WorkflowTemplatePlacementClusterSelector) *WorkflowTemplatePlacementClusterSelector {
@@ -1023,26 +1053,34 @@ func canonicalizeWorkflowTemplateJobs(des, initial *WorkflowTemplateJobs, opts .
 		return des
 	}
 
+	cDes := &WorkflowTemplateJobs{}
+
 	if dcl.StringCanonicalize(des.StepId, initial.StepId) || dcl.IsZeroValue(des.StepId) {
-		des.StepId = initial.StepId
+		cDes.StepId = initial.StepId
+	} else {
+		cDes.StepId = des.StepId
 	}
-	des.HadoopJob = canonicalizeWorkflowTemplateJobsHadoopJob(des.HadoopJob, initial.HadoopJob, opts...)
-	des.SparkJob = canonicalizeWorkflowTemplateJobsSparkJob(des.SparkJob, initial.SparkJob, opts...)
-	des.PysparkJob = canonicalizeWorkflowTemplateJobsPysparkJob(des.PysparkJob, initial.PysparkJob, opts...)
-	des.HiveJob = canonicalizeWorkflowTemplateJobsHiveJob(des.HiveJob, initial.HiveJob, opts...)
-	des.PigJob = canonicalizeWorkflowTemplateJobsPigJob(des.PigJob, initial.PigJob, opts...)
-	des.SparkRJob = canonicalizeWorkflowTemplateJobsSparkRJob(des.SparkRJob, initial.SparkRJob, opts...)
-	des.SparkSqlJob = canonicalizeWorkflowTemplateJobsSparkSqlJob(des.SparkSqlJob, initial.SparkSqlJob, opts...)
-	des.PrestoJob = canonicalizeWorkflowTemplateJobsPrestoJob(des.PrestoJob, initial.PrestoJob, opts...)
+	cDes.HadoopJob = canonicalizeWorkflowTemplateJobsHadoopJob(des.HadoopJob, initial.HadoopJob, opts...)
+	cDes.SparkJob = canonicalizeWorkflowTemplateJobsSparkJob(des.SparkJob, initial.SparkJob, opts...)
+	cDes.PysparkJob = canonicalizeWorkflowTemplateJobsPysparkJob(des.PysparkJob, initial.PysparkJob, opts...)
+	cDes.HiveJob = canonicalizeWorkflowTemplateJobsHiveJob(des.HiveJob, initial.HiveJob, opts...)
+	cDes.PigJob = canonicalizeWorkflowTemplateJobsPigJob(des.PigJob, initial.PigJob, opts...)
+	cDes.SparkRJob = canonicalizeWorkflowTemplateJobsSparkRJob(des.SparkRJob, initial.SparkRJob, opts...)
+	cDes.SparkSqlJob = canonicalizeWorkflowTemplateJobsSparkSqlJob(des.SparkSqlJob, initial.SparkSqlJob, opts...)
+	cDes.PrestoJob = canonicalizeWorkflowTemplateJobsPrestoJob(des.PrestoJob, initial.PrestoJob, opts...)
 	if dcl.IsZeroValue(des.Labels) {
 		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
 	}
-	des.Scheduling = canonicalizeWorkflowTemplateJobsScheduling(des.Scheduling, initial.Scheduling, opts...)
+	cDes.Scheduling = canonicalizeWorkflowTemplateJobsScheduling(des.Scheduling, initial.Scheduling, opts...)
 	if dcl.IsZeroValue(des.PrerequisiteStepIds) {
 		des.PrerequisiteStepIds = initial.PrerequisiteStepIds
+	} else {
+		cDes.PrerequisiteStepIds = des.PrerequisiteStepIds
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateJobs(c *Client, des, nw *WorkflowTemplateJobs) *WorkflowTemplateJobs {
@@ -1127,30 +1165,46 @@ func canonicalizeWorkflowTemplateJobsHadoopJob(des, initial *WorkflowTemplateJob
 		return des
 	}
 
+	cDes := &WorkflowTemplateJobsHadoopJob{}
+
 	if dcl.StringCanonicalize(des.MainJarFileUri, initial.MainJarFileUri) || dcl.IsZeroValue(des.MainJarFileUri) {
-		des.MainJarFileUri = initial.MainJarFileUri
+		cDes.MainJarFileUri = initial.MainJarFileUri
+	} else {
+		cDes.MainJarFileUri = des.MainJarFileUri
 	}
 	if dcl.StringCanonicalize(des.MainClass, initial.MainClass) || dcl.IsZeroValue(des.MainClass) {
-		des.MainClass = initial.MainClass
+		cDes.MainClass = initial.MainClass
+	} else {
+		cDes.MainClass = des.MainClass
 	}
 	if dcl.IsZeroValue(des.Args) {
 		des.Args = initial.Args
+	} else {
+		cDes.Args = des.Args
 	}
 	if dcl.IsZeroValue(des.JarFileUris) {
 		des.JarFileUris = initial.JarFileUris
+	} else {
+		cDes.JarFileUris = des.JarFileUris
 	}
 	if dcl.IsZeroValue(des.FileUris) {
 		des.FileUris = initial.FileUris
+	} else {
+		cDes.FileUris = des.FileUris
 	}
 	if dcl.IsZeroValue(des.ArchiveUris) {
 		des.ArchiveUris = initial.ArchiveUris
+	} else {
+		cDes.ArchiveUris = des.ArchiveUris
 	}
 	if dcl.IsZeroValue(des.Properties) {
 		des.Properties = initial.Properties
+	} else {
+		cDes.Properties = des.Properties
 	}
-	des.LoggingConfig = canonicalizeWorkflowTemplateJobsHadoopJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
+	cDes.LoggingConfig = canonicalizeWorkflowTemplateJobsHadoopJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateJobsHadoopJob(c *Client, des, nw *WorkflowTemplateJobsHadoopJob) *WorkflowTemplateJobsHadoopJob {
@@ -1239,11 +1293,15 @@ func canonicalizeWorkflowTemplateJobsHadoopJobLoggingConfig(des, initial *Workfl
 		return des
 	}
 
+	cDes := &WorkflowTemplateJobsHadoopJobLoggingConfig{}
+
 	if dcl.IsZeroValue(des.DriverLogLevels) {
 		des.DriverLogLevels = initial.DriverLogLevels
+	} else {
+		cDes.DriverLogLevels = des.DriverLogLevels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateJobsHadoopJobLoggingConfig(c *Client, des, nw *WorkflowTemplateJobsHadoopJobLoggingConfig) *WorkflowTemplateJobsHadoopJobLoggingConfig {
@@ -1313,30 +1371,46 @@ func canonicalizeWorkflowTemplateJobsSparkJob(des, initial *WorkflowTemplateJobs
 		return des
 	}
 
+	cDes := &WorkflowTemplateJobsSparkJob{}
+
 	if dcl.StringCanonicalize(des.MainJarFileUri, initial.MainJarFileUri) || dcl.IsZeroValue(des.MainJarFileUri) {
-		des.MainJarFileUri = initial.MainJarFileUri
+		cDes.MainJarFileUri = initial.MainJarFileUri
+	} else {
+		cDes.MainJarFileUri = des.MainJarFileUri
 	}
 	if dcl.StringCanonicalize(des.MainClass, initial.MainClass) || dcl.IsZeroValue(des.MainClass) {
-		des.MainClass = initial.MainClass
+		cDes.MainClass = initial.MainClass
+	} else {
+		cDes.MainClass = des.MainClass
 	}
 	if dcl.IsZeroValue(des.Args) {
 		des.Args = initial.Args
+	} else {
+		cDes.Args = des.Args
 	}
 	if dcl.IsZeroValue(des.JarFileUris) {
 		des.JarFileUris = initial.JarFileUris
+	} else {
+		cDes.JarFileUris = des.JarFileUris
 	}
 	if dcl.IsZeroValue(des.FileUris) {
 		des.FileUris = initial.FileUris
+	} else {
+		cDes.FileUris = des.FileUris
 	}
 	if dcl.IsZeroValue(des.ArchiveUris) {
 		des.ArchiveUris = initial.ArchiveUris
+	} else {
+		cDes.ArchiveUris = des.ArchiveUris
 	}
 	if dcl.IsZeroValue(des.Properties) {
 		des.Properties = initial.Properties
+	} else {
+		cDes.Properties = des.Properties
 	}
-	des.LoggingConfig = canonicalizeWorkflowTemplateJobsSparkJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
+	cDes.LoggingConfig = canonicalizeWorkflowTemplateJobsSparkJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateJobsSparkJob(c *Client, des, nw *WorkflowTemplateJobsSparkJob) *WorkflowTemplateJobsSparkJob {
@@ -1425,11 +1499,15 @@ func canonicalizeWorkflowTemplateJobsSparkJobLoggingConfig(des, initial *Workflo
 		return des
 	}
 
+	cDes := &WorkflowTemplateJobsSparkJobLoggingConfig{}
+
 	if dcl.IsZeroValue(des.DriverLogLevels) {
 		des.DriverLogLevels = initial.DriverLogLevels
+	} else {
+		cDes.DriverLogLevels = des.DriverLogLevels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateJobsSparkJobLoggingConfig(c *Client, des, nw *WorkflowTemplateJobsSparkJobLoggingConfig) *WorkflowTemplateJobsSparkJobLoggingConfig {
@@ -1499,30 +1577,46 @@ func canonicalizeWorkflowTemplateJobsPysparkJob(des, initial *WorkflowTemplateJo
 		return des
 	}
 
+	cDes := &WorkflowTemplateJobsPysparkJob{}
+
 	if dcl.StringCanonicalize(des.MainPythonFileUri, initial.MainPythonFileUri) || dcl.IsZeroValue(des.MainPythonFileUri) {
-		des.MainPythonFileUri = initial.MainPythonFileUri
+		cDes.MainPythonFileUri = initial.MainPythonFileUri
+	} else {
+		cDes.MainPythonFileUri = des.MainPythonFileUri
 	}
 	if dcl.IsZeroValue(des.Args) {
 		des.Args = initial.Args
+	} else {
+		cDes.Args = des.Args
 	}
 	if dcl.IsZeroValue(des.PythonFileUris) {
 		des.PythonFileUris = initial.PythonFileUris
+	} else {
+		cDes.PythonFileUris = des.PythonFileUris
 	}
 	if dcl.IsZeroValue(des.JarFileUris) {
 		des.JarFileUris = initial.JarFileUris
+	} else {
+		cDes.JarFileUris = des.JarFileUris
 	}
 	if dcl.IsZeroValue(des.FileUris) {
 		des.FileUris = initial.FileUris
+	} else {
+		cDes.FileUris = des.FileUris
 	}
 	if dcl.IsZeroValue(des.ArchiveUris) {
 		des.ArchiveUris = initial.ArchiveUris
+	} else {
+		cDes.ArchiveUris = des.ArchiveUris
 	}
 	if dcl.IsZeroValue(des.Properties) {
 		des.Properties = initial.Properties
+	} else {
+		cDes.Properties = des.Properties
 	}
-	des.LoggingConfig = canonicalizeWorkflowTemplateJobsPysparkJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
+	cDes.LoggingConfig = canonicalizeWorkflowTemplateJobsPysparkJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateJobsPysparkJob(c *Client, des, nw *WorkflowTemplateJobsPysparkJob) *WorkflowTemplateJobsPysparkJob {
@@ -1611,11 +1705,15 @@ func canonicalizeWorkflowTemplateJobsPysparkJobLoggingConfig(des, initial *Workf
 		return des
 	}
 
+	cDes := &WorkflowTemplateJobsPysparkJobLoggingConfig{}
+
 	if dcl.IsZeroValue(des.DriverLogLevels) {
 		des.DriverLogLevels = initial.DriverLogLevels
+	} else {
+		cDes.DriverLogLevels = des.DriverLogLevels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateJobsPysparkJobLoggingConfig(c *Client, des, nw *WorkflowTemplateJobsPysparkJobLoggingConfig) *WorkflowTemplateJobsPysparkJobLoggingConfig {
@@ -1685,24 +1783,36 @@ func canonicalizeWorkflowTemplateJobsHiveJob(des, initial *WorkflowTemplateJobsH
 		return des
 	}
 
+	cDes := &WorkflowTemplateJobsHiveJob{}
+
 	if dcl.StringCanonicalize(des.QueryFileUri, initial.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
-		des.QueryFileUri = initial.QueryFileUri
+		cDes.QueryFileUri = initial.QueryFileUri
+	} else {
+		cDes.QueryFileUri = des.QueryFileUri
 	}
-	des.QueryList = canonicalizeWorkflowTemplateJobsHiveJobQueryList(des.QueryList, initial.QueryList, opts...)
+	cDes.QueryList = canonicalizeWorkflowTemplateJobsHiveJobQueryList(des.QueryList, initial.QueryList, opts...)
 	if dcl.BoolCanonicalize(des.ContinueOnFailure, initial.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
-		des.ContinueOnFailure = initial.ContinueOnFailure
+		cDes.ContinueOnFailure = initial.ContinueOnFailure
+	} else {
+		cDes.ContinueOnFailure = des.ContinueOnFailure
 	}
 	if dcl.IsZeroValue(des.ScriptVariables) {
 		des.ScriptVariables = initial.ScriptVariables
+	} else {
+		cDes.ScriptVariables = des.ScriptVariables
 	}
 	if dcl.IsZeroValue(des.Properties) {
 		des.Properties = initial.Properties
+	} else {
+		cDes.Properties = des.Properties
 	}
 	if dcl.IsZeroValue(des.JarFileUris) {
 		des.JarFileUris = initial.JarFileUris
+	} else {
+		cDes.JarFileUris = des.JarFileUris
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateJobsHiveJob(c *Client, des, nw *WorkflowTemplateJobsHiveJob) *WorkflowTemplateJobsHiveJob {
@@ -1785,11 +1895,15 @@ func canonicalizeWorkflowTemplateJobsHiveJobQueryList(des, initial *WorkflowTemp
 		return des
 	}
 
+	cDes := &WorkflowTemplateJobsHiveJobQueryList{}
+
 	if dcl.IsZeroValue(des.Queries) {
 		des.Queries = initial.Queries
+	} else {
+		cDes.Queries = des.Queries
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateJobsHiveJobQueryList(c *Client, des, nw *WorkflowTemplateJobsHiveJobQueryList) *WorkflowTemplateJobsHiveJobQueryList {
@@ -1859,25 +1973,37 @@ func canonicalizeWorkflowTemplateJobsPigJob(des, initial *WorkflowTemplateJobsPi
 		return des
 	}
 
+	cDes := &WorkflowTemplateJobsPigJob{}
+
 	if dcl.StringCanonicalize(des.QueryFileUri, initial.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
-		des.QueryFileUri = initial.QueryFileUri
+		cDes.QueryFileUri = initial.QueryFileUri
+	} else {
+		cDes.QueryFileUri = des.QueryFileUri
 	}
-	des.QueryList = canonicalizeWorkflowTemplateJobsPigJobQueryList(des.QueryList, initial.QueryList, opts...)
+	cDes.QueryList = canonicalizeWorkflowTemplateJobsPigJobQueryList(des.QueryList, initial.QueryList, opts...)
 	if dcl.BoolCanonicalize(des.ContinueOnFailure, initial.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
-		des.ContinueOnFailure = initial.ContinueOnFailure
+		cDes.ContinueOnFailure = initial.ContinueOnFailure
+	} else {
+		cDes.ContinueOnFailure = des.ContinueOnFailure
 	}
 	if dcl.IsZeroValue(des.ScriptVariables) {
 		des.ScriptVariables = initial.ScriptVariables
+	} else {
+		cDes.ScriptVariables = des.ScriptVariables
 	}
 	if dcl.IsZeroValue(des.Properties) {
 		des.Properties = initial.Properties
+	} else {
+		cDes.Properties = des.Properties
 	}
 	if dcl.IsZeroValue(des.JarFileUris) {
 		des.JarFileUris = initial.JarFileUris
+	} else {
+		cDes.JarFileUris = des.JarFileUris
 	}
-	des.LoggingConfig = canonicalizeWorkflowTemplateJobsPigJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
+	cDes.LoggingConfig = canonicalizeWorkflowTemplateJobsPigJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateJobsPigJob(c *Client, des, nw *WorkflowTemplateJobsPigJob) *WorkflowTemplateJobsPigJob {
@@ -1961,11 +2087,15 @@ func canonicalizeWorkflowTemplateJobsPigJobQueryList(des, initial *WorkflowTempl
 		return des
 	}
 
+	cDes := &WorkflowTemplateJobsPigJobQueryList{}
+
 	if dcl.IsZeroValue(des.Queries) {
 		des.Queries = initial.Queries
+	} else {
+		cDes.Queries = des.Queries
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateJobsPigJobQueryList(c *Client, des, nw *WorkflowTemplateJobsPigJobQueryList) *WorkflowTemplateJobsPigJobQueryList {
@@ -2035,11 +2165,15 @@ func canonicalizeWorkflowTemplateJobsPigJobLoggingConfig(des, initial *WorkflowT
 		return des
 	}
 
+	cDes := &WorkflowTemplateJobsPigJobLoggingConfig{}
+
 	if dcl.IsZeroValue(des.DriverLogLevels) {
 		des.DriverLogLevels = initial.DriverLogLevels
+	} else {
+		cDes.DriverLogLevels = des.DriverLogLevels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateJobsPigJobLoggingConfig(c *Client, des, nw *WorkflowTemplateJobsPigJobLoggingConfig) *WorkflowTemplateJobsPigJobLoggingConfig {
@@ -2109,24 +2243,36 @@ func canonicalizeWorkflowTemplateJobsSparkRJob(des, initial *WorkflowTemplateJob
 		return des
 	}
 
+	cDes := &WorkflowTemplateJobsSparkRJob{}
+
 	if dcl.StringCanonicalize(des.MainRFileUri, initial.MainRFileUri) || dcl.IsZeroValue(des.MainRFileUri) {
-		des.MainRFileUri = initial.MainRFileUri
+		cDes.MainRFileUri = initial.MainRFileUri
+	} else {
+		cDes.MainRFileUri = des.MainRFileUri
 	}
 	if dcl.IsZeroValue(des.Args) {
 		des.Args = initial.Args
+	} else {
+		cDes.Args = des.Args
 	}
 	if dcl.IsZeroValue(des.FileUris) {
 		des.FileUris = initial.FileUris
+	} else {
+		cDes.FileUris = des.FileUris
 	}
 	if dcl.IsZeroValue(des.ArchiveUris) {
 		des.ArchiveUris = initial.ArchiveUris
+	} else {
+		cDes.ArchiveUris = des.ArchiveUris
 	}
 	if dcl.IsZeroValue(des.Properties) {
 		des.Properties = initial.Properties
+	} else {
+		cDes.Properties = des.Properties
 	}
-	des.LoggingConfig = canonicalizeWorkflowTemplateJobsSparkRJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
+	cDes.LoggingConfig = canonicalizeWorkflowTemplateJobsSparkRJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateJobsSparkRJob(c *Client, des, nw *WorkflowTemplateJobsSparkRJob) *WorkflowTemplateJobsSparkRJob {
@@ -2209,11 +2355,15 @@ func canonicalizeWorkflowTemplateJobsSparkRJobLoggingConfig(des, initial *Workfl
 		return des
 	}
 
+	cDes := &WorkflowTemplateJobsSparkRJobLoggingConfig{}
+
 	if dcl.IsZeroValue(des.DriverLogLevels) {
 		des.DriverLogLevels = initial.DriverLogLevels
+	} else {
+		cDes.DriverLogLevels = des.DriverLogLevels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateJobsSparkRJobLoggingConfig(c *Client, des, nw *WorkflowTemplateJobsSparkRJobLoggingConfig) *WorkflowTemplateJobsSparkRJobLoggingConfig {
@@ -2283,22 +2433,32 @@ func canonicalizeWorkflowTemplateJobsSparkSqlJob(des, initial *WorkflowTemplateJ
 		return des
 	}
 
+	cDes := &WorkflowTemplateJobsSparkSqlJob{}
+
 	if dcl.StringCanonicalize(des.QueryFileUri, initial.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
-		des.QueryFileUri = initial.QueryFileUri
+		cDes.QueryFileUri = initial.QueryFileUri
+	} else {
+		cDes.QueryFileUri = des.QueryFileUri
 	}
-	des.QueryList = canonicalizeWorkflowTemplateJobsSparkSqlJobQueryList(des.QueryList, initial.QueryList, opts...)
+	cDes.QueryList = canonicalizeWorkflowTemplateJobsSparkSqlJobQueryList(des.QueryList, initial.QueryList, opts...)
 	if dcl.IsZeroValue(des.ScriptVariables) {
 		des.ScriptVariables = initial.ScriptVariables
+	} else {
+		cDes.ScriptVariables = des.ScriptVariables
 	}
 	if dcl.IsZeroValue(des.Properties) {
 		des.Properties = initial.Properties
+	} else {
+		cDes.Properties = des.Properties
 	}
 	if dcl.IsZeroValue(des.JarFileUris) {
 		des.JarFileUris = initial.JarFileUris
+	} else {
+		cDes.JarFileUris = des.JarFileUris
 	}
-	des.LoggingConfig = canonicalizeWorkflowTemplateJobsSparkSqlJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
+	cDes.LoggingConfig = canonicalizeWorkflowTemplateJobsSparkSqlJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateJobsSparkSqlJob(c *Client, des, nw *WorkflowTemplateJobsSparkSqlJob) *WorkflowTemplateJobsSparkSqlJob {
@@ -2379,11 +2539,15 @@ func canonicalizeWorkflowTemplateJobsSparkSqlJobQueryList(des, initial *Workflow
 		return des
 	}
 
+	cDes := &WorkflowTemplateJobsSparkSqlJobQueryList{}
+
 	if dcl.IsZeroValue(des.Queries) {
 		des.Queries = initial.Queries
+	} else {
+		cDes.Queries = des.Queries
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateJobsSparkSqlJobQueryList(c *Client, des, nw *WorkflowTemplateJobsSparkSqlJobQueryList) *WorkflowTemplateJobsSparkSqlJobQueryList {
@@ -2453,11 +2617,15 @@ func canonicalizeWorkflowTemplateJobsSparkSqlJobLoggingConfig(des, initial *Work
 		return des
 	}
 
+	cDes := &WorkflowTemplateJobsSparkSqlJobLoggingConfig{}
+
 	if dcl.IsZeroValue(des.DriverLogLevels) {
 		des.DriverLogLevels = initial.DriverLogLevels
+	} else {
+		cDes.DriverLogLevels = des.DriverLogLevels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateJobsSparkSqlJobLoggingConfig(c *Client, des, nw *WorkflowTemplateJobsSparkSqlJobLoggingConfig) *WorkflowTemplateJobsSparkSqlJobLoggingConfig {
@@ -2527,25 +2695,37 @@ func canonicalizeWorkflowTemplateJobsPrestoJob(des, initial *WorkflowTemplateJob
 		return des
 	}
 
+	cDes := &WorkflowTemplateJobsPrestoJob{}
+
 	if dcl.StringCanonicalize(des.QueryFileUri, initial.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
-		des.QueryFileUri = initial.QueryFileUri
+		cDes.QueryFileUri = initial.QueryFileUri
+	} else {
+		cDes.QueryFileUri = des.QueryFileUri
 	}
-	des.QueryList = canonicalizeWorkflowTemplateJobsPrestoJobQueryList(des.QueryList, initial.QueryList, opts...)
+	cDes.QueryList = canonicalizeWorkflowTemplateJobsPrestoJobQueryList(des.QueryList, initial.QueryList, opts...)
 	if dcl.BoolCanonicalize(des.ContinueOnFailure, initial.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
-		des.ContinueOnFailure = initial.ContinueOnFailure
+		cDes.ContinueOnFailure = initial.ContinueOnFailure
+	} else {
+		cDes.ContinueOnFailure = des.ContinueOnFailure
 	}
 	if dcl.StringCanonicalize(des.OutputFormat, initial.OutputFormat) || dcl.IsZeroValue(des.OutputFormat) {
-		des.OutputFormat = initial.OutputFormat
+		cDes.OutputFormat = initial.OutputFormat
+	} else {
+		cDes.OutputFormat = des.OutputFormat
 	}
 	if dcl.IsZeroValue(des.ClientTags) {
 		des.ClientTags = initial.ClientTags
+	} else {
+		cDes.ClientTags = des.ClientTags
 	}
 	if dcl.IsZeroValue(des.Properties) {
 		des.Properties = initial.Properties
+	} else {
+		cDes.Properties = des.Properties
 	}
-	des.LoggingConfig = canonicalizeWorkflowTemplateJobsPrestoJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
+	cDes.LoggingConfig = canonicalizeWorkflowTemplateJobsPrestoJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateJobsPrestoJob(c *Client, des, nw *WorkflowTemplateJobsPrestoJob) *WorkflowTemplateJobsPrestoJob {
@@ -2629,11 +2809,15 @@ func canonicalizeWorkflowTemplateJobsPrestoJobQueryList(des, initial *WorkflowTe
 		return des
 	}
 
+	cDes := &WorkflowTemplateJobsPrestoJobQueryList{}
+
 	if dcl.IsZeroValue(des.Queries) {
 		des.Queries = initial.Queries
+	} else {
+		cDes.Queries = des.Queries
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateJobsPrestoJobQueryList(c *Client, des, nw *WorkflowTemplateJobsPrestoJobQueryList) *WorkflowTemplateJobsPrestoJobQueryList {
@@ -2703,11 +2887,15 @@ func canonicalizeWorkflowTemplateJobsPrestoJobLoggingConfig(des, initial *Workfl
 		return des
 	}
 
+	cDes := &WorkflowTemplateJobsPrestoJobLoggingConfig{}
+
 	if dcl.IsZeroValue(des.DriverLogLevels) {
 		des.DriverLogLevels = initial.DriverLogLevels
+	} else {
+		cDes.DriverLogLevels = des.DriverLogLevels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateJobsPrestoJobLoggingConfig(c *Client, des, nw *WorkflowTemplateJobsPrestoJobLoggingConfig) *WorkflowTemplateJobsPrestoJobLoggingConfig {
@@ -2777,14 +2965,20 @@ func canonicalizeWorkflowTemplateJobsScheduling(des, initial *WorkflowTemplateJo
 		return des
 	}
 
+	cDes := &WorkflowTemplateJobsScheduling{}
+
 	if dcl.IsZeroValue(des.MaxFailuresPerHour) {
 		des.MaxFailuresPerHour = initial.MaxFailuresPerHour
+	} else {
+		cDes.MaxFailuresPerHour = des.MaxFailuresPerHour
 	}
 	if dcl.IsZeroValue(des.MaxFailuresTotal) {
 		des.MaxFailuresTotal = initial.MaxFailuresTotal
+	} else {
+		cDes.MaxFailuresTotal = des.MaxFailuresTotal
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateJobsScheduling(c *Client, des, nw *WorkflowTemplateJobsScheduling) *WorkflowTemplateJobsScheduling {
@@ -2857,18 +3051,26 @@ func canonicalizeWorkflowTemplateParameters(des, initial *WorkflowTemplateParame
 		return des
 	}
 
+	cDes := &WorkflowTemplateParameters{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.IsZeroValue(des.Fields) {
 		des.Fields = initial.Fields
+	} else {
+		cDes.Fields = des.Fields
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
-	des.Validation = canonicalizeWorkflowTemplateParametersValidation(des.Validation, initial.Validation, opts...)
+	cDes.Validation = canonicalizeWorkflowTemplateParametersValidation(des.Validation, initial.Validation, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateParameters(c *Client, des, nw *WorkflowTemplateParameters) *WorkflowTemplateParameters {
@@ -2945,10 +3147,12 @@ func canonicalizeWorkflowTemplateParametersValidation(des, initial *WorkflowTemp
 		return des
 	}
 
-	des.Regex = canonicalizeWorkflowTemplateParametersValidationRegex(des.Regex, initial.Regex, opts...)
-	des.Values = canonicalizeWorkflowTemplateParametersValidationValues(des.Values, initial.Values, opts...)
+	cDes := &WorkflowTemplateParametersValidation{}
 
-	return des
+	cDes.Regex = canonicalizeWorkflowTemplateParametersValidationRegex(des.Regex, initial.Regex, opts...)
+	cDes.Values = canonicalizeWorkflowTemplateParametersValidationValues(des.Values, initial.Values, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateParametersValidation(c *Client, des, nw *WorkflowTemplateParametersValidation) *WorkflowTemplateParametersValidation {
@@ -3017,11 +3221,15 @@ func canonicalizeWorkflowTemplateParametersValidationRegex(des, initial *Workflo
 		return des
 	}
 
+	cDes := &WorkflowTemplateParametersValidationRegex{}
+
 	if dcl.IsZeroValue(des.Regexes) {
 		des.Regexes = initial.Regexes
+	} else {
+		cDes.Regexes = des.Regexes
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateParametersValidationRegex(c *Client, des, nw *WorkflowTemplateParametersValidationRegex) *WorkflowTemplateParametersValidationRegex {
@@ -3091,11 +3299,15 @@ func canonicalizeWorkflowTemplateParametersValidationValues(des, initial *Workfl
 		return des
 	}
 
+	cDes := &WorkflowTemplateParametersValidationValues{}
+
 	if dcl.IsZeroValue(des.Values) {
 		des.Values = initial.Values
+	} else {
+		cDes.Values = des.Values
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkflowTemplateParametersValidationValues(c *Client, des, nw *WorkflowTemplateParametersValidationValues) *WorkflowTemplateParametersValidationValues {
@@ -8233,31 +8445,45 @@ type workflowTemplateDiff struct {
 	UpdateOp         workflowTemplateApiOperation
 }
 
-func convertFieldDiffToWorkflowTemplateOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]workflowTemplateDiff, error) {
+func convertFieldDiffsToWorkflowTemplateDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]workflowTemplateDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []workflowTemplateDiff
-	for _, op := range ops {
+	// For each operation name, create a workflowTemplateDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := workflowTemplateDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToworkflowTemplateApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToWorkflowTemplateApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToworkflowTemplateApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (workflowTemplateApiOperation, error) {
-	switch op {
+func convertOpNameToWorkflowTemplateApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (workflowTemplateApiOperation, error) {
+	switch opName {
 
 	case "updateWorkflowTemplateUpdateWorkflowTemplateOperation":
-		return &updateWorkflowTemplateUpdateWorkflowTemplateOperation{Diffs: diffs}, nil
+		return &updateWorkflowTemplateUpdateWorkflowTemplateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

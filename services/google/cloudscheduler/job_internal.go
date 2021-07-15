@@ -212,7 +212,7 @@ type updateJobUpdateJobOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -502,34 +502,48 @@ func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyO
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Job{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
-	rawDesired.PubsubTarget = canonicalizeJobPubsubTarget(rawDesired.PubsubTarget, rawInitial.PubsubTarget, opts...)
-	rawDesired.AppEngineHttpTarget = canonicalizeJobAppEngineHttpTarget(rawDesired.AppEngineHttpTarget, rawInitial.AppEngineHttpTarget, opts...)
-	rawDesired.HttpTarget = canonicalizeJobHttpTarget(rawDesired.HttpTarget, rawInitial.HttpTarget, opts...)
+	canonicalDesired.PubsubTarget = canonicalizeJobPubsubTarget(rawDesired.PubsubTarget, rawInitial.PubsubTarget, opts...)
+	canonicalDesired.AppEngineHttpTarget = canonicalizeJobAppEngineHttpTarget(rawDesired.AppEngineHttpTarget, rawInitial.AppEngineHttpTarget, opts...)
+	canonicalDesired.HttpTarget = canonicalizeJobHttpTarget(rawDesired.HttpTarget, rawInitial.HttpTarget, opts...)
 	if dcl.StringCanonicalize(rawDesired.Schedule, rawInitial.Schedule) {
-		rawDesired.Schedule = rawInitial.Schedule
+		canonicalDesired.Schedule = rawInitial.Schedule
+	} else {
+		canonicalDesired.Schedule = rawDesired.Schedule
 	}
 	if dcl.StringCanonicalize(rawDesired.TimeZone, rawInitial.TimeZone) {
-		rawDesired.TimeZone = rawInitial.TimeZone
+		canonicalDesired.TimeZone = rawInitial.TimeZone
+	} else {
+		canonicalDesired.TimeZone = rawDesired.TimeZone
 	}
-	rawDesired.RetryConfig = canonicalizeJobRetryConfig(rawDesired.RetryConfig, rawInitial.RetryConfig, opts...)
+	canonicalDesired.RetryConfig = canonicalizeJobRetryConfig(rawDesired.RetryConfig, rawInitial.RetryConfig, opts...)
 	if dcl.StringCanonicalize(rawDesired.AttemptDeadline, rawInitial.AttemptDeadline) {
-		rawDesired.AttemptDeadline = rawInitial.AttemptDeadline
+		canonicalDesired.AttemptDeadline = rawInitial.AttemptDeadline
+	} else {
+		canonicalDesired.AttemptDeadline = rawDesired.AttemptDeadline
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
@@ -643,17 +657,25 @@ func canonicalizeJobPubsubTarget(des, initial *JobPubsubTarget, opts ...dcl.Appl
 		return des
 	}
 
+	cDes := &JobPubsubTarget{}
+
 	if dcl.NameToSelfLink(des.TopicName, initial.TopicName) || dcl.IsZeroValue(des.TopicName) {
-		des.TopicName = initial.TopicName
+		cDes.TopicName = initial.TopicName
+	} else {
+		cDes.TopicName = des.TopicName
 	}
 	if dcl.StringCanonicalize(des.Data, initial.Data) || dcl.IsZeroValue(des.Data) {
-		des.Data = initial.Data
+		cDes.Data = initial.Data
+	} else {
+		cDes.Data = des.Data
 	}
 	if dcl.IsZeroValue(des.Attributes) {
 		des.Attributes = initial.Attributes
+	} else {
+		cDes.Attributes = des.Attributes
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobPubsubTarget(c *Client, des, nw *JobPubsubTarget) *JobPubsubTarget {
@@ -729,21 +751,31 @@ func canonicalizeJobAppEngineHttpTarget(des, initial *JobAppEngineHttpTarget, op
 		return des
 	}
 
+	cDes := &JobAppEngineHttpTarget{}
+
 	if dcl.IsZeroValue(des.HttpMethod) {
 		des.HttpMethod = initial.HttpMethod
+	} else {
+		cDes.HttpMethod = des.HttpMethod
 	}
-	des.AppEngineRouting = canonicalizeJobAppEngineHttpTargetAppEngineRouting(des.AppEngineRouting, initial.AppEngineRouting, opts...)
+	cDes.AppEngineRouting = canonicalizeJobAppEngineHttpTargetAppEngineRouting(des.AppEngineRouting, initial.AppEngineRouting, opts...)
 	if dcl.StringCanonicalize(des.RelativeUri, initial.RelativeUri) || dcl.IsZeroValue(des.RelativeUri) {
-		des.RelativeUri = initial.RelativeUri
+		cDes.RelativeUri = initial.RelativeUri
+	} else {
+		cDes.RelativeUri = des.RelativeUri
 	}
 	if dcl.IsZeroValue(des.Headers) {
 		des.Headers = initial.Headers
+	} else {
+		cDes.Headers = des.Headers
 	}
 	if dcl.StringCanonicalize(des.Body, initial.Body) || dcl.IsZeroValue(des.Body) {
-		des.Body = initial.Body
+		cDes.Body = initial.Body
+	} else {
+		cDes.Body = des.Body
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobAppEngineHttpTarget(c *Client, des, nw *JobAppEngineHttpTarget) *JobAppEngineHttpTarget {
@@ -823,17 +855,25 @@ func canonicalizeJobAppEngineHttpTargetAppEngineRouting(des, initial *JobAppEngi
 		return des
 	}
 
+	cDes := &JobAppEngineHttpTargetAppEngineRouting{}
+
 	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
-		des.Service = initial.Service
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
 	}
 	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
-		des.Version = initial.Version
+		cDes.Version = initial.Version
+	} else {
+		cDes.Version = des.Version
 	}
 	if dcl.StringCanonicalize(des.Instance, initial.Instance) || dcl.IsZeroValue(des.Instance) {
-		des.Instance = initial.Instance
+		cDes.Instance = initial.Instance
+	} else {
+		cDes.Instance = des.Instance
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobAppEngineHttpTargetAppEngineRouting(c *Client, des, nw *JobAppEngineHttpTargetAppEngineRouting) *JobAppEngineHttpTargetAppEngineRouting {
@@ -912,22 +952,32 @@ func canonicalizeJobHttpTarget(des, initial *JobHttpTarget, opts ...dcl.ApplyOpt
 		return des
 	}
 
+	cDes := &JobHttpTarget{}
+
 	if dcl.StringCanonicalize(des.Uri, initial.Uri) || dcl.IsZeroValue(des.Uri) {
-		des.Uri = initial.Uri
+		cDes.Uri = initial.Uri
+	} else {
+		cDes.Uri = des.Uri
 	}
 	if dcl.IsZeroValue(des.HttpMethod) {
 		des.HttpMethod = initial.HttpMethod
+	} else {
+		cDes.HttpMethod = des.HttpMethod
 	}
 	if dcl.IsZeroValue(des.Headers) {
 		des.Headers = initial.Headers
+	} else {
+		cDes.Headers = des.Headers
 	}
 	if dcl.StringCanonicalize(des.Body, initial.Body) || dcl.IsZeroValue(des.Body) {
-		des.Body = initial.Body
+		cDes.Body = initial.Body
+	} else {
+		cDes.Body = des.Body
 	}
-	des.OAuthToken = canonicalizeJobHttpTargetOAuthToken(des.OAuthToken, initial.OAuthToken, opts...)
-	des.OidcToken = canonicalizeJobHttpTargetOidcToken(des.OidcToken, initial.OidcToken, opts...)
+	cDes.OAuthToken = canonicalizeJobHttpTargetOAuthToken(des.OAuthToken, initial.OAuthToken, opts...)
+	cDes.OidcToken = canonicalizeJobHttpTargetOidcToken(des.OidcToken, initial.OidcToken, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobHttpTarget(c *Client, des, nw *JobHttpTarget) *JobHttpTarget {
@@ -1008,14 +1058,20 @@ func canonicalizeJobHttpTargetOAuthToken(des, initial *JobHttpTargetOAuthToken, 
 		return des
 	}
 
+	cDes := &JobHttpTargetOAuthToken{}
+
 	if dcl.NameToSelfLink(des.ServiceAccountEmail, initial.ServiceAccountEmail) || dcl.IsZeroValue(des.ServiceAccountEmail) {
-		des.ServiceAccountEmail = initial.ServiceAccountEmail
+		cDes.ServiceAccountEmail = initial.ServiceAccountEmail
+	} else {
+		cDes.ServiceAccountEmail = des.ServiceAccountEmail
 	}
 	if dcl.StringCanonicalize(des.Scope, initial.Scope) || dcl.IsZeroValue(des.Scope) {
-		des.Scope = initial.Scope
+		cDes.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobHttpTargetOAuthToken(c *Client, des, nw *JobHttpTargetOAuthToken) *JobHttpTargetOAuthToken {
@@ -1088,14 +1144,20 @@ func canonicalizeJobHttpTargetOidcToken(des, initial *JobHttpTargetOidcToken, op
 		return des
 	}
 
+	cDes := &JobHttpTargetOidcToken{}
+
 	if dcl.NameToSelfLink(des.ServiceAccountEmail, initial.ServiceAccountEmail) || dcl.IsZeroValue(des.ServiceAccountEmail) {
-		des.ServiceAccountEmail = initial.ServiceAccountEmail
+		cDes.ServiceAccountEmail = initial.ServiceAccountEmail
+	} else {
+		cDes.ServiceAccountEmail = des.ServiceAccountEmail
 	}
 	if dcl.StringCanonicalize(des.Audience, initial.Audience) || dcl.IsZeroValue(des.Audience) {
-		des.Audience = initial.Audience
+		cDes.Audience = initial.Audience
+	} else {
+		cDes.Audience = des.Audience
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobHttpTargetOidcToken(c *Client, des, nw *JobHttpTargetOidcToken) *JobHttpTargetOidcToken {
@@ -1168,17 +1230,25 @@ func canonicalizeJobStatus(des, initial *JobStatus, opts ...dcl.ApplyOption) *Jo
 		return des
 	}
 
+	cDes := &JobStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobStatus(c *Client, des, nw *JobStatus) *JobStatus {
@@ -1252,14 +1322,20 @@ func canonicalizeJobStatusDetails(des, initial *JobStatusDetails, opts ...dcl.Ap
 		return des
 	}
 
+	cDes := &JobStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobStatusDetails(c *Client, des, nw *JobStatusDetails) *JobStatusDetails {
@@ -1332,23 +1408,35 @@ func canonicalizeJobRetryConfig(des, initial *JobRetryConfig, opts ...dcl.ApplyO
 		return des
 	}
 
+	cDes := &JobRetryConfig{}
+
 	if dcl.IsZeroValue(des.RetryCount) {
 		des.RetryCount = initial.RetryCount
+	} else {
+		cDes.RetryCount = des.RetryCount
 	}
 	if dcl.StringCanonicalize(des.MaxRetryDuration, initial.MaxRetryDuration) || dcl.IsZeroValue(des.MaxRetryDuration) {
-		des.MaxRetryDuration = initial.MaxRetryDuration
+		cDes.MaxRetryDuration = initial.MaxRetryDuration
+	} else {
+		cDes.MaxRetryDuration = des.MaxRetryDuration
 	}
 	if dcl.StringCanonicalize(des.MinBackoffDuration, initial.MinBackoffDuration) || dcl.IsZeroValue(des.MinBackoffDuration) {
-		des.MinBackoffDuration = initial.MinBackoffDuration
+		cDes.MinBackoffDuration = initial.MinBackoffDuration
+	} else {
+		cDes.MinBackoffDuration = des.MinBackoffDuration
 	}
 	if dcl.StringCanonicalize(des.MaxBackoffDuration, initial.MaxBackoffDuration) || dcl.IsZeroValue(des.MaxBackoffDuration) {
-		des.MaxBackoffDuration = initial.MaxBackoffDuration
+		cDes.MaxBackoffDuration = initial.MaxBackoffDuration
+	} else {
+		cDes.MaxBackoffDuration = des.MaxBackoffDuration
 	}
 	if dcl.IsZeroValue(des.MaxDoublings) {
 		des.MaxDoublings = initial.MaxDoublings
+	} else {
+		cDes.MaxDoublings = des.MaxDoublings
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobRetryConfig(c *Client, des, nw *JobRetryConfig) *JobRetryConfig {
@@ -3394,31 +3482,45 @@ type jobDiff struct {
 	UpdateOp         jobApiOperation
 }
 
-func convertFieldDiffToJobOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]jobDiff, error) {
+func convertFieldDiffsToJobDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]jobDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []jobDiff
-	for _, op := range ops {
+	// For each operation name, create a jobDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := jobDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTojobApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToJobApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTojobApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (jobApiOperation, error) {
-	switch op {
+func convertOpNameToJobApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (jobApiOperation, error) {
+	switch opName {
 
 	case "updateJobUpdateJobOperation":
-		return &updateJobUpdateJobOperation{Diffs: diffs}, nil
+		return &updateJobUpdateJobOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

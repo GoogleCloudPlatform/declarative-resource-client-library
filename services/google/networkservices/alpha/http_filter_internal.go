@@ -133,7 +133,7 @@ type updateHttpFilterUpdateHttpFilterOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -150,7 +150,7 @@ func (op *updateHttpFilterUpdateHttpFilterOperation) do(ctx context.Context, r *
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -447,33 +447,49 @@ func canonicalizeHttpFilterDesiredState(rawDesired, rawInitial *HttpFilter, opts
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &HttpFilter{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.StringCanonicalize(rawDesired.FilterName, rawInitial.FilterName) {
-		rawDesired.FilterName = rawInitial.FilterName
+		canonicalDesired.FilterName = rawInitial.FilterName
+	} else {
+		canonicalDesired.FilterName = rawDesired.FilterName
 	}
 	if dcl.StringCanonicalize(rawDesired.ConfigTypeUrl, rawInitial.ConfigTypeUrl) {
-		rawDesired.ConfigTypeUrl = rawInitial.ConfigTypeUrl
+		canonicalDesired.ConfigTypeUrl = rawInitial.ConfigTypeUrl
+	} else {
+		canonicalDesired.ConfigTypeUrl = rawDesired.ConfigTypeUrl
 	}
 	if dcl.StringCanonicalize(rawDesired.Config, rawInitial.Config) {
-		rawDesired.Config = rawInitial.Config
+		canonicalDesired.Config = rawInitial.Config
+	} else {
+		canonicalDesired.Config = rawDesired.Config
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeHttpFilterNewState(c *Client, rawNew, rawDesired *HttpFilter) (*HttpFilter, error) {
@@ -800,31 +816,45 @@ type httpFilterDiff struct {
 	UpdateOp         httpFilterApiOperation
 }
 
-func convertFieldDiffToHttpFilterOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]httpFilterDiff, error) {
+func convertFieldDiffsToHttpFilterDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]httpFilterDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []httpFilterDiff
-	for _, op := range ops {
+	// For each operation name, create a httpFilterDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := httpFilterDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTohttpFilterApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToHttpFilterApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTohttpFilterApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (httpFilterApiOperation, error) {
-	switch op {
+func convertOpNameToHttpFilterApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (httpFilterApiOperation, error) {
+	switch opName {
 
 	case "updateHttpFilterUpdateHttpFilterOperation":
-		return &updateHttpFilterUpdateHttpFilterOperation{Diffs: diffs}, nil
+		return &updateHttpFilterUpdateHttpFilterOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

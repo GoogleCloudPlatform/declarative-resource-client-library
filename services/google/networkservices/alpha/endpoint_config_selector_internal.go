@@ -187,7 +187,7 @@ type updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -499,39 +499,57 @@ func canonicalizeEndpointConfigSelectorDesiredState(rawDesired, rawInitial *Endp
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &EndpointConfigSelector{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.IsZeroValue(rawDesired.Type) {
-		rawDesired.Type = rawInitial.Type
+		canonicalDesired.Type = rawInitial.Type
+	} else {
+		canonicalDesired.Type = rawDesired.Type
 	}
 	if dcl.NameToSelfLink(rawDesired.AuthorizationPolicy, rawInitial.AuthorizationPolicy) {
-		rawDesired.AuthorizationPolicy = rawInitial.AuthorizationPolicy
+		canonicalDesired.AuthorizationPolicy = rawInitial.AuthorizationPolicy
+	} else {
+		canonicalDesired.AuthorizationPolicy = rawDesired.AuthorizationPolicy
 	}
-	rawDesired.HttpFilters = canonicalizeEndpointConfigSelectorHttpFilters(rawDesired.HttpFilters, rawInitial.HttpFilters, opts...)
-	rawDesired.EndpointMatcher = canonicalizeEndpointConfigSelectorEndpointMatcher(rawDesired.EndpointMatcher, rawInitial.EndpointMatcher, opts...)
-	rawDesired.TrafficPortSelector = canonicalizeEndpointConfigSelectorTrafficPortSelector(rawDesired.TrafficPortSelector, rawInitial.TrafficPortSelector, opts...)
+	canonicalDesired.HttpFilters = canonicalizeEndpointConfigSelectorHttpFilters(rawDesired.HttpFilters, rawInitial.HttpFilters, opts...)
+	canonicalDesired.EndpointMatcher = canonicalizeEndpointConfigSelectorEndpointMatcher(rawDesired.EndpointMatcher, rawInitial.EndpointMatcher, opts...)
+	canonicalDesired.TrafficPortSelector = canonicalizeEndpointConfigSelectorTrafficPortSelector(rawDesired.TrafficPortSelector, rawInitial.TrafficPortSelector, opts...)
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.NameToSelfLink(rawDesired.ServerTlsPolicy, rawInitial.ServerTlsPolicy) {
-		rawDesired.ServerTlsPolicy = rawInitial.ServerTlsPolicy
+		canonicalDesired.ServerTlsPolicy = rawInitial.ServerTlsPolicy
+	} else {
+		canonicalDesired.ServerTlsPolicy = rawDesired.ServerTlsPolicy
 	}
 	if dcl.NameToSelfLink(rawDesired.ClientTlsPolicy, rawInitial.ClientTlsPolicy) {
-		rawDesired.ClientTlsPolicy = rawInitial.ClientTlsPolicy
+		canonicalDesired.ClientTlsPolicy = rawInitial.ClientTlsPolicy
+	} else {
+		canonicalDesired.ClientTlsPolicy = rawDesired.ClientTlsPolicy
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeEndpointConfigSelectorNewState(c *Client, rawNew, rawDesired *EndpointConfigSelector) (*EndpointConfigSelector, error) {
@@ -633,11 +651,15 @@ func canonicalizeEndpointConfigSelectorHttpFilters(des, initial *EndpointConfigS
 		return des
 	}
 
+	cDes := &EndpointConfigSelectorHttpFilters{}
+
 	if dcl.IsZeroValue(des.HttpFilters) {
 		des.HttpFilters = initial.HttpFilters
+	} else {
+		cDes.HttpFilters = des.HttpFilters
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewEndpointConfigSelectorHttpFilters(c *Client, des, nw *EndpointConfigSelectorHttpFilters) *EndpointConfigSelectorHttpFilters {
@@ -707,9 +729,11 @@ func canonicalizeEndpointConfigSelectorEndpointMatcher(des, initial *EndpointCon
 		return des
 	}
 
-	des.MetadataLabelMatcher = canonicalizeEndpointConfigSelectorEndpointMatcherMetadataLabelMatcher(des.MetadataLabelMatcher, initial.MetadataLabelMatcher, opts...)
+	cDes := &EndpointConfigSelectorEndpointMatcher{}
 
-	return des
+	cDes.MetadataLabelMatcher = canonicalizeEndpointConfigSelectorEndpointMatcherMetadataLabelMatcher(des.MetadataLabelMatcher, initial.MetadataLabelMatcher, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewEndpointConfigSelectorEndpointMatcher(c *Client, des, nw *EndpointConfigSelectorEndpointMatcher) *EndpointConfigSelectorEndpointMatcher {
@@ -777,14 +801,20 @@ func canonicalizeEndpointConfigSelectorEndpointMatcherMetadataLabelMatcher(des, 
 		return des
 	}
 
+	cDes := &EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher{}
+
 	if dcl.IsZeroValue(des.MetadataLabelMatchCriteria) {
 		des.MetadataLabelMatchCriteria = initial.MetadataLabelMatchCriteria
+	} else {
+		cDes.MetadataLabelMatchCriteria = des.MetadataLabelMatchCriteria
 	}
 	if dcl.IsZeroValue(des.MetadataLabels) {
 		des.MetadataLabels = initial.MetadataLabels
+	} else {
+		cDes.MetadataLabels = des.MetadataLabels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewEndpointConfigSelectorEndpointMatcherMetadataLabelMatcher(c *Client, des, nw *EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher) *EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher {
@@ -855,14 +885,20 @@ func canonicalizeEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetada
 		return des
 	}
 
+	cDes := &EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels{}
+
 	if dcl.StringCanonicalize(des.LabelName, initial.LabelName) || dcl.IsZeroValue(des.LabelName) {
-		des.LabelName = initial.LabelName
+		cDes.LabelName = initial.LabelName
+	} else {
+		cDes.LabelName = des.LabelName
 	}
 	if dcl.StringCanonicalize(des.LabelValue, initial.LabelValue) || dcl.IsZeroValue(des.LabelValue) {
-		des.LabelValue = initial.LabelValue
+		cDes.LabelValue = initial.LabelValue
+	} else {
+		cDes.LabelValue = des.LabelValue
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels(c *Client, des, nw *EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels) *EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels {
@@ -935,11 +971,15 @@ func canonicalizeEndpointConfigSelectorTrafficPortSelector(des, initial *Endpoin
 		return des
 	}
 
+	cDes := &EndpointConfigSelectorTrafficPortSelector{}
+
 	if dcl.IsZeroValue(des.Ports) {
 		des.Ports = initial.Ports
+	} else {
+		cDes.Ports = des.Ports
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewEndpointConfigSelectorTrafficPortSelector(c *Client, des, nw *EndpointConfigSelectorTrafficPortSelector) *EndpointConfigSelectorTrafficPortSelector {
@@ -2109,31 +2149,45 @@ type endpointConfigSelectorDiff struct {
 	UpdateOp         endpointConfigSelectorApiOperation
 }
 
-func convertFieldDiffToEndpointConfigSelectorOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]endpointConfigSelectorDiff, error) {
+func convertFieldDiffsToEndpointConfigSelectorDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]endpointConfigSelectorDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []endpointConfigSelectorDiff
-	for _, op := range ops {
+	// For each operation name, create a endpointConfigSelectorDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := endpointConfigSelectorDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToendpointConfigSelectorApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToEndpointConfigSelectorApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToendpointConfigSelectorApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (endpointConfigSelectorApiOperation, error) {
-	switch op {
+func convertOpNameToEndpointConfigSelectorApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (endpointConfigSelectorApiOperation, error) {
+	switch opName {
 
 	case "updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation":
-		return &updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation{Diffs: diffs}, nil
+		return &updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

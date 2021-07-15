@@ -67,7 +67,7 @@ func flattenRepoPubsubConfig(v interface{}) []RepoPubsubConfigs {
 func createPubsubConfigs(inOps []repoApiOperation) ([]repoApiOperation, error) {
 	for _, op := range inOps {
 		if _, ok := op.(*createRepoOperation); ok {
-			return append(inOps, &updateRepoUpdateRepoOperation{Diffs: []*dcl.FieldDiff{{FieldName: "pubsubConfigs"}}}), nil
+			return append(inOps, &updateRepoUpdateRepoOperation{FieldDiffs: []*dcl.FieldDiff{{FieldName: "pubsubConfigs"}}}), nil
 		}
 	}
 	return inOps, nil

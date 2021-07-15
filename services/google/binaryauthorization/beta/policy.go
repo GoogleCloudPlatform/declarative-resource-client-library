@@ -318,8 +318,7 @@ func applyPolicyHelper(c *Client, ctx context.Context, rawDesired *Policy, opts 
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToPolicyOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToPolicyDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}

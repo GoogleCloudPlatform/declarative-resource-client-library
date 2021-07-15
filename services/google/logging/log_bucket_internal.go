@@ -99,7 +99,7 @@ type updateLogBucketUpdateBucketOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -116,7 +116,7 @@ func (op *updateLogBucketUpdateBucketOperation) do(ctx context.Context, r *LogBu
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -316,27 +316,39 @@ func canonicalizeLogBucketDesiredState(rawDesired, rawInitial *LogBucket, opts .
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &LogBucket{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.RetentionDays) {
-		rawDesired.RetentionDays = rawInitial.RetentionDays
+		canonicalDesired.RetentionDays = rawInitial.RetentionDays
+	} else {
+		canonicalDesired.RetentionDays = rawDesired.RetentionDays
 	}
 	if dcl.BoolCanonicalize(rawDesired.Locked, rawInitial.Locked) {
-		rawDesired.Locked = rawInitial.Locked
+		canonicalDesired.Locked = rawInitial.Locked
+	} else {
+		canonicalDesired.Locked = rawDesired.Locked
 	}
 	if dcl.NameToSelfLink(rawDesired.Parent, rawInitial.Parent) {
-		rawDesired.Parent = rawInitial.Parent
+		canonicalDesired.Parent = rawInitial.Parent
+	} else {
+		canonicalDesired.Parent = rawDesired.Parent
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeLogBucketNewState(c *Client, rawNew, rawDesired *LogBucket) (*LogBucket, error) {
@@ -672,31 +684,45 @@ type logBucketDiff struct {
 	UpdateOp         logBucketApiOperation
 }
 
-func convertFieldDiffToLogBucketOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]logBucketDiff, error) {
+func convertFieldDiffsToLogBucketDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]logBucketDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []logBucketDiff
-	for _, op := range ops {
+	// For each operation name, create a logBucketDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := logBucketDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTologBucketApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToLogBucketApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTologBucketApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (logBucketApiOperation, error) {
-	switch op {
+func convertOpNameToLogBucketApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (logBucketApiOperation, error) {
+	switch opName {
 
 	case "updateLogBucketUpdateBucketOperation":
-		return &updateLogBucketUpdateBucketOperation{Diffs: diffs}, nil
+		return &updateLogBucketUpdateBucketOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

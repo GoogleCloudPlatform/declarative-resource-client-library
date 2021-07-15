@@ -104,7 +104,7 @@ type updateLogExclusionUpdateExclusionOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -121,7 +121,7 @@ func (op *updateLogExclusionUpdateExclusionOperation) do(ctx context.Context, r 
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -395,23 +395,34 @@ func canonicalizeLogExclusionDesiredState(rawDesired, rawInitial *LogExclusion, 
 		return rawDesired, nil
 	}
 
+	canonicalDesired := &LogExclusion{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.StringCanonicalize(rawDesired.Filter, rawInitial.Filter) {
-		rawDesired.Filter = rawInitial.Filter
+		canonicalDesired.Filter = rawInitial.Filter
+	} else {
+		canonicalDesired.Filter = rawDesired.Filter
 	}
 	if dcl.BoolCanonicalize(rawDesired.Disabled, rawInitial.Disabled) {
-		rawDesired.Disabled = rawInitial.Disabled
+		canonicalDesired.Disabled = rawInitial.Disabled
+	} else {
+		canonicalDesired.Disabled = rawDesired.Disabled
 	}
 	if dcl.NameToSelfLink(rawDesired.Parent, rawInitial.Parent) {
-		rawDesired.Parent = rawInitial.Parent
+		canonicalDesired.Parent = rawInitial.Parent
+	} else {
+		canonicalDesired.Parent = rawDesired.Parent
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeLogExclusionNewState(c *Client, rawNew, rawDesired *LogExclusion) (*LogExclusion, error) {
@@ -677,31 +688,45 @@ type logExclusionDiff struct {
 	UpdateOp         logExclusionApiOperation
 }
 
-func convertFieldDiffToLogExclusionOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]logExclusionDiff, error) {
+func convertFieldDiffsToLogExclusionDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]logExclusionDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []logExclusionDiff
-	for _, op := range ops {
+	// For each operation name, create a logExclusionDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := logExclusionDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTologExclusionApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToLogExclusionApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTologExclusionApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (logExclusionApiOperation, error) {
-	switch op {
+func convertOpNameToLogExclusionApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (logExclusionApiOperation, error) {
+	switch opName {
 
 	case "updateLogExclusionUpdateExclusionOperation":
-		return &updateLogExclusionUpdateExclusionOperation{Diffs: diffs}, nil
+		return &updateLogExclusionUpdateExclusionOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

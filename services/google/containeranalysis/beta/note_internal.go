@@ -346,7 +346,7 @@ type updateNoteUpdateNoteOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -613,49 +613,49 @@ func (c *Client) noteDiffsForRawDesired(ctx context.Context, rawDesired *Note, o
 func canonicalizeNoteInitialState(rawInitial, rawDesired *Note) (*Note, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
-	if dcl.IsZeroValue(rawInitial.Vulnerability) {
+	if !dcl.IsZeroValue(rawInitial.Vulnerability) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.Build, rawInitial.Image, rawInitial.Package, rawInitial.Deployment, rawInitial.Discovery, rawInitial.Attestation) {
 			rawInitial.Vulnerability = EmptyNoteVulnerability
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.Build) {
+	if !dcl.IsZeroValue(rawInitial.Build) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Image, rawInitial.Package, rawInitial.Deployment, rawInitial.Discovery, rawInitial.Attestation) {
 			rawInitial.Build = EmptyNoteBuild
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.Image) {
+	if !dcl.IsZeroValue(rawInitial.Image) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Package, rawInitial.Deployment, rawInitial.Discovery, rawInitial.Attestation) {
 			rawInitial.Image = EmptyNoteImage
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.Package) {
+	if !dcl.IsZeroValue(rawInitial.Package) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Image, rawInitial.Deployment, rawInitial.Discovery, rawInitial.Attestation) {
 			rawInitial.Package = EmptyNotePackage
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.Deployment) {
+	if !dcl.IsZeroValue(rawInitial.Deployment) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Image, rawInitial.Package, rawInitial.Discovery, rawInitial.Attestation) {
 			rawInitial.Deployment = EmptyNoteDeployment
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.Discovery) {
+	if !dcl.IsZeroValue(rawInitial.Discovery) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Image, rawInitial.Package, rawInitial.Deployment, rawInitial.Attestation) {
 			rawInitial.Discovery = EmptyNoteDiscovery
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.Attestation) {
+	if !dcl.IsZeroValue(rawInitial.Attestation) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Image, rawInitial.Package, rawInitial.Deployment, rawInitial.Discovery) {
 			rawInitial.Attestation = EmptyNoteAttestation
@@ -744,36 +744,51 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 		}
 	}
 
+	canonicalDesired := &Note{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.ShortDescription, rawInitial.ShortDescription) {
-		rawDesired.ShortDescription = rawInitial.ShortDescription
+		canonicalDesired.ShortDescription = rawInitial.ShortDescription
+	} else {
+		canonicalDesired.ShortDescription = rawDesired.ShortDescription
 	}
 	if dcl.StringCanonicalize(rawDesired.LongDescription, rawInitial.LongDescription) {
-		rawDesired.LongDescription = rawInitial.LongDescription
+		canonicalDesired.LongDescription = rawInitial.LongDescription
+	} else {
+		canonicalDesired.LongDescription = rawDesired.LongDescription
 	}
 	if dcl.IsZeroValue(rawDesired.RelatedUrl) {
-		rawDesired.RelatedUrl = rawInitial.RelatedUrl
+		canonicalDesired.RelatedUrl = rawInitial.RelatedUrl
+	} else {
+		canonicalDesired.RelatedUrl = rawDesired.RelatedUrl
 	}
 	if dcl.IsZeroValue(rawDesired.ExpirationTime) {
-		rawDesired.ExpirationTime = rawInitial.ExpirationTime
+		canonicalDesired.ExpirationTime = rawInitial.ExpirationTime
+	} else {
+		canonicalDesired.ExpirationTime = rawDesired.ExpirationTime
 	}
 	if dcl.IsZeroValue(rawDesired.RelatedNoteNames) {
-		rawDesired.RelatedNoteNames = rawInitial.RelatedNoteNames
+		canonicalDesired.RelatedNoteNames = rawInitial.RelatedNoteNames
+	} else {
+		canonicalDesired.RelatedNoteNames = rawDesired.RelatedNoteNames
 	}
-	rawDesired.Vulnerability = canonicalizeNoteVulnerability(rawDesired.Vulnerability, rawInitial.Vulnerability, opts...)
-	rawDesired.Build = canonicalizeNoteBuild(rawDesired.Build, rawInitial.Build, opts...)
-	rawDesired.Image = canonicalizeNoteImage(rawDesired.Image, rawInitial.Image, opts...)
-	rawDesired.Package = canonicalizeNotePackage(rawDesired.Package, rawInitial.Package, opts...)
-	rawDesired.Discovery = canonicalizeNoteDiscovery(rawDesired.Discovery, rawInitial.Discovery, opts...)
-	rawDesired.Deployment = canonicalizeNoteDeployment(rawDesired.Deployment, rawInitial.Deployment, opts...)
-	rawDesired.Attestation = canonicalizeNoteAttestation(rawDesired.Attestation, rawInitial.Attestation, opts...)
+	canonicalDesired.Vulnerability = canonicalizeNoteVulnerability(rawDesired.Vulnerability, rawInitial.Vulnerability, opts...)
+	canonicalDesired.Build = canonicalizeNoteBuild(rawDesired.Build, rawInitial.Build, opts...)
+	canonicalDesired.Image = canonicalizeNoteImage(rawDesired.Image, rawInitial.Image, opts...)
+	canonicalDesired.Package = canonicalizeNotePackage(rawDesired.Package, rawInitial.Package, opts...)
+	canonicalDesired.Discovery = canonicalizeNoteDiscovery(rawDesired.Discovery, rawInitial.Discovery, opts...)
+	canonicalDesired.Deployment = canonicalizeNoteDeployment(rawDesired.Deployment, rawInitial.Deployment, opts...)
+	canonicalDesired.Attestation = canonicalizeNoteAttestation(rawDesired.Attestation, rawInitial.Attestation, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeNoteNewState(c *Client, rawNew, rawDesired *Note) (*Note, error) {
@@ -887,14 +902,20 @@ func canonicalizeNoteRelatedUrl(des, initial *NoteRelatedUrl, opts ...dcl.ApplyO
 		return des
 	}
 
+	cDes := &NoteRelatedUrl{}
+
 	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
-		des.Url = initial.Url
+		cDes.Url = initial.Url
+	} else {
+		cDes.Url = des.Url
 	}
 	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
-		des.Label = initial.Label
+		cDes.Label = initial.Label
+	} else {
+		cDes.Label = des.Label
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNoteRelatedUrl(c *Client, des, nw *NoteRelatedUrl) *NoteRelatedUrl {
@@ -967,24 +988,36 @@ func canonicalizeNoteVulnerability(des, initial *NoteVulnerability, opts ...dcl.
 		return des
 	}
 
+	cDes := &NoteVulnerability{}
+
 	if dcl.IsZeroValue(des.CvssScore) {
 		des.CvssScore = initial.CvssScore
+	} else {
+		cDes.CvssScore = des.CvssScore
 	}
 	if dcl.IsZeroValue(des.Severity) {
 		des.Severity = initial.Severity
+	} else {
+		cDes.Severity = des.Severity
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
-	des.CvssV3 = canonicalizeNoteVulnerabilityCvssV3(des.CvssV3, initial.CvssV3, opts...)
+	cDes.CvssV3 = canonicalizeNoteVulnerabilityCvssV3(des.CvssV3, initial.CvssV3, opts...)
 	if dcl.IsZeroValue(des.WindowsDetails) {
 		des.WindowsDetails = initial.WindowsDetails
+	} else {
+		cDes.WindowsDetails = des.WindowsDetails
 	}
 	if dcl.IsZeroValue(des.SourceUpdateTime) {
 		des.SourceUpdateTime = initial.SourceUpdateTime
+	} else {
+		cDes.SourceUpdateTime = des.SourceUpdateTime
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNoteVulnerability(c *Client, des, nw *NoteVulnerability) *NoteVulnerability {
@@ -1063,38 +1096,58 @@ func canonicalizeNoteVulnerabilityDetails(des, initial *NoteVulnerabilityDetails
 		return des
 	}
 
+	cDes := &NoteVulnerabilityDetails{}
+
 	if dcl.StringCanonicalize(des.SeverityName, initial.SeverityName) || dcl.IsZeroValue(des.SeverityName) {
-		des.SeverityName = initial.SeverityName
+		cDes.SeverityName = initial.SeverityName
+	} else {
+		cDes.SeverityName = des.SeverityName
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.StringCanonicalize(des.PackageType, initial.PackageType) || dcl.IsZeroValue(des.PackageType) {
-		des.PackageType = initial.PackageType
+		cDes.PackageType = initial.PackageType
+	} else {
+		cDes.PackageType = des.PackageType
 	}
 	if dcl.StringCanonicalize(des.AffectedCpeUri, initial.AffectedCpeUri) || dcl.IsZeroValue(des.AffectedCpeUri) {
-		des.AffectedCpeUri = initial.AffectedCpeUri
+		cDes.AffectedCpeUri = initial.AffectedCpeUri
+	} else {
+		cDes.AffectedCpeUri = des.AffectedCpeUri
 	}
 	if dcl.StringCanonicalize(des.AffectedPackage, initial.AffectedPackage) || dcl.IsZeroValue(des.AffectedPackage) {
-		des.AffectedPackage = initial.AffectedPackage
+		cDes.AffectedPackage = initial.AffectedPackage
+	} else {
+		cDes.AffectedPackage = des.AffectedPackage
 	}
-	des.AffectedVersionStart = canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(des.AffectedVersionStart, initial.AffectedVersionStart, opts...)
-	des.AffectedVersionEnd = canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(des.AffectedVersionEnd, initial.AffectedVersionEnd, opts...)
+	cDes.AffectedVersionStart = canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(des.AffectedVersionStart, initial.AffectedVersionStart, opts...)
+	cDes.AffectedVersionEnd = canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(des.AffectedVersionEnd, initial.AffectedVersionEnd, opts...)
 	if dcl.StringCanonicalize(des.FixedCpeUri, initial.FixedCpeUri) || dcl.IsZeroValue(des.FixedCpeUri) {
-		des.FixedCpeUri = initial.FixedCpeUri
+		cDes.FixedCpeUri = initial.FixedCpeUri
+	} else {
+		cDes.FixedCpeUri = des.FixedCpeUri
 	}
 	if dcl.StringCanonicalize(des.FixedPackage, initial.FixedPackage) || dcl.IsZeroValue(des.FixedPackage) {
-		des.FixedPackage = initial.FixedPackage
+		cDes.FixedPackage = initial.FixedPackage
+	} else {
+		cDes.FixedPackage = des.FixedPackage
 	}
-	des.FixedVersion = canonicalizeNoteVulnerabilityDetailsFixedVersion(des.FixedVersion, initial.FixedVersion, opts...)
+	cDes.FixedVersion = canonicalizeNoteVulnerabilityDetailsFixedVersion(des.FixedVersion, initial.FixedVersion, opts...)
 	if dcl.BoolCanonicalize(des.IsObsolete, initial.IsObsolete) || dcl.IsZeroValue(des.IsObsolete) {
-		des.IsObsolete = initial.IsObsolete
+		cDes.IsObsolete = initial.IsObsolete
+	} else {
+		cDes.IsObsolete = des.IsObsolete
 	}
 	if dcl.IsZeroValue(des.SourceUpdateTime) {
 		des.SourceUpdateTime = initial.SourceUpdateTime
+	} else {
+		cDes.SourceUpdateTime = des.SourceUpdateTime
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNoteVulnerabilityDetails(c *Client, des, nw *NoteVulnerabilityDetails) *NoteVulnerabilityDetails {
@@ -1191,23 +1244,35 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(des, initial *Note
 		return des
 	}
 
+	cDes := &NoteVulnerabilityDetailsAffectedVersionStart{}
+
 	if dcl.IsZeroValue(des.Epoch) {
 		des.Epoch = initial.Epoch
+	} else {
+		cDes.Epoch = des.Epoch
 	}
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
-		des.Revision = initial.Revision
+		cDes.Revision = initial.Revision
+	} else {
+		cDes.Revision = des.Revision
 	}
 	if dcl.IsZeroValue(des.Kind) {
 		des.Kind = initial.Kind
+	} else {
+		cDes.Kind = des.Kind
 	}
 	if dcl.StringCanonicalize(des.FullName, initial.FullName) || dcl.IsZeroValue(des.FullName) {
-		des.FullName = initial.FullName
+		cDes.FullName = initial.FullName
+	} else {
+		cDes.FullName = des.FullName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionStart(c *Client, des, nw *NoteVulnerabilityDetailsAffectedVersionStart) *NoteVulnerabilityDetailsAffectedVersionStart {
@@ -1289,23 +1354,35 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(des, initial *NoteVu
 		return des
 	}
 
+	cDes := &NoteVulnerabilityDetailsAffectedVersionEnd{}
+
 	if dcl.IsZeroValue(des.Epoch) {
 		des.Epoch = initial.Epoch
+	} else {
+		cDes.Epoch = des.Epoch
 	}
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
-		des.Revision = initial.Revision
+		cDes.Revision = initial.Revision
+	} else {
+		cDes.Revision = des.Revision
 	}
 	if dcl.IsZeroValue(des.Kind) {
 		des.Kind = initial.Kind
+	} else {
+		cDes.Kind = des.Kind
 	}
 	if dcl.StringCanonicalize(des.FullName, initial.FullName) || dcl.IsZeroValue(des.FullName) {
-		des.FullName = initial.FullName
+		cDes.FullName = initial.FullName
+	} else {
+		cDes.FullName = des.FullName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionEnd(c *Client, des, nw *NoteVulnerabilityDetailsAffectedVersionEnd) *NoteVulnerabilityDetailsAffectedVersionEnd {
@@ -1387,23 +1464,35 @@ func canonicalizeNoteVulnerabilityDetailsFixedVersion(des, initial *NoteVulnerab
 		return des
 	}
 
+	cDes := &NoteVulnerabilityDetailsFixedVersion{}
+
 	if dcl.IsZeroValue(des.Epoch) {
 		des.Epoch = initial.Epoch
+	} else {
+		cDes.Epoch = des.Epoch
 	}
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
-		des.Revision = initial.Revision
+		cDes.Revision = initial.Revision
+	} else {
+		cDes.Revision = des.Revision
 	}
 	if dcl.IsZeroValue(des.Kind) {
 		des.Kind = initial.Kind
+	} else {
+		cDes.Kind = des.Kind
 	}
 	if dcl.StringCanonicalize(des.FullName, initial.FullName) || dcl.IsZeroValue(des.FullName) {
-		des.FullName = initial.FullName
+		cDes.FullName = initial.FullName
+	} else {
+		cDes.FullName = des.FullName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNoteVulnerabilityDetailsFixedVersion(c *Client, des, nw *NoteVulnerabilityDetailsFixedVersion) *NoteVulnerabilityDetailsFixedVersion {
@@ -1485,41 +1574,65 @@ func canonicalizeNoteVulnerabilityCvssV3(des, initial *NoteVulnerabilityCvssV3, 
 		return des
 	}
 
+	cDes := &NoteVulnerabilityCvssV3{}
+
 	if dcl.IsZeroValue(des.BaseScore) {
 		des.BaseScore = initial.BaseScore
+	} else {
+		cDes.BaseScore = des.BaseScore
 	}
 	if dcl.IsZeroValue(des.ExploitabilityScore) {
 		des.ExploitabilityScore = initial.ExploitabilityScore
+	} else {
+		cDes.ExploitabilityScore = des.ExploitabilityScore
 	}
 	if dcl.IsZeroValue(des.ImpactScore) {
 		des.ImpactScore = initial.ImpactScore
+	} else {
+		cDes.ImpactScore = des.ImpactScore
 	}
 	if dcl.IsZeroValue(des.AttackVector) {
 		des.AttackVector = initial.AttackVector
+	} else {
+		cDes.AttackVector = des.AttackVector
 	}
 	if dcl.IsZeroValue(des.AttackComplexity) {
 		des.AttackComplexity = initial.AttackComplexity
+	} else {
+		cDes.AttackComplexity = des.AttackComplexity
 	}
 	if dcl.IsZeroValue(des.PrivilegesRequired) {
 		des.PrivilegesRequired = initial.PrivilegesRequired
+	} else {
+		cDes.PrivilegesRequired = des.PrivilegesRequired
 	}
 	if dcl.IsZeroValue(des.UserInteraction) {
 		des.UserInteraction = initial.UserInteraction
+	} else {
+		cDes.UserInteraction = des.UserInteraction
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 	if dcl.IsZeroValue(des.ConfidentialityImpact) {
 		des.ConfidentialityImpact = initial.ConfidentialityImpact
+	} else {
+		cDes.ConfidentialityImpact = des.ConfidentialityImpact
 	}
 	if dcl.IsZeroValue(des.IntegrityImpact) {
 		des.IntegrityImpact = initial.IntegrityImpact
+	} else {
+		cDes.IntegrityImpact = des.IntegrityImpact
 	}
 	if dcl.IsZeroValue(des.AvailabilityImpact) {
 		des.AvailabilityImpact = initial.AvailabilityImpact
+	} else {
+		cDes.AvailabilityImpact = des.AvailabilityImpact
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNoteVulnerabilityCvssV3(c *Client, des, nw *NoteVulnerabilityCvssV3) *NoteVulnerabilityCvssV3 {
@@ -1619,20 +1732,30 @@ func canonicalizeNoteVulnerabilityWindowsDetails(des, initial *NoteVulnerability
 		return des
 	}
 
+	cDes := &NoteVulnerabilityWindowsDetails{}
+
 	if dcl.StringCanonicalize(des.CpeUri, initial.CpeUri) || dcl.IsZeroValue(des.CpeUri) {
-		des.CpeUri = initial.CpeUri
+		cDes.CpeUri = initial.CpeUri
+	} else {
+		cDes.CpeUri = des.CpeUri
 	}
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.FixingKbs) {
 		des.FixingKbs = initial.FixingKbs
+	} else {
+		cDes.FixingKbs = des.FixingKbs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNoteVulnerabilityWindowsDetails(c *Client, des, nw *NoteVulnerabilityWindowsDetails) *NoteVulnerabilityWindowsDetails {
@@ -1709,14 +1832,20 @@ func canonicalizeNoteVulnerabilityWindowsDetailsFixingKbs(des, initial *NoteVuln
 		return des
 	}
 
+	cDes := &NoteVulnerabilityWindowsDetailsFixingKbs{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
-		des.Url = initial.Url
+		cDes.Url = initial.Url
+	} else {
+		cDes.Url = des.Url
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNoteVulnerabilityWindowsDetailsFixingKbs(c *Client, des, nw *NoteVulnerabilityWindowsDetailsFixingKbs) *NoteVulnerabilityWindowsDetailsFixingKbs {
@@ -1789,12 +1918,16 @@ func canonicalizeNoteBuild(des, initial *NoteBuild, opts ...dcl.ApplyOption) *No
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.BuilderVersion, initial.BuilderVersion) || dcl.IsZeroValue(des.BuilderVersion) {
-		des.BuilderVersion = initial.BuilderVersion
-	}
-	des.Signature = canonicalizeNoteBuildSignature(des.Signature, initial.Signature, opts...)
+	cDes := &NoteBuild{}
 
-	return des
+	if dcl.StringCanonicalize(des.BuilderVersion, initial.BuilderVersion) || dcl.IsZeroValue(des.BuilderVersion) {
+		cDes.BuilderVersion = initial.BuilderVersion
+	} else {
+		cDes.BuilderVersion = des.BuilderVersion
+	}
+	cDes.Signature = canonicalizeNoteBuildSignature(des.Signature, initial.Signature, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewNoteBuild(c *Client, des, nw *NoteBuild) *NoteBuild {
@@ -1865,20 +1998,30 @@ func canonicalizeNoteBuildSignature(des, initial *NoteBuildSignature, opts ...dc
 		return des
 	}
 
+	cDes := &NoteBuildSignature{}
+
 	if dcl.StringCanonicalize(des.PublicKey, initial.PublicKey) || dcl.IsZeroValue(des.PublicKey) {
-		des.PublicKey = initial.PublicKey
+		cDes.PublicKey = initial.PublicKey
+	} else {
+		cDes.PublicKey = des.PublicKey
 	}
 	if dcl.StringCanonicalize(des.Signature, initial.Signature) || dcl.IsZeroValue(des.Signature) {
-		des.Signature = initial.Signature
+		cDes.Signature = initial.Signature
+	} else {
+		cDes.Signature = des.Signature
 	}
 	if dcl.StringCanonicalize(des.KeyId, initial.KeyId) || dcl.IsZeroValue(des.KeyId) {
-		des.KeyId = initial.KeyId
+		cDes.KeyId = initial.KeyId
+	} else {
+		cDes.KeyId = des.KeyId
 	}
 	if dcl.IsZeroValue(des.KeyType) {
 		des.KeyType = initial.KeyType
+	} else {
+		cDes.KeyType = des.KeyType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNoteBuildSignature(c *Client, des, nw *NoteBuildSignature) *NoteBuildSignature {
@@ -1957,12 +2100,16 @@ func canonicalizeNoteImage(des, initial *NoteImage, opts ...dcl.ApplyOption) *No
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.ResourceUrl, initial.ResourceUrl) || dcl.IsZeroValue(des.ResourceUrl) {
-		des.ResourceUrl = initial.ResourceUrl
-	}
-	des.Fingerprint = canonicalizeNoteImageFingerprint(des.Fingerprint, initial.Fingerprint, opts...)
+	cDes := &NoteImage{}
 
-	return des
+	if dcl.StringCanonicalize(des.ResourceUrl, initial.ResourceUrl) || dcl.IsZeroValue(des.ResourceUrl) {
+		cDes.ResourceUrl = initial.ResourceUrl
+	} else {
+		cDes.ResourceUrl = des.ResourceUrl
+	}
+	cDes.Fingerprint = canonicalizeNoteImageFingerprint(des.Fingerprint, initial.Fingerprint, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewNoteImage(c *Client, des, nw *NoteImage) *NoteImage {
@@ -2033,14 +2180,20 @@ func canonicalizeNoteImageFingerprint(des, initial *NoteImageFingerprint, opts .
 		return des
 	}
 
+	cDes := &NoteImageFingerprint{}
+
 	if dcl.StringCanonicalize(des.V1Name, initial.V1Name) || dcl.IsZeroValue(des.V1Name) {
-		des.V1Name = initial.V1Name
+		cDes.V1Name = initial.V1Name
+	} else {
+		cDes.V1Name = des.V1Name
 	}
 	if dcl.IsZeroValue(des.V2Blob) {
 		des.V2Blob = initial.V2Blob
+	} else {
+		cDes.V2Blob = des.V2Blob
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNoteImageFingerprint(c *Client, des, nw *NoteImageFingerprint) *NoteImageFingerprint {
@@ -2116,14 +2269,20 @@ func canonicalizeNotePackage(des, initial *NotePackage, opts ...dcl.ApplyOption)
 		return des
 	}
 
+	cDes := &NotePackage{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.IsZeroValue(des.Distribution) {
 		des.Distribution = initial.Distribution
+	} else {
+		cDes.Distribution = des.Distribution
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNotePackage(c *Client, des, nw *NotePackage) *NotePackage {
@@ -2194,24 +2353,36 @@ func canonicalizeNotePackageDistribution(des, initial *NotePackageDistribution, 
 		return des
 	}
 
+	cDes := &NotePackageDistribution{}
+
 	if dcl.StringCanonicalize(des.CpeUri, initial.CpeUri) || dcl.IsZeroValue(des.CpeUri) {
-		des.CpeUri = initial.CpeUri
+		cDes.CpeUri = initial.CpeUri
+	} else {
+		cDes.CpeUri = des.CpeUri
 	}
 	if dcl.IsZeroValue(des.Architecture) {
 		des.Architecture = initial.Architecture
+	} else {
+		cDes.Architecture = des.Architecture
 	}
-	des.LatestVersion = canonicalizeNotePackageDistributionLatestVersion(des.LatestVersion, initial.LatestVersion, opts...)
+	cDes.LatestVersion = canonicalizeNotePackageDistributionLatestVersion(des.LatestVersion, initial.LatestVersion, opts...)
 	if dcl.StringCanonicalize(des.Maintainer, initial.Maintainer) || dcl.IsZeroValue(des.Maintainer) {
-		des.Maintainer = initial.Maintainer
+		cDes.Maintainer = initial.Maintainer
+	} else {
+		cDes.Maintainer = des.Maintainer
 	}
 	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
-		des.Url = initial.Url
+		cDes.Url = initial.Url
+	} else {
+		cDes.Url = des.Url
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNotePackageDistribution(c *Client, des, nw *NotePackageDistribution) *NotePackageDistribution {
@@ -2294,23 +2465,35 @@ func canonicalizeNotePackageDistributionLatestVersion(des, initial *NotePackageD
 		return des
 	}
 
+	cDes := &NotePackageDistributionLatestVersion{}
+
 	if dcl.IsZeroValue(des.Epoch) {
 		des.Epoch = initial.Epoch
+	} else {
+		cDes.Epoch = des.Epoch
 	}
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
-		des.Revision = initial.Revision
+		cDes.Revision = initial.Revision
+	} else {
+		cDes.Revision = des.Revision
 	}
 	if dcl.IsZeroValue(des.Kind) {
 		des.Kind = initial.Kind
+	} else {
+		cDes.Kind = des.Kind
 	}
 	if dcl.StringCanonicalize(des.FullName, initial.FullName) || dcl.IsZeroValue(des.FullName) {
-		des.FullName = initial.FullName
+		cDes.FullName = initial.FullName
+	} else {
+		cDes.FullName = des.FullName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNotePackageDistributionLatestVersion(c *Client, des, nw *NotePackageDistributionLatestVersion) *NotePackageDistributionLatestVersion {
@@ -2392,11 +2575,15 @@ func canonicalizeNoteDiscovery(des, initial *NoteDiscovery, opts ...dcl.ApplyOpt
 		return des
 	}
 
+	cDes := &NoteDiscovery{}
+
 	if dcl.IsZeroValue(des.AnalysisKind) {
 		des.AnalysisKind = initial.AnalysisKind
+	} else {
+		cDes.AnalysisKind = des.AnalysisKind
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNoteDiscovery(c *Client, des, nw *NoteDiscovery) *NoteDiscovery {
@@ -2466,11 +2653,15 @@ func canonicalizeNoteDeployment(des, initial *NoteDeployment, opts ...dcl.ApplyO
 		return des
 	}
 
+	cDes := &NoteDeployment{}
+
 	if dcl.IsZeroValue(des.ResourceUri) {
 		des.ResourceUri = initial.ResourceUri
+	} else {
+		cDes.ResourceUri = des.ResourceUri
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNoteDeployment(c *Client, des, nw *NoteDeployment) *NoteDeployment {
@@ -2540,9 +2731,11 @@ func canonicalizeNoteAttestation(des, initial *NoteAttestation, opts ...dcl.Appl
 		return des
 	}
 
-	des.Hint = canonicalizeNoteAttestationHint(des.Hint, initial.Hint, opts...)
+	cDes := &NoteAttestation{}
 
-	return des
+	cDes.Hint = canonicalizeNoteAttestationHint(des.Hint, initial.Hint, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewNoteAttestation(c *Client, des, nw *NoteAttestation) *NoteAttestation {
@@ -2610,11 +2803,15 @@ func canonicalizeNoteAttestationHint(des, initial *NoteAttestationHint, opts ...
 		return des
 	}
 
+	cDes := &NoteAttestationHint{}
+
 	if dcl.StringCanonicalize(des.HumanReadableName, initial.HumanReadableName) || dcl.IsZeroValue(des.HumanReadableName) {
-		des.HumanReadableName = initial.HumanReadableName
+		cDes.HumanReadableName = initial.HumanReadableName
+	} else {
+		cDes.HumanReadableName = des.HumanReadableName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNoteAttestationHint(c *Client, des, nw *NoteAttestationHint) *NoteAttestationHint {
@@ -7043,31 +7240,45 @@ type noteDiff struct {
 	UpdateOp         noteApiOperation
 }
 
-func convertFieldDiffToNoteOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]noteDiff, error) {
+func convertFieldDiffsToNoteDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]noteDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []noteDiff
-	for _, op := range ops {
+	// For each operation name, create a noteDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := noteDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTonoteApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToNoteApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTonoteApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (noteApiOperation, error) {
-	switch op {
+func convertOpNameToNoteApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (noteApiOperation, error) {
+	switch opName {
 
 	case "updateNoteUpdateNoteOperation":
-		return &updateNoteUpdateNoteOperation{Diffs: diffs}, nil
+		return &updateNoteUpdateNoteOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

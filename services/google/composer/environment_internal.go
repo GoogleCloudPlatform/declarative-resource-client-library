@@ -435,22 +435,30 @@ func canonicalizeEnvironmentDesiredState(rawDesired, rawInitial *Environment, op
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Environment{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
-	rawDesired.Config = canonicalizeEnvironmentConfig(rawDesired.Config, rawInitial.Config, opts...)
+	canonicalDesired.Config = canonicalizeEnvironmentConfig(rawDesired.Config, rawInitial.Config, opts...)
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeEnvironmentNewState(c *Client, rawNew, rawDesired *Environment) (*Environment, error) {
@@ -516,18 +524,22 @@ func canonicalizeEnvironmentConfig(des, initial *EnvironmentConfig, opts ...dcl.
 		return des
 	}
 
+	cDes := &EnvironmentConfig{}
+
 	if dcl.IsZeroValue(des.NodeCount) {
 		des.NodeCount = initial.NodeCount
+	} else {
+		cDes.NodeCount = des.NodeCount
 	}
-	des.SoftwareConfig = canonicalizeEnvironmentConfigSoftwareConfig(des.SoftwareConfig, initial.SoftwareConfig, opts...)
-	des.NodeConfig = canonicalizeEnvironmentConfigNodeConfig(des.NodeConfig, initial.NodeConfig, opts...)
-	des.PrivateEnvironmentConfig = canonicalizeEnvironmentConfigPrivateEnvironmentConfig(des.PrivateEnvironmentConfig, initial.PrivateEnvironmentConfig, opts...)
-	des.WebServerNetworkAccessControl = canonicalizeEnvironmentConfigWebServerNetworkAccessControl(des.WebServerNetworkAccessControl, initial.WebServerNetworkAccessControl, opts...)
-	des.DatabaseConfig = canonicalizeEnvironmentConfigDatabaseConfig(des.DatabaseConfig, initial.DatabaseConfig, opts...)
-	des.WebServerConfig = canonicalizeEnvironmentConfigWebServerConfig(des.WebServerConfig, initial.WebServerConfig, opts...)
-	des.EncryptionConfig = canonicalizeEnvironmentConfigEncryptionConfig(des.EncryptionConfig, initial.EncryptionConfig, opts...)
+	cDes.SoftwareConfig = canonicalizeEnvironmentConfigSoftwareConfig(des.SoftwareConfig, initial.SoftwareConfig, opts...)
+	cDes.NodeConfig = canonicalizeEnvironmentConfigNodeConfig(des.NodeConfig, initial.NodeConfig, opts...)
+	cDes.PrivateEnvironmentConfig = canonicalizeEnvironmentConfigPrivateEnvironmentConfig(des.PrivateEnvironmentConfig, initial.PrivateEnvironmentConfig, opts...)
+	cDes.WebServerNetworkAccessControl = canonicalizeEnvironmentConfigWebServerNetworkAccessControl(des.WebServerNetworkAccessControl, initial.WebServerNetworkAccessControl, opts...)
+	cDes.DatabaseConfig = canonicalizeEnvironmentConfigDatabaseConfig(des.DatabaseConfig, initial.DatabaseConfig, opts...)
+	cDes.WebServerConfig = canonicalizeEnvironmentConfigWebServerConfig(des.WebServerConfig, initial.WebServerConfig, opts...)
+	cDes.EncryptionConfig = canonicalizeEnvironmentConfigEncryptionConfig(des.EncryptionConfig, initial.EncryptionConfig, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewEnvironmentConfig(c *Client, des, nw *EnvironmentConfig) *EnvironmentConfig {
@@ -613,23 +625,35 @@ func canonicalizeEnvironmentConfigSoftwareConfig(des, initial *EnvironmentConfig
 		return des
 	}
 
+	cDes := &EnvironmentConfigSoftwareConfig{}
+
 	if dcl.StringCanonicalize(des.ImageVersion, initial.ImageVersion) || dcl.IsZeroValue(des.ImageVersion) {
-		des.ImageVersion = initial.ImageVersion
+		cDes.ImageVersion = initial.ImageVersion
+	} else {
+		cDes.ImageVersion = des.ImageVersion
 	}
 	if dcl.IsZeroValue(des.AirflowConfigOverrides) {
 		des.AirflowConfigOverrides = initial.AirflowConfigOverrides
+	} else {
+		cDes.AirflowConfigOverrides = des.AirflowConfigOverrides
 	}
 	if dcl.IsZeroValue(des.PypiPackages) {
 		des.PypiPackages = initial.PypiPackages
+	} else {
+		cDes.PypiPackages = des.PypiPackages
 	}
 	if dcl.IsZeroValue(des.EnvVariables) {
 		des.EnvVariables = initial.EnvVariables
+	} else {
+		cDes.EnvVariables = des.EnvVariables
 	}
 	if dcl.StringCanonicalize(des.PythonVersion, initial.PythonVersion) || dcl.IsZeroValue(des.PythonVersion) {
-		des.PythonVersion = initial.PythonVersion
+		cDes.PythonVersion = initial.PythonVersion
+	} else {
+		cDes.PythonVersion = des.PythonVersion
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewEnvironmentConfigSoftwareConfig(c *Client, des, nw *EnvironmentConfigSoftwareConfig) *EnvironmentConfigSoftwareConfig {
@@ -711,33 +735,51 @@ func canonicalizeEnvironmentConfigNodeConfig(des, initial *EnvironmentConfigNode
 		return des
 	}
 
+	cDes := &EnvironmentConfigNodeConfig{}
+
 	if dcl.StringCanonicalize(des.Location, initial.Location) || dcl.IsZeroValue(des.Location) {
-		des.Location = initial.Location
+		cDes.Location = initial.Location
+	} else {
+		cDes.Location = des.Location
 	}
 	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
-		des.MachineType = initial.MachineType
+		cDes.MachineType = initial.MachineType
+	} else {
+		cDes.MachineType = des.MachineType
 	}
 	if dcl.NameToSelfLink(des.Network, initial.Network) || dcl.IsZeroValue(des.Network) {
-		des.Network = initial.Network
+		cDes.Network = initial.Network
+	} else {
+		cDes.Network = des.Network
 	}
 	if dcl.NameToSelfLink(des.Subnetwork, initial.Subnetwork) || dcl.IsZeroValue(des.Subnetwork) {
-		des.Subnetwork = initial.Subnetwork
+		cDes.Subnetwork = initial.Subnetwork
+	} else {
+		cDes.Subnetwork = des.Subnetwork
 	}
 	if dcl.IsZeroValue(des.DiskSizeGb) {
 		des.DiskSizeGb = initial.DiskSizeGb
+	} else {
+		cDes.DiskSizeGb = des.DiskSizeGb
 	}
 	if dcl.IsZeroValue(des.OAuthScopes) {
 		des.OAuthScopes = initial.OAuthScopes
+	} else {
+		cDes.OAuthScopes = des.OAuthScopes
 	}
 	if dcl.NameToSelfLink(des.ServiceAccount, initial.ServiceAccount) || dcl.IsZeroValue(des.ServiceAccount) {
-		des.ServiceAccount = initial.ServiceAccount
+		cDes.ServiceAccount = initial.ServiceAccount
+	} else {
+		cDes.ServiceAccount = des.ServiceAccount
 	}
 	if dcl.IsZeroValue(des.Tags) {
 		des.Tags = initial.Tags
+	} else {
+		cDes.Tags = des.Tags
 	}
-	des.IPAllocationPolicy = canonicalizeEnvironmentConfigNodeConfigIPAllocationPolicy(des.IPAllocationPolicy, initial.IPAllocationPolicy, opts...)
+	cDes.IPAllocationPolicy = canonicalizeEnvironmentConfigNodeConfigIPAllocationPolicy(des.IPAllocationPolicy, initial.IPAllocationPolicy, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewEnvironmentConfigNodeConfig(c *Client, des, nw *EnvironmentConfigNodeConfig) *EnvironmentConfigNodeConfig {
@@ -829,23 +871,35 @@ func canonicalizeEnvironmentConfigNodeConfigIPAllocationPolicy(des, initial *Env
 		return des
 	}
 
+	cDes := &EnvironmentConfigNodeConfigIPAllocationPolicy{}
+
 	if dcl.BoolCanonicalize(des.UseIPAliases, initial.UseIPAliases) || dcl.IsZeroValue(des.UseIPAliases) {
-		des.UseIPAliases = initial.UseIPAliases
+		cDes.UseIPAliases = initial.UseIPAliases
+	} else {
+		cDes.UseIPAliases = des.UseIPAliases
 	}
 	if dcl.StringCanonicalize(des.ClusterSecondaryRangeName, initial.ClusterSecondaryRangeName) || dcl.IsZeroValue(des.ClusterSecondaryRangeName) {
-		des.ClusterSecondaryRangeName = initial.ClusterSecondaryRangeName
+		cDes.ClusterSecondaryRangeName = initial.ClusterSecondaryRangeName
+	} else {
+		cDes.ClusterSecondaryRangeName = des.ClusterSecondaryRangeName
 	}
 	if dcl.StringCanonicalize(des.ClusterIPv4CidrBlock, initial.ClusterIPv4CidrBlock) || dcl.IsZeroValue(des.ClusterIPv4CidrBlock) {
-		des.ClusterIPv4CidrBlock = initial.ClusterIPv4CidrBlock
+		cDes.ClusterIPv4CidrBlock = initial.ClusterIPv4CidrBlock
+	} else {
+		cDes.ClusterIPv4CidrBlock = des.ClusterIPv4CidrBlock
 	}
 	if dcl.StringCanonicalize(des.ServicesSecondaryRangeName, initial.ServicesSecondaryRangeName) || dcl.IsZeroValue(des.ServicesSecondaryRangeName) {
-		des.ServicesSecondaryRangeName = initial.ServicesSecondaryRangeName
+		cDes.ServicesSecondaryRangeName = initial.ServicesSecondaryRangeName
+	} else {
+		cDes.ServicesSecondaryRangeName = des.ServicesSecondaryRangeName
 	}
 	if dcl.StringCanonicalize(des.ServicesIPv4CidrBlock, initial.ServicesIPv4CidrBlock) || dcl.IsZeroValue(des.ServicesIPv4CidrBlock) {
-		des.ServicesIPv4CidrBlock = initial.ServicesIPv4CidrBlock
+		cDes.ServicesIPv4CidrBlock = initial.ServicesIPv4CidrBlock
+	} else {
+		cDes.ServicesIPv4CidrBlock = des.ServicesIPv4CidrBlock
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewEnvironmentConfigNodeConfigIPAllocationPolicy(c *Client, des, nw *EnvironmentConfigNodeConfigIPAllocationPolicy) *EnvironmentConfigNodeConfigIPAllocationPolicy {
@@ -927,18 +981,26 @@ func canonicalizeEnvironmentConfigPrivateEnvironmentConfig(des, initial *Environ
 		return des
 	}
 
+	cDes := &EnvironmentConfigPrivateEnvironmentConfig{}
+
 	if dcl.BoolCanonicalize(des.EnablePrivateEnvironment, initial.EnablePrivateEnvironment) || dcl.IsZeroValue(des.EnablePrivateEnvironment) {
-		des.EnablePrivateEnvironment = initial.EnablePrivateEnvironment
+		cDes.EnablePrivateEnvironment = initial.EnablePrivateEnvironment
+	} else {
+		cDes.EnablePrivateEnvironment = des.EnablePrivateEnvironment
 	}
-	des.PrivateClusterConfig = canonicalizeEnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig(des.PrivateClusterConfig, initial.PrivateClusterConfig, opts...)
+	cDes.PrivateClusterConfig = canonicalizeEnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig(des.PrivateClusterConfig, initial.PrivateClusterConfig, opts...)
 	if dcl.StringCanonicalize(des.WebServerIPv4CidrBlock, initial.WebServerIPv4CidrBlock) || dcl.IsZeroValue(des.WebServerIPv4CidrBlock) {
-		des.WebServerIPv4CidrBlock = initial.WebServerIPv4CidrBlock
+		cDes.WebServerIPv4CidrBlock = initial.WebServerIPv4CidrBlock
+	} else {
+		cDes.WebServerIPv4CidrBlock = des.WebServerIPv4CidrBlock
 	}
 	if dcl.StringCanonicalize(des.CloudSqlIPv4CidrBlock, initial.CloudSqlIPv4CidrBlock) || dcl.IsZeroValue(des.CloudSqlIPv4CidrBlock) {
-		des.CloudSqlIPv4CidrBlock = initial.CloudSqlIPv4CidrBlock
+		cDes.CloudSqlIPv4CidrBlock = initial.CloudSqlIPv4CidrBlock
+	} else {
+		cDes.CloudSqlIPv4CidrBlock = des.CloudSqlIPv4CidrBlock
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewEnvironmentConfigPrivateEnvironmentConfig(c *Client, des, nw *EnvironmentConfigPrivateEnvironmentConfig) *EnvironmentConfigPrivateEnvironmentConfig {
@@ -1018,14 +1080,20 @@ func canonicalizeEnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig(d
 		return des
 	}
 
+	cDes := &EnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig{}
+
 	if dcl.BoolCanonicalize(des.EnablePrivateEndpoint, initial.EnablePrivateEndpoint) || dcl.IsZeroValue(des.EnablePrivateEndpoint) {
-		des.EnablePrivateEndpoint = initial.EnablePrivateEndpoint
+		cDes.EnablePrivateEndpoint = initial.EnablePrivateEndpoint
+	} else {
+		cDes.EnablePrivateEndpoint = des.EnablePrivateEndpoint
 	}
 	if dcl.StringCanonicalize(des.MasterIPv4CidrBlock, initial.MasterIPv4CidrBlock) || dcl.IsZeroValue(des.MasterIPv4CidrBlock) {
-		des.MasterIPv4CidrBlock = initial.MasterIPv4CidrBlock
+		cDes.MasterIPv4CidrBlock = initial.MasterIPv4CidrBlock
+	} else {
+		cDes.MasterIPv4CidrBlock = des.MasterIPv4CidrBlock
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewEnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig(c *Client, des, nw *EnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig) *EnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig {
@@ -1101,11 +1169,15 @@ func canonicalizeEnvironmentConfigWebServerNetworkAccessControl(des, initial *En
 		return des
 	}
 
+	cDes := &EnvironmentConfigWebServerNetworkAccessControl{}
+
 	if dcl.IsZeroValue(des.AllowedIPRanges) {
 		des.AllowedIPRanges = initial.AllowedIPRanges
+	} else {
+		cDes.AllowedIPRanges = des.AllowedIPRanges
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewEnvironmentConfigWebServerNetworkAccessControl(c *Client, des, nw *EnvironmentConfigWebServerNetworkAccessControl) *EnvironmentConfigWebServerNetworkAccessControl {
@@ -1173,14 +1245,20 @@ func canonicalizeEnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges(d
 		return des
 	}
 
+	cDes := &EnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges{}
+
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewEnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges(c *Client, des, nw *EnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges) *EnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges {
@@ -1253,11 +1331,15 @@ func canonicalizeEnvironmentConfigDatabaseConfig(des, initial *EnvironmentConfig
 		return des
 	}
 
+	cDes := &EnvironmentConfigDatabaseConfig{}
+
 	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
-		des.MachineType = initial.MachineType
+		cDes.MachineType = initial.MachineType
+	} else {
+		cDes.MachineType = des.MachineType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewEnvironmentConfigDatabaseConfig(c *Client, des, nw *EnvironmentConfigDatabaseConfig) *EnvironmentConfigDatabaseConfig {
@@ -1327,11 +1409,15 @@ func canonicalizeEnvironmentConfigWebServerConfig(des, initial *EnvironmentConfi
 		return des
 	}
 
+	cDes := &EnvironmentConfigWebServerConfig{}
+
 	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
-		des.MachineType = initial.MachineType
+		cDes.MachineType = initial.MachineType
+	} else {
+		cDes.MachineType = des.MachineType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewEnvironmentConfigWebServerConfig(c *Client, des, nw *EnvironmentConfigWebServerConfig) *EnvironmentConfigWebServerConfig {
@@ -1401,11 +1487,15 @@ func canonicalizeEnvironmentConfigEncryptionConfig(des, initial *EnvironmentConf
 		return des
 	}
 
+	cDes := &EnvironmentConfigEncryptionConfig{}
+
 	if dcl.NameToSelfLink(des.KmsKeyName, initial.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
-		des.KmsKeyName = initial.KmsKeyName
+		cDes.KmsKeyName = initial.KmsKeyName
+	} else {
+		cDes.KmsKeyName = des.KmsKeyName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewEnvironmentConfigEncryptionConfig(c *Client, des, nw *EnvironmentConfigEncryptionConfig) *EnvironmentConfigEncryptionConfig {
@@ -3700,28 +3790,42 @@ type environmentDiff struct {
 	UpdateOp         environmentApiOperation
 }
 
-func convertFieldDiffToEnvironmentOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]environmentDiff, error) {
+func convertFieldDiffsToEnvironmentDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]environmentDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []environmentDiff
-	for _, op := range ops {
+	// For each operation name, create a environmentDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := environmentDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToenvironmentApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToEnvironmentApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToenvironmentApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (environmentApiOperation, error) {
-	switch op {
+func convertOpNameToEnvironmentApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (environmentApiOperation, error) {
+	switch opName {
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

@@ -103,7 +103,7 @@ type updateTargetPoolAddHCOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -174,7 +174,7 @@ type updateTargetPoolAddInstanceOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -247,7 +247,7 @@ type updateTargetPoolRemoveHCOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -318,7 +318,7 @@ type updateTargetPoolRemoveInstanceOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -388,7 +388,7 @@ type updateTargetPoolSetBackupOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -697,39 +697,59 @@ func canonicalizeTargetPoolDesiredState(rawDesired, rawInitial *TargetPool, opts
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &TargetPool{}
 	if dcl.StringCanonicalize(rawDesired.BackupPool, rawInitial.BackupPool) {
-		rawDesired.BackupPool = rawInitial.BackupPool
+		canonicalDesired.BackupPool = rawInitial.BackupPool
+	} else {
+		canonicalDesired.BackupPool = rawDesired.BackupPool
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.FailoverRatio) {
-		rawDesired.FailoverRatio = rawInitial.FailoverRatio
+		canonicalDesired.FailoverRatio = rawInitial.FailoverRatio
+	} else {
+		canonicalDesired.FailoverRatio = rawDesired.FailoverRatio
 	}
 	if dcl.PartialSelfLinkToSelfLinkArray(rawDesired.HealthChecks, rawInitial.HealthChecks) {
-		rawDesired.HealthChecks = rawInitial.HealthChecks
+		canonicalDesired.HealthChecks = rawInitial.HealthChecks
+	} else {
+		canonicalDesired.HealthChecks = rawDesired.HealthChecks
 	}
 	if dcl.IsZeroValue(rawDesired.Instances) {
-		rawDesired.Instances = rawInitial.Instances
+		canonicalDesired.Instances = rawInitial.Instances
+	} else {
+		canonicalDesired.Instances = rawDesired.Instances
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Region, rawInitial.Region) {
-		rawDesired.Region = rawInitial.Region
+		canonicalDesired.Region = rawInitial.Region
+	} else {
+		canonicalDesired.Region = rawDesired.Region
 	}
 	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
+		canonicalDesired.SelfLink = rawInitial.SelfLink
+	} else {
+		canonicalDesired.SelfLink = rawDesired.SelfLink
 	}
 	if dcl.IsZeroValue(rawDesired.SessionAffinity) {
-		rawDesired.SessionAffinity = rawInitial.SessionAffinity
+		canonicalDesired.SessionAffinity = rawInitial.SessionAffinity
+	} else {
+		canonicalDesired.SessionAffinity = rawDesired.SessionAffinity
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeTargetPoolNewState(c *Client, rawNew, rawDesired *TargetPool) (*TargetPool, error) {
@@ -1131,43 +1151,57 @@ type targetPoolDiff struct {
 	UpdateOp         targetPoolApiOperation
 }
 
-func convertFieldDiffToTargetPoolOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]targetPoolDiff, error) {
+func convertFieldDiffsToTargetPoolDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]targetPoolDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []targetPoolDiff
-	for _, op := range ops {
+	// For each operation name, create a targetPoolDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := targetPoolDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTotargetPoolApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToTargetPoolApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTotargetPoolApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (targetPoolApiOperation, error) {
-	switch op {
+func convertOpNameToTargetPoolApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (targetPoolApiOperation, error) {
+	switch opName {
 
 	case "updateTargetPoolAddHCOperation":
-		return &updateTargetPoolAddHCOperation{Diffs: diffs}, nil
+		return &updateTargetPoolAddHCOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateTargetPoolAddInstanceOperation":
-		return &updateTargetPoolAddInstanceOperation{Diffs: diffs}, nil
+		return &updateTargetPoolAddInstanceOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateTargetPoolRemoveHCOperation":
-		return &updateTargetPoolRemoveHCOperation{Diffs: diffs}, nil
+		return &updateTargetPoolRemoveHCOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateTargetPoolRemoveInstanceOperation":
-		return &updateTargetPoolRemoveInstanceOperation{Diffs: diffs}, nil
+		return &updateTargetPoolRemoveInstanceOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateTargetPoolSetBackupOperation":
-		return &updateTargetPoolSetBackupOperation{Diffs: diffs}, nil
+		return &updateTargetPoolSetBackupOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

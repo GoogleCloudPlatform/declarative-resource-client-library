@@ -149,7 +149,7 @@ type updateSubscriptionUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -166,7 +166,7 @@ func (op *updateSubscriptionUpdateOperation) do(ctx context.Context, r *Subscrip
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -461,33 +461,47 @@ func canonicalizeSubscriptionDesiredState(rawDesired, rawInitial *Subscription, 
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Subscription{}
 	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Topic, rawInitial.Topic) {
-		rawDesired.Topic = rawInitial.Topic
+		canonicalDesired.Topic = rawInitial.Topic
+	} else {
+		canonicalDesired.Topic = rawDesired.Topic
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.StringCanonicalize(rawDesired.MessageRetentionDuration, rawInitial.MessageRetentionDuration) {
-		rawDesired.MessageRetentionDuration = rawInitial.MessageRetentionDuration
+		canonicalDesired.MessageRetentionDuration = rawInitial.MessageRetentionDuration
+	} else {
+		canonicalDesired.MessageRetentionDuration = rawDesired.MessageRetentionDuration
 	}
 	if dcl.BoolCanonicalize(rawDesired.RetainAckedMessages, rawInitial.RetainAckedMessages) {
-		rawDesired.RetainAckedMessages = rawInitial.RetainAckedMessages
+		canonicalDesired.RetainAckedMessages = rawInitial.RetainAckedMessages
+	} else {
+		canonicalDesired.RetainAckedMessages = rawDesired.RetainAckedMessages
 	}
-	rawDesired.ExpirationPolicy = canonicalizeSubscriptionExpirationPolicy(rawDesired.ExpirationPolicy, rawInitial.ExpirationPolicy, opts...)
+	canonicalDesired.ExpirationPolicy = canonicalizeSubscriptionExpirationPolicy(rawDesired.ExpirationPolicy, rawInitial.ExpirationPolicy, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
-	rawDesired.DeadLetterPolicy = canonicalizeSubscriptionDeadLetterPolicy(rawDesired.DeadLetterPolicy, rawInitial.DeadLetterPolicy, opts...)
-	rawDesired.PushConfig = canonicalizeSubscriptionPushConfig(rawDesired.PushConfig, rawInitial.PushConfig, opts...)
+	canonicalDesired.DeadLetterPolicy = canonicalizeSubscriptionDeadLetterPolicy(rawDesired.DeadLetterPolicy, rawInitial.DeadLetterPolicy, opts...)
+	canonicalDesired.PushConfig = canonicalizeSubscriptionPushConfig(rawDesired.PushConfig, rawInitial.PushConfig, opts...)
 	if dcl.IsZeroValue(rawDesired.AckDeadlineSeconds) {
-		rawDesired.AckDeadlineSeconds = rawInitial.AckDeadlineSeconds
+		canonicalDesired.AckDeadlineSeconds = rawInitial.AckDeadlineSeconds
+	} else {
+		canonicalDesired.AckDeadlineSeconds = rawDesired.AckDeadlineSeconds
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeSubscriptionNewState(c *Client, rawNew, rawDesired *Subscription) (*Subscription, error) {
@@ -563,11 +577,15 @@ func canonicalizeSubscriptionExpirationPolicy(des, initial *SubscriptionExpirati
 		return des
 	}
 
+	cDes := &SubscriptionExpirationPolicy{}
+
 	if dcl.StringCanonicalize(des.Ttl, initial.Ttl) || dcl.IsZeroValue(des.Ttl) {
-		des.Ttl = initial.Ttl
+		cDes.Ttl = initial.Ttl
+	} else {
+		cDes.Ttl = des.Ttl
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewSubscriptionExpirationPolicy(c *Client, des, nw *SubscriptionExpirationPolicy) *SubscriptionExpirationPolicy {
@@ -637,14 +655,20 @@ func canonicalizeSubscriptionDeadLetterPolicy(des, initial *SubscriptionDeadLett
 		return des
 	}
 
+	cDes := &SubscriptionDeadLetterPolicy{}
+
 	if dcl.NameToSelfLink(des.DeadLetterTopic, initial.DeadLetterTopic) || dcl.IsZeroValue(des.DeadLetterTopic) {
-		des.DeadLetterTopic = initial.DeadLetterTopic
+		cDes.DeadLetterTopic = initial.DeadLetterTopic
+	} else {
+		cDes.DeadLetterTopic = des.DeadLetterTopic
 	}
 	if dcl.IsZeroValue(des.MaxDeliveryAttempts) {
 		des.MaxDeliveryAttempts = initial.MaxDeliveryAttempts
+	} else {
+		cDes.MaxDeliveryAttempts = des.MaxDeliveryAttempts
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewSubscriptionDeadLetterPolicy(c *Client, des, nw *SubscriptionDeadLetterPolicy) *SubscriptionDeadLetterPolicy {
@@ -721,15 +745,21 @@ func canonicalizeSubscriptionPushConfig(des, initial *SubscriptionPushConfig, op
 		return des
 	}
 
+	cDes := &SubscriptionPushConfig{}
+
 	if dcl.StringCanonicalize(des.PushEndpoint, initial.PushEndpoint) || dcl.IsZeroValue(des.PushEndpoint) {
-		des.PushEndpoint = initial.PushEndpoint
+		cDes.PushEndpoint = initial.PushEndpoint
+	} else {
+		cDes.PushEndpoint = des.PushEndpoint
 	}
 	if dcl.IsZeroValue(des.Attributes) {
 		des.Attributes = initial.Attributes
+	} else {
+		cDes.Attributes = des.Attributes
 	}
-	des.OidcToken = canonicalizeSubscriptionPushConfigOidcToken(des.OidcToken, initial.OidcToken, opts...)
+	cDes.OidcToken = canonicalizeSubscriptionPushConfigOidcToken(des.OidcToken, initial.OidcToken, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewSubscriptionPushConfig(c *Client, des, nw *SubscriptionPushConfig) *SubscriptionPushConfig {
@@ -807,14 +837,20 @@ func canonicalizeSubscriptionPushConfigOidcToken(des, initial *SubscriptionPushC
 		return des
 	}
 
+	cDes := &SubscriptionPushConfigOidcToken{}
+
 	if dcl.StringCanonicalize(des.ServiceAccountEmail, initial.ServiceAccountEmail) || dcl.IsZeroValue(des.ServiceAccountEmail) {
-		des.ServiceAccountEmail = initial.ServiceAccountEmail
+		cDes.ServiceAccountEmail = initial.ServiceAccountEmail
+	} else {
+		cDes.ServiceAccountEmail = des.ServiceAccountEmail
 	}
 	if dcl.StringCanonicalize(des.Audience, initial.Audience) || dcl.IsZeroValue(des.Audience) {
-		des.Audience = initial.Audience
+		cDes.Audience = initial.Audience
+	} else {
+		cDes.Audience = des.Audience
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewSubscriptionPushConfigOidcToken(c *Client, des, nw *SubscriptionPushConfigOidcToken) *SubscriptionPushConfigOidcToken {
@@ -1753,31 +1789,45 @@ type subscriptionDiff struct {
 	UpdateOp         subscriptionApiOperation
 }
 
-func convertFieldDiffToSubscriptionOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]subscriptionDiff, error) {
+func convertFieldDiffsToSubscriptionDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]subscriptionDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []subscriptionDiff
-	for _, op := range ops {
+	// For each operation name, create a subscriptionDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := subscriptionDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTosubscriptionApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToSubscriptionApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTosubscriptionApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (subscriptionApiOperation, error) {
-	switch op {
+func convertOpNameToSubscriptionApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (subscriptionApiOperation, error) {
+	switch opName {
 
 	case "updateSubscriptionUpdateOperation":
-		return &updateSubscriptionUpdateOperation{Diffs: diffs}, nil
+		return &updateSubscriptionUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

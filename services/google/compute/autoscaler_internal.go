@@ -216,7 +216,7 @@ type updateAutoscalerUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -526,37 +526,55 @@ func canonicalizeAutoscalerDesiredState(rawDesired, rawInitial *Autoscaler, opts
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Autoscaler{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.NameToSelfLink(rawDesired.Target, rawInitial.Target) {
-		rawDesired.Target = rawInitial.Target
+		canonicalDesired.Target = rawInitial.Target
+	} else {
+		canonicalDesired.Target = rawDesired.Target
 	}
-	rawDesired.AutoscalingPolicy = canonicalizeAutoscalerAutoscalingPolicy(rawDesired.AutoscalingPolicy, rawInitial.AutoscalingPolicy, opts...)
+	canonicalDesired.AutoscalingPolicy = canonicalizeAutoscalerAutoscalingPolicy(rawDesired.AutoscalingPolicy, rawInitial.AutoscalingPolicy, opts...)
 	if dcl.StringCanonicalize(rawDesired.Zone, rawInitial.Zone) {
-		rawDesired.Zone = rawInitial.Zone
+		canonicalDesired.Zone = rawInitial.Zone
+	} else {
+		canonicalDesired.Zone = rawDesired.Zone
 	}
 	if dcl.StringCanonicalize(rawDesired.Region, rawInitial.Region) {
-		rawDesired.Region = rawInitial.Region
+		canonicalDesired.Region = rawInitial.Region
+	} else {
+		canonicalDesired.Region = rawDesired.Region
 	}
 	if dcl.StringCanonicalize(rawDesired.SelfLinkWithId, rawInitial.SelfLinkWithId) {
-		rawDesired.SelfLinkWithId = rawInitial.SelfLinkWithId
+		canonicalDesired.SelfLinkWithId = rawInitial.SelfLinkWithId
+	} else {
+		canonicalDesired.SelfLinkWithId = rawDesired.SelfLinkWithId
 	}
 	if dcl.IsZeroValue(rawDesired.ScalingScheduleStatus) {
-		rawDesired.ScalingScheduleStatus = rawInitial.ScalingScheduleStatus
+		canonicalDesired.ScalingScheduleStatus = rawInitial.ScalingScheduleStatus
+	} else {
+		canonicalDesired.ScalingScheduleStatus = rawDesired.ScalingScheduleStatus
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeAutoscalerNewState(c *Client, rawNew, rawDesired *Autoscaler) (*Autoscaler, error) {
@@ -684,26 +702,38 @@ func canonicalizeAutoscalerAutoscalingPolicy(des, initial *AutoscalerAutoscaling
 		return des
 	}
 
+	cDes := &AutoscalerAutoscalingPolicy{}
+
 	if dcl.IsZeroValue(des.MinNumReplicas) {
 		des.MinNumReplicas = initial.MinNumReplicas
+	} else {
+		cDes.MinNumReplicas = des.MinNumReplicas
 	}
 	if dcl.IsZeroValue(des.MaxNumReplicas) {
 		des.MaxNumReplicas = initial.MaxNumReplicas
+	} else {
+		cDes.MaxNumReplicas = des.MaxNumReplicas
 	}
-	des.ScaleInControl = canonicalizeAutoscalerAutoscalingPolicyScaleInControl(des.ScaleInControl, initial.ScaleInControl, opts...)
+	cDes.ScaleInControl = canonicalizeAutoscalerAutoscalingPolicyScaleInControl(des.ScaleInControl, initial.ScaleInControl, opts...)
 	if dcl.IsZeroValue(des.CoolDownPeriodSec) {
 		des.CoolDownPeriodSec = initial.CoolDownPeriodSec
+	} else {
+		cDes.CoolDownPeriodSec = des.CoolDownPeriodSec
 	}
-	des.CpuUtilization = canonicalizeAutoscalerAutoscalingPolicyCpuUtilization(des.CpuUtilization, initial.CpuUtilization, opts...)
+	cDes.CpuUtilization = canonicalizeAutoscalerAutoscalingPolicyCpuUtilization(des.CpuUtilization, initial.CpuUtilization, opts...)
 	if dcl.IsZeroValue(des.CustomMetricUtilizations) {
 		des.CustomMetricUtilizations = initial.CustomMetricUtilizations
+	} else {
+		cDes.CustomMetricUtilizations = des.CustomMetricUtilizations
 	}
-	des.LoadBalancingUtilization = canonicalizeAutoscalerAutoscalingPolicyLoadBalancingUtilization(des.LoadBalancingUtilization, initial.LoadBalancingUtilization, opts...)
+	cDes.LoadBalancingUtilization = canonicalizeAutoscalerAutoscalingPolicyLoadBalancingUtilization(des.LoadBalancingUtilization, initial.LoadBalancingUtilization, opts...)
 	if dcl.IsZeroValue(des.Mode) {
 		des.Mode = initial.Mode
+	} else {
+		cDes.Mode = des.Mode
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAutoscalerAutoscalingPolicy(c *Client, des, nw *AutoscalerAutoscalingPolicy) *AutoscalerAutoscalingPolicy {
@@ -794,12 +824,16 @@ func canonicalizeAutoscalerAutoscalingPolicyScaleInControl(des, initial *Autosca
 		return des
 	}
 
-	des.MaxScaledInReplicas = canonicalizeAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(des.MaxScaledInReplicas, initial.MaxScaledInReplicas, opts...)
+	cDes := &AutoscalerAutoscalingPolicyScaleInControl{}
+
+	cDes.MaxScaledInReplicas = canonicalizeAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(des.MaxScaledInReplicas, initial.MaxScaledInReplicas, opts...)
 	if dcl.IsZeroValue(des.TimeWindowSec) {
 		des.TimeWindowSec = initial.TimeWindowSec
+	} else {
+		cDes.TimeWindowSec = des.TimeWindowSec
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAutoscalerAutoscalingPolicyScaleInControl(c *Client, des, nw *AutoscalerAutoscalingPolicyScaleInControl) *AutoscalerAutoscalingPolicyScaleInControl {
@@ -870,14 +904,20 @@ func canonicalizeAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(de
 		return des
 	}
 
+	cDes := &AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas{}
+
 	if dcl.IsZeroValue(des.Fixed) {
 		des.Fixed = initial.Fixed
+	} else {
+		cDes.Fixed = des.Fixed
 	}
 	if dcl.IsZeroValue(des.Percent) {
 		des.Percent = initial.Percent
+	} else {
+		cDes.Percent = des.Percent
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(c *Client, des, nw *AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas) *AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas {
@@ -953,11 +993,15 @@ func canonicalizeAutoscalerAutoscalingPolicyCpuUtilization(des, initial *Autosca
 		return des
 	}
 
+	cDes := &AutoscalerAutoscalingPolicyCpuUtilization{}
+
 	if dcl.IsZeroValue(des.UtilizationTarget) {
 		des.UtilizationTarget = initial.UtilizationTarget
+	} else {
+		cDes.UtilizationTarget = des.UtilizationTarget
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAutoscalerAutoscalingPolicyCpuUtilization(c *Client, des, nw *AutoscalerAutoscalingPolicyCpuUtilization) *AutoscalerAutoscalingPolicyCpuUtilization {
@@ -1027,17 +1071,25 @@ func canonicalizeAutoscalerAutoscalingPolicyCustomMetricUtilizations(des, initia
 		return des
 	}
 
+	cDes := &AutoscalerAutoscalingPolicyCustomMetricUtilizations{}
+
 	if dcl.StringCanonicalize(des.Metric, initial.Metric) || dcl.IsZeroValue(des.Metric) {
-		des.Metric = initial.Metric
+		cDes.Metric = initial.Metric
+	} else {
+		cDes.Metric = des.Metric
 	}
 	if dcl.IsZeroValue(des.UtilizationTarget) {
 		des.UtilizationTarget = initial.UtilizationTarget
+	} else {
+		cDes.UtilizationTarget = des.UtilizationTarget
 	}
 	if dcl.IsZeroValue(des.UtilizationTargetType) {
 		des.UtilizationTargetType = initial.UtilizationTargetType
+	} else {
+		cDes.UtilizationTargetType = des.UtilizationTargetType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAutoscalerAutoscalingPolicyCustomMetricUtilizations(c *Client, des, nw *AutoscalerAutoscalingPolicyCustomMetricUtilizations) *AutoscalerAutoscalingPolicyCustomMetricUtilizations {
@@ -1113,11 +1165,15 @@ func canonicalizeAutoscalerAutoscalingPolicyLoadBalancingUtilization(des, initia
 		return des
 	}
 
+	cDes := &AutoscalerAutoscalingPolicyLoadBalancingUtilization{}
+
 	if dcl.IsZeroValue(des.UtilizationTarget) {
 		des.UtilizationTarget = initial.UtilizationTarget
+	} else {
+		cDes.UtilizationTarget = des.UtilizationTarget
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAutoscalerAutoscalingPolicyLoadBalancingUtilization(c *Client, des, nw *AutoscalerAutoscalingPolicyLoadBalancingUtilization) *AutoscalerAutoscalingPolicyLoadBalancingUtilization {
@@ -1187,14 +1243,20 @@ func canonicalizeAutoscalerStatusDetails(des, initial *AutoscalerStatusDetails, 
 		return des
 	}
 
+	cDes := &AutoscalerStatusDetails{}
+
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAutoscalerStatusDetails(c *Client, des, nw *AutoscalerStatusDetails) *AutoscalerStatusDetails {
@@ -2887,31 +2949,45 @@ type autoscalerDiff struct {
 	UpdateOp         autoscalerApiOperation
 }
 
-func convertFieldDiffToAutoscalerOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]autoscalerDiff, error) {
+func convertFieldDiffsToAutoscalerDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]autoscalerDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []autoscalerDiff
-	for _, op := range ops {
+	// For each operation name, create a autoscalerDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := autoscalerDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToautoscalerApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToAutoscalerApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToautoscalerApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (autoscalerApiOperation, error) {
-	switch op {
+func convertOpNameToAutoscalerApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (autoscalerApiOperation, error) {
+	switch opName {
 
 	case "updateAutoscalerUpdateOperation":
-		return &updateAutoscalerUpdateOperation{Diffs: diffs}, nil
+		return &updateAutoscalerUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

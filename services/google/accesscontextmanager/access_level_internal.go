@@ -134,7 +134,7 @@ type updateAccessLevelUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -151,7 +151,7 @@ func (op *updateAccessLevelUpdateOperation) do(ctx context.Context, r *AccessLev
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -448,28 +448,40 @@ func canonicalizeAccessLevelDesiredState(rawDesired, rawInitial *AccessLevel, op
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &AccessLevel{}
 	if dcl.StringCanonicalize(rawDesired.Title, rawInitial.Title) {
-		rawDesired.Title = rawInitial.Title
+		canonicalDesired.Title = rawInitial.Title
+	} else {
+		canonicalDesired.Title = rawDesired.Title
 	}
 	if dcl.IsZeroValue(rawDesired.CreateTime) {
-		rawDesired.CreateTime = rawInitial.CreateTime
+		canonicalDesired.CreateTime = rawInitial.CreateTime
+	} else {
+		canonicalDesired.CreateTime = rawDesired.CreateTime
 	}
 	if dcl.IsZeroValue(rawDesired.UpdateTime) {
-		rawDesired.UpdateTime = rawInitial.UpdateTime
+		canonicalDesired.UpdateTime = rawInitial.UpdateTime
+	} else {
+		canonicalDesired.UpdateTime = rawDesired.UpdateTime
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
-	rawDesired.Basic = canonicalizeAccessLevelBasic(rawDesired.Basic, rawInitial.Basic, opts...)
+	canonicalDesired.Basic = canonicalizeAccessLevelBasic(rawDesired.Basic, rawInitial.Basic, opts...)
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.NameToSelfLink(rawDesired.Policy, rawInitial.Policy) {
-		rawDesired.Policy = rawInitial.Policy
+		canonicalDesired.Policy = rawInitial.Policy
+	} else {
+		canonicalDesired.Policy = rawDesired.Policy
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeAccessLevelNewState(c *Client, rawNew, rawDesired *AccessLevel) (*AccessLevel, error) {
@@ -535,14 +547,20 @@ func canonicalizeAccessLevelBasic(des, initial *AccessLevelBasic, opts ...dcl.Ap
 		return des
 	}
 
+	cDes := &AccessLevelBasic{}
+
 	if dcl.IsZeroValue(des.CombiningFunction) {
 		des.CombiningFunction = initial.CombiningFunction
+	} else {
+		cDes.CombiningFunction = des.CombiningFunction
 	}
 	if dcl.IsZeroValue(des.Conditions) {
 		des.Conditions = initial.Conditions
+	} else {
+		cDes.Conditions = des.Conditions
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAccessLevelBasic(c *Client, des, nw *AccessLevelBasic) *AccessLevelBasic {
@@ -617,24 +635,36 @@ func canonicalizeAccessLevelBasicConditions(des, initial *AccessLevelBasicCondit
 		return des
 	}
 
+	cDes := &AccessLevelBasicConditions{}
+
 	if dcl.IsZeroValue(des.Regions) {
 		des.Regions = initial.Regions
+	} else {
+		cDes.Regions = des.Regions
 	}
 	if dcl.IsZeroValue(des.IPSubnetworks) {
 		des.IPSubnetworks = initial.IPSubnetworks
+	} else {
+		cDes.IPSubnetworks = des.IPSubnetworks
 	}
 	if dcl.IsZeroValue(des.RequiredAccessLevels) {
 		des.RequiredAccessLevels = initial.RequiredAccessLevels
+	} else {
+		cDes.RequiredAccessLevels = des.RequiredAccessLevels
 	}
 	if dcl.IsZeroValue(des.Members) {
 		des.Members = initial.Members
+	} else {
+		cDes.Members = des.Members
 	}
 	if dcl.BoolCanonicalize(des.Negate, initial.Negate) || dcl.IsZeroValue(des.Negate) {
-		des.Negate = initial.Negate
+		cDes.Negate = initial.Negate
+	} else {
+		cDes.Negate = des.Negate
 	}
-	des.DevicePolicy = canonicalizeAccessLevelBasicConditionsDevicePolicy(des.DevicePolicy, initial.DevicePolicy, opts...)
+	cDes.DevicePolicy = canonicalizeAccessLevelBasicConditionsDevicePolicy(des.DevicePolicy, initial.DevicePolicy, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAccessLevelBasicConditions(c *Client, des, nw *AccessLevelBasicConditions) *AccessLevelBasicConditions {
@@ -717,26 +747,40 @@ func canonicalizeAccessLevelBasicConditionsDevicePolicy(des, initial *AccessLeve
 		return des
 	}
 
+	cDes := &AccessLevelBasicConditionsDevicePolicy{}
+
 	if dcl.BoolCanonicalize(des.RequireScreenlock, initial.RequireScreenlock) || dcl.IsZeroValue(des.RequireScreenlock) {
-		des.RequireScreenlock = initial.RequireScreenlock
+		cDes.RequireScreenlock = initial.RequireScreenlock
+	} else {
+		cDes.RequireScreenlock = des.RequireScreenlock
 	}
 	if dcl.BoolCanonicalize(des.RequireAdminApproval, initial.RequireAdminApproval) || dcl.IsZeroValue(des.RequireAdminApproval) {
-		des.RequireAdminApproval = initial.RequireAdminApproval
+		cDes.RequireAdminApproval = initial.RequireAdminApproval
+	} else {
+		cDes.RequireAdminApproval = des.RequireAdminApproval
 	}
 	if dcl.BoolCanonicalize(des.RequireCorpOwned, initial.RequireCorpOwned) || dcl.IsZeroValue(des.RequireCorpOwned) {
-		des.RequireCorpOwned = initial.RequireCorpOwned
+		cDes.RequireCorpOwned = initial.RequireCorpOwned
+	} else {
+		cDes.RequireCorpOwned = des.RequireCorpOwned
 	}
 	if dcl.IsZeroValue(des.AllowedEncryptionStatuses) {
 		des.AllowedEncryptionStatuses = initial.AllowedEncryptionStatuses
+	} else {
+		cDes.AllowedEncryptionStatuses = des.AllowedEncryptionStatuses
 	}
 	if dcl.IsZeroValue(des.AllowedDeviceManagementLevels) {
 		des.AllowedDeviceManagementLevels = initial.AllowedDeviceManagementLevels
+	} else {
+		cDes.AllowedDeviceManagementLevels = des.AllowedDeviceManagementLevels
 	}
 	if dcl.IsZeroValue(des.OsConstraints) {
 		des.OsConstraints = initial.OsConstraints
+	} else {
+		cDes.OsConstraints = des.OsConstraints
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAccessLevelBasicConditionsDevicePolicy(c *Client, des, nw *AccessLevelBasicConditionsDevicePolicy) *AccessLevelBasicConditionsDevicePolicy {
@@ -819,17 +863,25 @@ func canonicalizeAccessLevelBasicConditionsDevicePolicyOsConstraints(des, initia
 		return des
 	}
 
+	cDes := &AccessLevelBasicConditionsDevicePolicyOsConstraints{}
+
 	if dcl.StringCanonicalize(des.MinimumVersion, initial.MinimumVersion) || dcl.IsZeroValue(des.MinimumVersion) {
-		des.MinimumVersion = initial.MinimumVersion
+		cDes.MinimumVersion = initial.MinimumVersion
+	} else {
+		cDes.MinimumVersion = des.MinimumVersion
 	}
 	if dcl.IsZeroValue(des.OsType) {
 		des.OsType = initial.OsType
+	} else {
+		cDes.OsType = des.OsType
 	}
 	if dcl.BoolCanonicalize(des.RequireVerifiedChromeOs, initial.RequireVerifiedChromeOs) || dcl.IsZeroValue(des.RequireVerifiedChromeOs) {
-		des.RequireVerifiedChromeOs = initial.RequireVerifiedChromeOs
+		cDes.RequireVerifiedChromeOs = initial.RequireVerifiedChromeOs
+	} else {
+		cDes.RequireVerifiedChromeOs = des.RequireVerifiedChromeOs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAccessLevelBasicConditionsDevicePolicyOsConstraints(c *Client, des, nw *AccessLevelBasicConditionsDevicePolicyOsConstraints) *AccessLevelBasicConditionsDevicePolicyOsConstraints {
@@ -1959,31 +2011,45 @@ type accessLevelDiff struct {
 	UpdateOp         accessLevelApiOperation
 }
 
-func convertFieldDiffToAccessLevelOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]accessLevelDiff, error) {
+func convertFieldDiffsToAccessLevelDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]accessLevelDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []accessLevelDiff
-	for _, op := range ops {
+	// For each operation name, create a accessLevelDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := accessLevelDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToaccessLevelApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToAccessLevelApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToaccessLevelApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (accessLevelApiOperation, error) {
-	switch op {
+func convertOpNameToAccessLevelApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (accessLevelApiOperation, error) {
+	switch opName {
 
 	case "updateAccessLevelUpdateOperation":
-		return &updateAccessLevelUpdateOperation{Diffs: diffs}, nil
+		return &updateAccessLevelUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

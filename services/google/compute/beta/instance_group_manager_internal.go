@@ -219,7 +219,7 @@ type updateInstanceGroupManagerSetInstanceTemplateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -289,7 +289,7 @@ type updateInstanceGroupManagerSetTargetPoolsOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -602,44 +602,66 @@ func canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial *Instan
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &InstanceGroupManager{}
 	if dcl.StringCanonicalize(rawDesired.BaseInstanceName, rawInitial.BaseInstanceName) {
-		rawDesired.BaseInstanceName = rawInitial.BaseInstanceName
+		canonicalDesired.BaseInstanceName = rawInitial.BaseInstanceName
+	} else {
+		canonicalDesired.BaseInstanceName = rawDesired.BaseInstanceName
 	}
-	rawDesired.DistributionPolicy = canonicalizeInstanceGroupManagerDistributionPolicy(rawDesired.DistributionPolicy, rawInitial.DistributionPolicy, opts...)
+	canonicalDesired.DistributionPolicy = canonicalizeInstanceGroupManagerDistributionPolicy(rawDesired.DistributionPolicy, rawInitial.DistributionPolicy, opts...)
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.Versions) {
-		rawDesired.Versions = rawInitial.Versions
+		canonicalDesired.Versions = rawInitial.Versions
+	} else {
+		canonicalDesired.Versions = rawDesired.Versions
 	}
 	if dcl.NameToSelfLink(rawDesired.InstanceTemplate, rawInitial.InstanceTemplate) {
-		rawDesired.InstanceTemplate = rawInitial.InstanceTemplate
+		canonicalDesired.InstanceTemplate = rawInitial.InstanceTemplate
+	} else {
+		canonicalDesired.InstanceTemplate = rawDesired.InstanceTemplate
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.IsZeroValue(rawDesired.NamedPorts) {
-		rawDesired.NamedPorts = rawInitial.NamedPorts
+		canonicalDesired.NamedPorts = rawInitial.NamedPorts
+	} else {
+		canonicalDesired.NamedPorts = rawDesired.NamedPorts
 	}
 	if dcl.IsZeroValue(rawDesired.TargetPools) {
-		rawDesired.TargetPools = rawInitial.TargetPools
+		canonicalDesired.TargetPools = rawInitial.TargetPools
+	} else {
+		canonicalDesired.TargetPools = rawDesired.TargetPools
 	}
 	if dcl.IsZeroValue(rawDesired.AutoHealingPolicies) {
-		rawDesired.AutoHealingPolicies = rawInitial.AutoHealingPolicies
+		canonicalDesired.AutoHealingPolicies = rawInitial.AutoHealingPolicies
+	} else {
+		canonicalDesired.AutoHealingPolicies = rawDesired.AutoHealingPolicies
 	}
-	rawDesired.UpdatePolicy = canonicalizeInstanceGroupManagerUpdatePolicy(rawDesired.UpdatePolicy, rawInitial.UpdatePolicy, opts...)
+	canonicalDesired.UpdatePolicy = canonicalizeInstanceGroupManagerUpdatePolicy(rawDesired.UpdatePolicy, rawInitial.UpdatePolicy, opts...)
 	if dcl.IsZeroValue(rawDesired.TargetSize) {
-		rawDesired.TargetSize = rawInitial.TargetSize
+		canonicalDesired.TargetSize = rawInitial.TargetSize
+	} else {
+		canonicalDesired.TargetSize = rawDesired.TargetSize
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *InstanceGroupManager) (*InstanceGroupManager, error) {
@@ -781,11 +803,15 @@ func canonicalizeInstanceGroupManagerDistributionPolicy(des, initial *InstanceGr
 		return des
 	}
 
+	cDes := &InstanceGroupManagerDistributionPolicy{}
+
 	if dcl.IsZeroValue(des.Zones) {
 		des.Zones = initial.Zones
+	} else {
+		cDes.Zones = des.Zones
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceGroupManagerDistributionPolicy(c *Client, des, nw *InstanceGroupManagerDistributionPolicy) *InstanceGroupManagerDistributionPolicy {
@@ -853,11 +879,15 @@ func canonicalizeInstanceGroupManagerDistributionPolicyZones(des, initial *Insta
 		return des
 	}
 
+	cDes := &InstanceGroupManagerDistributionPolicyZones{}
+
 	if dcl.StringCanonicalize(des.Zone, initial.Zone) || dcl.IsZeroValue(des.Zone) {
-		des.Zone = initial.Zone
+		cDes.Zone = initial.Zone
+	} else {
+		cDes.Zone = des.Zone
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceGroupManagerDistributionPolicyZones(c *Client, des, nw *InstanceGroupManagerDistributionPolicyZones) *InstanceGroupManagerDistributionPolicyZones {
@@ -927,7 +957,9 @@ func canonicalizeInstanceGroupManagerCurrentActions(des, initial *InstanceGroupM
 		return des
 	}
 
-	return des
+	cDes := &InstanceGroupManagerCurrentActions{}
+
+	return cDes
 }
 
 func canonicalizeNewInstanceGroupManagerCurrentActions(c *Client, des, nw *InstanceGroupManagerCurrentActions) *InstanceGroupManagerCurrentActions {
@@ -1018,15 +1050,21 @@ func canonicalizeInstanceGroupManagerVersions(des, initial *InstanceGroupManager
 		return des
 	}
 
+	cDes := &InstanceGroupManagerVersions{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.NameToSelfLink(des.InstanceTemplate, initial.InstanceTemplate) || dcl.IsZeroValue(des.InstanceTemplate) {
-		des.InstanceTemplate = initial.InstanceTemplate
+		cDes.InstanceTemplate = initial.InstanceTemplate
+	} else {
+		cDes.InstanceTemplate = des.InstanceTemplate
 	}
-	des.TargetSize = canonicalizeInstanceGroupManagerVersionsTargetSize(des.TargetSize, initial.TargetSize, opts...)
+	cDes.TargetSize = canonicalizeInstanceGroupManagerVersionsTargetSize(des.TargetSize, initial.TargetSize, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceGroupManagerVersions(c *Client, des, nw *InstanceGroupManagerVersions) *InstanceGroupManagerVersions {
@@ -1100,14 +1138,20 @@ func canonicalizeInstanceGroupManagerVersionsTargetSize(des, initial *InstanceGr
 		return des
 	}
 
+	cDes := &InstanceGroupManagerVersionsTargetSize{}
+
 	if dcl.IsZeroValue(des.Fixed) {
 		des.Fixed = initial.Fixed
+	} else {
+		cDes.Fixed = des.Fixed
 	}
 	if dcl.IsZeroValue(des.Percent) {
 		des.Percent = initial.Percent
+	} else {
+		cDes.Percent = des.Percent
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceGroupManagerVersionsTargetSize(c *Client, des, nw *InstanceGroupManagerVersionsTargetSize) *InstanceGroupManagerVersionsTargetSize {
@@ -1183,14 +1227,20 @@ func canonicalizeInstanceGroupManagerNamedPorts(des, initial *InstanceGroupManag
 		return des
 	}
 
+	cDes := &InstanceGroupManagerNamedPorts{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.IsZeroValue(des.Port) {
 		des.Port = initial.Port
+	} else {
+		cDes.Port = des.Port
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceGroupManagerNamedPorts(c *Client, des, nw *InstanceGroupManagerNamedPorts) *InstanceGroupManagerNamedPorts {
@@ -1263,15 +1313,21 @@ func canonicalizeInstanceGroupManagerStatus(des, initial *InstanceGroupManagerSt
 		return des
 	}
 
+	cDes := &InstanceGroupManagerStatus{}
+
 	if dcl.BoolCanonicalize(des.IsStable, initial.IsStable) || dcl.IsZeroValue(des.IsStable) {
-		des.IsStable = initial.IsStable
+		cDes.IsStable = initial.IsStable
+	} else {
+		cDes.IsStable = des.IsStable
 	}
-	des.VersionTarget = canonicalizeInstanceGroupManagerStatusVersionTarget(des.VersionTarget, initial.VersionTarget, opts...)
+	cDes.VersionTarget = canonicalizeInstanceGroupManagerStatusVersionTarget(des.VersionTarget, initial.VersionTarget, opts...)
 	if dcl.NameToSelfLink(des.Autoscalar, initial.Autoscalar) || dcl.IsZeroValue(des.Autoscalar) {
-		des.Autoscalar = initial.Autoscalar
+		cDes.Autoscalar = initial.Autoscalar
+	} else {
+		cDes.Autoscalar = des.Autoscalar
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceGroupManagerStatus(c *Client, des, nw *InstanceGroupManagerStatus) *InstanceGroupManagerStatus {
@@ -1345,11 +1401,15 @@ func canonicalizeInstanceGroupManagerStatusVersionTarget(des, initial *InstanceG
 		return des
 	}
 
+	cDes := &InstanceGroupManagerStatusVersionTarget{}
+
 	if dcl.BoolCanonicalize(des.IsReached, initial.IsReached) || dcl.IsZeroValue(des.IsReached) {
-		des.IsReached = initial.IsReached
+		cDes.IsReached = initial.IsReached
+	} else {
+		cDes.IsReached = des.IsReached
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceGroupManagerStatusVersionTarget(c *Client, des, nw *InstanceGroupManagerStatusVersionTarget) *InstanceGroupManagerStatusVersionTarget {
@@ -1419,14 +1479,20 @@ func canonicalizeInstanceGroupManagerAutoHealingPolicies(des, initial *InstanceG
 		return des
 	}
 
+	cDes := &InstanceGroupManagerAutoHealingPolicies{}
+
 	if dcl.NameToSelfLink(des.HealthCheck, initial.HealthCheck) || dcl.IsZeroValue(des.HealthCheck) {
-		des.HealthCheck = initial.HealthCheck
+		cDes.HealthCheck = initial.HealthCheck
+	} else {
+		cDes.HealthCheck = des.HealthCheck
 	}
 	if dcl.IsZeroValue(des.InitialDelaySec) {
 		des.InitialDelaySec = initial.InitialDelaySec
+	} else {
+		cDes.InitialDelaySec = des.InitialDelaySec
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceGroupManagerAutoHealingPolicies(c *Client, des, nw *InstanceGroupManagerAutoHealingPolicies) *InstanceGroupManagerAutoHealingPolicies {
@@ -1499,16 +1565,22 @@ func canonicalizeInstanceGroupManagerUpdatePolicy(des, initial *InstanceGroupMan
 		return des
 	}
 
+	cDes := &InstanceGroupManagerUpdatePolicy{}
+
 	if dcl.IsZeroValue(des.InstanceRedistributionType) {
 		des.InstanceRedistributionType = initial.InstanceRedistributionType
+	} else {
+		cDes.InstanceRedistributionType = des.InstanceRedistributionType
 	}
 	if dcl.IsZeroValue(des.MinimalAction) {
 		des.MinimalAction = initial.MinimalAction
+	} else {
+		cDes.MinimalAction = des.MinimalAction
 	}
-	des.MaxSurge = canonicalizeInstanceGroupManagerUpdatePolicyMaxSurge(des.MaxSurge, initial.MaxSurge, opts...)
-	des.MaxUnavailable = canonicalizeInstanceGroupManagerUpdatePolicyMaxUnavailable(des.MaxUnavailable, initial.MaxUnavailable, opts...)
+	cDes.MaxSurge = canonicalizeInstanceGroupManagerUpdatePolicyMaxSurge(des.MaxSurge, initial.MaxSurge, opts...)
+	cDes.MaxUnavailable = canonicalizeInstanceGroupManagerUpdatePolicyMaxUnavailable(des.MaxUnavailable, initial.MaxUnavailable, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceGroupManagerUpdatePolicy(c *Client, des, nw *InstanceGroupManagerUpdatePolicy) *InstanceGroupManagerUpdatePolicy {
@@ -1583,14 +1655,20 @@ func canonicalizeInstanceGroupManagerUpdatePolicyMaxSurge(des, initial *Instance
 		return des
 	}
 
+	cDes := &InstanceGroupManagerUpdatePolicyMaxSurge{}
+
 	if dcl.IsZeroValue(des.Fixed) {
 		des.Fixed = initial.Fixed
+	} else {
+		cDes.Fixed = des.Fixed
 	}
 	if dcl.IsZeroValue(des.Percent) {
 		des.Percent = initial.Percent
+	} else {
+		cDes.Percent = des.Percent
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurge(c *Client, des, nw *InstanceGroupManagerUpdatePolicyMaxSurge) *InstanceGroupManagerUpdatePolicyMaxSurge {
@@ -1666,14 +1744,20 @@ func canonicalizeInstanceGroupManagerUpdatePolicyMaxUnavailable(des, initial *In
 		return des
 	}
 
+	cDes := &InstanceGroupManagerUpdatePolicyMaxUnavailable{}
+
 	if dcl.IsZeroValue(des.Fixed) {
 		des.Fixed = initial.Fixed
+	} else {
+		cDes.Fixed = des.Fixed
 	}
 	if dcl.IsZeroValue(des.Percent) {
 		des.Percent = initial.Percent
+	} else {
+		cDes.Percent = des.Percent
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxUnavailable(c *Client, des, nw *InstanceGroupManagerUpdatePolicyMaxUnavailable) *InstanceGroupManagerUpdatePolicyMaxUnavailable {
@@ -4173,34 +4257,48 @@ type instanceGroupManagerDiff struct {
 	UpdateOp         instanceGroupManagerApiOperation
 }
 
-func convertFieldDiffToInstanceGroupManagerOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]instanceGroupManagerDiff, error) {
+func convertFieldDiffsToInstanceGroupManagerDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]instanceGroupManagerDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []instanceGroupManagerDiff
-	for _, op := range ops {
+	// For each operation name, create a instanceGroupManagerDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := instanceGroupManagerDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToinstanceGroupManagerApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToInstanceGroupManagerApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToinstanceGroupManagerApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (instanceGroupManagerApiOperation, error) {
-	switch op {
+func convertOpNameToInstanceGroupManagerApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (instanceGroupManagerApiOperation, error) {
+	switch opName {
 
 	case "updateInstanceGroupManagerSetInstanceTemplateOperation":
-		return &updateInstanceGroupManagerSetInstanceTemplateOperation{Diffs: diffs}, nil
+		return &updateInstanceGroupManagerSetInstanceTemplateOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateInstanceGroupManagerSetTargetPoolsOperation":
-		return &updateInstanceGroupManagerSetTargetPoolsOperation{Diffs: diffs}, nil
+		return &updateInstanceGroupManagerSetTargetPoolsOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

@@ -126,7 +126,7 @@ type updateSubnetworkExpandIpCidrRangeOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -196,7 +196,7 @@ type updateSubnetworkSetPrivateIpGoogleAccessOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -279,7 +279,7 @@ type updateSubnetworkUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -589,43 +589,65 @@ func canonicalizeSubnetworkDesiredState(rawDesired, rawInitial *Subnetwork, opts
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Subnetwork{}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.StringCanonicalize(rawDesired.IPCidrRange, rawInitial.IPCidrRange) {
-		rawDesired.IPCidrRange = rawInitial.IPCidrRange
+		canonicalDesired.IPCidrRange = rawInitial.IPCidrRange
+	} else {
+		canonicalDesired.IPCidrRange = rawDesired.IPCidrRange
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.NameToSelfLink(rawDesired.Network, rawInitial.Network) {
-		rawDesired.Network = rawInitial.Network
+		canonicalDesired.Network = rawInitial.Network
+	} else {
+		canonicalDesired.Network = rawDesired.Network
 	}
 	if dcl.IsZeroValue(rawDesired.Purpose) {
-		rawDesired.Purpose = rawInitial.Purpose
+		canonicalDesired.Purpose = rawInitial.Purpose
+	} else {
+		canonicalDesired.Purpose = rawDesired.Purpose
 	}
 	if dcl.IsZeroValue(rawDesired.Role) {
-		rawDesired.Role = rawInitial.Role
+		canonicalDesired.Role = rawInitial.Role
+	} else {
+		canonicalDesired.Role = rawDesired.Role
 	}
 	if dcl.IsZeroValue(rawDesired.SecondaryIPRanges) {
-		rawDesired.SecondaryIPRanges = rawInitial.SecondaryIPRanges
+		canonicalDesired.SecondaryIPRanges = rawInitial.SecondaryIPRanges
+	} else {
+		canonicalDesired.SecondaryIPRanges = rawDesired.SecondaryIPRanges
 	}
 	if dcl.BoolCanonicalize(rawDesired.PrivateIPGoogleAccess, rawInitial.PrivateIPGoogleAccess) {
-		rawDesired.PrivateIPGoogleAccess = rawInitial.PrivateIPGoogleAccess
+		canonicalDesired.PrivateIPGoogleAccess = rawInitial.PrivateIPGoogleAccess
+	} else {
+		canonicalDesired.PrivateIPGoogleAccess = rawDesired.PrivateIPGoogleAccess
 	}
 	if dcl.NameToSelfLink(rawDesired.Region, rawInitial.Region) {
-		rawDesired.Region = rawInitial.Region
+		canonicalDesired.Region = rawInitial.Region
+	} else {
+		canonicalDesired.Region = rawDesired.Region
 	}
-	rawDesired.LogConfig = canonicalizeSubnetworkLogConfig(rawDesired.LogConfig, rawInitial.LogConfig, opts...)
+	canonicalDesired.LogConfig = canonicalizeSubnetworkLogConfig(rawDesired.LogConfig, rawInitial.LogConfig, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.BoolCanonicalize(rawDesired.EnableFlowLogs, rawInitial.EnableFlowLogs) {
-		rawDesired.EnableFlowLogs = rawInitial.EnableFlowLogs
+		canonicalDesired.EnableFlowLogs = rawInitial.EnableFlowLogs
+	} else {
+		canonicalDesired.EnableFlowLogs = rawDesired.EnableFlowLogs
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeSubnetworkNewState(c *Client, rawNew, rawDesired *Subnetwork) (*Subnetwork, error) {
@@ -748,14 +770,20 @@ func canonicalizeSubnetworkSecondaryIPRanges(des, initial *SubnetworkSecondaryIP
 		return des
 	}
 
+	cDes := &SubnetworkSecondaryIPRanges{}
+
 	if dcl.StringCanonicalize(des.RangeName, initial.RangeName) || dcl.IsZeroValue(des.RangeName) {
-		des.RangeName = initial.RangeName
+		cDes.RangeName = initial.RangeName
+	} else {
+		cDes.RangeName = des.RangeName
 	}
 	if dcl.StringCanonicalize(des.IPCidrRange, initial.IPCidrRange) || dcl.IsZeroValue(des.IPCidrRange) {
-		des.IPCidrRange = initial.IPCidrRange
+		cDes.IPCidrRange = initial.IPCidrRange
+	} else {
+		cDes.IPCidrRange = des.IPCidrRange
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewSubnetworkSecondaryIPRanges(c *Client, des, nw *SubnetworkSecondaryIPRanges) *SubnetworkSecondaryIPRanges {
@@ -840,17 +868,25 @@ func canonicalizeSubnetworkLogConfig(des, initial *SubnetworkLogConfig, opts ...
 		return des
 	}
 
+	cDes := &SubnetworkLogConfig{}
+
 	if dcl.IsZeroValue(des.AggregationInterval) {
 		des.AggregationInterval = initial.AggregationInterval
+	} else {
+		cDes.AggregationInterval = des.AggregationInterval
 	}
 	if dcl.IsZeroValue(des.FlowSampling) {
 		des.FlowSampling = initial.FlowSampling
+	} else {
+		cDes.FlowSampling = des.FlowSampling
 	}
 	if dcl.IsZeroValue(des.Metadata) {
 		des.Metadata = initial.Metadata
+	} else {
+		cDes.Metadata = des.Metadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewSubnetworkLogConfig(c *Client, des, nw *SubnetworkLogConfig) *SubnetworkLogConfig {
@@ -1726,37 +1762,51 @@ type subnetworkDiff struct {
 	UpdateOp         subnetworkApiOperation
 }
 
-func convertFieldDiffToSubnetworkOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]subnetworkDiff, error) {
+func convertFieldDiffsToSubnetworkDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]subnetworkDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []subnetworkDiff
-	for _, op := range ops {
+	// For each operation name, create a subnetworkDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := subnetworkDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTosubnetworkApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToSubnetworkApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTosubnetworkApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (subnetworkApiOperation, error) {
-	switch op {
+func convertOpNameToSubnetworkApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (subnetworkApiOperation, error) {
+	switch opName {
 
 	case "updateSubnetworkExpandIpCidrRangeOperation":
-		return &updateSubnetworkExpandIpCidrRangeOperation{Diffs: diffs}, nil
+		return &updateSubnetworkExpandIpCidrRangeOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateSubnetworkSetPrivateIpGoogleAccessOperation":
-		return &updateSubnetworkSetPrivateIpGoogleAccessOperation{Diffs: diffs}, nil
+		return &updateSubnetworkSetPrivateIpGoogleAccessOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateSubnetworkUpdateOperation":
-		return &updateSubnetworkUpdateOperation{Diffs: diffs}, nil
+		return &updateSubnetworkUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

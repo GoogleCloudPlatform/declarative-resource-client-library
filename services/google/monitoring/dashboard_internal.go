@@ -493,7 +493,7 @@ type updateDashboardUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -771,28 +771,28 @@ func (c *Client) dashboardDiffsForRawDesired(ctx context.Context, rawDesired *Da
 func canonicalizeDashboardInitialState(rawInitial, rawDesired *Dashboard) (*Dashboard, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
-	if dcl.IsZeroValue(rawInitial.GridLayout) {
+	if !dcl.IsZeroValue(rawInitial.GridLayout) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.MosaicLayout, rawInitial.RowLayout, rawInitial.ColumnLayout) {
 			rawInitial.GridLayout = EmptyDashboardGridLayout
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.MosaicLayout) {
+	if !dcl.IsZeroValue(rawInitial.MosaicLayout) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.GridLayout, rawInitial.RowLayout, rawInitial.ColumnLayout) {
 			rawInitial.MosaicLayout = EmptyDashboardMosaicLayout
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.RowLayout) {
+	if !dcl.IsZeroValue(rawInitial.RowLayout) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.GridLayout, rawInitial.MosaicLayout, rawInitial.ColumnLayout) {
 			rawInitial.RowLayout = EmptyDashboardRowLayout
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.ColumnLayout) {
+	if !dcl.IsZeroValue(rawInitial.ColumnLayout) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.GridLayout, rawInitial.MosaicLayout, rawInitial.RowLayout) {
 			rawInitial.ColumnLayout = EmptyDashboardColumnLayout
@@ -854,21 +854,28 @@ func canonicalizeDashboardDesiredState(rawDesired, rawInitial *Dashboard, opts .
 		}
 	}
 
+	canonicalDesired := &Dashboard{}
 	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
-		rawDesired.DisplayName = rawInitial.DisplayName
+		canonicalDesired.DisplayName = rawInitial.DisplayName
+	} else {
+		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
-	rawDesired.GridLayout = canonicalizeDashboardGridLayout(rawDesired.GridLayout, rawInitial.GridLayout, opts...)
-	rawDesired.MosaicLayout = canonicalizeDashboardMosaicLayout(rawDesired.MosaicLayout, rawInitial.MosaicLayout, opts...)
-	rawDesired.RowLayout = canonicalizeDashboardRowLayout(rawDesired.RowLayout, rawInitial.RowLayout, opts...)
-	rawDesired.ColumnLayout = canonicalizeDashboardColumnLayout(rawDesired.ColumnLayout, rawInitial.ColumnLayout, opts...)
+	canonicalDesired.GridLayout = canonicalizeDashboardGridLayout(rawDesired.GridLayout, rawInitial.GridLayout, opts...)
+	canonicalDesired.MosaicLayout = canonicalizeDashboardMosaicLayout(rawDesired.MosaicLayout, rawInitial.MosaicLayout, opts...)
+	canonicalDesired.RowLayout = canonicalizeDashboardRowLayout(rawDesired.RowLayout, rawInitial.RowLayout, opts...)
+	canonicalDesired.ColumnLayout = canonicalizeDashboardColumnLayout(rawDesired.ColumnLayout, rawInitial.ColumnLayout, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeDashboardNewState(c *Client, rawNew, rawDesired *Dashboard) (*Dashboard, error) {
@@ -932,14 +939,20 @@ func canonicalizeDashboardGridLayout(des, initial *DashboardGridLayout, opts ...
 		return des
 	}
 
+	cDes := &DashboardGridLayout{}
+
 	if dcl.IsZeroValue(des.Columns) {
 		des.Columns = initial.Columns
+	} else {
+		cDes.Columns = des.Columns
 	}
 	if dcl.IsZeroValue(des.Widgets) {
 		des.Widgets = initial.Widgets
+	} else {
+		cDes.Widgets = des.Widgets
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardGridLayout(c *Client, des, nw *DashboardGridLayout) *DashboardGridLayout {
@@ -1012,14 +1025,20 @@ func canonicalizeDashboardMosaicLayout(des, initial *DashboardMosaicLayout, opts
 		return des
 	}
 
+	cDes := &DashboardMosaicLayout{}
+
 	if dcl.IsZeroValue(des.Columns) {
 		des.Columns = initial.Columns
+	} else {
+		cDes.Columns = des.Columns
 	}
 	if dcl.IsZeroValue(des.Tiles) {
 		des.Tiles = initial.Tiles
+	} else {
+		cDes.Tiles = des.Tiles
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardMosaicLayout(c *Client, des, nw *DashboardMosaicLayout) *DashboardMosaicLayout {
@@ -1090,21 +1109,31 @@ func canonicalizeDashboardMosaicLayoutTiles(des, initial *DashboardMosaicLayoutT
 		return des
 	}
 
+	cDes := &DashboardMosaicLayoutTiles{}
+
 	if dcl.IsZeroValue(des.XPos) {
 		des.XPos = initial.XPos
+	} else {
+		cDes.XPos = des.XPos
 	}
 	if dcl.IsZeroValue(des.YPos) {
 		des.YPos = initial.YPos
+	} else {
+		cDes.YPos = des.YPos
 	}
 	if dcl.IsZeroValue(des.Width) {
 		des.Width = initial.Width
+	} else {
+		cDes.Width = des.Width
 	}
 	if dcl.IsZeroValue(des.Height) {
 		des.Height = initial.Height
+	} else {
+		cDes.Height = des.Height
 	}
-	des.Widget = canonicalizeDashboardWidget(des.Widget, initial.Widget, opts...)
+	cDes.Widget = canonicalizeDashboardWidget(des.Widget, initial.Widget, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardMosaicLayoutTiles(c *Client, des, nw *DashboardMosaicLayoutTiles) *DashboardMosaicLayoutTiles {
@@ -1184,11 +1213,15 @@ func canonicalizeDashboardRowLayout(des, initial *DashboardRowLayout, opts ...dc
 		return des
 	}
 
+	cDes := &DashboardRowLayout{}
+
 	if dcl.IsZeroValue(des.Rows) {
 		des.Rows = initial.Rows
+	} else {
+		cDes.Rows = des.Rows
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardRowLayout(c *Client, des, nw *DashboardRowLayout) *DashboardRowLayout {
@@ -1256,14 +1289,20 @@ func canonicalizeDashboardRowLayoutRows(des, initial *DashboardRowLayoutRows, op
 		return des
 	}
 
+	cDes := &DashboardRowLayoutRows{}
+
 	if dcl.IsZeroValue(des.Weight) {
 		des.Weight = initial.Weight
+	} else {
+		cDes.Weight = des.Weight
 	}
 	if dcl.IsZeroValue(des.Widgets) {
 		des.Widgets = initial.Widgets
+	} else {
+		cDes.Widgets = des.Widgets
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardRowLayoutRows(c *Client, des, nw *DashboardRowLayoutRows) *DashboardRowLayoutRows {
@@ -1336,11 +1375,15 @@ func canonicalizeDashboardColumnLayout(des, initial *DashboardColumnLayout, opts
 		return des
 	}
 
+	cDes := &DashboardColumnLayout{}
+
 	if dcl.IsZeroValue(des.Columns) {
 		des.Columns = initial.Columns
+	} else {
+		cDes.Columns = des.Columns
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardColumnLayout(c *Client, des, nw *DashboardColumnLayout) *DashboardColumnLayout {
@@ -1408,14 +1451,20 @@ func canonicalizeDashboardColumnLayoutColumns(des, initial *DashboardColumnLayou
 		return des
 	}
 
+	cDes := &DashboardColumnLayoutColumns{}
+
 	if dcl.IsZeroValue(des.Weight) {
 		des.Weight = initial.Weight
+	} else {
+		cDes.Weight = des.Weight
 	}
 	if dcl.IsZeroValue(des.Widgets) {
 		des.Widgets = initial.Widgets
+	} else {
+		cDes.Widgets = des.Widgets
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardColumnLayoutColumns(c *Client, des, nw *DashboardColumnLayoutColumns) *DashboardColumnLayoutColumns {
@@ -1486,15 +1535,19 @@ func canonicalizeDashboardWidget(des, initial *DashboardWidget, opts ...dcl.Appl
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.Title, initial.Title) || dcl.IsZeroValue(des.Title) {
-		des.Title = initial.Title
-	}
-	des.XyChart = canonicalizeDashboardWidgetXyChart(des.XyChart, initial.XyChart, opts...)
-	des.Scorecard = canonicalizeDashboardWidgetScorecard(des.Scorecard, initial.Scorecard, opts...)
-	des.Text = canonicalizeDashboardWidgetText(des.Text, initial.Text, opts...)
-	des.Blank = canonicalizeDashboardWidgetBlank(des.Blank, initial.Blank, opts...)
+	cDes := &DashboardWidget{}
 
-	return des
+	if dcl.StringCanonicalize(des.Title, initial.Title) || dcl.IsZeroValue(des.Title) {
+		cDes.Title = initial.Title
+	} else {
+		cDes.Title = des.Title
+	}
+	cDes.XyChart = canonicalizeDashboardWidgetXyChart(des.XyChart, initial.XyChart, opts...)
+	cDes.Scorecard = canonicalizeDashboardWidgetScorecard(des.Scorecard, initial.Scorecard, opts...)
+	cDes.Text = canonicalizeDashboardWidgetText(des.Text, initial.Text, opts...)
+	cDes.Blank = canonicalizeDashboardWidgetBlank(des.Blank, initial.Blank, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewDashboardWidget(c *Client, des, nw *DashboardWidget) *DashboardWidget {
@@ -1568,20 +1621,28 @@ func canonicalizeDashboardWidgetXyChart(des, initial *DashboardWidgetXyChart, op
 		return des
 	}
 
+	cDes := &DashboardWidgetXyChart{}
+
 	if dcl.IsZeroValue(des.DataSets) {
 		des.DataSets = initial.DataSets
+	} else {
+		cDes.DataSets = des.DataSets
 	}
 	if dcl.StringCanonicalize(des.TimeshiftDuration, initial.TimeshiftDuration) || dcl.IsZeroValue(des.TimeshiftDuration) {
-		des.TimeshiftDuration = initial.TimeshiftDuration
+		cDes.TimeshiftDuration = initial.TimeshiftDuration
+	} else {
+		cDes.TimeshiftDuration = des.TimeshiftDuration
 	}
 	if dcl.IsZeroValue(des.Thresholds) {
 		des.Thresholds = initial.Thresholds
+	} else {
+		cDes.Thresholds = des.Thresholds
 	}
-	des.XAxis = canonicalizeDashboardWidgetXyChartXAxis(des.XAxis, initial.XAxis, opts...)
-	des.YAxis = canonicalizeDashboardWidgetXyChartYAxis(des.YAxis, initial.YAxis, opts...)
-	des.ChartOptions = canonicalizeDashboardWidgetXyChartChartOptions(des.ChartOptions, initial.ChartOptions, opts...)
+	cDes.XAxis = canonicalizeDashboardWidgetXyChartXAxis(des.XAxis, initial.XAxis, opts...)
+	cDes.YAxis = canonicalizeDashboardWidgetXyChartYAxis(des.YAxis, initial.YAxis, opts...)
+	cDes.ChartOptions = canonicalizeDashboardWidgetXyChartChartOptions(des.ChartOptions, initial.ChartOptions, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetXyChart(c *Client, des, nw *DashboardWidgetXyChart) *DashboardWidgetXyChart {
@@ -1656,18 +1717,26 @@ func canonicalizeDashboardWidgetXyChartDataSets(des, initial *DashboardWidgetXyC
 		return des
 	}
 
-	des.TimeSeriesQuery = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQuery(des.TimeSeriesQuery, initial.TimeSeriesQuery, opts...)
+	cDes := &DashboardWidgetXyChartDataSets{}
+
+	cDes.TimeSeriesQuery = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQuery(des.TimeSeriesQuery, initial.TimeSeriesQuery, opts...)
 	if dcl.IsZeroValue(des.PlotType) {
 		des.PlotType = initial.PlotType
+	} else {
+		cDes.PlotType = des.PlotType
 	}
 	if dcl.StringCanonicalize(des.LegendTemplate, initial.LegendTemplate) || dcl.IsZeroValue(des.LegendTemplate) {
-		des.LegendTemplate = initial.LegendTemplate
+		cDes.LegendTemplate = initial.LegendTemplate
+	} else {
+		cDes.LegendTemplate = des.LegendTemplate
 	}
 	if dcl.StringCanonicalize(des.MinAlignmentPeriod, initial.MinAlignmentPeriod) || dcl.IsZeroValue(des.MinAlignmentPeriod) {
-		des.MinAlignmentPeriod = initial.MinAlignmentPeriod
+		cDes.MinAlignmentPeriod = initial.MinAlignmentPeriod
+	} else {
+		cDes.MinAlignmentPeriod = des.MinAlignmentPeriod
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSets(c *Client, des, nw *DashboardWidgetXyChartDataSets) *DashboardWidgetXyChartDataSets {
@@ -1744,16 +1813,22 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQuery(des, initial *Das
 		return des
 	}
 
-	des.TimeSeriesFilter = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(des.TimeSeriesFilter, initial.TimeSeriesFilter, opts...)
-	des.TimeSeriesFilterRatio = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(des.TimeSeriesFilterRatio, initial.TimeSeriesFilterRatio, opts...)
+	cDes := &DashboardWidgetXyChartDataSetsTimeSeriesQuery{}
+
+	cDes.TimeSeriesFilter = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(des.TimeSeriesFilter, initial.TimeSeriesFilter, opts...)
+	cDes.TimeSeriesFilterRatio = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(des.TimeSeriesFilterRatio, initial.TimeSeriesFilterRatio, opts...)
 	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, initial.TimeSeriesQueryLanguage) || dcl.IsZeroValue(des.TimeSeriesQueryLanguage) {
-		des.TimeSeriesQueryLanguage = initial.TimeSeriesQueryLanguage
+		cDes.TimeSeriesQueryLanguage = initial.TimeSeriesQueryLanguage
+	} else {
+		cDes.TimeSeriesQueryLanguage = des.TimeSeriesQueryLanguage
 	}
 	if dcl.StringCanonicalize(des.UnitOverride, initial.UnitOverride) || dcl.IsZeroValue(des.UnitOverride) {
-		des.UnitOverride = initial.UnitOverride
+		cDes.UnitOverride = initial.UnitOverride
+	} else {
+		cDes.UnitOverride = des.UnitOverride
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQuery(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQuery) *DashboardWidgetXyChartDataSetsTimeSeriesQuery {
@@ -1828,14 +1903,18 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(d
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
-		des.Filter = initial.Filter
-	}
-	des.Aggregation = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(des.Aggregation, initial.Aggregation, opts...)
-	des.SecondaryAggregation = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(des.SecondaryAggregation, initial.SecondaryAggregation, opts...)
-	des.PickTimeSeriesFilter = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(des.PickTimeSeriesFilter, initial.PickTimeSeriesFilter, opts...)
+	cDes := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter{}
 
-	return des
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+		cDes.Filter = initial.Filter
+	} else {
+		cDes.Filter = des.Filter
+	}
+	cDes.Aggregation = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(des.Aggregation, initial.Aggregation, opts...)
+	cDes.SecondaryAggregation = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(des.SecondaryAggregation, initial.SecondaryAggregation, opts...)
+	cDes.PickTimeSeriesFilter = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(des.PickTimeSeriesFilter, initial.PickTimeSeriesFilter, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
@@ -1908,20 +1987,30 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAg
 		return des
 	}
 
+	cDes := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{}
+
 	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
-		des.AlignmentPeriod = initial.AlignmentPeriod
+		cDes.AlignmentPeriod = initial.AlignmentPeriod
+	} else {
+		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
+	} else {
+		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
 		des.CrossSeriesReducer = initial.CrossSeriesReducer
+	} else {
+		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
 	if dcl.IsZeroValue(des.GroupByFields) {
 		des.GroupByFields = initial.GroupByFields
+	} else {
+		cDes.GroupByFields = des.GroupByFields
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
@@ -2000,20 +2089,30 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSe
 		return des
 	}
 
+	cDes := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
+
 	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
-		des.AlignmentPeriod = initial.AlignmentPeriod
+		cDes.AlignmentPeriod = initial.AlignmentPeriod
+	} else {
+		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
+	} else {
+		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
 		des.CrossSeriesReducer = initial.CrossSeriesReducer
+	} else {
+		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
 	if dcl.IsZeroValue(des.GroupByFields) {
 		des.GroupByFields = initial.GroupByFields
+	} else {
+		cDes.GroupByFields = des.GroupByFields
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
@@ -2092,17 +2191,25 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPi
 		return des
 	}
 
+	cDes := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
+
 	if dcl.IsZeroValue(des.RankingMethod) {
 		des.RankingMethod = initial.RankingMethod
+	} else {
+		cDes.RankingMethod = des.RankingMethod
 	}
 	if dcl.IsZeroValue(des.NumTimeSeries) {
 		des.NumTimeSeries = initial.NumTimeSeries
+	} else {
+		cDes.NumTimeSeries = des.NumTimeSeries
 	}
 	if dcl.IsZeroValue(des.Direction) {
 		des.Direction = initial.Direction
+	} else {
+		cDes.Direction = des.Direction
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
@@ -2178,12 +2285,14 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	des.Numerator = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(des.Numerator, initial.Numerator, opts...)
-	des.Denominator = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(des.Denominator, initial.Denominator, opts...)
-	des.SecondaryAggregation = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(des.SecondaryAggregation, initial.SecondaryAggregation, opts...)
-	des.PickTimeSeriesFilter = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(des.PickTimeSeriesFilter, initial.PickTimeSeriesFilter, opts...)
+	cDes := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio{}
 
-	return des
+	cDes.Numerator = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(des.Numerator, initial.Numerator, opts...)
+	cDes.Denominator = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(des.Denominator, initial.Denominator, opts...)
+	cDes.SecondaryAggregation = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(des.SecondaryAggregation, initial.SecondaryAggregation, opts...)
+	cDes.PickTimeSeriesFilter = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(des.PickTimeSeriesFilter, initial.PickTimeSeriesFilter, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
@@ -2254,12 +2363,16 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
-		des.Filter = initial.Filter
-	}
-	des.Aggregation = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(des.Aggregation, initial.Aggregation, opts...)
+	cDes := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
 
-	return des
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+		cDes.Filter = initial.Filter
+	} else {
+		cDes.Filter = des.Filter
+	}
+	cDes.Aggregation = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(des.Aggregation, initial.Aggregation, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
@@ -2330,20 +2443,30 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
+	cDes := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
+
 	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
-		des.AlignmentPeriod = initial.AlignmentPeriod
+		cDes.AlignmentPeriod = initial.AlignmentPeriod
+	} else {
+		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
+	} else {
+		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
 		des.CrossSeriesReducer = initial.CrossSeriesReducer
+	} else {
+		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
 	if dcl.IsZeroValue(des.GroupByFields) {
 		des.GroupByFields = initial.GroupByFields
+	} else {
+		cDes.GroupByFields = des.GroupByFields
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
@@ -2422,12 +2545,16 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
-		des.Filter = initial.Filter
-	}
-	des.Aggregation = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(des.Aggregation, initial.Aggregation, opts...)
+	cDes := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
 
-	return des
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+		cDes.Filter = initial.Filter
+	} else {
+		cDes.Filter = des.Filter
+	}
+	cDes.Aggregation = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(des.Aggregation, initial.Aggregation, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
@@ -2498,20 +2625,30 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
+	cDes := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
+
 	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
-		des.AlignmentPeriod = initial.AlignmentPeriod
+		cDes.AlignmentPeriod = initial.AlignmentPeriod
+	} else {
+		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
+	} else {
+		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
 		des.CrossSeriesReducer = initial.CrossSeriesReducer
+	} else {
+		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
 	if dcl.IsZeroValue(des.GroupByFields) {
 		des.GroupByFields = initial.GroupByFields
+	} else {
+		cDes.GroupByFields = des.GroupByFields
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
@@ -2590,20 +2727,30 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
+	cDes := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
+
 	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
-		des.AlignmentPeriod = initial.AlignmentPeriod
+		cDes.AlignmentPeriod = initial.AlignmentPeriod
+	} else {
+		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
+	} else {
+		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
 		des.CrossSeriesReducer = initial.CrossSeriesReducer
+	} else {
+		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
 	if dcl.IsZeroValue(des.GroupByFields) {
 		des.GroupByFields = initial.GroupByFields
+	} else {
+		cDes.GroupByFields = des.GroupByFields
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
@@ -2682,17 +2829,25 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 		return des
 	}
 
+	cDes := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
+
 	if dcl.IsZeroValue(des.RankingMethod) {
 		des.RankingMethod = initial.RankingMethod
+	} else {
+		cDes.RankingMethod = des.RankingMethod
 	}
 	if dcl.IsZeroValue(des.NumTimeSeries) {
 		des.NumTimeSeries = initial.NumTimeSeries
+	} else {
+		cDes.NumTimeSeries = des.NumTimeSeries
 	}
 	if dcl.IsZeroValue(des.Direction) {
 		des.Direction = initial.Direction
+	} else {
+		cDes.Direction = des.Direction
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
@@ -2768,20 +2923,30 @@ func canonicalizeDashboardWidgetXyChartThresholds(des, initial *DashboardWidgetX
 		return des
 	}
 
+	cDes := &DashboardWidgetXyChartThresholds{}
+
 	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
-		des.Label = initial.Label
+		cDes.Label = initial.Label
+	} else {
+		cDes.Label = des.Label
 	}
 	if dcl.IsZeroValue(des.Value) {
 		des.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 	if dcl.IsZeroValue(des.Color) {
 		des.Color = initial.Color
+	} else {
+		cDes.Color = des.Color
 	}
 	if dcl.IsZeroValue(des.Direction) {
 		des.Direction = initial.Direction
+	} else {
+		cDes.Direction = des.Direction
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetXyChartThresholds(c *Client, des, nw *DashboardWidgetXyChartThresholds) *DashboardWidgetXyChartThresholds {
@@ -2860,14 +3025,20 @@ func canonicalizeDashboardWidgetXyChartXAxis(des, initial *DashboardWidgetXyChar
 		return des
 	}
 
+	cDes := &DashboardWidgetXyChartXAxis{}
+
 	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
-		des.Label = initial.Label
+		cDes.Label = initial.Label
+	} else {
+		cDes.Label = des.Label
 	}
 	if dcl.IsZeroValue(des.Scale) {
 		des.Scale = initial.Scale
+	} else {
+		cDes.Scale = des.Scale
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetXyChartXAxis(c *Client, des, nw *DashboardWidgetXyChartXAxis) *DashboardWidgetXyChartXAxis {
@@ -2940,14 +3111,20 @@ func canonicalizeDashboardWidgetXyChartYAxis(des, initial *DashboardWidgetXyChar
 		return des
 	}
 
+	cDes := &DashboardWidgetXyChartYAxis{}
+
 	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
-		des.Label = initial.Label
+		cDes.Label = initial.Label
+	} else {
+		cDes.Label = des.Label
 	}
 	if dcl.IsZeroValue(des.Scale) {
 		des.Scale = initial.Scale
+	} else {
+		cDes.Scale = des.Scale
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetXyChartYAxis(c *Client, des, nw *DashboardWidgetXyChartYAxis) *DashboardWidgetXyChartYAxis {
@@ -3020,11 +3197,15 @@ func canonicalizeDashboardWidgetXyChartChartOptions(des, initial *DashboardWidge
 		return des
 	}
 
+	cDes := &DashboardWidgetXyChartChartOptions{}
+
 	if dcl.IsZeroValue(des.Mode) {
 		des.Mode = initial.Mode
+	} else {
+		cDes.Mode = des.Mode
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetXyChartChartOptions(c *Client, des, nw *DashboardWidgetXyChartChartOptions) *DashboardWidgetXyChartChartOptions {
@@ -3094,14 +3275,18 @@ func canonicalizeDashboardWidgetScorecard(des, initial *DashboardWidgetScorecard
 		return des
 	}
 
-	des.TimeSeriesQuery = canonicalizeDashboardWidgetScorecardTimeSeriesQuery(des.TimeSeriesQuery, initial.TimeSeriesQuery, opts...)
-	des.GaugeView = canonicalizeDashboardWidgetScorecardGaugeView(des.GaugeView, initial.GaugeView, opts...)
-	des.SparkChartView = canonicalizeDashboardWidgetScorecardSparkChartView(des.SparkChartView, initial.SparkChartView, opts...)
+	cDes := &DashboardWidgetScorecard{}
+
+	cDes.TimeSeriesQuery = canonicalizeDashboardWidgetScorecardTimeSeriesQuery(des.TimeSeriesQuery, initial.TimeSeriesQuery, opts...)
+	cDes.GaugeView = canonicalizeDashboardWidgetScorecardGaugeView(des.GaugeView, initial.GaugeView, opts...)
+	cDes.SparkChartView = canonicalizeDashboardWidgetScorecardSparkChartView(des.SparkChartView, initial.SparkChartView, opts...)
 	if dcl.IsZeroValue(des.Thresholds) {
 		des.Thresholds = initial.Thresholds
+	} else {
+		cDes.Thresholds = des.Thresholds
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetScorecard(c *Client, des, nw *DashboardWidgetScorecard) *DashboardWidgetScorecard {
@@ -3172,16 +3357,22 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQuery(des, initial *Dashboard
 		return des
 	}
 
-	des.TimeSeriesFilter = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(des.TimeSeriesFilter, initial.TimeSeriesFilter, opts...)
-	des.TimeSeriesFilterRatio = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(des.TimeSeriesFilterRatio, initial.TimeSeriesFilterRatio, opts...)
+	cDes := &DashboardWidgetScorecardTimeSeriesQuery{}
+
+	cDes.TimeSeriesFilter = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(des.TimeSeriesFilter, initial.TimeSeriesFilter, opts...)
+	cDes.TimeSeriesFilterRatio = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(des.TimeSeriesFilterRatio, initial.TimeSeriesFilterRatio, opts...)
 	if dcl.StringCanonicalize(des.TimeSeriesQueryLanguage, initial.TimeSeriesQueryLanguage) || dcl.IsZeroValue(des.TimeSeriesQueryLanguage) {
-		des.TimeSeriesQueryLanguage = initial.TimeSeriesQueryLanguage
+		cDes.TimeSeriesQueryLanguage = initial.TimeSeriesQueryLanguage
+	} else {
+		cDes.TimeSeriesQueryLanguage = des.TimeSeriesQueryLanguage
 	}
 	if dcl.StringCanonicalize(des.UnitOverride, initial.UnitOverride) || dcl.IsZeroValue(des.UnitOverride) {
-		des.UnitOverride = initial.UnitOverride
+		cDes.UnitOverride = initial.UnitOverride
+	} else {
+		cDes.UnitOverride = des.UnitOverride
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQuery(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQuery) *DashboardWidgetScorecardTimeSeriesQuery {
@@ -3256,14 +3447,18 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(des, in
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
-		des.Filter = initial.Filter
-	}
-	des.Aggregation = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(des.Aggregation, initial.Aggregation, opts...)
-	des.SecondaryAggregation = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(des.SecondaryAggregation, initial.SecondaryAggregation, opts...)
-	des.PickTimeSeriesFilter = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(des.PickTimeSeriesFilter, initial.PickTimeSeriesFilter, opts...)
+	cDes := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter{}
 
-	return des
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+		cDes.Filter = initial.Filter
+	} else {
+		cDes.Filter = des.Filter
+	}
+	cDes.Aggregation = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(des.Aggregation, initial.Aggregation, opts...)
+	cDes.SecondaryAggregation = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(des.SecondaryAggregation, initial.SecondaryAggregation, opts...)
+	cDes.PickTimeSeriesFilter = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(des.PickTimeSeriesFilter, initial.PickTimeSeriesFilter, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter {
@@ -3336,20 +3531,30 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregat
 		return des
 	}
 
+	cDes := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation{}
+
 	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
-		des.AlignmentPeriod = initial.AlignmentPeriod
+		cDes.AlignmentPeriod = initial.AlignmentPeriod
+	} else {
+		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
+	} else {
+		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
 		des.CrossSeriesReducer = initial.CrossSeriesReducer
+	} else {
+		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
 	if dcl.IsZeroValue(des.GroupByFields) {
 		des.GroupByFields = initial.GroupByFields
+	} else {
+		cDes.GroupByFields = des.GroupByFields
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
@@ -3428,20 +3633,30 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondar
 		return des
 	}
 
+	cDes := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
+
 	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
-		des.AlignmentPeriod = initial.AlignmentPeriod
+		cDes.AlignmentPeriod = initial.AlignmentPeriod
+	} else {
+		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
+	} else {
+		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
 		des.CrossSeriesReducer = initial.CrossSeriesReducer
+	} else {
+		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
 	if dcl.IsZeroValue(des.GroupByFields) {
 		des.GroupByFields = initial.GroupByFields
+	} else {
+		cDes.GroupByFields = des.GroupByFields
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
@@ -3520,17 +3735,25 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTime
 		return des
 	}
 
+	cDes := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
+
 	if dcl.IsZeroValue(des.RankingMethod) {
 		des.RankingMethod = initial.RankingMethod
+	} else {
+		cDes.RankingMethod = des.RankingMethod
 	}
 	if dcl.IsZeroValue(des.NumTimeSeries) {
 		des.NumTimeSeries = initial.NumTimeSeries
+	} else {
+		cDes.NumTimeSeries = des.NumTimeSeries
 	}
 	if dcl.IsZeroValue(des.Direction) {
 		des.Direction = initial.Direction
+	} else {
+		cDes.Direction = des.Direction
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
@@ -3606,12 +3829,14 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(de
 		return des
 	}
 
-	des.Numerator = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(des.Numerator, initial.Numerator, opts...)
-	des.Denominator = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(des.Denominator, initial.Denominator, opts...)
-	des.SecondaryAggregation = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(des.SecondaryAggregation, initial.SecondaryAggregation, opts...)
-	des.PickTimeSeriesFilter = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(des.PickTimeSeriesFilter, initial.PickTimeSeriesFilter, opts...)
+	cDes := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio{}
 
-	return des
+	cDes.Numerator = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(des.Numerator, initial.Numerator, opts...)
+	cDes.Denominator = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(des.Denominator, initial.Denominator, opts...)
+	cDes.SecondaryAggregation = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(des.SecondaryAggregation, initial.SecondaryAggregation, opts...)
+	cDes.PickTimeSeriesFilter = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(des.PickTimeSeriesFilter, initial.PickTimeSeriesFilter, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio {
@@ -3682,12 +3907,16 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
-		des.Filter = initial.Filter
-	}
-	des.Aggregation = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(des.Aggregation, initial.Aggregation, opts...)
+	cDes := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
 
-	return des
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+		cDes.Filter = initial.Filter
+	} else {
+		cDes.Filter = des.Filter
+	}
+	cDes.Aggregation = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(des.Aggregation, initial.Aggregation, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
@@ -3758,20 +3987,30 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 		return des
 	}
 
+	cDes := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
+
 	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
-		des.AlignmentPeriod = initial.AlignmentPeriod
+		cDes.AlignmentPeriod = initial.AlignmentPeriod
+	} else {
+		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
+	} else {
+		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
 		des.CrossSeriesReducer = initial.CrossSeriesReducer
+	} else {
+		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
 	if dcl.IsZeroValue(des.GroupByFields) {
 		des.GroupByFields = initial.GroupByFields
+	} else {
+		cDes.GroupByFields = des.GroupByFields
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
@@ -3850,12 +4089,16 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
-		des.Filter = initial.Filter
-	}
-	des.Aggregation = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(des.Aggregation, initial.Aggregation, opts...)
+	cDes := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
 
-	return des
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+		cDes.Filter = initial.Filter
+	} else {
+		cDes.Filter = des.Filter
+	}
+	cDes.Aggregation = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(des.Aggregation, initial.Aggregation, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
@@ -3926,20 +4169,30 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 		return des
 	}
 
+	cDes := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
+
 	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
-		des.AlignmentPeriod = initial.AlignmentPeriod
+		cDes.AlignmentPeriod = initial.AlignmentPeriod
+	} else {
+		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
+	} else {
+		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
 		des.CrossSeriesReducer = initial.CrossSeriesReducer
+	} else {
+		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
 	if dcl.IsZeroValue(des.GroupByFields) {
 		des.GroupByFields = initial.GroupByFields
+	} else {
+		cDes.GroupByFields = des.GroupByFields
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
@@ -4018,20 +4271,30 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSec
 		return des
 	}
 
+	cDes := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
+
 	if dcl.StringCanonicalize(des.AlignmentPeriod, initial.AlignmentPeriod) || dcl.IsZeroValue(des.AlignmentPeriod) {
-		des.AlignmentPeriod = initial.AlignmentPeriod
+		cDes.AlignmentPeriod = initial.AlignmentPeriod
+	} else {
+		cDes.AlignmentPeriod = des.AlignmentPeriod
 	}
 	if dcl.IsZeroValue(des.PerSeriesAligner) {
 		des.PerSeriesAligner = initial.PerSeriesAligner
+	} else {
+		cDes.PerSeriesAligner = des.PerSeriesAligner
 	}
 	if dcl.IsZeroValue(des.CrossSeriesReducer) {
 		des.CrossSeriesReducer = initial.CrossSeriesReducer
+	} else {
+		cDes.CrossSeriesReducer = des.CrossSeriesReducer
 	}
 	if dcl.IsZeroValue(des.GroupByFields) {
 		des.GroupByFields = initial.GroupByFields
+	} else {
+		cDes.GroupByFields = des.GroupByFields
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
@@ -4110,17 +4373,25 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPic
 		return des
 	}
 
+	cDes := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
+
 	if dcl.IsZeroValue(des.RankingMethod) {
 		des.RankingMethod = initial.RankingMethod
+	} else {
+		cDes.RankingMethod = des.RankingMethod
 	}
 	if dcl.IsZeroValue(des.NumTimeSeries) {
 		des.NumTimeSeries = initial.NumTimeSeries
+	} else {
+		cDes.NumTimeSeries = des.NumTimeSeries
 	}
 	if dcl.IsZeroValue(des.Direction) {
 		des.Direction = initial.Direction
+	} else {
+		cDes.Direction = des.Direction
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
@@ -4196,14 +4467,20 @@ func canonicalizeDashboardWidgetScorecardGaugeView(des, initial *DashboardWidget
 		return des
 	}
 
+	cDes := &DashboardWidgetScorecardGaugeView{}
+
 	if dcl.IsZeroValue(des.LowerBound) {
 		des.LowerBound = initial.LowerBound
+	} else {
+		cDes.LowerBound = des.LowerBound
 	}
 	if dcl.IsZeroValue(des.UpperBound) {
 		des.UpperBound = initial.UpperBound
+	} else {
+		cDes.UpperBound = des.UpperBound
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetScorecardGaugeView(c *Client, des, nw *DashboardWidgetScorecardGaugeView) *DashboardWidgetScorecardGaugeView {
@@ -4276,14 +4553,20 @@ func canonicalizeDashboardWidgetScorecardSparkChartView(des, initial *DashboardW
 		return des
 	}
 
+	cDes := &DashboardWidgetScorecardSparkChartView{}
+
 	if dcl.IsZeroValue(des.SparkChartType) {
 		des.SparkChartType = initial.SparkChartType
+	} else {
+		cDes.SparkChartType = des.SparkChartType
 	}
 	if dcl.StringCanonicalize(des.MinAlignmentPeriod, initial.MinAlignmentPeriod) || dcl.IsZeroValue(des.MinAlignmentPeriod) {
-		des.MinAlignmentPeriod = initial.MinAlignmentPeriod
+		cDes.MinAlignmentPeriod = initial.MinAlignmentPeriod
+	} else {
+		cDes.MinAlignmentPeriod = des.MinAlignmentPeriod
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetScorecardSparkChartView(c *Client, des, nw *DashboardWidgetScorecardSparkChartView) *DashboardWidgetScorecardSparkChartView {
@@ -4356,20 +4639,30 @@ func canonicalizeDashboardWidgetScorecardThresholds(des, initial *DashboardWidge
 		return des
 	}
 
+	cDes := &DashboardWidgetScorecardThresholds{}
+
 	if dcl.StringCanonicalize(des.Label, initial.Label) || dcl.IsZeroValue(des.Label) {
-		des.Label = initial.Label
+		cDes.Label = initial.Label
+	} else {
+		cDes.Label = des.Label
 	}
 	if dcl.IsZeroValue(des.Value) {
 		des.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 	if dcl.IsZeroValue(des.Color) {
 		des.Color = initial.Color
+	} else {
+		cDes.Color = des.Color
 	}
 	if dcl.IsZeroValue(des.Direction) {
 		des.Direction = initial.Direction
+	} else {
+		cDes.Direction = des.Direction
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetScorecardThresholds(c *Client, des, nw *DashboardWidgetScorecardThresholds) *DashboardWidgetScorecardThresholds {
@@ -4448,14 +4741,20 @@ func canonicalizeDashboardWidgetText(des, initial *DashboardWidgetText, opts ...
 		return des
 	}
 
+	cDes := &DashboardWidgetText{}
+
 	if dcl.StringCanonicalize(des.Content, initial.Content) || dcl.IsZeroValue(des.Content) {
-		des.Content = initial.Content
+		cDes.Content = initial.Content
+	} else {
+		cDes.Content = des.Content
 	}
 	if dcl.IsZeroValue(des.Format) {
 		des.Format = initial.Format
+	} else {
+		cDes.Format = des.Format
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetText(c *Client, des, nw *DashboardWidgetText) *DashboardWidgetText {
@@ -4528,7 +4827,9 @@ func canonicalizeDashboardWidgetBlank(des, initial *DashboardWidgetBlank, opts .
 		return des
 	}
 
-	return des
+	cDes := &DashboardWidgetBlank{}
+
+	return cDes
 }
 
 func canonicalizeNewDashboardWidgetBlank(c *Client, des, nw *DashboardWidgetBlank) *DashboardWidgetBlank {
@@ -13375,31 +13676,45 @@ type dashboardDiff struct {
 	UpdateOp         dashboardApiOperation
 }
 
-func convertFieldDiffToDashboardOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]dashboardDiff, error) {
+func convertFieldDiffsToDashboardDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]dashboardDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []dashboardDiff
-	for _, op := range ops {
+	// For each operation name, create a dashboardDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := dashboardDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTodashboardApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToDashboardApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTodashboardApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (dashboardApiOperation, error) {
-	switch op {
+func convertOpNameToDashboardApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (dashboardApiOperation, error) {
+	switch opName {
 
 	case "updateDashboardUpdateOperation":
-		return &updateDashboardUpdateOperation{Diffs: diffs}, nil
+		return &updateDashboardUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

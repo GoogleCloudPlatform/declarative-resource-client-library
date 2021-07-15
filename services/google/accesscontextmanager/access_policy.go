@@ -220,8 +220,7 @@ func applyAccessPolicyHelper(c *Client, ctx context.Context, rawDesired *AccessP
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToAccessPolicyOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToAccessPolicyDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -249,7 +248,6 @@ func applyAccessPolicyHelper(c *Client, ctx context.Context, rawDesired *AccessP
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

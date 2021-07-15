@@ -83,7 +83,7 @@ type updateServiceEnableServiceOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -265,15 +265,24 @@ func canonicalizeServiceDesiredState(rawDesired, rawInitial *Service, opts ...dc
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Service{}
 	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.IsZeroValue(rawDesired.State) {
-		rawDesired.State = rawInitial.State
+		canonicalDesired.State = rawInitial.State
+	} else {
+		canonicalDesired.State = rawDesired.State
+	}
+	if dcl.PartialSelfLinkToSelfLink(rawDesired.Project, rawInitial.Project) {
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Service, error) {
@@ -325,7 +334,7 @@ func diffService(c *Client, desired, actual *Service, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Parent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Parent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -498,31 +507,45 @@ type serviceDiff struct {
 	UpdateOp         serviceApiOperation
 }
 
-func convertFieldDiffToServiceOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]serviceDiff, error) {
+func convertFieldDiffsToServiceDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]serviceDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []serviceDiff
-	for _, op := range ops {
+	// For each operation name, create a serviceDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := serviceDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToserviceApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToServiceApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToserviceApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (serviceApiOperation, error) {
-	switch op {
+func convertOpNameToServiceApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (serviceApiOperation, error) {
+	switch opName {
 
 	case "updateServiceEnableServiceOperation":
-		return &updateServiceEnableServiceOperation{Diffs: diffs}, nil
+		return &updateServiceEnableServiceOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

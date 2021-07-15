@@ -215,8 +215,7 @@ func applyAttachmentHelper(c *Client, ctx context.Context, rawDesired *Attachmen
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToAttachmentOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToAttachmentDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -244,7 +243,6 @@ func applyAttachmentHelper(c *Client, ctx context.Context, rawDesired *Attachmen
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

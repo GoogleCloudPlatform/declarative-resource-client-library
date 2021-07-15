@@ -490,8 +490,7 @@ func applyReservationHelper(c *Client, ctx context.Context, rawDesired *Reservat
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToReservationOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToReservationDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -519,7 +518,6 @@ func applyReservationHelper(c *Client, ctx context.Context, rawDesired *Reservat
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

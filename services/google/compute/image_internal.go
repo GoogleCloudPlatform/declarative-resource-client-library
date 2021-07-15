@@ -172,7 +172,7 @@ type updateImageDeprecateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -259,7 +259,7 @@ type updateImageSetLabelsOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -574,61 +574,91 @@ func canonicalizeImageDesiredState(rawDesired, rawInitial *Image, opts ...dcl.Ap
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Image{}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.DiskSizeGb) {
-		rawDesired.DiskSizeGb = rawInitial.DiskSizeGb
+		canonicalDesired.DiskSizeGb = rawInitial.DiskSizeGb
+	} else {
+		canonicalDesired.DiskSizeGb = rawDesired.DiskSizeGb
 	}
 	if dcl.StringCanonicalize(rawDesired.Family, rawInitial.Family) {
-		rawDesired.Family = rawInitial.Family
+		canonicalDesired.Family = rawInitial.Family
+	} else {
+		canonicalDesired.Family = rawDesired.Family
 	}
 	if dcl.IsZeroValue(rawDesired.GuestOsFeature) {
-		rawDesired.GuestOsFeature = rawInitial.GuestOsFeature
+		canonicalDesired.GuestOsFeature = rawInitial.GuestOsFeature
+	} else {
+		canonicalDesired.GuestOsFeature = rawDesired.GuestOsFeature
 	}
-	rawDesired.ImageEncryptionKey = canonicalizeImageImageEncryptionKey(rawDesired.ImageEncryptionKey, rawInitial.ImageEncryptionKey, opts...)
+	canonicalDesired.ImageEncryptionKey = canonicalizeImageImageEncryptionKey(rawDesired.ImageEncryptionKey, rawInitial.ImageEncryptionKey, opts...)
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.IsZeroValue(rawDesired.License) {
-		rawDesired.License = rawInitial.License
+		canonicalDesired.License = rawInitial.License
+	} else {
+		canonicalDesired.License = rawDesired.License
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
-	rawDesired.RawDisk = canonicalizeImageRawDisk(rawDesired.RawDisk, rawInitial.RawDisk, opts...)
-	rawDesired.ShieldedInstanceInitialState = canonicalizeImageShieldedInstanceInitialState(rawDesired.ShieldedInstanceInitialState, rawInitial.ShieldedInstanceInitialState, opts...)
+	canonicalDesired.RawDisk = canonicalizeImageRawDisk(rawDesired.RawDisk, rawInitial.RawDisk, opts...)
+	canonicalDesired.ShieldedInstanceInitialState = canonicalizeImageShieldedInstanceInitialState(rawDesired.ShieldedInstanceInitialState, rawInitial.ShieldedInstanceInitialState, opts...)
 	if dcl.StringCanonicalize(rawDesired.SourceDisk, rawInitial.SourceDisk) {
-		rawDesired.SourceDisk = rawInitial.SourceDisk
+		canonicalDesired.SourceDisk = rawInitial.SourceDisk
+	} else {
+		canonicalDesired.SourceDisk = rawDesired.SourceDisk
 	}
-	rawDesired.SourceDiskEncryptionKey = canonicalizeImageSourceDiskEncryptionKey(rawDesired.SourceDiskEncryptionKey, rawInitial.SourceDiskEncryptionKey, opts...)
+	canonicalDesired.SourceDiskEncryptionKey = canonicalizeImageSourceDiskEncryptionKey(rawDesired.SourceDiskEncryptionKey, rawInitial.SourceDiskEncryptionKey, opts...)
 	if dcl.StringCanonicalize(rawDesired.SourceImage, rawInitial.SourceImage) {
-		rawDesired.SourceImage = rawInitial.SourceImage
+		canonicalDesired.SourceImage = rawInitial.SourceImage
+	} else {
+		canonicalDesired.SourceImage = rawDesired.SourceImage
 	}
-	rawDesired.SourceImageEncryptionKey = canonicalizeImageSourceImageEncryptionKey(rawDesired.SourceImageEncryptionKey, rawInitial.SourceImageEncryptionKey, opts...)
+	canonicalDesired.SourceImageEncryptionKey = canonicalizeImageSourceImageEncryptionKey(rawDesired.SourceImageEncryptionKey, rawInitial.SourceImageEncryptionKey, opts...)
 	if dcl.StringCanonicalize(rawDesired.SourceImageId, rawInitial.SourceImageId) {
-		rawDesired.SourceImageId = rawInitial.SourceImageId
+		canonicalDesired.SourceImageId = rawInitial.SourceImageId
+	} else {
+		canonicalDesired.SourceImageId = rawDesired.SourceImageId
 	}
 	if dcl.StringCanonicalize(rawDesired.SourceSnapshot, rawInitial.SourceSnapshot) {
-		rawDesired.SourceSnapshot = rawInitial.SourceSnapshot
+		canonicalDesired.SourceSnapshot = rawInitial.SourceSnapshot
+	} else {
+		canonicalDesired.SourceSnapshot = rawDesired.SourceSnapshot
 	}
-	rawDesired.SourceSnapshotEncryptionKey = canonicalizeImageSourceSnapshotEncryptionKey(rawDesired.SourceSnapshotEncryptionKey, rawInitial.SourceSnapshotEncryptionKey, opts...)
+	canonicalDesired.SourceSnapshotEncryptionKey = canonicalizeImageSourceSnapshotEncryptionKey(rawDesired.SourceSnapshotEncryptionKey, rawInitial.SourceSnapshotEncryptionKey, opts...)
 	if dcl.StringCanonicalize(rawDesired.SourceSnapshotId, rawInitial.SourceSnapshotId) {
-		rawDesired.SourceSnapshotId = rawInitial.SourceSnapshotId
+		canonicalDesired.SourceSnapshotId = rawInitial.SourceSnapshotId
+	} else {
+		canonicalDesired.SourceSnapshotId = rawDesired.SourceSnapshotId
 	}
 	if dcl.IsZeroValue(rawDesired.SourceType) {
-		rawDesired.SourceType = rawInitial.SourceType
+		canonicalDesired.SourceType = rawInitial.SourceType
+	} else {
+		canonicalDesired.SourceType = rawDesired.SourceType
 	}
 	if dcl.IsZeroValue(rawDesired.StorageLocation) {
-		rawDesired.StorageLocation = rawInitial.StorageLocation
+		canonicalDesired.StorageLocation = rawInitial.StorageLocation
+	} else {
+		canonicalDesired.StorageLocation = rawDesired.StorageLocation
 	}
-	rawDesired.Deprecated = canonicalizeImageDeprecated(rawDesired.Deprecated, rawInitial.Deprecated, opts...)
+	canonicalDesired.Deprecated = canonicalizeImageDeprecated(rawDesired.Deprecated, rawInitial.Deprecated, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeImageNewState(c *Client, rawNew, rawDesired *Image) (*Image, error) {
@@ -809,11 +839,15 @@ func canonicalizeImageGuestOsFeature(des, initial *ImageGuestOsFeature, opts ...
 		return des
 	}
 
+	cDes := &ImageGuestOsFeature{}
+
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewImageGuestOsFeature(c *Client, des, nw *ImageGuestOsFeature) *ImageGuestOsFeature {
@@ -883,20 +917,30 @@ func canonicalizeImageImageEncryptionKey(des, initial *ImageImageEncryptionKey, 
 		return des
 	}
 
+	cDes := &ImageImageEncryptionKey{}
+
 	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) || dcl.IsZeroValue(des.RawKey) {
-		des.RawKey = initial.RawKey
+		cDes.RawKey = initial.RawKey
+	} else {
+		cDes.RawKey = des.RawKey
 	}
 	if dcl.StringCanonicalize(des.KmsKeyName, initial.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
-		des.KmsKeyName = initial.KmsKeyName
+		cDes.KmsKeyName = initial.KmsKeyName
+	} else {
+		cDes.KmsKeyName = des.KmsKeyName
 	}
 	if dcl.StringCanonicalize(des.Sha256, initial.Sha256) || dcl.IsZeroValue(des.Sha256) {
-		des.Sha256 = initial.Sha256
+		cDes.Sha256 = initial.Sha256
+	} else {
+		cDes.Sha256 = des.Sha256
 	}
 	if dcl.StringCanonicalize(des.KmsKeyServiceAccount, initial.KmsKeyServiceAccount) || dcl.IsZeroValue(des.KmsKeyServiceAccount) {
-		des.KmsKeyServiceAccount = initial.KmsKeyServiceAccount
+		cDes.KmsKeyServiceAccount = initial.KmsKeyServiceAccount
+	} else {
+		cDes.KmsKeyServiceAccount = des.KmsKeyServiceAccount
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewImageImageEncryptionKey(c *Client, des, nw *ImageImageEncryptionKey) *ImageImageEncryptionKey {
@@ -979,17 +1023,25 @@ func canonicalizeImageRawDisk(des, initial *ImageRawDisk, opts ...dcl.ApplyOptio
 		return des
 	}
 
+	cDes := &ImageRawDisk{}
+
 	if dcl.StringCanonicalize(des.Source, initial.Source) || dcl.IsZeroValue(des.Source) {
-		des.Source = initial.Source
+		cDes.Source = initial.Source
+	} else {
+		cDes.Source = des.Source
 	}
 	if dcl.StringCanonicalize(des.Sha1Checksum, initial.Sha1Checksum) || dcl.IsZeroValue(des.Sha1Checksum) {
-		des.Sha1Checksum = initial.Sha1Checksum
+		cDes.Sha1Checksum = initial.Sha1Checksum
+	} else {
+		cDes.Sha1Checksum = des.Sha1Checksum
 	}
 	if dcl.IsZeroValue(des.ContainerType) {
 		des.ContainerType = initial.ContainerType
+	} else {
+		cDes.ContainerType = des.ContainerType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewImageRawDisk(c *Client, des, nw *ImageRawDisk) *ImageRawDisk {
@@ -1069,18 +1121,26 @@ func canonicalizeImageShieldedInstanceInitialState(des, initial *ImageShieldedIn
 		return des
 	}
 
-	des.Pk = canonicalizeImageShieldedInstanceInitialStatePk(des.Pk, initial.Pk, opts...)
+	cDes := &ImageShieldedInstanceInitialState{}
+
+	cDes.Pk = canonicalizeImageShieldedInstanceInitialStatePk(des.Pk, initial.Pk, opts...)
 	if dcl.IsZeroValue(des.Kek) {
 		des.Kek = initial.Kek
+	} else {
+		cDes.Kek = des.Kek
 	}
 	if dcl.IsZeroValue(des.Db) {
 		des.Db = initial.Db
+	} else {
+		cDes.Db = des.Db
 	}
 	if dcl.IsZeroValue(des.Dbx) {
 		des.Dbx = initial.Dbx
+	} else {
+		cDes.Dbx = des.Dbx
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewImageShieldedInstanceInitialState(c *Client, des, nw *ImageShieldedInstanceInitialState) *ImageShieldedInstanceInitialState {
@@ -1151,14 +1211,20 @@ func canonicalizeImageShieldedInstanceInitialStatePk(des, initial *ImageShielded
 		return des
 	}
 
+	cDes := &ImageShieldedInstanceInitialStatePk{}
+
 	if dcl.StringCanonicalize(des.Content, initial.Content) || dcl.IsZeroValue(des.Content) {
-		des.Content = initial.Content
+		cDes.Content = initial.Content
+	} else {
+		cDes.Content = des.Content
 	}
 	if dcl.IsZeroValue(des.FileType) {
 		des.FileType = initial.FileType
+	} else {
+		cDes.FileType = des.FileType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewImageShieldedInstanceInitialStatePk(c *Client, des, nw *ImageShieldedInstanceInitialStatePk) *ImageShieldedInstanceInitialStatePk {
@@ -1231,14 +1297,20 @@ func canonicalizeImageShieldedInstanceInitialStateKek(des, initial *ImageShielde
 		return des
 	}
 
+	cDes := &ImageShieldedInstanceInitialStateKek{}
+
 	if dcl.StringCanonicalize(des.Content, initial.Content) || dcl.IsZeroValue(des.Content) {
-		des.Content = initial.Content
+		cDes.Content = initial.Content
+	} else {
+		cDes.Content = des.Content
 	}
 	if dcl.IsZeroValue(des.FileType) {
 		des.FileType = initial.FileType
+	} else {
+		cDes.FileType = des.FileType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewImageShieldedInstanceInitialStateKek(c *Client, des, nw *ImageShieldedInstanceInitialStateKek) *ImageShieldedInstanceInitialStateKek {
@@ -1311,14 +1383,20 @@ func canonicalizeImageShieldedInstanceInitialStateDb(des, initial *ImageShielded
 		return des
 	}
 
+	cDes := &ImageShieldedInstanceInitialStateDb{}
+
 	if dcl.StringCanonicalize(des.Content, initial.Content) || dcl.IsZeroValue(des.Content) {
-		des.Content = initial.Content
+		cDes.Content = initial.Content
+	} else {
+		cDes.Content = des.Content
 	}
 	if dcl.IsZeroValue(des.FileType) {
 		des.FileType = initial.FileType
+	} else {
+		cDes.FileType = des.FileType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewImageShieldedInstanceInitialStateDb(c *Client, des, nw *ImageShieldedInstanceInitialStateDb) *ImageShieldedInstanceInitialStateDb {
@@ -1391,14 +1469,20 @@ func canonicalizeImageShieldedInstanceInitialStateDbx(des, initial *ImageShielde
 		return des
 	}
 
+	cDes := &ImageShieldedInstanceInitialStateDbx{}
+
 	if dcl.StringCanonicalize(des.Content, initial.Content) || dcl.IsZeroValue(des.Content) {
-		des.Content = initial.Content
+		cDes.Content = initial.Content
+	} else {
+		cDes.Content = des.Content
 	}
 	if dcl.IsZeroValue(des.FileType) {
 		des.FileType = initial.FileType
+	} else {
+		cDes.FileType = des.FileType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewImageShieldedInstanceInitialStateDbx(c *Client, des, nw *ImageShieldedInstanceInitialStateDbx) *ImageShieldedInstanceInitialStateDbx {
@@ -1471,20 +1555,30 @@ func canonicalizeImageSourceDiskEncryptionKey(des, initial *ImageSourceDiskEncry
 		return des
 	}
 
+	cDes := &ImageSourceDiskEncryptionKey{}
+
 	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) || dcl.IsZeroValue(des.RawKey) {
-		des.RawKey = initial.RawKey
+		cDes.RawKey = initial.RawKey
+	} else {
+		cDes.RawKey = des.RawKey
 	}
 	if dcl.StringCanonicalize(des.KmsKeyName, initial.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
-		des.KmsKeyName = initial.KmsKeyName
+		cDes.KmsKeyName = initial.KmsKeyName
+	} else {
+		cDes.KmsKeyName = des.KmsKeyName
 	}
 	if dcl.StringCanonicalize(des.Sha256, initial.Sha256) || dcl.IsZeroValue(des.Sha256) {
-		des.Sha256 = initial.Sha256
+		cDes.Sha256 = initial.Sha256
+	} else {
+		cDes.Sha256 = des.Sha256
 	}
 	if dcl.StringCanonicalize(des.KmsKeyServiceAccount, initial.KmsKeyServiceAccount) || dcl.IsZeroValue(des.KmsKeyServiceAccount) {
-		des.KmsKeyServiceAccount = initial.KmsKeyServiceAccount
+		cDes.KmsKeyServiceAccount = initial.KmsKeyServiceAccount
+	} else {
+		cDes.KmsKeyServiceAccount = des.KmsKeyServiceAccount
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewImageSourceDiskEncryptionKey(c *Client, des, nw *ImageSourceDiskEncryptionKey) *ImageSourceDiskEncryptionKey {
@@ -1563,20 +1657,30 @@ func canonicalizeImageSourceImageEncryptionKey(des, initial *ImageSourceImageEnc
 		return des
 	}
 
+	cDes := &ImageSourceImageEncryptionKey{}
+
 	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) || dcl.IsZeroValue(des.RawKey) {
-		des.RawKey = initial.RawKey
+		cDes.RawKey = initial.RawKey
+	} else {
+		cDes.RawKey = des.RawKey
 	}
 	if dcl.StringCanonicalize(des.KmsKeyName, initial.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
-		des.KmsKeyName = initial.KmsKeyName
+		cDes.KmsKeyName = initial.KmsKeyName
+	} else {
+		cDes.KmsKeyName = des.KmsKeyName
 	}
 	if dcl.StringCanonicalize(des.Sha256, initial.Sha256) || dcl.IsZeroValue(des.Sha256) {
-		des.Sha256 = initial.Sha256
+		cDes.Sha256 = initial.Sha256
+	} else {
+		cDes.Sha256 = des.Sha256
 	}
 	if dcl.StringCanonicalize(des.KmsKeyServiceAccount, initial.KmsKeyServiceAccount) || dcl.IsZeroValue(des.KmsKeyServiceAccount) {
-		des.KmsKeyServiceAccount = initial.KmsKeyServiceAccount
+		cDes.KmsKeyServiceAccount = initial.KmsKeyServiceAccount
+	} else {
+		cDes.KmsKeyServiceAccount = des.KmsKeyServiceAccount
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewImageSourceImageEncryptionKey(c *Client, des, nw *ImageSourceImageEncryptionKey) *ImageSourceImageEncryptionKey {
@@ -1655,20 +1759,30 @@ func canonicalizeImageSourceSnapshotEncryptionKey(des, initial *ImageSourceSnaps
 		return des
 	}
 
+	cDes := &ImageSourceSnapshotEncryptionKey{}
+
 	if dcl.StringCanonicalize(des.RawKey, initial.RawKey) || dcl.IsZeroValue(des.RawKey) {
-		des.RawKey = initial.RawKey
+		cDes.RawKey = initial.RawKey
+	} else {
+		cDes.RawKey = des.RawKey
 	}
 	if dcl.StringCanonicalize(des.KmsKeyName, initial.KmsKeyName) || dcl.IsZeroValue(des.KmsKeyName) {
-		des.KmsKeyName = initial.KmsKeyName
+		cDes.KmsKeyName = initial.KmsKeyName
+	} else {
+		cDes.KmsKeyName = des.KmsKeyName
 	}
 	if dcl.StringCanonicalize(des.Sha256, initial.Sha256) || dcl.IsZeroValue(des.Sha256) {
-		des.Sha256 = initial.Sha256
+		cDes.Sha256 = initial.Sha256
+	} else {
+		cDes.Sha256 = des.Sha256
 	}
 	if dcl.StringCanonicalize(des.KmsKeyServiceAccount, initial.KmsKeyServiceAccount) || dcl.IsZeroValue(des.KmsKeyServiceAccount) {
-		des.KmsKeyServiceAccount = initial.KmsKeyServiceAccount
+		cDes.KmsKeyServiceAccount = initial.KmsKeyServiceAccount
+	} else {
+		cDes.KmsKeyServiceAccount = des.KmsKeyServiceAccount
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewImageSourceSnapshotEncryptionKey(c *Client, des, nw *ImageSourceSnapshotEncryptionKey) *ImageSourceSnapshotEncryptionKey {
@@ -1747,23 +1861,35 @@ func canonicalizeImageDeprecated(des, initial *ImageDeprecated, opts ...dcl.Appl
 		return des
 	}
 
+	cDes := &ImageDeprecated{}
+
 	if dcl.IsZeroValue(des.State) {
 		des.State = initial.State
+	} else {
+		cDes.State = des.State
 	}
 	if dcl.StringCanonicalize(des.Replacement, initial.Replacement) || dcl.IsZeroValue(des.Replacement) {
-		des.Replacement = initial.Replacement
+		cDes.Replacement = initial.Replacement
+	} else {
+		cDes.Replacement = des.Replacement
 	}
 	if dcl.StringCanonicalize(des.Deprecated, initial.Deprecated) || dcl.IsZeroValue(des.Deprecated) {
-		des.Deprecated = initial.Deprecated
+		cDes.Deprecated = initial.Deprecated
+	} else {
+		cDes.Deprecated = des.Deprecated
 	}
 	if dcl.StringCanonicalize(des.Obsolete, initial.Obsolete) || dcl.IsZeroValue(des.Obsolete) {
-		des.Obsolete = initial.Obsolete
+		cDes.Obsolete = initial.Obsolete
+	} else {
+		cDes.Obsolete = des.Obsolete
 	}
 	if dcl.StringCanonicalize(des.Deleted, initial.Deleted) || dcl.IsZeroValue(des.Deleted) {
-		des.Deleted = initial.Deleted
+		cDes.Deleted = initial.Deleted
+	} else {
+		cDes.Deleted = des.Deleted
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewImageDeprecated(c *Client, des, nw *ImageDeprecated) *ImageDeprecated {
@@ -4561,34 +4687,48 @@ type imageDiff struct {
 	UpdateOp         imageApiOperation
 }
 
-func convertFieldDiffToImageOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]imageDiff, error) {
+func convertFieldDiffsToImageDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]imageDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []imageDiff
-	for _, op := range ops {
+	// For each operation name, create a imageDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := imageDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToimageApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToImageApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToimageApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (imageApiOperation, error) {
-	switch op {
+func convertOpNameToImageApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (imageApiOperation, error) {
+	switch opName {
 
 	case "updateImageDeprecateOperation":
-		return &updateImageDeprecateOperation{Diffs: diffs}, nil
+		return &updateImageDeprecateOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateImageSetLabelsOperation":
-		return &updateImageSetLabelsOperation{Diffs: diffs}, nil
+		return &updateImageSetLabelsOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

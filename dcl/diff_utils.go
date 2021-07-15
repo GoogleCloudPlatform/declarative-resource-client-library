@@ -22,18 +22,3 @@ func RequiresRecreate() func(d *FieldDiff) []string {
 func TriggersOperation(op string) func(d *FieldDiff) []string {
 	return func(d *FieldDiff) []string { return []string{op} }
 }
-
-// DeduplicateOperations takes a list of FieldDiffs and returns a list of operations.
-func DeduplicateOperations(ds []*FieldDiff) []string {
-	var opTypes []string
-	for _, d := range ds {
-		for _, op := range d.ResultingOperation {
-			// Two operations are considered identical if they have the same type.
-			// The type of an operation is derived from the name of the update method.
-			if !StringSliceContains(op, opTypes) {
-				opTypes = append(opTypes, op)
-			}
-		}
-	}
-	return opTypes
-}

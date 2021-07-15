@@ -110,7 +110,7 @@ type updateBackupUpdateBackupOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -127,7 +127,7 @@ func (op *updateBackupUpdateBackupOperation) do(ctx context.Context, r *Backup, 
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -424,30 +424,44 @@ func canonicalizeBackupDesiredState(rawDesired, rawInitial *Backup, opts ...dcl.
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Backup{}
 	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.NameToSelfLink(rawDesired.SourceInstance, rawInitial.SourceInstance) {
-		rawDesired.SourceInstance = rawInitial.SourceInstance
+		canonicalDesired.SourceInstance = rawInitial.SourceInstance
+	} else {
+		canonicalDesired.SourceInstance = rawDesired.SourceInstance
 	}
 	if dcl.StringCanonicalize(rawDesired.SourceFileShare, rawInitial.SourceFileShare) {
-		rawDesired.SourceFileShare = rawInitial.SourceFileShare
+		canonicalDesired.SourceFileShare = rawInitial.SourceFileShare
+	} else {
+		canonicalDesired.SourceFileShare = rawDesired.SourceFileShare
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeBackupNewState(c *Client, rawNew, rawDesired *Backup) (*Backup, error) {
@@ -875,31 +889,45 @@ type backupDiff struct {
 	UpdateOp         backupApiOperation
 }
 
-func convertFieldDiffToBackupOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]backupDiff, error) {
+func convertFieldDiffsToBackupDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]backupDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []backupDiff
-	for _, op := range ops {
+	// For each operation name, create a backupDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := backupDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTobackupApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToBackupApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTobackupApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (backupApiOperation, error) {
-	switch op {
+func convertOpNameToBackupApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (backupApiOperation, error) {
+	switch opName {
 
 	case "updateBackupUpdateBackupOperation":
-		return &updateBackupUpdateBackupOperation{Diffs: diffs}, nil
+		return &updateBackupUpdateBackupOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

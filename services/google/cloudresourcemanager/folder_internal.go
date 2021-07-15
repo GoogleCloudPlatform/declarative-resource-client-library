@@ -87,7 +87,7 @@ type updateFolderMoveFolderOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -117,7 +117,7 @@ type updateFolderUpdateFolderOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -414,15 +414,19 @@ func canonicalizeFolderDesiredState(rawDesired, rawInitial *Folder, opts ...dcl.
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Folder{}
 	if dcl.StringCanonicalize(rawDesired.Parent, rawInitial.Parent) {
-		rawDesired.Parent = rawInitial.Parent
+		canonicalDesired.Parent = rawInitial.Parent
+	} else {
+		canonicalDesired.Parent = rawDesired.Parent
 	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
-		rawDesired.DisplayName = rawInitial.DisplayName
+		canonicalDesired.DisplayName = rawInitial.DisplayName
+	} else {
+		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeFolderNewState(c *Client, rawNew, rawDesired *Folder) (*Folder, error) {
@@ -712,34 +716,48 @@ type folderDiff struct {
 	UpdateOp         folderApiOperation
 }
 
-func convertFieldDiffToFolderOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]folderDiff, error) {
+func convertFieldDiffsToFolderDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]folderDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []folderDiff
-	for _, op := range ops {
+	// For each operation name, create a folderDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := folderDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTofolderApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToFolderApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTofolderApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (folderApiOperation, error) {
-	switch op {
+func convertOpNameToFolderApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (folderApiOperation, error) {
+	switch opName {
 
 	case "updateFolderMoveFolderOperation":
-		return &updateFolderMoveFolderOperation{Diffs: diffs}, nil
+		return &updateFolderMoveFolderOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateFolderUpdateFolderOperation":
-		return &updateFolderUpdateFolderOperation{Diffs: diffs}, nil
+		return &updateFolderUpdateFolderOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

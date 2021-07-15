@@ -386,21 +386,21 @@ func (c *Client) networkEndpointGroupDiffsForRawDesired(ctx context.Context, raw
 func canonicalizeNetworkEndpointGroupInitialState(rawInitial, rawDesired *NetworkEndpointGroup) (*NetworkEndpointGroup, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
-	if dcl.IsZeroValue(rawInitial.CloudRun) {
+	if !dcl.IsZeroValue(rawInitial.CloudRun) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.AppEngine, rawInitial.CloudFunction) {
 			rawInitial.CloudRun = EmptyNetworkEndpointGroupCloudRun
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.AppEngine) {
+	if !dcl.IsZeroValue(rawInitial.AppEngine) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.CloudRun, rawInitial.CloudFunction) {
 			rawInitial.AppEngine = EmptyNetworkEndpointGroupAppEngine
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.CloudFunction) {
+	if !dcl.IsZeroValue(rawInitial.CloudFunction) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.CloudRun, rawInitial.AppEngine) {
 			rawInitial.CloudFunction = EmptyNetworkEndpointGroupCloudFunction
@@ -453,41 +453,62 @@ func canonicalizeNetworkEndpointGroupDesiredState(rawDesired, rawInitial *Networ
 		}
 	}
 
+	canonicalDesired := &NetworkEndpointGroup{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.NetworkEndpointType) {
-		rawDesired.NetworkEndpointType = rawInitial.NetworkEndpointType
+		canonicalDesired.NetworkEndpointType = rawInitial.NetworkEndpointType
+	} else {
+		canonicalDesired.NetworkEndpointType = rawDesired.NetworkEndpointType
 	}
 	if dcl.IsZeroValue(rawDesired.Size) {
-		rawDesired.Size = rawInitial.Size
+		canonicalDesired.Size = rawInitial.Size
+	} else {
+		canonicalDesired.Size = rawDesired.Size
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 	if dcl.NameToSelfLink(rawDesired.Network, rawInitial.Network) {
-		rawDesired.Network = rawInitial.Network
+		canonicalDesired.Network = rawInitial.Network
+	} else {
+		canonicalDesired.Network = rawDesired.Network
 	}
 	if dcl.NameToSelfLink(rawDesired.Subnetwork, rawInitial.Subnetwork) {
-		rawDesired.Subnetwork = rawInitial.Subnetwork
+		canonicalDesired.Subnetwork = rawInitial.Subnetwork
+	} else {
+		canonicalDesired.Subnetwork = rawDesired.Subnetwork
 	}
 	if dcl.IsZeroValue(rawDesired.DefaultPort) {
-		rawDesired.DefaultPort = rawInitial.DefaultPort
+		canonicalDesired.DefaultPort = rawInitial.DefaultPort
+	} else {
+		canonicalDesired.DefaultPort = rawDesired.DefaultPort
 	}
 	if dcl.IsZeroValue(rawDesired.Annotations) {
-		rawDesired.Annotations = rawInitial.Annotations
+		canonicalDesired.Annotations = rawInitial.Annotations
+	} else {
+		canonicalDesired.Annotations = rawDesired.Annotations
 	}
-	rawDesired.CloudRun = canonicalizeNetworkEndpointGroupCloudRun(rawDesired.CloudRun, rawInitial.CloudRun, opts...)
-	rawDesired.AppEngine = canonicalizeNetworkEndpointGroupAppEngine(rawDesired.AppEngine, rawInitial.AppEngine, opts...)
-	rawDesired.CloudFunction = canonicalizeNetworkEndpointGroupCloudFunction(rawDesired.CloudFunction, rawInitial.CloudFunction, opts...)
+	canonicalDesired.CloudRun = canonicalizeNetworkEndpointGroupCloudRun(rawDesired.CloudRun, rawInitial.CloudRun, opts...)
+	canonicalDesired.AppEngine = canonicalizeNetworkEndpointGroupAppEngine(rawDesired.AppEngine, rawInitial.AppEngine, opts...)
+	canonicalDesired.CloudFunction = canonicalizeNetworkEndpointGroupCloudFunction(rawDesired.CloudFunction, rawInitial.CloudFunction, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeNetworkEndpointGroupNewState(c *Client, rawNew, rawDesired *NetworkEndpointGroup) (*NetworkEndpointGroup, error) {
@@ -602,17 +623,25 @@ func canonicalizeNetworkEndpointGroupCloudRun(des, initial *NetworkEndpointGroup
 		return des
 	}
 
+	cDes := &NetworkEndpointGroupCloudRun{}
+
 	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
-		des.Service = initial.Service
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
 	}
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.UrlMask, initial.UrlMask) || dcl.IsZeroValue(des.UrlMask) {
-		des.UrlMask = initial.UrlMask
+		cDes.UrlMask = initial.UrlMask
+	} else {
+		cDes.UrlMask = des.UrlMask
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNetworkEndpointGroupCloudRun(c *Client, des, nw *NetworkEndpointGroupCloudRun) *NetworkEndpointGroupCloudRun {
@@ -688,17 +717,25 @@ func canonicalizeNetworkEndpointGroupAppEngine(des, initial *NetworkEndpointGrou
 		return des
 	}
 
+	cDes := &NetworkEndpointGroupAppEngine{}
+
 	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
-		des.Service = initial.Service
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
 	}
 	if dcl.NameToSelfLink(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
-		des.Version = initial.Version
+		cDes.Version = initial.Version
+	} else {
+		cDes.Version = des.Version
 	}
 	if dcl.StringCanonicalize(des.UrlMask, initial.UrlMask) || dcl.IsZeroValue(des.UrlMask) {
-		des.UrlMask = initial.UrlMask
+		cDes.UrlMask = initial.UrlMask
+	} else {
+		cDes.UrlMask = des.UrlMask
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNetworkEndpointGroupAppEngine(c *Client, des, nw *NetworkEndpointGroupAppEngine) *NetworkEndpointGroupAppEngine {
@@ -774,14 +811,20 @@ func canonicalizeNetworkEndpointGroupCloudFunction(des, initial *NetworkEndpoint
 		return des
 	}
 
+	cDes := &NetworkEndpointGroupCloudFunction{}
+
 	if dcl.NameToSelfLink(des.Function, initial.Function) || dcl.IsZeroValue(des.Function) {
-		des.Function = initial.Function
+		cDes.Function = initial.Function
+	} else {
+		cDes.Function = des.Function
 	}
 	if dcl.StringCanonicalize(des.UrlMask, initial.UrlMask) || dcl.IsZeroValue(des.UrlMask) {
-		des.UrlMask = initial.UrlMask
+		cDes.UrlMask = initial.UrlMask
+	} else {
+		cDes.UrlMask = des.UrlMask
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNetworkEndpointGroupCloudFunction(c *Client, des, nw *NetworkEndpointGroupCloudFunction) *NetworkEndpointGroupCloudFunction {
@@ -1676,28 +1719,42 @@ type networkEndpointGroupDiff struct {
 	UpdateOp         networkEndpointGroupApiOperation
 }
 
-func convertFieldDiffToNetworkEndpointGroupOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]networkEndpointGroupDiff, error) {
+func convertFieldDiffsToNetworkEndpointGroupDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]networkEndpointGroupDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []networkEndpointGroupDiff
-	for _, op := range ops {
+	// For each operation name, create a networkEndpointGroupDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := networkEndpointGroupDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTonetworkEndpointGroupApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToNetworkEndpointGroupApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTonetworkEndpointGroupApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (networkEndpointGroupApiOperation, error) {
-	switch op {
+func convertOpNameToNetworkEndpointGroupApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (networkEndpointGroupApiOperation, error) {
+	switch opName {
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

@@ -115,7 +115,7 @@ type updateBackendBucketUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -424,25 +424,35 @@ func canonicalizeBackendBucketDesiredState(rawDesired, rawInitial *BackendBucket
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &BackendBucket{}
 	if dcl.NameToSelfLink(rawDesired.BucketName, rawInitial.BucketName) {
-		rawDesired.BucketName = rawInitial.BucketName
+		canonicalDesired.BucketName = rawInitial.BucketName
+	} else {
+		canonicalDesired.BucketName = rawDesired.BucketName
 	}
-	rawDesired.CdnPolicy = canonicalizeBackendBucketCdnPolicy(rawDesired.CdnPolicy, rawInitial.CdnPolicy, opts...)
+	canonicalDesired.CdnPolicy = canonicalizeBackendBucketCdnPolicy(rawDesired.CdnPolicy, rawInitial.CdnPolicy, opts...)
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.BoolCanonicalize(rawDesired.EnableCdn, rawInitial.EnableCdn) {
-		rawDesired.EnableCdn = rawInitial.EnableCdn
+		canonicalDesired.EnableCdn = rawInitial.EnableCdn
+	} else {
+		canonicalDesired.EnableCdn = rawDesired.EnableCdn
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeBackendBucketNewState(c *Client, rawNew, rawDesired *BackendBucket) (*BackendBucket, error) {
@@ -510,14 +520,20 @@ func canonicalizeBackendBucketCdnPolicy(des, initial *BackendBucketCdnPolicy, op
 		return des
 	}
 
+	cDes := &BackendBucketCdnPolicy{}
+
 	if dcl.IsZeroValue(des.SignedUrlKeyNames) {
 		des.SignedUrlKeyNames = initial.SignedUrlKeyNames
+	} else {
+		cDes.SignedUrlKeyNames = des.SignedUrlKeyNames
 	}
 	if dcl.IsZeroValue(des.SignedUrlCacheMaxAgeSec) {
 		des.SignedUrlCacheMaxAgeSec = initial.SignedUrlCacheMaxAgeSec
+	} else {
+		cDes.SignedUrlCacheMaxAgeSec = des.SignedUrlCacheMaxAgeSec
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendBucketCdnPolicy(c *Client, des, nw *BackendBucketCdnPolicy) *BackendBucketCdnPolicy {
@@ -947,31 +963,45 @@ type backendBucketDiff struct {
 	UpdateOp         backendBucketApiOperation
 }
 
-func convertFieldDiffToBackendBucketOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]backendBucketDiff, error) {
+func convertFieldDiffsToBackendBucketDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]backendBucketDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []backendBucketDiff
-	for _, op := range ops {
+	// For each operation name, create a backendBucketDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := backendBucketDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTobackendBucketApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToBackendBucketApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTobackendBucketApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (backendBucketApiOperation, error) {
-	switch op {
+func convertOpNameToBackendBucketApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (backendBucketApiOperation, error) {
+	switch opName {
 
 	case "updateBackendBucketUpdateOperation":
-		return &updateBackendBucketUpdateOperation{Diffs: diffs}, nil
+		return &updateBackendBucketUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

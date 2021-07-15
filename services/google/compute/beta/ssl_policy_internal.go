@@ -128,7 +128,7 @@ type updateSslPolicyPatchOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -450,27 +450,39 @@ func canonicalizeSslPolicyDesiredState(rawDesired, rawInitial *SslPolicy, opts .
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &SslPolicy{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.Profile) {
-		rawDesired.Profile = rawInitial.Profile
+		canonicalDesired.Profile = rawInitial.Profile
+	} else {
+		canonicalDesired.Profile = rawDesired.Profile
 	}
 	if dcl.IsZeroValue(rawDesired.MinTlsVersion) {
-		rawDesired.MinTlsVersion = rawInitial.MinTlsVersion
+		canonicalDesired.MinTlsVersion = rawInitial.MinTlsVersion
+	} else {
+		canonicalDesired.MinTlsVersion = rawDesired.MinTlsVersion
 	}
 	if dcl.IsZeroValue(rawDesired.CustomFeature) {
-		rawDesired.CustomFeature = rawInitial.CustomFeature
+		canonicalDesired.CustomFeature = rawInitial.CustomFeature
+	} else {
+		canonicalDesired.CustomFeature = rawDesired.CustomFeature
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeSslPolicyNewState(c *Client, rawNew, rawDesired *SslPolicy) (*SslPolicy, error) {
@@ -547,17 +559,25 @@ func canonicalizeSslPolicyWarning(des, initial *SslPolicyWarning, opts ...dcl.Ap
 		return des
 	}
 
+	cDes := &SslPolicyWarning{}
+
 	if dcl.StringCanonicalize(des.Code, initial.Code) || dcl.IsZeroValue(des.Code) {
-		des.Code = initial.Code
+		cDes.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Data) {
 		des.Data = initial.Data
+	} else {
+		cDes.Data = des.Data
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewSslPolicyWarning(c *Client, des, nw *SslPolicyWarning) *SslPolicyWarning {
@@ -631,14 +651,20 @@ func canonicalizeSslPolicyWarningData(des, initial *SslPolicyWarningData, opts .
 		return des
 	}
 
+	cDes := &SslPolicyWarningData{}
+
 	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
+		cDes.Key = initial.Key
+	} else {
+		cDes.Key = des.Key
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewSslPolicyWarningData(c *Client, des, nw *SslPolicyWarningData) *SslPolicyWarningData {
@@ -1338,31 +1364,45 @@ type sslPolicyDiff struct {
 	UpdateOp         sslPolicyApiOperation
 }
 
-func convertFieldDiffToSslPolicyOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]sslPolicyDiff, error) {
+func convertFieldDiffsToSslPolicyDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]sslPolicyDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []sslPolicyDiff
-	for _, op := range ops {
+	// For each operation name, create a sslPolicyDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := sslPolicyDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTosslPolicyApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToSslPolicyApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTosslPolicyApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (sslPolicyApiOperation, error) {
-	switch op {
+func convertOpNameToSslPolicyApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (sslPolicyApiOperation, error) {
+	switch opName {
 
 	case "updateSslPolicyPatchOperation":
-		return &updateSslPolicyPatchOperation{Diffs: diffs}, nil
+		return &updateSslPolicyPatchOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

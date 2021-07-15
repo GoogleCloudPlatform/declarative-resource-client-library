@@ -109,7 +109,7 @@ type updateNetworkUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -425,22 +425,30 @@ func canonicalizeNetworkDesiredState(rawDesired, rawInitial *Network, opts ...dc
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Network{}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.BoolCanonicalize(rawDesired.AutoCreateSubnetworks, rawInitial.AutoCreateSubnetworks) {
-		rawDesired.AutoCreateSubnetworks = rawInitial.AutoCreateSubnetworks
+		canonicalDesired.AutoCreateSubnetworks = rawInitial.AutoCreateSubnetworks
+	} else {
+		canonicalDesired.AutoCreateSubnetworks = rawDesired.AutoCreateSubnetworks
 	}
-	rawDesired.RoutingConfig = canonicalizeNetworkRoutingConfig(rawDesired.RoutingConfig, rawInitial.RoutingConfig, opts...)
+	canonicalDesired.RoutingConfig = canonicalizeNetworkRoutingConfig(rawDesired.RoutingConfig, rawInitial.RoutingConfig, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeNetworkNewState(c *Client, rawNew, rawDesired *Network) (*Network, error) {
@@ -516,11 +524,15 @@ func canonicalizeNetworkRoutingConfig(des, initial *NetworkRoutingConfig, opts .
 		return des
 	}
 
+	cDes := &NetworkRoutingConfig{}
+
 	if dcl.IsZeroValue(des.RoutingMode) {
 		des.RoutingMode = initial.RoutingMode
+	} else {
+		cDes.RoutingMode = des.RoutingMode
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNetworkRoutingConfig(c *Client, des, nw *NetworkRoutingConfig) *NetworkRoutingConfig {
@@ -980,31 +992,45 @@ type networkDiff struct {
 	UpdateOp         networkApiOperation
 }
 
-func convertFieldDiffToNetworkOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]networkDiff, error) {
+func convertFieldDiffsToNetworkDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]networkDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []networkDiff
-	for _, op := range ops {
+	// For each operation name, create a networkDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := networkDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTonetworkApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToNetworkApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTonetworkApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (networkApiOperation, error) {
-	switch op {
+func convertOpNameToNetworkApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (networkApiOperation, error) {
+	switch opName {
 
 	case "updateNetworkUpdateOperation":
-		return &updateNetworkUpdateOperation{Diffs: diffs}, nil
+		return &updateNetworkUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

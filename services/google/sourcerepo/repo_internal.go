@@ -110,7 +110,7 @@ type updateRepoUpdateRepoOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -127,7 +127,7 @@ func (op *updateRepoUpdateRepoOperation) do(ctx context.Context, r *Repo, c *Cli
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -399,18 +399,24 @@ func canonicalizeRepoDesiredState(rawDesired, rawInitial *Repo, opts ...dcl.Appl
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Repo{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.IsZeroValue(rawDesired.PubsubConfigs) {
-		rawDesired.PubsubConfigs = rawInitial.PubsubConfigs
+		canonicalDesired.PubsubConfigs = rawInitial.PubsubConfigs
+	} else {
+		canonicalDesired.PubsubConfigs = rawDesired.PubsubConfigs
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeRepoNewState(c *Client, rawNew, rawDesired *Repo) (*Repo, error) {
@@ -459,17 +465,25 @@ func canonicalizeRepoPubsubConfigs(des, initial *RepoPubsubConfigs, opts ...dcl.
 		return des
 	}
 
+	cDes := &RepoPubsubConfigs{}
+
 	if dcl.StringCanonicalize(des.Topic, initial.Topic) || dcl.IsZeroValue(des.Topic) {
-		des.Topic = initial.Topic
+		cDes.Topic = initial.Topic
+	} else {
+		cDes.Topic = des.Topic
 	}
 	if dcl.StringCanonicalize(des.MessageFormat, initial.MessageFormat) || dcl.IsZeroValue(des.MessageFormat) {
-		des.MessageFormat = initial.MessageFormat
+		cDes.MessageFormat = initial.MessageFormat
+	} else {
+		cDes.MessageFormat = des.MessageFormat
 	}
 	if dcl.StringCanonicalize(des.ServiceAccountEmail, initial.ServiceAccountEmail) || dcl.IsZeroValue(des.ServiceAccountEmail) {
-		des.ServiceAccountEmail = initial.ServiceAccountEmail
+		cDes.ServiceAccountEmail = initial.ServiceAccountEmail
+	} else {
+		cDes.ServiceAccountEmail = des.ServiceAccountEmail
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewRepoPubsubConfigs(c *Client, des, nw *RepoPubsubConfigs) *RepoPubsubConfigs {
@@ -893,31 +907,45 @@ type repoDiff struct {
 	UpdateOp         repoApiOperation
 }
 
-func convertFieldDiffToRepoOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]repoDiff, error) {
+func convertFieldDiffsToRepoDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]repoDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []repoDiff
-	for _, op := range ops {
+	// For each operation name, create a repoDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := repoDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTorepoApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToRepoApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTorepoApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (repoApiOperation, error) {
-	switch op {
+func convertOpNameToRepoApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (repoApiOperation, error) {
+	switch opName {
 
 	case "updateRepoUpdateRepoOperation":
-		return &updateRepoUpdateRepoOperation{Diffs: diffs}, nil
+		return &updateRepoUpdateRepoOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

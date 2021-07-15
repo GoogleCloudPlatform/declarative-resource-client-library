@@ -350,18 +350,24 @@ func canonicalizeAttachmentDesiredState(rawDesired, rawInitial *Attachment, opts
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Attachment{}
 	if dcl.IsZeroValue(rawDesired.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.NameToSelfLink(rawDesired.Environment, rawInitial.Environment) {
-		rawDesired.Environment = rawInitial.Environment
+		canonicalDesired.Environment = rawInitial.Environment
+	} else {
+		canonicalDesired.Environment = rawDesired.Environment
 	}
 	if dcl.NameToSelfLink(rawDesired.Envgroup, rawInitial.Envgroup) {
-		rawDesired.Envgroup = rawInitial.Envgroup
+		canonicalDesired.Envgroup = rawInitial.Envgroup
+	} else {
+		canonicalDesired.Envgroup = rawDesired.Envgroup
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeAttachmentNewState(c *Client, rawNew, rawDesired *Attachment) (*Attachment, error) {
@@ -561,28 +567,42 @@ type attachmentDiff struct {
 	UpdateOp         attachmentApiOperation
 }
 
-func convertFieldDiffToAttachmentOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]attachmentDiff, error) {
+func convertFieldDiffsToAttachmentDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]attachmentDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []attachmentDiff
-	for _, op := range ops {
+	// For each operation name, create a attachmentDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := attachmentDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToattachmentApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToAttachmentApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToattachmentApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (attachmentApiOperation, error) {
-	switch op {
+func convertOpNameToAttachmentApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (attachmentApiOperation, error) {
+	switch opName {
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

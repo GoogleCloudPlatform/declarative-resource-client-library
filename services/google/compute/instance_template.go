@@ -1299,8 +1299,7 @@ func applyInstanceTemplateHelper(c *Client, ctx context.Context, rawDesired *Ins
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToInstanceTemplateOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToInstanceTemplateDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -1328,7 +1327,6 @@ func applyInstanceTemplateHelper(c *Client, ctx context.Context, rawDesired *Ins
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

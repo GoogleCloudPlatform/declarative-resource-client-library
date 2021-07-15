@@ -240,8 +240,7 @@ func applyServiceHelper(c *Client, ctx context.Context, rawDesired *Service, opt
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToServiceOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToServiceDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}

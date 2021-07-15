@@ -225,8 +225,7 @@ func applyDatabaseHelper(c *Client, ctx context.Context, rawDesired *Database, o
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToDatabaseOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToDatabaseDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -254,7 +253,6 @@ func applyDatabaseHelper(c *Client, ctx context.Context, rawDesired *Database, o
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

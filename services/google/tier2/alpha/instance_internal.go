@@ -2128,7 +2128,7 @@ type updateInstanceUpdateInstanceOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -2145,7 +2145,7 @@ func (op *updateInstanceUpdateInstanceOperation) do(ctx context.Context, r *Inst
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -2466,75 +2466,103 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Instance{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
-		rawDesired.DisplayName = rawInitial.DisplayName
+		canonicalDesired.DisplayName = rawInitial.DisplayName
+	} else {
+		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.StringCanonicalize(rawDesired.Zone, rawInitial.Zone) {
-		rawDesired.Zone = rawInitial.Zone
+		canonicalDesired.Zone = rawInitial.Zone
+	} else {
+		canonicalDesired.Zone = rawDesired.Zone
 	}
 	if dcl.StringCanonicalize(rawDesired.AlternativeZone, rawInitial.AlternativeZone) {
-		rawDesired.AlternativeZone = rawInitial.AlternativeZone
+		canonicalDesired.AlternativeZone = rawInitial.AlternativeZone
+	} else {
+		canonicalDesired.AlternativeZone = rawDesired.AlternativeZone
 	}
-	rawDesired.Sku = canonicalizeInstanceSku(rawDesired.Sku, rawInitial.Sku, opts...)
+	canonicalDesired.Sku = canonicalizeInstanceSku(rawDesired.Sku, rawInitial.Sku, opts...)
 	if dcl.StringCanonicalize(rawDesired.AuthorizedNetworkId, rawInitial.AuthorizedNetworkId) {
-		rawDesired.AuthorizedNetworkId = rawInitial.AuthorizedNetworkId
+		canonicalDesired.AuthorizedNetworkId = rawInitial.AuthorizedNetworkId
+	} else {
+		canonicalDesired.AuthorizedNetworkId = rawDesired.AuthorizedNetworkId
 	}
 	if dcl.StringCanonicalize(rawDesired.ReservedIPRange, rawInitial.ReservedIPRange) {
-		rawDesired.ReservedIPRange = rawInitial.ReservedIPRange
+		canonicalDesired.ReservedIPRange = rawInitial.ReservedIPRange
+	} else {
+		canonicalDesired.ReservedIPRange = rawDesired.ReservedIPRange
 	}
 	if dcl.IsZeroValue(rawDesired.References) {
-		rawDesired.References = rawInitial.References
+		canonicalDesired.References = rawInitial.References
+	} else {
+		canonicalDesired.References = rawDesired.References
 	}
-	rawDesired.PreprocessCreateRecipe = canonicalizeInstancePreprocessCreateRecipe(rawDesired.PreprocessCreateRecipe, rawInitial.PreprocessCreateRecipe, opts...)
-	rawDesired.CreateRecipe = canonicalizeInstanceCreateRecipe(rawDesired.CreateRecipe, rawInitial.CreateRecipe, opts...)
-	rawDesired.DeleteRecipe = canonicalizeInstanceDeleteRecipe(rawDesired.DeleteRecipe, rawInitial.DeleteRecipe, opts...)
-	rawDesired.UpdateRecipe = canonicalizeInstanceUpdateRecipe(rawDesired.UpdateRecipe, rawInitial.UpdateRecipe, opts...)
-	rawDesired.PreprocessResetRecipe = canonicalizeInstancePreprocessResetRecipe(rawDesired.PreprocessResetRecipe, rawInitial.PreprocessResetRecipe, opts...)
-	rawDesired.ResetRecipe = canonicalizeInstanceResetRecipe(rawDesired.ResetRecipe, rawInitial.ResetRecipe, opts...)
-	rawDesired.PreprocessRepairRecipe = canonicalizeInstancePreprocessRepairRecipe(rawDesired.PreprocessRepairRecipe, rawInitial.PreprocessRepairRecipe, opts...)
-	rawDesired.RepairRecipe = canonicalizeInstanceRepairRecipe(rawDesired.RepairRecipe, rawInitial.RepairRecipe, opts...)
-	rawDesired.PreprocessDeleteRecipe = canonicalizeInstancePreprocessDeleteRecipe(rawDesired.PreprocessDeleteRecipe, rawInitial.PreprocessDeleteRecipe, opts...)
-	rawDesired.PreprocessUpdateRecipe = canonicalizeInstancePreprocessUpdateRecipe(rawDesired.PreprocessUpdateRecipe, rawInitial.PreprocessUpdateRecipe, opts...)
-	rawDesired.PreprocessFreezeRecipe = canonicalizeInstancePreprocessFreezeRecipe(rawDesired.PreprocessFreezeRecipe, rawInitial.PreprocessFreezeRecipe, opts...)
-	rawDesired.FreezeRecipe = canonicalizeInstanceFreezeRecipe(rawDesired.FreezeRecipe, rawInitial.FreezeRecipe, opts...)
-	rawDesired.PreprocessUnfreezeRecipe = canonicalizeInstancePreprocessUnfreezeRecipe(rawDesired.PreprocessUnfreezeRecipe, rawInitial.PreprocessUnfreezeRecipe, opts...)
-	rawDesired.UnfreezeRecipe = canonicalizeInstanceUnfreezeRecipe(rawDesired.UnfreezeRecipe, rawInitial.UnfreezeRecipe, opts...)
-	rawDesired.PreprocessReportInstanceHealthRecipe = canonicalizeInstancePreprocessReportInstanceHealthRecipe(rawDesired.PreprocessReportInstanceHealthRecipe, rawInitial.PreprocessReportInstanceHealthRecipe, opts...)
-	rawDesired.ReportInstanceHealthRecipe = canonicalizeInstanceReportInstanceHealthRecipe(rawDesired.ReportInstanceHealthRecipe, rawInitial.ReportInstanceHealthRecipe, opts...)
-	rawDesired.PreprocessGetRecipe = canonicalizeInstancePreprocessGetRecipe(rawDesired.PreprocessGetRecipe, rawInitial.PreprocessGetRecipe, opts...)
-	rawDesired.NotifyKeyAvailableRecipe = canonicalizeInstanceNotifyKeyAvailableRecipe(rawDesired.NotifyKeyAvailableRecipe, rawInitial.NotifyKeyAvailableRecipe, opts...)
-	rawDesired.NotifyKeyUnavailableRecipe = canonicalizeInstanceNotifyKeyUnavailableRecipe(rawDesired.NotifyKeyUnavailableRecipe, rawInitial.NotifyKeyUnavailableRecipe, opts...)
-	rawDesired.ReadonlyRecipe = canonicalizeInstanceReadonlyRecipe(rawDesired.ReadonlyRecipe, rawInitial.ReadonlyRecipe, opts...)
-	rawDesired.ReconcileRecipe = canonicalizeInstanceReconcileRecipe(rawDesired.ReconcileRecipe, rawInitial.ReconcileRecipe, opts...)
-	rawDesired.PreprocessPassthroughRecipe = canonicalizeInstancePreprocessPassthroughRecipe(rawDesired.PreprocessPassthroughRecipe, rawInitial.PreprocessPassthroughRecipe, opts...)
-	rawDesired.PreprocessReconcileRecipe = canonicalizeInstancePreprocessReconcileRecipe(rawDesired.PreprocessReconcileRecipe, rawInitial.PreprocessReconcileRecipe, opts...)
+	canonicalDesired.PreprocessCreateRecipe = canonicalizeInstancePreprocessCreateRecipe(rawDesired.PreprocessCreateRecipe, rawInitial.PreprocessCreateRecipe, opts...)
+	canonicalDesired.CreateRecipe = canonicalizeInstanceCreateRecipe(rawDesired.CreateRecipe, rawInitial.CreateRecipe, opts...)
+	canonicalDesired.DeleteRecipe = canonicalizeInstanceDeleteRecipe(rawDesired.DeleteRecipe, rawInitial.DeleteRecipe, opts...)
+	canonicalDesired.UpdateRecipe = canonicalizeInstanceUpdateRecipe(rawDesired.UpdateRecipe, rawInitial.UpdateRecipe, opts...)
+	canonicalDesired.PreprocessResetRecipe = canonicalizeInstancePreprocessResetRecipe(rawDesired.PreprocessResetRecipe, rawInitial.PreprocessResetRecipe, opts...)
+	canonicalDesired.ResetRecipe = canonicalizeInstanceResetRecipe(rawDesired.ResetRecipe, rawInitial.ResetRecipe, opts...)
+	canonicalDesired.PreprocessRepairRecipe = canonicalizeInstancePreprocessRepairRecipe(rawDesired.PreprocessRepairRecipe, rawInitial.PreprocessRepairRecipe, opts...)
+	canonicalDesired.RepairRecipe = canonicalizeInstanceRepairRecipe(rawDesired.RepairRecipe, rawInitial.RepairRecipe, opts...)
+	canonicalDesired.PreprocessDeleteRecipe = canonicalizeInstancePreprocessDeleteRecipe(rawDesired.PreprocessDeleteRecipe, rawInitial.PreprocessDeleteRecipe, opts...)
+	canonicalDesired.PreprocessUpdateRecipe = canonicalizeInstancePreprocessUpdateRecipe(rawDesired.PreprocessUpdateRecipe, rawInitial.PreprocessUpdateRecipe, opts...)
+	canonicalDesired.PreprocessFreezeRecipe = canonicalizeInstancePreprocessFreezeRecipe(rawDesired.PreprocessFreezeRecipe, rawInitial.PreprocessFreezeRecipe, opts...)
+	canonicalDesired.FreezeRecipe = canonicalizeInstanceFreezeRecipe(rawDesired.FreezeRecipe, rawInitial.FreezeRecipe, opts...)
+	canonicalDesired.PreprocessUnfreezeRecipe = canonicalizeInstancePreprocessUnfreezeRecipe(rawDesired.PreprocessUnfreezeRecipe, rawInitial.PreprocessUnfreezeRecipe, opts...)
+	canonicalDesired.UnfreezeRecipe = canonicalizeInstanceUnfreezeRecipe(rawDesired.UnfreezeRecipe, rawInitial.UnfreezeRecipe, opts...)
+	canonicalDesired.PreprocessReportInstanceHealthRecipe = canonicalizeInstancePreprocessReportInstanceHealthRecipe(rawDesired.PreprocessReportInstanceHealthRecipe, rawInitial.PreprocessReportInstanceHealthRecipe, opts...)
+	canonicalDesired.ReportInstanceHealthRecipe = canonicalizeInstanceReportInstanceHealthRecipe(rawDesired.ReportInstanceHealthRecipe, rawInitial.ReportInstanceHealthRecipe, opts...)
+	canonicalDesired.PreprocessGetRecipe = canonicalizeInstancePreprocessGetRecipe(rawDesired.PreprocessGetRecipe, rawInitial.PreprocessGetRecipe, opts...)
+	canonicalDesired.NotifyKeyAvailableRecipe = canonicalizeInstanceNotifyKeyAvailableRecipe(rawDesired.NotifyKeyAvailableRecipe, rawInitial.NotifyKeyAvailableRecipe, opts...)
+	canonicalDesired.NotifyKeyUnavailableRecipe = canonicalizeInstanceNotifyKeyUnavailableRecipe(rawDesired.NotifyKeyUnavailableRecipe, rawInitial.NotifyKeyUnavailableRecipe, opts...)
+	canonicalDesired.ReadonlyRecipe = canonicalizeInstanceReadonlyRecipe(rawDesired.ReadonlyRecipe, rawInitial.ReadonlyRecipe, opts...)
+	canonicalDesired.ReconcileRecipe = canonicalizeInstanceReconcileRecipe(rawDesired.ReconcileRecipe, rawInitial.ReconcileRecipe, opts...)
+	canonicalDesired.PreprocessPassthroughRecipe = canonicalizeInstancePreprocessPassthroughRecipe(rawDesired.PreprocessPassthroughRecipe, rawInitial.PreprocessPassthroughRecipe, opts...)
+	canonicalDesired.PreprocessReconcileRecipe = canonicalizeInstancePreprocessReconcileRecipe(rawDesired.PreprocessReconcileRecipe, rawInitial.PreprocessReconcileRecipe, opts...)
 	if dcl.BoolCanonicalize(rawDesired.EnableCallHistory, rawInitial.EnableCallHistory) {
-		rawDesired.EnableCallHistory = rawInitial.EnableCallHistory
+		canonicalDesired.EnableCallHistory = rawInitial.EnableCallHistory
+	} else {
+		canonicalDesired.EnableCallHistory = rawDesired.EnableCallHistory
 	}
 	if dcl.IsZeroValue(rawDesired.History) {
-		rawDesired.History = rawInitial.History
+		canonicalDesired.History = rawInitial.History
+	} else {
+		canonicalDesired.History = rawDesired.History
 	}
 	if dcl.StringCanonicalize(rawDesired.PublicResourceViewOverride, rawInitial.PublicResourceViewOverride) {
-		rawDesired.PublicResourceViewOverride = rawInitial.PublicResourceViewOverride
+		canonicalDesired.PublicResourceViewOverride = rawInitial.PublicResourceViewOverride
+	} else {
+		canonicalDesired.PublicResourceViewOverride = rawDesired.PublicResourceViewOverride
 	}
 	if dcl.StringCanonicalize(rawDesired.Uid, rawInitial.Uid) {
-		rawDesired.Uid = rawInitial.Uid
+		canonicalDesired.Uid = rawInitial.Uid
+	} else {
+		canonicalDesired.Uid = rawDesired.Uid
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Instance, error) {
@@ -2861,14 +2889,20 @@ func canonicalizeInstanceSku(des, initial *InstanceSku, opts ...dcl.ApplyOption)
 		return des
 	}
 
+	cDes := &InstanceSku{}
+
 	if dcl.IsZeroValue(des.Tier) {
 		des.Tier = initial.Tier
+	} else {
+		cDes.Tier = des.Tier
 	}
 	if dcl.IsZeroValue(des.Size) {
 		des.Size = initial.Size
+	} else {
+		cDes.Size = des.Size
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceSku(c *Client, des, nw *InstanceSku) *InstanceSku {
@@ -2941,17 +2975,25 @@ func canonicalizeInstanceReferences(des, initial *InstanceReferences, opts ...dc
 		return des
 	}
 
+	cDes := &InstanceReferences{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.SourceResource, initial.SourceResource) || dcl.IsZeroValue(des.SourceResource) {
-		des.SourceResource = initial.SourceResource
+		cDes.SourceResource = initial.SourceResource
+	} else {
+		cDes.SourceResource = des.SourceResource
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReferences(c *Client, des, nw *InstanceReferences) *InstanceReferences {
@@ -3031,14 +3073,20 @@ func canonicalizeInstanceReferencesDetails(des, initial *InstanceReferencesDetai
 		return des
 	}
 
+	cDes := &InstanceReferencesDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReferencesDetails(c *Client, des, nw *InstanceReferencesDetails) *InstanceReferencesDetails {
@@ -3111,32 +3159,50 @@ func canonicalizeInstancePreprocessCreateRecipe(des, initial *InstancePreprocess
 		return des
 	}
 
+	cDes := &InstancePreprocessCreateRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipe(c *Client, des, nw *InstancePreprocessCreateRecipe) *InstancePreprocessCreateRecipe {
@@ -3225,51 +3291,79 @@ func canonicalizeInstancePreprocessCreateRecipeSteps(des, initial *InstancePrepr
 		return des
 	}
 
+	cDes := &InstancePreprocessCreateRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstancePreprocessCreateRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstancePreprocessCreateRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstancePreprocessCreateRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstancePreprocessCreateRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstancePreprocessCreateRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstancePreprocessCreateRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeSteps(c *Client, des, nw *InstancePreprocessCreateRecipeSteps) *InstancePreprocessCreateRecipeSteps {
@@ -3375,17 +3469,25 @@ func canonicalizeInstancePreprocessCreateRecipeStepsStatus(des, initial *Instanc
 		return des
 	}
 
+	cDes := &InstancePreprocessCreateRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsStatus(c *Client, des, nw *InstancePreprocessCreateRecipeStepsStatus) *InstancePreprocessCreateRecipeStepsStatus {
@@ -3459,14 +3561,20 @@ func canonicalizeInstancePreprocessCreateRecipeStepsStatusDetails(des, initial *
 		return des
 	}
 
+	cDes := &InstancePreprocessCreateRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessCreateRecipeStepsStatusDetails) *InstancePreprocessCreateRecipeStepsStatusDetails {
@@ -3539,17 +3647,25 @@ func canonicalizeInstancePreprocessCreateRecipeStepsQuotaRequestDeltas(des, init
 		return des
 	}
 
+	cDes := &InstancePreprocessCreateRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessCreateRecipeStepsQuotaRequestDeltas) *InstancePreprocessCreateRecipeStepsQuotaRequestDeltas {
@@ -3625,14 +3741,20 @@ func canonicalizeInstancePreprocessCreateRecipeStepsPreprocessUpdate(des, initia
 		return des
 	}
 
+	cDes := &InstancePreprocessCreateRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessCreateRecipeStepsPreprocessUpdate) *InstancePreprocessCreateRecipeStepsPreprocessUpdate {
@@ -3705,17 +3827,25 @@ func canonicalizeInstancePreprocessCreateRecipeStepsRequestedTenantProject(des, 
 		return des
 	}
 
+	cDes := &InstancePreprocessCreateRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessCreateRecipeStepsRequestedTenantProject) *InstancePreprocessCreateRecipeStepsRequestedTenantProject {
@@ -3791,16 +3921,22 @@ func canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfo(des, initial
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstancePreprocessCreateRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessCreateRecipeStepsPermissionsInfo) *InstancePreprocessCreateRecipeStepsPermissionsInfo {
@@ -3873,17 +4009,25 @@ func canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName(de
 		return des
 	}
 
+	cDes := &InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName {
@@ -3959,11 +4103,15 @@ func canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermission
 		return des
 	}
 
+	cDes := &InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions {
@@ -4033,7 +4181,9 @@ func canonicalizeInstanceGoogleprotobufstruct(des, initial *InstanceGoogleprotob
 		return des
 	}
 
-	return des
+	cDes := &InstanceGoogleprotobufstruct{}
+
+	return cDes
 }
 
 func canonicalizeNewInstanceGoogleprotobufstruct(c *Client, des, nw *InstanceGoogleprotobufstruct) *InstanceGoogleprotobufstruct {
@@ -4099,9 +4249,11 @@ func canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate(des, 
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate) *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate {
@@ -4169,17 +4321,25 @@ func canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNot
 		return des
 	}
 
+	cDes := &InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -4253,17 +4413,25 @@ func canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNot
 		return des
 	}
 
+	cDes := &InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -4339,32 +4507,50 @@ func canonicalizeInstanceCreateRecipe(des, initial *InstanceCreateRecipe, opts .
 		return des
 	}
 
+	cDes := &InstanceCreateRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceCreateRecipe(c *Client, des, nw *InstanceCreateRecipe) *InstanceCreateRecipe {
@@ -4453,51 +4639,79 @@ func canonicalizeInstanceCreateRecipeSteps(des, initial *InstanceCreateRecipeSte
 		return des
 	}
 
+	cDes := &InstanceCreateRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstanceCreateRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstanceCreateRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstanceCreateRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstanceCreateRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstanceCreateRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstanceCreateRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceCreateRecipeSteps(c *Client, des, nw *InstanceCreateRecipeSteps) *InstanceCreateRecipeSteps {
@@ -4603,17 +4817,25 @@ func canonicalizeInstanceCreateRecipeStepsStatus(des, initial *InstanceCreateRec
 		return des
 	}
 
+	cDes := &InstanceCreateRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsStatus(c *Client, des, nw *InstanceCreateRecipeStepsStatus) *InstanceCreateRecipeStepsStatus {
@@ -4687,14 +4909,20 @@ func canonicalizeInstanceCreateRecipeStepsStatusDetails(des, initial *InstanceCr
 		return des
 	}
 
+	cDes := &InstanceCreateRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsStatusDetails(c *Client, des, nw *InstanceCreateRecipeStepsStatusDetails) *InstanceCreateRecipeStepsStatusDetails {
@@ -4767,17 +4995,25 @@ func canonicalizeInstanceCreateRecipeStepsQuotaRequestDeltas(des, initial *Insta
 		return des
 	}
 
+	cDes := &InstanceCreateRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceCreateRecipeStepsQuotaRequestDeltas) *InstanceCreateRecipeStepsQuotaRequestDeltas {
@@ -4853,14 +5089,20 @@ func canonicalizeInstanceCreateRecipeStepsPreprocessUpdate(des, initial *Instanc
 		return des
 	}
 
+	cDes := &InstanceCreateRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceCreateRecipeStepsPreprocessUpdate) *InstanceCreateRecipeStepsPreprocessUpdate {
@@ -4933,17 +5175,25 @@ func canonicalizeInstanceCreateRecipeStepsRequestedTenantProject(des, initial *I
 		return des
 	}
 
+	cDes := &InstanceCreateRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceCreateRecipeStepsRequestedTenantProject) *InstanceCreateRecipeStepsRequestedTenantProject {
@@ -5019,16 +5269,22 @@ func canonicalizeInstanceCreateRecipeStepsPermissionsInfo(des, initial *Instance
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstanceCreateRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstanceCreateRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstanceCreateRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceCreateRecipeStepsPermissionsInfo) *InstanceCreateRecipeStepsPermissionsInfo {
@@ -5101,17 +5357,25 @@ func canonicalizeInstanceCreateRecipeStepsPermissionsInfoPolicyName(des, initial
 		return des
 	}
 
+	cDes := &InstanceCreateRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceCreateRecipeStepsPermissionsInfoPolicyName) *InstanceCreateRecipeStepsPermissionsInfoPolicyName {
@@ -5187,11 +5451,15 @@ func canonicalizeInstanceCreateRecipeStepsPermissionsInfoIamPermissions(des, ini
 		return des
 	}
 
+	cDes := &InstanceCreateRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceCreateRecipeStepsPermissionsInfoIamPermissions) *InstanceCreateRecipeStepsPermissionsInfoIamPermissions {
@@ -5261,9 +5529,11 @@ func canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdate(des, initial *I
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstanceCreateRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceCreateRecipeStepsKeyNotificationsUpdate) *InstanceCreateRecipeStepsKeyNotificationsUpdate {
@@ -5331,17 +5601,25 @@ func canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotifications
 		return des
 	}
 
+	cDes := &InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -5415,17 +5693,25 @@ func canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotifications
 		return des
 	}
 
+	cDes := &InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -5501,32 +5787,50 @@ func canonicalizeInstanceDeleteRecipe(des, initial *InstanceDeleteRecipe, opts .
 		return des
 	}
 
+	cDes := &InstanceDeleteRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceDeleteRecipe(c *Client, des, nw *InstanceDeleteRecipe) *InstanceDeleteRecipe {
@@ -5615,51 +5919,79 @@ func canonicalizeInstanceDeleteRecipeSteps(des, initial *InstanceDeleteRecipeSte
 		return des
 	}
 
+	cDes := &InstanceDeleteRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstanceDeleteRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstanceDeleteRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstanceDeleteRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstanceDeleteRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstanceDeleteRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstanceDeleteRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceDeleteRecipeSteps(c *Client, des, nw *InstanceDeleteRecipeSteps) *InstanceDeleteRecipeSteps {
@@ -5765,17 +6097,25 @@ func canonicalizeInstanceDeleteRecipeStepsStatus(des, initial *InstanceDeleteRec
 		return des
 	}
 
+	cDes := &InstanceDeleteRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsStatus(c *Client, des, nw *InstanceDeleteRecipeStepsStatus) *InstanceDeleteRecipeStepsStatus {
@@ -5849,14 +6189,20 @@ func canonicalizeInstanceDeleteRecipeStepsStatusDetails(des, initial *InstanceDe
 		return des
 	}
 
+	cDes := &InstanceDeleteRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsStatusDetails(c *Client, des, nw *InstanceDeleteRecipeStepsStatusDetails) *InstanceDeleteRecipeStepsStatusDetails {
@@ -5929,17 +6275,25 @@ func canonicalizeInstanceDeleteRecipeStepsQuotaRequestDeltas(des, initial *Insta
 		return des
 	}
 
+	cDes := &InstanceDeleteRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceDeleteRecipeStepsQuotaRequestDeltas) *InstanceDeleteRecipeStepsQuotaRequestDeltas {
@@ -6015,14 +6369,20 @@ func canonicalizeInstanceDeleteRecipeStepsPreprocessUpdate(des, initial *Instanc
 		return des
 	}
 
+	cDes := &InstanceDeleteRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceDeleteRecipeStepsPreprocessUpdate) *InstanceDeleteRecipeStepsPreprocessUpdate {
@@ -6095,17 +6455,25 @@ func canonicalizeInstanceDeleteRecipeStepsRequestedTenantProject(des, initial *I
 		return des
 	}
 
+	cDes := &InstanceDeleteRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceDeleteRecipeStepsRequestedTenantProject) *InstanceDeleteRecipeStepsRequestedTenantProject {
@@ -6181,16 +6549,22 @@ func canonicalizeInstanceDeleteRecipeStepsPermissionsInfo(des, initial *Instance
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstanceDeleteRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstanceDeleteRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstanceDeleteRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceDeleteRecipeStepsPermissionsInfo) *InstanceDeleteRecipeStepsPermissionsInfo {
@@ -6263,17 +6637,25 @@ func canonicalizeInstanceDeleteRecipeStepsPermissionsInfoPolicyName(des, initial
 		return des
 	}
 
+	cDes := &InstanceDeleteRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceDeleteRecipeStepsPermissionsInfoPolicyName) *InstanceDeleteRecipeStepsPermissionsInfoPolicyName {
@@ -6349,11 +6731,15 @@ func canonicalizeInstanceDeleteRecipeStepsPermissionsInfoIamPermissions(des, ini
 		return des
 	}
 
+	cDes := &InstanceDeleteRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceDeleteRecipeStepsPermissionsInfoIamPermissions) *InstanceDeleteRecipeStepsPermissionsInfoIamPermissions {
@@ -6423,9 +6809,11 @@ func canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdate(des, initial *I
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstanceDeleteRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceDeleteRecipeStepsKeyNotificationsUpdate) *InstanceDeleteRecipeStepsKeyNotificationsUpdate {
@@ -6493,17 +6881,25 @@ func canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotifications
 		return des
 	}
 
+	cDes := &InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -6577,17 +6973,25 @@ func canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotifications
 		return des
 	}
 
+	cDes := &InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -6663,32 +7067,50 @@ func canonicalizeInstanceUpdateRecipe(des, initial *InstanceUpdateRecipe, opts .
 		return des
 	}
 
+	cDes := &InstanceUpdateRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUpdateRecipe(c *Client, des, nw *InstanceUpdateRecipe) *InstanceUpdateRecipe {
@@ -6777,51 +7199,79 @@ func canonicalizeInstanceUpdateRecipeSteps(des, initial *InstanceUpdateRecipeSte
 		return des
 	}
 
+	cDes := &InstanceUpdateRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstanceUpdateRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstanceUpdateRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstanceUpdateRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstanceUpdateRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstanceUpdateRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstanceUpdateRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUpdateRecipeSteps(c *Client, des, nw *InstanceUpdateRecipeSteps) *InstanceUpdateRecipeSteps {
@@ -6927,17 +7377,25 @@ func canonicalizeInstanceUpdateRecipeStepsStatus(des, initial *InstanceUpdateRec
 		return des
 	}
 
+	cDes := &InstanceUpdateRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsStatus(c *Client, des, nw *InstanceUpdateRecipeStepsStatus) *InstanceUpdateRecipeStepsStatus {
@@ -7011,14 +7469,20 @@ func canonicalizeInstanceUpdateRecipeStepsStatusDetails(des, initial *InstanceUp
 		return des
 	}
 
+	cDes := &InstanceUpdateRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsStatusDetails(c *Client, des, nw *InstanceUpdateRecipeStepsStatusDetails) *InstanceUpdateRecipeStepsStatusDetails {
@@ -7091,17 +7555,25 @@ func canonicalizeInstanceUpdateRecipeStepsQuotaRequestDeltas(des, initial *Insta
 		return des
 	}
 
+	cDes := &InstanceUpdateRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceUpdateRecipeStepsQuotaRequestDeltas) *InstanceUpdateRecipeStepsQuotaRequestDeltas {
@@ -7177,14 +7649,20 @@ func canonicalizeInstanceUpdateRecipeStepsPreprocessUpdate(des, initial *Instanc
 		return des
 	}
 
+	cDes := &InstanceUpdateRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceUpdateRecipeStepsPreprocessUpdate) *InstanceUpdateRecipeStepsPreprocessUpdate {
@@ -7257,17 +7735,25 @@ func canonicalizeInstanceUpdateRecipeStepsRequestedTenantProject(des, initial *I
 		return des
 	}
 
+	cDes := &InstanceUpdateRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceUpdateRecipeStepsRequestedTenantProject) *InstanceUpdateRecipeStepsRequestedTenantProject {
@@ -7343,16 +7829,22 @@ func canonicalizeInstanceUpdateRecipeStepsPermissionsInfo(des, initial *Instance
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstanceUpdateRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstanceUpdateRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstanceUpdateRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceUpdateRecipeStepsPermissionsInfo) *InstanceUpdateRecipeStepsPermissionsInfo {
@@ -7425,17 +7917,25 @@ func canonicalizeInstanceUpdateRecipeStepsPermissionsInfoPolicyName(des, initial
 		return des
 	}
 
+	cDes := &InstanceUpdateRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceUpdateRecipeStepsPermissionsInfoPolicyName) *InstanceUpdateRecipeStepsPermissionsInfoPolicyName {
@@ -7511,11 +8011,15 @@ func canonicalizeInstanceUpdateRecipeStepsPermissionsInfoIamPermissions(des, ini
 		return des
 	}
 
+	cDes := &InstanceUpdateRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceUpdateRecipeStepsPermissionsInfoIamPermissions) *InstanceUpdateRecipeStepsPermissionsInfoIamPermissions {
@@ -7585,9 +8089,11 @@ func canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdate(des, initial *I
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstanceUpdateRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceUpdateRecipeStepsKeyNotificationsUpdate) *InstanceUpdateRecipeStepsKeyNotificationsUpdate {
@@ -7655,17 +8161,25 @@ func canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotifications
 		return des
 	}
 
+	cDes := &InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -7739,17 +8253,25 @@ func canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotifications
 		return des
 	}
 
+	cDes := &InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -7825,32 +8347,50 @@ func canonicalizeInstancePreprocessResetRecipe(des, initial *InstancePreprocessR
 		return des
 	}
 
+	cDes := &InstancePreprocessResetRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessResetRecipe(c *Client, des, nw *InstancePreprocessResetRecipe) *InstancePreprocessResetRecipe {
@@ -7939,51 +8479,79 @@ func canonicalizeInstancePreprocessResetRecipeSteps(des, initial *InstancePrepro
 		return des
 	}
 
+	cDes := &InstancePreprocessResetRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstancePreprocessResetRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstancePreprocessResetRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstancePreprocessResetRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstancePreprocessResetRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstancePreprocessResetRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstancePreprocessResetRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeSteps(c *Client, des, nw *InstancePreprocessResetRecipeSteps) *InstancePreprocessResetRecipeSteps {
@@ -8089,17 +8657,25 @@ func canonicalizeInstancePreprocessResetRecipeStepsStatus(des, initial *Instance
 		return des
 	}
 
+	cDes := &InstancePreprocessResetRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsStatus(c *Client, des, nw *InstancePreprocessResetRecipeStepsStatus) *InstancePreprocessResetRecipeStepsStatus {
@@ -8173,14 +8749,20 @@ func canonicalizeInstancePreprocessResetRecipeStepsStatusDetails(des, initial *I
 		return des
 	}
 
+	cDes := &InstancePreprocessResetRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessResetRecipeStepsStatusDetails) *InstancePreprocessResetRecipeStepsStatusDetails {
@@ -8253,17 +8835,25 @@ func canonicalizeInstancePreprocessResetRecipeStepsQuotaRequestDeltas(des, initi
 		return des
 	}
 
+	cDes := &InstancePreprocessResetRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessResetRecipeStepsQuotaRequestDeltas) *InstancePreprocessResetRecipeStepsQuotaRequestDeltas {
@@ -8339,14 +8929,20 @@ func canonicalizeInstancePreprocessResetRecipeStepsPreprocessUpdate(des, initial
 		return des
 	}
 
+	cDes := &InstancePreprocessResetRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessResetRecipeStepsPreprocessUpdate) *InstancePreprocessResetRecipeStepsPreprocessUpdate {
@@ -8419,17 +9015,25 @@ func canonicalizeInstancePreprocessResetRecipeStepsRequestedTenantProject(des, i
 		return des
 	}
 
+	cDes := &InstancePreprocessResetRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessResetRecipeStepsRequestedTenantProject) *InstancePreprocessResetRecipeStepsRequestedTenantProject {
@@ -8505,16 +9109,22 @@ func canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfo(des, initial 
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstancePreprocessResetRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessResetRecipeStepsPermissionsInfo) *InstancePreprocessResetRecipeStepsPermissionsInfo {
@@ -8587,17 +9197,25 @@ func canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName(des
 		return des
 	}
 
+	cDes := &InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName {
@@ -8673,11 +9291,15 @@ func canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions
 		return des
 	}
 
+	cDes := &InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions {
@@ -8747,9 +9369,11 @@ func canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdate(des, i
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstancePreprocessResetRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessResetRecipeStepsKeyNotificationsUpdate) *InstancePreprocessResetRecipeStepsKeyNotificationsUpdate {
@@ -8817,17 +9441,25 @@ func canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNoti
 		return des
 	}
 
+	cDes := &InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -8901,17 +9533,25 @@ func canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNoti
 		return des
 	}
 
+	cDes := &InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -8987,32 +9627,50 @@ func canonicalizeInstanceResetRecipe(des, initial *InstanceResetRecipe, opts ...
 		return des
 	}
 
+	cDes := &InstanceResetRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceResetRecipe(c *Client, des, nw *InstanceResetRecipe) *InstanceResetRecipe {
@@ -9101,51 +9759,79 @@ func canonicalizeInstanceResetRecipeSteps(des, initial *InstanceResetRecipeSteps
 		return des
 	}
 
+	cDes := &InstanceResetRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstanceResetRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstanceResetRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstanceResetRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstanceResetRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstanceResetRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstanceResetRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceResetRecipeSteps(c *Client, des, nw *InstanceResetRecipeSteps) *InstanceResetRecipeSteps {
@@ -9251,17 +9937,25 @@ func canonicalizeInstanceResetRecipeStepsStatus(des, initial *InstanceResetRecip
 		return des
 	}
 
+	cDes := &InstanceResetRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceResetRecipeStepsStatus(c *Client, des, nw *InstanceResetRecipeStepsStatus) *InstanceResetRecipeStepsStatus {
@@ -9335,14 +10029,20 @@ func canonicalizeInstanceResetRecipeStepsStatusDetails(des, initial *InstanceRes
 		return des
 	}
 
+	cDes := &InstanceResetRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceResetRecipeStepsStatusDetails(c *Client, des, nw *InstanceResetRecipeStepsStatusDetails) *InstanceResetRecipeStepsStatusDetails {
@@ -9415,17 +10115,25 @@ func canonicalizeInstanceResetRecipeStepsQuotaRequestDeltas(des, initial *Instan
 		return des
 	}
 
+	cDes := &InstanceResetRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceResetRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceResetRecipeStepsQuotaRequestDeltas) *InstanceResetRecipeStepsQuotaRequestDeltas {
@@ -9501,14 +10209,20 @@ func canonicalizeInstanceResetRecipeStepsPreprocessUpdate(des, initial *Instance
 		return des
 	}
 
+	cDes := &InstanceResetRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceResetRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceResetRecipeStepsPreprocessUpdate) *InstanceResetRecipeStepsPreprocessUpdate {
@@ -9581,17 +10295,25 @@ func canonicalizeInstanceResetRecipeStepsRequestedTenantProject(des, initial *In
 		return des
 	}
 
+	cDes := &InstanceResetRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceResetRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceResetRecipeStepsRequestedTenantProject) *InstanceResetRecipeStepsRequestedTenantProject {
@@ -9667,16 +10389,22 @@ func canonicalizeInstanceResetRecipeStepsPermissionsInfo(des, initial *InstanceR
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstanceResetRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstanceResetRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstanceResetRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceResetRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceResetRecipeStepsPermissionsInfo) *InstanceResetRecipeStepsPermissionsInfo {
@@ -9749,17 +10477,25 @@ func canonicalizeInstanceResetRecipeStepsPermissionsInfoPolicyName(des, initial 
 		return des
 	}
 
+	cDes := &InstanceResetRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceResetRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceResetRecipeStepsPermissionsInfoPolicyName) *InstanceResetRecipeStepsPermissionsInfoPolicyName {
@@ -9835,11 +10571,15 @@ func canonicalizeInstanceResetRecipeStepsPermissionsInfoIamPermissions(des, init
 		return des
 	}
 
+	cDes := &InstanceResetRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceResetRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceResetRecipeStepsPermissionsInfoIamPermissions) *InstanceResetRecipeStepsPermissionsInfoIamPermissions {
@@ -9909,9 +10649,11 @@ func canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdate(des, initial *In
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstanceResetRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceResetRecipeStepsKeyNotificationsUpdate) *InstanceResetRecipeStepsKeyNotificationsUpdate {
@@ -9979,17 +10721,25 @@ func canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsI
 		return des
 	}
 
+	cDes := &InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -10063,17 +10813,25 @@ func canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsI
 		return des
 	}
 
+	cDes := &InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -10149,32 +10907,50 @@ func canonicalizeInstancePreprocessRepairRecipe(des, initial *InstancePreprocess
 		return des
 	}
 
+	cDes := &InstancePreprocessRepairRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipe(c *Client, des, nw *InstancePreprocessRepairRecipe) *InstancePreprocessRepairRecipe {
@@ -10263,51 +11039,79 @@ func canonicalizeInstancePreprocessRepairRecipeSteps(des, initial *InstancePrepr
 		return des
 	}
 
+	cDes := &InstancePreprocessRepairRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstancePreprocessRepairRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstancePreprocessRepairRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstancePreprocessRepairRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstancePreprocessRepairRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstancePreprocessRepairRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstancePreprocessRepairRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeSteps(c *Client, des, nw *InstancePreprocessRepairRecipeSteps) *InstancePreprocessRepairRecipeSteps {
@@ -10413,17 +11217,25 @@ func canonicalizeInstancePreprocessRepairRecipeStepsStatus(des, initial *Instanc
 		return des
 	}
 
+	cDes := &InstancePreprocessRepairRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsStatus(c *Client, des, nw *InstancePreprocessRepairRecipeStepsStatus) *InstancePreprocessRepairRecipeStepsStatus {
@@ -10497,14 +11309,20 @@ func canonicalizeInstancePreprocessRepairRecipeStepsStatusDetails(des, initial *
 		return des
 	}
 
+	cDes := &InstancePreprocessRepairRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessRepairRecipeStepsStatusDetails) *InstancePreprocessRepairRecipeStepsStatusDetails {
@@ -10577,17 +11395,25 @@ func canonicalizeInstancePreprocessRepairRecipeStepsQuotaRequestDeltas(des, init
 		return des
 	}
 
+	cDes := &InstancePreprocessRepairRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessRepairRecipeStepsQuotaRequestDeltas) *InstancePreprocessRepairRecipeStepsQuotaRequestDeltas {
@@ -10663,14 +11489,20 @@ func canonicalizeInstancePreprocessRepairRecipeStepsPreprocessUpdate(des, initia
 		return des
 	}
 
+	cDes := &InstancePreprocessRepairRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessRepairRecipeStepsPreprocessUpdate) *InstancePreprocessRepairRecipeStepsPreprocessUpdate {
@@ -10743,17 +11575,25 @@ func canonicalizeInstancePreprocessRepairRecipeStepsRequestedTenantProject(des, 
 		return des
 	}
 
+	cDes := &InstancePreprocessRepairRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessRepairRecipeStepsRequestedTenantProject) *InstancePreprocessRepairRecipeStepsRequestedTenantProject {
@@ -10829,16 +11669,22 @@ func canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfo(des, initial
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstancePreprocessRepairRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessRepairRecipeStepsPermissionsInfo) *InstancePreprocessRepairRecipeStepsPermissionsInfo {
@@ -10911,17 +11757,25 @@ func canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName(de
 		return des
 	}
 
+	cDes := &InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName {
@@ -10997,11 +11851,15 @@ func canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermission
 		return des
 	}
 
+	cDes := &InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions {
@@ -11071,9 +11929,11 @@ func canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate(des, 
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate) *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate {
@@ -11141,17 +12001,25 @@ func canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNot
 		return des
 	}
 
+	cDes := &InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -11225,17 +12093,25 @@ func canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNot
 		return des
 	}
 
+	cDes := &InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -11311,32 +12187,50 @@ func canonicalizeInstanceRepairRecipe(des, initial *InstanceRepairRecipe, opts .
 		return des
 	}
 
+	cDes := &InstanceRepairRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceRepairRecipe(c *Client, des, nw *InstanceRepairRecipe) *InstanceRepairRecipe {
@@ -11425,51 +12319,79 @@ func canonicalizeInstanceRepairRecipeSteps(des, initial *InstanceRepairRecipeSte
 		return des
 	}
 
+	cDes := &InstanceRepairRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstanceRepairRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstanceRepairRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstanceRepairRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstanceRepairRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstanceRepairRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstanceRepairRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceRepairRecipeSteps(c *Client, des, nw *InstanceRepairRecipeSteps) *InstanceRepairRecipeSteps {
@@ -11575,17 +12497,25 @@ func canonicalizeInstanceRepairRecipeStepsStatus(des, initial *InstanceRepairRec
 		return des
 	}
 
+	cDes := &InstanceRepairRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsStatus(c *Client, des, nw *InstanceRepairRecipeStepsStatus) *InstanceRepairRecipeStepsStatus {
@@ -11659,14 +12589,20 @@ func canonicalizeInstanceRepairRecipeStepsStatusDetails(des, initial *InstanceRe
 		return des
 	}
 
+	cDes := &InstanceRepairRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsStatusDetails(c *Client, des, nw *InstanceRepairRecipeStepsStatusDetails) *InstanceRepairRecipeStepsStatusDetails {
@@ -11739,17 +12675,25 @@ func canonicalizeInstanceRepairRecipeStepsQuotaRequestDeltas(des, initial *Insta
 		return des
 	}
 
+	cDes := &InstanceRepairRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceRepairRecipeStepsQuotaRequestDeltas) *InstanceRepairRecipeStepsQuotaRequestDeltas {
@@ -11825,14 +12769,20 @@ func canonicalizeInstanceRepairRecipeStepsPreprocessUpdate(des, initial *Instanc
 		return des
 	}
 
+	cDes := &InstanceRepairRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceRepairRecipeStepsPreprocessUpdate) *InstanceRepairRecipeStepsPreprocessUpdate {
@@ -11905,17 +12855,25 @@ func canonicalizeInstanceRepairRecipeStepsRequestedTenantProject(des, initial *I
 		return des
 	}
 
+	cDes := &InstanceRepairRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceRepairRecipeStepsRequestedTenantProject) *InstanceRepairRecipeStepsRequestedTenantProject {
@@ -11991,16 +12949,22 @@ func canonicalizeInstanceRepairRecipeStepsPermissionsInfo(des, initial *Instance
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstanceRepairRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstanceRepairRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstanceRepairRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceRepairRecipeStepsPermissionsInfo) *InstanceRepairRecipeStepsPermissionsInfo {
@@ -12073,17 +13037,25 @@ func canonicalizeInstanceRepairRecipeStepsPermissionsInfoPolicyName(des, initial
 		return des
 	}
 
+	cDes := &InstanceRepairRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceRepairRecipeStepsPermissionsInfoPolicyName) *InstanceRepairRecipeStepsPermissionsInfoPolicyName {
@@ -12159,11 +13131,15 @@ func canonicalizeInstanceRepairRecipeStepsPermissionsInfoIamPermissions(des, ini
 		return des
 	}
 
+	cDes := &InstanceRepairRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceRepairRecipeStepsPermissionsInfoIamPermissions) *InstanceRepairRecipeStepsPermissionsInfoIamPermissions {
@@ -12233,9 +13209,11 @@ func canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdate(des, initial *I
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstanceRepairRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceRepairRecipeStepsKeyNotificationsUpdate) *InstanceRepairRecipeStepsKeyNotificationsUpdate {
@@ -12303,17 +13281,25 @@ func canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotifications
 		return des
 	}
 
+	cDes := &InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -12387,17 +13373,25 @@ func canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotifications
 		return des
 	}
 
+	cDes := &InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -12473,32 +13467,50 @@ func canonicalizeInstancePreprocessDeleteRecipe(des, initial *InstancePreprocess
 		return des
 	}
 
+	cDes := &InstancePreprocessDeleteRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipe(c *Client, des, nw *InstancePreprocessDeleteRecipe) *InstancePreprocessDeleteRecipe {
@@ -12587,51 +13599,79 @@ func canonicalizeInstancePreprocessDeleteRecipeSteps(des, initial *InstancePrepr
 		return des
 	}
 
+	cDes := &InstancePreprocessDeleteRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstancePreprocessDeleteRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstancePreprocessDeleteRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstancePreprocessDeleteRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstancePreprocessDeleteRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstancePreprocessDeleteRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstancePreprocessDeleteRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeSteps(c *Client, des, nw *InstancePreprocessDeleteRecipeSteps) *InstancePreprocessDeleteRecipeSteps {
@@ -12737,17 +13777,25 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsStatus(des, initial *Instanc
 		return des
 	}
 
+	cDes := &InstancePreprocessDeleteRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsStatus(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsStatus) *InstancePreprocessDeleteRecipeStepsStatus {
@@ -12821,14 +13869,20 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsStatusDetails(des, initial *
 		return des
 	}
 
+	cDes := &InstancePreprocessDeleteRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsStatusDetails) *InstancePreprocessDeleteRecipeStepsStatusDetails {
@@ -12901,17 +13955,25 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(des, init
 		return des
 	}
 
+	cDes := &InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas) *InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas {
@@ -12987,14 +14049,20 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsPreprocessUpdate(des, initia
 		return des
 	}
 
+	cDes := &InstancePreprocessDeleteRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsPreprocessUpdate) *InstancePreprocessDeleteRecipeStepsPreprocessUpdate {
@@ -13067,17 +14135,25 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsRequestedTenantProject(des, 
 		return des
 	}
 
+	cDes := &InstancePreprocessDeleteRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsRequestedTenantProject) *InstancePreprocessDeleteRecipeStepsRequestedTenantProject {
@@ -13153,16 +14229,22 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfo(des, initial
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstancePreprocessDeleteRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsPermissionsInfo) *InstancePreprocessDeleteRecipeStepsPermissionsInfo {
@@ -13235,17 +14317,25 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName(de
 		return des
 	}
 
+	cDes := &InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName {
@@ -13321,11 +14411,15 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermission
 		return des
 	}
 
+	cDes := &InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions {
@@ -13395,9 +14489,11 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate(des, 
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate) *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate {
@@ -13465,17 +14561,25 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNot
 		return des
 	}
 
+	cDes := &InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -13549,17 +14653,25 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNot
 		return des
 	}
 
+	cDes := &InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -13635,32 +14747,50 @@ func canonicalizeInstancePreprocessUpdateRecipe(des, initial *InstancePreprocess
 		return des
 	}
 
+	cDes := &InstancePreprocessUpdateRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipe(c *Client, des, nw *InstancePreprocessUpdateRecipe) *InstancePreprocessUpdateRecipe {
@@ -13749,51 +14879,79 @@ func canonicalizeInstancePreprocessUpdateRecipeSteps(des, initial *InstancePrepr
 		return des
 	}
 
+	cDes := &InstancePreprocessUpdateRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstancePreprocessUpdateRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstancePreprocessUpdateRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstancePreprocessUpdateRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstancePreprocessUpdateRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstancePreprocessUpdateRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstancePreprocessUpdateRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeSteps(c *Client, des, nw *InstancePreprocessUpdateRecipeSteps) *InstancePreprocessUpdateRecipeSteps {
@@ -13899,17 +15057,25 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsStatus(des, initial *Instanc
 		return des
 	}
 
+	cDes := &InstancePreprocessUpdateRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsStatus(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsStatus) *InstancePreprocessUpdateRecipeStepsStatus {
@@ -13983,14 +15149,20 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsStatusDetails(des, initial *
 		return des
 	}
 
+	cDes := &InstancePreprocessUpdateRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsStatusDetails) *InstancePreprocessUpdateRecipeStepsStatusDetails {
@@ -14063,17 +15235,25 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(des, init
 		return des
 	}
 
+	cDes := &InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas) *InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas {
@@ -14149,14 +15329,20 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsPreprocessUpdate(des, initia
 		return des
 	}
 
+	cDes := &InstancePreprocessUpdateRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsPreprocessUpdate) *InstancePreprocessUpdateRecipeStepsPreprocessUpdate {
@@ -14229,17 +15415,25 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsRequestedTenantProject(des, 
 		return des
 	}
 
+	cDes := &InstancePreprocessUpdateRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsRequestedTenantProject) *InstancePreprocessUpdateRecipeStepsRequestedTenantProject {
@@ -14315,16 +15509,22 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfo(des, initial
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstancePreprocessUpdateRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsPermissionsInfo) *InstancePreprocessUpdateRecipeStepsPermissionsInfo {
@@ -14397,17 +15597,25 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName(de
 		return des
 	}
 
+	cDes := &InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName {
@@ -14483,11 +15691,15 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermission
 		return des
 	}
 
+	cDes := &InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions {
@@ -14557,9 +15769,11 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate(des, 
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate) *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate {
@@ -14627,17 +15841,25 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNot
 		return des
 	}
 
+	cDes := &InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -14711,17 +15933,25 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNot
 		return des
 	}
 
+	cDes := &InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -14797,32 +16027,50 @@ func canonicalizeInstancePreprocessFreezeRecipe(des, initial *InstancePreprocess
 		return des
 	}
 
+	cDes := &InstancePreprocessFreezeRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipe(c *Client, des, nw *InstancePreprocessFreezeRecipe) *InstancePreprocessFreezeRecipe {
@@ -14911,51 +16159,79 @@ func canonicalizeInstancePreprocessFreezeRecipeSteps(des, initial *InstancePrepr
 		return des
 	}
 
+	cDes := &InstancePreprocessFreezeRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstancePreprocessFreezeRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstancePreprocessFreezeRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstancePreprocessFreezeRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstancePreprocessFreezeRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstancePreprocessFreezeRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstancePreprocessFreezeRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeSteps(c *Client, des, nw *InstancePreprocessFreezeRecipeSteps) *InstancePreprocessFreezeRecipeSteps {
@@ -15061,17 +16337,25 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsStatus(des, initial *Instanc
 		return des
 	}
 
+	cDes := &InstancePreprocessFreezeRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsStatus(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsStatus) *InstancePreprocessFreezeRecipeStepsStatus {
@@ -15145,14 +16429,20 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsStatusDetails(des, initial *
 		return des
 	}
 
+	cDes := &InstancePreprocessFreezeRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsStatusDetails) *InstancePreprocessFreezeRecipeStepsStatusDetails {
@@ -15225,17 +16515,25 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(des, init
 		return des
 	}
 
+	cDes := &InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas) *InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas {
@@ -15311,14 +16609,20 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsPreprocessUpdate(des, initia
 		return des
 	}
 
+	cDes := &InstancePreprocessFreezeRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsPreprocessUpdate) *InstancePreprocessFreezeRecipeStepsPreprocessUpdate {
@@ -15391,17 +16695,25 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsRequestedTenantProject(des, 
 		return des
 	}
 
+	cDes := &InstancePreprocessFreezeRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsRequestedTenantProject) *InstancePreprocessFreezeRecipeStepsRequestedTenantProject {
@@ -15477,16 +16789,22 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfo(des, initial
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstancePreprocessFreezeRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsPermissionsInfo) *InstancePreprocessFreezeRecipeStepsPermissionsInfo {
@@ -15559,17 +16877,25 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName(de
 		return des
 	}
 
+	cDes := &InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName {
@@ -15645,11 +16971,15 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermission
 		return des
 	}
 
+	cDes := &InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions {
@@ -15719,9 +17049,11 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate(des, 
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate) *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate {
@@ -15789,17 +17121,25 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNot
 		return des
 	}
 
+	cDes := &InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -15873,17 +17213,25 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNot
 		return des
 	}
 
+	cDes := &InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -15959,32 +17307,50 @@ func canonicalizeInstanceFreezeRecipe(des, initial *InstanceFreezeRecipe, opts .
 		return des
 	}
 
+	cDes := &InstanceFreezeRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceFreezeRecipe(c *Client, des, nw *InstanceFreezeRecipe) *InstanceFreezeRecipe {
@@ -16073,51 +17439,79 @@ func canonicalizeInstanceFreezeRecipeSteps(des, initial *InstanceFreezeRecipeSte
 		return des
 	}
 
+	cDes := &InstanceFreezeRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstanceFreezeRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstanceFreezeRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstanceFreezeRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstanceFreezeRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstanceFreezeRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstanceFreezeRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceFreezeRecipeSteps(c *Client, des, nw *InstanceFreezeRecipeSteps) *InstanceFreezeRecipeSteps {
@@ -16223,17 +17617,25 @@ func canonicalizeInstanceFreezeRecipeStepsStatus(des, initial *InstanceFreezeRec
 		return des
 	}
 
+	cDes := &InstanceFreezeRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsStatus(c *Client, des, nw *InstanceFreezeRecipeStepsStatus) *InstanceFreezeRecipeStepsStatus {
@@ -16307,14 +17709,20 @@ func canonicalizeInstanceFreezeRecipeStepsStatusDetails(des, initial *InstanceFr
 		return des
 	}
 
+	cDes := &InstanceFreezeRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsStatusDetails(c *Client, des, nw *InstanceFreezeRecipeStepsStatusDetails) *InstanceFreezeRecipeStepsStatusDetails {
@@ -16387,17 +17795,25 @@ func canonicalizeInstanceFreezeRecipeStepsQuotaRequestDeltas(des, initial *Insta
 		return des
 	}
 
+	cDes := &InstanceFreezeRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceFreezeRecipeStepsQuotaRequestDeltas) *InstanceFreezeRecipeStepsQuotaRequestDeltas {
@@ -16473,14 +17889,20 @@ func canonicalizeInstanceFreezeRecipeStepsPreprocessUpdate(des, initial *Instanc
 		return des
 	}
 
+	cDes := &InstanceFreezeRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceFreezeRecipeStepsPreprocessUpdate) *InstanceFreezeRecipeStepsPreprocessUpdate {
@@ -16553,17 +17975,25 @@ func canonicalizeInstanceFreezeRecipeStepsRequestedTenantProject(des, initial *I
 		return des
 	}
 
+	cDes := &InstanceFreezeRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceFreezeRecipeStepsRequestedTenantProject) *InstanceFreezeRecipeStepsRequestedTenantProject {
@@ -16639,16 +18069,22 @@ func canonicalizeInstanceFreezeRecipeStepsPermissionsInfo(des, initial *Instance
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstanceFreezeRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstanceFreezeRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstanceFreezeRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceFreezeRecipeStepsPermissionsInfo) *InstanceFreezeRecipeStepsPermissionsInfo {
@@ -16721,17 +18157,25 @@ func canonicalizeInstanceFreezeRecipeStepsPermissionsInfoPolicyName(des, initial
 		return des
 	}
 
+	cDes := &InstanceFreezeRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceFreezeRecipeStepsPermissionsInfoPolicyName) *InstanceFreezeRecipeStepsPermissionsInfoPolicyName {
@@ -16807,11 +18251,15 @@ func canonicalizeInstanceFreezeRecipeStepsPermissionsInfoIamPermissions(des, ini
 		return des
 	}
 
+	cDes := &InstanceFreezeRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceFreezeRecipeStepsPermissionsInfoIamPermissions) *InstanceFreezeRecipeStepsPermissionsInfoIamPermissions {
@@ -16881,9 +18329,11 @@ func canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdate(des, initial *I
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstanceFreezeRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceFreezeRecipeStepsKeyNotificationsUpdate) *InstanceFreezeRecipeStepsKeyNotificationsUpdate {
@@ -16951,17 +18401,25 @@ func canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotifications
 		return des
 	}
 
+	cDes := &InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -17035,17 +18493,25 @@ func canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotifications
 		return des
 	}
 
+	cDes := &InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -17121,32 +18587,50 @@ func canonicalizeInstancePreprocessUnfreezeRecipe(des, initial *InstancePreproce
 		return des
 	}
 
+	cDes := &InstancePreprocessUnfreezeRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipe(c *Client, des, nw *InstancePreprocessUnfreezeRecipe) *InstancePreprocessUnfreezeRecipe {
@@ -17235,51 +18719,79 @@ func canonicalizeInstancePreprocessUnfreezeRecipeSteps(des, initial *InstancePre
 		return des
 	}
 
+	cDes := &InstancePreprocessUnfreezeRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstancePreprocessUnfreezeRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstancePreprocessUnfreezeRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstancePreprocessUnfreezeRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstancePreprocessUnfreezeRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeSteps(c *Client, des, nw *InstancePreprocessUnfreezeRecipeSteps) *InstancePreprocessUnfreezeRecipeSteps {
@@ -17385,17 +18897,25 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsStatus(des, initial *Insta
 		return des
 	}
 
+	cDes := &InstancePreprocessUnfreezeRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsStatus(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsStatus) *InstancePreprocessUnfreezeRecipeStepsStatus {
@@ -17469,14 +18989,20 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsStatusDetails(des, initial
 		return des
 	}
 
+	cDes := &InstancePreprocessUnfreezeRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsStatusDetails) *InstancePreprocessUnfreezeRecipeStepsStatusDetails {
@@ -17549,17 +19075,25 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(des, in
 		return des
 	}
 
+	cDes := &InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas) *InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas {
@@ -17635,14 +19169,20 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsPreprocessUpdate(des, init
 		return des
 	}
 
+	cDes := &InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate) *InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate {
@@ -17715,17 +19255,25 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject(des
 		return des
 	}
 
+	cDes := &InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject) *InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject {
@@ -17801,16 +19349,22 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfo(des, initi
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstancePreprocessUnfreezeRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsPermissionsInfo) *InstancePreprocessUnfreezeRecipeStepsPermissionsInfo {
@@ -17883,17 +19437,25 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName(
 		return des
 	}
 
+	cDes := &InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName {
@@ -17969,11 +19531,15 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissi
 		return des
 	}
 
+	cDes := &InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions {
@@ -18043,9 +19609,11 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate(des
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate) *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate {
@@ -18113,17 +19681,25 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyN
 		return des
 	}
 
+	cDes := &InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -18197,17 +19773,25 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyN
 		return des
 	}
 
+	cDes := &InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -18283,32 +19867,50 @@ func canonicalizeInstanceUnfreezeRecipe(des, initial *InstanceUnfreezeRecipe, op
 		return des
 	}
 
+	cDes := &InstanceUnfreezeRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUnfreezeRecipe(c *Client, des, nw *InstanceUnfreezeRecipe) *InstanceUnfreezeRecipe {
@@ -18397,51 +19999,79 @@ func canonicalizeInstanceUnfreezeRecipeSteps(des, initial *InstanceUnfreezeRecip
 		return des
 	}
 
+	cDes := &InstanceUnfreezeRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstanceUnfreezeRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstanceUnfreezeRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstanceUnfreezeRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstanceUnfreezeRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstanceUnfreezeRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstanceUnfreezeRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeSteps(c *Client, des, nw *InstanceUnfreezeRecipeSteps) *InstanceUnfreezeRecipeSteps {
@@ -18547,17 +20177,25 @@ func canonicalizeInstanceUnfreezeRecipeStepsStatus(des, initial *InstanceUnfreez
 		return des
 	}
 
+	cDes := &InstanceUnfreezeRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsStatus(c *Client, des, nw *InstanceUnfreezeRecipeStepsStatus) *InstanceUnfreezeRecipeStepsStatus {
@@ -18631,14 +20269,20 @@ func canonicalizeInstanceUnfreezeRecipeStepsStatusDetails(des, initial *Instance
 		return des
 	}
 
+	cDes := &InstanceUnfreezeRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsStatusDetails(c *Client, des, nw *InstanceUnfreezeRecipeStepsStatusDetails) *InstanceUnfreezeRecipeStepsStatusDetails {
@@ -18711,17 +20355,25 @@ func canonicalizeInstanceUnfreezeRecipeStepsQuotaRequestDeltas(des, initial *Ins
 		return des
 	}
 
+	cDes := &InstanceUnfreezeRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceUnfreezeRecipeStepsQuotaRequestDeltas) *InstanceUnfreezeRecipeStepsQuotaRequestDeltas {
@@ -18797,14 +20449,20 @@ func canonicalizeInstanceUnfreezeRecipeStepsPreprocessUpdate(des, initial *Insta
 		return des
 	}
 
+	cDes := &InstanceUnfreezeRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceUnfreezeRecipeStepsPreprocessUpdate) *InstanceUnfreezeRecipeStepsPreprocessUpdate {
@@ -18877,17 +20535,25 @@ func canonicalizeInstanceUnfreezeRecipeStepsRequestedTenantProject(des, initial 
 		return des
 	}
 
+	cDes := &InstanceUnfreezeRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceUnfreezeRecipeStepsRequestedTenantProject) *InstanceUnfreezeRecipeStepsRequestedTenantProject {
@@ -18963,16 +20629,22 @@ func canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfo(des, initial *Instan
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstanceUnfreezeRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceUnfreezeRecipeStepsPermissionsInfo) *InstanceUnfreezeRecipeStepsPermissionsInfo {
@@ -19045,17 +20717,25 @@ func canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName(des, initi
 		return des
 	}
 
+	cDes := &InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName) *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName {
@@ -19131,11 +20811,15 @@ func canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions(des, i
 		return des
 	}
 
+	cDes := &InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions) *InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions {
@@ -19205,9 +20889,11 @@ func canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdate(des, initial 
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstanceUnfreezeRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceUnfreezeRecipeStepsKeyNotificationsUpdate) *InstanceUnfreezeRecipeStepsKeyNotificationsUpdate {
@@ -19275,17 +20961,25 @@ func canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificatio
 		return des
 	}
 
+	cDes := &InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -19359,17 +21053,25 @@ func canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificatio
 		return des
 	}
 
+	cDes := &InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -19445,32 +21147,50 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipe(des, initial *Inst
 		return des
 	}
 
+	cDes := &InstancePreprocessReportInstanceHealthRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipe(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipe) *InstancePreprocessReportInstanceHealthRecipe {
@@ -19559,51 +21279,79 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeSteps(des, initial 
 		return des
 	}
 
+	cDes := &InstancePreprocessReportInstanceHealthRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeSteps(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeSteps) *InstancePreprocessReportInstanceHealthRecipeSteps {
@@ -19709,17 +21457,25 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsStatus(des, in
 		return des
 	}
 
+	cDes := &InstancePreprocessReportInstanceHealthRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsStatus(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsStatus) *InstancePreprocessReportInstanceHealthRecipeStepsStatus {
@@ -19793,14 +21549,20 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails(
 		return des
 	}
 
+	cDes := &InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails) *InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails {
@@ -19873,17 +21635,25 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDe
 		return des
 	}
 
+	cDes := &InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas) *InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas {
@@ -19959,14 +21729,20 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpda
 		return des
 	}
 
+	cDes := &InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate) *InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate {
@@ -20039,17 +21815,25 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenan
 		return des
 	}
 
+	cDes := &InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject) *InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject {
@@ -20125,16 +21909,22 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInf
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo) *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo {
@@ -20207,17 +21997,25 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInf
 		return des
 	}
 
+	cDes := &InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName {
@@ -20293,11 +22091,15 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInf
 		return des
 	}
 
+	cDes := &InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions {
@@ -20367,9 +22169,11 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificatio
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate) *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate {
@@ -20437,17 +22241,25 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificatio
 		return des
 	}
 
+	cDes := &InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -20521,17 +22333,25 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificatio
 		return des
 	}
 
+	cDes := &InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -20607,32 +22427,50 @@ func canonicalizeInstanceReportInstanceHealthRecipe(des, initial *InstanceReport
 		return des
 	}
 
+	cDes := &InstanceReportInstanceHealthRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipe(c *Client, des, nw *InstanceReportInstanceHealthRecipe) *InstanceReportInstanceHealthRecipe {
@@ -20721,51 +22559,79 @@ func canonicalizeInstanceReportInstanceHealthRecipeSteps(des, initial *InstanceR
 		return des
 	}
 
+	cDes := &InstanceReportInstanceHealthRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstanceReportInstanceHealthRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstanceReportInstanceHealthRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstanceReportInstanceHealthRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstanceReportInstanceHealthRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstanceReportInstanceHealthRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstanceReportInstanceHealthRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeSteps(c *Client, des, nw *InstanceReportInstanceHealthRecipeSteps) *InstanceReportInstanceHealthRecipeSteps {
@@ -20871,17 +22737,25 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsStatus(des, initial *Ins
 		return des
 	}
 
+	cDes := &InstanceReportInstanceHealthRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsStatus(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsStatus) *InstanceReportInstanceHealthRecipeStepsStatus {
@@ -20955,14 +22829,20 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsStatusDetails(des, initi
 		return des
 	}
 
+	cDes := &InstanceReportInstanceHealthRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsStatusDetails(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsStatusDetails) *InstanceReportInstanceHealthRecipeStepsStatusDetails {
@@ -21035,17 +22915,25 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(des, 
 		return des
 	}
 
+	cDes := &InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas) *InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas {
@@ -21121,14 +23009,20 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsPreprocessUpdate(des, in
 		return des
 	}
 
+	cDes := &InstanceReportInstanceHealthRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsPreprocessUpdate) *InstanceReportInstanceHealthRecipeStepsPreprocessUpdate {
@@ -21201,17 +23095,25 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsRequestedTenantProject(d
 		return des
 	}
 
+	cDes := &InstanceReportInstanceHealthRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsRequestedTenantProject) *InstanceReportInstanceHealthRecipeStepsRequestedTenantProject {
@@ -21287,16 +23189,22 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfo(des, ini
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstanceReportInstanceHealthRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsPermissionsInfo) *InstanceReportInstanceHealthRecipeStepsPermissionsInfo {
@@ -21369,17 +23277,25 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNam
 		return des
 	}
 
+	cDes := &InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName) *InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName {
@@ -21455,11 +23371,15 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermis
 		return des
 	}
 
+	cDes := &InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) *InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions {
@@ -21529,9 +23449,11 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate(d
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate) *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate {
@@ -21599,17 +23521,25 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKe
 		return des
 	}
 
+	cDes := &InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -21683,17 +23613,25 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKe
 		return des
 	}
 
+	cDes := &InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -21769,32 +23707,50 @@ func canonicalizeInstancePreprocessGetRecipe(des, initial *InstancePreprocessGet
 		return des
 	}
 
+	cDes := &InstancePreprocessGetRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessGetRecipe(c *Client, des, nw *InstancePreprocessGetRecipe) *InstancePreprocessGetRecipe {
@@ -21883,51 +23839,79 @@ func canonicalizeInstancePreprocessGetRecipeSteps(des, initial *InstancePreproce
 		return des
 	}
 
+	cDes := &InstancePreprocessGetRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstancePreprocessGetRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstancePreprocessGetRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstancePreprocessGetRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstancePreprocessGetRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstancePreprocessGetRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstancePreprocessGetRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeSteps(c *Client, des, nw *InstancePreprocessGetRecipeSteps) *InstancePreprocessGetRecipeSteps {
@@ -22033,17 +24017,25 @@ func canonicalizeInstancePreprocessGetRecipeStepsStatus(des, initial *InstancePr
 		return des
 	}
 
+	cDes := &InstancePreprocessGetRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsStatus(c *Client, des, nw *InstancePreprocessGetRecipeStepsStatus) *InstancePreprocessGetRecipeStepsStatus {
@@ -22117,14 +24109,20 @@ func canonicalizeInstancePreprocessGetRecipeStepsStatusDetails(des, initial *Ins
 		return des
 	}
 
+	cDes := &InstancePreprocessGetRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessGetRecipeStepsStatusDetails) *InstancePreprocessGetRecipeStepsStatusDetails {
@@ -22197,17 +24195,25 @@ func canonicalizeInstancePreprocessGetRecipeStepsQuotaRequestDeltas(des, initial
 		return des
 	}
 
+	cDes := &InstancePreprocessGetRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessGetRecipeStepsQuotaRequestDeltas) *InstancePreprocessGetRecipeStepsQuotaRequestDeltas {
@@ -22283,14 +24289,20 @@ func canonicalizeInstancePreprocessGetRecipeStepsPreprocessUpdate(des, initial *
 		return des
 	}
 
+	cDes := &InstancePreprocessGetRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessGetRecipeStepsPreprocessUpdate) *InstancePreprocessGetRecipeStepsPreprocessUpdate {
@@ -22363,17 +24375,25 @@ func canonicalizeInstancePreprocessGetRecipeStepsRequestedTenantProject(des, ini
 		return des
 	}
 
+	cDes := &InstancePreprocessGetRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessGetRecipeStepsRequestedTenantProject) *InstancePreprocessGetRecipeStepsRequestedTenantProject {
@@ -22449,16 +24469,22 @@ func canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfo(des, initial *I
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstancePreprocessGetRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessGetRecipeStepsPermissionsInfo) *InstancePreprocessGetRecipeStepsPermissionsInfo {
@@ -22531,17 +24557,25 @@ func canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName(des, 
 		return des
 	}
 
+	cDes := &InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName {
@@ -22617,11 +24651,15 @@ func canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions(d
 		return des
 	}
 
+	cDes := &InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions {
@@ -22691,9 +24729,11 @@ func canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdate(des, ini
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstancePreprocessGetRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessGetRecipeStepsKeyNotificationsUpdate) *InstancePreprocessGetRecipeStepsKeyNotificationsUpdate {
@@ -22761,17 +24801,25 @@ func canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotifi
 		return des
 	}
 
+	cDes := &InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -22845,17 +24893,25 @@ func canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotifi
 		return des
 	}
 
+	cDes := &InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -22931,32 +24987,50 @@ func canonicalizeInstanceNotifyKeyAvailableRecipe(des, initial *InstanceNotifyKe
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyAvailableRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipe(c *Client, des, nw *InstanceNotifyKeyAvailableRecipe) *InstanceNotifyKeyAvailableRecipe {
@@ -23045,51 +25119,79 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeSteps(des, initial *InstanceNot
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyAvailableRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstanceNotifyKeyAvailableRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstanceNotifyKeyAvailableRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeSteps(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeSteps) *InstanceNotifyKeyAvailableRecipeSteps {
@@ -23195,17 +25297,25 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsStatus(des, initial *Insta
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyAvailableRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsStatus(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsStatus) *InstanceNotifyKeyAvailableRecipeStepsStatus {
@@ -23279,14 +25389,20 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsStatusDetails(des, initial
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyAvailableRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsStatusDetails(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsStatusDetails) *InstanceNotifyKeyAvailableRecipeStepsStatusDetails {
@@ -23359,17 +25475,25 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(des, in
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas) *InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas {
@@ -23445,14 +25569,20 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate(des, init
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate) *InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate {
@@ -23525,17 +25655,25 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject(des
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject) *InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject {
@@ -23611,16 +25749,22 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(des, initi
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo) *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo {
@@ -23693,17 +25837,25 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName(
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName) *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName {
@@ -23779,11 +25931,15 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissi
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions) *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions {
@@ -23853,9 +26009,11 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate(des
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate) *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate {
@@ -23923,17 +26081,25 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyN
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -24007,17 +26173,25 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyN
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -24093,32 +26267,50 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipe(des, initial *InstanceNotify
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyUnavailableRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipe(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipe) *InstanceNotifyKeyUnavailableRecipe {
@@ -24207,51 +26399,79 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeSteps(des, initial *InstanceN
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyUnavailableRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeSteps(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeSteps) *InstanceNotifyKeyUnavailableRecipeSteps {
@@ -24357,17 +26577,25 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsStatus(des, initial *Ins
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyUnavailableRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsStatus(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsStatus) *InstanceNotifyKeyUnavailableRecipeStepsStatus {
@@ -24441,14 +26669,20 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsStatusDetails(des, initi
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyUnavailableRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsStatusDetails(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsStatusDetails) *InstanceNotifyKeyUnavailableRecipeStepsStatusDetails {
@@ -24521,17 +26755,25 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(des, 
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas) *InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas {
@@ -24607,14 +26849,20 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate(des, in
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate) *InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate {
@@ -24687,17 +26935,25 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject(d
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject) *InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject {
@@ -24773,16 +27029,22 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(des, ini
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo) *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo {
@@ -24855,17 +27117,25 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNam
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName) *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName {
@@ -24941,11 +27211,15 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermis
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions) *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions {
@@ -25015,9 +27289,11 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate(d
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate) *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate {
@@ -25085,17 +27361,25 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKe
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -25169,17 +27453,25 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKe
 		return des
 	}
 
+	cDes := &InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -25255,32 +27547,50 @@ func canonicalizeInstanceReadonlyRecipe(des, initial *InstanceReadonlyRecipe, op
 		return des
 	}
 
+	cDes := &InstanceReadonlyRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReadonlyRecipe(c *Client, des, nw *InstanceReadonlyRecipe) *InstanceReadonlyRecipe {
@@ -25369,51 +27679,79 @@ func canonicalizeInstanceReadonlyRecipeSteps(des, initial *InstanceReadonlyRecip
 		return des
 	}
 
+	cDes := &InstanceReadonlyRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstanceReadonlyRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstanceReadonlyRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstanceReadonlyRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstanceReadonlyRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstanceReadonlyRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstanceReadonlyRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReadonlyRecipeSteps(c *Client, des, nw *InstanceReadonlyRecipeSteps) *InstanceReadonlyRecipeSteps {
@@ -25519,17 +27857,25 @@ func canonicalizeInstanceReadonlyRecipeStepsStatus(des, initial *InstanceReadonl
 		return des
 	}
 
+	cDes := &InstanceReadonlyRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsStatus(c *Client, des, nw *InstanceReadonlyRecipeStepsStatus) *InstanceReadonlyRecipeStepsStatus {
@@ -25603,14 +27949,20 @@ func canonicalizeInstanceReadonlyRecipeStepsStatusDetails(des, initial *Instance
 		return des
 	}
 
+	cDes := &InstanceReadonlyRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsStatusDetails(c *Client, des, nw *InstanceReadonlyRecipeStepsStatusDetails) *InstanceReadonlyRecipeStepsStatusDetails {
@@ -25683,17 +28035,25 @@ func canonicalizeInstanceReadonlyRecipeStepsQuotaRequestDeltas(des, initial *Ins
 		return des
 	}
 
+	cDes := &InstanceReadonlyRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceReadonlyRecipeStepsQuotaRequestDeltas) *InstanceReadonlyRecipeStepsQuotaRequestDeltas {
@@ -25769,14 +28129,20 @@ func canonicalizeInstanceReadonlyRecipeStepsPreprocessUpdate(des, initial *Insta
 		return des
 	}
 
+	cDes := &InstanceReadonlyRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceReadonlyRecipeStepsPreprocessUpdate) *InstanceReadonlyRecipeStepsPreprocessUpdate {
@@ -25849,17 +28215,25 @@ func canonicalizeInstanceReadonlyRecipeStepsRequestedTenantProject(des, initial 
 		return des
 	}
 
+	cDes := &InstanceReadonlyRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceReadonlyRecipeStepsRequestedTenantProject) *InstanceReadonlyRecipeStepsRequestedTenantProject {
@@ -25935,16 +28309,22 @@ func canonicalizeInstanceReadonlyRecipeStepsPermissionsInfo(des, initial *Instan
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstanceReadonlyRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceReadonlyRecipeStepsPermissionsInfo) *InstanceReadonlyRecipeStepsPermissionsInfo {
@@ -26017,17 +28397,25 @@ func canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoPolicyName(des, initi
 		return des
 	}
 
+	cDes := &InstanceReadonlyRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceReadonlyRecipeStepsPermissionsInfoPolicyName) *InstanceReadonlyRecipeStepsPermissionsInfoPolicyName {
@@ -26103,11 +28491,15 @@ func canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions(des, i
 		return des
 	}
 
+	cDes := &InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions) *InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions {
@@ -26177,9 +28569,11 @@ func canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdate(des, initial 
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstanceReadonlyRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceReadonlyRecipeStepsKeyNotificationsUpdate) *InstanceReadonlyRecipeStepsKeyNotificationsUpdate {
@@ -26247,17 +28641,25 @@ func canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificatio
 		return des
 	}
 
+	cDes := &InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -26331,17 +28733,25 @@ func canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificatio
 		return des
 	}
 
+	cDes := &InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -26417,32 +28827,50 @@ func canonicalizeInstanceReconcileRecipe(des, initial *InstanceReconcileRecipe, 
 		return des
 	}
 
+	cDes := &InstanceReconcileRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReconcileRecipe(c *Client, des, nw *InstanceReconcileRecipe) *InstanceReconcileRecipe {
@@ -26531,51 +28959,79 @@ func canonicalizeInstanceReconcileRecipeSteps(des, initial *InstanceReconcileRec
 		return des
 	}
 
+	cDes := &InstanceReconcileRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstanceReconcileRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstanceReconcileRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstanceReconcileRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstanceReconcileRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstanceReconcileRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstanceReconcileRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReconcileRecipeSteps(c *Client, des, nw *InstanceReconcileRecipeSteps) *InstanceReconcileRecipeSteps {
@@ -26681,17 +29137,25 @@ func canonicalizeInstanceReconcileRecipeStepsStatus(des, initial *InstanceReconc
 		return des
 	}
 
+	cDes := &InstanceReconcileRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsStatus(c *Client, des, nw *InstanceReconcileRecipeStepsStatus) *InstanceReconcileRecipeStepsStatus {
@@ -26765,14 +29229,20 @@ func canonicalizeInstanceReconcileRecipeStepsStatusDetails(des, initial *Instanc
 		return des
 	}
 
+	cDes := &InstanceReconcileRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsStatusDetails(c *Client, des, nw *InstanceReconcileRecipeStepsStatusDetails) *InstanceReconcileRecipeStepsStatusDetails {
@@ -26845,17 +29315,25 @@ func canonicalizeInstanceReconcileRecipeStepsQuotaRequestDeltas(des, initial *In
 		return des
 	}
 
+	cDes := &InstanceReconcileRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceReconcileRecipeStepsQuotaRequestDeltas) *InstanceReconcileRecipeStepsQuotaRequestDeltas {
@@ -26931,14 +29409,20 @@ func canonicalizeInstanceReconcileRecipeStepsPreprocessUpdate(des, initial *Inst
 		return des
 	}
 
+	cDes := &InstanceReconcileRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceReconcileRecipeStepsPreprocessUpdate) *InstanceReconcileRecipeStepsPreprocessUpdate {
@@ -27011,17 +29495,25 @@ func canonicalizeInstanceReconcileRecipeStepsRequestedTenantProject(des, initial
 		return des
 	}
 
+	cDes := &InstanceReconcileRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceReconcileRecipeStepsRequestedTenantProject) *InstanceReconcileRecipeStepsRequestedTenantProject {
@@ -27097,16 +29589,22 @@ func canonicalizeInstanceReconcileRecipeStepsPermissionsInfo(des, initial *Insta
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstanceReconcileRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstanceReconcileRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstanceReconcileRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceReconcileRecipeStepsPermissionsInfo) *InstanceReconcileRecipeStepsPermissionsInfo {
@@ -27179,17 +29677,25 @@ func canonicalizeInstanceReconcileRecipeStepsPermissionsInfoPolicyName(des, init
 		return des
 	}
 
+	cDes := &InstanceReconcileRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceReconcileRecipeStepsPermissionsInfoPolicyName) *InstanceReconcileRecipeStepsPermissionsInfoPolicyName {
@@ -27265,11 +29771,15 @@ func canonicalizeInstanceReconcileRecipeStepsPermissionsInfoIamPermissions(des, 
 		return des
 	}
 
+	cDes := &InstanceReconcileRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceReconcileRecipeStepsPermissionsInfoIamPermissions) *InstanceReconcileRecipeStepsPermissionsInfoIamPermissions {
@@ -27339,9 +29849,11 @@ func canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdate(des, initial
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstanceReconcileRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceReconcileRecipeStepsKeyNotificationsUpdate) *InstanceReconcileRecipeStepsKeyNotificationsUpdate {
@@ -27409,17 +29921,25 @@ func canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificati
 		return des
 	}
 
+	cDes := &InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -27493,17 +30013,25 @@ func canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificati
 		return des
 	}
 
+	cDes := &InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -27579,32 +30107,50 @@ func canonicalizeInstancePreprocessPassthroughRecipe(des, initial *InstancePrepr
 		return des
 	}
 
+	cDes := &InstancePreprocessPassthroughRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipe(c *Client, des, nw *InstancePreprocessPassthroughRecipe) *InstancePreprocessPassthroughRecipe {
@@ -27693,51 +30239,79 @@ func canonicalizeInstancePreprocessPassthroughRecipeSteps(des, initial *Instance
 		return des
 	}
 
+	cDes := &InstancePreprocessPassthroughRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstancePreprocessPassthroughRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstancePreprocessPassthroughRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstancePreprocessPassthroughRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstancePreprocessPassthroughRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstancePreprocessPassthroughRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstancePreprocessPassthroughRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeSteps(c *Client, des, nw *InstancePreprocessPassthroughRecipeSteps) *InstancePreprocessPassthroughRecipeSteps {
@@ -27843,17 +30417,25 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsStatus(des, initial *In
 		return des
 	}
 
+	cDes := &InstancePreprocessPassthroughRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsStatus(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsStatus) *InstancePreprocessPassthroughRecipeStepsStatus {
@@ -27927,14 +30509,20 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsStatusDetails(des, init
 		return des
 	}
 
+	cDes := &InstancePreprocessPassthroughRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsStatusDetails) *InstancePreprocessPassthroughRecipeStepsStatusDetails {
@@ -28007,17 +30595,25 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(des,
 		return des
 	}
 
+	cDes := &InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas) *InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas {
@@ -28093,14 +30689,20 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsPreprocessUpdate(des, i
 		return des
 	}
 
+	cDes := &InstancePreprocessPassthroughRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsPreprocessUpdate) *InstancePreprocessPassthroughRecipeStepsPreprocessUpdate {
@@ -28173,17 +30775,25 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsRequestedTenantProject(
 		return des
 	}
 
+	cDes := &InstancePreprocessPassthroughRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsRequestedTenantProject) *InstancePreprocessPassthroughRecipeStepsRequestedTenantProject {
@@ -28259,16 +30869,22 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfo(des, in
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstancePreprocessPassthroughRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsPermissionsInfo) *InstancePreprocessPassthroughRecipeStepsPermissionsInfo {
@@ -28341,17 +30957,25 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNa
 		return des
 	}
 
+	cDes := &InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName {
@@ -28427,11 +31051,15 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermi
 		return des
 	}
 
+	cDes := &InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions {
@@ -28501,9 +31129,11 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate(
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate) *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate {
@@ -28571,17 +31201,25 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateK
 		return des
 	}
 
+	cDes := &InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -28655,17 +31293,25 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateK
 		return des
 	}
 
+	cDes := &InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -28741,32 +31387,50 @@ func canonicalizeInstancePreprocessReconcileRecipe(des, initial *InstancePreproc
 		return des
 	}
 
+	cDes := &InstancePreprocessReconcileRecipe{}
+
 	if dcl.IsZeroValue(des.Steps) {
 		des.Steps = initial.Steps
+	} else {
+		cDes.Steps = des.Steps
 	}
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
-		des.HonorCancelRequest = initial.HonorCancelRequest
+		cDes.HonorCancelRequest = initial.HonorCancelRequest
+	} else {
+		cDes.HonorCancelRequest = des.HonorCancelRequest
 	}
 	if dcl.IsZeroValue(des.IgnoreRecipeAfter) {
 		des.IgnoreRecipeAfter = initial.IgnoreRecipeAfter
+	} else {
+		cDes.IgnoreRecipeAfter = des.IgnoreRecipeAfter
 	}
 	if dcl.IsZeroValue(des.VerifyDeadlineSecondsBelow) {
 		des.VerifyDeadlineSecondsBelow = initial.VerifyDeadlineSecondsBelow
+	} else {
+		cDes.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
 	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, initial.PopulateOperationResult) || dcl.IsZeroValue(des.PopulateOperationResult) {
-		des.PopulateOperationResult = initial.PopulateOperationResult
+		cDes.PopulateOperationResult = initial.PopulateOperationResult
+	} else {
+		cDes.PopulateOperationResult = des.PopulateOperationResult
 	}
 	if dcl.IsZeroValue(des.ReadonlyRecipeStartTime) {
 		des.ReadonlyRecipeStartTime = initial.ReadonlyRecipeStartTime
+	} else {
+		cDes.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
 	}
 	if dcl.IsZeroValue(des.ResourceNamesStoredInClhWithDelay) {
 		des.ResourceNamesStoredInClhWithDelay = initial.ResourceNamesStoredInClhWithDelay
+	} else {
+		cDes.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
 	}
 	if dcl.IsZeroValue(des.DelayToStoreResourcesInClhDbNanos) {
 		des.DelayToStoreResourcesInClhDbNanos = initial.DelayToStoreResourcesInClhDbNanos
+	} else {
+		cDes.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipe(c *Client, des, nw *InstancePreprocessReconcileRecipe) *InstancePreprocessReconcileRecipe {
@@ -28855,51 +31519,79 @@ func canonicalizeInstancePreprocessReconcileRecipeSteps(des, initial *InstancePr
 		return des
 	}
 
+	cDes := &InstancePreprocessReconcileRecipeSteps{}
+
 	if dcl.IsZeroValue(des.RelativeTime) {
 		des.RelativeTime = initial.RelativeTime
+	} else {
+		cDes.RelativeTime = des.RelativeTime
 	}
 	if dcl.IsZeroValue(des.SleepDuration) {
 		des.SleepDuration = initial.SleepDuration
+	} else {
+		cDes.SleepDuration = des.SleepDuration
 	}
 	if dcl.IsZeroValue(des.Action) {
 		des.Action = initial.Action
+	} else {
+		cDes.Action = des.Action
 	}
-	des.Status = canonicalizeInstancePreprocessReconcileRecipeStepsStatus(des.Status, initial.Status, opts...)
+	cDes.Status = canonicalizeInstancePreprocessReconcileRecipeStepsStatus(des.Status, initial.Status, opts...)
 	if dcl.StringCanonicalize(des.ErrorSpace, initial.ErrorSpace) || dcl.IsZeroValue(des.ErrorSpace) {
-		des.ErrorSpace = initial.ErrorSpace
+		cDes.ErrorSpace = initial.ErrorSpace
+	} else {
+		cDes.ErrorSpace = des.ErrorSpace
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 	if dcl.IsZeroValue(des.ResourceMetadataSize) {
 		des.ResourceMetadataSize = initial.ResourceMetadataSize
+	} else {
+		cDes.ResourceMetadataSize = des.ResourceMetadataSize
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.UpdatedRepeatOperationDelaySec) {
 		des.UpdatedRepeatOperationDelaySec = initial.UpdatedRepeatOperationDelaySec
+	} else {
+		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
 		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
+	} else {
+		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
 	}
-	des.PreprocessUpdate = canonicalizeInstancePreprocessReconcileRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
+	cDes.PreprocessUpdate = canonicalizeInstancePreprocessReconcileRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
-	des.RequestedTenantProject = canonicalizeInstancePreprocessReconcileRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
+	cDes.RequestedTenantProject = canonicalizeInstancePreprocessReconcileRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
 	if dcl.IsZeroValue(des.PermissionsInfo) {
 		des.PermissionsInfo = initial.PermissionsInfo
+	} else {
+		cDes.PermissionsInfo = des.PermissionsInfo
 	}
-	des.KeyNotificationsUpdate = canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
+	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
+	} else {
+		cDes.ClhDataUpdateTime = des.ClhDataUpdateTime
 	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
-		des.PublicErrorMessage = initial.PublicErrorMessage
+		cDes.PublicErrorMessage = initial.PublicErrorMessage
+	} else {
+		cDes.PublicErrorMessage = des.PublicErrorMessage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeSteps(c *Client, des, nw *InstancePreprocessReconcileRecipeSteps) *InstancePreprocessReconcileRecipeSteps {
@@ -29005,17 +31697,25 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsStatus(des, initial *Inst
 		return des
 	}
 
+	cDes := &InstancePreprocessReconcileRecipeStepsStatus{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
+		cDes.Message = initial.Message
+	} else {
+		cDes.Message = des.Message
 	}
 	if dcl.IsZeroValue(des.Details) {
 		des.Details = initial.Details
+	} else {
+		cDes.Details = des.Details
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsStatus(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsStatus) *InstancePreprocessReconcileRecipeStepsStatus {
@@ -29089,14 +31789,20 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsStatusDetails(des, initia
 		return des
 	}
 
+	cDes := &InstancePreprocessReconcileRecipeStepsStatusDetails{}
+
 	if dcl.StringCanonicalize(des.TypeUrl, initial.TypeUrl) || dcl.IsZeroValue(des.TypeUrl) {
-		des.TypeUrl = initial.TypeUrl
+		cDes.TypeUrl = initial.TypeUrl
+	} else {
+		cDes.TypeUrl = des.TypeUrl
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsStatusDetails) *InstancePreprocessReconcileRecipeStepsStatusDetails {
@@ -29169,17 +31875,25 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(des, i
 		return des
 	}
 
+	cDes := &InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas{}
+
 	if dcl.StringCanonicalize(des.MetricName, initial.MetricName) || dcl.IsZeroValue(des.MetricName) {
-		des.MetricName = initial.MetricName
+		cDes.MetricName = initial.MetricName
+	} else {
+		cDes.MetricName = des.MetricName
 	}
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
+	} else {
+		cDes.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
-		des.QuotaLocationName = initial.QuotaLocationName
+		cDes.QuotaLocationName = initial.QuotaLocationName
+	} else {
+		cDes.QuotaLocationName = des.QuotaLocationName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas) *InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas {
@@ -29255,14 +31969,20 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsPreprocessUpdate(des, ini
 		return des
 	}
 
+	cDes := &InstancePreprocessReconcileRecipeStepsPreprocessUpdate{}
+
 	if dcl.StringCanonicalize(des.LatencySloBucketName, initial.LatencySloBucketName) || dcl.IsZeroValue(des.LatencySloBucketName) {
-		des.LatencySloBucketName = initial.LatencySloBucketName
+		cDes.LatencySloBucketName = initial.LatencySloBucketName
+	} else {
+		cDes.LatencySloBucketName = des.LatencySloBucketName
 	}
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
-		des.PublicOperationMetadata = initial.PublicOperationMetadata
+		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
+	} else {
+		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsPreprocessUpdate) *InstancePreprocessReconcileRecipeStepsPreprocessUpdate {
@@ -29335,17 +32055,25 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsRequestedTenantProject(de
 		return des
 	}
 
+	cDes := &InstancePreprocessReconcileRecipeStepsRequestedTenantProject{}
+
 	if dcl.StringCanonicalize(des.Tag, initial.Tag) || dcl.IsZeroValue(des.Tag) {
-		des.Tag = initial.Tag
+		cDes.Tag = initial.Tag
+	} else {
+		cDes.Tag = des.Tag
 	}
 	if dcl.StringCanonicalize(des.Folder, initial.Folder) || dcl.IsZeroValue(des.Folder) {
-		des.Folder = initial.Folder
+		cDes.Folder = initial.Folder
+	} else {
+		cDes.Folder = des.Folder
 	}
 	if dcl.IsZeroValue(des.Scope) {
 		des.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsRequestedTenantProject) *InstancePreprocessReconcileRecipeStepsRequestedTenantProject {
@@ -29421,16 +32149,22 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfo(des, init
 		return des
 	}
 
-	des.PolicyName = canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
+	cDes := &InstancePreprocessReconcileRecipeStepsPermissionsInfo{}
+
+	cDes.PolicyName = canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
 	if dcl.IsZeroValue(des.IamPermissions) {
 		des.IamPermissions = initial.IamPermissions
+	} else {
+		cDes.IamPermissions = des.IamPermissions
 	}
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
-		des.ResourcePath = initial.ResourcePath
+		cDes.ResourcePath = initial.ResourcePath
+	} else {
+		cDes.ResourcePath = des.ResourcePath
 	}
-	des.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsPermissionsInfo) *InstancePreprocessReconcileRecipeStepsPermissionsInfo {
@@ -29503,17 +32237,25 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName
 		return des
 	}
 
+	cDes := &InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName {
@@ -29589,11 +32331,15 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermiss
 		return des
 	}
 
+	cDes := &InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions{}
+
 	if dcl.StringCanonicalize(des.Permission, initial.Permission) || dcl.IsZeroValue(des.Permission) {
-		des.Permission = initial.Permission
+		cDes.Permission = initial.Permission
+	} else {
+		cDes.Permission = des.Permission
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions {
@@ -29663,9 +32409,11 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate(de
 		return des
 	}
 
-	des.KeyNotificationsInfo = canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+	cDes := &InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate{}
 
-	return des
+	cDes.KeyNotificationsInfo = canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(des.KeyNotificationsInfo, initial.KeyNotificationsInfo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate) *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate {
@@ -29733,17 +32481,25 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKey
 		return des
 	}
 
+	cDes := &InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
+	} else {
+		cDes.DataVersion = des.DataVersion
 	}
 	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
-		des.Delegate = initial.Delegate
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
 	}
 	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
 		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
+	} else {
+		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -29817,17 +32573,25 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKey
 		return des
 	}
 
+	cDes := &InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
 	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
+		cDes.KeyOrVersionName = initial.KeyOrVersionName
+	} else {
+		cDes.KeyOrVersionName = des.KeyOrVersionName
 	}
 	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
 	}
 	if dcl.IsZeroValue(des.DelegatorGaiaId) {
 		des.DelegatorGaiaId = initial.DelegatorGaiaId
+	} else {
+		cDes.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -29903,29 +32667,45 @@ func canonicalizeInstanceHistory(des, initial *InstanceHistory, opts ...dcl.Appl
 		return des
 	}
 
+	cDes := &InstanceHistory{}
+
 	if dcl.IsZeroValue(des.Timestamp) {
 		des.Timestamp = initial.Timestamp
+	} else {
+		cDes.Timestamp = des.Timestamp
 	}
 	if dcl.StringCanonicalize(des.OperationHandle, initial.OperationHandle) || dcl.IsZeroValue(des.OperationHandle) {
-		des.OperationHandle = initial.OperationHandle
+		cDes.OperationHandle = initial.OperationHandle
+	} else {
+		cDes.OperationHandle = des.OperationHandle
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.StepIndex) {
 		des.StepIndex = initial.StepIndex
+	} else {
+		cDes.StepIndex = des.StepIndex
 	}
 	if dcl.IsZeroValue(des.TenantProjectNumber) {
 		des.TenantProjectNumber = initial.TenantProjectNumber
+	} else {
+		cDes.TenantProjectNumber = des.TenantProjectNumber
 	}
 	if dcl.StringCanonicalize(des.TenantProjectId, initial.TenantProjectId) || dcl.IsZeroValue(des.TenantProjectId) {
-		des.TenantProjectId = initial.TenantProjectId
+		cDes.TenantProjectId = initial.TenantProjectId
+	} else {
+		cDes.TenantProjectId = des.TenantProjectId
 	}
 	if dcl.StringCanonicalize(des.P4ServiceAccount, initial.P4ServiceAccount) || dcl.IsZeroValue(des.P4ServiceAccount) {
-		des.P4ServiceAccount = initial.P4ServiceAccount
+		cDes.P4ServiceAccount = initial.P4ServiceAccount
+	} else {
+		cDes.P4ServiceAccount = des.P4ServiceAccount
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceHistory(c *Client, des, nw *InstanceHistory) *InstanceHistory {
@@ -86557,31 +89337,45 @@ type instanceDiff struct {
 	UpdateOp         instanceApiOperation
 }
 
-func convertFieldDiffToInstanceOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]instanceDiff, error) {
+func convertFieldDiffsToInstanceDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]instanceDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []instanceDiff
-	for _, op := range ops {
+	// For each operation name, create a instanceDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := instanceDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToinstanceApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToInstanceApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToinstanceApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (instanceApiOperation, error) {
-	switch op {
+func convertOpNameToInstanceApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (instanceApiOperation, error) {
+	switch opName {
 
 	case "updateInstanceUpdateInstanceOperation":
-		return &updateInstanceUpdateInstanceOperation{Diffs: diffs}, nil
+		return &updateInstanceUpdateInstanceOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

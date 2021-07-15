@@ -4482,7 +4482,7 @@ func (c *Client) GetCluster(ctx context.Context, r *Cluster) (*Cluster, error) {
 }
 
 func (c *Client) DeleteCluster(ctx context.Context, r *Cluster) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(4800*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -4540,7 +4540,7 @@ func applyClusterHelper(c *Client, ctx context.Context, rawDesired *Cluster, opt
 	c.Config.Logger.Info("Beginning ApplyCluster...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(4800*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.
@@ -4553,8 +4553,7 @@ func applyClusterHelper(c *Client, ctx context.Context, rawDesired *Cluster, opt
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToClusterOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToClusterDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -4582,7 +4581,6 @@ func applyClusterHelper(c *Client, ctx context.Context, rawDesired *Cluster, opt
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

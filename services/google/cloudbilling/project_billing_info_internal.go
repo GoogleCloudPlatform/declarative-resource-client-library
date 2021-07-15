@@ -75,7 +75,7 @@ type updateProjectBillingInfoUpdateProjectBillingInfoOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -230,15 +230,19 @@ func canonicalizeProjectBillingInfoDesiredState(rawDesired, rawInitial *ProjectB
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &ProjectBillingInfo{}
 	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.BillingAccountName, rawInitial.BillingAccountName) {
-		rawDesired.BillingAccountName = rawInitial.BillingAccountName
+		canonicalDesired.BillingAccountName = rawInitial.BillingAccountName
+	} else {
+		canonicalDesired.BillingAccountName = rawDesired.BillingAccountName
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeProjectBillingInfoNewState(c *Client, rawNew, rawDesired *ProjectBillingInfo) (*ProjectBillingInfo, error) {
@@ -426,31 +430,45 @@ type projectBillingInfoDiff struct {
 	UpdateOp         projectBillingInfoApiOperation
 }
 
-func convertFieldDiffToProjectBillingInfoOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]projectBillingInfoDiff, error) {
+func convertFieldDiffsToProjectBillingInfoDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]projectBillingInfoDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []projectBillingInfoDiff
-	for _, op := range ops {
+	// For each operation name, create a projectBillingInfoDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := projectBillingInfoDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToprojectBillingInfoApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToProjectBillingInfoApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToprojectBillingInfoApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (projectBillingInfoApiOperation, error) {
-	switch op {
+func convertOpNameToProjectBillingInfoApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (projectBillingInfoApiOperation, error) {
+	switch opName {
 
 	case "updateProjectBillingInfoUpdateProjectBillingInfoOperation":
-		return &updateProjectBillingInfoUpdateProjectBillingInfoOperation{Diffs: diffs}, nil
+		return &updateProjectBillingInfoUpdateProjectBillingInfoOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

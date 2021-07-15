@@ -195,7 +195,7 @@ type updateTriggerUpdateTriggerOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -212,7 +212,7 @@ func (op *updateTriggerUpdateTriggerOperation) do(ctx context.Context, r *Trigge
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -511,29 +511,41 @@ func canonicalizeTriggerDesiredState(rawDesired, rawInitial *Trigger, opts ...dc
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Trigger{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.IsZeroValue(rawDesired.MatchingCriteria) {
-		rawDesired.MatchingCriteria = rawInitial.MatchingCriteria
+		canonicalDesired.MatchingCriteria = rawInitial.MatchingCriteria
+	} else {
+		canonicalDesired.MatchingCriteria = rawDesired.MatchingCriteria
 	}
 	if dcl.NameToSelfLink(rawDesired.ServiceAccount, rawInitial.ServiceAccount) {
-		rawDesired.ServiceAccount = rawInitial.ServiceAccount
+		canonicalDesired.ServiceAccount = rawInitial.ServiceAccount
+	} else {
+		canonicalDesired.ServiceAccount = rawDesired.ServiceAccount
 	}
-	rawDesired.Destination = canonicalizeTriggerDestination(rawDesired.Destination, rawInitial.Destination, opts...)
-	rawDesired.Transport = canonicalizeTriggerTransport(rawDesired.Transport, rawInitial.Transport, opts...)
+	canonicalDesired.Destination = canonicalizeTriggerDestination(rawDesired.Destination, rawInitial.Destination, opts...)
+	canonicalDesired.Transport = canonicalizeTriggerTransport(rawDesired.Transport, rawInitial.Transport, opts...)
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeTriggerNewState(c *Client, rawNew, rawDesired *Trigger) (*Trigger, error) {
@@ -622,14 +634,20 @@ func canonicalizeTriggerMatchingCriteria(des, initial *TriggerMatchingCriteria, 
 		return des
 	}
 
+	cDes := &TriggerMatchingCriteria{}
+
 	if dcl.StringCanonicalize(des.Attribute, initial.Attribute) || dcl.IsZeroValue(des.Attribute) {
-		des.Attribute = initial.Attribute
+		cDes.Attribute = initial.Attribute
+	} else {
+		cDes.Attribute = des.Attribute
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewTriggerMatchingCriteria(c *Client, des, nw *TriggerMatchingCriteria) *TriggerMatchingCriteria {
@@ -702,12 +720,16 @@ func canonicalizeTriggerDestination(des, initial *TriggerDestination, opts ...dc
 		return des
 	}
 
-	des.CloudRunService = canonicalizeTriggerDestinationCloudRunService(des.CloudRunService, initial.CloudRunService, opts...)
+	cDes := &TriggerDestination{}
+
+	cDes.CloudRunService = canonicalizeTriggerDestinationCloudRunService(des.CloudRunService, initial.CloudRunService, opts...)
 	if dcl.NameToSelfLink(des.CloudFunction, initial.CloudFunction) || dcl.IsZeroValue(des.CloudFunction) {
-		des.CloudFunction = initial.CloudFunction
+		cDes.CloudFunction = initial.CloudFunction
+	} else {
+		cDes.CloudFunction = des.CloudFunction
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewTriggerDestination(c *Client, des, nw *TriggerDestination) *TriggerDestination {
@@ -778,17 +800,25 @@ func canonicalizeTriggerDestinationCloudRunService(des, initial *TriggerDestinat
 		return des
 	}
 
+	cDes := &TriggerDestinationCloudRunService{}
+
 	if dcl.NameToSelfLink(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
-		des.Service = initial.Service
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
 	}
 	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
-		des.Path = initial.Path
+		cDes.Path = initial.Path
+	} else {
+		cDes.Path = des.Path
 	}
 	if dcl.StringCanonicalize(des.Region, initial.Region) || dcl.IsZeroValue(des.Region) {
-		des.Region = initial.Region
+		cDes.Region = initial.Region
+	} else {
+		cDes.Region = des.Region
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewTriggerDestinationCloudRunService(c *Client, des, nw *TriggerDestinationCloudRunService) *TriggerDestinationCloudRunService {
@@ -864,9 +894,11 @@ func canonicalizeTriggerTransport(des, initial *TriggerTransport, opts ...dcl.Ap
 		return des
 	}
 
-	des.Pubsub = canonicalizeTriggerTransportPubsub(des.Pubsub, initial.Pubsub, opts...)
+	cDes := &TriggerTransport{}
 
-	return des
+	cDes.Pubsub = canonicalizeTriggerTransportPubsub(des.Pubsub, initial.Pubsub, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewTriggerTransport(c *Client, des, nw *TriggerTransport) *TriggerTransport {
@@ -934,11 +966,15 @@ func canonicalizeTriggerTransportPubsub(des, initial *TriggerTransportPubsub, op
 		return des
 	}
 
+	cDes := &TriggerTransportPubsub{}
+
 	if dcl.StringCanonicalize(des.Topic, initial.Topic) || dcl.IsZeroValue(des.Topic) {
-		des.Topic = initial.Topic
+		cDes.Topic = initial.Topic
+	} else {
+		cDes.Topic = des.Topic
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewTriggerTransportPubsub(c *Client, des, nw *TriggerTransportPubsub) *TriggerTransportPubsub {
@@ -2060,31 +2096,45 @@ type triggerDiff struct {
 	UpdateOp         triggerApiOperation
 }
 
-func convertFieldDiffToTriggerOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]triggerDiff, error) {
+func convertFieldDiffsToTriggerDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]triggerDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []triggerDiff
-	for _, op := range ops {
+	// For each operation name, create a triggerDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := triggerDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTotriggerApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToTriggerApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTotriggerApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (triggerApiOperation, error) {
-	switch op {
+func convertOpNameToTriggerApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (triggerApiOperation, error) {
+	switch opName {
 
 	case "updateTriggerUpdateTriggerOperation":
-		return &updateTriggerUpdateTriggerOperation{Diffs: diffs}, nil
+		return &updateTriggerUpdateTriggerOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

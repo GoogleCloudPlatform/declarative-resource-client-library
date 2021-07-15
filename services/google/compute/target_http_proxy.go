@@ -219,8 +219,7 @@ func applyTargetHttpProxyHelper(c *Client, ctx context.Context, rawDesired *Targ
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToTargetHttpProxyOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToTargetHttpProxyDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -248,7 +247,6 @@ func applyTargetHttpProxyHelper(c *Client, ctx context.Context, rawDesired *Targ
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

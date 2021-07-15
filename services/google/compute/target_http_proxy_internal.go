@@ -104,7 +104,7 @@ type updateTargetHttpProxySetURLMapOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -412,21 +412,29 @@ func canonicalizeTargetHttpProxyDesiredState(rawDesired, rawInitial *TargetHttpP
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &TargetHttpProxy{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.UrlMap, rawInitial.UrlMap) {
-		rawDesired.UrlMap = rawInitial.UrlMap
+		canonicalDesired.UrlMap = rawInitial.UrlMap
+	} else {
+		canonicalDesired.UrlMap = rawDesired.UrlMap
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeTargetHttpProxyNewState(c *Client, rawNew, rawDesired *TargetHttpProxy) (*TargetHttpProxy, error) {
@@ -678,31 +686,45 @@ type targetHttpProxyDiff struct {
 	UpdateOp         targetHttpProxyApiOperation
 }
 
-func convertFieldDiffToTargetHttpProxyOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]targetHttpProxyDiff, error) {
+func convertFieldDiffsToTargetHttpProxyDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]targetHttpProxyDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []targetHttpProxyDiff
-	for _, op := range ops {
+	// For each operation name, create a targetHttpProxyDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := targetHttpProxyDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTotargetHttpProxyApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToTargetHttpProxyApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTotargetHttpProxyApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (targetHttpProxyApiOperation, error) {
-	switch op {
+func convertOpNameToTargetHttpProxyApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (targetHttpProxyApiOperation, error) {
+	switch opName {
 
 	case "updateTargetHttpProxySetURLMapOperation":
-		return &updateTargetHttpProxySetURLMapOperation{Diffs: diffs}, nil
+		return &updateTargetHttpProxySetURLMapOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

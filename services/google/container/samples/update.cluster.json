@@ -1,14 +1,25 @@
 {
-  "name": "{{ref:autopilot.cluster.json:name}}",
+  "name": "{{cluster}}",
+  "project": "{{project}}",
+  "location": "{{region}}",
   "masterVersion": "latest",
   "addonsConfig": {
-    "horizontalPodAutoscaling": {
+    "httpLoadBalancing": {
       "disabled": false
     }
   },
-  "autopilot": {
+  "binaryAuthorization": {
     "enabled": true
   },
-  "project": "{{project}}",
-  "location": "{{region}}"
+  "legacyAbac": {
+    "enabled": true
+  },
+  "locations": ["us-central1-a", "us-central1-b"],
+  "networkConfig": {
+    "enableIntraNodeVisibility": true
+  },
+  "shieldedNodes": {
+    "enabled": true
+  },
+  "initialNodeCount": 1
 }

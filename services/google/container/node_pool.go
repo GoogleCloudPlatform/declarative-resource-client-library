@@ -955,8 +955,7 @@ func applyNodePoolHelper(c *Client, ctx context.Context, rawDesired *NodePool, o
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToNodePoolOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToNodePoolDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -984,7 +983,6 @@ func applyNodePoolHelper(c *Client, ctx context.Context, rawDesired *NodePool, o
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

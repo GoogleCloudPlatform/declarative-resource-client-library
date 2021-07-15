@@ -141,7 +141,7 @@ type updateInterconnectPatchOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -449,39 +449,59 @@ func canonicalizeInterconnectDesiredState(rawDesired, rawInitial *Interconnect, 
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Interconnect{}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 	if dcl.IsZeroValue(rawDesired.LinkType) {
-		rawDesired.LinkType = rawInitial.LinkType
+		canonicalDesired.LinkType = rawInitial.LinkType
+	} else {
+		canonicalDesired.LinkType = rawDesired.LinkType
 	}
 	if dcl.IsZeroValue(rawDesired.RequestedLinkCount) {
-		rawDesired.RequestedLinkCount = rawInitial.RequestedLinkCount
+		canonicalDesired.RequestedLinkCount = rawInitial.RequestedLinkCount
+	} else {
+		canonicalDesired.RequestedLinkCount = rawDesired.RequestedLinkCount
 	}
 	if dcl.IsZeroValue(rawDesired.InterconnectType) {
-		rawDesired.InterconnectType = rawInitial.InterconnectType
+		canonicalDesired.InterconnectType = rawInitial.InterconnectType
+	} else {
+		canonicalDesired.InterconnectType = rawDesired.InterconnectType
 	}
 	if dcl.BoolCanonicalize(rawDesired.AdminEnabled, rawInitial.AdminEnabled) {
-		rawDesired.AdminEnabled = rawInitial.AdminEnabled
+		canonicalDesired.AdminEnabled = rawInitial.AdminEnabled
+	} else {
+		canonicalDesired.AdminEnabled = rawDesired.AdminEnabled
 	}
 	if dcl.StringCanonicalize(rawDesired.NocContactEmail, rawInitial.NocContactEmail) {
-		rawDesired.NocContactEmail = rawInitial.NocContactEmail
+		canonicalDesired.NocContactEmail = rawInitial.NocContactEmail
+	} else {
+		canonicalDesired.NocContactEmail = rawDesired.NocContactEmail
 	}
 	if dcl.StringCanonicalize(rawDesired.CustomerName, rawInitial.CustomerName) {
-		rawDesired.CustomerName = rawInitial.CustomerName
+		canonicalDesired.CustomerName = rawInitial.CustomerName
+	} else {
+		canonicalDesired.CustomerName = rawDesired.CustomerName
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeInterconnectNewState(c *Client, rawNew, rawDesired *Interconnect) (*Interconnect, error) {
@@ -635,32 +655,50 @@ func canonicalizeInterconnectExpectedOutages(des, initial *InterconnectExpectedO
 		return des
 	}
 
+	cDes := &InterconnectExpectedOutages{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.IsZeroValue(des.Source) {
 		des.Source = initial.Source
+	} else {
+		cDes.Source = des.Source
 	}
 	if dcl.IsZeroValue(des.State) {
 		des.State = initial.State
+	} else {
+		cDes.State = des.State
 	}
 	if dcl.IsZeroValue(des.IssueType) {
 		des.IssueType = initial.IssueType
+	} else {
+		cDes.IssueType = des.IssueType
 	}
 	if dcl.IsZeroValue(des.AffectedCircuits) {
 		des.AffectedCircuits = initial.AffectedCircuits
+	} else {
+		cDes.AffectedCircuits = des.AffectedCircuits
 	}
 	if dcl.IsZeroValue(des.StartTime) {
 		des.StartTime = initial.StartTime
+	} else {
+		cDes.StartTime = des.StartTime
 	}
 	if dcl.IsZeroValue(des.EndTime) {
 		des.EndTime = initial.EndTime
+	} else {
+		cDes.EndTime = des.EndTime
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInterconnectExpectedOutages(c *Client, des, nw *InterconnectExpectedOutages) *InterconnectExpectedOutages {
@@ -751,17 +789,25 @@ func canonicalizeInterconnectCircuitInfos(des, initial *InterconnectCircuitInfos
 		return des
 	}
 
+	cDes := &InterconnectCircuitInfos{}
+
 	if dcl.StringCanonicalize(des.GoogleCircuitId, initial.GoogleCircuitId) || dcl.IsZeroValue(des.GoogleCircuitId) {
-		des.GoogleCircuitId = initial.GoogleCircuitId
+		cDes.GoogleCircuitId = initial.GoogleCircuitId
+	} else {
+		cDes.GoogleCircuitId = des.GoogleCircuitId
 	}
 	if dcl.StringCanonicalize(des.GoogleDemarcId, initial.GoogleDemarcId) || dcl.IsZeroValue(des.GoogleDemarcId) {
-		des.GoogleDemarcId = initial.GoogleDemarcId
+		cDes.GoogleDemarcId = initial.GoogleDemarcId
+	} else {
+		cDes.GoogleDemarcId = des.GoogleDemarcId
 	}
 	if dcl.StringCanonicalize(des.CustomerDemarcId, initial.CustomerDemarcId) || dcl.IsZeroValue(des.CustomerDemarcId) {
-		des.CustomerDemarcId = initial.CustomerDemarcId
+		cDes.CustomerDemarcId = initial.CustomerDemarcId
+	} else {
+		cDes.CustomerDemarcId = des.CustomerDemarcId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInterconnectCircuitInfos(c *Client, des, nw *InterconnectCircuitInfos) *InterconnectCircuitInfos {
@@ -1798,31 +1844,45 @@ type interconnectDiff struct {
 	UpdateOp         interconnectApiOperation
 }
 
-func convertFieldDiffToInterconnectOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]interconnectDiff, error) {
+func convertFieldDiffsToInterconnectDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]interconnectDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []interconnectDiff
-	for _, op := range ops {
+	// For each operation name, create a interconnectDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := interconnectDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTointerconnectApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToInterconnectApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTointerconnectApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (interconnectApiOperation, error) {
-	switch op {
+func convertOpNameToInterconnectApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (interconnectApiOperation, error) {
+	switch opName {
 
 	case "updateInterconnectPatchOperation":
-		return &updateInterconnectPatchOperation{Diffs: diffs}, nil
+		return &updateInterconnectPatchOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

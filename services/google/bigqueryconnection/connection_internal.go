@@ -163,7 +163,7 @@ type updateConnectionUpdateConnectionOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -180,7 +180,7 @@ func (op *updateConnectionUpdateConnectionOperation) do(ctx context.Context, r *
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -454,25 +454,35 @@ func canonicalizeConnectionDesiredState(rawDesired, rawInitial *Connection, opts
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Connection{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.FriendlyName, rawInitial.FriendlyName) {
-		rawDesired.FriendlyName = rawInitial.FriendlyName
+		canonicalDesired.FriendlyName = rawInitial.FriendlyName
+	} else {
+		canonicalDesired.FriendlyName = rawDesired.FriendlyName
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
-	rawDesired.CloudSql = canonicalizeConnectionCloudSql(rawDesired.CloudSql, rawInitial.CloudSql, opts...)
+	canonicalDesired.CloudSql = canonicalizeConnectionCloudSql(rawDesired.CloudSql, rawInitial.CloudSql, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeConnectionNewState(c *Client, rawNew, rawDesired *Connection) (*Connection, error) {
@@ -544,18 +554,26 @@ func canonicalizeConnectionCloudSql(des, initial *ConnectionCloudSql, opts ...dc
 		return des
 	}
 
+	cDes := &ConnectionCloudSql{}
+
 	if dcl.NameToSelfLink(des.InstanceId, initial.InstanceId) || dcl.IsZeroValue(des.InstanceId) {
-		des.InstanceId = initial.InstanceId
+		cDes.InstanceId = initial.InstanceId
+	} else {
+		cDes.InstanceId = des.InstanceId
 	}
 	if dcl.NameToSelfLink(des.Database, initial.Database) || dcl.IsZeroValue(des.Database) {
-		des.Database = initial.Database
+		cDes.Database = initial.Database
+	} else {
+		cDes.Database = des.Database
 	}
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
-	des.Credential = canonicalizeConnectionCloudSqlCredential(des.Credential, initial.Credential, opts...)
+	cDes.Credential = canonicalizeConnectionCloudSqlCredential(des.Credential, initial.Credential, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewConnectionCloudSql(c *Client, des, nw *ConnectionCloudSql) *ConnectionCloudSql {
@@ -632,14 +650,20 @@ func canonicalizeConnectionCloudSqlCredential(des, initial *ConnectionCloudSqlCr
 		return des
 	}
 
+	cDes := &ConnectionCloudSqlCredential{}
+
 	if dcl.StringCanonicalize(des.Username, initial.Username) || dcl.IsZeroValue(des.Username) {
-		des.Username = initial.Username
+		cDes.Username = initial.Username
+	} else {
+		cDes.Username = des.Username
 	}
 	if dcl.StringCanonicalize(des.Password, initial.Password) || dcl.IsZeroValue(des.Password) {
-		des.Password = initial.Password
+		cDes.Password = initial.Password
+	} else {
+		cDes.Password = des.Password
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewConnectionCloudSqlCredential(c *Client, des, nw *ConnectionCloudSqlCredential) *ConnectionCloudSqlCredential {
@@ -1313,31 +1337,45 @@ type connectionDiff struct {
 	UpdateOp         connectionApiOperation
 }
 
-func convertFieldDiffToConnectionOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]connectionDiff, error) {
+func convertFieldDiffsToConnectionDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]connectionDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []connectionDiff
-	for _, op := range ops {
+	// For each operation name, create a connectionDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := connectionDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToconnectionApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToConnectionApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToconnectionApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (connectionApiOperation, error) {
-	switch op {
+func convertOpNameToConnectionApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (connectionApiOperation, error) {
+	switch opName {
 
 	case "updateConnectionUpdateConnectionOperation":
-		return &updateConnectionUpdateConnectionOperation{Diffs: diffs}, nil
+		return &updateConnectionUpdateConnectionOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

@@ -113,7 +113,7 @@ type updateVariableUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -381,14 +381,14 @@ func (c *Client) variableDiffsForRawDesired(ctx context.Context, rawDesired *Var
 func canonicalizeVariableInitialState(rawInitial, rawDesired *Variable) (*Variable, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
-	if dcl.IsZeroValue(rawInitial.Text) {
+	if !dcl.IsZeroValue(rawInitial.Text) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.Value) {
 			rawInitial.Text = dcl.String("")
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.Value) {
+	if !dcl.IsZeroValue(rawInitial.Value) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.Text) {
 			rawInitial.Value = dcl.String("")
@@ -430,23 +430,34 @@ func canonicalizeVariableDesiredState(rawDesired, rawInitial *Variable, opts ...
 		}
 	}
 
+	canonicalDesired := &Variable{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.NameToSelfLink(rawDesired.RuntimeConfig, rawInitial.RuntimeConfig) {
-		rawDesired.RuntimeConfig = rawInitial.RuntimeConfig
+		canonicalDesired.RuntimeConfig = rawInitial.RuntimeConfig
+	} else {
+		canonicalDesired.RuntimeConfig = rawDesired.RuntimeConfig
 	}
 	if dcl.StringCanonicalize(rawDesired.Text, rawInitial.Text) {
-		rawDesired.Text = rawInitial.Text
+		canonicalDesired.Text = rawInitial.Text
+	} else {
+		canonicalDesired.Text = rawDesired.Text
 	}
 	if dcl.StringCanonicalize(rawDesired.Value, rawInitial.Value) {
-		rawDesired.Value = rawInitial.Value
+		canonicalDesired.Value = rawInitial.Value
+	} else {
+		canonicalDesired.Value = rawDesired.Value
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeVariableNewState(c *Client, rawNew, rawDesired *Variable) (*Variable, error) {
@@ -706,31 +717,45 @@ type variableDiff struct {
 	UpdateOp         variableApiOperation
 }
 
-func convertFieldDiffToVariableOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]variableDiff, error) {
+func convertFieldDiffsToVariableDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]variableDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []variableDiff
-	for _, op := range ops {
+	// For each operation name, create a variableDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := variableDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTovariableApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToVariableApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTovariableApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (variableApiOperation, error) {
-	switch op {
+func convertOpNameToVariableApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (variableApiOperation, error) {
+	switch opName {
 
 	case "updateVariableUpdateOperation":
-		return &updateVariableUpdateOperation{Diffs: diffs}, nil
+		return &updateVariableUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

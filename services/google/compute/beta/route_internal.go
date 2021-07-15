@@ -353,48 +353,74 @@ func canonicalizeRouteDesiredState(rawDesired, rawInitial *Route, opts ...dcl.Ap
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Route{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Network, rawInitial.Network) {
-		rawDesired.Network = rawInitial.Network
+		canonicalDesired.Network = rawInitial.Network
+	} else {
+		canonicalDesired.Network = rawDesired.Network
 	}
 	if dcl.IsZeroValue(rawDesired.Tag) {
-		rawDesired.Tag = rawInitial.Tag
+		canonicalDesired.Tag = rawInitial.Tag
+	} else {
+		canonicalDesired.Tag = rawDesired.Tag
 	}
 	if dcl.StringCanonicalize(rawDesired.DestRange, rawInitial.DestRange) {
-		rawDesired.DestRange = rawInitial.DestRange
+		canonicalDesired.DestRange = rawInitial.DestRange
+	} else {
+		canonicalDesired.DestRange = rawDesired.DestRange
 	}
 	if dcl.IsZeroValue(rawDesired.Priority) {
-		rawDesired.Priority = rawInitial.Priority
+		canonicalDesired.Priority = rawInitial.Priority
+	} else {
+		canonicalDesired.Priority = rawDesired.Priority
 	}
 	if dcl.StringCanonicalize(rawDesired.NextHopInstance, rawInitial.NextHopInstance) {
-		rawDesired.NextHopInstance = rawInitial.NextHopInstance
+		canonicalDesired.NextHopInstance = rawInitial.NextHopInstance
+	} else {
+		canonicalDesired.NextHopInstance = rawDesired.NextHopInstance
 	}
 	if dcl.StringCanonicalize(rawDesired.NextHopIP, rawInitial.NextHopIP) {
-		rawDesired.NextHopIP = rawInitial.NextHopIP
+		canonicalDesired.NextHopIP = rawInitial.NextHopIP
+	} else {
+		canonicalDesired.NextHopIP = rawDesired.NextHopIP
 	}
 	if dcl.StringCanonicalize(rawDesired.NextHopNetwork, rawInitial.NextHopNetwork) {
-		rawDesired.NextHopNetwork = rawInitial.NextHopNetwork
+		canonicalDesired.NextHopNetwork = rawInitial.NextHopNetwork
+	} else {
+		canonicalDesired.NextHopNetwork = rawDesired.NextHopNetwork
 	}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.NextHopGateway, rawInitial.NextHopGateway) {
-		rawDesired.NextHopGateway = rawInitial.NextHopGateway
+		canonicalDesired.NextHopGateway = rawInitial.NextHopGateway
+	} else {
+		canonicalDesired.NextHopGateway = rawDesired.NextHopGateway
 	}
 	if dcl.StringCanonicalize(rawDesired.NextHopIlb, rawInitial.NextHopIlb) {
-		rawDesired.NextHopIlb = rawInitial.NextHopIlb
+		canonicalDesired.NextHopIlb = rawInitial.NextHopIlb
+	} else {
+		canonicalDesired.NextHopIlb = rawDesired.NextHopIlb
 	}
 	if dcl.StringCanonicalize(rawDesired.NextHopVpnTunnel, rawInitial.NextHopVpnTunnel) {
-		rawDesired.NextHopVpnTunnel = rawInitial.NextHopVpnTunnel
+		canonicalDesired.NextHopVpnTunnel = rawInitial.NextHopVpnTunnel
+	} else {
+		canonicalDesired.NextHopVpnTunnel = rawDesired.NextHopVpnTunnel
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, error) {
@@ -533,7 +559,9 @@ func canonicalizeRouteWarning(des, initial *RouteWarning, opts ...dcl.ApplyOptio
 		return des
 	}
 
-	return des
+	cDes := &RouteWarning{}
+
+	return cDes
 }
 
 func canonicalizeNewRouteWarning(c *Client, des, nw *RouteWarning) *RouteWarning {
@@ -1128,28 +1156,42 @@ type routeDiff struct {
 	UpdateOp         routeApiOperation
 }
 
-func convertFieldDiffToRouteOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]routeDiff, error) {
+func convertFieldDiffsToRouteDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]routeDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []routeDiff
-	for _, op := range ops {
+	// For each operation name, create a routeDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := routeDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTorouteApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToRouteApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTorouteApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (routeApiOperation, error) {
-	switch op {
+func convertOpNameToRouteApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (routeApiOperation, error) {
+	switch opName {
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

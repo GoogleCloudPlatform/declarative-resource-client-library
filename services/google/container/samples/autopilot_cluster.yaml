@@ -15,7 +15,7 @@ description: A test of GKE Autopilot clusters
 name: autopilot_cluster
 resource: samples/autopilot.cluster.json
 updates:
-- resource: samples/update.cluster.json
+- resource: samples/update_autopilot.cluster.json
 versions:
 - ga
 - v1

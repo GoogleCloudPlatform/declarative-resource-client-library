@@ -353,27 +353,39 @@ func canonicalizeAssignmentDesiredState(rawDesired, rawInitial *Assignment, opts
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Assignment{}
 	if dcl.StringCanonicalize(rawDesired.Assignee, rawInitial.Assignee) {
-		rawDesired.Assignee = rawInitial.Assignee
+		canonicalDesired.Assignee = rawInitial.Assignee
+	} else {
+		canonicalDesired.Assignee = rawDesired.Assignee
 	}
 	if dcl.IsZeroValue(rawDesired.JobType) {
-		rawDesired.JobType = rawInitial.JobType
+		canonicalDesired.JobType = rawInitial.JobType
+	} else {
+		canonicalDesired.JobType = rawDesired.JobType
 	}
 	if dcl.IsZeroValue(rawDesired.State) {
-		rawDesired.State = rawInitial.State
+		canonicalDesired.State = rawInitial.State
+	} else {
+		canonicalDesired.State = rawDesired.State
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 	if dcl.NameToSelfLink(rawDesired.Reservation, rawInitial.Reservation) {
-		rawDesired.Reservation = rawInitial.Reservation
+		canonicalDesired.Reservation = rawInitial.Reservation
+	} else {
+		canonicalDesired.Reservation = rawDesired.Reservation
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeAssignmentNewState(c *Client, rawNew, rawDesired *Assignment) (*Assignment, error) {
@@ -681,28 +693,42 @@ type assignmentDiff struct {
 	UpdateOp         assignmentApiOperation
 }
 
-func convertFieldDiffToAssignmentOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]assignmentDiff, error) {
+func convertFieldDiffsToAssignmentDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]assignmentDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []assignmentDiff
-	for _, op := range ops {
+	// For each operation name, create a assignmentDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := assignmentDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToassignmentApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToAssignmentApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToassignmentApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (assignmentApiOperation, error) {
-	switch op {
+func convertOpNameToAssignmentApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (assignmentApiOperation, error) {
+	switch opName {
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

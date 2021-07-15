@@ -191,7 +191,7 @@ type updateUptimeCheckConfigUpdateUptimeCheckConfigOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -208,7 +208,7 @@ func (op *updateUptimeCheckConfigUpdateUptimeCheckConfigOperation) do(ctx contex
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -479,28 +479,28 @@ func (c *Client) uptimeCheckConfigDiffsForRawDesired(ctx context.Context, rawDes
 func canonicalizeUptimeCheckConfigInitialState(rawInitial, rawDesired *UptimeCheckConfig) (*UptimeCheckConfig, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
-	if dcl.IsZeroValue(rawInitial.MonitoredResource) {
+	if !dcl.IsZeroValue(rawInitial.MonitoredResource) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.ResourceGroup) {
 			rawInitial.MonitoredResource = EmptyUptimeCheckConfigMonitoredResource
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.ResourceGroup) {
+	if !dcl.IsZeroValue(rawInitial.ResourceGroup) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.MonitoredResource) {
 			rawInitial.ResourceGroup = EmptyUptimeCheckConfigResourceGroup
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.HttpCheck) {
+	if !dcl.IsZeroValue(rawInitial.HttpCheck) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.TcpCheck) {
 			rawInitial.HttpCheck = EmptyUptimeCheckConfigHttpCheck
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.TcpCheck) {
+	if !dcl.IsZeroValue(rawInitial.TcpCheck) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.HttpCheck) {
 			rawInitial.TcpCheck = EmptyUptimeCheckConfigTcpCheck
@@ -566,36 +566,53 @@ func canonicalizeUptimeCheckConfigDesiredState(rawDesired, rawInitial *UptimeChe
 		}
 	}
 
+	canonicalDesired := &UptimeCheckConfig{}
 	if dcl.IsZeroValue(rawDesired.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
-		rawDesired.DisplayName = rawInitial.DisplayName
+		canonicalDesired.DisplayName = rawInitial.DisplayName
+	} else {
+		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
-	rawDesired.MonitoredResource = canonicalizeUptimeCheckConfigMonitoredResource(rawDesired.MonitoredResource, rawInitial.MonitoredResource, opts...)
-	rawDesired.ResourceGroup = canonicalizeUptimeCheckConfigResourceGroup(rawDesired.ResourceGroup, rawInitial.ResourceGroup, opts...)
-	rawDesired.HttpCheck = canonicalizeUptimeCheckConfigHttpCheck(rawDesired.HttpCheck, rawInitial.HttpCheck, opts...)
-	rawDesired.TcpCheck = canonicalizeUptimeCheckConfigTcpCheck(rawDesired.TcpCheck, rawInitial.TcpCheck, opts...)
+	canonicalDesired.MonitoredResource = canonicalizeUptimeCheckConfigMonitoredResource(rawDesired.MonitoredResource, rawInitial.MonitoredResource, opts...)
+	canonicalDesired.ResourceGroup = canonicalizeUptimeCheckConfigResourceGroup(rawDesired.ResourceGroup, rawInitial.ResourceGroup, opts...)
+	canonicalDesired.HttpCheck = canonicalizeUptimeCheckConfigHttpCheck(rawDesired.HttpCheck, rawInitial.HttpCheck, opts...)
+	canonicalDesired.TcpCheck = canonicalizeUptimeCheckConfigTcpCheck(rawDesired.TcpCheck, rawInitial.TcpCheck, opts...)
 	if dcl.StringCanonicalize(rawDesired.Period, rawInitial.Period) {
-		rawDesired.Period = rawInitial.Period
+		canonicalDesired.Period = rawInitial.Period
+	} else {
+		canonicalDesired.Period = rawDesired.Period
 	}
 	if dcl.StringCanonicalize(rawDesired.Timeout, rawInitial.Timeout) {
-		rawDesired.Timeout = rawInitial.Timeout
+		canonicalDesired.Timeout = rawInitial.Timeout
+	} else {
+		canonicalDesired.Timeout = rawDesired.Timeout
 	}
 	if dcl.IsZeroValue(rawDesired.ContentMatchers) {
-		rawDesired.ContentMatchers = rawInitial.ContentMatchers
+		canonicalDesired.ContentMatchers = rawInitial.ContentMatchers
+	} else {
+		canonicalDesired.ContentMatchers = rawDesired.ContentMatchers
 	}
 	if dcl.IsZeroValue(rawDesired.PrivateCheckers) {
-		rawDesired.PrivateCheckers = rawInitial.PrivateCheckers
+		canonicalDesired.PrivateCheckers = rawInitial.PrivateCheckers
+	} else {
+		canonicalDesired.PrivateCheckers = rawDesired.PrivateCheckers
 	}
 	if dcl.IsZeroValue(rawDesired.SelectedRegions) {
-		rawDesired.SelectedRegions = rawInitial.SelectedRegions
+		canonicalDesired.SelectedRegions = rawInitial.SelectedRegions
+	} else {
+		canonicalDesired.SelectedRegions = rawDesired.SelectedRegions
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeUptimeCheckConfigNewState(c *Client, rawNew, rawDesired *UptimeCheckConfig) (*UptimeCheckConfig, error) {
@@ -686,14 +703,20 @@ func canonicalizeUptimeCheckConfigMonitoredResource(des, initial *UptimeCheckCon
 		return des
 	}
 
+	cDes := &UptimeCheckConfigMonitoredResource{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.IsZeroValue(des.FilterLabels) {
 		des.FilterLabels = initial.FilterLabels
+	} else {
+		cDes.FilterLabels = des.FilterLabels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewUptimeCheckConfigMonitoredResource(c *Client, des, nw *UptimeCheckConfigMonitoredResource) *UptimeCheckConfigMonitoredResource {
@@ -766,14 +789,20 @@ func canonicalizeUptimeCheckConfigResourceGroup(des, initial *UptimeCheckConfigR
 		return des
 	}
 
+	cDes := &UptimeCheckConfigResourceGroup{}
+
 	if dcl.NameToSelfLink(des.GroupId, initial.GroupId) || dcl.IsZeroValue(des.GroupId) {
-		des.GroupId = initial.GroupId
+		cDes.GroupId = initial.GroupId
+	} else {
+		cDes.GroupId = des.GroupId
 	}
 	if dcl.IsZeroValue(des.ResourceType) {
 		des.ResourceType = initial.ResourceType
+	} else {
+		cDes.ResourceType = des.ResourceType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewUptimeCheckConfigResourceGroup(c *Client, des, nw *UptimeCheckConfigResourceGroup) *UptimeCheckConfigResourceGroup {
@@ -854,36 +883,56 @@ func canonicalizeUptimeCheckConfigHttpCheck(des, initial *UptimeCheckConfigHttpC
 		return des
 	}
 
+	cDes := &UptimeCheckConfigHttpCheck{}
+
 	if dcl.IsZeroValue(des.RequestMethod) {
 		des.RequestMethod = initial.RequestMethod
+	} else {
+		cDes.RequestMethod = des.RequestMethod
 	}
 	if dcl.BoolCanonicalize(des.UseSsl, initial.UseSsl) || dcl.IsZeroValue(des.UseSsl) {
-		des.UseSsl = initial.UseSsl
+		cDes.UseSsl = initial.UseSsl
+	} else {
+		cDes.UseSsl = des.UseSsl
 	}
 	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
-		des.Path = initial.Path
+		cDes.Path = initial.Path
+	} else {
+		cDes.Path = des.Path
 	}
 	if dcl.IsZeroValue(des.Port) {
 		des.Port = initial.Port
+	} else {
+		cDes.Port = des.Port
 	}
-	des.AuthInfo = canonicalizeUptimeCheckConfigHttpCheckAuthInfo(des.AuthInfo, initial.AuthInfo, opts...)
+	cDes.AuthInfo = canonicalizeUptimeCheckConfigHttpCheckAuthInfo(des.AuthInfo, initial.AuthInfo, opts...)
 	if dcl.BoolCanonicalize(des.MaskHeaders, initial.MaskHeaders) || dcl.IsZeroValue(des.MaskHeaders) {
-		des.MaskHeaders = initial.MaskHeaders
+		cDes.MaskHeaders = initial.MaskHeaders
+	} else {
+		cDes.MaskHeaders = des.MaskHeaders
 	}
 	if dcl.IsZeroValue(des.Headers) {
 		des.Headers = initial.Headers
+	} else {
+		cDes.Headers = des.Headers
 	}
 	if dcl.IsZeroValue(des.ContentType) {
 		des.ContentType = initial.ContentType
+	} else {
+		cDes.ContentType = des.ContentType
 	}
 	if dcl.BoolCanonicalize(des.ValidateSsl, initial.ValidateSsl) || dcl.IsZeroValue(des.ValidateSsl) {
-		des.ValidateSsl = initial.ValidateSsl
+		cDes.ValidateSsl = initial.ValidateSsl
+	} else {
+		cDes.ValidateSsl = des.ValidateSsl
 	}
 	if dcl.StringCanonicalize(des.Body, initial.Body) || dcl.IsZeroValue(des.Body) {
-		des.Body = initial.Body
+		cDes.Body = initial.Body
+	} else {
+		cDes.Body = des.Body
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewUptimeCheckConfigHttpCheck(c *Client, des, nw *UptimeCheckConfigHttpCheck) *UptimeCheckConfigHttpCheck {
@@ -986,14 +1035,20 @@ func canonicalizeUptimeCheckConfigHttpCheckAuthInfo(des, initial *UptimeCheckCon
 		return des
 	}
 
+	cDes := &UptimeCheckConfigHttpCheckAuthInfo{}
+
 	if dcl.StringCanonicalize(des.Username, initial.Username) || dcl.IsZeroValue(des.Username) {
-		des.Username = initial.Username
+		cDes.Username = initial.Username
+	} else {
+		cDes.Username = des.Username
 	}
 	if dcl.StringCanonicalize(des.Password, initial.Password) || dcl.IsZeroValue(des.Password) {
-		des.Password = initial.Password
+		cDes.Password = initial.Password
+	} else {
+		cDes.Password = des.Password
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewUptimeCheckConfigHttpCheckAuthInfo(c *Client, des, nw *UptimeCheckConfigHttpCheckAuthInfo) *UptimeCheckConfigHttpCheckAuthInfo {
@@ -1064,11 +1119,15 @@ func canonicalizeUptimeCheckConfigTcpCheck(des, initial *UptimeCheckConfigTcpChe
 		return des
 	}
 
+	cDes := &UptimeCheckConfigTcpCheck{}
+
 	if dcl.IsZeroValue(des.Port) {
 		des.Port = initial.Port
+	} else {
+		cDes.Port = des.Port
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewUptimeCheckConfigTcpCheck(c *Client, des, nw *UptimeCheckConfigTcpCheck) *UptimeCheckConfigTcpCheck {
@@ -1142,14 +1201,20 @@ func canonicalizeUptimeCheckConfigContentMatchers(des, initial *UptimeCheckConfi
 		return des
 	}
 
+	cDes := &UptimeCheckConfigContentMatchers{}
+
 	if dcl.StringCanonicalize(des.Content, initial.Content) || dcl.IsZeroValue(des.Content) {
-		des.Content = initial.Content
+		cDes.Content = initial.Content
+	} else {
+		cDes.Content = des.Content
 	}
 	if dcl.IsZeroValue(des.Matcher) {
 		des.Matcher = initial.Matcher
+	} else {
+		cDes.Matcher = des.Matcher
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewUptimeCheckConfigContentMatchers(c *Client, des, nw *UptimeCheckConfigContentMatchers) *UptimeCheckConfigContentMatchers {
@@ -2637,31 +2702,45 @@ type uptimeCheckConfigDiff struct {
 	UpdateOp         uptimeCheckConfigApiOperation
 }
 
-func convertFieldDiffToUptimeCheckConfigOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]uptimeCheckConfigDiff, error) {
+func convertFieldDiffsToUptimeCheckConfigDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]uptimeCheckConfigDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []uptimeCheckConfigDiff
-	for _, op := range ops {
+	// For each operation name, create a uptimeCheckConfigDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := uptimeCheckConfigDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTouptimeCheckConfigApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToUptimeCheckConfigApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTouptimeCheckConfigApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (uptimeCheckConfigApiOperation, error) {
-	switch op {
+func convertOpNameToUptimeCheckConfigApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (uptimeCheckConfigApiOperation, error) {
+	switch opName {
 
 	case "updateUptimeCheckConfigUpdateUptimeCheckConfigOperation":
-		return &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{Diffs: diffs}, nil
+		return &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

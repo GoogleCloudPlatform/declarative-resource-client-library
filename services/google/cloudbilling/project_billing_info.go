@@ -140,8 +140,7 @@ func applyProjectBillingInfoHelper(c *Client, ctx context.Context, rawDesired *P
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToProjectBillingInfoOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToProjectBillingInfoDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}

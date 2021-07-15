@@ -204,7 +204,7 @@ type updateBucketUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -492,28 +492,38 @@ func canonicalizeBucketDesiredState(rawDesired, rawInitial *Bucket, opts ...dcl.
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Bucket{}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.StringCanonicalize(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.IsZeroValue(rawDesired.Cors) {
-		rawDesired.Cors = rawInitial.Cors
+		canonicalDesired.Cors = rawInitial.Cors
+	} else {
+		canonicalDesired.Cors = rawDesired.Cors
 	}
-	rawDesired.Lifecycle = canonicalizeBucketLifecycle(rawDesired.Lifecycle, rawInitial.Lifecycle, opts...)
-	rawDesired.Logging = canonicalizeBucketLogging(rawDesired.Logging, rawInitial.Logging, opts...)
+	canonicalDesired.Lifecycle = canonicalizeBucketLifecycle(rawDesired.Lifecycle, rawInitial.Lifecycle, opts...)
+	canonicalDesired.Logging = canonicalizeBucketLogging(rawDesired.Logging, rawInitial.Logging, opts...)
 	if dcl.IsZeroValue(rawDesired.StorageClass) {
-		rawDesired.StorageClass = rawInitial.StorageClass
+		canonicalDesired.StorageClass = rawInitial.StorageClass
+	} else {
+		canonicalDesired.StorageClass = rawDesired.StorageClass
 	}
-	rawDesired.Versioning = canonicalizeBucketVersioning(rawDesired.Versioning, rawInitial.Versioning, opts...)
-	rawDesired.Website = canonicalizeBucketWebsite(rawDesired.Website, rawInitial.Website, opts...)
+	canonicalDesired.Versioning = canonicalizeBucketVersioning(rawDesired.Versioning, rawInitial.Versioning, opts...)
+	canonicalDesired.Website = canonicalizeBucketWebsite(rawDesired.Website, rawInitial.Website, opts...)
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeBucketNewState(c *Client, rawNew, rawDesired *Bucket) (*Bucket, error) {
@@ -586,20 +596,30 @@ func canonicalizeBucketCors(des, initial *BucketCors, opts ...dcl.ApplyOption) *
 		return des
 	}
 
+	cDes := &BucketCors{}
+
 	if dcl.IsZeroValue(des.MaxAgeSeconds) {
 		des.MaxAgeSeconds = initial.MaxAgeSeconds
+	} else {
+		cDes.MaxAgeSeconds = des.MaxAgeSeconds
 	}
 	if dcl.IsZeroValue(des.Method) {
 		des.Method = initial.Method
+	} else {
+		cDes.Method = des.Method
 	}
 	if dcl.IsZeroValue(des.Origin) {
 		des.Origin = initial.Origin
+	} else {
+		cDes.Origin = des.Origin
 	}
 	if dcl.IsZeroValue(des.ResponseHeader) {
 		des.ResponseHeader = initial.ResponseHeader
+	} else {
+		cDes.ResponseHeader = des.ResponseHeader
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBucketCors(c *Client, des, nw *BucketCors) *BucketCors {
@@ -678,11 +698,15 @@ func canonicalizeBucketLifecycle(des, initial *BucketLifecycle, opts ...dcl.Appl
 		return des
 	}
 
+	cDes := &BucketLifecycle{}
+
 	if dcl.IsZeroValue(des.Rule) {
 		des.Rule = initial.Rule
+	} else {
+		cDes.Rule = des.Rule
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBucketLifecycle(c *Client, des, nw *BucketLifecycle) *BucketLifecycle {
@@ -750,10 +774,12 @@ func canonicalizeBucketLifecycleRule(des, initial *BucketLifecycleRule, opts ...
 		return des
 	}
 
-	des.Action = canonicalizeBucketLifecycleRuleAction(des.Action, initial.Action, opts...)
-	des.Condition = canonicalizeBucketLifecycleRuleCondition(des.Condition, initial.Condition, opts...)
+	cDes := &BucketLifecycleRule{}
 
-	return des
+	cDes.Action = canonicalizeBucketLifecycleRuleAction(des.Action, initial.Action, opts...)
+	cDes.Condition = canonicalizeBucketLifecycleRuleCondition(des.Condition, initial.Condition, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewBucketLifecycleRule(c *Client, des, nw *BucketLifecycleRule) *BucketLifecycleRule {
@@ -822,14 +848,20 @@ func canonicalizeBucketLifecycleRuleAction(des, initial *BucketLifecycleRuleActi
 		return des
 	}
 
+	cDes := &BucketLifecycleRuleAction{}
+
 	if dcl.StringCanonicalize(des.StorageClass, initial.StorageClass) || dcl.IsZeroValue(des.StorageClass) {
-		des.StorageClass = initial.StorageClass
+		cDes.StorageClass = initial.StorageClass
+	} else {
+		cDes.StorageClass = des.StorageClass
 	}
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBucketLifecycleRuleAction(c *Client, des, nw *BucketLifecycleRuleAction) *BucketLifecycleRuleAction {
@@ -902,23 +934,35 @@ func canonicalizeBucketLifecycleRuleCondition(des, initial *BucketLifecycleRuleC
 		return des
 	}
 
+	cDes := &BucketLifecycleRuleCondition{}
+
 	if dcl.IsZeroValue(des.Age) {
 		des.Age = initial.Age
+	} else {
+		cDes.Age = des.Age
 	}
 	if dcl.IsZeroValue(des.CreatedBefore) {
 		des.CreatedBefore = initial.CreatedBefore
+	} else {
+		cDes.CreatedBefore = des.CreatedBefore
 	}
 	if dcl.IsZeroValue(des.WithState) {
 		des.WithState = initial.WithState
+	} else {
+		cDes.WithState = des.WithState
 	}
 	if dcl.IsZeroValue(des.MatchesStorageClass) {
 		des.MatchesStorageClass = initial.MatchesStorageClass
+	} else {
+		cDes.MatchesStorageClass = des.MatchesStorageClass
 	}
 	if dcl.IsZeroValue(des.NumNewerVersions) {
 		des.NumNewerVersions = initial.NumNewerVersions
+	} else {
+		cDes.NumNewerVersions = des.NumNewerVersions
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBucketLifecycleRuleCondition(c *Client, des, nw *BucketLifecycleRuleCondition) *BucketLifecycleRuleCondition {
@@ -1000,14 +1044,20 @@ func canonicalizeBucketLogging(des, initial *BucketLogging, opts ...dcl.ApplyOpt
 		return des
 	}
 
+	cDes := &BucketLogging{}
+
 	if dcl.StringCanonicalize(des.LogBucket, initial.LogBucket) || dcl.IsZeroValue(des.LogBucket) {
-		des.LogBucket = initial.LogBucket
+		cDes.LogBucket = initial.LogBucket
+	} else {
+		cDes.LogBucket = des.LogBucket
 	}
 	if dcl.StringCanonicalize(des.LogObjectPrefix, initial.LogObjectPrefix) || dcl.IsZeroValue(des.LogObjectPrefix) {
-		des.LogObjectPrefix = initial.LogObjectPrefix
+		cDes.LogObjectPrefix = initial.LogObjectPrefix
+	} else {
+		cDes.LogObjectPrefix = des.LogObjectPrefix
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBucketLogging(c *Client, des, nw *BucketLogging) *BucketLogging {
@@ -1080,11 +1130,15 @@ func canonicalizeBucketVersioning(des, initial *BucketVersioning, opts ...dcl.Ap
 		return des
 	}
 
+	cDes := &BucketVersioning{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBucketVersioning(c *Client, des, nw *BucketVersioning) *BucketVersioning {
@@ -1154,14 +1208,20 @@ func canonicalizeBucketWebsite(des, initial *BucketWebsite, opts ...dcl.ApplyOpt
 		return des
 	}
 
+	cDes := &BucketWebsite{}
+
 	if dcl.StringCanonicalize(des.MainPageSuffix, initial.MainPageSuffix) || dcl.IsZeroValue(des.MainPageSuffix) {
-		des.MainPageSuffix = initial.MainPageSuffix
+		cDes.MainPageSuffix = initial.MainPageSuffix
+	} else {
+		cDes.MainPageSuffix = des.MainPageSuffix
 	}
 	if dcl.StringCanonicalize(des.NotFoundPage, initial.NotFoundPage) || dcl.IsZeroValue(des.NotFoundPage) {
-		des.NotFoundPage = initial.NotFoundPage
+		cDes.NotFoundPage = initial.NotFoundPage
+	} else {
+		cDes.NotFoundPage = des.NotFoundPage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBucketWebsite(c *Client, des, nw *BucketWebsite) *BucketWebsite {
@@ -2832,31 +2892,45 @@ type bucketDiff struct {
 	UpdateOp         bucketApiOperation
 }
 
-func convertFieldDiffToBucketOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]bucketDiff, error) {
+func convertFieldDiffsToBucketDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]bucketDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []bucketDiff
-	for _, op := range ops {
+	// For each operation name, create a bucketDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := bucketDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTobucketApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToBucketApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTobucketApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (bucketApiOperation, error) {
-	switch op {
+func convertOpNameToBucketApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (bucketApiOperation, error) {
+	switch opName {
 
 	case "updateBucketUpdateOperation":
-		return &updateBucketUpdateOperation{Diffs: diffs}, nil
+		return &updateBucketUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

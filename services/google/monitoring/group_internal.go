@@ -112,7 +112,7 @@ type updateGroupUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -409,27 +409,39 @@ func canonicalizeGroupDesiredState(rawDesired, rawInitial *Group, opts ...dcl.Ap
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Group{}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
-		rawDesired.DisplayName = rawInitial.DisplayName
+		canonicalDesired.DisplayName = rawInitial.DisplayName
+	} else {
+		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
 	if dcl.StringCanonicalize(rawDesired.Filter, rawInitial.Filter) {
-		rawDesired.Filter = rawInitial.Filter
+		canonicalDesired.Filter = rawInitial.Filter
+	} else {
+		canonicalDesired.Filter = rawDesired.Filter
 	}
 	if dcl.BoolCanonicalize(rawDesired.IsCluster, rawInitial.IsCluster) {
-		rawDesired.IsCluster = rawInitial.IsCluster
+		canonicalDesired.IsCluster = rawInitial.IsCluster
+	} else {
+		canonicalDesired.IsCluster = rawDesired.IsCluster
 	}
 	if dcl.IsZeroValue(rawDesired.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.ParentName, rawInitial.ParentName) {
-		rawDesired.ParentName = rawInitial.ParentName
+		canonicalDesired.ParentName = rawInitial.ParentName
+	} else {
+		canonicalDesired.ParentName = rawDesired.ParentName
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeGroupNewState(c *Client, rawNew, rawDesired *Group) (*Group, error) {
@@ -681,31 +693,45 @@ type groupDiff struct {
 	UpdateOp         groupApiOperation
 }
 
-func convertFieldDiffToGroupOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]groupDiff, error) {
+func convertFieldDiffsToGroupDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]groupDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []groupDiff
-	for _, op := range ops {
+	// For each operation name, create a groupDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := groupDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTogroupApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToGroupApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTogroupApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (groupApiOperation, error) {
-	switch op {
+func convertOpNameToGroupApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (groupApiOperation, error) {
+	switch opName {
 
 	case "updateGroupUpdateOperation":
-		return &updateGroupUpdateOperation{Diffs: diffs}, nil
+		return &updateGroupUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

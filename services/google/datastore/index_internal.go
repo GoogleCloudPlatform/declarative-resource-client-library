@@ -369,21 +369,29 @@ func canonicalizeIndexDesiredState(rawDesired, rawInitial *Index, opts ...dcl.Ap
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Index{}
 	if dcl.IsZeroValue(rawDesired.Ancestor) {
-		rawDesired.Ancestor = rawInitial.Ancestor
+		canonicalDesired.Ancestor = rawInitial.Ancestor
+	} else {
+		canonicalDesired.Ancestor = rawDesired.Ancestor
 	}
 	if dcl.StringCanonicalize(rawDesired.Kind, rawInitial.Kind) {
-		rawDesired.Kind = rawInitial.Kind
+		canonicalDesired.Kind = rawInitial.Kind
+	} else {
+		canonicalDesired.Kind = rawDesired.Kind
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.IsZeroValue(rawDesired.Properties) {
-		rawDesired.Properties = rawInitial.Properties
+		canonicalDesired.Properties = rawInitial.Properties
+	} else {
+		canonicalDesired.Properties = rawDesired.Properties
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeIndexNewState(c *Client, rawNew, rawDesired *Index) (*Index, error) {
@@ -434,14 +442,20 @@ func canonicalizeIndexProperties(des, initial *IndexProperties, opts ...dcl.Appl
 		return des
 	}
 
+	cDes := &IndexProperties{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.IsZeroValue(des.Direction) {
 		des.Direction = initial.Direction
+	} else {
+		cDes.Direction = des.Direction
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewIndexProperties(c *Client, des, nw *IndexProperties) *IndexProperties {
@@ -948,28 +962,42 @@ type indexDiff struct {
 	UpdateOp         indexApiOperation
 }
 
-func convertFieldDiffToIndexOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]indexDiff, error) {
+func convertFieldDiffsToIndexDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]indexDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []indexDiff
-	for _, op := range ops {
+	// For each operation name, create a indexDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := indexDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToindexApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToIndexApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToindexApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (indexApiOperation, error) {
-	switch op {
+func convertOpNameToIndexApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (indexApiOperation, error) {
+	switch opName {
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

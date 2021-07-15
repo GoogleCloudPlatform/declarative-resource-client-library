@@ -152,7 +152,7 @@ type updateWorkloadUpdateWorkloadOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -169,7 +169,7 @@ func (op *updateWorkloadUpdateWorkloadOperation) do(ctx context.Context, r *Work
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMaskWithPrefix(op.Diffs, "Workload")
+	mask := dcl.UpdateMaskWithPrefix(op.FieldDiffs, "Workload")
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -465,34 +465,55 @@ func canonicalizeWorkloadDesiredState(rawDesired, rawInitial *Workload, opts ...
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Workload{}
+	if dcl.IsZeroValue(rawDesired.Name) {
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
+	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
-		rawDesired.DisplayName = rawInitial.DisplayName
+		canonicalDesired.DisplayName = rawInitial.DisplayName
+	} else {
+		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
 	if dcl.IsZeroValue(rawDesired.ComplianceRegime) {
-		rawDesired.ComplianceRegime = rawInitial.ComplianceRegime
+		canonicalDesired.ComplianceRegime = rawInitial.ComplianceRegime
+	} else {
+		canonicalDesired.ComplianceRegime = rawDesired.ComplianceRegime
 	}
 	if dcl.StringCanonicalize(rawDesired.BillingAccount, rawInitial.BillingAccount) {
-		rawDesired.BillingAccount = rawInitial.BillingAccount
+		canonicalDesired.BillingAccount = rawInitial.BillingAccount
+	} else {
+		canonicalDesired.BillingAccount = rawDesired.BillingAccount
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.StringCanonicalize(rawDesired.ProvisionedResourcesParent, rawInitial.ProvisionedResourcesParent) {
-		rawDesired.ProvisionedResourcesParent = rawInitial.ProvisionedResourcesParent
+		canonicalDesired.ProvisionedResourcesParent = rawInitial.ProvisionedResourcesParent
+	} else {
+		canonicalDesired.ProvisionedResourcesParent = rawDesired.ProvisionedResourcesParent
 	}
-	rawDesired.KmsSettings = canonicalizeWorkloadKmsSettings(rawDesired.KmsSettings, rawInitial.KmsSettings, opts...)
+	canonicalDesired.KmsSettings = canonicalizeWorkloadKmsSettings(rawDesired.KmsSettings, rawInitial.KmsSettings, opts...)
 	if dcl.IsZeroValue(rawDesired.ResourceSettings) {
-		rawDesired.ResourceSettings = rawInitial.ResourceSettings
+		canonicalDesired.ResourceSettings = rawInitial.ResourceSettings
+	} else {
+		canonicalDesired.ResourceSettings = rawDesired.ResourceSettings
 	}
 	if dcl.NameToSelfLink(rawDesired.Organization, rawInitial.Organization) {
-		rawDesired.Organization = rawInitial.Organization
+		canonicalDesired.Organization = rawInitial.Organization
+	} else {
+		canonicalDesired.Organization = rawDesired.Organization
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeWorkloadNewState(c *Client, rawNew, rawDesired *Workload) (*Workload, error) {
@@ -562,14 +583,20 @@ func canonicalizeWorkloadResources(des, initial *WorkloadResources, opts ...dcl.
 		return des
 	}
 
+	cDes := &WorkloadResources{}
+
 	if dcl.IsZeroValue(des.ResourceId) {
 		des.ResourceId = initial.ResourceId
+	} else {
+		cDes.ResourceId = des.ResourceId
 	}
 	if dcl.IsZeroValue(des.ResourceType) {
 		des.ResourceType = initial.ResourceType
+	} else {
+		cDes.ResourceType = des.ResourceType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkloadResources(c *Client, des, nw *WorkloadResources) *WorkloadResources {
@@ -642,14 +669,20 @@ func canonicalizeWorkloadKmsSettings(des, initial *WorkloadKmsSettings, opts ...
 		return des
 	}
 
+	cDes := &WorkloadKmsSettings{}
+
 	if dcl.IsZeroValue(des.NextRotationTime) {
 		des.NextRotationTime = initial.NextRotationTime
+	} else {
+		cDes.NextRotationTime = des.NextRotationTime
 	}
 	if dcl.StringCanonicalize(des.RotationPeriod, initial.RotationPeriod) || dcl.IsZeroValue(des.RotationPeriod) {
-		des.RotationPeriod = initial.RotationPeriod
+		cDes.RotationPeriod = initial.RotationPeriod
+	} else {
+		cDes.RotationPeriod = des.RotationPeriod
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkloadKmsSettings(c *Client, des, nw *WorkloadKmsSettings) *WorkloadKmsSettings {
@@ -722,14 +755,20 @@ func canonicalizeWorkloadResourceSettings(des, initial *WorkloadResourceSettings
 		return des
 	}
 
+	cDes := &WorkloadResourceSettings{}
+
 	if dcl.StringCanonicalize(des.ResourceId, initial.ResourceId) || dcl.IsZeroValue(des.ResourceId) {
-		des.ResourceId = initial.ResourceId
+		cDes.ResourceId = initial.ResourceId
+	} else {
+		cDes.ResourceId = des.ResourceId
 	}
 	if dcl.IsZeroValue(des.ResourceType) {
 		des.ResourceType = initial.ResourceType
+	} else {
+		cDes.ResourceType = des.ResourceType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkloadResourceSettings(c *Client, des, nw *WorkloadResourceSettings) *WorkloadResourceSettings {
@@ -805,7 +844,7 @@ func diffWorkload(c *Client, desired, actual *Workload, opts ...dcl.ApplyOption)
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -875,7 +914,7 @@ func diffWorkload(c *Client, desired, actual *Workload, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Organization, actual.Organization, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Organization")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Organization, actual.Organization, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Organization")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1632,31 +1671,45 @@ type workloadDiff struct {
 	UpdateOp         workloadApiOperation
 }
 
-func convertFieldDiffToWorkloadOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]workloadDiff, error) {
+func convertFieldDiffsToWorkloadDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]workloadDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []workloadDiff
-	for _, op := range ops {
+	// For each operation name, create a workloadDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := workloadDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToworkloadApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToWorkloadApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToworkloadApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (workloadApiOperation, error) {
-	switch op {
+func convertOpNameToWorkloadApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (workloadApiOperation, error) {
+	switch opName {
 
 	case "updateWorkloadUpdateWorkloadOperation":
-		return &updateWorkloadUpdateWorkloadOperation{Diffs: diffs}, nil
+		return &updateWorkloadUpdateWorkloadOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

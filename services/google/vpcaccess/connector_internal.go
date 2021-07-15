@@ -355,40 +355,60 @@ func canonicalizeConnectorDesiredState(rawDesired, rawInitial *Connector, opts .
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Connector{}
 	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.NameToSelfLink(rawDesired.Network, rawInitial.Network) {
-		rawDesired.Network = rawInitial.Network
+		canonicalDesired.Network = rawInitial.Network
+	} else {
+		canonicalDesired.Network = rawDesired.Network
 	}
 	if dcl.StringCanonicalize(rawDesired.IPCidrRange, rawInitial.IPCidrRange) {
-		rawDesired.IPCidrRange = rawInitial.IPCidrRange
+		canonicalDesired.IPCidrRange = rawInitial.IPCidrRange
+	} else {
+		canonicalDesired.IPCidrRange = rawDesired.IPCidrRange
 	}
 	if dcl.IsZeroValue(rawDesired.MinThroughput) {
-		rawDesired.MinThroughput = rawInitial.MinThroughput
+		canonicalDesired.MinThroughput = rawInitial.MinThroughput
+	} else {
+		canonicalDesired.MinThroughput = rawDesired.MinThroughput
 	}
 	if dcl.IsZeroValue(rawDesired.MaxThroughput) {
-		rawDesired.MaxThroughput = rawInitial.MaxThroughput
+		canonicalDesired.MaxThroughput = rawInitial.MaxThroughput
+	} else {
+		canonicalDesired.MaxThroughput = rawDesired.MaxThroughput
 	}
-	rawDesired.Subnet = canonicalizeConnectorSubnet(rawDesired.Subnet, rawInitial.Subnet, opts...)
+	canonicalDesired.Subnet = canonicalizeConnectorSubnet(rawDesired.Subnet, rawInitial.Subnet, opts...)
 	if dcl.StringCanonicalize(rawDesired.MachineType, rawInitial.MachineType) {
-		rawDesired.MachineType = rawInitial.MachineType
+		canonicalDesired.MachineType = rawInitial.MachineType
+	} else {
+		canonicalDesired.MachineType = rawDesired.MachineType
 	}
 	if dcl.IsZeroValue(rawDesired.MinInstances) {
-		rawDesired.MinInstances = rawInitial.MinInstances
+		canonicalDesired.MinInstances = rawInitial.MinInstances
+	} else {
+		canonicalDesired.MinInstances = rawDesired.MinInstances
 	}
 	if dcl.IsZeroValue(rawDesired.MaxInstances) {
-		rawDesired.MaxInstances = rawInitial.MaxInstances
+		canonicalDesired.MaxInstances = rawInitial.MaxInstances
+	} else {
+		canonicalDesired.MaxInstances = rawDesired.MaxInstances
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeConnectorNewState(c *Client, rawNew, rawDesired *Connector) (*Connector, error) {
@@ -474,14 +494,20 @@ func canonicalizeConnectorSubnet(des, initial *ConnectorSubnet, opts ...dcl.Appl
 		return des
 	}
 
+	cDes := &ConnectorSubnet{}
+
 	if dcl.NameToSelfLink(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.NameToSelfLink(des.ProjectId, initial.ProjectId) || dcl.IsZeroValue(des.ProjectId) {
-		des.ProjectId = initial.ProjectId
+		cDes.ProjectId = initial.ProjectId
+	} else {
+		cDes.ProjectId = des.ProjectId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewConnectorSubnet(c *Client, des, nw *ConnectorSubnet) *ConnectorSubnet {
@@ -1015,28 +1041,42 @@ type connectorDiff struct {
 	UpdateOp         connectorApiOperation
 }
 
-func convertFieldDiffToConnectorOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]connectorDiff, error) {
+func convertFieldDiffsToConnectorDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]connectorDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []connectorDiff
-	for _, op := range ops {
+	// For each operation name, create a connectorDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := connectorDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToconnectorApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToConnectorApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToconnectorApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (connectorApiOperation, error) {
-	switch op {
+func convertOpNameToConnectorApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (connectorApiOperation, error) {
+	switch opName {
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

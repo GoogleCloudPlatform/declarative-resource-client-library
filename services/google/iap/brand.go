@@ -181,8 +181,7 @@ func applyBrandHelper(c *Client, ctx context.Context, rawDesired *Brand, opts ..
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToBrandOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToBrandDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -210,7 +209,6 @@ func applyBrandHelper(c *Client, ctx context.Context, rawDesired *Brand, opts ..
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

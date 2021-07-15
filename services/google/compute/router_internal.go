@@ -157,7 +157,7 @@ type updateRouterUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -467,34 +467,50 @@ func canonicalizeRouterDesiredState(rawDesired, rawInitial *Router, opts ...dcl.
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Router{}
 	if dcl.IsZeroValue(rawDesired.Nats) {
-		rawDesired.Nats = rawInitial.Nats
+		canonicalDesired.Nats = rawInitial.Nats
+	} else {
+		canonicalDesired.Nats = rawDesired.Nats
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.NameToSelfLink(rawDesired.Network, rawInitial.Network) {
-		rawDesired.Network = rawInitial.Network
+		canonicalDesired.Network = rawInitial.Network
+	} else {
+		canonicalDesired.Network = rawDesired.Network
 	}
 	if dcl.IsZeroValue(rawDesired.Interfaces) {
-		rawDesired.Interfaces = rawInitial.Interfaces
+		canonicalDesired.Interfaces = rawInitial.Interfaces
+	} else {
+		canonicalDesired.Interfaces = rawDesired.Interfaces
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.BgpPeers) {
-		rawDesired.BgpPeers = rawInitial.BgpPeers
+		canonicalDesired.BgpPeers = rawInitial.BgpPeers
+	} else {
+		canonicalDesired.BgpPeers = rawDesired.BgpPeers
 	}
-	rawDesired.Bgp = canonicalizeRouterBgp(rawDesired.Bgp, rawInitial.Bgp, opts...)
+	canonicalDesired.Bgp = canonicalizeRouterBgp(rawDesired.Bgp, rawInitial.Bgp, opts...)
 	if dcl.NameToSelfLink(rawDesired.Region, rawInitial.Region) {
-		rawDesired.Region = rawInitial.Region
+		canonicalDesired.Region = rawInitial.Region
+	} else {
+		canonicalDesired.Region = rawDesired.Region
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeRouterNewState(c *Client, rawNew, rawDesired *Router) (*Router, error) {
@@ -585,42 +601,66 @@ func canonicalizeRouterNats(des, initial *RouterNats, opts ...dcl.ApplyOption) *
 		return des
 	}
 
+	cDes := &RouterNats{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
-	des.LogConfig = canonicalizeRouterNatsLogConfig(des.LogConfig, initial.LogConfig, opts...)
+	cDes.LogConfig = canonicalizeRouterNatsLogConfig(des.LogConfig, initial.LogConfig, opts...)
 	if dcl.IsZeroValue(des.SourceSubnetworkIPRangesToNat) {
 		des.SourceSubnetworkIPRangesToNat = initial.SourceSubnetworkIPRangesToNat
+	} else {
+		cDes.SourceSubnetworkIPRangesToNat = des.SourceSubnetworkIPRangesToNat
 	}
 	if dcl.IsZeroValue(des.NatIps) {
 		des.NatIps = initial.NatIps
+	} else {
+		cDes.NatIps = des.NatIps
 	}
 	if dcl.IsZeroValue(des.DrainNatIps) {
 		des.DrainNatIps = initial.DrainNatIps
+	} else {
+		cDes.DrainNatIps = des.DrainNatIps
 	}
 	if dcl.IsZeroValue(des.NatIPAllocateOption) {
 		des.NatIPAllocateOption = initial.NatIPAllocateOption
+	} else {
+		cDes.NatIPAllocateOption = des.NatIPAllocateOption
 	}
 	if dcl.IsZeroValue(des.MinPortsPerVm) {
 		des.MinPortsPerVm = initial.MinPortsPerVm
+	} else {
+		cDes.MinPortsPerVm = des.MinPortsPerVm
 	}
 	if dcl.IsZeroValue(des.UdpIdleTimeoutSec) {
 		des.UdpIdleTimeoutSec = initial.UdpIdleTimeoutSec
+	} else {
+		cDes.UdpIdleTimeoutSec = des.UdpIdleTimeoutSec
 	}
 	if dcl.IsZeroValue(des.IcmpIdleTimeoutSec) {
 		des.IcmpIdleTimeoutSec = initial.IcmpIdleTimeoutSec
+	} else {
+		cDes.IcmpIdleTimeoutSec = des.IcmpIdleTimeoutSec
 	}
 	if dcl.IsZeroValue(des.TcpEstablishedIdleTimeoutSec) {
 		des.TcpEstablishedIdleTimeoutSec = initial.TcpEstablishedIdleTimeoutSec
+	} else {
+		cDes.TcpEstablishedIdleTimeoutSec = des.TcpEstablishedIdleTimeoutSec
 	}
 	if dcl.IsZeroValue(des.TcpTransitoryIdleTimeoutSec) {
 		des.TcpTransitoryIdleTimeoutSec = initial.TcpTransitoryIdleTimeoutSec
+	} else {
+		cDes.TcpTransitoryIdleTimeoutSec = des.TcpTransitoryIdleTimeoutSec
 	}
 	if dcl.IsZeroValue(des.Subnetworks) {
 		des.Subnetworks = initial.Subnetworks
+	} else {
+		cDes.Subnetworks = des.Subnetworks
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewRouterNats(c *Client, des, nw *RouterNats) *RouterNats {
@@ -719,14 +759,20 @@ func canonicalizeRouterNatsLogConfig(des, initial *RouterNatsLogConfig, opts ...
 		return des
 	}
 
+	cDes := &RouterNatsLogConfig{}
+
 	if dcl.BoolCanonicalize(des.Enable, initial.Enable) || dcl.IsZeroValue(des.Enable) {
-		des.Enable = initial.Enable
+		cDes.Enable = initial.Enable
+	} else {
+		cDes.Enable = des.Enable
 	}
 	if dcl.IsZeroValue(des.Filter) {
 		des.Filter = initial.Filter
+	} else {
+		cDes.Filter = des.Filter
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewRouterNatsLogConfig(c *Client, des, nw *RouterNatsLogConfig) *RouterNatsLogConfig {
@@ -799,17 +845,25 @@ func canonicalizeRouterNatsSubnetworks(des, initial *RouterNatsSubnetworks, opts
 		return des
 	}
 
+	cDes := &RouterNatsSubnetworks{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.SourceIPRangesToNat, initial.SourceIPRangesToNat) || dcl.IsZeroValue(des.SourceIPRangesToNat) {
-		des.SourceIPRangesToNat = initial.SourceIPRangesToNat
+		cDes.SourceIPRangesToNat = initial.SourceIPRangesToNat
+	} else {
+		cDes.SourceIPRangesToNat = des.SourceIPRangesToNat
 	}
 	if dcl.StringCanonicalize(des.SecondaryIPRangeNames, initial.SecondaryIPRangeNames) || dcl.IsZeroValue(des.SecondaryIPRangeNames) {
-		des.SecondaryIPRangeNames = initial.SecondaryIPRangeNames
+		cDes.SecondaryIPRangeNames = initial.SecondaryIPRangeNames
+	} else {
+		cDes.SecondaryIPRangeNames = des.SecondaryIPRangeNames
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewRouterNatsSubnetworks(c *Client, des, nw *RouterNatsSubnetworks) *RouterNatsSubnetworks {
@@ -885,17 +939,25 @@ func canonicalizeRouterInterfaces(des, initial *RouterInterfaces, opts ...dcl.Ap
 		return des
 	}
 
+	cDes := &RouterInterfaces{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.NameToSelfLink(des.LinkedVpnTunnel, initial.LinkedVpnTunnel) || dcl.IsZeroValue(des.LinkedVpnTunnel) {
-		des.LinkedVpnTunnel = initial.LinkedVpnTunnel
+		cDes.LinkedVpnTunnel = initial.LinkedVpnTunnel
+	} else {
+		cDes.LinkedVpnTunnel = des.LinkedVpnTunnel
 	}
 	if dcl.StringCanonicalize(des.IPRange, initial.IPRange) || dcl.IsZeroValue(des.IPRange) {
-		des.IPRange = initial.IPRange
+		cDes.IPRange = initial.IPRange
+	} else {
+		cDes.IPRange = des.IPRange
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewRouterInterfaces(c *Client, des, nw *RouterInterfaces) *RouterInterfaces {
@@ -974,35 +1036,55 @@ func canonicalizeRouterBgpPeers(des, initial *RouterBgpPeers, opts ...dcl.ApplyO
 		return des
 	}
 
+	cDes := &RouterBgpPeers{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.InterfaceName, initial.InterfaceName) || dcl.IsZeroValue(des.InterfaceName) {
-		des.InterfaceName = initial.InterfaceName
+		cDes.InterfaceName = initial.InterfaceName
+	} else {
+		cDes.InterfaceName = des.InterfaceName
 	}
 	if dcl.StringCanonicalize(des.IPAddress, initial.IPAddress) || dcl.IsZeroValue(des.IPAddress) {
-		des.IPAddress = initial.IPAddress
+		cDes.IPAddress = initial.IPAddress
+	} else {
+		cDes.IPAddress = des.IPAddress
 	}
 	if dcl.StringCanonicalize(des.PeerIPAddress, initial.PeerIPAddress) || dcl.IsZeroValue(des.PeerIPAddress) {
-		des.PeerIPAddress = initial.PeerIPAddress
+		cDes.PeerIPAddress = initial.PeerIPAddress
+	} else {
+		cDes.PeerIPAddress = des.PeerIPAddress
 	}
 	if dcl.IsZeroValue(des.PeerAsn) {
 		des.PeerAsn = initial.PeerAsn
+	} else {
+		cDes.PeerAsn = des.PeerAsn
 	}
 	if dcl.IsZeroValue(des.AdvertisedRoutePriority) {
 		des.AdvertisedRoutePriority = initial.AdvertisedRoutePriority
+	} else {
+		cDes.AdvertisedRoutePriority = des.AdvertisedRoutePriority
 	}
 	if dcl.StringCanonicalize(des.AdvertiseMode, initial.AdvertiseMode) || dcl.IsZeroValue(des.AdvertiseMode) {
-		des.AdvertiseMode = initial.AdvertiseMode
+		cDes.AdvertiseMode = initial.AdvertiseMode
+	} else {
+		cDes.AdvertiseMode = des.AdvertiseMode
 	}
 	if dcl.IsZeroValue(des.AdvertisedGroups) {
 		des.AdvertisedGroups = initial.AdvertisedGroups
+	} else {
+		cDes.AdvertisedGroups = des.AdvertisedGroups
 	}
 	if dcl.IsZeroValue(des.AdvertisedIPRanges) {
 		des.AdvertisedIPRanges = initial.AdvertisedIPRanges
+	} else {
+		cDes.AdvertisedIPRanges = des.AdvertisedIPRanges
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewRouterBgpPeers(c *Client, des, nw *RouterBgpPeers) *RouterBgpPeers {
@@ -1095,14 +1177,20 @@ func canonicalizeRouterBgpPeersAdvertisedIPRanges(des, initial *RouterBgpPeersAd
 		return des
 	}
 
+	cDes := &RouterBgpPeersAdvertisedIPRanges{}
+
 	if dcl.StringCanonicalize(des.Range, initial.Range) || dcl.IsZeroValue(des.Range) {
-		des.Range = initial.Range
+		cDes.Range = initial.Range
+	} else {
+		cDes.Range = des.Range
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewRouterBgpPeersAdvertisedIPRanges(c *Client, des, nw *RouterBgpPeersAdvertisedIPRanges) *RouterBgpPeersAdvertisedIPRanges {
@@ -1175,20 +1263,30 @@ func canonicalizeRouterBgp(des, initial *RouterBgp, opts ...dcl.ApplyOption) *Ro
 		return des
 	}
 
+	cDes := &RouterBgp{}
+
 	if dcl.IsZeroValue(des.Asn) {
 		des.Asn = initial.Asn
+	} else {
+		cDes.Asn = des.Asn
 	}
 	if dcl.IsZeroValue(des.AdvertiseMode) {
 		des.AdvertiseMode = initial.AdvertiseMode
+	} else {
+		cDes.AdvertiseMode = des.AdvertiseMode
 	}
 	if dcl.IsZeroValue(des.AdvertisedGroups) {
 		des.AdvertisedGroups = initial.AdvertisedGroups
+	} else {
+		cDes.AdvertisedGroups = des.AdvertisedGroups
 	}
 	if dcl.IsZeroValue(des.AdvertisedIPRanges) {
 		des.AdvertisedIPRanges = initial.AdvertisedIPRanges
+	} else {
+		cDes.AdvertisedIPRanges = des.AdvertisedIPRanges
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewRouterBgp(c *Client, des, nw *RouterBgp) *RouterBgp {
@@ -1265,14 +1363,20 @@ func canonicalizeRouterBgpAdvertisedIPRanges(des, initial *RouterBgpAdvertisedIP
 		return des
 	}
 
+	cDes := &RouterBgpAdvertisedIPRanges{}
+
 	if dcl.StringCanonicalize(des.Range, initial.Range) || dcl.IsZeroValue(des.Range) {
-		des.Range = initial.Range
+		cDes.Range = initial.Range
+	} else {
+		cDes.Range = des.Range
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewRouterBgpAdvertisedIPRanges(c *Client, des, nw *RouterBgpAdvertisedIPRanges) *RouterBgpAdvertisedIPRanges {
@@ -3286,31 +3390,45 @@ type routerDiff struct {
 	UpdateOp         routerApiOperation
 }
 
-func convertFieldDiffToRouterOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]routerDiff, error) {
+func convertFieldDiffsToRouterDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]routerDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []routerDiff
-	for _, op := range ops {
+	// For each operation name, create a routerDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := routerDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTorouterApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToRouterApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTorouterApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (routerApiOperation, error) {
-	switch op {
+func convertOpNameToRouterApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (routerApiOperation, error) {
+	switch opName {
 
 	case "updateRouterUpdateOperation":
-		return &updateRouterUpdateOperation{Diffs: diffs}, nil
+		return &updateRouterUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

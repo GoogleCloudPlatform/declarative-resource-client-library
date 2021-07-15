@@ -109,7 +109,7 @@ type updateObjectPatchObjectOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -353,46 +353,70 @@ func canonicalizeObjectDesiredState(rawDesired, rawInitial *Object, opts ...dcl.
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Object{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.NameToSelfLink(rawDesired.Bucket, rawInitial.Bucket) {
-		rawDesired.Bucket = rawInitial.Bucket
+		canonicalDesired.Bucket = rawInitial.Bucket
+	} else {
+		canonicalDesired.Bucket = rawDesired.Bucket
 	}
 	if dcl.StringCanonicalize(rawDesired.ContentType, rawInitial.ContentType) {
-		rawDesired.ContentType = rawInitial.ContentType
+		canonicalDesired.ContentType = rawInitial.ContentType
+	} else {
+		canonicalDesired.ContentType = rawDesired.ContentType
 	}
 	if dcl.IsZeroValue(rawDesired.CustomTime) {
-		rawDesired.CustomTime = rawInitial.CustomTime
+		canonicalDesired.CustomTime = rawInitial.CustomTime
+	} else {
+		canonicalDesired.CustomTime = rawDesired.CustomTime
 	}
 	if dcl.BoolCanonicalize(rawDesired.TemporaryHold, rawInitial.TemporaryHold) {
-		rawDesired.TemporaryHold = rawInitial.TemporaryHold
+		canonicalDesired.TemporaryHold = rawInitial.TemporaryHold
+	} else {
+		canonicalDesired.TemporaryHold = rawDesired.TemporaryHold
 	}
 	if dcl.BoolCanonicalize(rawDesired.EventBasedHold, rawInitial.EventBasedHold) {
-		rawDesired.EventBasedHold = rawInitial.EventBasedHold
+		canonicalDesired.EventBasedHold = rawInitial.EventBasedHold
+	} else {
+		canonicalDesired.EventBasedHold = rawDesired.EventBasedHold
 	}
 	if dcl.StringCanonicalize(rawDesired.StorageClass, rawInitial.StorageClass) {
-		rawDesired.StorageClass = rawInitial.StorageClass
+		canonicalDesired.StorageClass = rawInitial.StorageClass
+	} else {
+		canonicalDesired.StorageClass = rawDesired.StorageClass
 	}
 	if dcl.StringCanonicalize(rawDesired.Md5Hash, rawInitial.Md5Hash) {
-		rawDesired.Md5Hash = rawInitial.Md5Hash
+		canonicalDesired.Md5Hash = rawInitial.Md5Hash
+	} else {
+		canonicalDesired.Md5Hash = rawDesired.Md5Hash
 	}
 	if dcl.IsZeroValue(rawDesired.Metadata) {
-		rawDesired.Metadata = rawInitial.Metadata
+		canonicalDesired.Metadata = rawInitial.Metadata
+	} else {
+		canonicalDesired.Metadata = rawDesired.Metadata
 	}
 	if dcl.StringCanonicalize(rawDesired.Crc32c, rawInitial.Crc32c) {
-		rawDesired.Crc32c = rawInitial.Crc32c
+		canonicalDesired.Crc32c = rawInitial.Crc32c
+	} else {
+		canonicalDesired.Crc32c = rawDesired.Crc32c
 	}
-	rawDesired.CustomerEncryption = canonicalizeObjectCustomerEncryption(rawDesired.CustomerEncryption, rawInitial.CustomerEncryption, opts...)
+	canonicalDesired.CustomerEncryption = canonicalizeObjectCustomerEncryption(rawDesired.CustomerEncryption, rawInitial.CustomerEncryption, opts...)
 	if dcl.NameToSelfLink(rawDesired.KmsKeyName, rawInitial.KmsKeyName) {
-		rawDesired.KmsKeyName = rawInitial.KmsKeyName
+		canonicalDesired.KmsKeyName = rawInitial.KmsKeyName
+	} else {
+		canonicalDesired.KmsKeyName = rawDesired.KmsKeyName
 	}
 	if dcl.StringCanonicalize(rawDesired.Content, rawInitial.Content) {
-		rawDesired.Content = rawInitial.Content
+		canonicalDesired.Content = rawInitial.Content
+	} else {
+		canonicalDesired.Content = rawDesired.Content
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeObjectNewState(c *Client, rawNew, rawDesired *Object) (*Object, error) {
@@ -588,7 +612,9 @@ func canonicalizeObjectOwner(des, initial *ObjectOwner, opts ...dcl.ApplyOption)
 		return des
 	}
 
-	return des
+	cDes := &ObjectOwner{}
+
+	return cDes
 }
 
 func canonicalizeNewObjectOwner(c *Client, des, nw *ObjectOwner) *ObjectOwner {
@@ -661,17 +687,25 @@ func canonicalizeObjectCustomerEncryption(des, initial *ObjectCustomerEncryption
 		return des
 	}
 
+	cDes := &ObjectCustomerEncryption{}
+
 	if dcl.StringCanonicalize(des.EncryptionAlgorithm, initial.EncryptionAlgorithm) || dcl.IsZeroValue(des.EncryptionAlgorithm) {
-		des.EncryptionAlgorithm = initial.EncryptionAlgorithm
+		cDes.EncryptionAlgorithm = initial.EncryptionAlgorithm
+	} else {
+		cDes.EncryptionAlgorithm = des.EncryptionAlgorithm
 	}
 	if dcl.StringCanonicalize(des.KeySha256, initial.KeySha256) || dcl.IsZeroValue(des.KeySha256) {
-		des.KeySha256 = initial.KeySha256
+		cDes.KeySha256 = initial.KeySha256
+	} else {
+		cDes.KeySha256 = des.KeySha256
 	}
 	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
+		cDes.Key = initial.Key
+	} else {
+		cDes.Key = des.Key
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewObjectCustomerEncryption(c *Client, des, nw *ObjectCustomerEncryption) *ObjectCustomerEncryption {
@@ -1492,31 +1526,45 @@ type objectDiff struct {
 	UpdateOp         objectApiOperation
 }
 
-func convertFieldDiffToObjectOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]objectDiff, error) {
+func convertFieldDiffsToObjectDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]objectDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []objectDiff
-	for _, op := range ops {
+	// For each operation name, create a objectDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := objectDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToobjectApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToObjectApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToobjectApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (objectApiOperation, error) {
-	switch op {
+func convertOpNameToObjectApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (objectApiOperation, error) {
+	switch opName {
 
 	case "updateObjectPatchObjectOperation":
-		return &updateObjectPatchObjectOperation{Diffs: diffs}, nil
+		return &updateObjectPatchObjectOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

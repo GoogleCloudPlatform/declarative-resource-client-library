@@ -226,7 +226,7 @@ type updateClientTlsPolicyUpdateClientTlsPolicyOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -536,31 +536,45 @@ func canonicalizeClientTlsPolicyDesiredState(rawDesired, rawInitial *ClientTlsPo
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &ClientTlsPolicy{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.StringCanonicalize(rawDesired.Sni, rawInitial.Sni) {
-		rawDesired.Sni = rawInitial.Sni
+		canonicalDesired.Sni = rawInitial.Sni
+	} else {
+		canonicalDesired.Sni = rawDesired.Sni
 	}
-	rawDesired.ClientCertificate = canonicalizeClientTlsPolicyClientCertificate(rawDesired.ClientCertificate, rawInitial.ClientCertificate, opts...)
+	canonicalDesired.ClientCertificate = canonicalizeClientTlsPolicyClientCertificate(rawDesired.ClientCertificate, rawInitial.ClientCertificate, opts...)
 	if dcl.IsZeroValue(rawDesired.ServerValidationCa) {
-		rawDesired.ServerValidationCa = rawInitial.ServerValidationCa
+		canonicalDesired.ServerValidationCa = rawInitial.ServerValidationCa
+	} else {
+		canonicalDesired.ServerValidationCa = rawDesired.ServerValidationCa
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeClientTlsPolicyNewState(c *Client, rawNew, rawDesired *ClientTlsPolicy) (*ClientTlsPolicy, error) {
@@ -635,11 +649,13 @@ func canonicalizeClientTlsPolicyClientCertificate(des, initial *ClientTlsPolicyC
 		return des
 	}
 
-	des.LocalFilepath = canonicalizeClientTlsPolicyClientCertificateLocalFilepath(des.LocalFilepath, initial.LocalFilepath, opts...)
-	des.GrpcEndpoint = canonicalizeClientTlsPolicyClientCertificateGrpcEndpoint(des.GrpcEndpoint, initial.GrpcEndpoint, opts...)
-	des.CertificateProviderInstance = canonicalizeClientTlsPolicyClientCertificateCertificateProviderInstance(des.CertificateProviderInstance, initial.CertificateProviderInstance, opts...)
+	cDes := &ClientTlsPolicyClientCertificate{}
 
-	return des
+	cDes.LocalFilepath = canonicalizeClientTlsPolicyClientCertificateLocalFilepath(des.LocalFilepath, initial.LocalFilepath, opts...)
+	cDes.GrpcEndpoint = canonicalizeClientTlsPolicyClientCertificateGrpcEndpoint(des.GrpcEndpoint, initial.GrpcEndpoint, opts...)
+	cDes.CertificateProviderInstance = canonicalizeClientTlsPolicyClientCertificateCertificateProviderInstance(des.CertificateProviderInstance, initial.CertificateProviderInstance, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewClientTlsPolicyClientCertificate(c *Client, des, nw *ClientTlsPolicyClientCertificate) *ClientTlsPolicyClientCertificate {
@@ -709,14 +725,20 @@ func canonicalizeClientTlsPolicyClientCertificateLocalFilepath(des, initial *Cli
 		return des
 	}
 
+	cDes := &ClientTlsPolicyClientCertificateLocalFilepath{}
+
 	if dcl.StringCanonicalize(des.CertificatePath, initial.CertificatePath) || dcl.IsZeroValue(des.CertificatePath) {
-		des.CertificatePath = initial.CertificatePath
+		cDes.CertificatePath = initial.CertificatePath
+	} else {
+		cDes.CertificatePath = des.CertificatePath
 	}
 	if dcl.StringCanonicalize(des.PrivateKeyPath, initial.PrivateKeyPath) || dcl.IsZeroValue(des.PrivateKeyPath) {
-		des.PrivateKeyPath = initial.PrivateKeyPath
+		cDes.PrivateKeyPath = initial.PrivateKeyPath
+	} else {
+		cDes.PrivateKeyPath = des.PrivateKeyPath
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClientTlsPolicyClientCertificateLocalFilepath(c *Client, des, nw *ClientTlsPolicyClientCertificateLocalFilepath) *ClientTlsPolicyClientCertificateLocalFilepath {
@@ -789,11 +811,15 @@ func canonicalizeClientTlsPolicyClientCertificateGrpcEndpoint(des, initial *Clie
 		return des
 	}
 
+	cDes := &ClientTlsPolicyClientCertificateGrpcEndpoint{}
+
 	if dcl.StringCanonicalize(des.TargetUri, initial.TargetUri) || dcl.IsZeroValue(des.TargetUri) {
-		des.TargetUri = initial.TargetUri
+		cDes.TargetUri = initial.TargetUri
+	} else {
+		cDes.TargetUri = des.TargetUri
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClientTlsPolicyClientCertificateGrpcEndpoint(c *Client, des, nw *ClientTlsPolicyClientCertificateGrpcEndpoint) *ClientTlsPolicyClientCertificateGrpcEndpoint {
@@ -863,11 +889,15 @@ func canonicalizeClientTlsPolicyClientCertificateCertificateProviderInstance(des
 		return des
 	}
 
+	cDes := &ClientTlsPolicyClientCertificateCertificateProviderInstance{}
+
 	if dcl.StringCanonicalize(des.PluginInstance, initial.PluginInstance) || dcl.IsZeroValue(des.PluginInstance) {
-		des.PluginInstance = initial.PluginInstance
+		cDes.PluginInstance = initial.PluginInstance
+	} else {
+		cDes.PluginInstance = des.PluginInstance
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClientTlsPolicyClientCertificateCertificateProviderInstance(c *Client, des, nw *ClientTlsPolicyClientCertificateCertificateProviderInstance) *ClientTlsPolicyClientCertificateCertificateProviderInstance {
@@ -937,13 +967,17 @@ func canonicalizeClientTlsPolicyServerValidationCa(des, initial *ClientTlsPolicy
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.CaCertPath, initial.CaCertPath) || dcl.IsZeroValue(des.CaCertPath) {
-		des.CaCertPath = initial.CaCertPath
-	}
-	des.GrpcEndpoint = canonicalizeClientTlsPolicyServerValidationCaGrpcEndpoint(des.GrpcEndpoint, initial.GrpcEndpoint, opts...)
-	des.CertificateProviderInstance = canonicalizeClientTlsPolicyServerValidationCaCertificateProviderInstance(des.CertificateProviderInstance, initial.CertificateProviderInstance, opts...)
+	cDes := &ClientTlsPolicyServerValidationCa{}
 
-	return des
+	if dcl.StringCanonicalize(des.CaCertPath, initial.CaCertPath) || dcl.IsZeroValue(des.CaCertPath) {
+		cDes.CaCertPath = initial.CaCertPath
+	} else {
+		cDes.CaCertPath = des.CaCertPath
+	}
+	cDes.GrpcEndpoint = canonicalizeClientTlsPolicyServerValidationCaGrpcEndpoint(des.GrpcEndpoint, initial.GrpcEndpoint, opts...)
+	cDes.CertificateProviderInstance = canonicalizeClientTlsPolicyServerValidationCaCertificateProviderInstance(des.CertificateProviderInstance, initial.CertificateProviderInstance, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewClientTlsPolicyServerValidationCa(c *Client, des, nw *ClientTlsPolicyServerValidationCa) *ClientTlsPolicyServerValidationCa {
@@ -1015,11 +1049,15 @@ func canonicalizeClientTlsPolicyServerValidationCaGrpcEndpoint(des, initial *Cli
 		return des
 	}
 
+	cDes := &ClientTlsPolicyServerValidationCaGrpcEndpoint{}
+
 	if dcl.StringCanonicalize(des.TargetUri, initial.TargetUri) || dcl.IsZeroValue(des.TargetUri) {
-		des.TargetUri = initial.TargetUri
+		cDes.TargetUri = initial.TargetUri
+	} else {
+		cDes.TargetUri = des.TargetUri
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClientTlsPolicyServerValidationCaGrpcEndpoint(c *Client, des, nw *ClientTlsPolicyServerValidationCaGrpcEndpoint) *ClientTlsPolicyServerValidationCaGrpcEndpoint {
@@ -1089,11 +1127,15 @@ func canonicalizeClientTlsPolicyServerValidationCaCertificateProviderInstance(de
 		return des
 	}
 
+	cDes := &ClientTlsPolicyServerValidationCaCertificateProviderInstance{}
+
 	if dcl.StringCanonicalize(des.PluginInstance, initial.PluginInstance) || dcl.IsZeroValue(des.PluginInstance) {
-		des.PluginInstance = initial.PluginInstance
+		cDes.PluginInstance = initial.PluginInstance
+	} else {
+		cDes.PluginInstance = des.PluginInstance
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewClientTlsPolicyServerValidationCaCertificateProviderInstance(c *Client, des, nw *ClientTlsPolicyServerValidationCaCertificateProviderInstance) *ClientTlsPolicyServerValidationCaCertificateProviderInstance {
@@ -2480,31 +2522,45 @@ type clientTlsPolicyDiff struct {
 	UpdateOp         clientTlsPolicyApiOperation
 }
 
-func convertFieldDiffToClientTlsPolicyOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]clientTlsPolicyDiff, error) {
+func convertFieldDiffsToClientTlsPolicyDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]clientTlsPolicyDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []clientTlsPolicyDiff
-	for _, op := range ops {
+	// For each operation name, create a clientTlsPolicyDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := clientTlsPolicyDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToclientTlsPolicyApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToClientTlsPolicyApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToclientTlsPolicyApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (clientTlsPolicyApiOperation, error) {
-	switch op {
+func convertOpNameToClientTlsPolicyApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (clientTlsPolicyApiOperation, error) {
+	switch opName {
 
 	case "updateClientTlsPolicyUpdateClientTlsPolicyOperation":
-		return &updateClientTlsPolicyUpdateClientTlsPolicyOperation{Diffs: diffs}, nil
+		return &updateClientTlsPolicyUpdateClientTlsPolicyOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

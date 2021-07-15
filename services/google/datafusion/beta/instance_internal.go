@@ -150,7 +150,7 @@ type updateInstanceUpdateInstanceOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -460,52 +460,80 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Instance{}
 	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.Type) {
-		rawDesired.Type = rawInitial.Type
+		canonicalDesired.Type = rawInitial.Type
+	} else {
+		canonicalDesired.Type = rawDesired.Type
 	}
 	if dcl.BoolCanonicalize(rawDesired.EnableStackdriverLogging, rawInitial.EnableStackdriverLogging) {
-		rawDesired.EnableStackdriverLogging = rawInitial.EnableStackdriverLogging
+		canonicalDesired.EnableStackdriverLogging = rawInitial.EnableStackdriverLogging
+	} else {
+		canonicalDesired.EnableStackdriverLogging = rawDesired.EnableStackdriverLogging
 	}
 	if dcl.BoolCanonicalize(rawDesired.EnableStackdriverMonitoring, rawInitial.EnableStackdriverMonitoring) {
-		rawDesired.EnableStackdriverMonitoring = rawInitial.EnableStackdriverMonitoring
+		canonicalDesired.EnableStackdriverMonitoring = rawInitial.EnableStackdriverMonitoring
+	} else {
+		canonicalDesired.EnableStackdriverMonitoring = rawDesired.EnableStackdriverMonitoring
 	}
 	if dcl.BoolCanonicalize(rawDesired.PrivateInstance, rawInitial.PrivateInstance) {
-		rawDesired.PrivateInstance = rawInitial.PrivateInstance
+		canonicalDesired.PrivateInstance = rawInitial.PrivateInstance
+	} else {
+		canonicalDesired.PrivateInstance = rawDesired.PrivateInstance
 	}
-	rawDesired.NetworkConfig = canonicalizeInstanceNetworkConfig(rawDesired.NetworkConfig, rawInitial.NetworkConfig, opts...)
+	canonicalDesired.NetworkConfig = canonicalizeInstanceNetworkConfig(rawDesired.NetworkConfig, rawInitial.NetworkConfig, opts...)
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.IsZeroValue(rawDesired.Options) {
-		rawDesired.Options = rawInitial.Options
+		canonicalDesired.Options = rawInitial.Options
+	} else {
+		canonicalDesired.Options = rawDesired.Options
 	}
 	if dcl.StringCanonicalize(rawDesired.Zone, rawInitial.Zone) {
-		rawDesired.Zone = rawInitial.Zone
+		canonicalDesired.Zone = rawInitial.Zone
+	} else {
+		canonicalDesired.Zone = rawDesired.Zone
 	}
 	if dcl.StringCanonicalize(rawDesired.Version, rawInitial.Version) {
-		rawDesired.Version = rawInitial.Version
+		canonicalDesired.Version = rawInitial.Version
+	} else {
+		canonicalDesired.Version = rawDesired.Version
 	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
-		rawDesired.DisplayName = rawInitial.DisplayName
+		canonicalDesired.DisplayName = rawInitial.DisplayName
+	} else {
+		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
 	if dcl.NameToSelfLink(rawDesired.DataprocServiceAccount, rawInitial.DataprocServiceAccount) {
-		rawDesired.DataprocServiceAccount = rawInitial.DataprocServiceAccount
+		canonicalDesired.DataprocServiceAccount = rawInitial.DataprocServiceAccount
+	} else {
+		canonicalDesired.DataprocServiceAccount = rawDesired.DataprocServiceAccount
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Instance, error) {
@@ -685,14 +713,20 @@ func canonicalizeInstanceNetworkConfig(des, initial *InstanceNetworkConfig, opts
 		return des
 	}
 
+	cDes := &InstanceNetworkConfig{}
+
 	if dcl.NameToSelfLink(des.Network, initial.Network) || dcl.IsZeroValue(des.Network) {
-		des.Network = initial.Network
+		cDes.Network = initial.Network
+	} else {
+		cDes.Network = des.Network
 	}
 	if dcl.StringCanonicalize(des.IPAllocation, initial.IPAllocation) || dcl.IsZeroValue(des.IPAllocation) {
-		des.IPAllocation = initial.IPAllocation
+		cDes.IPAllocation = initial.IPAllocation
+	} else {
+		cDes.IPAllocation = des.IPAllocation
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewInstanceNetworkConfig(c *Client, des, nw *InstanceNetworkConfig) *InstanceNetworkConfig {
@@ -765,7 +799,9 @@ func canonicalizeInstanceAvailableVersion(des, initial *InstanceAvailableVersion
 		return des
 	}
 
-	return des
+	cDes := &InstanceAvailableVersion{}
+
+	return cDes
 }
 
 func canonicalizeNewInstanceAvailableVersion(c *Client, des, nw *InstanceAvailableVersion) *InstanceAvailableVersion {
@@ -1638,31 +1674,45 @@ type instanceDiff struct {
 	UpdateOp         instanceApiOperation
 }
 
-func convertFieldDiffToInstanceOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]instanceDiff, error) {
+func convertFieldDiffsToInstanceDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]instanceDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []instanceDiff
-	for _, op := range ops {
+	// For each operation name, create a instanceDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := instanceDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToinstanceApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToInstanceApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToinstanceApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (instanceApiOperation, error) {
-	switch op {
+func convertOpNameToInstanceApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (instanceApiOperation, error) {
+	switch opName {
 
 	case "updateInstanceUpdateInstanceOperation":
-		return &updateInstanceUpdateInstanceOperation{Diffs: diffs}, nil
+		return &updateInstanceUpdateInstanceOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

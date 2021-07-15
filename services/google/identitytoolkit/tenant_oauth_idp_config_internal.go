@@ -136,7 +136,7 @@ type updateTenantOAuthIdpConfigUpdateConfigOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -422,34 +422,50 @@ func canonicalizeTenantOAuthIdpConfigDesiredState(rawDesired, rawInitial *Tenant
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &TenantOAuthIdpConfig{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.ClientId, rawInitial.ClientId) {
-		rawDesired.ClientId = rawInitial.ClientId
+		canonicalDesired.ClientId = rawInitial.ClientId
+	} else {
+		canonicalDesired.ClientId = rawDesired.ClientId
 	}
 	if dcl.StringCanonicalize(rawDesired.Issuer, rawInitial.Issuer) {
-		rawDesired.Issuer = rawInitial.Issuer
+		canonicalDesired.Issuer = rawInitial.Issuer
+	} else {
+		canonicalDesired.Issuer = rawDesired.Issuer
 	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
-		rawDesired.DisplayName = rawInitial.DisplayName
+		canonicalDesired.DisplayName = rawInitial.DisplayName
+	} else {
+		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
 	if dcl.BoolCanonicalize(rawDesired.Enabled, rawInitial.Enabled) {
-		rawDesired.Enabled = rawInitial.Enabled
+		canonicalDesired.Enabled = rawInitial.Enabled
+	} else {
+		canonicalDesired.Enabled = rawDesired.Enabled
 	}
 	if dcl.StringCanonicalize(rawDesired.ClientSecret, rawInitial.ClientSecret) {
-		rawDesired.ClientSecret = rawInitial.ClientSecret
+		canonicalDesired.ClientSecret = rawInitial.ClientSecret
+	} else {
+		canonicalDesired.ClientSecret = rawDesired.ClientSecret
 	}
-	rawDesired.ResponseType = canonicalizeTenantOAuthIdpConfigResponseType(rawDesired.ResponseType, rawInitial.ResponseType, opts...)
+	canonicalDesired.ResponseType = canonicalizeTenantOAuthIdpConfigResponseType(rawDesired.ResponseType, rawInitial.ResponseType, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Tenant, rawInitial.Tenant) {
-		rawDesired.Tenant = rawInitial.Tenant
+		canonicalDesired.Tenant = rawInitial.Tenant
+	} else {
+		canonicalDesired.Tenant = rawDesired.Tenant
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeTenantOAuthIdpConfigNewState(c *Client, rawNew, rawDesired *TenantOAuthIdpConfig) (*TenantOAuthIdpConfig, error) {
@@ -527,17 +543,25 @@ func canonicalizeTenantOAuthIdpConfigResponseType(des, initial *TenantOAuthIdpCo
 		return des
 	}
 
+	cDes := &TenantOAuthIdpConfigResponseType{}
+
 	if dcl.BoolCanonicalize(des.IdToken, initial.IdToken) || dcl.IsZeroValue(des.IdToken) {
-		des.IdToken = initial.IdToken
+		cDes.IdToken = initial.IdToken
+	} else {
+		cDes.IdToken = des.IdToken
 	}
 	if dcl.BoolCanonicalize(des.Code, initial.Code) || dcl.IsZeroValue(des.Code) {
-		des.Code = initial.Code
+		cDes.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.BoolCanonicalize(des.Token, initial.Token) || dcl.IsZeroValue(des.Token) {
-		des.Token = initial.Token
+		cDes.Token = initial.Token
+	} else {
+		cDes.Token = des.Token
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewTenantOAuthIdpConfigResponseType(c *Client, des, nw *TenantOAuthIdpConfigResponseType) *TenantOAuthIdpConfigResponseType {
@@ -1019,31 +1043,45 @@ type tenantOAuthIdpConfigDiff struct {
 	UpdateOp         tenantOAuthIdpConfigApiOperation
 }
 
-func convertFieldDiffToTenantOAuthIdpConfigOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]tenantOAuthIdpConfigDiff, error) {
+func convertFieldDiffsToTenantOAuthIdpConfigDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]tenantOAuthIdpConfigDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []tenantOAuthIdpConfigDiff
-	for _, op := range ops {
+	// For each operation name, create a tenantOAuthIdpConfigDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := tenantOAuthIdpConfigDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTotenantOAuthIdpConfigApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToTenantOAuthIdpConfigApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTotenantOAuthIdpConfigApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (tenantOAuthIdpConfigApiOperation, error) {
-	switch op {
+func convertOpNameToTenantOAuthIdpConfigApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (tenantOAuthIdpConfigApiOperation, error) {
+	switch opName {
 
 	case "updateTenantOAuthIdpConfigUpdateConfigOperation":
-		return &updateTenantOAuthIdpConfigUpdateConfigOperation{Diffs: diffs}, nil
+		return &updateTenantOAuthIdpConfigUpdateConfigOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

@@ -219,8 +219,7 @@ func applyGroupHelper(c *Client, ctx context.Context, rawDesired *Group, opts ..
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToGroupOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToGroupDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -248,7 +247,6 @@ func applyGroupHelper(c *Client, ctx context.Context, rawDesired *Group, opts ..
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

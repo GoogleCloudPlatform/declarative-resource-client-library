@@ -177,7 +177,7 @@ type updateLogMetricUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -463,32 +463,46 @@ func canonicalizeLogMetricDesiredState(rawDesired, rawInitial *LogMetric, opts .
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &LogMetric{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.StringCanonicalize(rawDesired.Filter, rawInitial.Filter) {
-		rawDesired.Filter = rawInitial.Filter
+		canonicalDesired.Filter = rawInitial.Filter
+	} else {
+		canonicalDesired.Filter = rawDesired.Filter
 	}
 	if dcl.BoolCanonicalize(rawDesired.Disabled, rawInitial.Disabled) {
-		rawDesired.Disabled = rawInitial.Disabled
+		canonicalDesired.Disabled = rawInitial.Disabled
+	} else {
+		canonicalDesired.Disabled = rawDesired.Disabled
 	}
-	rawDesired.MetricDescriptor = canonicalizeLogMetricMetricDescriptor(rawDesired.MetricDescriptor, rawInitial.MetricDescriptor, opts...)
+	canonicalDesired.MetricDescriptor = canonicalizeLogMetricMetricDescriptor(rawDesired.MetricDescriptor, rawInitial.MetricDescriptor, opts...)
 	if dcl.StringCanonicalize(rawDesired.ValueExtractor, rawInitial.ValueExtractor) {
-		rawDesired.ValueExtractor = rawInitial.ValueExtractor
+		canonicalDesired.ValueExtractor = rawInitial.ValueExtractor
+	} else {
+		canonicalDesired.ValueExtractor = rawDesired.ValueExtractor
 	}
 	if dcl.IsZeroValue(rawDesired.LabelExtractors) {
-		rawDesired.LabelExtractors = rawInitial.LabelExtractors
+		canonicalDesired.LabelExtractors = rawInitial.LabelExtractors
+	} else {
+		canonicalDesired.LabelExtractors = rawDesired.LabelExtractors
 	}
-	rawDesired.BucketOptions = canonicalizeLogMetricBucketOptions(rawDesired.BucketOptions, rawInitial.BucketOptions, opts...)
+	canonicalDesired.BucketOptions = canonicalizeLogMetricBucketOptions(rawDesired.BucketOptions, rawInitial.BucketOptions, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeLogMetricNewState(c *Client, rawNew, rawDesired *LogMetric) (*LogMetric, error) {
@@ -577,27 +591,41 @@ func canonicalizeLogMetricMetricDescriptor(des, initial *LogMetricMetricDescript
 		return des
 	}
 
+	cDes := &LogMetricMetricDescriptor{}
+
 	if dcl.IsZeroValue(des.Labels) {
 		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
 	}
 	if dcl.IsZeroValue(des.MetricKind) {
 		des.MetricKind = initial.MetricKind
+	} else {
+		cDes.MetricKind = des.MetricKind
 	}
 	if canonicalizeLogMetricMetricDescriptorValueType(des.ValueType, initial.ValueType) || dcl.IsZeroValue(des.ValueType) {
-		des.ValueType = initial.ValueType
+		cDes.ValueType = initial.ValueType
+	} else {
+		cDes.ValueType = des.ValueType
 	}
 	if dcl.StringCanonicalize(des.Unit, initial.Unit) || dcl.IsZeroValue(des.Unit) {
-		des.Unit = initial.Unit
+		cDes.Unit = initial.Unit
+	} else {
+		cDes.Unit = des.Unit
 	}
 	if dcl.StringCanonicalize(des.DisplayName, initial.DisplayName) || dcl.IsZeroValue(des.DisplayName) {
-		des.DisplayName = initial.DisplayName
+		cDes.DisplayName = initial.DisplayName
+	} else {
+		cDes.DisplayName = des.DisplayName
 	}
-	des.Metadata = canonicalizeLogMetricMetricDescriptorMetadata(des.Metadata, initial.Metadata, opts...)
+	cDes.Metadata = canonicalizeLogMetricMetricDescriptorMetadata(des.Metadata, initial.Metadata, opts...)
 	if dcl.IsZeroValue(des.LaunchStage) {
 		des.LaunchStage = initial.LaunchStage
+	} else {
+		cDes.LaunchStage = des.LaunchStage
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewLogMetricMetricDescriptor(c *Client, des, nw *LogMetricMetricDescriptor) *LogMetricMetricDescriptor {
@@ -691,17 +719,25 @@ func canonicalizeLogMetricMetricDescriptorLabels(des, initial *LogMetricMetricDe
 		return des
 	}
 
+	cDes := &LogMetricMetricDescriptorLabels{}
+
 	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
+		cDes.Key = initial.Key
+	} else {
+		cDes.Key = des.Key
 	}
 	if canonicalizeLogMetricMetricDescriptorLabelsValueType(des.ValueType, initial.ValueType) || dcl.IsZeroValue(des.ValueType) {
-		des.ValueType = initial.ValueType
+		cDes.ValueType = initial.ValueType
+	} else {
+		cDes.ValueType = des.ValueType
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewLogMetricMetricDescriptorLabels(c *Client, des, nw *LogMetricMetricDescriptorLabels) *LogMetricMetricDescriptorLabels {
@@ -777,14 +813,20 @@ func canonicalizeLogMetricMetricDescriptorMetadata(des, initial *LogMetricMetric
 		return des
 	}
 
+	cDes := &LogMetricMetricDescriptorMetadata{}
+
 	if dcl.StringCanonicalize(des.SamplePeriod, initial.SamplePeriod) || dcl.IsZeroValue(des.SamplePeriod) {
-		des.SamplePeriod = initial.SamplePeriod
+		cDes.SamplePeriod = initial.SamplePeriod
+	} else {
+		cDes.SamplePeriod = des.SamplePeriod
 	}
 	if dcl.StringCanonicalize(des.IngestDelay, initial.IngestDelay) || dcl.IsZeroValue(des.IngestDelay) {
-		des.IngestDelay = initial.IngestDelay
+		cDes.IngestDelay = initial.IngestDelay
+	} else {
+		cDes.IngestDelay = des.IngestDelay
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewLogMetricMetricDescriptorMetadata(c *Client, des, nw *LogMetricMetricDescriptorMetadata) *LogMetricMetricDescriptorMetadata {
@@ -857,11 +899,13 @@ func canonicalizeLogMetricBucketOptions(des, initial *LogMetricBucketOptions, op
 		return des
 	}
 
-	des.LinearBuckets = canonicalizeLogMetricBucketOptionsLinearBuckets(des.LinearBuckets, initial.LinearBuckets, opts...)
-	des.ExponentialBuckets = canonicalizeLogMetricBucketOptionsExponentialBuckets(des.ExponentialBuckets, initial.ExponentialBuckets, opts...)
-	des.ExplicitBuckets = canonicalizeLogMetricBucketOptionsExplicitBuckets(des.ExplicitBuckets, initial.ExplicitBuckets, opts...)
+	cDes := &LogMetricBucketOptions{}
 
-	return des
+	cDes.LinearBuckets = canonicalizeLogMetricBucketOptionsLinearBuckets(des.LinearBuckets, initial.LinearBuckets, opts...)
+	cDes.ExponentialBuckets = canonicalizeLogMetricBucketOptionsExponentialBuckets(des.ExponentialBuckets, initial.ExponentialBuckets, opts...)
+	cDes.ExplicitBuckets = canonicalizeLogMetricBucketOptionsExplicitBuckets(des.ExplicitBuckets, initial.ExplicitBuckets, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewLogMetricBucketOptions(c *Client, des, nw *LogMetricBucketOptions) *LogMetricBucketOptions {
@@ -931,17 +975,25 @@ func canonicalizeLogMetricBucketOptionsLinearBuckets(des, initial *LogMetricBuck
 		return des
 	}
 
+	cDes := &LogMetricBucketOptionsLinearBuckets{}
+
 	if dcl.IsZeroValue(des.NumFiniteBuckets) {
 		des.NumFiniteBuckets = initial.NumFiniteBuckets
+	} else {
+		cDes.NumFiniteBuckets = des.NumFiniteBuckets
 	}
 	if dcl.IsZeroValue(des.Width) {
 		des.Width = initial.Width
+	} else {
+		cDes.Width = des.Width
 	}
 	if dcl.IsZeroValue(des.Offset) {
 		des.Offset = initial.Offset
+	} else {
+		cDes.Offset = des.Offset
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewLogMetricBucketOptionsLinearBuckets(c *Client, des, nw *LogMetricBucketOptionsLinearBuckets) *LogMetricBucketOptionsLinearBuckets {
@@ -1017,17 +1069,25 @@ func canonicalizeLogMetricBucketOptionsExponentialBuckets(des, initial *LogMetri
 		return des
 	}
 
+	cDes := &LogMetricBucketOptionsExponentialBuckets{}
+
 	if dcl.IsZeroValue(des.NumFiniteBuckets) {
 		des.NumFiniteBuckets = initial.NumFiniteBuckets
+	} else {
+		cDes.NumFiniteBuckets = des.NumFiniteBuckets
 	}
 	if dcl.IsZeroValue(des.GrowthFactor) {
 		des.GrowthFactor = initial.GrowthFactor
+	} else {
+		cDes.GrowthFactor = des.GrowthFactor
 	}
 	if dcl.IsZeroValue(des.Scale) {
 		des.Scale = initial.Scale
+	} else {
+		cDes.Scale = des.Scale
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewLogMetricBucketOptionsExponentialBuckets(c *Client, des, nw *LogMetricBucketOptionsExponentialBuckets) *LogMetricBucketOptionsExponentialBuckets {
@@ -1103,11 +1163,15 @@ func canonicalizeLogMetricBucketOptionsExplicitBuckets(des, initial *LogMetricBu
 		return des
 	}
 
+	cDes := &LogMetricBucketOptionsExplicitBuckets{}
+
 	if dcl.IsZeroValue(des.Bounds) {
 		des.Bounds = initial.Bounds
+	} else {
+		cDes.Bounds = des.Bounds
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewLogMetricBucketOptionsExplicitBuckets(c *Client, des, nw *LogMetricBucketOptionsExplicitBuckets) *LogMetricBucketOptionsExplicitBuckets {
@@ -2770,31 +2834,45 @@ type logMetricDiff struct {
 	UpdateOp         logMetricApiOperation
 }
 
-func convertFieldDiffToLogMetricOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]logMetricDiff, error) {
+func convertFieldDiffsToLogMetricDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]logMetricDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []logMetricDiff
-	for _, op := range ops {
+	// For each operation name, create a logMetricDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := logMetricDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTologMetricApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToLogMetricApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTologMetricApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (logMetricApiOperation, error) {
-	switch op {
+func convertOpNameToLogMetricApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (logMetricApiOperation, error) {
+	switch opName {
 
 	case "updateLogMetricUpdateOperation":
-		return &updateLogMetricUpdateOperation{Diffs: diffs}, nil
+		return &updateLogMetricUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

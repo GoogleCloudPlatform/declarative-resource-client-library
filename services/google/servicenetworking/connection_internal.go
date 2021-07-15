@@ -114,7 +114,7 @@ type updateConnectionPatchOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -399,21 +399,29 @@ func canonicalizeConnectionDesiredState(rawDesired, rawInitial *Connection, opts
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Connection{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Network, rawInitial.Network) {
-		rawDesired.Network = rawInitial.Network
+		canonicalDesired.Network = rawInitial.Network
+	} else {
+		canonicalDesired.Network = rawDesired.Network
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.IsZeroValue(rawDesired.ReservedPeeringRanges) {
-		rawDesired.ReservedPeeringRanges = rawInitial.ReservedPeeringRanges
+		canonicalDesired.ReservedPeeringRanges = rawInitial.ReservedPeeringRanges
+	} else {
+		canonicalDesired.ReservedPeeringRanges = rawDesired.ReservedPeeringRanges
 	}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Service, rawInitial.Service) {
-		rawDesired.Service = rawInitial.Service
+		canonicalDesired.Service = rawInitial.Service
+	} else {
+		canonicalDesired.Service = rawDesired.Service
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeConnectionNewState(c *Client, rawNew, rawDesired *Connection) (*Connection, error) {
@@ -656,31 +664,45 @@ type connectionDiff struct {
 	UpdateOp         connectionApiOperation
 }
 
-func convertFieldDiffToConnectionOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]connectionDiff, error) {
+func convertFieldDiffsToConnectionDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]connectionDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []connectionDiff
-	for _, op := range ops {
+	// For each operation name, create a connectionDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := connectionDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToconnectionApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToConnectionApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToconnectionApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (connectionApiOperation, error) {
-	switch op {
+func convertOpNameToConnectionApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (connectionApiOperation, error) {
+	switch opName {
 
 	case "updateConnectionPatchOperation":
-		return &updateConnectionPatchOperation{Diffs: diffs}, nil
+		return &updateConnectionPatchOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

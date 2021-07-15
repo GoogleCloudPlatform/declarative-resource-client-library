@@ -199,7 +199,7 @@ type updateNodePoolSetAutoscalingOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -279,7 +279,7 @@ type updateNodePoolSetManagementOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -357,7 +357,7 @@ type updateNodePoolSetSizeOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -440,7 +440,7 @@ type updateNodePoolUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -472,7 +472,7 @@ func (op *updateNodePoolUpdateOperation) do(ctx context.Context, r *NodePool, c 
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -777,14 +777,14 @@ func nodePoolWaitForRestingState(ctx context.Context, r *NodePool, c *Client) er
 func canonicalizeNodePoolInitialState(rawInitial, rawDesired *NodePool) (*NodePool, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
-	if dcl.IsZeroValue(rawInitial.NodeCount) {
+	if !dcl.IsZeroValue(rawInitial.NodeCount) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.Autoscaling) {
 			rawInitial.NodeCount = dcl.Int64(0)
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.Autoscaling) {
+	if !dcl.IsZeroValue(rawInitial.Autoscaling) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.NodeCount) {
 			rawInitial.Autoscaling = EmptyNodePoolAutoscaling
@@ -831,34 +831,49 @@ func canonicalizeNodePoolDesiredState(rawDesired, rawInitial *NodePool, opts ...
 		}
 	}
 
+	canonicalDesired := &NodePool{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
-	rawDesired.Config = canonicalizeNodePoolConfig(rawDesired.Config, rawInitial.Config, opts...)
+	canonicalDesired.Config = canonicalizeNodePoolConfig(rawDesired.Config, rawInitial.Config, opts...)
 	if dcl.IsZeroValue(rawDesired.NodeCount) {
-		rawDesired.NodeCount = rawInitial.NodeCount
+		canonicalDesired.NodeCount = rawInitial.NodeCount
+	} else {
+		canonicalDesired.NodeCount = rawDesired.NodeCount
 	}
 	if dcl.StringCanonicalize(rawDesired.Version, rawInitial.Version) {
-		rawDesired.Version = rawInitial.Version
+		canonicalDesired.Version = rawInitial.Version
+	} else {
+		canonicalDesired.Version = rawDesired.Version
 	}
 	if dcl.IsZeroValue(rawDesired.Locations) {
-		rawDesired.Locations = rawInitial.Locations
+		canonicalDesired.Locations = rawInitial.Locations
+	} else {
+		canonicalDesired.Locations = rawDesired.Locations
 	}
-	rawDesired.Autoscaling = canonicalizeNodePoolAutoscaling(rawDesired.Autoscaling, rawInitial.Autoscaling, opts...)
-	rawDesired.Management = canonicalizeNodePoolManagement(rawDesired.Management, rawInitial.Management, opts...)
-	rawDesired.MaxPodsConstraint = canonicalizeNodePoolMaxPodsConstraint(rawDesired.MaxPodsConstraint, rawInitial.MaxPodsConstraint, opts...)
-	rawDesired.UpgradeSettings = canonicalizeNodePoolUpgradeSettings(rawDesired.UpgradeSettings, rawInitial.UpgradeSettings, opts...)
+	canonicalDesired.Autoscaling = canonicalizeNodePoolAutoscaling(rawDesired.Autoscaling, rawInitial.Autoscaling, opts...)
+	canonicalDesired.Management = canonicalizeNodePoolManagement(rawDesired.Management, rawInitial.Management, opts...)
+	canonicalDesired.MaxPodsConstraint = canonicalizeNodePoolMaxPodsConstraint(rawDesired.MaxPodsConstraint, rawInitial.MaxPodsConstraint, opts...)
+	canonicalDesired.UpgradeSettings = canonicalizeNodePoolUpgradeSettings(rawDesired.UpgradeSettings, rawInitial.UpgradeSettings, opts...)
 	if dcl.NameToSelfLink(rawDesired.Cluster, rawInitial.Cluster) {
-		rawDesired.Cluster = rawInitial.Cluster
+		canonicalDesired.Cluster = rawInitial.Cluster
+	} else {
+		canonicalDesired.Cluster = rawDesired.Cluster
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeNodePoolNewState(c *Client, rawNew, rawDesired *NodePool) (*NodePool, error) {
@@ -964,53 +979,83 @@ func canonicalizeNodePoolConfig(des, initial *NodePoolConfig, opts ...dcl.ApplyO
 		return des
 	}
 
+	cDes := &NodePoolConfig{}
+
 	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
-		des.MachineType = initial.MachineType
+		cDes.MachineType = initial.MachineType
+	} else {
+		cDes.MachineType = des.MachineType
 	}
 	if dcl.IsZeroValue(des.DiskSizeGb) {
 		des.DiskSizeGb = initial.DiskSizeGb
+	} else {
+		cDes.DiskSizeGb = des.DiskSizeGb
 	}
 	if dcl.IsZeroValue(des.OAuthScopes) {
 		des.OAuthScopes = initial.OAuthScopes
+	} else {
+		cDes.OAuthScopes = des.OAuthScopes
 	}
 	if dcl.StringCanonicalize(des.ServiceAccount, initial.ServiceAccount) || dcl.IsZeroValue(des.ServiceAccount) {
-		des.ServiceAccount = initial.ServiceAccount
+		cDes.ServiceAccount = initial.ServiceAccount
+	} else {
+		cDes.ServiceAccount = des.ServiceAccount
 	}
 	if dcl.IsZeroValue(des.Metadata) {
 		des.Metadata = initial.Metadata
+	} else {
+		cDes.Metadata = des.Metadata
 	}
 	if dcl.StringCanonicalize(des.ImageType, initial.ImageType) || dcl.IsZeroValue(des.ImageType) {
-		des.ImageType = initial.ImageType
+		cDes.ImageType = initial.ImageType
+	} else {
+		cDes.ImageType = des.ImageType
 	}
 	if dcl.IsZeroValue(des.Labels) {
 		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
 	}
 	if dcl.IsZeroValue(des.LocalSsdCount) {
 		des.LocalSsdCount = initial.LocalSsdCount
+	} else {
+		cDes.LocalSsdCount = des.LocalSsdCount
 	}
 	if dcl.IsZeroValue(des.Tags) {
 		des.Tags = initial.Tags
+	} else {
+		cDes.Tags = des.Tags
 	}
 	if dcl.BoolCanonicalize(des.Preemptible, initial.Preemptible) || dcl.IsZeroValue(des.Preemptible) {
-		des.Preemptible = initial.Preemptible
+		cDes.Preemptible = initial.Preemptible
+	} else {
+		cDes.Preemptible = des.Preemptible
 	}
 	if dcl.IsZeroValue(des.Accelerators) {
 		des.Accelerators = initial.Accelerators
+	} else {
+		cDes.Accelerators = des.Accelerators
 	}
 	if dcl.StringCanonicalize(des.DiskType, initial.DiskType) || dcl.IsZeroValue(des.DiskType) {
-		des.DiskType = initial.DiskType
+		cDes.DiskType = initial.DiskType
+	} else {
+		cDes.DiskType = des.DiskType
 	}
 	if dcl.StringCanonicalize(des.MinCpuPlatform, initial.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
-		des.MinCpuPlatform = initial.MinCpuPlatform
+		cDes.MinCpuPlatform = initial.MinCpuPlatform
+	} else {
+		cDes.MinCpuPlatform = des.MinCpuPlatform
 	}
 	if dcl.IsZeroValue(des.Taints) {
 		des.Taints = initial.Taints
+	} else {
+		cDes.Taints = des.Taints
 	}
-	des.SandboxConfig = canonicalizeNodePoolConfigSandboxConfig(des.SandboxConfig, initial.SandboxConfig, opts...)
-	des.ReservationAffinity = canonicalizeNodePoolConfigReservationAffinity(des.ReservationAffinity, initial.ReservationAffinity, opts...)
-	des.ShieldedInstanceConfig = canonicalizeNodePoolConfigShieldedInstanceConfig(des.ShieldedInstanceConfig, initial.ShieldedInstanceConfig, opts...)
+	cDes.SandboxConfig = canonicalizeNodePoolConfigSandboxConfig(des.SandboxConfig, initial.SandboxConfig, opts...)
+	cDes.ReservationAffinity = canonicalizeNodePoolConfigReservationAffinity(des.ReservationAffinity, initial.ReservationAffinity, opts...)
+	cDes.ShieldedInstanceConfig = canonicalizeNodePoolConfigShieldedInstanceConfig(des.ShieldedInstanceConfig, initial.ShieldedInstanceConfig, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNodePoolConfig(c *Client, des, nw *NodePoolConfig) *NodePoolConfig {
@@ -1118,14 +1163,20 @@ func canonicalizeNodePoolConfigAccelerators(des, initial *NodePoolConfigAccelera
 		return des
 	}
 
+	cDes := &NodePoolConfigAccelerators{}
+
 	if dcl.IsZeroValue(des.AcceleratorCount) {
 		des.AcceleratorCount = initial.AcceleratorCount
+	} else {
+		cDes.AcceleratorCount = des.AcceleratorCount
 	}
 	if dcl.StringCanonicalize(des.AcceleratorType, initial.AcceleratorType) || dcl.IsZeroValue(des.AcceleratorType) {
-		des.AcceleratorType = initial.AcceleratorType
+		cDes.AcceleratorType = initial.AcceleratorType
+	} else {
+		cDes.AcceleratorType = des.AcceleratorType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNodePoolConfigAccelerators(c *Client, des, nw *NodePoolConfigAccelerators) *NodePoolConfigAccelerators {
@@ -1198,17 +1249,25 @@ func canonicalizeNodePoolConfigTaints(des, initial *NodePoolConfigTaints, opts .
 		return des
 	}
 
+	cDes := &NodePoolConfigTaints{}
+
 	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
+		cDes.Key = initial.Key
+	} else {
+		cDes.Key = des.Key
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 	if dcl.StringCanonicalize(des.Effect, initial.Effect) || dcl.IsZeroValue(des.Effect) {
-		des.Effect = initial.Effect
+		cDes.Effect = initial.Effect
+	} else {
+		cDes.Effect = des.Effect
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNodePoolConfigTaints(c *Client, des, nw *NodePoolConfigTaints) *NodePoolConfigTaints {
@@ -1284,11 +1343,15 @@ func canonicalizeNodePoolConfigSandboxConfig(des, initial *NodePoolConfigSandbox
 		return des
 	}
 
+	cDes := &NodePoolConfigSandboxConfig{}
+
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNodePoolConfigSandboxConfig(c *Client, des, nw *NodePoolConfigSandboxConfig) *NodePoolConfigSandboxConfig {
@@ -1358,17 +1421,25 @@ func canonicalizeNodePoolConfigReservationAffinity(des, initial *NodePoolConfigR
 		return des
 	}
 
+	cDes := &NodePoolConfigReservationAffinity{}
+
 	if dcl.IsZeroValue(des.ConsumeReservationType) {
 		des.ConsumeReservationType = initial.ConsumeReservationType
+	} else {
+		cDes.ConsumeReservationType = des.ConsumeReservationType
 	}
 	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
-		des.Key = initial.Key
+		cDes.Key = initial.Key
+	} else {
+		cDes.Key = des.Key
 	}
 	if dcl.IsZeroValue(des.Values) {
 		des.Values = initial.Values
+	} else {
+		cDes.Values = des.Values
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNodePoolConfigReservationAffinity(c *Client, des, nw *NodePoolConfigReservationAffinity) *NodePoolConfigReservationAffinity {
@@ -1444,14 +1515,20 @@ func canonicalizeNodePoolConfigShieldedInstanceConfig(des, initial *NodePoolConf
 		return des
 	}
 
+	cDes := &NodePoolConfigShieldedInstanceConfig{}
+
 	if dcl.BoolCanonicalize(des.EnableSecureBoot, initial.EnableSecureBoot) || dcl.IsZeroValue(des.EnableSecureBoot) {
-		des.EnableSecureBoot = initial.EnableSecureBoot
+		cDes.EnableSecureBoot = initial.EnableSecureBoot
+	} else {
+		cDes.EnableSecureBoot = des.EnableSecureBoot
 	}
 	if dcl.BoolCanonicalize(des.EnableIntegrityMonitoring, initial.EnableIntegrityMonitoring) || dcl.IsZeroValue(des.EnableIntegrityMonitoring) {
-		des.EnableIntegrityMonitoring = initial.EnableIntegrityMonitoring
+		cDes.EnableIntegrityMonitoring = initial.EnableIntegrityMonitoring
+	} else {
+		cDes.EnableIntegrityMonitoring = des.EnableIntegrityMonitoring
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNodePoolConfigShieldedInstanceConfig(c *Client, des, nw *NodePoolConfigShieldedInstanceConfig) *NodePoolConfigShieldedInstanceConfig {
@@ -1524,20 +1601,30 @@ func canonicalizeNodePoolAutoscaling(des, initial *NodePoolAutoscaling, opts ...
 		return des
 	}
 
+	cDes := &NodePoolAutoscaling{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 	if dcl.IsZeroValue(des.MinNodeCount) {
 		des.MinNodeCount = initial.MinNodeCount
+	} else {
+		cDes.MinNodeCount = des.MinNodeCount
 	}
 	if dcl.IsZeroValue(des.MaxNodeCount) {
 		des.MaxNodeCount = initial.MaxNodeCount
+	} else {
+		cDes.MaxNodeCount = des.MaxNodeCount
 	}
 	if dcl.BoolCanonicalize(des.Autoprovisioned, initial.Autoprovisioned) || dcl.IsZeroValue(des.Autoprovisioned) {
-		des.Autoprovisioned = initial.Autoprovisioned
+		cDes.Autoprovisioned = initial.Autoprovisioned
+	} else {
+		cDes.Autoprovisioned = des.Autoprovisioned
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNodePoolAutoscaling(c *Client, des, nw *NodePoolAutoscaling) *NodePoolAutoscaling {
@@ -1616,15 +1703,21 @@ func canonicalizeNodePoolManagement(des, initial *NodePoolManagement, opts ...dc
 		return des
 	}
 
+	cDes := &NodePoolManagement{}
+
 	if dcl.BoolCanonicalize(des.AutoUpgrade, initial.AutoUpgrade) || dcl.IsZeroValue(des.AutoUpgrade) {
-		des.AutoUpgrade = initial.AutoUpgrade
+		cDes.AutoUpgrade = initial.AutoUpgrade
+	} else {
+		cDes.AutoUpgrade = des.AutoUpgrade
 	}
 	if dcl.BoolCanonicalize(des.AutoRepair, initial.AutoRepair) || dcl.IsZeroValue(des.AutoRepair) {
-		des.AutoRepair = initial.AutoRepair
+		cDes.AutoRepair = initial.AutoRepair
+	} else {
+		cDes.AutoRepair = des.AutoRepair
 	}
-	des.UpgradeOptions = canonicalizeNodePoolManagementUpgradeOptions(des.UpgradeOptions, initial.UpgradeOptions, opts...)
+	cDes.UpgradeOptions = canonicalizeNodePoolManagementUpgradeOptions(des.UpgradeOptions, initial.UpgradeOptions, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNodePoolManagement(c *Client, des, nw *NodePoolManagement) *NodePoolManagement {
@@ -1698,7 +1791,9 @@ func canonicalizeNodePoolManagementUpgradeOptions(des, initial *NodePoolManageme
 		return des
 	}
 
-	return des
+	cDes := &NodePoolManagementUpgradeOptions{}
+
+	return cDes
 }
 
 func canonicalizeNewNodePoolManagementUpgradeOptions(c *Client, des, nw *NodePoolManagementUpgradeOptions) *NodePoolManagementUpgradeOptions {
@@ -1771,11 +1866,15 @@ func canonicalizeNodePoolMaxPodsConstraint(des, initial *NodePoolMaxPodsConstrai
 		return des
 	}
 
+	cDes := &NodePoolMaxPodsConstraint{}
+
 	if dcl.IsZeroValue(des.MaxPodsPerNode) {
 		des.MaxPodsPerNode = initial.MaxPodsPerNode
+	} else {
+		cDes.MaxPodsPerNode = des.MaxPodsPerNode
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNodePoolMaxPodsConstraint(c *Client, des, nw *NodePoolMaxPodsConstraint) *NodePoolMaxPodsConstraint {
@@ -1845,7 +1944,9 @@ func canonicalizeNodePoolConditions(des, initial *NodePoolConditions, opts ...dc
 		return des
 	}
 
-	return des
+	cDes := &NodePoolConditions{}
+
+	return cDes
 }
 
 func canonicalizeNewNodePoolConditions(c *Client, des, nw *NodePoolConditions) *NodePoolConditions {
@@ -1918,14 +2019,20 @@ func canonicalizeNodePoolUpgradeSettings(des, initial *NodePoolUpgradeSettings, 
 		return des
 	}
 
+	cDes := &NodePoolUpgradeSettings{}
+
 	if dcl.IsZeroValue(des.MaxSurge) {
 		des.MaxSurge = initial.MaxSurge
+	} else {
+		cDes.MaxSurge = des.MaxSurge
 	}
 	if dcl.IsZeroValue(des.MaxUnavailable) {
 		des.MaxUnavailable = initial.MaxUnavailable
+	} else {
+		cDes.MaxUnavailable = des.MaxUnavailable
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewNodePoolUpgradeSettings(c *Client, des, nw *NodePoolUpgradeSettings) *NodePoolUpgradeSettings {
@@ -2099,7 +2206,7 @@ func diffNodePool(c *Client, desired, actual *NodePool, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4514,40 +4621,54 @@ type nodePoolDiff struct {
 	UpdateOp         nodePoolApiOperation
 }
 
-func convertFieldDiffToNodePoolOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]nodePoolDiff, error) {
+func convertFieldDiffsToNodePoolDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]nodePoolDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []nodePoolDiff
-	for _, op := range ops {
+	// For each operation name, create a nodePoolDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := nodePoolDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTonodePoolApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToNodePoolApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTonodePoolApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (nodePoolApiOperation, error) {
-	switch op {
+func convertOpNameToNodePoolApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (nodePoolApiOperation, error) {
+	switch opName {
 
 	case "updateNodePoolSetAutoscalingOperation":
-		return &updateNodePoolSetAutoscalingOperation{Diffs: diffs}, nil
+		return &updateNodePoolSetAutoscalingOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateNodePoolSetManagementOperation":
-		return &updateNodePoolSetManagementOperation{Diffs: diffs}, nil
+		return &updateNodePoolSetManagementOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateNodePoolSetSizeOperation":
-		return &updateNodePoolSetSizeOperation{Diffs: diffs}, nil
+		return &updateNodePoolSetSizeOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateNodePoolUpdateOperation":
-		return &updateNodePoolUpdateOperation{Diffs: diffs}, nil
+		return &updateNodePoolUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

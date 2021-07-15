@@ -39,6 +39,7 @@ class Workload(object):
     ):
 
         channel.initialize()
+        self.name = name
         self.display_name = display_name
         self.compliance_regime = compliance_regime
         self.billing_account = billing_account
@@ -55,6 +56,9 @@ class Workload(object):
             channel.Channel()
         )
         request = workload_pb2.ApplyAssuredworkloadsBetaWorkloadRequest()
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
         if Primitive.to_proto(self.display_name):
             request.resource.display_name = Primitive.to_proto(self.display_name)
 
@@ -118,6 +122,9 @@ class Workload(object):
         )
         request = workload_pb2.DeleteAssuredworkloadsBetaWorkloadRequest()
         request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
         if Primitive.to_proto(self.display_name):
             request.resource.display_name = Primitive.to_proto(self.display_name)
 
@@ -170,6 +177,8 @@ class Workload(object):
 
     def to_proto(self):
         resource = workload_pb2.AssuredworkloadsBetaWorkload()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.display_name):
             resource.display_name = Primitive.to_proto(self.display_name)
         if WorkloadComplianceRegimeEnum.to_proto(self.compliance_regime):

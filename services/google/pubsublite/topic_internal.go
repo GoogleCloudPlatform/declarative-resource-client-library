@@ -138,7 +138,7 @@ type updateTopicUpdateTopicOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -445,20 +445,26 @@ func canonicalizeTopicDesiredState(rawDesired, rawInitial *Topic, opts ...dcl.Ap
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Topic{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
-	rawDesired.PartitionConfig = canonicalizeTopicPartitionConfig(rawDesired.PartitionConfig, rawInitial.PartitionConfig, opts...)
-	rawDesired.RetentionConfig = canonicalizeTopicRetentionConfig(rawDesired.RetentionConfig, rawInitial.RetentionConfig, opts...)
+	canonicalDesired.PartitionConfig = canonicalizeTopicPartitionConfig(rawDesired.PartitionConfig, rawInitial.PartitionConfig, opts...)
+	canonicalDesired.RetentionConfig = canonicalizeTopicRetentionConfig(rawDesired.RetentionConfig, rawInitial.RetentionConfig, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeTopicNewState(c *Client, rawNew, rawDesired *Topic) (*Topic, error) {
@@ -502,12 +508,16 @@ func canonicalizeTopicPartitionConfig(des, initial *TopicPartitionConfig, opts .
 		return des
 	}
 
+	cDes := &TopicPartitionConfig{}
+
 	if dcl.IsZeroValue(des.Count) {
 		des.Count = initial.Count
+	} else {
+		cDes.Count = des.Count
 	}
-	des.Capacity = canonicalizeTopicPartitionConfigCapacity(des.Capacity, initial.Capacity, opts...)
+	cDes.Capacity = canonicalizeTopicPartitionConfigCapacity(des.Capacity, initial.Capacity, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewTopicPartitionConfig(c *Client, des, nw *TopicPartitionConfig) *TopicPartitionConfig {
@@ -578,14 +588,20 @@ func canonicalizeTopicPartitionConfigCapacity(des, initial *TopicPartitionConfig
 		return des
 	}
 
+	cDes := &TopicPartitionConfigCapacity{}
+
 	if dcl.IsZeroValue(des.PublishMibPerSec) {
 		des.PublishMibPerSec = initial.PublishMibPerSec
+	} else {
+		cDes.PublishMibPerSec = des.PublishMibPerSec
 	}
 	if dcl.IsZeroValue(des.SubscribeMibPerSec) {
 		des.SubscribeMibPerSec = initial.SubscribeMibPerSec
+	} else {
+		cDes.SubscribeMibPerSec = des.SubscribeMibPerSec
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewTopicPartitionConfigCapacity(c *Client, des, nw *TopicPartitionConfigCapacity) *TopicPartitionConfigCapacity {
@@ -658,14 +674,20 @@ func canonicalizeTopicRetentionConfig(des, initial *TopicRetentionConfig, opts .
 		return des
 	}
 
+	cDes := &TopicRetentionConfig{}
+
 	if dcl.IsZeroValue(des.PerPartitionBytes) {
 		des.PerPartitionBytes = initial.PerPartitionBytes
+	} else {
+		cDes.PerPartitionBytes = des.PerPartitionBytes
 	}
 	if dcl.StringCanonicalize(des.Period, initial.Period) || dcl.IsZeroValue(des.Period) {
-		des.Period = initial.Period
+		cDes.Period = initial.Period
+	} else {
+		cDes.Period = des.Period
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewTopicRetentionConfig(c *Client, des, nw *TopicRetentionConfig) *TopicRetentionConfig {
@@ -1398,31 +1420,45 @@ type topicDiff struct {
 	UpdateOp         topicApiOperation
 }
 
-func convertFieldDiffToTopicOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]topicDiff, error) {
+func convertFieldDiffsToTopicDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]topicDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []topicDiff
-	for _, op := range ops {
+	// For each operation name, create a topicDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := topicDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTotopicApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToTopicApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTotopicApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (topicApiOperation, error) {
-	switch op {
+func convertOpNameToTopicApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (topicApiOperation, error) {
+	switch opName {
 
 	case "updateTopicUpdateTopicOperation":
-		return &updateTopicUpdateTopicOperation{Diffs: diffs}, nil
+		return &updateTopicUpdateTopicOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

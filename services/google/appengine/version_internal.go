@@ -441,7 +441,7 @@ type updateVersionPatchVersionOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -762,87 +762,131 @@ func canonicalizeVersionDesiredState(rawDesired, rawInitial *Version, opts ...dc
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Version{}
 	if dcl.StringCanonicalize(rawDesired.ConsumerName, rawInitial.ConsumerName) {
-		rawDesired.ConsumerName = rawInitial.ConsumerName
+		canonicalDesired.ConsumerName = rawInitial.ConsumerName
+	} else {
+		canonicalDesired.ConsumerName = rawDesired.ConsumerName
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
-	rawDesired.AutomaticScaling = canonicalizeVersionAutomaticScaling(rawDesired.AutomaticScaling, rawInitial.AutomaticScaling, opts...)
-	rawDesired.BasicScaling = canonicalizeVersionBasicScaling(rawDesired.BasicScaling, rawInitial.BasicScaling, opts...)
-	rawDesired.ManualScaling = canonicalizeVersionManualScaling(rawDesired.ManualScaling, rawInitial.ManualScaling, opts...)
+	canonicalDesired.AutomaticScaling = canonicalizeVersionAutomaticScaling(rawDesired.AutomaticScaling, rawInitial.AutomaticScaling, opts...)
+	canonicalDesired.BasicScaling = canonicalizeVersionBasicScaling(rawDesired.BasicScaling, rawInitial.BasicScaling, opts...)
+	canonicalDesired.ManualScaling = canonicalizeVersionManualScaling(rawDesired.ManualScaling, rawInitial.ManualScaling, opts...)
 	if dcl.IsZeroValue(rawDesired.InboundServices) {
-		rawDesired.InboundServices = rawInitial.InboundServices
+		canonicalDesired.InboundServices = rawInitial.InboundServices
+	} else {
+		canonicalDesired.InboundServices = rawDesired.InboundServices
 	}
 	if dcl.StringCanonicalize(rawDesired.InstanceClass, rawInitial.InstanceClass) {
-		rawDesired.InstanceClass = rawInitial.InstanceClass
+		canonicalDesired.InstanceClass = rawInitial.InstanceClass
+	} else {
+		canonicalDesired.InstanceClass = rawDesired.InstanceClass
 	}
-	rawDesired.Network = canonicalizeVersionNetwork(rawDesired.Network, rawInitial.Network, opts...)
+	canonicalDesired.Network = canonicalizeVersionNetwork(rawDesired.Network, rawInitial.Network, opts...)
 	if dcl.IsZeroValue(rawDesired.Zones) {
-		rawDesired.Zones = rawInitial.Zones
+		canonicalDesired.Zones = rawInitial.Zones
+	} else {
+		canonicalDesired.Zones = rawDesired.Zones
 	}
-	rawDesired.Resources = canonicalizeVersionResources(rawDesired.Resources, rawInitial.Resources, opts...)
+	canonicalDesired.Resources = canonicalizeVersionResources(rawDesired.Resources, rawInitial.Resources, opts...)
 	if dcl.StringCanonicalize(rawDesired.Runtime, rawInitial.Runtime) {
-		rawDesired.Runtime = rawInitial.Runtime
+		canonicalDesired.Runtime = rawInitial.Runtime
+	} else {
+		canonicalDesired.Runtime = rawDesired.Runtime
 	}
 	if dcl.StringCanonicalize(rawDesired.RuntimeChannel, rawInitial.RuntimeChannel) {
-		rawDesired.RuntimeChannel = rawInitial.RuntimeChannel
+		canonicalDesired.RuntimeChannel = rawInitial.RuntimeChannel
+	} else {
+		canonicalDesired.RuntimeChannel = rawDesired.RuntimeChannel
 	}
 	if dcl.BoolCanonicalize(rawDesired.Threadsafe, rawInitial.Threadsafe) {
-		rawDesired.Threadsafe = rawInitial.Threadsafe
+		canonicalDesired.Threadsafe = rawInitial.Threadsafe
+	} else {
+		canonicalDesired.Threadsafe = rawDesired.Threadsafe
 	}
 	if dcl.BoolCanonicalize(rawDesired.Vm, rawInitial.Vm) {
-		rawDesired.Vm = rawInitial.Vm
+		canonicalDesired.Vm = rawInitial.Vm
+	} else {
+		canonicalDesired.Vm = rawDesired.Vm
 	}
 	if dcl.IsZeroValue(rawDesired.BetaSettings) {
-		rawDesired.BetaSettings = rawInitial.BetaSettings
+		canonicalDesired.BetaSettings = rawInitial.BetaSettings
+	} else {
+		canonicalDesired.BetaSettings = rawDesired.BetaSettings
 	}
 	if dcl.StringCanonicalize(rawDesired.Env, rawInitial.Env) {
-		rawDesired.Env = rawInitial.Env
+		canonicalDesired.Env = rawInitial.Env
+	} else {
+		canonicalDesired.Env = rawDesired.Env
 	}
 	if dcl.IsZeroValue(rawDesired.ServingStatus) {
-		rawDesired.ServingStatus = rawInitial.ServingStatus
+		canonicalDesired.ServingStatus = rawInitial.ServingStatus
+	} else {
+		canonicalDesired.ServingStatus = rawDesired.ServingStatus
 	}
 	if dcl.StringCanonicalize(rawDesired.RuntimeApiVersion, rawInitial.RuntimeApiVersion) {
-		rawDesired.RuntimeApiVersion = rawInitial.RuntimeApiVersion
+		canonicalDesired.RuntimeApiVersion = rawInitial.RuntimeApiVersion
+	} else {
+		canonicalDesired.RuntimeApiVersion = rawDesired.RuntimeApiVersion
 	}
 	if dcl.StringCanonicalize(rawDesired.RuntimeMainExecutablePath, rawInitial.RuntimeMainExecutablePath) {
-		rawDesired.RuntimeMainExecutablePath = rawInitial.RuntimeMainExecutablePath
+		canonicalDesired.RuntimeMainExecutablePath = rawInitial.RuntimeMainExecutablePath
+	} else {
+		canonicalDesired.RuntimeMainExecutablePath = rawDesired.RuntimeMainExecutablePath
 	}
 	if dcl.IsZeroValue(rawDesired.Handlers) {
-		rawDesired.Handlers = rawInitial.Handlers
+		canonicalDesired.Handlers = rawInitial.Handlers
+	} else {
+		canonicalDesired.Handlers = rawDesired.Handlers
 	}
 	if dcl.IsZeroValue(rawDesired.ErrorHandlers) {
-		rawDesired.ErrorHandlers = rawInitial.ErrorHandlers
+		canonicalDesired.ErrorHandlers = rawInitial.ErrorHandlers
+	} else {
+		canonicalDesired.ErrorHandlers = rawDesired.ErrorHandlers
 	}
 	if dcl.IsZeroValue(rawDesired.Libraries) {
-		rawDesired.Libraries = rawInitial.Libraries
+		canonicalDesired.Libraries = rawInitial.Libraries
+	} else {
+		canonicalDesired.Libraries = rawDesired.Libraries
 	}
-	rawDesired.ApiConfig = canonicalizeVersionApiConfig(rawDesired.ApiConfig, rawInitial.ApiConfig, opts...)
+	canonicalDesired.ApiConfig = canonicalizeVersionApiConfig(rawDesired.ApiConfig, rawInitial.ApiConfig, opts...)
 	if dcl.IsZeroValue(rawDesired.EnvVariables) {
-		rawDesired.EnvVariables = rawInitial.EnvVariables
+		canonicalDesired.EnvVariables = rawInitial.EnvVariables
+	} else {
+		canonicalDesired.EnvVariables = rawDesired.EnvVariables
 	}
 	if dcl.StringCanonicalize(rawDesired.DefaultExpiration, rawInitial.DefaultExpiration) {
-		rawDesired.DefaultExpiration = rawInitial.DefaultExpiration
+		canonicalDesired.DefaultExpiration = rawInitial.DefaultExpiration
+	} else {
+		canonicalDesired.DefaultExpiration = rawDesired.DefaultExpiration
 	}
-	rawDesired.Deployment = canonicalizeVersionDeployment(rawDesired.Deployment, rawInitial.Deployment, opts...)
-	rawDesired.HealthCheck = canonicalizeVersionHealthCheck(rawDesired.HealthCheck, rawInitial.HealthCheck, opts...)
-	rawDesired.ReadinessCheck = canonicalizeVersionReadinessCheck(rawDesired.ReadinessCheck, rawInitial.ReadinessCheck, opts...)
-	rawDesired.LivenessCheck = canonicalizeVersionLivenessCheck(rawDesired.LivenessCheck, rawInitial.LivenessCheck, opts...)
+	canonicalDesired.Deployment = canonicalizeVersionDeployment(rawDesired.Deployment, rawInitial.Deployment, opts...)
+	canonicalDesired.HealthCheck = canonicalizeVersionHealthCheck(rawDesired.HealthCheck, rawInitial.HealthCheck, opts...)
+	canonicalDesired.ReadinessCheck = canonicalizeVersionReadinessCheck(rawDesired.ReadinessCheck, rawInitial.ReadinessCheck, opts...)
+	canonicalDesired.LivenessCheck = canonicalizeVersionLivenessCheck(rawDesired.LivenessCheck, rawInitial.LivenessCheck, opts...)
 	if dcl.StringCanonicalize(rawDesired.NobuildFilesRegex, rawInitial.NobuildFilesRegex) {
-		rawDesired.NobuildFilesRegex = rawInitial.NobuildFilesRegex
+		canonicalDesired.NobuildFilesRegex = rawInitial.NobuildFilesRegex
+	} else {
+		canonicalDesired.NobuildFilesRegex = rawDesired.NobuildFilesRegex
 	}
-	rawDesired.Entrypoint = canonicalizeVersionEntrypoint(rawDesired.Entrypoint, rawInitial.Entrypoint, opts...)
-	rawDesired.VPCAccessConnector = canonicalizeVersionVPCAccessConnector(rawDesired.VPCAccessConnector, rawInitial.VPCAccessConnector, opts...)
+	canonicalDesired.Entrypoint = canonicalizeVersionEntrypoint(rawDesired.Entrypoint, rawInitial.Entrypoint, opts...)
+	canonicalDesired.VPCAccessConnector = canonicalizeVersionVPCAccessConnector(rawDesired.VPCAccessConnector, rawInitial.VPCAccessConnector, opts...)
 	if dcl.NameToSelfLink(rawDesired.App, rawInitial.App) {
-		rawDesired.App = rawInitial.App
+		canonicalDesired.App = rawInitial.App
+	} else {
+		canonicalDesired.App = rawDesired.App
 	}
 	if dcl.NameToSelfLink(rawDesired.Service, rawInitial.Service) {
-		rawDesired.Service = rawInitial.Service
+		canonicalDesired.Service = rawInitial.Service
+	} else {
+		canonicalDesired.Service = rawDesired.Service
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeVersionNewState(c *Client, rawNew, rawDesired *Version) (*Version, error) {
@@ -1103,37 +1147,55 @@ func canonicalizeVersionAutomaticScaling(des, initial *VersionAutomaticScaling, 
 		return des
 	}
 
+	cDes := &VersionAutomaticScaling{}
+
 	if dcl.StringCanonicalize(des.CoolDownPeriod, initial.CoolDownPeriod) || dcl.IsZeroValue(des.CoolDownPeriod) {
-		des.CoolDownPeriod = initial.CoolDownPeriod
+		cDes.CoolDownPeriod = initial.CoolDownPeriod
+	} else {
+		cDes.CoolDownPeriod = des.CoolDownPeriod
 	}
-	des.CpuUtilization = canonicalizeVersionAutomaticScalingCpuUtilization(des.CpuUtilization, initial.CpuUtilization, opts...)
+	cDes.CpuUtilization = canonicalizeVersionAutomaticScalingCpuUtilization(des.CpuUtilization, initial.CpuUtilization, opts...)
 	if dcl.IsZeroValue(des.MaxConcurrentRequests) {
 		des.MaxConcurrentRequests = initial.MaxConcurrentRequests
+	} else {
+		cDes.MaxConcurrentRequests = des.MaxConcurrentRequests
 	}
 	if dcl.IsZeroValue(des.MaxIdleInstances) {
 		des.MaxIdleInstances = initial.MaxIdleInstances
+	} else {
+		cDes.MaxIdleInstances = des.MaxIdleInstances
 	}
 	if dcl.IsZeroValue(des.MaxTotalInstances) {
 		des.MaxTotalInstances = initial.MaxTotalInstances
+	} else {
+		cDes.MaxTotalInstances = des.MaxTotalInstances
 	}
 	if dcl.StringCanonicalize(des.MaxPendingLatency, initial.MaxPendingLatency) || dcl.IsZeroValue(des.MaxPendingLatency) {
-		des.MaxPendingLatency = initial.MaxPendingLatency
+		cDes.MaxPendingLatency = initial.MaxPendingLatency
+	} else {
+		cDes.MaxPendingLatency = des.MaxPendingLatency
 	}
 	if dcl.IsZeroValue(des.MinIdleInstances) {
 		des.MinIdleInstances = initial.MinIdleInstances
+	} else {
+		cDes.MinIdleInstances = des.MinIdleInstances
 	}
 	if dcl.IsZeroValue(des.MinTotalInstances) {
 		des.MinTotalInstances = initial.MinTotalInstances
+	} else {
+		cDes.MinTotalInstances = des.MinTotalInstances
 	}
 	if dcl.StringCanonicalize(des.MinPendingLatency, initial.MinPendingLatency) || dcl.IsZeroValue(des.MinPendingLatency) {
-		des.MinPendingLatency = initial.MinPendingLatency
+		cDes.MinPendingLatency = initial.MinPendingLatency
+	} else {
+		cDes.MinPendingLatency = des.MinPendingLatency
 	}
-	des.RequestUtilization = canonicalizeVersionAutomaticScalingRequestUtilization(des.RequestUtilization, initial.RequestUtilization, opts...)
-	des.DiskUtilization = canonicalizeVersionAutomaticScalingDiskUtilization(des.DiskUtilization, initial.DiskUtilization, opts...)
-	des.NetworkUtilization = canonicalizeVersionAutomaticScalingNetworkUtilization(des.NetworkUtilization, initial.NetworkUtilization, opts...)
-	des.StandardSchedulerSettings = canonicalizeVersionAutomaticScalingStandardSchedulerSettings(des.StandardSchedulerSettings, initial.StandardSchedulerSettings, opts...)
+	cDes.RequestUtilization = canonicalizeVersionAutomaticScalingRequestUtilization(des.RequestUtilization, initial.RequestUtilization, opts...)
+	cDes.DiskUtilization = canonicalizeVersionAutomaticScalingDiskUtilization(des.DiskUtilization, initial.DiskUtilization, opts...)
+	cDes.NetworkUtilization = canonicalizeVersionAutomaticScalingNetworkUtilization(des.NetworkUtilization, initial.NetworkUtilization, opts...)
+	cDes.StandardSchedulerSettings = canonicalizeVersionAutomaticScalingStandardSchedulerSettings(des.StandardSchedulerSettings, initial.StandardSchedulerSettings, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionAutomaticScaling(c *Client, des, nw *VersionAutomaticScaling) *VersionAutomaticScaling {
@@ -1229,14 +1291,20 @@ func canonicalizeVersionAutomaticScalingCpuUtilization(des, initial *VersionAuto
 		return des
 	}
 
+	cDes := &VersionAutomaticScalingCpuUtilization{}
+
 	if dcl.StringCanonicalize(des.AggregationWindowLength, initial.AggregationWindowLength) || dcl.IsZeroValue(des.AggregationWindowLength) {
-		des.AggregationWindowLength = initial.AggregationWindowLength
+		cDes.AggregationWindowLength = initial.AggregationWindowLength
+	} else {
+		cDes.AggregationWindowLength = des.AggregationWindowLength
 	}
 	if dcl.IsZeroValue(des.TargetUtilization) {
 		des.TargetUtilization = initial.TargetUtilization
+	} else {
+		cDes.TargetUtilization = des.TargetUtilization
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionAutomaticScalingCpuUtilization(c *Client, des, nw *VersionAutomaticScalingCpuUtilization) *VersionAutomaticScalingCpuUtilization {
@@ -1309,14 +1377,20 @@ func canonicalizeVersionAutomaticScalingRequestUtilization(des, initial *Version
 		return des
 	}
 
+	cDes := &VersionAutomaticScalingRequestUtilization{}
+
 	if dcl.IsZeroValue(des.TargetRequestCountPerSecond) {
 		des.TargetRequestCountPerSecond = initial.TargetRequestCountPerSecond
+	} else {
+		cDes.TargetRequestCountPerSecond = des.TargetRequestCountPerSecond
 	}
 	if dcl.IsZeroValue(des.TargetConcurrentRequests) {
 		des.TargetConcurrentRequests = initial.TargetConcurrentRequests
+	} else {
+		cDes.TargetConcurrentRequests = des.TargetConcurrentRequests
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionAutomaticScalingRequestUtilization(c *Client, des, nw *VersionAutomaticScalingRequestUtilization) *VersionAutomaticScalingRequestUtilization {
@@ -1389,20 +1463,30 @@ func canonicalizeVersionAutomaticScalingDiskUtilization(des, initial *VersionAut
 		return des
 	}
 
+	cDes := &VersionAutomaticScalingDiskUtilization{}
+
 	if dcl.IsZeroValue(des.TargetWriteBytesPerSecond) {
 		des.TargetWriteBytesPerSecond = initial.TargetWriteBytesPerSecond
+	} else {
+		cDes.TargetWriteBytesPerSecond = des.TargetWriteBytesPerSecond
 	}
 	if dcl.IsZeroValue(des.TargetWriteOpsPerSecond) {
 		des.TargetWriteOpsPerSecond = initial.TargetWriteOpsPerSecond
+	} else {
+		cDes.TargetWriteOpsPerSecond = des.TargetWriteOpsPerSecond
 	}
 	if dcl.IsZeroValue(des.TargetReadBytesPerSecond) {
 		des.TargetReadBytesPerSecond = initial.TargetReadBytesPerSecond
+	} else {
+		cDes.TargetReadBytesPerSecond = des.TargetReadBytesPerSecond
 	}
 	if dcl.IsZeroValue(des.TargetReadOpsPerSecond) {
 		des.TargetReadOpsPerSecond = initial.TargetReadOpsPerSecond
+	} else {
+		cDes.TargetReadOpsPerSecond = des.TargetReadOpsPerSecond
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionAutomaticScalingDiskUtilization(c *Client, des, nw *VersionAutomaticScalingDiskUtilization) *VersionAutomaticScalingDiskUtilization {
@@ -1481,20 +1565,30 @@ func canonicalizeVersionAutomaticScalingNetworkUtilization(des, initial *Version
 		return des
 	}
 
+	cDes := &VersionAutomaticScalingNetworkUtilization{}
+
 	if dcl.IsZeroValue(des.TargetSentBytesPerSecond) {
 		des.TargetSentBytesPerSecond = initial.TargetSentBytesPerSecond
+	} else {
+		cDes.TargetSentBytesPerSecond = des.TargetSentBytesPerSecond
 	}
 	if dcl.IsZeroValue(des.TargetSentPacketsPerSecond) {
 		des.TargetSentPacketsPerSecond = initial.TargetSentPacketsPerSecond
+	} else {
+		cDes.TargetSentPacketsPerSecond = des.TargetSentPacketsPerSecond
 	}
 	if dcl.IsZeroValue(des.TargetReceivedBytesPerSecond) {
 		des.TargetReceivedBytesPerSecond = initial.TargetReceivedBytesPerSecond
+	} else {
+		cDes.TargetReceivedBytesPerSecond = des.TargetReceivedBytesPerSecond
 	}
 	if dcl.IsZeroValue(des.TargetReceivedPacketsPerSecond) {
 		des.TargetReceivedPacketsPerSecond = initial.TargetReceivedPacketsPerSecond
+	} else {
+		cDes.TargetReceivedPacketsPerSecond = des.TargetReceivedPacketsPerSecond
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionAutomaticScalingNetworkUtilization(c *Client, des, nw *VersionAutomaticScalingNetworkUtilization) *VersionAutomaticScalingNetworkUtilization {
@@ -1573,20 +1667,30 @@ func canonicalizeVersionAutomaticScalingStandardSchedulerSettings(des, initial *
 		return des
 	}
 
+	cDes := &VersionAutomaticScalingStandardSchedulerSettings{}
+
 	if dcl.IsZeroValue(des.TargetCpuUtilization) {
 		des.TargetCpuUtilization = initial.TargetCpuUtilization
+	} else {
+		cDes.TargetCpuUtilization = des.TargetCpuUtilization
 	}
 	if dcl.IsZeroValue(des.TargetThroughputUtilization) {
 		des.TargetThroughputUtilization = initial.TargetThroughputUtilization
+	} else {
+		cDes.TargetThroughputUtilization = des.TargetThroughputUtilization
 	}
 	if dcl.IsZeroValue(des.MinInstances) {
 		des.MinInstances = initial.MinInstances
+	} else {
+		cDes.MinInstances = des.MinInstances
 	}
 	if dcl.IsZeroValue(des.MaxInstances) {
 		des.MaxInstances = initial.MaxInstances
+	} else {
+		cDes.MaxInstances = des.MaxInstances
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionAutomaticScalingStandardSchedulerSettings(c *Client, des, nw *VersionAutomaticScalingStandardSchedulerSettings) *VersionAutomaticScalingStandardSchedulerSettings {
@@ -1665,14 +1769,20 @@ func canonicalizeVersionBasicScaling(des, initial *VersionBasicScaling, opts ...
 		return des
 	}
 
+	cDes := &VersionBasicScaling{}
+
 	if dcl.StringCanonicalize(des.IdleTimeout, initial.IdleTimeout) || dcl.IsZeroValue(des.IdleTimeout) {
-		des.IdleTimeout = initial.IdleTimeout
+		cDes.IdleTimeout = initial.IdleTimeout
+	} else {
+		cDes.IdleTimeout = des.IdleTimeout
 	}
 	if dcl.IsZeroValue(des.MaxInstances) {
 		des.MaxInstances = initial.MaxInstances
+	} else {
+		cDes.MaxInstances = des.MaxInstances
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionBasicScaling(c *Client, des, nw *VersionBasicScaling) *VersionBasicScaling {
@@ -1745,11 +1855,15 @@ func canonicalizeVersionManualScaling(des, initial *VersionManualScaling, opts .
 		return des
 	}
 
+	cDes := &VersionManualScaling{}
+
 	if dcl.IsZeroValue(des.Instances) {
 		des.Instances = initial.Instances
+	} else {
+		cDes.Instances = des.Instances
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionManualScaling(c *Client, des, nw *VersionManualScaling) *VersionManualScaling {
@@ -1819,23 +1933,35 @@ func canonicalizeVersionNetwork(des, initial *VersionNetwork, opts ...dcl.ApplyO
 		return des
 	}
 
+	cDes := &VersionNetwork{}
+
 	if dcl.IsZeroValue(des.ForwardedPorts) {
 		des.ForwardedPorts = initial.ForwardedPorts
+	} else {
+		cDes.ForwardedPorts = des.ForwardedPorts
 	}
 	if dcl.StringCanonicalize(des.InstanceTag, initial.InstanceTag) || dcl.IsZeroValue(des.InstanceTag) {
-		des.InstanceTag = initial.InstanceTag
+		cDes.InstanceTag = initial.InstanceTag
+	} else {
+		cDes.InstanceTag = des.InstanceTag
 	}
 	if dcl.NameToSelfLink(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.NameToSelfLink(des.SubnetworkName, initial.SubnetworkName) || dcl.IsZeroValue(des.SubnetworkName) {
-		des.SubnetworkName = initial.SubnetworkName
+		cDes.SubnetworkName = initial.SubnetworkName
+	} else {
+		cDes.SubnetworkName = des.SubnetworkName
 	}
 	if dcl.BoolCanonicalize(des.SessionAffinity, initial.SessionAffinity) || dcl.IsZeroValue(des.SessionAffinity) {
-		des.SessionAffinity = initial.SessionAffinity
+		cDes.SessionAffinity = initial.SessionAffinity
+	} else {
+		cDes.SessionAffinity = des.SessionAffinity
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionNetwork(c *Client, des, nw *VersionNetwork) *VersionNetwork {
@@ -1917,20 +2043,30 @@ func canonicalizeVersionResources(des, initial *VersionResources, opts ...dcl.Ap
 		return des
 	}
 
+	cDes := &VersionResources{}
+
 	if dcl.IsZeroValue(des.Cpu) {
 		des.Cpu = initial.Cpu
+	} else {
+		cDes.Cpu = des.Cpu
 	}
 	if dcl.IsZeroValue(des.DiskGb) {
 		des.DiskGb = initial.DiskGb
+	} else {
+		cDes.DiskGb = des.DiskGb
 	}
 	if dcl.IsZeroValue(des.MemoryGb) {
 		des.MemoryGb = initial.MemoryGb
+	} else {
+		cDes.MemoryGb = des.MemoryGb
 	}
 	if dcl.IsZeroValue(des.Volumes) {
 		des.Volumes = initial.Volumes
+	} else {
+		cDes.Volumes = des.Volumes
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionResources(c *Client, des, nw *VersionResources) *VersionResources {
@@ -2007,17 +2143,25 @@ func canonicalizeVersionResourcesVolumes(des, initial *VersionResourcesVolumes, 
 		return des
 	}
 
+	cDes := &VersionResourcesVolumes{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.VolumeType, initial.VolumeType) || dcl.IsZeroValue(des.VolumeType) {
-		des.VolumeType = initial.VolumeType
+		cDes.VolumeType = initial.VolumeType
+	} else {
+		cDes.VolumeType = des.VolumeType
 	}
 	if dcl.IsZeroValue(des.SizeGb) {
 		des.SizeGb = initial.SizeGb
+	} else {
+		cDes.SizeGb = des.SizeGb
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionResourcesVolumes(c *Client, des, nw *VersionResourcesVolumes) *VersionResourcesVolumes {
@@ -2093,26 +2237,38 @@ func canonicalizeVersionHandlers(des, initial *VersionHandlers, opts ...dcl.Appl
 		return des
 	}
 
+	cDes := &VersionHandlers{}
+
 	if dcl.StringCanonicalize(des.UrlRegex, initial.UrlRegex) || dcl.IsZeroValue(des.UrlRegex) {
-		des.UrlRegex = initial.UrlRegex
+		cDes.UrlRegex = initial.UrlRegex
+	} else {
+		cDes.UrlRegex = des.UrlRegex
 	}
-	des.StaticFiles = canonicalizeVersionHandlersStaticFiles(des.StaticFiles, initial.StaticFiles, opts...)
-	des.Script = canonicalizeVersionHandlersScript(des.Script, initial.Script, opts...)
-	des.ApiEndpoint = canonicalizeVersionHandlersApiEndpoint(des.ApiEndpoint, initial.ApiEndpoint, opts...)
+	cDes.StaticFiles = canonicalizeVersionHandlersStaticFiles(des.StaticFiles, initial.StaticFiles, opts...)
+	cDes.Script = canonicalizeVersionHandlersScript(des.Script, initial.Script, opts...)
+	cDes.ApiEndpoint = canonicalizeVersionHandlersApiEndpoint(des.ApiEndpoint, initial.ApiEndpoint, opts...)
 	if dcl.IsZeroValue(des.SecurityLevel) {
 		des.SecurityLevel = initial.SecurityLevel
+	} else {
+		cDes.SecurityLevel = des.SecurityLevel
 	}
 	if dcl.IsZeroValue(des.Login) {
 		des.Login = initial.Login
+	} else {
+		cDes.Login = des.Login
 	}
 	if dcl.IsZeroValue(des.AuthFailAction) {
 		des.AuthFailAction = initial.AuthFailAction
+	} else {
+		cDes.AuthFailAction = des.AuthFailAction
 	}
 	if dcl.IsZeroValue(des.RedirectHttpResponseCode) {
 		des.RedirectHttpResponseCode = initial.RedirectHttpResponseCode
+	} else {
+		cDes.RedirectHttpResponseCode = des.RedirectHttpResponseCode
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionHandlers(c *Client, des, nw *VersionHandlers) *VersionHandlers {
@@ -2197,29 +2353,45 @@ func canonicalizeVersionHandlersStaticFiles(des, initial *VersionHandlersStaticF
 		return des
 	}
 
+	cDes := &VersionHandlersStaticFiles{}
+
 	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
-		des.Path = initial.Path
+		cDes.Path = initial.Path
+	} else {
+		cDes.Path = des.Path
 	}
 	if dcl.StringCanonicalize(des.UploadPathRegex, initial.UploadPathRegex) || dcl.IsZeroValue(des.UploadPathRegex) {
-		des.UploadPathRegex = initial.UploadPathRegex
+		cDes.UploadPathRegex = initial.UploadPathRegex
+	} else {
+		cDes.UploadPathRegex = des.UploadPathRegex
 	}
 	if dcl.IsZeroValue(des.HttpHeaders) {
 		des.HttpHeaders = initial.HttpHeaders
+	} else {
+		cDes.HttpHeaders = des.HttpHeaders
 	}
 	if dcl.StringCanonicalize(des.MimeType, initial.MimeType) || dcl.IsZeroValue(des.MimeType) {
-		des.MimeType = initial.MimeType
+		cDes.MimeType = initial.MimeType
+	} else {
+		cDes.MimeType = des.MimeType
 	}
 	if dcl.StringCanonicalize(des.Expiration, initial.Expiration) || dcl.IsZeroValue(des.Expiration) {
-		des.Expiration = initial.Expiration
+		cDes.Expiration = initial.Expiration
+	} else {
+		cDes.Expiration = des.Expiration
 	}
 	if dcl.BoolCanonicalize(des.RequireMatchingFile, initial.RequireMatchingFile) || dcl.IsZeroValue(des.RequireMatchingFile) {
-		des.RequireMatchingFile = initial.RequireMatchingFile
+		cDes.RequireMatchingFile = initial.RequireMatchingFile
+	} else {
+		cDes.RequireMatchingFile = des.RequireMatchingFile
 	}
 	if dcl.BoolCanonicalize(des.ApplicationReadable, initial.ApplicationReadable) || dcl.IsZeroValue(des.ApplicationReadable) {
-		des.ApplicationReadable = initial.ApplicationReadable
+		cDes.ApplicationReadable = initial.ApplicationReadable
+	} else {
+		cDes.ApplicationReadable = des.ApplicationReadable
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionHandlersStaticFiles(c *Client, des, nw *VersionHandlersStaticFiles) *VersionHandlersStaticFiles {
@@ -2307,11 +2479,15 @@ func canonicalizeVersionHandlersScript(des, initial *VersionHandlersScript, opts
 		return des
 	}
 
+	cDes := &VersionHandlersScript{}
+
 	if dcl.StringCanonicalize(des.ScriptPath, initial.ScriptPath) || dcl.IsZeroValue(des.ScriptPath) {
-		des.ScriptPath = initial.ScriptPath
+		cDes.ScriptPath = initial.ScriptPath
+	} else {
+		cDes.ScriptPath = des.ScriptPath
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionHandlersScript(c *Client, des, nw *VersionHandlersScript) *VersionHandlersScript {
@@ -2381,11 +2557,15 @@ func canonicalizeVersionHandlersApiEndpoint(des, initial *VersionHandlersApiEndp
 		return des
 	}
 
+	cDes := &VersionHandlersApiEndpoint{}
+
 	if dcl.StringCanonicalize(des.ScriptPath, initial.ScriptPath) || dcl.IsZeroValue(des.ScriptPath) {
-		des.ScriptPath = initial.ScriptPath
+		cDes.ScriptPath = initial.ScriptPath
+	} else {
+		cDes.ScriptPath = des.ScriptPath
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionHandlersApiEndpoint(c *Client, des, nw *VersionHandlersApiEndpoint) *VersionHandlersApiEndpoint {
@@ -2455,17 +2635,25 @@ func canonicalizeVersionErrorHandlers(des, initial *VersionErrorHandlers, opts .
 		return des
 	}
 
+	cDes := &VersionErrorHandlers{}
+
 	if dcl.IsZeroValue(des.ErrorCode) {
 		des.ErrorCode = initial.ErrorCode
+	} else {
+		cDes.ErrorCode = des.ErrorCode
 	}
 	if dcl.StringCanonicalize(des.StaticFile, initial.StaticFile) || dcl.IsZeroValue(des.StaticFile) {
-		des.StaticFile = initial.StaticFile
+		cDes.StaticFile = initial.StaticFile
+	} else {
+		cDes.StaticFile = des.StaticFile
 	}
 	if dcl.StringCanonicalize(des.MimeType, initial.MimeType) || dcl.IsZeroValue(des.MimeType) {
-		des.MimeType = initial.MimeType
+		cDes.MimeType = initial.MimeType
+	} else {
+		cDes.MimeType = des.MimeType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionErrorHandlers(c *Client, des, nw *VersionErrorHandlers) *VersionErrorHandlers {
@@ -2541,14 +2729,20 @@ func canonicalizeVersionLibraries(des, initial *VersionLibraries, opts ...dcl.Ap
 		return des
 	}
 
+	cDes := &VersionLibraries{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
-		des.Version = initial.Version
+		cDes.Version = initial.Version
+	} else {
+		cDes.Version = des.Version
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionLibraries(c *Client, des, nw *VersionLibraries) *VersionLibraries {
@@ -2621,23 +2815,35 @@ func canonicalizeVersionApiConfig(des, initial *VersionApiConfig, opts ...dcl.Ap
 		return des
 	}
 
+	cDes := &VersionApiConfig{}
+
 	if dcl.IsZeroValue(des.AuthFailAction) {
 		des.AuthFailAction = initial.AuthFailAction
+	} else {
+		cDes.AuthFailAction = des.AuthFailAction
 	}
 	if dcl.IsZeroValue(des.Login) {
 		des.Login = initial.Login
+	} else {
+		cDes.Login = des.Login
 	}
 	if dcl.StringCanonicalize(des.Script, initial.Script) || dcl.IsZeroValue(des.Script) {
-		des.Script = initial.Script
+		cDes.Script = initial.Script
+	} else {
+		cDes.Script = des.Script
 	}
 	if dcl.IsZeroValue(des.SecurityLevel) {
 		des.SecurityLevel = initial.SecurityLevel
+	} else {
+		cDes.SecurityLevel = des.SecurityLevel
 	}
 	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
-		des.Url = initial.Url
+		cDes.Url = initial.Url
+	} else {
+		cDes.Url = des.Url
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionApiConfig(c *Client, des, nw *VersionApiConfig) *VersionApiConfig {
@@ -2719,14 +2925,18 @@ func canonicalizeVersionDeployment(des, initial *VersionDeployment, opts ...dcl.
 		return des
 	}
 
+	cDes := &VersionDeployment{}
+
 	if dcl.IsZeroValue(des.Files) {
 		des.Files = initial.Files
+	} else {
+		cDes.Files = des.Files
 	}
-	des.Container = canonicalizeVersionDeploymentContainer(des.Container, initial.Container, opts...)
-	des.Zip = canonicalizeVersionDeploymentZip(des.Zip, initial.Zip, opts...)
-	des.CloudBuildOptions = canonicalizeVersionDeploymentCloudBuildOptions(des.CloudBuildOptions, initial.CloudBuildOptions, opts...)
+	cDes.Container = canonicalizeVersionDeploymentContainer(des.Container, initial.Container, opts...)
+	cDes.Zip = canonicalizeVersionDeploymentZip(des.Zip, initial.Zip, opts...)
+	cDes.CloudBuildOptions = canonicalizeVersionDeploymentCloudBuildOptions(des.CloudBuildOptions, initial.CloudBuildOptions, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionDeployment(c *Client, des, nw *VersionDeployment) *VersionDeployment {
@@ -2799,17 +3009,25 @@ func canonicalizeVersionDeploymentFiles(des, initial *VersionDeploymentFiles, op
 		return des
 	}
 
+	cDes := &VersionDeploymentFiles{}
+
 	if dcl.StringCanonicalize(des.SourceUrl, initial.SourceUrl) || dcl.IsZeroValue(des.SourceUrl) {
-		des.SourceUrl = initial.SourceUrl
+		cDes.SourceUrl = initial.SourceUrl
+	} else {
+		cDes.SourceUrl = des.SourceUrl
 	}
 	if dcl.StringCanonicalize(des.Sha1Sum, initial.Sha1Sum) || dcl.IsZeroValue(des.Sha1Sum) {
-		des.Sha1Sum = initial.Sha1Sum
+		cDes.Sha1Sum = initial.Sha1Sum
+	} else {
+		cDes.Sha1Sum = des.Sha1Sum
 	}
 	if dcl.StringCanonicalize(des.MimeType, initial.MimeType) || dcl.IsZeroValue(des.MimeType) {
-		des.MimeType = initial.MimeType
+		cDes.MimeType = initial.MimeType
+	} else {
+		cDes.MimeType = des.MimeType
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionDeploymentFiles(c *Client, des, nw *VersionDeploymentFiles) *VersionDeploymentFiles {
@@ -2885,11 +3103,15 @@ func canonicalizeVersionDeploymentContainer(des, initial *VersionDeploymentConta
 		return des
 	}
 
+	cDes := &VersionDeploymentContainer{}
+
 	if dcl.StringCanonicalize(des.Image, initial.Image) || dcl.IsZeroValue(des.Image) {
-		des.Image = initial.Image
+		cDes.Image = initial.Image
+	} else {
+		cDes.Image = des.Image
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionDeploymentContainer(c *Client, des, nw *VersionDeploymentContainer) *VersionDeploymentContainer {
@@ -2959,14 +3181,20 @@ func canonicalizeVersionDeploymentZip(des, initial *VersionDeploymentZip, opts .
 		return des
 	}
 
+	cDes := &VersionDeploymentZip{}
+
 	if dcl.StringCanonicalize(des.SourceUrl, initial.SourceUrl) || dcl.IsZeroValue(des.SourceUrl) {
-		des.SourceUrl = initial.SourceUrl
+		cDes.SourceUrl = initial.SourceUrl
+	} else {
+		cDes.SourceUrl = des.SourceUrl
 	}
 	if dcl.IsZeroValue(des.FilesCount) {
 		des.FilesCount = initial.FilesCount
+	} else {
+		cDes.FilesCount = des.FilesCount
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionDeploymentZip(c *Client, des, nw *VersionDeploymentZip) *VersionDeploymentZip {
@@ -3039,14 +3267,20 @@ func canonicalizeVersionDeploymentCloudBuildOptions(des, initial *VersionDeploym
 		return des
 	}
 
+	cDes := &VersionDeploymentCloudBuildOptions{}
+
 	if dcl.StringCanonicalize(des.AppYamlPath, initial.AppYamlPath) || dcl.IsZeroValue(des.AppYamlPath) {
-		des.AppYamlPath = initial.AppYamlPath
+		cDes.AppYamlPath = initial.AppYamlPath
+	} else {
+		cDes.AppYamlPath = des.AppYamlPath
 	}
 	if dcl.StringCanonicalize(des.CloudBuildTimeout, initial.CloudBuildTimeout) || dcl.IsZeroValue(des.CloudBuildTimeout) {
-		des.CloudBuildTimeout = initial.CloudBuildTimeout
+		cDes.CloudBuildTimeout = initial.CloudBuildTimeout
+	} else {
+		cDes.CloudBuildTimeout = des.CloudBuildTimeout
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionDeploymentCloudBuildOptions(c *Client, des, nw *VersionDeploymentCloudBuildOptions) *VersionDeploymentCloudBuildOptions {
@@ -3119,29 +3353,45 @@ func canonicalizeVersionHealthCheck(des, initial *VersionHealthCheck, opts ...dc
 		return des
 	}
 
+	cDes := &VersionHealthCheck{}
+
 	if dcl.BoolCanonicalize(des.DisableHealthCheck, initial.DisableHealthCheck) || dcl.IsZeroValue(des.DisableHealthCheck) {
-		des.DisableHealthCheck = initial.DisableHealthCheck
+		cDes.DisableHealthCheck = initial.DisableHealthCheck
+	} else {
+		cDes.DisableHealthCheck = des.DisableHealthCheck
 	}
 	if dcl.StringCanonicalize(des.Host, initial.Host) || dcl.IsZeroValue(des.Host) {
-		des.Host = initial.Host
+		cDes.Host = initial.Host
+	} else {
+		cDes.Host = des.Host
 	}
 	if dcl.IsZeroValue(des.HealthyThreshold) {
 		des.HealthyThreshold = initial.HealthyThreshold
+	} else {
+		cDes.HealthyThreshold = des.HealthyThreshold
 	}
 	if dcl.IsZeroValue(des.UnhealthyThreshold) {
 		des.UnhealthyThreshold = initial.UnhealthyThreshold
+	} else {
+		cDes.UnhealthyThreshold = des.UnhealthyThreshold
 	}
 	if dcl.IsZeroValue(des.RestartThreshold) {
 		des.RestartThreshold = initial.RestartThreshold
+	} else {
+		cDes.RestartThreshold = des.RestartThreshold
 	}
 	if dcl.StringCanonicalize(des.CheckInterval, initial.CheckInterval) || dcl.IsZeroValue(des.CheckInterval) {
-		des.CheckInterval = initial.CheckInterval
+		cDes.CheckInterval = initial.CheckInterval
+	} else {
+		cDes.CheckInterval = des.CheckInterval
 	}
 	if dcl.StringCanonicalize(des.Timeout, initial.Timeout) || dcl.IsZeroValue(des.Timeout) {
-		des.Timeout = initial.Timeout
+		cDes.Timeout = initial.Timeout
+	} else {
+		cDes.Timeout = des.Timeout
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionHealthCheck(c *Client, des, nw *VersionHealthCheck) *VersionHealthCheck {
@@ -3229,29 +3479,45 @@ func canonicalizeVersionReadinessCheck(des, initial *VersionReadinessCheck, opts
 		return des
 	}
 
+	cDes := &VersionReadinessCheck{}
+
 	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
-		des.Path = initial.Path
+		cDes.Path = initial.Path
+	} else {
+		cDes.Path = des.Path
 	}
 	if dcl.StringCanonicalize(des.Host, initial.Host) || dcl.IsZeroValue(des.Host) {
-		des.Host = initial.Host
+		cDes.Host = initial.Host
+	} else {
+		cDes.Host = des.Host
 	}
 	if dcl.IsZeroValue(des.FailureThreshold) {
 		des.FailureThreshold = initial.FailureThreshold
+	} else {
+		cDes.FailureThreshold = des.FailureThreshold
 	}
 	if dcl.IsZeroValue(des.SuccessThreshold) {
 		des.SuccessThreshold = initial.SuccessThreshold
+	} else {
+		cDes.SuccessThreshold = des.SuccessThreshold
 	}
 	if dcl.StringCanonicalize(des.CheckInterval, initial.CheckInterval) || dcl.IsZeroValue(des.CheckInterval) {
-		des.CheckInterval = initial.CheckInterval
+		cDes.CheckInterval = initial.CheckInterval
+	} else {
+		cDes.CheckInterval = des.CheckInterval
 	}
 	if dcl.StringCanonicalize(des.Timeout, initial.Timeout) || dcl.IsZeroValue(des.Timeout) {
-		des.Timeout = initial.Timeout
+		cDes.Timeout = initial.Timeout
+	} else {
+		cDes.Timeout = des.Timeout
 	}
 	if dcl.StringCanonicalize(des.AppStartTimeout, initial.AppStartTimeout) || dcl.IsZeroValue(des.AppStartTimeout) {
-		des.AppStartTimeout = initial.AppStartTimeout
+		cDes.AppStartTimeout = initial.AppStartTimeout
+	} else {
+		cDes.AppStartTimeout = des.AppStartTimeout
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionReadinessCheck(c *Client, des, nw *VersionReadinessCheck) *VersionReadinessCheck {
@@ -3339,29 +3605,45 @@ func canonicalizeVersionLivenessCheck(des, initial *VersionLivenessCheck, opts .
 		return des
 	}
 
+	cDes := &VersionLivenessCheck{}
+
 	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
-		des.Path = initial.Path
+		cDes.Path = initial.Path
+	} else {
+		cDes.Path = des.Path
 	}
 	if dcl.StringCanonicalize(des.Host, initial.Host) || dcl.IsZeroValue(des.Host) {
-		des.Host = initial.Host
+		cDes.Host = initial.Host
+	} else {
+		cDes.Host = des.Host
 	}
 	if dcl.IsZeroValue(des.FailureThreshold) {
 		des.FailureThreshold = initial.FailureThreshold
+	} else {
+		cDes.FailureThreshold = des.FailureThreshold
 	}
 	if dcl.IsZeroValue(des.SuccessThreshold) {
 		des.SuccessThreshold = initial.SuccessThreshold
+	} else {
+		cDes.SuccessThreshold = des.SuccessThreshold
 	}
 	if dcl.StringCanonicalize(des.CheckInterval, initial.CheckInterval) || dcl.IsZeroValue(des.CheckInterval) {
-		des.CheckInterval = initial.CheckInterval
+		cDes.CheckInterval = initial.CheckInterval
+	} else {
+		cDes.CheckInterval = des.CheckInterval
 	}
 	if dcl.StringCanonicalize(des.Timeout, initial.Timeout) || dcl.IsZeroValue(des.Timeout) {
-		des.Timeout = initial.Timeout
+		cDes.Timeout = initial.Timeout
+	} else {
+		cDes.Timeout = des.Timeout
 	}
 	if dcl.StringCanonicalize(des.InitialDelay, initial.InitialDelay) || dcl.IsZeroValue(des.InitialDelay) {
-		des.InitialDelay = initial.InitialDelay
+		cDes.InitialDelay = initial.InitialDelay
+	} else {
+		cDes.InitialDelay = des.InitialDelay
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionLivenessCheck(c *Client, des, nw *VersionLivenessCheck) *VersionLivenessCheck {
@@ -3449,11 +3731,15 @@ func canonicalizeVersionEntrypoint(des, initial *VersionEntrypoint, opts ...dcl.
 		return des
 	}
 
+	cDes := &VersionEntrypoint{}
+
 	if dcl.StringCanonicalize(des.Shell, initial.Shell) || dcl.IsZeroValue(des.Shell) {
-		des.Shell = initial.Shell
+		cDes.Shell = initial.Shell
+	} else {
+		cDes.Shell = des.Shell
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionEntrypoint(c *Client, des, nw *VersionEntrypoint) *VersionEntrypoint {
@@ -3523,11 +3809,15 @@ func canonicalizeVersionVPCAccessConnector(des, initial *VersionVPCAccessConnect
 		return des
 	}
 
+	cDes := &VersionVPCAccessConnector{}
+
 	if dcl.NameToSelfLink(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewVersionVPCAccessConnector(c *Client, des, nw *VersionVPCAccessConnector) *VersionVPCAccessConnector {
@@ -9371,31 +9661,45 @@ type versionDiff struct {
 	UpdateOp         versionApiOperation
 }
 
-func convertFieldDiffToVersionOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]versionDiff, error) {
+func convertFieldDiffsToVersionDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]versionDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []versionDiff
-	for _, op := range ops {
+	// For each operation name, create a versionDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := versionDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToversionApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToVersionApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToversionApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (versionApiOperation, error) {
-	switch op {
+func convertOpNameToVersionApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (versionApiOperation, error) {
+	switch opName {
 
 	case "updateVersionPatchVersionOperation":
-		return &updateVersionPatchVersionOperation{Diffs: diffs}, nil
+		return &updateVersionPatchVersionOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

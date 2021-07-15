@@ -79,15 +79,16 @@ func NewConfig(o ...ConfigOption) *Config {
 // Clone returns a copy of an existing Config with optional new values.
 func (c *Config) Clone(o ...ConfigOption) *Config {
 	result := &Config{
-		RetryProvider:  c.RetryProvider,
-		timeout:        c.timeout,
-		clientOptions:  c.clientOptions,
-		userAgent:      c.userAgent,
-		contentType:    c.contentType,
-		queryParams:    c.queryParams,
-		Logger:         c.Logger,
-		BasePath:       c.BasePath,
-		billingProject: c.billingProject,
+		RetryProvider:       c.RetryProvider,
+		timeout:             c.timeout,
+		clientOptions:       c.clientOptions,
+		userAgent:           c.userAgent,
+		contentType:         c.contentType,
+		queryParams:         c.queryParams,
+		Logger:              c.Logger,
+		BasePath:            c.BasePath,
+		billingProject:      c.billingProject,
+		userOverrideProject: c.userOverrideProject,
 	}
 
 	if c.header != nil {

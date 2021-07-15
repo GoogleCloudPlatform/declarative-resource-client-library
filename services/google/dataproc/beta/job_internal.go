@@ -326,7 +326,7 @@ type updateJobPatchOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -343,7 +343,7 @@ func (op *updateJobPatchOperation) do(ctx context.Context, r *Job, c *Client) er
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -617,56 +617,56 @@ func (c *Client) jobDiffsForRawDesired(ctx context.Context, rawDesired *Job, opt
 func canonicalizeJobInitialState(rawInitial, rawDesired *Job) (*Job, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
-	if dcl.IsZeroValue(rawInitial.HadoopJob) {
+	if !dcl.IsZeroValue(rawInitial.HadoopJob) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.SparkJob, rawInitial.PysparkJob, rawInitial.HiveJob, rawInitial.PigJob, rawInitial.SparkRJob, rawInitial.SparkSqlJob, rawInitial.PrestoJob) {
 			rawInitial.HadoopJob = EmptyJobHadoopJob
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.SparkJob) {
+	if !dcl.IsZeroValue(rawInitial.SparkJob) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.HadoopJob, rawInitial.PysparkJob, rawInitial.HiveJob, rawInitial.PigJob, rawInitial.SparkRJob, rawInitial.SparkSqlJob, rawInitial.PrestoJob) {
 			rawInitial.SparkJob = EmptyJobSparkJob
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.PysparkJob) {
+	if !dcl.IsZeroValue(rawInitial.PysparkJob) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.HadoopJob, rawInitial.SparkJob, rawInitial.HiveJob, rawInitial.PigJob, rawInitial.SparkRJob, rawInitial.SparkSqlJob, rawInitial.PrestoJob) {
 			rawInitial.PysparkJob = EmptyJobPysparkJob
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.HiveJob) {
+	if !dcl.IsZeroValue(rawInitial.HiveJob) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.HadoopJob, rawInitial.SparkJob, rawInitial.PysparkJob, rawInitial.PigJob, rawInitial.SparkRJob, rawInitial.SparkSqlJob, rawInitial.PrestoJob) {
 			rawInitial.HiveJob = EmptyJobHiveJob
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.PigJob) {
+	if !dcl.IsZeroValue(rawInitial.PigJob) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.HadoopJob, rawInitial.SparkJob, rawInitial.PysparkJob, rawInitial.HiveJob, rawInitial.SparkRJob, rawInitial.SparkSqlJob, rawInitial.PrestoJob) {
 			rawInitial.PigJob = EmptyJobPigJob
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.SparkRJob) {
+	if !dcl.IsZeroValue(rawInitial.SparkRJob) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.HadoopJob, rawInitial.SparkJob, rawInitial.PysparkJob, rawInitial.HiveJob, rawInitial.PigJob, rawInitial.SparkSqlJob, rawInitial.PrestoJob) {
 			rawInitial.SparkRJob = EmptyJobSparkRJob
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.SparkSqlJob) {
+	if !dcl.IsZeroValue(rawInitial.SparkSqlJob) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.HadoopJob, rawInitial.SparkJob, rawInitial.PysparkJob, rawInitial.HiveJob, rawInitial.PigJob, rawInitial.SparkRJob, rawInitial.PrestoJob) {
 			rawInitial.SparkSqlJob = EmptyJobSparkSqlJob
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.PrestoJob) {
+	if !dcl.IsZeroValue(rawInitial.PrestoJob) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.HadoopJob, rawInitial.SparkJob, rawInitial.PysparkJob, rawInitial.HiveJob, rawInitial.PigJob, rawInitial.SparkRJob, rawInitial.SparkSqlJob) {
 			rawInitial.PrestoJob = EmptyJobPrestoJob
@@ -768,28 +768,35 @@ func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyO
 		}
 	}
 
-	rawDesired.Reference = canonicalizeJobReference(rawDesired.Reference, rawInitial.Reference, opts...)
-	rawDesired.Placement = canonicalizeJobPlacement(rawDesired.Placement, rawInitial.Placement, opts...)
-	rawDesired.HadoopJob = canonicalizeJobHadoopJob(rawDesired.HadoopJob, rawInitial.HadoopJob, opts...)
-	rawDesired.SparkJob = canonicalizeJobSparkJob(rawDesired.SparkJob, rawInitial.SparkJob, opts...)
-	rawDesired.PysparkJob = canonicalizeJobPysparkJob(rawDesired.PysparkJob, rawInitial.PysparkJob, opts...)
-	rawDesired.HiveJob = canonicalizeJobHiveJob(rawDesired.HiveJob, rawInitial.HiveJob, opts...)
-	rawDesired.PigJob = canonicalizeJobPigJob(rawDesired.PigJob, rawInitial.PigJob, opts...)
-	rawDesired.SparkRJob = canonicalizeJobSparkRJob(rawDesired.SparkRJob, rawInitial.SparkRJob, opts...)
-	rawDesired.SparkSqlJob = canonicalizeJobSparkSqlJob(rawDesired.SparkSqlJob, rawInitial.SparkSqlJob, opts...)
-	rawDesired.PrestoJob = canonicalizeJobPrestoJob(rawDesired.PrestoJob, rawInitial.PrestoJob, opts...)
+	canonicalDesired := &Job{}
+	canonicalDesired.Reference = canonicalizeJobReference(rawDesired.Reference, rawInitial.Reference, opts...)
+	canonicalDesired.Placement = canonicalizeJobPlacement(rawDesired.Placement, rawInitial.Placement, opts...)
+	canonicalDesired.HadoopJob = canonicalizeJobHadoopJob(rawDesired.HadoopJob, rawInitial.HadoopJob, opts...)
+	canonicalDesired.SparkJob = canonicalizeJobSparkJob(rawDesired.SparkJob, rawInitial.SparkJob, opts...)
+	canonicalDesired.PysparkJob = canonicalizeJobPysparkJob(rawDesired.PysparkJob, rawInitial.PysparkJob, opts...)
+	canonicalDesired.HiveJob = canonicalizeJobHiveJob(rawDesired.HiveJob, rawInitial.HiveJob, opts...)
+	canonicalDesired.PigJob = canonicalizeJobPigJob(rawDesired.PigJob, rawInitial.PigJob, opts...)
+	canonicalDesired.SparkRJob = canonicalizeJobSparkRJob(rawDesired.SparkRJob, rawInitial.SparkRJob, opts...)
+	canonicalDesired.SparkSqlJob = canonicalizeJobSparkSqlJob(rawDesired.SparkSqlJob, rawInitial.SparkSqlJob, opts...)
+	canonicalDesired.PrestoJob = canonicalizeJobPrestoJob(rawDesired.PrestoJob, rawInitial.PrestoJob, opts...)
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
-	rawDesired.Scheduling = canonicalizeJobScheduling(rawDesired.Scheduling, rawInitial.Scheduling, opts...)
+	canonicalDesired.Scheduling = canonicalizeJobScheduling(rawDesired.Scheduling, rawInitial.Scheduling, opts...)
 	if dcl.NameToSelfLink(rawDesired.Region, rawInitial.Region) {
-		rawDesired.Region = rawInitial.Region
+		canonicalDesired.Region = rawInitial.Region
+	} else {
+		canonicalDesired.Region = rawDesired.Region
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
@@ -939,14 +946,20 @@ func canonicalizeJobReference(des, initial *JobReference, opts ...dcl.ApplyOptio
 		return des
 	}
 
+	cDes := &JobReference{}
+
 	if dcl.StringCanonicalize(des.ProjectId, initial.ProjectId) || dcl.IsZeroValue(des.ProjectId) {
-		des.ProjectId = initial.ProjectId
+		cDes.ProjectId = initial.ProjectId
+	} else {
+		cDes.ProjectId = des.ProjectId
 	}
 	if dcl.StringCanonicalize(des.JobId, initial.JobId) || dcl.IsZeroValue(des.JobId) {
-		des.JobId = initial.JobId
+		cDes.JobId = initial.JobId
+	} else {
+		cDes.JobId = des.JobId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobReference(c *Client, des, nw *JobReference) *JobReference {
@@ -1019,14 +1032,20 @@ func canonicalizeJobPlacement(des, initial *JobPlacement, opts ...dcl.ApplyOptio
 		return des
 	}
 
+	cDes := &JobPlacement{}
+
 	if dcl.NameToSelfLink(des.ClusterName, initial.ClusterName) || dcl.IsZeroValue(des.ClusterName) {
-		des.ClusterName = initial.ClusterName
+		cDes.ClusterName = initial.ClusterName
+	} else {
+		cDes.ClusterName = des.ClusterName
 	}
 	if dcl.IsZeroValue(des.ClusterLabels) {
 		des.ClusterLabels = initial.ClusterLabels
+	} else {
+		cDes.ClusterLabels = des.ClusterLabels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobPlacement(c *Client, des, nw *JobPlacement) *JobPlacement {
@@ -1102,30 +1121,46 @@ func canonicalizeJobHadoopJob(des, initial *JobHadoopJob, opts ...dcl.ApplyOptio
 		return des
 	}
 
+	cDes := &JobHadoopJob{}
+
 	if dcl.StringCanonicalize(des.MainJarFileUri, initial.MainJarFileUri) || dcl.IsZeroValue(des.MainJarFileUri) {
-		des.MainJarFileUri = initial.MainJarFileUri
+		cDes.MainJarFileUri = initial.MainJarFileUri
+	} else {
+		cDes.MainJarFileUri = des.MainJarFileUri
 	}
 	if dcl.StringCanonicalize(des.MainClass, initial.MainClass) || dcl.IsZeroValue(des.MainClass) {
-		des.MainClass = initial.MainClass
+		cDes.MainClass = initial.MainClass
+	} else {
+		cDes.MainClass = des.MainClass
 	}
 	if dcl.IsZeroValue(des.Args) {
 		des.Args = initial.Args
+	} else {
+		cDes.Args = des.Args
 	}
 	if dcl.IsZeroValue(des.JarFileUris) {
 		des.JarFileUris = initial.JarFileUris
+	} else {
+		cDes.JarFileUris = des.JarFileUris
 	}
 	if dcl.IsZeroValue(des.FileUris) {
 		des.FileUris = initial.FileUris
+	} else {
+		cDes.FileUris = des.FileUris
 	}
 	if dcl.IsZeroValue(des.ArchiveUris) {
 		des.ArchiveUris = initial.ArchiveUris
+	} else {
+		cDes.ArchiveUris = des.ArchiveUris
 	}
 	if dcl.IsZeroValue(des.Properties) {
 		des.Properties = initial.Properties
+	} else {
+		cDes.Properties = des.Properties
 	}
-	des.LoggingConfig = canonicalizeJobHadoopJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
+	cDes.LoggingConfig = canonicalizeJobHadoopJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobHadoopJob(c *Client, des, nw *JobHadoopJob) *JobHadoopJob {
@@ -1214,11 +1249,15 @@ func canonicalizeJobHadoopJobLoggingConfig(des, initial *JobHadoopJobLoggingConf
 		return des
 	}
 
+	cDes := &JobHadoopJobLoggingConfig{}
+
 	if dcl.IsZeroValue(des.DriverLogLevels) {
 		des.DriverLogLevels = initial.DriverLogLevels
+	} else {
+		cDes.DriverLogLevels = des.DriverLogLevels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobHadoopJobLoggingConfig(c *Client, des, nw *JobHadoopJobLoggingConfig) *JobHadoopJobLoggingConfig {
@@ -1288,30 +1327,46 @@ func canonicalizeJobSparkJob(des, initial *JobSparkJob, opts ...dcl.ApplyOption)
 		return des
 	}
 
+	cDes := &JobSparkJob{}
+
 	if dcl.StringCanonicalize(des.MainJarFileUri, initial.MainJarFileUri) || dcl.IsZeroValue(des.MainJarFileUri) {
-		des.MainJarFileUri = initial.MainJarFileUri
+		cDes.MainJarFileUri = initial.MainJarFileUri
+	} else {
+		cDes.MainJarFileUri = des.MainJarFileUri
 	}
 	if dcl.StringCanonicalize(des.MainClass, initial.MainClass) || dcl.IsZeroValue(des.MainClass) {
-		des.MainClass = initial.MainClass
+		cDes.MainClass = initial.MainClass
+	} else {
+		cDes.MainClass = des.MainClass
 	}
 	if dcl.IsZeroValue(des.Args) {
 		des.Args = initial.Args
+	} else {
+		cDes.Args = des.Args
 	}
 	if dcl.IsZeroValue(des.JarFileUris) {
 		des.JarFileUris = initial.JarFileUris
+	} else {
+		cDes.JarFileUris = des.JarFileUris
 	}
 	if dcl.IsZeroValue(des.FileUris) {
 		des.FileUris = initial.FileUris
+	} else {
+		cDes.FileUris = des.FileUris
 	}
 	if dcl.IsZeroValue(des.ArchiveUris) {
 		des.ArchiveUris = initial.ArchiveUris
+	} else {
+		cDes.ArchiveUris = des.ArchiveUris
 	}
 	if dcl.IsZeroValue(des.Properties) {
 		des.Properties = initial.Properties
+	} else {
+		cDes.Properties = des.Properties
 	}
-	des.LoggingConfig = canonicalizeJobSparkJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
+	cDes.LoggingConfig = canonicalizeJobSparkJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobSparkJob(c *Client, des, nw *JobSparkJob) *JobSparkJob {
@@ -1400,11 +1455,15 @@ func canonicalizeJobSparkJobLoggingConfig(des, initial *JobSparkJobLoggingConfig
 		return des
 	}
 
+	cDes := &JobSparkJobLoggingConfig{}
+
 	if dcl.IsZeroValue(des.DriverLogLevels) {
 		des.DriverLogLevels = initial.DriverLogLevels
+	} else {
+		cDes.DriverLogLevels = des.DriverLogLevels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobSparkJobLoggingConfig(c *Client, des, nw *JobSparkJobLoggingConfig) *JobSparkJobLoggingConfig {
@@ -1474,30 +1533,46 @@ func canonicalizeJobPysparkJob(des, initial *JobPysparkJob, opts ...dcl.ApplyOpt
 		return des
 	}
 
+	cDes := &JobPysparkJob{}
+
 	if dcl.StringCanonicalize(des.MainPythonFileUri, initial.MainPythonFileUri) || dcl.IsZeroValue(des.MainPythonFileUri) {
-		des.MainPythonFileUri = initial.MainPythonFileUri
+		cDes.MainPythonFileUri = initial.MainPythonFileUri
+	} else {
+		cDes.MainPythonFileUri = des.MainPythonFileUri
 	}
 	if dcl.IsZeroValue(des.Args) {
 		des.Args = initial.Args
+	} else {
+		cDes.Args = des.Args
 	}
 	if dcl.IsZeroValue(des.PythonFileUris) {
 		des.PythonFileUris = initial.PythonFileUris
+	} else {
+		cDes.PythonFileUris = des.PythonFileUris
 	}
 	if dcl.IsZeroValue(des.JarFileUris) {
 		des.JarFileUris = initial.JarFileUris
+	} else {
+		cDes.JarFileUris = des.JarFileUris
 	}
 	if dcl.IsZeroValue(des.FileUris) {
 		des.FileUris = initial.FileUris
+	} else {
+		cDes.FileUris = des.FileUris
 	}
 	if dcl.IsZeroValue(des.ArchiveUris) {
 		des.ArchiveUris = initial.ArchiveUris
+	} else {
+		cDes.ArchiveUris = des.ArchiveUris
 	}
 	if dcl.IsZeroValue(des.Properties) {
 		des.Properties = initial.Properties
+	} else {
+		cDes.Properties = des.Properties
 	}
-	des.LoggingConfig = canonicalizeJobPysparkJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
+	cDes.LoggingConfig = canonicalizeJobPysparkJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobPysparkJob(c *Client, des, nw *JobPysparkJob) *JobPysparkJob {
@@ -1586,11 +1661,15 @@ func canonicalizeJobPysparkJobLoggingConfig(des, initial *JobPysparkJobLoggingCo
 		return des
 	}
 
+	cDes := &JobPysparkJobLoggingConfig{}
+
 	if dcl.IsZeroValue(des.DriverLogLevels) {
 		des.DriverLogLevels = initial.DriverLogLevels
+	} else {
+		cDes.DriverLogLevels = des.DriverLogLevels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobPysparkJobLoggingConfig(c *Client, des, nw *JobPysparkJobLoggingConfig) *JobPysparkJobLoggingConfig {
@@ -1660,24 +1739,36 @@ func canonicalizeJobHiveJob(des, initial *JobHiveJob, opts ...dcl.ApplyOption) *
 		return des
 	}
 
+	cDes := &JobHiveJob{}
+
 	if dcl.StringCanonicalize(des.QueryFileUri, initial.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
-		des.QueryFileUri = initial.QueryFileUri
+		cDes.QueryFileUri = initial.QueryFileUri
+	} else {
+		cDes.QueryFileUri = des.QueryFileUri
 	}
-	des.QueryList = canonicalizeJobHiveJobQueryList(des.QueryList, initial.QueryList, opts...)
+	cDes.QueryList = canonicalizeJobHiveJobQueryList(des.QueryList, initial.QueryList, opts...)
 	if dcl.BoolCanonicalize(des.ContinueOnFailure, initial.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
-		des.ContinueOnFailure = initial.ContinueOnFailure
+		cDes.ContinueOnFailure = initial.ContinueOnFailure
+	} else {
+		cDes.ContinueOnFailure = des.ContinueOnFailure
 	}
 	if dcl.IsZeroValue(des.ScriptVariables) {
 		des.ScriptVariables = initial.ScriptVariables
+	} else {
+		cDes.ScriptVariables = des.ScriptVariables
 	}
 	if dcl.IsZeroValue(des.Properties) {
 		des.Properties = initial.Properties
+	} else {
+		cDes.Properties = des.Properties
 	}
 	if dcl.IsZeroValue(des.JarFileUris) {
 		des.JarFileUris = initial.JarFileUris
+	} else {
+		cDes.JarFileUris = des.JarFileUris
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobHiveJob(c *Client, des, nw *JobHiveJob) *JobHiveJob {
@@ -1760,11 +1851,15 @@ func canonicalizeJobHiveJobQueryList(des, initial *JobHiveJobQueryList, opts ...
 		return des
 	}
 
+	cDes := &JobHiveJobQueryList{}
+
 	if dcl.IsZeroValue(des.Queries) {
 		des.Queries = initial.Queries
+	} else {
+		cDes.Queries = des.Queries
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobHiveJobQueryList(c *Client, des, nw *JobHiveJobQueryList) *JobHiveJobQueryList {
@@ -1834,25 +1929,37 @@ func canonicalizeJobPigJob(des, initial *JobPigJob, opts ...dcl.ApplyOption) *Jo
 		return des
 	}
 
+	cDes := &JobPigJob{}
+
 	if dcl.StringCanonicalize(des.QueryFileUri, initial.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
-		des.QueryFileUri = initial.QueryFileUri
+		cDes.QueryFileUri = initial.QueryFileUri
+	} else {
+		cDes.QueryFileUri = des.QueryFileUri
 	}
-	des.QueryList = canonicalizeJobPigJobQueryList(des.QueryList, initial.QueryList, opts...)
+	cDes.QueryList = canonicalizeJobPigJobQueryList(des.QueryList, initial.QueryList, opts...)
 	if dcl.BoolCanonicalize(des.ContinueOnFailure, initial.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
-		des.ContinueOnFailure = initial.ContinueOnFailure
+		cDes.ContinueOnFailure = initial.ContinueOnFailure
+	} else {
+		cDes.ContinueOnFailure = des.ContinueOnFailure
 	}
 	if dcl.IsZeroValue(des.ScriptVariables) {
 		des.ScriptVariables = initial.ScriptVariables
+	} else {
+		cDes.ScriptVariables = des.ScriptVariables
 	}
 	if dcl.IsZeroValue(des.Properties) {
 		des.Properties = initial.Properties
+	} else {
+		cDes.Properties = des.Properties
 	}
 	if dcl.IsZeroValue(des.JarFileUris) {
 		des.JarFileUris = initial.JarFileUris
+	} else {
+		cDes.JarFileUris = des.JarFileUris
 	}
-	des.LoggingConfig = canonicalizeJobPigJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
+	cDes.LoggingConfig = canonicalizeJobPigJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobPigJob(c *Client, des, nw *JobPigJob) *JobPigJob {
@@ -1936,11 +2043,15 @@ func canonicalizeJobPigJobQueryList(des, initial *JobPigJobQueryList, opts ...dc
 		return des
 	}
 
+	cDes := &JobPigJobQueryList{}
+
 	if dcl.IsZeroValue(des.Queries) {
 		des.Queries = initial.Queries
+	} else {
+		cDes.Queries = des.Queries
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobPigJobQueryList(c *Client, des, nw *JobPigJobQueryList) *JobPigJobQueryList {
@@ -2010,11 +2121,15 @@ func canonicalizeJobPigJobLoggingConfig(des, initial *JobPigJobLoggingConfig, op
 		return des
 	}
 
+	cDes := &JobPigJobLoggingConfig{}
+
 	if dcl.IsZeroValue(des.DriverLogLevels) {
 		des.DriverLogLevels = initial.DriverLogLevels
+	} else {
+		cDes.DriverLogLevels = des.DriverLogLevels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobPigJobLoggingConfig(c *Client, des, nw *JobPigJobLoggingConfig) *JobPigJobLoggingConfig {
@@ -2084,24 +2199,36 @@ func canonicalizeJobSparkRJob(des, initial *JobSparkRJob, opts ...dcl.ApplyOptio
 		return des
 	}
 
+	cDes := &JobSparkRJob{}
+
 	if dcl.StringCanonicalize(des.MainRFileUri, initial.MainRFileUri) || dcl.IsZeroValue(des.MainRFileUri) {
-		des.MainRFileUri = initial.MainRFileUri
+		cDes.MainRFileUri = initial.MainRFileUri
+	} else {
+		cDes.MainRFileUri = des.MainRFileUri
 	}
 	if dcl.IsZeroValue(des.Args) {
 		des.Args = initial.Args
+	} else {
+		cDes.Args = des.Args
 	}
 	if dcl.IsZeroValue(des.FileUris) {
 		des.FileUris = initial.FileUris
+	} else {
+		cDes.FileUris = des.FileUris
 	}
 	if dcl.IsZeroValue(des.ArchiveUris) {
 		des.ArchiveUris = initial.ArchiveUris
+	} else {
+		cDes.ArchiveUris = des.ArchiveUris
 	}
 	if dcl.IsZeroValue(des.Properties) {
 		des.Properties = initial.Properties
+	} else {
+		cDes.Properties = des.Properties
 	}
-	des.LoggingConfig = canonicalizeJobSparkRJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
+	cDes.LoggingConfig = canonicalizeJobSparkRJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobSparkRJob(c *Client, des, nw *JobSparkRJob) *JobSparkRJob {
@@ -2184,11 +2311,15 @@ func canonicalizeJobSparkRJobLoggingConfig(des, initial *JobSparkRJobLoggingConf
 		return des
 	}
 
+	cDes := &JobSparkRJobLoggingConfig{}
+
 	if dcl.IsZeroValue(des.DriverLogLevels) {
 		des.DriverLogLevels = initial.DriverLogLevels
+	} else {
+		cDes.DriverLogLevels = des.DriverLogLevels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobSparkRJobLoggingConfig(c *Client, des, nw *JobSparkRJobLoggingConfig) *JobSparkRJobLoggingConfig {
@@ -2258,22 +2389,32 @@ func canonicalizeJobSparkSqlJob(des, initial *JobSparkSqlJob, opts ...dcl.ApplyO
 		return des
 	}
 
+	cDes := &JobSparkSqlJob{}
+
 	if dcl.StringCanonicalize(des.QueryFileUri, initial.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
-		des.QueryFileUri = initial.QueryFileUri
+		cDes.QueryFileUri = initial.QueryFileUri
+	} else {
+		cDes.QueryFileUri = des.QueryFileUri
 	}
-	des.QueryList = canonicalizeJobSparkSqlJobQueryList(des.QueryList, initial.QueryList, opts...)
+	cDes.QueryList = canonicalizeJobSparkSqlJobQueryList(des.QueryList, initial.QueryList, opts...)
 	if dcl.IsZeroValue(des.ScriptVariables) {
 		des.ScriptVariables = initial.ScriptVariables
+	} else {
+		cDes.ScriptVariables = des.ScriptVariables
 	}
 	if dcl.IsZeroValue(des.Properties) {
 		des.Properties = initial.Properties
+	} else {
+		cDes.Properties = des.Properties
 	}
 	if dcl.IsZeroValue(des.JarFileUris) {
 		des.JarFileUris = initial.JarFileUris
+	} else {
+		cDes.JarFileUris = des.JarFileUris
 	}
-	des.LoggingConfig = canonicalizeJobSparkSqlJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
+	cDes.LoggingConfig = canonicalizeJobSparkSqlJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobSparkSqlJob(c *Client, des, nw *JobSparkSqlJob) *JobSparkSqlJob {
@@ -2354,11 +2495,15 @@ func canonicalizeJobSparkSqlJobQueryList(des, initial *JobSparkSqlJobQueryList, 
 		return des
 	}
 
+	cDes := &JobSparkSqlJobQueryList{}
+
 	if dcl.IsZeroValue(des.Queries) {
 		des.Queries = initial.Queries
+	} else {
+		cDes.Queries = des.Queries
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobSparkSqlJobQueryList(c *Client, des, nw *JobSparkSqlJobQueryList) *JobSparkSqlJobQueryList {
@@ -2428,11 +2573,15 @@ func canonicalizeJobSparkSqlJobLoggingConfig(des, initial *JobSparkSqlJobLogging
 		return des
 	}
 
+	cDes := &JobSparkSqlJobLoggingConfig{}
+
 	if dcl.IsZeroValue(des.DriverLogLevels) {
 		des.DriverLogLevels = initial.DriverLogLevels
+	} else {
+		cDes.DriverLogLevels = des.DriverLogLevels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobSparkSqlJobLoggingConfig(c *Client, des, nw *JobSparkSqlJobLoggingConfig) *JobSparkSqlJobLoggingConfig {
@@ -2502,25 +2651,37 @@ func canonicalizeJobPrestoJob(des, initial *JobPrestoJob, opts ...dcl.ApplyOptio
 		return des
 	}
 
+	cDes := &JobPrestoJob{}
+
 	if dcl.StringCanonicalize(des.QueryFileUri, initial.QueryFileUri) || dcl.IsZeroValue(des.QueryFileUri) {
-		des.QueryFileUri = initial.QueryFileUri
+		cDes.QueryFileUri = initial.QueryFileUri
+	} else {
+		cDes.QueryFileUri = des.QueryFileUri
 	}
-	des.QueryList = canonicalizeJobPrestoJobQueryList(des.QueryList, initial.QueryList, opts...)
+	cDes.QueryList = canonicalizeJobPrestoJobQueryList(des.QueryList, initial.QueryList, opts...)
 	if dcl.BoolCanonicalize(des.ContinueOnFailure, initial.ContinueOnFailure) || dcl.IsZeroValue(des.ContinueOnFailure) {
-		des.ContinueOnFailure = initial.ContinueOnFailure
+		cDes.ContinueOnFailure = initial.ContinueOnFailure
+	} else {
+		cDes.ContinueOnFailure = des.ContinueOnFailure
 	}
 	if dcl.StringCanonicalize(des.OutputFormat, initial.OutputFormat) || dcl.IsZeroValue(des.OutputFormat) {
-		des.OutputFormat = initial.OutputFormat
+		cDes.OutputFormat = initial.OutputFormat
+	} else {
+		cDes.OutputFormat = des.OutputFormat
 	}
 	if dcl.IsZeroValue(des.ClientTags) {
 		des.ClientTags = initial.ClientTags
+	} else {
+		cDes.ClientTags = des.ClientTags
 	}
 	if dcl.IsZeroValue(des.Properties) {
 		des.Properties = initial.Properties
+	} else {
+		cDes.Properties = des.Properties
 	}
-	des.LoggingConfig = canonicalizeJobPrestoJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
+	cDes.LoggingConfig = canonicalizeJobPrestoJobLoggingConfig(des.LoggingConfig, initial.LoggingConfig, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobPrestoJob(c *Client, des, nw *JobPrestoJob) *JobPrestoJob {
@@ -2604,11 +2765,15 @@ func canonicalizeJobPrestoJobQueryList(des, initial *JobPrestoJobQueryList, opts
 		return des
 	}
 
+	cDes := &JobPrestoJobQueryList{}
+
 	if dcl.IsZeroValue(des.Queries) {
 		des.Queries = initial.Queries
+	} else {
+		cDes.Queries = des.Queries
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobPrestoJobQueryList(c *Client, des, nw *JobPrestoJobQueryList) *JobPrestoJobQueryList {
@@ -2678,11 +2843,15 @@ func canonicalizeJobPrestoJobLoggingConfig(des, initial *JobPrestoJobLoggingConf
 		return des
 	}
 
+	cDes := &JobPrestoJobLoggingConfig{}
+
 	if dcl.IsZeroValue(des.DriverLogLevels) {
 		des.DriverLogLevels = initial.DriverLogLevels
+	} else {
+		cDes.DriverLogLevels = des.DriverLogLevels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobPrestoJobLoggingConfig(c *Client, des, nw *JobPrestoJobLoggingConfig) *JobPrestoJobLoggingConfig {
@@ -2752,7 +2921,9 @@ func canonicalizeJobStatus(des, initial *JobStatus, opts ...dcl.ApplyOption) *Jo
 		return des
 	}
 
-	return des
+	cDes := &JobStatus{}
+
+	return cDes
 }
 
 func canonicalizeNewJobStatus(c *Client, des, nw *JobStatus) *JobStatus {
@@ -2831,7 +3002,9 @@ func canonicalizeJobStatusHistory(des, initial *JobStatusHistory, opts ...dcl.Ap
 		return des
 	}
 
-	return des
+	cDes := &JobStatusHistory{}
+
+	return cDes
 }
 
 func canonicalizeNewJobStatusHistory(c *Client, des, nw *JobStatusHistory) *JobStatusHistory {
@@ -2910,7 +3083,9 @@ func canonicalizeJobYarnApplications(des, initial *JobYarnApplications, opts ...
 		return des
 	}
 
-	return des
+	cDes := &JobYarnApplications{}
+
+	return cDes
 }
 
 func canonicalizeNewJobYarnApplications(c *Client, des, nw *JobYarnApplications) *JobYarnApplications {
@@ -2989,14 +3164,20 @@ func canonicalizeJobScheduling(des, initial *JobScheduling, opts ...dcl.ApplyOpt
 		return des
 	}
 
+	cDes := &JobScheduling{}
+
 	if dcl.IsZeroValue(des.MaxFailuresPerHour) {
 		des.MaxFailuresPerHour = initial.MaxFailuresPerHour
+	} else {
+		cDes.MaxFailuresPerHour = des.MaxFailuresPerHour
 	}
 	if dcl.IsZeroValue(des.MaxFailuresTotal) {
 		des.MaxFailuresTotal = initial.MaxFailuresTotal
+	} else {
+		cDes.MaxFailuresTotal = des.MaxFailuresTotal
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewJobScheduling(c *Client, des, nw *JobScheduling) *JobScheduling {
@@ -7898,31 +8079,45 @@ type jobDiff struct {
 	UpdateOp         jobApiOperation
 }
 
-func convertFieldDiffToJobOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]jobDiff, error) {
+func convertFieldDiffsToJobDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]jobDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []jobDiff
-	for _, op := range ops {
+	// For each operation name, create a jobDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := jobDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTojobApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToJobApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTojobApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (jobApiOperation, error) {
-	switch op {
+func convertOpNameToJobApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (jobApiOperation, error) {
+	switch opName {
 
 	case "updateJobPatchOperation":
-		return &updateJobPatchOperation{Diffs: diffs}, nil
+		return &updateJobPatchOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

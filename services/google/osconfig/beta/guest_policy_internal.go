@@ -364,7 +364,7 @@ type updateGuestPolicyUpdateGuestPolicyOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -649,31 +649,45 @@ func canonicalizeGuestPolicyDesiredState(rawDesired, rawInitial *GuestPolicy, op
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &GuestPolicy{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
-	rawDesired.Assignment = canonicalizeGuestPolicyAssignment(rawDesired.Assignment, rawInitial.Assignment, opts...)
+	canonicalDesired.Assignment = canonicalizeGuestPolicyAssignment(rawDesired.Assignment, rawInitial.Assignment, opts...)
 	if dcl.IsZeroValue(rawDesired.Packages) {
-		rawDesired.Packages = rawInitial.Packages
+		canonicalDesired.Packages = rawInitial.Packages
+	} else {
+		canonicalDesired.Packages = rawDesired.Packages
 	}
 	if dcl.IsZeroValue(rawDesired.PackageRepositories) {
-		rawDesired.PackageRepositories = rawInitial.PackageRepositories
+		canonicalDesired.PackageRepositories = rawInitial.PackageRepositories
+	} else {
+		canonicalDesired.PackageRepositories = rawDesired.PackageRepositories
 	}
 	if dcl.IsZeroValue(rawDesired.Recipes) {
-		rawDesired.Recipes = rawInitial.Recipes
+		canonicalDesired.Recipes = rawInitial.Recipes
+	} else {
+		canonicalDesired.Recipes = rawDesired.Recipes
 	}
 	if dcl.StringCanonicalize(rawDesired.Etag, rawInitial.Etag) {
-		rawDesired.Etag = rawInitial.Etag
+		canonicalDesired.Etag = rawInitial.Etag
+	} else {
+		canonicalDesired.Etag = rawDesired.Etag
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeGuestPolicyNewState(c *Client, rawNew, rawDesired *GuestPolicy) (*GuestPolicy, error) {
@@ -753,23 +767,35 @@ func canonicalizeGuestPolicyAssignment(des, initial *GuestPolicyAssignment, opts
 		return des
 	}
 
+	cDes := &GuestPolicyAssignment{}
+
 	if dcl.IsZeroValue(des.GroupLabels) {
 		des.GroupLabels = initial.GroupLabels
+	} else {
+		cDes.GroupLabels = des.GroupLabels
 	}
 	if dcl.IsZeroValue(des.Zones) {
 		des.Zones = initial.Zones
+	} else {
+		cDes.Zones = des.Zones
 	}
 	if dcl.IsZeroValue(des.Instances) {
 		des.Instances = initial.Instances
+	} else {
+		cDes.Instances = des.Instances
 	}
 	if dcl.IsZeroValue(des.InstanceNamePrefixes) {
 		des.InstanceNamePrefixes = initial.InstanceNamePrefixes
+	} else {
+		cDes.InstanceNamePrefixes = des.InstanceNamePrefixes
 	}
 	if dcl.IsZeroValue(des.OsTypes) {
 		des.OsTypes = initial.OsTypes
+	} else {
+		cDes.OsTypes = des.OsTypes
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyAssignment(c *Client, des, nw *GuestPolicyAssignment) *GuestPolicyAssignment {
@@ -847,11 +873,15 @@ func canonicalizeGuestPolicyAssignmentGroupLabels(des, initial *GuestPolicyAssig
 		return des
 	}
 
+	cDes := &GuestPolicyAssignmentGroupLabels{}
+
 	if dcl.IsZeroValue(des.Labels) {
 		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyAssignmentGroupLabels(c *Client, des, nw *GuestPolicyAssignmentGroupLabels) *GuestPolicyAssignmentGroupLabels {
@@ -921,17 +951,25 @@ func canonicalizeGuestPolicyAssignmentOsTypes(des, initial *GuestPolicyAssignmen
 		return des
 	}
 
+	cDes := &GuestPolicyAssignmentOsTypes{}
+
 	if dcl.StringCanonicalize(des.OsShortName, initial.OsShortName) || dcl.IsZeroValue(des.OsShortName) {
-		des.OsShortName = initial.OsShortName
+		cDes.OsShortName = initial.OsShortName
+	} else {
+		cDes.OsShortName = des.OsShortName
 	}
 	if dcl.StringCanonicalize(des.OsVersion, initial.OsVersion) || dcl.IsZeroValue(des.OsVersion) {
-		des.OsVersion = initial.OsVersion
+		cDes.OsVersion = initial.OsVersion
+	} else {
+		cDes.OsVersion = des.OsVersion
 	}
 	if dcl.StringCanonicalize(des.OsArchitecture, initial.OsArchitecture) || dcl.IsZeroValue(des.OsArchitecture) {
-		des.OsArchitecture = initial.OsArchitecture
+		cDes.OsArchitecture = initial.OsArchitecture
+	} else {
+		cDes.OsArchitecture = des.OsArchitecture
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyAssignmentOsTypes(c *Client, des, nw *GuestPolicyAssignmentOsTypes) *GuestPolicyAssignmentOsTypes {
@@ -1007,17 +1045,25 @@ func canonicalizeGuestPolicyPackages(des, initial *GuestPolicyPackages, opts ...
 		return des
 	}
 
+	cDes := &GuestPolicyPackages{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.IsZeroValue(des.DesiredState) {
 		des.DesiredState = initial.DesiredState
+	} else {
+		cDes.DesiredState = des.DesiredState
 	}
 	if dcl.IsZeroValue(des.Manager) {
 		des.Manager = initial.Manager
+	} else {
+		cDes.Manager = des.Manager
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyPackages(c *Client, des, nw *GuestPolicyPackages) *GuestPolicyPackages {
@@ -1093,12 +1139,14 @@ func canonicalizeGuestPolicyPackageRepositories(des, initial *GuestPolicyPackage
 		return des
 	}
 
-	des.Apt = canonicalizeGuestPolicyPackageRepositoriesApt(des.Apt, initial.Apt, opts...)
-	des.Yum = canonicalizeGuestPolicyPackageRepositoriesYum(des.Yum, initial.Yum, opts...)
-	des.Zypper = canonicalizeGuestPolicyPackageRepositoriesZypper(des.Zypper, initial.Zypper, opts...)
-	des.Goo = canonicalizeGuestPolicyPackageRepositoriesGoo(des.Goo, initial.Goo, opts...)
+	cDes := &GuestPolicyPackageRepositories{}
 
-	return des
+	cDes.Apt = canonicalizeGuestPolicyPackageRepositoriesApt(des.Apt, initial.Apt, opts...)
+	cDes.Yum = canonicalizeGuestPolicyPackageRepositoriesYum(des.Yum, initial.Yum, opts...)
+	cDes.Zypper = canonicalizeGuestPolicyPackageRepositoriesZypper(des.Zypper, initial.Zypper, opts...)
+	cDes.Goo = canonicalizeGuestPolicyPackageRepositoriesGoo(des.Goo, initial.Goo, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyPackageRepositories(c *Client, des, nw *GuestPolicyPackageRepositories) *GuestPolicyPackageRepositories {
@@ -1169,23 +1217,35 @@ func canonicalizeGuestPolicyPackageRepositoriesApt(des, initial *GuestPolicyPack
 		return des
 	}
 
+	cDes := &GuestPolicyPackageRepositoriesApt{}
+
 	if dcl.IsZeroValue(des.ArchiveType) {
 		des.ArchiveType = initial.ArchiveType
+	} else {
+		cDes.ArchiveType = des.ArchiveType
 	}
 	if dcl.StringCanonicalize(des.Uri, initial.Uri) || dcl.IsZeroValue(des.Uri) {
-		des.Uri = initial.Uri
+		cDes.Uri = initial.Uri
+	} else {
+		cDes.Uri = des.Uri
 	}
 	if dcl.StringCanonicalize(des.Distribution, initial.Distribution) || dcl.IsZeroValue(des.Distribution) {
-		des.Distribution = initial.Distribution
+		cDes.Distribution = initial.Distribution
+	} else {
+		cDes.Distribution = des.Distribution
 	}
 	if dcl.IsZeroValue(des.Components) {
 		des.Components = initial.Components
+	} else {
+		cDes.Components = des.Components
 	}
 	if dcl.StringCanonicalize(des.GpgKey, initial.GpgKey) || dcl.IsZeroValue(des.GpgKey) {
-		des.GpgKey = initial.GpgKey
+		cDes.GpgKey = initial.GpgKey
+	} else {
+		cDes.GpgKey = des.GpgKey
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyPackageRepositoriesApt(c *Client, des, nw *GuestPolicyPackageRepositoriesApt) *GuestPolicyPackageRepositoriesApt {
@@ -1267,20 +1327,30 @@ func canonicalizeGuestPolicyPackageRepositoriesYum(des, initial *GuestPolicyPack
 		return des
 	}
 
+	cDes := &GuestPolicyPackageRepositoriesYum{}
+
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.DisplayName, initial.DisplayName) || dcl.IsZeroValue(des.DisplayName) {
-		des.DisplayName = initial.DisplayName
+		cDes.DisplayName = initial.DisplayName
+	} else {
+		cDes.DisplayName = des.DisplayName
 	}
 	if dcl.StringCanonicalize(des.BaseUrl, initial.BaseUrl) || dcl.IsZeroValue(des.BaseUrl) {
-		des.BaseUrl = initial.BaseUrl
+		cDes.BaseUrl = initial.BaseUrl
+	} else {
+		cDes.BaseUrl = des.BaseUrl
 	}
 	if dcl.IsZeroValue(des.GpgKeys) {
 		des.GpgKeys = initial.GpgKeys
+	} else {
+		cDes.GpgKeys = des.GpgKeys
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyPackageRepositoriesYum(c *Client, des, nw *GuestPolicyPackageRepositoriesYum) *GuestPolicyPackageRepositoriesYum {
@@ -1359,20 +1429,30 @@ func canonicalizeGuestPolicyPackageRepositoriesZypper(des, initial *GuestPolicyP
 		return des
 	}
 
+	cDes := &GuestPolicyPackageRepositoriesZypper{}
+
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 	if dcl.StringCanonicalize(des.DisplayName, initial.DisplayName) || dcl.IsZeroValue(des.DisplayName) {
-		des.DisplayName = initial.DisplayName
+		cDes.DisplayName = initial.DisplayName
+	} else {
+		cDes.DisplayName = des.DisplayName
 	}
 	if dcl.StringCanonicalize(des.BaseUrl, initial.BaseUrl) || dcl.IsZeroValue(des.BaseUrl) {
-		des.BaseUrl = initial.BaseUrl
+		cDes.BaseUrl = initial.BaseUrl
+	} else {
+		cDes.BaseUrl = des.BaseUrl
 	}
 	if dcl.IsZeroValue(des.GpgKeys) {
 		des.GpgKeys = initial.GpgKeys
+	} else {
+		cDes.GpgKeys = des.GpgKeys
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyPackageRepositoriesZypper(c *Client, des, nw *GuestPolicyPackageRepositoriesZypper) *GuestPolicyPackageRepositoriesZypper {
@@ -1451,14 +1531,20 @@ func canonicalizeGuestPolicyPackageRepositoriesGoo(des, initial *GuestPolicyPack
 		return des
 	}
 
+	cDes := &GuestPolicyPackageRepositoriesGoo{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
-		des.Url = initial.Url
+		cDes.Url = initial.Url
+	} else {
+		cDes.Url = des.Url
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyPackageRepositoriesGoo(c *Client, des, nw *GuestPolicyPackageRepositoriesGoo) *GuestPolicyPackageRepositoriesGoo {
@@ -1531,26 +1617,40 @@ func canonicalizeGuestPolicyRecipes(des, initial *GuestPolicyRecipes, opts ...dc
 		return des
 	}
 
+	cDes := &GuestPolicyRecipes{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
-		des.Version = initial.Version
+		cDes.Version = initial.Version
+	} else {
+		cDes.Version = des.Version
 	}
 	if dcl.IsZeroValue(des.Artifacts) {
 		des.Artifacts = initial.Artifacts
+	} else {
+		cDes.Artifacts = des.Artifacts
 	}
 	if dcl.IsZeroValue(des.InstallSteps) {
 		des.InstallSteps = initial.InstallSteps
+	} else {
+		cDes.InstallSteps = des.InstallSteps
 	}
 	if dcl.IsZeroValue(des.UpdateSteps) {
 		des.UpdateSteps = initial.UpdateSteps
+	} else {
+		cDes.UpdateSteps = des.UpdateSteps
 	}
 	if dcl.IsZeroValue(des.DesiredState) {
 		des.DesiredState = initial.DesiredState
+	} else {
+		cDes.DesiredState = des.DesiredState
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyRecipes(c *Client, des, nw *GuestPolicyRecipes) *GuestPolicyRecipes {
@@ -1629,16 +1729,22 @@ func canonicalizeGuestPolicyRecipesArtifacts(des, initial *GuestPolicyRecipesArt
 		return des
 	}
 
+	cDes := &GuestPolicyRecipesArtifacts{}
+
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
-	des.Remote = canonicalizeGuestPolicyRecipesArtifactsRemote(des.Remote, initial.Remote, opts...)
-	des.Gcs = canonicalizeGuestPolicyRecipesArtifactsGcs(des.Gcs, initial.Gcs, opts...)
+	cDes.Remote = canonicalizeGuestPolicyRecipesArtifactsRemote(des.Remote, initial.Remote, opts...)
+	cDes.Gcs = canonicalizeGuestPolicyRecipesArtifactsGcs(des.Gcs, initial.Gcs, opts...)
 	if dcl.BoolCanonicalize(des.AllowInsecure, initial.AllowInsecure) || dcl.IsZeroValue(des.AllowInsecure) {
-		des.AllowInsecure = initial.AllowInsecure
+		cDes.AllowInsecure = initial.AllowInsecure
+	} else {
+		cDes.AllowInsecure = des.AllowInsecure
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyRecipesArtifacts(c *Client, des, nw *GuestPolicyRecipesArtifacts) *GuestPolicyRecipesArtifacts {
@@ -1713,14 +1819,20 @@ func canonicalizeGuestPolicyRecipesArtifactsRemote(des, initial *GuestPolicyReci
 		return des
 	}
 
+	cDes := &GuestPolicyRecipesArtifactsRemote{}
+
 	if dcl.StringCanonicalize(des.Uri, initial.Uri) || dcl.IsZeroValue(des.Uri) {
-		des.Uri = initial.Uri
+		cDes.Uri = initial.Uri
+	} else {
+		cDes.Uri = des.Uri
 	}
 	if dcl.StringCanonicalize(des.Checksum, initial.Checksum) || dcl.IsZeroValue(des.Checksum) {
-		des.Checksum = initial.Checksum
+		cDes.Checksum = initial.Checksum
+	} else {
+		cDes.Checksum = des.Checksum
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyRecipesArtifactsRemote(c *Client, des, nw *GuestPolicyRecipesArtifactsRemote) *GuestPolicyRecipesArtifactsRemote {
@@ -1793,17 +1905,25 @@ func canonicalizeGuestPolicyRecipesArtifactsGcs(des, initial *GuestPolicyRecipes
 		return des
 	}
 
+	cDes := &GuestPolicyRecipesArtifactsGcs{}
+
 	if dcl.NameToSelfLink(des.Bucket, initial.Bucket) || dcl.IsZeroValue(des.Bucket) {
-		des.Bucket = initial.Bucket
+		cDes.Bucket = initial.Bucket
+	} else {
+		cDes.Bucket = des.Bucket
 	}
 	if dcl.StringCanonicalize(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
-		des.Object = initial.Object
+		cDes.Object = initial.Object
+	} else {
+		cDes.Object = des.Object
 	}
 	if dcl.IsZeroValue(des.Generation) {
 		des.Generation = initial.Generation
+	} else {
+		cDes.Generation = des.Generation
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyRecipesArtifactsGcs(c *Client, des, nw *GuestPolicyRecipesArtifactsGcs) *GuestPolicyRecipesArtifactsGcs {
@@ -1879,15 +1999,17 @@ func canonicalizeGuestPolicyRecipesInstallSteps(des, initial *GuestPolicyRecipes
 		return des
 	}
 
-	des.FileCopy = canonicalizeGuestPolicyRecipesInstallStepsFileCopy(des.FileCopy, initial.FileCopy, opts...)
-	des.ArchiveExtraction = canonicalizeGuestPolicyRecipesInstallStepsArchiveExtraction(des.ArchiveExtraction, initial.ArchiveExtraction, opts...)
-	des.MsiInstallation = canonicalizeGuestPolicyRecipesInstallStepsMsiInstallation(des.MsiInstallation, initial.MsiInstallation, opts...)
-	des.DpkgInstallation = canonicalizeGuestPolicyRecipesInstallStepsDpkgInstallation(des.DpkgInstallation, initial.DpkgInstallation, opts...)
-	des.RpmInstallation = canonicalizeGuestPolicyRecipesInstallStepsRpmInstallation(des.RpmInstallation, initial.RpmInstallation, opts...)
-	des.FileExec = canonicalizeGuestPolicyRecipesInstallStepsFileExec(des.FileExec, initial.FileExec, opts...)
-	des.ScriptRun = canonicalizeGuestPolicyRecipesInstallStepsScriptRun(des.ScriptRun, initial.ScriptRun, opts...)
+	cDes := &GuestPolicyRecipesInstallSteps{}
 
-	return des
+	cDes.FileCopy = canonicalizeGuestPolicyRecipesInstallStepsFileCopy(des.FileCopy, initial.FileCopy, opts...)
+	cDes.ArchiveExtraction = canonicalizeGuestPolicyRecipesInstallStepsArchiveExtraction(des.ArchiveExtraction, initial.ArchiveExtraction, opts...)
+	cDes.MsiInstallation = canonicalizeGuestPolicyRecipesInstallStepsMsiInstallation(des.MsiInstallation, initial.MsiInstallation, opts...)
+	cDes.DpkgInstallation = canonicalizeGuestPolicyRecipesInstallStepsDpkgInstallation(des.DpkgInstallation, initial.DpkgInstallation, opts...)
+	cDes.RpmInstallation = canonicalizeGuestPolicyRecipesInstallStepsRpmInstallation(des.RpmInstallation, initial.RpmInstallation, opts...)
+	cDes.FileExec = canonicalizeGuestPolicyRecipesInstallStepsFileExec(des.FileExec, initial.FileExec, opts...)
+	cDes.ScriptRun = canonicalizeGuestPolicyRecipesInstallStepsScriptRun(des.ScriptRun, initial.ScriptRun, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyRecipesInstallSteps(c *Client, des, nw *GuestPolicyRecipesInstallSteps) *GuestPolicyRecipesInstallSteps {
@@ -1961,20 +2083,30 @@ func canonicalizeGuestPolicyRecipesInstallStepsFileCopy(des, initial *GuestPolic
 		return des
 	}
 
+	cDes := &GuestPolicyRecipesInstallStepsFileCopy{}
+
 	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
-		des.ArtifactId = initial.ArtifactId
+		cDes.ArtifactId = initial.ArtifactId
+	} else {
+		cDes.ArtifactId = des.ArtifactId
 	}
 	if dcl.StringCanonicalize(des.Destination, initial.Destination) || dcl.IsZeroValue(des.Destination) {
-		des.Destination = initial.Destination
+		cDes.Destination = initial.Destination
+	} else {
+		cDes.Destination = des.Destination
 	}
 	if dcl.BoolCanonicalize(des.Overwrite, initial.Overwrite) || dcl.IsZeroValue(des.Overwrite) {
-		des.Overwrite = initial.Overwrite
+		cDes.Overwrite = initial.Overwrite
+	} else {
+		cDes.Overwrite = des.Overwrite
 	}
 	if dcl.StringCanonicalize(des.Permissions, initial.Permissions) || dcl.IsZeroValue(des.Permissions) {
-		des.Permissions = initial.Permissions
+		cDes.Permissions = initial.Permissions
+	} else {
+		cDes.Permissions = des.Permissions
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyRecipesInstallStepsFileCopy(c *Client, des, nw *GuestPolicyRecipesInstallStepsFileCopy) *GuestPolicyRecipesInstallStepsFileCopy {
@@ -2053,17 +2185,25 @@ func canonicalizeGuestPolicyRecipesInstallStepsArchiveExtraction(des, initial *G
 		return des
 	}
 
+	cDes := &GuestPolicyRecipesInstallStepsArchiveExtraction{}
+
 	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
-		des.ArtifactId = initial.ArtifactId
+		cDes.ArtifactId = initial.ArtifactId
+	} else {
+		cDes.ArtifactId = des.ArtifactId
 	}
 	if dcl.StringCanonicalize(des.Destination, initial.Destination) || dcl.IsZeroValue(des.Destination) {
-		des.Destination = initial.Destination
+		cDes.Destination = initial.Destination
+	} else {
+		cDes.Destination = des.Destination
 	}
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyRecipesInstallStepsArchiveExtraction(c *Client, des, nw *GuestPolicyRecipesInstallStepsArchiveExtraction) *GuestPolicyRecipesInstallStepsArchiveExtraction {
@@ -2139,17 +2279,25 @@ func canonicalizeGuestPolicyRecipesInstallStepsMsiInstallation(des, initial *Gue
 		return des
 	}
 
+	cDes := &GuestPolicyRecipesInstallStepsMsiInstallation{}
+
 	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
-		des.ArtifactId = initial.ArtifactId
+		cDes.ArtifactId = initial.ArtifactId
+	} else {
+		cDes.ArtifactId = des.ArtifactId
 	}
 	if dcl.IsZeroValue(des.Flags) {
 		des.Flags = initial.Flags
+	} else {
+		cDes.Flags = des.Flags
 	}
 	if dcl.IsZeroValue(des.AllowedExitCodes) {
 		des.AllowedExitCodes = initial.AllowedExitCodes
+	} else {
+		cDes.AllowedExitCodes = des.AllowedExitCodes
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyRecipesInstallStepsMsiInstallation(c *Client, des, nw *GuestPolicyRecipesInstallStepsMsiInstallation) *GuestPolicyRecipesInstallStepsMsiInstallation {
@@ -2225,11 +2373,15 @@ func canonicalizeGuestPolicyRecipesInstallStepsDpkgInstallation(des, initial *Gu
 		return des
 	}
 
+	cDes := &GuestPolicyRecipesInstallStepsDpkgInstallation{}
+
 	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
-		des.ArtifactId = initial.ArtifactId
+		cDes.ArtifactId = initial.ArtifactId
+	} else {
+		cDes.ArtifactId = des.ArtifactId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyRecipesInstallStepsDpkgInstallation(c *Client, des, nw *GuestPolicyRecipesInstallStepsDpkgInstallation) *GuestPolicyRecipesInstallStepsDpkgInstallation {
@@ -2299,11 +2451,15 @@ func canonicalizeGuestPolicyRecipesInstallStepsRpmInstallation(des, initial *Gue
 		return des
 	}
 
+	cDes := &GuestPolicyRecipesInstallStepsRpmInstallation{}
+
 	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
-		des.ArtifactId = initial.ArtifactId
+		cDes.ArtifactId = initial.ArtifactId
+	} else {
+		cDes.ArtifactId = des.ArtifactId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyRecipesInstallStepsRpmInstallation(c *Client, des, nw *GuestPolicyRecipesInstallStepsRpmInstallation) *GuestPolicyRecipesInstallStepsRpmInstallation {
@@ -2373,20 +2529,30 @@ func canonicalizeGuestPolicyRecipesInstallStepsFileExec(des, initial *GuestPolic
 		return des
 	}
 
+	cDes := &GuestPolicyRecipesInstallStepsFileExec{}
+
 	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
-		des.ArtifactId = initial.ArtifactId
+		cDes.ArtifactId = initial.ArtifactId
+	} else {
+		cDes.ArtifactId = des.ArtifactId
 	}
 	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) || dcl.IsZeroValue(des.LocalPath) {
-		des.LocalPath = initial.LocalPath
+		cDes.LocalPath = initial.LocalPath
+	} else {
+		cDes.LocalPath = des.LocalPath
 	}
 	if dcl.IsZeroValue(des.Args) {
 		des.Args = initial.Args
+	} else {
+		cDes.Args = des.Args
 	}
 	if dcl.IsZeroValue(des.AllowedExitCodes) {
 		des.AllowedExitCodes = initial.AllowedExitCodes
+	} else {
+		cDes.AllowedExitCodes = des.AllowedExitCodes
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyRecipesInstallStepsFileExec(c *Client, des, nw *GuestPolicyRecipesInstallStepsFileExec) *GuestPolicyRecipesInstallStepsFileExec {
@@ -2465,17 +2631,25 @@ func canonicalizeGuestPolicyRecipesInstallStepsScriptRun(des, initial *GuestPoli
 		return des
 	}
 
+	cDes := &GuestPolicyRecipesInstallStepsScriptRun{}
+
 	if dcl.StringCanonicalize(des.Script, initial.Script) || dcl.IsZeroValue(des.Script) {
-		des.Script = initial.Script
+		cDes.Script = initial.Script
+	} else {
+		cDes.Script = des.Script
 	}
 	if dcl.IsZeroValue(des.AllowedExitCodes) {
 		des.AllowedExitCodes = initial.AllowedExitCodes
+	} else {
+		cDes.AllowedExitCodes = des.AllowedExitCodes
 	}
 	if dcl.IsZeroValue(des.Interpreter) {
 		des.Interpreter = initial.Interpreter
+	} else {
+		cDes.Interpreter = des.Interpreter
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyRecipesInstallStepsScriptRun(c *Client, des, nw *GuestPolicyRecipesInstallStepsScriptRun) *GuestPolicyRecipesInstallStepsScriptRun {
@@ -2551,15 +2725,17 @@ func canonicalizeGuestPolicyRecipesUpdateSteps(des, initial *GuestPolicyRecipesU
 		return des
 	}
 
-	des.FileCopy = canonicalizeGuestPolicyRecipesUpdateStepsFileCopy(des.FileCopy, initial.FileCopy, opts...)
-	des.ArchiveExtraction = canonicalizeGuestPolicyRecipesUpdateStepsArchiveExtraction(des.ArchiveExtraction, initial.ArchiveExtraction, opts...)
-	des.MsiInstallation = canonicalizeGuestPolicyRecipesUpdateStepsMsiInstallation(des.MsiInstallation, initial.MsiInstallation, opts...)
-	des.DpkgInstallation = canonicalizeGuestPolicyRecipesUpdateStepsDpkgInstallation(des.DpkgInstallation, initial.DpkgInstallation, opts...)
-	des.RpmInstallation = canonicalizeGuestPolicyRecipesUpdateStepsRpmInstallation(des.RpmInstallation, initial.RpmInstallation, opts...)
-	des.FileExec = canonicalizeGuestPolicyRecipesUpdateStepsFileExec(des.FileExec, initial.FileExec, opts...)
-	des.ScriptRun = canonicalizeGuestPolicyRecipesUpdateStepsScriptRun(des.ScriptRun, initial.ScriptRun, opts...)
+	cDes := &GuestPolicyRecipesUpdateSteps{}
 
-	return des
+	cDes.FileCopy = canonicalizeGuestPolicyRecipesUpdateStepsFileCopy(des.FileCopy, initial.FileCopy, opts...)
+	cDes.ArchiveExtraction = canonicalizeGuestPolicyRecipesUpdateStepsArchiveExtraction(des.ArchiveExtraction, initial.ArchiveExtraction, opts...)
+	cDes.MsiInstallation = canonicalizeGuestPolicyRecipesUpdateStepsMsiInstallation(des.MsiInstallation, initial.MsiInstallation, opts...)
+	cDes.DpkgInstallation = canonicalizeGuestPolicyRecipesUpdateStepsDpkgInstallation(des.DpkgInstallation, initial.DpkgInstallation, opts...)
+	cDes.RpmInstallation = canonicalizeGuestPolicyRecipesUpdateStepsRpmInstallation(des.RpmInstallation, initial.RpmInstallation, opts...)
+	cDes.FileExec = canonicalizeGuestPolicyRecipesUpdateStepsFileExec(des.FileExec, initial.FileExec, opts...)
+	cDes.ScriptRun = canonicalizeGuestPolicyRecipesUpdateStepsScriptRun(des.ScriptRun, initial.ScriptRun, opts...)
+
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyRecipesUpdateSteps(c *Client, des, nw *GuestPolicyRecipesUpdateSteps) *GuestPolicyRecipesUpdateSteps {
@@ -2633,20 +2809,30 @@ func canonicalizeGuestPolicyRecipesUpdateStepsFileCopy(des, initial *GuestPolicy
 		return des
 	}
 
+	cDes := &GuestPolicyRecipesUpdateStepsFileCopy{}
+
 	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
-		des.ArtifactId = initial.ArtifactId
+		cDes.ArtifactId = initial.ArtifactId
+	} else {
+		cDes.ArtifactId = des.ArtifactId
 	}
 	if dcl.StringCanonicalize(des.Destination, initial.Destination) || dcl.IsZeroValue(des.Destination) {
-		des.Destination = initial.Destination
+		cDes.Destination = initial.Destination
+	} else {
+		cDes.Destination = des.Destination
 	}
 	if dcl.BoolCanonicalize(des.Overwrite, initial.Overwrite) || dcl.IsZeroValue(des.Overwrite) {
-		des.Overwrite = initial.Overwrite
+		cDes.Overwrite = initial.Overwrite
+	} else {
+		cDes.Overwrite = des.Overwrite
 	}
 	if dcl.StringCanonicalize(des.Permissions, initial.Permissions) || dcl.IsZeroValue(des.Permissions) {
-		des.Permissions = initial.Permissions
+		cDes.Permissions = initial.Permissions
+	} else {
+		cDes.Permissions = des.Permissions
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyRecipesUpdateStepsFileCopy(c *Client, des, nw *GuestPolicyRecipesUpdateStepsFileCopy) *GuestPolicyRecipesUpdateStepsFileCopy {
@@ -2725,17 +2911,25 @@ func canonicalizeGuestPolicyRecipesUpdateStepsArchiveExtraction(des, initial *Gu
 		return des
 	}
 
+	cDes := &GuestPolicyRecipesUpdateStepsArchiveExtraction{}
+
 	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
-		des.ArtifactId = initial.ArtifactId
+		cDes.ArtifactId = initial.ArtifactId
+	} else {
+		cDes.ArtifactId = des.ArtifactId
 	}
 	if dcl.StringCanonicalize(des.Destination, initial.Destination) || dcl.IsZeroValue(des.Destination) {
-		des.Destination = initial.Destination
+		cDes.Destination = initial.Destination
+	} else {
+		cDes.Destination = des.Destination
 	}
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyRecipesUpdateStepsArchiveExtraction(c *Client, des, nw *GuestPolicyRecipesUpdateStepsArchiveExtraction) *GuestPolicyRecipesUpdateStepsArchiveExtraction {
@@ -2811,17 +3005,25 @@ func canonicalizeGuestPolicyRecipesUpdateStepsMsiInstallation(des, initial *Gues
 		return des
 	}
 
+	cDes := &GuestPolicyRecipesUpdateStepsMsiInstallation{}
+
 	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
-		des.ArtifactId = initial.ArtifactId
+		cDes.ArtifactId = initial.ArtifactId
+	} else {
+		cDes.ArtifactId = des.ArtifactId
 	}
 	if dcl.IsZeroValue(des.Flags) {
 		des.Flags = initial.Flags
+	} else {
+		cDes.Flags = des.Flags
 	}
 	if dcl.IsZeroValue(des.AllowedExitCodes) {
 		des.AllowedExitCodes = initial.AllowedExitCodes
+	} else {
+		cDes.AllowedExitCodes = des.AllowedExitCodes
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyRecipesUpdateStepsMsiInstallation(c *Client, des, nw *GuestPolicyRecipesUpdateStepsMsiInstallation) *GuestPolicyRecipesUpdateStepsMsiInstallation {
@@ -2897,11 +3099,15 @@ func canonicalizeGuestPolicyRecipesUpdateStepsDpkgInstallation(des, initial *Gue
 		return des
 	}
 
+	cDes := &GuestPolicyRecipesUpdateStepsDpkgInstallation{}
+
 	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
-		des.ArtifactId = initial.ArtifactId
+		cDes.ArtifactId = initial.ArtifactId
+	} else {
+		cDes.ArtifactId = des.ArtifactId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyRecipesUpdateStepsDpkgInstallation(c *Client, des, nw *GuestPolicyRecipesUpdateStepsDpkgInstallation) *GuestPolicyRecipesUpdateStepsDpkgInstallation {
@@ -2971,11 +3177,15 @@ func canonicalizeGuestPolicyRecipesUpdateStepsRpmInstallation(des, initial *Gues
 		return des
 	}
 
+	cDes := &GuestPolicyRecipesUpdateStepsRpmInstallation{}
+
 	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
-		des.ArtifactId = initial.ArtifactId
+		cDes.ArtifactId = initial.ArtifactId
+	} else {
+		cDes.ArtifactId = des.ArtifactId
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyRecipesUpdateStepsRpmInstallation(c *Client, des, nw *GuestPolicyRecipesUpdateStepsRpmInstallation) *GuestPolicyRecipesUpdateStepsRpmInstallation {
@@ -3045,20 +3255,30 @@ func canonicalizeGuestPolicyRecipesUpdateStepsFileExec(des, initial *GuestPolicy
 		return des
 	}
 
+	cDes := &GuestPolicyRecipesUpdateStepsFileExec{}
+
 	if dcl.StringCanonicalize(des.ArtifactId, initial.ArtifactId) || dcl.IsZeroValue(des.ArtifactId) {
-		des.ArtifactId = initial.ArtifactId
+		cDes.ArtifactId = initial.ArtifactId
+	} else {
+		cDes.ArtifactId = des.ArtifactId
 	}
 	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) || dcl.IsZeroValue(des.LocalPath) {
-		des.LocalPath = initial.LocalPath
+		cDes.LocalPath = initial.LocalPath
+	} else {
+		cDes.LocalPath = des.LocalPath
 	}
 	if dcl.IsZeroValue(des.Args) {
 		des.Args = initial.Args
+	} else {
+		cDes.Args = des.Args
 	}
 	if dcl.IsZeroValue(des.AllowedExitCodes) {
 		des.AllowedExitCodes = initial.AllowedExitCodes
+	} else {
+		cDes.AllowedExitCodes = des.AllowedExitCodes
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyRecipesUpdateStepsFileExec(c *Client, des, nw *GuestPolicyRecipesUpdateStepsFileExec) *GuestPolicyRecipesUpdateStepsFileExec {
@@ -3137,17 +3357,25 @@ func canonicalizeGuestPolicyRecipesUpdateStepsScriptRun(des, initial *GuestPolic
 		return des
 	}
 
+	cDes := &GuestPolicyRecipesUpdateStepsScriptRun{}
+
 	if dcl.StringCanonicalize(des.Script, initial.Script) || dcl.IsZeroValue(des.Script) {
-		des.Script = initial.Script
+		cDes.Script = initial.Script
+	} else {
+		cDes.Script = des.Script
 	}
 	if dcl.IsZeroValue(des.AllowedExitCodes) {
 		des.AllowedExitCodes = initial.AllowedExitCodes
+	} else {
+		cDes.AllowedExitCodes = des.AllowedExitCodes
 	}
 	if dcl.IsZeroValue(des.Interpreter) {
 		des.Interpreter = initial.Interpreter
+	} else {
+		cDes.Interpreter = des.Interpreter
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewGuestPolicyRecipesUpdateStepsScriptRun(c *Client, des, nw *GuestPolicyRecipesUpdateStepsScriptRun) *GuestPolicyRecipesUpdateStepsScriptRun {
@@ -8671,31 +8899,45 @@ type guestPolicyDiff struct {
 	UpdateOp         guestPolicyApiOperation
 }
 
-func convertFieldDiffToGuestPolicyOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]guestPolicyDiff, error) {
+func convertFieldDiffsToGuestPolicyDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]guestPolicyDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []guestPolicyDiff
-	for _, op := range ops {
+	// For each operation name, create a guestPolicyDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := guestPolicyDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToguestPolicyApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToGuestPolicyApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToguestPolicyApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (guestPolicyApiOperation, error) {
-	switch op {
+func convertOpNameToGuestPolicyApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (guestPolicyApiOperation, error) {
+	switch opName {
 
 	case "updateGuestPolicyUpdateGuestPolicyOperation":
-		return &updateGuestPolicyUpdateGuestPolicyOperation{Diffs: diffs}, nil
+		return &updateGuestPolicyUpdateGuestPolicyOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

@@ -116,7 +116,7 @@ type updateProjectUpdateProjectOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -403,19 +403,25 @@ func canonicalizeProjectDesiredState(rawDesired, rawInitial *Project, opts ...dc
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Project{}
 	if dcl.IsZeroValue(rawDesired.Labels) {
-		rawDesired.Labels = rawInitial.Labels
+		canonicalDesired.Labels = rawInitial.Labels
+	} else {
+		canonicalDesired.Labels = rawDesired.Labels
 	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
-		rawDesired.DisplayName = rawInitial.DisplayName
+		canonicalDesired.DisplayName = rawInitial.DisplayName
+	} else {
+		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
-	rawDesired.Parent = canonicalizeProjectParent(rawDesired.Parent, rawInitial.Parent, opts...)
+	canonicalDesired.Parent = canonicalizeProjectParent(rawDesired.Parent, rawInitial.Parent, opts...)
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeProjectNewState(c *Client, rawNew, rawDesired *Project) (*Project, error) {
@@ -472,14 +478,20 @@ func canonicalizeProjectParent(des, initial *ProjectParent, opts ...dcl.ApplyOpt
 		return des
 	}
 
+	cDes := &ProjectParent{}
+
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
 	}
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewProjectParent(c *Client, des, nw *ProjectParent) *ProjectParent {
@@ -917,31 +929,45 @@ type projectDiff struct {
 	UpdateOp         projectApiOperation
 }
 
-func convertFieldDiffToProjectOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]projectDiff, error) {
+func convertFieldDiffsToProjectDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]projectDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []projectDiff
-	for _, op := range ops {
+	// For each operation name, create a projectDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := projectDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToprojectApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToProjectApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToprojectApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (projectApiOperation, error) {
-	switch op {
+func convertOpNameToProjectApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (projectApiOperation, error) {
+	switch opName {
 
 	case "updateProjectUpdateProjectOperation":
-		return &updateProjectUpdateProjectOperation{Diffs: diffs}, nil
+		return &updateProjectUpdateProjectOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

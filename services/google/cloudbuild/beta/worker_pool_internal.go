@@ -128,7 +128,7 @@ type updateWorkerPoolUpdateWorkerPoolOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -145,7 +145,7 @@ func (op *updateWorkerPoolUpdateWorkerPoolOperation) do(ctx context.Context, r *
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -444,20 +444,26 @@ func canonicalizeWorkerPoolDesiredState(rawDesired, rawInitial *WorkerPool, opts
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &WorkerPool{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
-	rawDesired.WorkerConfig = canonicalizeWorkerPoolWorkerConfig(rawDesired.WorkerConfig, rawInitial.WorkerConfig, opts...)
-	rawDesired.NetworkConfig = canonicalizeWorkerPoolNetworkConfig(rawDesired.NetworkConfig, rawInitial.NetworkConfig, opts...)
+	canonicalDesired.WorkerConfig = canonicalizeWorkerPoolWorkerConfig(rawDesired.WorkerConfig, rawInitial.WorkerConfig, opts...)
+	canonicalDesired.NetworkConfig = canonicalizeWorkerPoolNetworkConfig(rawDesired.NetworkConfig, rawInitial.NetworkConfig, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeWorkerPoolNewState(c *Client, rawNew, rawDesired *WorkerPool) (*WorkerPool, error) {
@@ -521,17 +527,25 @@ func canonicalizeWorkerPoolWorkerConfig(des, initial *WorkerPoolWorkerConfig, op
 		return des
 	}
 
+	cDes := &WorkerPoolWorkerConfig{}
+
 	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
-		des.MachineType = initial.MachineType
+		cDes.MachineType = initial.MachineType
+	} else {
+		cDes.MachineType = des.MachineType
 	}
 	if dcl.IsZeroValue(des.DiskSizeGb) {
 		des.DiskSizeGb = initial.DiskSizeGb
+	} else {
+		cDes.DiskSizeGb = des.DiskSizeGb
 	}
 	if dcl.BoolCanonicalize(des.NoExternalIP, initial.NoExternalIP) || dcl.IsZeroValue(des.NoExternalIP) {
-		des.NoExternalIP = initial.NoExternalIP
+		cDes.NoExternalIP = initial.NoExternalIP
+	} else {
+		cDes.NoExternalIP = des.NoExternalIP
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkerPoolWorkerConfig(c *Client, des, nw *WorkerPoolWorkerConfig) *WorkerPoolWorkerConfig {
@@ -607,11 +621,15 @@ func canonicalizeWorkerPoolNetworkConfig(des, initial *WorkerPoolNetworkConfig, 
 		return des
 	}
 
+	cDes := &WorkerPoolNetworkConfig{}
+
 	if dcl.NameToSelfLink(des.PeeredNetwork, initial.PeeredNetwork) || dcl.IsZeroValue(des.PeeredNetwork) {
-		des.PeeredNetwork = initial.PeeredNetwork
+		cDes.PeeredNetwork = initial.PeeredNetwork
+	} else {
+		cDes.PeeredNetwork = des.PeeredNetwork
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewWorkerPoolNetworkConfig(c *Client, des, nw *WorkerPoolNetworkConfig) *WorkerPoolNetworkConfig {
@@ -1260,31 +1278,45 @@ type workerPoolDiff struct {
 	UpdateOp         workerPoolApiOperation
 }
 
-func convertFieldDiffToWorkerPoolOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]workerPoolDiff, error) {
+func convertFieldDiffsToWorkerPoolDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]workerPoolDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []workerPoolDiff
-	for _, op := range ops {
+	// For each operation name, create a workerPoolDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := workerPoolDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToworkerPoolApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToWorkerPoolApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToworkerPoolApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (workerPoolApiOperation, error) {
-	switch op {
+func convertOpNameToWorkerPoolApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (workerPoolApiOperation, error) {
+	switch opName {
 
 	case "updateWorkerPoolUpdateWorkerPoolOperation":
-		return &updateWorkerPoolUpdateWorkerPoolOperation{Diffs: diffs}, nil
+		return &updateWorkerPoolUpdateWorkerPoolOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

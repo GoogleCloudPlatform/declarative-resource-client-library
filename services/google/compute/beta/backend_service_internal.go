@@ -396,7 +396,7 @@ type updateBackendServiceUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -688,14 +688,14 @@ func (c *Client) backendServiceDiffsForRawDesired(ctx context.Context, rawDesire
 func canonicalizeBackendServiceInitialState(rawInitial, rawDesired *BackendService) (*BackendService, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
-	if dcl.IsZeroValue(rawInitial.Iap) {
+	if !dcl.IsZeroValue(rawInitial.Iap) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.CdnPolicy) {
 			rawInitial.Iap = EmptyBackendServiceIap
 		}
 	}
 
-	if dcl.IsZeroValue(rawInitial.CdnPolicy) {
+	if !dcl.IsZeroValue(rawInitial.CdnPolicy) {
 		// check if anything else is set
 		if dcl.AnySet(rawInitial.Iap) {
 			rawInitial.CdnPolicy = EmptyBackendServiceCdnPolicy
@@ -749,77 +749,116 @@ func canonicalizeBackendServiceDesiredState(rawDesired, rawInitial *BackendServi
 		}
 	}
 
+	canonicalDesired := &BackendService{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.IsZeroValue(rawDesired.Backends) {
-		rawDesired.Backends = rawInitial.Backends
+		canonicalDesired.Backends = rawInitial.Backends
+	} else {
+		canonicalDesired.Backends = rawDesired.Backends
 	}
 	if dcl.IsZeroValue(rawDesired.HealthChecks) {
-		rawDesired.HealthChecks = rawInitial.HealthChecks
+		canonicalDesired.HealthChecks = rawInitial.HealthChecks
+	} else {
+		canonicalDesired.HealthChecks = rawDesired.HealthChecks
 	}
 	if dcl.IsZeroValue(rawDesired.TimeoutSec) {
-		rawDesired.TimeoutSec = rawInitial.TimeoutSec
+		canonicalDesired.TimeoutSec = rawInitial.TimeoutSec
+	} else {
+		canonicalDesired.TimeoutSec = rawDesired.TimeoutSec
 	}
 	if dcl.IsZeroValue(rawDesired.Port) {
-		rawDesired.Port = rawInitial.Port
+		canonicalDesired.Port = rawInitial.Port
+	} else {
+		canonicalDesired.Port = rawDesired.Port
 	}
 	if dcl.IsZeroValue(rawDesired.Protocol) {
-		rawDesired.Protocol = rawInitial.Protocol
+		canonicalDesired.Protocol = rawInitial.Protocol
+	} else {
+		canonicalDesired.Protocol = rawDesired.Protocol
 	}
 	if dcl.StringCanonicalize(rawDesired.PortName, rawInitial.PortName) {
-		rawDesired.PortName = rawInitial.PortName
+		canonicalDesired.PortName = rawInitial.PortName
+	} else {
+		canonicalDesired.PortName = rawDesired.PortName
 	}
 	if dcl.BoolCanonicalize(rawDesired.EnableCdn, rawInitial.EnableCdn) {
-		rawDesired.EnableCdn = rawInitial.EnableCdn
+		canonicalDesired.EnableCdn = rawInitial.EnableCdn
+	} else {
+		canonicalDesired.EnableCdn = rawDesired.EnableCdn
 	}
 	if dcl.IsZeroValue(rawDesired.SessionAffinity) {
-		rawDesired.SessionAffinity = rawInitial.SessionAffinity
+		canonicalDesired.SessionAffinity = rawInitial.SessionAffinity
+	} else {
+		canonicalDesired.SessionAffinity = rawDesired.SessionAffinity
 	}
 	if dcl.IsZeroValue(rawDesired.AffinityCookieTtlSec) {
-		rawDesired.AffinityCookieTtlSec = rawInitial.AffinityCookieTtlSec
+		canonicalDesired.AffinityCookieTtlSec = rawInitial.AffinityCookieTtlSec
+	} else {
+		canonicalDesired.AffinityCookieTtlSec = rawDesired.AffinityCookieTtlSec
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
-	rawDesired.FailoverPolicy = canonicalizeBackendServiceFailoverPolicy(rawDesired.FailoverPolicy, rawInitial.FailoverPolicy, opts...)
+	canonicalDesired.FailoverPolicy = canonicalizeBackendServiceFailoverPolicy(rawDesired.FailoverPolicy, rawInitial.FailoverPolicy, opts...)
 	if dcl.IsZeroValue(rawDesired.LoadBalancingScheme) {
-		rawDesired.LoadBalancingScheme = rawInitial.LoadBalancingScheme
+		canonicalDesired.LoadBalancingScheme = rawInitial.LoadBalancingScheme
+	} else {
+		canonicalDesired.LoadBalancingScheme = rawDesired.LoadBalancingScheme
 	}
-	rawDesired.ConnectionDraining = canonicalizeBackendServiceConnectionDraining(rawDesired.ConnectionDraining, rawInitial.ConnectionDraining, opts...)
-	rawDesired.Iap = canonicalizeBackendServiceIap(rawDesired.Iap, rawInitial.Iap, opts...)
-	rawDesired.CdnPolicy = canonicalizeBackendServiceCdnPolicy(rawDesired.CdnPolicy, rawInitial.CdnPolicy, opts...)
+	canonicalDesired.ConnectionDraining = canonicalizeBackendServiceConnectionDraining(rawDesired.ConnectionDraining, rawInitial.ConnectionDraining, opts...)
+	canonicalDesired.Iap = canonicalizeBackendServiceIap(rawDesired.Iap, rawInitial.Iap, opts...)
+	canonicalDesired.CdnPolicy = canonicalizeBackendServiceCdnPolicy(rawDesired.CdnPolicy, rawInitial.CdnPolicy, opts...)
 	if dcl.IsZeroValue(rawDesired.CustomRequestHeaders) {
-		rawDesired.CustomRequestHeaders = rawInitial.CustomRequestHeaders
+		canonicalDesired.CustomRequestHeaders = rawInitial.CustomRequestHeaders
+	} else {
+		canonicalDesired.CustomRequestHeaders = rawDesired.CustomRequestHeaders
 	}
 	if dcl.IsZeroValue(rawDesired.CustomResponseHeaders) {
-		rawDesired.CustomResponseHeaders = rawInitial.CustomResponseHeaders
+		canonicalDesired.CustomResponseHeaders = rawInitial.CustomResponseHeaders
+	} else {
+		canonicalDesired.CustomResponseHeaders = rawDesired.CustomResponseHeaders
 	}
 	if dcl.NameToSelfLink(rawDesired.SecurityPolicy, rawInitial.SecurityPolicy) {
-		rawDesired.SecurityPolicy = rawInitial.SecurityPolicy
+		canonicalDesired.SecurityPolicy = rawInitial.SecurityPolicy
+	} else {
+		canonicalDesired.SecurityPolicy = rawDesired.SecurityPolicy
 	}
-	rawDesired.LogConfig = canonicalizeBackendServiceLogConfig(rawDesired.LogConfig, rawInitial.LogConfig, opts...)
-	rawDesired.SecuritySettings = canonicalizeBackendServiceSecuritySettings(rawDesired.SecuritySettings, rawInitial.SecuritySettings, opts...)
+	canonicalDesired.LogConfig = canonicalizeBackendServiceLogConfig(rawDesired.LogConfig, rawInitial.LogConfig, opts...)
+	canonicalDesired.SecuritySettings = canonicalizeBackendServiceSecuritySettings(rawDesired.SecuritySettings, rawInitial.SecuritySettings, opts...)
 	if dcl.IsZeroValue(rawDesired.LocalityLbPolicy) {
-		rawDesired.LocalityLbPolicy = rawInitial.LocalityLbPolicy
+		canonicalDesired.LocalityLbPolicy = rawInitial.LocalityLbPolicy
+	} else {
+		canonicalDesired.LocalityLbPolicy = rawDesired.LocalityLbPolicy
 	}
-	rawDesired.ConsistentHash = canonicalizeBackendServiceConsistentHash(rawDesired.ConsistentHash, rawInitial.ConsistentHash, opts...)
-	rawDesired.CircuitBreakers = canonicalizeBackendServiceCircuitBreakers(rawDesired.CircuitBreakers, rawInitial.CircuitBreakers, opts...)
-	rawDesired.OutlierDetection = canonicalizeBackendServiceOutlierDetection(rawDesired.OutlierDetection, rawInitial.OutlierDetection, opts...)
+	canonicalDesired.ConsistentHash = canonicalizeBackendServiceConsistentHash(rawDesired.ConsistentHash, rawInitial.ConsistentHash, opts...)
+	canonicalDesired.CircuitBreakers = canonicalizeBackendServiceCircuitBreakers(rawDesired.CircuitBreakers, rawInitial.CircuitBreakers, opts...)
+	canonicalDesired.OutlierDetection = canonicalizeBackendServiceOutlierDetection(rawDesired.OutlierDetection, rawInitial.OutlierDetection, opts...)
 	if dcl.NameToSelfLink(rawDesired.Network, rawInitial.Network) {
-		rawDesired.Network = rawInitial.Network
+		canonicalDesired.Network = rawInitial.Network
+	} else {
+		canonicalDesired.Network = rawDesired.Network
 	}
-	rawDesired.Subsetting = canonicalizeBackendServiceSubsetting(rawDesired.Subsetting, rawInitial.Subsetting, opts...)
-	rawDesired.ConnectionTrackingPolicy = canonicalizeBackendServiceConnectionTrackingPolicy(rawDesired.ConnectionTrackingPolicy, rawInitial.ConnectionTrackingPolicy, opts...)
-	rawDesired.MaxStreamDuration = canonicalizeBackendServiceMaxStreamDuration(rawDesired.MaxStreamDuration, rawInitial.MaxStreamDuration, opts...)
+	canonicalDesired.Subsetting = canonicalizeBackendServiceSubsetting(rawDesired.Subsetting, rawInitial.Subsetting, opts...)
+	canonicalDesired.ConnectionTrackingPolicy = canonicalizeBackendServiceConnectionTrackingPolicy(rawDesired.ConnectionTrackingPolicy, rawInitial.ConnectionTrackingPolicy, opts...)
+	canonicalDesired.MaxStreamDuration = canonicalizeBackendServiceMaxStreamDuration(rawDesired.MaxStreamDuration, rawInitial.MaxStreamDuration, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeBackendServiceNewState(c *Client, rawNew, rawDesired *BackendService) (*BackendService, error) {
@@ -1043,44 +1082,70 @@ func canonicalizeBackendServiceBackends(des, initial *BackendServiceBackends, op
 		return des
 	}
 
+	cDes := &BackendServiceBackends{}
+
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
-		des.Description = initial.Description
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
 	}
 	if dcl.NameToSelfLink(des.Group, initial.Group) || dcl.IsZeroValue(des.Group) {
-		des.Group = initial.Group
+		cDes.Group = initial.Group
+	} else {
+		cDes.Group = des.Group
 	}
 	if dcl.IsZeroValue(des.BalancingMode) {
 		des.BalancingMode = initial.BalancingMode
+	} else {
+		cDes.BalancingMode = des.BalancingMode
 	}
 	if dcl.IsZeroValue(des.MaxUtilization) {
 		des.MaxUtilization = initial.MaxUtilization
+	} else {
+		cDes.MaxUtilization = des.MaxUtilization
 	}
 	if dcl.IsZeroValue(des.MaxRate) {
 		des.MaxRate = initial.MaxRate
+	} else {
+		cDes.MaxRate = des.MaxRate
 	}
 	if dcl.IsZeroValue(des.MaxRatePerInstance) {
 		des.MaxRatePerInstance = initial.MaxRatePerInstance
+	} else {
+		cDes.MaxRatePerInstance = des.MaxRatePerInstance
 	}
 	if dcl.IsZeroValue(des.MaxRatePerEndpoint) {
 		des.MaxRatePerEndpoint = initial.MaxRatePerEndpoint
+	} else {
+		cDes.MaxRatePerEndpoint = des.MaxRatePerEndpoint
 	}
 	if dcl.IsZeroValue(des.MaxConnections) {
 		des.MaxConnections = initial.MaxConnections
+	} else {
+		cDes.MaxConnections = des.MaxConnections
 	}
 	if dcl.IsZeroValue(des.MaxConnectionsPerInstance) {
 		des.MaxConnectionsPerInstance = initial.MaxConnectionsPerInstance
+	} else {
+		cDes.MaxConnectionsPerInstance = des.MaxConnectionsPerInstance
 	}
 	if dcl.IsZeroValue(des.MaxConnectionsPerEndpoint) {
 		des.MaxConnectionsPerEndpoint = initial.MaxConnectionsPerEndpoint
+	} else {
+		cDes.MaxConnectionsPerEndpoint = des.MaxConnectionsPerEndpoint
 	}
 	if dcl.IsZeroValue(des.CapacityScaler) {
 		des.CapacityScaler = initial.CapacityScaler
+	} else {
+		cDes.CapacityScaler = des.CapacityScaler
 	}
 	if dcl.BoolCanonicalize(des.Failover, initial.Failover) || dcl.IsZeroValue(des.Failover) {
-		des.Failover = initial.Failover
+		cDes.Failover = initial.Failover
+	} else {
+		cDes.Failover = des.Failover
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendServiceBackends(c *Client, des, nw *BackendServiceBackends) *BackendServiceBackends {
@@ -1183,17 +1248,25 @@ func canonicalizeBackendServiceFailoverPolicy(des, initial *BackendServiceFailov
 		return des
 	}
 
+	cDes := &BackendServiceFailoverPolicy{}
+
 	if dcl.BoolCanonicalize(des.DisableConnectionDrainOnFailover, initial.DisableConnectionDrainOnFailover) || dcl.IsZeroValue(des.DisableConnectionDrainOnFailover) {
-		des.DisableConnectionDrainOnFailover = initial.DisableConnectionDrainOnFailover
+		cDes.DisableConnectionDrainOnFailover = initial.DisableConnectionDrainOnFailover
+	} else {
+		cDes.DisableConnectionDrainOnFailover = des.DisableConnectionDrainOnFailover
 	}
 	if dcl.BoolCanonicalize(des.DropTrafficIfUnhealthy, initial.DropTrafficIfUnhealthy) || dcl.IsZeroValue(des.DropTrafficIfUnhealthy) {
-		des.DropTrafficIfUnhealthy = initial.DropTrafficIfUnhealthy
+		cDes.DropTrafficIfUnhealthy = initial.DropTrafficIfUnhealthy
+	} else {
+		cDes.DropTrafficIfUnhealthy = des.DropTrafficIfUnhealthy
 	}
 	if dcl.IsZeroValue(des.FailoverRatio) {
 		des.FailoverRatio = initial.FailoverRatio
+	} else {
+		cDes.FailoverRatio = des.FailoverRatio
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendServiceFailoverPolicy(c *Client, des, nw *BackendServiceFailoverPolicy) *BackendServiceFailoverPolicy {
@@ -1269,11 +1342,15 @@ func canonicalizeBackendServiceConnectionDraining(des, initial *BackendServiceCo
 		return des
 	}
 
+	cDes := &BackendServiceConnectionDraining{}
+
 	if dcl.IsZeroValue(des.DrainingTimeoutSec) {
 		des.DrainingTimeoutSec = initial.DrainingTimeoutSec
+	} else {
+		cDes.DrainingTimeoutSec = des.DrainingTimeoutSec
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendServiceConnectionDraining(c *Client, des, nw *BackendServiceConnectionDraining) *BackendServiceConnectionDraining {
@@ -1343,17 +1420,25 @@ func canonicalizeBackendServiceIap(des, initial *BackendServiceIap, opts ...dcl.
 		return des
 	}
 
+	cDes := &BackendServiceIap{}
+
 	if dcl.BoolCanonicalize(des.Enabled, initial.Enabled) || dcl.IsZeroValue(des.Enabled) {
-		des.Enabled = initial.Enabled
+		cDes.Enabled = initial.Enabled
+	} else {
+		cDes.Enabled = des.Enabled
 	}
 	if dcl.StringCanonicalize(des.OAuth2ClientId, initial.OAuth2ClientId) || dcl.IsZeroValue(des.OAuth2ClientId) {
-		des.OAuth2ClientId = initial.OAuth2ClientId
+		cDes.OAuth2ClientId = initial.OAuth2ClientId
+	} else {
+		cDes.OAuth2ClientId = des.OAuth2ClientId
 	}
 	if dcl.StringCanonicalize(des.OAuth2ClientSecret, initial.OAuth2ClientSecret) || dcl.IsZeroValue(des.OAuth2ClientSecret) {
-		des.OAuth2ClientSecret = initial.OAuth2ClientSecret
+		cDes.OAuth2ClientSecret = initial.OAuth2ClientSecret
+	} else {
+		cDes.OAuth2ClientSecret = des.OAuth2ClientSecret
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendServiceIap(c *Client, des, nw *BackendServiceIap) *BackendServiceIap {
@@ -1430,39 +1515,61 @@ func canonicalizeBackendServiceCdnPolicy(des, initial *BackendServiceCdnPolicy, 
 		return des
 	}
 
-	des.CacheKeyPolicy = canonicalizeBackendServiceCdnPolicyCacheKeyPolicy(des.CacheKeyPolicy, initial.CacheKeyPolicy, opts...)
+	cDes := &BackendServiceCdnPolicy{}
+
+	cDes.CacheKeyPolicy = canonicalizeBackendServiceCdnPolicyCacheKeyPolicy(des.CacheKeyPolicy, initial.CacheKeyPolicy, opts...)
 	if dcl.IsZeroValue(des.SignedUrlCacheMaxAgeSec) {
 		des.SignedUrlCacheMaxAgeSec = initial.SignedUrlCacheMaxAgeSec
+	} else {
+		cDes.SignedUrlCacheMaxAgeSec = des.SignedUrlCacheMaxAgeSec
 	}
 	if dcl.BoolCanonicalize(des.RequestCoalescing, initial.RequestCoalescing) || dcl.IsZeroValue(des.RequestCoalescing) {
-		des.RequestCoalescing = initial.RequestCoalescing
+		cDes.RequestCoalescing = initial.RequestCoalescing
+	} else {
+		cDes.RequestCoalescing = des.RequestCoalescing
 	}
 	if dcl.IsZeroValue(des.CacheMode) {
 		des.CacheMode = initial.CacheMode
+	} else {
+		cDes.CacheMode = des.CacheMode
 	}
 	if dcl.IsZeroValue(des.DefaultTtl) {
 		des.DefaultTtl = initial.DefaultTtl
+	} else {
+		cDes.DefaultTtl = des.DefaultTtl
 	}
 	if dcl.IsZeroValue(des.MaxTtl) {
 		des.MaxTtl = initial.MaxTtl
+	} else {
+		cDes.MaxTtl = des.MaxTtl
 	}
 	if dcl.IsZeroValue(des.ClientTtl) {
 		des.ClientTtl = initial.ClientTtl
+	} else {
+		cDes.ClientTtl = des.ClientTtl
 	}
 	if dcl.BoolCanonicalize(des.NegativeCaching, initial.NegativeCaching) || dcl.IsZeroValue(des.NegativeCaching) {
-		des.NegativeCaching = initial.NegativeCaching
+		cDes.NegativeCaching = initial.NegativeCaching
+	} else {
+		cDes.NegativeCaching = des.NegativeCaching
 	}
 	if dcl.IsZeroValue(des.NegativeCachingPolicy) {
 		des.NegativeCachingPolicy = initial.NegativeCachingPolicy
+	} else {
+		cDes.NegativeCachingPolicy = des.NegativeCachingPolicy
 	}
 	if dcl.IsZeroValue(des.BypassCacheOnRequestHeaders) {
 		des.BypassCacheOnRequestHeaders = initial.BypassCacheOnRequestHeaders
+	} else {
+		cDes.BypassCacheOnRequestHeaders = des.BypassCacheOnRequestHeaders
 	}
 	if dcl.IsZeroValue(des.ServeWhileStale) {
 		des.ServeWhileStale = initial.ServeWhileStale
+	} else {
+		cDes.ServeWhileStale = des.ServeWhileStale
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendServiceCdnPolicy(c *Client, des, nw *BackendServiceCdnPolicy) *BackendServiceCdnPolicy {
@@ -1559,29 +1666,45 @@ func canonicalizeBackendServiceCdnPolicyCacheKeyPolicy(des, initial *BackendServ
 		return des
 	}
 
+	cDes := &BackendServiceCdnPolicyCacheKeyPolicy{}
+
 	if dcl.BoolCanonicalize(des.IncludeProtocol, initial.IncludeProtocol) || dcl.IsZeroValue(des.IncludeProtocol) {
-		des.IncludeProtocol = initial.IncludeProtocol
+		cDes.IncludeProtocol = initial.IncludeProtocol
+	} else {
+		cDes.IncludeProtocol = des.IncludeProtocol
 	}
 	if dcl.BoolCanonicalize(des.IncludeHost, initial.IncludeHost) || dcl.IsZeroValue(des.IncludeHost) {
-		des.IncludeHost = initial.IncludeHost
+		cDes.IncludeHost = initial.IncludeHost
+	} else {
+		cDes.IncludeHost = des.IncludeHost
 	}
 	if dcl.BoolCanonicalize(des.IncludeQueryString, initial.IncludeQueryString) || dcl.IsZeroValue(des.IncludeQueryString) {
-		des.IncludeQueryString = initial.IncludeQueryString
+		cDes.IncludeQueryString = initial.IncludeQueryString
+	} else {
+		cDes.IncludeQueryString = des.IncludeQueryString
 	}
 	if dcl.IsZeroValue(des.QueryStringWhitelist) {
 		des.QueryStringWhitelist = initial.QueryStringWhitelist
+	} else {
+		cDes.QueryStringWhitelist = des.QueryStringWhitelist
 	}
 	if dcl.IsZeroValue(des.QueryStringBlacklist) {
 		des.QueryStringBlacklist = initial.QueryStringBlacklist
+	} else {
+		cDes.QueryStringBlacklist = des.QueryStringBlacklist
 	}
 	if dcl.IsZeroValue(des.IncludeHttpHeaders) {
 		des.IncludeHttpHeaders = initial.IncludeHttpHeaders
+	} else {
+		cDes.IncludeHttpHeaders = des.IncludeHttpHeaders
 	}
 	if dcl.IsZeroValue(des.IncludeNamedCookies) {
 		des.IncludeNamedCookies = initial.IncludeNamedCookies
+	} else {
+		cDes.IncludeNamedCookies = des.IncludeNamedCookies
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendServiceCdnPolicyCacheKeyPolicy(c *Client, des, nw *BackendServiceCdnPolicyCacheKeyPolicy) *BackendServiceCdnPolicyCacheKeyPolicy {
@@ -1669,14 +1792,20 @@ func canonicalizeBackendServiceCdnPolicyNegativeCachingPolicy(des, initial *Back
 		return des
 	}
 
+	cDes := &BackendServiceCdnPolicyNegativeCachingPolicy{}
+
 	if dcl.IsZeroValue(des.Code) {
 		des.Code = initial.Code
+	} else {
+		cDes.Code = des.Code
 	}
 	if dcl.IsZeroValue(des.Ttl) {
 		des.Ttl = initial.Ttl
+	} else {
+		cDes.Ttl = des.Ttl
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendServiceCdnPolicyNegativeCachingPolicy(c *Client, des, nw *BackendServiceCdnPolicyNegativeCachingPolicy) *BackendServiceCdnPolicyNegativeCachingPolicy {
@@ -1749,11 +1878,15 @@ func canonicalizeBackendServiceCdnPolicyBypassCacheOnRequestHeaders(des, initial
 		return des
 	}
 
+	cDes := &BackendServiceCdnPolicyBypassCacheOnRequestHeaders{}
+
 	if dcl.StringCanonicalize(des.HeaderName, initial.HeaderName) || dcl.IsZeroValue(des.HeaderName) {
-		des.HeaderName = initial.HeaderName
+		cDes.HeaderName = initial.HeaderName
+	} else {
+		cDes.HeaderName = des.HeaderName
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendServiceCdnPolicyBypassCacheOnRequestHeaders(c *Client, des, nw *BackendServiceCdnPolicyBypassCacheOnRequestHeaders) *BackendServiceCdnPolicyBypassCacheOnRequestHeaders {
@@ -1823,14 +1956,20 @@ func canonicalizeBackendServiceLogConfig(des, initial *BackendServiceLogConfig, 
 		return des
 	}
 
+	cDes := &BackendServiceLogConfig{}
+
 	if dcl.BoolCanonicalize(des.Enable, initial.Enable) || dcl.IsZeroValue(des.Enable) {
-		des.Enable = initial.Enable
+		cDes.Enable = initial.Enable
+	} else {
+		cDes.Enable = des.Enable
 	}
 	if dcl.IsZeroValue(des.SampleRate) {
 		des.SampleRate = initial.SampleRate
+	} else {
+		cDes.SampleRate = des.SampleRate
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendServiceLogConfig(c *Client, des, nw *BackendServiceLogConfig) *BackendServiceLogConfig {
@@ -1903,17 +2042,25 @@ func canonicalizeBackendServiceSecuritySettings(des, initial *BackendServiceSecu
 		return des
 	}
 
+	cDes := &BackendServiceSecuritySettings{}
+
 	if dcl.NameToSelfLink(des.ClientTlsPolicy, initial.ClientTlsPolicy) || dcl.IsZeroValue(des.ClientTlsPolicy) {
-		des.ClientTlsPolicy = initial.ClientTlsPolicy
+		cDes.ClientTlsPolicy = initial.ClientTlsPolicy
+	} else {
+		cDes.ClientTlsPolicy = des.ClientTlsPolicy
 	}
 	if dcl.StringCanonicalize(des.Authentication, initial.Authentication) || dcl.IsZeroValue(des.Authentication) {
-		des.Authentication = initial.Authentication
+		cDes.Authentication = initial.Authentication
+	} else {
+		cDes.Authentication = des.Authentication
 	}
 	if dcl.IsZeroValue(des.SubjectAltNames) {
 		des.SubjectAltNames = initial.SubjectAltNames
+	} else {
+		cDes.SubjectAltNames = des.SubjectAltNames
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendServiceSecuritySettings(c *Client, des, nw *BackendServiceSecuritySettings) *BackendServiceSecuritySettings {
@@ -1989,15 +2136,21 @@ func canonicalizeBackendServiceConsistentHash(des, initial *BackendServiceConsis
 		return des
 	}
 
-	des.HttpCookie = canonicalizeBackendServiceConsistentHashHttpCookie(des.HttpCookie, initial.HttpCookie, opts...)
+	cDes := &BackendServiceConsistentHash{}
+
+	cDes.HttpCookie = canonicalizeBackendServiceConsistentHashHttpCookie(des.HttpCookie, initial.HttpCookie, opts...)
 	if dcl.StringCanonicalize(des.HttpHeaderName, initial.HttpHeaderName) || dcl.IsZeroValue(des.HttpHeaderName) {
-		des.HttpHeaderName = initial.HttpHeaderName
+		cDes.HttpHeaderName = initial.HttpHeaderName
+	} else {
+		cDes.HttpHeaderName = des.HttpHeaderName
 	}
 	if dcl.IsZeroValue(des.MinimumRingSize) {
 		des.MinimumRingSize = initial.MinimumRingSize
+	} else {
+		cDes.MinimumRingSize = des.MinimumRingSize
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendServiceConsistentHash(c *Client, des, nw *BackendServiceConsistentHash) *BackendServiceConsistentHash {
@@ -2071,15 +2224,21 @@ func canonicalizeBackendServiceConsistentHashHttpCookie(des, initial *BackendSer
 		return des
 	}
 
+	cDes := &BackendServiceConsistentHashHttpCookie{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
-		des.Path = initial.Path
+		cDes.Path = initial.Path
+	} else {
+		cDes.Path = des.Path
 	}
-	des.Ttl = canonicalizeBackendServiceConsistentHashHttpCookieTtl(des.Ttl, initial.Ttl, opts...)
+	cDes.Ttl = canonicalizeBackendServiceConsistentHashHttpCookieTtl(des.Ttl, initial.Ttl, opts...)
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendServiceConsistentHashHttpCookie(c *Client, des, nw *BackendServiceConsistentHashHttpCookie) *BackendServiceConsistentHashHttpCookie {
@@ -2153,14 +2312,20 @@ func canonicalizeBackendServiceConsistentHashHttpCookieTtl(des, initial *Backend
 		return des
 	}
 
+	cDes := &BackendServiceConsistentHashHttpCookieTtl{}
+
 	if dcl.IsZeroValue(des.Seconds) {
 		des.Seconds = initial.Seconds
+	} else {
+		cDes.Seconds = des.Seconds
 	}
 	if dcl.IsZeroValue(des.Nanos) {
 		des.Nanos = initial.Nanos
+	} else {
+		cDes.Nanos = des.Nanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendServiceConsistentHashHttpCookieTtl(c *Client, des, nw *BackendServiceConsistentHashHttpCookieTtl) *BackendServiceConsistentHashHttpCookieTtl {
@@ -2233,24 +2398,36 @@ func canonicalizeBackendServiceCircuitBreakers(des, initial *BackendServiceCircu
 		return des
 	}
 
-	des.ConnectTimeout = canonicalizeBackendServiceCircuitBreakersConnectTimeout(des.ConnectTimeout, initial.ConnectTimeout, opts...)
+	cDes := &BackendServiceCircuitBreakers{}
+
+	cDes.ConnectTimeout = canonicalizeBackendServiceCircuitBreakersConnectTimeout(des.ConnectTimeout, initial.ConnectTimeout, opts...)
 	if dcl.IsZeroValue(des.MaxRequestsPerConnection) {
 		des.MaxRequestsPerConnection = initial.MaxRequestsPerConnection
+	} else {
+		cDes.MaxRequestsPerConnection = des.MaxRequestsPerConnection
 	}
 	if dcl.IsZeroValue(des.MaxConnections) {
 		des.MaxConnections = initial.MaxConnections
+	} else {
+		cDes.MaxConnections = des.MaxConnections
 	}
 	if dcl.IsZeroValue(des.MaxPendingRequests) {
 		des.MaxPendingRequests = initial.MaxPendingRequests
+	} else {
+		cDes.MaxPendingRequests = des.MaxPendingRequests
 	}
 	if dcl.IsZeroValue(des.MaxRequests) {
 		des.MaxRequests = initial.MaxRequests
+	} else {
+		cDes.MaxRequests = des.MaxRequests
 	}
 	if dcl.IsZeroValue(des.MaxRetries) {
 		des.MaxRetries = initial.MaxRetries
+	} else {
+		cDes.MaxRetries = des.MaxRetries
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendServiceCircuitBreakers(c *Client, des, nw *BackendServiceCircuitBreakers) *BackendServiceCircuitBreakers {
@@ -2333,14 +2510,20 @@ func canonicalizeBackendServiceCircuitBreakersConnectTimeout(des, initial *Backe
 		return des
 	}
 
+	cDes := &BackendServiceCircuitBreakersConnectTimeout{}
+
 	if dcl.IsZeroValue(des.Seconds) {
 		des.Seconds = initial.Seconds
+	} else {
+		cDes.Seconds = des.Seconds
 	}
 	if dcl.IsZeroValue(des.Nanos) {
 		des.Nanos = initial.Nanos
+	} else {
+		cDes.Nanos = des.Nanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendServiceCircuitBreakersConnectTimeout(c *Client, des, nw *BackendServiceCircuitBreakersConnectTimeout) *BackendServiceCircuitBreakersConnectTimeout {
@@ -2413,37 +2596,57 @@ func canonicalizeBackendServiceOutlierDetection(des, initial *BackendServiceOutl
 		return des
 	}
 
+	cDes := &BackendServiceOutlierDetection{}
+
 	if dcl.IsZeroValue(des.ConsecutiveErrors) {
 		des.ConsecutiveErrors = initial.ConsecutiveErrors
+	} else {
+		cDes.ConsecutiveErrors = des.ConsecutiveErrors
 	}
-	des.Interval = canonicalizeBackendServiceOutlierDetectionInterval(des.Interval, initial.Interval, opts...)
-	des.BaseEjectionTime = canonicalizeBackendServiceOutlierDetectionBaseEjectionTime(des.BaseEjectionTime, initial.BaseEjectionTime, opts...)
+	cDes.Interval = canonicalizeBackendServiceOutlierDetectionInterval(des.Interval, initial.Interval, opts...)
+	cDes.BaseEjectionTime = canonicalizeBackendServiceOutlierDetectionBaseEjectionTime(des.BaseEjectionTime, initial.BaseEjectionTime, opts...)
 	if dcl.IsZeroValue(des.MaxEjectionPercent) {
 		des.MaxEjectionPercent = initial.MaxEjectionPercent
+	} else {
+		cDes.MaxEjectionPercent = des.MaxEjectionPercent
 	}
 	if dcl.IsZeroValue(des.EnforcingConsecutiveErrors) {
 		des.EnforcingConsecutiveErrors = initial.EnforcingConsecutiveErrors
+	} else {
+		cDes.EnforcingConsecutiveErrors = des.EnforcingConsecutiveErrors
 	}
 	if dcl.IsZeroValue(des.EnforcingSuccessRate) {
 		des.EnforcingSuccessRate = initial.EnforcingSuccessRate
+	} else {
+		cDes.EnforcingSuccessRate = des.EnforcingSuccessRate
 	}
 	if dcl.IsZeroValue(des.SuccessRateMinimumHosts) {
 		des.SuccessRateMinimumHosts = initial.SuccessRateMinimumHosts
+	} else {
+		cDes.SuccessRateMinimumHosts = des.SuccessRateMinimumHosts
 	}
 	if dcl.IsZeroValue(des.SuccessRateRequestVolume) {
 		des.SuccessRateRequestVolume = initial.SuccessRateRequestVolume
+	} else {
+		cDes.SuccessRateRequestVolume = des.SuccessRateRequestVolume
 	}
 	if dcl.IsZeroValue(des.SuccessRateStdevFactor) {
 		des.SuccessRateStdevFactor = initial.SuccessRateStdevFactor
+	} else {
+		cDes.SuccessRateStdevFactor = des.SuccessRateStdevFactor
 	}
 	if dcl.IsZeroValue(des.ConsecutiveGatewayFailure) {
 		des.ConsecutiveGatewayFailure = initial.ConsecutiveGatewayFailure
+	} else {
+		cDes.ConsecutiveGatewayFailure = des.ConsecutiveGatewayFailure
 	}
 	if dcl.IsZeroValue(des.EnforcingConsecutiveGatewayFailure) {
 		des.EnforcingConsecutiveGatewayFailure = initial.EnforcingConsecutiveGatewayFailure
+	} else {
+		cDes.EnforcingConsecutiveGatewayFailure = des.EnforcingConsecutiveGatewayFailure
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendServiceOutlierDetection(c *Client, des, nw *BackendServiceOutlierDetection) *BackendServiceOutlierDetection {
@@ -2539,14 +2742,20 @@ func canonicalizeBackendServiceOutlierDetectionInterval(des, initial *BackendSer
 		return des
 	}
 
+	cDes := &BackendServiceOutlierDetectionInterval{}
+
 	if dcl.IsZeroValue(des.Seconds) {
 		des.Seconds = initial.Seconds
+	} else {
+		cDes.Seconds = des.Seconds
 	}
 	if dcl.IsZeroValue(des.Nanos) {
 		des.Nanos = initial.Nanos
+	} else {
+		cDes.Nanos = des.Nanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendServiceOutlierDetectionInterval(c *Client, des, nw *BackendServiceOutlierDetectionInterval) *BackendServiceOutlierDetectionInterval {
@@ -2619,14 +2828,20 @@ func canonicalizeBackendServiceOutlierDetectionBaseEjectionTime(des, initial *Ba
 		return des
 	}
 
+	cDes := &BackendServiceOutlierDetectionBaseEjectionTime{}
+
 	if dcl.IsZeroValue(des.Seconds) {
 		des.Seconds = initial.Seconds
+	} else {
+		cDes.Seconds = des.Seconds
 	}
 	if dcl.IsZeroValue(des.Nanos) {
 		des.Nanos = initial.Nanos
+	} else {
+		cDes.Nanos = des.Nanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendServiceOutlierDetectionBaseEjectionTime(c *Client, des, nw *BackendServiceOutlierDetectionBaseEjectionTime) *BackendServiceOutlierDetectionBaseEjectionTime {
@@ -2699,11 +2914,15 @@ func canonicalizeBackendServiceSubsetting(des, initial *BackendServiceSubsetting
 		return des
 	}
 
+	cDes := &BackendServiceSubsetting{}
+
 	if dcl.IsZeroValue(des.Policy) {
 		des.Policy = initial.Policy
+	} else {
+		cDes.Policy = des.Policy
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendServiceSubsetting(c *Client, des, nw *BackendServiceSubsetting) *BackendServiceSubsetting {
@@ -2773,17 +2992,25 @@ func canonicalizeBackendServiceConnectionTrackingPolicy(des, initial *BackendSer
 		return des
 	}
 
+	cDes := &BackendServiceConnectionTrackingPolicy{}
+
 	if dcl.IsZeroValue(des.TrackingMode) {
 		des.TrackingMode = initial.TrackingMode
+	} else {
+		cDes.TrackingMode = des.TrackingMode
 	}
 	if dcl.IsZeroValue(des.ConnectionPersistenceOnUnhealthyBackends) {
 		des.ConnectionPersistenceOnUnhealthyBackends = initial.ConnectionPersistenceOnUnhealthyBackends
+	} else {
+		cDes.ConnectionPersistenceOnUnhealthyBackends = des.ConnectionPersistenceOnUnhealthyBackends
 	}
 	if dcl.IsZeroValue(des.IdleTimeoutSec) {
 		des.IdleTimeoutSec = initial.IdleTimeoutSec
+	} else {
+		cDes.IdleTimeoutSec = des.IdleTimeoutSec
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendServiceConnectionTrackingPolicy(c *Client, des, nw *BackendServiceConnectionTrackingPolicy) *BackendServiceConnectionTrackingPolicy {
@@ -2859,14 +3086,20 @@ func canonicalizeBackendServiceMaxStreamDuration(des, initial *BackendServiceMax
 		return des
 	}
 
+	cDes := &BackendServiceMaxStreamDuration{}
+
 	if dcl.IsZeroValue(des.Seconds) {
 		des.Seconds = initial.Seconds
+	} else {
+		cDes.Seconds = des.Seconds
 	}
 	if dcl.IsZeroValue(des.Nanos) {
 		des.Nanos = initial.Nanos
+	} else {
+		cDes.Nanos = des.Nanos
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewBackendServiceMaxStreamDuration(c *Client, des, nw *BackendServiceMaxStreamDuration) *BackendServiceMaxStreamDuration {
@@ -7469,31 +7702,45 @@ type backendServiceDiff struct {
 	UpdateOp         backendServiceApiOperation
 }
 
-func convertFieldDiffToBackendServiceOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]backendServiceDiff, error) {
+func convertFieldDiffsToBackendServiceDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]backendServiceDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []backendServiceDiff
-	for _, op := range ops {
+	// For each operation name, create a backendServiceDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := backendServiceDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameTobackendServiceApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToBackendServiceApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTobackendServiceApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (backendServiceApiOperation, error) {
-	switch op {
+func convertOpNameToBackendServiceApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (backendServiceApiOperation, error) {
+	switch opName {
 
 	case "updateBackendServiceUpdateOperation":
-		return &updateBackendServiceUpdateOperation{Diffs: diffs}, nil
+		return &updateBackendServiceUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

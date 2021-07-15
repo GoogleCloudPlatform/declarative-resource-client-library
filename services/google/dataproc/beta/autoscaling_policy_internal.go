@@ -176,7 +176,7 @@ type updateAutoscalingPolicyUpdateAutoscalingPolicyOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -464,21 +464,27 @@ func canonicalizeAutoscalingPolicyDesiredState(rawDesired, rawInitial *Autoscali
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &AutoscalingPolicy{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
-	rawDesired.BasicAlgorithm = canonicalizeAutoscalingPolicyBasicAlgorithm(rawDesired.BasicAlgorithm, rawInitial.BasicAlgorithm, opts...)
-	rawDesired.WorkerConfig = canonicalizeAutoscalingPolicyWorkerConfig(rawDesired.WorkerConfig, rawInitial.WorkerConfig, opts...)
-	rawDesired.SecondaryWorkerConfig = canonicalizeAutoscalingPolicySecondaryWorkerConfig(rawDesired.SecondaryWorkerConfig, rawInitial.SecondaryWorkerConfig, opts...)
+	canonicalDesired.BasicAlgorithm = canonicalizeAutoscalingPolicyBasicAlgorithm(rawDesired.BasicAlgorithm, rawInitial.BasicAlgorithm, opts...)
+	canonicalDesired.WorkerConfig = canonicalizeAutoscalingPolicyWorkerConfig(rawDesired.WorkerConfig, rawInitial.WorkerConfig, opts...)
+	canonicalDesired.SecondaryWorkerConfig = canonicalizeAutoscalingPolicySecondaryWorkerConfig(rawDesired.SecondaryWorkerConfig, rawInitial.SecondaryWorkerConfig, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeAutoscalingPolicyNewState(c *Client, rawNew, rawDesired *AutoscalingPolicy) (*AutoscalingPolicy, error) {
@@ -528,12 +534,16 @@ func canonicalizeAutoscalingPolicyBasicAlgorithm(des, initial *AutoscalingPolicy
 		return des
 	}
 
-	des.YarnConfig = canonicalizeAutoscalingPolicyBasicAlgorithmYarnConfig(des.YarnConfig, initial.YarnConfig, opts...)
+	cDes := &AutoscalingPolicyBasicAlgorithm{}
+
+	cDes.YarnConfig = canonicalizeAutoscalingPolicyBasicAlgorithmYarnConfig(des.YarnConfig, initial.YarnConfig, opts...)
 	if dcl.StringCanonicalize(des.CooldownPeriod, initial.CooldownPeriod) || dcl.IsZeroValue(des.CooldownPeriod) {
-		des.CooldownPeriod = initial.CooldownPeriod
+		cDes.CooldownPeriod = initial.CooldownPeriod
+	} else {
+		cDes.CooldownPeriod = des.CooldownPeriod
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAutoscalingPolicyBasicAlgorithm(c *Client, des, nw *AutoscalingPolicyBasicAlgorithm) *AutoscalingPolicyBasicAlgorithm {
@@ -604,23 +614,35 @@ func canonicalizeAutoscalingPolicyBasicAlgorithmYarnConfig(des, initial *Autosca
 		return des
 	}
 
+	cDes := &AutoscalingPolicyBasicAlgorithmYarnConfig{}
+
 	if dcl.StringCanonicalize(des.GracefulDecommissionTimeout, initial.GracefulDecommissionTimeout) || dcl.IsZeroValue(des.GracefulDecommissionTimeout) {
-		des.GracefulDecommissionTimeout = initial.GracefulDecommissionTimeout
+		cDes.GracefulDecommissionTimeout = initial.GracefulDecommissionTimeout
+	} else {
+		cDes.GracefulDecommissionTimeout = des.GracefulDecommissionTimeout
 	}
 	if dcl.IsZeroValue(des.ScaleUpFactor) {
 		des.ScaleUpFactor = initial.ScaleUpFactor
+	} else {
+		cDes.ScaleUpFactor = des.ScaleUpFactor
 	}
 	if dcl.IsZeroValue(des.ScaleDownFactor) {
 		des.ScaleDownFactor = initial.ScaleDownFactor
+	} else {
+		cDes.ScaleDownFactor = des.ScaleDownFactor
 	}
 	if dcl.IsZeroValue(des.ScaleUpMinWorkerFraction) {
 		des.ScaleUpMinWorkerFraction = initial.ScaleUpMinWorkerFraction
+	} else {
+		cDes.ScaleUpMinWorkerFraction = des.ScaleUpMinWorkerFraction
 	}
 	if dcl.IsZeroValue(des.ScaleDownMinWorkerFraction) {
 		des.ScaleDownMinWorkerFraction = initial.ScaleDownMinWorkerFraction
+	} else {
+		cDes.ScaleDownMinWorkerFraction = des.ScaleDownMinWorkerFraction
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAutoscalingPolicyBasicAlgorithmYarnConfig(c *Client, des, nw *AutoscalingPolicyBasicAlgorithmYarnConfig) *AutoscalingPolicyBasicAlgorithmYarnConfig {
@@ -702,17 +724,25 @@ func canonicalizeAutoscalingPolicyWorkerConfig(des, initial *AutoscalingPolicyWo
 		return des
 	}
 
+	cDes := &AutoscalingPolicyWorkerConfig{}
+
 	if dcl.IsZeroValue(des.MinInstances) {
 		des.MinInstances = initial.MinInstances
+	} else {
+		cDes.MinInstances = des.MinInstances
 	}
 	if dcl.IsZeroValue(des.MaxInstances) {
 		des.MaxInstances = initial.MaxInstances
+	} else {
+		cDes.MaxInstances = des.MaxInstances
 	}
 	if dcl.IsZeroValue(des.Weight) {
 		des.Weight = initial.Weight
+	} else {
+		cDes.Weight = des.Weight
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAutoscalingPolicyWorkerConfig(c *Client, des, nw *AutoscalingPolicyWorkerConfig) *AutoscalingPolicyWorkerConfig {
@@ -788,17 +818,25 @@ func canonicalizeAutoscalingPolicySecondaryWorkerConfig(des, initial *Autoscalin
 		return des
 	}
 
+	cDes := &AutoscalingPolicySecondaryWorkerConfig{}
+
 	if dcl.IsZeroValue(des.MinInstances) {
 		des.MinInstances = initial.MinInstances
+	} else {
+		cDes.MinInstances = des.MinInstances
 	}
 	if dcl.IsZeroValue(des.MaxInstances) {
 		des.MaxInstances = initial.MaxInstances
+	} else {
+		cDes.MaxInstances = des.MaxInstances
 	}
 	if dcl.IsZeroValue(des.Weight) {
 		des.Weight = initial.Weight
+	} else {
+		cDes.Weight = des.Weight
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewAutoscalingPolicySecondaryWorkerConfig(c *Client, des, nw *AutoscalingPolicySecondaryWorkerConfig) *AutoscalingPolicySecondaryWorkerConfig {
@@ -1754,31 +1792,45 @@ type autoscalingPolicyDiff struct {
 	UpdateOp         autoscalingPolicyApiOperation
 }
 
-func convertFieldDiffToAutoscalingPolicyOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]autoscalingPolicyDiff, error) {
+func convertFieldDiffsToAutoscalingPolicyDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]autoscalingPolicyDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []autoscalingPolicyDiff
-	for _, op := range ops {
+	// For each operation name, create a autoscalingPolicyDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := autoscalingPolicyDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToautoscalingPolicyApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToAutoscalingPolicyApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToautoscalingPolicyApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (autoscalingPolicyApiOperation, error) {
-	switch op {
+func convertOpNameToAutoscalingPolicyApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (autoscalingPolicyApiOperation, error) {
+	switch opName {
 
 	case "updateAutoscalingPolicyUpdateAutoscalingPolicyOperation":
-		return &updateAutoscalingPolicyUpdateAutoscalingPolicyOperation{Diffs: diffs}, nil
+		return &updateAutoscalingPolicyUpdateAutoscalingPolicyOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

@@ -332,8 +332,7 @@ func applyDefaultObjectAccessControlHelper(c *Client, ctx context.Context, rawDe
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToDefaultObjectAccessControlOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToDefaultObjectAccessControlDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -361,7 +360,6 @@ func applyDefaultObjectAccessControlHelper(c *Client, ctx context.Context, rawDe
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

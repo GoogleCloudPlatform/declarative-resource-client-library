@@ -96,7 +96,7 @@ type updateEnvgroupPatchEnvironmentGroupOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -113,7 +113,7 @@ func (op *updateEnvgroupPatchEnvironmentGroupOperation) do(ctx context.Context, 
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMask(op.FieldDiffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -409,18 +409,24 @@ func canonicalizeEnvgroupDesiredState(rawDesired, rawInitial *Envgroup, opts ...
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Envgroup{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.IsZeroValue(rawDesired.Hostnames) {
-		rawDesired.Hostnames = rawInitial.Hostnames
+		canonicalDesired.Hostnames = rawInitial.Hostnames
+	} else {
+		canonicalDesired.Hostnames = rawDesired.Hostnames
 	}
 	if dcl.NameToSelfLink(rawDesired.Organization, rawInitial.Organization) {
-		rawDesired.Organization = rawInitial.Organization
+		canonicalDesired.Organization = rawInitial.Organization
+	} else {
+		canonicalDesired.Organization = rawDesired.Organization
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeEnvgroupNewState(c *Client, rawNew, rawDesired *Envgroup) (*Envgroup, error) {
@@ -692,31 +698,45 @@ type envgroupDiff struct {
 	UpdateOp         envgroupApiOperation
 }
 
-func convertFieldDiffToEnvgroupOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]envgroupDiff, error) {
+func convertFieldDiffsToEnvgroupDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]envgroupDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []envgroupDiff
-	for _, op := range ops {
+	// For each operation name, create a envgroupDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := envgroupDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToenvgroupApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToEnvgroupApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToenvgroupApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (envgroupApiOperation, error) {
-	switch op {
+func convertOpNameToEnvgroupApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (envgroupApiOperation, error) {
+	switch opName {
 
 	case "updateEnvgroupPatchEnvironmentGroupOperation":
-		return &updateEnvgroupPatchEnvironmentGroupOperation{Diffs: diffs}, nil
+		return &updateEnvgroupPatchEnvironmentGroupOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

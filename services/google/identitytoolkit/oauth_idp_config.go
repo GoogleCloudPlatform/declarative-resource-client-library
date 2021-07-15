@@ -276,8 +276,7 @@ func applyOAuthIdpConfigHelper(c *Client, ctx context.Context, rawDesired *OAuth
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToOAuthIdpConfigOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToOAuthIdpConfigDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -305,7 +304,6 @@ func applyOAuthIdpConfigHelper(c *Client, ctx context.Context, rawDesired *OAuth
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

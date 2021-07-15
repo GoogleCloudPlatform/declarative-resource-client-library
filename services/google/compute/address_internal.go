@@ -119,7 +119,7 @@ type updateAddressSetLabelsOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -435,48 +435,74 @@ func canonicalizeAddressDesiredState(rawDesired, rawInitial *Address, opts ...dc
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Address{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
 	if dcl.StringCanonicalize(rawDesired.Address, rawInitial.Address) {
-		rawDesired.Address = rawInitial.Address
+		canonicalDesired.Address = rawInitial.Address
+	} else {
+		canonicalDesired.Address = rawDesired.Address
 	}
 	if dcl.IsZeroValue(rawDesired.PrefixLength) {
-		rawDesired.PrefixLength = rawInitial.PrefixLength
+		canonicalDesired.PrefixLength = rawInitial.PrefixLength
+	} else {
+		canonicalDesired.PrefixLength = rawDesired.PrefixLength
 	}
 	if dcl.StringCanonicalize(rawDesired.Region, rawInitial.Region) {
-		rawDesired.Region = rawInitial.Region
+		canonicalDesired.Region = rawInitial.Region
+	} else {
+		canonicalDesired.Region = rawDesired.Region
 	}
 	if dcl.IsZeroValue(rawDesired.NetworkTier) {
-		rawDesired.NetworkTier = rawInitial.NetworkTier
+		canonicalDesired.NetworkTier = rawInitial.NetworkTier
+	} else {
+		canonicalDesired.NetworkTier = rawDesired.NetworkTier
 	}
 	if dcl.IsZeroValue(rawDesired.IPVersion) {
-		rawDesired.IPVersion = rawInitial.IPVersion
+		canonicalDesired.IPVersion = rawInitial.IPVersion
+	} else {
+		canonicalDesired.IPVersion = rawDesired.IPVersion
 	}
 	if dcl.IsZeroValue(rawDesired.AddressType) {
-		rawDesired.AddressType = rawInitial.AddressType
+		canonicalDesired.AddressType = rawInitial.AddressType
+	} else {
+		canonicalDesired.AddressType = rawDesired.AddressType
 	}
 	if dcl.IsZeroValue(rawDesired.Purpose) {
-		rawDesired.Purpose = rawInitial.Purpose
+		canonicalDesired.Purpose = rawInitial.Purpose
+	} else {
+		canonicalDesired.Purpose = rawDesired.Purpose
 	}
 	if dcl.NameToSelfLink(rawDesired.Subnetwork, rawInitial.Subnetwork) {
-		rawDesired.Subnetwork = rawInitial.Subnetwork
+		canonicalDesired.Subnetwork = rawInitial.Subnetwork
+	} else {
+		canonicalDesired.Subnetwork = rawDesired.Subnetwork
 	}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Network, rawInitial.Network) {
-		rawDesired.Network = rawInitial.Network
+		canonicalDesired.Network = rawInitial.Network
+	} else {
+		canonicalDesired.Network = rawDesired.Network
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		rawDesired.Project = rawInitial.Project
+		canonicalDesired.Project = rawInitial.Project
+	} else {
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
-		rawDesired.Location = rawInitial.Location
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeAddressNewState(c *Client, rawNew, rawDesired *Address) (*Address, error) {
@@ -1119,31 +1145,45 @@ type addressDiff struct {
 	UpdateOp         addressApiOperation
 }
 
-func convertFieldDiffToAddressOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]addressDiff, error) {
+func convertFieldDiffsToAddressDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]addressDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []addressDiff
-	for _, op := range ops {
+	// For each operation name, create a addressDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := addressDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToaddressApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToAddressApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToaddressApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (addressApiOperation, error) {
-	switch op {
+func convertOpNameToAddressApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (addressApiOperation, error) {
+	switch opName {
 
 	case "updateAddressSetLabelsOperation":
-		return &updateAddressSetLabelsOperation{Diffs: diffs}, nil
+		return &updateAddressSetLabelsOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

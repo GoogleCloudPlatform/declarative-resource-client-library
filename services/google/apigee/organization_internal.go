@@ -114,7 +114,7 @@ type updateOrganizationUpdateOrganizationOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -341,34 +341,50 @@ func canonicalizeOrganizationDesiredState(rawDesired, rawInitial *Organization, 
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Organization{}
 	if dcl.IsZeroValue(rawDesired.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
-		rawDesired.DisplayName = rawInitial.DisplayName
+		canonicalDesired.DisplayName = rawInitial.DisplayName
+	} else {
+		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
-	rawDesired.Properties = canonicalizeOrganizationProperties(rawDesired.Properties, rawInitial.Properties, opts...)
+	canonicalDesired.Properties = canonicalizeOrganizationProperties(rawDesired.Properties, rawInitial.Properties, opts...)
 	if dcl.StringCanonicalize(rawDesired.AnalyticsRegion, rawInitial.AnalyticsRegion) {
-		rawDesired.AnalyticsRegion = rawInitial.AnalyticsRegion
+		canonicalDesired.AnalyticsRegion = rawInitial.AnalyticsRegion
+	} else {
+		canonicalDesired.AnalyticsRegion = rawDesired.AnalyticsRegion
 	}
 	if dcl.StringCanonicalize(rawDesired.AuthorizedNetwork, rawInitial.AuthorizedNetwork) {
-		rawDesired.AuthorizedNetwork = rawInitial.AuthorizedNetwork
+		canonicalDesired.AuthorizedNetwork = rawInitial.AuthorizedNetwork
+	} else {
+		canonicalDesired.AuthorizedNetwork = rawDesired.AuthorizedNetwork
 	}
 	if dcl.IsZeroValue(rawDesired.RuntimeType) {
-		rawDesired.RuntimeType = rawInitial.RuntimeType
+		canonicalDesired.RuntimeType = rawInitial.RuntimeType
+	} else {
+		canonicalDesired.RuntimeType = rawDesired.RuntimeType
 	}
 	if dcl.StringCanonicalize(rawDesired.RuntimeDatabaseEncryptionKeyName, rawInitial.RuntimeDatabaseEncryptionKeyName) {
-		rawDesired.RuntimeDatabaseEncryptionKeyName = rawInitial.RuntimeDatabaseEncryptionKeyName
+		canonicalDesired.RuntimeDatabaseEncryptionKeyName = rawInitial.RuntimeDatabaseEncryptionKeyName
+	} else {
+		canonicalDesired.RuntimeDatabaseEncryptionKeyName = rawDesired.RuntimeDatabaseEncryptionKeyName
 	}
 	if dcl.NameToSelfLink(rawDesired.Parent, rawInitial.Parent) {
-		rawDesired.Parent = rawInitial.Parent
+		canonicalDesired.Parent = rawInitial.Parent
+	} else {
+		canonicalDesired.Parent = rawDesired.Parent
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeOrganizationNewState(c *Client, rawNew, rawDesired *Organization) (*Organization, error) {
@@ -497,11 +513,15 @@ func canonicalizeOrganizationProperties(des, initial *OrganizationProperties, op
 		return des
 	}
 
+	cDes := &OrganizationProperties{}
+
 	if dcl.IsZeroValue(des.Property) {
 		des.Property = initial.Property
+	} else {
+		cDes.Property = des.Property
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOrganizationProperties(c *Client, des, nw *OrganizationProperties) *OrganizationProperties {
@@ -569,14 +589,20 @@ func canonicalizeOrganizationPropertiesProperty(des, initial *OrganizationProper
 		return des
 	}
 
+	cDes := &OrganizationPropertiesProperty{}
+
 	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
+		cDes.Value = initial.Value
+	} else {
+		cDes.Value = des.Value
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewOrganizationPropertiesProperty(c *Client, des, nw *OrganizationPropertiesProperty) *OrganizationPropertiesProperty {
@@ -1389,31 +1415,45 @@ type organizationDiff struct {
 	UpdateOp         organizationApiOperation
 }
 
-func convertFieldDiffToOrganizationOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]organizationDiff, error) {
+func convertFieldDiffsToOrganizationDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]organizationDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []organizationDiff
-	for _, op := range ops {
+	// For each operation name, create a organizationDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := organizationDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToorganizationApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToOrganizationApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToorganizationApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (organizationApiOperation, error) {
-	switch op {
+func convertOpNameToOrganizationApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (organizationApiOperation, error) {
+	switch opName {
 
 	case "updateOrganizationUpdateOrganizationOperation":
-		return &updateOrganizationUpdateOrganizationOperation{Diffs: diffs}, nil
+		return &updateOrganizationUpdateOrganizationOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

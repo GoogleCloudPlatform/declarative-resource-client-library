@@ -113,7 +113,7 @@ type updateRoleUpdateRoleOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
-	Diffs        []*dcl.FieldDiff
+	FieldDiffs   []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -383,46 +383,70 @@ func canonicalizeRoleDesiredState(rawDesired, rawInitial *Role, opts ...dcl.Appl
 
 		return rawDesired, nil
 	}
-
+	canonicalDesired := &Role{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.Title, rawInitial.Title) {
-		rawDesired.Title = rawInitial.Title
+		canonicalDesired.Title = rawInitial.Title
+	} else {
+		canonicalDesired.Title = rawDesired.Title
 	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
-		rawDesired.Description = rawInitial.Description
+		canonicalDesired.Description = rawInitial.Description
+	} else {
+		canonicalDesired.Description = rawDesired.Description
 	}
-	rawDesired.LocalizedValues = canonicalizeRoleLocalizedValues(rawDesired.LocalizedValues, rawInitial.LocalizedValues, opts...)
+	canonicalDesired.LocalizedValues = canonicalizeRoleLocalizedValues(rawDesired.LocalizedValues, rawInitial.LocalizedValues, opts...)
 	if dcl.StringCanonicalize(rawDesired.LifecyclePhase, rawInitial.LifecyclePhase) {
-		rawDesired.LifecyclePhase = rawInitial.LifecyclePhase
+		canonicalDesired.LifecyclePhase = rawInitial.LifecyclePhase
+	} else {
+		canonicalDesired.LifecyclePhase = rawDesired.LifecyclePhase
 	}
 	if dcl.StringCanonicalize(rawDesired.GroupName, rawInitial.GroupName) {
-		rawDesired.GroupName = rawInitial.GroupName
+		canonicalDesired.GroupName = rawInitial.GroupName
+	} else {
+		canonicalDesired.GroupName = rawDesired.GroupName
 	}
 	if dcl.StringCanonicalize(rawDesired.GroupTitle, rawInitial.GroupTitle) {
-		rawDesired.GroupTitle = rawInitial.GroupTitle
+		canonicalDesired.GroupTitle = rawInitial.GroupTitle
+	} else {
+		canonicalDesired.GroupTitle = rawDesired.GroupTitle
 	}
 	if dcl.IsZeroValue(rawDesired.IncludedPermissions) {
-		rawDesired.IncludedPermissions = rawInitial.IncludedPermissions
+		canonicalDesired.IncludedPermissions = rawInitial.IncludedPermissions
+	} else {
+		canonicalDesired.IncludedPermissions = rawDesired.IncludedPermissions
 	}
 	if dcl.IsZeroValue(rawDesired.Stage) {
-		rawDesired.Stage = rawInitial.Stage
+		canonicalDesired.Stage = rawInitial.Stage
+	} else {
+		canonicalDesired.Stage = rawDesired.Stage
 	}
 	if dcl.StringCanonicalize(rawDesired.Etag, rawInitial.Etag) {
-		rawDesired.Etag = rawInitial.Etag
+		canonicalDesired.Etag = rawInitial.Etag
+	} else {
+		canonicalDesired.Etag = rawDesired.Etag
 	}
 	if dcl.BoolCanonicalize(rawDesired.Deleted, rawInitial.Deleted) {
-		rawDesired.Deleted = rawInitial.Deleted
+		canonicalDesired.Deleted = rawInitial.Deleted
+	} else {
+		canonicalDesired.Deleted = rawDesired.Deleted
 	}
 	if dcl.IsZeroValue(rawDesired.IncludedRoles) {
-		rawDesired.IncludedRoles = rawInitial.IncludedRoles
+		canonicalDesired.IncludedRoles = rawInitial.IncludedRoles
+	} else {
+		canonicalDesired.IncludedRoles = rawDesired.IncludedRoles
 	}
 	if dcl.NameToSelfLink(rawDesired.Parent, rawInitial.Parent) {
-		rawDesired.Parent = rawInitial.Parent
+		canonicalDesired.Parent = rawInitial.Parent
+	} else {
+		canonicalDesired.Parent = rawDesired.Parent
 	}
 
-	return rawDesired, nil
+	return canonicalDesired, nil
 }
 
 func canonicalizeRoleNewState(c *Client, rawNew, rawDesired *Role) (*Role, error) {
@@ -529,14 +553,20 @@ func canonicalizeRoleLocalizedValues(des, initial *RoleLocalizedValues, opts ...
 		return des
 	}
 
+	cDes := &RoleLocalizedValues{}
+
 	if dcl.StringCanonicalize(des.LocalizedTitle, initial.LocalizedTitle) || dcl.IsZeroValue(des.LocalizedTitle) {
-		des.LocalizedTitle = initial.LocalizedTitle
+		cDes.LocalizedTitle = initial.LocalizedTitle
+	} else {
+		cDes.LocalizedTitle = des.LocalizedTitle
 	}
 	if dcl.StringCanonicalize(des.LocalizedDescription, initial.LocalizedDescription) || dcl.IsZeroValue(des.LocalizedDescription) {
-		des.LocalizedDescription = initial.LocalizedDescription
+		cDes.LocalizedDescription = initial.LocalizedDescription
+	} else {
+		cDes.LocalizedDescription = des.LocalizedDescription
 	}
 
-	return des
+	return cDes
 }
 
 func canonicalizeNewRoleLocalizedValues(c *Client, des, nw *RoleLocalizedValues) *RoleLocalizedValues {
@@ -1066,31 +1096,45 @@ type roleDiff struct {
 	UpdateOp         roleApiOperation
 }
 
-func convertFieldDiffToRoleOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]roleDiff, error) {
+func convertFieldDiffsToRoleDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]roleDiff, error) {
+	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
+	// Map each operation name to the field diffs associated with it.
+	for _, fd := range fds {
+		for _, ro := range fd.ResultingOperation {
+			if fieldDiffs, ok := opNamesToFieldDiffs[ro]; ok {
+				fieldDiffs = append(fieldDiffs, fd)
+				opNamesToFieldDiffs[ro] = fieldDiffs
+			} else {
+				config.Logger.Infof("%s required due to diff in %q", ro, fd.FieldName)
+				opNamesToFieldDiffs[ro] = []*dcl.FieldDiff{fd}
+			}
+		}
+	}
 	var diffs []roleDiff
-	for _, op := range ops {
+	// For each operation name, create a roleDiff which contains the operation.
+	for opName, fieldDiffs := range opNamesToFieldDiffs {
 		diff := roleDiff{}
-		if op == "Recreate" {
+		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			op, err := convertOpNameToroleApiOperation(op, fds, opts...)
+			apiOp, err := convertOpNameToRoleApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
-			diff.UpdateOp = op
+			diff.UpdateOp = apiOp
 		}
 		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToroleApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (roleApiOperation, error) {
-	switch op {
+func convertOpNameToRoleApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (roleApiOperation, error) {
+	switch opName {
 
 	case "updateRoleUpdateRoleOperation":
-		return &updateRoleUpdateRoleOperation{Diffs: diffs}, nil
+		return &updateRoleUpdateRoleOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
-		return nil, fmt.Errorf("no such operation with name: %v", op)
+		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }

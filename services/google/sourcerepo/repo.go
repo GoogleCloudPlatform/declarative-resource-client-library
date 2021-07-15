@@ -270,8 +270,7 @@ func applyRepoHelper(c *Client, ctx context.Context, rawDesired *Repo, opts ...d
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	opStrings := dcl.DeduplicateOperations(fieldDiffs)
-	diffs, err := convertFieldDiffToRepoOp(opStrings, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToRepoDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -299,7 +298,6 @@ func applyRepoHelper(c *Client, ctx context.Context, rawDesired *Repo, opts ...d
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {
