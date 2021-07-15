@@ -1965,7 +1965,6 @@ func (c *Client) DeleteAllOsPolicyAssignment(ctx context.Context, project, locat
 }
 
 func (c *Client) ApplyOsPolicyAssignment(ctx context.Context, rawDesired *OsPolicyAssignment, opts ...dcl.ApplyOption) (*OsPolicyAssignment, error) {
-
 	var resultNewState *OsPolicyAssignment
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyOsPolicyAssignmentHelper(c, ctx, rawDesired, opts...)

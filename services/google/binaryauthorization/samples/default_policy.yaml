@@ -18,4 +18,5 @@ dependencies:
 description: A sample which matches the default policy of a newly created project
 name: default_policy
 resource: samples/default.policy.json
-versions: []
+versions:
+- ga

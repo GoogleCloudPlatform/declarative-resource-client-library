@@ -289,7 +289,6 @@ func (c *Client) DeleteAllSnapshot(ctx context.Context, project string, filter f
 }
 
 func (c *Client) ApplySnapshot(ctx context.Context, rawDesired *Snapshot, opts ...dcl.ApplyOption) (*Snapshot, error) {
-
 	var resultNewState *Snapshot
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applySnapshotHelper(c, ctx, rawDesired, opts...)

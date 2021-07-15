@@ -18,85 +18,140 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+enum ComputeBetaInstanceGroupManagerDistributionPolicyTargetShapeEnum {
+  ComputeBetaInstanceGroupManagerDistributionPolicyTargetShapeEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeBetaInstanceGroupManagerDistributionPolicyTargetShapeEnumTARGET_SHAPE_UNSPECIFIED = 1;
+  ComputeBetaInstanceGroupManagerDistributionPolicyTargetShapeEnumANY = 2;
+  ComputeBetaInstanceGroupManagerDistributionPolicyTargetShapeEnumBALANCED = 3;
+  ComputeBetaInstanceGroupManagerDistributionPolicyTargetShapeEnumANY_SINGLE_ZONE = 4;
+}
+
+enum ComputeBetaInstanceGroupManagerUpdatePolicyTypeEnum {
+  ComputeBetaInstanceGroupManagerUpdatePolicyTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeBetaInstanceGroupManagerUpdatePolicyTypeEnumOPPORTUNISTIC = 1;
+  ComputeBetaInstanceGroupManagerUpdatePolicyTypeEnumPROACTIVE = 2;
+}
+
 enum ComputeBetaInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum {
   ComputeBetaInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  ComputeBetaInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumPROACTIVE = 1;
-  ComputeBetaInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumNONE = 2;
+  ComputeBetaInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumNONE = 1;
+  ComputeBetaInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumPROACTIVE = 2;
 }
 
 enum ComputeBetaInstanceGroupManagerUpdatePolicyMinimalActionEnum {
   ComputeBetaInstanceGroupManagerUpdatePolicyMinimalActionEnumNO_VALUE_DO_NOT_USE = 0;
-  ComputeBetaInstanceGroupManagerUpdatePolicyMinimalActionEnumRESTART = 1;
-  ComputeBetaInstanceGroupManagerUpdatePolicyMinimalActionEnumREPLACE = 2;
+  ComputeBetaInstanceGroupManagerUpdatePolicyMinimalActionEnumREPLACE = 1;
+  ComputeBetaInstanceGroupManagerUpdatePolicyMinimalActionEnumRESTART = 2;
+  ComputeBetaInstanceGroupManagerUpdatePolicyMinimalActionEnumREFRESH = 3;
+  ComputeBetaInstanceGroupManagerUpdatePolicyMinimalActionEnumNONE = 4;
+}
+
+enum ComputeBetaInstanceGroupManagerUpdatePolicyReplacementMethodEnum {
+  ComputeBetaInstanceGroupManagerUpdatePolicyReplacementMethodEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeBetaInstanceGroupManagerUpdatePolicyReplacementMethodEnumSUBSTITUTE = 1;
+  ComputeBetaInstanceGroupManagerUpdatePolicyReplacementMethodEnumRECREATE = 2;
+}
+
+enum ComputeBetaInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum {
+  ComputeBetaInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeBetaInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumREPLACE = 1;
+  ComputeBetaInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumRESTART = 2;
+  ComputeBetaInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumREFRESH = 3;
+  ComputeBetaInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumNONE = 4;
+}
+
+enum ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum {
+  ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumNEVER = 1;
+  ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumON_PERMANENT_INSTANCE_DELETION = 2;
+}
+
+enum ComputeBetaInstanceGroupManagerFailoverActionEnum {
+  ComputeBetaInstanceGroupManagerFailoverActionEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeBetaInstanceGroupManagerFailoverActionEnumUNKNOWN = 1;
+  ComputeBetaInstanceGroupManagerFailoverActionEnumNO_FAILOVER = 2;
 }
 
 message ComputeBetaInstanceGroupManager {
-  string base_instance_name = 1;
+  int64 id = 1;
   string creation_timestamp = 2;
-  ComputeBetaInstanceGroupManagerDistributionPolicy distribution_policy = 3;
-  ComputeBetaInstanceGroupManagerCurrentActions current_actions = 4;
-  string description = 5;
-  repeated ComputeBetaInstanceGroupManagerVersions versions = 6;
-  int64 id = 7;
-  string instance_group = 8;
-  string instance_template = 9;
-  string name = 10;
-  repeated ComputeBetaInstanceGroupManagerNamedPorts named_ports = 11;
-  ComputeBetaInstanceGroupManagerStatus status = 12;
-  repeated string target_pools = 13;
-  repeated ComputeBetaInstanceGroupManagerAutoHealingPolicies auto_healing_policies = 14;
-  ComputeBetaInstanceGroupManagerUpdatePolicy update_policy = 15;
+  string name = 3;
+  string description = 4;
+  string zone = 5;
+  string region = 6;
+  ComputeBetaInstanceGroupManagerDistributionPolicy distribution_policy = 7;
+  string instance_template = 8;
+  repeated ComputeBetaInstanceGroupManagerVersions versions = 9;
+  string instance_group = 10;
+  repeated string target_pools = 11;
+  string base_instance_name = 12;
+  string fingerprint = 13;
+  ComputeBetaInstanceGroupManagerCurrentActions current_actions = 14;
+  ComputeBetaInstanceGroupManagerStatus status = 15;
   int64 target_size = 16;
-  string zone = 17;
-  string region = 18;
-  string project = 19;
-  string location = 20;
+  string self_link = 17;
+  repeated ComputeBetaInstanceGroupManagerAutoHealingPolicies auto_healing_policies = 18;
+  ComputeBetaInstanceGroupManagerUpdatePolicy update_policy = 19;
+  repeated ComputeBetaInstanceGroupManagerNamedPorts named_ports = 20;
+  ComputeBetaInstanceGroupManagerStatefulPolicy stateful_policy = 21;
+  string service_account = 22;
+  ComputeBetaInstanceGroupManagerFailoverActionEnum failover_action = 23;
+  string project = 24;
+  string location = 25;
 }
 
 message ComputeBetaInstanceGroupManagerDistributionPolicy {
   repeated ComputeBetaInstanceGroupManagerDistributionPolicyZones zones = 1;
+  ComputeBetaInstanceGroupManagerDistributionPolicyTargetShapeEnum target_shape = 2;
 }
 
 message ComputeBetaInstanceGroupManagerDistributionPolicyZones {
   string zone = 1;
 }
 
-message ComputeBetaInstanceGroupManagerCurrentActions {
-  int64 abandoning = 1;
-  int64 creating = 2;
-  int64 creating_without_retries = 3;
-  int64 deleting = 4;
-  int64 none = 5;
-  int64 recreating = 6;
-  int64 refreshing = 7;
-  int64 restarting = 8;
-}
-
 message ComputeBetaInstanceGroupManagerVersions {
   string name = 1;
   string instance_template = 2;
-  ComputeBetaInstanceGroupManagerVersionsTargetSize target_size = 3;
+  ComputeBetaInstanceGroupManagerFixedOrPercent target_size = 3;
 }
 
-message ComputeBetaInstanceGroupManagerVersionsTargetSize {
+message ComputeBetaInstanceGroupManagerFixedOrPercent {
   int64 fixed = 1;
   int64 percent = 2;
   int64 calculated = 3;
 }
 
-message ComputeBetaInstanceGroupManagerNamedPorts {
-  string name = 1;
-  int64 port = 2;
+message ComputeBetaInstanceGroupManagerCurrentActions {
+  int64 none = 1;
+  int64 creating = 2;
+  int64 creating_without_retries = 3;
+  int64 verifying = 4;
+  int64 recreating = 5;
+  int64 deleting = 6;
+  int64 abandoning = 7;
+  int64 restarting = 8;
+  int64 refreshing = 9;
 }
 
 message ComputeBetaInstanceGroupManagerStatus {
   bool is_stable = 1;
   ComputeBetaInstanceGroupManagerStatusVersionTarget version_target = 2;
-  string autoscalar = 3;
+  ComputeBetaInstanceGroupManagerStatusStateful stateful = 3;
+  string autoscaler = 4;
 }
 
 message ComputeBetaInstanceGroupManagerStatusVersionTarget {
   bool is_reached = 1;
+}
+
+message ComputeBetaInstanceGroupManagerStatusStateful {
+  bool has_stateful_config = 1;
+  ComputeBetaInstanceGroupManagerStatusStatefulPerInstanceConfigs per_instance_configs = 2;
+  bool is_stateful = 3;
+}
+
+message ComputeBetaInstanceGroupManagerStatusStatefulPerInstanceConfigs {
+  bool all_effective = 1;
 }
 
 message ComputeBetaInstanceGroupManagerAutoHealingPolicies {
@@ -105,22 +160,31 @@ message ComputeBetaInstanceGroupManagerAutoHealingPolicies {
 }
 
 message ComputeBetaInstanceGroupManagerUpdatePolicy {
-  ComputeBetaInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum instance_redistribution_type = 1;
-  ComputeBetaInstanceGroupManagerUpdatePolicyMinimalActionEnum minimal_action = 2;
-  ComputeBetaInstanceGroupManagerUpdatePolicyMaxSurge max_surge = 3;
-  ComputeBetaInstanceGroupManagerUpdatePolicyMaxUnavailable max_unavailable = 4;
+  ComputeBetaInstanceGroupManagerUpdatePolicyTypeEnum type = 1;
+  ComputeBetaInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum instance_redistribution_type = 2;
+  ComputeBetaInstanceGroupManagerUpdatePolicyMinimalActionEnum minimal_action = 3;
+  ComputeBetaInstanceGroupManagerFixedOrPercent max_surge = 4;
+  ComputeBetaInstanceGroupManagerFixedOrPercent max_unavailable = 5;
+  ComputeBetaInstanceGroupManagerUpdatePolicyReplacementMethodEnum replacement_method = 6;
+  ComputeBetaInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum most_disruptive_allowed_action = 7;
+  int64 min_ready_sec = 8;
 }
 
-message ComputeBetaInstanceGroupManagerUpdatePolicyMaxSurge {
-  int64 fixed = 1;
-  int64 percent = 2;
-  int64 calculated = 3;
+message ComputeBetaInstanceGroupManagerNamedPorts {
+  string name = 1;
+  int64 port = 2;
 }
 
-message ComputeBetaInstanceGroupManagerUpdatePolicyMaxUnavailable {
-  int64 fixed = 1;
-  int64 percent = 2;
-  int64 calculated = 3;
+message ComputeBetaInstanceGroupManagerStatefulPolicy {
+  ComputeBetaInstanceGroupManagerStatefulPolicyPreservedState preserved_state = 1;
+}
+
+message ComputeBetaInstanceGroupManagerStatefulPolicyPreservedState {
+  map<string, ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateDisks> disks = 1;
+}
+
+message ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateDisks {
+  ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum auto_delete = 1;
 }
 
 message ApplyComputeBetaInstanceGroupManagerRequest {

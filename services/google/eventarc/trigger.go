@@ -443,7 +443,6 @@ func (c *Client) DeleteAllTrigger(ctx context.Context, project, location string,
 }
 
 func (c *Client) ApplyTrigger(ctx context.Context, rawDesired *Trigger, opts ...dcl.ApplyOption) (*Trigger, error) {
-
 	var resultNewState *Trigger
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyTriggerHelper(c, ctx, rawDesired, opts...)

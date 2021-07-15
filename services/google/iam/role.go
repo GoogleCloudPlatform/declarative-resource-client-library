@@ -272,7 +272,6 @@ func (c *Client) DeleteAllRole(ctx context.Context, parent string, filter func(*
 }
 
 func (c *Client) ApplyRole(ctx context.Context, rawDesired *Role, opts ...dcl.ApplyOption) (*Role, error) {
-
 	var resultNewState *Role
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyRoleHelper(c, ctx, rawDesired, opts...)

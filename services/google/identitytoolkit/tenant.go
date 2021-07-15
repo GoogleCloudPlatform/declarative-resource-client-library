@@ -290,7 +290,6 @@ func (c *Client) DeleteAllTenant(ctx context.Context, project string, filter fun
 }
 
 func (c *Client) ApplyTenant(ctx context.Context, rawDesired *Tenant, opts ...dcl.ApplyOption) (*Tenant, error) {
-
 	var resultNewState *Tenant
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyTenantHelper(c, ctx, rawDesired, opts...)

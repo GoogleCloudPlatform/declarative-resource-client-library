@@ -15101,7 +15101,9 @@ func expandClusterAddonsConfigHttpLoadBalancing(c *Client, f *ClusterAddonsConfi
 	}
 
 	m := make(map[string]interface{})
-	m["disabled"] = f.Disabled
+	if v := f.Disabled; v != nil {
+		m["disabled"] = v
+	}
 
 	return m, nil
 }
@@ -15213,7 +15215,9 @@ func expandClusterAddonsConfigHorizontalPodAutoscaling(c *Client, f *ClusterAddo
 	}
 
 	m := make(map[string]interface{})
-	m["disabled"] = f.Disabled
+	if v := f.Disabled; v != nil {
+		m["disabled"] = v
+	}
 
 	return m, nil
 }
@@ -15325,7 +15329,9 @@ func expandClusterAddonsConfigKubernetesDashboard(c *Client, f *ClusterAddonsCon
 	}
 
 	m := make(map[string]interface{})
-	m["disabled"] = f.Disabled
+	if v := f.Disabled; v != nil {
+		m["disabled"] = v
+	}
 
 	return m, nil
 }
@@ -15437,7 +15443,9 @@ func expandClusterAddonsConfigNetworkPolicyConfig(c *Client, f *ClusterAddonsCon
 	}
 
 	m := make(map[string]interface{})
-	m["disabled"] = f.Disabled
+	if v := f.Disabled; v != nil {
+		m["disabled"] = v
+	}
 
 	return m, nil
 }
@@ -15549,7 +15557,9 @@ func expandClusterAddonsConfigCloudRunConfig(c *Client, f *ClusterAddonsConfigCl
 	}
 
 	m := make(map[string]interface{})
-	m["disabled"] = f.Disabled
+	if v := f.Disabled; v != nil {
+		m["disabled"] = v
+	}
 	if v := f.LoadBalancerType; !dcl.IsEmptyValueIndirect(v) {
 		m["loadBalancerType"] = v
 	}

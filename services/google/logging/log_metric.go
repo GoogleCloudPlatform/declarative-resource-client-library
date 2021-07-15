@@ -678,7 +678,6 @@ func (c *Client) DeleteAllLogMetric(ctx context.Context, project string, filter 
 }
 
 func (c *Client) ApplyLogMetric(ctx context.Context, rawDesired *LogMetric, opts ...dcl.ApplyOption) (*LogMetric, error) {
-
 	var resultNewState *LogMetric
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyLogMetricHelper(c, ctx, rawDesired, opts...)

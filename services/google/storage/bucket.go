@@ -670,7 +670,6 @@ func (c *Client) DeleteAllBucket(ctx context.Context, project string, filter fun
 }
 
 func (c *Client) ApplyBucket(ctx context.Context, rawDesired *Bucket, opts ...dcl.ApplyOption) (*Bucket, error) {
-
 	var resultNewState *Bucket
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyBucketHelper(c, ctx, rawDesired, opts...)

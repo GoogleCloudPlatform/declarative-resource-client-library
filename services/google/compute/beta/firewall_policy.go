@@ -191,7 +191,6 @@ func (c *Client) DeleteAllFirewallPolicy(ctx context.Context, parent string, fil
 }
 
 func (c *Client) ApplyFirewallPolicy(ctx context.Context, rawDesired *FirewallPolicy, opts ...dcl.ApplyOption) (*FirewallPolicy, error) {
-
 	var resultNewState *FirewallPolicy
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyFirewallPolicyHelper(c, ctx, rawDesired, opts...)

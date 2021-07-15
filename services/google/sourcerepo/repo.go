@@ -235,7 +235,6 @@ func (c *Client) DeleteAllRepo(ctx context.Context, project string, filter func(
 }
 
 func (c *Client) ApplyRepo(ctx context.Context, rawDesired *Repo, opts ...dcl.ApplyOption) (*Repo, error) {
-
 	var resultNewState *Repo
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyRepoHelper(c, ctx, rawDesired, opts...)

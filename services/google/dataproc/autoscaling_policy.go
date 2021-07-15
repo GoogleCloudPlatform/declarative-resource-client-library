@@ -400,7 +400,6 @@ func (c *Client) DeleteAllAutoscalingPolicy(ctx context.Context, project, locati
 }
 
 func (c *Client) ApplyAutoscalingPolicy(ctx context.Context, rawDesired *AutoscalingPolicy, opts ...dcl.ApplyOption) (*AutoscalingPolicy, error) {
-
 	var resultNewState *AutoscalingPolicy
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyAutoscalingPolicyHelper(c, ctx, rawDesired, opts...)

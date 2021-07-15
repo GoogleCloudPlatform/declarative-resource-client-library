@@ -825,7 +825,6 @@ func (c *Client) DeleteAllEnvironment(ctx context.Context, project, location str
 }
 
 func (c *Client) ApplyEnvironment(ctx context.Context, rawDesired *Environment, opts ...dcl.ApplyOption) (*Environment, error) {
-
 	var resultNewState *Environment
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyEnvironmentHelper(c, ctx, rawDesired, opts...)

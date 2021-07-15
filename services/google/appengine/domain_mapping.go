@@ -341,7 +341,6 @@ func (c *Client) DeleteAllDomainMapping(ctx context.Context, app string, filter 
 }
 
 func (c *Client) ApplyDomainMapping(ctx context.Context, rawDesired *DomainMapping, opts ...dcl.ApplyOption) (*DomainMapping, error) {
-
 	var resultNewState *DomainMapping
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyDomainMappingHelper(c, ctx, rawDesired, opts...)

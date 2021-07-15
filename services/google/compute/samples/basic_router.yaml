@@ -18,4 +18,5 @@ name: basic_router
 resource: samples/basic.router.json
 updates:
 - resource: samples/update.router.json
-versions: []
+versions:
+- ga

@@ -251,7 +251,6 @@ func (c *Client) DeleteAllBackup(ctx context.Context, project, location string, 
 }
 
 func (c *Client) ApplyBackup(ctx context.Context, rawDesired *Backup, opts ...dcl.ApplyOption) (*Backup, error) {
-
 	var resultNewState *Backup
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyBackupHelper(c, ctx, rawDesired, opts...)

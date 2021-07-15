@@ -645,6 +645,13 @@ func diffPolicy(c *Client, desired, actual *Policy, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.ClusterAdmissionRules, actual.ClusterAdmissionRules, dcl.Info{ObjectFunction: comparePolicyAdmissionRuleNewStyle, EmptyObject: EmptyPolicyAdmissionRule, OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("ClusterAdmissionRules")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.KubernetesNamespaceAdmissionRules, actual.KubernetesNamespaceAdmissionRules, dcl.Info{OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("KubernetesNamespaceAdmissionRules")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err

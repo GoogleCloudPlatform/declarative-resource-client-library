@@ -184,7 +184,6 @@ func (c *Client) DeleteAllLogExclusion(ctx context.Context, parent string, filte
 }
 
 func (c *Client) ApplyLogExclusion(ctx context.Context, rawDesired *LogExclusion, opts ...dcl.ApplyOption) (*LogExclusion, error) {
-
 	var resultNewState *LogExclusion
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyLogExclusionHelper(c, ctx, rawDesired, opts...)

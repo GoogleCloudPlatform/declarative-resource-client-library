@@ -1264,7 +1264,6 @@ func (c *Client) DeleteAllInstanceTemplate(ctx context.Context, project string, 
 }
 
 func (c *Client) ApplyInstanceTemplate(ctx context.Context, rawDesired *InstanceTemplate, opts ...dcl.ApplyOption) (*InstanceTemplate, error) {
-
 	var resultNewState *InstanceTemplate
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyInstanceTemplateHelper(c, ctx, rawDesired, opts...)

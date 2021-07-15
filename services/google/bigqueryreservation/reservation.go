@@ -188,7 +188,6 @@ func (c *Client) DeleteAllReservation(ctx context.Context, project, location str
 }
 
 func (c *Client) ApplyReservation(ctx context.Context, rawDesired *Reservation, opts ...dcl.ApplyOption) (*Reservation, error) {
-
 	var resultNewState *Reservation
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyReservationHelper(c, ctx, rawDesired, opts...)

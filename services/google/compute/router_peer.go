@@ -266,7 +266,6 @@ func (c *Client) DeleteAllRouterPeer(ctx context.Context, project, region string
 }
 
 func (c *Client) ApplyRouterPeer(ctx context.Context, rawDesired *RouterPeer, opts ...dcl.ApplyOption) (*RouterPeer, error) {
-
 	var resultNewState *RouterPeer
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyRouterPeerHelper(c, ctx, rawDesired, opts...)

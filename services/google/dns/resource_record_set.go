@@ -154,7 +154,6 @@ func (c *Client) DeleteAllResourceRecordSet(ctx context.Context, project, manage
 }
 
 func (c *Client) ApplyResourceRecordSet(ctx context.Context, rawDesired *ResourceRecordSet, opts ...dcl.ApplyOption) (*ResourceRecordSet, error) {
-
 	var resultNewState *ResourceRecordSet
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyResourceRecordSetHelper(c, ctx, rawDesired, opts...)

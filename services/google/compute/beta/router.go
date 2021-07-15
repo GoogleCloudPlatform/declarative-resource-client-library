@@ -820,7 +820,6 @@ func (c *Client) DeleteAllRouter(ctx context.Context, project, region string, fi
 }
 
 func (c *Client) ApplyRouter(ctx context.Context, rawDesired *Router, opts ...dcl.ApplyOption) (*Router, error) {
-
 	var resultNewState *Router
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyRouterHelper(c, ctx, rawDesired, opts...)

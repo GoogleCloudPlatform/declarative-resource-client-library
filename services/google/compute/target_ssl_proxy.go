@@ -218,7 +218,6 @@ func (c *Client) DeleteAllTargetSslProxy(ctx context.Context, project string, fi
 }
 
 func (c *Client) ApplyTargetSslProxy(ctx context.Context, rawDesired *TargetSslProxy, opts ...dcl.ApplyOption) (*TargetSslProxy, error) {
-
 	var resultNewState *TargetSslProxy
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyTargetSslProxyHelper(c, ctx, rawDesired, opts...)

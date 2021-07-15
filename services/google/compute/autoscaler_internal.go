@@ -2000,7 +2000,9 @@ func expandAutoscalerAutoscalingPolicy(c *Client, f *AutoscalerAutoscalingPolicy
 	}
 
 	m := make(map[string]interface{})
-	m["minNumReplicas"] = f.MinNumReplicas
+	if v := f.MinNumReplicas; v != nil {
+		m["minNumReplicas"] = v
+	}
 	if v := f.MaxNumReplicas; !dcl.IsEmptyValueIndirect(v) {
 		m["maxNumReplicas"] = v
 	}

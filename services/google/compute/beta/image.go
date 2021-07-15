@@ -1082,7 +1082,6 @@ func (c *Client) DeleteAllImage(ctx context.Context, project string, filter func
 }
 
 func (c *Client) ApplyImage(ctx context.Context, rawDesired *Image, opts ...dcl.ApplyOption) (*Image, error) {
-
 	var resultNewState *Image
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyImageHelper(c, ctx, rawDesired, opts...)

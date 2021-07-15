@@ -335,7 +335,6 @@ func (c *Client) DeleteAllTopic(ctx context.Context, project, location string, f
 }
 
 func (c *Client) ApplyTopic(ctx context.Context, rawDesired *Topic, opts ...dcl.ApplyOption) (*Topic, error) {
-
 	var resultNewState *Topic
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyTopicHelper(c, ctx, rawDesired, opts...)

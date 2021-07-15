@@ -327,7 +327,6 @@ func (c *Client) DeleteAllManagedSslCertificate(ctx context.Context, project str
 }
 
 func (c *Client) ApplyManagedSslCertificate(ctx context.Context, rawDesired *ManagedSslCertificate, opts ...dcl.ApplyOption) (*ManagedSslCertificate, error) {
-
 	var resultNewState *ManagedSslCertificate
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyManagedSslCertificateHelper(c, ctx, rawDesired, opts...)

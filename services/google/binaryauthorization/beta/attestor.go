@@ -366,7 +366,6 @@ func (c *Client) DeleteAllAttestor(ctx context.Context, project string, filter f
 }
 
 func (c *Client) ApplyAttestor(ctx context.Context, rawDesired *Attestor, opts ...dcl.ApplyOption) (*Attestor, error) {
-
 	var resultNewState *Attestor
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyAttestorHelper(c, ctx, rawDesired, opts...)

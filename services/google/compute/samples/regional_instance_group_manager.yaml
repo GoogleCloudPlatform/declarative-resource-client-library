@@ -12,9 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 dependencies:
-- samples/basic.instance_template.json
+- samples/first.instance_template.json
+- samples/second.instance_template.json
+- samples/first.target_pool.json
+- samples/second.target_pool.json
 - samples/https.health_check.json
+- samples/http.health_check.json
 description: An example of a regional instance group manager.
 name: regional_instance_group_manager
 resource: samples/regional.instance_group_manager.json
-versions: []
+updates:
+- resource: samples/update_regional.instance_group_manager.json
+versions:
+- ga

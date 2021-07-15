@@ -190,7 +190,6 @@ func (c *Client) DeleteAllVariable(ctx context.Context, project, runtimeConfig s
 }
 
 func (c *Client) ApplyVariable(ctx context.Context, rawDesired *Variable, opts ...dcl.ApplyOption) (*Variable, error) {
-
 	var resultNewState *Variable
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyVariableHelper(c, ctx, rawDesired, opts...)

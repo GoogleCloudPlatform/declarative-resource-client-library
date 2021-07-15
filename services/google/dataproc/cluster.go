@@ -1479,7 +1479,6 @@ func (c *Client) DeleteAllCluster(ctx context.Context, project, location string,
 }
 
 func (c *Client) ApplyCluster(ctx context.Context, rawDesired *Cluster, opts ...dcl.ApplyOption) (*Cluster, error) {
-
 	var resultNewState *Cluster
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyClusterHelper(c, ctx, rawDesired, opts...)

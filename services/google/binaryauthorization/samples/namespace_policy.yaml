@@ -19,4 +19,5 @@ name: namespace_policy
 resource: samples/namespace.policy.json
 updates:
 - resource: samples/service_account.policy.json
-versions: []
+versions:
+- ga

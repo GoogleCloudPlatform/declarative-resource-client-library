@@ -297,7 +297,6 @@ func (c *Client) DeleteAllDefaultObjectAccessControl(ctx context.Context, projec
 }
 
 func (c *Client) ApplyDefaultObjectAccessControl(ctx context.Context, rawDesired *DefaultObjectAccessControl, opts ...dcl.ApplyOption) (*DefaultObjectAccessControl, error) {
-
 	var resultNewState *DefaultObjectAccessControl
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyDefaultObjectAccessControlHelper(c, ctx, rawDesired, opts...)

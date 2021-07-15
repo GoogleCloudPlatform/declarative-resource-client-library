@@ -385,7 +385,6 @@ func (c *Client) DeleteAllSubscription(ctx context.Context, project string, filt
 }
 
 func (c *Client) ApplySubscription(ctx context.Context, rawDesired *Subscription, opts ...dcl.ApplyOption) (*Subscription, error) {
-
 	var resultNewState *Subscription
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applySubscriptionHelper(c, ctx, rawDesired, opts...)

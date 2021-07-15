@@ -618,7 +618,6 @@ func (c *Client) DeleteAllUptimeCheckConfig(ctx context.Context, project string,
 }
 
 func (c *Client) ApplyUptimeCheckConfig(ctx context.Context, rawDesired *UptimeCheckConfig, opts ...dcl.ApplyOption) (*UptimeCheckConfig, error) {
-
 	var resultNewState *UptimeCheckConfig
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyUptimeCheckConfigHelper(c, ctx, rawDesired, opts...)

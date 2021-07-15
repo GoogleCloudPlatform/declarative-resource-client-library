@@ -2,7 +2,7 @@
   "name": "{{rule}}",
   "project": "{{project}}",
   "location": "{{region}}",
-  "target": "{{ref:basic.target_pool.json:selfLink}}",
+  "target": "{{ref:first.target_pool.json:selfLink}}",
   "networkTier": "STANDARD",
   "description": "A test forwarding rule"
 }

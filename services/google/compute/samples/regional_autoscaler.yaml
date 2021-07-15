@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 dependencies:
-- samples/https.health_check.json
-- samples/regional.instance_group_manager.json
-- samples/basic.instance_template.json
+- samples/fixed.instance_group_manager.json
+- samples/first.instance_template.json
 description: An example of a regional autoscaler.
 name: regional_autoscaler
 resource: samples/regional.autoscaler.json
 updates:
 - resource: samples/update_regional.autoscaler.json
-versions: []
+versions:
+- ga

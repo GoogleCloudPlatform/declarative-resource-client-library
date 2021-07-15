@@ -714,7 +714,6 @@ func (c *Client) DeleteAllMembership(ctx context.Context, project, location stri
 }
 
 func (c *Client) ApplyMembership(ctx context.Context, rawDesired *Membership, opts ...dcl.ApplyOption) (*Membership, error) {
-
 	var resultNewState *Membership
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyMembershipHelper(c, ctx, rawDesired, opts...)

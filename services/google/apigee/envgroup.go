@@ -208,7 +208,6 @@ func (c *Client) DeleteAllEnvgroup(ctx context.Context, organization string, fil
 }
 
 func (c *Client) ApplyEnvgroup(ctx context.Context, rawDesired *Envgroup, opts ...dcl.ApplyOption) (*Envgroup, error) {
-
 	var resultNewState *Envgroup
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyEnvgroupHelper(c, ctx, rawDesired, opts...)

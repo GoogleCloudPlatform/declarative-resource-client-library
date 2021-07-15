@@ -320,7 +320,6 @@ func (c *Client) GetApplication(ctx context.Context, r *Application) (*Applicati
 }
 
 func (c *Client) ApplyApplication(ctx context.Context, rawDesired *Application, opts ...dcl.ApplyOption) (*Application, error) {
-
 	var resultNewState *Application
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyApplicationHelper(c, ctx, rawDesired, opts...)

@@ -210,7 +210,6 @@ func (c *Client) DeleteAllHttpsHealthCheck(ctx context.Context, project string, 
 }
 
 func (c *Client) ApplyHttpsHealthCheck(ctx context.Context, rawDesired *HttpsHealthCheck, opts ...dcl.ApplyOption) (*HttpsHealthCheck, error) {
-
 	var resultNewState *HttpsHealthCheck
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyHttpsHealthCheckHelper(c, ctx, rawDesired, opts...)

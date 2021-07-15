@@ -1676,7 +1676,6 @@ func (c *Client) DeleteAllJob(ctx context.Context, project, region string, filte
 }
 
 func (c *Client) ApplyJob(ctx context.Context, rawDesired *Job, opts ...dcl.ApplyOption) (*Job, error) {
-
 	var resultNewState *Job
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyJobHelper(c, ctx, rawDesired, opts...)

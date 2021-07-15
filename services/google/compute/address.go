@@ -345,7 +345,6 @@ func (c *Client) DeleteAllAddress(ctx context.Context, project, location string,
 }
 
 func (c *Client) ApplyAddress(ctx context.Context, rawDesired *Address, opts ...dcl.ApplyOption) (*Address, error) {
-
 	var resultNewState *Address
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyAddressHelper(c, ctx, rawDesired, opts...)

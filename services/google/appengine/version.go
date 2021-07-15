@@ -2024,7 +2024,6 @@ func (c *Client) DeleteAllVersion(ctx context.Context, app, service string, filt
 }
 
 func (c *Client) ApplyVersion(ctx context.Context, rawDesired *Version, opts ...dcl.ApplyOption) (*Version, error) {
-
 	var resultNewState *Version
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyVersionHelper(c, ctx, rawDesired, opts...)

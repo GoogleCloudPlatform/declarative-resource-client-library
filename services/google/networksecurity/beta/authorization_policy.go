@@ -423,7 +423,6 @@ func (c *Client) DeleteAllAuthorizationPolicy(ctx context.Context, project, loca
 }
 
 func (c *Client) ApplyAuthorizationPolicy(ctx context.Context, rawDesired *AuthorizationPolicy, opts ...dcl.ApplyOption) (*AuthorizationPolicy, error) {
-
 	var resultNewState *AuthorizationPolicy
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyAuthorizationPolicyHelper(c, ctx, rawDesired, opts...)

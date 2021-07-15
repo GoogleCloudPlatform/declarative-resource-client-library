@@ -5071,6 +5071,13 @@ func compareVersionDeploymentNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		actual = &actualNotPointer
 	}
 
+	if ds, err := dcl.Diff(desired.Files, actual.Files, dcl.Info{ObjectFunction: compareVersionDeploymentFilesNewStyle, EmptyObject: EmptyVersionDeploymentFiles, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Files")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.Container, actual.Container, dcl.Info{ObjectFunction: compareVersionDeploymentContainerNewStyle, EmptyObject: EmptyVersionDeploymentContainer, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Container")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err

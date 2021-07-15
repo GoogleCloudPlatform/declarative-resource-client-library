@@ -486,7 +486,6 @@ func (c *Client) DeleteAllFeature(ctx context.Context, project, location string,
 }
 
 func (c *Client) ApplyFeature(ctx context.Context, rawDesired *Feature, opts ...dcl.ApplyOption) (*Feature, error) {
-
 	var resultNewState *Feature
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyFeatureHelper(c, ctx, rawDesired, opts...)

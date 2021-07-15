@@ -3516,7 +3516,6 @@ func (c *Client) DeleteAllDashboard(ctx context.Context, project string, filter 
 }
 
 func (c *Client) ApplyDashboard(ctx context.Context, rawDesired *Dashboard, opts ...dcl.ApplyOption) (*Dashboard, error) {
-
 	var resultNewState *Dashboard
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyDashboardHelper(c, ctx, rawDesired, opts...)

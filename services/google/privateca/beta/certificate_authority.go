@@ -3907,7 +3907,6 @@ func (c *Client) DeleteAllCertificateAuthority(ctx context.Context, project, loc
 }
 
 func (c *Client) ApplyCertificateAuthority(ctx context.Context, rawDesired *CertificateAuthority, opts ...dcl.ApplyOption) (*CertificateAuthority, error) {
-
 	var resultNewState *CertificateAuthority
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyCertificateAuthorityHelper(c, ctx, rawDesired, opts...)

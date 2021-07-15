@@ -18,8 +18,9 @@ dependencies:
 - samples/basic.network.json
 description: An example of a compute target pool with an instance
 name: instance_target_pool
-resource: samples/basic.target_pool.json
+resource: samples/first.target_pool.json
 updates:
 - resource: samples/instance.target_pool.json
-- resource: samples/basic.target_pool.json
-versions: []
+- resource: samples/first.target_pool.json
+versions:
+- ga

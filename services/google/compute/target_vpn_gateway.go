@@ -221,7 +221,6 @@ func (c *Client) DeleteAllTargetVpnGateway(ctx context.Context, project, region 
 }
 
 func (c *Client) ApplyTargetVpnGateway(ctx context.Context, rawDesired *TargetVpnGateway, opts ...dcl.ApplyOption) (*TargetVpnGateway, error) {
-
 	var resultNewState *TargetVpnGateway
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyTargetVpnGatewayHelper(c, ctx, rawDesired, opts...)

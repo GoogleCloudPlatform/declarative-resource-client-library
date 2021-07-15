@@ -282,7 +282,6 @@ func (c *Client) DeleteAllObject(ctx context.Context, bucket string, filter func
 }
 
 func (c *Client) ApplyObject(ctx context.Context, rawDesired *Object, opts ...dcl.ApplyOption) (*Object, error) {
-
 	var resultNewState *Object
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyObjectHelper(c, ctx, rawDesired, opts...)

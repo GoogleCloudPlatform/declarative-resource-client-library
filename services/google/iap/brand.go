@@ -146,7 +146,6 @@ func (c *Client) GetBrand(ctx context.Context, r *Brand) (*Brand, error) {
 }
 
 func (c *Client) ApplyBrand(ctx context.Context, rawDesired *Brand, opts ...dcl.ApplyOption) (*Brand, error) {
-
 	var resultNewState *Brand
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyBrandHelper(c, ctx, rawDesired, opts...)

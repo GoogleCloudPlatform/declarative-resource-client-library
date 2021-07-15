@@ -2790,7 +2790,6 @@ func (c *Client) DeleteAllService(ctx context.Context, project, location string,
 }
 
 func (c *Client) ApplyService(ctx context.Context, rawDesired *Service, opts ...dcl.ApplyOption) (*Service, error) {
-
 	var resultNewState *Service
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyServiceHelper(c, ctx, rawDesired, opts...)

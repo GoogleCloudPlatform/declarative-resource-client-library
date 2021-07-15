@@ -813,7 +813,6 @@ func (c *Client) DeleteAllHealthCheck(ctx context.Context, project, location str
 }
 
 func (c *Client) ApplyHealthCheck(ctx context.Context, rawDesired *HealthCheck, opts ...dcl.ApplyOption) (*HealthCheck, error) {
-
 	var resultNewState *HealthCheck
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyHealthCheckHelper(c, ctx, rawDesired, opts...)

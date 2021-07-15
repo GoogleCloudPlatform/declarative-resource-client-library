@@ -164,12 +164,12 @@ func ParseResponse(resp *http.Response, ptr interface{}) error {
 // a common retryable error based on heuristics about GCP API behaviours.
 func IsRetryableRequestError(c *Config, err error, retryNotFound bool) bool {
 	// Return transient errors that should be retried.
-	if IsRetryableHTTPError(err) || (retryNotFound && IsNotFound(err)) {
+	if IsRetryableHTTPError(err, c.codeRetryability) || (retryNotFound && IsNotFound(err)) {
 		c.Logger.Infof("Error appears retryable: %s", err)
 		return true
 	}
 
-	if IsNonRetryableHTTPError(err) {
+	if IsNonRetryableHTTPError(err, c.codeRetryability) {
 		c.Logger.Infof("Error appears not to be retryable: %s", err)
 		return false
 	}

@@ -191,7 +191,6 @@ func (c *Client) DeleteAllRealm(ctx context.Context, project, location string, f
 }
 
 func (c *Client) ApplyRealm(ctx context.Context, rawDesired *Realm, opts ...dcl.ApplyOption) (*Realm, error) {
-
 	var resultNewState *Realm
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyRealmHelper(c, ctx, rawDesired, opts...)

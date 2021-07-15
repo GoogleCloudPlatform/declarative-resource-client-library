@@ -681,7 +681,6 @@ func (c *Client) DeleteAllAutoscaler(ctx context.Context, project, location stri
 }
 
 func (c *Client) ApplyAutoscaler(ctx context.Context, rawDesired *Autoscaler, opts ...dcl.ApplyOption) (*Autoscaler, error) {
-
 	var resultNewState *Autoscaler
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyAutoscalerHelper(c, ctx, rawDesired, opts...)

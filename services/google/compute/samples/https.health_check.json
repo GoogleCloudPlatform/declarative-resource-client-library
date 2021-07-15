@@ -1,5 +1,5 @@
 {
-  "name": "{{check}}",
+  "name": "{{s_check}}",
   "project": "{{project}}",
   "type": "HTTPS",
   "timeoutSec": 1,

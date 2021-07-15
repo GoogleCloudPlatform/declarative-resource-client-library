@@ -317,7 +317,6 @@ func (c *Client) DeleteAllIndex(ctx context.Context, project string, filter func
 }
 
 func (c *Client) ApplyIndex(ctx context.Context, rawDesired *Index, opts ...dcl.ApplyOption) (*Index, error) {
-
 	var resultNewState *Index
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyIndexHelper(c, ctx, rawDesired, opts...)

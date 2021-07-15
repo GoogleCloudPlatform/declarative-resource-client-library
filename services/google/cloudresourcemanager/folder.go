@@ -212,7 +212,6 @@ func (c *Client) DeleteAllFolder(ctx context.Context, parent string, filter func
 }
 
 func (c *Client) ApplyFolder(ctx context.Context, rawDesired *Folder, opts ...dcl.ApplyOption) (*Folder, error) {
-
 	var resultNewState *Folder
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyFolderHelper(c, ctx, rawDesired, opts...)

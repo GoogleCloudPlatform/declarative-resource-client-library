@@ -3229,7 +3229,6 @@ func (c *Client) DeleteAllUrlMap(ctx context.Context, project string, filter fun
 }
 
 func (c *Client) ApplyUrlMap(ctx context.Context, rawDesired *UrlMap, opts ...dcl.ApplyOption) (*UrlMap, error) {
-
 	var resultNewState *UrlMap
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyUrlMapHelper(c, ctx, rawDesired, opts...)

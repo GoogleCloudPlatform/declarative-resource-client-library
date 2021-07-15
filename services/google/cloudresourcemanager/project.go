@@ -255,7 +255,6 @@ func (c *Client) DeleteAllProject(ctx context.Context, filter func(*Project) boo
 }
 
 func (c *Client) ApplyProject(ctx context.Context, rawDesired *Project, opts ...dcl.ApplyOption) (*Project, error) {
-
 	var resultNewState *Project
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyProjectHelper(c, ctx, rawDesired, opts...)

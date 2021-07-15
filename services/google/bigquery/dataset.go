@@ -418,7 +418,6 @@ func (c *Client) DeleteAllDataset(ctx context.Context, project string, filter fu
 }
 
 func (c *Client) ApplyDataset(ctx context.Context, rawDesired *Dataset, opts ...dcl.ApplyOption) (*Dataset, error) {
-
 	var resultNewState *Dataset
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyDatasetHelper(c, ctx, rawDesired, opts...)

@@ -13,7 +13,8 @@
 # limitations under the License.
 description: An example of a basic instance template.
 name: basic_instance_template
-resource: samples/basic.instance_template.json
+resource: samples/first.instance_template.json
 updates:
 - resource: samples/update.instance_template.json
-versions: []
+versions:
+- ga

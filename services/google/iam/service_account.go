@@ -284,7 +284,6 @@ func (c *Client) DeleteAllServiceAccount(ctx context.Context, project string, fi
 }
 
 func (c *Client) ApplyServiceAccount(ctx context.Context, rawDesired *ServiceAccount, opts ...dcl.ApplyOption) (*ServiceAccount, error) {
-
 	var resultNewState *ServiceAccount
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyServiceAccountHelper(c, ctx, rawDesired, opts...)

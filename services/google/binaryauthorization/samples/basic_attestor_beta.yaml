@@ -13,9 +13,10 @@
 # limitations under the License.
 dependencies:
 - samples/basic.containeranalysis.note.json
-description: A basic example for a binary authorization attestor using beta endpoints
+description: A basic example of a binary authorization attestor using beta endpoints
 name: basic_attestor_beta
 resource: samples/basic.attestor.json
 updates:
 - resource: samples/update.attestor.json
-versions: []
+versions:
+- beta

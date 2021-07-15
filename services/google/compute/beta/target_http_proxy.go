@@ -184,7 +184,6 @@ func (c *Client) DeleteAllTargetHttpProxy(ctx context.Context, project string, f
 }
 
 func (c *Client) ApplyTargetHttpProxy(ctx context.Context, rawDesired *TargetHttpProxy, opts ...dcl.ApplyOption) (*TargetHttpProxy, error) {
-
 	var resultNewState *TargetHttpProxy
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyTargetHttpProxyHelper(c, ctx, rawDesired, opts...)

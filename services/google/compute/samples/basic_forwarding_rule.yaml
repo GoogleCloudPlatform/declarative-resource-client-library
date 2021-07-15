@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 dependencies:
-- samples/basic.target_pool.json
+- samples/first.target_pool.json
 description: An example of a compute forwarding rule
 name: basic_forwarding_rule
 resource: samples/basic.forwarding_rule.json
-versions: []
+versions:
+- ga

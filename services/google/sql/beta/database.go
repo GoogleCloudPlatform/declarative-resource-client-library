@@ -190,7 +190,6 @@ func (c *Client) DeleteAllDatabase(ctx context.Context, project, instance string
 }
 
 func (c *Client) ApplyDatabase(ctx context.Context, rawDesired *Database, opts ...dcl.ApplyOption) (*Database, error) {
-
 	var resultNewState *Database
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyDatabaseHelper(c, ctx, rawDesired, opts...)

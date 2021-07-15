@@ -184,7 +184,6 @@ func (c *Client) DeleteAllGroup(ctx context.Context, project string, filter func
 }
 
 func (c *Client) ApplyGroup(ctx context.Context, rawDesired *Group, opts ...dcl.ApplyOption) (*Group, error) {
-
 	var resultNewState *Group
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyGroupHelper(c, ctx, rawDesired, opts...)

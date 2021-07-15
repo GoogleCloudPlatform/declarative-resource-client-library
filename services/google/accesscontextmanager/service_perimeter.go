@@ -427,7 +427,6 @@ func (c *Client) DeleteAllServicePerimeter(ctx context.Context, policy string, f
 }
 
 func (c *Client) ApplyServicePerimeter(ctx context.Context, rawDesired *ServicePerimeter, opts ...dcl.ApplyOption) (*ServicePerimeter, error) {
-
 	var resultNewState *ServicePerimeter
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyServicePerimeterHelper(c, ctx, rawDesired, opts...)

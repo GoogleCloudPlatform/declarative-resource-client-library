@@ -28,9 +28,6 @@ import (
 
 func (r *InstanceGroupManager) validate() error {
 
-	if err := dcl.Required(r, "baseInstanceName"); err != nil {
-		return err
-	}
 	if err := dcl.Required(r, "name"); err != nil {
 		return err
 	}
@@ -57,15 +54,17 @@ func (r *InstanceGroupManager) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.StatefulPolicy) {
+		if err := r.StatefulPolicy.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstanceGroupManagerDistributionPolicy) validate() error {
 	return nil
 }
 func (r *InstanceGroupManagerDistributionPolicyZones) validate() error {
-	return nil
-}
-func (r *InstanceGroupManagerCurrentActions) validate() error {
 	return nil
 }
 func (r *InstanceGroupManagerVersions) validate() error {
@@ -76,13 +75,10 @@ func (r *InstanceGroupManagerVersions) validate() error {
 	}
 	return nil
 }
-func (r *InstanceGroupManagerVersionsTargetSize) validate() error {
-	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"Fixed", "Percent"}, r.Fixed, r.Percent); err != nil {
-		return err
-	}
+func (r *InstanceGroupManagerFixedOrPercent) validate() error {
 	return nil
 }
-func (r *InstanceGroupManagerNamedPorts) validate() error {
+func (r *InstanceGroupManagerCurrentActions) validate() error {
 	return nil
 }
 func (r *InstanceGroupManagerStatus) validate() error {
@@ -91,9 +87,25 @@ func (r *InstanceGroupManagerStatus) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Stateful) {
+		if err := r.Stateful.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstanceGroupManagerStatusVersionTarget) validate() error {
+	return nil
+}
+func (r *InstanceGroupManagerStatusStateful) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.PerInstanceConfigs) {
+		if err := r.PerInstanceConfigs.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *InstanceGroupManagerStatusStatefulPerInstanceConfigs) validate() error {
 	return nil
 }
 func (r *InstanceGroupManagerAutoHealingPolicies) validate() error {
@@ -112,10 +124,21 @@ func (r *InstanceGroupManagerUpdatePolicy) validate() error {
 	}
 	return nil
 }
-func (r *InstanceGroupManagerUpdatePolicyMaxSurge) validate() error {
+func (r *InstanceGroupManagerNamedPorts) validate() error {
 	return nil
 }
-func (r *InstanceGroupManagerUpdatePolicyMaxUnavailable) validate() error {
+func (r *InstanceGroupManagerStatefulPolicy) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.PreservedState) {
+		if err := r.PreservedState.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *InstanceGroupManagerStatefulPolicyPreservedState) validate() error {
+	return nil
+}
+func (r *InstanceGroupManagerStatefulPolicyPreservedStateDisks) validate() error {
 	return nil
 }
 
@@ -195,15 +218,147 @@ type instanceGroupManagerApiOperation interface {
 	do(context.Context, *InstanceGroupManager, *Client) error
 }
 
+// newUpdateInstanceGroupManagerPatchRequest creates a request for an
+// InstanceGroupManager resource's Patch update type by filling in the update
+// fields based on the intended state of the resource.
+func newUpdateInstanceGroupManagerPatchRequest(ctx context.Context, f *InstanceGroupManager, c *Client) (map[string]interface{}, error) {
+	req := map[string]interface{}{}
+
+	if v, err := expandInstanceGroupManagerDistributionPolicy(c, f.DistributionPolicy); err != nil {
+		return nil, fmt.Errorf("error expanding DistributionPolicy into distributionPolicy: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["distributionPolicy"] = v
+	}
+	if v := f.InstanceTemplate; !dcl.IsEmptyValueIndirect(v) {
+		req["instanceTemplate"] = v
+	}
+	if v, err := expandInstanceGroupManagerVersionsSlice(c, f.Versions); err != nil {
+		return nil, fmt.Errorf("error expanding Versions into versions: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["versions"] = v
+	}
+	if v := f.TargetPools; !dcl.IsEmptyValueIndirect(v) {
+		req["targetPools"] = v
+	}
+	if v := f.BaseInstanceName; !dcl.IsEmptyValueIndirect(v) {
+		req["baseInstanceName"] = v
+	}
+	if v := f.Fingerprint; !dcl.IsEmptyValueIndirect(v) {
+		req["fingerprint"] = v
+	}
+	if v, err := expandInstanceGroupManagerStatus(c, f.Status); err != nil {
+		return nil, fmt.Errorf("error expanding Status into status: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["status"] = v
+	}
+	if v := f.TargetSize; !dcl.IsEmptyValueIndirect(v) {
+		req["targetSize"] = v
+	}
+	if v, err := expandInstanceGroupManagerAutoHealingPoliciesSlice(c, f.AutoHealingPolicies); err != nil {
+		return nil, fmt.Errorf("error expanding AutoHealingPolicies into autoHealingPolicies: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["autoHealingPolicies"] = v
+	}
+	if v, err := expandInstanceGroupManagerUpdatePolicy(c, f.UpdatePolicy); err != nil {
+		return nil, fmt.Errorf("error expanding UpdatePolicy into updatePolicy: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["updatePolicy"] = v
+	}
+	if v, err := expandInstanceGroupManagerStatefulPolicy(c, f.StatefulPolicy); err != nil {
+		return nil, fmt.Errorf("error expanding StatefulPolicy into statefulPolicy: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["statefulPolicy"] = v
+	}
+	if v := f.ServiceAccount; !dcl.IsEmptyValueIndirect(v) {
+		req["serviceAccount"] = v
+	}
+	if v := f.FailoverAction; !dcl.IsEmptyValueIndirect(v) {
+		req["failoverAction"] = v
+	}
+	b, err := c.getInstanceGroupManagerRaw(ctx, f.URLNormalized())
+	if err != nil {
+		return nil, err
+	}
+	var m map[string]interface{}
+	if err := json.Unmarshal(b, &m); err != nil {
+		return nil, err
+	}
+	rawFingerprint, err := dcl.GetMapEntry(
+		m,
+		[]string{"fingerprint"},
+	)
+	if err != nil {
+		c.Config.Logger.Warningf("Failed to fetch from JSON Path: %v", err)
+	} else {
+		req["fingerprint"] = rawFingerprint.(string)
+	}
+	return req, nil
+}
+
+// marshalUpdateInstanceGroupManagerPatchRequest converts the update into
+// the final JSON request body.
+func marshalUpdateInstanceGroupManagerPatchRequest(c *Client, m map[string]interface{}) ([]byte, error) {
+
+	return json.Marshal(m)
+}
+
+type updateInstanceGroupManagerPatchOperation struct {
+	// If the update operation has the REQUIRES_APPLY_OPTIONS trait, this will be populated.
+	// Usually it will be nil - this is to prevent us from accidentally depending on apply
+	// options, which should usually be unnecessary.
+	ApplyOptions []dcl.ApplyOption
+	FieldDiffs   []*dcl.FieldDiff
+}
+
+// do creates a request and sends it to the appropriate URL. In most operations,
+// do will transcribe a subset of the resource into a request object and send a
+// PUT request to a single URL.
+
+func (op *updateInstanceGroupManagerPatchOperation) do(ctx context.Context, r *InstanceGroupManager, c *Client) error {
+	_, err := c.GetInstanceGroupManager(ctx, r.URLNormalized())
+	if err != nil {
+		return err
+	}
+
+	u, err := r.updateURL(c.Config.BasePath, "Patch")
+	if err != nil {
+		return err
+	}
+
+	req, err := newUpdateInstanceGroupManagerPatchRequest(ctx, r, c)
+	if err != nil {
+		return err
+	}
+
+	c.Config.Logger.Infof("Created update: %#v", req)
+	body, err := marshalUpdateInstanceGroupManagerPatchRequest(c, req)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	var o operations.ComputeOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
+	}
+	err = o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/beta/", "GET")
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // newUpdateInstanceGroupManagerSetInstanceTemplateRequest creates a request for an
 // InstanceGroupManager resource's setInstanceTemplate update type by filling in the update
 // fields based on the intended state of the resource.
 func newUpdateInstanceGroupManagerSetInstanceTemplateRequest(ctx context.Context, f *InstanceGroupManager, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	if v := f.InstanceTemplate; !dcl.IsEmptyValueIndirect(v) {
-		req["instanceTemplate"] = v
-	}
 	return req, nil
 }
 
@@ -271,9 +426,6 @@ func (op *updateInstanceGroupManagerSetInstanceTemplateOperation) do(ctx context
 func newUpdateInstanceGroupManagerSetTargetPoolsRequest(ctx context.Context, f *InstanceGroupManager, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	if v := f.TargetPools; !dcl.IsEmptyValueIndirect(v) {
-		req["targetPools"] = v
-	}
 	return req, nil
 }
 
@@ -599,45 +751,51 @@ func canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial *Instan
 		rawDesired.CurrentActions = canonicalizeInstanceGroupManagerCurrentActions(rawDesired.CurrentActions, nil, opts...)
 		rawDesired.Status = canonicalizeInstanceGroupManagerStatus(rawDesired.Status, nil, opts...)
 		rawDesired.UpdatePolicy = canonicalizeInstanceGroupManagerUpdatePolicy(rawDesired.UpdatePolicy, nil, opts...)
+		rawDesired.StatefulPolicy = canonicalizeInstanceGroupManagerStatefulPolicy(rawDesired.StatefulPolicy, nil, opts...)
 
 		return rawDesired, nil
 	}
 	canonicalDesired := &InstanceGroupManager{}
-	if dcl.StringCanonicalize(rawDesired.BaseInstanceName, rawInitial.BaseInstanceName) {
-		canonicalDesired.BaseInstanceName = rawInitial.BaseInstanceName
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
+		canonicalDesired.Name = rawInitial.Name
 	} else {
-		canonicalDesired.BaseInstanceName = rawDesired.BaseInstanceName
+		canonicalDesired.Name = rawDesired.Name
 	}
-	canonicalDesired.DistributionPolicy = canonicalizeInstanceGroupManagerDistributionPolicy(rawDesired.DistributionPolicy, rawInitial.DistributionPolicy, opts...)
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		canonicalDesired.Description = rawInitial.Description
 	} else {
 		canonicalDesired.Description = rawDesired.Description
+	}
+	canonicalDesired.DistributionPolicy = canonicalizeInstanceGroupManagerDistributionPolicy(rawDesired.DistributionPolicy, rawInitial.DistributionPolicy, opts...)
+	if dcl.StringCanonicalize(rawDesired.InstanceTemplate, rawInitial.InstanceTemplate) {
+		canonicalDesired.InstanceTemplate = rawInitial.InstanceTemplate
+	} else {
+		canonicalDesired.InstanceTemplate = rawDesired.InstanceTemplate
 	}
 	if dcl.IsZeroValue(rawDesired.Versions) {
 		canonicalDesired.Versions = rawInitial.Versions
 	} else {
 		canonicalDesired.Versions = rawDesired.Versions
 	}
-	if dcl.NameToSelfLink(rawDesired.InstanceTemplate, rawInitial.InstanceTemplate) {
-		canonicalDesired.InstanceTemplate = rawInitial.InstanceTemplate
-	} else {
-		canonicalDesired.InstanceTemplate = rawDesired.InstanceTemplate
-	}
-	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		canonicalDesired.Name = rawInitial.Name
-	} else {
-		canonicalDesired.Name = rawDesired.Name
-	}
-	if dcl.IsZeroValue(rawDesired.NamedPorts) {
-		canonicalDesired.NamedPorts = rawInitial.NamedPorts
-	} else {
-		canonicalDesired.NamedPorts = rawDesired.NamedPorts
-	}
 	if dcl.IsZeroValue(rawDesired.TargetPools) {
 		canonicalDesired.TargetPools = rawInitial.TargetPools
 	} else {
 		canonicalDesired.TargetPools = rawDesired.TargetPools
+	}
+	if dcl.StringCanonicalize(rawDesired.BaseInstanceName, rawInitial.BaseInstanceName) {
+		canonicalDesired.BaseInstanceName = rawInitial.BaseInstanceName
+	} else {
+		canonicalDesired.BaseInstanceName = rawDesired.BaseInstanceName
+	}
+	if dcl.StringCanonicalize(rawDesired.Fingerprint, rawInitial.Fingerprint) {
+		canonicalDesired.Fingerprint = rawInitial.Fingerprint
+	} else {
+		canonicalDesired.Fingerprint = rawDesired.Fingerprint
+	}
+	if dcl.IsZeroValue(rawDesired.TargetSize) {
+		canonicalDesired.TargetSize = rawInitial.TargetSize
+	} else {
+		canonicalDesired.TargetSize = rawDesired.TargetSize
 	}
 	if dcl.IsZeroValue(rawDesired.AutoHealingPolicies) {
 		canonicalDesired.AutoHealingPolicies = rawInitial.AutoHealingPolicies
@@ -645,10 +803,21 @@ func canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial *Instan
 		canonicalDesired.AutoHealingPolicies = rawDesired.AutoHealingPolicies
 	}
 	canonicalDesired.UpdatePolicy = canonicalizeInstanceGroupManagerUpdatePolicy(rawDesired.UpdatePolicy, rawInitial.UpdatePolicy, opts...)
-	if dcl.IsZeroValue(rawDesired.TargetSize) {
-		canonicalDesired.TargetSize = rawInitial.TargetSize
+	if dcl.IsZeroValue(rawDesired.NamedPorts) {
+		canonicalDesired.NamedPorts = rawInitial.NamedPorts
 	} else {
-		canonicalDesired.TargetSize = rawDesired.TargetSize
+		canonicalDesired.NamedPorts = rawDesired.NamedPorts
+	}
+	canonicalDesired.StatefulPolicy = canonicalizeInstanceGroupManagerStatefulPolicy(rawDesired.StatefulPolicy, rawInitial.StatefulPolicy, opts...)
+	if dcl.StringCanonicalize(rawDesired.ServiceAccount, rawInitial.ServiceAccount) {
+		canonicalDesired.ServiceAccount = rawInitial.ServiceAccount
+	} else {
+		canonicalDesired.ServiceAccount = rawDesired.ServiceAccount
+	}
+	if dcl.IsZeroValue(rawDesired.FailoverAction) {
+		canonicalDesired.FailoverAction = rawInitial.FailoverAction
+	} else {
+		canonicalDesired.FailoverAction = rawDesired.FailoverAction
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		canonicalDesired.Project = rawInitial.Project
@@ -666,63 +835,16 @@ func canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial *Instan
 
 func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *InstanceGroupManager) (*InstanceGroupManager, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.BaseInstanceName) && dcl.IsEmptyValueIndirect(rawDesired.BaseInstanceName) {
-		rawNew.BaseInstanceName = rawDesired.BaseInstanceName
-	} else {
-		if dcl.StringCanonicalize(rawDesired.BaseInstanceName, rawNew.BaseInstanceName) {
-			rawNew.BaseInstanceName = rawDesired.BaseInstanceName
-		}
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.CreationTimestamp) && dcl.IsEmptyValueIndirect(rawDesired.CreationTimestamp) {
-		rawNew.CreationTimestamp = rawDesired.CreationTimestamp
-	} else {
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.DistributionPolicy) && dcl.IsEmptyValueIndirect(rawDesired.DistributionPolicy) {
-		rawNew.DistributionPolicy = rawDesired.DistributionPolicy
-	} else {
-		rawNew.DistributionPolicy = canonicalizeNewInstanceGroupManagerDistributionPolicy(c, rawDesired.DistributionPolicy, rawNew.DistributionPolicy)
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.CurrentActions) && dcl.IsEmptyValueIndirect(rawDesired.CurrentActions) {
-		rawNew.CurrentActions = rawDesired.CurrentActions
-	} else {
-		rawNew.CurrentActions = canonicalizeNewInstanceGroupManagerCurrentActions(c, rawDesired.CurrentActions, rawNew.CurrentActions)
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
-	} else {
-		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
-			rawNew.Description = rawDesired.Description
-		}
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.Versions) && dcl.IsEmptyValueIndirect(rawDesired.Versions) {
-		rawNew.Versions = rawDesired.Versions
-	} else {
-		rawNew.Versions = canonicalizeNewInstanceGroupManagerVersionsSlice(c, rawDesired.Versions, rawNew.Versions)
-	}
-
 	if dcl.IsEmptyValueIndirect(rawNew.Id) && dcl.IsEmptyValueIndirect(rawDesired.Id) {
 		rawNew.Id = rawDesired.Id
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.InstanceGroup) && dcl.IsEmptyValueIndirect(rawDesired.InstanceGroup) {
-		rawNew.InstanceGroup = rawDesired.InstanceGroup
+	if dcl.IsEmptyValueIndirect(rawNew.CreationTimestamp) && dcl.IsEmptyValueIndirect(rawDesired.CreationTimestamp) {
+		rawNew.CreationTimestamp = rawDesired.CreationTimestamp
 	} else {
-		if dcl.NameToSelfLink(rawDesired.InstanceGroup, rawNew.InstanceGroup) {
-			rawNew.InstanceGroup = rawDesired.InstanceGroup
-		}
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.InstanceTemplate) && dcl.IsEmptyValueIndirect(rawDesired.InstanceTemplate) {
-		rawNew.InstanceTemplate = rawDesired.InstanceTemplate
-	} else {
-		if dcl.NameToSelfLink(rawDesired.InstanceTemplate, rawNew.InstanceTemplate) {
-			rawNew.InstanceTemplate = rawDesired.InstanceTemplate
+		if dcl.StringCanonicalize(rawDesired.CreationTimestamp, rawNew.CreationTimestamp) {
+			rawNew.CreationTimestamp = rawDesired.CreationTimestamp
 		}
 	}
 
@@ -734,38 +856,12 @@ func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *Ins
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.NamedPorts) && dcl.IsEmptyValueIndirect(rawDesired.NamedPorts) {
-		rawNew.NamedPorts = rawDesired.NamedPorts
+	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
+		rawNew.Description = rawDesired.Description
 	} else {
-		rawNew.NamedPorts = canonicalizeNewInstanceGroupManagerNamedPortsSlice(c, rawDesired.NamedPorts, rawNew.NamedPorts)
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.Status) && dcl.IsEmptyValueIndirect(rawDesired.Status) {
-		rawNew.Status = rawDesired.Status
-	} else {
-		rawNew.Status = canonicalizeNewInstanceGroupManagerStatus(c, rawDesired.Status, rawNew.Status)
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.TargetPools) && dcl.IsEmptyValueIndirect(rawDesired.TargetPools) {
-		rawNew.TargetPools = rawDesired.TargetPools
-	} else {
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.AutoHealingPolicies) && dcl.IsEmptyValueIndirect(rawDesired.AutoHealingPolicies) {
-		rawNew.AutoHealingPolicies = rawDesired.AutoHealingPolicies
-	} else {
-		rawNew.AutoHealingPolicies = canonicalizeNewInstanceGroupManagerAutoHealingPoliciesSlice(c, rawDesired.AutoHealingPolicies, rawNew.AutoHealingPolicies)
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.UpdatePolicy) && dcl.IsEmptyValueIndirect(rawDesired.UpdatePolicy) {
-		rawNew.UpdatePolicy = rawDesired.UpdatePolicy
-	} else {
-		rawNew.UpdatePolicy = canonicalizeNewInstanceGroupManagerUpdatePolicy(c, rawDesired.UpdatePolicy, rawNew.UpdatePolicy)
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.TargetSize) && dcl.IsEmptyValueIndirect(rawDesired.TargetSize) {
-		rawNew.TargetSize = rawDesired.TargetSize
-	} else {
+		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
+			rawNew.Description = rawDesired.Description
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Zone) && dcl.IsEmptyValueIndirect(rawDesired.Zone) {
@@ -782,6 +878,117 @@ func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *Ins
 		if dcl.StringCanonicalize(rawDesired.Region, rawNew.Region) {
 			rawNew.Region = rawDesired.Region
 		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.DistributionPolicy) && dcl.IsEmptyValueIndirect(rawDesired.DistributionPolicy) {
+		rawNew.DistributionPolicy = rawDesired.DistributionPolicy
+	} else {
+		rawNew.DistributionPolicy = canonicalizeNewInstanceGroupManagerDistributionPolicy(c, rawDesired.DistributionPolicy, rawNew.DistributionPolicy)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.InstanceTemplate) && dcl.IsEmptyValueIndirect(rawDesired.InstanceTemplate) {
+		rawNew.InstanceTemplate = rawDesired.InstanceTemplate
+	} else {
+		if dcl.StringCanonicalize(rawDesired.InstanceTemplate, rawNew.InstanceTemplate) {
+			rawNew.InstanceTemplate = rawDesired.InstanceTemplate
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Versions) && dcl.IsEmptyValueIndirect(rawDesired.Versions) {
+		rawNew.Versions = rawDesired.Versions
+	} else {
+		rawNew.Versions = canonicalizeNewInstanceGroupManagerVersionsSlice(c, rawDesired.Versions, rawNew.Versions)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.InstanceGroup) && dcl.IsEmptyValueIndirect(rawDesired.InstanceGroup) {
+		rawNew.InstanceGroup = rawDesired.InstanceGroup
+	} else {
+		if dcl.StringCanonicalize(rawDesired.InstanceGroup, rawNew.InstanceGroup) {
+			rawNew.InstanceGroup = rawDesired.InstanceGroup
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.TargetPools) && dcl.IsEmptyValueIndirect(rawDesired.TargetPools) {
+		rawNew.TargetPools = rawDesired.TargetPools
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.BaseInstanceName) && dcl.IsEmptyValueIndirect(rawDesired.BaseInstanceName) {
+		rawNew.BaseInstanceName = rawDesired.BaseInstanceName
+	} else {
+		if dcl.StringCanonicalize(rawDesired.BaseInstanceName, rawNew.BaseInstanceName) {
+			rawNew.BaseInstanceName = rawDesired.BaseInstanceName
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Fingerprint) && dcl.IsEmptyValueIndirect(rawDesired.Fingerprint) {
+		rawNew.Fingerprint = rawDesired.Fingerprint
+	} else {
+		if dcl.StringCanonicalize(rawDesired.Fingerprint, rawNew.Fingerprint) {
+			rawNew.Fingerprint = rawDesired.Fingerprint
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.CurrentActions) && dcl.IsEmptyValueIndirect(rawDesired.CurrentActions) {
+		rawNew.CurrentActions = rawDesired.CurrentActions
+	} else {
+		rawNew.CurrentActions = canonicalizeNewInstanceGroupManagerCurrentActions(c, rawDesired.CurrentActions, rawNew.CurrentActions)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Status) && dcl.IsEmptyValueIndirect(rawDesired.Status) {
+		rawNew.Status = rawDesired.Status
+	} else {
+		rawNew.Status = canonicalizeNewInstanceGroupManagerStatus(c, rawDesired.Status, rawNew.Status)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.TargetSize) && dcl.IsEmptyValueIndirect(rawDesired.TargetSize) {
+		rawNew.TargetSize = rawDesired.TargetSize
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
+		rawNew.SelfLink = rawDesired.SelfLink
+	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.AutoHealingPolicies) && dcl.IsEmptyValueIndirect(rawDesired.AutoHealingPolicies) {
+		rawNew.AutoHealingPolicies = rawDesired.AutoHealingPolicies
+	} else {
+		rawNew.AutoHealingPolicies = canonicalizeNewInstanceGroupManagerAutoHealingPoliciesSlice(c, rawDesired.AutoHealingPolicies, rawNew.AutoHealingPolicies)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.UpdatePolicy) && dcl.IsEmptyValueIndirect(rawDesired.UpdatePolicy) {
+		rawNew.UpdatePolicy = rawDesired.UpdatePolicy
+	} else {
+		rawNew.UpdatePolicy = canonicalizeNewInstanceGroupManagerUpdatePolicy(c, rawDesired.UpdatePolicy, rawNew.UpdatePolicy)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.NamedPorts) && dcl.IsEmptyValueIndirect(rawDesired.NamedPorts) {
+		rawNew.NamedPorts = rawDesired.NamedPorts
+	} else {
+		rawNew.NamedPorts = canonicalizeNewInstanceGroupManagerNamedPortsSlice(c, rawDesired.NamedPorts, rawNew.NamedPorts)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.StatefulPolicy) && dcl.IsEmptyValueIndirect(rawDesired.StatefulPolicy) {
+		rawNew.StatefulPolicy = rawDesired.StatefulPolicy
+	} else {
+		rawNew.StatefulPolicy = canonicalizeNewInstanceGroupManagerStatefulPolicy(c, rawDesired.StatefulPolicy, rawNew.StatefulPolicy)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.ServiceAccount) && dcl.IsEmptyValueIndirect(rawDesired.ServiceAccount) {
+		rawNew.ServiceAccount = rawDesired.ServiceAccount
+	} else {
+		if dcl.StringCanonicalize(rawDesired.ServiceAccount, rawNew.ServiceAccount) {
+			rawNew.ServiceAccount = rawDesired.ServiceAccount
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.FailoverAction) && dcl.IsEmptyValueIndirect(rawDesired.FailoverAction) {
+		rawNew.FailoverAction = rawDesired.FailoverAction
+	} else {
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -810,6 +1017,11 @@ func canonicalizeInstanceGroupManagerDistributionPolicy(des, initial *InstanceGr
 	} else {
 		cDes.Zones = des.Zones
 	}
+	if dcl.IsZeroValue(des.TargetShape) {
+		des.TargetShape = initial.TargetShape
+	} else {
+		cDes.TargetShape = des.TargetShape
+	}
 
 	return cDes
 }
@@ -820,6 +1032,9 @@ func canonicalizeNewInstanceGroupManagerDistributionPolicy(c *Client, des, nw *I
 	}
 
 	nw.Zones = canonicalizeNewInstanceGroupManagerDistributionPolicyZonesSlice(c, des.Zones, nw.Zones)
+	if dcl.IsZeroValue(nw.TargetShape) {
+		nw.TargetShape = des.TargetShape
+	}
 
 	return nw
 }
@@ -945,6 +1160,183 @@ func canonicalizeNewInstanceGroupManagerDistributionPolicyZonesSlice(c *Client, 
 	return items
 }
 
+func canonicalizeInstanceGroupManagerVersions(des, initial *InstanceGroupManagerVersions, opts ...dcl.ApplyOption) *InstanceGroupManagerVersions {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceGroupManagerVersions{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.InstanceTemplate, initial.InstanceTemplate) || dcl.IsZeroValue(des.InstanceTemplate) {
+		cDes.InstanceTemplate = initial.InstanceTemplate
+	} else {
+		cDes.InstanceTemplate = des.InstanceTemplate
+	}
+	cDes.TargetSize = canonicalizeInstanceGroupManagerFixedOrPercent(des.TargetSize, initial.TargetSize, opts...)
+
+	return cDes
+}
+
+func canonicalizeNewInstanceGroupManagerVersions(c *Client, des, nw *InstanceGroupManagerVersions) *InstanceGroupManagerVersions {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.InstanceTemplate, nw.InstanceTemplate) {
+		nw.InstanceTemplate = des.InstanceTemplate
+	}
+	nw.TargetSize = canonicalizeNewInstanceGroupManagerFixedOrPercent(c, des.TargetSize, nw.TargetSize)
+
+	return nw
+}
+
+func canonicalizeNewInstanceGroupManagerVersionsSet(c *Client, des, nw []InstanceGroupManagerVersions) []InstanceGroupManagerVersions {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceGroupManagerVersions
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceGroupManagerVersionsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceGroupManagerVersionsSlice(c *Client, des, nw []InstanceGroupManagerVersions) []InstanceGroupManagerVersions {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceGroupManagerVersions
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerVersions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceGroupManagerFixedOrPercent(des, initial *InstanceGroupManagerFixedOrPercent, opts ...dcl.ApplyOption) *InstanceGroupManagerFixedOrPercent {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceGroupManagerFixedOrPercent{}
+
+	if dcl.IsZeroValue(des.Fixed) {
+		des.Fixed = initial.Fixed
+	} else {
+		cDes.Fixed = des.Fixed
+	}
+	if dcl.IsZeroValue(des.Percent) {
+		des.Percent = initial.Percent
+	} else {
+		cDes.Percent = des.Percent
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstanceGroupManagerFixedOrPercent(c *Client, des, nw *InstanceGroupManagerFixedOrPercent) *InstanceGroupManagerFixedOrPercent {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	if dcl.IsZeroValue(nw.Fixed) {
+		nw.Fixed = des.Fixed
+	}
+	if dcl.IsZeroValue(nw.Percent) {
+		nw.Percent = des.Percent
+	}
+	if dcl.IsZeroValue(nw.Calculated) {
+		nw.Calculated = des.Calculated
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceGroupManagerFixedOrPercentSet(c *Client, des, nw []InstanceGroupManagerFixedOrPercent) []InstanceGroupManagerFixedOrPercent {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceGroupManagerFixedOrPercent
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceGroupManagerFixedOrPercentNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceGroupManagerFixedOrPercentSlice(c *Client, des, nw []InstanceGroupManagerFixedOrPercent) []InstanceGroupManagerFixedOrPercent {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceGroupManagerFixedOrPercent
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerFixedOrPercent(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeInstanceGroupManagerCurrentActions(des, initial *InstanceGroupManagerCurrentActions, opts ...dcl.ApplyOption) *InstanceGroupManagerCurrentActions {
 	if des == nil {
 		return initial
@@ -967,8 +1359,8 @@ func canonicalizeNewInstanceGroupManagerCurrentActions(c *Client, des, nw *Insta
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Abandoning) {
-		nw.Abandoning = des.Abandoning
+	if dcl.IsZeroValue(nw.None) {
+		nw.None = des.None
 	}
 	if dcl.IsZeroValue(nw.Creating) {
 		nw.Creating = des.Creating
@@ -976,20 +1368,23 @@ func canonicalizeNewInstanceGroupManagerCurrentActions(c *Client, des, nw *Insta
 	if dcl.IsZeroValue(nw.CreatingWithoutRetries) {
 		nw.CreatingWithoutRetries = des.CreatingWithoutRetries
 	}
-	if dcl.IsZeroValue(nw.Deleting) {
-		nw.Deleting = des.Deleting
-	}
-	if dcl.IsZeroValue(nw.None) {
-		nw.None = des.None
+	if dcl.IsZeroValue(nw.Verifying) {
+		nw.Verifying = des.Verifying
 	}
 	if dcl.IsZeroValue(nw.Recreating) {
 		nw.Recreating = des.Recreating
 	}
-	if dcl.IsZeroValue(nw.Refreshing) {
-		nw.Refreshing = des.Refreshing
+	if dcl.IsZeroValue(nw.Deleting) {
+		nw.Deleting = des.Deleting
+	}
+	if dcl.IsZeroValue(nw.Abandoning) {
+		nw.Abandoning = des.Abandoning
 	}
 	if dcl.IsZeroValue(nw.Restarting) {
 		nw.Restarting = des.Restarting
+	}
+	if dcl.IsZeroValue(nw.Refreshing) {
+		nw.Refreshing = des.Refreshing
 	}
 
 	return nw
@@ -1038,7 +1433,7 @@ func canonicalizeNewInstanceGroupManagerCurrentActionsSlice(c *Client, des, nw [
 	return items
 }
 
-func canonicalizeInstanceGroupManagerVersions(des, initial *InstanceGroupManagerVersions, opts ...dcl.ApplyOption) *InstanceGroupManagerVersions {
+func canonicalizeInstanceGroupManagerStatus(des, initial *InstanceGroupManagerStatus, opts ...dcl.ApplyOption) *InstanceGroupManagerStatus {
 	if des == nil {
 		return initial
 	}
@@ -1050,48 +1445,37 @@ func canonicalizeInstanceGroupManagerVersions(des, initial *InstanceGroupManager
 		return des
 	}
 
-	cDes := &InstanceGroupManagerVersions{}
-
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		cDes.Name = initial.Name
-	} else {
-		cDes.Name = des.Name
-	}
-	if dcl.NameToSelfLink(des.InstanceTemplate, initial.InstanceTemplate) || dcl.IsZeroValue(des.InstanceTemplate) {
-		cDes.InstanceTemplate = initial.InstanceTemplate
-	} else {
-		cDes.InstanceTemplate = des.InstanceTemplate
-	}
-	cDes.TargetSize = canonicalizeInstanceGroupManagerVersionsTargetSize(des.TargetSize, initial.TargetSize, opts...)
+	cDes := &InstanceGroupManagerStatus{}
 
 	return cDes
 }
 
-func canonicalizeNewInstanceGroupManagerVersions(c *Client, des, nw *InstanceGroupManagerVersions) *InstanceGroupManagerVersions {
+func canonicalizeNewInstanceGroupManagerStatus(c *Client, des, nw *InstanceGroupManagerStatus) *InstanceGroupManagerStatus {
 	if des == nil || nw == nil {
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) {
-		nw.Name = des.Name
+	if dcl.BoolCanonicalize(des.IsStable, nw.IsStable) {
+		nw.IsStable = des.IsStable
 	}
-	if dcl.NameToSelfLink(des.InstanceTemplate, nw.InstanceTemplate) {
-		nw.InstanceTemplate = des.InstanceTemplate
+	nw.VersionTarget = canonicalizeNewInstanceGroupManagerStatusVersionTarget(c, des.VersionTarget, nw.VersionTarget)
+	nw.Stateful = canonicalizeNewInstanceGroupManagerStatusStateful(c, des.Stateful, nw.Stateful)
+	if dcl.StringCanonicalize(des.Autoscaler, nw.Autoscaler) {
+		nw.Autoscaler = des.Autoscaler
 	}
-	nw.TargetSize = canonicalizeNewInstanceGroupManagerVersionsTargetSize(c, des.TargetSize, nw.TargetSize)
 
 	return nw
 }
 
-func canonicalizeNewInstanceGroupManagerVersionsSet(c *Client, des, nw []InstanceGroupManagerVersions) []InstanceGroupManagerVersions {
+func canonicalizeNewInstanceGroupManagerStatusSet(c *Client, des, nw []InstanceGroupManagerStatus) []InstanceGroupManagerStatus {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []InstanceGroupManagerVersions
+	var reorderedNew []InstanceGroupManagerStatus
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareInstanceGroupManagerVersionsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareInstanceGroupManagerStatusNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1106,7 +1490,7 @@ func canonicalizeNewInstanceGroupManagerVersionsSet(c *Client, des, nw []Instanc
 	return reorderedNew
 }
 
-func canonicalizeNewInstanceGroupManagerVersionsSlice(c *Client, des, nw []InstanceGroupManagerVersions) []InstanceGroupManagerVersions {
+func canonicalizeNewInstanceGroupManagerStatusSlice(c *Client, des, nw []InstanceGroupManagerStatus) []InstanceGroupManagerStatus {
 	if des == nil {
 		return nw
 	}
@@ -1117,16 +1501,16 @@ func canonicalizeNewInstanceGroupManagerVersionsSlice(c *Client, des, nw []Insta
 		return nw
 	}
 
-	var items []InstanceGroupManagerVersions
+	var items []InstanceGroupManagerStatus
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceGroupManagerVersions(c, &d, &n))
+		items = append(items, *canonicalizeNewInstanceGroupManagerStatus(c, &d, &n))
 	}
 
 	return items
 }
 
-func canonicalizeInstanceGroupManagerVersionsTargetSize(des, initial *InstanceGroupManagerVersionsTargetSize, opts ...dcl.ApplyOption) *InstanceGroupManagerVersionsTargetSize {
+func canonicalizeInstanceGroupManagerStatusVersionTarget(des, initial *InstanceGroupManagerStatusVersionTarget, opts ...dcl.ApplyOption) *InstanceGroupManagerStatusVersionTarget {
 	if des == nil {
 		return initial
 	}
@@ -1138,49 +1522,32 @@ func canonicalizeInstanceGroupManagerVersionsTargetSize(des, initial *InstanceGr
 		return des
 	}
 
-	cDes := &InstanceGroupManagerVersionsTargetSize{}
-
-	if dcl.IsZeroValue(des.Fixed) {
-		des.Fixed = initial.Fixed
-	} else {
-		cDes.Fixed = des.Fixed
-	}
-	if dcl.IsZeroValue(des.Percent) {
-		des.Percent = initial.Percent
-	} else {
-		cDes.Percent = des.Percent
-	}
+	cDes := &InstanceGroupManagerStatusVersionTarget{}
 
 	return cDes
 }
 
-func canonicalizeNewInstanceGroupManagerVersionsTargetSize(c *Client, des, nw *InstanceGroupManagerVersionsTargetSize) *InstanceGroupManagerVersionsTargetSize {
+func canonicalizeNewInstanceGroupManagerStatusVersionTarget(c *Client, des, nw *InstanceGroupManagerStatusVersionTarget) *InstanceGroupManagerStatusVersionTarget {
 	if des == nil || nw == nil {
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Fixed) {
-		nw.Fixed = des.Fixed
-	}
-	if dcl.IsZeroValue(nw.Percent) {
-		nw.Percent = des.Percent
-	}
-	if dcl.IsZeroValue(nw.Calculated) {
-		nw.Calculated = des.Calculated
+	if dcl.BoolCanonicalize(des.IsReached, nw.IsReached) {
+		nw.IsReached = des.IsReached
 	}
 
 	return nw
 }
 
-func canonicalizeNewInstanceGroupManagerVersionsTargetSizeSet(c *Client, des, nw []InstanceGroupManagerVersionsTargetSize) []InstanceGroupManagerVersionsTargetSize {
+func canonicalizeNewInstanceGroupManagerStatusVersionTargetSet(c *Client, des, nw []InstanceGroupManagerStatusVersionTarget) []InstanceGroupManagerStatusVersionTarget {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []InstanceGroupManagerVersionsTargetSize
+	var reorderedNew []InstanceGroupManagerStatusVersionTarget
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareInstanceGroupManagerVersionsTargetSizeNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareInstanceGroupManagerStatusVersionTargetNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1195,7 +1562,7 @@ func canonicalizeNewInstanceGroupManagerVersionsTargetSizeSet(c *Client, des, nw
 	return reorderedNew
 }
 
-func canonicalizeNewInstanceGroupManagerVersionsTargetSizeSlice(c *Client, des, nw []InstanceGroupManagerVersionsTargetSize) []InstanceGroupManagerVersionsTargetSize {
+func canonicalizeNewInstanceGroupManagerStatusVersionTargetSlice(c *Client, des, nw []InstanceGroupManagerStatusVersionTarget) []InstanceGroupManagerStatusVersionTarget {
 	if des == nil {
 		return nw
 	}
@@ -1206,10 +1573,372 @@ func canonicalizeNewInstanceGroupManagerVersionsTargetSizeSlice(c *Client, des, 
 		return nw
 	}
 
-	var items []InstanceGroupManagerVersionsTargetSize
+	var items []InstanceGroupManagerStatusVersionTarget
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceGroupManagerVersionsTargetSize(c, &d, &n))
+		items = append(items, *canonicalizeNewInstanceGroupManagerStatusVersionTarget(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceGroupManagerStatusStateful(des, initial *InstanceGroupManagerStatusStateful, opts ...dcl.ApplyOption) *InstanceGroupManagerStatusStateful {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceGroupManagerStatusStateful{}
+
+	return cDes
+}
+
+func canonicalizeNewInstanceGroupManagerStatusStateful(c *Client, des, nw *InstanceGroupManagerStatusStateful) *InstanceGroupManagerStatusStateful {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.HasStatefulConfig, nw.HasStatefulConfig) {
+		nw.HasStatefulConfig = des.HasStatefulConfig
+	}
+	nw.PerInstanceConfigs = canonicalizeNewInstanceGroupManagerStatusStatefulPerInstanceConfigs(c, des.PerInstanceConfigs, nw.PerInstanceConfigs)
+	if dcl.BoolCanonicalize(des.IsStateful, nw.IsStateful) {
+		nw.IsStateful = des.IsStateful
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceGroupManagerStatusStatefulSet(c *Client, des, nw []InstanceGroupManagerStatusStateful) []InstanceGroupManagerStatusStateful {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceGroupManagerStatusStateful
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceGroupManagerStatusStatefulNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceGroupManagerStatusStatefulSlice(c *Client, des, nw []InstanceGroupManagerStatusStateful) []InstanceGroupManagerStatusStateful {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceGroupManagerStatusStateful
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerStatusStateful(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceGroupManagerStatusStatefulPerInstanceConfigs(des, initial *InstanceGroupManagerStatusStatefulPerInstanceConfigs, opts ...dcl.ApplyOption) *InstanceGroupManagerStatusStatefulPerInstanceConfigs {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceGroupManagerStatusStatefulPerInstanceConfigs{}
+
+	if dcl.BoolCanonicalize(des.AllEffective, initial.AllEffective) || dcl.IsZeroValue(des.AllEffective) {
+		cDes.AllEffective = initial.AllEffective
+	} else {
+		cDes.AllEffective = des.AllEffective
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstanceGroupManagerStatusStatefulPerInstanceConfigs(c *Client, des, nw *InstanceGroupManagerStatusStatefulPerInstanceConfigs) *InstanceGroupManagerStatusStatefulPerInstanceConfigs {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.AllEffective, nw.AllEffective) {
+		nw.AllEffective = des.AllEffective
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceGroupManagerStatusStatefulPerInstanceConfigsSet(c *Client, des, nw []InstanceGroupManagerStatusStatefulPerInstanceConfigs) []InstanceGroupManagerStatusStatefulPerInstanceConfigs {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceGroupManagerStatusStatefulPerInstanceConfigs
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceGroupManagerStatusStatefulPerInstanceConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceGroupManagerStatusStatefulPerInstanceConfigsSlice(c *Client, des, nw []InstanceGroupManagerStatusStatefulPerInstanceConfigs) []InstanceGroupManagerStatusStatefulPerInstanceConfigs {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceGroupManagerStatusStatefulPerInstanceConfigs
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerStatusStatefulPerInstanceConfigs(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceGroupManagerAutoHealingPolicies(des, initial *InstanceGroupManagerAutoHealingPolicies, opts ...dcl.ApplyOption) *InstanceGroupManagerAutoHealingPolicies {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceGroupManagerAutoHealingPolicies{}
+
+	if dcl.StringCanonicalize(des.HealthCheck, initial.HealthCheck) || dcl.IsZeroValue(des.HealthCheck) {
+		cDes.HealthCheck = initial.HealthCheck
+	} else {
+		cDes.HealthCheck = des.HealthCheck
+	}
+	if dcl.IsZeroValue(des.InitialDelaySec) {
+		des.InitialDelaySec = initial.InitialDelaySec
+	} else {
+		cDes.InitialDelaySec = des.InitialDelaySec
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstanceGroupManagerAutoHealingPolicies(c *Client, des, nw *InstanceGroupManagerAutoHealingPolicies) *InstanceGroupManagerAutoHealingPolicies {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	if dcl.StringCanonicalize(des.HealthCheck, nw.HealthCheck) {
+		nw.HealthCheck = des.HealthCheck
+	}
+	if dcl.IsZeroValue(nw.InitialDelaySec) {
+		nw.InitialDelaySec = des.InitialDelaySec
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceGroupManagerAutoHealingPoliciesSet(c *Client, des, nw []InstanceGroupManagerAutoHealingPolicies) []InstanceGroupManagerAutoHealingPolicies {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceGroupManagerAutoHealingPolicies
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceGroupManagerAutoHealingPoliciesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceGroupManagerAutoHealingPoliciesSlice(c *Client, des, nw []InstanceGroupManagerAutoHealingPolicies) []InstanceGroupManagerAutoHealingPolicies {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceGroupManagerAutoHealingPolicies
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerAutoHealingPolicies(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceGroupManagerUpdatePolicy(des, initial *InstanceGroupManagerUpdatePolicy, opts ...dcl.ApplyOption) *InstanceGroupManagerUpdatePolicy {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceGroupManagerUpdatePolicy{}
+
+	if dcl.IsZeroValue(des.Type) {
+		des.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.IsZeroValue(des.InstanceRedistributionType) {
+		des.InstanceRedistributionType = initial.InstanceRedistributionType
+	} else {
+		cDes.InstanceRedistributionType = des.InstanceRedistributionType
+	}
+	if dcl.IsZeroValue(des.MinimalAction) {
+		des.MinimalAction = initial.MinimalAction
+	} else {
+		cDes.MinimalAction = des.MinimalAction
+	}
+	cDes.MaxSurge = canonicalizeInstanceGroupManagerFixedOrPercent(des.MaxSurge, initial.MaxSurge, opts...)
+	cDes.MaxUnavailable = canonicalizeInstanceGroupManagerFixedOrPercent(des.MaxUnavailable, initial.MaxUnavailable, opts...)
+	if dcl.IsZeroValue(des.ReplacementMethod) {
+		des.ReplacementMethod = initial.ReplacementMethod
+	} else {
+		cDes.ReplacementMethod = des.ReplacementMethod
+	}
+	if dcl.IsZeroValue(des.MostDisruptiveAllowedAction) {
+		des.MostDisruptiveAllowedAction = initial.MostDisruptiveAllowedAction
+	} else {
+		cDes.MostDisruptiveAllowedAction = des.MostDisruptiveAllowedAction
+	}
+	if dcl.IsZeroValue(des.MinReadySec) {
+		des.MinReadySec = initial.MinReadySec
+	} else {
+		cDes.MinReadySec = des.MinReadySec
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstanceGroupManagerUpdatePolicy(c *Client, des, nw *InstanceGroupManagerUpdatePolicy) *InstanceGroupManagerUpdatePolicy {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	if dcl.IsZeroValue(nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.IsZeroValue(nw.InstanceRedistributionType) {
+		nw.InstanceRedistributionType = des.InstanceRedistributionType
+	}
+	if dcl.IsZeroValue(nw.MinimalAction) {
+		nw.MinimalAction = des.MinimalAction
+	}
+	nw.MaxSurge = canonicalizeNewInstanceGroupManagerFixedOrPercent(c, des.MaxSurge, nw.MaxSurge)
+	nw.MaxUnavailable = canonicalizeNewInstanceGroupManagerFixedOrPercent(c, des.MaxUnavailable, nw.MaxUnavailable)
+	if dcl.IsZeroValue(nw.ReplacementMethod) {
+		nw.ReplacementMethod = des.ReplacementMethod
+	}
+	if dcl.IsZeroValue(nw.MostDisruptiveAllowedAction) {
+		nw.MostDisruptiveAllowedAction = des.MostDisruptiveAllowedAction
+	}
+	if dcl.IsZeroValue(nw.MinReadySec) {
+		nw.MinReadySec = des.MinReadySec
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceGroupManagerUpdatePolicySet(c *Client, des, nw []InstanceGroupManagerUpdatePolicy) []InstanceGroupManagerUpdatePolicy {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceGroupManagerUpdatePolicy
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceGroupManagerUpdatePolicyNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceGroupManagerUpdatePolicySlice(c *Client, des, nw []InstanceGroupManagerUpdatePolicy) []InstanceGroupManagerUpdatePolicy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceGroupManagerUpdatePolicy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerUpdatePolicy(c, &d, &n))
 	}
 
 	return items
@@ -1301,7 +2030,7 @@ func canonicalizeNewInstanceGroupManagerNamedPortsSlice(c *Client, des, nw []Ins
 	return items
 }
 
-func canonicalizeInstanceGroupManagerStatus(des, initial *InstanceGroupManagerStatus, opts ...dcl.ApplyOption) *InstanceGroupManagerStatus {
+func canonicalizeInstanceGroupManagerStatefulPolicy(des, initial *InstanceGroupManagerStatefulPolicy, opts ...dcl.ApplyOption) *InstanceGroupManagerStatefulPolicy {
 	if des == nil {
 		return initial
 	}
@@ -1313,48 +2042,32 @@ func canonicalizeInstanceGroupManagerStatus(des, initial *InstanceGroupManagerSt
 		return des
 	}
 
-	cDes := &InstanceGroupManagerStatus{}
+	cDes := &InstanceGroupManagerStatefulPolicy{}
 
-	if dcl.BoolCanonicalize(des.IsStable, initial.IsStable) || dcl.IsZeroValue(des.IsStable) {
-		cDes.IsStable = initial.IsStable
-	} else {
-		cDes.IsStable = des.IsStable
-	}
-	cDes.VersionTarget = canonicalizeInstanceGroupManagerStatusVersionTarget(des.VersionTarget, initial.VersionTarget, opts...)
-	if dcl.NameToSelfLink(des.Autoscalar, initial.Autoscalar) || dcl.IsZeroValue(des.Autoscalar) {
-		cDes.Autoscalar = initial.Autoscalar
-	} else {
-		cDes.Autoscalar = des.Autoscalar
-	}
+	cDes.PreservedState = canonicalizeInstanceGroupManagerStatefulPolicyPreservedState(des.PreservedState, initial.PreservedState, opts...)
 
 	return cDes
 }
 
-func canonicalizeNewInstanceGroupManagerStatus(c *Client, des, nw *InstanceGroupManagerStatus) *InstanceGroupManagerStatus {
+func canonicalizeNewInstanceGroupManagerStatefulPolicy(c *Client, des, nw *InstanceGroupManagerStatefulPolicy) *InstanceGroupManagerStatefulPolicy {
 	if des == nil || nw == nil {
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.IsStable, nw.IsStable) {
-		nw.IsStable = des.IsStable
-	}
-	nw.VersionTarget = canonicalizeNewInstanceGroupManagerStatusVersionTarget(c, des.VersionTarget, nw.VersionTarget)
-	if dcl.NameToSelfLink(des.Autoscalar, nw.Autoscalar) {
-		nw.Autoscalar = des.Autoscalar
-	}
+	nw.PreservedState = canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedState(c, des.PreservedState, nw.PreservedState)
 
 	return nw
 }
 
-func canonicalizeNewInstanceGroupManagerStatusSet(c *Client, des, nw []InstanceGroupManagerStatus) []InstanceGroupManagerStatus {
+func canonicalizeNewInstanceGroupManagerStatefulPolicySet(c *Client, des, nw []InstanceGroupManagerStatefulPolicy) []InstanceGroupManagerStatefulPolicy {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []InstanceGroupManagerStatus
+	var reorderedNew []InstanceGroupManagerStatefulPolicy
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareInstanceGroupManagerStatusNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareInstanceGroupManagerStatefulPolicyNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1369,7 +2082,7 @@ func canonicalizeNewInstanceGroupManagerStatusSet(c *Client, des, nw []InstanceG
 	return reorderedNew
 }
 
-func canonicalizeNewInstanceGroupManagerStatusSlice(c *Client, des, nw []InstanceGroupManagerStatus) []InstanceGroupManagerStatus {
+func canonicalizeNewInstanceGroupManagerStatefulPolicySlice(c *Client, des, nw []InstanceGroupManagerStatefulPolicy) []InstanceGroupManagerStatefulPolicy {
 	if des == nil {
 		return nw
 	}
@@ -1380,16 +2093,16 @@ func canonicalizeNewInstanceGroupManagerStatusSlice(c *Client, des, nw []Instanc
 		return nw
 	}
 
-	var items []InstanceGroupManagerStatus
+	var items []InstanceGroupManagerStatefulPolicy
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceGroupManagerStatus(c, &d, &n))
+		items = append(items, *canonicalizeNewInstanceGroupManagerStatefulPolicy(c, &d, &n))
 	}
 
 	return items
 }
 
-func canonicalizeInstanceGroupManagerStatusVersionTarget(des, initial *InstanceGroupManagerStatusVersionTarget, opts ...dcl.ApplyOption) *InstanceGroupManagerStatusVersionTarget {
+func canonicalizeInstanceGroupManagerStatefulPolicyPreservedState(des, initial *InstanceGroupManagerStatefulPolicyPreservedState, opts ...dcl.ApplyOption) *InstanceGroupManagerStatefulPolicyPreservedState {
 	if des == nil {
 		return initial
 	}
@@ -1401,38 +2114,38 @@ func canonicalizeInstanceGroupManagerStatusVersionTarget(des, initial *InstanceG
 		return des
 	}
 
-	cDes := &InstanceGroupManagerStatusVersionTarget{}
+	cDes := &InstanceGroupManagerStatefulPolicyPreservedState{}
 
-	if dcl.BoolCanonicalize(des.IsReached, initial.IsReached) || dcl.IsZeroValue(des.IsReached) {
-		cDes.IsReached = initial.IsReached
+	if dcl.IsZeroValue(des.Disks) {
+		des.Disks = initial.Disks
 	} else {
-		cDes.IsReached = des.IsReached
+		cDes.Disks = des.Disks
 	}
 
 	return cDes
 }
 
-func canonicalizeNewInstanceGroupManagerStatusVersionTarget(c *Client, des, nw *InstanceGroupManagerStatusVersionTarget) *InstanceGroupManagerStatusVersionTarget {
+func canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedState(c *Client, des, nw *InstanceGroupManagerStatefulPolicyPreservedState) *InstanceGroupManagerStatefulPolicyPreservedState {
 	if des == nil || nw == nil {
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.IsReached, nw.IsReached) {
-		nw.IsReached = des.IsReached
+	if dcl.IsZeroValue(nw.Disks) {
+		nw.Disks = des.Disks
 	}
 
 	return nw
 }
 
-func canonicalizeNewInstanceGroupManagerStatusVersionTargetSet(c *Client, des, nw []InstanceGroupManagerStatusVersionTarget) []InstanceGroupManagerStatusVersionTarget {
+func canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedStateSet(c *Client, des, nw []InstanceGroupManagerStatefulPolicyPreservedState) []InstanceGroupManagerStatefulPolicyPreservedState {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []InstanceGroupManagerStatusVersionTarget
+	var reorderedNew []InstanceGroupManagerStatefulPolicyPreservedState
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareInstanceGroupManagerStatusVersionTargetNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareInstanceGroupManagerStatefulPolicyPreservedStateNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1447,7 +2160,7 @@ func canonicalizeNewInstanceGroupManagerStatusVersionTargetSet(c *Client, des, n
 	return reorderedNew
 }
 
-func canonicalizeNewInstanceGroupManagerStatusVersionTargetSlice(c *Client, des, nw []InstanceGroupManagerStatusVersionTarget) []InstanceGroupManagerStatusVersionTarget {
+func canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedStateSlice(c *Client, des, nw []InstanceGroupManagerStatefulPolicyPreservedState) []InstanceGroupManagerStatefulPolicyPreservedState {
 	if des == nil {
 		return nw
 	}
@@ -1458,16 +2171,16 @@ func canonicalizeNewInstanceGroupManagerStatusVersionTargetSlice(c *Client, des,
 		return nw
 	}
 
-	var items []InstanceGroupManagerStatusVersionTarget
+	var items []InstanceGroupManagerStatefulPolicyPreservedState
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceGroupManagerStatusVersionTarget(c, &d, &n))
+		items = append(items, *canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedState(c, &d, &n))
 	}
 
 	return items
 }
 
-func canonicalizeInstanceGroupManagerAutoHealingPolicies(des, initial *InstanceGroupManagerAutoHealingPolicies, opts ...dcl.ApplyOption) *InstanceGroupManagerAutoHealingPolicies {
+func canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateDisks(des, initial *InstanceGroupManagerStatefulPolicyPreservedStateDisks, opts ...dcl.ApplyOption) *InstanceGroupManagerStatefulPolicyPreservedStateDisks {
 	if des == nil {
 		return initial
 	}
@@ -1479,46 +2192,38 @@ func canonicalizeInstanceGroupManagerAutoHealingPolicies(des, initial *InstanceG
 		return des
 	}
 
-	cDes := &InstanceGroupManagerAutoHealingPolicies{}
+	cDes := &InstanceGroupManagerStatefulPolicyPreservedStateDisks{}
 
-	if dcl.NameToSelfLink(des.HealthCheck, initial.HealthCheck) || dcl.IsZeroValue(des.HealthCheck) {
-		cDes.HealthCheck = initial.HealthCheck
+	if dcl.IsZeroValue(des.AutoDelete) {
+		des.AutoDelete = initial.AutoDelete
 	} else {
-		cDes.HealthCheck = des.HealthCheck
-	}
-	if dcl.IsZeroValue(des.InitialDelaySec) {
-		des.InitialDelaySec = initial.InitialDelaySec
-	} else {
-		cDes.InitialDelaySec = des.InitialDelaySec
+		cDes.AutoDelete = des.AutoDelete
 	}
 
 	return cDes
 }
 
-func canonicalizeNewInstanceGroupManagerAutoHealingPolicies(c *Client, des, nw *InstanceGroupManagerAutoHealingPolicies) *InstanceGroupManagerAutoHealingPolicies {
+func canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedStateDisks(c *Client, des, nw *InstanceGroupManagerStatefulPolicyPreservedStateDisks) *InstanceGroupManagerStatefulPolicyPreservedStateDisks {
 	if des == nil || nw == nil {
 		return nw
 	}
 
-	if dcl.NameToSelfLink(des.HealthCheck, nw.HealthCheck) {
-		nw.HealthCheck = des.HealthCheck
-	}
-	if dcl.IsZeroValue(nw.InitialDelaySec) {
-		nw.InitialDelaySec = des.InitialDelaySec
+	if dcl.IsZeroValue(nw.AutoDelete) {
+		nw.AutoDelete = des.AutoDelete
 	}
 
 	return nw
 }
 
-func canonicalizeNewInstanceGroupManagerAutoHealingPoliciesSet(c *Client, des, nw []InstanceGroupManagerAutoHealingPolicies) []InstanceGroupManagerAutoHealingPolicies {
+func canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedStateDisksSet(c *Client, des, nw []InstanceGroupManagerStatefulPolicyPreservedStateDisks) []InstanceGroupManagerStatefulPolicyPreservedStateDisks {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []InstanceGroupManagerAutoHealingPolicies
+	var reorderedNew []InstanceGroupManagerStatefulPolicyPreservedStateDisks
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareInstanceGroupManagerAutoHealingPoliciesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareInstanceGroupManagerStatefulPolicyPreservedStateDisksNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1533,7 +2238,7 @@ func canonicalizeNewInstanceGroupManagerAutoHealingPoliciesSet(c *Client, des, n
 	return reorderedNew
 }
 
-func canonicalizeNewInstanceGroupManagerAutoHealingPoliciesSlice(c *Client, des, nw []InstanceGroupManagerAutoHealingPolicies) []InstanceGroupManagerAutoHealingPolicies {
+func canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedStateDisksSlice(c *Client, des, nw []InstanceGroupManagerStatefulPolicyPreservedStateDisks) []InstanceGroupManagerStatefulPolicyPreservedStateDisks {
 	if des == nil {
 		return nw
 	}
@@ -1544,278 +2249,10 @@ func canonicalizeNewInstanceGroupManagerAutoHealingPoliciesSlice(c *Client, des,
 		return nw
 	}
 
-	var items []InstanceGroupManagerAutoHealingPolicies
+	var items []InstanceGroupManagerStatefulPolicyPreservedStateDisks
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceGroupManagerAutoHealingPolicies(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceGroupManagerUpdatePolicy(des, initial *InstanceGroupManagerUpdatePolicy, opts ...dcl.ApplyOption) *InstanceGroupManagerUpdatePolicy {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	cDes := &InstanceGroupManagerUpdatePolicy{}
-
-	if dcl.IsZeroValue(des.InstanceRedistributionType) {
-		des.InstanceRedistributionType = initial.InstanceRedistributionType
-	} else {
-		cDes.InstanceRedistributionType = des.InstanceRedistributionType
-	}
-	if dcl.IsZeroValue(des.MinimalAction) {
-		des.MinimalAction = initial.MinimalAction
-	} else {
-		cDes.MinimalAction = des.MinimalAction
-	}
-	cDes.MaxSurge = canonicalizeInstanceGroupManagerUpdatePolicyMaxSurge(des.MaxSurge, initial.MaxSurge, opts...)
-	cDes.MaxUnavailable = canonicalizeInstanceGroupManagerUpdatePolicyMaxUnavailable(des.MaxUnavailable, initial.MaxUnavailable, opts...)
-
-	return cDes
-}
-
-func canonicalizeNewInstanceGroupManagerUpdatePolicy(c *Client, des, nw *InstanceGroupManagerUpdatePolicy) *InstanceGroupManagerUpdatePolicy {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.IsZeroValue(nw.InstanceRedistributionType) {
-		nw.InstanceRedistributionType = des.InstanceRedistributionType
-	}
-	if dcl.IsZeroValue(nw.MinimalAction) {
-		nw.MinimalAction = des.MinimalAction
-	}
-	nw.MaxSurge = canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurge(c, des.MaxSurge, nw.MaxSurge)
-	nw.MaxUnavailable = canonicalizeNewInstanceGroupManagerUpdatePolicyMaxUnavailable(c, des.MaxUnavailable, nw.MaxUnavailable)
-
-	return nw
-}
-
-func canonicalizeNewInstanceGroupManagerUpdatePolicySet(c *Client, des, nw []InstanceGroupManagerUpdatePolicy) []InstanceGroupManagerUpdatePolicy {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceGroupManagerUpdatePolicy
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceGroupManagerUpdatePolicyNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceGroupManagerUpdatePolicySlice(c *Client, des, nw []InstanceGroupManagerUpdatePolicy) []InstanceGroupManagerUpdatePolicy {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceGroupManagerUpdatePolicy
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceGroupManagerUpdatePolicy(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceGroupManagerUpdatePolicyMaxSurge(des, initial *InstanceGroupManagerUpdatePolicyMaxSurge, opts ...dcl.ApplyOption) *InstanceGroupManagerUpdatePolicyMaxSurge {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	cDes := &InstanceGroupManagerUpdatePolicyMaxSurge{}
-
-	if dcl.IsZeroValue(des.Fixed) {
-		des.Fixed = initial.Fixed
-	} else {
-		cDes.Fixed = des.Fixed
-	}
-	if dcl.IsZeroValue(des.Percent) {
-		des.Percent = initial.Percent
-	} else {
-		cDes.Percent = des.Percent
-	}
-
-	return cDes
-}
-
-func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurge(c *Client, des, nw *InstanceGroupManagerUpdatePolicyMaxSurge) *InstanceGroupManagerUpdatePolicyMaxSurge {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Fixed) {
-		nw.Fixed = des.Fixed
-	}
-	if dcl.IsZeroValue(nw.Percent) {
-		nw.Percent = des.Percent
-	}
-	if dcl.IsZeroValue(nw.Calculated) {
-		nw.Calculated = des.Calculated
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurgeSet(c *Client, des, nw []InstanceGroupManagerUpdatePolicyMaxSurge) []InstanceGroupManagerUpdatePolicyMaxSurge {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceGroupManagerUpdatePolicyMaxSurge
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceGroupManagerUpdatePolicyMaxSurgeNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurgeSlice(c *Client, des, nw []InstanceGroupManagerUpdatePolicyMaxSurge) []InstanceGroupManagerUpdatePolicyMaxSurge {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceGroupManagerUpdatePolicyMaxSurge
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurge(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceGroupManagerUpdatePolicyMaxUnavailable(des, initial *InstanceGroupManagerUpdatePolicyMaxUnavailable, opts ...dcl.ApplyOption) *InstanceGroupManagerUpdatePolicyMaxUnavailable {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	cDes := &InstanceGroupManagerUpdatePolicyMaxUnavailable{}
-
-	if dcl.IsZeroValue(des.Fixed) {
-		des.Fixed = initial.Fixed
-	} else {
-		cDes.Fixed = des.Fixed
-	}
-	if dcl.IsZeroValue(des.Percent) {
-		des.Percent = initial.Percent
-	} else {
-		cDes.Percent = des.Percent
-	}
-
-	return cDes
-}
-
-func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxUnavailable(c *Client, des, nw *InstanceGroupManagerUpdatePolicyMaxUnavailable) *InstanceGroupManagerUpdatePolicyMaxUnavailable {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Fixed) {
-		nw.Fixed = des.Fixed
-	}
-	if dcl.IsZeroValue(nw.Percent) {
-		nw.Percent = des.Percent
-	}
-	if dcl.IsZeroValue(nw.Calculated) {
-		nw.Calculated = des.Calculated
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxUnavailableSet(c *Client, des, nw []InstanceGroupManagerUpdatePolicyMaxUnavailable) []InstanceGroupManagerUpdatePolicyMaxUnavailable {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceGroupManagerUpdatePolicyMaxUnavailable
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceGroupManagerUpdatePolicyMaxUnavailableNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxUnavailableSlice(c *Client, des, nw []InstanceGroupManagerUpdatePolicyMaxUnavailable) []InstanceGroupManagerUpdatePolicyMaxUnavailable {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceGroupManagerUpdatePolicyMaxUnavailable
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceGroupManagerUpdatePolicyMaxUnavailable(c, &d, &n))
+		items = append(items, *canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedStateDisks(c, &d, &n))
 	}
 
 	return items
@@ -1836,7 +2273,7 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.BaseInstanceName, actual.BaseInstanceName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BaseInstanceName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1850,55 +2287,6 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DistributionPolicy, actual.DistributionPolicy, dcl.Info{ObjectFunction: compareInstanceGroupManagerDistributionPolicyNewStyle, EmptyObject: EmptyInstanceGroupManagerDistributionPolicy, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DistributionPolicy")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.CurrentActions, actual.CurrentActions, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerCurrentActionsNewStyle, EmptyObject: EmptyInstanceGroupManagerCurrentActions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CurrentActions")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Versions, actual.Versions, dcl.Info{ObjectFunction: compareInstanceGroupManagerVersionsNewStyle, EmptyObject: EmptyInstanceGroupManagerVersions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Versions")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.InstanceGroup, actual.InstanceGroup, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceGroup")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.InstanceTemplate, actual.InstanceTemplate, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerSetInstanceTemplateOperation")}, fn.AddNest("InstanceTemplate")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -1906,42 +2294,7 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NamedPorts, actual.NamedPorts, dcl.Info{ObjectFunction: compareInstanceGroupManagerNamedPortsNewStyle, EmptyObject: EmptyInstanceGroupManagerNamedPorts, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NamedPorts")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerStatusNewStyle, EmptyObject: EmptyInstanceGroupManagerStatus, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.TargetPools, actual.TargetPools, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerSetTargetPoolsOperation")}, fn.AddNest("TargetPools")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.AutoHealingPolicies, actual.AutoHealingPolicies, dcl.Info{ObjectFunction: compareInstanceGroupManagerAutoHealingPoliciesNewStyle, EmptyObject: EmptyInstanceGroupManagerAutoHealingPolicies, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AutoHealingPolicies")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.UpdatePolicy, actual.UpdatePolicy, dcl.Info{ObjectFunction: compareInstanceGroupManagerUpdatePolicyNewStyle, EmptyObject: EmptyInstanceGroupManagerUpdatePolicy, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatePolicy")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.TargetSize, actual.TargetSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1956,6 +2309,125 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 	}
 
 	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DistributionPolicy, actual.DistributionPolicy, dcl.Info{ObjectFunction: compareInstanceGroupManagerDistributionPolicyNewStyle, EmptyObject: EmptyInstanceGroupManagerDistributionPolicy, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DistributionPolicy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.InstanceTemplate, actual.InstanceTemplate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("InstanceTemplate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Versions, actual.Versions, dcl.Info{ObjectFunction: compareInstanceGroupManagerVersionsNewStyle, EmptyObject: EmptyInstanceGroupManagerVersions, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Versions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.InstanceGroup, actual.InstanceGroup, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceGroup")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TargetPools, actual.TargetPools, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("TargetPools")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.BaseInstanceName, actual.BaseInstanceName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("BaseInstanceName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Fingerprint, actual.Fingerprint, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Fingerprint")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CurrentActions, actual.CurrentActions, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerCurrentActionsNewStyle, EmptyObject: EmptyInstanceGroupManagerCurrentActions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CurrentActions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerStatusNewStyle, EmptyObject: EmptyInstanceGroupManagerStatus, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TargetSize, actual.TargetSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("TargetSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AutoHealingPolicies, actual.AutoHealingPolicies, dcl.Info{ObjectFunction: compareInstanceGroupManagerAutoHealingPoliciesNewStyle, EmptyObject: EmptyInstanceGroupManagerAutoHealingPolicies, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("AutoHealingPolicies")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdatePolicy, actual.UpdatePolicy, dcl.Info{ObjectFunction: compareInstanceGroupManagerUpdatePolicyNewStyle, EmptyObject: EmptyInstanceGroupManagerUpdatePolicy, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("UpdatePolicy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.NamedPorts, actual.NamedPorts, dcl.Info{ObjectFunction: compareInstanceGroupManagerNamedPortsNewStyle, EmptyObject: EmptyInstanceGroupManagerNamedPorts, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NamedPorts")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.StatefulPolicy, actual.StatefulPolicy, dcl.Info{ObjectFunction: compareInstanceGroupManagerStatefulPolicyNewStyle, EmptyObject: EmptyInstanceGroupManagerStatefulPolicy, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("StatefulPolicy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServiceAccount, actual.ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FailoverAction, actual.FailoverAction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("FailoverAction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2004,6 +2476,13 @@ func compareInstanceGroupManagerDistributionPolicyNewStyle(d, a interface{}, fn 
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.TargetShape, actual.TargetShape, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("TargetShape")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -2036,84 +2515,6 @@ func compareInstanceGroupManagerDistributionPolicyZonesNewStyle(d, a interface{}
 	return diffs, nil
 }
 
-func compareInstanceGroupManagerCurrentActionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceGroupManagerCurrentActions)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceGroupManagerCurrentActions)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerCurrentActions or *InstanceGroupManagerCurrentActions", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceGroupManagerCurrentActions)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceGroupManagerCurrentActions)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerCurrentActions", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.Abandoning, actual.Abandoning, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Abandoning")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Creating, actual.Creating, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Creating")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.CreatingWithoutRetries, actual.CreatingWithoutRetries, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreatingWithoutRetries")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Deleting, actual.Deleting, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Deleting")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.None, actual.None, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("None")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Recreating, actual.Recreating, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Recreating")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Refreshing, actual.Refreshing, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Refreshing")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Restarting, actual.Restarting, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Restarting")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
 func compareInstanceGroupManagerVersionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
@@ -2134,21 +2535,21 @@ func compareInstanceGroupManagerVersionsNewStyle(d, a interface{}, fn dcl.FieldN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceTemplate, actual.InstanceTemplate, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceTemplate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceTemplate, actual.InstanceTemplate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("InstanceTemplate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetSize, actual.TargetSize, dcl.Info{ObjectFunction: compareInstanceGroupManagerVersionsTargetSizeNewStyle, EmptyObject: EmptyInstanceGroupManagerVersionsTargetSize, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetSize, actual.TargetSize, dcl.Info{ObjectFunction: compareInstanceGroupManagerFixedOrPercentNewStyle, EmptyObject: EmptyInstanceGroupManagerFixedOrPercent, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("TargetSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2157,34 +2558,34 @@ func compareInstanceGroupManagerVersionsNewStyle(d, a interface{}, fn dcl.FieldN
 	return diffs, nil
 }
 
-func compareInstanceGroupManagerVersionsTargetSizeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareInstanceGroupManagerFixedOrPercentNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*InstanceGroupManagerVersionsTargetSize)
+	desired, ok := d.(*InstanceGroupManagerFixedOrPercent)
 	if !ok {
-		desiredNotPointer, ok := d.(InstanceGroupManagerVersionsTargetSize)
+		desiredNotPointer, ok := d.(InstanceGroupManagerFixedOrPercent)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerVersionsTargetSize or *InstanceGroupManagerVersionsTargetSize", d)
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerFixedOrPercent or *InstanceGroupManagerFixedOrPercent", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*InstanceGroupManagerVersionsTargetSize)
+	actual, ok := a.(*InstanceGroupManagerFixedOrPercent)
 	if !ok {
-		actualNotPointer, ok := a.(InstanceGroupManagerVersionsTargetSize)
+		actualNotPointer, ok := a.(InstanceGroupManagerFixedOrPercent)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerVersionsTargetSize", a)
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerFixedOrPercent", a)
 		}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Fixed, actual.Fixed, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fixed")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Fixed, actual.Fixed, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Fixed")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2192,6 +2593,356 @@ func compareInstanceGroupManagerVersionsTargetSizeNewStyle(d, a interface{}, fn 
 	}
 
 	if ds, err := dcl.Diff(desired.Calculated, actual.Calculated, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Calculated")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceGroupManagerCurrentActionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerCurrentActions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerCurrentActions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerCurrentActions or *InstanceGroupManagerCurrentActions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerCurrentActions)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerCurrentActions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerCurrentActions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.None, actual.None, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("None")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Creating, actual.Creating, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Creating")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CreatingWithoutRetries, actual.CreatingWithoutRetries, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreatingWithoutRetries")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Verifying, actual.Verifying, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Verifying")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Recreating, actual.Recreating, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Recreating")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Deleting, actual.Deleting, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Deleting")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Abandoning, actual.Abandoning, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Abandoning")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Restarting, actual.Restarting, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Restarting")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Refreshing, actual.Refreshing, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Refreshing")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceGroupManagerStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatus or *InstanceGroupManagerStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.IsStable, actual.IsStable, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IsStable")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VersionTarget, actual.VersionTarget, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerStatusVersionTargetNewStyle, EmptyObject: EmptyInstanceGroupManagerStatusVersionTarget, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VersionTarget")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Stateful, actual.Stateful, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerStatusStatefulNewStyle, EmptyObject: EmptyInstanceGroupManagerStatusStateful, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Stateful")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Autoscaler, actual.Autoscaler, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Autoscaler")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceGroupManagerStatusVersionTargetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerStatusVersionTarget)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerStatusVersionTarget)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatusVersionTarget or *InstanceGroupManagerStatusVersionTarget", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerStatusVersionTarget)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerStatusVersionTarget)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatusVersionTarget", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.IsReached, actual.IsReached, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IsReached")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceGroupManagerStatusStatefulNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerStatusStateful)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerStatusStateful)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatusStateful or *InstanceGroupManagerStatusStateful", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerStatusStateful)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerStatusStateful)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatusStateful", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.HasStatefulConfig, actual.HasStatefulConfig, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HasStatefulConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PerInstanceConfigs, actual.PerInstanceConfigs, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerStatusStatefulPerInstanceConfigsNewStyle, EmptyObject: EmptyInstanceGroupManagerStatusStatefulPerInstanceConfigs, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PerInstanceConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IsStateful, actual.IsStateful, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IsStateful")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceGroupManagerStatusStatefulPerInstanceConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerStatusStatefulPerInstanceConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerStatusStatefulPerInstanceConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatusStatefulPerInstanceConfigs or *InstanceGroupManagerStatusStatefulPerInstanceConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerStatusStatefulPerInstanceConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerStatusStatefulPerInstanceConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatusStatefulPerInstanceConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AllEffective, actual.AllEffective, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("AllEffective")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceGroupManagerAutoHealingPoliciesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerAutoHealingPolicies)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerAutoHealingPolicies)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerAutoHealingPolicies or *InstanceGroupManagerAutoHealingPolicies", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerAutoHealingPolicies)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerAutoHealingPolicies)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerAutoHealingPolicies", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.HealthCheck, actual.HealthCheck, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("HealthCheck")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.InitialDelaySec, actual.InitialDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("InitialDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceGroupManagerUpdatePolicyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerUpdatePolicy)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerUpdatePolicy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicy or *InstanceGroupManagerUpdatePolicy", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerUpdatePolicy)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerUpdatePolicy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicy", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.InstanceRedistributionType, actual.InstanceRedistributionType, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("InstanceRedistributionType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MinimalAction, actual.MinimalAction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("MinimalAction")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MaxSurge, actual.MaxSurge, dcl.Info{ObjectFunction: compareInstanceGroupManagerFixedOrPercentNewStyle, EmptyObject: EmptyInstanceGroupManagerFixedOrPercent, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("MaxSurge")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MaxUnavailable, actual.MaxUnavailable, dcl.Info{ObjectFunction: compareInstanceGroupManagerFixedOrPercentNewStyle, EmptyObject: EmptyInstanceGroupManagerFixedOrPercent, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("MaxUnavailable")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReplacementMethod, actual.ReplacementMethod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("ReplacementMethod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MostDisruptiveAllowedAction, actual.MostDisruptiveAllowedAction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("MostDisruptiveAllowedAction")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MinReadySec, actual.MinReadySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("MinReadySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2236,41 +2987,27 @@ func compareInstanceGroupManagerNamedPortsNewStyle(d, a interface{}, fn dcl.Fiel
 	return diffs, nil
 }
 
-func compareInstanceGroupManagerStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareInstanceGroupManagerStatefulPolicyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*InstanceGroupManagerStatus)
+	desired, ok := d.(*InstanceGroupManagerStatefulPolicy)
 	if !ok {
-		desiredNotPointer, ok := d.(InstanceGroupManagerStatus)
+		desiredNotPointer, ok := d.(InstanceGroupManagerStatefulPolicy)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatus or *InstanceGroupManagerStatus", d)
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatefulPolicy or *InstanceGroupManagerStatefulPolicy", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*InstanceGroupManagerStatus)
+	actual, ok := a.(*InstanceGroupManagerStatefulPolicy)
 	if !ok {
-		actualNotPointer, ok := a.(InstanceGroupManagerStatus)
+		actualNotPointer, ok := a.(InstanceGroupManagerStatefulPolicy)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatus", a)
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatefulPolicy", a)
 		}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.IsStable, actual.IsStable, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IsStable")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.VersionTarget, actual.VersionTarget, dcl.Info{ObjectFunction: compareInstanceGroupManagerStatusVersionTargetNewStyle, EmptyObject: EmptyInstanceGroupManagerStatusVersionTarget, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VersionTarget")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Autoscalar, actual.Autoscalar, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Autoscalar")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreservedState, actual.PreservedState, dcl.Info{ObjectFunction: compareInstanceGroupManagerStatefulPolicyPreservedStateNewStyle, EmptyObject: EmptyInstanceGroupManagerStatefulPolicyPreservedState, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("PreservedState")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2279,27 +3016,27 @@ func compareInstanceGroupManagerStatusNewStyle(d, a interface{}, fn dcl.FieldNam
 	return diffs, nil
 }
 
-func compareInstanceGroupManagerStatusVersionTargetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareInstanceGroupManagerStatefulPolicyPreservedStateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*InstanceGroupManagerStatusVersionTarget)
+	desired, ok := d.(*InstanceGroupManagerStatefulPolicyPreservedState)
 	if !ok {
-		desiredNotPointer, ok := d.(InstanceGroupManagerStatusVersionTarget)
+		desiredNotPointer, ok := d.(InstanceGroupManagerStatefulPolicyPreservedState)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatusVersionTarget or *InstanceGroupManagerStatusVersionTarget", d)
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatefulPolicyPreservedState or *InstanceGroupManagerStatefulPolicyPreservedState", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*InstanceGroupManagerStatusVersionTarget)
+	actual, ok := a.(*InstanceGroupManagerStatefulPolicyPreservedState)
 	if !ok {
-		actualNotPointer, ok := a.(InstanceGroupManagerStatusVersionTarget)
+		actualNotPointer, ok := a.(InstanceGroupManagerStatefulPolicyPreservedState)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatusVersionTarget", a)
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatefulPolicyPreservedState", a)
 		}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.IsReached, actual.IsReached, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IsReached")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Disks, actual.Disks, dcl.Info{ObjectFunction: compareInstanceGroupManagerStatefulPolicyPreservedStateDisksNewStyle, EmptyObject: EmptyInstanceGroupManagerStatefulPolicyPreservedStateDisks, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Disks")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2308,170 +3045,27 @@ func compareInstanceGroupManagerStatusVersionTargetNewStyle(d, a interface{}, fn
 	return diffs, nil
 }
 
-func compareInstanceGroupManagerAutoHealingPoliciesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareInstanceGroupManagerStatefulPolicyPreservedStateDisksNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*InstanceGroupManagerAutoHealingPolicies)
+	desired, ok := d.(*InstanceGroupManagerStatefulPolicyPreservedStateDisks)
 	if !ok {
-		desiredNotPointer, ok := d.(InstanceGroupManagerAutoHealingPolicies)
+		desiredNotPointer, ok := d.(InstanceGroupManagerStatefulPolicyPreservedStateDisks)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerAutoHealingPolicies or *InstanceGroupManagerAutoHealingPolicies", d)
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatefulPolicyPreservedStateDisks or *InstanceGroupManagerStatefulPolicyPreservedStateDisks", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*InstanceGroupManagerAutoHealingPolicies)
+	actual, ok := a.(*InstanceGroupManagerStatefulPolicyPreservedStateDisks)
 	if !ok {
-		actualNotPointer, ok := a.(InstanceGroupManagerAutoHealingPolicies)
+		actualNotPointer, ok := a.(InstanceGroupManagerStatefulPolicyPreservedStateDisks)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerAutoHealingPolicies", a)
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatefulPolicyPreservedStateDisks", a)
 		}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.HealthCheck, actual.HealthCheck, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HealthCheck")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.InitialDelaySec, actual.InitialDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InitialDelaySec")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceGroupManagerUpdatePolicyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceGroupManagerUpdatePolicy)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceGroupManagerUpdatePolicy)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicy or *InstanceGroupManagerUpdatePolicy", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceGroupManagerUpdatePolicy)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceGroupManagerUpdatePolicy)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicy", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.InstanceRedistributionType, actual.InstanceRedistributionType, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceRedistributionType")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.MinimalAction, actual.MinimalAction, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinimalAction")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.MaxSurge, actual.MaxSurge, dcl.Info{ObjectFunction: compareInstanceGroupManagerUpdatePolicyMaxSurgeNewStyle, EmptyObject: EmptyInstanceGroupManagerUpdatePolicyMaxSurge, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxSurge")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.MaxUnavailable, actual.MaxUnavailable, dcl.Info{ObjectFunction: compareInstanceGroupManagerUpdatePolicyMaxUnavailableNewStyle, EmptyObject: EmptyInstanceGroupManagerUpdatePolicyMaxUnavailable, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxUnavailable")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceGroupManagerUpdatePolicyMaxSurgeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceGroupManagerUpdatePolicyMaxSurge)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceGroupManagerUpdatePolicyMaxSurge)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicyMaxSurge or *InstanceGroupManagerUpdatePolicyMaxSurge", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceGroupManagerUpdatePolicyMaxSurge)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceGroupManagerUpdatePolicyMaxSurge)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicyMaxSurge", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.Fixed, actual.Fixed, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fixed")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Calculated, actual.Calculated, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Calculated")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceGroupManagerUpdatePolicyMaxUnavailableNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceGroupManagerUpdatePolicyMaxUnavailable)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceGroupManagerUpdatePolicyMaxUnavailable)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicyMaxUnavailable or *InstanceGroupManagerUpdatePolicyMaxUnavailable", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceGroupManagerUpdatePolicyMaxUnavailable)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceGroupManagerUpdatePolicyMaxUnavailable)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicyMaxUnavailable", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.Fixed, actual.Fixed, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fixed")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Calculated, actual.Calculated, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Calculated")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutoDelete, actual.AutoDelete, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("AutoDelete")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2497,6 +3091,23 @@ func (r *InstanceGroupManager) deleteFields() (string, string, string) {
 
 func (r *InstanceGroupManager) updateURL(userBasePath, updateName string) (string, error) {
 	n := r.URLNormalized()
+	if updateName == "Patch" {
+		fields := map[string]interface{}{
+			"project":  dcl.ValueOrEmptyString(n.Project),
+			"location": dcl.ValueOrEmptyString(n.Location),
+			"name":     dcl.ValueOrEmptyString(n.Name),
+		}
+		if dcl.IsRegion(r.Location) {
+			return dcl.URL("projects/{{project}}/regions/{{location}}/instanceGroupManagers/{{name}}", "https://www.googleapis.com/compute/beta/", userBasePath, fields), nil
+		}
+
+		if dcl.IsZone(r.Location) {
+			return dcl.URL("projects/{{project}}/zones/{{location}}/instanceGroupManagers/{{name}}", "https://www.googleapis.com/compute/beta/", userBasePath, fields), nil
+		}
+
+		return "", fmt.Errorf("No valid update URL for %s", updateName)
+
+	}
 	if updateName == "setInstanceTemplate" {
 		fields := map[string]interface{}{
 			"project":  dcl.ValueOrEmptyString(n.Project),
@@ -2563,54 +3174,64 @@ func unmarshalMapInstanceGroupManager(m map[string]interface{}, c *Client) (*Ins
 // expandInstanceGroupManager expands InstanceGroupManager into a JSON request object.
 func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.BaseInstanceName; !dcl.IsEmptyValueIndirect(v) {
-		m["baseInstanceName"] = v
+	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
+		m["id"] = v
 	}
 	if v := f.CreationTimestamp; !dcl.IsEmptyValueIndirect(v) {
 		m["creationTimestamp"] = v
+	}
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+		m["description"] = v
+	}
+	if v := f.Zone; !dcl.IsEmptyValueIndirect(v) {
+		m["zone"] = v
+	}
+	if v := f.Region; !dcl.IsEmptyValueIndirect(v) {
+		m["region"] = v
 	}
 	if v, err := expandInstanceGroupManagerDistributionPolicy(c, f.DistributionPolicy); err != nil {
 		return nil, fmt.Errorf("error expanding DistributionPolicy into distributionPolicy: %w", err)
 	} else if v != nil {
 		m["distributionPolicy"] = v
 	}
-	if v, err := expandInstanceGroupManagerCurrentActions(c, f.CurrentActions); err != nil {
-		return nil, fmt.Errorf("error expanding CurrentActions into currentActions: %w", err)
-	} else if v != nil {
-		m["currentActions"] = v
-	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
-		m["description"] = v
+	if v := f.InstanceTemplate; !dcl.IsEmptyValueIndirect(v) {
+		m["instanceTemplate"] = v
 	}
 	if v, err := expandInstanceGroupManagerVersionsSlice(c, f.Versions); err != nil {
 		return nil, fmt.Errorf("error expanding Versions into versions: %w", err)
 	} else if v != nil {
 		m["versions"] = v
 	}
-	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
-		m["id"] = v
-	}
 	if v := f.InstanceGroup; !dcl.IsEmptyValueIndirect(v) {
 		m["instanceGroup"] = v
 	}
-	if v := f.InstanceTemplate; !dcl.IsEmptyValueIndirect(v) {
-		m["instanceTemplate"] = v
+	if v := f.TargetPools; !dcl.IsEmptyValueIndirect(v) {
+		m["targetPools"] = v
 	}
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
-		m["name"] = v
+	if v := f.BaseInstanceName; !dcl.IsEmptyValueIndirect(v) {
+		m["baseInstanceName"] = v
 	}
-	if v, err := expandInstanceGroupManagerNamedPortsSlice(c, f.NamedPorts); err != nil {
-		return nil, fmt.Errorf("error expanding NamedPorts into namedPorts: %w", err)
+	if v := f.Fingerprint; !dcl.IsEmptyValueIndirect(v) {
+		m["fingerprint"] = v
+	}
+	if v, err := expandInstanceGroupManagerCurrentActions(c, f.CurrentActions); err != nil {
+		return nil, fmt.Errorf("error expanding CurrentActions into currentActions: %w", err)
 	} else if v != nil {
-		m["namedPorts"] = v
+		m["currentActions"] = v
 	}
 	if v, err := expandInstanceGroupManagerStatus(c, f.Status); err != nil {
 		return nil, fmt.Errorf("error expanding Status into status: %w", err)
 	} else if v != nil {
 		m["status"] = v
 	}
-	if v := f.TargetPools; !dcl.IsEmptyValueIndirect(v) {
-		m["targetPools"] = v
+	if v := f.TargetSize; !dcl.IsEmptyValueIndirect(v) {
+		m["targetSize"] = v
+	}
+	if v := f.SelfLink; !dcl.IsEmptyValueIndirect(v) {
+		m["selfLink"] = v
 	}
 	if v, err := expandInstanceGroupManagerAutoHealingPoliciesSlice(c, f.AutoHealingPolicies); err != nil {
 		return nil, fmt.Errorf("error expanding AutoHealingPolicies into autoHealingPolicies: %w", err)
@@ -2622,14 +3243,21 @@ func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]
 	} else if v != nil {
 		m["updatePolicy"] = v
 	}
-	if v := f.TargetSize; !dcl.IsEmptyValueIndirect(v) {
-		m["targetSize"] = v
+	if v, err := expandInstanceGroupManagerNamedPortsSlice(c, f.NamedPorts); err != nil {
+		return nil, fmt.Errorf("error expanding NamedPorts into namedPorts: %w", err)
+	} else if v != nil {
+		m["namedPorts"] = v
 	}
-	if v := f.Zone; !dcl.IsEmptyValueIndirect(v) {
-		m["zone"] = v
+	if v, err := expandInstanceGroupManagerStatefulPolicy(c, f.StatefulPolicy); err != nil {
+		return nil, fmt.Errorf("error expanding StatefulPolicy into statefulPolicy: %w", err)
+	} else if v != nil {
+		m["statefulPolicy"] = v
 	}
-	if v := f.Region; !dcl.IsEmptyValueIndirect(v) {
-		m["region"] = v
+	if v := f.ServiceAccount; !dcl.IsEmptyValueIndirect(v) {
+		m["serviceAccount"] = v
+	}
+	if v := f.FailoverAction; !dcl.IsEmptyValueIndirect(v) {
+		m["failoverAction"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
@@ -2657,24 +3285,29 @@ func flattenInstanceGroupManager(c *Client, i interface{}) *InstanceGroupManager
 	}
 
 	res := &InstanceGroupManager{}
-	res.BaseInstanceName = dcl.FlattenString(m["baseInstanceName"])
-	res.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
-	res.DistributionPolicy = flattenInstanceGroupManagerDistributionPolicy(c, m["distributionPolicy"])
-	res.CurrentActions = flattenInstanceGroupManagerCurrentActions(c, m["currentActions"])
-	res.Description = dcl.FlattenString(m["description"])
-	res.Versions = flattenInstanceGroupManagerVersionsSlice(c, m["versions"])
 	res.Id = dcl.FlattenInteger(m["id"])
-	res.InstanceGroup = dcl.FlattenString(m["instanceGroup"])
-	res.InstanceTemplate = dcl.FlattenString(m["instanceTemplate"])
+	res.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
 	res.Name = dcl.FlattenString(m["name"])
-	res.NamedPorts = flattenInstanceGroupManagerNamedPortsSlice(c, m["namedPorts"])
-	res.Status = flattenInstanceGroupManagerStatus(c, m["status"])
-	res.TargetPools = dcl.FlattenStringSlice(m["targetPools"])
-	res.AutoHealingPolicies = flattenInstanceGroupManagerAutoHealingPoliciesSlice(c, m["autoHealingPolicies"])
-	res.UpdatePolicy = flattenInstanceGroupManagerUpdatePolicy(c, m["updatePolicy"])
-	res.TargetSize = dcl.FlattenInteger(m["targetSize"])
+	res.Description = dcl.FlattenString(m["description"])
 	res.Zone = dcl.FlattenString(m["zone"])
 	res.Region = dcl.FlattenString(m["region"])
+	res.DistributionPolicy = flattenInstanceGroupManagerDistributionPolicy(c, m["distributionPolicy"])
+	res.InstanceTemplate = dcl.FlattenString(m["instanceTemplate"])
+	res.Versions = flattenInstanceGroupManagerVersionsSlice(c, m["versions"])
+	res.InstanceGroup = dcl.FlattenString(m["instanceGroup"])
+	res.TargetPools = dcl.FlattenStringSlice(m["targetPools"])
+	res.BaseInstanceName = dcl.FlattenString(m["baseInstanceName"])
+	res.Fingerprint = dcl.FlattenString(m["fingerprint"])
+	res.CurrentActions = flattenInstanceGroupManagerCurrentActions(c, m["currentActions"])
+	res.Status = flattenInstanceGroupManagerStatus(c, m["status"])
+	res.TargetSize = dcl.FlattenInteger(m["targetSize"])
+	res.SelfLink = dcl.FlattenString(m["selfLink"])
+	res.AutoHealingPolicies = flattenInstanceGroupManagerAutoHealingPoliciesSlice(c, m["autoHealingPolicies"])
+	res.UpdatePolicy = flattenInstanceGroupManagerUpdatePolicy(c, m["updatePolicy"])
+	res.NamedPorts = flattenInstanceGroupManagerNamedPortsSlice(c, m["namedPorts"])
+	res.StatefulPolicy = flattenInstanceGroupManagerStatefulPolicy(c, m["statefulPolicy"])
+	res.ServiceAccount = dcl.FlattenString(m["serviceAccount"])
+	res.FailoverAction = flattenInstanceGroupManagerFailoverActionEnum(m["failoverAction"])
 	res.Project = dcl.FlattenString(m["project"])
 	res.Location = dcl.FlattenString(m["location"])
 
@@ -2775,6 +3408,9 @@ func expandInstanceGroupManagerDistributionPolicy(c *Client, f *InstanceGroupMan
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["zones"] = v
 	}
+	if v := f.TargetShape; !dcl.IsEmptyValueIndirect(v) {
+		m["targetShape"] = v
+	}
 
 	return m, nil
 }
@@ -2793,6 +3429,7 @@ func flattenInstanceGroupManagerDistributionPolicy(c *Client, i interface{}) *In
 		return EmptyInstanceGroupManagerDistributionPolicy
 	}
 	r.Zones = flattenInstanceGroupManagerDistributionPolicyZonesSlice(c, m["zones"])
+	r.TargetShape = flattenInstanceGroupManagerDistributionPolicyTargetShapeEnum(m["targetShape"])
 
 	return r
 }
@@ -2911,148 +3548,6 @@ func flattenInstanceGroupManagerDistributionPolicyZones(c *Client, i interface{}
 	return r
 }
 
-// expandInstanceGroupManagerCurrentActionsMap expands the contents of InstanceGroupManagerCurrentActions into a JSON
-// request object.
-func expandInstanceGroupManagerCurrentActionsMap(c *Client, f map[string]InstanceGroupManagerCurrentActions) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceGroupManagerCurrentActions(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceGroupManagerCurrentActionsSlice expands the contents of InstanceGroupManagerCurrentActions into a JSON
-// request object.
-func expandInstanceGroupManagerCurrentActionsSlice(c *Client, f []InstanceGroupManagerCurrentActions) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceGroupManagerCurrentActions(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceGroupManagerCurrentActionsMap flattens the contents of InstanceGroupManagerCurrentActions from a JSON
-// response object.
-func flattenInstanceGroupManagerCurrentActionsMap(c *Client, i interface{}) map[string]InstanceGroupManagerCurrentActions {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceGroupManagerCurrentActions{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceGroupManagerCurrentActions{}
-	}
-
-	items := make(map[string]InstanceGroupManagerCurrentActions)
-	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerCurrentActions(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceGroupManagerCurrentActionsSlice flattens the contents of InstanceGroupManagerCurrentActions from a JSON
-// response object.
-func flattenInstanceGroupManagerCurrentActionsSlice(c *Client, i interface{}) []InstanceGroupManagerCurrentActions {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceGroupManagerCurrentActions{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceGroupManagerCurrentActions{}
-	}
-
-	items := make([]InstanceGroupManagerCurrentActions, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerCurrentActions(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceGroupManagerCurrentActions expands an instance of InstanceGroupManagerCurrentActions into a JSON
-// request object.
-func expandInstanceGroupManagerCurrentActions(c *Client, f *InstanceGroupManagerCurrentActions) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Abandoning; !dcl.IsEmptyValueIndirect(v) {
-		m["abandoning"] = v
-	}
-	if v := f.Creating; !dcl.IsEmptyValueIndirect(v) {
-		m["creating"] = v
-	}
-	if v := f.CreatingWithoutRetries; !dcl.IsEmptyValueIndirect(v) {
-		m["creatingWithoutRetries"] = v
-	}
-	if v := f.Deleting; !dcl.IsEmptyValueIndirect(v) {
-		m["deleting"] = v
-	}
-	if v := f.None; !dcl.IsEmptyValueIndirect(v) {
-		m["none"] = v
-	}
-	if v := f.Recreating; !dcl.IsEmptyValueIndirect(v) {
-		m["recreating"] = v
-	}
-	if v := f.Refreshing; !dcl.IsEmptyValueIndirect(v) {
-		m["refreshing"] = v
-	}
-	if v := f.Restarting; !dcl.IsEmptyValueIndirect(v) {
-		m["restarting"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceGroupManagerCurrentActions flattens an instance of InstanceGroupManagerCurrentActions from a JSON
-// response object.
-func flattenInstanceGroupManagerCurrentActions(c *Client, i interface{}) *InstanceGroupManagerCurrentActions {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceGroupManagerCurrentActions{}
-
-	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyInstanceGroupManagerCurrentActions
-	}
-	r.Abandoning = dcl.FlattenInteger(m["abandoning"])
-	r.Creating = dcl.FlattenInteger(m["creating"])
-	r.CreatingWithoutRetries = dcl.FlattenInteger(m["creatingWithoutRetries"])
-	r.Deleting = dcl.FlattenInteger(m["deleting"])
-	r.None = dcl.FlattenInteger(m["none"])
-	r.Recreating = dcl.FlattenInteger(m["recreating"])
-	r.Refreshing = dcl.FlattenInteger(m["refreshing"])
-	r.Restarting = dcl.FlattenInteger(m["restarting"])
-
-	return r
-}
-
 // expandInstanceGroupManagerVersionsMap expands the contents of InstanceGroupManagerVersions into a JSON
 // request object.
 func expandInstanceGroupManagerVersionsMap(c *Client, f map[string]InstanceGroupManagerVersions) (map[string]interface{}, error) {
@@ -3148,7 +3643,7 @@ func expandInstanceGroupManagerVersions(c *Client, f *InstanceGroupManagerVersio
 	if v := f.InstanceTemplate; !dcl.IsEmptyValueIndirect(v) {
 		m["instanceTemplate"] = v
 	}
-	if v, err := expandInstanceGroupManagerVersionsTargetSize(c, f.TargetSize); err != nil {
+	if v, err := expandInstanceGroupManagerFixedOrPercent(c, f.TargetSize); err != nil {
 		return nil, fmt.Errorf("error expanding TargetSize into targetSize: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["targetSize"] = v
@@ -3172,21 +3667,21 @@ func flattenInstanceGroupManagerVersions(c *Client, i interface{}) *InstanceGrou
 	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.InstanceTemplate = dcl.FlattenString(m["instanceTemplate"])
-	r.TargetSize = flattenInstanceGroupManagerVersionsTargetSize(c, m["targetSize"])
+	r.TargetSize = flattenInstanceGroupManagerFixedOrPercent(c, m["targetSize"])
 
 	return r
 }
 
-// expandInstanceGroupManagerVersionsTargetSizeMap expands the contents of InstanceGroupManagerVersionsTargetSize into a JSON
+// expandInstanceGroupManagerFixedOrPercentMap expands the contents of InstanceGroupManagerFixedOrPercent into a JSON
 // request object.
-func expandInstanceGroupManagerVersionsTargetSizeMap(c *Client, f map[string]InstanceGroupManagerVersionsTargetSize) (map[string]interface{}, error) {
+func expandInstanceGroupManagerFixedOrPercentMap(c *Client, f map[string]InstanceGroupManagerFixedOrPercent) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceGroupManagerVersionsTargetSize(c, &item)
+		i, err := expandInstanceGroupManagerFixedOrPercent(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -3198,16 +3693,16 @@ func expandInstanceGroupManagerVersionsTargetSizeMap(c *Client, f map[string]Ins
 	return items, nil
 }
 
-// expandInstanceGroupManagerVersionsTargetSizeSlice expands the contents of InstanceGroupManagerVersionsTargetSize into a JSON
+// expandInstanceGroupManagerFixedOrPercentSlice expands the contents of InstanceGroupManagerFixedOrPercent into a JSON
 // request object.
-func expandInstanceGroupManagerVersionsTargetSizeSlice(c *Client, f []InstanceGroupManagerVersionsTargetSize) ([]map[string]interface{}, error) {
+func expandInstanceGroupManagerFixedOrPercentSlice(c *Client, f []InstanceGroupManagerFixedOrPercent) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceGroupManagerVersionsTargetSize(c, &item)
+		i, err := expandInstanceGroupManagerFixedOrPercent(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -3218,58 +3713,58 @@ func expandInstanceGroupManagerVersionsTargetSizeSlice(c *Client, f []InstanceGr
 	return items, nil
 }
 
-// flattenInstanceGroupManagerVersionsTargetSizeMap flattens the contents of InstanceGroupManagerVersionsTargetSize from a JSON
+// flattenInstanceGroupManagerFixedOrPercentMap flattens the contents of InstanceGroupManagerFixedOrPercent from a JSON
 // response object.
-func flattenInstanceGroupManagerVersionsTargetSizeMap(c *Client, i interface{}) map[string]InstanceGroupManagerVersionsTargetSize {
+func flattenInstanceGroupManagerFixedOrPercentMap(c *Client, i interface{}) map[string]InstanceGroupManagerFixedOrPercent {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]InstanceGroupManagerVersionsTargetSize{}
+		return map[string]InstanceGroupManagerFixedOrPercent{}
 	}
 
 	if len(a) == 0 {
-		return map[string]InstanceGroupManagerVersionsTargetSize{}
+		return map[string]InstanceGroupManagerFixedOrPercent{}
 	}
 
-	items := make(map[string]InstanceGroupManagerVersionsTargetSize)
+	items := make(map[string]InstanceGroupManagerFixedOrPercent)
 	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerVersionsTargetSize(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceGroupManagerFixedOrPercent(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenInstanceGroupManagerVersionsTargetSizeSlice flattens the contents of InstanceGroupManagerVersionsTargetSize from a JSON
+// flattenInstanceGroupManagerFixedOrPercentSlice flattens the contents of InstanceGroupManagerFixedOrPercent from a JSON
 // response object.
-func flattenInstanceGroupManagerVersionsTargetSizeSlice(c *Client, i interface{}) []InstanceGroupManagerVersionsTargetSize {
+func flattenInstanceGroupManagerFixedOrPercentSlice(c *Client, i interface{}) []InstanceGroupManagerFixedOrPercent {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []InstanceGroupManagerVersionsTargetSize{}
+		return []InstanceGroupManagerFixedOrPercent{}
 	}
 
 	if len(a) == 0 {
-		return []InstanceGroupManagerVersionsTargetSize{}
+		return []InstanceGroupManagerFixedOrPercent{}
 	}
 
-	items := make([]InstanceGroupManagerVersionsTargetSize, 0, len(a))
+	items := make([]InstanceGroupManagerFixedOrPercent, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerVersionsTargetSize(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceGroupManagerFixedOrPercent(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandInstanceGroupManagerVersionsTargetSize expands an instance of InstanceGroupManagerVersionsTargetSize into a JSON
+// expandInstanceGroupManagerFixedOrPercent expands an instance of InstanceGroupManagerFixedOrPercent into a JSON
 // request object.
-func expandInstanceGroupManagerVersionsTargetSize(c *Client, f *InstanceGroupManagerVersionsTargetSize) (map[string]interface{}, error) {
+func expandInstanceGroupManagerFixedOrPercent(c *Client, f *InstanceGroupManagerFixedOrPercent) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Fixed; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Fixed; v != nil {
 		m["fixed"] = v
 	}
-	if v := f.Percent; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Percent; v != nil {
 		m["percent"] = v
 	}
 	if v := f.Calculated; !dcl.IsEmptyValueIndirect(v) {
@@ -3279,18 +3774,18 @@ func expandInstanceGroupManagerVersionsTargetSize(c *Client, f *InstanceGroupMan
 	return m, nil
 }
 
-// flattenInstanceGroupManagerVersionsTargetSize flattens an instance of InstanceGroupManagerVersionsTargetSize from a JSON
+// flattenInstanceGroupManagerFixedOrPercent flattens an instance of InstanceGroupManagerFixedOrPercent from a JSON
 // response object.
-func flattenInstanceGroupManagerVersionsTargetSize(c *Client, i interface{}) *InstanceGroupManagerVersionsTargetSize {
+func flattenInstanceGroupManagerFixedOrPercent(c *Client, i interface{}) *InstanceGroupManagerFixedOrPercent {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &InstanceGroupManagerVersionsTargetSize{}
+	r := &InstanceGroupManagerFixedOrPercent{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyInstanceGroupManagerVersionsTargetSize
+		return EmptyInstanceGroupManagerFixedOrPercent
 	}
 	r.Fixed = dcl.FlattenInteger(m["fixed"])
 	r.Percent = dcl.FlattenInteger(m["percent"])
@@ -3299,16 +3794,16 @@ func flattenInstanceGroupManagerVersionsTargetSize(c *Client, i interface{}) *In
 	return r
 }
 
-// expandInstanceGroupManagerNamedPortsMap expands the contents of InstanceGroupManagerNamedPorts into a JSON
+// expandInstanceGroupManagerCurrentActionsMap expands the contents of InstanceGroupManagerCurrentActions into a JSON
 // request object.
-func expandInstanceGroupManagerNamedPortsMap(c *Client, f map[string]InstanceGroupManagerNamedPorts) (map[string]interface{}, error) {
+func expandInstanceGroupManagerCurrentActionsMap(c *Client, f map[string]InstanceGroupManagerCurrentActions) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceGroupManagerNamedPorts(c, &item)
+		i, err := expandInstanceGroupManagerCurrentActions(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -3320,16 +3815,16 @@ func expandInstanceGroupManagerNamedPortsMap(c *Client, f map[string]InstanceGro
 	return items, nil
 }
 
-// expandInstanceGroupManagerNamedPortsSlice expands the contents of InstanceGroupManagerNamedPorts into a JSON
+// expandInstanceGroupManagerCurrentActionsSlice expands the contents of InstanceGroupManagerCurrentActions into a JSON
 // request object.
-func expandInstanceGroupManagerNamedPortsSlice(c *Client, f []InstanceGroupManagerNamedPorts) ([]map[string]interface{}, error) {
+func expandInstanceGroupManagerCurrentActionsSlice(c *Client, f []InstanceGroupManagerCurrentActions) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceGroupManagerNamedPorts(c, &item)
+		i, err := expandInstanceGroupManagerCurrentActions(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -3340,79 +3835,107 @@ func expandInstanceGroupManagerNamedPortsSlice(c *Client, f []InstanceGroupManag
 	return items, nil
 }
 
-// flattenInstanceGroupManagerNamedPortsMap flattens the contents of InstanceGroupManagerNamedPorts from a JSON
+// flattenInstanceGroupManagerCurrentActionsMap flattens the contents of InstanceGroupManagerCurrentActions from a JSON
 // response object.
-func flattenInstanceGroupManagerNamedPortsMap(c *Client, i interface{}) map[string]InstanceGroupManagerNamedPorts {
+func flattenInstanceGroupManagerCurrentActionsMap(c *Client, i interface{}) map[string]InstanceGroupManagerCurrentActions {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]InstanceGroupManagerNamedPorts{}
+		return map[string]InstanceGroupManagerCurrentActions{}
 	}
 
 	if len(a) == 0 {
-		return map[string]InstanceGroupManagerNamedPorts{}
+		return map[string]InstanceGroupManagerCurrentActions{}
 	}
 
-	items := make(map[string]InstanceGroupManagerNamedPorts)
+	items := make(map[string]InstanceGroupManagerCurrentActions)
 	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerNamedPorts(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceGroupManagerCurrentActions(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenInstanceGroupManagerNamedPortsSlice flattens the contents of InstanceGroupManagerNamedPorts from a JSON
+// flattenInstanceGroupManagerCurrentActionsSlice flattens the contents of InstanceGroupManagerCurrentActions from a JSON
 // response object.
-func flattenInstanceGroupManagerNamedPortsSlice(c *Client, i interface{}) []InstanceGroupManagerNamedPorts {
+func flattenInstanceGroupManagerCurrentActionsSlice(c *Client, i interface{}) []InstanceGroupManagerCurrentActions {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []InstanceGroupManagerNamedPorts{}
+		return []InstanceGroupManagerCurrentActions{}
 	}
 
 	if len(a) == 0 {
-		return []InstanceGroupManagerNamedPorts{}
+		return []InstanceGroupManagerCurrentActions{}
 	}
 
-	items := make([]InstanceGroupManagerNamedPorts, 0, len(a))
+	items := make([]InstanceGroupManagerCurrentActions, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerNamedPorts(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceGroupManagerCurrentActions(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandInstanceGroupManagerNamedPorts expands an instance of InstanceGroupManagerNamedPorts into a JSON
+// expandInstanceGroupManagerCurrentActions expands an instance of InstanceGroupManagerCurrentActions into a JSON
 // request object.
-func expandInstanceGroupManagerNamedPorts(c *Client, f *InstanceGroupManagerNamedPorts) (map[string]interface{}, error) {
+func expandInstanceGroupManagerCurrentActions(c *Client, f *InstanceGroupManagerCurrentActions) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
-		m["name"] = v
+	if v := f.None; !dcl.IsEmptyValueIndirect(v) {
+		m["none"] = v
 	}
-	if v := f.Port; !dcl.IsEmptyValueIndirect(v) {
-		m["port"] = v
+	if v := f.Creating; !dcl.IsEmptyValueIndirect(v) {
+		m["creating"] = v
+	}
+	if v := f.CreatingWithoutRetries; !dcl.IsEmptyValueIndirect(v) {
+		m["creatingWithoutRetries"] = v
+	}
+	if v := f.Verifying; !dcl.IsEmptyValueIndirect(v) {
+		m["verifying"] = v
+	}
+	if v := f.Recreating; !dcl.IsEmptyValueIndirect(v) {
+		m["recreating"] = v
+	}
+	if v := f.Deleting; !dcl.IsEmptyValueIndirect(v) {
+		m["deleting"] = v
+	}
+	if v := f.Abandoning; !dcl.IsEmptyValueIndirect(v) {
+		m["abandoning"] = v
+	}
+	if v := f.Restarting; !dcl.IsEmptyValueIndirect(v) {
+		m["restarting"] = v
+	}
+	if v := f.Refreshing; !dcl.IsEmptyValueIndirect(v) {
+		m["refreshing"] = v
 	}
 
 	return m, nil
 }
 
-// flattenInstanceGroupManagerNamedPorts flattens an instance of InstanceGroupManagerNamedPorts from a JSON
+// flattenInstanceGroupManagerCurrentActions flattens an instance of InstanceGroupManagerCurrentActions from a JSON
 // response object.
-func flattenInstanceGroupManagerNamedPorts(c *Client, i interface{}) *InstanceGroupManagerNamedPorts {
+func flattenInstanceGroupManagerCurrentActions(c *Client, i interface{}) *InstanceGroupManagerCurrentActions {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &InstanceGroupManagerNamedPorts{}
+	r := &InstanceGroupManagerCurrentActions{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyInstanceGroupManagerNamedPorts
+		return EmptyInstanceGroupManagerCurrentActions
 	}
-	r.Name = dcl.FlattenString(m["name"])
-	r.Port = dcl.FlattenInteger(m["port"])
+	r.None = dcl.FlattenInteger(m["none"])
+	r.Creating = dcl.FlattenInteger(m["creating"])
+	r.CreatingWithoutRetries = dcl.FlattenInteger(m["creatingWithoutRetries"])
+	r.Verifying = dcl.FlattenInteger(m["verifying"])
+	r.Recreating = dcl.FlattenInteger(m["recreating"])
+	r.Deleting = dcl.FlattenInteger(m["deleting"])
+	r.Abandoning = dcl.FlattenInteger(m["abandoning"])
+	r.Restarting = dcl.FlattenInteger(m["restarting"])
+	r.Refreshing = dcl.FlattenInteger(m["refreshing"])
 
 	return r
 }
@@ -3514,8 +4037,13 @@ func expandInstanceGroupManagerStatus(c *Client, f *InstanceGroupManagerStatus) 
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["versionTarget"] = v
 	}
-	if v := f.Autoscalar; !dcl.IsEmptyValueIndirect(v) {
-		m["autoscalar"] = v
+	if v, err := expandInstanceGroupManagerStatusStateful(c, f.Stateful); err != nil {
+		return nil, fmt.Errorf("error expanding Stateful into stateful: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["stateful"] = v
+	}
+	if v := f.Autoscaler; !dcl.IsEmptyValueIndirect(v) {
+		m["autoscaler"] = v
 	}
 
 	return m, nil
@@ -3536,7 +4064,8 @@ func flattenInstanceGroupManagerStatus(c *Client, i interface{}) *InstanceGroupM
 	}
 	r.IsStable = dcl.FlattenBool(m["isStable"])
 	r.VersionTarget = flattenInstanceGroupManagerStatusVersionTarget(c, m["versionTarget"])
-	r.Autoscalar = dcl.FlattenString(m["autoscalar"])
+	r.Stateful = flattenInstanceGroupManagerStatusStateful(c, m["stateful"])
+	r.Autoscaler = dcl.FlattenString(m["autoscaler"])
 
 	return r
 }
@@ -3651,6 +4180,244 @@ func flattenInstanceGroupManagerStatusVersionTarget(c *Client, i interface{}) *I
 		return EmptyInstanceGroupManagerStatusVersionTarget
 	}
 	r.IsReached = dcl.FlattenBool(m["isReached"])
+
+	return r
+}
+
+// expandInstanceGroupManagerStatusStatefulMap expands the contents of InstanceGroupManagerStatusStateful into a JSON
+// request object.
+func expandInstanceGroupManagerStatusStatefulMap(c *Client, f map[string]InstanceGroupManagerStatusStateful) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceGroupManagerStatusStateful(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceGroupManagerStatusStatefulSlice expands the contents of InstanceGroupManagerStatusStateful into a JSON
+// request object.
+func expandInstanceGroupManagerStatusStatefulSlice(c *Client, f []InstanceGroupManagerStatusStateful) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceGroupManagerStatusStateful(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceGroupManagerStatusStatefulMap flattens the contents of InstanceGroupManagerStatusStateful from a JSON
+// response object.
+func flattenInstanceGroupManagerStatusStatefulMap(c *Client, i interface{}) map[string]InstanceGroupManagerStatusStateful {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceGroupManagerStatusStateful{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceGroupManagerStatusStateful{}
+	}
+
+	items := make(map[string]InstanceGroupManagerStatusStateful)
+	for k, item := range a {
+		items[k] = *flattenInstanceGroupManagerStatusStateful(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerStatusStatefulSlice flattens the contents of InstanceGroupManagerStatusStateful from a JSON
+// response object.
+func flattenInstanceGroupManagerStatusStatefulSlice(c *Client, i interface{}) []InstanceGroupManagerStatusStateful {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceGroupManagerStatusStateful{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceGroupManagerStatusStateful{}
+	}
+
+	items := make([]InstanceGroupManagerStatusStateful, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceGroupManagerStatusStateful(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceGroupManagerStatusStateful expands an instance of InstanceGroupManagerStatusStateful into a JSON
+// request object.
+func expandInstanceGroupManagerStatusStateful(c *Client, f *InstanceGroupManagerStatusStateful) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.HasStatefulConfig; !dcl.IsEmptyValueIndirect(v) {
+		m["hasStatefulConfig"] = v
+	}
+	if v, err := expandInstanceGroupManagerStatusStatefulPerInstanceConfigs(c, f.PerInstanceConfigs); err != nil {
+		return nil, fmt.Errorf("error expanding PerInstanceConfigs into perInstanceConfigs: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["perInstanceConfigs"] = v
+	}
+	if v := f.IsStateful; !dcl.IsEmptyValueIndirect(v) {
+		m["isStateful"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceGroupManagerStatusStateful flattens an instance of InstanceGroupManagerStatusStateful from a JSON
+// response object.
+func flattenInstanceGroupManagerStatusStateful(c *Client, i interface{}) *InstanceGroupManagerStatusStateful {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceGroupManagerStatusStateful{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGroupManagerStatusStateful
+	}
+	r.HasStatefulConfig = dcl.FlattenBool(m["hasStatefulConfig"])
+	r.PerInstanceConfigs = flattenInstanceGroupManagerStatusStatefulPerInstanceConfigs(c, m["perInstanceConfigs"])
+	r.IsStateful = dcl.FlattenBool(m["isStateful"])
+
+	return r
+}
+
+// expandInstanceGroupManagerStatusStatefulPerInstanceConfigsMap expands the contents of InstanceGroupManagerStatusStatefulPerInstanceConfigs into a JSON
+// request object.
+func expandInstanceGroupManagerStatusStatefulPerInstanceConfigsMap(c *Client, f map[string]InstanceGroupManagerStatusStatefulPerInstanceConfigs) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceGroupManagerStatusStatefulPerInstanceConfigs(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceGroupManagerStatusStatefulPerInstanceConfigsSlice expands the contents of InstanceGroupManagerStatusStatefulPerInstanceConfigs into a JSON
+// request object.
+func expandInstanceGroupManagerStatusStatefulPerInstanceConfigsSlice(c *Client, f []InstanceGroupManagerStatusStatefulPerInstanceConfigs) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceGroupManagerStatusStatefulPerInstanceConfigs(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceGroupManagerStatusStatefulPerInstanceConfigsMap flattens the contents of InstanceGroupManagerStatusStatefulPerInstanceConfigs from a JSON
+// response object.
+func flattenInstanceGroupManagerStatusStatefulPerInstanceConfigsMap(c *Client, i interface{}) map[string]InstanceGroupManagerStatusStatefulPerInstanceConfigs {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceGroupManagerStatusStatefulPerInstanceConfigs{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceGroupManagerStatusStatefulPerInstanceConfigs{}
+	}
+
+	items := make(map[string]InstanceGroupManagerStatusStatefulPerInstanceConfigs)
+	for k, item := range a {
+		items[k] = *flattenInstanceGroupManagerStatusStatefulPerInstanceConfigs(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerStatusStatefulPerInstanceConfigsSlice flattens the contents of InstanceGroupManagerStatusStatefulPerInstanceConfigs from a JSON
+// response object.
+func flattenInstanceGroupManagerStatusStatefulPerInstanceConfigsSlice(c *Client, i interface{}) []InstanceGroupManagerStatusStatefulPerInstanceConfigs {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceGroupManagerStatusStatefulPerInstanceConfigs{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceGroupManagerStatusStatefulPerInstanceConfigs{}
+	}
+
+	items := make([]InstanceGroupManagerStatusStatefulPerInstanceConfigs, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceGroupManagerStatusStatefulPerInstanceConfigs(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceGroupManagerStatusStatefulPerInstanceConfigs expands an instance of InstanceGroupManagerStatusStatefulPerInstanceConfigs into a JSON
+// request object.
+func expandInstanceGroupManagerStatusStatefulPerInstanceConfigs(c *Client, f *InstanceGroupManagerStatusStatefulPerInstanceConfigs) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.AllEffective; !dcl.IsEmptyValueIndirect(v) {
+		m["allEffective"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceGroupManagerStatusStatefulPerInstanceConfigs flattens an instance of InstanceGroupManagerStatusStatefulPerInstanceConfigs from a JSON
+// response object.
+func flattenInstanceGroupManagerStatusStatefulPerInstanceConfigs(c *Client, i interface{}) *InstanceGroupManagerStatusStatefulPerInstanceConfigs {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceGroupManagerStatusStatefulPerInstanceConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGroupManagerStatusStatefulPerInstanceConfigs
+	}
+	r.AllEffective = dcl.FlattenBool(m["allEffective"])
 
 	return r
 }
@@ -3862,21 +4629,33 @@ func expandInstanceGroupManagerUpdatePolicy(c *Client, f *InstanceGroupManagerUp
 	}
 
 	m := make(map[string]interface{})
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
 	if v := f.InstanceRedistributionType; !dcl.IsEmptyValueIndirect(v) {
 		m["instanceRedistributionType"] = v
 	}
 	if v := f.MinimalAction; !dcl.IsEmptyValueIndirect(v) {
 		m["minimalAction"] = v
 	}
-	if v, err := expandInstanceGroupManagerUpdatePolicyMaxSurge(c, f.MaxSurge); err != nil {
+	if v, err := expandInstanceGroupManagerFixedOrPercent(c, f.MaxSurge); err != nil {
 		return nil, fmt.Errorf("error expanding MaxSurge into maxSurge: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["maxSurge"] = v
 	}
-	if v, err := expandInstanceGroupManagerUpdatePolicyMaxUnavailable(c, f.MaxUnavailable); err != nil {
+	if v, err := expandInstanceGroupManagerFixedOrPercent(c, f.MaxUnavailable); err != nil {
 		return nil, fmt.Errorf("error expanding MaxUnavailable into maxUnavailable: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["maxUnavailable"] = v
+	}
+	if v := f.ReplacementMethod; !dcl.IsEmptyValueIndirect(v) {
+		m["replacementMethod"] = v
+	}
+	if v := f.MostDisruptiveAllowedAction; !dcl.IsEmptyValueIndirect(v) {
+		m["mostDisruptiveAllowedAction"] = v
+	}
+	if v := f.MinReadySec; !dcl.IsEmptyValueIndirect(v) {
+		m["minReadySec"] = v
 	}
 
 	return m, nil
@@ -3895,24 +4674,28 @@ func flattenInstanceGroupManagerUpdatePolicy(c *Client, i interface{}) *Instance
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyInstanceGroupManagerUpdatePolicy
 	}
+	r.Type = flattenInstanceGroupManagerUpdatePolicyTypeEnum(m["type"])
 	r.InstanceRedistributionType = flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum(m["instanceRedistributionType"])
 	r.MinimalAction = flattenInstanceGroupManagerUpdatePolicyMinimalActionEnum(m["minimalAction"])
-	r.MaxSurge = flattenInstanceGroupManagerUpdatePolicyMaxSurge(c, m["maxSurge"])
-	r.MaxUnavailable = flattenInstanceGroupManagerUpdatePolicyMaxUnavailable(c, m["maxUnavailable"])
+	r.MaxSurge = flattenInstanceGroupManagerFixedOrPercent(c, m["maxSurge"])
+	r.MaxUnavailable = flattenInstanceGroupManagerFixedOrPercent(c, m["maxUnavailable"])
+	r.ReplacementMethod = flattenInstanceGroupManagerUpdatePolicyReplacementMethodEnum(m["replacementMethod"])
+	r.MostDisruptiveAllowedAction = flattenInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum(m["mostDisruptiveAllowedAction"])
+	r.MinReadySec = dcl.FlattenInteger(m["minReadySec"])
 
 	return r
 }
 
-// expandInstanceGroupManagerUpdatePolicyMaxSurgeMap expands the contents of InstanceGroupManagerUpdatePolicyMaxSurge into a JSON
+// expandInstanceGroupManagerNamedPortsMap expands the contents of InstanceGroupManagerNamedPorts into a JSON
 // request object.
-func expandInstanceGroupManagerUpdatePolicyMaxSurgeMap(c *Client, f map[string]InstanceGroupManagerUpdatePolicyMaxSurge) (map[string]interface{}, error) {
+func expandInstanceGroupManagerNamedPortsMap(c *Client, f map[string]InstanceGroupManagerNamedPorts) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceGroupManagerUpdatePolicyMaxSurge(c, &item)
+		i, err := expandInstanceGroupManagerNamedPorts(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -3924,16 +4707,16 @@ func expandInstanceGroupManagerUpdatePolicyMaxSurgeMap(c *Client, f map[string]I
 	return items, nil
 }
 
-// expandInstanceGroupManagerUpdatePolicyMaxSurgeSlice expands the contents of InstanceGroupManagerUpdatePolicyMaxSurge into a JSON
+// expandInstanceGroupManagerNamedPortsSlice expands the contents of InstanceGroupManagerNamedPorts into a JSON
 // request object.
-func expandInstanceGroupManagerUpdatePolicyMaxSurgeSlice(c *Client, f []InstanceGroupManagerUpdatePolicyMaxSurge) ([]map[string]interface{}, error) {
+func expandInstanceGroupManagerNamedPortsSlice(c *Client, f []InstanceGroupManagerNamedPorts) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceGroupManagerUpdatePolicyMaxSurge(c, &item)
+		i, err := expandInstanceGroupManagerNamedPorts(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -3944,97 +4727,93 @@ func expandInstanceGroupManagerUpdatePolicyMaxSurgeSlice(c *Client, f []Instance
 	return items, nil
 }
 
-// flattenInstanceGroupManagerUpdatePolicyMaxSurgeMap flattens the contents of InstanceGroupManagerUpdatePolicyMaxSurge from a JSON
+// flattenInstanceGroupManagerNamedPortsMap flattens the contents of InstanceGroupManagerNamedPorts from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicyMaxSurgeMap(c *Client, i interface{}) map[string]InstanceGroupManagerUpdatePolicyMaxSurge {
+func flattenInstanceGroupManagerNamedPortsMap(c *Client, i interface{}) map[string]InstanceGroupManagerNamedPorts {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]InstanceGroupManagerUpdatePolicyMaxSurge{}
+		return map[string]InstanceGroupManagerNamedPorts{}
 	}
 
 	if len(a) == 0 {
-		return map[string]InstanceGroupManagerUpdatePolicyMaxSurge{}
+		return map[string]InstanceGroupManagerNamedPorts{}
 	}
 
-	items := make(map[string]InstanceGroupManagerUpdatePolicyMaxSurge)
+	items := make(map[string]InstanceGroupManagerNamedPorts)
 	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerUpdatePolicyMaxSurge(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceGroupManagerNamedPorts(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenInstanceGroupManagerUpdatePolicyMaxSurgeSlice flattens the contents of InstanceGroupManagerUpdatePolicyMaxSurge from a JSON
+// flattenInstanceGroupManagerNamedPortsSlice flattens the contents of InstanceGroupManagerNamedPorts from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicyMaxSurgeSlice(c *Client, i interface{}) []InstanceGroupManagerUpdatePolicyMaxSurge {
+func flattenInstanceGroupManagerNamedPortsSlice(c *Client, i interface{}) []InstanceGroupManagerNamedPorts {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []InstanceGroupManagerUpdatePolicyMaxSurge{}
+		return []InstanceGroupManagerNamedPorts{}
 	}
 
 	if len(a) == 0 {
-		return []InstanceGroupManagerUpdatePolicyMaxSurge{}
+		return []InstanceGroupManagerNamedPorts{}
 	}
 
-	items := make([]InstanceGroupManagerUpdatePolicyMaxSurge, 0, len(a))
+	items := make([]InstanceGroupManagerNamedPorts, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerUpdatePolicyMaxSurge(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceGroupManagerNamedPorts(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandInstanceGroupManagerUpdatePolicyMaxSurge expands an instance of InstanceGroupManagerUpdatePolicyMaxSurge into a JSON
+// expandInstanceGroupManagerNamedPorts expands an instance of InstanceGroupManagerNamedPorts into a JSON
 // request object.
-func expandInstanceGroupManagerUpdatePolicyMaxSurge(c *Client, f *InstanceGroupManagerUpdatePolicyMaxSurge) (map[string]interface{}, error) {
+func expandInstanceGroupManagerNamedPorts(c *Client, f *InstanceGroupManagerNamedPorts) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Fixed; !dcl.IsEmptyValueIndirect(v) {
-		m["fixed"] = v
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
 	}
-	if v := f.Percent; !dcl.IsEmptyValueIndirect(v) {
-		m["percent"] = v
-	}
-	if v := f.Calculated; !dcl.IsEmptyValueIndirect(v) {
-		m["calculated"] = v
+	if v := f.Port; !dcl.IsEmptyValueIndirect(v) {
+		m["port"] = v
 	}
 
 	return m, nil
 }
 
-// flattenInstanceGroupManagerUpdatePolicyMaxSurge flattens an instance of InstanceGroupManagerUpdatePolicyMaxSurge from a JSON
+// flattenInstanceGroupManagerNamedPorts flattens an instance of InstanceGroupManagerNamedPorts from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicyMaxSurge(c *Client, i interface{}) *InstanceGroupManagerUpdatePolicyMaxSurge {
+func flattenInstanceGroupManagerNamedPorts(c *Client, i interface{}) *InstanceGroupManagerNamedPorts {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &InstanceGroupManagerUpdatePolicyMaxSurge{}
+	r := &InstanceGroupManagerNamedPorts{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyInstanceGroupManagerUpdatePolicyMaxSurge
+		return EmptyInstanceGroupManagerNamedPorts
 	}
-	r.Fixed = dcl.FlattenInteger(m["fixed"])
-	r.Percent = dcl.FlattenInteger(m["percent"])
-	r.Calculated = dcl.FlattenInteger(m["calculated"])
+	r.Name = dcl.FlattenString(m["name"])
+	r.Port = dcl.FlattenInteger(m["port"])
 
 	return r
 }
 
-// expandInstanceGroupManagerUpdatePolicyMaxUnavailableMap expands the contents of InstanceGroupManagerUpdatePolicyMaxUnavailable into a JSON
+// expandInstanceGroupManagerStatefulPolicyMap expands the contents of InstanceGroupManagerStatefulPolicy into a JSON
 // request object.
-func expandInstanceGroupManagerUpdatePolicyMaxUnavailableMap(c *Client, f map[string]InstanceGroupManagerUpdatePolicyMaxUnavailable) (map[string]interface{}, error) {
+func expandInstanceGroupManagerStatefulPolicyMap(c *Client, f map[string]InstanceGroupManagerStatefulPolicy) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceGroupManagerUpdatePolicyMaxUnavailable(c, &item)
+		i, err := expandInstanceGroupManagerStatefulPolicy(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -4046,16 +4825,16 @@ func expandInstanceGroupManagerUpdatePolicyMaxUnavailableMap(c *Client, f map[st
 	return items, nil
 }
 
-// expandInstanceGroupManagerUpdatePolicyMaxUnavailableSlice expands the contents of InstanceGroupManagerUpdatePolicyMaxUnavailable into a JSON
+// expandInstanceGroupManagerStatefulPolicySlice expands the contents of InstanceGroupManagerStatefulPolicy into a JSON
 // request object.
-func expandInstanceGroupManagerUpdatePolicyMaxUnavailableSlice(c *Client, f []InstanceGroupManagerUpdatePolicyMaxUnavailable) ([]map[string]interface{}, error) {
+func expandInstanceGroupManagerStatefulPolicySlice(c *Client, f []InstanceGroupManagerStatefulPolicy) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceGroupManagerUpdatePolicyMaxUnavailable(c, &item)
+		i, err := expandInstanceGroupManagerStatefulPolicy(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -4066,85 +4845,411 @@ func expandInstanceGroupManagerUpdatePolicyMaxUnavailableSlice(c *Client, f []In
 	return items, nil
 }
 
-// flattenInstanceGroupManagerUpdatePolicyMaxUnavailableMap flattens the contents of InstanceGroupManagerUpdatePolicyMaxUnavailable from a JSON
+// flattenInstanceGroupManagerStatefulPolicyMap flattens the contents of InstanceGroupManagerStatefulPolicy from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicyMaxUnavailableMap(c *Client, i interface{}) map[string]InstanceGroupManagerUpdatePolicyMaxUnavailable {
+func flattenInstanceGroupManagerStatefulPolicyMap(c *Client, i interface{}) map[string]InstanceGroupManagerStatefulPolicy {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]InstanceGroupManagerUpdatePolicyMaxUnavailable{}
+		return map[string]InstanceGroupManagerStatefulPolicy{}
 	}
 
 	if len(a) == 0 {
-		return map[string]InstanceGroupManagerUpdatePolicyMaxUnavailable{}
+		return map[string]InstanceGroupManagerStatefulPolicy{}
 	}
 
-	items := make(map[string]InstanceGroupManagerUpdatePolicyMaxUnavailable)
+	items := make(map[string]InstanceGroupManagerStatefulPolicy)
 	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerUpdatePolicyMaxUnavailable(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceGroupManagerStatefulPolicy(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenInstanceGroupManagerUpdatePolicyMaxUnavailableSlice flattens the contents of InstanceGroupManagerUpdatePolicyMaxUnavailable from a JSON
+// flattenInstanceGroupManagerStatefulPolicySlice flattens the contents of InstanceGroupManagerStatefulPolicy from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicyMaxUnavailableSlice(c *Client, i interface{}) []InstanceGroupManagerUpdatePolicyMaxUnavailable {
+func flattenInstanceGroupManagerStatefulPolicySlice(c *Client, i interface{}) []InstanceGroupManagerStatefulPolicy {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []InstanceGroupManagerUpdatePolicyMaxUnavailable{}
+		return []InstanceGroupManagerStatefulPolicy{}
 	}
 
 	if len(a) == 0 {
-		return []InstanceGroupManagerUpdatePolicyMaxUnavailable{}
+		return []InstanceGroupManagerStatefulPolicy{}
 	}
 
-	items := make([]InstanceGroupManagerUpdatePolicyMaxUnavailable, 0, len(a))
+	items := make([]InstanceGroupManagerStatefulPolicy, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerUpdatePolicyMaxUnavailable(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceGroupManagerStatefulPolicy(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandInstanceGroupManagerUpdatePolicyMaxUnavailable expands an instance of InstanceGroupManagerUpdatePolicyMaxUnavailable into a JSON
+// expandInstanceGroupManagerStatefulPolicy expands an instance of InstanceGroupManagerStatefulPolicy into a JSON
 // request object.
-func expandInstanceGroupManagerUpdatePolicyMaxUnavailable(c *Client, f *InstanceGroupManagerUpdatePolicyMaxUnavailable) (map[string]interface{}, error) {
+func expandInstanceGroupManagerStatefulPolicy(c *Client, f *InstanceGroupManagerStatefulPolicy) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Fixed; !dcl.IsEmptyValueIndirect(v) {
-		m["fixed"] = v
-	}
-	if v := f.Percent; !dcl.IsEmptyValueIndirect(v) {
-		m["percent"] = v
-	}
-	if v := f.Calculated; !dcl.IsEmptyValueIndirect(v) {
-		m["calculated"] = v
+	if v, err := expandInstanceGroupManagerStatefulPolicyPreservedState(c, f.PreservedState); err != nil {
+		return nil, fmt.Errorf("error expanding PreservedState into preservedState: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["preservedState"] = v
 	}
 
 	return m, nil
 }
 
-// flattenInstanceGroupManagerUpdatePolicyMaxUnavailable flattens an instance of InstanceGroupManagerUpdatePolicyMaxUnavailable from a JSON
+// flattenInstanceGroupManagerStatefulPolicy flattens an instance of InstanceGroupManagerStatefulPolicy from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicyMaxUnavailable(c *Client, i interface{}) *InstanceGroupManagerUpdatePolicyMaxUnavailable {
+func flattenInstanceGroupManagerStatefulPolicy(c *Client, i interface{}) *InstanceGroupManagerStatefulPolicy {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &InstanceGroupManagerUpdatePolicyMaxUnavailable{}
+	r := &InstanceGroupManagerStatefulPolicy{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyInstanceGroupManagerUpdatePolicyMaxUnavailable
+		return EmptyInstanceGroupManagerStatefulPolicy
 	}
-	r.Fixed = dcl.FlattenInteger(m["fixed"])
-	r.Percent = dcl.FlattenInteger(m["percent"])
-	r.Calculated = dcl.FlattenInteger(m["calculated"])
+	r.PreservedState = flattenInstanceGroupManagerStatefulPolicyPreservedState(c, m["preservedState"])
 
 	return r
+}
+
+// expandInstanceGroupManagerStatefulPolicyPreservedStateMap expands the contents of InstanceGroupManagerStatefulPolicyPreservedState into a JSON
+// request object.
+func expandInstanceGroupManagerStatefulPolicyPreservedStateMap(c *Client, f map[string]InstanceGroupManagerStatefulPolicyPreservedState) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceGroupManagerStatefulPolicyPreservedState(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceGroupManagerStatefulPolicyPreservedStateSlice expands the contents of InstanceGroupManagerStatefulPolicyPreservedState into a JSON
+// request object.
+func expandInstanceGroupManagerStatefulPolicyPreservedStateSlice(c *Client, f []InstanceGroupManagerStatefulPolicyPreservedState) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceGroupManagerStatefulPolicyPreservedState(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceGroupManagerStatefulPolicyPreservedStateMap flattens the contents of InstanceGroupManagerStatefulPolicyPreservedState from a JSON
+// response object.
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateMap(c *Client, i interface{}) map[string]InstanceGroupManagerStatefulPolicyPreservedState {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceGroupManagerStatefulPolicyPreservedState{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceGroupManagerStatefulPolicyPreservedState{}
+	}
+
+	items := make(map[string]InstanceGroupManagerStatefulPolicyPreservedState)
+	for k, item := range a {
+		items[k] = *flattenInstanceGroupManagerStatefulPolicyPreservedState(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerStatefulPolicyPreservedStateSlice flattens the contents of InstanceGroupManagerStatefulPolicyPreservedState from a JSON
+// response object.
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateSlice(c *Client, i interface{}) []InstanceGroupManagerStatefulPolicyPreservedState {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceGroupManagerStatefulPolicyPreservedState{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceGroupManagerStatefulPolicyPreservedState{}
+	}
+
+	items := make([]InstanceGroupManagerStatefulPolicyPreservedState, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceGroupManagerStatefulPolicyPreservedState(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceGroupManagerStatefulPolicyPreservedState expands an instance of InstanceGroupManagerStatefulPolicyPreservedState into a JSON
+// request object.
+func expandInstanceGroupManagerStatefulPolicyPreservedState(c *Client, f *InstanceGroupManagerStatefulPolicyPreservedState) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v, err := expandInstanceGroupManagerStatefulPolicyPreservedStateDisksMap(c, f.Disks); err != nil {
+		return nil, fmt.Errorf("error expanding Disks into disks: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["disks"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceGroupManagerStatefulPolicyPreservedState flattens an instance of InstanceGroupManagerStatefulPolicyPreservedState from a JSON
+// response object.
+func flattenInstanceGroupManagerStatefulPolicyPreservedState(c *Client, i interface{}) *InstanceGroupManagerStatefulPolicyPreservedState {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceGroupManagerStatefulPolicyPreservedState{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGroupManagerStatefulPolicyPreservedState
+	}
+	r.Disks = flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksMap(c, m["disks"])
+
+	return r
+}
+
+// expandInstanceGroupManagerStatefulPolicyPreservedStateDisksMap expands the contents of InstanceGroupManagerStatefulPolicyPreservedStateDisks into a JSON
+// request object.
+func expandInstanceGroupManagerStatefulPolicyPreservedStateDisksMap(c *Client, f map[string]InstanceGroupManagerStatefulPolicyPreservedStateDisks) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceGroupManagerStatefulPolicyPreservedStateDisks(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceGroupManagerStatefulPolicyPreservedStateDisksSlice expands the contents of InstanceGroupManagerStatefulPolicyPreservedStateDisks into a JSON
+// request object.
+func expandInstanceGroupManagerStatefulPolicyPreservedStateDisksSlice(c *Client, f []InstanceGroupManagerStatefulPolicyPreservedStateDisks) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceGroupManagerStatefulPolicyPreservedStateDisks(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksMap flattens the contents of InstanceGroupManagerStatefulPolicyPreservedStateDisks from a JSON
+// response object.
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksMap(c *Client, i interface{}) map[string]InstanceGroupManagerStatefulPolicyPreservedStateDisks {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceGroupManagerStatefulPolicyPreservedStateDisks{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceGroupManagerStatefulPolicyPreservedStateDisks{}
+	}
+
+	items := make(map[string]InstanceGroupManagerStatefulPolicyPreservedStateDisks)
+	for k, item := range a {
+		items[k] = *flattenInstanceGroupManagerStatefulPolicyPreservedStateDisks(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksSlice flattens the contents of InstanceGroupManagerStatefulPolicyPreservedStateDisks from a JSON
+// response object.
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksSlice(c *Client, i interface{}) []InstanceGroupManagerStatefulPolicyPreservedStateDisks {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceGroupManagerStatefulPolicyPreservedStateDisks{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceGroupManagerStatefulPolicyPreservedStateDisks{}
+	}
+
+	items := make([]InstanceGroupManagerStatefulPolicyPreservedStateDisks, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceGroupManagerStatefulPolicyPreservedStateDisks(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceGroupManagerStatefulPolicyPreservedStateDisks expands an instance of InstanceGroupManagerStatefulPolicyPreservedStateDisks into a JSON
+// request object.
+func expandInstanceGroupManagerStatefulPolicyPreservedStateDisks(c *Client, f *InstanceGroupManagerStatefulPolicyPreservedStateDisks) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.AutoDelete; !dcl.IsEmptyValueIndirect(v) {
+		m["autoDelete"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceGroupManagerStatefulPolicyPreservedStateDisks flattens an instance of InstanceGroupManagerStatefulPolicyPreservedStateDisks from a JSON
+// response object.
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisks(c *Client, i interface{}) *InstanceGroupManagerStatefulPolicyPreservedStateDisks {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceGroupManagerStatefulPolicyPreservedStateDisks{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGroupManagerStatefulPolicyPreservedStateDisks
+	}
+	r.AutoDelete = flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum(m["autoDelete"])
+
+	return r
+}
+
+// flattenInstanceGroupManagerDistributionPolicyTargetShapeEnumMap flattens the contents of InstanceGroupManagerDistributionPolicyTargetShapeEnum from a JSON
+// response object.
+func flattenInstanceGroupManagerDistributionPolicyTargetShapeEnumMap(c *Client, i interface{}) map[string]InstanceGroupManagerDistributionPolicyTargetShapeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceGroupManagerDistributionPolicyTargetShapeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceGroupManagerDistributionPolicyTargetShapeEnum{}
+	}
+
+	items := make(map[string]InstanceGroupManagerDistributionPolicyTargetShapeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceGroupManagerDistributionPolicyTargetShapeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerDistributionPolicyTargetShapeEnumSlice flattens the contents of InstanceGroupManagerDistributionPolicyTargetShapeEnum from a JSON
+// response object.
+func flattenInstanceGroupManagerDistributionPolicyTargetShapeEnumSlice(c *Client, i interface{}) []InstanceGroupManagerDistributionPolicyTargetShapeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceGroupManagerDistributionPolicyTargetShapeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceGroupManagerDistributionPolicyTargetShapeEnum{}
+	}
+
+	items := make([]InstanceGroupManagerDistributionPolicyTargetShapeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceGroupManagerDistributionPolicyTargetShapeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerDistributionPolicyTargetShapeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceGroupManagerDistributionPolicyTargetShapeEnum with the same value as that string.
+func flattenInstanceGroupManagerDistributionPolicyTargetShapeEnum(i interface{}) *InstanceGroupManagerDistributionPolicyTargetShapeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceGroupManagerDistributionPolicyTargetShapeEnumRef("")
+	}
+
+	return InstanceGroupManagerDistributionPolicyTargetShapeEnumRef(s)
+}
+
+// flattenInstanceGroupManagerUpdatePolicyTypeEnumMap flattens the contents of InstanceGroupManagerUpdatePolicyTypeEnum from a JSON
+// response object.
+func flattenInstanceGroupManagerUpdatePolicyTypeEnumMap(c *Client, i interface{}) map[string]InstanceGroupManagerUpdatePolicyTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceGroupManagerUpdatePolicyTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceGroupManagerUpdatePolicyTypeEnum{}
+	}
+
+	items := make(map[string]InstanceGroupManagerUpdatePolicyTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceGroupManagerUpdatePolicyTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerUpdatePolicyTypeEnumSlice flattens the contents of InstanceGroupManagerUpdatePolicyTypeEnum from a JSON
+// response object.
+func flattenInstanceGroupManagerUpdatePolicyTypeEnumSlice(c *Client, i interface{}) []InstanceGroupManagerUpdatePolicyTypeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceGroupManagerUpdatePolicyTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceGroupManagerUpdatePolicyTypeEnum{}
+	}
+
+	items := make([]InstanceGroupManagerUpdatePolicyTypeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceGroupManagerUpdatePolicyTypeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerUpdatePolicyTypeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceGroupManagerUpdatePolicyTypeEnum with the same value as that string.
+func flattenInstanceGroupManagerUpdatePolicyTypeEnum(i interface{}) *InstanceGroupManagerUpdatePolicyTypeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceGroupManagerUpdatePolicyTypeEnumRef("")
+	}
+
+	return InstanceGroupManagerUpdatePolicyTypeEnumRef(s)
 }
 
 // flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumMap flattens the contents of InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum from a JSON
@@ -4249,6 +5354,210 @@ func flattenInstanceGroupManagerUpdatePolicyMinimalActionEnum(i interface{}) *In
 	return InstanceGroupManagerUpdatePolicyMinimalActionEnumRef(s)
 }
 
+// flattenInstanceGroupManagerUpdatePolicyReplacementMethodEnumMap flattens the contents of InstanceGroupManagerUpdatePolicyReplacementMethodEnum from a JSON
+// response object.
+func flattenInstanceGroupManagerUpdatePolicyReplacementMethodEnumMap(c *Client, i interface{}) map[string]InstanceGroupManagerUpdatePolicyReplacementMethodEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceGroupManagerUpdatePolicyReplacementMethodEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceGroupManagerUpdatePolicyReplacementMethodEnum{}
+	}
+
+	items := make(map[string]InstanceGroupManagerUpdatePolicyReplacementMethodEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceGroupManagerUpdatePolicyReplacementMethodEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerUpdatePolicyReplacementMethodEnumSlice flattens the contents of InstanceGroupManagerUpdatePolicyReplacementMethodEnum from a JSON
+// response object.
+func flattenInstanceGroupManagerUpdatePolicyReplacementMethodEnumSlice(c *Client, i interface{}) []InstanceGroupManagerUpdatePolicyReplacementMethodEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceGroupManagerUpdatePolicyReplacementMethodEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceGroupManagerUpdatePolicyReplacementMethodEnum{}
+	}
+
+	items := make([]InstanceGroupManagerUpdatePolicyReplacementMethodEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceGroupManagerUpdatePolicyReplacementMethodEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerUpdatePolicyReplacementMethodEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceGroupManagerUpdatePolicyReplacementMethodEnum with the same value as that string.
+func flattenInstanceGroupManagerUpdatePolicyReplacementMethodEnum(i interface{}) *InstanceGroupManagerUpdatePolicyReplacementMethodEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceGroupManagerUpdatePolicyReplacementMethodEnumRef("")
+	}
+
+	return InstanceGroupManagerUpdatePolicyReplacementMethodEnumRef(s)
+}
+
+// flattenInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumMap flattens the contents of InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum from a JSON
+// response object.
+func flattenInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumMap(c *Client, i interface{}) map[string]InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum{}
+	}
+
+	items := make(map[string]InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumSlice flattens the contents of InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum from a JSON
+// response object.
+func flattenInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumSlice(c *Client, i interface{}) []InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum{}
+	}
+
+	items := make([]InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum with the same value as that string.
+func flattenInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum(i interface{}) *InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumRef("")
+	}
+
+	return InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumRef(s)
+}
+
+// flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumMap flattens the contents of InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum from a JSON
+// response object.
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumMap(c *Client, i interface{}) map[string]InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum{}
+	}
+
+	items := make(map[string]InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumSlice flattens the contents of InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum from a JSON
+// response object.
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumSlice(c *Client, i interface{}) []InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum{}
+	}
+
+	items := make([]InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum with the same value as that string.
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum(i interface{}) *InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumRef("")
+	}
+
+	return InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumRef(s)
+}
+
+// flattenInstanceGroupManagerFailoverActionEnumMap flattens the contents of InstanceGroupManagerFailoverActionEnum from a JSON
+// response object.
+func flattenInstanceGroupManagerFailoverActionEnumMap(c *Client, i interface{}) map[string]InstanceGroupManagerFailoverActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceGroupManagerFailoverActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceGroupManagerFailoverActionEnum{}
+	}
+
+	items := make(map[string]InstanceGroupManagerFailoverActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceGroupManagerFailoverActionEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerFailoverActionEnumSlice flattens the contents of InstanceGroupManagerFailoverActionEnum from a JSON
+// response object.
+func flattenInstanceGroupManagerFailoverActionEnumSlice(c *Client, i interface{}) []InstanceGroupManagerFailoverActionEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceGroupManagerFailoverActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceGroupManagerFailoverActionEnum{}
+	}
+
+	items := make([]InstanceGroupManagerFailoverActionEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceGroupManagerFailoverActionEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerFailoverActionEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceGroupManagerFailoverActionEnum with the same value as that string.
+func flattenInstanceGroupManagerFailoverActionEnum(i interface{}) *InstanceGroupManagerFailoverActionEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceGroupManagerFailoverActionEnumRef("")
+	}
+
+	return InstanceGroupManagerFailoverActionEnumRef(s)
+}
+
 // This function returns a matcher that checks whether a serialized resource matches this resource
 // in its parameters (as defined by the fields in a Get, which definitionally define resource
 // identity).  This is useful in extracting the element from a List call.
@@ -4331,6 +5640,9 @@ func convertFieldDiffsToInstanceGroupManagerDiffs(config *dcl.Config, fds []*dcl
 
 func convertOpNameToInstanceGroupManagerApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (instanceGroupManagerApiOperation, error) {
 	switch opName {
+
+	case "updateInstanceGroupManagerPatchOperation":
+		return &updateInstanceGroupManagerPatchOperation{FieldDiffs: fieldDiffs}, nil
 
 	case "updateInstanceGroupManagerSetInstanceTemplateOperation":
 		return &updateInstanceGroupManagerSetInstanceTemplateOperation{FieldDiffs: fieldDiffs}, nil

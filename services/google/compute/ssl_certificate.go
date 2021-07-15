@@ -279,7 +279,6 @@ func (c *Client) DeleteAllSslCertificate(ctx context.Context, project, location 
 }
 
 func (c *Client) ApplySslCertificate(ctx context.Context, rawDesired *SslCertificate, opts ...dcl.ApplyOption) (*SslCertificate, error) {
-
 	var resultNewState *SslCertificate
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applySslCertificateHelper(c, ctx, rawDesired, opts...)

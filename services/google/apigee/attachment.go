@@ -180,7 +180,6 @@ func (c *Client) DeleteAllAttachment(ctx context.Context, envgroup string, filte
 }
 
 func (c *Client) ApplyAttachment(ctx context.Context, rawDesired *Attachment, opts ...dcl.ApplyOption) (*Attachment, error) {
-
 	var resultNewState *Attachment
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyAttachmentHelper(c, ctx, rawDesired, opts...)

@@ -1,6 +1,6 @@
 {
-  "name": "{{ref:basic.instance_template.json:name}}",
-  "project": "{{ref:basic.instance_template.json:project}}",
+  "name": "{{ref:first.instance_template.json:name}}",
+  "project": "{{ref:first.instance_template.json:project}}",
   "properties": {
     "machineType": "e2-standard-2",
     "networkInterfaces": [

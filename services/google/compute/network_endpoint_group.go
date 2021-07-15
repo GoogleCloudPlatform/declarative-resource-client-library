@@ -384,7 +384,6 @@ func (c *Client) DeleteAllNetworkEndpointGroup(ctx context.Context, project, loc
 }
 
 func (c *Client) ApplyNetworkEndpointGroup(ctx context.Context, rawDesired *NetworkEndpointGroup, opts ...dcl.ApplyOption) (*NetworkEndpointGroup, error) {
-
 	var resultNewState *NetworkEndpointGroup
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyNetworkEndpointGroupHelper(c, ctx, rawDesired, opts...)

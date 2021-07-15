@@ -105,7 +105,6 @@ func (c *Client) DeleteProjectBillingInfo(ctx context.Context, r *ProjectBilling
 }
 
 func (c *Client) ApplyProjectBillingInfo(ctx context.Context, rawDesired *ProjectBillingInfo, opts ...dcl.ApplyOption) (*ProjectBillingInfo, error) {
-
 	var resultNewState *ProjectBillingInfo
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyProjectBillingInfoHelper(c, ctx, rawDesired, opts...)

@@ -18,85 +18,123 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+enum ComputeInstanceGroupManagerDistributionPolicyTargetShapeEnum {
+  ComputeInstanceGroupManagerDistributionPolicyTargetShapeEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeInstanceGroupManagerDistributionPolicyTargetShapeEnumTARGET_SHAPE_UNSPECIFIED = 1;
+  ComputeInstanceGroupManagerDistributionPolicyTargetShapeEnumANY = 2;
+  ComputeInstanceGroupManagerDistributionPolicyTargetShapeEnumBALANCED = 3;
+  ComputeInstanceGroupManagerDistributionPolicyTargetShapeEnumANY_SINGLE_ZONE = 4;
+}
+
+enum ComputeInstanceGroupManagerUpdatePolicyTypeEnum {
+  ComputeInstanceGroupManagerUpdatePolicyTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeInstanceGroupManagerUpdatePolicyTypeEnumOPPORTUNISTIC = 1;
+  ComputeInstanceGroupManagerUpdatePolicyTypeEnumPROACTIVE = 2;
+}
+
 enum ComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum {
   ComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  ComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumPROACTIVE = 1;
-  ComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumNONE = 2;
+  ComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumNONE = 1;
+  ComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumPROACTIVE = 2;
 }
 
 enum ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnum {
   ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnumNO_VALUE_DO_NOT_USE = 0;
-  ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnumRESTART = 1;
-  ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnumREPLACE = 2;
+  ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnumREPLACE = 1;
+  ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnumRESTART = 2;
+  ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnumREFRESH = 3;
+  ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnumNONE = 4;
+}
+
+enum ComputeInstanceGroupManagerUpdatePolicyReplacementMethodEnum {
+  ComputeInstanceGroupManagerUpdatePolicyReplacementMethodEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeInstanceGroupManagerUpdatePolicyReplacementMethodEnumSUBSTITUTE = 1;
+  ComputeInstanceGroupManagerUpdatePolicyReplacementMethodEnumRECREATE = 2;
+}
+
+enum ComputeInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum {
+  ComputeInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumNEVER = 1;
+  ComputeInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumON_PERMANENT_INSTANCE_DELETION = 2;
 }
 
 message ComputeInstanceGroupManager {
-  string base_instance_name = 1;
+  int64 id = 1;
   string creation_timestamp = 2;
-  ComputeInstanceGroupManagerDistributionPolicy distribution_policy = 3;
-  ComputeInstanceGroupManagerCurrentActions current_actions = 4;
-  string description = 5;
-  repeated ComputeInstanceGroupManagerVersions versions = 6;
-  int64 id = 7;
-  string instance_group = 8;
-  string instance_template = 9;
-  string name = 10;
-  repeated ComputeInstanceGroupManagerNamedPorts named_ports = 11;
-  ComputeInstanceGroupManagerStatus status = 12;
-  repeated string target_pools = 13;
-  repeated ComputeInstanceGroupManagerAutoHealingPolicies auto_healing_policies = 14;
-  ComputeInstanceGroupManagerUpdatePolicy update_policy = 15;
+  string name = 3;
+  string description = 4;
+  string zone = 5;
+  string region = 6;
+  ComputeInstanceGroupManagerDistributionPolicy distribution_policy = 7;
+  string instance_template = 8;
+  repeated ComputeInstanceGroupManagerVersions versions = 9;
+  string instance_group = 10;
+  repeated string target_pools = 11;
+  string base_instance_name = 12;
+  string fingerprint = 13;
+  ComputeInstanceGroupManagerCurrentActions current_actions = 14;
+  ComputeInstanceGroupManagerStatus status = 15;
   int64 target_size = 16;
-  string zone = 17;
-  string region = 18;
-  string project = 19;
-  string location = 20;
+  string self_link = 17;
+  repeated ComputeInstanceGroupManagerAutoHealingPolicies auto_healing_policies = 18;
+  ComputeInstanceGroupManagerUpdatePolicy update_policy = 19;
+  repeated ComputeInstanceGroupManagerNamedPorts named_ports = 20;
+  ComputeInstanceGroupManagerStatefulPolicy stateful_policy = 21;
+  string project = 22;
+  string location = 23;
 }
 
 message ComputeInstanceGroupManagerDistributionPolicy {
   repeated ComputeInstanceGroupManagerDistributionPolicyZones zones = 1;
+  ComputeInstanceGroupManagerDistributionPolicyTargetShapeEnum target_shape = 2;
 }
 
 message ComputeInstanceGroupManagerDistributionPolicyZones {
   string zone = 1;
 }
 
-message ComputeInstanceGroupManagerCurrentActions {
-  int64 abandoning = 1;
-  int64 creating = 2;
-  int64 creating_without_retries = 3;
-  int64 deleting = 4;
-  int64 none = 5;
-  int64 recreating = 6;
-  int64 refreshing = 7;
-  int64 restarting = 8;
-}
-
 message ComputeInstanceGroupManagerVersions {
   string name = 1;
   string instance_template = 2;
-  ComputeInstanceGroupManagerVersionsTargetSize target_size = 3;
+  ComputeInstanceGroupManagerFixedOrPercent target_size = 3;
 }
 
-message ComputeInstanceGroupManagerVersionsTargetSize {
+message ComputeInstanceGroupManagerFixedOrPercent {
   int64 fixed = 1;
   int64 percent = 2;
   int64 calculated = 3;
 }
 
-message ComputeInstanceGroupManagerNamedPorts {
-  string name = 1;
-  int64 port = 2;
+message ComputeInstanceGroupManagerCurrentActions {
+  int64 none = 1;
+  int64 creating = 2;
+  int64 creating_without_retries = 3;
+  int64 verifying = 4;
+  int64 recreating = 5;
+  int64 deleting = 6;
+  int64 abandoning = 7;
+  int64 restarting = 8;
+  int64 refreshing = 9;
 }
 
 message ComputeInstanceGroupManagerStatus {
   bool is_stable = 1;
   ComputeInstanceGroupManagerStatusVersionTarget version_target = 2;
-  string autoscalar = 3;
+  ComputeInstanceGroupManagerStatusStateful stateful = 3;
+  string autoscaler = 4;
 }
 
 message ComputeInstanceGroupManagerStatusVersionTarget {
   bool is_reached = 1;
+}
+
+message ComputeInstanceGroupManagerStatusStateful {
+  bool has_stateful_config = 1;
+  ComputeInstanceGroupManagerStatusStatefulPerInstanceConfigs per_instance_configs = 2;
+}
+
+message ComputeInstanceGroupManagerStatusStatefulPerInstanceConfigs {
+  bool all_effective = 1;
 }
 
 message ComputeInstanceGroupManagerAutoHealingPolicies {
@@ -105,22 +143,29 @@ message ComputeInstanceGroupManagerAutoHealingPolicies {
 }
 
 message ComputeInstanceGroupManagerUpdatePolicy {
-  ComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum instance_redistribution_type = 1;
-  ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnum minimal_action = 2;
-  ComputeInstanceGroupManagerUpdatePolicyMaxSurge max_surge = 3;
-  ComputeInstanceGroupManagerUpdatePolicyMaxUnavailable max_unavailable = 4;
+  ComputeInstanceGroupManagerUpdatePolicyTypeEnum type = 1;
+  ComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum instance_redistribution_type = 2;
+  ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnum minimal_action = 3;
+  ComputeInstanceGroupManagerFixedOrPercent max_surge = 4;
+  ComputeInstanceGroupManagerFixedOrPercent max_unavailable = 5;
+  ComputeInstanceGroupManagerUpdatePolicyReplacementMethodEnum replacement_method = 6;
 }
 
-message ComputeInstanceGroupManagerUpdatePolicyMaxSurge {
-  int64 fixed = 1;
-  int64 percent = 2;
-  int64 calculated = 3;
+message ComputeInstanceGroupManagerNamedPorts {
+  string name = 1;
+  int64 port = 2;
 }
 
-message ComputeInstanceGroupManagerUpdatePolicyMaxUnavailable {
-  int64 fixed = 1;
-  int64 percent = 2;
-  int64 calculated = 3;
+message ComputeInstanceGroupManagerStatefulPolicy {
+  ComputeInstanceGroupManagerStatefulPolicyPreservedState preserved_state = 1;
+}
+
+message ComputeInstanceGroupManagerStatefulPolicyPreservedState {
+  map<string, ComputeInstanceGroupManagerStatefulPolicyPreservedStateDisks> disks = 1;
+}
+
+message ComputeInstanceGroupManagerStatefulPolicyPreservedStateDisks {
+  ComputeInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum auto_delete = 1;
 }
 
 message ApplyComputeInstanceGroupManagerRequest {

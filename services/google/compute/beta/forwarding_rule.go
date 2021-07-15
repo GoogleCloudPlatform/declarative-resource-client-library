@@ -452,7 +452,6 @@ func (c *Client) DeleteAllForwardingRule(ctx context.Context, project, location 
 }
 
 func (c *Client) ApplyForwardingRule(ctx context.Context, rawDesired *ForwardingRule, opts ...dcl.ApplyOption) (*ForwardingRule, error) {
-
 	var resultNewState *ForwardingRule
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyForwardingRuleHelper(c, ctx, rawDesired, opts...)

@@ -183,7 +183,6 @@ func (c *Client) DeleteAllFirewallPolicyAssociation(ctx context.Context, firewal
 }
 
 func (c *Client) ApplyFirewallPolicyAssociation(ctx context.Context, rawDesired *FirewallPolicyAssociation, opts ...dcl.ApplyOption) (*FirewallPolicyAssociation, error) {
-
 	var resultNewState *FirewallPolicyAssociation
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyFirewallPolicyAssociationHelper(c, ctx, rawDesired, opts...)

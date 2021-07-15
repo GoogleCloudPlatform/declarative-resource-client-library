@@ -248,7 +248,6 @@ func (c *Client) DeleteAllTenantOAuthIdpConfig(ctx context.Context, project, ten
 }
 
 func (c *Client) ApplyTenantOAuthIdpConfig(ctx context.Context, rawDesired *TenantOAuthIdpConfig, opts ...dcl.ApplyOption) (*TenantOAuthIdpConfig, error) {
-
 	var resultNewState *TenantOAuthIdpConfig
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyTenantOAuthIdpConfigHelper(c, ctx, rawDesired, opts...)

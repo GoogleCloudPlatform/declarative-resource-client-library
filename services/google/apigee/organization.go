@@ -357,7 +357,6 @@ func (c *Client) DeleteAllOrganization(ctx context.Context, filter func(*Organiz
 }
 
 func (c *Client) ApplyOrganization(ctx context.Context, rawDesired *Organization, opts ...dcl.ApplyOption) (*Organization, error) {
-
 	var resultNewState *Organization
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyOrganizationHelper(c, ctx, rawDesired, opts...)

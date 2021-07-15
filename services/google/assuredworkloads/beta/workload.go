@@ -426,7 +426,6 @@ func (c *Client) DeleteAllWorkload(ctx context.Context, organization, location s
 }
 
 func (c *Client) ApplyWorkload(ctx context.Context, rawDesired *Workload, opts ...dcl.ApplyOption) (*Workload, error) {
-
 	var resultNewState *Workload
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyWorkloadHelper(c, ctx, rawDesired, opts...)

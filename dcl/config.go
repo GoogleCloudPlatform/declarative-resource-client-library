@@ -39,6 +39,7 @@ type ConfigOption func(*Config)
 // requests to GCP APIs.
 type Config struct {
 	RetryProvider       RetryProvider
+	codeRetryability    map[int]bool
 	timeout             time.Duration
 	header              http.Header
 	clientOptions       []option.ClientOption
@@ -63,6 +64,16 @@ func (c *Config) UserAgent() string {
 // NewConfig creates a Config object.
 func NewConfig(o ...ConfigOption) *Config {
 	c := &Config{
+		codeRetryability: map[int]bool{
+			400: false,
+			403: false,
+			404: false,
+			409: false,
+			429: true,
+			500: true,
+			502: true,
+			503: true,
+		},
 		contentType:   "application/json",
 		queryParams:   map[string]string{"alt": "json"},
 		Logger:        DefaultLogger(LoggerInfo),
@@ -80,6 +91,7 @@ func NewConfig(o ...ConfigOption) *Config {
 func (c *Config) Clone(o ...ConfigOption) *Config {
 	result := &Config{
 		RetryProvider:       c.RetryProvider,
+		codeRetryability:    c.codeRetryability,
 		timeout:             c.timeout,
 		clientOptions:       c.clientOptions,
 		userAgent:           c.userAgent,
@@ -203,6 +215,15 @@ func FetchStateHint(c []ApplyOption) Resource {
 func WithRetryProvider(r RetryProvider) ConfigOption {
 	return func(c *Config) {
 		c.RetryProvider = r
+	}
+}
+
+// WithCodeRetryability allows a user to add additional retryable or non-retryable error codes.
+func WithCodeRetryability(cr map[int]bool) ConfigOption {
+	return func(c *Config) {
+		for code, retryability := range cr {
+			c.codeRetryability[code] = retryability
+		}
 	}
 }
 

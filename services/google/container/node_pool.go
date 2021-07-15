@@ -920,7 +920,6 @@ func (c *Client) DeleteAllNodePool(ctx context.Context, project, location, clust
 }
 
 func (c *Client) ApplyNodePool(ctx context.Context, rawDesired *NodePool, opts ...dcl.ApplyOption) (*NodePool, error) {
-
 	var resultNewState *NodePool
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyNodePoolHelper(c, ctx, rawDesired, opts...)

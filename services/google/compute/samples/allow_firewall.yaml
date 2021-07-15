@@ -16,4 +16,5 @@ name: allow_firewall
 resource: samples/allow.firewall.json
 updates:
 - resource: samples/update_allow.firewall.json
-versions: []
+versions:
+- ga

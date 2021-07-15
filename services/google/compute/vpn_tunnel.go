@@ -244,7 +244,6 @@ func (c *Client) DeleteAllVpnTunnel(ctx context.Context, project, region string,
 }
 
 func (c *Client) ApplyVpnTunnel(ctx context.Context, rawDesired *VpnTunnel, opts ...dcl.ApplyOption) (*VpnTunnel, error) {
-
 	var resultNewState *VpnTunnel
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyVpnTunnelHelper(c, ctx, rawDesired, opts...)

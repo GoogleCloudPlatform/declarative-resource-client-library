@@ -188,7 +188,6 @@ func (c *Client) DeleteAllIdentityAwareProxyClient(ctx context.Context, project,
 }
 
 func (c *Client) ApplyIdentityAwareProxyClient(ctx context.Context, rawDesired *IdentityAwareProxyClient, opts ...dcl.ApplyOption) (*IdentityAwareProxyClient, error) {
-
 	var resultNewState *IdentityAwareProxyClient
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyIdentityAwareProxyClientHelper(c, ctx, rawDesired, opts...)

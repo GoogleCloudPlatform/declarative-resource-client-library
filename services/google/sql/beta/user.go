@@ -271,7 +271,6 @@ func (c *Client) DeleteAllUser(ctx context.Context, project, instance string, fi
 }
 
 func (c *Client) ApplyUser(ctx context.Context, rawDesired *User, opts ...dcl.ApplyOption) (*User, error) {
-
 	var resultNewState *User
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyUserHelper(c, ctx, rawDesired, opts...)

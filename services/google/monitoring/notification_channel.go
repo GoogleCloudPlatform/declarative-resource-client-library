@@ -217,7 +217,6 @@ func (c *Client) DeleteAllNotificationChannel(ctx context.Context, project strin
 }
 
 func (c *Client) ApplyNotificationChannel(ctx context.Context, rawDesired *NotificationChannel, opts ...dcl.ApplyOption) (*NotificationChannel, error) {
-
 	var resultNewState *NotificationChannel
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyNotificationChannelHelper(c, ctx, rawDesired, opts...)

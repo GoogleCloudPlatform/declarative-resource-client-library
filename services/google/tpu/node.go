@@ -544,7 +544,6 @@ func (c *Client) DeleteAllNode(ctx context.Context, project, location string, fi
 }
 
 func (c *Client) ApplyNode(ctx context.Context, rawDesired *Node, opts ...dcl.ApplyOption) (*Node, error) {
-
 	var resultNewState *Node
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyNodeHelper(c, ctx, rawDesired, opts...)

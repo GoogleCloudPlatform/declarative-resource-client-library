@@ -379,7 +379,6 @@ func (c *Client) DeleteAllFirewall(ctx context.Context, project string, filter f
 }
 
 func (c *Client) ApplyFirewall(ctx context.Context, rawDesired *Firewall, opts ...dcl.ApplyOption) (*Firewall, error) {
-
 	var resultNewState *Firewall
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyFirewallHelper(c, ctx, rawDesired, opts...)

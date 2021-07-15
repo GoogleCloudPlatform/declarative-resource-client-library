@@ -16,4 +16,5 @@ name: basic_service
 resource: samples/basic.service.json
 updates:
 - resource: samples/update.service.json
-versions: []
+versions:
+- ga

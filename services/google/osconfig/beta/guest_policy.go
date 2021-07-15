@@ -1946,7 +1946,6 @@ func (c *Client) DeleteAllGuestPolicy(ctx context.Context, project string, filte
 }
 
 func (c *Client) ApplyGuestPolicy(ctx context.Context, rawDesired *GuestPolicy, opts ...dcl.ApplyOption) (*GuestPolicy, error) {
-
 	var resultNewState *GuestPolicy
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyGuestPolicyHelper(c, ctx, rawDesired, opts...)

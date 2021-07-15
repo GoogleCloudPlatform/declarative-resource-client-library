@@ -1687,7 +1687,6 @@ func (c *Client) DeleteAllWorkflowTemplate(ctx context.Context, project, locatio
 }
 
 func (c *Client) ApplyWorkflowTemplate(ctx context.Context, rawDesired *WorkflowTemplate, opts ...dcl.ApplyOption) (*WorkflowTemplate, error) {
-
 	var resultNewState *WorkflowTemplate
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyWorkflowTemplateHelper(c, ctx, rawDesired, opts...)

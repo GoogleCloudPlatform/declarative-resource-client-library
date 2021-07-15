@@ -21,4 +21,5 @@ name: global_backend_service
 resource: samples/global.backend_service.json
 updates:
 - resource: samples/update_global.backend_service.json
-versions: []
+versions:
+- ga

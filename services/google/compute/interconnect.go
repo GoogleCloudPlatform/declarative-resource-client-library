@@ -514,7 +514,6 @@ func (c *Client) DeleteAllInterconnect(ctx context.Context, project string, filt
 }
 
 func (c *Client) ApplyInterconnect(ctx context.Context, rawDesired *Interconnect, opts ...dcl.ApplyOption) (*Interconnect, error) {
-
 	var resultNewState *Interconnect
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyInterconnectHelper(c, ctx, rawDesired, opts...)

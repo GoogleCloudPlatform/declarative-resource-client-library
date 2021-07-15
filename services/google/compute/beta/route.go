@@ -287,7 +287,6 @@ func (c *Client) DeleteAllRoute(ctx context.Context, project string, filter func
 }
 
 func (c *Client) ApplyRoute(ctx context.Context, rawDesired *Route, opts ...dcl.ApplyOption) (*Route, error) {
-
 	var resultNewState *Route
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyRouteHelper(c, ctx, rawDesired, opts...)

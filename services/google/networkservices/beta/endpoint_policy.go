@@ -444,7 +444,6 @@ func (c *Client) DeleteAllEndpointPolicy(ctx context.Context, project, location 
 }
 
 func (c *Client) ApplyEndpointPolicy(ctx context.Context, rawDesired *EndpointPolicy, opts ...dcl.ApplyOption) (*EndpointPolicy, error) {
-
 	var resultNewState *EndpointPolicy
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyEndpointPolicyHelper(c, ctx, rawDesired, opts...)

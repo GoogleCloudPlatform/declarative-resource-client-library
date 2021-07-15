@@ -374,7 +374,6 @@ func (c *Client) DeleteAllInstance(ctx context.Context, project, location string
 }
 
 func (c *Client) ApplyInstance(ctx context.Context, rawDesired *Instance, opts ...dcl.ApplyOption) (*Instance, error) {
-
 	var resultNewState *Instance
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyInstanceHelper(c, ctx, rawDesired, opts...)

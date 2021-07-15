@@ -498,7 +498,6 @@ func (c *Client) DeleteAllKey(ctx context.Context, project string, filter func(*
 }
 
 func (c *Client) ApplyKey(ctx context.Context, rawDesired *Key, opts ...dcl.ApplyOption) (*Key, error) {
-
 	var resultNewState *Key
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyKeyHelper(c, ctx, rawDesired, opts...)

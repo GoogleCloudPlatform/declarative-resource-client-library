@@ -25,30 +25,89 @@ import (
 )
 
 type InstanceGroupManager struct {
-	BaseInstanceName    *string                                   `json:"baseInstanceName"`
-	CreationTimestamp   *string                                   `json:"creationTimestamp"`
-	DistributionPolicy  *InstanceGroupManagerDistributionPolicy   `json:"distributionPolicy"`
-	CurrentActions      *InstanceGroupManagerCurrentActions       `json:"currentActions"`
-	Description         *string                                   `json:"description"`
-	Versions            []InstanceGroupManagerVersions            `json:"versions"`
 	Id                  *int64                                    `json:"id"`
-	InstanceGroup       *string                                   `json:"instanceGroup"`
-	InstanceTemplate    *string                                   `json:"instanceTemplate"`
+	CreationTimestamp   *string                                   `json:"creationTimestamp"`
 	Name                *string                                   `json:"name"`
-	NamedPorts          []InstanceGroupManagerNamedPorts          `json:"namedPorts"`
-	Status              *InstanceGroupManagerStatus               `json:"status"`
-	TargetPools         []string                                  `json:"targetPools"`
-	AutoHealingPolicies []InstanceGroupManagerAutoHealingPolicies `json:"autoHealingPolicies"`
-	UpdatePolicy        *InstanceGroupManagerUpdatePolicy         `json:"updatePolicy"`
-	TargetSize          *int64                                    `json:"targetSize"`
+	Description         *string                                   `json:"description"`
 	Zone                *string                                   `json:"zone"`
 	Region              *string                                   `json:"region"`
+	DistributionPolicy  *InstanceGroupManagerDistributionPolicy   `json:"distributionPolicy"`
+	InstanceTemplate    *string                                   `json:"instanceTemplate"`
+	Versions            []InstanceGroupManagerVersions            `json:"versions"`
+	InstanceGroup       *string                                   `json:"instanceGroup"`
+	TargetPools         []string                                  `json:"targetPools"`
+	BaseInstanceName    *string                                   `json:"baseInstanceName"`
+	Fingerprint         *string                                   `json:"fingerprint"`
+	CurrentActions      *InstanceGroupManagerCurrentActions       `json:"currentActions"`
+	Status              *InstanceGroupManagerStatus               `json:"status"`
+	TargetSize          *int64                                    `json:"targetSize"`
+	SelfLink            *string                                   `json:"selfLink"`
+	AutoHealingPolicies []InstanceGroupManagerAutoHealingPolicies `json:"autoHealingPolicies"`
+	UpdatePolicy        *InstanceGroupManagerUpdatePolicy         `json:"updatePolicy"`
+	NamedPorts          []InstanceGroupManagerNamedPorts          `json:"namedPorts"`
+	StatefulPolicy      *InstanceGroupManagerStatefulPolicy       `json:"statefulPolicy"`
+	ServiceAccount      *string                                   `json:"serviceAccount"`
+	FailoverAction      *InstanceGroupManagerFailoverActionEnum   `json:"failoverAction"`
 	Project             *string                                   `json:"project"`
 	Location            *string                                   `json:"location"`
 }
 
 func (r *InstanceGroupManager) String() string {
 	return dcl.SprintResource(r)
+}
+
+// The enum InstanceGroupManagerDistributionPolicyTargetShapeEnum.
+type InstanceGroupManagerDistributionPolicyTargetShapeEnum string
+
+// InstanceGroupManagerDistributionPolicyTargetShapeEnumRef returns a *InstanceGroupManagerDistributionPolicyTargetShapeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstanceGroupManagerDistributionPolicyTargetShapeEnumRef(s string) *InstanceGroupManagerDistributionPolicyTargetShapeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstanceGroupManagerDistributionPolicyTargetShapeEnum(s)
+	return &v
+}
+
+func (v InstanceGroupManagerDistributionPolicyTargetShapeEnum) Validate() error {
+	for _, s := range []string{"TARGET_SHAPE_UNSPECIFIED", "ANY", "BALANCED", "ANY_SINGLE_ZONE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstanceGroupManagerDistributionPolicyTargetShapeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum InstanceGroupManagerUpdatePolicyTypeEnum.
+type InstanceGroupManagerUpdatePolicyTypeEnum string
+
+// InstanceGroupManagerUpdatePolicyTypeEnumRef returns a *InstanceGroupManagerUpdatePolicyTypeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstanceGroupManagerUpdatePolicyTypeEnumRef(s string) *InstanceGroupManagerUpdatePolicyTypeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstanceGroupManagerUpdatePolicyTypeEnum(s)
+	return &v
+}
+
+func (v InstanceGroupManagerUpdatePolicyTypeEnum) Validate() error {
+	for _, s := range []string{"OPPORTUNISTIC", "PROACTIVE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstanceGroupManagerUpdatePolicyTypeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
 }
 
 // The enum InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum.
@@ -66,7 +125,7 @@ func InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumRef(s string)
 }
 
 func (v InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum) Validate() error {
-	for _, s := range []string{"PROACTIVE", "NONE"} {
+	for _, s := range []string{"NONE", "PROACTIVE"} {
 		if string(v) == s {
 			return nil
 		}
@@ -93,7 +152,7 @@ func InstanceGroupManagerUpdatePolicyMinimalActionEnumRef(s string) *InstanceGro
 }
 
 func (v InstanceGroupManagerUpdatePolicyMinimalActionEnum) Validate() error {
-	for _, s := range []string{"RESTART", "REPLACE"} {
+	for _, s := range []string{"REPLACE", "RESTART", "REFRESH", "NONE"} {
 		if string(v) == s {
 			return nil
 		}
@@ -105,9 +164,118 @@ func (v InstanceGroupManagerUpdatePolicyMinimalActionEnum) Validate() error {
 	}
 }
 
+// The enum InstanceGroupManagerUpdatePolicyReplacementMethodEnum.
+type InstanceGroupManagerUpdatePolicyReplacementMethodEnum string
+
+// InstanceGroupManagerUpdatePolicyReplacementMethodEnumRef returns a *InstanceGroupManagerUpdatePolicyReplacementMethodEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstanceGroupManagerUpdatePolicyReplacementMethodEnumRef(s string) *InstanceGroupManagerUpdatePolicyReplacementMethodEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstanceGroupManagerUpdatePolicyReplacementMethodEnum(s)
+	return &v
+}
+
+func (v InstanceGroupManagerUpdatePolicyReplacementMethodEnum) Validate() error {
+	for _, s := range []string{"SUBSTITUTE", "RECREATE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstanceGroupManagerUpdatePolicyReplacementMethodEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum.
+type InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum string
+
+// InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumRef returns a *InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumRef(s string) *InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum(s)
+	return &v
+}
+
+func (v InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum) Validate() error {
+	for _, s := range []string{"REPLACE", "RESTART", "REFRESH", "NONE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum.
+type InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum string
+
+// InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumRef returns a *InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumRef(s string) *InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum(s)
+	return &v
+}
+
+func (v InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum) Validate() error {
+	for _, s := range []string{"NEVER", "ON_PERMANENT_INSTANCE_DELETION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum InstanceGroupManagerFailoverActionEnum.
+type InstanceGroupManagerFailoverActionEnum string
+
+// InstanceGroupManagerFailoverActionEnumRef returns a *InstanceGroupManagerFailoverActionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstanceGroupManagerFailoverActionEnumRef(s string) *InstanceGroupManagerFailoverActionEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstanceGroupManagerFailoverActionEnum(s)
+	return &v
+}
+
+func (v InstanceGroupManagerFailoverActionEnum) Validate() error {
+	for _, s := range []string{"UNKNOWN", "NO_FAILOVER"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstanceGroupManagerFailoverActionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
 type InstanceGroupManagerDistributionPolicy struct {
-	empty bool                                          `json:"-"`
-	Zones []InstanceGroupManagerDistributionPolicyZones `json:"zones"`
+	empty       bool                                                   `json:"-"`
+	Zones       []InstanceGroupManagerDistributionPolicyZones          `json:"zones"`
+	TargetShape *InstanceGroupManagerDistributionPolicyTargetShapeEnum `json:"targetShape"`
 }
 
 type jsonInstanceGroupManagerDistributionPolicy InstanceGroupManagerDistributionPolicy
@@ -126,6 +294,8 @@ func (r *InstanceGroupManagerDistributionPolicy) UnmarshalJSON(data []byte) erro
 	} else {
 
 		r.Zones = res.Zones
+
+		r.TargetShape = res.TargetShape
 
 	}
 	return nil
@@ -197,78 +367,11 @@ func (r *InstanceGroupManagerDistributionPolicyZones) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type InstanceGroupManagerCurrentActions struct {
-	empty                  bool   `json:"-"`
-	Abandoning             *int64 `json:"abandoning"`
-	Creating               *int64 `json:"creating"`
-	CreatingWithoutRetries *int64 `json:"creatingWithoutRetries"`
-	Deleting               *int64 `json:"deleting"`
-	None                   *int64 `json:"none"`
-	Recreating             *int64 `json:"recreating"`
-	Refreshing             *int64 `json:"refreshing"`
-	Restarting             *int64 `json:"restarting"`
-}
-
-type jsonInstanceGroupManagerCurrentActions InstanceGroupManagerCurrentActions
-
-func (r *InstanceGroupManagerCurrentActions) UnmarshalJSON(data []byte) error {
-	var res jsonInstanceGroupManagerCurrentActions
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyInstanceGroupManagerCurrentActions
-	} else {
-
-		r.Abandoning = res.Abandoning
-
-		r.Creating = res.Creating
-
-		r.CreatingWithoutRetries = res.CreatingWithoutRetries
-
-		r.Deleting = res.Deleting
-
-		r.None = res.None
-
-		r.Recreating = res.Recreating
-
-		r.Refreshing = res.Refreshing
-
-		r.Restarting = res.Restarting
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this InstanceGroupManagerCurrentActions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceGroupManagerCurrentActions *InstanceGroupManagerCurrentActions = &InstanceGroupManagerCurrentActions{empty: true}
-
-func (r *InstanceGroupManagerCurrentActions) Empty() bool {
-	return r.empty
-}
-
-func (r *InstanceGroupManagerCurrentActions) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceGroupManagerCurrentActions) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type InstanceGroupManagerVersions struct {
-	empty            bool                                    `json:"-"`
-	Name             *string                                 `json:"name"`
-	InstanceTemplate *string                                 `json:"instanceTemplate"`
-	TargetSize       *InstanceGroupManagerVersionsTargetSize `json:"targetSize"`
+	empty            bool                                `json:"-"`
+	Name             *string                             `json:"name"`
+	InstanceTemplate *string                             `json:"instanceTemplate"`
+	TargetSize       *InstanceGroupManagerFixedOrPercent `json:"targetSize"`
 }
 
 type jsonInstanceGroupManagerVersions InstanceGroupManagerVersions
@@ -316,17 +419,17 @@ func (r *InstanceGroupManagerVersions) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type InstanceGroupManagerVersionsTargetSize struct {
+type InstanceGroupManagerFixedOrPercent struct {
 	empty      bool   `json:"-"`
 	Fixed      *int64 `json:"fixed"`
 	Percent    *int64 `json:"percent"`
 	Calculated *int64 `json:"calculated"`
 }
 
-type jsonInstanceGroupManagerVersionsTargetSize InstanceGroupManagerVersionsTargetSize
+type jsonInstanceGroupManagerFixedOrPercent InstanceGroupManagerFixedOrPercent
 
-func (r *InstanceGroupManagerVersionsTargetSize) UnmarshalJSON(data []byte) error {
-	var res jsonInstanceGroupManagerVersionsTargetSize
+func (r *InstanceGroupManagerFixedOrPercent) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerFixedOrPercent
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -335,7 +438,7 @@ func (r *InstanceGroupManagerVersionsTargetSize) UnmarshalJSON(data []byte) erro
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyInstanceGroupManagerVersionsTargetSize
+		*r = *EmptyInstanceGroupManagerFixedOrPercent
 	} else {
 
 		r.Fixed = res.Fixed
@@ -348,36 +451,43 @@ func (r *InstanceGroupManagerVersionsTargetSize) UnmarshalJSON(data []byte) erro
 	return nil
 }
 
-// This object is used to assert a desired state where this InstanceGroupManagerVersionsTargetSize is
+// This object is used to assert a desired state where this InstanceGroupManagerFixedOrPercent is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyInstanceGroupManagerVersionsTargetSize *InstanceGroupManagerVersionsTargetSize = &InstanceGroupManagerVersionsTargetSize{empty: true}
+var EmptyInstanceGroupManagerFixedOrPercent *InstanceGroupManagerFixedOrPercent = &InstanceGroupManagerFixedOrPercent{empty: true}
 
-func (r *InstanceGroupManagerVersionsTargetSize) Empty() bool {
+func (r *InstanceGroupManagerFixedOrPercent) Empty() bool {
 	return r.empty
 }
 
-func (r *InstanceGroupManagerVersionsTargetSize) String() string {
+func (r *InstanceGroupManagerFixedOrPercent) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *InstanceGroupManagerVersionsTargetSize) HashCode() string {
+func (r *InstanceGroupManagerFixedOrPercent) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type InstanceGroupManagerNamedPorts struct {
-	empty bool    `json:"-"`
-	Name  *string `json:"name"`
-	Port  *int64  `json:"port"`
+type InstanceGroupManagerCurrentActions struct {
+	empty                  bool   `json:"-"`
+	None                   *int64 `json:"none"`
+	Creating               *int64 `json:"creating"`
+	CreatingWithoutRetries *int64 `json:"creatingWithoutRetries"`
+	Verifying              *int64 `json:"verifying"`
+	Recreating             *int64 `json:"recreating"`
+	Deleting               *int64 `json:"deleting"`
+	Abandoning             *int64 `json:"abandoning"`
+	Restarting             *int64 `json:"restarting"`
+	Refreshing             *int64 `json:"refreshing"`
 }
 
-type jsonInstanceGroupManagerNamedPorts InstanceGroupManagerNamedPorts
+type jsonInstanceGroupManagerCurrentActions InstanceGroupManagerCurrentActions
 
-func (r *InstanceGroupManagerNamedPorts) UnmarshalJSON(data []byte) error {
-	var res jsonInstanceGroupManagerNamedPorts
+func (r *InstanceGroupManagerCurrentActions) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerCurrentActions
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -386,31 +496,45 @@ func (r *InstanceGroupManagerNamedPorts) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyInstanceGroupManagerNamedPorts
+		*r = *EmptyInstanceGroupManagerCurrentActions
 	} else {
 
-		r.Name = res.Name
+		r.None = res.None
 
-		r.Port = res.Port
+		r.Creating = res.Creating
+
+		r.CreatingWithoutRetries = res.CreatingWithoutRetries
+
+		r.Verifying = res.Verifying
+
+		r.Recreating = res.Recreating
+
+		r.Deleting = res.Deleting
+
+		r.Abandoning = res.Abandoning
+
+		r.Restarting = res.Restarting
+
+		r.Refreshing = res.Refreshing
 
 	}
 	return nil
 }
 
-// This object is used to assert a desired state where this InstanceGroupManagerNamedPorts is
+// This object is used to assert a desired state where this InstanceGroupManagerCurrentActions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyInstanceGroupManagerNamedPorts *InstanceGroupManagerNamedPorts = &InstanceGroupManagerNamedPorts{empty: true}
+var EmptyInstanceGroupManagerCurrentActions *InstanceGroupManagerCurrentActions = &InstanceGroupManagerCurrentActions{empty: true}
 
-func (r *InstanceGroupManagerNamedPorts) Empty() bool {
+func (r *InstanceGroupManagerCurrentActions) Empty() bool {
 	return r.empty
 }
 
-func (r *InstanceGroupManagerNamedPorts) String() string {
+func (r *InstanceGroupManagerCurrentActions) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *InstanceGroupManagerNamedPorts) HashCode() string {
+func (r *InstanceGroupManagerCurrentActions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -421,7 +545,8 @@ type InstanceGroupManagerStatus struct {
 	empty         bool                                     `json:"-"`
 	IsStable      *bool                                    `json:"isStable"`
 	VersionTarget *InstanceGroupManagerStatusVersionTarget `json:"versionTarget"`
-	Autoscalar    *string                                  `json:"autoscalar"`
+	Stateful      *InstanceGroupManagerStatusStateful      `json:"stateful"`
+	Autoscaler    *string                                  `json:"autoscaler"`
 }
 
 type jsonInstanceGroupManagerStatus InstanceGroupManagerStatus
@@ -443,7 +568,9 @@ func (r *InstanceGroupManagerStatus) UnmarshalJSON(data []byte) error {
 
 		r.VersionTarget = res.VersionTarget
 
-		r.Autoscalar = res.Autoscalar
+		r.Stateful = res.Stateful
+
+		r.Autoscaler = res.Autoscaler
 
 	}
 	return nil
@@ -515,6 +642,104 @@ func (r *InstanceGroupManagerStatusVersionTarget) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
+type InstanceGroupManagerStatusStateful struct {
+	empty              bool                                                  `json:"-"`
+	HasStatefulConfig  *bool                                                 `json:"hasStatefulConfig"`
+	PerInstanceConfigs *InstanceGroupManagerStatusStatefulPerInstanceConfigs `json:"perInstanceConfigs"`
+	IsStateful         *bool                                                 `json:"isStateful"`
+}
+
+type jsonInstanceGroupManagerStatusStateful InstanceGroupManagerStatusStateful
+
+func (r *InstanceGroupManagerStatusStateful) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerStatusStateful
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceGroupManagerStatusStateful
+	} else {
+
+		r.HasStatefulConfig = res.HasStatefulConfig
+
+		r.PerInstanceConfigs = res.PerInstanceConfigs
+
+		r.IsStateful = res.IsStateful
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstanceGroupManagerStatusStateful is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstanceGroupManagerStatusStateful *InstanceGroupManagerStatusStateful = &InstanceGroupManagerStatusStateful{empty: true}
+
+func (r *InstanceGroupManagerStatusStateful) Empty() bool {
+	return r.empty
+}
+
+func (r *InstanceGroupManagerStatusStateful) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstanceGroupManagerStatusStateful) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstanceGroupManagerStatusStatefulPerInstanceConfigs struct {
+	empty        bool  `json:"-"`
+	AllEffective *bool `json:"allEffective"`
+}
+
+type jsonInstanceGroupManagerStatusStatefulPerInstanceConfigs InstanceGroupManagerStatusStatefulPerInstanceConfigs
+
+func (r *InstanceGroupManagerStatusStatefulPerInstanceConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerStatusStatefulPerInstanceConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceGroupManagerStatusStatefulPerInstanceConfigs
+	} else {
+
+		r.AllEffective = res.AllEffective
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstanceGroupManagerStatusStatefulPerInstanceConfigs is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstanceGroupManagerStatusStatefulPerInstanceConfigs *InstanceGroupManagerStatusStatefulPerInstanceConfigs = &InstanceGroupManagerStatusStatefulPerInstanceConfigs{empty: true}
+
+func (r *InstanceGroupManagerStatusStatefulPerInstanceConfigs) Empty() bool {
+	return r.empty
+}
+
+func (r *InstanceGroupManagerStatusStatefulPerInstanceConfigs) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstanceGroupManagerStatusStatefulPerInstanceConfigs) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
 type InstanceGroupManagerAutoHealingPolicies struct {
 	empty           bool    `json:"-"`
 	HealthCheck     *string `json:"healthCheck"`
@@ -565,11 +790,15 @@ func (r *InstanceGroupManagerAutoHealingPolicies) HashCode() string {
 }
 
 type InstanceGroupManagerUpdatePolicy struct {
-	empty                      bool                                                            `json:"-"`
-	InstanceRedistributionType *InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum `json:"instanceRedistributionType"`
-	MinimalAction              *InstanceGroupManagerUpdatePolicyMinimalActionEnum              `json:"minimalAction"`
-	MaxSurge                   *InstanceGroupManagerUpdatePolicyMaxSurge                       `json:"maxSurge"`
-	MaxUnavailable             *InstanceGroupManagerUpdatePolicyMaxUnavailable                 `json:"maxUnavailable"`
+	empty                       bool                                                             `json:"-"`
+	Type                        *InstanceGroupManagerUpdatePolicyTypeEnum                        `json:"type"`
+	InstanceRedistributionType  *InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum  `json:"instanceRedistributionType"`
+	MinimalAction               *InstanceGroupManagerUpdatePolicyMinimalActionEnum               `json:"minimalAction"`
+	MaxSurge                    *InstanceGroupManagerFixedOrPercent                              `json:"maxSurge"`
+	MaxUnavailable              *InstanceGroupManagerFixedOrPercent                              `json:"maxUnavailable"`
+	ReplacementMethod           *InstanceGroupManagerUpdatePolicyReplacementMethodEnum           `json:"replacementMethod"`
+	MostDisruptiveAllowedAction *InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum `json:"mostDisruptiveAllowedAction"`
+	MinReadySec                 *int64                                                           `json:"minReadySec"`
 }
 
 type jsonInstanceGroupManagerUpdatePolicy InstanceGroupManagerUpdatePolicy
@@ -587,6 +816,8 @@ func (r *InstanceGroupManagerUpdatePolicy) UnmarshalJSON(data []byte) error {
 		*r = *EmptyInstanceGroupManagerUpdatePolicy
 	} else {
 
+		r.Type = res.Type
+
 		r.InstanceRedistributionType = res.InstanceRedistributionType
 
 		r.MinimalAction = res.MinimalAction
@@ -594,6 +825,12 @@ func (r *InstanceGroupManagerUpdatePolicy) UnmarshalJSON(data []byte) error {
 		r.MaxSurge = res.MaxSurge
 
 		r.MaxUnavailable = res.MaxUnavailable
+
+		r.ReplacementMethod = res.ReplacementMethod
+
+		r.MostDisruptiveAllowedAction = res.MostDisruptiveAllowedAction
+
+		r.MinReadySec = res.MinReadySec
 
 	}
 	return nil
@@ -619,17 +856,16 @@ func (r *InstanceGroupManagerUpdatePolicy) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type InstanceGroupManagerUpdatePolicyMaxSurge struct {
-	empty      bool   `json:"-"`
-	Fixed      *int64 `json:"fixed"`
-	Percent    *int64 `json:"percent"`
-	Calculated *int64 `json:"calculated"`
+type InstanceGroupManagerNamedPorts struct {
+	empty bool    `json:"-"`
+	Name  *string `json:"name"`
+	Port  *int64  `json:"port"`
 }
 
-type jsonInstanceGroupManagerUpdatePolicyMaxSurge InstanceGroupManagerUpdatePolicyMaxSurge
+type jsonInstanceGroupManagerNamedPorts InstanceGroupManagerNamedPorts
 
-func (r *InstanceGroupManagerUpdatePolicyMaxSurge) UnmarshalJSON(data []byte) error {
-	var res jsonInstanceGroupManagerUpdatePolicyMaxSurge
+func (r *InstanceGroupManagerNamedPorts) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerNamedPorts
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -638,50 +874,46 @@ func (r *InstanceGroupManagerUpdatePolicyMaxSurge) UnmarshalJSON(data []byte) er
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyInstanceGroupManagerUpdatePolicyMaxSurge
+		*r = *EmptyInstanceGroupManagerNamedPorts
 	} else {
 
-		r.Fixed = res.Fixed
+		r.Name = res.Name
 
-		r.Percent = res.Percent
-
-		r.Calculated = res.Calculated
+		r.Port = res.Port
 
 	}
 	return nil
 }
 
-// This object is used to assert a desired state where this InstanceGroupManagerUpdatePolicyMaxSurge is
+// This object is used to assert a desired state where this InstanceGroupManagerNamedPorts is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyInstanceGroupManagerUpdatePolicyMaxSurge *InstanceGroupManagerUpdatePolicyMaxSurge = &InstanceGroupManagerUpdatePolicyMaxSurge{empty: true}
+var EmptyInstanceGroupManagerNamedPorts *InstanceGroupManagerNamedPorts = &InstanceGroupManagerNamedPorts{empty: true}
 
-func (r *InstanceGroupManagerUpdatePolicyMaxSurge) Empty() bool {
+func (r *InstanceGroupManagerNamedPorts) Empty() bool {
 	return r.empty
 }
 
-func (r *InstanceGroupManagerUpdatePolicyMaxSurge) String() string {
+func (r *InstanceGroupManagerNamedPorts) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *InstanceGroupManagerUpdatePolicyMaxSurge) HashCode() string {
+func (r *InstanceGroupManagerNamedPorts) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type InstanceGroupManagerUpdatePolicyMaxUnavailable struct {
-	empty      bool   `json:"-"`
-	Fixed      *int64 `json:"fixed"`
-	Percent    *int64 `json:"percent"`
-	Calculated *int64 `json:"calculated"`
+type InstanceGroupManagerStatefulPolicy struct {
+	empty          bool                                              `json:"-"`
+	PreservedState *InstanceGroupManagerStatefulPolicyPreservedState `json:"preservedState"`
 }
 
-type jsonInstanceGroupManagerUpdatePolicyMaxUnavailable InstanceGroupManagerUpdatePolicyMaxUnavailable
+type jsonInstanceGroupManagerStatefulPolicy InstanceGroupManagerStatefulPolicy
 
-func (r *InstanceGroupManagerUpdatePolicyMaxUnavailable) UnmarshalJSON(data []byte) error {
-	var res jsonInstanceGroupManagerUpdatePolicyMaxUnavailable
+func (r *InstanceGroupManagerStatefulPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerStatefulPolicy
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -690,33 +922,121 @@ func (r *InstanceGroupManagerUpdatePolicyMaxUnavailable) UnmarshalJSON(data []by
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyInstanceGroupManagerUpdatePolicyMaxUnavailable
+		*r = *EmptyInstanceGroupManagerStatefulPolicy
 	} else {
 
-		r.Fixed = res.Fixed
-
-		r.Percent = res.Percent
-
-		r.Calculated = res.Calculated
+		r.PreservedState = res.PreservedState
 
 	}
 	return nil
 }
 
-// This object is used to assert a desired state where this InstanceGroupManagerUpdatePolicyMaxUnavailable is
+// This object is used to assert a desired state where this InstanceGroupManagerStatefulPolicy is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyInstanceGroupManagerUpdatePolicyMaxUnavailable *InstanceGroupManagerUpdatePolicyMaxUnavailable = &InstanceGroupManagerUpdatePolicyMaxUnavailable{empty: true}
+var EmptyInstanceGroupManagerStatefulPolicy *InstanceGroupManagerStatefulPolicy = &InstanceGroupManagerStatefulPolicy{empty: true}
 
-func (r *InstanceGroupManagerUpdatePolicyMaxUnavailable) Empty() bool {
+func (r *InstanceGroupManagerStatefulPolicy) Empty() bool {
 	return r.empty
 }
 
-func (r *InstanceGroupManagerUpdatePolicyMaxUnavailable) String() string {
+func (r *InstanceGroupManagerStatefulPolicy) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *InstanceGroupManagerUpdatePolicyMaxUnavailable) HashCode() string {
+func (r *InstanceGroupManagerStatefulPolicy) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstanceGroupManagerStatefulPolicyPreservedState struct {
+	empty bool                                                             `json:"-"`
+	Disks map[string]InstanceGroupManagerStatefulPolicyPreservedStateDisks `json:"disks"`
+}
+
+type jsonInstanceGroupManagerStatefulPolicyPreservedState InstanceGroupManagerStatefulPolicyPreservedState
+
+func (r *InstanceGroupManagerStatefulPolicyPreservedState) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerStatefulPolicyPreservedState
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceGroupManagerStatefulPolicyPreservedState
+	} else {
+
+		r.Disks = res.Disks
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstanceGroupManagerStatefulPolicyPreservedState is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstanceGroupManagerStatefulPolicyPreservedState *InstanceGroupManagerStatefulPolicyPreservedState = &InstanceGroupManagerStatefulPolicyPreservedState{empty: true}
+
+func (r *InstanceGroupManagerStatefulPolicyPreservedState) Empty() bool {
+	return r.empty
+}
+
+func (r *InstanceGroupManagerStatefulPolicyPreservedState) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstanceGroupManagerStatefulPolicyPreservedState) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstanceGroupManagerStatefulPolicyPreservedStateDisks struct {
+	empty      bool                                                                 `json:"-"`
+	AutoDelete *InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum `json:"autoDelete"`
+}
+
+type jsonInstanceGroupManagerStatefulPolicyPreservedStateDisks InstanceGroupManagerStatefulPolicyPreservedStateDisks
+
+func (r *InstanceGroupManagerStatefulPolicyPreservedStateDisks) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerStatefulPolicyPreservedStateDisks
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceGroupManagerStatefulPolicyPreservedStateDisks
+	} else {
+
+		r.AutoDelete = res.AutoDelete
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstanceGroupManagerStatefulPolicyPreservedStateDisks is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstanceGroupManagerStatefulPolicyPreservedStateDisks *InstanceGroupManagerStatefulPolicyPreservedStateDisks = &InstanceGroupManagerStatefulPolicyPreservedStateDisks{empty: true}
+
+func (r *InstanceGroupManagerStatefulPolicyPreservedStateDisks) Empty() bool {
+	return r.empty
+}
+
+func (r *InstanceGroupManagerStatefulPolicyPreservedStateDisks) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstanceGroupManagerStatefulPolicyPreservedStateDisks) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -768,6 +1088,7 @@ func (l *InstanceGroupManagerList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListInstanceGroupManager(ctx context.Context, project, location string) (*InstanceGroupManagerList, error) {
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]bool{412: false})))
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -799,19 +1120,24 @@ func (c *Client) ListInstanceGroupManagerWithMaxResults(ctx context.Context, pro
 // short-form so they can be substituted in.
 func (r *InstanceGroupManager) URLNormalized() *InstanceGroupManager {
 	normalized := dcl.Copy(*r).(InstanceGroupManager)
-	normalized.BaseInstanceName = dcl.SelfLinkToName(r.BaseInstanceName)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.InstanceGroup = dcl.SelfLinkToName(r.InstanceGroup)
-	normalized.InstanceTemplate = dcl.SelfLinkToName(r.InstanceTemplate)
+	normalized.CreationTimestamp = dcl.SelfLinkToName(r.CreationTimestamp)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Zone = dcl.SelfLinkToName(r.Zone)
 	normalized.Region = dcl.SelfLinkToName(r.Region)
+	normalized.InstanceTemplate = r.InstanceTemplate
+	normalized.InstanceGroup = dcl.SelfLinkToName(r.InstanceGroup)
+	normalized.BaseInstanceName = dcl.SelfLinkToName(r.BaseInstanceName)
+	normalized.Fingerprint = dcl.SelfLinkToName(r.Fingerprint)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.ServiceAccount = dcl.SelfLinkToName(r.ServiceAccount)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
 
 func (c *Client) GetInstanceGroupManager(ctx context.Context, r *InstanceGroupManager) (*InstanceGroupManager, error) {
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]bool{412: false})))
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -845,6 +1171,7 @@ func (c *Client) GetInstanceGroupManager(ctx context.Context, r *InstanceGroupMa
 }
 
 func (c *Client) DeleteInstanceGroupManager(ctx context.Context, r *InstanceGroupManager) error {
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]bool{412: false})))
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -881,7 +1208,7 @@ func (c *Client) DeleteAllInstanceGroupManager(ctx context.Context, project, loc
 }
 
 func (c *Client) ApplyInstanceGroupManager(ctx context.Context, rawDesired *InstanceGroupManager, opts ...dcl.ApplyOption) (*InstanceGroupManager, error) {
-
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]bool{412: false})))
 	var resultNewState *InstanceGroupManager
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyInstanceGroupManagerHelper(c, ctx, rawDesired, opts...)

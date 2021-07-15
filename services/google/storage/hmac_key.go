@@ -216,7 +216,6 @@ func (c *Client) DeleteAllHmacKey(ctx context.Context, project string, filter fu
 }
 
 func (c *Client) ApplyHmacKey(ctx context.Context, rawDesired *HmacKey, opts ...dcl.ApplyOption) (*HmacKey, error) {
-
 	var resultNewState *HmacKey
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyHmacKeyHelper(c, ctx, rawDesired, opts...)

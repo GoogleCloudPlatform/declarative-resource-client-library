@@ -183,7 +183,6 @@ func (c *Client) DeleteAllConfig(ctx context.Context, project, name string, filt
 }
 
 func (c *Client) ApplyConfig(ctx context.Context, rawDesired *Config, opts ...dcl.ApplyOption) (*Config, error) {
-
 	var resultNewState *Config
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyConfigHelper(c, ctx, rawDesired, opts...)

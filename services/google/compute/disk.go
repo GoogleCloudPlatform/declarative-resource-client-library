@@ -521,7 +521,6 @@ func (c *Client) DeleteAllDisk(ctx context.Context, project, location string, fi
 }
 
 func (c *Client) ApplyDisk(ctx context.Context, rawDesired *Disk, opts ...dcl.ApplyOption) (*Disk, error) {
-
 	var resultNewState *Disk
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyDiskHelper(c, ctx, rawDesired, opts...)

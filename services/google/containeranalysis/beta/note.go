@@ -1727,7 +1727,6 @@ func (c *Client) DeleteAllNote(ctx context.Context, project string, filter func(
 }
 
 func (c *Client) ApplyNote(ctx context.Context, rawDesired *Note, opts ...dcl.ApplyOption) (*Note, error) {
-
 	var resultNewState *Note
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyNoteHelper(c, ctx, rawDesired, opts...)

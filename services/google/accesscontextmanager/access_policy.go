@@ -185,7 +185,6 @@ func (c *Client) DeleteAllAccessPolicy(ctx context.Context, parent string, filte
 }
 
 func (c *Client) ApplyAccessPolicy(ctx context.Context, rawDesired *AccessPolicy, opts ...dcl.ApplyOption) (*AccessPolicy, error) {
-
 	var resultNewState *AccessPolicy
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyAccessPolicyHelper(c, ctx, rawDesired, opts...)

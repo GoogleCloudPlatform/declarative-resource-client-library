@@ -317,7 +317,6 @@ func (c *Client) DeleteAllWorkerPool(ctx context.Context, project, location stri
 }
 
 func (c *Client) ApplyWorkerPool(ctx context.Context, rawDesired *WorkerPool, opts ...dcl.ApplyOption) (*WorkerPool, error) {
-
 	var resultNewState *WorkerPool
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyWorkerPoolHelper(c, ctx, rawDesired, opts...)

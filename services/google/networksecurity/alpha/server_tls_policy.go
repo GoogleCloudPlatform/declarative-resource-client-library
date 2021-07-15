@@ -578,7 +578,6 @@ func (c *Client) DeleteAllServerTlsPolicy(ctx context.Context, project, location
 }
 
 func (c *Client) ApplyServerTlsPolicy(ctx context.Context, rawDesired *ServerTlsPolicy, opts ...dcl.ApplyOption) (*ServerTlsPolicy, error) {
-
 	var resultNewState *ServerTlsPolicy
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyServerTlsPolicyHelper(c, ctx, rawDesired, opts...)

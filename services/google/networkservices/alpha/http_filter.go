@@ -195,7 +195,6 @@ func (c *Client) DeleteAllHttpFilter(ctx context.Context, project, location stri
 }
 
 func (c *Client) ApplyHttpFilter(ctx context.Context, rawDesired *HttpFilter, opts ...dcl.ApplyOption) (*HttpFilter, error) {
-
 	var resultNewState *HttpFilter
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyHttpFilterHelper(c, ctx, rawDesired, opts...)

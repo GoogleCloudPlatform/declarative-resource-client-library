@@ -440,7 +440,6 @@ func (c *Client) DeleteAllFeatureMembership(ctx context.Context, project, locati
 }
 
 func (c *Client) ApplyFeatureMembership(ctx context.Context, rawDesired *FeatureMembership, opts ...dcl.ApplyOption) (*FeatureMembership, error) {
-
 	var resultNewState *FeatureMembership
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyFeatureMembershipHelper(c, ctx, rawDesired, opts...)

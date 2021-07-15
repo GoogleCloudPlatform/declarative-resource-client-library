@@ -517,7 +517,6 @@ func (c *Client) DeleteAllAccessLevel(ctx context.Context, policy string, filter
 }
 
 func (c *Client) ApplyAccessLevel(ctx context.Context, rawDesired *AccessLevel, opts ...dcl.ApplyOption) (*AccessLevel, error) {
-
 	var resultNewState *AccessLevel
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyAccessLevelHelper(c, ctx, rawDesired, opts...)

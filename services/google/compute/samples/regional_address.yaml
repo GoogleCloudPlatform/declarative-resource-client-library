@@ -14,4 +14,5 @@
 description: An example of a regional compute address
 name: regional_address
 resource: samples/regional.address.json
-versions: []
+versions:
+- ga

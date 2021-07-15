@@ -162,7 +162,6 @@ func (c *Client) DeleteAllNetworkEndpoint(ctx context.Context, project, location
 }
 
 func (c *Client) ApplyNetworkEndpoint(ctx context.Context, rawDesired *NetworkEndpoint, opts ...dcl.ApplyOption) (*NetworkEndpoint, error) {
-
 	var resultNewState *NetworkEndpoint
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyNetworkEndpointHelper(c, ctx, rawDesired, opts...)

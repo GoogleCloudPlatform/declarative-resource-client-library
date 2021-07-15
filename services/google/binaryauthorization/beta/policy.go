@@ -283,7 +283,6 @@ func (c *Client) GetPolicy(ctx context.Context, r *Policy) (*Policy, error) {
 }
 
 func (c *Client) ApplyPolicy(ctx context.Context, rawDesired *Policy, opts ...dcl.ApplyOption) (*Policy, error) {
-
 	var resultNewState *Policy
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyPolicyHelper(c, ctx, rawDesired, opts...)

@@ -275,7 +275,6 @@ func (c *Client) DeleteAllConnector(ctx context.Context, project, location strin
 }
 
 func (c *Client) ApplyConnector(ctx context.Context, rawDesired *Connector, opts ...dcl.ApplyOption) (*Connector, error) {
-
 	var resultNewState *Connector
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyConnectorHelper(c, ctx, rawDesired, opts...)

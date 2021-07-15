@@ -476,7 +476,6 @@ func (c *Client) DeleteAllFunction(ctx context.Context, project, region string, 
 }
 
 func (c *Client) ApplyFunction(ctx context.Context, rawDesired *Function, opts ...dcl.ApplyOption) (*Function, error) {
-
 	var resultNewState *Function
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyFunctionHelper(c, ctx, rawDesired, opts...)

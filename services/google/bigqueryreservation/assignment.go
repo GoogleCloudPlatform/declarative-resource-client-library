@@ -250,7 +250,6 @@ func (c *Client) DeleteAllAssignment(ctx context.Context, project, location, res
 }
 
 func (c *Client) ApplyAssignment(ctx context.Context, rawDesired *Assignment, opts ...dcl.ApplyOption) (*Assignment, error) {
-
 	var resultNewState *Assignment
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyAssignmentHelper(c, ctx, rawDesired, opts...)

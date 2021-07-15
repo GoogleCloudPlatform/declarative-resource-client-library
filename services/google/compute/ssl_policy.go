@@ -350,7 +350,6 @@ func (c *Client) DeleteAllSslPolicy(ctx context.Context, project string, filter 
 }
 
 func (c *Client) ApplySslPolicy(ctx context.Context, rawDesired *SslPolicy, opts ...dcl.ApplyOption) (*SslPolicy, error) {
-
 	var resultNewState *SslPolicy
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applySslPolicyHelper(c, ctx, rawDesired, opts...)

@@ -241,7 +241,6 @@ func (c *Client) DeleteAllOAuthIdpConfig(ctx context.Context, project string, fi
 }
 
 func (c *Client) ApplyOAuthIdpConfig(ctx context.Context, rawDesired *OAuthIdpConfig, opts ...dcl.ApplyOption) (*OAuthIdpConfig, error) {
-
 	var resultNewState *OAuthIdpConfig
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyOAuthIdpConfigHelper(c, ctx, rawDesired, opts...)

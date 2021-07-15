@@ -16,4 +16,5 @@ name: zonal_disk
 resource: samples/zonal.disk.json
 updates:
 - resource: samples/update_zonal.disk.json
-versions: []
+versions:
+- ga

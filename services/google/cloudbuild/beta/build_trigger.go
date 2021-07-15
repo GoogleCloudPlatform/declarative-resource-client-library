@@ -988,7 +988,6 @@ func (c *Client) DeleteAllBuildTrigger(ctx context.Context, project string, filt
 }
 
 func (c *Client) ApplyBuildTrigger(ctx context.Context, rawDesired *BuildTrigger, opts ...dcl.ApplyOption) (*BuildTrigger, error) {
-
 	var resultNewState *BuildTrigger
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyBuildTriggerHelper(c, ctx, rawDesired, opts...)

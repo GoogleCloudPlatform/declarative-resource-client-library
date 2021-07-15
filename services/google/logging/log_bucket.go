@@ -218,7 +218,6 @@ func (c *Client) DeleteAllLogBucket(ctx context.Context, location, parent string
 }
 
 func (c *Client) ApplyLogBucket(ctx context.Context, rawDesired *LogBucket, opts ...dcl.ApplyOption) (*LogBucket, error) {
-
 	var resultNewState *LogBucket
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyLogBucketHelper(c, ctx, rawDesired, opts...)

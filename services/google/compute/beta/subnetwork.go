@@ -414,7 +414,6 @@ func (c *Client) DeleteAllSubnetwork(ctx context.Context, project, region string
 }
 
 func (c *Client) ApplySubnetwork(ctx context.Context, rawDesired *Subnetwork, opts ...dcl.ApplyOption) (*Subnetwork, error) {
-
 	var resultNewState *Subnetwork
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applySubnetworkHelper(c, ctx, rawDesired, opts...)

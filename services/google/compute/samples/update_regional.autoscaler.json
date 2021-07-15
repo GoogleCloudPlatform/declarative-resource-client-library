@@ -3,7 +3,7 @@
   "project": "{{ref:regional.autoscaler.json:project}}",
   "description": "A test autoscaler",
   "location": "{{region}}",
-  "target": "{{ref:regional.instance_group_manager.json:name}}",
+  "target": "{{ref:fixed.instance_group_manager.json:name}}",
   "autoscalingPolicy": {
     "maxNumReplicas": 5,
     "minNumReplicas": 0,

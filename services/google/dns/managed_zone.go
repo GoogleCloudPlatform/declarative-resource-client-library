@@ -742,7 +742,6 @@ func (c *Client) DeleteAllManagedZone(ctx context.Context, project string, filte
 }
 
 func (c *Client) ApplyManagedZone(ctx context.Context, rawDesired *ManagedZone, opts ...dcl.ApplyOption) (*ManagedZone, error) {
-
 	var resultNewState *ManagedZone
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyManagedZoneHelper(c, ctx, rawDesired, opts...)

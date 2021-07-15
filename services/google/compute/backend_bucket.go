@@ -236,7 +236,6 @@ func (c *Client) DeleteAllBackendBucket(ctx context.Context, project string, fil
 }
 
 func (c *Client) ApplyBackendBucket(ctx context.Context, rawDesired *BackendBucket, opts ...dcl.ApplyOption) (*BackendBucket, error) {
-
 	var resultNewState *BackendBucket
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyBackendBucketHelper(c, ctx, rawDesired, opts...)

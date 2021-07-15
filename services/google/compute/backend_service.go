@@ -1387,7 +1387,6 @@ func (c *Client) DeleteAllBackendService(ctx context.Context, project, location 
 }
 
 func (c *Client) ApplyBackendService(ctx context.Context, rawDesired *BackendService, opts ...dcl.ApplyOption) (*BackendService, error) {
-
 	var resultNewState *BackendService
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyBackendServiceHelper(c, ctx, rawDesired, opts...)

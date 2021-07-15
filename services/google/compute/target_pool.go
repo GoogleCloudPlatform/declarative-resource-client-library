@@ -222,7 +222,6 @@ func (c *Client) DeleteAllTargetPool(ctx context.Context, project, region string
 }
 
 func (c *Client) ApplyTargetPool(ctx context.Context, rawDesired *TargetPool, opts ...dcl.ApplyOption) (*TargetPool, error) {
-
 	var resultNewState *TargetPool
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyTargetPoolHelper(c, ctx, rawDesired, opts...)

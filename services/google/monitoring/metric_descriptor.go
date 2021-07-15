@@ -432,7 +432,6 @@ func (c *Client) DeleteAllMetricDescriptor(ctx context.Context, project string, 
 }
 
 func (c *Client) ApplyMetricDescriptor(ctx context.Context, rawDesired *MetricDescriptor, opts ...dcl.ApplyOption) (*MetricDescriptor, error) {
-
 	var resultNewState *MetricDescriptor
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyMetricDescriptorHelper(c, ctx, rawDesired, opts...)

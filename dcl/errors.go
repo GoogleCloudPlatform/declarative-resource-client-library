@@ -82,17 +82,18 @@ func (e NotDeletedError) Error() string {
 }
 
 // IsRetryableHTTPError returns true if the error is retryable - in GCP that's a 500, 502, 503, or 429.
-func IsRetryableHTTPError(err error) bool {
+func IsRetryableHTTPError(err error, retryability map[int]bool) bool {
 	if gerr, ok := err.(*googleapi.Error); ok {
-		return gerr.Code == 503 || gerr.Code == 500 || gerr.Code == 429 || gerr.Code == 502
+		return retryability[gerr.Code]
 	}
 	return false
 }
 
 // IsNonRetryableHTTPError returns true if we know that the error is not retryable - in GCP that's a 400, 403, 404, or 409.
-func IsNonRetryableHTTPError(err error) bool {
+func IsNonRetryableHTTPError(err error, retryability map[int]bool) bool {
 	if gerr, ok := err.(*googleapi.Error); ok {
-		return gerr.Code == 400 || gerr.Code == 403 || gerr.Code == 404 || gerr.Code == 409
+		retryable, ok := retryability[gerr.Code]
+		return !retryable && ok
 	}
 	return false
 }

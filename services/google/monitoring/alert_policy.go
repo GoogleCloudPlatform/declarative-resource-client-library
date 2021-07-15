@@ -3790,7 +3790,6 @@ func (c *Client) DeleteAllAlertPolicy(ctx context.Context, project string, filte
 }
 
 func (c *Client) ApplyAlertPolicy(ctx context.Context, rawDesired *AlertPolicy, opts ...dcl.ApplyOption) (*AlertPolicy, error) {
-
 	var resultNewState *AlertPolicy
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyAlertPolicyHelper(c, ctx, rawDesired, opts...)
