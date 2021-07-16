@@ -1,0 +1,15 @@
+{
+  "project": "{{project}}",
+  "location": "us-central1",
+  "name": "{{id}}",
+  "managementConfig": {
+    "standardManagementConfig": {
+      "masterIpv4CidrBlock": "172.16.123.64/28"
+    }
+  },
+  "bundlesConfig": {
+    "configControllerConfig": {
+      "enabled": true
+    }
+  }
+}

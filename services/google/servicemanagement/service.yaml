@@ -69,3 +69,4 @@ components:
           x-dcl-references:
           - resource: Cloudresourcemanager/Project
             field: name
+            parent: true

@@ -146,6 +146,7 @@ components:
           x-dcl-references:
           - resource: Cloudresourcemanager/Project
             field: name
+            parent: true
         projectId:
           type: string
           x-dcl-go-name: ProjectId
