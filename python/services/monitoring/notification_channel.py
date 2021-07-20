@@ -42,6 +42,7 @@ class NotificationChannel(object):
         self.display_name = display_name
         self.enabled = enabled
         self.labels = labels
+        self.name = name
         self.type = type
         self.user_labels = user_labels
         self.project = project
@@ -63,6 +64,9 @@ class NotificationChannel(object):
 
         if Primitive.to_proto(self.labels):
             request.resource.labels = Primitive.to_proto(self.labels)
+
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
         if Primitive.to_proto(self.type):
             request.resource.type = Primitive.to_proto(self.type)
@@ -106,6 +110,9 @@ class NotificationChannel(object):
         if Primitive.to_proto(self.labels):
             request.resource.labels = Primitive.to_proto(self.labels)
 
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
         if Primitive.to_proto(self.type):
             request.resource.type = Primitive.to_proto(self.type)
 
@@ -138,6 +145,8 @@ class NotificationChannel(object):
             resource.enabled = Primitive.to_proto(self.enabled)
         if Primitive.to_proto(self.labels):
             resource.labels = Primitive.to_proto(self.labels)
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.type):
             resource.type = Primitive.to_proto(self.type)
         if Primitive.to_proto(self.user_labels):
