@@ -83,7 +83,6 @@ components:
         name:
           type: string
           x-dcl-go-name: Name
-          readOnly: true
           description: Name of the resource. It is a numeric ID allocated by GCP which
             uniquely identifies the Firewall Policy.
           x-kubernetes-immutable: true

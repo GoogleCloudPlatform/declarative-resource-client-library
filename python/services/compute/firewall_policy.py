@@ -35,6 +35,7 @@ class FirewallPolicy(object):
     ):
 
         channel.initialize()
+        self.name = name
         self.description = description
         self.fingerprint = fingerprint
         self.short_name = short_name
@@ -46,6 +47,9 @@ class FirewallPolicy(object):
             channel.Channel()
         )
         request = firewall_policy_pb2.ApplyComputeFirewallPolicyRequest()
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
@@ -78,6 +82,9 @@ class FirewallPolicy(object):
         )
         request = firewall_policy_pb2.DeleteComputeFirewallPolicyRequest()
         request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
@@ -105,6 +112,8 @@ class FirewallPolicy(object):
 
     def to_proto(self):
         resource = firewall_policy_pb2.ComputeFirewallPolicy()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.description):
             resource.description = Primitive.to_proto(self.description)
         if Primitive.to_proto(self.fingerprint):
