@@ -329,6 +329,7 @@ func (op *createTopicOperation) do(ctx context.Context, r *Topic, c *Client) err
 
 	// Poll for the Topic resource to be created. Topic resources are eventually consistent but do not support operations
 	// so we must repeatedly poll to check for their creation.
+	requiredSuccesses := 1
 	err = dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		u, err := topicGetURL(c.Config.BasePath, r.URLNormalized())
 		if err != nil {
@@ -344,6 +345,10 @@ func (op *createTopicOperation) do(ctx context.Context, r *Topic, c *Client) err
 			return nil, err
 		}
 		getResp.Response.Body.Close()
+		requiredSuccesses--
+		if requiredSuccesses > 0 {
+			return &dcl.RetryDetails{}, dcl.OperationNotDone{}
+		}
 		return getResp, nil
 	}, c.Config.RetryProvider)
 

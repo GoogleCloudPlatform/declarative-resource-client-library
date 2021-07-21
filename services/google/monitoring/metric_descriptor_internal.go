@@ -245,6 +245,7 @@ func (op *createMetricDescriptorOperation) do(ctx context.Context, r *MetricDesc
 
 	// Poll for the MetricDescriptor resource to be created. MetricDescriptor resources are eventually consistent but do not support operations
 	// so we must repeatedly poll to check for their creation.
+	requiredSuccesses := 10
 	err = dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		u, err := metricDescriptorGetURL(c.Config.BasePath, r.URLNormalized())
 		if err != nil {
@@ -260,6 +261,10 @@ func (op *createMetricDescriptorOperation) do(ctx context.Context, r *MetricDesc
 			return nil, err
 		}
 		getResp.Response.Body.Close()
+		requiredSuccesses--
+		if requiredSuccesses > 0 {
+			return &dcl.RetryDetails{}, dcl.OperationNotDone{}
+		}
 		return getResp, nil
 	}, c.Config.RetryProvider)
 

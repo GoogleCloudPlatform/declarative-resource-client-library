@@ -344,6 +344,7 @@ func (op *createSubscriptionOperation) do(ctx context.Context, r *Subscription, 
 
 	// Poll for the Subscription resource to be created. Subscription resources are eventually consistent but do not support operations
 	// so we must repeatedly poll to check for their creation.
+	requiredSuccesses := 1
 	err = dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		u, err := subscriptionGetURL(c.Config.BasePath, r.URLNormalized())
 		if err != nil {
@@ -359,6 +360,10 @@ func (op *createSubscriptionOperation) do(ctx context.Context, r *Subscription, 
 			return nil, err
 		}
 		getResp.Response.Body.Close()
+		requiredSuccesses--
+		if requiredSuccesses > 0 {
+			return &dcl.RetryDetails{}, dcl.OperationNotDone{}
+		}
 		return getResp, nil
 	}, c.Config.RetryProvider)
 
