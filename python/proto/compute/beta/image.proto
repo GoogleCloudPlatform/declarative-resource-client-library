@@ -18,15 +18,15 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
-enum ComputeBetaImageGuestOsFeatureTypeEnum {
-  ComputeBetaImageGuestOsFeatureTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  ComputeBetaImageGuestOsFeatureTypeEnumFEATURE_TYPE_UNSPECIFIED = 1;
-  ComputeBetaImageGuestOsFeatureTypeEnumVIRTIO_SCSI_MULTIQUEUE = 2;
-  ComputeBetaImageGuestOsFeatureTypeEnumWINDOWS = 3;
-  ComputeBetaImageGuestOsFeatureTypeEnumMULTI_IP_SUBNET = 4;
-  ComputeBetaImageGuestOsFeatureTypeEnumUEFI_COMPATIBLE = 5;
-  ComputeBetaImageGuestOsFeatureTypeEnumSECURE_BOOT = 6;
-  ComputeBetaImageGuestOsFeatureTypeEnumSEV_CAPABLE = 7;
+enum ComputeBetaImageGuestOSFeatureTypeEnum {
+  ComputeBetaImageGuestOSFeatureTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeBetaImageGuestOSFeatureTypeEnumFEATURE_TYPE_UNSPECIFIED = 1;
+  ComputeBetaImageGuestOSFeatureTypeEnumVIRTIO_SCSI_MULTIQUEUE = 2;
+  ComputeBetaImageGuestOSFeatureTypeEnumWINDOWS = 3;
+  ComputeBetaImageGuestOSFeatureTypeEnumMULTI_IP_SUBNET = 4;
+  ComputeBetaImageGuestOSFeatureTypeEnumUEFI_COMPATIBLE = 5;
+  ComputeBetaImageGuestOSFeatureTypeEnumSECURE_BOOT = 6;
+  ComputeBetaImageGuestOSFeatureTypeEnumSEV_CAPABLE = 7;
 }
 
 enum ComputeBetaImageRawDiskContainerTypeEnum {
@@ -88,7 +88,7 @@ message ComputeBetaImage {
   string description = 2;
   int64 disk_size_gb = 3;
   string family = 4;
-  repeated ComputeBetaImageGuestOsFeature guest_os_feature = 5;
+  repeated ComputeBetaImageGuestOSFeature guest_os_feature = 5;
   ComputeBetaImageImageEncryptionKey image_encryption_key = 6;
   map<string, string> labels = 7;
   repeated string license = 8;
@@ -112,8 +112,8 @@ message ComputeBetaImage {
   string project = 26;
 }
 
-message ComputeBetaImageGuestOsFeature {
-  ComputeBetaImageGuestOsFeatureTypeEnum type = 1;
+message ComputeBetaImageGuestOSFeature {
+  ComputeBetaImageGuestOSFeatureTypeEnum type = 1;
 }
 
 message ComputeBetaImageImageEncryptionKey {

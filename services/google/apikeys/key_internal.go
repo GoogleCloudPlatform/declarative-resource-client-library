@@ -521,6 +521,46 @@ func canonicalizeKeyRestrictions(des, initial *KeyRestrictions, opts ...dcl.Appl
 		return des
 	}
 
+	if des.BrowserKeyRestrictions != nil || (initial != nil && initial.BrowserKeyRestrictions != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.ServerKeyRestrictions, des.AndroidKeyRestrictions, des.IosKeyRestrictions) {
+			des.BrowserKeyRestrictions = nil
+			if initial != nil {
+				initial.BrowserKeyRestrictions = nil
+			}
+		}
+	}
+
+	if des.ServerKeyRestrictions != nil || (initial != nil && initial.ServerKeyRestrictions != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.BrowserKeyRestrictions, des.AndroidKeyRestrictions, des.IosKeyRestrictions) {
+			des.ServerKeyRestrictions = nil
+			if initial != nil {
+				initial.ServerKeyRestrictions = nil
+			}
+		}
+	}
+
+	if des.AndroidKeyRestrictions != nil || (initial != nil && initial.AndroidKeyRestrictions != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.BrowserKeyRestrictions, des.ServerKeyRestrictions, des.IosKeyRestrictions) {
+			des.AndroidKeyRestrictions = nil
+			if initial != nil {
+				initial.AndroidKeyRestrictions = nil
+			}
+		}
+	}
+
+	if des.IosKeyRestrictions != nil || (initial != nil && initial.IosKeyRestrictions != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.BrowserKeyRestrictions, des.ServerKeyRestrictions, des.AndroidKeyRestrictions) {
+			des.IosKeyRestrictions = nil
+			if initial != nil {
+				initial.IosKeyRestrictions = nil
+			}
+		}
+	}
+
 	if initial == nil {
 		return des
 	}

@@ -26,6 +26,12 @@ import (
 
 func (r *FirewallPolicy) validate() error {
 
+	if err := dcl.Required(r, "shortName"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "parent"); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -73,9 +79,6 @@ func newUpdateFirewallPolicyPatchRequest(ctx context.Context, f *FirewallPolicy,
 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
-	}
-	if v := f.Fingerprint; !dcl.IsEmptyValueIndirect(v) {
-		req["fingerprint"] = v
 	}
 	b, err := c.getFirewallPolicyRaw(ctx, f.URLNormalized())
 	if err != nil {
@@ -308,11 +311,6 @@ func canonicalizeFirewallPolicyDesiredState(rawDesired, rawInitial *FirewallPoli
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.StringCanonicalize(rawDesired.Fingerprint, rawInitial.Fingerprint) {
-		canonicalDesired.Fingerprint = rawInitial.Fingerprint
-	} else {
-		canonicalDesired.Fingerprint = rawDesired.Fingerprint
-	}
 	if dcl.StringCanonicalize(rawDesired.ShortName, rawInitial.ShortName) {
 		canonicalDesired.ShortName = rawInitial.ShortName
 	} else {
@@ -449,7 +447,7 @@ func diffFirewallPolicy(c *Client, desired, actual *FirewallPolicy, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Fingerprint, actual.Fingerprint, dcl.Info{OperationSelector: dcl.TriggersOperation("updateFirewallPolicyPatchOperation")}, fn.AddNest("Fingerprint")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Fingerprint, actual.Fingerprint, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fingerprint")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

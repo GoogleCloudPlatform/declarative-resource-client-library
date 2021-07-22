@@ -65,7 +65,7 @@ func (r *Image) validate() error {
 	}
 	return nil
 }
-func (r *ImageGuestOsFeature) validate() error {
+func (r *ImageGuestOSFeature) validate() error {
 	return nil
 }
 func (r *ImageImageEncryptionKey) validate() error {
@@ -590,10 +590,10 @@ func canonicalizeImageDesiredState(rawDesired, rawInitial *Image, opts ...dcl.Ap
 	} else {
 		canonicalDesired.Family = rawDesired.Family
 	}
-	if dcl.IsZeroValue(rawDesired.GuestOsFeature) {
-		canonicalDesired.GuestOsFeature = rawInitial.GuestOsFeature
+	if dcl.IsZeroValue(rawDesired.GuestOSFeature) {
+		canonicalDesired.GuestOSFeature = rawInitial.GuestOSFeature
 	} else {
-		canonicalDesired.GuestOsFeature = rawDesired.GuestOsFeature
+		canonicalDesired.GuestOSFeature = rawDesired.GuestOSFeature
 	}
 	canonicalDesired.ImageEncryptionKey = canonicalizeImageImageEncryptionKey(rawDesired.ImageEncryptionKey, rawInitial.ImageEncryptionKey, opts...)
 	if dcl.IsZeroValue(rawDesired.Labels) {
@@ -689,10 +689,10 @@ func canonicalizeImageNewState(c *Client, rawNew, rawDesired *Image) (*Image, er
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.GuestOsFeature) && dcl.IsEmptyValueIndirect(rawDesired.GuestOsFeature) {
-		rawNew.GuestOsFeature = rawDesired.GuestOsFeature
+	if dcl.IsEmptyValueIndirect(rawNew.GuestOSFeature) && dcl.IsEmptyValueIndirect(rawDesired.GuestOSFeature) {
+		rawNew.GuestOSFeature = rawDesired.GuestOSFeature
 	} else {
-		rawNew.GuestOsFeature = canonicalizeNewImageGuestOsFeatureSet(c, rawDesired.GuestOsFeature, rawNew.GuestOsFeature)
+		rawNew.GuestOSFeature = canonicalizeNewImageGuestOSFeatureSet(c, rawDesired.GuestOSFeature, rawNew.GuestOSFeature)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ImageEncryptionKey) && dcl.IsEmptyValueIndirect(rawDesired.ImageEncryptionKey) {
@@ -827,7 +827,7 @@ func canonicalizeImageNewState(c *Client, rawNew, rawDesired *Image) (*Image, er
 	return rawNew, nil
 }
 
-func canonicalizeImageGuestOsFeature(des, initial *ImageGuestOsFeature, opts ...dcl.ApplyOption) *ImageGuestOsFeature {
+func canonicalizeImageGuestOSFeature(des, initial *ImageGuestOSFeature, opts ...dcl.ApplyOption) *ImageGuestOSFeature {
 	if des == nil {
 		return initial
 	}
@@ -839,7 +839,7 @@ func canonicalizeImageGuestOsFeature(des, initial *ImageGuestOsFeature, opts ...
 		return des
 	}
 
-	cDes := &ImageGuestOsFeature{}
+	cDes := &ImageGuestOSFeature{}
 
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
@@ -850,7 +850,7 @@ func canonicalizeImageGuestOsFeature(des, initial *ImageGuestOsFeature, opts ...
 	return cDes
 }
 
-func canonicalizeNewImageGuestOsFeature(c *Client, des, nw *ImageGuestOsFeature) *ImageGuestOsFeature {
+func canonicalizeNewImageGuestOSFeature(c *Client, des, nw *ImageGuestOSFeature) *ImageGuestOSFeature {
 	if des == nil || nw == nil {
 		return nw
 	}
@@ -862,15 +862,15 @@ func canonicalizeNewImageGuestOsFeature(c *Client, des, nw *ImageGuestOsFeature)
 	return nw
 }
 
-func canonicalizeNewImageGuestOsFeatureSet(c *Client, des, nw []ImageGuestOsFeature) []ImageGuestOsFeature {
+func canonicalizeNewImageGuestOSFeatureSet(c *Client, des, nw []ImageGuestOSFeature) []ImageGuestOSFeature {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []ImageGuestOsFeature
+	var reorderedNew []ImageGuestOSFeature
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareImageGuestOsFeatureNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareImageGuestOSFeatureNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -885,7 +885,7 @@ func canonicalizeNewImageGuestOsFeatureSet(c *Client, des, nw []ImageGuestOsFeat
 	return reorderedNew
 }
 
-func canonicalizeNewImageGuestOsFeatureSlice(c *Client, des, nw []ImageGuestOsFeature) []ImageGuestOsFeature {
+func canonicalizeNewImageGuestOSFeatureSlice(c *Client, des, nw []ImageGuestOSFeature) []ImageGuestOSFeature {
 	if des == nil {
 		return nw
 	}
@@ -896,10 +896,10 @@ func canonicalizeNewImageGuestOsFeatureSlice(c *Client, des, nw []ImageGuestOsFe
 		return nw
 	}
 
-	var items []ImageGuestOsFeature
+	var items []ImageGuestOSFeature
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewImageGuestOsFeature(c, &d, &n))
+		items = append(items, *canonicalizeNewImageGuestOSFeature(c, &d, &n))
 	}
 
 	return items
@@ -2002,7 +2002,7 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GuestOsFeature, actual.GuestOsFeature, dcl.Info{Type: "Set", ObjectFunction: compareImageGuestOsFeatureNewStyle, EmptyObject: EmptyImageGuestOsFeature, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GuestOsFeatures")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GuestOSFeature, actual.GuestOSFeature, dcl.Info{Type: "Set", ObjectFunction: compareImageGuestOSFeatureNewStyle, EmptyObject: EmptyImageGuestOSFeature, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GuestOsFeatures")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2158,22 +2158,22 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]*d
 
 	return newDiffs, nil
 }
-func compareImageGuestOsFeatureNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareImageGuestOSFeatureNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*ImageGuestOsFeature)
+	desired, ok := d.(*ImageGuestOSFeature)
 	if !ok {
-		desiredNotPointer, ok := d.(ImageGuestOsFeature)
+		desiredNotPointer, ok := d.(ImageGuestOSFeature)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a ImageGuestOsFeature or *ImageGuestOsFeature", d)
+			return nil, fmt.Errorf("obj %v is not a ImageGuestOSFeature or *ImageGuestOSFeature", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*ImageGuestOsFeature)
+	actual, ok := a.(*ImageGuestOSFeature)
 	if !ok {
-		actualNotPointer, ok := a.(ImageGuestOsFeature)
+		actualNotPointer, ok := a.(ImageGuestOSFeature)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a ImageGuestOsFeature", a)
+			return nil, fmt.Errorf("obj %v is not a ImageGuestOSFeature", a)
 		}
 		actual = &actualNotPointer
 	}
@@ -2758,8 +2758,8 @@ func expandImage(c *Client, f *Image) (map[string]interface{}, error) {
 	if v := f.Family; !dcl.IsEmptyValueIndirect(v) {
 		m["family"] = v
 	}
-	if v, err := expandImageGuestOsFeatureSlice(c, f.GuestOsFeature); err != nil {
-		return nil, fmt.Errorf("error expanding GuestOsFeature into guestOsFeatures: %w", err)
+	if v, err := expandImageGuestOSFeatureSlice(c, f.GuestOSFeature); err != nil {
+		return nil, fmt.Errorf("error expanding GuestOSFeature into guestOsFeatures: %w", err)
 	} else if v != nil {
 		m["guestOsFeatures"] = v
 	}
@@ -2862,7 +2862,7 @@ func flattenImage(c *Client, i interface{}) *Image {
 	res.Description = dcl.FlattenString(m["description"])
 	res.DiskSizeGb = dcl.FlattenInteger(m["diskSizeGb"])
 	res.Family = dcl.FlattenString(m["family"])
-	res.GuestOsFeature = flattenImageGuestOsFeatureSlice(c, m["guestOsFeatures"])
+	res.GuestOSFeature = flattenImageGuestOSFeatureSlice(c, m["guestOsFeatures"])
 	res.ImageEncryptionKey = flattenImageImageEncryptionKey(c, m["imageEncryptionKey"])
 	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	res.License = dcl.FlattenStringSlice(m["licenses"])
@@ -2888,16 +2888,16 @@ func flattenImage(c *Client, i interface{}) *Image {
 	return res
 }
 
-// expandImageGuestOsFeatureMap expands the contents of ImageGuestOsFeature into a JSON
+// expandImageGuestOSFeatureMap expands the contents of ImageGuestOSFeature into a JSON
 // request object.
-func expandImageGuestOsFeatureMap(c *Client, f map[string]ImageGuestOsFeature) (map[string]interface{}, error) {
+func expandImageGuestOSFeatureMap(c *Client, f map[string]ImageGuestOSFeature) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandImageGuestOsFeature(c, &item)
+		i, err := expandImageGuestOSFeature(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -2909,16 +2909,16 @@ func expandImageGuestOsFeatureMap(c *Client, f map[string]ImageGuestOsFeature) (
 	return items, nil
 }
 
-// expandImageGuestOsFeatureSlice expands the contents of ImageGuestOsFeature into a JSON
+// expandImageGuestOSFeatureSlice expands the contents of ImageGuestOSFeature into a JSON
 // request object.
-func expandImageGuestOsFeatureSlice(c *Client, f []ImageGuestOsFeature) ([]map[string]interface{}, error) {
+func expandImageGuestOSFeatureSlice(c *Client, f []ImageGuestOSFeature) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandImageGuestOsFeature(c, &item)
+		i, err := expandImageGuestOSFeature(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -2929,49 +2929,49 @@ func expandImageGuestOsFeatureSlice(c *Client, f []ImageGuestOsFeature) ([]map[s
 	return items, nil
 }
 
-// flattenImageGuestOsFeatureMap flattens the contents of ImageGuestOsFeature from a JSON
+// flattenImageGuestOSFeatureMap flattens the contents of ImageGuestOSFeature from a JSON
 // response object.
-func flattenImageGuestOsFeatureMap(c *Client, i interface{}) map[string]ImageGuestOsFeature {
+func flattenImageGuestOSFeatureMap(c *Client, i interface{}) map[string]ImageGuestOSFeature {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]ImageGuestOsFeature{}
+		return map[string]ImageGuestOSFeature{}
 	}
 
 	if len(a) == 0 {
-		return map[string]ImageGuestOsFeature{}
+		return map[string]ImageGuestOSFeature{}
 	}
 
-	items := make(map[string]ImageGuestOsFeature)
+	items := make(map[string]ImageGuestOSFeature)
 	for k, item := range a {
-		items[k] = *flattenImageGuestOsFeature(c, item.(map[string]interface{}))
+		items[k] = *flattenImageGuestOSFeature(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenImageGuestOsFeatureSlice flattens the contents of ImageGuestOsFeature from a JSON
+// flattenImageGuestOSFeatureSlice flattens the contents of ImageGuestOSFeature from a JSON
 // response object.
-func flattenImageGuestOsFeatureSlice(c *Client, i interface{}) []ImageGuestOsFeature {
+func flattenImageGuestOSFeatureSlice(c *Client, i interface{}) []ImageGuestOSFeature {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []ImageGuestOsFeature{}
+		return []ImageGuestOSFeature{}
 	}
 
 	if len(a) == 0 {
-		return []ImageGuestOsFeature{}
+		return []ImageGuestOSFeature{}
 	}
 
-	items := make([]ImageGuestOsFeature, 0, len(a))
+	items := make([]ImageGuestOSFeature, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenImageGuestOsFeature(c, item.(map[string]interface{})))
+		items = append(items, *flattenImageGuestOSFeature(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandImageGuestOsFeature expands an instance of ImageGuestOsFeature into a JSON
+// expandImageGuestOSFeature expands an instance of ImageGuestOSFeature into a JSON
 // request object.
-func expandImageGuestOsFeature(c *Client, f *ImageGuestOsFeature) (map[string]interface{}, error) {
+func expandImageGuestOSFeature(c *Client, f *ImageGuestOSFeature) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2984,20 +2984,20 @@ func expandImageGuestOsFeature(c *Client, f *ImageGuestOsFeature) (map[string]in
 	return m, nil
 }
 
-// flattenImageGuestOsFeature flattens an instance of ImageGuestOsFeature from a JSON
+// flattenImageGuestOSFeature flattens an instance of ImageGuestOSFeature from a JSON
 // response object.
-func flattenImageGuestOsFeature(c *Client, i interface{}) *ImageGuestOsFeature {
+func flattenImageGuestOSFeature(c *Client, i interface{}) *ImageGuestOSFeature {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &ImageGuestOsFeature{}
+	r := &ImageGuestOSFeature{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyImageGuestOsFeature
+		return EmptyImageGuestOSFeature
 	}
-	r.Type = flattenImageGuestOsFeatureTypeEnum(m["type"])
+	r.Type = flattenImageGuestOSFeatureTypeEnum(m["type"])
 
 	return r
 }
@@ -4368,55 +4368,55 @@ func flattenImageDeprecated(c *Client, i interface{}) *ImageDeprecated {
 	return r
 }
 
-// flattenImageGuestOsFeatureTypeEnumMap flattens the contents of ImageGuestOsFeatureTypeEnum from a JSON
+// flattenImageGuestOSFeatureTypeEnumMap flattens the contents of ImageGuestOSFeatureTypeEnum from a JSON
 // response object.
-func flattenImageGuestOsFeatureTypeEnumMap(c *Client, i interface{}) map[string]ImageGuestOsFeatureTypeEnum {
+func flattenImageGuestOSFeatureTypeEnumMap(c *Client, i interface{}) map[string]ImageGuestOSFeatureTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]ImageGuestOsFeatureTypeEnum{}
+		return map[string]ImageGuestOSFeatureTypeEnum{}
 	}
 
 	if len(a) == 0 {
-		return map[string]ImageGuestOsFeatureTypeEnum{}
+		return map[string]ImageGuestOSFeatureTypeEnum{}
 	}
 
-	items := make(map[string]ImageGuestOsFeatureTypeEnum)
+	items := make(map[string]ImageGuestOSFeatureTypeEnum)
 	for k, item := range a {
-		items[k] = *flattenImageGuestOsFeatureTypeEnum(item.(interface{}))
+		items[k] = *flattenImageGuestOSFeatureTypeEnum(item.(interface{}))
 	}
 
 	return items
 }
 
-// flattenImageGuestOsFeatureTypeEnumSlice flattens the contents of ImageGuestOsFeatureTypeEnum from a JSON
+// flattenImageGuestOSFeatureTypeEnumSlice flattens the contents of ImageGuestOSFeatureTypeEnum from a JSON
 // response object.
-func flattenImageGuestOsFeatureTypeEnumSlice(c *Client, i interface{}) []ImageGuestOsFeatureTypeEnum {
+func flattenImageGuestOSFeatureTypeEnumSlice(c *Client, i interface{}) []ImageGuestOSFeatureTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []ImageGuestOsFeatureTypeEnum{}
+		return []ImageGuestOSFeatureTypeEnum{}
 	}
 
 	if len(a) == 0 {
-		return []ImageGuestOsFeatureTypeEnum{}
+		return []ImageGuestOSFeatureTypeEnum{}
 	}
 
-	items := make([]ImageGuestOsFeatureTypeEnum, 0, len(a))
+	items := make([]ImageGuestOSFeatureTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenImageGuestOsFeatureTypeEnum(item.(interface{})))
+		items = append(items, *flattenImageGuestOSFeatureTypeEnum(item.(interface{})))
 	}
 
 	return items
 }
 
-// flattenImageGuestOsFeatureTypeEnum asserts that an interface is a string, and returns a
-// pointer to a *ImageGuestOsFeatureTypeEnum with the same value as that string.
-func flattenImageGuestOsFeatureTypeEnum(i interface{}) *ImageGuestOsFeatureTypeEnum {
+// flattenImageGuestOSFeatureTypeEnum asserts that an interface is a string, and returns a
+// pointer to a *ImageGuestOSFeatureTypeEnum with the same value as that string.
+func flattenImageGuestOSFeatureTypeEnum(i interface{}) *ImageGuestOSFeatureTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return ImageGuestOsFeatureTypeEnumRef("")
+		return ImageGuestOSFeatureTypeEnumRef("")
 	}
 
-	return ImageGuestOsFeatureTypeEnumRef(s)
+	return ImageGuestOSFeatureTypeEnumRef(s)
 }
 
 // flattenImageRawDiskContainerTypeEnumMap flattens the contents of ImageRawDiskContainerTypeEnum from a JSON

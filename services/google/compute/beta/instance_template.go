@@ -293,7 +293,7 @@ type InstanceTemplatePropertiesDisks struct {
 	DiskEncryptionKey *InstanceTemplatePropertiesDisksDiskEncryptionKey `json:"diskEncryptionKey"`
 	Index             *int64                                            `json:"index"`
 	InitializeParams  *InstanceTemplatePropertiesDisksInitializeParams  `json:"initializeParams"`
-	GuestOsFeatures   []InstanceTemplatePropertiesDisksGuestOsFeatures  `json:"guestOsFeatures"`
+	GuestOSFeatures   []InstanceTemplatePropertiesDisksGuestOSFeatures  `json:"guestOSFeatures"`
 	Interface         *InstanceTemplatePropertiesDisksInterfaceEnum     `json:"interface"`
 	Mode              *InstanceTemplatePropertiesDisksModeEnum          `json:"mode"`
 	Source            *string                                           `json:"source"`
@@ -327,7 +327,7 @@ func (r *InstanceTemplatePropertiesDisks) UnmarshalJSON(data []byte) error {
 
 		r.InitializeParams = res.InitializeParams
 
-		r.GuestOsFeatures = res.GuestOsFeatures
+		r.GuestOSFeatures = res.GuestOSFeatures
 
 		r.Interface = res.Interface
 
@@ -593,15 +593,15 @@ func (r *InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey
 	return fmt.Sprintf("%x", hash)
 }
 
-type InstanceTemplatePropertiesDisksGuestOsFeatures struct {
+type InstanceTemplatePropertiesDisksGuestOSFeatures struct {
 	empty bool    `json:"-"`
 	Type  *string `json:"type"`
 }
 
-type jsonInstanceTemplatePropertiesDisksGuestOsFeatures InstanceTemplatePropertiesDisksGuestOsFeatures
+type jsonInstanceTemplatePropertiesDisksGuestOSFeatures InstanceTemplatePropertiesDisksGuestOSFeatures
 
-func (r *InstanceTemplatePropertiesDisksGuestOsFeatures) UnmarshalJSON(data []byte) error {
-	var res jsonInstanceTemplatePropertiesDisksGuestOsFeatures
+func (r *InstanceTemplatePropertiesDisksGuestOSFeatures) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceTemplatePropertiesDisksGuestOSFeatures
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -610,7 +610,7 @@ func (r *InstanceTemplatePropertiesDisksGuestOsFeatures) UnmarshalJSON(data []by
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyInstanceTemplatePropertiesDisksGuestOsFeatures
+		*r = *EmptyInstanceTemplatePropertiesDisksGuestOSFeatures
 	} else {
 
 		r.Type = res.Type
@@ -619,20 +619,20 @@ func (r *InstanceTemplatePropertiesDisksGuestOsFeatures) UnmarshalJSON(data []by
 	return nil
 }
 
-// This object is used to assert a desired state where this InstanceTemplatePropertiesDisksGuestOsFeatures is
+// This object is used to assert a desired state where this InstanceTemplatePropertiesDisksGuestOSFeatures is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyInstanceTemplatePropertiesDisksGuestOsFeatures *InstanceTemplatePropertiesDisksGuestOsFeatures = &InstanceTemplatePropertiesDisksGuestOsFeatures{empty: true}
+var EmptyInstanceTemplatePropertiesDisksGuestOSFeatures *InstanceTemplatePropertiesDisksGuestOSFeatures = &InstanceTemplatePropertiesDisksGuestOSFeatures{empty: true}
 
-func (r *InstanceTemplatePropertiesDisksGuestOsFeatures) Empty() bool {
+func (r *InstanceTemplatePropertiesDisksGuestOSFeatures) Empty() bool {
 	return r.empty
 }
 
-func (r *InstanceTemplatePropertiesDisksGuestOsFeatures) String() string {
+func (r *InstanceTemplatePropertiesDisksGuestOSFeatures) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *InstanceTemplatePropertiesDisksGuestOsFeatures) HashCode() string {
+func (r *InstanceTemplatePropertiesDisksGuestOSFeatures) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

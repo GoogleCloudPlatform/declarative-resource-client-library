@@ -4176,7 +4176,6 @@ func canonicalizeInstanceGoogleprotobufstruct(des, initial *InstanceGoogleprotob
 	if des.empty {
 		return des
 	}
-
 	if initial == nil {
 		return des
 	}

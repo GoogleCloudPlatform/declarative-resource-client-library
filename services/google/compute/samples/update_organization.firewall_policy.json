@@ -1,5 +1,6 @@
 {
   "name":"{{ref:organization.firewall_policy.json:name}}",
+  "shortName": "{{ref:organization.firewall_policy.json:shortName}}",
   "parent": "organizations/{{org_id}}",
   "description": "Updated sample firewall policy."
 }

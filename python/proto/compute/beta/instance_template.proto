@@ -87,7 +87,7 @@ message ComputeBetaInstanceTemplatePropertiesDisks {
   ComputeBetaInstanceTemplatePropertiesDisksDiskEncryptionKey disk_encryption_key = 4;
   int64 index = 5;
   ComputeBetaInstanceTemplatePropertiesDisksInitializeParams initialize_params = 6;
-  repeated ComputeBetaInstanceTemplatePropertiesDisksGuestOsFeatures guest_os_features = 7;
+  repeated ComputeBetaInstanceTemplatePropertiesDisksGuestOSFeatures guest_os_features = 7;
   ComputeBetaInstanceTemplatePropertiesDisksInterfaceEnum interface = 8;
   ComputeBetaInstanceTemplatePropertiesDisksModeEnum mode = 9;
   string source = 10;
@@ -126,7 +126,7 @@ message ComputeBetaInstanceTemplatePropertiesDisksInitializeParamsSourceImageEnc
   string kms_key_name = 3;
 }
 
-message ComputeBetaInstanceTemplatePropertiesDisksGuestOsFeatures {
+message ComputeBetaInstanceTemplatePropertiesDisksGuestOSFeatures {
   string type = 1;
 }
 

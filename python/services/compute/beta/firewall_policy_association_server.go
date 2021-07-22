@@ -32,7 +32,6 @@ func ProtoToFirewallPolicyAssociation(p *betapb.ComputeBetaFirewallPolicyAssocia
 		AttachmentTarget: dcl.StringOrNil(p.AttachmentTarget),
 		FirewallPolicy:   dcl.StringOrNil(p.FirewallPolicy),
 		ShortName:        dcl.StringOrNil(p.ShortName),
-		DisplayName:      dcl.StringOrNil(p.DisplayName),
 	}
 	return obj
 }
@@ -44,7 +43,6 @@ func FirewallPolicyAssociationToProto(resource *beta.FirewallPolicyAssociation) 
 		AttachmentTarget: dcl.ValueOrEmptyString(resource.AttachmentTarget),
 		FirewallPolicy:   dcl.ValueOrEmptyString(resource.FirewallPolicy),
 		ShortName:        dcl.ValueOrEmptyString(resource.ShortName),
-		DisplayName:      dcl.ValueOrEmptyString(resource.DisplayName),
 	}
 
 	return p

@@ -100,9 +100,9 @@ class Disk(object):
             )
         else:
             request.resource.ClearField("disk_encryption_key")
-        if DiskGuestOsFeatureArray.to_proto(self.guest_os_feature):
+        if DiskGuestOSFeatureArray.to_proto(self.guest_os_feature):
             request.resource.guest_os_feature.extend(
-                DiskGuestOsFeatureArray.to_proto(self.guest_os_feature)
+                DiskGuestOSFeatureArray.to_proto(self.guest_os_feature)
             )
         if Primitive.to_proto(self.labels):
             request.resource.labels = Primitive.to_proto(self.labels)
@@ -158,9 +158,9 @@ class Disk(object):
 
         if Primitive.to_proto(self.licenses):
             request.resource.licenses.extend(Primitive.to_proto(self.licenses))
-        if DiskGuestOsFeaturesArray.to_proto(self.guest_os_features):
+        if DiskGuestOSFeaturesArray.to_proto(self.guest_os_features):
             request.resource.guest_os_features.extend(
-                DiskGuestOsFeaturesArray.to_proto(self.guest_os_features)
+                DiskGuestOSFeaturesArray.to_proto(self.guest_os_features)
             )
         if int64Array.to_proto(self.license_codes):
             request.resource.license_codes.extend(
@@ -192,7 +192,7 @@ class Disk(object):
         self.disk_encryption_key = DiskEncryptionKey.from_proto(
             response.disk_encryption_key
         )
-        self.guest_os_feature = DiskGuestOsFeatureArray.from_proto(
+        self.guest_os_feature = DiskGuestOSFeatureArray.from_proto(
             response.guest_os_feature
         )
         self.labels = Primitive.from_proto(response.labels)
@@ -220,7 +220,7 @@ class Disk(object):
         self.status = DiskStatusEnum.from_proto(response.status)
         self.options = Primitive.from_proto(response.options)
         self.licenses = Primitive.from_proto(response.licenses)
-        self.guest_os_features = DiskGuestOsFeaturesArray.from_proto(
+        self.guest_os_features = DiskGuestOSFeaturesArray.from_proto(
             response.guest_os_features
         )
         self.last_attach_timestamp = Primitive.from_proto(
@@ -252,9 +252,9 @@ class Disk(object):
             )
         else:
             request.resource.ClearField("disk_encryption_key")
-        if DiskGuestOsFeatureArray.to_proto(self.guest_os_feature):
+        if DiskGuestOSFeatureArray.to_proto(self.guest_os_feature):
             request.resource.guest_os_feature.extend(
-                DiskGuestOsFeatureArray.to_proto(self.guest_os_feature)
+                DiskGuestOSFeatureArray.to_proto(self.guest_os_feature)
             )
         if Primitive.to_proto(self.labels):
             request.resource.labels = Primitive.to_proto(self.labels)
@@ -310,9 +310,9 @@ class Disk(object):
 
         if Primitive.to_proto(self.licenses):
             request.resource.licenses.extend(Primitive.to_proto(self.licenses))
-        if DiskGuestOsFeaturesArray.to_proto(self.guest_os_features):
+        if DiskGuestOSFeaturesArray.to_proto(self.guest_os_features):
             request.resource.guest_os_features.extend(
-                DiskGuestOsFeaturesArray.to_proto(self.guest_os_features)
+                DiskGuestOSFeaturesArray.to_proto(self.guest_os_features)
             )
         if int64Array.to_proto(self.license_codes):
             request.resource.license_codes.extend(
@@ -359,9 +359,9 @@ class Disk(object):
             )
         else:
             resource.ClearField("disk_encryption_key")
-        if DiskGuestOsFeatureArray.to_proto(self.guest_os_feature):
+        if DiskGuestOSFeatureArray.to_proto(self.guest_os_feature):
             resource.guest_os_feature.extend(
-                DiskGuestOsFeatureArray.to_proto(self.guest_os_feature)
+                DiskGuestOSFeatureArray.to_proto(self.guest_os_feature)
             )
         if Primitive.to_proto(self.labels):
             resource.labels = Primitive.to_proto(self.labels)
@@ -403,9 +403,9 @@ class Disk(object):
             resource.options = Primitive.to_proto(self.options)
         if Primitive.to_proto(self.licenses):
             resource.licenses.extend(Primitive.to_proto(self.licenses))
-        if DiskGuestOsFeaturesArray.to_proto(self.guest_os_features):
+        if DiskGuestOSFeaturesArray.to_proto(self.guest_os_features):
             resource.guest_os_features.extend(
-                DiskGuestOsFeaturesArray.to_proto(self.guest_os_features)
+                DiskGuestOSFeaturesArray.to_proto(self.guest_os_features)
             )
         if int64Array.to_proto(self.license_codes):
             resource.license_codes.extend(int64Array.to_proto(self.license_codes))
@@ -426,7 +426,7 @@ class Disk(object):
         return resource
 
 
-class DiskGuestOsFeature(object):
+class DiskGuestOSFeature(object):
     def __init__(self, type: str = None, type_alt: list = None):
         self.type = type
         self.type_alt = type_alt
@@ -436,12 +436,12 @@ class DiskGuestOsFeature(object):
         if not resource:
             return None
 
-        res = disk_pb2.ComputeBetaDiskGuestOsFeature()
-        if DiskGuestOsFeatureTypeEnum.to_proto(resource.type):
-            res.type = DiskGuestOsFeatureTypeEnum.to_proto(resource.type)
-        if DiskGuestOsFeatureTypeAltEnumArray.to_proto(resource.type_alt):
+        res = disk_pb2.ComputeBetaDiskGuestOSFeature()
+        if DiskGuestOSFeatureTypeEnum.to_proto(resource.type):
+            res.type = DiskGuestOSFeatureTypeEnum.to_proto(resource.type)
+        if DiskGuestOSFeatureTypeAltEnumArray.to_proto(resource.type_alt):
             res.type_alt.extend(
-                DiskGuestOsFeatureTypeAltEnumArray.to_proto(resource.type_alt)
+                DiskGuestOSFeatureTypeAltEnumArray.to_proto(resource.type_alt)
             )
         return res
 
@@ -450,22 +450,22 @@ class DiskGuestOsFeature(object):
         if not resource:
             return None
 
-        return DiskGuestOsFeature(
-            type=DiskGuestOsFeatureTypeEnum.from_proto(resource.type),
-            type_alt=DiskGuestOsFeatureTypeAltEnumArray.from_proto(resource.type_alt),
+        return DiskGuestOSFeature(
+            type=DiskGuestOSFeatureTypeEnum.from_proto(resource.type),
+            type_alt=DiskGuestOSFeatureTypeAltEnumArray.from_proto(resource.type_alt),
         )
 
 
-class DiskGuestOsFeatureArray(object):
+class DiskGuestOSFeatureArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [DiskGuestOsFeature.to_proto(i) for i in resources]
+        return [DiskGuestOSFeature.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [DiskGuestOsFeature.from_proto(i) for i in resources]
+        return [DiskGuestOSFeature.from_proto(i) for i in resources]
 
 
 class DiskEncryptionKey(object):
@@ -526,7 +526,7 @@ class DiskEncryptionKeyArray(object):
         return [DiskEncryptionKey.from_proto(i) for i in resources]
 
 
-class DiskGuestOsFeatures(object):
+class DiskGuestOSFeatures(object):
     def __init__(self, type: str = None, type_alts: list = None):
         self.type = type
         self.type_alts = type_alts
@@ -536,12 +536,12 @@ class DiskGuestOsFeatures(object):
         if not resource:
             return None
 
-        res = disk_pb2.ComputeBetaDiskGuestOsFeatures()
-        if DiskGuestOsFeaturesTypeEnum.to_proto(resource.type):
-            res.type = DiskGuestOsFeaturesTypeEnum.to_proto(resource.type)
-        if DiskGuestOsFeaturesTypeAltsEnumArray.to_proto(resource.type_alts):
+        res = disk_pb2.ComputeBetaDiskGuestOSFeatures()
+        if DiskGuestOSFeaturesTypeEnum.to_proto(resource.type):
+            res.type = DiskGuestOSFeaturesTypeEnum.to_proto(resource.type)
+        if DiskGuestOSFeaturesTypeAltsEnumArray.to_proto(resource.type_alts):
             res.type_alts.extend(
-                DiskGuestOsFeaturesTypeAltsEnumArray.to_proto(resource.type_alts)
+                DiskGuestOSFeaturesTypeAltsEnumArray.to_proto(resource.type_alts)
             )
         return res
 
@@ -550,59 +550,59 @@ class DiskGuestOsFeatures(object):
         if not resource:
             return None
 
-        return DiskGuestOsFeatures(
-            type=DiskGuestOsFeaturesTypeEnum.from_proto(resource.type),
-            type_alts=DiskGuestOsFeaturesTypeAltsEnumArray.from_proto(
+        return DiskGuestOSFeatures(
+            type=DiskGuestOSFeaturesTypeEnum.from_proto(resource.type),
+            type_alts=DiskGuestOSFeaturesTypeAltsEnumArray.from_proto(
                 resource.type_alts
             ),
         )
 
 
-class DiskGuestOsFeaturesArray(object):
+class DiskGuestOSFeaturesArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [DiskGuestOsFeatures.to_proto(i) for i in resources]
+        return [DiskGuestOSFeatures.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [DiskGuestOsFeatures.from_proto(i) for i in resources]
+        return [DiskGuestOSFeatures.from_proto(i) for i in resources]
 
 
-class DiskGuestOsFeatureTypeEnum(object):
+class DiskGuestOSFeatureTypeEnum(object):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return disk_pb2.ComputeBetaDiskGuestOsFeatureTypeEnum.Value(
-            "ComputeBetaDiskGuestOsFeatureTypeEnum%s" % resource
+        return disk_pb2.ComputeBetaDiskGuestOSFeatureTypeEnum.Value(
+            "ComputeBetaDiskGuestOSFeatureTypeEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return disk_pb2.ComputeBetaDiskGuestOsFeatureTypeEnum.Name(resource)[
-            len("ComputeBetaDiskGuestOsFeatureTypeEnum") :
+        return disk_pb2.ComputeBetaDiskGuestOSFeatureTypeEnum.Name(resource)[
+            len("ComputeBetaDiskGuestOSFeatureTypeEnum") :
         ]
 
 
-class DiskGuestOsFeatureTypeAltEnum(object):
+class DiskGuestOSFeatureTypeAltEnum(object):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return disk_pb2.ComputeBetaDiskGuestOsFeatureTypeAltEnum.Value(
-            "ComputeBetaDiskGuestOsFeatureTypeAltEnum%s" % resource
+        return disk_pb2.ComputeBetaDiskGuestOSFeatureTypeAltEnum.Value(
+            "ComputeBetaDiskGuestOSFeatureTypeAltEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return disk_pb2.ComputeBetaDiskGuestOsFeatureTypeAltEnum.Name(resource)[
-            len("ComputeBetaDiskGuestOsFeatureTypeAltEnum") :
+        return disk_pb2.ComputeBetaDiskGuestOSFeatureTypeAltEnum.Name(resource)[
+            len("ComputeBetaDiskGuestOSFeatureTypeAltEnum") :
         ]
 
 
@@ -624,39 +624,39 @@ class DiskStatusEnum(object):
         ]
 
 
-class DiskGuestOsFeaturesTypeEnum(object):
+class DiskGuestOSFeaturesTypeEnum(object):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return disk_pb2.ComputeBetaDiskGuestOsFeaturesTypeEnum.Value(
-            "ComputeBetaDiskGuestOsFeaturesTypeEnum%s" % resource
+        return disk_pb2.ComputeBetaDiskGuestOSFeaturesTypeEnum.Value(
+            "ComputeBetaDiskGuestOSFeaturesTypeEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return disk_pb2.ComputeBetaDiskGuestOsFeaturesTypeEnum.Name(resource)[
-            len("ComputeBetaDiskGuestOsFeaturesTypeEnum") :
+        return disk_pb2.ComputeBetaDiskGuestOSFeaturesTypeEnum.Name(resource)[
+            len("ComputeBetaDiskGuestOSFeaturesTypeEnum") :
         ]
 
 
-class DiskGuestOsFeaturesTypeAltsEnum(object):
+class DiskGuestOSFeaturesTypeAltsEnum(object):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return disk_pb2.ComputeBetaDiskGuestOsFeaturesTypeAltsEnum.Value(
-            "ComputeBetaDiskGuestOsFeaturesTypeAltsEnum%s" % resource
+        return disk_pb2.ComputeBetaDiskGuestOSFeaturesTypeAltsEnum.Value(
+            "ComputeBetaDiskGuestOSFeaturesTypeAltsEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return disk_pb2.ComputeBetaDiskGuestOsFeaturesTypeAltsEnum.Name(resource)[
-            len("ComputeBetaDiskGuestOsFeaturesTypeAltsEnum") :
+        return disk_pb2.ComputeBetaDiskGuestOSFeaturesTypeAltsEnum.Name(resource)[
+            len("ComputeBetaDiskGuestOSFeaturesTypeAltsEnum") :
         ]
 
 

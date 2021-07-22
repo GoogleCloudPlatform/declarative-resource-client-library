@@ -24,15 +24,15 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
-type OsPolicyAssignment struct {
+type OSPolicyAssignment struct {
 	Name               *string                             `json:"name"`
 	Description        *string                             `json:"description"`
-	OsPolicies         []OsPolicyAssignmentOsPolicies      `json:"osPolicies"`
-	InstanceFilter     *OsPolicyAssignmentInstanceFilter   `json:"instanceFilter"`
-	Rollout            *OsPolicyAssignmentRollout          `json:"rollout"`
+	OSPolicies         []OSPolicyAssignmentOSPolicies      `json:"osPolicies"`
+	InstanceFilter     *OSPolicyAssignmentInstanceFilter   `json:"instanceFilter"`
+	Rollout            *OSPolicyAssignmentRollout          `json:"rollout"`
 	RevisionId         *string                             `json:"revisionId"`
 	RevisionCreateTime *string                             `json:"revisionCreateTime"`
-	RolloutState       *OsPolicyAssignmentRolloutStateEnum `json:"rolloutState"`
+	RolloutState       *OSPolicyAssignmentRolloutStateEnum `json:"rolloutState"`
 	Baseline           *bool                               `json:"baseline"`
 	Deleted            *bool                               `json:"deleted"`
 	Reconciling        *bool                               `json:"reconciling"`
@@ -41,185 +41,185 @@ type OsPolicyAssignment struct {
 	Location           *string                             `json:"location"`
 }
 
-func (r *OsPolicyAssignment) String() string {
+func (r *OSPolicyAssignment) String() string {
 	return dcl.SprintResource(r)
 }
 
-// The enum OsPolicyAssignmentOsPoliciesModeEnum.
-type OsPolicyAssignmentOsPoliciesModeEnum string
+// The enum OSPolicyAssignmentOSPoliciesModeEnum.
+type OSPolicyAssignmentOSPoliciesModeEnum string
 
-// OsPolicyAssignmentOsPoliciesModeEnumRef returns a *OsPolicyAssignmentOsPoliciesModeEnum with the value of string s
+// OSPolicyAssignmentOSPoliciesModeEnumRef returns a *OSPolicyAssignmentOSPoliciesModeEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func OsPolicyAssignmentOsPoliciesModeEnumRef(s string) *OsPolicyAssignmentOsPoliciesModeEnum {
+func OSPolicyAssignmentOSPoliciesModeEnumRef(s string) *OSPolicyAssignmentOSPoliciesModeEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := OsPolicyAssignmentOsPoliciesModeEnum(s)
+	v := OSPolicyAssignmentOSPoliciesModeEnum(s)
 	return &v
 }
 
-func (v OsPolicyAssignmentOsPoliciesModeEnum) Validate() error {
+func (v OSPolicyAssignmentOSPoliciesModeEnum) Validate() error {
 	for _, s := range []string{"MODE_UNSPECIFIED", "VALIDATION", "ENFORCEMENT"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "OsPolicyAssignmentOsPoliciesModeEnum",
+		Enum:  "OSPolicyAssignmentOSPoliciesModeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnum.
-type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnum string
+// The enum OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum.
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum string
 
-// OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnumRef returns a *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnum with the value of string s
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnumRef returns a *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnumRef(s string) *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnum {
+func OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnumRef(s string) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnum(s)
+	v := OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum(s)
 	return &v
 }
 
-func (v OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnum) Validate() error {
+func (v OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum) Validate() error {
 	for _, s := range []string{"DESIRED_STATE_UNSPECIFIED", "INSTALLED", "REMOVED"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnum",
+		Enum:  "OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum.
-type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum string
+// The enum OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum.
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum string
 
-// OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumRef returns a *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum with the value of string s
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumRef returns a *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumRef(s string) *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum {
+func OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumRef(s string) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum(s)
+	v := OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum(s)
 	return &v
 }
 
-func (v OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum) Validate() error {
+func (v OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum) Validate() error {
 	for _, s := range []string{"ARCHIVE_TYPE_UNSPECIFIED", "DEB", "DEB_SRC"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum",
+		Enum:  "OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum OsPolicyAssignmentExecInterpreterEnum.
-type OsPolicyAssignmentExecInterpreterEnum string
+// The enum OSPolicyAssignmentExecInterpreterEnum.
+type OSPolicyAssignmentExecInterpreterEnum string
 
-// OsPolicyAssignmentExecInterpreterEnumRef returns a *OsPolicyAssignmentExecInterpreterEnum with the value of string s
+// OSPolicyAssignmentExecInterpreterEnumRef returns a *OSPolicyAssignmentExecInterpreterEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func OsPolicyAssignmentExecInterpreterEnumRef(s string) *OsPolicyAssignmentExecInterpreterEnum {
+func OSPolicyAssignmentExecInterpreterEnumRef(s string) *OSPolicyAssignmentExecInterpreterEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := OsPolicyAssignmentExecInterpreterEnum(s)
+	v := OSPolicyAssignmentExecInterpreterEnum(s)
 	return &v
 }
 
-func (v OsPolicyAssignmentExecInterpreterEnum) Validate() error {
+func (v OSPolicyAssignmentExecInterpreterEnum) Validate() error {
 	for _, s := range []string{"INTERPRETER_UNSPECIFIED", "NONE", "SHELL", "POWERSHELL"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "OsPolicyAssignmentExecInterpreterEnum",
+		Enum:  "OSPolicyAssignmentExecInterpreterEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnum.
-type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnum string
+// The enum OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum.
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum string
 
-// OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnumRef returns a *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnum with the value of string s
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnumRef returns a *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnumRef(s string) *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnum {
+func OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnumRef(s string) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnum(s)
+	v := OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum(s)
 	return &v
 }
 
-func (v OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnum) Validate() error {
+func (v OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum) Validate() error {
 	for _, s := range []string{"OS_POLICY_COMPLIANCE_STATE_UNSPECIFIED", "COMPLIANT", "NON_COMPLIANT", "UNKNOWN", "NO_OS_POLICIES_APPLICABLE"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnum",
+		Enum:  "OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum OsPolicyAssignmentRolloutStateEnum.
-type OsPolicyAssignmentRolloutStateEnum string
+// The enum OSPolicyAssignmentRolloutStateEnum.
+type OSPolicyAssignmentRolloutStateEnum string
 
-// OsPolicyAssignmentRolloutStateEnumRef returns a *OsPolicyAssignmentRolloutStateEnum with the value of string s
+// OSPolicyAssignmentRolloutStateEnumRef returns a *OSPolicyAssignmentRolloutStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func OsPolicyAssignmentRolloutStateEnumRef(s string) *OsPolicyAssignmentRolloutStateEnum {
+func OSPolicyAssignmentRolloutStateEnumRef(s string) *OSPolicyAssignmentRolloutStateEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := OsPolicyAssignmentRolloutStateEnum(s)
+	v := OSPolicyAssignmentRolloutStateEnum(s)
 	return &v
 }
 
-func (v OsPolicyAssignmentRolloutStateEnum) Validate() error {
+func (v OSPolicyAssignmentRolloutStateEnum) Validate() error {
 	for _, s := range []string{"ROLLOUT_STATE_UNSPECIFIED", "IN_PROGRESS", "CANCELLING", "CANCELLED", "SUCCEEDED"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "OsPolicyAssignmentRolloutStateEnum",
+		Enum:  "OSPolicyAssignmentRolloutStateEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-type OsPolicyAssignmentOsPolicies struct {
+type OSPolicyAssignmentOSPolicies struct {
 	empty                     bool                                         `json:"-"`
 	Id                        *string                                      `json:"id"`
 	Description               *string                                      `json:"description"`
-	Mode                      *OsPolicyAssignmentOsPoliciesModeEnum        `json:"mode"`
-	ResourceGroups            []OsPolicyAssignmentOsPoliciesResourceGroups `json:"resourceGroups"`
+	Mode                      *OSPolicyAssignmentOSPoliciesModeEnum        `json:"mode"`
+	ResourceGroups            []OSPolicyAssignmentOSPoliciesResourceGroups `json:"resourceGroups"`
 	AllowNoResourceGroupMatch *bool                                        `json:"allowNoResourceGroupMatch"`
 }
 
-type jsonOsPolicyAssignmentOsPolicies OsPolicyAssignmentOsPolicies
+type jsonOSPolicyAssignmentOSPolicies OSPolicyAssignmentOSPolicies
 
-func (r *OsPolicyAssignmentOsPolicies) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPolicies
+func (r *OSPolicyAssignmentOSPolicies) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPolicies
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -228,7 +228,7 @@ func (r *OsPolicyAssignmentOsPolicies) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPolicies
+		*r = *EmptyOSPolicyAssignmentOSPolicies
 	} else {
 
 		r.Id = res.Id
@@ -245,36 +245,36 @@ func (r *OsPolicyAssignmentOsPolicies) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPolicies is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPolicies is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPolicies *OsPolicyAssignmentOsPolicies = &OsPolicyAssignmentOsPolicies{empty: true}
+var EmptyOSPolicyAssignmentOSPolicies *OSPolicyAssignmentOSPolicies = &OSPolicyAssignmentOSPolicies{empty: true}
 
-func (r *OsPolicyAssignmentOsPolicies) Empty() bool {
+func (r *OSPolicyAssignmentOSPolicies) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPolicies) String() string {
+func (r *OSPolicyAssignmentOSPolicies) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPolicies) HashCode() string {
+func (r *OSPolicyAssignmentOSPolicies) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentOsPoliciesResourceGroups struct {
+type OSPolicyAssignmentOSPoliciesResourceGroups struct {
 	empty     bool                                                  `json:"-"`
-	OsFilter  *OsPolicyAssignmentOsPoliciesResourceGroupsOsFilter   `json:"osFilter"`
-	Resources []OsPolicyAssignmentOsPoliciesResourceGroupsResources `json:"resources"`
+	OSFilter  *OSPolicyAssignmentOSPoliciesResourceGroupsOSFilter   `json:"osFilter"`
+	Resources []OSPolicyAssignmentOSPoliciesResourceGroupsResources `json:"resources"`
 }
 
-type jsonOsPolicyAssignmentOsPoliciesResourceGroups OsPolicyAssignmentOsPoliciesResourceGroups
+type jsonOSPolicyAssignmentOSPoliciesResourceGroups OSPolicyAssignmentOSPoliciesResourceGroups
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroups) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPoliciesResourceGroups
+func (r *OSPolicyAssignmentOSPoliciesResourceGroups) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroups
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -283,10 +283,10 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroups) UnmarshalJSON(data []byte) 
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPoliciesResourceGroups
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroups
 	} else {
 
-		r.OsFilter = res.OsFilter
+		r.OSFilter = res.OSFilter
 
 		r.Resources = res.Resources
 
@@ -294,36 +294,36 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroups) UnmarshalJSON(data []byte) 
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPoliciesResourceGroups is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroups is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPoliciesResourceGroups *OsPolicyAssignmentOsPoliciesResourceGroups = &OsPolicyAssignmentOsPoliciesResourceGroups{empty: true}
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroups *OSPolicyAssignmentOSPoliciesResourceGroups = &OSPolicyAssignmentOSPoliciesResourceGroups{empty: true}
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroups) Empty() bool {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroups) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroups) String() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroups) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroups) HashCode() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroups) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentOsPoliciesResourceGroupsOsFilter struct {
+type OSPolicyAssignmentOSPoliciesResourceGroupsOSFilter struct {
 	empty       bool    `json:"-"`
-	OsShortName *string `json:"osShortName"`
-	OsVersion   *string `json:"osVersion"`
+	OSShortName *string `json:"osShortName"`
+	OSVersion   *string `json:"osVersion"`
 }
 
-type jsonOsPolicyAssignmentOsPoliciesResourceGroupsOsFilter OsPolicyAssignmentOsPoliciesResourceGroupsOsFilter
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsOSFilter OSPolicyAssignmentOSPoliciesResourceGroupsOSFilter
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsOsFilter) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPoliciesResourceGroupsOsFilter
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsOSFilter) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsOSFilter
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -332,50 +332,50 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsOsFilter) UnmarshalJSON(data 
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPoliciesResourceGroupsOsFilter
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsOSFilter
 	} else {
 
-		r.OsShortName = res.OsShortName
+		r.OSShortName = res.OSShortName
 
-		r.OsVersion = res.OsVersion
+		r.OSVersion = res.OSVersion
 
 	}
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPoliciesResourceGroupsOsFilter is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsOSFilter is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPoliciesResourceGroupsOsFilter *OsPolicyAssignmentOsPoliciesResourceGroupsOsFilter = &OsPolicyAssignmentOsPoliciesResourceGroupsOsFilter{empty: true}
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsOSFilter *OSPolicyAssignmentOSPoliciesResourceGroupsOSFilter = &OSPolicyAssignmentOSPoliciesResourceGroupsOSFilter{empty: true}
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsOsFilter) Empty() bool {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsOSFilter) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsOsFilter) String() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsOSFilter) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsOsFilter) HashCode() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsOSFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentOsPoliciesResourceGroupsResources struct {
+type OSPolicyAssignmentOSPoliciesResourceGroupsResources struct {
 	empty      bool                                                           `json:"-"`
 	Id         *string                                                        `json:"id"`
-	Pkg        *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg        `json:"pkg"`
-	Repository *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository `json:"repository"`
-	Exec       *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec       `json:"exec"`
-	File       *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile       `json:"file"`
+	Pkg        *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg        `json:"pkg"`
+	Repository *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository `json:"repository"`
+	Exec       *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec       `json:"exec"`
+	File       *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile       `json:"file"`
 }
 
-type jsonOsPolicyAssignmentOsPoliciesResourceGroupsResources OsPolicyAssignmentOsPoliciesResourceGroupsResources
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResources OSPolicyAssignmentOSPoliciesResourceGroupsResources
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResources) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPoliciesResourceGroupsResources
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResources) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResources
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -384,7 +384,7 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResources) UnmarshalJSON(data
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResources
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResources
 	} else {
 
 		r.Id = res.Id
@@ -401,42 +401,42 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResources) UnmarshalJSON(data
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPoliciesResourceGroupsResources is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResources is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResources *OsPolicyAssignmentOsPoliciesResourceGroupsResources = &OsPolicyAssignmentOsPoliciesResourceGroupsResources{empty: true}
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResources *OSPolicyAssignmentOSPoliciesResourceGroupsResources = &OSPolicyAssignmentOSPoliciesResourceGroupsResources{empty: true}
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResources) Empty() bool {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResources) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResources) String() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResources) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResources) HashCode() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResources) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg struct {
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg struct {
 	empty        bool                                                                    `json:"-"`
-	DesiredState *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnum `json:"desiredState"`
-	Apt          *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt              `json:"apt"`
-	Deb          *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb              `json:"deb"`
-	Yum          *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum              `json:"yum"`
-	Zypper       *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper           `json:"zypper"`
-	Rpm          *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm              `json:"rpm"`
-	Googet       *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget           `json:"googet"`
-	Msi          *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi              `json:"msi"`
+	DesiredState *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum `json:"desiredState"`
+	Apt          *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt              `json:"apt"`
+	Deb          *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb              `json:"deb"`
+	Yum          *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum              `json:"yum"`
+	Zypper       *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper           `json:"zypper"`
+	Rpm          *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm              `json:"rpm"`
+	Googet       *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget           `json:"googet"`
+	Msi          *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi              `json:"msi"`
 }
 
-type jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -445,7 +445,7 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg) UnmarshalJSON(d
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg
 	} else {
 
 		r.DesiredState = res.DesiredState
@@ -468,35 +468,35 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg) UnmarshalJSON(d
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg = &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg{empty: true}
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg{empty: true}
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg) Empty() bool {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg) String() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg) HashCode() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt struct {
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt struct {
 	empty bool    `json:"-"`
 	Name  *string `json:"name"`
 }
 
-type jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -505,7 +505,7 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt) UnmarshalJSO
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt
 	} else {
 
 		r.Name = res.Name
@@ -514,36 +514,36 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt) UnmarshalJSO
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt = &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt{empty: true}
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt{empty: true}
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt) Empty() bool {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt) String() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt) HashCode() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb struct {
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb struct {
 	empty    bool                                                             `json:"-"`
-	Source   *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource `json:"source"`
+	Source   *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource `json:"source"`
 	PullDeps *bool                                                            `json:"pullDeps"`
 }
 
-type jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -552,7 +552,7 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb) UnmarshalJSO
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb
 	} else {
 
 		r.Source = res.Source
@@ -563,38 +563,38 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb) UnmarshalJSO
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb = &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb{empty: true}
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb{empty: true}
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb) Empty() bool {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb) String() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb) HashCode() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource struct {
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource struct {
 	empty         bool                                                                   `json:"-"`
-	Remote        *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote `json:"remote"`
-	Gcs           *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs    `json:"gcs"`
+	Remote        *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote `json:"remote"`
+	Gcs           *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs    `json:"gcs"`
 	LocalPath     *string                                                                `json:"localPath"`
 	AllowInsecure *bool                                                                  `json:"allowInsecure"`
 }
 
-type jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -603,7 +603,7 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource) Unmars
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource
 	} else {
 
 		r.Remote = res.Remote
@@ -618,36 +618,36 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource) Unmars
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource = &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource{empty: true}
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource{empty: true}
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource) Empty() bool {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource) String() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource) HashCode() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote struct {
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote struct {
 	empty          bool    `json:"-"`
 	Uri            *string `json:"uri"`
 	Sha256Checksum *string `json:"sha256Checksum"`
 }
 
-type jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -656,7 +656,7 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote) 
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote
 	} else {
 
 		r.Uri = res.Uri
@@ -667,37 +667,37 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote) 
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote = &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote{empty: true}
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote{empty: true}
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote) Empty() bool {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote) String() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote) HashCode() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs struct {
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs struct {
 	empty      bool    `json:"-"`
 	Bucket     *string `json:"bucket"`
 	Object     *string `json:"object"`
 	Generation *int64  `json:"generation"`
 }
 
-type jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -706,7 +706,7 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs) Unm
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs
 	} else {
 
 		r.Bucket = res.Bucket
@@ -719,35 +719,35 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs) Unm
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs = &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs{empty: true}
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs{empty: true}
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs) Empty() bool {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs) String() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs) HashCode() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum struct {
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum struct {
 	empty bool    `json:"-"`
 	Name  *string `json:"name"`
 }
 
-type jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -756,7 +756,7 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum) UnmarshalJSO
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum
 	} else {
 
 		r.Name = res.Name
@@ -765,35 +765,35 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum) UnmarshalJSO
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum = &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum{empty: true}
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum{empty: true}
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum) Empty() bool {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum) String() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum) HashCode() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper struct {
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper struct {
 	empty bool    `json:"-"`
 	Name  *string `json:"name"`
 }
 
-type jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -802,7 +802,7 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper) Unmarshal
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper
 	} else {
 
 		r.Name = res.Name
@@ -811,36 +811,36 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper) Unmarshal
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper = &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper{empty: true}
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper{empty: true}
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper) Empty() bool {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper) String() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper) HashCode() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm struct {
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm struct {
 	empty    bool                    `json:"-"`
-	Source   *OsPolicyAssignmentFile `json:"source"`
+	Source   *OSPolicyAssignmentFile `json:"source"`
 	PullDeps *bool                   `json:"pullDeps"`
 }
 
-type jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -849,7 +849,7 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm) UnmarshalJSO
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm
 	} else {
 
 		r.Source = res.Source
@@ -860,38 +860,38 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm) UnmarshalJSO
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm = &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm{empty: true}
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm{empty: true}
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm) Empty() bool {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm) String() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm) HashCode() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentFile struct {
+type OSPolicyAssignmentFile struct {
 	empty         bool                          `json:"-"`
-	Remote        *OsPolicyAssignmentFileRemote `json:"remote"`
-	Gcs           *OsPolicyAssignmentFileGcs    `json:"gcs"`
+	Remote        *OSPolicyAssignmentFileRemote `json:"remote"`
+	Gcs           *OSPolicyAssignmentFileGcs    `json:"gcs"`
 	LocalPath     *string                       `json:"localPath"`
 	AllowInsecure *bool                         `json:"allowInsecure"`
 }
 
-type jsonOsPolicyAssignmentFile OsPolicyAssignmentFile
+type jsonOSPolicyAssignmentFile OSPolicyAssignmentFile
 
-func (r *OsPolicyAssignmentFile) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentFile
+func (r *OSPolicyAssignmentFile) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentFile
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -900,7 +900,7 @@ func (r *OsPolicyAssignmentFile) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentFile
+		*r = *EmptyOSPolicyAssignmentFile
 	} else {
 
 		r.Remote = res.Remote
@@ -915,36 +915,36 @@ func (r *OsPolicyAssignmentFile) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentFile is
+// This object is used to assert a desired state where this OSPolicyAssignmentFile is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentFile *OsPolicyAssignmentFile = &OsPolicyAssignmentFile{empty: true}
+var EmptyOSPolicyAssignmentFile *OSPolicyAssignmentFile = &OSPolicyAssignmentFile{empty: true}
 
-func (r *OsPolicyAssignmentFile) Empty() bool {
+func (r *OSPolicyAssignmentFile) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentFile) String() string {
+func (r *OSPolicyAssignmentFile) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentFile) HashCode() string {
+func (r *OSPolicyAssignmentFile) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentFileRemote struct {
+type OSPolicyAssignmentFileRemote struct {
 	empty          bool    `json:"-"`
 	Uri            *string `json:"uri"`
 	Sha256Checksum *string `json:"sha256Checksum"`
 }
 
-type jsonOsPolicyAssignmentFileRemote OsPolicyAssignmentFileRemote
+type jsonOSPolicyAssignmentFileRemote OSPolicyAssignmentFileRemote
 
-func (r *OsPolicyAssignmentFileRemote) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentFileRemote
+func (r *OSPolicyAssignmentFileRemote) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentFileRemote
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -953,7 +953,7 @@ func (r *OsPolicyAssignmentFileRemote) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentFileRemote
+		*r = *EmptyOSPolicyAssignmentFileRemote
 	} else {
 
 		r.Uri = res.Uri
@@ -964,37 +964,37 @@ func (r *OsPolicyAssignmentFileRemote) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentFileRemote is
+// This object is used to assert a desired state where this OSPolicyAssignmentFileRemote is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentFileRemote *OsPolicyAssignmentFileRemote = &OsPolicyAssignmentFileRemote{empty: true}
+var EmptyOSPolicyAssignmentFileRemote *OSPolicyAssignmentFileRemote = &OSPolicyAssignmentFileRemote{empty: true}
 
-func (r *OsPolicyAssignmentFileRemote) Empty() bool {
+func (r *OSPolicyAssignmentFileRemote) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentFileRemote) String() string {
+func (r *OSPolicyAssignmentFileRemote) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentFileRemote) HashCode() string {
+func (r *OSPolicyAssignmentFileRemote) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentFileGcs struct {
+type OSPolicyAssignmentFileGcs struct {
 	empty      bool    `json:"-"`
 	Bucket     *string `json:"bucket"`
 	Object     *string `json:"object"`
 	Generation *int64  `json:"generation"`
 }
 
-type jsonOsPolicyAssignmentFileGcs OsPolicyAssignmentFileGcs
+type jsonOSPolicyAssignmentFileGcs OSPolicyAssignmentFileGcs
 
-func (r *OsPolicyAssignmentFileGcs) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentFileGcs
+func (r *OSPolicyAssignmentFileGcs) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentFileGcs
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1003,7 +1003,7 @@ func (r *OsPolicyAssignmentFileGcs) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentFileGcs
+		*r = *EmptyOSPolicyAssignmentFileGcs
 	} else {
 
 		r.Bucket = res.Bucket
@@ -1016,35 +1016,35 @@ func (r *OsPolicyAssignmentFileGcs) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentFileGcs is
+// This object is used to assert a desired state where this OSPolicyAssignmentFileGcs is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentFileGcs *OsPolicyAssignmentFileGcs = &OsPolicyAssignmentFileGcs{empty: true}
+var EmptyOSPolicyAssignmentFileGcs *OSPolicyAssignmentFileGcs = &OSPolicyAssignmentFileGcs{empty: true}
 
-func (r *OsPolicyAssignmentFileGcs) Empty() bool {
+func (r *OSPolicyAssignmentFileGcs) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentFileGcs) String() string {
+func (r *OSPolicyAssignmentFileGcs) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentFileGcs) HashCode() string {
+func (r *OSPolicyAssignmentFileGcs) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget struct {
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget struct {
 	empty bool    `json:"-"`
 	Name  *string `json:"name"`
 }
 
-type jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1053,7 +1053,7 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget) Unmarshal
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget
 	} else {
 
 		r.Name = res.Name
@@ -1062,36 +1062,36 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget) Unmarshal
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget = &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget{empty: true}
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget{empty: true}
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget) Empty() bool {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget) String() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget) HashCode() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi struct {
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi struct {
 	empty      bool                    `json:"-"`
-	Source     *OsPolicyAssignmentFile `json:"source"`
+	Source     *OSPolicyAssignmentFile `json:"source"`
 	Properties []string                `json:"properties"`
 }
 
-type jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1100,7 +1100,7 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi) UnmarshalJSO
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi
 	} else {
 
 		r.Source = res.Source
@@ -1111,38 +1111,38 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi) UnmarshalJSO
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi = &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi{empty: true}
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi{empty: true}
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi) Empty() bool {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi) String() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi) HashCode() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository struct {
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository struct {
 	empty  bool                                                                 `json:"-"`
-	Apt    *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt    `json:"apt"`
-	Yum    *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum    `json:"yum"`
-	Zypper *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper `json:"zypper"`
-	Goo    *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo    `json:"goo"`
+	Apt    *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt    `json:"apt"`
+	Yum    *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum    `json:"yum"`
+	Zypper *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper `json:"zypper"`
+	Goo    *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo    `json:"goo"`
 }
 
-type jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1151,7 +1151,7 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository) Unmarsha
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository
 	} else {
 
 		r.Apt = res.Apt
@@ -1166,39 +1166,39 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository) Unmarsha
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository = &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository{empty: true}
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository{empty: true}
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository) Empty() bool {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository) String() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository) HashCode() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt struct {
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt struct {
 	empty        bool                                                                             `json:"-"`
-	ArchiveType  *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum `json:"archiveType"`
+	ArchiveType  *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum `json:"archiveType"`
 	Uri          *string                                                                          `json:"uri"`
 	Distribution *string                                                                          `json:"distribution"`
 	Components   []string                                                                         `json:"components"`
 	GpgKey       *string                                                                          `json:"gpgKey"`
 }
 
-type jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1207,7 +1207,7 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt) Unmar
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt
 	} else {
 
 		r.ArchiveType = res.ArchiveType
@@ -1224,27 +1224,27 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt) Unmar
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt = &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt{empty: true}
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt{empty: true}
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt) Empty() bool {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt) String() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt) HashCode() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum struct {
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum struct {
 	empty       bool     `json:"-"`
 	Id          *string  `json:"id"`
 	DisplayName *string  `json:"displayName"`
@@ -1252,10 +1252,10 @@ type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum struct {
 	GpgKeys     []string `json:"gpgKeys"`
 }
 
-type jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1264,7 +1264,7 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum) Unmar
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum
 	} else {
 
 		r.Id = res.Id
@@ -1279,27 +1279,27 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum) Unmar
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum = &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum{empty: true}
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum{empty: true}
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum) Empty() bool {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum) String() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum) HashCode() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper struct {
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper struct {
 	empty       bool     `json:"-"`
 	Id          *string  `json:"id"`
 	DisplayName *string  `json:"displayName"`
@@ -1307,10 +1307,10 @@ type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper struct 
 	GpgKeys     []string `json:"gpgKeys"`
 }
 
-type jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1319,7 +1319,7 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper) Un
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper
 	} else {
 
 		r.Id = res.Id
@@ -1334,36 +1334,36 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper) Un
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper = &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper{empty: true}
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper{empty: true}
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper) Empty() bool {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper) String() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper) HashCode() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo struct {
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo struct {
 	empty bool    `json:"-"`
 	Name  *string `json:"name"`
 	Url   *string `json:"url"`
 }
 
-type jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1372,7 +1372,7 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo) Unmar
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo
 	} else {
 
 		r.Name = res.Name
@@ -1383,36 +1383,36 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo) Unmar
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo = &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo{empty: true}
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo{empty: true}
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo) Empty() bool {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo) String() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo) HashCode() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec struct {
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec struct {
 	empty    bool                    `json:"-"`
-	Validate *OsPolicyAssignmentExec `json:"validate"`
-	Enforce  *OsPolicyAssignmentExec `json:"enforce"`
+	Validate *OSPolicyAssignmentExec `json:"validate"`
+	Enforce  *OSPolicyAssignmentExec `json:"enforce"`
 }
 
-type jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec OsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1421,7 +1421,7 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec) UnmarshalJSON(
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec
 	} else {
 
 		r.Validate = res.Validate
@@ -1432,38 +1432,38 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec) UnmarshalJSON(
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec = &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec{empty: true}
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec{empty: true}
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec) Empty() bool {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec) String() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec) HashCode() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentExec struct {
+type OSPolicyAssignmentExec struct {
 	empty       bool                                   `json:"-"`
-	File        *OsPolicyAssignmentFile                `json:"file"`
+	File        *OSPolicyAssignmentFile                `json:"file"`
 	Script      *string                                `json:"script"`
 	Args        []string                               `json:"args"`
-	Interpreter *OsPolicyAssignmentExecInterpreterEnum `json:"interpreter"`
+	Interpreter *OSPolicyAssignmentExecInterpreterEnum `json:"interpreter"`
 }
 
-type jsonOsPolicyAssignmentExec OsPolicyAssignmentExec
+type jsonOSPolicyAssignmentExec OSPolicyAssignmentExec
 
-func (r *OsPolicyAssignmentExec) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentExec
+func (r *OSPolicyAssignmentExec) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentExec
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1472,7 +1472,7 @@ func (r *OsPolicyAssignmentExec) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentExec
+		*r = *EmptyOSPolicyAssignmentExec
 	} else {
 
 		r.File = res.File
@@ -1487,39 +1487,39 @@ func (r *OsPolicyAssignmentExec) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentExec is
+// This object is used to assert a desired state where this OSPolicyAssignmentExec is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentExec *OsPolicyAssignmentExec = &OsPolicyAssignmentExec{empty: true}
+var EmptyOSPolicyAssignmentExec *OSPolicyAssignmentExec = &OSPolicyAssignmentExec{empty: true}
 
-func (r *OsPolicyAssignmentExec) Empty() bool {
+func (r *OSPolicyAssignmentExec) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentExec) String() string {
+func (r *OSPolicyAssignmentExec) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentExec) HashCode() string {
+func (r *OSPolicyAssignmentExec) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile struct {
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile struct {
 	empty       bool                                                              `json:"-"`
-	File        *OsPolicyAssignmentFile                                           `json:"file"`
+	File        *OSPolicyAssignmentFile                                           `json:"file"`
 	Content     *string                                                           `json:"content"`
 	Path        *string                                                           `json:"path"`
-	State       *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnum `json:"state"`
+	State       *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum `json:"state"`
 	Permissions *string                                                           `json:"permissions"`
 }
 
-type jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1528,7 +1528,7 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile) UnmarshalJSON(
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile
 	} else {
 
 		r.File = res.File
@@ -1545,38 +1545,38 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile) UnmarshalJSON(
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile is
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile = &OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile{empty: true}
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile{empty: true}
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile) Empty() bool {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile) String() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile) HashCode() string {
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentInstanceFilter struct {
+type OSPolicyAssignmentInstanceFilter struct {
 	empty           bool                                              `json:"-"`
 	All             *bool                                             `json:"all"`
-	OsShortNames    []string                                          `json:"osShortNames"`
-	InclusionLabels []OsPolicyAssignmentInstanceFilterInclusionLabels `json:"inclusionLabels"`
-	ExclusionLabels []OsPolicyAssignmentInstanceFilterExclusionLabels `json:"exclusionLabels"`
+	OSShortNames    []string                                          `json:"osShortNames"`
+	InclusionLabels []OSPolicyAssignmentInstanceFilterInclusionLabels `json:"inclusionLabels"`
+	ExclusionLabels []OSPolicyAssignmentInstanceFilterExclusionLabels `json:"exclusionLabels"`
 }
 
-type jsonOsPolicyAssignmentInstanceFilter OsPolicyAssignmentInstanceFilter
+type jsonOSPolicyAssignmentInstanceFilter OSPolicyAssignmentInstanceFilter
 
-func (r *OsPolicyAssignmentInstanceFilter) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentInstanceFilter
+func (r *OSPolicyAssignmentInstanceFilter) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentInstanceFilter
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1585,12 +1585,12 @@ func (r *OsPolicyAssignmentInstanceFilter) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentInstanceFilter
+		*r = *EmptyOSPolicyAssignmentInstanceFilter
 	} else {
 
 		r.All = res.All
 
-		r.OsShortNames = res.OsShortNames
+		r.OSShortNames = res.OSShortNames
 
 		r.InclusionLabels = res.InclusionLabels
 
@@ -1600,35 +1600,35 @@ func (r *OsPolicyAssignmentInstanceFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentInstanceFilter is
+// This object is used to assert a desired state where this OSPolicyAssignmentInstanceFilter is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentInstanceFilter *OsPolicyAssignmentInstanceFilter = &OsPolicyAssignmentInstanceFilter{empty: true}
+var EmptyOSPolicyAssignmentInstanceFilter *OSPolicyAssignmentInstanceFilter = &OSPolicyAssignmentInstanceFilter{empty: true}
 
-func (r *OsPolicyAssignmentInstanceFilter) Empty() bool {
+func (r *OSPolicyAssignmentInstanceFilter) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentInstanceFilter) String() string {
+func (r *OSPolicyAssignmentInstanceFilter) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentInstanceFilter) HashCode() string {
+func (r *OSPolicyAssignmentInstanceFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentInstanceFilterInclusionLabels struct {
+type OSPolicyAssignmentInstanceFilterInclusionLabels struct {
 	empty  bool              `json:"-"`
 	Labels map[string]string `json:"labels"`
 }
 
-type jsonOsPolicyAssignmentInstanceFilterInclusionLabels OsPolicyAssignmentInstanceFilterInclusionLabels
+type jsonOSPolicyAssignmentInstanceFilterInclusionLabels OSPolicyAssignmentInstanceFilterInclusionLabels
 
-func (r *OsPolicyAssignmentInstanceFilterInclusionLabels) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentInstanceFilterInclusionLabels
+func (r *OSPolicyAssignmentInstanceFilterInclusionLabels) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentInstanceFilterInclusionLabels
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1637,7 +1637,7 @@ func (r *OsPolicyAssignmentInstanceFilterInclusionLabels) UnmarshalJSON(data []b
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentInstanceFilterInclusionLabels
+		*r = *EmptyOSPolicyAssignmentInstanceFilterInclusionLabels
 	} else {
 
 		r.Labels = res.Labels
@@ -1646,35 +1646,35 @@ func (r *OsPolicyAssignmentInstanceFilterInclusionLabels) UnmarshalJSON(data []b
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentInstanceFilterInclusionLabels is
+// This object is used to assert a desired state where this OSPolicyAssignmentInstanceFilterInclusionLabels is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentInstanceFilterInclusionLabels *OsPolicyAssignmentInstanceFilterInclusionLabels = &OsPolicyAssignmentInstanceFilterInclusionLabels{empty: true}
+var EmptyOSPolicyAssignmentInstanceFilterInclusionLabels *OSPolicyAssignmentInstanceFilterInclusionLabels = &OSPolicyAssignmentInstanceFilterInclusionLabels{empty: true}
 
-func (r *OsPolicyAssignmentInstanceFilterInclusionLabels) Empty() bool {
+func (r *OSPolicyAssignmentInstanceFilterInclusionLabels) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentInstanceFilterInclusionLabels) String() string {
+func (r *OSPolicyAssignmentInstanceFilterInclusionLabels) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentInstanceFilterInclusionLabels) HashCode() string {
+func (r *OSPolicyAssignmentInstanceFilterInclusionLabels) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentInstanceFilterExclusionLabels struct {
+type OSPolicyAssignmentInstanceFilterExclusionLabels struct {
 	empty  bool              `json:"-"`
 	Labels map[string]string `json:"labels"`
 }
 
-type jsonOsPolicyAssignmentInstanceFilterExclusionLabels OsPolicyAssignmentInstanceFilterExclusionLabels
+type jsonOSPolicyAssignmentInstanceFilterExclusionLabels OSPolicyAssignmentInstanceFilterExclusionLabels
 
-func (r *OsPolicyAssignmentInstanceFilterExclusionLabels) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentInstanceFilterExclusionLabels
+func (r *OSPolicyAssignmentInstanceFilterExclusionLabels) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentInstanceFilterExclusionLabels
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1683,7 +1683,7 @@ func (r *OsPolicyAssignmentInstanceFilterExclusionLabels) UnmarshalJSON(data []b
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentInstanceFilterExclusionLabels
+		*r = *EmptyOSPolicyAssignmentInstanceFilterExclusionLabels
 	} else {
 
 		r.Labels = res.Labels
@@ -1692,36 +1692,36 @@ func (r *OsPolicyAssignmentInstanceFilterExclusionLabels) UnmarshalJSON(data []b
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentInstanceFilterExclusionLabels is
+// This object is used to assert a desired state where this OSPolicyAssignmentInstanceFilterExclusionLabels is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentInstanceFilterExclusionLabels *OsPolicyAssignmentInstanceFilterExclusionLabels = &OsPolicyAssignmentInstanceFilterExclusionLabels{empty: true}
+var EmptyOSPolicyAssignmentInstanceFilterExclusionLabels *OSPolicyAssignmentInstanceFilterExclusionLabels = &OSPolicyAssignmentInstanceFilterExclusionLabels{empty: true}
 
-func (r *OsPolicyAssignmentInstanceFilterExclusionLabels) Empty() bool {
+func (r *OSPolicyAssignmentInstanceFilterExclusionLabels) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentInstanceFilterExclusionLabels) String() string {
+func (r *OSPolicyAssignmentInstanceFilterExclusionLabels) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentInstanceFilterExclusionLabels) HashCode() string {
+func (r *OSPolicyAssignmentInstanceFilterExclusionLabels) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentRollout struct {
+type OSPolicyAssignmentRollout struct {
 	empty            bool                                       `json:"-"`
-	DisruptionBudget *OsPolicyAssignmentRolloutDisruptionBudget `json:"disruptionBudget"`
+	DisruptionBudget *OSPolicyAssignmentRolloutDisruptionBudget `json:"disruptionBudget"`
 	MinWaitDuration  *string                                    `json:"minWaitDuration"`
 }
 
-type jsonOsPolicyAssignmentRollout OsPolicyAssignmentRollout
+type jsonOSPolicyAssignmentRollout OSPolicyAssignmentRollout
 
-func (r *OsPolicyAssignmentRollout) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentRollout
+func (r *OSPolicyAssignmentRollout) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentRollout
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1730,7 +1730,7 @@ func (r *OsPolicyAssignmentRollout) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentRollout
+		*r = *EmptyOSPolicyAssignmentRollout
 	} else {
 
 		r.DisruptionBudget = res.DisruptionBudget
@@ -1741,36 +1741,36 @@ func (r *OsPolicyAssignmentRollout) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentRollout is
+// This object is used to assert a desired state where this OSPolicyAssignmentRollout is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentRollout *OsPolicyAssignmentRollout = &OsPolicyAssignmentRollout{empty: true}
+var EmptyOSPolicyAssignmentRollout *OSPolicyAssignmentRollout = &OSPolicyAssignmentRollout{empty: true}
 
-func (r *OsPolicyAssignmentRollout) Empty() bool {
+func (r *OSPolicyAssignmentRollout) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentRollout) String() string {
+func (r *OSPolicyAssignmentRollout) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentRollout) HashCode() string {
+func (r *OSPolicyAssignmentRollout) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OsPolicyAssignmentRolloutDisruptionBudget struct {
+type OSPolicyAssignmentRolloutDisruptionBudget struct {
 	empty   bool   `json:"-"`
 	Fixed   *int64 `json:"fixed"`
 	Percent *int64 `json:"percent"`
 }
 
-type jsonOsPolicyAssignmentRolloutDisruptionBudget OsPolicyAssignmentRolloutDisruptionBudget
+type jsonOSPolicyAssignmentRolloutDisruptionBudget OSPolicyAssignmentRolloutDisruptionBudget
 
-func (r *OsPolicyAssignmentRolloutDisruptionBudget) UnmarshalJSON(data []byte) error {
-	var res jsonOsPolicyAssignmentRolloutDisruptionBudget
+func (r *OSPolicyAssignmentRolloutDisruptionBudget) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentRolloutDisruptionBudget
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1779,7 +1779,7 @@ func (r *OsPolicyAssignmentRolloutDisruptionBudget) UnmarshalJSON(data []byte) e
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOsPolicyAssignmentRolloutDisruptionBudget
+		*r = *EmptyOSPolicyAssignmentRolloutDisruptionBudget
 	} else {
 
 		r.Fixed = res.Fixed
@@ -1790,20 +1790,20 @@ func (r *OsPolicyAssignmentRolloutDisruptionBudget) UnmarshalJSON(data []byte) e
 	return nil
 }
 
-// This object is used to assert a desired state where this OsPolicyAssignmentRolloutDisruptionBudget is
+// This object is used to assert a desired state where this OSPolicyAssignmentRolloutDisruptionBudget is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOsPolicyAssignmentRolloutDisruptionBudget *OsPolicyAssignmentRolloutDisruptionBudget = &OsPolicyAssignmentRolloutDisruptionBudget{empty: true}
+var EmptyOSPolicyAssignmentRolloutDisruptionBudget *OSPolicyAssignmentRolloutDisruptionBudget = &OSPolicyAssignmentRolloutDisruptionBudget{empty: true}
 
-func (r *OsPolicyAssignmentRolloutDisruptionBudget) Empty() bool {
+func (r *OSPolicyAssignmentRolloutDisruptionBudget) Empty() bool {
 	return r.empty
 }
 
-func (r *OsPolicyAssignmentRolloutDisruptionBudget) String() string {
+func (r *OSPolicyAssignmentRolloutDisruptionBudget) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OsPolicyAssignmentRolloutDisruptionBudget) HashCode() string {
+func (r *OSPolicyAssignmentRolloutDisruptionBudget) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -1812,18 +1812,18 @@ func (r *OsPolicyAssignmentRolloutDisruptionBudget) HashCode() string {
 
 // Describe returns a simple description of this resource to ensure that automated tools
 // can identify it.
-func (r *OsPolicyAssignment) Describe() dcl.ServiceTypeVersion {
+func (r *OSPolicyAssignment) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
 		Service: "os_config",
-		Type:    "OsPolicyAssignment",
+		Type:    "OSPolicyAssignment",
 		Version: "alpha",
 	}
 }
 
-const OsPolicyAssignmentMaxPage = -1
+const OSPolicyAssignmentMaxPage = -1
 
-type OsPolicyAssignmentList struct {
-	Items []*OsPolicyAssignment
+type OSPolicyAssignmentList struct {
+	Items []*OSPolicyAssignment
 
 	nextToken string
 
@@ -1834,18 +1834,18 @@ type OsPolicyAssignmentList struct {
 	location string
 }
 
-func (l *OsPolicyAssignmentList) HasNext() bool {
+func (l *OSPolicyAssignmentList) HasNext() bool {
 	return l.nextToken != ""
 }
 
-func (l *OsPolicyAssignmentList) Next(ctx context.Context, c *Client) error {
+func (l *OSPolicyAssignmentList) Next(ctx context.Context, c *Client) error {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listOsPolicyAssignment(ctx, l.project, l.location, l.nextToken, l.pageSize)
+	items, token, err := c.listOSPolicyAssignment(ctx, l.project, l.location, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -1854,23 +1854,23 @@ func (l *OsPolicyAssignmentList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListOsPolicyAssignment(ctx context.Context, project, location string) (*OsPolicyAssignmentList, error) {
+func (c *Client) ListOSPolicyAssignment(ctx context.Context, project, location string) (*OSPolicyAssignmentList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListOsPolicyAssignmentWithMaxResults(ctx, project, location, OsPolicyAssignmentMaxPage)
+	return c.ListOSPolicyAssignmentWithMaxResults(ctx, project, location, OSPolicyAssignmentMaxPage)
 
 }
 
-func (c *Client) ListOsPolicyAssignmentWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*OsPolicyAssignmentList, error) {
+func (c *Client) ListOSPolicyAssignmentWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*OSPolicyAssignmentList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listOsPolicyAssignment(ctx, project, location, "", pageSize)
+	items, token, err := c.listOSPolicyAssignment(ctx, project, location, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
-	return &OsPolicyAssignmentList{
+	return &OSPolicyAssignmentList{
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
@@ -1884,8 +1884,8 @@ func (c *Client) ListOsPolicyAssignmentWithMaxResults(ctx context.Context, proje
 // URLNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
-func (r *OsPolicyAssignment) URLNormalized() *OsPolicyAssignment {
-	normalized := dcl.Copy(*r).(OsPolicyAssignment)
+func (r *OSPolicyAssignment) URLNormalized() *OSPolicyAssignment {
+	normalized := dcl.Copy(*r).(OSPolicyAssignment)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.RevisionId = dcl.SelfLinkToName(r.RevisionId)
@@ -1895,11 +1895,11 @@ func (r *OsPolicyAssignment) URLNormalized() *OsPolicyAssignment {
 	return &normalized
 }
 
-func (c *Client) GetOsPolicyAssignment(ctx context.Context, r *OsPolicyAssignment) (*OsPolicyAssignment, error) {
+func (c *Client) GetOSPolicyAssignment(ctx context.Context, r *OSPolicyAssignment) (*OSPolicyAssignment, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	b, err := c.getOsPolicyAssignmentRaw(ctx, r)
+	b, err := c.getOSPolicyAssignmentRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			return nil, &googleapi.Error{
@@ -1909,7 +1909,7 @@ func (c *Client) GetOsPolicyAssignment(ctx context.Context, r *OsPolicyAssignmen
 		}
 		return nil, err
 	}
-	result, err := unmarshalOsPolicyAssignment(b, c)
+	result, err := unmarshalOSPolicyAssignment(b, c)
 	if err != nil {
 		return nil, err
 	}
@@ -1919,7 +1919,7 @@ func (c *Client) GetOsPolicyAssignment(ctx context.Context, r *OsPolicyAssignmen
 
 	c.Config.Logger.Infof("Retrieved raw result state: %v", result)
 	c.Config.Logger.Infof("Canonicalizing with specified state: %v", r)
-	result, err = canonicalizeOsPolicyAssignmentNewState(c, result, r)
+	result, err = canonicalizeOSPolicyAssignmentNewState(c, result, r)
 	if err != nil {
 		return nil, err
 	}
@@ -1928,26 +1928,26 @@ func (c *Client) GetOsPolicyAssignment(ctx context.Context, r *OsPolicyAssignmen
 	return result, nil
 }
 
-func (c *Client) DeleteOsPolicyAssignment(ctx context.Context, r *OsPolicyAssignment) error {
+func (c *Client) DeleteOSPolicyAssignment(ctx context.Context, r *OSPolicyAssignment) error {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
-		return fmt.Errorf("OsPolicyAssignment resource is nil")
+		return fmt.Errorf("OSPolicyAssignment resource is nil")
 	}
-	c.Config.Logger.Info("Deleting OsPolicyAssignment...")
-	deleteOp := deleteOsPolicyAssignmentOperation{}
+	c.Config.Logger.Info("Deleting OSPolicyAssignment...")
+	deleteOp := deleteOSPolicyAssignmentOperation{}
 	return deleteOp.do(ctx, r, c)
 }
 
-// DeleteAllOsPolicyAssignment deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllOsPolicyAssignment(ctx context.Context, project, location string, filter func(*OsPolicyAssignment) bool) error {
-	listObj, err := c.ListOsPolicyAssignment(ctx, project, location)
+// DeleteAllOSPolicyAssignment deletes all resources that the filter functions returns true on.
+func (c *Client) DeleteAllOSPolicyAssignment(ctx context.Context, project, location string, filter func(*OSPolicyAssignment) bool) error {
+	listObj, err := c.ListOSPolicyAssignment(ctx, project, location)
 	if err != nil {
 		return err
 	}
 
-	err = c.deleteAllOsPolicyAssignment(ctx, filter, listObj.Items)
+	err = c.deleteAllOSPolicyAssignment(ctx, filter, listObj.Items)
 	if err != nil {
 		return err
 	}
@@ -1956,7 +1956,7 @@ func (c *Client) DeleteAllOsPolicyAssignment(ctx context.Context, project, locat
 		if err != nil {
 			return nil
 		}
-		err = c.deleteAllOsPolicyAssignment(ctx, filter, listObj.Items)
+		err = c.deleteAllOSPolicyAssignment(ctx, filter, listObj.Items)
 		if err != nil {
 			return err
 		}
@@ -1964,10 +1964,10 @@ func (c *Client) DeleteAllOsPolicyAssignment(ctx context.Context, project, locat
 	return nil
 }
 
-func (c *Client) ApplyOsPolicyAssignment(ctx context.Context, rawDesired *OsPolicyAssignment, opts ...dcl.ApplyOption) (*OsPolicyAssignment, error) {
-	var resultNewState *OsPolicyAssignment
+func (c *Client) ApplyOSPolicyAssignment(ctx context.Context, rawDesired *OSPolicyAssignment, opts ...dcl.ApplyOption) (*OSPolicyAssignment, error) {
+	var resultNewState *OSPolicyAssignment
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
-		newState, err := applyOsPolicyAssignmentHelper(c, ctx, rawDesired, opts...)
+		newState, err := applyOSPolicyAssignmentHelper(c, ctx, rawDesired, opts...)
 		resultNewState = newState
 		if err != nil {
 			// If the error is 409, there is conflict in resource update.
@@ -1982,8 +1982,8 @@ func (c *Client) ApplyOsPolicyAssignment(ctx context.Context, rawDesired *OsPoli
 	return resultNewState, err
 }
 
-func applyOsPolicyAssignmentHelper(c *Client, ctx context.Context, rawDesired *OsPolicyAssignment, opts ...dcl.ApplyOption) (*OsPolicyAssignment, error) {
-	c.Config.Logger.Info("Beginning ApplyOsPolicyAssignment...")
+func applyOSPolicyAssignmentHelper(c *Client, ctx context.Context, rawDesired *OSPolicyAssignment, opts ...dcl.ApplyOption) (*OSPolicyAssignment, error) {
+	c.Config.Logger.Info("Beginning ApplyOSPolicyAssignment...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
@@ -1994,12 +1994,12 @@ func applyOsPolicyAssignmentHelper(c *Client, ctx context.Context, rawDesired *O
 		return nil, err
 	}
 
-	initial, desired, fieldDiffs, err := c.osPolicyAssignmentDiffsForRawDesired(ctx, rawDesired, opts...)
+	initial, desired, fieldDiffs, err := c.oSPolicyAssignmentDiffsForRawDesired(ctx, rawDesired, opts...)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	diffs, err := convertFieldDiffsToOsPolicyAssignmentDiffs(c.Config, fieldDiffs, opts)
+	diffs, err := convertFieldDiffsToOSPolicyAssignmentDiffs(c.Config, fieldDiffs, opts)
 	if err != nil {
 		return nil, err
 	}
@@ -2036,14 +2036,14 @@ func applyOsPolicyAssignmentHelper(c *Client, ctx context.Context, rawDesired *O
 	}
 
 	// 2.4 Imperative Request Planning
-	var ops []osPolicyAssignmentApiOperation
+	var ops []oSPolicyAssignmentApiOperation
 	if create {
-		ops = append(ops, &createOsPolicyAssignmentOperation{})
+		ops = append(ops, &createOSPolicyAssignmentOperation{})
 	} else if recreate {
-		ops = append(ops, &deleteOsPolicyAssignmentOperation{})
-		ops = append(ops, &createOsPolicyAssignmentOperation{})
+		ops = append(ops, &deleteOSPolicyAssignmentOperation{})
+		ops = append(ops, &createOSPolicyAssignmentOperation{})
 		// We should re-canonicalize based on a nil existing resource.
-		desired, err = canonicalizeOsPolicyAssignmentDesiredState(rawDesired, nil)
+		desired, err = canonicalizeOSPolicyAssignmentDesiredState(rawDesired, nil)
 		if err != nil {
 			return nil, err
 		}
@@ -2066,7 +2066,7 @@ func applyOsPolicyAssignmentHelper(c *Client, ctx context.Context, rawDesired *O
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetOsPolicyAssignment(ctx, desired.URLNormalized())
+	rawNew, err := c.GetOSPolicyAssignment(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -2074,17 +2074,17 @@ func applyOsPolicyAssignmentHelper(c *Client, ctx context.Context, rawDesired *O
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {
 		lastOp := ops[len(ops)-1]
-		if o, ok := lastOp.(*createOsPolicyAssignmentOperation); ok {
+		if o, ok := lastOp.(*createOSPolicyAssignmentOperation); ok {
 			if r, hasR := o.FirstResponse(); hasR {
 
 				c.Config.Logger.Info("Retrieving raw new state from operation...")
 
-				fullResp, err := unmarshalMapOsPolicyAssignment(r, c)
+				fullResp, err := unmarshalMapOSPolicyAssignment(r, c)
 				if err != nil {
 					return nil, err
 				}
 
-				rawNew, err = canonicalizeOsPolicyAssignmentNewState(c, rawNew, fullResp)
+				rawNew, err = canonicalizeOSPolicyAssignmentNewState(c, rawNew, fullResp)
 				if err != nil {
 					return nil, err
 				}
@@ -2094,7 +2094,7 @@ func applyOsPolicyAssignmentHelper(c *Client, ctx context.Context, rawDesired *O
 
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
-	newState, err := canonicalizeOsPolicyAssignmentNewState(c, rawNew, rawDesired)
+	newState, err := canonicalizeOSPolicyAssignmentNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
@@ -2102,12 +2102,12 @@ func applyOsPolicyAssignmentHelper(c *Client, ctx context.Context, rawDesired *O
 	c.Config.Logger.Infof("Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
-	newDesired, err := canonicalizeOsPolicyAssignmentDesiredState(rawDesired, newState)
+	newDesired, err := canonicalizeOSPolicyAssignmentDesiredState(rawDesired, newState)
 	if err != nil {
 		return nil, err
 	}
 	c.Config.Logger.Infof("Diffing using canonicalized desired state: %v", newDesired)
-	newDiffs, err := diffOsPolicyAssignment(c, newDesired, newState)
+	newDiffs, err := diffOSPolicyAssignment(c, newDesired, newState)
 	if err != nil {
 		return nil, err
 	}

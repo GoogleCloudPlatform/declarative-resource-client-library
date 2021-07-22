@@ -656,6 +656,76 @@ func canonicalizeDatasetAccess(des, initial *DatasetAccess, opts ...dcl.ApplyOpt
 		return des
 	}
 
+	if des.UserByEmail != nil || (initial != nil && initial.UserByEmail != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.GroupByEmail, des.Domain, des.SpecialGroup, des.IamMember, des.View, des.Routine) {
+			des.UserByEmail = nil
+			if initial != nil {
+				initial.UserByEmail = nil
+			}
+		}
+	}
+
+	if des.GroupByEmail != nil || (initial != nil && initial.GroupByEmail != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.UserByEmail, des.Domain, des.SpecialGroup, des.IamMember, des.View, des.Routine) {
+			des.GroupByEmail = nil
+			if initial != nil {
+				initial.GroupByEmail = nil
+			}
+		}
+	}
+
+	if des.Domain != nil || (initial != nil && initial.Domain != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.UserByEmail, des.GroupByEmail, des.SpecialGroup, des.IamMember, des.View, des.Routine) {
+			des.Domain = nil
+			if initial != nil {
+				initial.Domain = nil
+			}
+		}
+	}
+
+	if des.SpecialGroup != nil || (initial != nil && initial.SpecialGroup != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.UserByEmail, des.GroupByEmail, des.Domain, des.IamMember, des.View, des.Routine) {
+			des.SpecialGroup = nil
+			if initial != nil {
+				initial.SpecialGroup = nil
+			}
+		}
+	}
+
+	if des.IamMember != nil || (initial != nil && initial.IamMember != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.UserByEmail, des.GroupByEmail, des.Domain, des.SpecialGroup, des.View, des.Routine) {
+			des.IamMember = nil
+			if initial != nil {
+				initial.IamMember = nil
+			}
+		}
+	}
+
+	if des.View != nil || (initial != nil && initial.View != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.UserByEmail, des.GroupByEmail, des.Domain, des.SpecialGroup, des.IamMember, des.Routine) {
+			des.View = nil
+			if initial != nil {
+				initial.View = nil
+			}
+		}
+	}
+
+	if des.Routine != nil || (initial != nil && initial.Routine != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.UserByEmail, des.GroupByEmail, des.Domain, des.SpecialGroup, des.IamMember, des.View) {
+			des.Routine = nil
+			if initial != nil {
+				initial.Routine = nil
+			}
+		}
+	}
+
 	if initial == nil {
 		return des
 	}

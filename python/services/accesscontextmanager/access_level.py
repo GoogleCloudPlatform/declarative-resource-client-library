@@ -314,11 +314,11 @@ class AccessLevelBasicConditionsDevicePolicy(object):
                     resource.allowed_device_management_levels
                 )
             )
-        if AccessLevelBasicConditionsDevicePolicyOsConstraintsArray.to_proto(
+        if AccessLevelBasicConditionsDevicePolicyOSConstraintsArray.to_proto(
             resource.os_constraints
         ):
             res.os_constraints.extend(
-                AccessLevelBasicConditionsDevicePolicyOsConstraintsArray.to_proto(
+                AccessLevelBasicConditionsDevicePolicyOSConstraintsArray.to_proto(
                     resource.os_constraints
                 )
             )
@@ -341,7 +341,7 @@ class AccessLevelBasicConditionsDevicePolicy(object):
             allowed_device_management_levels=AccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnumArray.from_proto(
                 resource.allowed_device_management_levels
             ),
-            os_constraints=AccessLevelBasicConditionsDevicePolicyOsConstraintsArray.from_proto(
+            os_constraints=AccessLevelBasicConditionsDevicePolicyOSConstraintsArray.from_proto(
                 resource.os_constraints
             ),
         )
@@ -359,7 +359,7 @@ class AccessLevelBasicConditionsDevicePolicyArray(object):
         return [AccessLevelBasicConditionsDevicePolicy.from_proto(i) for i in resources]
 
 
-class AccessLevelBasicConditionsDevicePolicyOsConstraints(object):
+class AccessLevelBasicConditionsDevicePolicyOSConstraints(object):
     def __init__(
         self,
         minimum_version: str = None,
@@ -376,14 +376,14 @@ class AccessLevelBasicConditionsDevicePolicyOsConstraints(object):
             return None
 
         res = (
-            access_level_pb2.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraints()
+            access_level_pb2.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraints()
         )
         if Primitive.to_proto(resource.minimum_version):
             res.minimum_version = Primitive.to_proto(resource.minimum_version)
-        if AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum.to_proto(
+        if AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum.to_proto(
             resource.os_type
         ):
-            res.os_type = AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum.to_proto(
+            res.os_type = AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum.to_proto(
                 resource.os_type
             )
         if Primitive.to_proto(resource.require_verified_chrome_os):
@@ -397,9 +397,9 @@ class AccessLevelBasicConditionsDevicePolicyOsConstraints(object):
         if not resource:
             return None
 
-        return AccessLevelBasicConditionsDevicePolicyOsConstraints(
+        return AccessLevelBasicConditionsDevicePolicyOSConstraints(
             minimum_version=Primitive.from_proto(resource.minimum_version),
-            os_type=AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum.from_proto(
+            os_type=AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum.from_proto(
                 resource.os_type
             ),
             require_verified_chrome_os=Primitive.from_proto(
@@ -408,20 +408,20 @@ class AccessLevelBasicConditionsDevicePolicyOsConstraints(object):
         )
 
 
-class AccessLevelBasicConditionsDevicePolicyOsConstraintsArray(object):
+class AccessLevelBasicConditionsDevicePolicyOSConstraintsArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
         return [
-            AccessLevelBasicConditionsDevicePolicyOsConstraints.to_proto(i)
+            AccessLevelBasicConditionsDevicePolicyOSConstraints.to_proto(i)
             for i in resources
         ]
 
     @classmethod
     def from_proto(self, resources):
         return [
-            AccessLevelBasicConditionsDevicePolicyOsConstraints.from_proto(i)
+            AccessLevelBasicConditionsDevicePolicyOSConstraints.from_proto(i)
             for i in resources
         ]
 
@@ -492,13 +492,13 @@ class AccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum(ob
         ]
 
 
-class AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum(object):
+class AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum(object):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return access_level_pb2.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum.Value(
-            "AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum%s"
+        return access_level_pb2.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum.Value(
+            "AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum%s"
             % resource
         )
 
@@ -506,11 +506,11 @@ class AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum(object):
     def from_proto(self, resource):
         if not resource:
             return resource
-        return access_level_pb2.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum.Name(
+        return access_level_pb2.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum.Name(
             resource
         )[
             len(
-                "AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum"
+                "AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum"
             ) :
         ]
 

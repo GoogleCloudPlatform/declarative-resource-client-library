@@ -18,15 +18,15 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
-enum ComputeImageGuestOsFeatureTypeEnum {
-  ComputeImageGuestOsFeatureTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  ComputeImageGuestOsFeatureTypeEnumFEATURE_TYPE_UNSPECIFIED = 1;
-  ComputeImageGuestOsFeatureTypeEnumVIRTIO_SCSI_MULTIQUEUE = 2;
-  ComputeImageGuestOsFeatureTypeEnumWINDOWS = 3;
-  ComputeImageGuestOsFeatureTypeEnumMULTI_IP_SUBNET = 4;
-  ComputeImageGuestOsFeatureTypeEnumUEFI_COMPATIBLE = 5;
-  ComputeImageGuestOsFeatureTypeEnumSECURE_BOOT = 6;
-  ComputeImageGuestOsFeatureTypeEnumSEV_CAPABLE = 7;
+enum ComputeImageGuestOSFeatureTypeEnum {
+  ComputeImageGuestOSFeatureTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeImageGuestOSFeatureTypeEnumFEATURE_TYPE_UNSPECIFIED = 1;
+  ComputeImageGuestOSFeatureTypeEnumVIRTIO_SCSI_MULTIQUEUE = 2;
+  ComputeImageGuestOSFeatureTypeEnumWINDOWS = 3;
+  ComputeImageGuestOSFeatureTypeEnumMULTI_IP_SUBNET = 4;
+  ComputeImageGuestOSFeatureTypeEnumUEFI_COMPATIBLE = 5;
+  ComputeImageGuestOSFeatureTypeEnumSECURE_BOOT = 6;
+  ComputeImageGuestOSFeatureTypeEnumSEV_CAPABLE = 7;
 }
 
 enum ComputeImageRawDiskContainerTypeEnum {
@@ -88,7 +88,7 @@ message ComputeImage {
   string description = 2;
   int64 disk_size_gb = 3;
   string family = 4;
-  repeated ComputeImageGuestOsFeature guest_os_feature = 5;
+  repeated ComputeImageGuestOSFeature guest_os_feature = 5;
   ComputeImageImageEncryptionKey image_encryption_key = 6;
   map<string, string> labels = 7;
   repeated string license = 8;
@@ -112,8 +112,8 @@ message ComputeImage {
   string project = 26;
 }
 
-message ComputeImageGuestOsFeature {
-  ComputeImageGuestOsFeatureTypeEnum type = 1;
+message ComputeImageGuestOSFeature {
+  ComputeImageGuestOSFeatureTypeEnum type = 1;
 }
 
 message ComputeImageImageEncryptionKey {

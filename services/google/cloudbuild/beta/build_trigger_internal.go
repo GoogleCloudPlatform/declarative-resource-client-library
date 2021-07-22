@@ -521,14 +521,14 @@ func canonicalizeBuildTriggerInitialState(rawInitial, rawDesired *BuildTrigger) 
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
 	if !dcl.IsZeroValue(rawInitial.Filename) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.Build) {
 			rawInitial.Filename = dcl.String("")
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.Build) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.Filename) {
 			rawInitial.Build = EmptyBuildTriggerBuild
 		}
@@ -557,7 +557,7 @@ func canonicalizeBuildTriggerDesiredState(rawDesired, rawInitial *BuildTrigger, 
 	}
 
 	if rawDesired.Filename != nil || rawInitial.Filename != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.Build) {
 			rawDesired.Filename = nil
 			rawInitial.Filename = nil
@@ -565,7 +565,7 @@ func canonicalizeBuildTriggerDesiredState(rawDesired, rawInitial *BuildTrigger, 
 	}
 
 	if rawDesired.Build != nil || rawInitial.Build != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.Filename) {
 			rawDesired.Build = nil
 			rawInitial.Build = nil

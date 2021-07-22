@@ -87,9 +87,9 @@ class Image(object):
         if Primitive.to_proto(self.family):
             request.resource.family = Primitive.to_proto(self.family)
 
-        if ImageGuestOsFeatureArray.to_proto(self.guest_os_feature):
+        if ImageGuestOSFeatureArray.to_proto(self.guest_os_feature):
             request.resource.guest_os_feature.extend(
-                ImageGuestOsFeatureArray.to_proto(self.guest_os_feature)
+                ImageGuestOSFeatureArray.to_proto(self.guest_os_feature)
             )
         if ImageImageEncryptionKey.to_proto(self.image_encryption_key):
             request.resource.image_encryption_key.CopyFrom(
@@ -183,7 +183,7 @@ class Image(object):
         self.description = Primitive.from_proto(response.description)
         self.disk_size_gb = Primitive.from_proto(response.disk_size_gb)
         self.family = Primitive.from_proto(response.family)
-        self.guest_os_feature = ImageGuestOsFeatureArray.from_proto(
+        self.guest_os_feature = ImageGuestOSFeatureArray.from_proto(
             response.guest_os_feature
         )
         self.image_encryption_key = ImageImageEncryptionKey.from_proto(
@@ -231,9 +231,9 @@ class Image(object):
         if Primitive.to_proto(self.family):
             request.resource.family = Primitive.to_proto(self.family)
 
-        if ImageGuestOsFeatureArray.to_proto(self.guest_os_feature):
+        if ImageGuestOSFeatureArray.to_proto(self.guest_os_feature):
             request.resource.guest_os_feature.extend(
-                ImageGuestOsFeatureArray.to_proto(self.guest_os_feature)
+                ImageGuestOSFeatureArray.to_proto(self.guest_os_feature)
             )
         if ImageImageEncryptionKey.to_proto(self.image_encryption_key):
             request.resource.image_encryption_key.CopyFrom(
@@ -339,9 +339,9 @@ class Image(object):
             resource.disk_size_gb = Primitive.to_proto(self.disk_size_gb)
         if Primitive.to_proto(self.family):
             resource.family = Primitive.to_proto(self.family)
-        if ImageGuestOsFeatureArray.to_proto(self.guest_os_feature):
+        if ImageGuestOSFeatureArray.to_proto(self.guest_os_feature):
             resource.guest_os_feature.extend(
-                ImageGuestOsFeatureArray.to_proto(self.guest_os_feature)
+                ImageGuestOSFeatureArray.to_proto(self.guest_os_feature)
             )
         if ImageImageEncryptionKey.to_proto(self.image_encryption_key):
             resource.image_encryption_key.CopyFrom(
@@ -414,7 +414,7 @@ class Image(object):
         return resource
 
 
-class ImageGuestOsFeature(object):
+class ImageGuestOSFeature(object):
     def __init__(self, type: str = None):
         self.type = type
 
@@ -423,9 +423,9 @@ class ImageGuestOsFeature(object):
         if not resource:
             return None
 
-        res = image_pb2.ComputeBetaImageGuestOsFeature()
-        if ImageGuestOsFeatureTypeEnum.to_proto(resource.type):
-            res.type = ImageGuestOsFeatureTypeEnum.to_proto(resource.type)
+        res = image_pb2.ComputeBetaImageGuestOSFeature()
+        if ImageGuestOSFeatureTypeEnum.to_proto(resource.type):
+            res.type = ImageGuestOSFeatureTypeEnum.to_proto(resource.type)
         return res
 
     @classmethod
@@ -433,21 +433,21 @@ class ImageGuestOsFeature(object):
         if not resource:
             return None
 
-        return ImageGuestOsFeature(
-            type=ImageGuestOsFeatureTypeEnum.from_proto(resource.type),
+        return ImageGuestOSFeature(
+            type=ImageGuestOSFeatureTypeEnum.from_proto(resource.type),
         )
 
 
-class ImageGuestOsFeatureArray(object):
+class ImageGuestOSFeatureArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [ImageGuestOsFeature.to_proto(i) for i in resources]
+        return [ImageGuestOSFeature.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [ImageGuestOsFeature.from_proto(i) for i in resources]
+        return [ImageGuestOSFeature.from_proto(i) for i in resources]
 
 
 class ImageImageEncryptionKey(object):
@@ -1029,21 +1029,21 @@ class ImageDeprecatedArray(object):
         return [ImageDeprecated.from_proto(i) for i in resources]
 
 
-class ImageGuestOsFeatureTypeEnum(object):
+class ImageGuestOSFeatureTypeEnum(object):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return image_pb2.ComputeBetaImageGuestOsFeatureTypeEnum.Value(
-            "ComputeBetaImageGuestOsFeatureTypeEnum%s" % resource
+        return image_pb2.ComputeBetaImageGuestOSFeatureTypeEnum.Value(
+            "ComputeBetaImageGuestOSFeatureTypeEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return image_pb2.ComputeBetaImageGuestOsFeatureTypeEnum.Name(resource)[
-            len("ComputeBetaImageGuestOsFeatureTypeEnum") :
+        return image_pb2.ComputeBetaImageGuestOSFeatureTypeEnum.Name(resource)[
+            len("ComputeBetaImageGuestOSFeatureTypeEnum") :
         ]
 
 

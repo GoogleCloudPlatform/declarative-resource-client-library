@@ -61,13 +61,13 @@ func ProtoToAccesscontextmanagerAccessLevelBasicConditionsDevicePolicyAllowedDev
 	return nil
 }
 
-// ProtoToAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum converts a AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum enum from its proto representation.
-func ProtoToAccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum(e accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum) *accesscontextmanager.AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum {
+// ProtoToAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum converts a AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum enum from its proto representation.
+func ProtoToAccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum(e accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum) *accesscontextmanager.AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum_name[int32(e)]; ok {
-		e := accesscontextmanager.AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum(n[len("AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum"):])
+	if n, ok := accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum_name[int32(e)]; ok {
+		e := accesscontextmanager.AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum(n[len("AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -128,20 +128,20 @@ func ProtoToAccesscontextmanagerAccessLevelBasicConditionsDevicePolicy(p *access
 		obj.AllowedDeviceManagementLevels = append(obj.AllowedDeviceManagementLevels, *ProtoToAccesscontextmanagerAccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum(r))
 	}
 	for _, r := range p.GetOsConstraints() {
-		obj.OsConstraints = append(obj.OsConstraints, *ProtoToAccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraints(r))
+		obj.OSConstraints = append(obj.OSConstraints, *ProtoToAccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraints(r))
 	}
 	return obj
 }
 
-// ProtoToAccessLevelBasicConditionsDevicePolicyOsConstraints converts a AccessLevelBasicConditionsDevicePolicyOsConstraints resource from its proto representation.
-func ProtoToAccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraints(p *accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraints) *accesscontextmanager.AccessLevelBasicConditionsDevicePolicyOsConstraints {
+// ProtoToAccessLevelBasicConditionsDevicePolicyOSConstraints converts a AccessLevelBasicConditionsDevicePolicyOSConstraints resource from its proto representation.
+func ProtoToAccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraints(p *accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraints) *accesscontextmanager.AccessLevelBasicConditionsDevicePolicyOSConstraints {
 	if p == nil {
 		return nil
 	}
-	obj := &accesscontextmanager.AccessLevelBasicConditionsDevicePolicyOsConstraints{
+	obj := &accesscontextmanager.AccessLevelBasicConditionsDevicePolicyOSConstraints{
 		MinimumVersion:          dcl.StringOrNil(p.MinimumVersion),
-		OsType:                  ProtoToAccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum(p.GetOsType()),
-		RequireVerifiedChromeOs: dcl.Bool(p.RequireVerifiedChromeOs),
+		OSType:                  ProtoToAccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum(p.GetOsType()),
+		RequireVerifiedChromeOS: dcl.Bool(p.RequireVerifiedChromeOs),
 	}
 	return obj
 }
@@ -193,15 +193,15 @@ func AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyAllowedDeviceMana
 	return accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum(0)
 }
 
-// AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnumToProto converts a AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum enum to its proto representation.
-func AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnumToProto(e *accesscontextmanager.AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum) accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum {
+// AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnumToProto converts a AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum enum to its proto representation.
+func AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnumToProto(e *accesscontextmanager.AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum) accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum {
 	if e == nil {
-		return accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum(0)
+		return accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum(0)
 	}
-	if v, ok := accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum_value["AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum"+string(*e)]; ok {
-		return accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum(v)
+	if v, ok := accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum_value["AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum"+string(*e)]; ok {
+		return accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum(v)
 	}
-	return accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum(0)
+	return accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum(0)
 }
 
 // AccessLevelBasicToProto converts a AccessLevelBasic resource to its proto representation.
@@ -258,21 +258,21 @@ func AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyToProto(o *access
 	for _, r := range o.AllowedDeviceManagementLevels {
 		p.AllowedDeviceManagementLevels = append(p.AllowedDeviceManagementLevels, accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum(accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum_value[string(r)]))
 	}
-	for _, r := range o.OsConstraints {
-		p.OsConstraints = append(p.OsConstraints, AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraintsToProto(&r))
+	for _, r := range o.OSConstraints {
+		p.OsConstraints = append(p.OsConstraints, AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraintsToProto(&r))
 	}
 	return p
 }
 
-// AccessLevelBasicConditionsDevicePolicyOsConstraintsToProto converts a AccessLevelBasicConditionsDevicePolicyOsConstraints resource to its proto representation.
-func AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraintsToProto(o *accesscontextmanager.AccessLevelBasicConditionsDevicePolicyOsConstraints) *accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraints {
+// AccessLevelBasicConditionsDevicePolicyOSConstraintsToProto converts a AccessLevelBasicConditionsDevicePolicyOSConstraints resource to its proto representation.
+func AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraintsToProto(o *accesscontextmanager.AccessLevelBasicConditionsDevicePolicyOSConstraints) *accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraints {
 	if o == nil {
 		return nil
 	}
-	p := &accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraints{
+	p := &accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraints{
 		MinimumVersion:          dcl.ValueOrEmptyString(o.MinimumVersion),
-		OsType:                  AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnumToProto(o.OsType),
-		RequireVerifiedChromeOs: dcl.ValueOrEmptyBool(o.RequireVerifiedChromeOs),
+		OsType:                  AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnumToProto(o.OSType),
+		RequireVerifiedChromeOs: dcl.ValueOrEmptyBool(o.RequireVerifiedChromeOS),
 	}
 	return p
 }

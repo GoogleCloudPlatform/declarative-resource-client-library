@@ -61,7 +61,6 @@ class InstanceGroupManager(object):
         self.versions = versions
         self.target_pools = target_pools
         self.base_instance_name = base_instance_name
-        self.fingerprint = fingerprint
         self.target_size = target_size
         self.auto_healing_policies = auto_healing_policies
         self.update_policy = update_policy
@@ -109,9 +108,6 @@ class InstanceGroupManager(object):
             request.resource.base_instance_name = Primitive.to_proto(
                 self.base_instance_name
             )
-
-        if Primitive.to_proto(self.fingerprint):
-            request.resource.fingerprint = Primitive.to_proto(self.fingerprint)
 
         if Primitive.to_proto(self.target_size):
             request.resource.target_size = Primitive.to_proto(self.target_size)
@@ -235,9 +231,6 @@ class InstanceGroupManager(object):
                 self.base_instance_name
             )
 
-        if Primitive.to_proto(self.fingerprint):
-            request.resource.fingerprint = Primitive.to_proto(self.fingerprint)
-
         if Primitive.to_proto(self.target_size):
             request.resource.target_size = Primitive.to_proto(self.target_size)
 
@@ -320,8 +313,6 @@ class InstanceGroupManager(object):
             resource.target_pools.extend(Primitive.to_proto(self.target_pools))
         if Primitive.to_proto(self.base_instance_name):
             resource.base_instance_name = Primitive.to_proto(self.base_instance_name)
-        if Primitive.to_proto(self.fingerprint):
-            resource.fingerprint = Primitive.to_proto(self.fingerprint)
         if Primitive.to_proto(self.target_size):
             resource.target_size = Primitive.to_proto(self.target_size)
         if InstanceGroupManagerAutoHealingPoliciesArray.to_proto(

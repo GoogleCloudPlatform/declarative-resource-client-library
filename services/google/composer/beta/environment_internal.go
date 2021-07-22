@@ -894,6 +894,46 @@ func canonicalizeEnvironmentConfigNodeConfigIPAllocationPolicy(des, initial *Env
 		return des
 	}
 
+	if des.ClusterSecondaryRangeName != nil || (initial != nil && initial.ClusterSecondaryRangeName != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.ClusterIPv4CidrBlock) {
+			des.ClusterSecondaryRangeName = nil
+			if initial != nil {
+				initial.ClusterSecondaryRangeName = nil
+			}
+		}
+	}
+
+	if des.ClusterIPv4CidrBlock != nil || (initial != nil && initial.ClusterIPv4CidrBlock != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.ClusterSecondaryRangeName) {
+			des.ClusterIPv4CidrBlock = nil
+			if initial != nil {
+				initial.ClusterIPv4CidrBlock = nil
+			}
+		}
+	}
+
+	if des.ServicesSecondaryRangeName != nil || (initial != nil && initial.ServicesSecondaryRangeName != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.ServicesIPv4CidrBlock) {
+			des.ServicesSecondaryRangeName = nil
+			if initial != nil {
+				initial.ServicesSecondaryRangeName = nil
+			}
+		}
+	}
+
+	if des.ServicesIPv4CidrBlock != nil || (initial != nil && initial.ServicesIPv4CidrBlock != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.ServicesSecondaryRangeName) {
+			des.ServicesIPv4CidrBlock = nil
+			if initial != nil {
+				initial.ServicesIPv4CidrBlock = nil
+			}
+		}
+	}
+
 	if initial == nil {
 		return des
 	}

@@ -480,28 +480,28 @@ func canonicalizeUptimeCheckConfigInitialState(rawInitial, rawDesired *UptimeChe
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
 	if !dcl.IsZeroValue(rawInitial.MonitoredResource) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.ResourceGroup) {
 			rawInitial.MonitoredResource = EmptyUptimeCheckConfigMonitoredResource
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.ResourceGroup) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.MonitoredResource) {
 			rawInitial.ResourceGroup = EmptyUptimeCheckConfigResourceGroup
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.HttpCheck) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.TcpCheck) {
 			rawInitial.HttpCheck = EmptyUptimeCheckConfigHttpCheck
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.TcpCheck) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.HttpCheck) {
 			rawInitial.TcpCheck = EmptyUptimeCheckConfigTcpCheck
 		}
@@ -535,7 +535,7 @@ func canonicalizeUptimeCheckConfigDesiredState(rawDesired, rawInitial *UptimeChe
 	}
 
 	if rawDesired.MonitoredResource != nil || rawInitial.MonitoredResource != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.ResourceGroup) {
 			rawDesired.MonitoredResource = nil
 			rawInitial.MonitoredResource = nil
@@ -543,7 +543,7 @@ func canonicalizeUptimeCheckConfigDesiredState(rawDesired, rawInitial *UptimeChe
 	}
 
 	if rawDesired.ResourceGroup != nil || rawInitial.ResourceGroup != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.MonitoredResource) {
 			rawDesired.ResourceGroup = nil
 			rawInitial.ResourceGroup = nil
@@ -551,7 +551,7 @@ func canonicalizeUptimeCheckConfigDesiredState(rawDesired, rawInitial *UptimeChe
 	}
 
 	if rawDesired.HttpCheck != nil || rawInitial.HttpCheck != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.TcpCheck) {
 			rawDesired.HttpCheck = nil
 			rawInitial.HttpCheck = nil
@@ -559,7 +559,7 @@ func canonicalizeUptimeCheckConfigDesiredState(rawDesired, rawInitial *UptimeChe
 	}
 
 	if rawDesired.TcpCheck != nil || rawInitial.TcpCheck != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.HttpCheck) {
 			rawDesired.TcpCheck = nil
 			rawInitial.TcpCheck = nil

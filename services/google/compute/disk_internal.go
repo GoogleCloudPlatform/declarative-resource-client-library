@@ -51,13 +51,13 @@ func (r *Disk) validate() error {
 	}
 	return nil
 }
-func (r *DiskGuestOsFeature) validate() error {
+func (r *DiskGuestOSFeature) validate() error {
 	return nil
 }
 func (r *DiskEncryptionKey) validate() error {
 	return nil
 }
-func (r *DiskGuestOsFeatures) validate() error {
+func (r *DiskGuestOSFeatures) validate() error {
 	return nil
 }
 
@@ -570,10 +570,10 @@ func canonicalizeDiskDesiredState(rawDesired, rawInitial *Disk, opts ...dcl.Appl
 		canonicalDesired.Description = rawDesired.Description
 	}
 	canonicalDesired.DiskEncryptionKey = canonicalizeDiskEncryptionKey(rawDesired.DiskEncryptionKey, rawInitial.DiskEncryptionKey, opts...)
-	if dcl.IsZeroValue(rawDesired.GuestOsFeature) {
-		canonicalDesired.GuestOsFeature = rawInitial.GuestOsFeature
+	if dcl.IsZeroValue(rawDesired.GuestOSFeature) {
+		canonicalDesired.GuestOSFeature = rawInitial.GuestOSFeature
 	} else {
-		canonicalDesired.GuestOsFeature = rawDesired.GuestOsFeature
+		canonicalDesired.GuestOSFeature = rawDesired.GuestOSFeature
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
 		canonicalDesired.Labels = rawInitial.Labels
@@ -647,10 +647,10 @@ func canonicalizeDiskDesiredState(rawDesired, rawInitial *Disk, opts ...dcl.Appl
 	} else {
 		canonicalDesired.Licenses = rawDesired.Licenses
 	}
-	if dcl.IsZeroValue(rawDesired.GuestOsFeatures) {
-		canonicalDesired.GuestOsFeatures = rawInitial.GuestOsFeatures
+	if dcl.IsZeroValue(rawDesired.GuestOSFeatures) {
+		canonicalDesired.GuestOSFeatures = rawInitial.GuestOSFeatures
 	} else {
-		canonicalDesired.GuestOsFeatures = rawDesired.GuestOsFeatures
+		canonicalDesired.GuestOSFeatures = rawDesired.GuestOSFeatures
 	}
 	if dcl.IsZeroValue(rawDesired.LicenseCodes) {
 		canonicalDesired.LicenseCodes = rawInitial.LicenseCodes
@@ -710,10 +710,10 @@ func canonicalizeDiskNewState(c *Client, rawNew, rawDesired *Disk) (*Disk, error
 		rawNew.DiskEncryptionKey = canonicalizeNewDiskEncryptionKey(c, rawDesired.DiskEncryptionKey, rawNew.DiskEncryptionKey)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.GuestOsFeature) && dcl.IsEmptyValueIndirect(rawDesired.GuestOsFeature) {
-		rawNew.GuestOsFeature = rawDesired.GuestOsFeature
+	if dcl.IsEmptyValueIndirect(rawNew.GuestOSFeature) && dcl.IsEmptyValueIndirect(rawDesired.GuestOSFeature) {
+		rawNew.GuestOSFeature = rawDesired.GuestOSFeature
 	} else {
-		rawNew.GuestOsFeature = canonicalizeNewDiskGuestOsFeatureSlice(c, rawDesired.GuestOsFeature, rawNew.GuestOsFeature)
+		rawNew.GuestOSFeature = canonicalizeNewDiskGuestOSFeatureSlice(c, rawDesired.GuestOSFeature, rawNew.GuestOSFeature)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
@@ -850,10 +850,10 @@ func canonicalizeDiskNewState(c *Client, rawNew, rawDesired *Disk) (*Disk, error
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.GuestOsFeatures) && dcl.IsEmptyValueIndirect(rawDesired.GuestOsFeatures) {
-		rawNew.GuestOsFeatures = rawDesired.GuestOsFeatures
+	if dcl.IsEmptyValueIndirect(rawNew.GuestOSFeatures) && dcl.IsEmptyValueIndirect(rawDesired.GuestOSFeatures) {
+		rawNew.GuestOSFeatures = rawDesired.GuestOSFeatures
 	} else {
-		rawNew.GuestOsFeatures = canonicalizeNewDiskGuestOsFeaturesSlice(c, rawDesired.GuestOsFeatures, rawNew.GuestOsFeatures)
+		rawNew.GuestOSFeatures = canonicalizeNewDiskGuestOSFeaturesSlice(c, rawDesired.GuestOSFeatures, rawNew.GuestOSFeatures)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.LastAttachTimestamp) && dcl.IsEmptyValueIndirect(rawDesired.LastAttachTimestamp) {
@@ -913,7 +913,7 @@ func canonicalizeDiskNewState(c *Client, rawNew, rawDesired *Disk) (*Disk, error
 	return rawNew, nil
 }
 
-func canonicalizeDiskGuestOsFeature(des, initial *DiskGuestOsFeature, opts ...dcl.ApplyOption) *DiskGuestOsFeature {
+func canonicalizeDiskGuestOSFeature(des, initial *DiskGuestOSFeature, opts ...dcl.ApplyOption) *DiskGuestOSFeature {
 	if des == nil {
 		return initial
 	}
@@ -925,7 +925,7 @@ func canonicalizeDiskGuestOsFeature(des, initial *DiskGuestOsFeature, opts ...dc
 		return des
 	}
 
-	cDes := &DiskGuestOsFeature{}
+	cDes := &DiskGuestOSFeature{}
 
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
@@ -941,7 +941,7 @@ func canonicalizeDiskGuestOsFeature(des, initial *DiskGuestOsFeature, opts ...dc
 	return cDes
 }
 
-func canonicalizeNewDiskGuestOsFeature(c *Client, des, nw *DiskGuestOsFeature) *DiskGuestOsFeature {
+func canonicalizeNewDiskGuestOSFeature(c *Client, des, nw *DiskGuestOSFeature) *DiskGuestOSFeature {
 	if des == nil || nw == nil {
 		return nw
 	}
@@ -956,15 +956,15 @@ func canonicalizeNewDiskGuestOsFeature(c *Client, des, nw *DiskGuestOsFeature) *
 	return nw
 }
 
-func canonicalizeNewDiskGuestOsFeatureSet(c *Client, des, nw []DiskGuestOsFeature) []DiskGuestOsFeature {
+func canonicalizeNewDiskGuestOSFeatureSet(c *Client, des, nw []DiskGuestOSFeature) []DiskGuestOSFeature {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []DiskGuestOsFeature
+	var reorderedNew []DiskGuestOSFeature
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareDiskGuestOsFeatureNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareDiskGuestOSFeatureNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -979,7 +979,7 @@ func canonicalizeNewDiskGuestOsFeatureSet(c *Client, des, nw []DiskGuestOsFeatur
 	return reorderedNew
 }
 
-func canonicalizeNewDiskGuestOsFeatureSlice(c *Client, des, nw []DiskGuestOsFeature) []DiskGuestOsFeature {
+func canonicalizeNewDiskGuestOSFeatureSlice(c *Client, des, nw []DiskGuestOSFeature) []DiskGuestOSFeature {
 	if des == nil {
 		return nw
 	}
@@ -990,10 +990,10 @@ func canonicalizeNewDiskGuestOsFeatureSlice(c *Client, des, nw []DiskGuestOsFeat
 		return nw
 	}
 
-	var items []DiskGuestOsFeature
+	var items []DiskGuestOSFeature
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewDiskGuestOsFeature(c, &d, &n))
+		items = append(items, *canonicalizeNewDiskGuestOSFeature(c, &d, &n))
 	}
 
 	return items
@@ -1094,7 +1094,7 @@ func canonicalizeNewDiskEncryptionKeySlice(c *Client, des, nw []DiskEncryptionKe
 	return items
 }
 
-func canonicalizeDiskGuestOsFeatures(des, initial *DiskGuestOsFeatures, opts ...dcl.ApplyOption) *DiskGuestOsFeatures {
+func canonicalizeDiskGuestOSFeatures(des, initial *DiskGuestOSFeatures, opts ...dcl.ApplyOption) *DiskGuestOSFeatures {
 	if des == nil {
 		return initial
 	}
@@ -1106,7 +1106,7 @@ func canonicalizeDiskGuestOsFeatures(des, initial *DiskGuestOsFeatures, opts ...
 		return des
 	}
 
-	cDes := &DiskGuestOsFeatures{}
+	cDes := &DiskGuestOSFeatures{}
 
 	if dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
@@ -1122,7 +1122,7 @@ func canonicalizeDiskGuestOsFeatures(des, initial *DiskGuestOsFeatures, opts ...
 	return cDes
 }
 
-func canonicalizeNewDiskGuestOsFeatures(c *Client, des, nw *DiskGuestOsFeatures) *DiskGuestOsFeatures {
+func canonicalizeNewDiskGuestOSFeatures(c *Client, des, nw *DiskGuestOSFeatures) *DiskGuestOSFeatures {
 	if des == nil || nw == nil {
 		return nw
 	}
@@ -1137,15 +1137,15 @@ func canonicalizeNewDiskGuestOsFeatures(c *Client, des, nw *DiskGuestOsFeatures)
 	return nw
 }
 
-func canonicalizeNewDiskGuestOsFeaturesSet(c *Client, des, nw []DiskGuestOsFeatures) []DiskGuestOsFeatures {
+func canonicalizeNewDiskGuestOSFeaturesSet(c *Client, des, nw []DiskGuestOSFeatures) []DiskGuestOSFeatures {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []DiskGuestOsFeatures
+	var reorderedNew []DiskGuestOSFeatures
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareDiskGuestOsFeaturesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareDiskGuestOSFeaturesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1160,7 +1160,7 @@ func canonicalizeNewDiskGuestOsFeaturesSet(c *Client, des, nw []DiskGuestOsFeatu
 	return reorderedNew
 }
 
-func canonicalizeNewDiskGuestOsFeaturesSlice(c *Client, des, nw []DiskGuestOsFeatures) []DiskGuestOsFeatures {
+func canonicalizeNewDiskGuestOSFeaturesSlice(c *Client, des, nw []DiskGuestOSFeatures) []DiskGuestOSFeatures {
 	if des == nil {
 		return nw
 	}
@@ -1171,10 +1171,10 @@ func canonicalizeNewDiskGuestOsFeaturesSlice(c *Client, des, nw []DiskGuestOsFea
 		return nw
 	}
 
-	var items []DiskGuestOsFeatures
+	var items []DiskGuestOSFeatures
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewDiskGuestOsFeatures(c, &d, &n))
+		items = append(items, *canonicalizeNewDiskGuestOSFeatures(c, &d, &n))
 	}
 
 	return items
@@ -1216,7 +1216,7 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]*dcl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GuestOsFeature, actual.GuestOsFeature, dcl.Info{ObjectFunction: compareDiskGuestOsFeatureNewStyle, EmptyObject: EmptyDiskGuestOsFeature, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GuestOsFeature")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GuestOSFeature, actual.GuestOSFeature, dcl.Info{ObjectFunction: compareDiskGuestOSFeatureNewStyle, EmptyObject: EmptyDiskGuestOSFeature, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GuestOSFeature")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1370,7 +1370,7 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]*dcl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GuestOsFeatures, actual.GuestOsFeatures, dcl.Info{ObjectFunction: compareDiskGuestOsFeaturesNewStyle, EmptyObject: EmptyDiskGuestOsFeatures, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GuestOsFeatures")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GuestOSFeatures, actual.GuestOSFeatures, dcl.Info{ObjectFunction: compareDiskGuestOSFeaturesNewStyle, EmptyObject: EmptyDiskGuestOSFeatures, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GuestOsFeatures")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1442,22 +1442,22 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]*dcl
 
 	return newDiffs, nil
 }
-func compareDiskGuestOsFeatureNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareDiskGuestOSFeatureNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*DiskGuestOsFeature)
+	desired, ok := d.(*DiskGuestOSFeature)
 	if !ok {
-		desiredNotPointer, ok := d.(DiskGuestOsFeature)
+		desiredNotPointer, ok := d.(DiskGuestOSFeature)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a DiskGuestOsFeature or *DiskGuestOsFeature", d)
+			return nil, fmt.Errorf("obj %v is not a DiskGuestOSFeature or *DiskGuestOSFeature", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*DiskGuestOsFeature)
+	actual, ok := a.(*DiskGuestOSFeature)
 	if !ok {
-		actualNotPointer, ok := a.(DiskGuestOsFeature)
+		actualNotPointer, ok := a.(DiskGuestOSFeature)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a DiskGuestOsFeature", a)
+			return nil, fmt.Errorf("obj %v is not a DiskGuestOSFeature", a)
 		}
 		actual = &actualNotPointer
 	}
@@ -1528,22 +1528,22 @@ func compareDiskEncryptionKeyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 	return diffs, nil
 }
 
-func compareDiskGuestOsFeaturesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareDiskGuestOSFeaturesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*DiskGuestOsFeatures)
+	desired, ok := d.(*DiskGuestOSFeatures)
 	if !ok {
-		desiredNotPointer, ok := d.(DiskGuestOsFeatures)
+		desiredNotPointer, ok := d.(DiskGuestOSFeatures)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a DiskGuestOsFeatures or *DiskGuestOsFeatures", d)
+			return nil, fmt.Errorf("obj %v is not a DiskGuestOSFeatures or *DiskGuestOSFeatures", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*DiskGuestOsFeatures)
+	actual, ok := a.(*DiskGuestOSFeatures)
 	if !ok {
-		actualNotPointer, ok := a.(DiskGuestOsFeatures)
+		actualNotPointer, ok := a.(DiskGuestOSFeatures)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a DiskGuestOsFeatures", a)
+			return nil, fmt.Errorf("obj %v is not a DiskGuestOSFeatures", a)
 		}
 		actual = &actualNotPointer
 	}
@@ -1658,10 +1658,10 @@ func expandDisk(c *Client, f *Disk) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["diskEncryptionKey"] = v
 	}
-	if v, err := expandDiskGuestOsFeatureSlice(c, f.GuestOsFeature); err != nil {
-		return nil, fmt.Errorf("error expanding GuestOsFeature into guestOsFeature: %w", err)
+	if v, err := expandDiskGuestOSFeatureSlice(c, f.GuestOSFeature); err != nil {
+		return nil, fmt.Errorf("error expanding GuestOSFeature into guestOSFeature: %w", err)
 	} else if v != nil {
-		m["guestOsFeature"] = v
+		m["guestOSFeature"] = v
 	}
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
@@ -1732,8 +1732,8 @@ func expandDisk(c *Client, f *Disk) (map[string]interface{}, error) {
 	if v := f.Licenses; !dcl.IsEmptyValueIndirect(v) {
 		m["licenses"] = v
 	}
-	if v, err := expandDiskGuestOsFeaturesSlice(c, f.GuestOsFeatures); err != nil {
-		return nil, fmt.Errorf("error expanding GuestOsFeatures into guestOsFeatures: %w", err)
+	if v, err := expandDiskGuestOSFeaturesSlice(c, f.GuestOSFeatures); err != nil {
+		return nil, fmt.Errorf("error expanding GuestOSFeatures into guestOsFeatures: %w", err)
 	} else if v != nil {
 		m["guestOsFeatures"] = v
 	}
@@ -1785,7 +1785,7 @@ func flattenDisk(c *Client, i interface{}) *Disk {
 	res.SelfLink = dcl.FlattenString(m["selfLink"])
 	res.Description = dcl.FlattenString(m["description"])
 	res.DiskEncryptionKey = flattenDiskEncryptionKey(c, m["diskEncryptionKey"])
-	res.GuestOsFeature = flattenDiskGuestOsFeatureSlice(c, m["guestOsFeature"])
+	res.GuestOSFeature = flattenDiskGuestOSFeatureSlice(c, m["guestOSFeature"])
 	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	res.LabelFingerprint = dcl.FlattenString(m["labelFingerprint"])
 	res.License = dcl.FlattenStringSlice(m["license"])
@@ -1807,7 +1807,7 @@ func flattenDisk(c *Client, i interface{}) *Disk {
 	res.Status = flattenDiskStatusEnum(m["status"])
 	res.Options = dcl.FlattenString(m["options"])
 	res.Licenses = dcl.FlattenStringSlice(m["licenses"])
-	res.GuestOsFeatures = flattenDiskGuestOsFeaturesSlice(c, m["guestOsFeatures"])
+	res.GuestOSFeatures = flattenDiskGuestOSFeaturesSlice(c, m["guestOsFeatures"])
 	res.LastAttachTimestamp = dcl.FlattenString(m["lastAttachTimestamp"])
 	res.LastDetachTimestamp = dcl.FlattenString(m["lastDetachTimestamp"])
 	res.Users = dcl.FlattenStringSlice(m["users"])
@@ -1821,16 +1821,16 @@ func flattenDisk(c *Client, i interface{}) *Disk {
 	return res
 }
 
-// expandDiskGuestOsFeatureMap expands the contents of DiskGuestOsFeature into a JSON
+// expandDiskGuestOSFeatureMap expands the contents of DiskGuestOSFeature into a JSON
 // request object.
-func expandDiskGuestOsFeatureMap(c *Client, f map[string]DiskGuestOsFeature) (map[string]interface{}, error) {
+func expandDiskGuestOSFeatureMap(c *Client, f map[string]DiskGuestOSFeature) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDiskGuestOsFeature(c, &item)
+		i, err := expandDiskGuestOSFeature(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -1842,16 +1842,16 @@ func expandDiskGuestOsFeatureMap(c *Client, f map[string]DiskGuestOsFeature) (ma
 	return items, nil
 }
 
-// expandDiskGuestOsFeatureSlice expands the contents of DiskGuestOsFeature into a JSON
+// expandDiskGuestOSFeatureSlice expands the contents of DiskGuestOSFeature into a JSON
 // request object.
-func expandDiskGuestOsFeatureSlice(c *Client, f []DiskGuestOsFeature) ([]map[string]interface{}, error) {
+func expandDiskGuestOSFeatureSlice(c *Client, f []DiskGuestOSFeature) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDiskGuestOsFeature(c, &item)
+		i, err := expandDiskGuestOSFeature(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -1862,49 +1862,49 @@ func expandDiskGuestOsFeatureSlice(c *Client, f []DiskGuestOsFeature) ([]map[str
 	return items, nil
 }
 
-// flattenDiskGuestOsFeatureMap flattens the contents of DiskGuestOsFeature from a JSON
+// flattenDiskGuestOSFeatureMap flattens the contents of DiskGuestOSFeature from a JSON
 // response object.
-func flattenDiskGuestOsFeatureMap(c *Client, i interface{}) map[string]DiskGuestOsFeature {
+func flattenDiskGuestOSFeatureMap(c *Client, i interface{}) map[string]DiskGuestOSFeature {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]DiskGuestOsFeature{}
+		return map[string]DiskGuestOSFeature{}
 	}
 
 	if len(a) == 0 {
-		return map[string]DiskGuestOsFeature{}
+		return map[string]DiskGuestOSFeature{}
 	}
 
-	items := make(map[string]DiskGuestOsFeature)
+	items := make(map[string]DiskGuestOSFeature)
 	for k, item := range a {
-		items[k] = *flattenDiskGuestOsFeature(c, item.(map[string]interface{}))
+		items[k] = *flattenDiskGuestOSFeature(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenDiskGuestOsFeatureSlice flattens the contents of DiskGuestOsFeature from a JSON
+// flattenDiskGuestOSFeatureSlice flattens the contents of DiskGuestOSFeature from a JSON
 // response object.
-func flattenDiskGuestOsFeatureSlice(c *Client, i interface{}) []DiskGuestOsFeature {
+func flattenDiskGuestOSFeatureSlice(c *Client, i interface{}) []DiskGuestOSFeature {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []DiskGuestOsFeature{}
+		return []DiskGuestOSFeature{}
 	}
 
 	if len(a) == 0 {
-		return []DiskGuestOsFeature{}
+		return []DiskGuestOSFeature{}
 	}
 
-	items := make([]DiskGuestOsFeature, 0, len(a))
+	items := make([]DiskGuestOSFeature, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDiskGuestOsFeature(c, item.(map[string]interface{})))
+		items = append(items, *flattenDiskGuestOSFeature(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandDiskGuestOsFeature expands an instance of DiskGuestOsFeature into a JSON
+// expandDiskGuestOSFeature expands an instance of DiskGuestOSFeature into a JSON
 // request object.
-func expandDiskGuestOsFeature(c *Client, f *DiskGuestOsFeature) (map[string]interface{}, error) {
+func expandDiskGuestOSFeature(c *Client, f *DiskGuestOSFeature) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1920,21 +1920,21 @@ func expandDiskGuestOsFeature(c *Client, f *DiskGuestOsFeature) (map[string]inte
 	return m, nil
 }
 
-// flattenDiskGuestOsFeature flattens an instance of DiskGuestOsFeature from a JSON
+// flattenDiskGuestOSFeature flattens an instance of DiskGuestOSFeature from a JSON
 // response object.
-func flattenDiskGuestOsFeature(c *Client, i interface{}) *DiskGuestOsFeature {
+func flattenDiskGuestOSFeature(c *Client, i interface{}) *DiskGuestOSFeature {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &DiskGuestOsFeature{}
+	r := &DiskGuestOSFeature{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyDiskGuestOsFeature
+		return EmptyDiskGuestOSFeature
 	}
-	r.Type = flattenDiskGuestOsFeatureTypeEnum(m["type"])
-	r.TypeAlt = flattenDiskGuestOsFeatureTypeAltEnumSlice(c, m["typeAlt"])
+	r.Type = flattenDiskGuestOSFeatureTypeEnum(m["type"])
+	r.TypeAlt = flattenDiskGuestOSFeatureTypeAltEnumSlice(c, m["typeAlt"])
 
 	return r
 }
@@ -2065,16 +2065,16 @@ func flattenDiskEncryptionKey(c *Client, i interface{}) *DiskEncryptionKey {
 	return r
 }
 
-// expandDiskGuestOsFeaturesMap expands the contents of DiskGuestOsFeatures into a JSON
+// expandDiskGuestOSFeaturesMap expands the contents of DiskGuestOSFeatures into a JSON
 // request object.
-func expandDiskGuestOsFeaturesMap(c *Client, f map[string]DiskGuestOsFeatures) (map[string]interface{}, error) {
+func expandDiskGuestOSFeaturesMap(c *Client, f map[string]DiskGuestOSFeatures) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandDiskGuestOsFeatures(c, &item)
+		i, err := expandDiskGuestOSFeatures(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -2086,16 +2086,16 @@ func expandDiskGuestOsFeaturesMap(c *Client, f map[string]DiskGuestOsFeatures) (
 	return items, nil
 }
 
-// expandDiskGuestOsFeaturesSlice expands the contents of DiskGuestOsFeatures into a JSON
+// expandDiskGuestOSFeaturesSlice expands the contents of DiskGuestOSFeatures into a JSON
 // request object.
-func expandDiskGuestOsFeaturesSlice(c *Client, f []DiskGuestOsFeatures) ([]map[string]interface{}, error) {
+func expandDiskGuestOSFeaturesSlice(c *Client, f []DiskGuestOSFeatures) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandDiskGuestOsFeatures(c, &item)
+		i, err := expandDiskGuestOSFeatures(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -2106,49 +2106,49 @@ func expandDiskGuestOsFeaturesSlice(c *Client, f []DiskGuestOsFeatures) ([]map[s
 	return items, nil
 }
 
-// flattenDiskGuestOsFeaturesMap flattens the contents of DiskGuestOsFeatures from a JSON
+// flattenDiskGuestOSFeaturesMap flattens the contents of DiskGuestOSFeatures from a JSON
 // response object.
-func flattenDiskGuestOsFeaturesMap(c *Client, i interface{}) map[string]DiskGuestOsFeatures {
+func flattenDiskGuestOSFeaturesMap(c *Client, i interface{}) map[string]DiskGuestOSFeatures {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]DiskGuestOsFeatures{}
+		return map[string]DiskGuestOSFeatures{}
 	}
 
 	if len(a) == 0 {
-		return map[string]DiskGuestOsFeatures{}
+		return map[string]DiskGuestOSFeatures{}
 	}
 
-	items := make(map[string]DiskGuestOsFeatures)
+	items := make(map[string]DiskGuestOSFeatures)
 	for k, item := range a {
-		items[k] = *flattenDiskGuestOsFeatures(c, item.(map[string]interface{}))
+		items[k] = *flattenDiskGuestOSFeatures(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenDiskGuestOsFeaturesSlice flattens the contents of DiskGuestOsFeatures from a JSON
+// flattenDiskGuestOSFeaturesSlice flattens the contents of DiskGuestOSFeatures from a JSON
 // response object.
-func flattenDiskGuestOsFeaturesSlice(c *Client, i interface{}) []DiskGuestOsFeatures {
+func flattenDiskGuestOSFeaturesSlice(c *Client, i interface{}) []DiskGuestOSFeatures {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []DiskGuestOsFeatures{}
+		return []DiskGuestOSFeatures{}
 	}
 
 	if len(a) == 0 {
-		return []DiskGuestOsFeatures{}
+		return []DiskGuestOSFeatures{}
 	}
 
-	items := make([]DiskGuestOsFeatures, 0, len(a))
+	items := make([]DiskGuestOSFeatures, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDiskGuestOsFeatures(c, item.(map[string]interface{})))
+		items = append(items, *flattenDiskGuestOSFeatures(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandDiskGuestOsFeatures expands an instance of DiskGuestOsFeatures into a JSON
+// expandDiskGuestOSFeatures expands an instance of DiskGuestOSFeatures into a JSON
 // request object.
-func expandDiskGuestOsFeatures(c *Client, f *DiskGuestOsFeatures) (map[string]interface{}, error) {
+func expandDiskGuestOSFeatures(c *Client, f *DiskGuestOSFeatures) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2164,125 +2164,125 @@ func expandDiskGuestOsFeatures(c *Client, f *DiskGuestOsFeatures) (map[string]in
 	return m, nil
 }
 
-// flattenDiskGuestOsFeatures flattens an instance of DiskGuestOsFeatures from a JSON
+// flattenDiskGuestOSFeatures flattens an instance of DiskGuestOSFeatures from a JSON
 // response object.
-func flattenDiskGuestOsFeatures(c *Client, i interface{}) *DiskGuestOsFeatures {
+func flattenDiskGuestOSFeatures(c *Client, i interface{}) *DiskGuestOSFeatures {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &DiskGuestOsFeatures{}
+	r := &DiskGuestOSFeatures{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyDiskGuestOsFeatures
+		return EmptyDiskGuestOSFeatures
 	}
-	r.Type = flattenDiskGuestOsFeaturesTypeEnum(m["type"])
-	r.TypeAlts = flattenDiskGuestOsFeaturesTypeAltsEnumSlice(c, m["typeAlts"])
+	r.Type = flattenDiskGuestOSFeaturesTypeEnum(m["type"])
+	r.TypeAlts = flattenDiskGuestOSFeaturesTypeAltsEnumSlice(c, m["typeAlts"])
 
 	return r
 }
 
-// flattenDiskGuestOsFeatureTypeEnumMap flattens the contents of DiskGuestOsFeatureTypeEnum from a JSON
+// flattenDiskGuestOSFeatureTypeEnumMap flattens the contents of DiskGuestOSFeatureTypeEnum from a JSON
 // response object.
-func flattenDiskGuestOsFeatureTypeEnumMap(c *Client, i interface{}) map[string]DiskGuestOsFeatureTypeEnum {
+func flattenDiskGuestOSFeatureTypeEnumMap(c *Client, i interface{}) map[string]DiskGuestOSFeatureTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]DiskGuestOsFeatureTypeEnum{}
+		return map[string]DiskGuestOSFeatureTypeEnum{}
 	}
 
 	if len(a) == 0 {
-		return map[string]DiskGuestOsFeatureTypeEnum{}
+		return map[string]DiskGuestOSFeatureTypeEnum{}
 	}
 
-	items := make(map[string]DiskGuestOsFeatureTypeEnum)
+	items := make(map[string]DiskGuestOSFeatureTypeEnum)
 	for k, item := range a {
-		items[k] = *flattenDiskGuestOsFeatureTypeEnum(item.(interface{}))
+		items[k] = *flattenDiskGuestOSFeatureTypeEnum(item.(interface{}))
 	}
 
 	return items
 }
 
-// flattenDiskGuestOsFeatureTypeEnumSlice flattens the contents of DiskGuestOsFeatureTypeEnum from a JSON
+// flattenDiskGuestOSFeatureTypeEnumSlice flattens the contents of DiskGuestOSFeatureTypeEnum from a JSON
 // response object.
-func flattenDiskGuestOsFeatureTypeEnumSlice(c *Client, i interface{}) []DiskGuestOsFeatureTypeEnum {
+func flattenDiskGuestOSFeatureTypeEnumSlice(c *Client, i interface{}) []DiskGuestOSFeatureTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []DiskGuestOsFeatureTypeEnum{}
+		return []DiskGuestOSFeatureTypeEnum{}
 	}
 
 	if len(a) == 0 {
-		return []DiskGuestOsFeatureTypeEnum{}
+		return []DiskGuestOSFeatureTypeEnum{}
 	}
 
-	items := make([]DiskGuestOsFeatureTypeEnum, 0, len(a))
+	items := make([]DiskGuestOSFeatureTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDiskGuestOsFeatureTypeEnum(item.(interface{})))
+		items = append(items, *flattenDiskGuestOSFeatureTypeEnum(item.(interface{})))
 	}
 
 	return items
 }
 
-// flattenDiskGuestOsFeatureTypeEnum asserts that an interface is a string, and returns a
-// pointer to a *DiskGuestOsFeatureTypeEnum with the same value as that string.
-func flattenDiskGuestOsFeatureTypeEnum(i interface{}) *DiskGuestOsFeatureTypeEnum {
+// flattenDiskGuestOSFeatureTypeEnum asserts that an interface is a string, and returns a
+// pointer to a *DiskGuestOSFeatureTypeEnum with the same value as that string.
+func flattenDiskGuestOSFeatureTypeEnum(i interface{}) *DiskGuestOSFeatureTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DiskGuestOsFeatureTypeEnumRef("")
+		return DiskGuestOSFeatureTypeEnumRef("")
 	}
 
-	return DiskGuestOsFeatureTypeEnumRef(s)
+	return DiskGuestOSFeatureTypeEnumRef(s)
 }
 
-// flattenDiskGuestOsFeatureTypeAltEnumMap flattens the contents of DiskGuestOsFeatureTypeAltEnum from a JSON
+// flattenDiskGuestOSFeatureTypeAltEnumMap flattens the contents of DiskGuestOSFeatureTypeAltEnum from a JSON
 // response object.
-func flattenDiskGuestOsFeatureTypeAltEnumMap(c *Client, i interface{}) map[string]DiskGuestOsFeatureTypeAltEnum {
+func flattenDiskGuestOSFeatureTypeAltEnumMap(c *Client, i interface{}) map[string]DiskGuestOSFeatureTypeAltEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]DiskGuestOsFeatureTypeAltEnum{}
+		return map[string]DiskGuestOSFeatureTypeAltEnum{}
 	}
 
 	if len(a) == 0 {
-		return map[string]DiskGuestOsFeatureTypeAltEnum{}
+		return map[string]DiskGuestOSFeatureTypeAltEnum{}
 	}
 
-	items := make(map[string]DiskGuestOsFeatureTypeAltEnum)
+	items := make(map[string]DiskGuestOSFeatureTypeAltEnum)
 	for k, item := range a {
-		items[k] = *flattenDiskGuestOsFeatureTypeAltEnum(item.(interface{}))
+		items[k] = *flattenDiskGuestOSFeatureTypeAltEnum(item.(interface{}))
 	}
 
 	return items
 }
 
-// flattenDiskGuestOsFeatureTypeAltEnumSlice flattens the contents of DiskGuestOsFeatureTypeAltEnum from a JSON
+// flattenDiskGuestOSFeatureTypeAltEnumSlice flattens the contents of DiskGuestOSFeatureTypeAltEnum from a JSON
 // response object.
-func flattenDiskGuestOsFeatureTypeAltEnumSlice(c *Client, i interface{}) []DiskGuestOsFeatureTypeAltEnum {
+func flattenDiskGuestOSFeatureTypeAltEnumSlice(c *Client, i interface{}) []DiskGuestOSFeatureTypeAltEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []DiskGuestOsFeatureTypeAltEnum{}
+		return []DiskGuestOSFeatureTypeAltEnum{}
 	}
 
 	if len(a) == 0 {
-		return []DiskGuestOsFeatureTypeAltEnum{}
+		return []DiskGuestOSFeatureTypeAltEnum{}
 	}
 
-	items := make([]DiskGuestOsFeatureTypeAltEnum, 0, len(a))
+	items := make([]DiskGuestOSFeatureTypeAltEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDiskGuestOsFeatureTypeAltEnum(item.(interface{})))
+		items = append(items, *flattenDiskGuestOSFeatureTypeAltEnum(item.(interface{})))
 	}
 
 	return items
 }
 
-// flattenDiskGuestOsFeatureTypeAltEnum asserts that an interface is a string, and returns a
-// pointer to a *DiskGuestOsFeatureTypeAltEnum with the same value as that string.
-func flattenDiskGuestOsFeatureTypeAltEnum(i interface{}) *DiskGuestOsFeatureTypeAltEnum {
+// flattenDiskGuestOSFeatureTypeAltEnum asserts that an interface is a string, and returns a
+// pointer to a *DiskGuestOSFeatureTypeAltEnum with the same value as that string.
+func flattenDiskGuestOSFeatureTypeAltEnum(i interface{}) *DiskGuestOSFeatureTypeAltEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DiskGuestOsFeatureTypeAltEnumRef("")
+		return DiskGuestOSFeatureTypeAltEnumRef("")
 	}
 
-	return DiskGuestOsFeatureTypeAltEnumRef(s)
+	return DiskGuestOSFeatureTypeAltEnumRef(s)
 }
 
 // flattenDiskStatusEnumMap flattens the contents of DiskStatusEnum from a JSON
@@ -2336,106 +2336,106 @@ func flattenDiskStatusEnum(i interface{}) *DiskStatusEnum {
 	return DiskStatusEnumRef(s)
 }
 
-// flattenDiskGuestOsFeaturesTypeEnumMap flattens the contents of DiskGuestOsFeaturesTypeEnum from a JSON
+// flattenDiskGuestOSFeaturesTypeEnumMap flattens the contents of DiskGuestOSFeaturesTypeEnum from a JSON
 // response object.
-func flattenDiskGuestOsFeaturesTypeEnumMap(c *Client, i interface{}) map[string]DiskGuestOsFeaturesTypeEnum {
+func flattenDiskGuestOSFeaturesTypeEnumMap(c *Client, i interface{}) map[string]DiskGuestOSFeaturesTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]DiskGuestOsFeaturesTypeEnum{}
+		return map[string]DiskGuestOSFeaturesTypeEnum{}
 	}
 
 	if len(a) == 0 {
-		return map[string]DiskGuestOsFeaturesTypeEnum{}
+		return map[string]DiskGuestOSFeaturesTypeEnum{}
 	}
 
-	items := make(map[string]DiskGuestOsFeaturesTypeEnum)
+	items := make(map[string]DiskGuestOSFeaturesTypeEnum)
 	for k, item := range a {
-		items[k] = *flattenDiskGuestOsFeaturesTypeEnum(item.(interface{}))
+		items[k] = *flattenDiskGuestOSFeaturesTypeEnum(item.(interface{}))
 	}
 
 	return items
 }
 
-// flattenDiskGuestOsFeaturesTypeEnumSlice flattens the contents of DiskGuestOsFeaturesTypeEnum from a JSON
+// flattenDiskGuestOSFeaturesTypeEnumSlice flattens the contents of DiskGuestOSFeaturesTypeEnum from a JSON
 // response object.
-func flattenDiskGuestOsFeaturesTypeEnumSlice(c *Client, i interface{}) []DiskGuestOsFeaturesTypeEnum {
+func flattenDiskGuestOSFeaturesTypeEnumSlice(c *Client, i interface{}) []DiskGuestOSFeaturesTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []DiskGuestOsFeaturesTypeEnum{}
+		return []DiskGuestOSFeaturesTypeEnum{}
 	}
 
 	if len(a) == 0 {
-		return []DiskGuestOsFeaturesTypeEnum{}
+		return []DiskGuestOSFeaturesTypeEnum{}
 	}
 
-	items := make([]DiskGuestOsFeaturesTypeEnum, 0, len(a))
+	items := make([]DiskGuestOSFeaturesTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDiskGuestOsFeaturesTypeEnum(item.(interface{})))
+		items = append(items, *flattenDiskGuestOSFeaturesTypeEnum(item.(interface{})))
 	}
 
 	return items
 }
 
-// flattenDiskGuestOsFeaturesTypeEnum asserts that an interface is a string, and returns a
-// pointer to a *DiskGuestOsFeaturesTypeEnum with the same value as that string.
-func flattenDiskGuestOsFeaturesTypeEnum(i interface{}) *DiskGuestOsFeaturesTypeEnum {
+// flattenDiskGuestOSFeaturesTypeEnum asserts that an interface is a string, and returns a
+// pointer to a *DiskGuestOSFeaturesTypeEnum with the same value as that string.
+func flattenDiskGuestOSFeaturesTypeEnum(i interface{}) *DiskGuestOSFeaturesTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DiskGuestOsFeaturesTypeEnumRef("")
+		return DiskGuestOSFeaturesTypeEnumRef("")
 	}
 
-	return DiskGuestOsFeaturesTypeEnumRef(s)
+	return DiskGuestOSFeaturesTypeEnumRef(s)
 }
 
-// flattenDiskGuestOsFeaturesTypeAltsEnumMap flattens the contents of DiskGuestOsFeaturesTypeAltsEnum from a JSON
+// flattenDiskGuestOSFeaturesTypeAltsEnumMap flattens the contents of DiskGuestOSFeaturesTypeAltsEnum from a JSON
 // response object.
-func flattenDiskGuestOsFeaturesTypeAltsEnumMap(c *Client, i interface{}) map[string]DiskGuestOsFeaturesTypeAltsEnum {
+func flattenDiskGuestOSFeaturesTypeAltsEnumMap(c *Client, i interface{}) map[string]DiskGuestOSFeaturesTypeAltsEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]DiskGuestOsFeaturesTypeAltsEnum{}
+		return map[string]DiskGuestOSFeaturesTypeAltsEnum{}
 	}
 
 	if len(a) == 0 {
-		return map[string]DiskGuestOsFeaturesTypeAltsEnum{}
+		return map[string]DiskGuestOSFeaturesTypeAltsEnum{}
 	}
 
-	items := make(map[string]DiskGuestOsFeaturesTypeAltsEnum)
+	items := make(map[string]DiskGuestOSFeaturesTypeAltsEnum)
 	for k, item := range a {
-		items[k] = *flattenDiskGuestOsFeaturesTypeAltsEnum(item.(interface{}))
+		items[k] = *flattenDiskGuestOSFeaturesTypeAltsEnum(item.(interface{}))
 	}
 
 	return items
 }
 
-// flattenDiskGuestOsFeaturesTypeAltsEnumSlice flattens the contents of DiskGuestOsFeaturesTypeAltsEnum from a JSON
+// flattenDiskGuestOSFeaturesTypeAltsEnumSlice flattens the contents of DiskGuestOSFeaturesTypeAltsEnum from a JSON
 // response object.
-func flattenDiskGuestOsFeaturesTypeAltsEnumSlice(c *Client, i interface{}) []DiskGuestOsFeaturesTypeAltsEnum {
+func flattenDiskGuestOSFeaturesTypeAltsEnumSlice(c *Client, i interface{}) []DiskGuestOSFeaturesTypeAltsEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []DiskGuestOsFeaturesTypeAltsEnum{}
+		return []DiskGuestOSFeaturesTypeAltsEnum{}
 	}
 
 	if len(a) == 0 {
-		return []DiskGuestOsFeaturesTypeAltsEnum{}
+		return []DiskGuestOSFeaturesTypeAltsEnum{}
 	}
 
-	items := make([]DiskGuestOsFeaturesTypeAltsEnum, 0, len(a))
+	items := make([]DiskGuestOSFeaturesTypeAltsEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenDiskGuestOsFeaturesTypeAltsEnum(item.(interface{})))
+		items = append(items, *flattenDiskGuestOSFeaturesTypeAltsEnum(item.(interface{})))
 	}
 
 	return items
 }
 
-// flattenDiskGuestOsFeaturesTypeAltsEnum asserts that an interface is a string, and returns a
-// pointer to a *DiskGuestOsFeaturesTypeAltsEnum with the same value as that string.
-func flattenDiskGuestOsFeaturesTypeAltsEnum(i interface{}) *DiskGuestOsFeaturesTypeAltsEnum {
+// flattenDiskGuestOSFeaturesTypeAltsEnum asserts that an interface is a string, and returns a
+// pointer to a *DiskGuestOSFeaturesTypeAltsEnum with the same value as that string.
+func flattenDiskGuestOSFeaturesTypeAltsEnum(i interface{}) *DiskGuestOSFeaturesTypeAltsEnum {
 	s, ok := i.(string)
 	if !ok {
-		return DiskGuestOsFeaturesTypeAltsEnumRef("")
+		return DiskGuestOSFeaturesTypeAltsEnumRef("")
 	}
 
-	return DiskGuestOsFeaturesTypeAltsEnumRef(s)
+	return DiskGuestOSFeaturesTypeAltsEnumRef(s)
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource

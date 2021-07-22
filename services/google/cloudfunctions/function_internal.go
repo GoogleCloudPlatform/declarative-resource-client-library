@@ -467,28 +467,28 @@ func canonicalizeFunctionInitialState(rawInitial, rawDesired *Function) (*Functi
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
 	if !dcl.IsZeroValue(rawInitial.SourceArchiveUrl) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.SourceRepository) {
 			rawInitial.SourceArchiveUrl = dcl.String("")
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.SourceRepository) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.SourceArchiveUrl) {
 			rawInitial.SourceRepository = EmptyFunctionSourceRepository
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.EventTrigger) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.HttpsTrigger) {
 			rawInitial.EventTrigger = EmptyFunctionEventTrigger
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.HttpsTrigger) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.EventTrigger) {
 			rawInitial.HttpsTrigger = EmptyFunctionHttpsTrigger
 		}
@@ -517,7 +517,7 @@ func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...
 	}
 
 	if rawDesired.SourceArchiveUrl != nil || rawInitial.SourceArchiveUrl != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.SourceRepository) {
 			rawDesired.SourceArchiveUrl = nil
 			rawInitial.SourceArchiveUrl = nil
@@ -525,7 +525,7 @@ func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...
 	}
 
 	if rawDesired.SourceRepository != nil || rawInitial.SourceRepository != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.SourceArchiveUrl) {
 			rawDesired.SourceRepository = nil
 			rawInitial.SourceRepository = nil
@@ -533,7 +533,7 @@ func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...
 	}
 
 	if rawDesired.EventTrigger != nil || rawInitial.EventTrigger != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.HttpsTrigger) {
 			rawDesired.EventTrigger = nil
 			rawInitial.EventTrigger = nil
@@ -541,7 +541,7 @@ func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...
 	}
 
 	if rawDesired.HttpsTrigger != nil || rawInitial.HttpsTrigger != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.EventTrigger) {
 			rawDesired.HttpsTrigger = nil
 			rawInitial.HttpsTrigger = nil

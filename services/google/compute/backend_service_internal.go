@@ -655,14 +655,14 @@ func canonicalizeBackendServiceInitialState(rawInitial, rawDesired *BackendServi
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
 	if !dcl.IsZeroValue(rawInitial.Iap) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.CdnPolicy) {
 			rawInitial.Iap = EmptyBackendServiceIap
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.CdnPolicy) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.Iap) {
 			rawInitial.CdnPolicy = EmptyBackendServiceCdnPolicy
 		}
@@ -698,7 +698,7 @@ func canonicalizeBackendServiceDesiredState(rawDesired, rawInitial *BackendServi
 	}
 
 	if rawDesired.Iap != nil || rawInitial.Iap != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.CdnPolicy) {
 			rawDesired.Iap = nil
 			rawInitial.Iap = nil
@@ -706,7 +706,7 @@ func canonicalizeBackendServiceDesiredState(rawDesired, rawInitial *BackendServi
 	}
 
 	if rawDesired.CdnPolicy != nil || rawInitial.CdnPolicy != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.Iap) {
 			rawDesired.CdnPolicy = nil
 			rawInitial.CdnPolicy = nil

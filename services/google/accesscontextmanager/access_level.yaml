@@ -125,13 +125,13 @@ components:
                           - ENCRYPTED
                       osConstraints:
                         type: array
-                        x-dcl-go-name: OsConstraints
+                        x-dcl-go-name: OSConstraints
                         description: A list of allowed OS versions. An empty list
                           allows all types and all versions.
                         x-dcl-list-type: list
                         items:
                           type: object
-                          x-dcl-go-type: AccessLevelBasicConditionsDevicePolicyOsConstraints
+                          x-dcl-go-type: AccessLevelBasicConditionsDevicePolicyOSConstraints
                           properties:
                             minimumVersion:
                               type: string
@@ -141,8 +141,8 @@ components:
                                 Format: "major.minor.patch" such as "10.5.301", "9.2.1".'
                             osType:
                               type: string
-                              x-dcl-go-name: OsType
-                              x-dcl-go-type: AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum
+                              x-dcl-go-name: OSType
+                              x-dcl-go-type: AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum
                               description: 'The operating system type of the device.
                                 Possible values: OS_UNSPECIFIED, DESKTOP_MAC, DESKTOP_WINDOWS,
                                 DESKTOP_LINUX, DESKTOP_CHROME_OS'
@@ -152,9 +152,9 @@ components:
                               - DESKTOP_WINDOWS
                               - DESKTOP_LINUX
                               - DESKTOP_CHROME_OS
-                            requireVerifiedChromeOs:
+                            requireVerifiedChromeOS:
                               type: boolean
-                              x-dcl-go-name: RequireVerifiedChromeOs
+                              x-dcl-go-name: RequireVerifiedChromeOS
                               description: Only allows requests from devices with
                                 a verified Chrome OS. Verifications includes requirements
                                 that the device is enterprise-managed, conformant

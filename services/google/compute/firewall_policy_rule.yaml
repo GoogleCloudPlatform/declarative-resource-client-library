@@ -52,11 +52,15 @@ components:
   schemas:
     FirewallPolicyRule:
       title: FirewallPolicyRule
-      x-dcl-id: locations/global/firewallPolicies/{{firewall_policy}}/getRule?priority={{priority}}
+      x-dcl-id: locations/global/firewallPolicies/{{firewall_policy}}/rules/{{priority}}
       x-dcl-locations:
       - global
       type: object
       required:
+      - priority
+      - match
+      - action
+      - direction
       - firewallPolicy
       properties:
         action:
@@ -113,12 +117,15 @@ components:
           x-dcl-go-type: FirewallPolicyRuleMatch
           description: A match condition that incoming traffic is evaluated against.
             If it evaluates to true, the corresponding 'action' is enforced.
+          required:
+          - layer4Configs
           properties:
             destIPRanges:
               type: array
               x-dcl-go-name: DestIPRanges
               description: CIDR IP address range. Maximum number of destination CIDR
                 IP ranges allowed is 256.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -131,6 +138,8 @@ components:
               items:
                 type: object
                 x-dcl-go-type: FirewallPolicyRuleMatchLayer4Configs
+                required:
+                - ipProtocol
                 properties:
                   ipProtocol:
                     type: string
@@ -157,6 +166,7 @@ components:
               x-dcl-go-name: SrcIPRanges
               description: CIDR IP address range. Maximum number of source CIDR IP
                 ranges allowed is 256.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string

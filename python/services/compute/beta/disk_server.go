@@ -25,25 +25,25 @@ import (
 // Server implements the gRPC interface for Disk.
 type DiskServer struct{}
 
-// ProtoToDiskGuestOsFeatureTypeEnum converts a DiskGuestOsFeatureTypeEnum enum from its proto representation.
-func ProtoToComputeBetaDiskGuestOsFeatureTypeEnum(e betapb.ComputeBetaDiskGuestOsFeatureTypeEnum) *beta.DiskGuestOsFeatureTypeEnum {
+// ProtoToDiskGuestOSFeatureTypeEnum converts a DiskGuestOSFeatureTypeEnum enum from its proto representation.
+func ProtoToComputeBetaDiskGuestOSFeatureTypeEnum(e betapb.ComputeBetaDiskGuestOSFeatureTypeEnum) *beta.DiskGuestOSFeatureTypeEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := betapb.ComputeBetaDiskGuestOsFeatureTypeEnum_name[int32(e)]; ok {
-		e := beta.DiskGuestOsFeatureTypeEnum(n[len("ComputeBetaDiskGuestOsFeatureTypeEnum"):])
+	if n, ok := betapb.ComputeBetaDiskGuestOSFeatureTypeEnum_name[int32(e)]; ok {
+		e := beta.DiskGuestOSFeatureTypeEnum(n[len("ComputeBetaDiskGuestOSFeatureTypeEnum"):])
 		return &e
 	}
 	return nil
 }
 
-// ProtoToDiskGuestOsFeatureTypeAltEnum converts a DiskGuestOsFeatureTypeAltEnum enum from its proto representation.
-func ProtoToComputeBetaDiskGuestOsFeatureTypeAltEnum(e betapb.ComputeBetaDiskGuestOsFeatureTypeAltEnum) *beta.DiskGuestOsFeatureTypeAltEnum {
+// ProtoToDiskGuestOSFeatureTypeAltEnum converts a DiskGuestOSFeatureTypeAltEnum enum from its proto representation.
+func ProtoToComputeBetaDiskGuestOSFeatureTypeAltEnum(e betapb.ComputeBetaDiskGuestOSFeatureTypeAltEnum) *beta.DiskGuestOSFeatureTypeAltEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := betapb.ComputeBetaDiskGuestOsFeatureTypeAltEnum_name[int32(e)]; ok {
-		e := beta.DiskGuestOsFeatureTypeAltEnum(n[len("ComputeBetaDiskGuestOsFeatureTypeAltEnum"):])
+	if n, ok := betapb.ComputeBetaDiskGuestOSFeatureTypeAltEnum_name[int32(e)]; ok {
+		e := beta.DiskGuestOSFeatureTypeAltEnum(n[len("ComputeBetaDiskGuestOSFeatureTypeAltEnum"):])
 		return &e
 	}
 	return nil
@@ -61,40 +61,40 @@ func ProtoToComputeBetaDiskStatusEnum(e betapb.ComputeBetaDiskStatusEnum) *beta.
 	return nil
 }
 
-// ProtoToDiskGuestOsFeaturesTypeEnum converts a DiskGuestOsFeaturesTypeEnum enum from its proto representation.
-func ProtoToComputeBetaDiskGuestOsFeaturesTypeEnum(e betapb.ComputeBetaDiskGuestOsFeaturesTypeEnum) *beta.DiskGuestOsFeaturesTypeEnum {
+// ProtoToDiskGuestOSFeaturesTypeEnum converts a DiskGuestOSFeaturesTypeEnum enum from its proto representation.
+func ProtoToComputeBetaDiskGuestOSFeaturesTypeEnum(e betapb.ComputeBetaDiskGuestOSFeaturesTypeEnum) *beta.DiskGuestOSFeaturesTypeEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := betapb.ComputeBetaDiskGuestOsFeaturesTypeEnum_name[int32(e)]; ok {
-		e := beta.DiskGuestOsFeaturesTypeEnum(n[len("ComputeBetaDiskGuestOsFeaturesTypeEnum"):])
+	if n, ok := betapb.ComputeBetaDiskGuestOSFeaturesTypeEnum_name[int32(e)]; ok {
+		e := beta.DiskGuestOSFeaturesTypeEnum(n[len("ComputeBetaDiskGuestOSFeaturesTypeEnum"):])
 		return &e
 	}
 	return nil
 }
 
-// ProtoToDiskGuestOsFeaturesTypeAltsEnum converts a DiskGuestOsFeaturesTypeAltsEnum enum from its proto representation.
-func ProtoToComputeBetaDiskGuestOsFeaturesTypeAltsEnum(e betapb.ComputeBetaDiskGuestOsFeaturesTypeAltsEnum) *beta.DiskGuestOsFeaturesTypeAltsEnum {
+// ProtoToDiskGuestOSFeaturesTypeAltsEnum converts a DiskGuestOSFeaturesTypeAltsEnum enum from its proto representation.
+func ProtoToComputeBetaDiskGuestOSFeaturesTypeAltsEnum(e betapb.ComputeBetaDiskGuestOSFeaturesTypeAltsEnum) *beta.DiskGuestOSFeaturesTypeAltsEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := betapb.ComputeBetaDiskGuestOsFeaturesTypeAltsEnum_name[int32(e)]; ok {
-		e := beta.DiskGuestOsFeaturesTypeAltsEnum(n[len("ComputeBetaDiskGuestOsFeaturesTypeAltsEnum"):])
+	if n, ok := betapb.ComputeBetaDiskGuestOSFeaturesTypeAltsEnum_name[int32(e)]; ok {
+		e := beta.DiskGuestOSFeaturesTypeAltsEnum(n[len("ComputeBetaDiskGuestOSFeaturesTypeAltsEnum"):])
 		return &e
 	}
 	return nil
 }
 
-// ProtoToDiskGuestOsFeature converts a DiskGuestOsFeature resource from its proto representation.
-func ProtoToComputeBetaDiskGuestOsFeature(p *betapb.ComputeBetaDiskGuestOsFeature) *beta.DiskGuestOsFeature {
+// ProtoToDiskGuestOSFeature converts a DiskGuestOSFeature resource from its proto representation.
+func ProtoToComputeBetaDiskGuestOSFeature(p *betapb.ComputeBetaDiskGuestOSFeature) *beta.DiskGuestOSFeature {
 	if p == nil {
 		return nil
 	}
-	obj := &beta.DiskGuestOsFeature{
-		Type: ProtoToComputeBetaDiskGuestOsFeatureTypeEnum(p.GetType()),
+	obj := &beta.DiskGuestOSFeature{
+		Type: ProtoToComputeBetaDiskGuestOSFeatureTypeEnum(p.GetType()),
 	}
 	for _, r := range p.GetTypeAlt() {
-		obj.TypeAlt = append(obj.TypeAlt, *ProtoToComputeBetaDiskGuestOsFeatureTypeAltEnum(r))
+		obj.TypeAlt = append(obj.TypeAlt, *ProtoToComputeBetaDiskGuestOSFeatureTypeAltEnum(r))
 	}
 	return obj
 }
@@ -113,16 +113,16 @@ func ProtoToComputeBetaDiskEncryptionKey(p *betapb.ComputeBetaDiskEncryptionKey)
 	return obj
 }
 
-// ProtoToDiskGuestOsFeatures converts a DiskGuestOsFeatures resource from its proto representation.
-func ProtoToComputeBetaDiskGuestOsFeatures(p *betapb.ComputeBetaDiskGuestOsFeatures) *beta.DiskGuestOsFeatures {
+// ProtoToDiskGuestOSFeatures converts a DiskGuestOSFeatures resource from its proto representation.
+func ProtoToComputeBetaDiskGuestOSFeatures(p *betapb.ComputeBetaDiskGuestOSFeatures) *beta.DiskGuestOSFeatures {
 	if p == nil {
 		return nil
 	}
-	obj := &beta.DiskGuestOsFeatures{
-		Type: ProtoToComputeBetaDiskGuestOsFeaturesTypeEnum(p.GetType()),
+	obj := &beta.DiskGuestOSFeatures{
+		Type: ProtoToComputeBetaDiskGuestOSFeaturesTypeEnum(p.GetType()),
 	}
 	for _, r := range p.GetTypeAlts() {
-		obj.TypeAlts = append(obj.TypeAlts, *ProtoToComputeBetaDiskGuestOsFeaturesTypeAltsEnum(r))
+		obj.TypeAlts = append(obj.TypeAlts, *ProtoToComputeBetaDiskGuestOSFeaturesTypeAltsEnum(r))
 	}
 	return obj
 }
@@ -157,7 +157,7 @@ func ProtoToDisk(p *betapb.ComputeBetaDisk) *beta.Disk {
 		Location:                    dcl.StringOrNil(p.Location),
 	}
 	for _, r := range p.GetGuestOsFeature() {
-		obj.GuestOsFeature = append(obj.GuestOsFeature, *ProtoToComputeBetaDiskGuestOsFeature(r))
+		obj.GuestOSFeature = append(obj.GuestOSFeature, *ProtoToComputeBetaDiskGuestOSFeature(r))
 	}
 	for _, r := range p.GetLicense() {
 		obj.License = append(obj.License, r)
@@ -172,7 +172,7 @@ func ProtoToDisk(p *betapb.ComputeBetaDisk) *beta.Disk {
 		obj.Licenses = append(obj.Licenses, r)
 	}
 	for _, r := range p.GetGuestOsFeatures() {
-		obj.GuestOsFeatures = append(obj.GuestOsFeatures, *ProtoToComputeBetaDiskGuestOsFeatures(r))
+		obj.GuestOSFeatures = append(obj.GuestOSFeatures, *ProtoToComputeBetaDiskGuestOSFeatures(r))
 	}
 	for _, r := range p.GetUsers() {
 		obj.Users = append(obj.Users, r)
@@ -186,26 +186,26 @@ func ProtoToDisk(p *betapb.ComputeBetaDisk) *beta.Disk {
 	return obj
 }
 
-// DiskGuestOsFeatureTypeEnumToProto converts a DiskGuestOsFeatureTypeEnum enum to its proto representation.
-func ComputeBetaDiskGuestOsFeatureTypeEnumToProto(e *beta.DiskGuestOsFeatureTypeEnum) betapb.ComputeBetaDiskGuestOsFeatureTypeEnum {
+// DiskGuestOSFeatureTypeEnumToProto converts a DiskGuestOSFeatureTypeEnum enum to its proto representation.
+func ComputeBetaDiskGuestOSFeatureTypeEnumToProto(e *beta.DiskGuestOSFeatureTypeEnum) betapb.ComputeBetaDiskGuestOSFeatureTypeEnum {
 	if e == nil {
-		return betapb.ComputeBetaDiskGuestOsFeatureTypeEnum(0)
+		return betapb.ComputeBetaDiskGuestOSFeatureTypeEnum(0)
 	}
-	if v, ok := betapb.ComputeBetaDiskGuestOsFeatureTypeEnum_value["DiskGuestOsFeatureTypeEnum"+string(*e)]; ok {
-		return betapb.ComputeBetaDiskGuestOsFeatureTypeEnum(v)
+	if v, ok := betapb.ComputeBetaDiskGuestOSFeatureTypeEnum_value["DiskGuestOSFeatureTypeEnum"+string(*e)]; ok {
+		return betapb.ComputeBetaDiskGuestOSFeatureTypeEnum(v)
 	}
-	return betapb.ComputeBetaDiskGuestOsFeatureTypeEnum(0)
+	return betapb.ComputeBetaDiskGuestOSFeatureTypeEnum(0)
 }
 
-// DiskGuestOsFeatureTypeAltEnumToProto converts a DiskGuestOsFeatureTypeAltEnum enum to its proto representation.
-func ComputeBetaDiskGuestOsFeatureTypeAltEnumToProto(e *beta.DiskGuestOsFeatureTypeAltEnum) betapb.ComputeBetaDiskGuestOsFeatureTypeAltEnum {
+// DiskGuestOSFeatureTypeAltEnumToProto converts a DiskGuestOSFeatureTypeAltEnum enum to its proto representation.
+func ComputeBetaDiskGuestOSFeatureTypeAltEnumToProto(e *beta.DiskGuestOSFeatureTypeAltEnum) betapb.ComputeBetaDiskGuestOSFeatureTypeAltEnum {
 	if e == nil {
-		return betapb.ComputeBetaDiskGuestOsFeatureTypeAltEnum(0)
+		return betapb.ComputeBetaDiskGuestOSFeatureTypeAltEnum(0)
 	}
-	if v, ok := betapb.ComputeBetaDiskGuestOsFeatureTypeAltEnum_value["DiskGuestOsFeatureTypeAltEnum"+string(*e)]; ok {
-		return betapb.ComputeBetaDiskGuestOsFeatureTypeAltEnum(v)
+	if v, ok := betapb.ComputeBetaDiskGuestOSFeatureTypeAltEnum_value["DiskGuestOSFeatureTypeAltEnum"+string(*e)]; ok {
+		return betapb.ComputeBetaDiskGuestOSFeatureTypeAltEnum(v)
 	}
-	return betapb.ComputeBetaDiskGuestOsFeatureTypeAltEnum(0)
+	return betapb.ComputeBetaDiskGuestOSFeatureTypeAltEnum(0)
 }
 
 // DiskStatusEnumToProto converts a DiskStatusEnum enum to its proto representation.
@@ -219,38 +219,38 @@ func ComputeBetaDiskStatusEnumToProto(e *beta.DiskStatusEnum) betapb.ComputeBeta
 	return betapb.ComputeBetaDiskStatusEnum(0)
 }
 
-// DiskGuestOsFeaturesTypeEnumToProto converts a DiskGuestOsFeaturesTypeEnum enum to its proto representation.
-func ComputeBetaDiskGuestOsFeaturesTypeEnumToProto(e *beta.DiskGuestOsFeaturesTypeEnum) betapb.ComputeBetaDiskGuestOsFeaturesTypeEnum {
+// DiskGuestOSFeaturesTypeEnumToProto converts a DiskGuestOSFeaturesTypeEnum enum to its proto representation.
+func ComputeBetaDiskGuestOSFeaturesTypeEnumToProto(e *beta.DiskGuestOSFeaturesTypeEnum) betapb.ComputeBetaDiskGuestOSFeaturesTypeEnum {
 	if e == nil {
-		return betapb.ComputeBetaDiskGuestOsFeaturesTypeEnum(0)
+		return betapb.ComputeBetaDiskGuestOSFeaturesTypeEnum(0)
 	}
-	if v, ok := betapb.ComputeBetaDiskGuestOsFeaturesTypeEnum_value["DiskGuestOsFeaturesTypeEnum"+string(*e)]; ok {
-		return betapb.ComputeBetaDiskGuestOsFeaturesTypeEnum(v)
+	if v, ok := betapb.ComputeBetaDiskGuestOSFeaturesTypeEnum_value["DiskGuestOSFeaturesTypeEnum"+string(*e)]; ok {
+		return betapb.ComputeBetaDiskGuestOSFeaturesTypeEnum(v)
 	}
-	return betapb.ComputeBetaDiskGuestOsFeaturesTypeEnum(0)
+	return betapb.ComputeBetaDiskGuestOSFeaturesTypeEnum(0)
 }
 
-// DiskGuestOsFeaturesTypeAltsEnumToProto converts a DiskGuestOsFeaturesTypeAltsEnum enum to its proto representation.
-func ComputeBetaDiskGuestOsFeaturesTypeAltsEnumToProto(e *beta.DiskGuestOsFeaturesTypeAltsEnum) betapb.ComputeBetaDiskGuestOsFeaturesTypeAltsEnum {
+// DiskGuestOSFeaturesTypeAltsEnumToProto converts a DiskGuestOSFeaturesTypeAltsEnum enum to its proto representation.
+func ComputeBetaDiskGuestOSFeaturesTypeAltsEnumToProto(e *beta.DiskGuestOSFeaturesTypeAltsEnum) betapb.ComputeBetaDiskGuestOSFeaturesTypeAltsEnum {
 	if e == nil {
-		return betapb.ComputeBetaDiskGuestOsFeaturesTypeAltsEnum(0)
+		return betapb.ComputeBetaDiskGuestOSFeaturesTypeAltsEnum(0)
 	}
-	if v, ok := betapb.ComputeBetaDiskGuestOsFeaturesTypeAltsEnum_value["DiskGuestOsFeaturesTypeAltsEnum"+string(*e)]; ok {
-		return betapb.ComputeBetaDiskGuestOsFeaturesTypeAltsEnum(v)
+	if v, ok := betapb.ComputeBetaDiskGuestOSFeaturesTypeAltsEnum_value["DiskGuestOSFeaturesTypeAltsEnum"+string(*e)]; ok {
+		return betapb.ComputeBetaDiskGuestOSFeaturesTypeAltsEnum(v)
 	}
-	return betapb.ComputeBetaDiskGuestOsFeaturesTypeAltsEnum(0)
+	return betapb.ComputeBetaDiskGuestOSFeaturesTypeAltsEnum(0)
 }
 
-// DiskGuestOsFeatureToProto converts a DiskGuestOsFeature resource to its proto representation.
-func ComputeBetaDiskGuestOsFeatureToProto(o *beta.DiskGuestOsFeature) *betapb.ComputeBetaDiskGuestOsFeature {
+// DiskGuestOSFeatureToProto converts a DiskGuestOSFeature resource to its proto representation.
+func ComputeBetaDiskGuestOSFeatureToProto(o *beta.DiskGuestOSFeature) *betapb.ComputeBetaDiskGuestOSFeature {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaDiskGuestOsFeature{
-		Type: ComputeBetaDiskGuestOsFeatureTypeEnumToProto(o.Type),
+	p := &betapb.ComputeBetaDiskGuestOSFeature{
+		Type: ComputeBetaDiskGuestOSFeatureTypeEnumToProto(o.Type),
 	}
 	for _, r := range o.TypeAlt {
-		p.TypeAlt = append(p.TypeAlt, betapb.ComputeBetaDiskGuestOsFeatureTypeAltEnum(betapb.ComputeBetaDiskGuestOsFeatureTypeAltEnum_value[string(r)]))
+		p.TypeAlt = append(p.TypeAlt, betapb.ComputeBetaDiskGuestOSFeatureTypeAltEnum(betapb.ComputeBetaDiskGuestOSFeatureTypeAltEnum_value[string(r)]))
 	}
 	return p
 }
@@ -269,16 +269,16 @@ func ComputeBetaDiskEncryptionKeyToProto(o *beta.DiskEncryptionKey) *betapb.Comp
 	return p
 }
 
-// DiskGuestOsFeaturesToProto converts a DiskGuestOsFeatures resource to its proto representation.
-func ComputeBetaDiskGuestOsFeaturesToProto(o *beta.DiskGuestOsFeatures) *betapb.ComputeBetaDiskGuestOsFeatures {
+// DiskGuestOSFeaturesToProto converts a DiskGuestOSFeatures resource to its proto representation.
+func ComputeBetaDiskGuestOSFeaturesToProto(o *beta.DiskGuestOSFeatures) *betapb.ComputeBetaDiskGuestOSFeatures {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaDiskGuestOsFeatures{
-		Type: ComputeBetaDiskGuestOsFeaturesTypeEnumToProto(o.Type),
+	p := &betapb.ComputeBetaDiskGuestOSFeatures{
+		Type: ComputeBetaDiskGuestOSFeaturesTypeEnumToProto(o.Type),
 	}
 	for _, r := range o.TypeAlts {
-		p.TypeAlts = append(p.TypeAlts, betapb.ComputeBetaDiskGuestOsFeaturesTypeAltsEnum(betapb.ComputeBetaDiskGuestOsFeaturesTypeAltsEnum_value[string(r)]))
+		p.TypeAlts = append(p.TypeAlts, betapb.ComputeBetaDiskGuestOSFeaturesTypeAltsEnum(betapb.ComputeBetaDiskGuestOSFeaturesTypeAltsEnum_value[string(r)]))
 	}
 	return p
 }
@@ -312,8 +312,8 @@ func DiskToProto(resource *beta.Disk) *betapb.ComputeBetaDisk {
 		SourceDiskId:                dcl.ValueOrEmptyString(resource.SourceDiskId),
 		Location:                    dcl.ValueOrEmptyString(resource.Location),
 	}
-	for _, r := range resource.GuestOsFeature {
-		p.GuestOsFeature = append(p.GuestOsFeature, ComputeBetaDiskGuestOsFeatureToProto(&r))
+	for _, r := range resource.GuestOSFeature {
+		p.GuestOsFeature = append(p.GuestOsFeature, ComputeBetaDiskGuestOSFeatureToProto(&r))
 	}
 	for _, r := range resource.License {
 		p.License = append(p.License, r)
@@ -327,8 +327,8 @@ func DiskToProto(resource *beta.Disk) *betapb.ComputeBetaDisk {
 	for _, r := range resource.Licenses {
 		p.Licenses = append(p.Licenses, r)
 	}
-	for _, r := range resource.GuestOsFeatures {
-		p.GuestOsFeatures = append(p.GuestOsFeatures, ComputeBetaDiskGuestOsFeaturesToProto(&r))
+	for _, r := range resource.GuestOSFeatures {
+		p.GuestOsFeatures = append(p.GuestOsFeatures, ComputeBetaDiskGuestOSFeaturesToProto(&r))
 	}
 	for _, r := range resource.Users {
 		p.Users = append(p.Users, r)

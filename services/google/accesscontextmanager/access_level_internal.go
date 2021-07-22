@@ -55,7 +55,7 @@ func (r *AccessLevelBasicConditions) validate() error {
 func (r *AccessLevelBasicConditionsDevicePolicy) validate() error {
 	return nil
 }
-func (r *AccessLevelBasicConditionsDevicePolicyOsConstraints) validate() error {
+func (r *AccessLevelBasicConditionsDevicePolicyOSConstraints) validate() error {
 	return nil
 }
 
@@ -774,10 +774,10 @@ func canonicalizeAccessLevelBasicConditionsDevicePolicy(des, initial *AccessLeve
 	} else {
 		cDes.AllowedDeviceManagementLevels = des.AllowedDeviceManagementLevels
 	}
-	if dcl.IsZeroValue(des.OsConstraints) {
-		des.OsConstraints = initial.OsConstraints
+	if dcl.IsZeroValue(des.OSConstraints) {
+		des.OSConstraints = initial.OSConstraints
 	} else {
-		cDes.OsConstraints = des.OsConstraints
+		cDes.OSConstraints = des.OSConstraints
 	}
 
 	return cDes
@@ -803,7 +803,7 @@ func canonicalizeNewAccessLevelBasicConditionsDevicePolicy(c *Client, des, nw *A
 	if dcl.IsZeroValue(nw.AllowedDeviceManagementLevels) {
 		nw.AllowedDeviceManagementLevels = des.AllowedDeviceManagementLevels
 	}
-	nw.OsConstraints = canonicalizeNewAccessLevelBasicConditionsDevicePolicyOsConstraintsSlice(c, des.OsConstraints, nw.OsConstraints)
+	nw.OSConstraints = canonicalizeNewAccessLevelBasicConditionsDevicePolicyOSConstraintsSlice(c, des.OSConstraints, nw.OSConstraints)
 
 	return nw
 }
@@ -851,7 +851,7 @@ func canonicalizeNewAccessLevelBasicConditionsDevicePolicySlice(c *Client, des, 
 	return items
 }
 
-func canonicalizeAccessLevelBasicConditionsDevicePolicyOsConstraints(des, initial *AccessLevelBasicConditionsDevicePolicyOsConstraints, opts ...dcl.ApplyOption) *AccessLevelBasicConditionsDevicePolicyOsConstraints {
+func canonicalizeAccessLevelBasicConditionsDevicePolicyOSConstraints(des, initial *AccessLevelBasicConditionsDevicePolicyOSConstraints, opts ...dcl.ApplyOption) *AccessLevelBasicConditionsDevicePolicyOSConstraints {
 	if des == nil {
 		return initial
 	}
@@ -863,28 +863,28 @@ func canonicalizeAccessLevelBasicConditionsDevicePolicyOsConstraints(des, initia
 		return des
 	}
 
-	cDes := &AccessLevelBasicConditionsDevicePolicyOsConstraints{}
+	cDes := &AccessLevelBasicConditionsDevicePolicyOSConstraints{}
 
 	if dcl.StringCanonicalize(des.MinimumVersion, initial.MinimumVersion) || dcl.IsZeroValue(des.MinimumVersion) {
 		cDes.MinimumVersion = initial.MinimumVersion
 	} else {
 		cDes.MinimumVersion = des.MinimumVersion
 	}
-	if dcl.IsZeroValue(des.OsType) {
-		des.OsType = initial.OsType
+	if dcl.IsZeroValue(des.OSType) {
+		des.OSType = initial.OSType
 	} else {
-		cDes.OsType = des.OsType
+		cDes.OSType = des.OSType
 	}
-	if dcl.BoolCanonicalize(des.RequireVerifiedChromeOs, initial.RequireVerifiedChromeOs) || dcl.IsZeroValue(des.RequireVerifiedChromeOs) {
-		cDes.RequireVerifiedChromeOs = initial.RequireVerifiedChromeOs
+	if dcl.BoolCanonicalize(des.RequireVerifiedChromeOS, initial.RequireVerifiedChromeOS) || dcl.IsZeroValue(des.RequireVerifiedChromeOS) {
+		cDes.RequireVerifiedChromeOS = initial.RequireVerifiedChromeOS
 	} else {
-		cDes.RequireVerifiedChromeOs = des.RequireVerifiedChromeOs
+		cDes.RequireVerifiedChromeOS = des.RequireVerifiedChromeOS
 	}
 
 	return cDes
 }
 
-func canonicalizeNewAccessLevelBasicConditionsDevicePolicyOsConstraints(c *Client, des, nw *AccessLevelBasicConditionsDevicePolicyOsConstraints) *AccessLevelBasicConditionsDevicePolicyOsConstraints {
+func canonicalizeNewAccessLevelBasicConditionsDevicePolicyOSConstraints(c *Client, des, nw *AccessLevelBasicConditionsDevicePolicyOSConstraints) *AccessLevelBasicConditionsDevicePolicyOSConstraints {
 	if des == nil || nw == nil {
 		return nw
 	}
@@ -892,25 +892,25 @@ func canonicalizeNewAccessLevelBasicConditionsDevicePolicyOsConstraints(c *Clien
 	if dcl.StringCanonicalize(des.MinimumVersion, nw.MinimumVersion) {
 		nw.MinimumVersion = des.MinimumVersion
 	}
-	if dcl.IsZeroValue(nw.OsType) {
-		nw.OsType = des.OsType
+	if dcl.IsZeroValue(nw.OSType) {
+		nw.OSType = des.OSType
 	}
-	if dcl.BoolCanonicalize(des.RequireVerifiedChromeOs, nw.RequireVerifiedChromeOs) {
-		nw.RequireVerifiedChromeOs = des.RequireVerifiedChromeOs
+	if dcl.BoolCanonicalize(des.RequireVerifiedChromeOS, nw.RequireVerifiedChromeOS) {
+		nw.RequireVerifiedChromeOS = des.RequireVerifiedChromeOS
 	}
 
 	return nw
 }
 
-func canonicalizeNewAccessLevelBasicConditionsDevicePolicyOsConstraintsSet(c *Client, des, nw []AccessLevelBasicConditionsDevicePolicyOsConstraints) []AccessLevelBasicConditionsDevicePolicyOsConstraints {
+func canonicalizeNewAccessLevelBasicConditionsDevicePolicyOSConstraintsSet(c *Client, des, nw []AccessLevelBasicConditionsDevicePolicyOSConstraints) []AccessLevelBasicConditionsDevicePolicyOSConstraints {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []AccessLevelBasicConditionsDevicePolicyOsConstraints
+	var reorderedNew []AccessLevelBasicConditionsDevicePolicyOSConstraints
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareAccessLevelBasicConditionsDevicePolicyOsConstraintsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareAccessLevelBasicConditionsDevicePolicyOSConstraintsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -925,7 +925,7 @@ func canonicalizeNewAccessLevelBasicConditionsDevicePolicyOsConstraintsSet(c *Cl
 	return reorderedNew
 }
 
-func canonicalizeNewAccessLevelBasicConditionsDevicePolicyOsConstraintsSlice(c *Client, des, nw []AccessLevelBasicConditionsDevicePolicyOsConstraints) []AccessLevelBasicConditionsDevicePolicyOsConstraints {
+func canonicalizeNewAccessLevelBasicConditionsDevicePolicyOSConstraintsSlice(c *Client, des, nw []AccessLevelBasicConditionsDevicePolicyOSConstraints) []AccessLevelBasicConditionsDevicePolicyOSConstraints {
 	if des == nil {
 		return nw
 	}
@@ -936,10 +936,10 @@ func canonicalizeNewAccessLevelBasicConditionsDevicePolicyOsConstraintsSlice(c *
 		return nw
 	}
 
-	var items []AccessLevelBasicConditionsDevicePolicyOsConstraints
+	var items []AccessLevelBasicConditionsDevicePolicyOSConstraints
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewAccessLevelBasicConditionsDevicePolicyOsConstraints(c, &d, &n))
+		items = append(items, *canonicalizeNewAccessLevelBasicConditionsDevicePolicyOSConstraints(c, &d, &n))
 	}
 
 	return items
@@ -1166,7 +1166,7 @@ func compareAccessLevelBasicConditionsDevicePolicyNewStyle(d, a interface{}, fn 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OsConstraints, actual.OsConstraints, dcl.Info{ObjectFunction: compareAccessLevelBasicConditionsDevicePolicyOsConstraintsNewStyle, EmptyObject: EmptyAccessLevelBasicConditionsDevicePolicyOsConstraints, OperationSelector: dcl.TriggersOperation("updateAccessLevelUpdateOperation")}, fn.AddNest("OsConstraints")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OSConstraints, actual.OSConstraints, dcl.Info{ObjectFunction: compareAccessLevelBasicConditionsDevicePolicyOSConstraintsNewStyle, EmptyObject: EmptyAccessLevelBasicConditionsDevicePolicyOSConstraints, OperationSelector: dcl.TriggersOperation("updateAccessLevelUpdateOperation")}, fn.AddNest("OsConstraints")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1175,22 +1175,22 @@ func compareAccessLevelBasicConditionsDevicePolicyNewStyle(d, a interface{}, fn 
 	return diffs, nil
 }
 
-func compareAccessLevelBasicConditionsDevicePolicyOsConstraintsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareAccessLevelBasicConditionsDevicePolicyOSConstraintsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*AccessLevelBasicConditionsDevicePolicyOsConstraints)
+	desired, ok := d.(*AccessLevelBasicConditionsDevicePolicyOSConstraints)
 	if !ok {
-		desiredNotPointer, ok := d.(AccessLevelBasicConditionsDevicePolicyOsConstraints)
+		desiredNotPointer, ok := d.(AccessLevelBasicConditionsDevicePolicyOSConstraints)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a AccessLevelBasicConditionsDevicePolicyOsConstraints or *AccessLevelBasicConditionsDevicePolicyOsConstraints", d)
+			return nil, fmt.Errorf("obj %v is not a AccessLevelBasicConditionsDevicePolicyOSConstraints or *AccessLevelBasicConditionsDevicePolicyOSConstraints", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*AccessLevelBasicConditionsDevicePolicyOsConstraints)
+	actual, ok := a.(*AccessLevelBasicConditionsDevicePolicyOSConstraints)
 	if !ok {
-		actualNotPointer, ok := a.(AccessLevelBasicConditionsDevicePolicyOsConstraints)
+		actualNotPointer, ok := a.(AccessLevelBasicConditionsDevicePolicyOSConstraints)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a AccessLevelBasicConditionsDevicePolicyOsConstraints", a)
+			return nil, fmt.Errorf("obj %v is not a AccessLevelBasicConditionsDevicePolicyOSConstraints", a)
 		}
 		actual = &actualNotPointer
 	}
@@ -1202,14 +1202,14 @@ func compareAccessLevelBasicConditionsDevicePolicyOsConstraintsNewStyle(d, a int
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OsType, actual.OsType, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateAccessLevelUpdateOperation")}, fn.AddNest("OsType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OSType, actual.OSType, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateAccessLevelUpdateOperation")}, fn.AddNest("OsType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequireVerifiedChromeOs, actual.RequireVerifiedChromeOs, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAccessLevelUpdateOperation")}, fn.AddNest("RequireVerifiedChromeOs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequireVerifiedChromeOS, actual.RequireVerifiedChromeOS, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAccessLevelUpdateOperation")}, fn.AddNest("RequireVerifiedChromeOS")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1693,8 +1693,8 @@ func expandAccessLevelBasicConditionsDevicePolicy(c *Client, f *AccessLevelBasic
 	if v := f.AllowedDeviceManagementLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["allowedDeviceManagementLevels"] = v
 	}
-	if v, err := expandAccessLevelBasicConditionsDevicePolicyOsConstraintsSlice(c, f.OsConstraints); err != nil {
-		return nil, fmt.Errorf("error expanding OsConstraints into osConstraints: %w", err)
+	if v, err := expandAccessLevelBasicConditionsDevicePolicyOSConstraintsSlice(c, f.OSConstraints); err != nil {
+		return nil, fmt.Errorf("error expanding OSConstraints into osConstraints: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["osConstraints"] = v
 	}
@@ -1720,21 +1720,21 @@ func flattenAccessLevelBasicConditionsDevicePolicy(c *Client, i interface{}) *Ac
 	r.RequireCorpOwned = dcl.FlattenBool(m["requireCorpOwned"])
 	r.AllowedEncryptionStatuses = flattenAccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnumSlice(c, m["allowedEncryptionStatuses"])
 	r.AllowedDeviceManagementLevels = flattenAccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnumSlice(c, m["allowedDeviceManagementLevels"])
-	r.OsConstraints = flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsSlice(c, m["osConstraints"])
+	r.OSConstraints = flattenAccessLevelBasicConditionsDevicePolicyOSConstraintsSlice(c, m["osConstraints"])
 
 	return r
 }
 
-// expandAccessLevelBasicConditionsDevicePolicyOsConstraintsMap expands the contents of AccessLevelBasicConditionsDevicePolicyOsConstraints into a JSON
+// expandAccessLevelBasicConditionsDevicePolicyOSConstraintsMap expands the contents of AccessLevelBasicConditionsDevicePolicyOSConstraints into a JSON
 // request object.
-func expandAccessLevelBasicConditionsDevicePolicyOsConstraintsMap(c *Client, f map[string]AccessLevelBasicConditionsDevicePolicyOsConstraints) (map[string]interface{}, error) {
+func expandAccessLevelBasicConditionsDevicePolicyOSConstraintsMap(c *Client, f map[string]AccessLevelBasicConditionsDevicePolicyOSConstraints) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandAccessLevelBasicConditionsDevicePolicyOsConstraints(c, &item)
+		i, err := expandAccessLevelBasicConditionsDevicePolicyOSConstraints(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -1746,16 +1746,16 @@ func expandAccessLevelBasicConditionsDevicePolicyOsConstraintsMap(c *Client, f m
 	return items, nil
 }
 
-// expandAccessLevelBasicConditionsDevicePolicyOsConstraintsSlice expands the contents of AccessLevelBasicConditionsDevicePolicyOsConstraints into a JSON
+// expandAccessLevelBasicConditionsDevicePolicyOSConstraintsSlice expands the contents of AccessLevelBasicConditionsDevicePolicyOSConstraints into a JSON
 // request object.
-func expandAccessLevelBasicConditionsDevicePolicyOsConstraintsSlice(c *Client, f []AccessLevelBasicConditionsDevicePolicyOsConstraints) ([]map[string]interface{}, error) {
+func expandAccessLevelBasicConditionsDevicePolicyOSConstraintsSlice(c *Client, f []AccessLevelBasicConditionsDevicePolicyOSConstraints) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandAccessLevelBasicConditionsDevicePolicyOsConstraints(c, &item)
+		i, err := expandAccessLevelBasicConditionsDevicePolicyOSConstraints(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -1766,49 +1766,49 @@ func expandAccessLevelBasicConditionsDevicePolicyOsConstraintsSlice(c *Client, f
 	return items, nil
 }
 
-// flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsMap flattens the contents of AccessLevelBasicConditionsDevicePolicyOsConstraints from a JSON
+// flattenAccessLevelBasicConditionsDevicePolicyOSConstraintsMap flattens the contents of AccessLevelBasicConditionsDevicePolicyOSConstraints from a JSON
 // response object.
-func flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsMap(c *Client, i interface{}) map[string]AccessLevelBasicConditionsDevicePolicyOsConstraints {
+func flattenAccessLevelBasicConditionsDevicePolicyOSConstraintsMap(c *Client, i interface{}) map[string]AccessLevelBasicConditionsDevicePolicyOSConstraints {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]AccessLevelBasicConditionsDevicePolicyOsConstraints{}
+		return map[string]AccessLevelBasicConditionsDevicePolicyOSConstraints{}
 	}
 
 	if len(a) == 0 {
-		return map[string]AccessLevelBasicConditionsDevicePolicyOsConstraints{}
+		return map[string]AccessLevelBasicConditionsDevicePolicyOSConstraints{}
 	}
 
-	items := make(map[string]AccessLevelBasicConditionsDevicePolicyOsConstraints)
+	items := make(map[string]AccessLevelBasicConditionsDevicePolicyOSConstraints)
 	for k, item := range a {
-		items[k] = *flattenAccessLevelBasicConditionsDevicePolicyOsConstraints(c, item.(map[string]interface{}))
+		items[k] = *flattenAccessLevelBasicConditionsDevicePolicyOSConstraints(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsSlice flattens the contents of AccessLevelBasicConditionsDevicePolicyOsConstraints from a JSON
+// flattenAccessLevelBasicConditionsDevicePolicyOSConstraintsSlice flattens the contents of AccessLevelBasicConditionsDevicePolicyOSConstraints from a JSON
 // response object.
-func flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsSlice(c *Client, i interface{}) []AccessLevelBasicConditionsDevicePolicyOsConstraints {
+func flattenAccessLevelBasicConditionsDevicePolicyOSConstraintsSlice(c *Client, i interface{}) []AccessLevelBasicConditionsDevicePolicyOSConstraints {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []AccessLevelBasicConditionsDevicePolicyOsConstraints{}
+		return []AccessLevelBasicConditionsDevicePolicyOSConstraints{}
 	}
 
 	if len(a) == 0 {
-		return []AccessLevelBasicConditionsDevicePolicyOsConstraints{}
+		return []AccessLevelBasicConditionsDevicePolicyOSConstraints{}
 	}
 
-	items := make([]AccessLevelBasicConditionsDevicePolicyOsConstraints, 0, len(a))
+	items := make([]AccessLevelBasicConditionsDevicePolicyOSConstraints, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAccessLevelBasicConditionsDevicePolicyOsConstraints(c, item.(map[string]interface{})))
+		items = append(items, *flattenAccessLevelBasicConditionsDevicePolicyOSConstraints(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandAccessLevelBasicConditionsDevicePolicyOsConstraints expands an instance of AccessLevelBasicConditionsDevicePolicyOsConstraints into a JSON
+// expandAccessLevelBasicConditionsDevicePolicyOSConstraints expands an instance of AccessLevelBasicConditionsDevicePolicyOSConstraints into a JSON
 // request object.
-func expandAccessLevelBasicConditionsDevicePolicyOsConstraints(c *Client, f *AccessLevelBasicConditionsDevicePolicyOsConstraints) (map[string]interface{}, error) {
+func expandAccessLevelBasicConditionsDevicePolicyOSConstraints(c *Client, f *AccessLevelBasicConditionsDevicePolicyOSConstraints) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1817,32 +1817,32 @@ func expandAccessLevelBasicConditionsDevicePolicyOsConstraints(c *Client, f *Acc
 	if v := f.MinimumVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["minimumVersion"] = v
 	}
-	if v := f.OsType; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.OSType; !dcl.IsEmptyValueIndirect(v) {
 		m["osType"] = v
 	}
-	if v := f.RequireVerifiedChromeOs; !dcl.IsEmptyValueIndirect(v) {
-		m["requireVerifiedChromeOs"] = v
+	if v := f.RequireVerifiedChromeOS; !dcl.IsEmptyValueIndirect(v) {
+		m["requireVerifiedChromeOS"] = v
 	}
 
 	return m, nil
 }
 
-// flattenAccessLevelBasicConditionsDevicePolicyOsConstraints flattens an instance of AccessLevelBasicConditionsDevicePolicyOsConstraints from a JSON
+// flattenAccessLevelBasicConditionsDevicePolicyOSConstraints flattens an instance of AccessLevelBasicConditionsDevicePolicyOSConstraints from a JSON
 // response object.
-func flattenAccessLevelBasicConditionsDevicePolicyOsConstraints(c *Client, i interface{}) *AccessLevelBasicConditionsDevicePolicyOsConstraints {
+func flattenAccessLevelBasicConditionsDevicePolicyOSConstraints(c *Client, i interface{}) *AccessLevelBasicConditionsDevicePolicyOSConstraints {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &AccessLevelBasicConditionsDevicePolicyOsConstraints{}
+	r := &AccessLevelBasicConditionsDevicePolicyOSConstraints{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyAccessLevelBasicConditionsDevicePolicyOsConstraints
+		return EmptyAccessLevelBasicConditionsDevicePolicyOSConstraints
 	}
 	r.MinimumVersion = dcl.FlattenString(m["minimumVersion"])
-	r.OsType = flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum(m["osType"])
-	r.RequireVerifiedChromeOs = dcl.FlattenBool(m["requireVerifiedChromeOs"])
+	r.OSType = flattenAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum(m["osType"])
+	r.RequireVerifiedChromeOS = dcl.FlattenBool(m["requireVerifiedChromeOS"])
 
 	return r
 }
@@ -2000,55 +2000,55 @@ func flattenAccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsE
 	return AccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnumRef(s)
 }
 
-// flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnumMap flattens the contents of AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum from a JSON
+// flattenAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnumMap flattens the contents of AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum from a JSON
 // response object.
-func flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnumMap(c *Client, i interface{}) map[string]AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum {
+func flattenAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnumMap(c *Client, i interface{}) map[string]AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum{}
+		return map[string]AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum{}
 	}
 
 	if len(a) == 0 {
-		return map[string]AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum{}
+		return map[string]AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum{}
 	}
 
-	items := make(map[string]AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum)
+	items := make(map[string]AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum)
 	for k, item := range a {
-		items[k] = *flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum(item.(interface{}))
+		items[k] = *flattenAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum(item.(interface{}))
 	}
 
 	return items
 }
 
-// flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnumSlice flattens the contents of AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum from a JSON
+// flattenAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnumSlice flattens the contents of AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum from a JSON
 // response object.
-func flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnumSlice(c *Client, i interface{}) []AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum {
+func flattenAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnumSlice(c *Client, i interface{}) []AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum{}
+		return []AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum{}
 	}
 
 	if len(a) == 0 {
-		return []AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum{}
+		return []AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum{}
 	}
 
-	items := make([]AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum, 0, len(a))
+	items := make([]AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum(item.(interface{})))
+		items = append(items, *flattenAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum(item.(interface{})))
 	}
 
 	return items
 }
 
-// flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum asserts that an interface is a string, and returns a
-// pointer to a *AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum with the same value as that string.
-func flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum(i interface{}) *AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum {
+// flattenAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum asserts that an interface is a string, and returns a
+// pointer to a *AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum with the same value as that string.
+func flattenAccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum(i interface{}) *AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnumRef("")
+		return AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnumRef("")
 	}
 
-	return AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnumRef(s)
+	return AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnumRef(s)
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource

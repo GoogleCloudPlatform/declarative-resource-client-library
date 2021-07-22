@@ -208,7 +208,7 @@ func (r *ApplicationIap) HashCode() string {
 type ApplicationFeatureSettings struct {
 	empty                   bool  `json:"-"`
 	SplitHealthChecks       *bool `json:"splitHealthChecks"`
-	UseContainerOptimizedOs *bool `json:"useContainerOptimizedOs"`
+	UseContainerOptimizedOS *bool `json:"useContainerOptimizedOS"`
 }
 
 type jsonApplicationFeatureSettings ApplicationFeatureSettings
@@ -228,7 +228,7 @@ func (r *ApplicationFeatureSettings) UnmarshalJSON(data []byte) error {
 
 		r.SplitHealthChecks = res.SplitHealthChecks
 
-		r.UseContainerOptimizedOs = res.UseContainerOptimizedOs
+		r.UseContainerOptimizedOS = res.UseContainerOptimizedOS
 
 	}
 	return nil

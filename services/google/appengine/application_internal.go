@@ -652,10 +652,10 @@ func canonicalizeApplicationFeatureSettings(des, initial *ApplicationFeatureSett
 	} else {
 		cDes.SplitHealthChecks = des.SplitHealthChecks
 	}
-	if dcl.BoolCanonicalize(des.UseContainerOptimizedOs, initial.UseContainerOptimizedOs) || dcl.IsZeroValue(des.UseContainerOptimizedOs) {
-		cDes.UseContainerOptimizedOs = initial.UseContainerOptimizedOs
+	if dcl.BoolCanonicalize(des.UseContainerOptimizedOS, initial.UseContainerOptimizedOS) || dcl.IsZeroValue(des.UseContainerOptimizedOS) {
+		cDes.UseContainerOptimizedOS = initial.UseContainerOptimizedOS
 	} else {
-		cDes.UseContainerOptimizedOs = des.UseContainerOptimizedOs
+		cDes.UseContainerOptimizedOS = des.UseContainerOptimizedOS
 	}
 
 	return cDes
@@ -669,8 +669,8 @@ func canonicalizeNewApplicationFeatureSettings(c *Client, des, nw *ApplicationFe
 	if dcl.BoolCanonicalize(des.SplitHealthChecks, nw.SplitHealthChecks) {
 		nw.SplitHealthChecks = des.SplitHealthChecks
 	}
-	if dcl.BoolCanonicalize(des.UseContainerOptimizedOs, nw.UseContainerOptimizedOs) {
-		nw.UseContainerOptimizedOs = des.UseContainerOptimizedOs
+	if dcl.BoolCanonicalize(des.UseContainerOptimizedOS, nw.UseContainerOptimizedOS) {
+		nw.UseContainerOptimizedOS = des.UseContainerOptimizedOS
 	}
 
 	return nw
@@ -947,7 +947,7 @@ func compareApplicationFeatureSettingsNewStyle(d, a interface{}, fn dcl.FieldNam
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UseContainerOptimizedOs, actual.UseContainerOptimizedOs, dcl.Info{OperationSelector: dcl.TriggersOperation("updateApplicationPatchApplicationOperation")}, fn.AddNest("UseContainerOptimizedOs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UseContainerOptimizedOS, actual.UseContainerOptimizedOS, dcl.Info{OperationSelector: dcl.TriggersOperation("updateApplicationPatchApplicationOperation")}, fn.AddNest("UseContainerOptimizedOS")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1424,8 +1424,8 @@ func expandApplicationFeatureSettings(c *Client, f *ApplicationFeatureSettings) 
 	if v := f.SplitHealthChecks; !dcl.IsEmptyValueIndirect(v) {
 		m["splitHealthChecks"] = v
 	}
-	if v := f.UseContainerOptimizedOs; !dcl.IsEmptyValueIndirect(v) {
-		m["useContainerOptimizedOs"] = v
+	if v := f.UseContainerOptimizedOS; !dcl.IsEmptyValueIndirect(v) {
+		m["useContainerOptimizedOS"] = v
 	}
 
 	return m, nil
@@ -1445,7 +1445,7 @@ func flattenApplicationFeatureSettings(c *Client, i interface{}) *ApplicationFea
 		return EmptyApplicationFeatureSettings
 	}
 	r.SplitHealthChecks = dcl.FlattenBool(m["splitHealthChecks"])
-	r.UseContainerOptimizedOs = dcl.FlattenBool(m["useContainerOptimizedOs"])
+	r.UseContainerOptimizedOS = dcl.FlattenBool(m["useContainerOptimizedOS"])
 
 	return r
 }

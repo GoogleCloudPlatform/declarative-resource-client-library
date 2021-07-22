@@ -29,7 +29,7 @@ type Image struct {
 	Description                  *string                            `json:"description"`
 	DiskSizeGb                   *int64                             `json:"diskSizeGb"`
 	Family                       *string                            `json:"family"`
-	GuestOsFeature               []ImageGuestOsFeature              `json:"guestOsFeature"`
+	GuestOSFeature               []ImageGuestOSFeature              `json:"guestOSFeature"`
 	ImageEncryptionKey           *ImageImageEncryptionKey           `json:"imageEncryptionKey"`
 	Labels                       map[string]string                  `json:"labels"`
 	License                      []string                           `json:"license"`
@@ -57,28 +57,28 @@ func (r *Image) String() string {
 	return dcl.SprintResource(r)
 }
 
-// The enum ImageGuestOsFeatureTypeEnum.
-type ImageGuestOsFeatureTypeEnum string
+// The enum ImageGuestOSFeatureTypeEnum.
+type ImageGuestOSFeatureTypeEnum string
 
-// ImageGuestOsFeatureTypeEnumRef returns a *ImageGuestOsFeatureTypeEnum with the value of string s
+// ImageGuestOSFeatureTypeEnumRef returns a *ImageGuestOSFeatureTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func ImageGuestOsFeatureTypeEnumRef(s string) *ImageGuestOsFeatureTypeEnum {
+func ImageGuestOSFeatureTypeEnumRef(s string) *ImageGuestOSFeatureTypeEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := ImageGuestOsFeatureTypeEnum(s)
+	v := ImageGuestOSFeatureTypeEnum(s)
 	return &v
 }
 
-func (v ImageGuestOsFeatureTypeEnum) Validate() error {
+func (v ImageGuestOSFeatureTypeEnum) Validate() error {
 	for _, s := range []string{"FEATURE_TYPE_UNSPECIFIED", "VIRTIO_SCSI_MULTIQUEUE", "WINDOWS", "MULTI_IP_SUBNET", "UEFI_COMPATIBLE", "SECURE_BOOT", "SEV_CAPABLE"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "ImageGuestOsFeatureTypeEnum",
+		Enum:  "ImageGuestOSFeatureTypeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -300,15 +300,15 @@ func (v ImageDeprecatedStateEnum) Validate() error {
 	}
 }
 
-type ImageGuestOsFeature struct {
+type ImageGuestOSFeature struct {
 	empty bool                         `json:"-"`
-	Type  *ImageGuestOsFeatureTypeEnum `json:"type"`
+	Type  *ImageGuestOSFeatureTypeEnum `json:"type"`
 }
 
-type jsonImageGuestOsFeature ImageGuestOsFeature
+type jsonImageGuestOSFeature ImageGuestOSFeature
 
-func (r *ImageGuestOsFeature) UnmarshalJSON(data []byte) error {
-	var res jsonImageGuestOsFeature
+func (r *ImageGuestOSFeature) UnmarshalJSON(data []byte) error {
+	var res jsonImageGuestOSFeature
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -317,7 +317,7 @@ func (r *ImageGuestOsFeature) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyImageGuestOsFeature
+		*r = *EmptyImageGuestOSFeature
 	} else {
 
 		r.Type = res.Type
@@ -326,20 +326,20 @@ func (r *ImageGuestOsFeature) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this ImageGuestOsFeature is
+// This object is used to assert a desired state where this ImageGuestOSFeature is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyImageGuestOsFeature *ImageGuestOsFeature = &ImageGuestOsFeature{empty: true}
+var EmptyImageGuestOSFeature *ImageGuestOSFeature = &ImageGuestOSFeature{empty: true}
 
-func (r *ImageGuestOsFeature) Empty() bool {
+func (r *ImageGuestOSFeature) Empty() bool {
 	return r.empty
 }
 
-func (r *ImageGuestOsFeature) String() string {
+func (r *ImageGuestOSFeature) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *ImageGuestOsFeature) HashCode() string {
+func (r *ImageGuestOSFeature) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

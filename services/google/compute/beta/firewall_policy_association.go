@@ -27,7 +27,6 @@ type FirewallPolicyAssociation struct {
 	AttachmentTarget *string `json:"attachmentTarget"`
 	FirewallPolicy   *string `json:"firewallPolicy"`
 	ShortName        *string `json:"shortName"`
-	DisplayName      *string `json:"displayName"`
 }
 
 func (r *FirewallPolicyAssociation) String() string {
@@ -110,7 +109,6 @@ func (r *FirewallPolicyAssociation) URLNormalized() *FirewallPolicyAssociation {
 	normalized.AttachmentTarget = dcl.SelfLinkToName(r.AttachmentTarget)
 	normalized.FirewallPolicy = dcl.SelfLinkToName(r.FirewallPolicy)
 	normalized.ShortName = dcl.SelfLinkToName(r.ShortName)
-	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	return &normalized
 }
 

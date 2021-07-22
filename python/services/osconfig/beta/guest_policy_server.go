@@ -140,7 +140,7 @@ func ProtoToOsconfigBetaGuestPolicyAssignment(p *betapb.OsconfigBetaGuestPolicyA
 		obj.InstanceNamePrefixes = append(obj.InstanceNamePrefixes, r)
 	}
 	for _, r := range p.GetOsTypes() {
-		obj.OsTypes = append(obj.OsTypes, *ProtoToOsconfigBetaGuestPolicyAssignmentOsTypes(r))
+		obj.OSTypes = append(obj.OSTypes, *ProtoToOsconfigBetaGuestPolicyAssignmentOSTypes(r))
 	}
 	return obj
 }
@@ -154,15 +154,15 @@ func ProtoToOsconfigBetaGuestPolicyAssignmentGroupLabels(p *betapb.OsconfigBetaG
 	return obj
 }
 
-// ProtoToGuestPolicyAssignmentOsTypes converts a GuestPolicyAssignmentOsTypes resource from its proto representation.
-func ProtoToOsconfigBetaGuestPolicyAssignmentOsTypes(p *betapb.OsconfigBetaGuestPolicyAssignmentOsTypes) *beta.GuestPolicyAssignmentOsTypes {
+// ProtoToGuestPolicyAssignmentOSTypes converts a GuestPolicyAssignmentOSTypes resource from its proto representation.
+func ProtoToOsconfigBetaGuestPolicyAssignmentOSTypes(p *betapb.OsconfigBetaGuestPolicyAssignmentOSTypes) *beta.GuestPolicyAssignmentOSTypes {
 	if p == nil {
 		return nil
 	}
-	obj := &beta.GuestPolicyAssignmentOsTypes{
-		OsShortName:    dcl.StringOrNil(p.OsShortName),
-		OsVersion:      dcl.StringOrNil(p.OsVersion),
-		OsArchitecture: dcl.StringOrNil(p.OsArchitecture),
+	obj := &beta.GuestPolicyAssignmentOSTypes{
+		OSShortName:    dcl.StringOrNil(p.OsShortName),
+		OSVersion:      dcl.StringOrNil(p.OsVersion),
+		OSArchitecture: dcl.StringOrNil(p.OsArchitecture),
 	}
 	return obj
 }
@@ -677,8 +677,8 @@ func OsconfigBetaGuestPolicyAssignmentToProto(o *beta.GuestPolicyAssignment) *be
 	for _, r := range o.InstanceNamePrefixes {
 		p.InstanceNamePrefixes = append(p.InstanceNamePrefixes, r)
 	}
-	for _, r := range o.OsTypes {
-		p.OsTypes = append(p.OsTypes, OsconfigBetaGuestPolicyAssignmentOsTypesToProto(&r))
+	for _, r := range o.OSTypes {
+		p.OsTypes = append(p.OsTypes, OsconfigBetaGuestPolicyAssignmentOSTypesToProto(&r))
 	}
 	return p
 }
@@ -696,15 +696,15 @@ func OsconfigBetaGuestPolicyAssignmentGroupLabelsToProto(o *beta.GuestPolicyAssi
 	return p
 }
 
-// GuestPolicyAssignmentOsTypesToProto converts a GuestPolicyAssignmentOsTypes resource to its proto representation.
-func OsconfigBetaGuestPolicyAssignmentOsTypesToProto(o *beta.GuestPolicyAssignmentOsTypes) *betapb.OsconfigBetaGuestPolicyAssignmentOsTypes {
+// GuestPolicyAssignmentOSTypesToProto converts a GuestPolicyAssignmentOSTypes resource to its proto representation.
+func OsconfigBetaGuestPolicyAssignmentOSTypesToProto(o *beta.GuestPolicyAssignmentOSTypes) *betapb.OsconfigBetaGuestPolicyAssignmentOSTypes {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.OsconfigBetaGuestPolicyAssignmentOsTypes{
-		OsShortName:    dcl.ValueOrEmptyString(o.OsShortName),
-		OsVersion:      dcl.ValueOrEmptyString(o.OsVersion),
-		OsArchitecture: dcl.ValueOrEmptyString(o.OsArchitecture),
+	p := &betapb.OsconfigBetaGuestPolicyAssignmentOSTypes{
+		OsShortName:    dcl.ValueOrEmptyString(o.OSShortName),
+		OsVersion:      dcl.ValueOrEmptyString(o.OSVersion),
+		OsArchitecture: dcl.ValueOrEmptyString(o.OSArchitecture),
 	}
 	return p
 }

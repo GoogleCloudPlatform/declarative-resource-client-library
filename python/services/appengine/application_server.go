@@ -84,7 +84,7 @@ func ProtoToAppengineApplicationFeatureSettings(p *appenginepb.AppengineApplicat
 	}
 	obj := &appengine.ApplicationFeatureSettings{
 		SplitHealthChecks:       dcl.Bool(p.SplitHealthChecks),
-		UseContainerOptimizedOs: dcl.Bool(p.UseContainerOptimizedOs),
+		UseContainerOptimizedOS: dcl.Bool(p.UseContainerOptimizedOs),
 	}
 	return obj
 }
@@ -167,7 +167,7 @@ func AppengineApplicationFeatureSettingsToProto(o *appengine.ApplicationFeatureS
 	}
 	p := &appenginepb.AppengineApplicationFeatureSettings{
 		SplitHealthChecks:       dcl.ValueOrEmptyBool(o.SplitHealthChecks),
-		UseContainerOptimizedOs: dcl.ValueOrEmptyBool(o.UseContainerOptimizedOs),
+		UseContainerOptimizedOs: dcl.ValueOrEmptyBool(o.UseContainerOptimizedOS),
 	}
 	return p
 }

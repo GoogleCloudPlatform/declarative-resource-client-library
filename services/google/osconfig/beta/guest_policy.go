@@ -263,7 +263,7 @@ type GuestPolicyAssignment struct {
 	Zones                []string                           `json:"zones"`
 	Instances            []string                           `json:"instances"`
 	InstanceNamePrefixes []string                           `json:"instanceNamePrefixes"`
-	OsTypes              []GuestPolicyAssignmentOsTypes     `json:"osTypes"`
+	OSTypes              []GuestPolicyAssignmentOSTypes     `json:"osTypes"`
 }
 
 type jsonGuestPolicyAssignment GuestPolicyAssignment
@@ -289,7 +289,7 @@ func (r *GuestPolicyAssignment) UnmarshalJSON(data []byte) error {
 
 		r.InstanceNamePrefixes = res.InstanceNamePrefixes
 
-		r.OsTypes = res.OsTypes
+		r.OSTypes = res.OSTypes
 
 	}
 	return nil
@@ -361,17 +361,17 @@ func (r *GuestPolicyAssignmentGroupLabels) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type GuestPolicyAssignmentOsTypes struct {
+type GuestPolicyAssignmentOSTypes struct {
 	empty          bool    `json:"-"`
-	OsShortName    *string `json:"osShortName"`
-	OsVersion      *string `json:"osVersion"`
-	OsArchitecture *string `json:"osArchitecture"`
+	OSShortName    *string `json:"osShortName"`
+	OSVersion      *string `json:"osVersion"`
+	OSArchitecture *string `json:"osArchitecture"`
 }
 
-type jsonGuestPolicyAssignmentOsTypes GuestPolicyAssignmentOsTypes
+type jsonGuestPolicyAssignmentOSTypes GuestPolicyAssignmentOSTypes
 
-func (r *GuestPolicyAssignmentOsTypes) UnmarshalJSON(data []byte) error {
-	var res jsonGuestPolicyAssignmentOsTypes
+func (r *GuestPolicyAssignmentOSTypes) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyAssignmentOSTypes
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -380,33 +380,33 @@ func (r *GuestPolicyAssignmentOsTypes) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyGuestPolicyAssignmentOsTypes
+		*r = *EmptyGuestPolicyAssignmentOSTypes
 	} else {
 
-		r.OsShortName = res.OsShortName
+		r.OSShortName = res.OSShortName
 
-		r.OsVersion = res.OsVersion
+		r.OSVersion = res.OSVersion
 
-		r.OsArchitecture = res.OsArchitecture
+		r.OSArchitecture = res.OSArchitecture
 
 	}
 	return nil
 }
 
-// This object is used to assert a desired state where this GuestPolicyAssignmentOsTypes is
+// This object is used to assert a desired state where this GuestPolicyAssignmentOSTypes is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyGuestPolicyAssignmentOsTypes *GuestPolicyAssignmentOsTypes = &GuestPolicyAssignmentOsTypes{empty: true}
+var EmptyGuestPolicyAssignmentOSTypes *GuestPolicyAssignmentOSTypes = &GuestPolicyAssignmentOSTypes{empty: true}
 
-func (r *GuestPolicyAssignmentOsTypes) Empty() bool {
+func (r *GuestPolicyAssignmentOSTypes) Empty() bool {
 	return r.empty
 }
 
-func (r *GuestPolicyAssignmentOsTypes) String() string {
+func (r *GuestPolicyAssignmentOSTypes) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *GuestPolicyAssignmentOsTypes) HashCode() string {
+func (r *GuestPolicyAssignmentOSTypes) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

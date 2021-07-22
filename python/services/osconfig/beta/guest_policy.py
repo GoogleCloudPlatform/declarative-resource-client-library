@@ -205,9 +205,9 @@ class GuestPolicyAssignment(object):
             res.instance_name_prefixes.extend(
                 Primitive.to_proto(resource.instance_name_prefixes)
             )
-        if GuestPolicyAssignmentOsTypesArray.to_proto(resource.os_types):
+        if GuestPolicyAssignmentOSTypesArray.to_proto(resource.os_types):
             res.os_types.extend(
-                GuestPolicyAssignmentOsTypesArray.to_proto(resource.os_types)
+                GuestPolicyAssignmentOSTypesArray.to_proto(resource.os_types)
             )
         return res
 
@@ -225,7 +225,7 @@ class GuestPolicyAssignment(object):
             instance_name_prefixes=Primitive.from_proto(
                 resource.instance_name_prefixes
             ),
-            os_types=GuestPolicyAssignmentOsTypesArray.from_proto(resource.os_types),
+            os_types=GuestPolicyAssignmentOSTypesArray.from_proto(resource.os_types),
         )
 
 
@@ -277,7 +277,7 @@ class GuestPolicyAssignmentGroupLabelsArray(object):
         return [GuestPolicyAssignmentGroupLabels.from_proto(i) for i in resources]
 
 
-class GuestPolicyAssignmentOsTypes(object):
+class GuestPolicyAssignmentOSTypes(object):
     def __init__(
         self,
         os_short_name: str = None,
@@ -293,7 +293,7 @@ class GuestPolicyAssignmentOsTypes(object):
         if not resource:
             return None
 
-        res = guest_policy_pb2.OsconfigBetaGuestPolicyAssignmentOsTypes()
+        res = guest_policy_pb2.OsconfigBetaGuestPolicyAssignmentOSTypes()
         if Primitive.to_proto(resource.os_short_name):
             res.os_short_name = Primitive.to_proto(resource.os_short_name)
         if Primitive.to_proto(resource.os_version):
@@ -307,23 +307,23 @@ class GuestPolicyAssignmentOsTypes(object):
         if not resource:
             return None
 
-        return GuestPolicyAssignmentOsTypes(
+        return GuestPolicyAssignmentOSTypes(
             os_short_name=Primitive.from_proto(resource.os_short_name),
             os_version=Primitive.from_proto(resource.os_version),
             os_architecture=Primitive.from_proto(resource.os_architecture),
         )
 
 
-class GuestPolicyAssignmentOsTypesArray(object):
+class GuestPolicyAssignmentOSTypesArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [GuestPolicyAssignmentOsTypes.to_proto(i) for i in resources]
+        return [GuestPolicyAssignmentOSTypes.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [GuestPolicyAssignmentOsTypes.from_proto(i) for i in resources]
+        return [GuestPolicyAssignmentOSTypes.from_proto(i) for i in resources]
 
 
 class GuestPolicyPackages(object):

@@ -46,7 +46,7 @@ func (r *GuestPolicyAssignment) validate() error {
 func (r *GuestPolicyAssignmentGroupLabels) validate() error {
 	return nil
 }
-func (r *GuestPolicyAssignmentOsTypes) validate() error {
+func (r *GuestPolicyAssignmentOSTypes) validate() error {
 	return nil
 }
 func (r *GuestPolicyPackages) validate() error {
@@ -789,10 +789,10 @@ func canonicalizeGuestPolicyAssignment(des, initial *GuestPolicyAssignment, opts
 	} else {
 		cDes.InstanceNamePrefixes = des.InstanceNamePrefixes
 	}
-	if dcl.IsZeroValue(des.OsTypes) {
-		des.OsTypes = initial.OsTypes
+	if dcl.IsZeroValue(des.OSTypes) {
+		des.OSTypes = initial.OSTypes
 	} else {
-		cDes.OsTypes = des.OsTypes
+		cDes.OSTypes = des.OSTypes
 	}
 
 	return cDes
@@ -813,7 +813,7 @@ func canonicalizeNewGuestPolicyAssignment(c *Client, des, nw *GuestPolicyAssignm
 	if dcl.IsZeroValue(nw.InstanceNamePrefixes) {
 		nw.InstanceNamePrefixes = des.InstanceNamePrefixes
 	}
-	nw.OsTypes = canonicalizeNewGuestPolicyAssignmentOsTypesSlice(c, des.OsTypes, nw.OsTypes)
+	nw.OSTypes = canonicalizeNewGuestPolicyAssignmentOSTypesSlice(c, des.OSTypes, nw.OSTypes)
 
 	return nw
 }
@@ -939,7 +939,7 @@ func canonicalizeNewGuestPolicyAssignmentGroupLabelsSlice(c *Client, des, nw []G
 	return items
 }
 
-func canonicalizeGuestPolicyAssignmentOsTypes(des, initial *GuestPolicyAssignmentOsTypes, opts ...dcl.ApplyOption) *GuestPolicyAssignmentOsTypes {
+func canonicalizeGuestPolicyAssignmentOSTypes(des, initial *GuestPolicyAssignmentOSTypes, opts ...dcl.ApplyOption) *GuestPolicyAssignmentOSTypes {
 	if des == nil {
 		return initial
 	}
@@ -951,54 +951,54 @@ func canonicalizeGuestPolicyAssignmentOsTypes(des, initial *GuestPolicyAssignmen
 		return des
 	}
 
-	cDes := &GuestPolicyAssignmentOsTypes{}
+	cDes := &GuestPolicyAssignmentOSTypes{}
 
-	if dcl.StringCanonicalize(des.OsShortName, initial.OsShortName) || dcl.IsZeroValue(des.OsShortName) {
-		cDes.OsShortName = initial.OsShortName
+	if dcl.StringCanonicalize(des.OSShortName, initial.OSShortName) || dcl.IsZeroValue(des.OSShortName) {
+		cDes.OSShortName = initial.OSShortName
 	} else {
-		cDes.OsShortName = des.OsShortName
+		cDes.OSShortName = des.OSShortName
 	}
-	if dcl.StringCanonicalize(des.OsVersion, initial.OsVersion) || dcl.IsZeroValue(des.OsVersion) {
-		cDes.OsVersion = initial.OsVersion
+	if dcl.StringCanonicalize(des.OSVersion, initial.OSVersion) || dcl.IsZeroValue(des.OSVersion) {
+		cDes.OSVersion = initial.OSVersion
 	} else {
-		cDes.OsVersion = des.OsVersion
+		cDes.OSVersion = des.OSVersion
 	}
-	if dcl.StringCanonicalize(des.OsArchitecture, initial.OsArchitecture) || dcl.IsZeroValue(des.OsArchitecture) {
-		cDes.OsArchitecture = initial.OsArchitecture
+	if dcl.StringCanonicalize(des.OSArchitecture, initial.OSArchitecture) || dcl.IsZeroValue(des.OSArchitecture) {
+		cDes.OSArchitecture = initial.OSArchitecture
 	} else {
-		cDes.OsArchitecture = des.OsArchitecture
+		cDes.OSArchitecture = des.OSArchitecture
 	}
 
 	return cDes
 }
 
-func canonicalizeNewGuestPolicyAssignmentOsTypes(c *Client, des, nw *GuestPolicyAssignmentOsTypes) *GuestPolicyAssignmentOsTypes {
+func canonicalizeNewGuestPolicyAssignmentOSTypes(c *Client, des, nw *GuestPolicyAssignmentOSTypes) *GuestPolicyAssignmentOSTypes {
 	if des == nil || nw == nil {
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.OsShortName, nw.OsShortName) {
-		nw.OsShortName = des.OsShortName
+	if dcl.StringCanonicalize(des.OSShortName, nw.OSShortName) {
+		nw.OSShortName = des.OSShortName
 	}
-	if dcl.StringCanonicalize(des.OsVersion, nw.OsVersion) {
-		nw.OsVersion = des.OsVersion
+	if dcl.StringCanonicalize(des.OSVersion, nw.OSVersion) {
+		nw.OSVersion = des.OSVersion
 	}
-	if dcl.StringCanonicalize(des.OsArchitecture, nw.OsArchitecture) {
-		nw.OsArchitecture = des.OsArchitecture
+	if dcl.StringCanonicalize(des.OSArchitecture, nw.OSArchitecture) {
+		nw.OSArchitecture = des.OSArchitecture
 	}
 
 	return nw
 }
 
-func canonicalizeNewGuestPolicyAssignmentOsTypesSet(c *Client, des, nw []GuestPolicyAssignmentOsTypes) []GuestPolicyAssignmentOsTypes {
+func canonicalizeNewGuestPolicyAssignmentOSTypesSet(c *Client, des, nw []GuestPolicyAssignmentOSTypes) []GuestPolicyAssignmentOSTypes {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []GuestPolicyAssignmentOsTypes
+	var reorderedNew []GuestPolicyAssignmentOSTypes
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareGuestPolicyAssignmentOsTypesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareGuestPolicyAssignmentOSTypesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1013,7 +1013,7 @@ func canonicalizeNewGuestPolicyAssignmentOsTypesSet(c *Client, des, nw []GuestPo
 	return reorderedNew
 }
 
-func canonicalizeNewGuestPolicyAssignmentOsTypesSlice(c *Client, des, nw []GuestPolicyAssignmentOsTypes) []GuestPolicyAssignmentOsTypes {
+func canonicalizeNewGuestPolicyAssignmentOSTypesSlice(c *Client, des, nw []GuestPolicyAssignmentOSTypes) []GuestPolicyAssignmentOSTypes {
 	if des == nil {
 		return nw
 	}
@@ -1024,10 +1024,10 @@ func canonicalizeNewGuestPolicyAssignmentOsTypesSlice(c *Client, des, nw []Guest
 		return nw
 	}
 
-	var items []GuestPolicyAssignmentOsTypes
+	var items []GuestPolicyAssignmentOSTypes
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewGuestPolicyAssignmentOsTypes(c, &d, &n))
+		items = append(items, *canonicalizeNewGuestPolicyAssignmentOSTypes(c, &d, &n))
 	}
 
 	return items
@@ -1133,6 +1133,46 @@ func canonicalizeGuestPolicyPackageRepositories(des, initial *GuestPolicyPackage
 	}
 	if des.empty {
 		return des
+	}
+
+	if des.Apt != nil || (initial != nil && initial.Apt != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.Goo, des.Yum, des.Zypper) {
+			des.Apt = nil
+			if initial != nil {
+				initial.Apt = nil
+			}
+		}
+	}
+
+	if des.Goo != nil || (initial != nil && initial.Goo != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.Apt, des.Yum, des.Zypper) {
+			des.Goo = nil
+			if initial != nil {
+				initial.Goo = nil
+			}
+		}
+	}
+
+	if des.Yum != nil || (initial != nil && initial.Yum != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.Apt, des.Goo, des.Zypper) {
+			des.Yum = nil
+			if initial != nil {
+				initial.Yum = nil
+			}
+		}
+	}
+
+	if des.Zypper != nil || (initial != nil && initial.Zypper != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.Apt, des.Goo, des.Yum) {
+			des.Zypper = nil
+			if initial != nil {
+				initial.Zypper = nil
+			}
+		}
 	}
 
 	if initial == nil {
@@ -1611,6 +1651,26 @@ func canonicalizeGuestPolicyRecipes(des, initial *GuestPolicyRecipes, opts ...dc
 	}
 	if des.empty {
 		return des
+	}
+
+	if des.InstallSteps != nil || (initial != nil && initial.InstallSteps != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.UpdateSteps) {
+			des.InstallSteps = nil
+			if initial != nil {
+				initial.InstallSteps = nil
+			}
+		}
+	}
+
+	if des.UpdateSteps != nil || (initial != nil && initial.UpdateSteps != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.InstallSteps) {
+			des.UpdateSteps = nil
+			if initial != nil {
+				initial.UpdateSteps = nil
+			}
+		}
 	}
 
 	if initial == nil {
@@ -3574,7 +3634,7 @@ func compareGuestPolicyAssignmentNewStyle(d, a interface{}, fn dcl.FieldName) ([
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OsTypes, actual.OsTypes, dcl.Info{ObjectFunction: compareGuestPolicyAssignmentOsTypesNewStyle, EmptyObject: EmptyGuestPolicyAssignmentOsTypes, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OsTypes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OSTypes, actual.OSTypes, dcl.Info{ObjectFunction: compareGuestPolicyAssignmentOSTypesNewStyle, EmptyObject: EmptyGuestPolicyAssignmentOSTypes, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OsTypes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3612,41 +3672,41 @@ func compareGuestPolicyAssignmentGroupLabelsNewStyle(d, a interface{}, fn dcl.Fi
 	return diffs, nil
 }
 
-func compareGuestPolicyAssignmentOsTypesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareGuestPolicyAssignmentOSTypesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*GuestPolicyAssignmentOsTypes)
+	desired, ok := d.(*GuestPolicyAssignmentOSTypes)
 	if !ok {
-		desiredNotPointer, ok := d.(GuestPolicyAssignmentOsTypes)
+		desiredNotPointer, ok := d.(GuestPolicyAssignmentOSTypes)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a GuestPolicyAssignmentOsTypes or *GuestPolicyAssignmentOsTypes", d)
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyAssignmentOSTypes or *GuestPolicyAssignmentOSTypes", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*GuestPolicyAssignmentOsTypes)
+	actual, ok := a.(*GuestPolicyAssignmentOSTypes)
 	if !ok {
-		actualNotPointer, ok := a.(GuestPolicyAssignmentOsTypes)
+		actualNotPointer, ok := a.(GuestPolicyAssignmentOSTypes)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a GuestPolicyAssignmentOsTypes", a)
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyAssignmentOSTypes", a)
 		}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.OsShortName, actual.OsShortName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OsShortName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OSShortName, actual.OSShortName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OsShortName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OsVersion, actual.OsVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OsVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OSVersion, actual.OSVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OsVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OsArchitecture, actual.OsArchitecture, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OsArchitecture")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OSArchitecture, actual.OSArchitecture, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OsArchitecture")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5082,8 +5142,8 @@ func expandGuestPolicyAssignment(c *Client, f *GuestPolicyAssignment) (map[strin
 	if v := f.InstanceNamePrefixes; !dcl.IsEmptyValueIndirect(v) {
 		m["instanceNamePrefixes"] = v
 	}
-	if v, err := expandGuestPolicyAssignmentOsTypesSlice(c, f.OsTypes); err != nil {
-		return nil, fmt.Errorf("error expanding OsTypes into osTypes: %w", err)
+	if v, err := expandGuestPolicyAssignmentOSTypesSlice(c, f.OSTypes); err != nil {
+		return nil, fmt.Errorf("error expanding OSTypes into osTypes: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["osTypes"] = v
 	}
@@ -5108,7 +5168,7 @@ func flattenGuestPolicyAssignment(c *Client, i interface{}) *GuestPolicyAssignme
 	r.Zones = dcl.FlattenStringSlice(m["zones"])
 	r.Instances = flattenGuestPolicyInstances(m["instances"])
 	r.InstanceNamePrefixes = dcl.FlattenStringSlice(m["instanceNamePrefixes"])
-	r.OsTypes = flattenGuestPolicyAssignmentOsTypesSlice(c, m["osTypes"])
+	r.OSTypes = flattenGuestPolicyAssignmentOSTypesSlice(c, m["osTypes"])
 
 	return r
 }
@@ -5227,16 +5287,16 @@ func flattenGuestPolicyAssignmentGroupLabels(c *Client, i interface{}) *GuestPol
 	return r
 }
 
-// expandGuestPolicyAssignmentOsTypesMap expands the contents of GuestPolicyAssignmentOsTypes into a JSON
+// expandGuestPolicyAssignmentOSTypesMap expands the contents of GuestPolicyAssignmentOSTypes into a JSON
 // request object.
-func expandGuestPolicyAssignmentOsTypesMap(c *Client, f map[string]GuestPolicyAssignmentOsTypes) (map[string]interface{}, error) {
+func expandGuestPolicyAssignmentOSTypesMap(c *Client, f map[string]GuestPolicyAssignmentOSTypes) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGuestPolicyAssignmentOsTypes(c, &item)
+		i, err := expandGuestPolicyAssignmentOSTypes(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -5248,16 +5308,16 @@ func expandGuestPolicyAssignmentOsTypesMap(c *Client, f map[string]GuestPolicyAs
 	return items, nil
 }
 
-// expandGuestPolicyAssignmentOsTypesSlice expands the contents of GuestPolicyAssignmentOsTypes into a JSON
+// expandGuestPolicyAssignmentOSTypesSlice expands the contents of GuestPolicyAssignmentOSTypes into a JSON
 // request object.
-func expandGuestPolicyAssignmentOsTypesSlice(c *Client, f []GuestPolicyAssignmentOsTypes) ([]map[string]interface{}, error) {
+func expandGuestPolicyAssignmentOSTypesSlice(c *Client, f []GuestPolicyAssignmentOSTypes) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGuestPolicyAssignmentOsTypes(c, &item)
+		i, err := expandGuestPolicyAssignmentOSTypes(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -5268,83 +5328,83 @@ func expandGuestPolicyAssignmentOsTypesSlice(c *Client, f []GuestPolicyAssignmen
 	return items, nil
 }
 
-// flattenGuestPolicyAssignmentOsTypesMap flattens the contents of GuestPolicyAssignmentOsTypes from a JSON
+// flattenGuestPolicyAssignmentOSTypesMap flattens the contents of GuestPolicyAssignmentOSTypes from a JSON
 // response object.
-func flattenGuestPolicyAssignmentOsTypesMap(c *Client, i interface{}) map[string]GuestPolicyAssignmentOsTypes {
+func flattenGuestPolicyAssignmentOSTypesMap(c *Client, i interface{}) map[string]GuestPolicyAssignmentOSTypes {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]GuestPolicyAssignmentOsTypes{}
+		return map[string]GuestPolicyAssignmentOSTypes{}
 	}
 
 	if len(a) == 0 {
-		return map[string]GuestPolicyAssignmentOsTypes{}
+		return map[string]GuestPolicyAssignmentOSTypes{}
 	}
 
-	items := make(map[string]GuestPolicyAssignmentOsTypes)
+	items := make(map[string]GuestPolicyAssignmentOSTypes)
 	for k, item := range a {
-		items[k] = *flattenGuestPolicyAssignmentOsTypes(c, item.(map[string]interface{}))
+		items[k] = *flattenGuestPolicyAssignmentOSTypes(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenGuestPolicyAssignmentOsTypesSlice flattens the contents of GuestPolicyAssignmentOsTypes from a JSON
+// flattenGuestPolicyAssignmentOSTypesSlice flattens the contents of GuestPolicyAssignmentOSTypes from a JSON
 // response object.
-func flattenGuestPolicyAssignmentOsTypesSlice(c *Client, i interface{}) []GuestPolicyAssignmentOsTypes {
+func flattenGuestPolicyAssignmentOSTypesSlice(c *Client, i interface{}) []GuestPolicyAssignmentOSTypes {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []GuestPolicyAssignmentOsTypes{}
+		return []GuestPolicyAssignmentOSTypes{}
 	}
 
 	if len(a) == 0 {
-		return []GuestPolicyAssignmentOsTypes{}
+		return []GuestPolicyAssignmentOSTypes{}
 	}
 
-	items := make([]GuestPolicyAssignmentOsTypes, 0, len(a))
+	items := make([]GuestPolicyAssignmentOSTypes, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGuestPolicyAssignmentOsTypes(c, item.(map[string]interface{})))
+		items = append(items, *flattenGuestPolicyAssignmentOSTypes(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandGuestPolicyAssignmentOsTypes expands an instance of GuestPolicyAssignmentOsTypes into a JSON
+// expandGuestPolicyAssignmentOSTypes expands an instance of GuestPolicyAssignmentOSTypes into a JSON
 // request object.
-func expandGuestPolicyAssignmentOsTypes(c *Client, f *GuestPolicyAssignmentOsTypes) (map[string]interface{}, error) {
+func expandGuestPolicyAssignmentOSTypes(c *Client, f *GuestPolicyAssignmentOSTypes) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v := f.OsShortName; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.OSShortName; !dcl.IsEmptyValueIndirect(v) {
 		m["osShortName"] = v
 	}
-	if v := f.OsVersion; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.OSVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["osVersion"] = v
 	}
-	if v := f.OsArchitecture; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.OSArchitecture; !dcl.IsEmptyValueIndirect(v) {
 		m["osArchitecture"] = v
 	}
 
 	return m, nil
 }
 
-// flattenGuestPolicyAssignmentOsTypes flattens an instance of GuestPolicyAssignmentOsTypes from a JSON
+// flattenGuestPolicyAssignmentOSTypes flattens an instance of GuestPolicyAssignmentOSTypes from a JSON
 // response object.
-func flattenGuestPolicyAssignmentOsTypes(c *Client, i interface{}) *GuestPolicyAssignmentOsTypes {
+func flattenGuestPolicyAssignmentOSTypes(c *Client, i interface{}) *GuestPolicyAssignmentOSTypes {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &GuestPolicyAssignmentOsTypes{}
+	r := &GuestPolicyAssignmentOSTypes{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyGuestPolicyAssignmentOsTypes
+		return EmptyGuestPolicyAssignmentOSTypes
 	}
-	r.OsShortName = dcl.FlattenString(m["osShortName"])
-	r.OsVersion = dcl.FlattenString(m["osVersion"])
-	r.OsArchitecture = dcl.FlattenString(m["osArchitecture"])
+	r.OSShortName = dcl.FlattenString(m["osShortName"])
+	r.OSVersion = dcl.FlattenString(m["osVersion"])
+	r.OSArchitecture = dcl.FlattenString(m["osArchitecture"])
 
 	return r
 }

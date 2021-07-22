@@ -23,6 +23,7 @@ import (
 // first segment
 var initialisms = map[string]string{
 	"ip":      "IP",
+	"os":      "OS",
 	"ipv4":    "IPv4",
 	"ipv6":    "IPv6",
 	"oauth":   "OAuth",

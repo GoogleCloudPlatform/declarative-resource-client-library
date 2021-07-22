@@ -42,9 +42,9 @@ func canonicalizeOSPolicyAssignmentRolloutMinWaitDuration(m, n interface{}) bool
 }
 
 // Waits for os policy assignment to be done reconciling before deletion.
-func (r *OsPolicyAssignment) waitForNotReconciling(ctx context.Context, client *Client) error {
+func (r *OSPolicyAssignment) waitForNotReconciling(ctx context.Context, client *Client) error {
 	return dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
-		nr, err := client.GetOsPolicyAssignment(ctx, r)
+		nr, err := client.GetOSPolicyAssignment(ctx, r)
 		if err != nil {
 			return nil, err
 		}

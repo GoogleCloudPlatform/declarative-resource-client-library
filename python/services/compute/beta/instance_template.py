@@ -348,11 +348,11 @@ class InstanceTemplatePropertiesDisks(object):
             )
         else:
             res.ClearField("initialize_params")
-        if InstanceTemplatePropertiesDisksGuestOsFeaturesArray.to_proto(
+        if InstanceTemplatePropertiesDisksGuestOSFeaturesArray.to_proto(
             resource.guest_os_features
         ):
             res.guest_os_features.extend(
-                InstanceTemplatePropertiesDisksGuestOsFeaturesArray.to_proto(
+                InstanceTemplatePropertiesDisksGuestOSFeaturesArray.to_proto(
                     resource.guest_os_features
                 )
             )
@@ -384,7 +384,7 @@ class InstanceTemplatePropertiesDisks(object):
             initialize_params=InstanceTemplatePropertiesDisksInitializeParams.from_proto(
                 resource.initialize_params
             ),
-            guest_os_features=InstanceTemplatePropertiesDisksGuestOsFeaturesArray.from_proto(
+            guest_os_features=InstanceTemplatePropertiesDisksGuestOSFeaturesArray.from_proto(
                 resource.guest_os_features
             ),
             interface=InstanceTemplatePropertiesDisksInterfaceEnum.from_proto(
@@ -701,7 +701,7 @@ class InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKeyArr
         ]
 
 
-class InstanceTemplatePropertiesDisksGuestOsFeatures(object):
+class InstanceTemplatePropertiesDisksGuestOSFeatures(object):
     def __init__(self, type: str = None):
         self.type = type
 
@@ -711,7 +711,7 @@ class InstanceTemplatePropertiesDisksGuestOsFeatures(object):
             return None
 
         res = (
-            instance_template_pb2.ComputeBetaInstanceTemplatePropertiesDisksGuestOsFeatures()
+            instance_template_pb2.ComputeBetaInstanceTemplatePropertiesDisksGuestOSFeatures()
         )
         if Primitive.to_proto(resource.type):
             res.type = Primitive.to_proto(resource.type)
@@ -722,25 +722,25 @@ class InstanceTemplatePropertiesDisksGuestOsFeatures(object):
         if not resource:
             return None
 
-        return InstanceTemplatePropertiesDisksGuestOsFeatures(
+        return InstanceTemplatePropertiesDisksGuestOSFeatures(
             type=Primitive.from_proto(resource.type),
         )
 
 
-class InstanceTemplatePropertiesDisksGuestOsFeaturesArray(object):
+class InstanceTemplatePropertiesDisksGuestOSFeaturesArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
         return [
-            InstanceTemplatePropertiesDisksGuestOsFeatures.to_proto(i)
+            InstanceTemplatePropertiesDisksGuestOSFeatures.to_proto(i)
             for i in resources
         ]
 
     @classmethod
     def from_proto(self, resources):
         return [
-            InstanceTemplatePropertiesDisksGuestOsFeatures.from_proto(i)
+            InstanceTemplatePropertiesDisksGuestOSFeatures.from_proto(i)
             for i in resources
         ]
 

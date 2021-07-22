@@ -56,6 +56,9 @@ components:
       x-dcl-locations:
       - global
       type: object
+      required:
+      - shortName
+      - parent
       properties:
         creationTimestamp:
           type: string
@@ -71,8 +74,10 @@ components:
         fingerprint:
           type: string
           x-dcl-go-name: Fingerprint
+          readOnly: true
           description: Fingerprint of the resource. This field is used internally
             during updates of this resource.
+          x-kubernetes-immutable: true
         id:
           type: string
           x-dcl-go-name: Id

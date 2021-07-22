@@ -121,6 +121,9 @@ components:
                 type: string
                 x-dcl-go-name: HealthCheck
                 description: The URL for the health check that signals autohealing.
+                x-dcl-references:
+                - resource: Compute/HealthCheck
+                  field: selfLink
               initialDelaySec:
                 type: integer
                 format: int64
@@ -286,11 +289,13 @@ components:
         fingerprint:
           type: string
           x-dcl-go-name: Fingerprint
+          readOnly: true
           description: Fingerprint of this resource. This field may be used in optimistic
             locking. It will be ignored when inserting an InstanceGroupManager. An
             up-to-date fingerprint must be provided in order to update the InstanceGroupManager,
             otherwise the request will fail with error `412 conditionNotMet`. To see
             the latest fingerprint, make a `get()` request to retrieve an InstanceGroupManager.
+          x-kubernetes-immutable: true
         id:
           type: integer
           format: int64
@@ -305,6 +310,9 @@ components:
           readOnly: true
           description: The URL of the Instance Group resource.
           x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Compute/InstanceGroup
+            field: selfLink
         instanceTemplate:
           type: string
           x-dcl-go-name: InstanceTemplate
@@ -314,6 +322,9 @@ components:
             in the group do not change unless you run `recreateInstances`, run `applyUpdatesToInstances`,
             or set the group's `updatePolicy.type` to `PROACTIVE`.
           x-dcl-forward-slash-allowed: true
+          x-dcl-references:
+          - resource: Compute/Instance
+            field: selfLink
         location:
           type: string
           x-dcl-go-name: Location
@@ -492,6 +503,9 @@ components:
           items:
             type: string
             x-dcl-go-type: string
+            x-dcl-references:
+            - resource: Compute/TargetPool
+              field: selfLink
         targetSize:
           type: integer
           format: int64
@@ -588,6 +602,9 @@ components:
                   `applyUpdatesToInstances`, or set the group's `updatePolicy.type`
                   to `PROACTIVE`; in those cases, existing instances are updated until
                   the `targetSize` for this version is reached.
+                x-dcl-references:
+                - resource: Compute/Instance
+                  field: selfLink
               name:
                 type: string
                 x-dcl-go-name: Name

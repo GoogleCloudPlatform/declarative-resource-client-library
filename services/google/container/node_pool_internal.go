@@ -778,14 +778,14 @@ func canonicalizeNodePoolInitialState(rawInitial, rawDesired *NodePool) (*NodePo
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
 	if !dcl.IsZeroValue(rawInitial.NodeCount) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.Autoscaling) {
 			rawInitial.NodeCount = dcl.Int64(0)
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.Autoscaling) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.NodeCount) {
 			rawInitial.Autoscaling = EmptyNodePoolAutoscaling
 		}
@@ -816,7 +816,7 @@ func canonicalizeNodePoolDesiredState(rawDesired, rawInitial *NodePool, opts ...
 	}
 
 	if rawDesired.NodeCount != nil || rawInitial.NodeCount != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.Autoscaling) {
 			rawDesired.NodeCount = nil
 			rawInitial.NodeCount = nil
@@ -824,7 +824,7 @@ func canonicalizeNodePoolDesiredState(rawDesired, rawInitial *NodePool, opts ...
 	}
 
 	if rawDesired.Autoscaling != nil || rawInitial.Autoscaling != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.NodeCount) {
 			rawDesired.Autoscaling = nil
 			rawInitial.Autoscaling = nil

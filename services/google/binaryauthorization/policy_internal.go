@@ -258,28 +258,28 @@ func canonicalizePolicyInitialState(rawInitial, rawDesired *Policy) (*Policy, er
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
 	if !dcl.IsZeroValue(rawInitial.KubernetesNamespaceAdmissionRules) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.KubernetesServiceAccountAdmissionRules, rawInitial.IstioServiceIdentityAdmissionRules, rawInitial.ClusterAdmissionRules) {
 			rawInitial.KubernetesNamespaceAdmissionRules = map[string]PolicyAdmissionRule{}
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.KubernetesServiceAccountAdmissionRules) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.KubernetesNamespaceAdmissionRules, rawInitial.IstioServiceIdentityAdmissionRules, rawInitial.ClusterAdmissionRules) {
 			rawInitial.KubernetesServiceAccountAdmissionRules = map[string]PolicyAdmissionRule{}
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.IstioServiceIdentityAdmissionRules) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.KubernetesNamespaceAdmissionRules, rawInitial.KubernetesServiceAccountAdmissionRules, rawInitial.ClusterAdmissionRules) {
 			rawInitial.IstioServiceIdentityAdmissionRules = map[string]PolicyAdmissionRule{}
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.ClusterAdmissionRules) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.KubernetesNamespaceAdmissionRules, rawInitial.KubernetesServiceAccountAdmissionRules, rawInitial.IstioServiceIdentityAdmissionRules) {
 			rawInitial.ClusterAdmissionRules = map[string]PolicyAdmissionRule{}
 		}
@@ -306,7 +306,7 @@ func canonicalizePolicyDesiredState(rawDesired, rawInitial *Policy, opts ...dcl.
 	}
 
 	if rawDesired.KubernetesNamespaceAdmissionRules != nil || rawInitial.KubernetesNamespaceAdmissionRules != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.KubernetesServiceAccountAdmissionRules, rawDesired.IstioServiceIdentityAdmissionRules, rawDesired.ClusterAdmissionRules) {
 			rawDesired.KubernetesNamespaceAdmissionRules = nil
 			rawInitial.KubernetesNamespaceAdmissionRules = nil
@@ -314,7 +314,7 @@ func canonicalizePolicyDesiredState(rawDesired, rawInitial *Policy, opts ...dcl.
 	}
 
 	if rawDesired.KubernetesServiceAccountAdmissionRules != nil || rawInitial.KubernetesServiceAccountAdmissionRules != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.KubernetesNamespaceAdmissionRules, rawDesired.IstioServiceIdentityAdmissionRules, rawDesired.ClusterAdmissionRules) {
 			rawDesired.KubernetesServiceAccountAdmissionRules = nil
 			rawInitial.KubernetesServiceAccountAdmissionRules = nil
@@ -322,7 +322,7 @@ func canonicalizePolicyDesiredState(rawDesired, rawInitial *Policy, opts ...dcl.
 	}
 
 	if rawDesired.IstioServiceIdentityAdmissionRules != nil || rawInitial.IstioServiceIdentityAdmissionRules != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.KubernetesNamespaceAdmissionRules, rawDesired.KubernetesServiceAccountAdmissionRules, rawDesired.ClusterAdmissionRules) {
 			rawDesired.IstioServiceIdentityAdmissionRules = nil
 			rawInitial.IstioServiceIdentityAdmissionRules = nil
@@ -330,7 +330,7 @@ func canonicalizePolicyDesiredState(rawDesired, rawInitial *Policy, opts ...dcl.
 	}
 
 	if rawDesired.ClusterAdmissionRules != nil || rawInitial.ClusterAdmissionRules != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.KubernetesNamespaceAdmissionRules, rawDesired.KubernetesServiceAccountAdmissionRules, rawDesired.IstioServiceIdentityAdmissionRules) {
 			rawDesired.ClusterAdmissionRules = nil
 			rawInitial.ClusterAdmissionRules = nil

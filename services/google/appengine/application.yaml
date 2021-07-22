@@ -125,9 +125,9 @@ components:
                 instead of 'health_check' ones. Once the legacy 'health_check' behavior
                 is deprecated, and this value is always true, this setting can be
                 removed.
-            useContainerOptimizedOs:
+            useContainerOptimizedOS:
               type: boolean
-              x-dcl-go-name: UseContainerOptimizedOs
+              x-dcl-go-name: UseContainerOptimizedOS
               description: If true, use [Container-Optimized OS](https://cloud.google.com/container-optimized-os/)
                 base image for VMs, rather than a base Debian image.
         gcrDomain:

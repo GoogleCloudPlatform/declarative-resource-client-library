@@ -37,7 +37,6 @@ class FirewallPolicy(object):
         channel.initialize()
         self.name = name
         self.description = description
-        self.fingerprint = fingerprint
         self.short_name = short_name
         self.parent = parent
         self.service_account_file = service_account_file
@@ -52,9 +51,6 @@ class FirewallPolicy(object):
 
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
-
-        if Primitive.to_proto(self.fingerprint):
-            request.resource.fingerprint = Primitive.to_proto(self.fingerprint)
 
         if Primitive.to_proto(self.short_name):
             request.resource.short_name = Primitive.to_proto(self.short_name)
@@ -88,9 +84,6 @@ class FirewallPolicy(object):
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
-        if Primitive.to_proto(self.fingerprint):
-            request.resource.fingerprint = Primitive.to_proto(self.fingerprint)
-
         if Primitive.to_proto(self.short_name):
             request.resource.short_name = Primitive.to_proto(self.short_name)
 
@@ -116,8 +109,6 @@ class FirewallPolicy(object):
             resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.description):
             resource.description = Primitive.to_proto(self.description)
-        if Primitive.to_proto(self.fingerprint):
-            resource.fingerprint = Primitive.to_proto(self.fingerprint)
         if Primitive.to_proto(self.short_name):
             resource.short_name = Primitive.to_proto(self.short_name)
         if Primitive.to_proto(self.parent):

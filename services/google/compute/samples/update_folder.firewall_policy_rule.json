@@ -9,12 +9,13 @@
         "ports": ["22"]
       }
     ],
-    "destIPRanges": ["11.100.0.1/32"]
+    "srcIPRanges": ["11.100.0.1/32"],
+    "destIPRanges": []
   },
   "enableLogging" : true,
   "targetServiceAccounts" : ["update-261421534184-compute@developer.gserviceaccount.com"],
   "action" : "allow",
-  "direction": "EGRESS",
+  "direction": "INGRESS",
   "disabled" : true,
   "targetResources": ["{{ref:update_folder.network.json:selfLink}}"]
 }

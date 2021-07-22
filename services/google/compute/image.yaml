@@ -139,9 +139,9 @@ components:
             name. The image family always returns its latest image that is not deprecated.
             The name of the image family must comply with [RFC1035](https://www.ietf.org/rfc/rfc1035.txt).
           x-kubernetes-immutable: true
-        guestOsFeature:
+        guestOSFeature:
           type: array
-          x-dcl-go-name: GuestOsFeature
+          x-dcl-go-name: GuestOSFeature
           description: A list of features to enable on the guest operating system.
             Applicable only for bootable images. Read [Enabling guest operating system
             features](/compute/docs/images/create-delete-deprecate-private-images#guest-os-features)
@@ -150,12 +150,12 @@ components:
           x-dcl-list-type: set
           items:
             type: object
-            x-dcl-go-type: ImageGuestOsFeature
+            x-dcl-go-type: ImageGuestOSFeature
             properties:
               type:
                 type: string
                 x-dcl-go-name: Type
-                x-dcl-go-type: ImageGuestOsFeatureTypeEnum
+                x-dcl-go-type: ImageGuestOSFeatureTypeEnum
                 description: 'The ID of a supported feature. Read [Enabling guest
                   operating system features](/compute/docs/images/create-delete-deprecate-private-images#guest-os-features)
                   to see a list of available options. Possible values: FEATURE_TYPE_UNSPECIFIED,

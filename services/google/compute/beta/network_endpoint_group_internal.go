@@ -387,21 +387,21 @@ func canonicalizeNetworkEndpointGroupInitialState(rawInitial, rawDesired *Networ
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
 	if !dcl.IsZeroValue(rawInitial.CloudRun) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.AppEngine, rawInitial.CloudFunction) {
 			rawInitial.CloudRun = EmptyNetworkEndpointGroupCloudRun
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.AppEngine) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.CloudRun, rawInitial.CloudFunction) {
 			rawInitial.AppEngine = EmptyNetworkEndpointGroupAppEngine
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.CloudFunction) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.CloudRun, rawInitial.AppEngine) {
 			rawInitial.CloudFunction = EmptyNetworkEndpointGroupCloudFunction
 		}
@@ -430,7 +430,7 @@ func canonicalizeNetworkEndpointGroupDesiredState(rawDesired, rawInitial *Networ
 	}
 
 	if rawDesired.CloudRun != nil || rawInitial.CloudRun != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.AppEngine, rawDesired.CloudFunction) {
 			rawDesired.CloudRun = nil
 			rawInitial.CloudRun = nil
@@ -438,7 +438,7 @@ func canonicalizeNetworkEndpointGroupDesiredState(rawDesired, rawInitial *Networ
 	}
 
 	if rawDesired.AppEngine != nil || rawInitial.AppEngine != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.CloudRun, rawDesired.CloudFunction) {
 			rawDesired.AppEngine = nil
 			rawInitial.AppEngine = nil
@@ -446,7 +446,7 @@ func canonicalizeNetworkEndpointGroupDesiredState(rawDesired, rawInitial *Networ
 	}
 
 	if rawDesired.CloudFunction != nil || rawInitial.CloudFunction != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.CloudRun, rawDesired.AppEngine) {
 			rawDesired.CloudFunction = nil
 			rawInitial.CloudFunction = nil

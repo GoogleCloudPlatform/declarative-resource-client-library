@@ -1691,6 +1691,26 @@ func canonicalizeCertificateAuthorityConfigReusableConfig(des, initial *Certific
 		return des
 	}
 
+	if des.ReusableConfig != nil || (initial != nil && initial.ReusableConfig != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.ReusableConfigValues) {
+			des.ReusableConfig = nil
+			if initial != nil {
+				initial.ReusableConfig = nil
+			}
+		}
+	}
+
+	if des.ReusableConfigValues != nil || (initial != nil && initial.ReusableConfigValues != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.ReusableConfig) {
+			des.ReusableConfigValues = nil
+			if initial != nil {
+				initial.ReusableConfigValues = nil
+			}
+		}
+	}
+
 	if initial == nil {
 		return des
 	}
@@ -2613,6 +2633,26 @@ func canonicalizeCertificateAuthorityKeySpec(des, initial *CertificateAuthorityK
 		return des
 	}
 
+	if des.CloudKmsKeyVersion != nil || (initial != nil && initial.CloudKmsKeyVersion != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.Algorithm) {
+			des.CloudKmsKeyVersion = nil
+			if initial != nil {
+				initial.CloudKmsKeyVersion = nil
+			}
+		}
+	}
+
+	if des.Algorithm != nil || (initial != nil && initial.Algorithm != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.CloudKmsKeyVersion) {
+			des.Algorithm = nil
+			if initial != nil {
+				initial.Algorithm = nil
+			}
+		}
+	}
+
 	if initial == nil {
 		return des
 	}
@@ -2697,6 +2737,26 @@ func canonicalizeCertificateAuthoritySubordinateConfig(des, initial *Certificate
 	}
 	if des.empty {
 		return des
+	}
+
+	if des.CertificateAuthority != nil || (initial != nil && initial.CertificateAuthority != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.PemIssuerChain) {
+			des.CertificateAuthority = nil
+			if initial != nil {
+				initial.CertificateAuthority = nil
+			}
+		}
+	}
+
+	if des.PemIssuerChain != nil || (initial != nil && initial.PemIssuerChain != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.CertificateAuthority) {
+			des.PemIssuerChain = nil
+			if initial != nil {
+				initial.PemIssuerChain = nil
+			}
+		}
 	}
 
 	if initial == nil {
@@ -4741,6 +4801,26 @@ func canonicalizeCertificateAuthorityCertificatePolicy(des, initial *Certificate
 		return des
 	}
 
+	if des.AllowedConfigList != nil || (initial != nil && initial.AllowedConfigList != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.OverwriteConfigValues) {
+			des.AllowedConfigList = nil
+			if initial != nil {
+				initial.AllowedConfigList = nil
+			}
+		}
+	}
+
+	if des.OverwriteConfigValues != nil || (initial != nil && initial.OverwriteConfigValues != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.AllowedConfigList) {
+			des.OverwriteConfigValues = nil
+			if initial != nil {
+				initial.OverwriteConfigValues = nil
+			}
+		}
+	}
+
 	if initial == nil {
 		return des
 	}
@@ -4915,6 +4995,26 @@ func canonicalizeCertificateAuthorityCertificatePolicyAllowedConfigListAllowedCo
 	}
 	if des.empty {
 		return des
+	}
+
+	if des.ReusableConfig != nil || (initial != nil && initial.ReusableConfig != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.ReusableConfigValues) {
+			des.ReusableConfig = nil
+			if initial != nil {
+				initial.ReusableConfig = nil
+			}
+		}
+	}
+
+	if des.ReusableConfigValues != nil || (initial != nil && initial.ReusableConfigValues != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.ReusableConfig) {
+			des.ReusableConfigValues = nil
+			if initial != nil {
+				initial.ReusableConfigValues = nil
+			}
+		}
 	}
 
 	if initial == nil {
@@ -5837,6 +5937,26 @@ func canonicalizeCertificateAuthorityCertificatePolicyOverwriteConfigValues(des,
 	}
 	if des.empty {
 		return des
+	}
+
+	if des.ReusableConfig != nil || (initial != nil && initial.ReusableConfig != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.ReusableConfigValues) {
+			des.ReusableConfig = nil
+			if initial != nil {
+				initial.ReusableConfig = nil
+			}
+		}
+	}
+
+	if des.ReusableConfigValues != nil || (initial != nil && initial.ReusableConfigValues != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.ReusableConfig) {
+			des.ReusableConfigValues = nil
+			if initial != nil {
+				initial.ReusableConfigValues = nil
+			}
+		}
 	}
 
 	if initial == nil {

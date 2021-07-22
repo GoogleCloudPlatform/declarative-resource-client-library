@@ -100,7 +100,7 @@ func (r *InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryption
 func (r *InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey) validate() error {
 	return nil
 }
-func (r *InstanceTemplatePropertiesDisksGuestOsFeatures) validate() error {
+func (r *InstanceTemplatePropertiesDisksGuestOSFeatures) validate() error {
 	return nil
 }
 func (r *InstanceTemplatePropertiesReservationAffinity) validate() error {
@@ -775,10 +775,10 @@ func canonicalizeInstanceTemplatePropertiesDisks(des, initial *InstanceTemplateP
 		cDes.Index = des.Index
 	}
 	cDes.InitializeParams = canonicalizeInstanceTemplatePropertiesDisksInitializeParams(des.InitializeParams, initial.InitializeParams, opts...)
-	if dcl.IsZeroValue(des.GuestOsFeatures) {
-		des.GuestOsFeatures = initial.GuestOsFeatures
+	if dcl.IsZeroValue(des.GuestOSFeatures) {
+		des.GuestOSFeatures = initial.GuestOSFeatures
 	} else {
-		cDes.GuestOsFeatures = des.GuestOsFeatures
+		cDes.GuestOSFeatures = des.GuestOSFeatures
 	}
 	if dcl.IsZeroValue(des.Interface) {
 		des.Interface = initial.Interface
@@ -823,7 +823,7 @@ func canonicalizeNewInstanceTemplatePropertiesDisks(c *Client, des, nw *Instance
 		nw.Index = des.Index
 	}
 	nw.InitializeParams = canonicalizeNewInstanceTemplatePropertiesDisksInitializeParams(c, des.InitializeParams, nw.InitializeParams)
-	nw.GuestOsFeatures = canonicalizeNewInstanceTemplatePropertiesDisksGuestOsFeaturesSlice(c, des.GuestOsFeatures, nw.GuestOsFeatures)
+	nw.GuestOSFeatures = canonicalizeNewInstanceTemplatePropertiesDisksGuestOSFeaturesSlice(c, des.GuestOSFeatures, nw.GuestOSFeatures)
 	if dcl.IsZeroValue(nw.Interface) {
 		nw.Interface = des.Interface
 	}
@@ -1296,7 +1296,7 @@ func canonicalizeNewInstanceTemplatePropertiesDisksInitializeParamsSourceImageEn
 	return items
 }
 
-func canonicalizeInstanceTemplatePropertiesDisksGuestOsFeatures(des, initial *InstanceTemplatePropertiesDisksGuestOsFeatures, opts ...dcl.ApplyOption) *InstanceTemplatePropertiesDisksGuestOsFeatures {
+func canonicalizeInstanceTemplatePropertiesDisksGuestOSFeatures(des, initial *InstanceTemplatePropertiesDisksGuestOSFeatures, opts ...dcl.ApplyOption) *InstanceTemplatePropertiesDisksGuestOSFeatures {
 	if des == nil {
 		return initial
 	}
@@ -1308,7 +1308,7 @@ func canonicalizeInstanceTemplatePropertiesDisksGuestOsFeatures(des, initial *In
 		return des
 	}
 
-	cDes := &InstanceTemplatePropertiesDisksGuestOsFeatures{}
+	cDes := &InstanceTemplatePropertiesDisksGuestOSFeatures{}
 
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
 		cDes.Type = initial.Type
@@ -1319,7 +1319,7 @@ func canonicalizeInstanceTemplatePropertiesDisksGuestOsFeatures(des, initial *In
 	return cDes
 }
 
-func canonicalizeNewInstanceTemplatePropertiesDisksGuestOsFeatures(c *Client, des, nw *InstanceTemplatePropertiesDisksGuestOsFeatures) *InstanceTemplatePropertiesDisksGuestOsFeatures {
+func canonicalizeNewInstanceTemplatePropertiesDisksGuestOSFeatures(c *Client, des, nw *InstanceTemplatePropertiesDisksGuestOSFeatures) *InstanceTemplatePropertiesDisksGuestOSFeatures {
 	if des == nil || nw == nil {
 		return nw
 	}
@@ -1331,15 +1331,15 @@ func canonicalizeNewInstanceTemplatePropertiesDisksGuestOsFeatures(c *Client, de
 	return nw
 }
 
-func canonicalizeNewInstanceTemplatePropertiesDisksGuestOsFeaturesSet(c *Client, des, nw []InstanceTemplatePropertiesDisksGuestOsFeatures) []InstanceTemplatePropertiesDisksGuestOsFeatures {
+func canonicalizeNewInstanceTemplatePropertiesDisksGuestOSFeaturesSet(c *Client, des, nw []InstanceTemplatePropertiesDisksGuestOSFeatures) []InstanceTemplatePropertiesDisksGuestOSFeatures {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []InstanceTemplatePropertiesDisksGuestOsFeatures
+	var reorderedNew []InstanceTemplatePropertiesDisksGuestOSFeatures
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareInstanceTemplatePropertiesDisksGuestOsFeaturesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareInstanceTemplatePropertiesDisksGuestOSFeaturesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1354,7 +1354,7 @@ func canonicalizeNewInstanceTemplatePropertiesDisksGuestOsFeaturesSet(c *Client,
 	return reorderedNew
 }
 
-func canonicalizeNewInstanceTemplatePropertiesDisksGuestOsFeaturesSlice(c *Client, des, nw []InstanceTemplatePropertiesDisksGuestOsFeatures) []InstanceTemplatePropertiesDisksGuestOsFeatures {
+func canonicalizeNewInstanceTemplatePropertiesDisksGuestOSFeaturesSlice(c *Client, des, nw []InstanceTemplatePropertiesDisksGuestOSFeatures) []InstanceTemplatePropertiesDisksGuestOSFeatures {
 	if des == nil {
 		return nw
 	}
@@ -1365,10 +1365,10 @@ func canonicalizeNewInstanceTemplatePropertiesDisksGuestOsFeaturesSlice(c *Clien
 		return nw
 	}
 
-	var items []InstanceTemplatePropertiesDisksGuestOsFeatures
+	var items []InstanceTemplatePropertiesDisksGuestOSFeatures
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceTemplatePropertiesDisksGuestOsFeatures(c, &d, &n))
+		items = append(items, *canonicalizeNewInstanceTemplatePropertiesDisksGuestOSFeatures(c, &d, &n))
 	}
 
 	return items
@@ -2481,7 +2481,7 @@ func compareInstanceTemplatePropertiesDisksNewStyle(d, a interface{}, fn dcl.Fie
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GuestOsFeatures, actual.GuestOsFeatures, dcl.Info{ObjectFunction: compareInstanceTemplatePropertiesDisksGuestOsFeaturesNewStyle, EmptyObject: EmptyInstanceTemplatePropertiesDisksGuestOsFeatures, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GuestOsFeatures")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GuestOSFeatures, actual.GuestOSFeatures, dcl.Info{ObjectFunction: compareInstanceTemplatePropertiesDisksGuestOSFeaturesNewStyle, EmptyObject: EmptyInstanceTemplatePropertiesDisksGuestOSFeatures, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GuestOSFeatures")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2746,22 +2746,22 @@ func compareInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryption
 	return diffs, nil
 }
 
-func compareInstanceTemplatePropertiesDisksGuestOsFeaturesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareInstanceTemplatePropertiesDisksGuestOSFeaturesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*InstanceTemplatePropertiesDisksGuestOsFeatures)
+	desired, ok := d.(*InstanceTemplatePropertiesDisksGuestOSFeatures)
 	if !ok {
-		desiredNotPointer, ok := d.(InstanceTemplatePropertiesDisksGuestOsFeatures)
+		desiredNotPointer, ok := d.(InstanceTemplatePropertiesDisksGuestOSFeatures)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesDisksGuestOsFeatures or *InstanceTemplatePropertiesDisksGuestOsFeatures", d)
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesDisksGuestOSFeatures or *InstanceTemplatePropertiesDisksGuestOSFeatures", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*InstanceTemplatePropertiesDisksGuestOsFeatures)
+	actual, ok := a.(*InstanceTemplatePropertiesDisksGuestOSFeatures)
 	if !ok {
-		actualNotPointer, ok := a.(InstanceTemplatePropertiesDisksGuestOsFeatures)
+		actualNotPointer, ok := a.(InstanceTemplatePropertiesDisksGuestOSFeatures)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesDisksGuestOsFeatures", a)
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesDisksGuestOSFeatures", a)
 		}
 		actual = &actualNotPointer
 	}
@@ -3604,10 +3604,10 @@ func expandInstanceTemplatePropertiesDisks(c *Client, f *InstanceTemplatePropert
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["initializeParams"] = v
 	}
-	if v, err := expandInstanceTemplatePropertiesDisksGuestOsFeaturesSlice(c, f.GuestOsFeatures); err != nil {
-		return nil, fmt.Errorf("error expanding GuestOsFeatures into guestOsFeatures: %w", err)
+	if v, err := expandInstanceTemplatePropertiesDisksGuestOSFeaturesSlice(c, f.GuestOSFeatures); err != nil {
+		return nil, fmt.Errorf("error expanding GuestOSFeatures into guestOSFeatures: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["guestOsFeatures"] = v
+		m["guestOSFeatures"] = v
 	}
 	if v := f.Interface; !dcl.IsEmptyValueIndirect(v) {
 		m["interface"] = v
@@ -3644,7 +3644,7 @@ func flattenInstanceTemplatePropertiesDisks(c *Client, i interface{}) *InstanceT
 	r.DiskEncryptionKey = flattenInstanceTemplatePropertiesDisksDiskEncryptionKey(c, m["diskEncryptionKey"])
 	r.Index = dcl.FlattenInteger(m["index"])
 	r.InitializeParams = flattenInstanceTemplatePropertiesDisksInitializeParams(c, m["initializeParams"])
-	r.GuestOsFeatures = flattenInstanceTemplatePropertiesDisksGuestOsFeaturesSlice(c, m["guestOsFeatures"])
+	r.GuestOSFeatures = flattenInstanceTemplatePropertiesDisksGuestOSFeaturesSlice(c, m["guestOSFeatures"])
 	r.Interface = flattenInstanceTemplatePropertiesDisksInterfaceEnum(m["interface"])
 	r.Mode = flattenInstanceTemplatePropertiesDisksModeEnum(m["mode"])
 	r.Source = dcl.FlattenString(m["source"])
@@ -4177,16 +4177,16 @@ func flattenInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryption
 	return r
 }
 
-// expandInstanceTemplatePropertiesDisksGuestOsFeaturesMap expands the contents of InstanceTemplatePropertiesDisksGuestOsFeatures into a JSON
+// expandInstanceTemplatePropertiesDisksGuestOSFeaturesMap expands the contents of InstanceTemplatePropertiesDisksGuestOSFeatures into a JSON
 // request object.
-func expandInstanceTemplatePropertiesDisksGuestOsFeaturesMap(c *Client, f map[string]InstanceTemplatePropertiesDisksGuestOsFeatures) (map[string]interface{}, error) {
+func expandInstanceTemplatePropertiesDisksGuestOSFeaturesMap(c *Client, f map[string]InstanceTemplatePropertiesDisksGuestOSFeatures) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceTemplatePropertiesDisksGuestOsFeatures(c, &item)
+		i, err := expandInstanceTemplatePropertiesDisksGuestOSFeatures(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -4198,16 +4198,16 @@ func expandInstanceTemplatePropertiesDisksGuestOsFeaturesMap(c *Client, f map[st
 	return items, nil
 }
 
-// expandInstanceTemplatePropertiesDisksGuestOsFeaturesSlice expands the contents of InstanceTemplatePropertiesDisksGuestOsFeatures into a JSON
+// expandInstanceTemplatePropertiesDisksGuestOSFeaturesSlice expands the contents of InstanceTemplatePropertiesDisksGuestOSFeatures into a JSON
 // request object.
-func expandInstanceTemplatePropertiesDisksGuestOsFeaturesSlice(c *Client, f []InstanceTemplatePropertiesDisksGuestOsFeatures) ([]map[string]interface{}, error) {
+func expandInstanceTemplatePropertiesDisksGuestOSFeaturesSlice(c *Client, f []InstanceTemplatePropertiesDisksGuestOSFeatures) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceTemplatePropertiesDisksGuestOsFeatures(c, &item)
+		i, err := expandInstanceTemplatePropertiesDisksGuestOSFeatures(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -4218,49 +4218,49 @@ func expandInstanceTemplatePropertiesDisksGuestOsFeaturesSlice(c *Client, f []In
 	return items, nil
 }
 
-// flattenInstanceTemplatePropertiesDisksGuestOsFeaturesMap flattens the contents of InstanceTemplatePropertiesDisksGuestOsFeatures from a JSON
+// flattenInstanceTemplatePropertiesDisksGuestOSFeaturesMap flattens the contents of InstanceTemplatePropertiesDisksGuestOSFeatures from a JSON
 // response object.
-func flattenInstanceTemplatePropertiesDisksGuestOsFeaturesMap(c *Client, i interface{}) map[string]InstanceTemplatePropertiesDisksGuestOsFeatures {
+func flattenInstanceTemplatePropertiesDisksGuestOSFeaturesMap(c *Client, i interface{}) map[string]InstanceTemplatePropertiesDisksGuestOSFeatures {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]InstanceTemplatePropertiesDisksGuestOsFeatures{}
+		return map[string]InstanceTemplatePropertiesDisksGuestOSFeatures{}
 	}
 
 	if len(a) == 0 {
-		return map[string]InstanceTemplatePropertiesDisksGuestOsFeatures{}
+		return map[string]InstanceTemplatePropertiesDisksGuestOSFeatures{}
 	}
 
-	items := make(map[string]InstanceTemplatePropertiesDisksGuestOsFeatures)
+	items := make(map[string]InstanceTemplatePropertiesDisksGuestOSFeatures)
 	for k, item := range a {
-		items[k] = *flattenInstanceTemplatePropertiesDisksGuestOsFeatures(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceTemplatePropertiesDisksGuestOSFeatures(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenInstanceTemplatePropertiesDisksGuestOsFeaturesSlice flattens the contents of InstanceTemplatePropertiesDisksGuestOsFeatures from a JSON
+// flattenInstanceTemplatePropertiesDisksGuestOSFeaturesSlice flattens the contents of InstanceTemplatePropertiesDisksGuestOSFeatures from a JSON
 // response object.
-func flattenInstanceTemplatePropertiesDisksGuestOsFeaturesSlice(c *Client, i interface{}) []InstanceTemplatePropertiesDisksGuestOsFeatures {
+func flattenInstanceTemplatePropertiesDisksGuestOSFeaturesSlice(c *Client, i interface{}) []InstanceTemplatePropertiesDisksGuestOSFeatures {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []InstanceTemplatePropertiesDisksGuestOsFeatures{}
+		return []InstanceTemplatePropertiesDisksGuestOSFeatures{}
 	}
 
 	if len(a) == 0 {
-		return []InstanceTemplatePropertiesDisksGuestOsFeatures{}
+		return []InstanceTemplatePropertiesDisksGuestOSFeatures{}
 	}
 
-	items := make([]InstanceTemplatePropertiesDisksGuestOsFeatures, 0, len(a))
+	items := make([]InstanceTemplatePropertiesDisksGuestOSFeatures, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceTemplatePropertiesDisksGuestOsFeatures(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceTemplatePropertiesDisksGuestOSFeatures(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandInstanceTemplatePropertiesDisksGuestOsFeatures expands an instance of InstanceTemplatePropertiesDisksGuestOsFeatures into a JSON
+// expandInstanceTemplatePropertiesDisksGuestOSFeatures expands an instance of InstanceTemplatePropertiesDisksGuestOSFeatures into a JSON
 // request object.
-func expandInstanceTemplatePropertiesDisksGuestOsFeatures(c *Client, f *InstanceTemplatePropertiesDisksGuestOsFeatures) (map[string]interface{}, error) {
+func expandInstanceTemplatePropertiesDisksGuestOSFeatures(c *Client, f *InstanceTemplatePropertiesDisksGuestOSFeatures) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -4273,18 +4273,18 @@ func expandInstanceTemplatePropertiesDisksGuestOsFeatures(c *Client, f *Instance
 	return m, nil
 }
 
-// flattenInstanceTemplatePropertiesDisksGuestOsFeatures flattens an instance of InstanceTemplatePropertiesDisksGuestOsFeatures from a JSON
+// flattenInstanceTemplatePropertiesDisksGuestOSFeatures flattens an instance of InstanceTemplatePropertiesDisksGuestOSFeatures from a JSON
 // response object.
-func flattenInstanceTemplatePropertiesDisksGuestOsFeatures(c *Client, i interface{}) *InstanceTemplatePropertiesDisksGuestOsFeatures {
+func flattenInstanceTemplatePropertiesDisksGuestOSFeatures(c *Client, i interface{}) *InstanceTemplatePropertiesDisksGuestOSFeatures {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &InstanceTemplatePropertiesDisksGuestOsFeatures{}
+	r := &InstanceTemplatePropertiesDisksGuestOSFeatures{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyInstanceTemplatePropertiesDisksGuestOsFeatures
+		return EmptyInstanceTemplatePropertiesDisksGuestOSFeatures
 	}
 	r.Type = dcl.FlattenString(m["type"])
 

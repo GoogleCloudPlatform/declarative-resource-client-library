@@ -772,28 +772,28 @@ func canonicalizeDashboardInitialState(rawInitial, rawDesired *Dashboard) (*Dash
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
 	if !dcl.IsZeroValue(rawInitial.GridLayout) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.MosaicLayout, rawInitial.RowLayout, rawInitial.ColumnLayout) {
 			rawInitial.GridLayout = EmptyDashboardGridLayout
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.MosaicLayout) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.GridLayout, rawInitial.RowLayout, rawInitial.ColumnLayout) {
 			rawInitial.MosaicLayout = EmptyDashboardMosaicLayout
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.RowLayout) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.GridLayout, rawInitial.MosaicLayout, rawInitial.ColumnLayout) {
 			rawInitial.RowLayout = EmptyDashboardRowLayout
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.ColumnLayout) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.GridLayout, rawInitial.MosaicLayout, rawInitial.RowLayout) {
 			rawInitial.ColumnLayout = EmptyDashboardColumnLayout
 		}
@@ -823,7 +823,7 @@ func canonicalizeDashboardDesiredState(rawDesired, rawInitial *Dashboard, opts .
 	}
 
 	if rawDesired.GridLayout != nil || rawInitial.GridLayout != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.MosaicLayout, rawDesired.RowLayout, rawDesired.ColumnLayout) {
 			rawDesired.GridLayout = nil
 			rawInitial.GridLayout = nil
@@ -831,7 +831,7 @@ func canonicalizeDashboardDesiredState(rawDesired, rawInitial *Dashboard, opts .
 	}
 
 	if rawDesired.MosaicLayout != nil || rawInitial.MosaicLayout != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.GridLayout, rawDesired.RowLayout, rawDesired.ColumnLayout) {
 			rawDesired.MosaicLayout = nil
 			rawInitial.MosaicLayout = nil
@@ -839,7 +839,7 @@ func canonicalizeDashboardDesiredState(rawDesired, rawInitial *Dashboard, opts .
 	}
 
 	if rawDesired.RowLayout != nil || rawInitial.RowLayout != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.GridLayout, rawDesired.MosaicLayout, rawDesired.ColumnLayout) {
 			rawDesired.RowLayout = nil
 			rawInitial.RowLayout = nil
@@ -847,7 +847,7 @@ func canonicalizeDashboardDesiredState(rawDesired, rawInitial *Dashboard, opts .
 	}
 
 	if rawDesired.ColumnLayout != nil || rawInitial.ColumnLayout != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.GridLayout, rawDesired.MosaicLayout, rawDesired.RowLayout) {
 			rawDesired.ColumnLayout = nil
 			rawInitial.ColumnLayout = nil
@@ -1529,6 +1529,46 @@ func canonicalizeDashboardWidget(des, initial *DashboardWidget, opts ...dcl.Appl
 	}
 	if des.empty {
 		return des
+	}
+
+	if des.XyChart != nil || (initial != nil && initial.XyChart != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.Scorecard, des.Text, des.Blank) {
+			des.XyChart = nil
+			if initial != nil {
+				initial.XyChart = nil
+			}
+		}
+	}
+
+	if des.Scorecard != nil || (initial != nil && initial.Scorecard != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.XyChart, des.Text, des.Blank) {
+			des.Scorecard = nil
+			if initial != nil {
+				initial.Scorecard = nil
+			}
+		}
+	}
+
+	if des.Text != nil || (initial != nil && initial.Text != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.XyChart, des.Scorecard, des.Blank) {
+			des.Text = nil
+			if initial != nil {
+				initial.Text = nil
+			}
+		}
+	}
+
+	if des.Blank != nil || (initial != nil && initial.Blank != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.XyChart, des.Scorecard, des.Text) {
+			des.Blank = nil
+			if initial != nil {
+				initial.Blank = nil
+			}
+		}
 	}
 
 	if initial == nil {
@@ -4822,7 +4862,6 @@ func canonicalizeDashboardWidgetBlank(des, initial *DashboardWidgetBlank, opts .
 	if des.empty {
 		return des
 	}
-
 	if initial == nil {
 		return des
 	}

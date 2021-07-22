@@ -80,9 +80,9 @@ components:
         diskEncryptionKey:
           $ref: '#/components/schemas/EncryptionKey'
           x-dcl-go-name: DiskEncryptionKey
-        guestOsFeature:
+        guestOSFeature:
           type: array
-          x-dcl-go-name: GuestOsFeature
+          x-dcl-go-name: GuestOSFeature
           description: A list of features to enable on the guest operating system.
             Applicable only for bootable images. Read [Enabling guest operating system
             features](/compute/docs/images/create-delete-deprecate-private-images#guest-os-features)
@@ -91,12 +91,12 @@ components:
           x-dcl-list-type: list
           items:
             type: object
-            x-dcl-go-type: DiskGuestOsFeature
+            x-dcl-go-type: DiskGuestOSFeature
             properties:
               type:
                 type: string
                 x-dcl-go-name: Type
-                x-dcl-go-type: DiskGuestOsFeatureTypeEnum
+                x-dcl-go-type: DiskGuestOSFeatureTypeEnum
                 description: 'The ID of a supported feature. Read [Enabling guest
                   operating system features](/compute/docs/images/create-delete-deprecate-private-images#guest-os-features)
                   to see a list of available options. Possible values: FEATURE_TYPE_UNSPECIFIED,
@@ -120,7 +120,7 @@ components:
                 x-dcl-list-type: list
                 items:
                   type: string
-                  x-dcl-go-type: DiskGuestOsFeatureTypeAltEnum
+                  x-dcl-go-type: DiskGuestOSFeatureTypeAltEnum
                   enum:
                   - FEATURE_TYPE_UNSPECIFIED
                   - VIRTIO_SCSI_MULTIQUEUE
@@ -128,9 +128,9 @@ components:
                   - MULTI_IP_SUBNET
                   - UEFI_COMPATIBLE
                   - SECURE_BOOT
-        guestOsFeatures:
+        guestOSFeatures:
           type: array
-          x-dcl-go-name: GuestOsFeatures
+          x-dcl-go-name: GuestOSFeatures
           description: A list of features to enable on the guest operating system.
             Applicable only for bootable images. Read [Enabling guest operating system
             features](/compute/docs/images/create-delete-deprecate-private-images#guest-os-features)
@@ -139,12 +139,12 @@ components:
           x-dcl-list-type: list
           items:
             type: object
-            x-dcl-go-type: DiskGuestOsFeatures
+            x-dcl-go-type: DiskGuestOSFeatures
             properties:
               type:
                 type: string
                 x-dcl-go-name: Type
-                x-dcl-go-type: DiskGuestOsFeaturesTypeEnum
+                x-dcl-go-type: DiskGuestOSFeaturesTypeEnum
                 description: 'The ID of a supported feature. Read [Enabling guest
                   operating system features](/compute/docs/images/create-delete-deprecate-private-images#guest-os-features)
                   to see a list of available options. Possible values: PATH, OTHER,
@@ -164,7 +164,7 @@ components:
                 x-dcl-list-type: list
                 items:
                   type: string
-                  x-dcl-go-type: DiskGuestOsFeaturesTypeAltsEnum
+                  x-dcl-go-type: DiskGuestOSFeaturesTypeAltsEnum
                   enum:
                   - FEATURE_TYPE_UNSPECIFIED
                   - VIRTIO_SCSI_MULTIQUEUE

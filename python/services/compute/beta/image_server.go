@@ -25,13 +25,13 @@ import (
 // Server implements the gRPC interface for Image.
 type ImageServer struct{}
 
-// ProtoToImageGuestOsFeatureTypeEnum converts a ImageGuestOsFeatureTypeEnum enum from its proto representation.
-func ProtoToComputeBetaImageGuestOsFeatureTypeEnum(e betapb.ComputeBetaImageGuestOsFeatureTypeEnum) *beta.ImageGuestOsFeatureTypeEnum {
+// ProtoToImageGuestOSFeatureTypeEnum converts a ImageGuestOSFeatureTypeEnum enum from its proto representation.
+func ProtoToComputeBetaImageGuestOSFeatureTypeEnum(e betapb.ComputeBetaImageGuestOSFeatureTypeEnum) *beta.ImageGuestOSFeatureTypeEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := betapb.ComputeBetaImageGuestOsFeatureTypeEnum_name[int32(e)]; ok {
-		e := beta.ImageGuestOsFeatureTypeEnum(n[len("ComputeBetaImageGuestOsFeatureTypeEnum"):])
+	if n, ok := betapb.ComputeBetaImageGuestOSFeatureTypeEnum_name[int32(e)]; ok {
+		e := beta.ImageGuestOSFeatureTypeEnum(n[len("ComputeBetaImageGuestOSFeatureTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -133,13 +133,13 @@ func ProtoToComputeBetaImageDeprecatedStateEnum(e betapb.ComputeBetaImageDepreca
 	return nil
 }
 
-// ProtoToImageGuestOsFeature converts a ImageGuestOsFeature resource from its proto representation.
-func ProtoToComputeBetaImageGuestOsFeature(p *betapb.ComputeBetaImageGuestOsFeature) *beta.ImageGuestOsFeature {
+// ProtoToImageGuestOSFeature converts a ImageGuestOSFeature resource from its proto representation.
+func ProtoToComputeBetaImageGuestOSFeature(p *betapb.ComputeBetaImageGuestOSFeature) *beta.ImageGuestOSFeature {
 	if p == nil {
 		return nil
 	}
-	obj := &beta.ImageGuestOsFeature{
-		Type: ProtoToComputeBetaImageGuestOsFeatureTypeEnum(p.GetType()),
+	obj := &beta.ImageGuestOSFeature{
+		Type: ProtoToComputeBetaImageGuestOSFeatureTypeEnum(p.GetType()),
 	}
 	return obj
 }
@@ -323,7 +323,7 @@ func ProtoToImage(p *betapb.ComputeBetaImage) *beta.Image {
 		Project:                      dcl.StringOrNil(p.Project),
 	}
 	for _, r := range p.GetGuestOsFeature() {
-		obj.GuestOsFeature = append(obj.GuestOsFeature, *ProtoToComputeBetaImageGuestOsFeature(r))
+		obj.GuestOSFeature = append(obj.GuestOSFeature, *ProtoToComputeBetaImageGuestOSFeature(r))
 	}
 	for _, r := range p.GetLicense() {
 		obj.License = append(obj.License, r)
@@ -334,15 +334,15 @@ func ProtoToImage(p *betapb.ComputeBetaImage) *beta.Image {
 	return obj
 }
 
-// ImageGuestOsFeatureTypeEnumToProto converts a ImageGuestOsFeatureTypeEnum enum to its proto representation.
-func ComputeBetaImageGuestOsFeatureTypeEnumToProto(e *beta.ImageGuestOsFeatureTypeEnum) betapb.ComputeBetaImageGuestOsFeatureTypeEnum {
+// ImageGuestOSFeatureTypeEnumToProto converts a ImageGuestOSFeatureTypeEnum enum to its proto representation.
+func ComputeBetaImageGuestOSFeatureTypeEnumToProto(e *beta.ImageGuestOSFeatureTypeEnum) betapb.ComputeBetaImageGuestOSFeatureTypeEnum {
 	if e == nil {
-		return betapb.ComputeBetaImageGuestOsFeatureTypeEnum(0)
+		return betapb.ComputeBetaImageGuestOSFeatureTypeEnum(0)
 	}
-	if v, ok := betapb.ComputeBetaImageGuestOsFeatureTypeEnum_value["ImageGuestOsFeatureTypeEnum"+string(*e)]; ok {
-		return betapb.ComputeBetaImageGuestOsFeatureTypeEnum(v)
+	if v, ok := betapb.ComputeBetaImageGuestOSFeatureTypeEnum_value["ImageGuestOSFeatureTypeEnum"+string(*e)]; ok {
+		return betapb.ComputeBetaImageGuestOSFeatureTypeEnum(v)
 	}
-	return betapb.ComputeBetaImageGuestOsFeatureTypeEnum(0)
+	return betapb.ComputeBetaImageGuestOSFeatureTypeEnum(0)
 }
 
 // ImageRawDiskContainerTypeEnumToProto converts a ImageRawDiskContainerTypeEnum enum to its proto representation.
@@ -433,13 +433,13 @@ func ComputeBetaImageDeprecatedStateEnumToProto(e *beta.ImageDeprecatedStateEnum
 	return betapb.ComputeBetaImageDeprecatedStateEnum(0)
 }
 
-// ImageGuestOsFeatureToProto converts a ImageGuestOsFeature resource to its proto representation.
-func ComputeBetaImageGuestOsFeatureToProto(o *beta.ImageGuestOsFeature) *betapb.ComputeBetaImageGuestOsFeature {
+// ImageGuestOSFeatureToProto converts a ImageGuestOSFeature resource to its proto representation.
+func ComputeBetaImageGuestOSFeatureToProto(o *beta.ImageGuestOSFeature) *betapb.ComputeBetaImageGuestOSFeature {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaImageGuestOsFeature{
-		Type: ComputeBetaImageGuestOsFeatureTypeEnumToProto(o.Type),
+	p := &betapb.ComputeBetaImageGuestOSFeature{
+		Type: ComputeBetaImageGuestOSFeatureTypeEnumToProto(o.Type),
 	}
 	return p
 }
@@ -622,8 +622,8 @@ func ImageToProto(resource *beta.Image) *betapb.ComputeBetaImage {
 		Deprecated:                   ComputeBetaImageDeprecatedToProto(resource.Deprecated),
 		Project:                      dcl.ValueOrEmptyString(resource.Project),
 	}
-	for _, r := range resource.GuestOsFeature {
-		p.GuestOsFeature = append(p.GuestOsFeature, ComputeBetaImageGuestOsFeatureToProto(&r))
+	for _, r := range resource.GuestOSFeature {
+		p.GuestOsFeature = append(p.GuestOsFeature, ComputeBetaImageGuestOSFeatureToProto(&r))
 	}
 	for _, r := range resource.License {
 		p.License = append(p.License, r)

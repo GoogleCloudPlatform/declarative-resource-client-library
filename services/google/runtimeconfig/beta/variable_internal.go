@@ -382,14 +382,14 @@ func canonicalizeVariableInitialState(rawInitial, rawDesired *Variable) (*Variab
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
 	if !dcl.IsZeroValue(rawInitial.Text) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.Value) {
 			rawInitial.Text = dcl.String("")
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.Value) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.Text) {
 			rawInitial.Value = dcl.String("")
 		}
@@ -415,7 +415,7 @@ func canonicalizeVariableDesiredState(rawDesired, rawInitial *Variable, opts ...
 	}
 
 	if rawDesired.Text != nil || rawInitial.Text != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.Value) {
 			rawDesired.Text = nil
 			rawInitial.Text = nil
@@ -423,7 +423,7 @@ func canonicalizeVariableDesiredState(rawDesired, rawInitial *Variable, opts ...
 	}
 
 	if rawDesired.Value != nil || rawInitial.Value != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.Text) {
 			rawDesired.Value = nil
 			rawInitial.Value = nil

@@ -101,14 +101,14 @@ message OsconfigBetaGuestPolicyAssignment {
   repeated string zones = 2;
   repeated string instances = 3;
   repeated string instance_name_prefixes = 4;
-  repeated OsconfigBetaGuestPolicyAssignmentOsTypes os_types = 5;
+  repeated OsconfigBetaGuestPolicyAssignmentOSTypes os_types = 5;
 }
 
 message OsconfigBetaGuestPolicyAssignmentGroupLabels {
   map<string, string> labels = 1;
 }
 
-message OsconfigBetaGuestPolicyAssignmentOsTypes {
+message OsconfigBetaGuestPolicyAssignmentOSTypes {
   string os_short_name = 1;
   string os_version = 2;
   string os_architecture = 3;

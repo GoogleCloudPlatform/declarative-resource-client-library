@@ -87,7 +87,7 @@ message ComputeInstanceTemplatePropertiesDisks {
   ComputeInstanceTemplatePropertiesDisksDiskEncryptionKey disk_encryption_key = 4;
   int64 index = 5;
   ComputeInstanceTemplatePropertiesDisksInitializeParams initialize_params = 6;
-  repeated ComputeInstanceTemplatePropertiesDisksGuestOsFeatures guest_os_features = 7;
+  repeated ComputeInstanceTemplatePropertiesDisksGuestOSFeatures guest_os_features = 7;
   ComputeInstanceTemplatePropertiesDisksInterfaceEnum interface = 8;
   ComputeInstanceTemplatePropertiesDisksModeEnum mode = 9;
   string source = 10;
@@ -126,7 +126,7 @@ message ComputeInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncrypt
   string kms_key_name = 3;
 }
 
-message ComputeInstanceTemplatePropertiesDisksGuestOsFeatures {
+message ComputeInstanceTemplatePropertiesDisksGuestOSFeatures {
   string type = 1;
 }
 

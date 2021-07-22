@@ -28,7 +28,7 @@ type Disk struct {
 	SelfLink                    *string               `json:"selfLink"`
 	Description                 *string               `json:"description"`
 	DiskEncryptionKey           *DiskEncryptionKey    `json:"diskEncryptionKey"`
-	GuestOsFeature              []DiskGuestOsFeature  `json:"guestOsFeature"`
+	GuestOSFeature              []DiskGuestOSFeature  `json:"guestOSFeature"`
 	Labels                      map[string]string     `json:"labels"`
 	LabelFingerprint            *string               `json:"labelFingerprint"`
 	License                     []string              `json:"license"`
@@ -50,7 +50,7 @@ type Disk struct {
 	Status                      *DiskStatusEnum       `json:"status"`
 	Options                     *string               `json:"options"`
 	Licenses                    []string              `json:"licenses"`
-	GuestOsFeatures             []DiskGuestOsFeatures `json:"guestOsFeatures"`
+	GuestOSFeatures             []DiskGuestOSFeatures `json:"guestOSFeatures"`
 	LastAttachTimestamp         *string               `json:"lastAttachTimestamp"`
 	LastDetachTimestamp         *string               `json:"lastDetachTimestamp"`
 	Users                       []string              `json:"users"`
@@ -66,55 +66,55 @@ func (r *Disk) String() string {
 	return dcl.SprintResource(r)
 }
 
-// The enum DiskGuestOsFeatureTypeEnum.
-type DiskGuestOsFeatureTypeEnum string
+// The enum DiskGuestOSFeatureTypeEnum.
+type DiskGuestOSFeatureTypeEnum string
 
-// DiskGuestOsFeatureTypeEnumRef returns a *DiskGuestOsFeatureTypeEnum with the value of string s
+// DiskGuestOSFeatureTypeEnumRef returns a *DiskGuestOSFeatureTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DiskGuestOsFeatureTypeEnumRef(s string) *DiskGuestOsFeatureTypeEnum {
+func DiskGuestOSFeatureTypeEnumRef(s string) *DiskGuestOSFeatureTypeEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := DiskGuestOsFeatureTypeEnum(s)
+	v := DiskGuestOSFeatureTypeEnum(s)
 	return &v
 }
 
-func (v DiskGuestOsFeatureTypeEnum) Validate() error {
+func (v DiskGuestOSFeatureTypeEnum) Validate() error {
 	for _, s := range []string{"FEATURE_TYPE_UNSPECIFIED", "VIRTIO_SCSI_MULTIQUEUE", "WINDOWS", "MULTI_IP_SUBNET", "UEFI_COMPATIBLE", "SECURE_BOOT"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DiskGuestOsFeatureTypeEnum",
+		Enum:  "DiskGuestOSFeatureTypeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DiskGuestOsFeatureTypeAltEnum.
-type DiskGuestOsFeatureTypeAltEnum string
+// The enum DiskGuestOSFeatureTypeAltEnum.
+type DiskGuestOSFeatureTypeAltEnum string
 
-// DiskGuestOsFeatureTypeAltEnumRef returns a *DiskGuestOsFeatureTypeAltEnum with the value of string s
+// DiskGuestOSFeatureTypeAltEnumRef returns a *DiskGuestOSFeatureTypeAltEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DiskGuestOsFeatureTypeAltEnumRef(s string) *DiskGuestOsFeatureTypeAltEnum {
+func DiskGuestOSFeatureTypeAltEnumRef(s string) *DiskGuestOSFeatureTypeAltEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := DiskGuestOsFeatureTypeAltEnum(s)
+	v := DiskGuestOSFeatureTypeAltEnum(s)
 	return &v
 }
 
-func (v DiskGuestOsFeatureTypeAltEnum) Validate() error {
+func (v DiskGuestOSFeatureTypeAltEnum) Validate() error {
 	for _, s := range []string{"FEATURE_TYPE_UNSPECIFIED", "VIRTIO_SCSI_MULTIQUEUE", "WINDOWS", "MULTI_IP_SUBNET", "UEFI_COMPATIBLE", "SECURE_BOOT"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DiskGuestOsFeatureTypeAltEnum",
+		Enum:  "DiskGuestOSFeatureTypeAltEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -147,70 +147,70 @@ func (v DiskStatusEnum) Validate() error {
 	}
 }
 
-// The enum DiskGuestOsFeaturesTypeEnum.
-type DiskGuestOsFeaturesTypeEnum string
+// The enum DiskGuestOSFeaturesTypeEnum.
+type DiskGuestOSFeaturesTypeEnum string
 
-// DiskGuestOsFeaturesTypeEnumRef returns a *DiskGuestOsFeaturesTypeEnum with the value of string s
+// DiskGuestOSFeaturesTypeEnumRef returns a *DiskGuestOSFeaturesTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DiskGuestOsFeaturesTypeEnumRef(s string) *DiskGuestOsFeaturesTypeEnum {
+func DiskGuestOSFeaturesTypeEnumRef(s string) *DiskGuestOSFeaturesTypeEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := DiskGuestOsFeaturesTypeEnum(s)
+	v := DiskGuestOSFeaturesTypeEnum(s)
 	return &v
 }
 
-func (v DiskGuestOsFeaturesTypeEnum) Validate() error {
+func (v DiskGuestOSFeaturesTypeEnum) Validate() error {
 	for _, s := range []string{"PATH", "OTHER", "PARAMETER"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DiskGuestOsFeaturesTypeEnum",
+		Enum:  "DiskGuestOSFeaturesTypeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DiskGuestOsFeaturesTypeAltsEnum.
-type DiskGuestOsFeaturesTypeAltsEnum string
+// The enum DiskGuestOSFeaturesTypeAltsEnum.
+type DiskGuestOSFeaturesTypeAltsEnum string
 
-// DiskGuestOsFeaturesTypeAltsEnumRef returns a *DiskGuestOsFeaturesTypeAltsEnum with the value of string s
+// DiskGuestOSFeaturesTypeAltsEnumRef returns a *DiskGuestOSFeaturesTypeAltsEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DiskGuestOsFeaturesTypeAltsEnumRef(s string) *DiskGuestOsFeaturesTypeAltsEnum {
+func DiskGuestOSFeaturesTypeAltsEnumRef(s string) *DiskGuestOSFeaturesTypeAltsEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := DiskGuestOsFeaturesTypeAltsEnum(s)
+	v := DiskGuestOSFeaturesTypeAltsEnum(s)
 	return &v
 }
 
-func (v DiskGuestOsFeaturesTypeAltsEnum) Validate() error {
+func (v DiskGuestOSFeaturesTypeAltsEnum) Validate() error {
 	for _, s := range []string{"FEATURE_TYPE_UNSPECIFIED", "VIRTIO_SCSI_MULTIQUEUE", "WINDOWS", "MULTI_IP_SUBNET", "UEFI_COMPATIBLE", "SECURE_BOOT", "SEV_CAPABLE"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DiskGuestOsFeaturesTypeAltsEnum",
+		Enum:  "DiskGuestOSFeaturesTypeAltsEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-type DiskGuestOsFeature struct {
+type DiskGuestOSFeature struct {
 	empty   bool                            `json:"-"`
-	Type    *DiskGuestOsFeatureTypeEnum     `json:"type"`
-	TypeAlt []DiskGuestOsFeatureTypeAltEnum `json:"typeAlt"`
+	Type    *DiskGuestOSFeatureTypeEnum     `json:"type"`
+	TypeAlt []DiskGuestOSFeatureTypeAltEnum `json:"typeAlt"`
 }
 
-type jsonDiskGuestOsFeature DiskGuestOsFeature
+type jsonDiskGuestOSFeature DiskGuestOSFeature
 
-func (r *DiskGuestOsFeature) UnmarshalJSON(data []byte) error {
-	var res jsonDiskGuestOsFeature
+func (r *DiskGuestOSFeature) UnmarshalJSON(data []byte) error {
+	var res jsonDiskGuestOSFeature
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -219,7 +219,7 @@ func (r *DiskGuestOsFeature) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDiskGuestOsFeature
+		*r = *EmptyDiskGuestOSFeature
 	} else {
 
 		r.Type = res.Type
@@ -230,20 +230,20 @@ func (r *DiskGuestOsFeature) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this DiskGuestOsFeature is
+// This object is used to assert a desired state where this DiskGuestOSFeature is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyDiskGuestOsFeature *DiskGuestOsFeature = &DiskGuestOsFeature{empty: true}
+var EmptyDiskGuestOSFeature *DiskGuestOSFeature = &DiskGuestOSFeature{empty: true}
 
-func (r *DiskGuestOsFeature) Empty() bool {
+func (r *DiskGuestOSFeature) Empty() bool {
 	return r.empty
 }
 
-func (r *DiskGuestOsFeature) String() string {
+func (r *DiskGuestOSFeature) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DiskGuestOsFeature) HashCode() string {
+func (r *DiskGuestOSFeature) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -305,16 +305,16 @@ func (r *DiskEncryptionKey) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type DiskGuestOsFeatures struct {
+type DiskGuestOSFeatures struct {
 	empty    bool                              `json:"-"`
-	Type     *DiskGuestOsFeaturesTypeEnum      `json:"type"`
-	TypeAlts []DiskGuestOsFeaturesTypeAltsEnum `json:"typeAlts"`
+	Type     *DiskGuestOSFeaturesTypeEnum      `json:"type"`
+	TypeAlts []DiskGuestOSFeaturesTypeAltsEnum `json:"typeAlts"`
 }
 
-type jsonDiskGuestOsFeatures DiskGuestOsFeatures
+type jsonDiskGuestOSFeatures DiskGuestOSFeatures
 
-func (r *DiskGuestOsFeatures) UnmarshalJSON(data []byte) error {
-	var res jsonDiskGuestOsFeatures
+func (r *DiskGuestOSFeatures) UnmarshalJSON(data []byte) error {
+	var res jsonDiskGuestOSFeatures
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -323,7 +323,7 @@ func (r *DiskGuestOsFeatures) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDiskGuestOsFeatures
+		*r = *EmptyDiskGuestOSFeatures
 	} else {
 
 		r.Type = res.Type
@@ -334,20 +334,20 @@ func (r *DiskGuestOsFeatures) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this DiskGuestOsFeatures is
+// This object is used to assert a desired state where this DiskGuestOSFeatures is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyDiskGuestOsFeatures *DiskGuestOsFeatures = &DiskGuestOsFeatures{empty: true}
+var EmptyDiskGuestOSFeatures *DiskGuestOSFeatures = &DiskGuestOSFeatures{empty: true}
 
-func (r *DiskGuestOsFeatures) Empty() bool {
+func (r *DiskGuestOSFeatures) Empty() bool {
 	return r.empty
 }
 
-func (r *DiskGuestOsFeatures) String() string {
+func (r *DiskGuestOSFeatures) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DiskGuestOsFeatures) HashCode() string {
+func (r *DiskGuestOSFeatures) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 info:
-  title: OsConfig/GuestPolicy
-  description: DCL Specification for the OsConfig GuestPolicy resource
+  title: OSConfig/GuestPolicy
+  description: DCL Specification for the OSConfig GuestPolicy resource
   x-dcl-has-iam: false
 paths:
   get:
@@ -130,25 +130,25 @@ components:
                   field: selfLink
             osTypes:
               type: array
-              x-dcl-go-name: OsTypes
+              x-dcl-go-name: OSTypes
               x-dcl-list-type: list
               items:
                 type: object
-                x-dcl-go-type: GuestPolicyAssignmentOsTypes
+                x-dcl-go-type: GuestPolicyAssignmentOSTypes
                 properties:
                   osArchitecture:
                     type: string
-                    x-dcl-go-name: OsArchitecture
+                    x-dcl-go-name: OSArchitecture
                     description: Targets VMs with OS Inventory enabled and having
                       one of the following OS architectures.
                   osShortName:
                     type: string
-                    x-dcl-go-name: OsShortName
+                    x-dcl-go-name: OSShortName
                     description: Targets VMs with OS Inventory enabled and having
                       one of the following OS short names, for example "debian", "windows".
                   osVersion:
                     type: string
-                    x-dcl-go-name: OsVersion
+                    x-dcl-go-name: OSVersion
                     description: Targets VMs with OS Inventory enabled and having
                       one of the following OS versions.
             zones:

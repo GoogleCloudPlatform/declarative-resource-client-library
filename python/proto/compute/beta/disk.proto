@@ -18,24 +18,24 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
-enum ComputeBetaDiskGuestOsFeatureTypeEnum {
-  ComputeBetaDiskGuestOsFeatureTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  ComputeBetaDiskGuestOsFeatureTypeEnumFEATURE_TYPE_UNSPECIFIED = 1;
-  ComputeBetaDiskGuestOsFeatureTypeEnumVIRTIO_SCSI_MULTIQUEUE = 2;
-  ComputeBetaDiskGuestOsFeatureTypeEnumWINDOWS = 3;
-  ComputeBetaDiskGuestOsFeatureTypeEnumMULTI_IP_SUBNET = 4;
-  ComputeBetaDiskGuestOsFeatureTypeEnumUEFI_COMPATIBLE = 5;
-  ComputeBetaDiskGuestOsFeatureTypeEnumSECURE_BOOT = 6;
+enum ComputeBetaDiskGuestOSFeatureTypeEnum {
+  ComputeBetaDiskGuestOSFeatureTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeBetaDiskGuestOSFeatureTypeEnumFEATURE_TYPE_UNSPECIFIED = 1;
+  ComputeBetaDiskGuestOSFeatureTypeEnumVIRTIO_SCSI_MULTIQUEUE = 2;
+  ComputeBetaDiskGuestOSFeatureTypeEnumWINDOWS = 3;
+  ComputeBetaDiskGuestOSFeatureTypeEnumMULTI_IP_SUBNET = 4;
+  ComputeBetaDiskGuestOSFeatureTypeEnumUEFI_COMPATIBLE = 5;
+  ComputeBetaDiskGuestOSFeatureTypeEnumSECURE_BOOT = 6;
 }
 
-enum ComputeBetaDiskGuestOsFeatureTypeAltEnum {
-  ComputeBetaDiskGuestOsFeatureTypeAltEnumNO_VALUE_DO_NOT_USE = 0;
-  ComputeBetaDiskGuestOsFeatureTypeAltEnumFEATURE_TYPE_UNSPECIFIED = 1;
-  ComputeBetaDiskGuestOsFeatureTypeAltEnumVIRTIO_SCSI_MULTIQUEUE = 2;
-  ComputeBetaDiskGuestOsFeatureTypeAltEnumWINDOWS = 3;
-  ComputeBetaDiskGuestOsFeatureTypeAltEnumMULTI_IP_SUBNET = 4;
-  ComputeBetaDiskGuestOsFeatureTypeAltEnumUEFI_COMPATIBLE = 5;
-  ComputeBetaDiskGuestOsFeatureTypeAltEnumSECURE_BOOT = 6;
+enum ComputeBetaDiskGuestOSFeatureTypeAltEnum {
+  ComputeBetaDiskGuestOSFeatureTypeAltEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeBetaDiskGuestOSFeatureTypeAltEnumFEATURE_TYPE_UNSPECIFIED = 1;
+  ComputeBetaDiskGuestOSFeatureTypeAltEnumVIRTIO_SCSI_MULTIQUEUE = 2;
+  ComputeBetaDiskGuestOSFeatureTypeAltEnumWINDOWS = 3;
+  ComputeBetaDiskGuestOSFeatureTypeAltEnumMULTI_IP_SUBNET = 4;
+  ComputeBetaDiskGuestOSFeatureTypeAltEnumUEFI_COMPATIBLE = 5;
+  ComputeBetaDiskGuestOSFeatureTypeAltEnumSECURE_BOOT = 6;
 }
 
 enum ComputeBetaDiskStatusEnum {
@@ -45,29 +45,29 @@ enum ComputeBetaDiskStatusEnum {
   ComputeBetaDiskStatusEnumDONE = 3;
 }
 
-enum ComputeBetaDiskGuestOsFeaturesTypeEnum {
-  ComputeBetaDiskGuestOsFeaturesTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  ComputeBetaDiskGuestOsFeaturesTypeEnumPATH = 1;
-  ComputeBetaDiskGuestOsFeaturesTypeEnumOTHER = 2;
-  ComputeBetaDiskGuestOsFeaturesTypeEnumPARAMETER = 3;
+enum ComputeBetaDiskGuestOSFeaturesTypeEnum {
+  ComputeBetaDiskGuestOSFeaturesTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeBetaDiskGuestOSFeaturesTypeEnumPATH = 1;
+  ComputeBetaDiskGuestOSFeaturesTypeEnumOTHER = 2;
+  ComputeBetaDiskGuestOSFeaturesTypeEnumPARAMETER = 3;
 }
 
-enum ComputeBetaDiskGuestOsFeaturesTypeAltsEnum {
-  ComputeBetaDiskGuestOsFeaturesTypeAltsEnumNO_VALUE_DO_NOT_USE = 0;
-  ComputeBetaDiskGuestOsFeaturesTypeAltsEnumFEATURE_TYPE_UNSPECIFIED = 1;
-  ComputeBetaDiskGuestOsFeaturesTypeAltsEnumVIRTIO_SCSI_MULTIQUEUE = 2;
-  ComputeBetaDiskGuestOsFeaturesTypeAltsEnumWINDOWS = 3;
-  ComputeBetaDiskGuestOsFeaturesTypeAltsEnumMULTI_IP_SUBNET = 4;
-  ComputeBetaDiskGuestOsFeaturesTypeAltsEnumUEFI_COMPATIBLE = 5;
-  ComputeBetaDiskGuestOsFeaturesTypeAltsEnumSECURE_BOOT = 6;
-  ComputeBetaDiskGuestOsFeaturesTypeAltsEnumSEV_CAPABLE = 7;
+enum ComputeBetaDiskGuestOSFeaturesTypeAltsEnum {
+  ComputeBetaDiskGuestOSFeaturesTypeAltsEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeBetaDiskGuestOSFeaturesTypeAltsEnumFEATURE_TYPE_UNSPECIFIED = 1;
+  ComputeBetaDiskGuestOSFeaturesTypeAltsEnumVIRTIO_SCSI_MULTIQUEUE = 2;
+  ComputeBetaDiskGuestOSFeaturesTypeAltsEnumWINDOWS = 3;
+  ComputeBetaDiskGuestOSFeaturesTypeAltsEnumMULTI_IP_SUBNET = 4;
+  ComputeBetaDiskGuestOSFeaturesTypeAltsEnumUEFI_COMPATIBLE = 5;
+  ComputeBetaDiskGuestOSFeaturesTypeAltsEnumSECURE_BOOT = 6;
+  ComputeBetaDiskGuestOSFeaturesTypeAltsEnumSEV_CAPABLE = 7;
 }
 
 message ComputeBetaDisk {
   string self_link = 1;
   string description = 2;
   ComputeBetaDiskEncryptionKey disk_encryption_key = 3;
-  repeated ComputeBetaDiskGuestOsFeature guest_os_feature = 4;
+  repeated ComputeBetaDiskGuestOSFeature guest_os_feature = 4;
   map<string, string> labels = 5;
   string label_fingerprint = 6;
   repeated string license = 7;
@@ -89,7 +89,7 @@ message ComputeBetaDisk {
   ComputeBetaDiskStatusEnum status = 23;
   string options = 24;
   repeated string licenses = 25;
-  repeated ComputeBetaDiskGuestOsFeatures guest_os_features = 26;
+  repeated ComputeBetaDiskGuestOSFeatures guest_os_features = 26;
   string last_attach_timestamp = 27;
   string last_detach_timestamp = 28;
   repeated string users = 29;
@@ -101,9 +101,9 @@ message ComputeBetaDisk {
   string location = 35;
 }
 
-message ComputeBetaDiskGuestOsFeature {
-  ComputeBetaDiskGuestOsFeatureTypeEnum type = 1;
-  repeated ComputeBetaDiskGuestOsFeatureTypeAltEnum type_alt = 2;
+message ComputeBetaDiskGuestOSFeature {
+  ComputeBetaDiskGuestOSFeatureTypeEnum type = 1;
+  repeated ComputeBetaDiskGuestOSFeatureTypeAltEnum type_alt = 2;
 }
 
 message ComputeBetaDiskEncryptionKey {
@@ -113,9 +113,9 @@ message ComputeBetaDiskEncryptionKey {
   string kms_key_service_account = 4;
 }
 
-message ComputeBetaDiskGuestOsFeatures {
-  ComputeBetaDiskGuestOsFeaturesTypeEnum type = 1;
-  repeated ComputeBetaDiskGuestOsFeaturesTypeAltsEnum type_alts = 2;
+message ComputeBetaDiskGuestOSFeatures {
+  ComputeBetaDiskGuestOSFeaturesTypeEnum type = 1;
+  repeated ComputeBetaDiskGuestOSFeaturesTypeAltsEnum type_alts = 2;
 }
 
 message ApplyComputeBetaDiskRequest {

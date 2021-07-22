@@ -26,6 +26,18 @@ import (
 
 func (r *FirewallPolicyRule) validate() error {
 
+	if err := dcl.Required(r, "priority"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "match"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "action"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "direction"); err != nil {
+		return err
+	}
 	if err := dcl.Required(r, "firewallPolicy"); err != nil {
 		return err
 	}
@@ -37,9 +49,15 @@ func (r *FirewallPolicyRule) validate() error {
 	return nil
 }
 func (r *FirewallPolicyRuleMatch) validate() error {
+	if err := dcl.Required(r, "layer4Configs"); err != nil {
+		return err
+	}
 	return nil
 }
 func (r *FirewallPolicyRuleMatchLayer4Configs) validate() error {
+	if err := dcl.Required(r, "ipProtocol"); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -1023,10 +1041,10 @@ func expandFirewallPolicyRuleMatch(c *Client, f *FirewallPolicyRuleMatch) (map[s
 	}
 
 	m := make(map[string]interface{})
-	if v := f.SrcIPRanges; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SrcIPRanges; v != nil {
 		m["srcIpRanges"] = v
 	}
-	if v := f.DestIPRanges; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DestIPRanges; v != nil {
 		m["destIpRanges"] = v
 	}
 	if v, err := expandFirewallPolicyRuleMatchLayer4ConfigsSlice(c, f.Layer4Configs); err != nil {

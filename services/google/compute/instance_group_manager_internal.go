@@ -243,9 +243,6 @@ func newUpdateInstanceGroupManagerPatchRequest(ctx context.Context, f *InstanceG
 	if v := f.BaseInstanceName; !dcl.IsEmptyValueIndirect(v) {
 		req["baseInstanceName"] = v
 	}
-	if v := f.Fingerprint; !dcl.IsEmptyValueIndirect(v) {
-		req["fingerprint"] = v
-	}
 	if v, err := expandInstanceGroupManagerStatus(c, f.Status); err != nil {
 		return nil, fmt.Errorf("error expanding Status into status: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -761,7 +758,7 @@ func canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial *Instan
 		canonicalDesired.Description = rawDesired.Description
 	}
 	canonicalDesired.DistributionPolicy = canonicalizeInstanceGroupManagerDistributionPolicy(rawDesired.DistributionPolicy, rawInitial.DistributionPolicy, opts...)
-	if dcl.StringCanonicalize(rawDesired.InstanceTemplate, rawInitial.InstanceTemplate) {
+	if dcl.NameToSelfLink(rawDesired.InstanceTemplate, rawInitial.InstanceTemplate) {
 		canonicalDesired.InstanceTemplate = rawInitial.InstanceTemplate
 	} else {
 		canonicalDesired.InstanceTemplate = rawDesired.InstanceTemplate
@@ -780,11 +777,6 @@ func canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial *Instan
 		canonicalDesired.BaseInstanceName = rawInitial.BaseInstanceName
 	} else {
 		canonicalDesired.BaseInstanceName = rawDesired.BaseInstanceName
-	}
-	if dcl.StringCanonicalize(rawDesired.Fingerprint, rawInitial.Fingerprint) {
-		canonicalDesired.Fingerprint = rawInitial.Fingerprint
-	} else {
-		canonicalDesired.Fingerprint = rawDesired.Fingerprint
 	}
 	if dcl.IsZeroValue(rawDesired.TargetSize) {
 		canonicalDesired.TargetSize = rawInitial.TargetSize
@@ -873,7 +865,7 @@ func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *Ins
 	if dcl.IsEmptyValueIndirect(rawNew.InstanceTemplate) && dcl.IsEmptyValueIndirect(rawDesired.InstanceTemplate) {
 		rawNew.InstanceTemplate = rawDesired.InstanceTemplate
 	} else {
-		if dcl.StringCanonicalize(rawDesired.InstanceTemplate, rawNew.InstanceTemplate) {
+		if dcl.NameToSelfLink(rawDesired.InstanceTemplate, rawNew.InstanceTemplate) {
 			rawNew.InstanceTemplate = rawDesired.InstanceTemplate
 		}
 	}
@@ -887,7 +879,7 @@ func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *Ins
 	if dcl.IsEmptyValueIndirect(rawNew.InstanceGroup) && dcl.IsEmptyValueIndirect(rawDesired.InstanceGroup) {
 		rawNew.InstanceGroup = rawDesired.InstanceGroup
 	} else {
-		if dcl.StringCanonicalize(rawDesired.InstanceGroup, rawNew.InstanceGroup) {
+		if dcl.NameToSelfLink(rawDesired.InstanceGroup, rawNew.InstanceGroup) {
 			rawNew.InstanceGroup = rawDesired.InstanceGroup
 		}
 	}
@@ -1150,7 +1142,7 @@ func canonicalizeInstanceGroupManagerVersions(des, initial *InstanceGroupManager
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.InstanceTemplate, initial.InstanceTemplate) || dcl.IsZeroValue(des.InstanceTemplate) {
+	if dcl.NameToSelfLink(des.InstanceTemplate, initial.InstanceTemplate) || dcl.IsZeroValue(des.InstanceTemplate) {
 		cDes.InstanceTemplate = initial.InstanceTemplate
 	} else {
 		cDes.InstanceTemplate = des.InstanceTemplate
@@ -1168,7 +1160,7 @@ func canonicalizeNewInstanceGroupManagerVersions(c *Client, des, nw *InstanceGro
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.InstanceTemplate, nw.InstanceTemplate) {
+	if dcl.NameToSelfLink(des.InstanceTemplate, nw.InstanceTemplate) {
 		nw.InstanceTemplate = des.InstanceTemplate
 	}
 	nw.TargetSize = canonicalizeNewInstanceGroupManagerFixedOrPercent(c, des.TargetSize, nw.TargetSize)
@@ -1718,7 +1710,7 @@ func canonicalizeInstanceGroupManagerAutoHealingPolicies(des, initial *InstanceG
 
 	cDes := &InstanceGroupManagerAutoHealingPolicies{}
 
-	if dcl.StringCanonicalize(des.HealthCheck, initial.HealthCheck) || dcl.IsZeroValue(des.HealthCheck) {
+	if dcl.NameToSelfLink(des.HealthCheck, initial.HealthCheck) || dcl.IsZeroValue(des.HealthCheck) {
 		cDes.HealthCheck = initial.HealthCheck
 	} else {
 		cDes.HealthCheck = des.HealthCheck
@@ -1737,7 +1729,7 @@ func canonicalizeNewInstanceGroupManagerAutoHealingPolicies(c *Client, des, nw *
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.HealthCheck, nw.HealthCheck) {
+	if dcl.NameToSelfLink(des.HealthCheck, nw.HealthCheck) {
 		nw.HealthCheck = des.HealthCheck
 	}
 	if dcl.IsZeroValue(nw.InitialDelaySec) {
@@ -2274,7 +2266,7 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceTemplate, actual.InstanceTemplate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("InstanceTemplate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceTemplate, actual.InstanceTemplate, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("InstanceTemplate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2288,14 +2280,14 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceGroup, actual.InstanceGroup, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceGroup")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceGroup, actual.InstanceGroup, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceGroup")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetPools, actual.TargetPools, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("TargetPools")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetPools, actual.TargetPools, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("TargetPools")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2309,7 +2301,7 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Fingerprint, actual.Fingerprint, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Fingerprint")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Fingerprint, actual.Fingerprint, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fingerprint")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2480,7 +2472,7 @@ func compareInstanceGroupManagerVersionsNewStyle(d, a interface{}, fn dcl.FieldN
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceTemplate, actual.InstanceTemplate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("InstanceTemplate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceTemplate, actual.InstanceTemplate, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("InstanceTemplate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2788,7 +2780,7 @@ func compareInstanceGroupManagerAutoHealingPoliciesNewStyle(d, a interface{}, fn
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.HealthCheck, actual.HealthCheck, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("HealthCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HealthCheck, actual.HealthCheck, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("HealthCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

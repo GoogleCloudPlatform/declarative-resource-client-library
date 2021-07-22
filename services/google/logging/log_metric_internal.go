@@ -895,6 +895,36 @@ func canonicalizeLogMetricBucketOptions(des, initial *LogMetricBucketOptions, op
 		return des
 	}
 
+	if des.LinearBuckets != nil || (initial != nil && initial.LinearBuckets != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.ExponentialBuckets, des.ExplicitBuckets) {
+			des.LinearBuckets = nil
+			if initial != nil {
+				initial.LinearBuckets = nil
+			}
+		}
+	}
+
+	if des.ExponentialBuckets != nil || (initial != nil && initial.ExponentialBuckets != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.LinearBuckets, des.ExplicitBuckets) {
+			des.ExponentialBuckets = nil
+			if initial != nil {
+				initial.ExponentialBuckets = nil
+			}
+		}
+	}
+
+	if des.ExplicitBuckets != nil || (initial != nil && initial.ExplicitBuckets != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.LinearBuckets, des.ExponentialBuckets) {
+			des.ExplicitBuckets = nil
+			if initial != nil {
+				initial.ExplicitBuckets = nil
+			}
+		}
+	}
+
 	if initial == nil {
 		return des
 	}

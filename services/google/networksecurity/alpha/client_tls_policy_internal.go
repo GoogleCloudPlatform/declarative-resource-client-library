@@ -645,6 +645,36 @@ func canonicalizeClientTlsPolicyClientCertificate(des, initial *ClientTlsPolicyC
 		return des
 	}
 
+	if des.LocalFilepath != nil || (initial != nil && initial.LocalFilepath != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.GrpcEndpoint, des.CertificateProviderInstance) {
+			des.LocalFilepath = nil
+			if initial != nil {
+				initial.LocalFilepath = nil
+			}
+		}
+	}
+
+	if des.GrpcEndpoint != nil || (initial != nil && initial.GrpcEndpoint != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.LocalFilepath, des.CertificateProviderInstance) {
+			des.GrpcEndpoint = nil
+			if initial != nil {
+				initial.GrpcEndpoint = nil
+			}
+		}
+	}
+
+	if des.CertificateProviderInstance != nil || (initial != nil && initial.CertificateProviderInstance != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.LocalFilepath, des.GrpcEndpoint) {
+			des.CertificateProviderInstance = nil
+			if initial != nil {
+				initial.CertificateProviderInstance = nil
+			}
+		}
+	}
+
 	if initial == nil {
 		return des
 	}
@@ -961,6 +991,36 @@ func canonicalizeClientTlsPolicyServerValidationCa(des, initial *ClientTlsPolicy
 	}
 	if des.empty {
 		return des
+	}
+
+	if des.CaCertPath != nil || (initial != nil && initial.CaCertPath != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.GrpcEndpoint, des.CertificateProviderInstance) {
+			des.CaCertPath = nil
+			if initial != nil {
+				initial.CaCertPath = nil
+			}
+		}
+	}
+
+	if des.GrpcEndpoint != nil || (initial != nil && initial.GrpcEndpoint != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.CaCertPath, des.CertificateProviderInstance) {
+			des.GrpcEndpoint = nil
+			if initial != nil {
+				initial.GrpcEndpoint = nil
+			}
+		}
+	}
+
+	if des.CertificateProviderInstance != nil || (initial != nil && initial.CertificateProviderInstance != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.CaCertPath, des.GrpcEndpoint) {
+			des.CertificateProviderInstance = nil
+			if initial != nil {
+				initial.CertificateProviderInstance = nil
+			}
+		}
 	}
 
 	if initial == nil {

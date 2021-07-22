@@ -614,49 +614,49 @@ func canonicalizeNoteInitialState(rawInitial, rawDesired *Note) (*Note, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
 	if !dcl.IsZeroValue(rawInitial.Vulnerability) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.Build, rawInitial.Image, rawInitial.Package, rawInitial.Deployment, rawInitial.Discovery, rawInitial.Attestation) {
 			rawInitial.Vulnerability = EmptyNoteVulnerability
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.Build) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Image, rawInitial.Package, rawInitial.Deployment, rawInitial.Discovery, rawInitial.Attestation) {
 			rawInitial.Build = EmptyNoteBuild
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.Image) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Package, rawInitial.Deployment, rawInitial.Discovery, rawInitial.Attestation) {
 			rawInitial.Image = EmptyNoteImage
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.Package) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Image, rawInitial.Deployment, rawInitial.Discovery, rawInitial.Attestation) {
 			rawInitial.Package = EmptyNotePackage
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.Deployment) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Image, rawInitial.Package, rawInitial.Discovery, rawInitial.Attestation) {
 			rawInitial.Deployment = EmptyNoteDeployment
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.Discovery) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Image, rawInitial.Package, rawInitial.Deployment, rawInitial.Attestation) {
 			rawInitial.Discovery = EmptyNoteDiscovery
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.Attestation) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Image, rawInitial.Package, rawInitial.Deployment, rawInitial.Discovery) {
 			rawInitial.Attestation = EmptyNoteAttestation
 		}
@@ -689,7 +689,7 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 	}
 
 	if rawDesired.Vulnerability != nil || rawInitial.Vulnerability != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.Build, rawDesired.Image, rawDesired.Package, rawDesired.Deployment, rawDesired.Discovery, rawDesired.Attestation) {
 			rawDesired.Vulnerability = nil
 			rawInitial.Vulnerability = nil
@@ -697,7 +697,7 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 	}
 
 	if rawDesired.Build != nil || rawInitial.Build != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Image, rawDesired.Package, rawDesired.Deployment, rawDesired.Discovery, rawDesired.Attestation) {
 			rawDesired.Build = nil
 			rawInitial.Build = nil
@@ -705,7 +705,7 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 	}
 
 	if rawDesired.Image != nil || rawInitial.Image != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.Package, rawDesired.Deployment, rawDesired.Discovery, rawDesired.Attestation) {
 			rawDesired.Image = nil
 			rawInitial.Image = nil
@@ -713,7 +713,7 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 	}
 
 	if rawDesired.Package != nil || rawInitial.Package != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.Image, rawDesired.Deployment, rawDesired.Discovery, rawDesired.Attestation) {
 			rawDesired.Package = nil
 			rawInitial.Package = nil
@@ -721,7 +721,7 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 	}
 
 	if rawDesired.Deployment != nil || rawInitial.Deployment != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.Image, rawDesired.Package, rawDesired.Discovery, rawDesired.Attestation) {
 			rawDesired.Deployment = nil
 			rawInitial.Deployment = nil
@@ -729,7 +729,7 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 	}
 
 	if rawDesired.Discovery != nil || rawInitial.Discovery != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.Image, rawDesired.Package, rawDesired.Deployment, rawDesired.Attestation) {
 			rawDesired.Discovery = nil
 			rawInitial.Discovery = nil
@@ -737,7 +737,7 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 	}
 
 	if rawDesired.Attestation != nil || rawInitial.Attestation != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.Image, rawDesired.Package, rawDesired.Deployment, rawDesired.Discovery) {
 			rawDesired.Attestation = nil
 			rawInitial.Attestation = nil

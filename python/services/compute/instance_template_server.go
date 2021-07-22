@@ -147,7 +147,7 @@ func ProtoToComputeInstanceTemplatePropertiesDisks(p *computepb.ComputeInstanceT
 		Type:              ProtoToComputeInstanceTemplatePropertiesDisksTypeEnum(p.GetType()),
 	}
 	for _, r := range p.GetGuestOsFeatures() {
-		obj.GuestOsFeatures = append(obj.GuestOsFeatures, *ProtoToComputeInstanceTemplatePropertiesDisksGuestOsFeatures(r))
+		obj.GuestOSFeatures = append(obj.GuestOSFeatures, *ProtoToComputeInstanceTemplatePropertiesDisksGuestOSFeatures(r))
 	}
 	return obj
 }
@@ -213,12 +213,12 @@ func ProtoToComputeInstanceTemplatePropertiesDisksInitializeParamsSourceImageEnc
 	return obj
 }
 
-// ProtoToInstanceTemplatePropertiesDisksGuestOsFeatures converts a InstanceTemplatePropertiesDisksGuestOsFeatures resource from its proto representation.
-func ProtoToComputeInstanceTemplatePropertiesDisksGuestOsFeatures(p *computepb.ComputeInstanceTemplatePropertiesDisksGuestOsFeatures) *compute.InstanceTemplatePropertiesDisksGuestOsFeatures {
+// ProtoToInstanceTemplatePropertiesDisksGuestOSFeatures converts a InstanceTemplatePropertiesDisksGuestOSFeatures resource from its proto representation.
+func ProtoToComputeInstanceTemplatePropertiesDisksGuestOSFeatures(p *computepb.ComputeInstanceTemplatePropertiesDisksGuestOSFeatures) *compute.InstanceTemplatePropertiesDisksGuestOSFeatures {
 	if p == nil {
 		return nil
 	}
-	obj := &compute.InstanceTemplatePropertiesDisksGuestOsFeatures{
+	obj := &compute.InstanceTemplatePropertiesDisksGuestOSFeatures{
 		Type: dcl.StringOrNil(p.Type),
 	}
 	return obj
@@ -493,8 +493,8 @@ func ComputeInstanceTemplatePropertiesDisksToProto(o *compute.InstanceTemplatePr
 		Source:            dcl.ValueOrEmptyString(o.Source),
 		Type:              ComputeInstanceTemplatePropertiesDisksTypeEnumToProto(o.Type),
 	}
-	for _, r := range o.GuestOsFeatures {
-		p.GuestOsFeatures = append(p.GuestOsFeatures, ComputeInstanceTemplatePropertiesDisksGuestOsFeaturesToProto(&r))
+	for _, r := range o.GuestOSFeatures {
+		p.GuestOsFeatures = append(p.GuestOsFeatures, ComputeInstanceTemplatePropertiesDisksGuestOSFeaturesToProto(&r))
 	}
 	return p
 }
@@ -564,12 +564,12 @@ func ComputeInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryption
 	return p
 }
 
-// InstanceTemplatePropertiesDisksGuestOsFeaturesToProto converts a InstanceTemplatePropertiesDisksGuestOsFeatures resource to its proto representation.
-func ComputeInstanceTemplatePropertiesDisksGuestOsFeaturesToProto(o *compute.InstanceTemplatePropertiesDisksGuestOsFeatures) *computepb.ComputeInstanceTemplatePropertiesDisksGuestOsFeatures {
+// InstanceTemplatePropertiesDisksGuestOSFeaturesToProto converts a InstanceTemplatePropertiesDisksGuestOSFeatures resource to its proto representation.
+func ComputeInstanceTemplatePropertiesDisksGuestOSFeaturesToProto(o *compute.InstanceTemplatePropertiesDisksGuestOSFeatures) *computepb.ComputeInstanceTemplatePropertiesDisksGuestOSFeatures {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeInstanceTemplatePropertiesDisksGuestOsFeatures{
+	p := &computepb.ComputeInstanceTemplatePropertiesDisksGuestOSFeatures{
 		Type: dcl.ValueOrEmptyString(o.Type),
 	}
 	return p

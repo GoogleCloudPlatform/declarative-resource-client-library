@@ -26,6 +26,12 @@ import (
 
 func (r *FirewallPolicyAssociation) validate() error {
 
+	if err := dcl.Required(r, "name"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "attachmentTarget"); err != nil {
+		return err
+	}
 	if err := dcl.Required(r, "firewallPolicy"); err != nil {
 		return err
 	}
@@ -299,14 +305,6 @@ func canonicalizeFirewallPolicyAssociationNewState(c *Client, rawNew, rawDesired
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
-		rawNew.DisplayName = rawDesired.DisplayName
-	} else {
-		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
-			rawNew.DisplayName = rawDesired.DisplayName
-		}
-	}
-
 	return rawNew, nil
 }
 
@@ -347,13 +345,6 @@ func diffFirewallPolicyAssociation(c *Client, desired, actual *FirewallPolicyAss
 	}
 
 	if ds, err := dcl.Diff(desired.ShortName, actual.ShortName, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ShortName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -423,9 +414,6 @@ func expandFirewallPolicyAssociation(c *Client, f *FirewallPolicyAssociation) (m
 	if v := f.ShortName; !dcl.IsEmptyValueIndirect(v) {
 		m["shortName"] = v
 	}
-	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
-		m["displayName"] = v
-	}
 
 	return m, nil
 }
@@ -446,7 +434,6 @@ func flattenFirewallPolicyAssociation(c *Client, i interface{}) *FirewallPolicyA
 	res.AttachmentTarget = dcl.FlattenString(m["attachmentTarget"])
 	res.FirewallPolicy = dcl.FlattenString(m["firewallPolicyId"])
 	res.ShortName = dcl.FlattenString(m["shortName"])
-	res.DisplayName = dcl.FlattenString(m["displayName"])
 
 	return res
 }

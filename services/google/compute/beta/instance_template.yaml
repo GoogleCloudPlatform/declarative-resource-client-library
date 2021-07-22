@@ -188,16 +188,16 @@ components:
                           the customer-supplied encryption key that protects this
                           resource. '
                         x-kubernetes-immutable: true
-                  guestOsFeatures:
+                  guestOSFeatures:
                     type: array
-                    x-dcl-go-name: GuestOsFeatures
+                    x-dcl-go-name: GuestOSFeatures
                     description: A list of features to enable on the guest operating
                       system. Applicable only for bootable images.
                     x-kubernetes-immutable: true
                     x-dcl-list-type: list
                     items:
                       type: object
-                      x-dcl-go-type: InstanceTemplatePropertiesDisksGuestOsFeatures
+                      x-dcl-go-type: InstanceTemplatePropertiesDisksGuestOSFeatures
                       properties:
                         type:
                           type: string

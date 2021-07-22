@@ -119,28 +119,28 @@ func (v AccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum)
 	}
 }
 
-// The enum AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum.
-type AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum string
+// The enum AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum.
+type AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum string
 
-// AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnumRef returns a *AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum with the value of string s
+// AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnumRef returns a *AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnumRef(s string) *AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum {
+func AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnumRef(s string) *AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum(s)
+	v := AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum(s)
 	return &v
 }
 
-func (v AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum) Validate() error {
+func (v AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum) Validate() error {
 	for _, s := range []string{"OS_UNSPECIFIED", "DESKTOP_MAC", "DESKTOP_WINDOWS", "DESKTOP_LINUX", "DESKTOP_CHROME_OS"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum",
+		Enum:  "AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -263,7 +263,7 @@ type AccessLevelBasicConditionsDevicePolicy struct {
 	RequireCorpOwned              *bool                                                                     `json:"requireCorpOwned"`
 	AllowedEncryptionStatuses     []AccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnum     `json:"allowedEncryptionStatuses"`
 	AllowedDeviceManagementLevels []AccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum `json:"allowedDeviceManagementLevels"`
-	OsConstraints                 []AccessLevelBasicConditionsDevicePolicyOsConstraints                     `json:"osConstraints"`
+	OSConstraints                 []AccessLevelBasicConditionsDevicePolicyOSConstraints                     `json:"osConstraints"`
 }
 
 type jsonAccessLevelBasicConditionsDevicePolicy AccessLevelBasicConditionsDevicePolicy
@@ -291,7 +291,7 @@ func (r *AccessLevelBasicConditionsDevicePolicy) UnmarshalJSON(data []byte) erro
 
 		r.AllowedDeviceManagementLevels = res.AllowedDeviceManagementLevels
 
-		r.OsConstraints = res.OsConstraints
+		r.OSConstraints = res.OSConstraints
 
 	}
 	return nil
@@ -317,17 +317,17 @@ func (r *AccessLevelBasicConditionsDevicePolicy) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type AccessLevelBasicConditionsDevicePolicyOsConstraints struct {
+type AccessLevelBasicConditionsDevicePolicyOSConstraints struct {
 	empty                   bool                                                           `json:"-"`
 	MinimumVersion          *string                                                        `json:"minimumVersion"`
-	OsType                  *AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum `json:"osType"`
-	RequireVerifiedChromeOs *bool                                                          `json:"requireVerifiedChromeOs"`
+	OSType                  *AccessLevelBasicConditionsDevicePolicyOSConstraintsOSTypeEnum `json:"osType"`
+	RequireVerifiedChromeOS *bool                                                          `json:"requireVerifiedChromeOS"`
 }
 
-type jsonAccessLevelBasicConditionsDevicePolicyOsConstraints AccessLevelBasicConditionsDevicePolicyOsConstraints
+type jsonAccessLevelBasicConditionsDevicePolicyOSConstraints AccessLevelBasicConditionsDevicePolicyOSConstraints
 
-func (r *AccessLevelBasicConditionsDevicePolicyOsConstraints) UnmarshalJSON(data []byte) error {
-	var res jsonAccessLevelBasicConditionsDevicePolicyOsConstraints
+func (r *AccessLevelBasicConditionsDevicePolicyOSConstraints) UnmarshalJSON(data []byte) error {
+	var res jsonAccessLevelBasicConditionsDevicePolicyOSConstraints
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -336,33 +336,33 @@ func (r *AccessLevelBasicConditionsDevicePolicyOsConstraints) UnmarshalJSON(data
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyAccessLevelBasicConditionsDevicePolicyOsConstraints
+		*r = *EmptyAccessLevelBasicConditionsDevicePolicyOSConstraints
 	} else {
 
 		r.MinimumVersion = res.MinimumVersion
 
-		r.OsType = res.OsType
+		r.OSType = res.OSType
 
-		r.RequireVerifiedChromeOs = res.RequireVerifiedChromeOs
+		r.RequireVerifiedChromeOS = res.RequireVerifiedChromeOS
 
 	}
 	return nil
 }
 
-// This object is used to assert a desired state where this AccessLevelBasicConditionsDevicePolicyOsConstraints is
+// This object is used to assert a desired state where this AccessLevelBasicConditionsDevicePolicyOSConstraints is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyAccessLevelBasicConditionsDevicePolicyOsConstraints *AccessLevelBasicConditionsDevicePolicyOsConstraints = &AccessLevelBasicConditionsDevicePolicyOsConstraints{empty: true}
+var EmptyAccessLevelBasicConditionsDevicePolicyOSConstraints *AccessLevelBasicConditionsDevicePolicyOSConstraints = &AccessLevelBasicConditionsDevicePolicyOSConstraints{empty: true}
 
-func (r *AccessLevelBasicConditionsDevicePolicyOsConstraints) Empty() bool {
+func (r *AccessLevelBasicConditionsDevicePolicyOSConstraints) Empty() bool {
 	return r.empty
 }
 
-func (r *AccessLevelBasicConditionsDevicePolicyOsConstraints) String() string {
+func (r *AccessLevelBasicConditionsDevicePolicyOSConstraints) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *AccessLevelBasicConditionsDevicePolicyOsConstraints) HashCode() string {
+func (r *AccessLevelBasicConditionsDevicePolicyOSConstraints) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

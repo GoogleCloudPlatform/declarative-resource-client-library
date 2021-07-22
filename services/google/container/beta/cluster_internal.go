@@ -2036,21 +2036,21 @@ func canonicalizeClusterInitialState(rawInitial, rawDesired *Cluster) (*Cluster,
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
 	if !dcl.IsZeroValue(rawInitial.NodePools) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.InitialNodeCount, rawInitial.NodeConfig) {
 			rawInitial.NodePools = []ClusterNodePools{}
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.InitialNodeCount) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.NodePools, rawInitial.NodeConfig) {
 			rawInitial.InitialNodeCount = dcl.Int64(0)
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.NodeConfig) {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawInitial.NodePools, rawInitial.InitialNodeCount) {
 			rawInitial.NodeConfig = EmptyClusterNodeConfig
 		}
@@ -2103,7 +2103,7 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 	}
 
 	if rawDesired.NodePools != nil || rawInitial.NodePools != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.InitialNodeCount, rawDesired.NodeConfig) {
 			rawDesired.NodePools = nil
 			rawInitial.NodePools = nil
@@ -2111,7 +2111,7 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 	}
 
 	if rawDesired.InitialNodeCount != nil || rawInitial.InitialNodeCount != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.NodePools, rawDesired.NodeConfig) {
 			rawDesired.InitialNodeCount = nil
 			rawInitial.InitialNodeCount = nil
@@ -2119,7 +2119,7 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 	}
 
 	if rawDesired.NodeConfig != nil || rawInitial.NodeConfig != nil {
-		// check if anything else is set
+		// Check if anything else is set.
 		if dcl.AnySet(rawDesired.NodePools, rawDesired.InitialNodeCount) {
 			rawDesired.NodeConfig = nil
 			rawInitial.NodeConfig = nil
@@ -7031,6 +7031,26 @@ func canonicalizeClusterMaintenancePolicyWindow(des, initial *ClusterMaintenance
 		return des
 	}
 
+	if des.DailyMaintenanceWindow != nil || (initial != nil && initial.DailyMaintenanceWindow != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.RecurringWindow) {
+			des.DailyMaintenanceWindow = nil
+			if initial != nil {
+				initial.DailyMaintenanceWindow = nil
+			}
+		}
+	}
+
+	if des.RecurringWindow != nil || (initial != nil && initial.RecurringWindow != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.DailyMaintenanceWindow) {
+			des.RecurringWindow = nil
+			if initial != nil {
+				initial.RecurringWindow = nil
+			}
+		}
+	}
+
 	if initial == nil {
 		return des
 	}
@@ -10022,7 +10042,6 @@ func canonicalizeClusterMaster(des, initial *ClusterMaster, opts ...dcl.ApplyOpt
 	if des.empty {
 		return des
 	}
-
 	if initial == nil {
 		return des
 	}
