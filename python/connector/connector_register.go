@@ -68,6 +68,8 @@ import (
 
 	gkehub_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/beta_connector"
 
+	gkemulticloud_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkemulticloud/connector"
+
 	logging_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/logging/connector"
 
 	iam_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam/connector"
@@ -178,6 +180,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	gameservices_connector.RegisterServers(grpcServer)
 
 	gkehub_beta_connector.RegisterServers(grpcServer)
+
+	gkemulticloud_connector.RegisterServers(grpcServer)
 
 	logging_connector.RegisterServers(grpcServer)
 

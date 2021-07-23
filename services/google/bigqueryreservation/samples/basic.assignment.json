@@ -1,5 +1,7 @@
 {
   "assignee": "projects/{{project}}",
   "jobType": "PIPELINE",
+  "location": "",
+  "project": "",
   "reservation": "projects/{{project}}/locations/{{region}}/reservations/{{ref:basic.reservation.json:name}}"
 }

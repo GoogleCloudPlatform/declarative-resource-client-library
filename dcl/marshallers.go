@@ -313,11 +313,9 @@ func FindStringInArray(s string, items []string) bool {
 
 // ValueFromRegexOnField assigns val to the regex value on containerVal if val is unset
 func ValueFromRegexOnField(val *string, containerVal *string, regex string) (*string, error) {
-	if val == nil || *val == "" {
-		if containerVal == nil || *containerVal == "" {
-			return nil, fmt.Errorf("containerval is empty")
-		}
-
+	containerGroupedVal := String("")
+	// Fetch value from container if the container exists.
+	if containerVal != nil && *containerVal != "" {
 		r := re.MustCompile(regex)
 		m := r.FindStringSubmatch(*containerVal)
 		if m == nil {
@@ -327,7 +325,25 @@ func ValueFromRegexOnField(val *string, containerVal *string, regex string) (*st
 		if len(m) < 2 {
 			return nil, fmt.Errorf("no value found in %v", *containerVal)
 		}
-		return String(m[1]), nil
+		containerGroupedVal = String(m[1])
 	}
+
+	// If value exists + different from what's in container, error.
+	if val != nil && *val != "" {
+		if containerGroupedVal != nil && *containerGroupedVal != "" && *containerGroupedVal != *val {
+			return nil, fmt.Errorf("value %s found in %s does not match %s", *containerGroupedVal, *containerVal, *val)
+		}
+	}
+
+	// If everything is unset, error.
+	if (val == nil || *val == "") && (containerGroupedVal == nil || *containerGroupedVal == "") {
+		return nil, fmt.Errorf("both value and container are unset")
+	}
+
+	// If value does not exist, use the value in container.
+	if val == nil || *val == "" {
+		return containerGroupedVal, nil
+	}
+
 	return val, nil
 }
