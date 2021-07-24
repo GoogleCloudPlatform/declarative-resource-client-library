@@ -899,18 +899,14 @@ func expandFirewallPolicyRule(c *Client, f *FirewallPolicyRule) (map[string]inte
 	if v := f.Direction; !dcl.IsEmptyValueIndirect(v) {
 		m["direction"] = v
 	}
-	if v := f.TargetResources; !dcl.IsEmptyValueIndirect(v) {
-		m["targetResources"] = v
-	}
+	m["targetResources"] = f.TargetResources
 	if v := f.EnableLogging; !dcl.IsEmptyValueIndirect(v) {
 		m["enableLogging"] = v
 	}
 	if v := f.RuleTupleCount; !dcl.IsEmptyValueIndirect(v) {
 		m["ruleTupleCount"] = v
 	}
-	if v := f.TargetServiceAccounts; !dcl.IsEmptyValueIndirect(v) {
-		m["targetServiceAccounts"] = v
-	}
+	m["targetServiceAccounts"] = f.TargetServiceAccounts
 	if v := f.Disabled; !dcl.IsEmptyValueIndirect(v) {
 		m["disabled"] = v
 	}
@@ -1168,7 +1164,7 @@ func expandFirewallPolicyRuleMatchLayer4Configs(c *Client, f *FirewallPolicyRule
 	if v := f.IPProtocol; !dcl.IsEmptyValueIndirect(v) {
 		m["ipProtocol"] = v
 	}
-	if v := f.Ports; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Ports; v != nil {
 		m["ports"] = v
 	}
 
