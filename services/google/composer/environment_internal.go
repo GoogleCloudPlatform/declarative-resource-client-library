@@ -171,6 +171,44 @@ type environmentApiOperation interface {
 	do(context.Context, *Environment, *Client) error
 }
 
+// newUpdateEnvironmentPatchEnvironmentRequest creates a request for an
+// Environment resource's PatchEnvironment update type by filling in the update
+// fields based on the intended state of the resource.
+func newUpdateEnvironmentPatchEnvironmentRequest(ctx context.Context, f *Environment, c *Client) (map[string]interface{}, error) {
+	req := map[string]interface{}{}
+	// Alias full resource as res to distinguish it from nested objects.
+	res := f
+
+	if v, err := expandEnvironmentConfig(c, f.Config, res); err != nil {
+		return nil, fmt.Errorf("error expanding Config into config: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["config"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		req["labels"] = v
+	}
+	return req, nil
+}
+
+// marshalUpdateEnvironmentPatchEnvironmentRequest converts the update into
+// the final JSON request body.
+func marshalUpdateEnvironmentPatchEnvironmentRequest(c *Client, m map[string]interface{}) ([]byte, error) {
+
+	return json.Marshal(m)
+}
+
+type updateEnvironmentPatchEnvironmentOperation struct {
+	// If the update operation has the REQUIRES_APPLY_OPTIONS trait, this will be populated.
+	// Usually it will be nil - this is to prevent us from accidentally depending on apply
+	// options, which should usually be unnecessary.
+	ApplyOptions []dcl.ApplyOption
+	FieldDiffs   []*dcl.FieldDiff
+}
+
+// do creates a request and sends it to the appropriate URL. In most operations,
+// do will transcribe a subset of the resource into a request object and send a
+// PUT request to a single URL.
+
 func (c *Client) listEnvironmentRaw(ctx context.Context, project, location, pageToken string, pageSize int32) ([]byte, error) {
 	u, err := environmentListURL(c.Config.BasePath, project, location)
 	if err != nil {
@@ -306,44 +344,6 @@ type createEnvironmentOperation struct {
 
 func (op *createEnvironmentOperation) FirstResponse() (map[string]interface{}, bool) {
 	return op.response, len(op.response) > 0
-}
-
-func (op *createEnvironmentOperation) do(ctx context.Context, r *Environment, c *Client) error {
-	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, location := r.createFields()
-	u, err := environmentCreateURL(c.Config.BasePath, project, location)
-
-	if err != nil {
-		return err
-	}
-
-	req, err := r.marshal(c)
-	if err != nil {
-		return err
-	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
-	if err != nil {
-		return err
-	}
-	// wait for object to be created.
-	var o operations.StandardGCPOperation
-	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
-		return err
-	}
-	if err := o.Wait(ctx, c.Config, "https://composer.googleapis.com/v1/", "GET"); err != nil {
-		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
-		return err
-	}
-	c.Config.Logger.Infof("Successfully waited for operation")
-	op.response, _ = o.FirstResponse()
-
-	if _, err := c.GetEnvironment(ctx, r.URLNormalized()); err != nil {
-		c.Config.Logger.Warningf("get returned error: %v", err)
-		return err
-	}
-
-	return nil
 }
 
 func (c *Client) getEnvironmentRaw(ctx context.Context, r *Environment) ([]byte, error) {
@@ -1650,7 +1650,7 @@ func diffEnvironment(c *Client, desired, actual *Environment, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateEnvironmentPatchEnvironmentOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1707,7 +1707,7 @@ func compareEnvironmentConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NodeCount, actual.NodeCount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NodeCount, actual.NodeCount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateEnvironmentPatchEnvironmentOperation")}, fn.AddNest("NodeCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1735,21 +1735,21 @@ func compareEnvironmentConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WebServerNetworkAccessControl, actual.WebServerNetworkAccessControl, dcl.Info{ObjectFunction: compareEnvironmentConfigWebServerNetworkAccessControlNewStyle, EmptyObject: EmptyEnvironmentConfigWebServerNetworkAccessControl, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WebServerNetworkAccessControl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WebServerNetworkAccessControl, actual.WebServerNetworkAccessControl, dcl.Info{ObjectFunction: compareEnvironmentConfigWebServerNetworkAccessControlNewStyle, EmptyObject: EmptyEnvironmentConfigWebServerNetworkAccessControl, OperationSelector: dcl.TriggersOperation("updateEnvironmentPatchEnvironmentOperation")}, fn.AddNest("WebServerNetworkAccessControl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DatabaseConfig, actual.DatabaseConfig, dcl.Info{ObjectFunction: compareEnvironmentConfigDatabaseConfigNewStyle, EmptyObject: EmptyEnvironmentConfigDatabaseConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DatabaseConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DatabaseConfig, actual.DatabaseConfig, dcl.Info{ObjectFunction: compareEnvironmentConfigDatabaseConfigNewStyle, EmptyObject: EmptyEnvironmentConfigDatabaseConfig, OperationSelector: dcl.TriggersOperation("updateEnvironmentPatchEnvironmentOperation")}, fn.AddNest("DatabaseConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WebServerConfig, actual.WebServerConfig, dcl.Info{ObjectFunction: compareEnvironmentConfigWebServerConfigNewStyle, EmptyObject: EmptyEnvironmentConfigWebServerConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WebServerConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WebServerConfig, actual.WebServerConfig, dcl.Info{ObjectFunction: compareEnvironmentConfigWebServerConfigNewStyle, EmptyObject: EmptyEnvironmentConfigWebServerConfig, OperationSelector: dcl.TriggersOperation("updateEnvironmentPatchEnvironmentOperation")}, fn.AddNest("WebServerConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1799,21 +1799,21 @@ func compareEnvironmentConfigSoftwareConfigNewStyle(d, a interface{}, fn dcl.Fie
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AirflowConfigOverrides, actual.AirflowConfigOverrides, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AirflowConfigOverrides")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AirflowConfigOverrides, actual.AirflowConfigOverrides, dcl.Info{OperationSelector: dcl.TriggersOperation("updateEnvironmentPatchEnvironmentOperation")}, fn.AddNest("AirflowConfigOverrides")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PypiPackages, actual.PypiPackages, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PypiPackages")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PypiPackages, actual.PypiPackages, dcl.Info{OperationSelector: dcl.TriggersOperation("updateEnvironmentPatchEvironmentOperation")}, fn.AddNest("PypiPackages")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EnvVariables, actual.EnvVariables, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnvVariables")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnvVariables, actual.EnvVariables, dcl.Info{OperationSelector: dcl.TriggersOperation("updateEnvironmentPatchEnvironmentOperation")}, fn.AddNest("EnvVariables")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2156,7 +2156,7 @@ func compareEnvironmentConfigDatabaseConfigNewStyle(d, a interface{}, fn dcl.Fie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{OperationSelector: dcl.TriggersOperation("updateEnvironmentPatchEnvironmentOperation")}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2185,7 +2185,7 @@ func compareEnvironmentConfigWebServerConfigNewStyle(d, a interface{}, fn dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{OperationSelector: dcl.TriggersOperation("updateEnvironmentPatchEnvironmentOperation")}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2239,6 +2239,16 @@ func (r *Environment) deleteFields() (string, string, string) {
 }
 
 func (r *Environment) updateURL(userBasePath, updateName string) (string, error) {
+	n := r.URLNormalized()
+	if updateName == "PatchEnvironment" {
+		fields := map[string]interface{}{
+			"project":  dcl.ValueOrEmptyString(n.Project),
+			"location": dcl.ValueOrEmptyString(n.Location),
+			"name":     dcl.ValueOrEmptyString(n.Name),
+		}
+		return dcl.URL("projects/{{project}}/locations/{{location}}/environments/{{name}}", "https://composer.googleapis.com/v1/", userBasePath, fields), nil
+
+	}
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -3884,6 +3894,9 @@ func convertFieldDiffsToEnvironmentDiffs(config *dcl.Config, fds []*dcl.FieldDif
 
 func convertOpNameToEnvironmentApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (environmentApiOperation, error) {
 	switch opName {
+
+	case "updateEnvironmentPatchEnvironmentOperation":
+		return &updateEnvironmentPatchEnvironmentOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", opName)

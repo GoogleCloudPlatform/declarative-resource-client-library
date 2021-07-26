@@ -190,6 +190,7 @@ components:
         monitoredResourceTypes:
           type: array
           x-dcl-go-name: MonitoredResourceTypes
+          readOnly: true
           description: Read-only. If present, then a , that is associated with this
             metric type can only be associated with one of the monitored resource
             types listed here.

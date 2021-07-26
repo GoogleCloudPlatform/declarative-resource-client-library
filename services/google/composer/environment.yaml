@@ -99,7 +99,6 @@ components:
               x-dcl-go-type: EnvironmentConfigDatabaseConfig
               description: Optional. The configuration settings for Cloud SQL instance
                 used internally by Apache Airflow software.
-              x-kubernetes-immutable: true
               properties:
                 machineType:
                   type: string
@@ -108,7 +107,6 @@ components:
                     It has to be one of: db-n1-standard-2, db-n1-standard-4, db-n1-standard-8
                     or db-n1-standard-16. If not specified, db-n1-standard-2 will
                     be used.'
-                  x-kubernetes-immutable: true
             encryptionConfig:
               type: object
               x-dcl-go-name: EncryptionConfig
@@ -286,7 +284,6 @@ components:
               x-dcl-go-name: NodeCount
               description: The number of nodes in the Kubernetes Engine cluster that
                 will be used to run this environment.
-              x-kubernetes-immutable: true
             privateEnvironmentConfig:
               type: object
               x-dcl-go-name: PrivateEnvironmentConfig
@@ -379,7 +376,6 @@ components:
                     be written in any lower/upper case format. Certain Apache Airflow
                     configuration property values are blocked (/composer/docs/concepts/airflow-configurations),
                     and cannot be overridden.
-                  x-kubernetes-immutable: true
                 envVariables:
                   type: object
                   additionalProperties:
@@ -394,7 +390,6 @@ components:
                     * `C_FORCE_ROOT` * `CONTAINER_NAME` * `DAGS_FOLDER` * `GCP_PROJECT`
                     * `GCS_BUCKET` * `GKE_CLUSTER_NAME` * `SQL_DATABASE` * `SQL_INSTANCE`
                     * `SQL_PASSWORD` * `SQL_PROJECT` * `SQL_REGION` * `SQL_USER`'
-                  x-kubernetes-immutable: true
                 imageVersion:
                   type: string
                   x-dcl-go-name: ImageVersion
@@ -414,7 +409,6 @@ components:
                     and version specifier such as "==1.12.0", ">=1.8.2, <1.9.2". To
                     specify a package without pinning it to a version specifier, use
                     the empty string as the value.
-                  x-kubernetes-immutable: true
                 pythonVersion:
                   type: string
                   x-dcl-go-name: PythonVersion
@@ -429,7 +423,6 @@ components:
               x-dcl-go-type: EnvironmentConfigWebServerConfig
               description: Optional. The configuration settings for the Airflow web
                 server App Engine instance.
-              x-kubernetes-immutable: true
               properties:
                 machineType:
                   type: string
@@ -440,7 +433,6 @@ components:
                     will be used. Value custom is returned only in response, if Airflow
                     web server parameters were manually changed to a non-standard
                     values.'
-                  x-kubernetes-immutable: true
             webServerNetworkAccessControl:
               type: object
               x-dcl-go-name: WebServerNetworkAccessControl
@@ -448,7 +440,6 @@ components:
               description: Optional. The network-level access control policy for the
                 Airflow web server. If unspecified, no network-level access restrictions
                 will be applied.
-              x-kubernetes-immutable: true
               properties:
                 allowedIPRanges:
                   type: array
@@ -493,7 +484,6 @@ components:
             UTF8 strings that comply with the following restrictions: * Keys must
             conform to regexp: {0,63} * Both keys and values are additionally constrained
             to be <= 128 bytes in size.'
-          x-kubernetes-immutable: true
         location:
           type: string
           x-dcl-go-name: Location

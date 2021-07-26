@@ -323,7 +323,7 @@ components:
             or set the group's `updatePolicy.type` to `PROACTIVE`.
           x-dcl-forward-slash-allowed: true
           x-dcl-references:
-          - resource: Compute/Instance
+          - resource: Compute/InstanceTemplate
             field: selfLink
         location:
           type: string
@@ -603,7 +603,7 @@ components:
                   to `PROACTIVE`; in those cases, existing instances are updated until
                   the `targetSize` for this version is reached.
                 x-dcl-references:
-                - resource: Compute/Instance
+                - resource: Compute/InstanceTemplate
                   field: selfLink
               name:
                 type: string

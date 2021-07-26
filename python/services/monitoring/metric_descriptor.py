@@ -48,7 +48,6 @@ class MetricDescriptor(object):
         self.display_name = display_name
         self.metadata = metadata
         self.launch_stage = launch_stage
-        self.monitored_resource_types = monitored_resource_types
         self.project = project
         self.service_account_file = service_account_file
 
@@ -94,10 +93,6 @@ class MetricDescriptor(object):
                 self.launch_stage
             )
 
-        if Primitive.to_proto(self.monitored_resource_types):
-            request.resource.monitored_resource_types.extend(
-                Primitive.to_proto(self.monitored_resource_types)
-            )
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -166,10 +161,6 @@ class MetricDescriptor(object):
                 self.launch_stage
             )
 
-        if Primitive.to_proto(self.monitored_resource_types):
-            request.resource.monitored_resource_types.extend(
-                Primitive.to_proto(self.monitored_resource_types)
-            )
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -213,10 +204,6 @@ class MetricDescriptor(object):
         if MetricDescriptorLaunchStageEnum.to_proto(self.launch_stage):
             resource.launch_stage = MetricDescriptorLaunchStageEnum.to_proto(
                 self.launch_stage
-            )
-        if Primitive.to_proto(self.monitored_resource_types):
-            resource.monitored_resource_types.extend(
-                Primitive.to_proto(self.monitored_resource_types)
             )
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)

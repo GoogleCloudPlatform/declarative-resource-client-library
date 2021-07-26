@@ -407,11 +407,6 @@ func canonicalizeMetricDescriptorDesiredState(rawDesired, rawInitial *MetricDesc
 	} else {
 		canonicalDesired.LaunchStage = rawDesired.LaunchStage
 	}
-	if dcl.IsZeroValue(rawDesired.MonitoredResourceTypes) {
-		canonicalDesired.MonitoredResourceTypes = rawInitial.MonitoredResourceTypes
-	} else {
-		canonicalDesired.MonitoredResourceTypes = rawDesired.MonitoredResourceTypes
-	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		canonicalDesired.Project = rawInitial.Project
 	} else {
@@ -769,7 +764,7 @@ func diffMetricDescriptor(c *Client, desired, actual *MetricDescriptor, opts ...
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MonitoredResourceTypes, actual.MonitoredResourceTypes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MonitoredResourceTypes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MonitoredResourceTypes, actual.MonitoredResourceTypes, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MonitoredResourceTypes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
