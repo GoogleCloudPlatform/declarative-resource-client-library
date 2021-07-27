@@ -16,5 +16,6 @@ name: exponential_metric
 resource: samples/exponential.log_metric.json
 updates:
 - resource: samples/update_exponential.log_metric.json
+- resource: samples/linear.log_metric.json
 versions:
 - ga

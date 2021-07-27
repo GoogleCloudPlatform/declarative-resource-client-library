@@ -11,14 +11,13 @@
         {
           "resources": [
             {
-              "id": "new-apt",
+              "id": "apt-to-yum",
               "repository": {
-                "apt": {
-                  "archiveType": "DEB_SRC",
-                  "uri": "http://debian.mirror.constant.com/debian/",
-                  "distribution": "ubuntu",
-                  "components": ["main"],
-                  "gpgKey": "SAMPLE-KEY-PATH"
+                "yum": {
+                  "id": "new-yum",
+                  "displayName": "new-yum",
+                  "baseUrl": "http://mirrors.rcs.alaska.edu/centos/",
+                  "gpgKeys": ["RPM-GPG-KEY-CentOS-Debug-7"]
                 }
               }
             },

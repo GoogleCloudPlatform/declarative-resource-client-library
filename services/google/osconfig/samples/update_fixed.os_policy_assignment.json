@@ -16,11 +16,11 @@
           },
           "resources": [
             {
-              "id": "new-apt",
+              "id": "apt",
               "pkg": {
-                "desiredState": "REMOVED",
+                "desiredState": "INSTALLED",
                 "apt": {
-                  "name": "libjulia"
+                  "name": "firefox"
                 }
               }
             },
@@ -46,21 +46,6 @@
                     "remote": {
                       "uri": "ftp.us.debian.org/debian/new-package.deb",
                       "sha256Checksum": "9f8e5818ccb47024d01000db713c0a333679b64678ff5fe2d9bea0a23014dd54"
-                    }
-                  }
-                }
-              }
-            },
-            {
-              "id": "new-deb3",
-              "pkg": {
-                "desiredState": "REMOVED",
-                "deb": {
-                  "source": {
-                    "gcs": {
-                      "bucket": "new-test-bucket",
-                      "object": "new-test-object",
-                      "generation": 2
                     }
                   }
                 }
@@ -130,6 +115,32 @@
         },
         {
           "resources": [
+            {
+              "id": "apt-to-deb",
+              "pkg": {
+                "desiredState": "REMOVED",
+                "deb": {
+                  "source": {
+                    "localPath": "$HOME/new-package.deb"
+                  }
+                }
+              }
+            },
+            {
+              "id": "deb-local-path-to-gcs",
+              "pkg": {
+                "desiredState": "REMOVED",
+                "deb": {
+                  "source": {
+                    "gcs": {
+                      "bucket": "new-test-bucket",
+                      "object": "new-test-object",
+                      "generation": 2
+                    }
+                  }
+                }
+              }
+            },
             {
               "id": "new-googet",
               "pkg": {

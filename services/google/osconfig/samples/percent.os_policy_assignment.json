@@ -11,7 +11,7 @@
         {
           "resources": [
             {
-              "id": "apt",
+              "id": "apt-to-yum",
               "repository": {
                 "apt": {
                   "archiveType": "DEB",

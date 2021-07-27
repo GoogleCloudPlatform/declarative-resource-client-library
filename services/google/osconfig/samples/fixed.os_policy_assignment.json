@@ -56,6 +56,7 @@
               "pkg": {
                 "desiredState": "INSTALLED",
                 "deb": {
+                  "pullDeps": true,
                   "source": {
                     "gcs": {
                       "bucket": "test-bucket",
@@ -130,6 +131,26 @@
         },
         {
           "resources": [
+            {
+              "id": "apt-to-deb",
+              "pkg": {
+                "desiredState": "INSTALLED",
+                "apt": {
+                  "name": "bazel"
+                }
+              }
+            },
+            {
+              "id": "deb-local-path-to-gcs",
+              "pkg": {
+                "desiredState": "INSTALLED",
+                "deb": {
+                  "source": {
+                    "localPath": "$HOME/package.deb"
+                  }
+                }
+              }
+            },
             {
               "id": "googet",
               "pkg": {
