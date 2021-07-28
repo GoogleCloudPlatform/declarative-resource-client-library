@@ -67,7 +67,7 @@ components:
         service and is using the format {service-fully-qualified-name}/{attribute-name},
         e.g. 'compute.googleapis.com/loadBalancingScheme' for passing the load balancing
         scheme in a forwarding rule to IAM. See tech.iam.SYSContext.api_attrs for
-        more context.
+        more context. [optional]
     Instance:
       title: Instance
       x-dcl-id: projects/{{project}}/locations/{{location}}/instances/{{name}}
@@ -87,7 +87,7 @@ components:
         authorizedNetworkId:
           type: string
           x-dcl-go-name: AuthorizedNetworkId
-          description: The name of the (/compute/docs/networks-and-firewalls#networks)
+          description: The name of the [network](/compute/docs/networks-and-firewalls#networks)
             to which the instance is connected. If left unspecified, the `default`
             network will be used.
         createRecipe:
@@ -138,9 +138,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -264,7 +264,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -276,12 +276,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstanceCreateRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -315,7 +316,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -404,8 +405,8 @@ components:
                         x-dcl-go-type: InstanceCreateRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -425,7 +426,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -447,7 +448,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -475,17 +476,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -496,7 +498,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -514,13 +517,13 @@ components:
           format: date-time
           x-dcl-go-name: CreateTime
           readOnly: true
-          description: The time the instance was created.
+          description: '[Output only] The time the instance was created.'
           x-kubernetes-immutable: true
         currentZone:
           type: string
           x-dcl-go-name: CurrentZone
           readOnly: true
-          description: The current zone of the instance.
+          description: '[Output only] The current zone of the instance.'
           x-kubernetes-immutable: true
         deleteRecipe:
           type: object
@@ -570,9 +573,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -696,7 +699,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -708,12 +711,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstanceDeleteRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -747,7 +751,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -836,8 +840,8 @@ components:
                         x-dcl-go-type: InstanceDeleteRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -857,7 +861,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -879,7 +883,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -907,17 +911,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -928,7 +933,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -961,8 +967,8 @@ components:
           type: string
           x-dcl-go-name: ExtraInfo
           readOnly: true
-          description: extra info are returned when user choose FULL view in GetInstance
-            request. It is demo for partial response.
+          description: '[Output only] extra info are returned when user choose FULL
+            view in GetInstance request. It is demo for partial response.'
           x-kubernetes-immutable: true
         freezeRecipe:
           type: object
@@ -1012,9 +1018,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -1138,7 +1144,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -1150,12 +1156,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstanceFreezeRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -1189,7 +1196,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -1278,8 +1285,8 @@ components:
                         x-dcl-go-type: InstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -1299,7 +1306,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -1321,7 +1328,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -1349,17 +1356,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -1370,7 +1378,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -1421,7 +1430,7 @@ components:
           type: string
           x-dcl-go-name: Host
           readOnly: true
-          description: Hostname or IP address of the instance endpoint.
+          description: '[Output only] Hostname or IP address of the instance endpoint.'
           x-kubernetes-immutable: true
         labels:
           type: object
@@ -1439,7 +1448,7 @@ components:
           format: int64
           x-dcl-go-name: MutateUserId
           readOnly: true
-          description: Gaia ID observed by the CLH from the last mutation.
+          description: '[Output only] Gaia ID observed by the CLH from the last mutation.'
           x-kubernetes-immutable: true
         name:
           type: string
@@ -1493,9 +1502,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -1619,7 +1628,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -1631,12 +1640,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -1670,7 +1680,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -1759,8 +1769,8 @@ components:
                         x-dcl-go-type: InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -1780,7 +1790,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -1802,7 +1812,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -1830,17 +1840,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -1851,7 +1862,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -1912,9 +1924,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -2038,7 +2050,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -2050,12 +2062,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -2089,7 +2102,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -2178,8 +2191,8 @@ components:
                         x-dcl-go-type: InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -2199,7 +2212,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -2221,7 +2234,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -2249,17 +2262,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -2270,7 +2284,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -2288,7 +2303,7 @@ components:
           format: int64
           x-dcl-go-name: Port
           readOnly: true
-          description: The port number of the instance endpoint.
+          description: '[Output only] The port number of the instance endpoint.'
           x-kubernetes-immutable: true
         preprocessCreateRecipe:
           type: object
@@ -2338,9 +2353,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -2464,7 +2479,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -2476,12 +2491,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -2515,7 +2531,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -2604,8 +2620,8 @@ components:
                         x-dcl-go-type: InstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -2625,7 +2641,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -2647,7 +2663,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -2675,17 +2691,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -2696,7 +2713,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -2757,9 +2775,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -2883,7 +2901,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -2895,12 +2913,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -2934,7 +2953,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -3023,8 +3042,8 @@ components:
                         x-dcl-go-type: InstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -3044,7 +3063,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -3066,7 +3085,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -3094,17 +3113,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -3115,7 +3135,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -3176,9 +3197,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -3302,7 +3323,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -3314,12 +3335,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -3353,7 +3375,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -3442,8 +3464,8 @@ components:
                         x-dcl-go-type: InstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -3463,7 +3485,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -3485,7 +3507,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -3513,17 +3535,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -3534,7 +3557,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -3595,9 +3619,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -3721,7 +3745,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -3733,12 +3757,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -3772,7 +3797,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -3861,8 +3886,8 @@ components:
                         x-dcl-go-type: InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -3882,7 +3907,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -3904,7 +3929,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -3932,17 +3957,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -3953,7 +3979,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -4014,9 +4041,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -4140,7 +4167,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -4152,12 +4179,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -4191,7 +4219,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -4280,8 +4308,8 @@ components:
                         x-dcl-go-type: InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -4301,7 +4329,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -4323,7 +4351,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -4351,17 +4379,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -4372,7 +4401,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -4433,9 +4463,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -4559,7 +4589,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -4571,12 +4601,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -4610,7 +4641,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -4699,8 +4730,8 @@ components:
                         x-dcl-go-type: InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -4720,7 +4751,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -4742,7 +4773,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -4770,17 +4801,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -4791,7 +4823,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -4852,9 +4885,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -4978,7 +5011,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -4990,12 +5023,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -5029,7 +5063,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -5118,8 +5152,8 @@ components:
                         x-dcl-go-type: InstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -5139,7 +5173,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -5161,7 +5195,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -5189,17 +5223,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -5210,7 +5245,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -5271,9 +5307,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -5397,7 +5433,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -5409,12 +5445,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -5448,7 +5485,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -5537,8 +5574,8 @@ components:
                         x-dcl-go-type: InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -5558,7 +5595,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -5580,7 +5617,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -5608,17 +5645,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -5629,7 +5667,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -5690,9 +5729,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -5816,7 +5855,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -5828,12 +5867,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -5867,7 +5907,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -5956,8 +5996,8 @@ components:
                         x-dcl-go-type: InstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -5977,7 +6017,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -5999,7 +6039,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -6027,17 +6067,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -6048,7 +6089,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -6109,9 +6151,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -6235,7 +6277,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -6247,12 +6289,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -6286,7 +6329,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -6375,8 +6418,8 @@ components:
                         x-dcl-go-type: InstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -6396,7 +6439,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -6418,7 +6461,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -6446,17 +6489,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -6467,7 +6511,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -6528,9 +6573,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -6654,7 +6699,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -6666,12 +6711,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -6705,7 +6751,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -6794,8 +6840,8 @@ components:
                         x-dcl-go-type: InstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -6815,7 +6861,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -6837,7 +6883,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -6865,17 +6911,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -6886,7 +6933,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -6916,7 +6964,7 @@ components:
           format: int64
           x-dcl-go-name: ReadUserId
           readOnly: true
-          description: Gaia ID observed by the CLH when read.
+          description: '[Output only] Gaia ID observed by the CLH when read.'
           x-kubernetes-immutable: true
         readonlyRecipe:
           type: object
@@ -6966,9 +7014,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -7092,7 +7140,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -7104,12 +7152,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstanceReadonlyRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -7143,7 +7192,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -7232,8 +7281,8 @@ components:
                         x-dcl-go-type: InstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -7253,7 +7302,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -7275,7 +7324,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -7303,17 +7352,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -7324,7 +7374,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -7385,9 +7436,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -7511,7 +7562,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -7523,12 +7574,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstanceReconcileRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -7562,7 +7614,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -7651,8 +7703,8 @@ components:
                         x-dcl-go-type: InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -7672,7 +7724,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -7694,7 +7746,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -7722,17 +7774,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -7743,7 +7796,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -7803,16 +7857,16 @@ components:
                         one can optionally set up a type server that maps type URLs
                         to message definitions as follows: * If no scheme is provided,
                         `https` is assumed. * An HTTP GET on the URL must yield a
-                        value in binary format, or produce an error. * Applications
-                        are allowed to cache lookup results based on the URL, or have
-                        them precompiled into a binary to avoid any lookup. Therefore,
-                        binary compatibility needs to be preserved on changes to types.
-                        (Use versioned type names to manage breaking changes.) Note:
-                        this functionality is not currently available in the official
-                        protobuf release, and it is not used for type URLs beginning
-                        with type.googleapis.com. Schemes other than `http`, `https`
-                        (or the empty scheme) might be used with implementation specific
-                        semantics.'
+                        google.protobuf.Type value in binary format, or produce an
+                        error. * Applications are allowed to cache lookup results
+                        based on the URL, or have them precompiled into a binary to
+                        avoid any lookup. Therefore, binary compatibility needs to
+                        be preserved on changes to types. (Use versioned type names
+                        to manage breaking changes.) Note: this functionality is not
+                        currently available in the official protobuf release, and
+                        it is not used for type URLs beginning with type.googleapis.com.
+                        Schemes other than `http`, `https` (or the empty scheme) might
+                        be used with implementation specific semantics.'
                     value:
                       type: string
                       x-dcl-go-name: Value
@@ -7884,9 +7938,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -8010,7 +8064,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -8022,12 +8076,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstanceRepairRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -8061,7 +8116,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -8150,8 +8205,8 @@ components:
                         x-dcl-go-type: InstanceRepairRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -8171,7 +8226,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -8193,7 +8248,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -8221,17 +8276,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -8242,7 +8298,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -8303,9 +8360,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -8429,7 +8486,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -8441,12 +8498,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -8480,7 +8538,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -8569,8 +8627,8 @@ components:
                         x-dcl-go-type: InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -8590,7 +8648,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -8612,7 +8670,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -8640,17 +8698,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -8661,7 +8720,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -8728,9 +8788,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -8854,7 +8914,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -8866,12 +8926,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstanceResetRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -8905,7 +8966,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -8994,8 +9055,8 @@ components:
                         x-dcl-go-type: InstanceResetRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -9015,7 +9076,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -9037,7 +9098,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -9065,17 +9126,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -9086,7 +9148,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -9130,8 +9193,8 @@ components:
           x-dcl-go-name: State
           x-dcl-go-type: InstanceStateEnum
           readOnly: true
-          description: 'The current state of the instance. Possible values: STATUS_UNSPECIFIED,
-            CREATING, READY, UPDATING, DELETING, REPAIRING'
+          description: '[Output only] The current state of the instance. Possible
+            values: STATUS_UNSPECIFIED, CREATING, READY, UPDATING, DELETING, REPAIRING'
           x-kubernetes-immutable: true
           enum:
           - STATUS_UNSPECIFIED
@@ -9144,11 +9207,12 @@ components:
           type: string
           x-dcl-go-name: StatusMessage
           readOnly: true
-          description: Additional information if available.
+          description: '[Output only] Additional information if available.'
           x-kubernetes-immutable: true
         uid:
           type: string
           x-dcl-go-name: Uid
+          description: '[Output only]'
         unfreezeRecipe:
           type: object
           x-dcl-go-name: UnfreezeRecipe
@@ -9197,9 +9261,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -9323,7 +9387,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -9335,12 +9399,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -9374,7 +9439,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -9463,8 +9528,8 @@ components:
                         x-dcl-go-type: InstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -9484,7 +9549,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -9506,7 +9571,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -9534,17 +9599,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -9555,7 +9621,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -9616,9 +9683,9 @@ components:
                 part of Get/List calls. Any Get/List call on these resources received
                 earlier than readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
                 will return 404. after readonly_recipe_start_time+delay_to_store_resources_in_clh_db_nanos
-                it will work normally and return the resource. example usage: resource_names_stored_in_clh_with_delay
-                and delay_to_store_resources_in_clh_db_nanos are internetd to use
-                together.'
+                it will work normally and return the resource. example usage: ["instance1",
+                "instance2"] resource_names_stored_in_clh_with_delay and delay_to_store_resources_in_clh_db_nanos
+                are internetd to use together.'
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -9742,7 +9809,7 @@ components:
                         iamPermissions:
                           type: array
                           x-dcl-go-name: IamPermissions
-                          description: Contains the iam permission.
+                          description: Contains the iam permission. [required]
                           x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
@@ -9754,12 +9821,13 @@ components:
                                 x-dcl-go-name: Permission
                                 description: It represents iam permission, for example
                                   "arcus2tier2.instance.create". It cannot be empty
-                                  or "iam.permissions.none".
+                                  or "iam.permissions.none". [required]
                         policyName:
                           type: object
                           x-dcl-go-name: PolicyName
                           x-dcl-go-type: InstanceUpdateRecipeStepsPermissionsInfoPolicyName
                           description: PolicyName contains the policy id and type.
+                            [required]
                           properties:
                             id:
                               type: string
@@ -9793,7 +9861,7 @@ components:
                             is provided, permission denied error message would be
                             "Permission X denied on resource Y" else error message
                             would be "Permission X denied on resource (or it may not
-                            exist)".
+                            exist)". [required]
                   preprocessUpdate:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
@@ -9882,8 +9950,8 @@ components:
                         x-dcl-go-type: InstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
-                          treated as scope = PROJECT unless specified otherwise. Possible
-                          values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
+                          treated as scope = PROJECT unless specified otherwise. [optional]
+                          Possible values: UNKNOWN_SCOPE, PROJECT, RESOURCE'
                         enum:
                         - UNKNOWN_SCOPE
                         - PROJECT
@@ -9903,7 +9971,7 @@ components:
                           request to request. If a tenant project with tag "sn-my-network"
                           is requested, CCFE will check if a tenant project with such
                           a tag already exists. If it does, CCFE will reuses it. Otherwise
-                          CCFE will create a new tenant project.
+                          CCFE will create a new tenant project. [required]
                   resourceMetadataSize:
                     type: integer
                     format: int64
@@ -9925,7 +9993,7 @@ components:
                         format: int64
                         x-dcl-go-name: Code
                         description: The status code, which should be an enum value
-                          of .
+                          of google.rpc.Code.
                       details:
                         type: array
                         x-dcl-go-name: Details
@@ -9953,17 +10021,18 @@ components:
                                 optionally set up a type server that maps type URLs
                                 to message definitions as follows: * If no scheme
                                 is provided, `https` is assumed. * An HTTP GET on
-                                the URL must yield a value in binary format, or produce
-                                an error. * Applications are allowed to cache lookup
-                                results based on the URL, or have them precompiled
-                                into a binary to avoid any lookup. Therefore, binary
-                                compatibility needs to be preserved on changes to
-                                types. (Use versioned type names to manage breaking
-                                changes.) Note: this functionality is not currently
-                                available in the official protobuf release, and it
-                                is not used for type URLs beginning with type.googleapis.com.
-                                Schemes other than `http`, `https` (or the empty scheme)
-                                might be used with implementation specific semantics.'
+                                the URL must yield a google.protobuf.Type value in
+                                binary format, or produce an error. * Applications
+                                are allowed to cache lookup results based on the URL,
+                                or have them precompiled into a binary to avoid any
+                                lookup. Therefore, binary compatibility needs to be
+                                preserved on changes to types. (Use versioned type
+                                names to manage breaking changes.) Note: this functionality
+                                is not currently available in the official protobuf
+                                release, and it is not used for type URLs beginning
+                                with type.googleapis.com. Schemes other than `http`,
+                                `https` (or the empty scheme) might be used with implementation
+                                specific semantics.'
                             value:
                               type: string
                               x-dcl-go-name: Value
@@ -9974,7 +10043,8 @@ components:
                         x-dcl-go-name: Message
                         description: A developer-facing error message, which should
                           be in English. Any user-facing error message should be localized
-                          and sent in the field, or localized by the client.
+                          and sent in the google.rpc.Status.details field, or localized
+                          by the client.
                   updatedRepeatOperationDelaySec:
                     type: number
                     format: double
@@ -9992,7 +10062,7 @@ components:
           format: date-time
           x-dcl-go-name: UpdateTime
           readOnly: true
-          description: The time the instance was updated.
+          description: '[Output only] The time the instance was updated.'
           x-kubernetes-immutable: true
         zone:
           type: string

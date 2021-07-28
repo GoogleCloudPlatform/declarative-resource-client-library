@@ -16,5 +16,10 @@ name: allow_firewall
 resource: samples/allow.firewall.json
 updates:
 - resource: samples/update_allow.firewall.json
+variables:
+- name: project
+  type: project
+- name: firewall
+  type: resource_name
 versions:
 - ga

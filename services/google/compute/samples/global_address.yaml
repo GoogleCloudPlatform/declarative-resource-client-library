@@ -14,5 +14,12 @@
 description: An example of a global compute address
 name: global_address
 resource: samples/global.address.json
+variables:
+- name: address
+  type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
 versions:
 - ga

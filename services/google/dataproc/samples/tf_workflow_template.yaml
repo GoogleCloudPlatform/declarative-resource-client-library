@@ -17,6 +17,19 @@ dependencies:
 description: TF example of a workflow template
 name: tf_workflow_template
 resource: samples/tf.workflow_template.json
+variables:
+- name: network
+  type: resource_name
+- name: project
+  type: project
+- name: subnetwork
+  type: resource_name
+- name: region
+  type: region
+- name: range
+  type: resource_name
+- name: template_name
+  type: resource_name
 versions:
 - ga
 - beta

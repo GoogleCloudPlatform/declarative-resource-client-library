@@ -18,5 +18,12 @@ name: basic_tenant_oauth_idp_config
 resource: samples/basic.tenant_oauth_idp_config.json
 updates:
 - resource: samples/update.tenant_oauth_idp_config.json
+variables:
+- name: project
+  type: project
+- name: oauthidpconfig
+  type: resource_name
+- name: client
+  type: resource_name
 versions:
 - ga

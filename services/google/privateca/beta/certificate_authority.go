@@ -40,11 +40,11 @@ type CertificateAuthority struct {
 	CreateTime                *string                                         `json:"createTime"`
 	UpdateTime                *string                                         `json:"updateTime"`
 	DeleteTime                *string                                         `json:"deleteTime"`
+	ExpireTime                *string                                         `json:"expireTime"`
 	Labels                    map[string]string                               `json:"labels"`
-	CertificatePolicy         *CertificateAuthorityCertificatePolicy          `json:"certificatePolicy"`
-	IssuingOptions            *CertificateAuthorityIssuingOptions             `json:"issuingOptions"`
 	Project                   *string                                         `json:"project"`
 	Location                  *string                                         `json:"location"`
+	CaPool                    *string                                         `json:"caPool"`
 }
 
 func (r *CertificateAuthority) String() string {
@@ -66,7 +66,7 @@ func CertificateAuthorityTypeEnumRef(s string) *CertificateAuthorityTypeEnum {
 }
 
 func (v CertificateAuthorityTypeEnum) Validate() error {
-	for _, s := range []string{"TYPE_UNSPECIFIED", "SELF_SIGNED", "SUBORDINATE"} {
+	for _, s := range []string{"SELF_SIGNED", "SUBORDINATE"} {
 		if string(v) == s {
 			return nil
 		}
@@ -78,28 +78,28 @@ func (v CertificateAuthorityTypeEnum) Validate() error {
 	}
 }
 
-// The enum CertificateAuthorityConfigPublicKeyTypeEnum.
-type CertificateAuthorityConfigPublicKeyTypeEnum string
+// The enum CertificateAuthorityConfigPublicKeyFormatEnum.
+type CertificateAuthorityConfigPublicKeyFormatEnum string
 
-// CertificateAuthorityConfigPublicKeyTypeEnumRef returns a *CertificateAuthorityConfigPublicKeyTypeEnum with the value of string s
+// CertificateAuthorityConfigPublicKeyFormatEnumRef returns a *CertificateAuthorityConfigPublicKeyFormatEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func CertificateAuthorityConfigPublicKeyTypeEnumRef(s string) *CertificateAuthorityConfigPublicKeyTypeEnum {
+func CertificateAuthorityConfigPublicKeyFormatEnumRef(s string) *CertificateAuthorityConfigPublicKeyFormatEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := CertificateAuthorityConfigPublicKeyTypeEnum(s)
+	v := CertificateAuthorityConfigPublicKeyFormatEnum(s)
 	return &v
 }
 
-func (v CertificateAuthorityConfigPublicKeyTypeEnum) Validate() error {
-	for _, s := range []string{"KEY_TYPE_UNSPECIFIED", "PEM_RSA_KEY", "PEM_EC_KEY"} {
+func (v CertificateAuthorityConfigPublicKeyFormatEnum) Validate() error {
+	for _, s := range []string{"PEM"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "CertificateAuthorityConfigPublicKeyTypeEnum",
+		Enum:  "CertificateAuthorityConfigPublicKeyFormatEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -120,7 +120,7 @@ func CertificateAuthorityKeySpecAlgorithmEnumRef(s string) *CertificateAuthority
 }
 
 func (v CertificateAuthorityKeySpecAlgorithmEnum) Validate() error {
-	for _, s := range []string{"SIGN_HASH_ALGORITHM_UNSPECIFIED", "RSA_PSS_2048_SHA256", "RSA_PSS_3072_SHA256", "RSA_PSS_4096_SHA256", "RSA_PKCS1_2048_SHA256", "RSA_PKCS1_3072_SHA256", "RSA_PKCS1_4096_SHA256", "EC_P256_SHA256", "EC_P384_SHA384"} {
+	for _, s := range []string{"RSA_PSS_2048_SHA256", "RSA_PSS_3072_SHA256", "RSA_PSS_4096_SHA256", "RSA_PKCS1_2048_SHA256", "RSA_PKCS1_3072_SHA256", "RSA_PKCS1_4096_SHA256", "EC_P256_SHA256", "EC_P384_SHA384"} {
 		if string(v) == s {
 			return nil
 		}
@@ -147,7 +147,7 @@ func CertificateAuthorityTierEnumRef(s string) *CertificateAuthorityTierEnum {
 }
 
 func (v CertificateAuthorityTierEnum) Validate() error {
-	for _, s := range []string{"TIER_UNSPECIFIED", "ENTERPRISE", "DEVOPS"} {
+	for _, s := range []string{"ENTERPRISE", "DEVOPS"} {
 		if string(v) == s {
 			return nil
 		}
@@ -174,7 +174,7 @@ func CertificateAuthorityStateEnumRef(s string) *CertificateAuthorityStateEnum {
 }
 
 func (v CertificateAuthorityStateEnum) Validate() error {
-	for _, s := range []string{"STATE_UNSPECIFIED", "ENABLED", "DISABLED", "STAGED", "AWAITING_USER_ACTIVATION", "DELETED"} {
+	for _, s := range []string{"ENABLED", "DISABLED", "STAGED", "AWAITING_USER_ACTIVATION", "DELETED"} {
 		if string(v) == s {
 			return nil
 		}
@@ -201,7 +201,7 @@ func CertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnumRef(s strin
 }
 
 func (v CertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnum) Validate() error {
-	for _, s := range []string{"KEY_FORMAT_UNSPECIFIED", "PEM"} {
+	for _, s := range []string{"PEM"} {
 		if string(v) == s {
 			return nil
 		}
@@ -213,38 +213,11 @@ func (v CertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnum) Valida
 	}
 }
 
-// The enum CertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnum.
-type CertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnum string
-
-// CertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnumRef returns a *CertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func CertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnumRef(s string) *CertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnum {
-	if s == "" {
-		return nil
-	}
-
-	v := CertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnum(s)
-	return &v
-}
-
-func (v CertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnum) Validate() error {
-	for _, s := range []string{"TYPE_UNSPECIFIED", "SELF_SIGNED", "SUBORDINATE"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "CertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
 type CertificateAuthorityConfig struct {
-	empty          bool                                      `json:"-"`
-	SubjectConfig  *CertificateAuthorityConfigSubjectConfig  `json:"subjectConfig"`
-	PublicKey      *CertificateAuthorityConfigPublicKey      `json:"publicKey"`
-	ReusableConfig *CertificateAuthorityConfigReusableConfig `json:"reusableConfig"`
+	empty         bool                                     `json:"-"`
+	SubjectConfig *CertificateAuthorityConfigSubjectConfig `json:"subjectConfig"`
+	X509Config    *CertificateAuthorityConfigX509Config    `json:"x509Config"`
+	PublicKey     *CertificateAuthorityConfigPublicKey     `json:"publicKey"`
 }
 
 type jsonCertificateAuthorityConfig CertificateAuthorityConfig
@@ -264,9 +237,9 @@ func (r *CertificateAuthorityConfig) UnmarshalJSON(data []byte) error {
 
 		r.SubjectConfig = res.SubjectConfig
 
-		r.PublicKey = res.PublicKey
+		r.X509Config = res.X509Config
 
-		r.ReusableConfig = res.ReusableConfig
+		r.PublicKey = res.PublicKey
 
 	}
 	return nil
@@ -295,7 +268,6 @@ func (r *CertificateAuthorityConfig) HashCode() string {
 type CertificateAuthorityConfigSubjectConfig struct {
 	empty          bool                                                   `json:"-"`
 	Subject        *CertificateAuthorityConfigSubjectConfigSubject        `json:"subject"`
-	CommonName     *string                                                `json:"commonName"`
 	SubjectAltName *CertificateAuthorityConfigSubjectConfigSubjectAltName `json:"subjectAltName"`
 }
 
@@ -315,8 +287,6 @@ func (r *CertificateAuthorityConfigSubjectConfig) UnmarshalJSON(data []byte) err
 	} else {
 
 		r.Subject = res.Subject
-
-		r.CommonName = res.CommonName
 
 		r.SubjectAltName = res.SubjectAltName
 
@@ -346,6 +316,7 @@ func (r *CertificateAuthorityConfigSubjectConfig) HashCode() string {
 
 type CertificateAuthorityConfigSubjectConfigSubject struct {
 	empty              bool    `json:"-"`
+	CommonName         *string `json:"commonName"`
 	CountryCode        *string `json:"countryCode"`
 	Organization       *string `json:"organization"`
 	OrganizationalUnit *string `json:"organizationalUnit"`
@@ -369,6 +340,8 @@ func (r *CertificateAuthorityConfigSubjectConfigSubject) UnmarshalJSON(data []by
 	if len(m) == 0 {
 		*r = *EmptyCertificateAuthorityConfigSubjectConfigSubject
 	} else {
+
+		r.CommonName = res.CommonName
 
 		r.CountryCode = res.CountryCode
 
@@ -564,16 +537,19 @@ func (r *CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId
 	return fmt.Sprintf("%x", hash)
 }
 
-type CertificateAuthorityConfigPublicKey struct {
-	empty bool                                         `json:"-"`
-	Key   *string                                      `json:"key"`
-	Type  *CertificateAuthorityConfigPublicKeyTypeEnum `json:"type"`
+type CertificateAuthorityConfigX509Config struct {
+	empty                bool                                                       `json:"-"`
+	KeyUsage             *CertificateAuthorityConfigX509ConfigKeyUsage              `json:"keyUsage"`
+	CaOptions            *CertificateAuthorityConfigX509ConfigCaOptions             `json:"caOptions"`
+	PolicyIds            []CertificateAuthorityConfigX509ConfigPolicyIds            `json:"policyIds"`
+	AiaOcspServers       []string                                                   `json:"aiaOcspServers"`
+	AdditionalExtensions []CertificateAuthorityConfigX509ConfigAdditionalExtensions `json:"additionalExtensions"`
 }
 
-type jsonCertificateAuthorityConfigPublicKey CertificateAuthorityConfigPublicKey
+type jsonCertificateAuthorityConfigX509Config CertificateAuthorityConfigX509Config
 
-func (r *CertificateAuthorityConfigPublicKey) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityConfigPublicKey
+func (r *CertificateAuthorityConfigX509Config) UnmarshalJSON(data []byte) error {
+	var res jsonCertificateAuthorityConfigX509Config
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -582,108 +558,7 @@ func (r *CertificateAuthorityConfigPublicKey) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityConfigPublicKey
-	} else {
-
-		r.Key = res.Key
-
-		r.Type = res.Type
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityConfigPublicKey is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityConfigPublicKey *CertificateAuthorityConfigPublicKey = &CertificateAuthorityConfigPublicKey{empty: true}
-
-func (r *CertificateAuthorityConfigPublicKey) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityConfigPublicKey) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityConfigPublicKey) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityConfigReusableConfig struct {
-	empty                bool                                                          `json:"-"`
-	ReusableConfig       *string                                                       `json:"reusableConfig"`
-	ReusableConfigValues *CertificateAuthorityConfigReusableConfigReusableConfigValues `json:"reusableConfigValues"`
-}
-
-type jsonCertificateAuthorityConfigReusableConfig CertificateAuthorityConfigReusableConfig
-
-func (r *CertificateAuthorityConfigReusableConfig) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityConfigReusableConfig
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityConfigReusableConfig
-	} else {
-
-		r.ReusableConfig = res.ReusableConfig
-
-		r.ReusableConfigValues = res.ReusableConfigValues
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityConfigReusableConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityConfigReusableConfig *CertificateAuthorityConfigReusableConfig = &CertificateAuthorityConfigReusableConfig{empty: true}
-
-func (r *CertificateAuthorityConfigReusableConfig) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityConfigReusableConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityConfigReusableConfig) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityConfigReusableConfigReusableConfigValues struct {
-	empty                bool                                                                               `json:"-"`
-	KeyUsage             *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage              `json:"keyUsage"`
-	CaOptions            *CertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions             `json:"caOptions"`
-	PolicyIds            []CertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds            `json:"policyIds"`
-	AiaOcspServers       []string                                                                           `json:"aiaOcspServers"`
-	AdditionalExtensions []CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensions `json:"additionalExtensions"`
-}
-
-type jsonCertificateAuthorityConfigReusableConfigReusableConfigValues CertificateAuthorityConfigReusableConfigReusableConfigValues
-
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValues) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityConfigReusableConfigReusableConfigValues
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityConfigReusableConfigReusableConfigValues
+		*r = *EmptyCertificateAuthorityConfigX509Config
 	} else {
 
 		r.KeyUsage = res.KeyUsage
@@ -700,37 +575,37 @@ func (r *CertificateAuthorityConfigReusableConfigReusableConfigValues) Unmarshal
 	return nil
 }
 
-// This object is used to assert a desired state where this CertificateAuthorityConfigReusableConfigReusableConfigValues is
+// This object is used to assert a desired state where this CertificateAuthorityConfigX509Config is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityConfigReusableConfigReusableConfigValues *CertificateAuthorityConfigReusableConfigReusableConfigValues = &CertificateAuthorityConfigReusableConfigReusableConfigValues{empty: true}
+var EmptyCertificateAuthorityConfigX509Config *CertificateAuthorityConfigX509Config = &CertificateAuthorityConfigX509Config{empty: true}
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValues) Empty() bool {
+func (r *CertificateAuthorityConfigX509Config) Empty() bool {
 	return r.empty
 }
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValues) String() string {
+func (r *CertificateAuthorityConfigX509Config) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValues) HashCode() string {
+func (r *CertificateAuthorityConfigX509Config) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage struct {
-	empty                    bool                                                                                           `json:"-"`
-	BaseKeyUsage             *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage              `json:"baseKeyUsage"`
-	ExtendedKeyUsage         *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage          `json:"extendedKeyUsage"`
-	UnknownExtendedKeyUsages []CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnknownExtendedKeyUsages `json:"unknownExtendedKeyUsages"`
+type CertificateAuthorityConfigX509ConfigKeyUsage struct {
+	empty                    bool                                                                   `json:"-"`
+	BaseKeyUsage             *CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage              `json:"baseKeyUsage"`
+	ExtendedKeyUsage         *CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage          `json:"extendedKeyUsage"`
+	UnknownExtendedKeyUsages []CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages `json:"unknownExtendedKeyUsages"`
 }
 
-type jsonCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage
+type jsonCertificateAuthorityConfigX509ConfigKeyUsage CertificateAuthorityConfigX509ConfigKeyUsage
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage
+func (r *CertificateAuthorityConfigX509ConfigKeyUsage) UnmarshalJSON(data []byte) error {
+	var res jsonCertificateAuthorityConfigX509ConfigKeyUsage
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -739,7 +614,7 @@ func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage) U
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage
+		*r = *EmptyCertificateAuthorityConfigX509ConfigKeyUsage
 	} else {
 
 		r.BaseKeyUsage = res.BaseKeyUsage
@@ -752,27 +627,27 @@ func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage) U
 	return nil
 }
 
-// This object is used to assert a desired state where this CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage is
+// This object is used to assert a desired state where this CertificateAuthorityConfigX509ConfigKeyUsage is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage = &CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage{empty: true}
+var EmptyCertificateAuthorityConfigX509ConfigKeyUsage *CertificateAuthorityConfigX509ConfigKeyUsage = &CertificateAuthorityConfigX509ConfigKeyUsage{empty: true}
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage) Empty() bool {
+func (r *CertificateAuthorityConfigX509ConfigKeyUsage) Empty() bool {
 	return r.empty
 }
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage) String() string {
+func (r *CertificateAuthorityConfigX509ConfigKeyUsage) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage) HashCode() string {
+func (r *CertificateAuthorityConfigX509ConfigKeyUsage) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage struct {
+type CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage struct {
 	empty             bool  `json:"-"`
 	DigitalSignature  *bool `json:"digitalSignature"`
 	ContentCommitment *bool `json:"contentCommitment"`
@@ -785,10 +660,10 @@ type CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKey
 	DecipherOnly      *bool `json:"decipherOnly"`
 }
 
-type jsonCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage
+type jsonCertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage
+func (r *CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage) UnmarshalJSON(data []byte) error {
+	var res jsonCertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -797,7 +672,7 @@ func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBas
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage
+		*r = *EmptyCertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage
 	} else {
 
 		r.DigitalSignature = res.DigitalSignature
@@ -822,27 +697,27 @@ func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBas
 	return nil
 }
 
-// This object is used to assert a desired state where this CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage is
+// This object is used to assert a desired state where this CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage = &CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage{empty: true}
+var EmptyCertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage *CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage = &CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage{empty: true}
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage) Empty() bool {
+func (r *CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage) Empty() bool {
 	return r.empty
 }
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage) String() string {
+func (r *CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage) HashCode() string {
+func (r *CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage struct {
+type CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage struct {
 	empty           bool  `json:"-"`
 	ServerAuth      *bool `json:"serverAuth"`
 	ClientAuth      *bool `json:"clientAuth"`
@@ -852,10 +727,10 @@ type CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtende
 	OcspSigning     *bool `json:"ocspSigning"`
 }
 
-type jsonCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage
+type jsonCertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage
+func (r *CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage) UnmarshalJSON(data []byte) error {
+	var res jsonCertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -864,7 +739,7 @@ func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExt
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage
+		*r = *EmptyCertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage
 	} else {
 
 		r.ServerAuth = res.ServerAuth
@@ -883,35 +758,35 @@ func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExt
 	return nil
 }
 
-// This object is used to assert a desired state where this CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage is
+// This object is used to assert a desired state where this CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage = &CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage{empty: true}
+var EmptyCertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage *CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage = &CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage{empty: true}
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage) Empty() bool {
+func (r *CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage) Empty() bool {
 	return r.empty
 }
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage) String() string {
+func (r *CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage) HashCode() string {
+func (r *CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnknownExtendedKeyUsages struct {
+type CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages struct {
 	empty        bool    `json:"-"`
 	ObjectIdPath []int64 `json:"objectIdPath"`
 }
 
-type jsonCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnknownExtendedKeyUsages CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnknownExtendedKeyUsages
+type jsonCertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnknownExtendedKeyUsages) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnknownExtendedKeyUsages
+func (r *CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages) UnmarshalJSON(data []byte) error {
+	var res jsonCertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -920,7 +795,7 @@ func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnk
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnknownExtendedKeyUsages
+		*r = *EmptyCertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages
 	} else {
 
 		r.ObjectIdPath = res.ObjectIdPath
@@ -929,36 +804,36 @@ func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnk
 	return nil
 }
 
-// This object is used to assert a desired state where this CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnknownExtendedKeyUsages is
+// This object is used to assert a desired state where this CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnknownExtendedKeyUsages *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnknownExtendedKeyUsages = &CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnknownExtendedKeyUsages{empty: true}
+var EmptyCertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages *CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages = &CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages{empty: true}
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnknownExtendedKeyUsages) Empty() bool {
+func (r *CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages) Empty() bool {
 	return r.empty
 }
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnknownExtendedKeyUsages) String() string {
+func (r *CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnknownExtendedKeyUsages) HashCode() string {
+func (r *CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type CertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions struct {
+type CertificateAuthorityConfigX509ConfigCaOptions struct {
 	empty               bool   `json:"-"`
 	IsCa                *bool  `json:"isCa"`
 	MaxIssuerPathLength *int64 `json:"maxIssuerPathLength"`
 }
 
-type jsonCertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions CertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions
+type jsonCertificateAuthorityConfigX509ConfigCaOptions CertificateAuthorityConfigX509ConfigCaOptions
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions
+func (r *CertificateAuthorityConfigX509ConfigCaOptions) UnmarshalJSON(data []byte) error {
+	var res jsonCertificateAuthorityConfigX509ConfigCaOptions
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -967,7 +842,7 @@ func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions) 
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions
+		*r = *EmptyCertificateAuthorityConfigX509ConfigCaOptions
 	} else {
 
 		r.IsCa = res.IsCa
@@ -978,35 +853,35 @@ func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions) 
 	return nil
 }
 
-// This object is used to assert a desired state where this CertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions is
+// This object is used to assert a desired state where this CertificateAuthorityConfigX509ConfigCaOptions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions *CertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions = &CertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions{empty: true}
+var EmptyCertificateAuthorityConfigX509ConfigCaOptions *CertificateAuthorityConfigX509ConfigCaOptions = &CertificateAuthorityConfigX509ConfigCaOptions{empty: true}
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions) Empty() bool {
+func (r *CertificateAuthorityConfigX509ConfigCaOptions) Empty() bool {
 	return r.empty
 }
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions) String() string {
+func (r *CertificateAuthorityConfigX509ConfigCaOptions) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions) HashCode() string {
+func (r *CertificateAuthorityConfigX509ConfigCaOptions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type CertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds struct {
+type CertificateAuthorityConfigX509ConfigPolicyIds struct {
 	empty        bool    `json:"-"`
 	ObjectIdPath []int64 `json:"objectIdPath"`
 }
 
-type jsonCertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds CertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds
+type jsonCertificateAuthorityConfigX509ConfigPolicyIds CertificateAuthorityConfigX509ConfigPolicyIds
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds
+func (r *CertificateAuthorityConfigX509ConfigPolicyIds) UnmarshalJSON(data []byte) error {
+	var res jsonCertificateAuthorityConfigX509ConfigPolicyIds
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1015,7 +890,7 @@ func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds) 
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds
+		*r = *EmptyCertificateAuthorityConfigX509ConfigPolicyIds
 	} else {
 
 		r.ObjectIdPath = res.ObjectIdPath
@@ -1024,37 +899,37 @@ func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds) 
 	return nil
 }
 
-// This object is used to assert a desired state where this CertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds is
+// This object is used to assert a desired state where this CertificateAuthorityConfigX509ConfigPolicyIds is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds *CertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds = &CertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds{empty: true}
+var EmptyCertificateAuthorityConfigX509ConfigPolicyIds *CertificateAuthorityConfigX509ConfigPolicyIds = &CertificateAuthorityConfigX509ConfigPolicyIds{empty: true}
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds) Empty() bool {
+func (r *CertificateAuthorityConfigX509ConfigPolicyIds) Empty() bool {
 	return r.empty
 }
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds) String() string {
+func (r *CertificateAuthorityConfigX509ConfigPolicyIds) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds) HashCode() string {
+func (r *CertificateAuthorityConfigX509ConfigPolicyIds) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensions struct {
-	empty    bool                                                                                      `json:"-"`
-	ObjectId *CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId `json:"objectId"`
-	Critical *bool                                                                                     `json:"critical"`
-	Value    *string                                                                                   `json:"value"`
+type CertificateAuthorityConfigX509ConfigAdditionalExtensions struct {
+	empty    bool                                                              `json:"-"`
+	ObjectId *CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId `json:"objectId"`
+	Critical *bool                                                             `json:"critical"`
+	Value    *string                                                           `json:"value"`
 }
 
-type jsonCertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensions CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensions
+type jsonCertificateAuthorityConfigX509ConfigAdditionalExtensions CertificateAuthorityConfigX509ConfigAdditionalExtensions
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensions) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensions
+func (r *CertificateAuthorityConfigX509ConfigAdditionalExtensions) UnmarshalJSON(data []byte) error {
+	var res jsonCertificateAuthorityConfigX509ConfigAdditionalExtensions
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1063,7 +938,7 @@ func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalE
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensions
+		*r = *EmptyCertificateAuthorityConfigX509ConfigAdditionalExtensions
 	} else {
 
 		r.ObjectId = res.ObjectId
@@ -1076,35 +951,35 @@ func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalE
 	return nil
 }
 
-// This object is used to assert a desired state where this CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensions is
+// This object is used to assert a desired state where this CertificateAuthorityConfigX509ConfigAdditionalExtensions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensions *CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensions = &CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensions{empty: true}
+var EmptyCertificateAuthorityConfigX509ConfigAdditionalExtensions *CertificateAuthorityConfigX509ConfigAdditionalExtensions = &CertificateAuthorityConfigX509ConfigAdditionalExtensions{empty: true}
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensions) Empty() bool {
+func (r *CertificateAuthorityConfigX509ConfigAdditionalExtensions) Empty() bool {
 	return r.empty
 }
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensions) String() string {
+func (r *CertificateAuthorityConfigX509ConfigAdditionalExtensions) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensions) HashCode() string {
+func (r *CertificateAuthorityConfigX509ConfigAdditionalExtensions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId struct {
+type CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId struct {
 	empty        bool    `json:"-"`
 	ObjectIdPath []int64 `json:"objectIdPath"`
 }
 
-type jsonCertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId
+type jsonCertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId
+func (r *CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId) UnmarshalJSON(data []byte) error {
+	var res jsonCertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1113,7 +988,7 @@ func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalE
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId
+		*r = *EmptyCertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId
 	} else {
 
 		r.ObjectIdPath = res.ObjectIdPath
@@ -1122,20 +997,69 @@ func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalE
 	return nil
 }
 
-// This object is used to assert a desired state where this CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId is
+// This object is used to assert a desired state where this CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId *CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId = &CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId{empty: true}
+var EmptyCertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId *CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId = &CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId{empty: true}
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId) Empty() bool {
+func (r *CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId) Empty() bool {
 	return r.empty
 }
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId) String() string {
+func (r *CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId) HashCode() string {
+func (r *CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type CertificateAuthorityConfigPublicKey struct {
+	empty  bool                                           `json:"-"`
+	Key    *string                                        `json:"key"`
+	Format *CertificateAuthorityConfigPublicKeyFormatEnum `json:"format"`
+}
+
+type jsonCertificateAuthorityConfigPublicKey CertificateAuthorityConfigPublicKey
+
+func (r *CertificateAuthorityConfigPublicKey) UnmarshalJSON(data []byte) error {
+	var res jsonCertificateAuthorityConfigPublicKey
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyCertificateAuthorityConfigPublicKey
+	} else {
+
+		r.Key = res.Key
+
+		r.Format = res.Format
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this CertificateAuthorityConfigPublicKey is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyCertificateAuthorityConfigPublicKey *CertificateAuthorityConfigPublicKey = &CertificateAuthorityConfigPublicKey{empty: true}
+
+func (r *CertificateAuthorityConfigPublicKey) Empty() bool {
+	return r.empty
+}
+
+func (r *CertificateAuthorityConfigPublicKey) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *CertificateAuthorityConfigPublicKey) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -1289,13 +1213,13 @@ func (r *CertificateAuthoritySubordinateConfigPemIssuerChain) HashCode() string 
 type CertificateAuthorityCaCertificateDescriptions struct {
 	empty                     bool                                                             `json:"-"`
 	SubjectDescription        *CertificateAuthorityCaCertificateDescriptionsSubjectDescription `json:"subjectDescription"`
+	X509Description           *CertificateAuthorityCaCertificateDescriptionsX509Description    `json:"x509Description"`
 	PublicKey                 *CertificateAuthorityCaCertificateDescriptionsPublicKey          `json:"publicKey"`
 	SubjectKeyId              *CertificateAuthorityCaCertificateDescriptionsSubjectKeyId       `json:"subjectKeyId"`
 	AuthorityKeyId            *CertificateAuthorityCaCertificateDescriptionsAuthorityKeyId     `json:"authorityKeyId"`
 	CrlDistributionPoints     []string                                                         `json:"crlDistributionPoints"`
 	AiaIssuingCertificateUrls []string                                                         `json:"aiaIssuingCertificateUrls"`
 	CertFingerprint           *CertificateAuthorityCaCertificateDescriptionsCertFingerprint    `json:"certFingerprint"`
-	ConfigValues              *CertificateAuthorityCaCertificateDescriptionsConfigValues       `json:"configValues"`
 }
 
 type jsonCertificateAuthorityCaCertificateDescriptions CertificateAuthorityCaCertificateDescriptions
@@ -1315,6 +1239,8 @@ func (r *CertificateAuthorityCaCertificateDescriptions) UnmarshalJSON(data []byt
 
 		r.SubjectDescription = res.SubjectDescription
 
+		r.X509Description = res.X509Description
+
 		r.PublicKey = res.PublicKey
 
 		r.SubjectKeyId = res.SubjectKeyId
@@ -1326,8 +1252,6 @@ func (r *CertificateAuthorityCaCertificateDescriptions) UnmarshalJSON(data []byt
 		r.AiaIssuingCertificateUrls = res.AiaIssuingCertificateUrls
 
 		r.CertFingerprint = res.CertFingerprint
-
-		r.ConfigValues = res.ConfigValues
 
 	}
 	return nil
@@ -1361,7 +1285,6 @@ type CertificateAuthorityCaCertificateDescriptionsSubjectDescription struct {
 	Lifetime        *string                                                                        `json:"lifetime"`
 	NotBeforeTime   *string                                                                        `json:"notBeforeTime"`
 	NotAfterTime    *string                                                                        `json:"notAfterTime"`
-	CommonName      *string                                                                        `json:"commonName"`
 }
 
 type jsonCertificateAuthorityCaCertificateDescriptionsSubjectDescription CertificateAuthorityCaCertificateDescriptionsSubjectDescription
@@ -1390,8 +1313,6 @@ func (r *CertificateAuthorityCaCertificateDescriptionsSubjectDescription) Unmars
 		r.NotBeforeTime = res.NotBeforeTime
 
 		r.NotAfterTime = res.NotAfterTime
-
-		r.CommonName = res.CommonName
 
 	}
 	return nil
@@ -1640,11 +1561,490 @@ func (r *CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectA
 	return fmt.Sprintf("%x", hash)
 }
 
+type CertificateAuthorityCaCertificateDescriptionsX509Description struct {
+	empty                bool                                                                               `json:"-"`
+	KeyUsage             *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage              `json:"keyUsage"`
+	CaOptions            *CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions             `json:"caOptions"`
+	PolicyIds            []CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds            `json:"policyIds"`
+	AiaOcspServers       []string                                                                           `json:"aiaOcspServers"`
+	AdditionalExtensions []CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions `json:"additionalExtensions"`
+}
+
+type jsonCertificateAuthorityCaCertificateDescriptionsX509Description CertificateAuthorityCaCertificateDescriptionsX509Description
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509Description) UnmarshalJSON(data []byte) error {
+	var res jsonCertificateAuthorityCaCertificateDescriptionsX509Description
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyCertificateAuthorityCaCertificateDescriptionsX509Description
+	} else {
+
+		r.KeyUsage = res.KeyUsage
+
+		r.CaOptions = res.CaOptions
+
+		r.PolicyIds = res.PolicyIds
+
+		r.AiaOcspServers = res.AiaOcspServers
+
+		r.AdditionalExtensions = res.AdditionalExtensions
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this CertificateAuthorityCaCertificateDescriptionsX509Description is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyCertificateAuthorityCaCertificateDescriptionsX509Description *CertificateAuthorityCaCertificateDescriptionsX509Description = &CertificateAuthorityCaCertificateDescriptionsX509Description{empty: true}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509Description) Empty() bool {
+	return r.empty
+}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509Description) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509Description) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage struct {
+	empty                    bool                                                                                           `json:"-"`
+	BaseKeyUsage             *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage              `json:"baseKeyUsage"`
+	ExtendedKeyUsage         *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage          `json:"extendedKeyUsage"`
+	UnknownExtendedKeyUsages []CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages `json:"unknownExtendedKeyUsages"`
+}
+
+type jsonCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage) UnmarshalJSON(data []byte) error {
+	var res jsonCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage
+	} else {
+
+		r.BaseKeyUsage = res.BaseKeyUsage
+
+		r.ExtendedKeyUsage = res.ExtendedKeyUsage
+
+		r.UnknownExtendedKeyUsages = res.UnknownExtendedKeyUsages
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage = &CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage{empty: true}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage) Empty() bool {
+	return r.empty
+}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage struct {
+	empty             bool  `json:"-"`
+	DigitalSignature  *bool `json:"digitalSignature"`
+	ContentCommitment *bool `json:"contentCommitment"`
+	KeyEncipherment   *bool `json:"keyEncipherment"`
+	DataEncipherment  *bool `json:"dataEncipherment"`
+	KeyAgreement      *bool `json:"keyAgreement"`
+	CertSign          *bool `json:"certSign"`
+	CrlSign           *bool `json:"crlSign"`
+	EncipherOnly      *bool `json:"encipherOnly"`
+	DecipherOnly      *bool `json:"decipherOnly"`
+}
+
+type jsonCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage) UnmarshalJSON(data []byte) error {
+	var res jsonCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage
+	} else {
+
+		r.DigitalSignature = res.DigitalSignature
+
+		r.ContentCommitment = res.ContentCommitment
+
+		r.KeyEncipherment = res.KeyEncipherment
+
+		r.DataEncipherment = res.DataEncipherment
+
+		r.KeyAgreement = res.KeyAgreement
+
+		r.CertSign = res.CertSign
+
+		r.CrlSign = res.CrlSign
+
+		r.EncipherOnly = res.EncipherOnly
+
+		r.DecipherOnly = res.DecipherOnly
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage = &CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage{empty: true}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage) Empty() bool {
+	return r.empty
+}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage struct {
+	empty           bool  `json:"-"`
+	ServerAuth      *bool `json:"serverAuth"`
+	ClientAuth      *bool `json:"clientAuth"`
+	CodeSigning     *bool `json:"codeSigning"`
+	EmailProtection *bool `json:"emailProtection"`
+	TimeStamping    *bool `json:"timeStamping"`
+	OcspSigning     *bool `json:"ocspSigning"`
+}
+
+type jsonCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage) UnmarshalJSON(data []byte) error {
+	var res jsonCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage
+	} else {
+
+		r.ServerAuth = res.ServerAuth
+
+		r.ClientAuth = res.ClientAuth
+
+		r.CodeSigning = res.CodeSigning
+
+		r.EmailProtection = res.EmailProtection
+
+		r.TimeStamping = res.TimeStamping
+
+		r.OcspSigning = res.OcspSigning
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage = &CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage{empty: true}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage) Empty() bool {
+	return r.empty
+}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages struct {
+	empty        bool    `json:"-"`
+	ObjectIdPath []int64 `json:"objectIdPath"`
+}
+
+type jsonCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages) UnmarshalJSON(data []byte) error {
+	var res jsonCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages
+	} else {
+
+		r.ObjectIdPath = res.ObjectIdPath
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages = &CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages{empty: true}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages) Empty() bool {
+	return r.empty
+}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions struct {
+	empty               bool   `json:"-"`
+	IsCa                *bool  `json:"isCa"`
+	MaxIssuerPathLength *int64 `json:"maxIssuerPathLength"`
+}
+
+type jsonCertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions) UnmarshalJSON(data []byte) error {
+	var res jsonCertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyCertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions
+	} else {
+
+		r.IsCa = res.IsCa
+
+		r.MaxIssuerPathLength = res.MaxIssuerPathLength
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyCertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions *CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions = &CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions{empty: true}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions) Empty() bool {
+	return r.empty
+}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds struct {
+	empty        bool    `json:"-"`
+	ObjectIdPath []int64 `json:"objectIdPath"`
+}
+
+type jsonCertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds) UnmarshalJSON(data []byte) error {
+	var res jsonCertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyCertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds
+	} else {
+
+		r.ObjectIdPath = res.ObjectIdPath
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyCertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds *CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds = &CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds{empty: true}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds) Empty() bool {
+	return r.empty
+}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions struct {
+	empty    bool                                                                                      `json:"-"`
+	ObjectId *CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId `json:"objectId"`
+	Critical *bool                                                                                     `json:"critical"`
+	Value    *string                                                                                   `json:"value"`
+}
+
+type jsonCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions) UnmarshalJSON(data []byte) error {
+	var res jsonCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions
+	} else {
+
+		r.ObjectId = res.ObjectId
+
+		r.Critical = res.Critical
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions *CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions = &CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions{empty: true}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions) Empty() bool {
+	return r.empty
+}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId struct {
+	empty        bool    `json:"-"`
+	ObjectIdPath []int64 `json:"objectIdPath"`
+}
+
+type jsonCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId) UnmarshalJSON(data []byte) error {
+	var res jsonCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId
+	} else {
+
+		r.ObjectIdPath = res.ObjectIdPath
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId *CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId = &CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId{empty: true}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId) Empty() bool {
+	return r.empty
+}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
 type CertificateAuthorityCaCertificateDescriptionsPublicKey struct {
 	empty  bool                                                              `json:"-"`
 	Key    *string                                                           `json:"key"`
 	Format *CertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnum `json:"format"`
-	Type   *CertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnum   `json:"type"`
 }
 
 type jsonCertificateAuthorityCaCertificateDescriptionsPublicKey CertificateAuthorityCaCertificateDescriptionsPublicKey
@@ -1665,8 +2065,6 @@ func (r *CertificateAuthorityCaCertificateDescriptionsPublicKey) UnmarshalJSON(d
 		r.Key = res.Key
 
 		r.Format = res.Format
-
-		r.Type = res.Type
 
 	}
 	return nil
@@ -1830,491 +2228,10 @@ func (r *CertificateAuthorityCaCertificateDescriptionsCertFingerprint) HashCode(
 	return fmt.Sprintf("%x", hash)
 }
 
-type CertificateAuthorityCaCertificateDescriptionsConfigValues struct {
-	empty                bool                                                                            `json:"-"`
-	KeyUsage             *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage              `json:"keyUsage"`
-	CaOptions            *CertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions             `json:"caOptions"`
-	PolicyIds            []CertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds            `json:"policyIds"`
-	AiaOcspServers       []string                                                                        `json:"aiaOcspServers"`
-	AdditionalExtensions []CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensions `json:"additionalExtensions"`
-}
-
-type jsonCertificateAuthorityCaCertificateDescriptionsConfigValues CertificateAuthorityCaCertificateDescriptionsConfigValues
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValues) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCaCertificateDescriptionsConfigValues
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCaCertificateDescriptionsConfigValues
-	} else {
-
-		r.KeyUsage = res.KeyUsage
-
-		r.CaOptions = res.CaOptions
-
-		r.PolicyIds = res.PolicyIds
-
-		r.AiaOcspServers = res.AiaOcspServers
-
-		r.AdditionalExtensions = res.AdditionalExtensions
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCaCertificateDescriptionsConfigValues is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCaCertificateDescriptionsConfigValues *CertificateAuthorityCaCertificateDescriptionsConfigValues = &CertificateAuthorityCaCertificateDescriptionsConfigValues{empty: true}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValues) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValues) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValues) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage struct {
-	empty                    bool                                                                                        `json:"-"`
-	BaseKeyUsage             *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage              `json:"baseKeyUsage"`
-	ExtendedKeyUsage         *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage          `json:"extendedKeyUsage"`
-	UnknownExtendedKeyUsages []CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnknownExtendedKeyUsages `json:"unknownExtendedKeyUsages"`
-}
-
-type jsonCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage
-	} else {
-
-		r.BaseKeyUsage = res.BaseKeyUsage
-
-		r.ExtendedKeyUsage = res.ExtendedKeyUsage
-
-		r.UnknownExtendedKeyUsages = res.UnknownExtendedKeyUsages
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage = &CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage{empty: true}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage struct {
-	empty             bool  `json:"-"`
-	DigitalSignature  *bool `json:"digitalSignature"`
-	ContentCommitment *bool `json:"contentCommitment"`
-	KeyEncipherment   *bool `json:"keyEncipherment"`
-	DataEncipherment  *bool `json:"dataEncipherment"`
-	KeyAgreement      *bool `json:"keyAgreement"`
-	CertSign          *bool `json:"certSign"`
-	CrlSign           *bool `json:"crlSign"`
-	EncipherOnly      *bool `json:"encipherOnly"`
-	DecipherOnly      *bool `json:"decipherOnly"`
-}
-
-type jsonCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage
-	} else {
-
-		r.DigitalSignature = res.DigitalSignature
-
-		r.ContentCommitment = res.ContentCommitment
-
-		r.KeyEncipherment = res.KeyEncipherment
-
-		r.DataEncipherment = res.DataEncipherment
-
-		r.KeyAgreement = res.KeyAgreement
-
-		r.CertSign = res.CertSign
-
-		r.CrlSign = res.CrlSign
-
-		r.EncipherOnly = res.EncipherOnly
-
-		r.DecipherOnly = res.DecipherOnly
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage = &CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage{empty: true}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage struct {
-	empty           bool  `json:"-"`
-	ServerAuth      *bool `json:"serverAuth"`
-	ClientAuth      *bool `json:"clientAuth"`
-	CodeSigning     *bool `json:"codeSigning"`
-	EmailProtection *bool `json:"emailProtection"`
-	TimeStamping    *bool `json:"timeStamping"`
-	OcspSigning     *bool `json:"ocspSigning"`
-}
-
-type jsonCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage
-	} else {
-
-		r.ServerAuth = res.ServerAuth
-
-		r.ClientAuth = res.ClientAuth
-
-		r.CodeSigning = res.CodeSigning
-
-		r.EmailProtection = res.EmailProtection
-
-		r.TimeStamping = res.TimeStamping
-
-		r.OcspSigning = res.OcspSigning
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage = &CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage{empty: true}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnknownExtendedKeyUsages struct {
-	empty        bool    `json:"-"`
-	ObjectIdPath []int64 `json:"objectIdPath"`
-}
-
-type jsonCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnknownExtendedKeyUsages CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnknownExtendedKeyUsages
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnknownExtendedKeyUsages) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnknownExtendedKeyUsages
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnknownExtendedKeyUsages
-	} else {
-
-		r.ObjectIdPath = res.ObjectIdPath
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnknownExtendedKeyUsages is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnknownExtendedKeyUsages *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnknownExtendedKeyUsages = &CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnknownExtendedKeyUsages{empty: true}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnknownExtendedKeyUsages) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnknownExtendedKeyUsages) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnknownExtendedKeyUsages) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions struct {
-	empty               bool   `json:"-"`
-	IsCa                *bool  `json:"isCa"`
-	MaxIssuerPathLength *int64 `json:"maxIssuerPathLength"`
-}
-
-type jsonCertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions CertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions
-	} else {
-
-		r.IsCa = res.IsCa
-
-		r.MaxIssuerPathLength = res.MaxIssuerPathLength
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions *CertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions = &CertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions{empty: true}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds struct {
-	empty        bool    `json:"-"`
-	ObjectIdPath []int64 `json:"objectIdPath"`
-}
-
-type jsonCertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds CertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds
-	} else {
-
-		r.ObjectIdPath = res.ObjectIdPath
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds *CertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds = &CertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds{empty: true}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensions struct {
-	empty    bool                                                                                   `json:"-"`
-	ObjectId *CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId `json:"objectId"`
-	Critical *bool                                                                                  `json:"critical"`
-	Value    *string                                                                                `json:"value"`
-}
-
-type jsonCertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensions CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensions
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensions) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensions
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensions
-	} else {
-
-		r.ObjectId = res.ObjectId
-
-		r.Critical = res.Critical
-
-		r.Value = res.Value
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensions *CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensions = &CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensions{empty: true}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensions) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensions) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensions) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId struct {
-	empty        bool    `json:"-"`
-	ObjectIdPath []int64 `json:"objectIdPath"`
-}
-
-type jsonCertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId
-	} else {
-
-		r.ObjectIdPath = res.ObjectIdPath
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId *CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId = &CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId{empty: true}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type CertificateAuthorityAccessUrls struct {
 	empty                  bool     `json:"-"`
 	CaCertificateAccessUrl *string  `json:"caCertificateAccessUrl"`
 	CrlAccessUrls          []string `json:"crlAccessUrls"`
-	CrlAccessUrl           *string  `json:"crlAccessUrl"`
 }
 
 type jsonCertificateAuthorityAccessUrls CertificateAuthorityAccessUrls
@@ -2336,8 +2253,6 @@ func (r *CertificateAuthorityAccessUrls) UnmarshalJSON(data []byte) error {
 
 		r.CrlAccessUrls = res.CrlAccessUrls
 
-		r.CrlAccessUrl = res.CrlAccessUrl
-
 	}
 	return nil
 }
@@ -2356,1397 +2271,6 @@ func (r *CertificateAuthorityAccessUrls) String() string {
 }
 
 func (r *CertificateAuthorityAccessUrls) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicy struct {
-	empty                            bool                                                                    `json:"-"`
-	AllowedConfigList                *CertificateAuthorityCertificatePolicyAllowedConfigList                 `json:"allowedConfigList"`
-	OverwriteConfigValues            *CertificateAuthorityCertificatePolicyOverwriteConfigValues             `json:"overwriteConfigValues"`
-	AllowedLocationsAndOrganizations []CertificateAuthorityCertificatePolicyAllowedLocationsAndOrganizations `json:"allowedLocationsAndOrganizations"`
-	AllowedCommonNames               []string                                                                `json:"allowedCommonNames"`
-	AllowedSans                      *CertificateAuthorityCertificatePolicyAllowedSans                       `json:"allowedSans"`
-	MaximumLifetime                  *string                                                                 `json:"maximumLifetime"`
-	AllowedIssuanceModes             *CertificateAuthorityCertificatePolicyAllowedIssuanceModes              `json:"allowedIssuanceModes"`
-}
-
-type jsonCertificateAuthorityCertificatePolicy CertificateAuthorityCertificatePolicy
-
-func (r *CertificateAuthorityCertificatePolicy) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicy
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicy
-	} else {
-
-		r.AllowedConfigList = res.AllowedConfigList
-
-		r.OverwriteConfigValues = res.OverwriteConfigValues
-
-		r.AllowedLocationsAndOrganizations = res.AllowedLocationsAndOrganizations
-
-		r.AllowedCommonNames = res.AllowedCommonNames
-
-		r.AllowedSans = res.AllowedSans
-
-		r.MaximumLifetime = res.MaximumLifetime
-
-		r.AllowedIssuanceModes = res.AllowedIssuanceModes
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicy is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicy *CertificateAuthorityCertificatePolicy = &CertificateAuthorityCertificatePolicy{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicy) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicy) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicy) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyAllowedConfigList struct {
-	empty               bool                                                                        `json:"-"`
-	AllowedConfigValues []CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues `json:"allowedConfigValues"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyAllowedConfigList CertificateAuthorityCertificatePolicyAllowedConfigList
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigList) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyAllowedConfigList
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyAllowedConfigList
-	} else {
-
-		r.AllowedConfigValues = res.AllowedConfigValues
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyAllowedConfigList is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyAllowedConfigList *CertificateAuthorityCertificatePolicyAllowedConfigList = &CertificateAuthorityCertificatePolicyAllowedConfigList{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigList) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigList) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigList) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues struct {
-	empty                bool                                                                                           `json:"-"`
-	ReusableConfig       *string                                                                                        `json:"reusableConfig"`
-	ReusableConfigValues *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues `json:"reusableConfigValues"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues
-	} else {
-
-		r.ReusableConfig = res.ReusableConfig
-
-		r.ReusableConfigValues = res.ReusableConfigValues
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues = &CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues struct {
-	empty                bool                                                                                                                `json:"-"`
-	KeyUsage             *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage              `json:"keyUsage"`
-	CaOptions            *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions             `json:"caOptions"`
-	PolicyIds            []CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesPolicyIds            `json:"policyIds"`
-	AiaOcspServers       []string                                                                                                            `json:"aiaOcspServers"`
-	AdditionalExtensions []CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensions `json:"additionalExtensions"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues
-	} else {
-
-		r.KeyUsage = res.KeyUsage
-
-		r.CaOptions = res.CaOptions
-
-		r.PolicyIds = res.PolicyIds
-
-		r.AiaOcspServers = res.AiaOcspServers
-
-		r.AdditionalExtensions = res.AdditionalExtensions
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues = &CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage struct {
-	empty                    bool                                                                                                                            `json:"-"`
-	BaseKeyUsage             *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage              `json:"baseKeyUsage"`
-	ExtendedKeyUsage         *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage          `json:"extendedKeyUsage"`
-	UnknownExtendedKeyUsages []CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages `json:"unknownExtendedKeyUsages"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage
-	} else {
-
-		r.BaseKeyUsage = res.BaseKeyUsage
-
-		r.ExtendedKeyUsage = res.ExtendedKeyUsage
-
-		r.UnknownExtendedKeyUsages = res.UnknownExtendedKeyUsages
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage = &CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage struct {
-	empty             bool  `json:"-"`
-	DigitalSignature  *bool `json:"digitalSignature"`
-	ContentCommitment *bool `json:"contentCommitment"`
-	KeyEncipherment   *bool `json:"keyEncipherment"`
-	DataEncipherment  *bool `json:"dataEncipherment"`
-	KeyAgreement      *bool `json:"keyAgreement"`
-	CertSign          *bool `json:"certSign"`
-	CrlSign           *bool `json:"crlSign"`
-	EncipherOnly      *bool `json:"encipherOnly"`
-	DecipherOnly      *bool `json:"decipherOnly"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage
-	} else {
-
-		r.DigitalSignature = res.DigitalSignature
-
-		r.ContentCommitment = res.ContentCommitment
-
-		r.KeyEncipherment = res.KeyEncipherment
-
-		r.DataEncipherment = res.DataEncipherment
-
-		r.KeyAgreement = res.KeyAgreement
-
-		r.CertSign = res.CertSign
-
-		r.CrlSign = res.CrlSign
-
-		r.EncipherOnly = res.EncipherOnly
-
-		r.DecipherOnly = res.DecipherOnly
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage = &CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage struct {
-	empty           bool  `json:"-"`
-	ServerAuth      *bool `json:"serverAuth"`
-	ClientAuth      *bool `json:"clientAuth"`
-	CodeSigning     *bool `json:"codeSigning"`
-	EmailProtection *bool `json:"emailProtection"`
-	TimeStamping    *bool `json:"timeStamping"`
-	OcspSigning     *bool `json:"ocspSigning"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage
-	} else {
-
-		r.ServerAuth = res.ServerAuth
-
-		r.ClientAuth = res.ClientAuth
-
-		r.CodeSigning = res.CodeSigning
-
-		r.EmailProtection = res.EmailProtection
-
-		r.TimeStamping = res.TimeStamping
-
-		r.OcspSigning = res.OcspSigning
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage = &CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages struct {
-	empty        bool    `json:"-"`
-	ObjectIdPath []int64 `json:"objectIdPath"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages
-	} else {
-
-		r.ObjectIdPath = res.ObjectIdPath
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages = &CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions struct {
-	empty               bool   `json:"-"`
-	IsCa                *bool  `json:"isCa"`
-	MaxIssuerPathLength *int64 `json:"maxIssuerPathLength"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions
-	} else {
-
-		r.IsCa = res.IsCa
-
-		r.MaxIssuerPathLength = res.MaxIssuerPathLength
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions = &CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesPolicyIds struct {
-	empty        bool    `json:"-"`
-	ObjectIdPath []int64 `json:"objectIdPath"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesPolicyIds CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesPolicyIds
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesPolicyIds) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesPolicyIds
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesPolicyIds
-	} else {
-
-		r.ObjectIdPath = res.ObjectIdPath
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesPolicyIds is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesPolicyIds *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesPolicyIds = &CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesPolicyIds{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesPolicyIds) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesPolicyIds) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesPolicyIds) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensions struct {
-	empty    bool                                                                                                                       `json:"-"`
-	ObjectId *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId `json:"objectId"`
-	Critical *bool                                                                                                                      `json:"critical"`
-	Value    *string                                                                                                                    `json:"value"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensions CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensions
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensions) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensions
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensions
-	} else {
-
-		r.ObjectId = res.ObjectId
-
-		r.Critical = res.Critical
-
-		r.Value = res.Value
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensions *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensions = &CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensions{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensions) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensions) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensions) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId struct {
-	empty        bool    `json:"-"`
-	ObjectIdPath []int64 `json:"objectIdPath"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId
-	} else {
-
-		r.ObjectIdPath = res.ObjectIdPath
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId = &CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyOverwriteConfigValues struct {
-	empty                bool                                                                            `json:"-"`
-	ReusableConfig       *string                                                                         `json:"reusableConfig"`
-	ReusableConfigValues *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues `json:"reusableConfigValues"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyOverwriteConfigValues CertificateAuthorityCertificatePolicyOverwriteConfigValues
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValues) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyOverwriteConfigValues
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyOverwriteConfigValues
-	} else {
-
-		r.ReusableConfig = res.ReusableConfig
-
-		r.ReusableConfigValues = res.ReusableConfigValues
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyOverwriteConfigValues is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyOverwriteConfigValues *CertificateAuthorityCertificatePolicyOverwriteConfigValues = &CertificateAuthorityCertificatePolicyOverwriteConfigValues{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValues) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValues) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValues) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues struct {
-	empty                bool                                                                                                 `json:"-"`
-	KeyUsage             *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage              `json:"keyUsage"`
-	CaOptions            *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions             `json:"caOptions"`
-	PolicyIds            []CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesPolicyIds            `json:"policyIds"`
-	AiaOcspServers       []string                                                                                             `json:"aiaOcspServers"`
-	AdditionalExtensions []CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensions `json:"additionalExtensions"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues
-	} else {
-
-		r.KeyUsage = res.KeyUsage
-
-		r.CaOptions = res.CaOptions
-
-		r.PolicyIds = res.PolicyIds
-
-		r.AiaOcspServers = res.AiaOcspServers
-
-		r.AdditionalExtensions = res.AdditionalExtensions
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues = &CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage struct {
-	empty                    bool                                                                                                             `json:"-"`
-	BaseKeyUsage             *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage              `json:"baseKeyUsage"`
-	ExtendedKeyUsage         *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage          `json:"extendedKeyUsage"`
-	UnknownExtendedKeyUsages []CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages `json:"unknownExtendedKeyUsages"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage
-	} else {
-
-		r.BaseKeyUsage = res.BaseKeyUsage
-
-		r.ExtendedKeyUsage = res.ExtendedKeyUsage
-
-		r.UnknownExtendedKeyUsages = res.UnknownExtendedKeyUsages
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage = &CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage struct {
-	empty             bool  `json:"-"`
-	DigitalSignature  *bool `json:"digitalSignature"`
-	ContentCommitment *bool `json:"contentCommitment"`
-	KeyEncipherment   *bool `json:"keyEncipherment"`
-	DataEncipherment  *bool `json:"dataEncipherment"`
-	KeyAgreement      *bool `json:"keyAgreement"`
-	CertSign          *bool `json:"certSign"`
-	CrlSign           *bool `json:"crlSign"`
-	EncipherOnly      *bool `json:"encipherOnly"`
-	DecipherOnly      *bool `json:"decipherOnly"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage
-	} else {
-
-		r.DigitalSignature = res.DigitalSignature
-
-		r.ContentCommitment = res.ContentCommitment
-
-		r.KeyEncipherment = res.KeyEncipherment
-
-		r.DataEncipherment = res.DataEncipherment
-
-		r.KeyAgreement = res.KeyAgreement
-
-		r.CertSign = res.CertSign
-
-		r.CrlSign = res.CrlSign
-
-		r.EncipherOnly = res.EncipherOnly
-
-		r.DecipherOnly = res.DecipherOnly
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage = &CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage struct {
-	empty           bool  `json:"-"`
-	ServerAuth      *bool `json:"serverAuth"`
-	ClientAuth      *bool `json:"clientAuth"`
-	CodeSigning     *bool `json:"codeSigning"`
-	EmailProtection *bool `json:"emailProtection"`
-	TimeStamping    *bool `json:"timeStamping"`
-	OcspSigning     *bool `json:"ocspSigning"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage
-	} else {
-
-		r.ServerAuth = res.ServerAuth
-
-		r.ClientAuth = res.ClientAuth
-
-		r.CodeSigning = res.CodeSigning
-
-		r.EmailProtection = res.EmailProtection
-
-		r.TimeStamping = res.TimeStamping
-
-		r.OcspSigning = res.OcspSigning
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage = &CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages struct {
-	empty        bool    `json:"-"`
-	ObjectIdPath []int64 `json:"objectIdPath"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages
-	} else {
-
-		r.ObjectIdPath = res.ObjectIdPath
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages = &CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions struct {
-	empty               bool   `json:"-"`
-	IsCa                *bool  `json:"isCa"`
-	MaxIssuerPathLength *int64 `json:"maxIssuerPathLength"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions
-	} else {
-
-		r.IsCa = res.IsCa
-
-		r.MaxIssuerPathLength = res.MaxIssuerPathLength
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions = &CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesPolicyIds struct {
-	empty        bool    `json:"-"`
-	ObjectIdPath []int64 `json:"objectIdPath"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesPolicyIds CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesPolicyIds
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesPolicyIds) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesPolicyIds
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesPolicyIds
-	} else {
-
-		r.ObjectIdPath = res.ObjectIdPath
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesPolicyIds is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesPolicyIds *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesPolicyIds = &CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesPolicyIds{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesPolicyIds) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesPolicyIds) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesPolicyIds) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensions struct {
-	empty    bool                                                                                                        `json:"-"`
-	ObjectId *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId `json:"objectId"`
-	Critical *bool                                                                                                       `json:"critical"`
-	Value    *string                                                                                                     `json:"value"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensions CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensions
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensions) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensions
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensions
-	} else {
-
-		r.ObjectId = res.ObjectId
-
-		r.Critical = res.Critical
-
-		r.Value = res.Value
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensions *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensions = &CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensions{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensions) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensions) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensions) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId struct {
-	empty        bool    `json:"-"`
-	ObjectIdPath []int64 `json:"objectIdPath"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId
-	} else {
-
-		r.ObjectIdPath = res.ObjectIdPath
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId = &CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyAllowedLocationsAndOrganizations struct {
-	empty              bool    `json:"-"`
-	CountryCode        *string `json:"countryCode"`
-	Organization       *string `json:"organization"`
-	OrganizationalUnit *string `json:"organizationalUnit"`
-	Locality           *string `json:"locality"`
-	Province           *string `json:"province"`
-	StreetAddress      *string `json:"streetAddress"`
-	PostalCode         *string `json:"postalCode"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyAllowedLocationsAndOrganizations CertificateAuthorityCertificatePolicyAllowedLocationsAndOrganizations
-
-func (r *CertificateAuthorityCertificatePolicyAllowedLocationsAndOrganizations) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyAllowedLocationsAndOrganizations
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyAllowedLocationsAndOrganizations
-	} else {
-
-		r.CountryCode = res.CountryCode
-
-		r.Organization = res.Organization
-
-		r.OrganizationalUnit = res.OrganizationalUnit
-
-		r.Locality = res.Locality
-
-		r.Province = res.Province
-
-		r.StreetAddress = res.StreetAddress
-
-		r.PostalCode = res.PostalCode
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyAllowedLocationsAndOrganizations is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyAllowedLocationsAndOrganizations *CertificateAuthorityCertificatePolicyAllowedLocationsAndOrganizations = &CertificateAuthorityCertificatePolicyAllowedLocationsAndOrganizations{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedLocationsAndOrganizations) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedLocationsAndOrganizations) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedLocationsAndOrganizations) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyAllowedSans struct {
-	empty                     bool     `json:"-"`
-	AllowedDnsNames           []string `json:"allowedDnsNames"`
-	AllowedUris               []string `json:"allowedUris"`
-	AllowedEmailAddresses     []string `json:"allowedEmailAddresses"`
-	AllowedIps                []string `json:"allowedIps"`
-	AllowGlobbingDnsWildcards *bool    `json:"allowGlobbingDnsWildcards"`
-	AllowCustomSans           *bool    `json:"allowCustomSans"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyAllowedSans CertificateAuthorityCertificatePolicyAllowedSans
-
-func (r *CertificateAuthorityCertificatePolicyAllowedSans) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyAllowedSans
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyAllowedSans
-	} else {
-
-		r.AllowedDnsNames = res.AllowedDnsNames
-
-		r.AllowedUris = res.AllowedUris
-
-		r.AllowedEmailAddresses = res.AllowedEmailAddresses
-
-		r.AllowedIps = res.AllowedIps
-
-		r.AllowGlobbingDnsWildcards = res.AllowGlobbingDnsWildcards
-
-		r.AllowCustomSans = res.AllowCustomSans
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyAllowedSans is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyAllowedSans *CertificateAuthorityCertificatePolicyAllowedSans = &CertificateAuthorityCertificatePolicyAllowedSans{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedSans) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedSans) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedSans) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityCertificatePolicyAllowedIssuanceModes struct {
-	empty                    bool  `json:"-"`
-	AllowCsrBasedIssuance    *bool `json:"allowCsrBasedIssuance"`
-	AllowConfigBasedIssuance *bool `json:"allowConfigBasedIssuance"`
-}
-
-type jsonCertificateAuthorityCertificatePolicyAllowedIssuanceModes CertificateAuthorityCertificatePolicyAllowedIssuanceModes
-
-func (r *CertificateAuthorityCertificatePolicyAllowedIssuanceModes) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityCertificatePolicyAllowedIssuanceModes
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityCertificatePolicyAllowedIssuanceModes
-	} else {
-
-		r.AllowCsrBasedIssuance = res.AllowCsrBasedIssuance
-
-		r.AllowConfigBasedIssuance = res.AllowConfigBasedIssuance
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityCertificatePolicyAllowedIssuanceModes is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityCertificatePolicyAllowedIssuanceModes *CertificateAuthorityCertificatePolicyAllowedIssuanceModes = &CertificateAuthorityCertificatePolicyAllowedIssuanceModes{empty: true}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedIssuanceModes) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedIssuanceModes) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityCertificatePolicyAllowedIssuanceModes) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type CertificateAuthorityIssuingOptions struct {
-	empty               bool  `json:"-"`
-	IncludeCaCertUrl    *bool `json:"includeCaCertUrl"`
-	IncludeCrlAccessUrl *bool `json:"includeCrlAccessUrl"`
-}
-
-type jsonCertificateAuthorityIssuingOptions CertificateAuthorityIssuingOptions
-
-func (r *CertificateAuthorityIssuingOptions) UnmarshalJSON(data []byte) error {
-	var res jsonCertificateAuthorityIssuingOptions
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyCertificateAuthorityIssuingOptions
-	} else {
-
-		r.IncludeCaCertUrl = res.IncludeCaCertUrl
-
-		r.IncludeCrlAccessUrl = res.IncludeCrlAccessUrl
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this CertificateAuthorityIssuingOptions is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyCertificateAuthorityIssuingOptions *CertificateAuthorityIssuingOptions = &CertificateAuthorityIssuingOptions{empty: true}
-
-func (r *CertificateAuthorityIssuingOptions) Empty() bool {
-	return r.empty
-}
-
-func (r *CertificateAuthorityIssuingOptions) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *CertificateAuthorityIssuingOptions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -3775,6 +2299,8 @@ type CertificateAuthorityList struct {
 	project string
 
 	location string
+
+	caPool string
 }
 
 func (l *CertificateAuthorityList) HasNext() bool {
@@ -3788,7 +2314,7 @@ func (l *CertificateAuthorityList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listCertificateAuthority(ctx, l.project, l.location, l.nextToken, l.pageSize)
+	items, token, err := c.listCertificateAuthority(ctx, l.project, l.location, l.caPool, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -3797,19 +2323,19 @@ func (l *CertificateAuthorityList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListCertificateAuthority(ctx context.Context, project, location string) (*CertificateAuthorityList, error) {
+func (c *Client) ListCertificateAuthority(ctx context.Context, project, location, caPool string) (*CertificateAuthorityList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListCertificateAuthorityWithMaxResults(ctx, project, location, CertificateAuthorityMaxPage)
+	return c.ListCertificateAuthorityWithMaxResults(ctx, project, location, caPool, CertificateAuthorityMaxPage)
 
 }
 
-func (c *Client) ListCertificateAuthorityWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*CertificateAuthorityList, error) {
+func (c *Client) ListCertificateAuthorityWithMaxResults(ctx context.Context, project, location, caPool string, pageSize int32) (*CertificateAuthorityList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listCertificateAuthority(ctx, project, location, "", pageSize)
+	items, token, err := c.listCertificateAuthority(ctx, project, location, caPool, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -3821,6 +2347,8 @@ func (c *Client) ListCertificateAuthorityWithMaxResults(ctx context.Context, pro
 		project: project,
 
 		location: location,
+
+		caPool: caPool,
 	}, nil
 }
 
@@ -3834,6 +2362,7 @@ func (r *CertificateAuthority) URLNormalized() *CertificateAuthority {
 	normalized.GcsBucket = dcl.SelfLinkToName(r.GcsBucket)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.CaPool = dcl.SelfLinkToName(r.CaPool)
 	return &normalized
 }
 
@@ -3857,6 +2386,7 @@ func (c *Client) GetCertificateAuthority(ctx context.Context, r *CertificateAuth
 	}
 	result.Project = r.Project
 	result.Location = r.Location
+	result.CaPool = r.CaPool
 	result.Name = r.Name
 
 	c.Config.Logger.Infof("Retrieved raw result state: %v", result)
@@ -3883,8 +2413,8 @@ func (c *Client) DeleteCertificateAuthority(ctx context.Context, r *CertificateA
 }
 
 // DeleteAllCertificateAuthority deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllCertificateAuthority(ctx context.Context, project, location string, filter func(*CertificateAuthority) bool) error {
-	listObj, err := c.ListCertificateAuthority(ctx, project, location)
+func (c *Client) DeleteAllCertificateAuthority(ctx context.Context, project, location, caPool string, filter func(*CertificateAuthority) bool) error {
+	listObj, err := c.ListCertificateAuthority(ctx, project, location, caPool)
 	if err != nil {
 		return err
 	}

@@ -20,59 +20,45 @@ import "proto/empty.proto";
 
 enum PrivatecaBetaCertificateAuthorityTypeEnum {
   PrivatecaBetaCertificateAuthorityTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  PrivatecaBetaCertificateAuthorityTypeEnumTYPE_UNSPECIFIED = 1;
-  PrivatecaBetaCertificateAuthorityTypeEnumSELF_SIGNED = 2;
-  PrivatecaBetaCertificateAuthorityTypeEnumSUBORDINATE = 3;
+  PrivatecaBetaCertificateAuthorityTypeEnumSELF_SIGNED = 1;
+  PrivatecaBetaCertificateAuthorityTypeEnumSUBORDINATE = 2;
 }
 
-enum PrivatecaBetaCertificateAuthorityConfigPublicKeyTypeEnum {
-  PrivatecaBetaCertificateAuthorityConfigPublicKeyTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  PrivatecaBetaCertificateAuthorityConfigPublicKeyTypeEnumKEY_TYPE_UNSPECIFIED = 1;
-  PrivatecaBetaCertificateAuthorityConfigPublicKeyTypeEnumPEM_RSA_KEY = 2;
-  PrivatecaBetaCertificateAuthorityConfigPublicKeyTypeEnumPEM_EC_KEY = 3;
+enum PrivatecaBetaCertificateAuthorityConfigPublicKeyFormatEnum {
+  PrivatecaBetaCertificateAuthorityConfigPublicKeyFormatEnumNO_VALUE_DO_NOT_USE = 0;
+  PrivatecaBetaCertificateAuthorityConfigPublicKeyFormatEnumPEM = 1;
 }
 
 enum PrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnum {
   PrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnumNO_VALUE_DO_NOT_USE = 0;
-  PrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnumSIGN_HASH_ALGORITHM_UNSPECIFIED = 1;
-  PrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnumRSA_PSS_2048_SHA256 = 2;
-  PrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnumRSA_PSS_3072_SHA256 = 3;
-  PrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnumRSA_PSS_4096_SHA256 = 4;
-  PrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnumRSA_PKCS1_2048_SHA256 = 5;
-  PrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnumRSA_PKCS1_3072_SHA256 = 6;
-  PrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnumRSA_PKCS1_4096_SHA256 = 7;
-  PrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnumEC_P256_SHA256 = 8;
-  PrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnumEC_P384_SHA384 = 9;
+  PrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnumRSA_PSS_2048_SHA256 = 1;
+  PrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnumRSA_PSS_3072_SHA256 = 2;
+  PrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnumRSA_PSS_4096_SHA256 = 3;
+  PrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnumRSA_PKCS1_2048_SHA256 = 4;
+  PrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnumRSA_PKCS1_3072_SHA256 = 5;
+  PrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnumRSA_PKCS1_4096_SHA256 = 6;
+  PrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnumEC_P256_SHA256 = 7;
+  PrivatecaBetaCertificateAuthorityKeySpecAlgorithmEnumEC_P384_SHA384 = 8;
 }
 
 enum PrivatecaBetaCertificateAuthorityTierEnum {
   PrivatecaBetaCertificateAuthorityTierEnumNO_VALUE_DO_NOT_USE = 0;
-  PrivatecaBetaCertificateAuthorityTierEnumTIER_UNSPECIFIED = 1;
-  PrivatecaBetaCertificateAuthorityTierEnumENTERPRISE = 2;
-  PrivatecaBetaCertificateAuthorityTierEnumDEVOPS = 3;
+  PrivatecaBetaCertificateAuthorityTierEnumENTERPRISE = 1;
+  PrivatecaBetaCertificateAuthorityTierEnumDEVOPS = 2;
 }
 
 enum PrivatecaBetaCertificateAuthorityStateEnum {
   PrivatecaBetaCertificateAuthorityStateEnumNO_VALUE_DO_NOT_USE = 0;
-  PrivatecaBetaCertificateAuthorityStateEnumSTATE_UNSPECIFIED = 1;
-  PrivatecaBetaCertificateAuthorityStateEnumENABLED = 2;
-  PrivatecaBetaCertificateAuthorityStateEnumDISABLED = 3;
-  PrivatecaBetaCertificateAuthorityStateEnumSTAGED = 4;
-  PrivatecaBetaCertificateAuthorityStateEnumAWAITING_USER_ACTIVATION = 5;
-  PrivatecaBetaCertificateAuthorityStateEnumDELETED = 6;
+  PrivatecaBetaCertificateAuthorityStateEnumENABLED = 1;
+  PrivatecaBetaCertificateAuthorityStateEnumDISABLED = 2;
+  PrivatecaBetaCertificateAuthorityStateEnumSTAGED = 3;
+  PrivatecaBetaCertificateAuthorityStateEnumAWAITING_USER_ACTIVATION = 4;
+  PrivatecaBetaCertificateAuthorityStateEnumDELETED = 5;
 }
 
 enum PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnum {
   PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnumNO_VALUE_DO_NOT_USE = 0;
-  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnumKEY_FORMAT_UNSPECIFIED = 1;
-  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnumPEM = 2;
-}
-
-enum PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnum {
-  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnumTYPE_UNSPECIFIED = 1;
-  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnumSELF_SIGNED = 2;
-  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnumSUBORDINATE = 3;
+  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnumPEM = 1;
 }
 
 message PrivatecaBetaCertificateAuthority {
@@ -91,33 +77,33 @@ message PrivatecaBetaCertificateAuthority {
   string create_time = 13;
   string update_time = 14;
   string delete_time = 15;
-  map<string, string> labels = 16;
-  PrivatecaBetaCertificateAuthorityCertificatePolicy certificate_policy = 17;
-  PrivatecaBetaCertificateAuthorityIssuingOptions issuing_options = 18;
-  string project = 19;
-  string location = 20;
+  string expire_time = 16;
+  map<string, string> labels = 17;
+  string project = 18;
+  string location = 19;
+  string ca_pool = 20;
 }
 
 message PrivatecaBetaCertificateAuthorityConfig {
   PrivatecaBetaCertificateAuthorityConfigSubjectConfig subject_config = 1;
-  PrivatecaBetaCertificateAuthorityConfigPublicKey public_key = 2;
-  PrivatecaBetaCertificateAuthorityConfigReusableConfig reusable_config = 3;
+  PrivatecaBetaCertificateAuthorityConfigX509Config x509_config = 2;
+  PrivatecaBetaCertificateAuthorityConfigPublicKey public_key = 3;
 }
 
 message PrivatecaBetaCertificateAuthorityConfigSubjectConfig {
   PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubject subject = 1;
-  string common_name = 2;
-  PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltName subject_alt_name = 3;
+  PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltName subject_alt_name = 2;
 }
 
 message PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubject {
-  string country_code = 1;
-  string organization = 2;
-  string organizational_unit = 3;
-  string locality = 4;
-  string province = 5;
-  string street_address = 6;
-  string postal_code = 7;
+  string common_name = 1;
+  string country_code = 2;
+  string organization = 3;
+  string organizational_unit = 4;
+  string locality = 5;
+  string province = 6;
+  string street_address = 7;
+  string postal_code = 8;
 }
 
 message PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltName {
@@ -138,31 +124,21 @@ message PrivatecaBetaCertificateAuthorityConfigSubjectConfigSubjectAltNameCustom
   repeated int64 object_id_path = 1;
 }
 
-message PrivatecaBetaCertificateAuthorityConfigPublicKey {
-  string key = 1;
-  PrivatecaBetaCertificateAuthorityConfigPublicKeyTypeEnum type = 2;
-}
-
-message PrivatecaBetaCertificateAuthorityConfigReusableConfig {
-  string reusable_config = 1;
-  PrivatecaBetaCertificateAuthorityConfigReusableConfigReusableConfigValues reusable_config_values = 2;
-}
-
-message PrivatecaBetaCertificateAuthorityConfigReusableConfigReusableConfigValues {
-  PrivatecaBetaCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage key_usage = 1;
-  PrivatecaBetaCertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions ca_options = 2;
-  repeated PrivatecaBetaCertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds policy_ids = 3;
+message PrivatecaBetaCertificateAuthorityConfigX509Config {
+  PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsage key_usage = 1;
+  PrivatecaBetaCertificateAuthorityConfigX509ConfigCaOptions ca_options = 2;
+  repeated PrivatecaBetaCertificateAuthorityConfigX509ConfigPolicyIds policy_ids = 3;
   repeated string aia_ocsp_servers = 4;
-  repeated PrivatecaBetaCertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensions additional_extensions = 5;
+  repeated PrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtensions additional_extensions = 5;
 }
 
-message PrivatecaBetaCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage {
-  PrivatecaBetaCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage base_key_usage = 1;
-  PrivatecaBetaCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage extended_key_usage = 2;
-  repeated PrivatecaBetaCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnknownExtendedKeyUsages unknown_extended_key_usages = 3;
+message PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsage {
+  PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage base_key_usage = 1;
+  PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage extended_key_usage = 2;
+  repeated PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages unknown_extended_key_usages = 3;
 }
 
-message PrivatecaBetaCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage {
+message PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage {
   bool digital_signature = 1;
   bool content_commitment = 2;
   bool key_encipherment = 3;
@@ -174,7 +150,7 @@ message PrivatecaBetaCertificateAuthorityConfigReusableConfigReusableConfigValue
   bool decipher_only = 9;
 }
 
-message PrivatecaBetaCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage {
+message PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage {
   bool server_auth = 1;
   bool client_auth = 2;
   bool code_signing = 3;
@@ -183,27 +159,32 @@ message PrivatecaBetaCertificateAuthorityConfigReusableConfigReusableConfigValue
   bool ocsp_signing = 6;
 }
 
-message PrivatecaBetaCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnknownExtendedKeyUsages {
+message PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages {
   repeated int64 object_id_path = 1;
 }
 
-message PrivatecaBetaCertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions {
+message PrivatecaBetaCertificateAuthorityConfigX509ConfigCaOptions {
   bool is_ca = 1;
   int64 max_issuer_path_length = 2;
 }
 
-message PrivatecaBetaCertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds {
+message PrivatecaBetaCertificateAuthorityConfigX509ConfigPolicyIds {
   repeated int64 object_id_path = 1;
 }
 
-message PrivatecaBetaCertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensions {
-  PrivatecaBetaCertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId object_id = 1;
+message PrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtensions {
+  PrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId object_id = 1;
   bool critical = 2;
   string value = 3;
 }
 
-message PrivatecaBetaCertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId {
+message PrivatecaBetaCertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId {
   repeated int64 object_id_path = 1;
+}
+
+message PrivatecaBetaCertificateAuthorityConfigPublicKey {
+  string key = 1;
+  PrivatecaBetaCertificateAuthorityConfigPublicKeyFormatEnum format = 2;
 }
 
 message PrivatecaBetaCertificateAuthorityKeySpec {
@@ -222,13 +203,13 @@ message PrivatecaBetaCertificateAuthoritySubordinateConfigPemIssuerChain {
 
 message PrivatecaBetaCertificateAuthorityCaCertificateDescriptions {
   PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescription subject_description = 1;
-  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKey public_key = 2;
-  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectKeyId subject_key_id = 3;
-  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsAuthorityKeyId authority_key_id = 4;
-  repeated string crl_distribution_points = 5;
-  repeated string aia_issuing_certificate_urls = 6;
-  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsCertFingerprint cert_fingerprint = 7;
-  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsConfigValues config_values = 8;
+  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509Description x509_description = 2;
+  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKey public_key = 3;
+  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectKeyId subject_key_id = 4;
+  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsAuthorityKeyId authority_key_id = 5;
+  repeated string crl_distribution_points = 6;
+  repeated string aia_issuing_certificate_urls = 7;
+  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsCertFingerprint cert_fingerprint = 8;
 }
 
 message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescription {
@@ -238,7 +219,6 @@ message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescrip
   string lifetime = 4;
   string not_before_time = 5;
   string not_after_time = 6;
-  string common_name = 7;
 }
 
 message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject {
@@ -270,10 +250,67 @@ message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectDescrip
   repeated int64 object_id_path = 1;
 }
 
+message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509Description {
+  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage key_usage = 1;
+  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions ca_options = 2;
+  repeated PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds policy_ids = 3;
+  repeated string aia_ocsp_servers = 4;
+  repeated PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions additional_extensions = 5;
+}
+
+message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage {
+  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage base_key_usage = 1;
+  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage extended_key_usage = 2;
+  repeated PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages unknown_extended_key_usages = 3;
+}
+
+message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage {
+  bool digital_signature = 1;
+  bool content_commitment = 2;
+  bool key_encipherment = 3;
+  bool data_encipherment = 4;
+  bool key_agreement = 5;
+  bool cert_sign = 6;
+  bool crl_sign = 7;
+  bool encipher_only = 8;
+  bool decipher_only = 9;
+}
+
+message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage {
+  bool server_auth = 1;
+  bool client_auth = 2;
+  bool code_signing = 3;
+  bool email_protection = 4;
+  bool time_stamping = 5;
+  bool ocsp_signing = 6;
+}
+
+message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages {
+  repeated int64 object_id_path = 1;
+}
+
+message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions {
+  bool is_ca = 1;
+  int64 max_issuer_path_length = 2;
+}
+
+message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds {
+  repeated int64 object_id_path = 1;
+}
+
+message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions {
+  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId object_id = 1;
+  bool critical = 2;
+  string value = 3;
+}
+
+message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId {
+  repeated int64 object_id_path = 1;
+}
+
 message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKey {
   string key = 1;
   PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnum format = 2;
-  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnum type = 3;
 }
 
 message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsSubjectKeyId {
@@ -288,237 +325,9 @@ message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsCertFingerprin
   string sha256_hash = 1;
 }
 
-message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsConfigValues {
-  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage key_usage = 1;
-  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions ca_options = 2;
-  repeated PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds policy_ids = 3;
-  repeated string aia_ocsp_servers = 4;
-  repeated PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensions additional_extensions = 5;
-}
-
-message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage {
-  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage base_key_usage = 1;
-  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage extended_key_usage = 2;
-  repeated PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnknownExtendedKeyUsages unknown_extended_key_usages = 3;
-}
-
-message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage {
-  bool digital_signature = 1;
-  bool content_commitment = 2;
-  bool key_encipherment = 3;
-  bool data_encipherment = 4;
-  bool key_agreement = 5;
-  bool cert_sign = 6;
-  bool crl_sign = 7;
-  bool encipher_only = 8;
-  bool decipher_only = 9;
-}
-
-message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage {
-  bool server_auth = 1;
-  bool client_auth = 2;
-  bool code_signing = 3;
-  bool email_protection = 4;
-  bool time_stamping = 5;
-  bool ocsp_signing = 6;
-}
-
-message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnknownExtendedKeyUsages {
-  repeated int64 object_id_path = 1;
-}
-
-message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions {
-  bool is_ca = 1;
-  int64 max_issuer_path_length = 2;
-}
-
-message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds {
-  repeated int64 object_id_path = 1;
-}
-
-message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensions {
-  PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId object_id = 1;
-  bool critical = 2;
-  string value = 3;
-}
-
-message PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId {
-  repeated int64 object_id_path = 1;
-}
-
 message PrivatecaBetaCertificateAuthorityAccessUrls {
   string ca_certificate_access_url = 1;
   repeated string crl_access_urls = 2;
-  string crl_access_url = 3;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicy {
-  PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigList allowed_config_list = 1;
-  PrivatecaBetaCertificateAuthorityCertificatePolicyOverwriteConfigValues overwrite_config_values = 2;
-  repeated PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedLocationsAndOrganizations allowed_locations_and_organizations = 3;
-  repeated string allowed_common_names = 4;
-  PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedSans allowed_sans = 5;
-  string maximum_lifetime = 6;
-  PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedIssuanceModes allowed_issuance_modes = 7;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigList {
-  repeated PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues allowed_config_values = 1;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues {
-  string reusable_config = 1;
-  PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues reusable_config_values = 2;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues {
-  PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage key_usage = 1;
-  PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions ca_options = 2;
-  repeated PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesPolicyIds policy_ids = 3;
-  repeated string aia_ocsp_servers = 4;
-  repeated PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensions additional_extensions = 5;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage {
-  PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage base_key_usage = 1;
-  PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage extended_key_usage = 2;
-  repeated PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages unknown_extended_key_usages = 3;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage {
-  bool digital_signature = 1;
-  bool content_commitment = 2;
-  bool key_encipherment = 3;
-  bool data_encipherment = 4;
-  bool key_agreement = 5;
-  bool cert_sign = 6;
-  bool crl_sign = 7;
-  bool encipher_only = 8;
-  bool decipher_only = 9;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage {
-  bool server_auth = 1;
-  bool client_auth = 2;
-  bool code_signing = 3;
-  bool email_protection = 4;
-  bool time_stamping = 5;
-  bool ocsp_signing = 6;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages {
-  repeated int64 object_id_path = 1;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions {
-  bool is_ca = 1;
-  int64 max_issuer_path_length = 2;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesPolicyIds {
-  repeated int64 object_id_path = 1;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensions {
-  PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId object_id = 1;
-  bool critical = 2;
-  string value = 3;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId {
-  repeated int64 object_id_path = 1;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyOverwriteConfigValues {
-  string reusable_config = 1;
-  PrivatecaBetaCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues reusable_config_values = 2;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues {
-  PrivatecaBetaCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage key_usage = 1;
-  PrivatecaBetaCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions ca_options = 2;
-  repeated PrivatecaBetaCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesPolicyIds policy_ids = 3;
-  repeated string aia_ocsp_servers = 4;
-  repeated PrivatecaBetaCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensions additional_extensions = 5;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage {
-  PrivatecaBetaCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage base_key_usage = 1;
-  PrivatecaBetaCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage extended_key_usage = 2;
-  repeated PrivatecaBetaCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages unknown_extended_key_usages = 3;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage {
-  bool digital_signature = 1;
-  bool content_commitment = 2;
-  bool key_encipherment = 3;
-  bool data_encipherment = 4;
-  bool key_agreement = 5;
-  bool cert_sign = 6;
-  bool crl_sign = 7;
-  bool encipher_only = 8;
-  bool decipher_only = 9;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage {
-  bool server_auth = 1;
-  bool client_auth = 2;
-  bool code_signing = 3;
-  bool email_protection = 4;
-  bool time_stamping = 5;
-  bool ocsp_signing = 6;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages {
-  repeated int64 object_id_path = 1;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions {
-  bool is_ca = 1;
-  int64 max_issuer_path_length = 2;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesPolicyIds {
-  repeated int64 object_id_path = 1;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensions {
-  PrivatecaBetaCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId object_id = 1;
-  bool critical = 2;
-  string value = 3;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId {
-  repeated int64 object_id_path = 1;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedLocationsAndOrganizations {
-  string country_code = 1;
-  string organization = 2;
-  string organizational_unit = 3;
-  string locality = 4;
-  string province = 5;
-  string street_address = 6;
-  string postal_code = 7;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedSans {
-  repeated string allowed_dns_names = 1;
-  repeated string allowed_uris = 2;
-  repeated string allowed_email_addresses = 3;
-  repeated string allowed_ips = 4;
-  bool allow_globbing_dns_wildcards = 5;
-  bool allow_custom_sans = 6;
-}
-
-message PrivatecaBetaCertificateAuthorityCertificatePolicyAllowedIssuanceModes {
-  bool allow_csr_based_issuance = 1;
-  bool allow_config_based_issuance = 2;
-}
-
-message PrivatecaBetaCertificateAuthorityIssuingOptions {
-  bool include_ca_cert_url = 1;
-  bool include_crl_access_url = 2;
 }
 
 message ApplyPrivatecaBetaCertificateAuthorityRequest {
@@ -536,6 +345,7 @@ message ListPrivatecaBetaCertificateAuthorityRequest {
   string service_account_file = 1;
   string Project = 2;
   string Location = 3;
+  string CaPool = 4;
 }
 
 message ListPrivatecaBetaCertificateAuthorityResponse {

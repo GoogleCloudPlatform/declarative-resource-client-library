@@ -14,5 +14,8 @@
 description: An example for a service usage service which enables drive.
 name: drive_service
 resource: samples/drive.service.json
+variables:
+- name: project
+  type: project
 versions:
 - ga

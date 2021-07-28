@@ -16,6 +16,15 @@ dependencies:
 description: KCC's example of a workflow template
 name: kcc_workflow_template
 resource: samples/kcc.workflow_template.json
+variables:
+- name: name
+  type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
+- name: template_name
+  type: resource_name
 versions:
 - ga
 - beta

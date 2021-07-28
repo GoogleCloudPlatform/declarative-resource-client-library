@@ -14,5 +14,10 @@
 description: A basic example for an krmapihost
 name: basic_krmapihost
 resource: samples/basic.krm_api_host.json
+variables:
+- name: project
+  type: project
+- name: id
+  type: resource_name
 versions:
 - alpha

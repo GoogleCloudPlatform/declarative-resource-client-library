@@ -19,4 +19,13 @@ name: keyless_attestor
 resource: samples/keyless.attestor.json
 updates:
 - resource: samples/update.attestor.json
+variables:
+- name: package
+  type: resource_name
+- name: note
+  type: resource_name
+- name: project
+  type: project
+- name: attestor
+  type: resource_name
 versions: []

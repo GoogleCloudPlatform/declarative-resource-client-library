@@ -16,5 +16,8 @@ name: basic_tenant
 resource: samples/basic.tenant.json
 updates:
 - resource: samples/update.tenant.json
+variables:
+- name: project
+  type: project
 versions:
 - ga

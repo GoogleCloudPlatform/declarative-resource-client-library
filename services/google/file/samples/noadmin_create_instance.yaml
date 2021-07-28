@@ -17,6 +17,13 @@ name: noadmin_create_instance
 resource: samples/noadmin.instance.json
 updates:
 - resource: samples/update.instance.json
+variables:
+- name: instance_name
+  type: resource_name
+- name: project
+  type: project
+- name: zone
+  type: zone
 versions:
 - ga
 - beta

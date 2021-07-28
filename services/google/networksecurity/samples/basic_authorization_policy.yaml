@@ -16,5 +16,10 @@ name: basic_authorization_policy
 resource: samples/basic.authorization_policy.json
 updates:
 - resource: samples/update.authorization_policy.json
+variables:
+- name: policy
+  type: resource_name
+- name: project
+  type: project
 versions:
 - alpha

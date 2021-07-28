@@ -14,5 +14,10 @@
 description: An example of a basic spanner instance.
 name: basic_instance
 resource: samples/basic.instance.json
+variables:
+- name: instance
+  type: resource_name
+- name: project
+  type: project
 versions:
 - ga

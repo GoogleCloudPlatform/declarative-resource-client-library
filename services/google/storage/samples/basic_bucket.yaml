@@ -16,5 +16,10 @@ name: basic_bucket
 resource: samples/basic.bucket.json
 updates:
 - resource: samples/update.bucket.json
+variables:
+- name: bucket
+  type: resource_name
+- name: project
+  type: project
 versions:
 - ga

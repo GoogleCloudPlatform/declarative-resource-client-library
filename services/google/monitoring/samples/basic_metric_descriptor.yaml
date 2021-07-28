@@ -14,5 +14,10 @@
 description: A basic example of a monitoring metric descriptor
 name: basic_metric_descriptor
 resource: samples/basic.metric_descriptor.json
+variables:
+- name: suffix
+  type: resource_name
+- name: project
+  type: project
 versions:
 - ga

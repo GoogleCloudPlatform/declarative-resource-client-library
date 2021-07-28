@@ -16,6 +16,11 @@ name: organization_firewall_policy
 resource: samples/organization.firewall_policy.json
 updates:
 - resource: samples/update_organization.firewall_policy.json
+variables:
+- name: org_id
+  type: org_id
+- name: policy
+  type: resource_name
 versions:
 - ga
 - beta

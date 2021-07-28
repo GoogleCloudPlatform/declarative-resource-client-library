@@ -18,6 +18,15 @@ name: kcc_cluster
 resource: samples/kcc.cluster.json
 updates:
 - resource: samples/kccupdate.cluster.json
+variables:
+- name: name
+  type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
+- name: cluster_name
+  type: resource_name
 versions:
 - ga
 - beta

@@ -16,5 +16,14 @@ dependencies:
 description: A complex example of an OS config guest policy
 name: complex_guest_policy
 resource: samples/complex.guest_policy.json
+variables:
+- name: policy_inst
+  type: resource_name
+- name: project
+  type: project
+- name: zone
+  type: zone
+- name: policy
+  type: resource_name
 versions:
 - beta

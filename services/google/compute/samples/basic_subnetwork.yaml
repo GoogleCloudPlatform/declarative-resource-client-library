@@ -16,6 +16,17 @@ dependencies:
 description: An example of a basic subnetwork instance.
 name: basic_subnetwork
 resource: samples/simple.subnetwork.json
+variables:
+- name: network
+  type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
+- name: range
+  type: resource_name
+- name: subnetwork
+  type: resource_name
 versions:
 - ga
 - beta

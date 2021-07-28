@@ -19,5 +19,12 @@ name: basic_organization
 resource: samples/basic.organization.json
 updates:
 - resource: samples/update.organization.json
+variables:
+- name: id
+  type: resource_name
+- name: org_id
+  type: org_id
+- name: region
+  type: region
 versions:
 - ga

@@ -17,5 +17,16 @@ dependencies:
 description: A basic example an IAP client.
 name: basic_client
 resource: samples/basic.identity_aware_proxy_client.json
+variables:
+- name: project
+  type: project
+- name: application
+  type: resource_name
+- name: test_service_account
+  type: test_service_account
+- name: brand
+  type: resource_name
+- name: org_id
+  type: org_id
 versions:
 - ga

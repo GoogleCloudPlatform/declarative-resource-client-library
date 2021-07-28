@@ -16,5 +16,10 @@ name: basic_network
 resource: samples/basic.network.json
 updates:
 - resource: samples/update.network.json
+variables:
+- name: project
+  type: project
+- name: network
+  type: resource_name
 versions:
 - ga

@@ -23,5 +23,20 @@ name: worker_pool_instance
 resource: samples/basic.worker_pool.json
 updates:
 - resource: samples/update.worker_pool.json
+variables:
+- name: othernetwork
+  type: resource_name
+- name: project
+  type: project
+- name: network
+  type: resource_name
+- name: address
+  type: resource_name
+- name: otheraddress
+  type: resource_name
+- name: resource_name
+  type: resource_name
+- name: region
+  type: region
 versions:
 - ga

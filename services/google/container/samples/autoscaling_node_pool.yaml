@@ -18,6 +18,15 @@ name: autoscaling_node_pool
 resource: samples/basic.node_pool.json
 updates:
 - resource: samples/autoscaling.node_pool.json
+variables:
+- name: project
+  type: project
+- name: region
+  type: region
+- name: cluster
+  type: resource_name
+- name: pool
+  type: resource_name
 versions:
 - ga
 - v1

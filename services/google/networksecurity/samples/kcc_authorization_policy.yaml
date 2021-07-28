@@ -16,5 +16,10 @@ name: kcc_authorization_policy
 resource: samples/kccbasic.authorization_policy.json
 updates:
 - resource: samples/kccupdate.authorization_policy.json
+variables:
+- name: policy
+  type: resource_name
+- name: project
+  type: project
 versions:
 - alpha

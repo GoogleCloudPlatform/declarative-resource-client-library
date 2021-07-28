@@ -18,5 +18,12 @@ dependencies:
 description: A sample which matches the default policy of a newly created project
 name: default_policy
 resource: samples/default.policy.json
+variables:
+- name: id
+  type: resource_name
+- name: org_id
+  type: org_id
+- name: billing_account
+  type: billing_account
 versions:
 - ga

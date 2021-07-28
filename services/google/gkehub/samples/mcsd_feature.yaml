@@ -21,5 +21,12 @@ name: mcsd_feature
 resource: samples/mcsd.feature.json
 updates:
 - resource: samples/update_mcsd.feature.json
+variables:
+- name: id
+  type: resource_name
+- name: org_id
+  type: org_id
+- name: billing_account
+  type: billing_account
 versions:
 - beta

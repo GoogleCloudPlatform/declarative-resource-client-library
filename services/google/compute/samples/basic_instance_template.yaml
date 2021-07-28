@@ -16,5 +16,10 @@ name: basic_instance_template
 resource: samples/first.instance_template.json
 updates:
 - resource: samples/update.instance_template.json
+variables:
+- name: template1
+  type: resource_name
+- name: project
+  type: project
 versions:
 - ga

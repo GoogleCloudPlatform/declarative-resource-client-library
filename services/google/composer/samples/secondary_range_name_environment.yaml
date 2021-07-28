@@ -30,5 +30,26 @@ name: secondary_range_name_environment
 resource: samples/secondary_range_name.environment.json
 updates:
 - resource: samples/update_secondary_range_name.environment.json
+variables:
+- name: org_id
+  type: org_id
+- name: id
+  type: resource_name
+- name: billing_account
+  type: billing_account
+- name: test_service_account
+  type: test_service_account
+- name: sa
+  type: resource_name
+- name: network_name
+  type: resource_name
+- name: subnetwork
+  type: resource_name
+- name: region
+  type: region
+- name: environment
+  type: resource_name
+- name: zone
+  type: zone
 versions:
 - ga

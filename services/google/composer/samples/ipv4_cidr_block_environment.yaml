@@ -28,5 +28,24 @@ description: A basic example of a composer environment with an ipv4 cidr block i
   allocation policy
 name: ipv4_cidr_block_environment
 resource: samples/ipv4_cidr_block.environment.json
+variables:
+- name: id
+  type: resource_name
+- name: org_id
+  type: org_id
+- name: billing_account
+  type: billing_account
+- name: test_service_account
+  type: test_service_account
+- name: network_name
+  type: resource_name
+- name: sa
+  type: resource_name
+- name: region
+  type: region
+- name: subnetwork
+  type: resource_name
+- name: environment
+  type: resource_name
 versions:
 - ga

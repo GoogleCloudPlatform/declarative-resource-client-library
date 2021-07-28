@@ -16,6 +16,13 @@ name: master_version_cluster
 resource: samples/master_version.cluster.json
 updates:
 - resource: samples/update_master_version.cluster.json
+variables:
+- name: cluster
+  type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
 versions:
 - ga
 - v1

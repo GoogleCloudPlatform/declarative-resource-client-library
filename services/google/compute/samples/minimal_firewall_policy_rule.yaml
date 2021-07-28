@@ -27,5 +27,22 @@ name: minimal_firewall_policy_rule
 resource: samples/minimal.firewall_policy_rule.json
 updates:
 - resource: samples/update_minimal.firewall_policy_rule.json
+variables:
+- name: id
+  type: resource_name
+- name: org_id
+  type: org_id
+- name: folder
+  type: resource_name
+- name: test_service_account
+  type: test_service_account
+- name: billing_account
+  type: billing_account
+- name: policy
+  type: resource_name
+- name: association
+  type: resource_name
+- name: network_name
+  type: resource_name
 versions:
 - ga

@@ -18,6 +18,13 @@ name: basic_job
 resource: samples/basic.job.json
 updates:
 - resource: samples/update.job.json
+variables:
+- name: cluster_name
+  type: resource_name
+- name: region
+  type: region
+- name: project
+  type: project
 versions:
 - ga
 - beta

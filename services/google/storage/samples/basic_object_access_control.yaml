@@ -19,5 +19,16 @@ name: basic_object_access_control
 resource: samples/basic.object_access_control.json
 updates:
 - resource: samples/update.object_access_control.json
+variables:
+- name: bucket
+  type: resource_name
+- name: project
+  type: project
+- name: content
+  type: resource_name
+- name: object
+  type: resource_name
+- name: project_number
+  type: project_number
 versions:
 - ga

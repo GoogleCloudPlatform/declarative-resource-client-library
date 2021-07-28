@@ -18,5 +18,14 @@ name: basic_subscription
 resource: samples/basic.subscription.json
 updates:
 - resource: samples/update.subscription.json
+variables:
+- name: project
+  type: project
+- name: zone
+  type: zone
+- name: topic
+  type: resource_name
+- name: subscription
+  type: resource_name
 versions:
 - ga

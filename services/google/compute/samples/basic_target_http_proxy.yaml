@@ -21,6 +21,19 @@ name: basic_target_http_proxy
 resource: samples/basic.target_http_proxy.json
 updates:
 - resource: samples/update.target_http_proxy.json
+variables:
+- name: project
+  type: project
+- name: bucket
+  type: resource_name
+- name: backend
+  type: resource_name
+- name: map2
+  type: resource_name
+- name: map1
+  type: resource_name
+- name: proxy
+  type: resource_name
 versions:
 - ga
 - beta

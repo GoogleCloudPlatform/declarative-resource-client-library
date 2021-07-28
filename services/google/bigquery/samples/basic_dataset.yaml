@@ -16,5 +16,12 @@ name: basic_dataset
 resource: samples/basic.dataset.json
 updates:
 - resource: samples/update.dataset.json
+variables:
+- name: project
+  type: project
+- name: region
+  type: region
+- name: _dataset
+  type: resource_name
 versions:
 - ga

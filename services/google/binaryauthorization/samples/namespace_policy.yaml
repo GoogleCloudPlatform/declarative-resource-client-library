@@ -19,5 +19,14 @@ name: namespace_policy
 resource: samples/namespace.policy.json
 updates:
 - resource: samples/service_account.policy.json
+variables:
+- name: note
+  type: resource_name
+- name: project
+  type: project
+- name: package
+  type: resource_name
+- name: attestor
+  type: resource_name
 versions:
 - ga

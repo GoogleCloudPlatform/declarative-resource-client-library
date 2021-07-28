@@ -16,6 +16,15 @@ dependencies:
 description: A test of a basic GKE node pool
 name: basic_node_pool
 resource: samples/basic.node_pool.json
+variables:
+- name: region
+  type: region
+- name: cluster
+  type: resource_name
+- name: project
+  type: project
+- name: pool
+  type: resource_name
 versions:
 - ga
 - v1

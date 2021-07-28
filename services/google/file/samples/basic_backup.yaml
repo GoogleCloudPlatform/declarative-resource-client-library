@@ -18,6 +18,17 @@ name: basic_backup
 resource: samples/basic.backup.json
 updates:
 - resource: samples/update.backup.json
+variables:
+- name: instance_name
+  type: resource_name
+- name: project
+  type: project
+- name: zone
+  type: zone
+- name: backup
+  type: resource_name
+- name: region
+  type: region
 versions:
 - ga
 - beta

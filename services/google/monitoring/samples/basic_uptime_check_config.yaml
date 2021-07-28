@@ -16,5 +16,8 @@ name: basic_uptime_check_config
 resource: samples/basic.uptime_check_config.json
 updates:
 - resource: samples/update.uptime_check_config.json
+variables:
+- name: project
+  type: project
 versions:
 - ga

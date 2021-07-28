@@ -21,5 +21,24 @@ name: global_backend_service
 resource: samples/global.backend_service.json
 updates:
 - resource: samples/update_global.backend_service.json
+variables:
+- name: project
+  type: project
+- name: network
+  type: resource_name
+- name: s_check
+  type: resource_name
+- name: region
+  type: region
+- name: range
+  type: resource_name
+- name: subnetwork
+  type: resource_name
+- name: group
+  type: resource_name
+- name: zone
+  type: zone
+- name: service
+  type: resource_name
 versions:
 - ga

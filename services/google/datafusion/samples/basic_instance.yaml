@@ -20,5 +20,18 @@ name: basic_instance
 resource: samples/basic.instance.json
 updates:
 - resource: samples/update.instance.json
+variables:
+- name: df
+  type: resource_name
+- name: org_id
+  type: org_id
+- name: network
+  type: resource_name
+- name: project
+  type: project
+- name: billing_account
+  type: billing_account
+- name: instance
+  type: resource_name
 versions:
 - beta

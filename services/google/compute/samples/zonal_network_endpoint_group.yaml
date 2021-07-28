@@ -20,6 +20,25 @@ dependencies:
 description: An example of a zonal compute network endpoint group.
 name: zonal_network_endpoint_group
 resource: samples/zonal.network_endpoint.json
+variables:
+- name: project
+  type: project
+- name: image
+  type: resource_name
+- name: network
+  type: resource_name
+- name: subnetwork
+  type: resource_name
+- name: region
+  type: region
+- name: range
+  type: resource_name
+- name: instance
+  type: resource_name
+- name: zone
+  type: zone
+- name: group
+  type: resource_name
 versions:
 - ga
 - beta

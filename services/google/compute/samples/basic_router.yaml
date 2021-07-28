@@ -18,5 +18,14 @@ name: basic_router
 resource: samples/basic.router.json
 updates:
 - resource: samples/update.router.json
+variables:
+- name: network
+  type: resource_name
+- name: project
+  type: project
+- name: router
+  type: resource_name
+- name: region
+  type: region
 versions:
 - ga

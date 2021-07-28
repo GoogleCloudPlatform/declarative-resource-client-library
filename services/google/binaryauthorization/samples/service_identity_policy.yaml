@@ -19,5 +19,14 @@ name: service_identity_policy
 resource: samples/service_identity.policy.json
 updates:
 - resource: samples/cluster.policy.json
+variables:
+- name: note
+  type: resource_name
+- name: project
+  type: project
+- name: package
+  type: resource_name
+- name: attestor
+  type: resource_name
 versions:
 - ga
