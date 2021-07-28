@@ -168,6 +168,7 @@ components:
           x-dcl-go-name: ServerValidationCa
           description: Required. Defines the mechanism to obtain the Certificate Authority
             certificate to validate the server certificate.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object

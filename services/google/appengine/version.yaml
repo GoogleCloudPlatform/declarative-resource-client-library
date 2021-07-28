@@ -480,6 +480,7 @@ components:
           x-dcl-go-name: ErrorHandlers
           description: Custom static error pages. Limited to 10KB per page. Only returned
             in `GET` requests if `view=FULL` is set.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -513,6 +514,7 @@ components:
             to incoming requests. The first matching URL handles the request and other
             request handlers are not attempted. Only returned in `GET` requests if
             `view=FULL` is set.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -696,6 +698,7 @@ components:
           x-dcl-go-name: InboundServices
           description: Before an application can receive email or XMPP messages, the
             application must be configured to enable the service.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -722,6 +725,7 @@ components:
           description: Configuration for third-party Python runtime libraries that
             are required by the application. Only returned in `GET` requests if `view=FULL`
             is set.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -809,6 +813,7 @@ components:
               description: List of ports, or port pairs, to forward from the virtual
                 machine to the application container. Only applicable in the App Engine
                 flexible environment.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -928,6 +933,7 @@ components:
               type: array
               x-dcl-go-name: Volumes
               description: User specified volumes.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -1016,6 +1022,7 @@ components:
           x-dcl-go-name: Zones
           description: The Google Compute Engine zones that are supported by this
             version in the App Engine flexible environment. Deprecated.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

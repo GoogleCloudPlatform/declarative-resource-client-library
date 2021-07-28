@@ -122,6 +122,7 @@ components:
           readOnly: true
           description: Which conditions caused the current node pool state.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -161,6 +162,7 @@ components:
               description: A list of hardware accelerators to be attached to each
                 node
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -262,6 +264,7 @@ components:
                 unspecified, no scopes are added, unless Cloud Logging or Cloud Monitoring
                 are enabled, in which case their required scopes will be added. '
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -302,6 +305,7 @@ components:
                   x-dcl-go-name: Values
                   description: Corresponds to the label value(s) of reservation resource(s).
                   x-kubernetes-immutable: true
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -361,6 +365,7 @@ components:
                 are specified by the client during cluster or node pool creation.
                 Each tag within the list must comply with RFC1035. '
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -370,6 +375,7 @@ components:
               x-dcl-go-name: Taints
               description: List of kubernetes taints to be applied to each node.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -399,6 +405,7 @@ components:
           type: array
           x-dcl-go-name: Locations
           description: The location where the node pool is deployed
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

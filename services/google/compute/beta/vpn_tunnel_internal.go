@@ -942,12 +942,8 @@ func expandVpnTunnel(c *Client, f *VpnTunnel) (map[string]interface{}, error) {
 	if v := f.DetailedStatus; !dcl.IsEmptyValueIndirect(v) {
 		m["detailedStatus"] = v
 	}
-	if v := f.LocalTrafficSelector; !dcl.IsEmptyValueIndirect(v) {
-		m["localTrafficSelector"] = v
-	}
-	if v := f.RemoteTrafficSelector; !dcl.IsEmptyValueIndirect(v) {
-		m["remoteTrafficSelector"] = v
-	}
+	m["localTrafficSelector"] = f.LocalTrafficSelector
+	m["remoteTrafficSelector"] = f.RemoteTrafficSelector
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
 	} else if v != nil {

@@ -922,7 +922,7 @@ func expandMetricDescriptor(c *Client, f *MetricDescriptor) (map[string]interfac
 	}
 	if v, err := expandMetricDescriptorLabelsSlice(c, f.Labels); err != nil {
 		return nil, fmt.Errorf("error expanding Labels into labels: %w", err)
-	} else if v != nil {
+	} else {
 		m["labels"] = v
 	}
 	if v := f.MetricKind; !dcl.IsEmptyValueIndirect(v) {
@@ -948,9 +948,7 @@ func expandMetricDescriptor(c *Client, f *MetricDescriptor) (map[string]interfac
 	if v := f.LaunchStage; !dcl.IsEmptyValueIndirect(v) {
 		m["launchStage"] = v
 	}
-	if v := f.MonitoredResourceTypes; !dcl.IsEmptyValueIndirect(v) {
-		m["monitoredResourceTypes"] = v
-	}
+	m["monitoredResourceTypes"] = f.MonitoredResourceTypes
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
 	} else if v != nil {

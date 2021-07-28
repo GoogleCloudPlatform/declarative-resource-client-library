@@ -80,6 +80,7 @@ components:
             These records must be added to the domain's DNS configuration in order
             to serve the application via this domain mapping. @OutputOnly
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object

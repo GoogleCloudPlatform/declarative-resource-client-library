@@ -5325,7 +5325,7 @@ func expandOSPolicyAssignment(c *Client, f *OSPolicyAssignment) (map[string]inte
 	}
 	if v, err := expandOSPolicyAssignmentOSPoliciesSlice(c, f.OSPolicies); err != nil {
 		return nil, fmt.Errorf("error expanding OSPolicies into osPolicies: %w", err)
-	} else if v != nil {
+	} else {
 		m["osPolicies"] = v
 	}
 	if v, err := expandOSPolicyAssignmentInstanceFilter(c, f.InstanceFilter); err != nil {
@@ -7599,7 +7599,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c *Client, 
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["source"] = v
 	}
-	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Properties; v != nil {
 		m["properties"] = v
 	}
 
@@ -7857,7 +7857,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c *C
 	if v := f.Distribution; !dcl.IsEmptyValueIndirect(v) {
 		m["distribution"] = v
 	}
-	if v := f.Components; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Components; v != nil {
 		m["components"] = v
 	}
 	if v := f.GpgKey; !dcl.IsEmptyValueIndirect(v) {
@@ -7987,7 +7987,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(c *C
 	if v := f.BaseUrl; !dcl.IsEmptyValueIndirect(v) {
 		m["baseUrl"] = v
 	}
-	if v := f.GpgKeys; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GpgKeys; v != nil {
 		m["gpgKeys"] = v
 	}
 
@@ -8113,7 +8113,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(c
 	if v := f.BaseUrl; !dcl.IsEmptyValueIndirect(v) {
 		m["baseUrl"] = v
 	}
-	if v := f.GpgKeys; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GpgKeys; v != nil {
 		m["gpgKeys"] = v
 	}
 
@@ -8478,7 +8478,7 @@ func expandOSPolicyAssignmentExec(c *Client, f *OSPolicyAssignmentExec) (map[str
 	if v := f.Script; !dcl.IsEmptyValueIndirect(v) {
 		m["script"] = v
 	}
-	if v := f.Args; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Args; v != nil {
 		m["args"] = v
 	}
 	if v := f.Interpreter; !dcl.IsEmptyValueIndirect(v) {
@@ -8733,7 +8733,7 @@ func expandOSPolicyAssignmentInstanceFilter(c *Client, f *OSPolicyAssignmentInst
 	if v := f.All; !dcl.IsEmptyValueIndirect(v) {
 		m["all"] = v
 	}
-	if v := f.OSShortNames; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.OSShortNames; v != nil {
 		m["osShortNames"] = v
 	}
 	if v, err := expandOSPolicyAssignmentInstanceFilterInclusionLabelsSlice(c, f.InclusionLabels); err != nil {

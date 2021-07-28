@@ -584,9 +584,7 @@ func expandEnvgroup(c *Client, f *Envgroup) (map[string]interface{}, error) {
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v := f.Hostnames; !dcl.IsEmptyValueIndirect(v) {
-		m["hostnames"] = v
-	}
+	m["hostnames"] = f.Hostnames
 	if v := f.CreatedAt; !dcl.IsEmptyValueIndirect(v) {
 		m["createdAt"] = v
 	}

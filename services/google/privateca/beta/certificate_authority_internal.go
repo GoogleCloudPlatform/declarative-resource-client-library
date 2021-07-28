@@ -10553,12 +10553,10 @@ func expandCertificateAuthority(c *Client, f *CertificateAuthority) (map[string]
 	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
 		m["state"] = v
 	}
-	if v := f.PemCaCertificates; !dcl.IsEmptyValueIndirect(v) {
-		m["pemCaCertificates"] = v
-	}
+	m["pemCaCertificates"] = f.PemCaCertificates
 	if v, err := expandCertificateAuthorityCaCertificateDescriptionsSlice(c, f.CaCertificateDescriptions); err != nil {
 		return nil, fmt.Errorf("error expanding CaCertificateDescriptions into caCertificateDescriptions: %w", err)
-	} else if v != nil {
+	} else {
 		m["caCertificateDescriptions"] = v
 	}
 	if v := f.GcsBucket; !dcl.IsEmptyValueIndirect(v) {
@@ -11122,16 +11120,16 @@ func expandCertificateAuthorityConfigSubjectConfigSubjectAltName(c *Client, f *C
 	}
 
 	m := make(map[string]interface{})
-	if v := f.DnsNames; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DnsNames; v != nil {
 		m["dnsNames"] = v
 	}
-	if v := f.Uris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Uris; v != nil {
 		m["uris"] = v
 	}
-	if v := f.EmailAddresses; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.EmailAddresses; v != nil {
 		m["emailAddresses"] = v
 	}
-	if v := f.IPAddresses; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.IPAddresses; v != nil {
 		m["ipAddresses"] = v
 	}
 	if v, err := expandCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansSlice(c, f.CustomSans); err != nil {
@@ -11378,7 +11376,7 @@ func expandCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObject
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ObjectIdPath; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ObjectIdPath; v != nil {
 		m["objectIdPath"] = v
 	}
 
@@ -11745,7 +11743,7 @@ func expandCertificateAuthorityConfigReusableConfigReusableConfigValues(c *Clien
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["policyIds"] = v
 	}
-	if v := f.AiaOcspServers; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AiaOcspServers; v != nil {
 		m["aiaOcspServers"] = v
 	}
 	if v, err := expandCertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsSlice(c, f.AdditionalExtensions); err != nil {
@@ -12276,7 +12274,7 @@ func expandCertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageU
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ObjectIdPath; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ObjectIdPath; v != nil {
 		m["objectIdPath"] = v
 	}
 
@@ -12508,7 +12506,7 @@ func expandCertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ObjectIdPath; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ObjectIdPath; v != nil {
 		m["objectIdPath"] = v
 	}
 
@@ -12746,7 +12744,7 @@ func expandCertificateAuthorityConfigReusableConfigReusableConfigValuesAdditiona
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ObjectIdPath; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ObjectIdPath; v != nil {
 		m["objectIdPath"] = v
 	}
 
@@ -13098,7 +13096,7 @@ func expandCertificateAuthoritySubordinateConfigPemIssuerChain(c *Client, f *Cer
 	}
 
 	m := make(map[string]interface{})
-	if v := f.PemCertificates; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.PemCertificates; v != nil {
 		m["pemCertificates"] = v
 	}
 
@@ -13232,10 +13230,10 @@ func expandCertificateAuthorityCaCertificateDescriptions(c *Client, f *Certifica
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["authorityKeyId"] = v
 	}
-	if v := f.CrlDistributionPoints; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.CrlDistributionPoints; v != nil {
 		m["crlDistributionPoints"] = v
 	}
-	if v := f.AiaIssuingCertificateUrls; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AiaIssuingCertificateUrls; v != nil {
 		m["aiaIssuingCertificateUrls"] = v
 	}
 	if v, err := expandCertificateAuthorityCaCertificateDescriptionsCertFingerprint(c, f.CertFingerprint); err != nil {
@@ -13650,16 +13648,16 @@ func expandCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjec
 	}
 
 	m := make(map[string]interface{})
-	if v := f.DnsNames; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DnsNames; v != nil {
 		m["dnsNames"] = v
 	}
-	if v := f.Uris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Uris; v != nil {
 		m["uris"] = v
 	}
-	if v := f.EmailAddresses; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.EmailAddresses; v != nil {
 		m["emailAddresses"] = v
 	}
-	if v := f.IPAddresses; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.IPAddresses; v != nil {
 		m["ipAddresses"] = v
 	}
 	if v, err := expandCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansSlice(c, f.CustomSans); err != nil {
@@ -13906,7 +13904,7 @@ func expandCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjec
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ObjectIdPath; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ObjectIdPath; v != nil {
 		m["objectIdPath"] = v
 	}
 
@@ -14499,7 +14497,7 @@ func expandCertificateAuthorityCaCertificateDescriptionsConfigValues(c *Client, 
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["policyIds"] = v
 	}
-	if v := f.AiaOcspServers; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AiaOcspServers; v != nil {
 		m["aiaOcspServers"] = v
 	}
 	if v, err := expandCertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsSlice(c, f.AdditionalExtensions); err != nil {
@@ -15030,7 +15028,7 @@ func expandCertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnkn
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ObjectIdPath; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ObjectIdPath; v != nil {
 		m["objectIdPath"] = v
 	}
 
@@ -15262,7 +15260,7 @@ func expandCertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds(c 
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ObjectIdPath; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ObjectIdPath; v != nil {
 		m["objectIdPath"] = v
 	}
 
@@ -15500,7 +15498,7 @@ func expandCertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalEx
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ObjectIdPath; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ObjectIdPath; v != nil {
 		m["objectIdPath"] = v
 	}
 
@@ -15617,7 +15615,7 @@ func expandCertificateAuthorityAccessUrls(c *Client, f *CertificateAuthorityAcce
 	if v := f.CaCertificateAccessUrl; !dcl.IsEmptyValueIndirect(v) {
 		m["caCertificateAccessUrl"] = v
 	}
-	if v := f.CrlAccessUrls; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.CrlAccessUrls; v != nil {
 		m["crlAccessUrls"] = v
 	}
 	if v := f.CrlAccessUrl; !dcl.IsEmptyValueIndirect(v) {
@@ -15751,7 +15749,7 @@ func expandCertificateAuthorityCertificatePolicy(c *Client, f *CertificateAuthor
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["allowedLocationsAndOrganizations"] = v
 	}
-	if v := f.AllowedCommonNames; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowedCommonNames; v != nil {
 		m["allowedCommonNames"] = v
 	}
 	if v, err := expandCertificateAuthorityCertificatePolicyAllowedSans(c, f.AllowedSans); err != nil {
@@ -16135,7 +16133,7 @@ func expandCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigVa
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["policyIds"] = v
 	}
-	if v := f.AiaOcspServers; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AiaOcspServers; v != nil {
 		m["aiaOcspServers"] = v
 	}
 	if v, err := expandCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsSlice(c, f.AdditionalExtensions); err != nil {
@@ -16666,7 +16664,7 @@ func expandCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigVa
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ObjectIdPath; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ObjectIdPath; v != nil {
 		m["objectIdPath"] = v
 	}
 
@@ -16898,7 +16896,7 @@ func expandCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigVa
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ObjectIdPath; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ObjectIdPath; v != nil {
 		m["objectIdPath"] = v
 	}
 
@@ -17136,7 +17134,7 @@ func expandCertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigVa
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ObjectIdPath; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ObjectIdPath; v != nil {
 		m["objectIdPath"] = v
 	}
 
@@ -17385,7 +17383,7 @@ func expandCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableCon
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["policyIds"] = v
 	}
-	if v := f.AiaOcspServers; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AiaOcspServers; v != nil {
 		m["aiaOcspServers"] = v
 	}
 	if v, err := expandCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsSlice(c, f.AdditionalExtensions); err != nil {
@@ -17916,7 +17914,7 @@ func expandCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableCon
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ObjectIdPath; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ObjectIdPath; v != nil {
 		m["objectIdPath"] = v
 	}
 
@@ -18148,7 +18146,7 @@ func expandCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableCon
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ObjectIdPath; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ObjectIdPath; v != nil {
 		m["objectIdPath"] = v
 	}
 
@@ -18386,7 +18384,7 @@ func expandCertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableCon
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ObjectIdPath; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ObjectIdPath; v != nil {
 		m["objectIdPath"] = v
 	}
 
@@ -18638,16 +18636,16 @@ func expandCertificateAuthorityCertificatePolicyAllowedSans(c *Client, f *Certif
 	}
 
 	m := make(map[string]interface{})
-	if v := f.AllowedDnsNames; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowedDnsNames; v != nil {
 		m["allowedDnsNames"] = v
 	}
-	if v := f.AllowedUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowedUris; v != nil {
 		m["allowedUris"] = v
 	}
-	if v := f.AllowedEmailAddresses; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowedEmailAddresses; v != nil {
 		m["allowedEmailAddresses"] = v
 	}
-	if v := f.AllowedIps; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowedIps; v != nil {
 		m["allowedIps"] = v
 	}
 	if v := f.AllowGlobbingDnsWildcards; !dcl.IsEmptyValueIndirect(v) {

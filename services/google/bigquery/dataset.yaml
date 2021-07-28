@@ -68,6 +68,7 @@ components:
             READER; access.specialGroup: projectWriters; access.role: WRITER; access.specialGroup:
             projectOwners; access.role: OWNER; access.userByEmail: ; access.role:
             OWNER;'
+          x-dcl-send-empty: true
           x-dcl-list-type: set
           items:
             type: object

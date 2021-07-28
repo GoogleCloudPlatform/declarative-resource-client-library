@@ -244,6 +244,7 @@ components:
           x-dcl-go-name: IPAddresses
           description: The assigned IP addresses for the instance.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -390,6 +391,7 @@ components:
               type: array
               x-dcl-go-name: ReplicatedDatabases
               description: List of databases to be replicated from external master.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -611,6 +613,7 @@ components:
           type: array
           x-dcl-go-name: ReplicaInstances
           description: The replicas of the instance.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -771,6 +774,7 @@ components:
               description: The App Engine app IDs that can access this instance. First
                 Generation instances only.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -901,6 +905,7 @@ components:
               x-dcl-go-name: DatabaseFlags
               description: The database flags passed to the instance at startup.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -933,6 +938,7 @@ components:
               x-dcl-go-name: DenyMaintenancePeriods
               description: Deny maintenance periods
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -1013,6 +1019,7 @@ components:
                     connect to the instance using the IP. In ''CIDR'' notation, also
                     known as ''slash'' notation (for example: **192.168.100.0/24**).'
                   x-kubernetes-immutable: true
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: object
@@ -1230,6 +1237,7 @@ components:
           type: array
           x-dcl-go-name: SuspensionReason
           description: If the instance state is SUSPENDED, the reason for the suspension.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

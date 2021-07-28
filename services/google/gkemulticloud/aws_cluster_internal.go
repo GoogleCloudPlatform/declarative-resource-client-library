@@ -2372,13 +2372,13 @@ func expandAwsClusterNetworking(c *Client, f *AwsClusterNetworking) (map[string]
 	if v := f.VPCId; !dcl.IsEmptyValueIndirect(v) {
 		m["vpcId"] = v
 	}
-	if v := f.PodAddressCidrBlocks; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.PodAddressCidrBlocks; v != nil {
 		m["podAddressCidrBlocks"] = v
 	}
-	if v := f.ServiceAddressCidrBlocks; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ServiceAddressCidrBlocks; v != nil {
 		m["serviceAddressCidrBlocks"] = v
 	}
-	if v := f.ServiceLoadBalancerSubnetIds; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ServiceLoadBalancerSubnetIds; v != nil {
 		m["serviceLoadBalancerSubnetIds"] = v
 	}
 
@@ -2506,10 +2506,10 @@ func expandAwsClusterControlPlane(c *Client, f *AwsClusterControlPlane) (map[str
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["sshConfig"] = v
 	}
-	if v := f.SubnetIds; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SubnetIds; v != nil {
 		m["subnetIds"] = v
 	}
-	if v := f.SecurityGroupIds; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SecurityGroupIds; v != nil {
 		m["securityGroupIds"] = v
 	}
 	if v := f.IamInstanceProfile; !dcl.IsEmptyValueIndirect(v) {

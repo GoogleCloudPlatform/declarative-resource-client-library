@@ -595,9 +595,7 @@ func expandTargetSslProxy(c *Client, f *TargetSslProxy) (map[string]interface{},
 	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
 		m["service"] = v
 	}
-	if v := f.SslCertificates; !dcl.IsEmptyValueIndirect(v) {
-		m["sslCertificates"] = v
-	}
+	m["sslCertificates"] = f.SslCertificates
 	if v := f.ProxyHeader; !dcl.IsEmptyValueIndirect(v) {
 		m["proxyHeader"] = v
 	}

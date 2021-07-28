@@ -96,6 +96,7 @@ components:
           x-dcl-go-name: Properties
           description: An ordered sequence of property names and their index attributes.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object

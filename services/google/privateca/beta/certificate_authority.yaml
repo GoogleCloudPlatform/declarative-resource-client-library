@@ -100,6 +100,7 @@ components:
               description: The URLs where this 's CRLs are published. This will only
                 be set for CAs that have been activated.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -111,6 +112,7 @@ components:
           description: Output only. A structured description of this CertificateAuthority's
             CA certificate and its issuers. Ordered as self-to-root.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -122,6 +124,7 @@ components:
                 description: Describes lists of issuer CA certificate URLs that appear
                   in the "Authority Information Access" extension in the certificate.
                 x-kubernetes-immutable: true
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string
@@ -166,6 +169,7 @@ components:
                     x-dcl-go-name: AdditionalExtensions
                     description: Optional. Describes custom X.509 extensions.
                     x-kubernetes-immutable: true
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: object
@@ -198,6 +202,7 @@ components:
                               description: Required. The parts of an OID path. The
                                 most significant parts of the path come first.
                               x-kubernetes-immutable: true
+                              x-dcl-send-empty: true
                               x-dcl-list-type: list
                               items:
                                 type: integer
@@ -215,6 +220,7 @@ components:
                       (OCSP) endpoint addresses that appear in the "Authority Information
                       Access" extension in the certificate.
                     x-kubernetes-immutable: true
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -360,6 +366,7 @@ components:
                         description: Used to describe extended key usages that are
                           not listed in the message.
                         x-kubernetes-immutable: true
+                        x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
                           type: object
@@ -373,6 +380,7 @@ components:
                               description: Required. The parts of an OID path. The
                                 most significant parts of the path come first.
                               x-kubernetes-immutable: true
+                              x-dcl-send-empty: true
                               x-dcl-list-type: list
                               items:
                                 type: integer
@@ -384,6 +392,7 @@ components:
                     description: Optional. Describes the X.509 certificate policy
                       object identifiers, per https://tools.ietf.org/html/rfc5280#section-4.2.1.4.
                     x-kubernetes-immutable: true
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: object
@@ -397,6 +406,7 @@ components:
                           description: Required. The parts of an OID path. The most
                             significant parts of the path come first.
                           x-kubernetes-immutable: true
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: integer
@@ -408,6 +418,7 @@ components:
                 description: Describes a list of locations to obtain CRL information,
                   i.e. the DistributionPoint.fullName described by https://tools.ietf.org/html/rfc5280#section-4.2.1.13
                 x-kubernetes-immutable: true
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string
@@ -552,6 +563,7 @@ components:
                         description: Contains additional subject alternative name
                           values.
                         x-kubernetes-immutable: true
+                        x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
                           type: object
@@ -584,6 +596,7 @@ components:
                                   description: Required. The parts of an OID path.
                                     The most significant parts of the path come first.
                                   x-kubernetes-immutable: true
+                                  x-dcl-send-empty: true
                                   x-dcl-list-type: list
                                   items:
                                     type: integer
@@ -599,6 +612,7 @@ components:
                         x-dcl-go-name: DnsNames
                         description: Contains only valid, fully-qualified host names.
                         x-kubernetes-immutable: true
+                        x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
                           type: string
@@ -608,6 +622,7 @@ components:
                         x-dcl-go-name: EmailAddresses
                         description: Contains only valid RFC 2822 E-mail addresses.
                         x-kubernetes-immutable: true
+                        x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
                           type: string
@@ -618,6 +633,7 @@ components:
                         description: Contains only valid 32-bit IPv4 addresses or
                           RFC 4291 IPv6 addresses.
                         x-kubernetes-immutable: true
+                        x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
                           type: string
@@ -627,6 +643,7 @@ components:
                         x-dcl-go-name: Uris
                         description: Contains only valid RFC 3986 URIs.
                         x-kubernetes-immutable: true
+                        x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
                           type: string
@@ -662,6 +679,7 @@ components:
                 value. If no value is specified, all values will be allowed for this
                 fied. Glob patterns are also supported.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -683,6 +701,7 @@ components:
                     must match at least one listed ReusableConfigWrapper. If a ReusableConfigWrapper
                     has an empty field, any value will be allowed for that field.
                   x-kubernetes-immutable: true
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: object
@@ -706,6 +725,7 @@ components:
                             x-dcl-go-name: AdditionalExtensions
                             description: Optional. Describes custom X.509 extensions.
                             x-kubernetes-immutable: true
+                            x-dcl-send-empty: true
                             x-dcl-list-type: list
                             items:
                               type: object
@@ -739,6 +759,7 @@ components:
                                         The most significant parts of the path come
                                         first.
                                       x-kubernetes-immutable: true
+                                      x-dcl-send-empty: true
                                       x-dcl-list-type: list
                                       items:
                                         type: integer
@@ -756,6 +777,7 @@ components:
                               Protocol (OCSP) endpoint addresses that appear in the
                               "Authority Information Access" extension in the certificate.
                             x-kubernetes-immutable: true
+                            x-dcl-send-empty: true
                             x-dcl-list-type: list
                             items:
                               type: string
@@ -908,6 +930,7 @@ components:
                                   that are not listed in the KeyUsage.ExtendedKeyUsageOptions
                                   message.
                                 x-kubernetes-immutable: true
+                                x-dcl-send-empty: true
                                 x-dcl-list-type: list
                                 items:
                                   type: object
@@ -922,6 +945,7 @@ components:
                                         The most significant parts of the path come
                                         first.
                                       x-kubernetes-immutable: true
+                                      x-dcl-send-empty: true
                                       x-dcl-list-type: list
                                       items:
                                         type: integer
@@ -933,6 +957,7 @@ components:
                             description: Optional. Describes the X.509 certificate
                               policy object identifiers, per https://tools.ietf.org/html/rfc5280#section-4.2.1.4.
                             x-kubernetes-immutable: true
+                            x-dcl-send-empty: true
                             x-dcl-list-type: list
                             items:
                               type: object
@@ -946,6 +971,7 @@ components:
                                   description: Required. The parts of an OID path.
                                     The most significant parts of the path come first.
                                   x-kubernetes-immutable: true
+                                  x-dcl-send-empty: true
                                   x-dcl-list-type: list
                                   items:
                                     type: integer
@@ -981,6 +1007,7 @@ components:
                 Subject. If a Subject has an empty field, any value will be allowed
                 for that field.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -1057,6 +1084,7 @@ components:
                     unless the field is set. E.g. for wildcard entries: ''*.bar.com''
                     will allow ''*.bar.com'', but not ''foo.bar.com''.'
                   x-kubernetes-immutable: true
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -1067,6 +1095,7 @@ components:
                   description: Optional. Contains valid RFC 2822 E-mail addresses.
                     Glob patterns are also supported.
                   x-kubernetes-immutable: true
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -1080,6 +1109,7 @@ components:
                     2001:700:300:1800::/64). Glob patterns are supported only for
                     ip address entries (i.e. not for subnet ranges).
                   x-kubernetes-immutable: true
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -1091,6 +1121,7 @@ components:
                     are also supported. To match across path seperators (i.e. '/')
                     use the double star glob pattern (i.e. '**').
                   x-kubernetes-immutable: true
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -1131,6 +1162,7 @@ components:
                       x-dcl-go-name: AdditionalExtensions
                       description: Optional. Describes custom X.509 extensions.
                       x-kubernetes-immutable: true
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: object
@@ -1163,6 +1195,7 @@ components:
                                 description: Required. The parts of an OID path. The
                                   most significant parts of the path come first.
                                 x-kubernetes-immutable: true
+                                x-dcl-send-empty: true
                                 x-dcl-list-type: list
                                 items:
                                   type: integer
@@ -1180,6 +1213,7 @@ components:
                         (OCSP) endpoint addresses that appear in the "Authority Information
                         Access" extension in the certificate.
                       x-kubernetes-immutable: true
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: string
@@ -1326,6 +1360,7 @@ components:
                           description: Used to describe extended key usages that are
                             not listed in the message.
                           x-kubernetes-immutable: true
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: object
@@ -1339,6 +1374,7 @@ components:
                                 description: Required. The parts of an OID path. The
                                   most significant parts of the path come first.
                                 x-kubernetes-immutable: true
+                                x-dcl-send-empty: true
                                 x-dcl-list-type: list
                                 items:
                                   type: integer
@@ -1350,6 +1386,7 @@ components:
                       description: Optional. Describes the X.509 certificate policy
                         object identifiers, per https://tools.ietf.org/html/rfc5280#section-4.2.1.4.
                       x-kubernetes-immutable: true
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: object
@@ -1363,6 +1400,7 @@ components:
                             description: Required. The parts of an OID path. The most
                               significant parts of the path come first.
                             x-kubernetes-immutable: true
+                            x-dcl-send-empty: true
                             x-dcl-list-type: list
                             items:
                               type: integer
@@ -1439,6 +1477,7 @@ components:
                       x-dcl-go-name: AdditionalExtensions
                       description: Optional. Describes custom X.509 extensions.
                       x-kubernetes-immutable: true
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: object
@@ -1471,6 +1510,7 @@ components:
                                 description: Required. The parts of an OID path. The
                                   most significant parts of the path come first.
                                 x-kubernetes-immutable: true
+                                x-dcl-send-empty: true
                                 x-dcl-list-type: list
                                 items:
                                   type: integer
@@ -1488,6 +1528,7 @@ components:
                         (OCSP) endpoint addresses that appear in the "Authority Information
                         Access" extension in the certificate.
                       x-kubernetes-immutable: true
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: string
@@ -1634,6 +1675,7 @@ components:
                           description: Used to describe extended key usages that are
                             not listed in the message.
                           x-kubernetes-immutable: true
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: object
@@ -1647,6 +1689,7 @@ components:
                                 description: Required. The parts of an OID path. The
                                   most significant parts of the path come first.
                                 x-kubernetes-immutable: true
+                                x-dcl-send-empty: true
                                 x-dcl-list-type: list
                                 items:
                                   type: integer
@@ -1658,6 +1701,7 @@ components:
                       description: Optional. Describes the X.509 certificate policy
                         object identifiers, per https://tools.ietf.org/html/rfc5280#section-4.2.1.4.
                       x-kubernetes-immutable: true
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: object
@@ -1671,6 +1715,7 @@ components:
                             description: Required. The parts of an OID path. The most
                               significant parts of the path come first.
                             x-kubernetes-immutable: true
+                            x-dcl-send-empty: true
                             x-dcl-list-type: list
                             items:
                               type: integer
@@ -1750,6 +1795,7 @@ components:
                       x-dcl-go-name: CustomSans
                       description: Contains additional subject alternative name values.
                       x-kubernetes-immutable: true
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: object
@@ -1782,6 +1828,7 @@ components:
                                 description: Required. The parts of an OID path. The
                                   most significant parts of the path come first.
                                 x-kubernetes-immutable: true
+                                x-dcl-send-empty: true
                                 x-dcl-list-type: list
                                 items:
                                   type: integer
@@ -1797,6 +1844,7 @@ components:
                       x-dcl-go-name: DnsNames
                       description: Contains only valid, fully-qualified host names.
                       x-kubernetes-immutable: true
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: string
@@ -1806,6 +1854,7 @@ components:
                       x-dcl-go-name: EmailAddresses
                       description: Contains only valid RFC 2822 E-mail addresses.
                       x-kubernetes-immutable: true
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: string
@@ -1816,6 +1865,7 @@ components:
                       description: Contains only valid 32-bit IPv4 addresses or RFC
                         4291 IPv6 addresses.
                       x-kubernetes-immutable: true
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: string
@@ -1825,6 +1875,7 @@ components:
                       x-dcl-go-name: Uris
                       description: Contains only valid RFC 3986 URIs.
                       x-kubernetes-immutable: true
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: string
@@ -1954,6 +2005,7 @@ components:
             For a self-signed CA, this will only list the current CertificateAuthority's
             certificate.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -2024,6 +2076,7 @@ components:
                   description: Required. Expected to be in leaf-to-root order according
                     to RFC 5246.
                   x-kubernetes-immutable: true
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string

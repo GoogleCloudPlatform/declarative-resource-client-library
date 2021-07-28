@@ -920,7 +920,7 @@ func expandUserSqlserverUserDetails(c *Client, f *UserSqlserverUserDetails) (map
 	if v := f.Disabled; !dcl.IsEmptyValueIndirect(v) {
 		m["disabled"] = v
 	}
-	if v := f.ServerRoles; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ServerRoles; v != nil {
 		m["serverRoles"] = v
 	}
 

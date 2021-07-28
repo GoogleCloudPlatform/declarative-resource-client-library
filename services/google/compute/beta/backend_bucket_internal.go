@@ -894,7 +894,7 @@ func expandBackendBucketCdnPolicy(c *Client, f *BackendBucketCdnPolicy) (map[str
 	}
 
 	m := make(map[string]interface{})
-	if v := f.SignedUrlKeyNames; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SignedUrlKeyNames; v != nil {
 		m["signedUrlKeyNames"] = v
 	}
 	if v := f.SignedUrlCacheMaxAgeSec; !dcl.IsEmptyValueIndirect(v) {

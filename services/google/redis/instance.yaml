@@ -185,6 +185,7 @@ components:
                 covered by this policy. Minimum 1. For the current version, the maximum
                 number of weekly\\\_window is expected to be one.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -367,6 +368,7 @@ components:
           readOnly: true
           description: Output only. List of server CA certificates for the instance.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object

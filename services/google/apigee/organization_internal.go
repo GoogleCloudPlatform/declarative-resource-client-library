@@ -947,9 +947,7 @@ func expandOrganization(c *Client, f *Organization) (map[string]interface{}, err
 	if v := f.ExpiresAt; !dcl.IsEmptyValueIndirect(v) {
 		m["expiresAt"] = v
 	}
-	if v := f.Environments; !dcl.IsEmptyValueIndirect(v) {
-		m["environments"] = v
-	}
+	m["environments"] = f.Environments
 	if v, err := expandOrganizationProperties(c, f.Properties); err != nil {
 		return nil, fmt.Errorf("error expanding Properties into properties: %w", err)
 	} else if v != nil {

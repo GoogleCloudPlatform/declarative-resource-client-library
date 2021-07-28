@@ -1535,7 +1535,7 @@ func expandNode(c *Client, f *Node) (map[string]interface{}, error) {
 	}
 	if v, err := expandNodeNetworkEndpointsSlice(c, f.NetworkEndpoints); err != nil {
 		return nil, fmt.Errorf("error expanding NetworkEndpoints into networkEndpoints: %w", err)
-	} else if v != nil {
+	} else {
 		m["networkEndpoints"] = v
 	}
 	if v := f.Health; !dcl.IsEmptyValueIndirect(v) {
@@ -1549,7 +1549,7 @@ func expandNode(c *Client, f *Node) (map[string]interface{}, error) {
 	}
 	if v, err := expandNodeSymptomsSlice(c, f.Symptoms); err != nil {
 		return nil, fmt.Errorf("error expanding Symptoms into symptoms: %w", err)
-	} else if v != nil {
+	} else {
 		m["symptoms"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

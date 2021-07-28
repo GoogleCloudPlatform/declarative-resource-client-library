@@ -86,6 +86,7 @@ components:
                 initial DnsKeys for this ManagedZone. If you provide a spec for keySigning
                 or zoneSigning, you must also provide one for the other. '
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -170,6 +171,7 @@ components:
               x-dcl-go-name: TargetNameServers
               description: List of target name servers to forward to. Cloud DNS will
                 select the best available name server if more than one target is given.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -211,6 +213,7 @@ components:
           description: 'Delegate your managed_zone to these virtual name servers;
             defined by the server '
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -254,6 +257,7 @@ components:
                 an incorrect update to the resource. If you encounter this issue,
                 remove all `networks` blocks in an update and then apply another update
                 adding all of them back simultaneously. '
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object

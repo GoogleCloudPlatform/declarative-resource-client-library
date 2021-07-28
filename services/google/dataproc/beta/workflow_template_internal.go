@@ -4829,12 +4829,12 @@ func expandWorkflowTemplate(c *Client, f *WorkflowTemplate) (map[string]interfac
 	}
 	if v, err := expandWorkflowTemplateJobsSlice(c, f.Jobs); err != nil {
 		return nil, fmt.Errorf("error expanding Jobs into jobs: %w", err)
-	} else if v != nil {
+	} else {
 		m["jobs"] = v
 	}
 	if v, err := expandWorkflowTemplateParametersSlice(c, f.Parameters); err != nil {
 		return nil, fmt.Errorf("error expanding Parameters into parameters: %w", err)
-	} else if v != nil {
+	} else {
 		m["parameters"] = v
 	}
 	if v := f.DagTimeout; !dcl.IsEmptyValueIndirect(v) {
@@ -5385,7 +5385,7 @@ func expandWorkflowTemplateJobs(c *Client, f *WorkflowTemplateJobs) (map[string]
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["scheduling"] = v
 	}
-	if v := f.PrerequisiteStepIds; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.PrerequisiteStepIds; v != nil {
 		m["prerequisiteStepIds"] = v
 	}
 
@@ -5516,16 +5516,16 @@ func expandWorkflowTemplateJobsHadoopJob(c *Client, f *WorkflowTemplateJobsHadoo
 	if v := f.MainClass; !dcl.IsEmptyValueIndirect(v) {
 		m["mainClass"] = v
 	}
-	if v := f.Args; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Args; v != nil {
 		m["args"] = v
 	}
-	if v := f.JarFileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.JarFileUris; v != nil {
 		m["jarFileUris"] = v
 	}
-	if v := f.FileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.FileUris; v != nil {
 		m["fileUris"] = v
 	}
-	if v := f.ArchiveUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ArchiveUris; v != nil {
 		m["archiveUris"] = v
 	}
 	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
@@ -5774,16 +5774,16 @@ func expandWorkflowTemplateJobsSparkJob(c *Client, f *WorkflowTemplateJobsSparkJ
 	if v := f.MainClass; !dcl.IsEmptyValueIndirect(v) {
 		m["mainClass"] = v
 	}
-	if v := f.Args; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Args; v != nil {
 		m["args"] = v
 	}
-	if v := f.JarFileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.JarFileUris; v != nil {
 		m["jarFileUris"] = v
 	}
-	if v := f.FileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.FileUris; v != nil {
 		m["fileUris"] = v
 	}
-	if v := f.ArchiveUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ArchiveUris; v != nil {
 		m["archiveUris"] = v
 	}
 	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
@@ -6029,19 +6029,19 @@ func expandWorkflowTemplateJobsPysparkJob(c *Client, f *WorkflowTemplateJobsPysp
 	if v := f.MainPythonFileUri; !dcl.IsEmptyValueIndirect(v) {
 		m["mainPythonFileUri"] = v
 	}
-	if v := f.Args; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Args; v != nil {
 		m["args"] = v
 	}
-	if v := f.PythonFileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.PythonFileUris; v != nil {
 		m["pythonFileUris"] = v
 	}
-	if v := f.JarFileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.JarFileUris; v != nil {
 		m["jarFileUris"] = v
 	}
-	if v := f.FileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.FileUris; v != nil {
 		m["fileUris"] = v
 	}
-	if v := f.ArchiveUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ArchiveUris; v != nil {
 		m["archiveUris"] = v
 	}
 	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
@@ -6301,7 +6301,7 @@ func expandWorkflowTemplateJobsHiveJob(c *Client, f *WorkflowTemplateJobsHiveJob
 	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
 		m["properties"] = v
 	}
-	if v := f.JarFileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.JarFileUris; v != nil {
 		m["jarFileUris"] = v
 	}
 
@@ -6420,7 +6420,7 @@ func expandWorkflowTemplateJobsHiveJobQueryList(c *Client, f *WorkflowTemplateJo
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Queries; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Queries; v != nil {
 		m["queries"] = v
 	}
 
@@ -6551,7 +6551,7 @@ func expandWorkflowTemplateJobsPigJob(c *Client, f *WorkflowTemplateJobsPigJob) 
 	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
 		m["properties"] = v
 	}
-	if v := f.JarFileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.JarFileUris; v != nil {
 		m["jarFileUris"] = v
 	}
 	if v, err := expandWorkflowTemplateJobsPigJobLoggingConfig(c, f.LoggingConfig); err != nil {
@@ -6676,7 +6676,7 @@ func expandWorkflowTemplateJobsPigJobQueryList(c *Client, f *WorkflowTemplateJob
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Queries; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Queries; v != nil {
 		m["queries"] = v
 	}
 
@@ -6907,13 +6907,13 @@ func expandWorkflowTemplateJobsSparkRJob(c *Client, f *WorkflowTemplateJobsSpark
 	if v := f.MainRFileUri; !dcl.IsEmptyValueIndirect(v) {
 		m["mainRFileUri"] = v
 	}
-	if v := f.Args; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Args; v != nil {
 		m["args"] = v
 	}
-	if v := f.FileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.FileUris; v != nil {
 		m["fileUris"] = v
 	}
-	if v := f.ArchiveUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ArchiveUris; v != nil {
 		m["archiveUris"] = v
 	}
 	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
@@ -7168,7 +7168,7 @@ func expandWorkflowTemplateJobsSparkSqlJob(c *Client, f *WorkflowTemplateJobsSpa
 	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
 		m["properties"] = v
 	}
-	if v := f.JarFileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.JarFileUris; v != nil {
 		m["jarFileUris"] = v
 	}
 	if v, err := expandWorkflowTemplateJobsSparkSqlJobLoggingConfig(c, f.LoggingConfig); err != nil {
@@ -7292,7 +7292,7 @@ func expandWorkflowTemplateJobsSparkSqlJobQueryList(c *Client, f *WorkflowTempla
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Queries; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Queries; v != nil {
 		m["queries"] = v
 	}
 
@@ -7534,7 +7534,7 @@ func expandWorkflowTemplateJobsPrestoJob(c *Client, f *WorkflowTemplateJobsPrest
 	if v := f.OutputFormat; !dcl.IsEmptyValueIndirect(v) {
 		m["outputFormat"] = v
 	}
-	if v := f.ClientTags; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ClientTags; v != nil {
 		m["clientTags"] = v
 	}
 	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
@@ -7662,7 +7662,7 @@ func expandWorkflowTemplateJobsPrestoJobQueryList(c *Client, f *WorkflowTemplate
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Queries; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Queries; v != nil {
 		m["queries"] = v
 	}
 
@@ -8011,7 +8011,7 @@ func expandWorkflowTemplateParameters(c *Client, f *WorkflowTemplateParameters) 
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v := f.Fields; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Fields; v != nil {
 		m["fields"] = v
 	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
@@ -8258,7 +8258,7 @@ func expandWorkflowTemplateParametersValidationRegex(c *Client, f *WorkflowTempl
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Regexes; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Regexes; v != nil {
 		m["regexes"] = v
 	}
 
@@ -8372,7 +8372,7 @@ func expandWorkflowTemplateParametersValidationValues(c *Client, f *WorkflowTemp
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Values; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Values; v != nil {
 		m["values"] = v
 	}
 

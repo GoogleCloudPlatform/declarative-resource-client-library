@@ -1939,7 +1939,7 @@ func expandLogMetricMetricDescriptor(c *Client, f *LogMetricMetricDescriptor) (m
 	if v := f.LaunchStage; !dcl.IsEmptyValueIndirect(v) {
 		m["launchStage"] = v
 	}
-	if v := f.MonitoredResourceTypes; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.MonitoredResourceTypes; v != nil {
 		m["monitoredResourceTypes"] = v
 	}
 
@@ -2675,7 +2675,7 @@ func expandLogMetricBucketOptionsExplicitBuckets(c *Client, f *LogMetricBucketOp
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Bounds; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Bounds; v != nil {
 		m["bounds"] = v
 	}
 

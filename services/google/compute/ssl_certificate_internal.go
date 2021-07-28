@@ -772,9 +772,7 @@ func expandSslCertificate(c *Client, f *SslCertificate) (map[string]interface{},
 	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
 		m["type"] = v
 	}
-	if v := f.SubjectAlternativeNames; !dcl.IsEmptyValueIndirect(v) {
-		m["subjectAlternativeNames"] = v
-	}
+	m["subjectAlternativeNames"] = f.SubjectAlternativeNames
 	if v := f.ExpireTime; !dcl.IsEmptyValueIndirect(v) {
 		m["expireTime"] = v
 	}

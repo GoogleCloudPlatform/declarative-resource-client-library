@@ -1252,9 +1252,7 @@ func expandInterconnect(c *Client, f *Interconnect) (map[string]interface{}, err
 	if v := f.ProvisionedLinkCount; !dcl.IsEmptyValueIndirect(v) {
 		m["provisionedLinkCount"] = v
 	}
-	if v := f.InterconnectAttachments; !dcl.IsEmptyValueIndirect(v) {
-		m["interconnectAttachments"] = v
-	}
+	m["interconnectAttachments"] = f.InterconnectAttachments
 	if v := f.PeerIPAddress; !dcl.IsEmptyValueIndirect(v) {
 		m["peerIpAddress"] = v
 	}
@@ -1266,12 +1264,12 @@ func expandInterconnect(c *Client, f *Interconnect) (map[string]interface{}, err
 	}
 	if v, err := expandInterconnectExpectedOutagesSlice(c, f.ExpectedOutages); err != nil {
 		return nil, fmt.Errorf("error expanding ExpectedOutages into expectedOutages: %w", err)
-	} else if v != nil {
+	} else {
 		m["expectedOutages"] = v
 	}
 	if v, err := expandInterconnectCircuitInfosSlice(c, f.CircuitInfos); err != nil {
 		return nil, fmt.Errorf("error expanding CircuitInfos into circuitInfos: %w", err)
-	} else if v != nil {
+	} else {
 		m["circuitInfos"] = v
 	}
 	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
@@ -1427,7 +1425,7 @@ func expandInterconnectExpectedOutages(c *Client, f *InterconnectExpectedOutages
 	if v := f.IssueType; !dcl.IsEmptyValueIndirect(v) {
 		m["issueType"] = v
 	}
-	if v := f.AffectedCircuits; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AffectedCircuits; v != nil {
 		m["affectedCircuits"] = v
 	}
 	if v := f.StartTime; !dcl.IsEmptyValueIndirect(v) {

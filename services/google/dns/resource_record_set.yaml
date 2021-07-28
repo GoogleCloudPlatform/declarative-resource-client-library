@@ -101,6 +101,7 @@ components:
           type: array
           x-dcl-go-name: Target
           description: 'As defined in RFC 1035 (section 5) and RFC 1034 (section 3.6.1) '
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

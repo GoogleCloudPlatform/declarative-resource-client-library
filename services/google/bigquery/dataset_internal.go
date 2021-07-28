@@ -1537,7 +1537,7 @@ func expandDataset(c *Client, f *Dataset) (map[string]interface{}, error) {
 	}
 	if v, err := expandDatasetAccessSlice(c, f.Access); err != nil {
 		return nil, fmt.Errorf("error expanding Access into access: %w", err)
-	} else if v != nil {
+	} else {
 		m["access"] = v
 	}
 	if v := f.CreationTime; !dcl.IsEmptyValueIndirect(v) {

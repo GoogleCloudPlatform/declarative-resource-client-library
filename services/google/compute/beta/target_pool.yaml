@@ -112,6 +112,7 @@ components:
             An empty list means all member instances will be considered healthy at
             all times. Only HttpHealthChecks are supported. Only one health check
             may be specified.
+          x-dcl-send-empty: true
           x-dcl-list-type: set
           items:
             type: string
@@ -122,6 +123,7 @@ components:
           description: A list of resource URLs to the virtual machine instances serving
             this pool. They must live in zones contained in the same region as this
             pool.
+          x-dcl-send-empty: true
           x-dcl-list-type: set
           items:
             type: string

@@ -2043,7 +2043,7 @@ func expandRouter(c *Client, f *Router) (map[string]interface{}, error) {
 	}
 	if v, err := expandRouterNatsSlice(c, f.Nats); err != nil {
 		return nil, fmt.Errorf("error expanding Nats into nats: %w", err)
-	} else if v != nil {
+	} else {
 		m["nats"] = v
 	}
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
@@ -2054,7 +2054,7 @@ func expandRouter(c *Client, f *Router) (map[string]interface{}, error) {
 	}
 	if v, err := expandRouterInterfacesSlice(c, f.Interfaces); err != nil {
 		return nil, fmt.Errorf("error expanding Interfaces into interfaces: %w", err)
-	} else if v != nil {
+	} else {
 		m["interfaces"] = v
 	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
@@ -2062,7 +2062,7 @@ func expandRouter(c *Client, f *Router) (map[string]interface{}, error) {
 	}
 	if v, err := expandRouterBgpPeersSlice(c, f.BgpPeers); err != nil {
 		return nil, fmt.Errorf("error expanding BgpPeers into bgpPeers: %w", err)
-	} else if v != nil {
+	} else {
 		m["bgpPeers"] = v
 	}
 	if v, err := expandRouterBgp(c, f.Bgp); err != nil {
@@ -2212,13 +2212,13 @@ func expandRouterNats(c *Client, f *RouterNats) (map[string]interface{}, error) 
 	if v := f.SourceSubnetworkIPRangesToNat; !dcl.IsEmptyValueIndirect(v) {
 		m["sourceSubnetworkIPRangesToNat"] = v
 	}
-	if v := f.NatIps; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.NatIps; v != nil {
 		m["natIps"] = v
 	}
-	if v := f.DrainNatIps; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DrainNatIps; v != nil {
 		m["drainNatIps"] = v
 	}
-	if v := f.NatIPAllocateOption; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.NatIPAllocateOption; v != nil {
 		m["natIPAllocateOption"] = v
 	}
 	if v := f.MinPortsPerVm; !dcl.IsEmptyValueIndirect(v) {
@@ -2753,7 +2753,7 @@ func expandRouterBgpPeers(c *Client, f *RouterBgpPeers) (map[string]interface{},
 	if v := f.ManagementType; !dcl.IsEmptyValueIndirect(v) {
 		m["managementType"] = v
 	}
-	if v := f.AdvertisedGroups; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AdvertisedGroups; v != nil {
 		m["advertisedGroups"] = v
 	}
 	if v, err := expandRouterBgpPeersAdvertisedIPRangesSlice(c, f.AdvertisedIPRanges); err != nil {
@@ -3005,7 +3005,7 @@ func expandRouterBgp(c *Client, f *RouterBgp) (map[string]interface{}, error) {
 	if v := f.AdvertiseMode; !dcl.IsEmptyValueIndirect(v) {
 		m["advertiseMode"] = v
 	}
-	if v := f.AdvertisedGroups; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AdvertisedGroups; v != nil {
 		m["advertisedGroups"] = v
 	}
 	if v, err := expandRouterBgpAdvertisedIPRangesSlice(c, f.AdvertisedIPRanges); err != nil {

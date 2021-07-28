@@ -75,6 +75,7 @@ components:
           x-dcl-go-name: AdvertisedGroups
           description: User-specified list of prefix groups to advertise in custom
             mode
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -84,6 +85,7 @@ components:
           x-dcl-go-name: AdvertisedIPRanges
           description: User-specified list of individual IP ranges to advertise in
             custom mode. This field can only be populated if advertiseMode is CUSTOM
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object

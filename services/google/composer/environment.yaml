@@ -240,6 +240,7 @@ components:
                     on all node VMs. If `oauth_scopes` is empty, defaults to ["https://www.googleapis.com/auth/cloud-platform"].
                     Cannot be updated.
                   x-kubernetes-immutable: true
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -274,6 +275,7 @@ components:
                     network firewalls. Each tag within the list must comply with (https://www.ietf.org/rfc/rfc1035.txt).
                     Cannot be updated.
                   x-kubernetes-immutable: true
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -446,6 +448,7 @@ components:
                   x-dcl-go-name: AllowedIPRanges
                   description: A collection of allowed IP ranges with descriptions.
                   x-kubernetes-immutable: true
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: object

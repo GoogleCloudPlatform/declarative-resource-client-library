@@ -5595,9 +5595,7 @@ func expandVersion(c *Client, f *Version) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["manualScaling"] = v
 	}
-	if v := f.InboundServices; !dcl.IsEmptyValueIndirect(v) {
-		m["inboundServices"] = v
-	}
+	m["inboundServices"] = f.InboundServices
 	if v := f.InstanceClass; !dcl.IsEmptyValueIndirect(v) {
 		m["instanceClass"] = v
 	}
@@ -5606,9 +5604,7 @@ func expandVersion(c *Client, f *Version) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["network"] = v
 	}
-	if v := f.Zones; !dcl.IsEmptyValueIndirect(v) {
-		m["zones"] = v
-	}
+	m["zones"] = f.Zones
 	if v, err := expandVersionResources(c, f.Resources); err != nil {
 		return nil, fmt.Errorf("error expanding Resources into resources: %w", err)
 	} else if v != nil {
@@ -5652,17 +5648,17 @@ func expandVersion(c *Client, f *Version) (map[string]interface{}, error) {
 	}
 	if v, err := expandVersionHandlersSlice(c, f.Handlers); err != nil {
 		return nil, fmt.Errorf("error expanding Handlers into handlers: %w", err)
-	} else if v != nil {
+	} else {
 		m["handlers"] = v
 	}
 	if v, err := expandVersionErrorHandlersSlice(c, f.ErrorHandlers); err != nil {
 		return nil, fmt.Errorf("error expanding ErrorHandlers into errorHandlers: %w", err)
-	} else if v != nil {
+	} else {
 		m["errorHandlers"] = v
 	}
 	if v, err := expandVersionLibrariesSlice(c, f.Libraries); err != nil {
 		return nil, fmt.Errorf("error expanding Libraries into libraries: %w", err)
-	} else if v != nil {
+	} else {
 		m["libraries"] = v
 	}
 	if v, err := expandVersionApiConfig(c, f.ApiConfig); err != nil {
@@ -6887,7 +6883,7 @@ func expandVersionNetwork(c *Client, f *VersionNetwork) (map[string]interface{},
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ForwardedPorts; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ForwardedPorts; v != nil {
 		m["forwardedPorts"] = v
 	}
 	if v := f.InstanceTag; !dcl.IsEmptyValueIndirect(v) {

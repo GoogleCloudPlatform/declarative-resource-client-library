@@ -237,6 +237,7 @@ components:
             page](https://www.terraform.io/docs/configuration/attr-as-blocks.html)
             for more details. '
           x-dcl-server-default: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object

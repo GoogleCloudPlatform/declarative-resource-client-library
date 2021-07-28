@@ -82,6 +82,7 @@ components:
               type: array
               x-dcl-go-name: Conditions
               description: A set of requirements for the AccessLevel to be granted.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -100,6 +101,7 @@ components:
                         x-dcl-go-name: AllowedDeviceManagementLevels
                         description: A list of allowed device management levels. An
                           empty list allows all management levels.
+                        x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
                           type: string
@@ -114,6 +116,7 @@ components:
                         x-dcl-go-name: AllowedEncryptionStatuses
                         description: A list of allowed encryptions statuses. An empty
                           list allows all statuses.
+                        x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
                           type: string
@@ -128,6 +131,7 @@ components:
                         x-dcl-go-name: OSConstraints
                         description: A list of allowed OS versions. An empty list
                           allows all types and all versions.
+                        x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
                           type: object
@@ -186,6 +190,7 @@ components:
                       "2001:db8::1/32" is not. The originating IP of a request must
                       be in one of the listed subnets in order for this Condition
                       to be true. If empty, all IP addresses are allowed.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -199,6 +204,7 @@ components:
                       may come from any user (logged in/not logged in, not present
                       in any groups, etc.). Formats: `user:{emailid}`, `group:{emailid}`,
                       `serviceAccount:{emailid}`'
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -215,6 +221,7 @@ components:
                     x-dcl-go-name: Regions
                     description: The request must originate from one of the provided
                       countries/regions.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -226,6 +233,7 @@ components:
                       Policy, referenced by resource name. Referencing an AccessLevel
                       which does not exist is an error. All access levels listed must
                       be granted for the Condition to be true. Format: accessPolicies/{policy_id}/accessLevels/{short_name}'
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string

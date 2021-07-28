@@ -144,6 +144,7 @@ components:
                   type: array
                   x-dcl-go-name: GuestAccelerators
                   x-kubernetes-immutable: true
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: object
@@ -169,6 +170,7 @@ components:
                   type: array
                   x-dcl-go-name: LocalSsds
                   x-kubernetes-immutable: true
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: object

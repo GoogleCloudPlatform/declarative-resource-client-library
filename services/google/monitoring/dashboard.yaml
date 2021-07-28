@@ -75,6 +75,7 @@ components:
               type: array
               x-dcl-go-name: Columns
               description: The columns of content to display.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -92,6 +93,7 @@ components:
                     type: array
                     x-dcl-go-name: Widgets
                     description: The display widgets arranged vertically in this column.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: object
@@ -185,6 +187,7 @@ components:
                                 20 and 70 an OK state, values greater than or equal
                                 to 70 but less than 90 a WARNING state, and values
                                 greater than or equal to 90 a DANGER state.'
+                              x-dcl-send-empty: true
                               x-dcl-list-type: list
                               items:
                                 type: object
@@ -338,6 +341,7 @@ components:
                                             aggregated into a single output time series.
                                             If `cross_series_reducer` is not defined,
                                             this field is ignored.
+                                          x-dcl-send-empty: true
                                           x-dcl-list-type: list
                                           items:
                                             type: string
@@ -528,6 +532,7 @@ components:
                                             aggregated into a single output time series.
                                             If `cross_series_reducer` is not defined,
                                             this field is ignored.
+                                          x-dcl-send-empty: true
                                           x-dcl-list-type: list
                                           items:
                                             type: string
@@ -694,6 +699,7 @@ components:
                                                 into a single output time series.
                                                 If `cross_series_reducer` is not defined,
                                                 this field is ignored.
+                                              x-dcl-send-empty: true
                                               x-dcl-list-type: list
                                               items:
                                                 type: string
@@ -860,6 +866,7 @@ components:
                                                 into a single output time series.
                                                 If `cross_series_reducer` is not defined,
                                                 this field is ignored.
+                                              x-dcl-send-empty: true
                                               x-dcl-list-type: list
                                               items:
                                                 type: string
@@ -1051,6 +1058,7 @@ components:
                                             aggregated into a single output time series.
                                             If `cross_series_reducer` is not defined,
                                             this field is ignored.
+                                          x-dcl-send-empty: true
                                           x-dcl-list-type: list
                                           items:
                                             type: string
@@ -1167,6 +1175,7 @@ components:
                               type: array
                               x-dcl-go-name: DataSets
                               description: Required. The data displayed in this chart.
+                              x-dcl-send-empty: true
                               x-dcl-list-type: list
                               items:
                                 type: object
@@ -1326,6 +1335,7 @@ components:
                                                   a single output time series. If
                                                   `cross_series_reducer` is not defined,
                                                   this field is ignored.
+                                                x-dcl-send-empty: true
                                                 x-dcl-list-type: list
                                                 items:
                                                   type: string
@@ -1533,6 +1543,7 @@ components:
                                                   a single output time series. If
                                                   `cross_series_reducer` is not defined,
                                                   this field is ignored.
+                                                x-dcl-send-empty: true
                                                 x-dcl-list-type: list
                                                 items:
                                                   type: string
@@ -1712,6 +1723,7 @@ components:
                                                       time series. If `cross_series_reducer`
                                                       is not defined, this field is
                                                       ignored.
+                                                    x-dcl-send-empty: true
                                                     x-dcl-list-type: list
                                                     items:
                                                       type: string
@@ -1894,6 +1906,7 @@ components:
                                                       time series. If `cross_series_reducer`
                                                       is not defined, this field is
                                                       ignored.
+                                                    x-dcl-send-empty: true
                                                     x-dcl-list-type: list
                                                     items:
                                                       type: string
@@ -2104,6 +2117,7 @@ components:
                                                   a single output time series. If
                                                   `cross_series_reducer` is not defined,
                                                   this field is ignored.
+                                                x-dcl-send-empty: true
                                                 x-dcl-list-type: list
                                                 items:
                                                   type: string
@@ -2175,6 +2189,7 @@ components:
                               x-dcl-go-name: Thresholds
                               description: Threshold lines drawn horizontally across
                                 the chart.
+                              x-dcl-send-empty: true
                               x-dcl-list-type: list
                               items:
                                 type: object
@@ -2307,6 +2322,7 @@ components:
               x-dcl-go-name: Widgets
               description: The informational elements that are arranged into the columns
                 row-first.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -2333,6 +2349,7 @@ components:
               type: array
               x-dcl-go-name: Tiles
               description: The tiles to display.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -2392,6 +2409,7 @@ components:
               type: array
               x-dcl-go-name: Rows
               description: The rows of content to display.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -2410,6 +2428,7 @@ components:
                     x-dcl-go-name: Widgets
                     description: The display widgets arranged horizontally in this
                       row.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: object
@@ -2499,6 +2518,7 @@ components:
                 or equal to 20 a WARNING state, values strictly between 20 and 70
                 an OK state, values greater than or equal to 70 but less than 90 a
                 WARNING state, and values greater than or equal to 90 a DANGER state.'
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -2634,6 +2654,7 @@ components:
                             the time series are aggregated into a single output time
                             series. If `cross_series_reducer` is not defined, this
                             field is ignored.
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: string
@@ -2801,6 +2822,7 @@ components:
                             the time series are aggregated into a single output time
                             series. If `cross_series_reducer` is not defined, this
                             field is ignored.
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: string
@@ -2941,6 +2963,7 @@ components:
                                 the time series are aggregated into a single output
                                 time series. If `cross_series_reducer` is not defined,
                                 this field is ignored.
+                              x-dcl-send-empty: true
                               x-dcl-list-type: list
                               items:
                                 type: string
@@ -3081,6 +3104,7 @@ components:
                                 the time series are aggregated into a single output
                                 time series. If `cross_series_reducer` is not defined,
                                 this field is ignored.
+                              x-dcl-send-empty: true
                               x-dcl-list-type: list
                               items:
                                 type: string
@@ -3248,6 +3272,7 @@ components:
                             the time series are aggregated into a single output time
                             series. If `cross_series_reducer` is not defined, this
                             field is ignored.
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: string
@@ -3356,6 +3381,7 @@ components:
               type: array
               x-dcl-go-name: DataSets
               description: Required. The data displayed in this chart.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -3490,6 +3516,7 @@ components:
                                   then the time series are aggregated into a single
                                   output time series. If `cross_series_reducer` is
                                   not defined, this field is ignored.
+                                x-dcl-send-empty: true
                                 x-dcl-list-type: list
                                 items:
                                   type: string
@@ -3664,6 +3691,7 @@ components:
                                   then the time series are aggregated into a single
                                   output time series. If `cross_series_reducer` is
                                   not defined, this field is ignored.
+                                x-dcl-send-empty: true
                                 x-dcl-list-type: list
                                 items:
                                   type: string
@@ -3811,6 +3839,7 @@ components:
                                       type, then the time series are aggregated into
                                       a single output time series. If `cross_series_reducer`
                                       is not defined, this field is ignored.
+                                    x-dcl-send-empty: true
                                     x-dcl-list-type: list
                                     items:
                                       type: string
@@ -3958,6 +3987,7 @@ components:
                                       type, then the time series are aggregated into
                                       a single output time series. If `cross_series_reducer`
                                       is not defined, this field is ignored.
+                                    x-dcl-send-empty: true
                                     x-dcl-list-type: list
                                     items:
                                       type: string
@@ -4133,6 +4163,7 @@ components:
                                   then the time series are aggregated into a single
                                   output time series. If `cross_series_reducer` is
                                   not defined, this field is ignored.
+                                x-dcl-send-empty: true
                                 x-dcl-list-type: list
                                 items:
                                   type: string
@@ -4194,6 +4225,7 @@ components:
               type: array
               x-dcl-go-name: Thresholds
               description: Threshold lines drawn horizontally across the chart.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object

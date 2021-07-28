@@ -78,6 +78,7 @@ components:
               x-dcl-go-name: AllowHeader
               description: Specifies the content for the `Access-Control-Allow-Headers`
                 header.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -87,6 +88,7 @@ components:
               x-dcl-go-name: AllowMethod
               description: Specifies the content for the `Access-Control-Allow-Methods`
                 header.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -98,6 +100,7 @@ components:
                 Specifies the list of origins that will be allowed to do CORS requests.
 
                 An origin is allowed if it matches either an item in `allowOrigins` or an item in `allowOriginRegexes`.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -109,6 +112,7 @@ components:
                 Specifies the regualar expression patterns that match allowed origins. For regular expression grammar please see [en.cppreference.com/w/cpp/regex/ecmascript](https://en.cppreference.com/w/cpp/regex/ecmascript)
 
                 An origin is allowed if it matches either an item in `allowOrigins` or an item in `allowOriginRegexes`.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -123,6 +127,7 @@ components:
               x-dcl-go-name: ExposeHeader
               description: Specifies the content for the `Access-Control-Expose-Headers`
                 header.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -271,6 +276,7 @@ components:
                 *   `deadline-exceeded`: Loadbalancer will retry if the gRPC status code in the response header is set to `deadline-exceeded`
                 *   `resource-exhausted`: Loadbalancer will retry if the gRPC status code in the response header is set to `resource-exhausted`
                 *   `unavailable`: Loadbalancer will retry if the gRPC status code in the response header is set to `unavailable`
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -327,6 +333,7 @@ components:
             A list of weighted backend services to send traffic to when a route match occurs. The weights determine the fraction of traffic that flows to their corresponding `backend service`. If all traffic needs to go to a single backend service, there must be one `weightedBackendService` with weight set to a non 0 number.
 
             Once a backendService is identified and before forwarding the request to the backend service, advanced routing actions like Url rewrites and header transformations are applied depending on additional settings specified in this `HttpRouteAction`.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -373,6 +380,7 @@ components:
           description: Headers to add to a matching request prior to forwarding the
             request to the `backendService`.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -402,6 +410,7 @@ components:
           description: A list of header names for headers that need to be removed
             from the request prior to forwarding the request to the `backendService`.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -412,6 +421,7 @@ components:
           description: Headers to add the response prior to sending the response back
             to the client.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -441,6 +451,7 @@ components:
           description: A list of header names for headers that need to be removed
             from the response prior to sending the response back to the client.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -546,6 +557,7 @@ components:
           type: array
           x-dcl-go-name: HostRule
           description: The list of HostRules to use against the URL.
+          x-dcl-send-empty: true
           x-dcl-list-type: set
           items:
             type: object
@@ -564,6 +576,7 @@ components:
                   `*` matches any string of `([a-z0-9-.]*)`. In that case, `*` must
                   be the first character and must be followed in the pattern by either
                   `-` or `.`.
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string
@@ -587,6 +600,7 @@ components:
           type: array
           x-dcl-go-name: PathMatcher
           description: The list of named PathMatchers to use against the URL.
+          x-dcl-send-empty: true
           x-dcl-list-type: set
           items:
             type: object
@@ -705,6 +719,7 @@ components:
                   For example: a `pathRule` with a path /a/b/c/* will match before /a/b/* irrespective of the order in which those paths appear in this list.
 
                   Within a given `pathMatcher`, only one of `pathRules` or routeRules must be set.
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: object
@@ -725,6 +740,7 @@ components:
                         following a `/`. The string fed to the path matcher does not
                         include any text after the first `?` or `#`, and those chars
                         are not allowed here.
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: string
@@ -758,6 +774,7 @@ components:
                               x-dcl-go-name: AllowHeader
                               description: Specifies the content for the `Access-Control-Allow-Headers`
                                 header.
+                              x-dcl-send-empty: true
                               x-dcl-list-type: list
                               items:
                                 type: string
@@ -767,6 +784,7 @@ components:
                               x-dcl-go-name: AllowMethod
                               description: Specifies the content for the `Access-Control-Allow-Methods`
                                 header.
+                              x-dcl-send-empty: true
                               x-dcl-list-type: list
                               items:
                                 type: string
@@ -778,6 +796,7 @@ components:
                                 Specifies the list of origins that will be allowed to do CORS requests.
 
                                 An origin is allowed if it matches either an item in `allowOrigins` or an item in `allowOriginRegexes`.
+                              x-dcl-send-empty: true
                               x-dcl-list-type: list
                               items:
                                 type: string
@@ -789,6 +808,7 @@ components:
                                 Specifies the regualar expression patterns that match allowed origins. For regular expression grammar please see [en.cppreference.com/w/cpp/regex/ecmascript](https://en.cppreference.com/w/cpp/regex/ecmascript)
 
                                 An origin is allowed if it matches either an item in `allowOrigins` or an item in `allowOriginRegexes`.
+                              x-dcl-send-empty: true
                               x-dcl-list-type: list
                               items:
                                 type: string
@@ -804,6 +824,7 @@ components:
                               x-dcl-go-name: ExposeHeader
                               description: Specifies the content for the `Access-Control-Expose-Headers`
                                 header.
+                              x-dcl-send-empty: true
                               x-dcl-list-type: list
                               items:
                                 type: string
@@ -961,6 +982,7 @@ components:
                                 *   `deadline-exceeded`: Loadbalancer will retry if the gRPC status code in the response header is set to `deadline-exceeded`
                                 *   `resource-exhausted`: Loadbalancer will retry if the gRPC status code in the response header is set to `resource-exhausted`
                                 *   `unavailable`: Loadbalancer will retry if the gRPC status code in the response header is set to `unavailable`
+                              x-dcl-send-empty: true
                               x-dcl-list-type: list
                               items:
                                 type: string
@@ -1019,6 +1041,7 @@ components:
                             A list of weighted backend services to send traffic to when a route match occurs. The weights determine the fraction of traffic that flows to their corresponding `backend service`. If all traffic needs to go to a single backend service, there must be one `weightedBackendService` with weight set to a non 0 number.
 
                             Once a backendService is identified and before forwarding the request to the backend service, advanced routing actions like Url rewrites and header transformations are applied depending on additional settings specified in this `HttpRouteAction`.
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: object
@@ -1122,6 +1145,7 @@ components:
                   The list of HTTP route rules. Use this list instead of `pathRule`s when advanced route matching and routing actions are desired. `routeRules` are evaluated in order of priority, from the lowest to highest number.
 
                   Within a given `pathMatcher`, you can set only one of `pathRules` or routeRules.
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: object
@@ -1148,6 +1172,7 @@ components:
                       type: array
                       x-dcl-go-name: MatchRule
                       description: NO DESCRIPTION FOUND.
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: object
@@ -1168,6 +1193,7 @@ components:
                             description: Specifies a list of header match criteria,
                               all of which must match corresponding headers in the
                               request.
+                            x-dcl-send-empty: true
                             x-dcl-list-type: list
                             items:
                               type: object
@@ -1278,6 +1304,7 @@ components:
                               `metadataFilters` specified here will be applied after those specified in `ForwardingRule` that refers to the `UrlMap` this ``HttpRouteRuleMatch `belongs to.` ``
 
                               ``` `` `metadataFilters` only applies to Loadbalancers that have their`` loadBalancingScheme``` set to `INTERNAL_SELF_MANAGED`.
+                            x-dcl-send-empty: true
                             x-dcl-list-type: list
                             items:
                               type: object
@@ -1290,6 +1317,7 @@ components:
                                     The list of label value pairs that must match labels in the provided metadata based on `filterMatchCriteria`
 
                                     This list must not be empty and can have at the most 64 entries.
+                                  x-dcl-send-empty: true
                                   x-dcl-list-type: list
                                   items:
                                     type: object
@@ -1339,6 +1367,7 @@ components:
                             description: Specifies a list of query parameter match
                               criteria, all of which must match corresponding query
                               parameters in the request.
+                            x-dcl-send-empty: true
                             x-dcl-list-type: list
                             items:
                               type: object
@@ -1421,6 +1450,7 @@ components:
                               x-dcl-go-name: AllowHeader
                               description: Specifies the content for the `Access-Control-Allow-Headers`
                                 header.
+                              x-dcl-send-empty: true
                               x-dcl-list-type: list
                               items:
                                 type: string
@@ -1430,6 +1460,7 @@ components:
                               x-dcl-go-name: AllowMethod
                               description: Specifies the content for the `Access-Control-Allow-Methods`
                                 header.
+                              x-dcl-send-empty: true
                               x-dcl-list-type: list
                               items:
                                 type: string
@@ -1441,6 +1472,7 @@ components:
                                 Specifies the list of origins that will be allowed to do CORS requests.
 
                                 An origin is allowed if it matches either an item in `allowOrigins` or an item in `allowOriginRegexes`.
+                              x-dcl-send-empty: true
                               x-dcl-list-type: list
                               items:
                                 type: string
@@ -1452,6 +1484,7 @@ components:
                                 Specifies the regualar expression patterns that match allowed origins. For regular expression grammar please see [en.cppreference.com/w/cpp/regex/ecmascript](https://en.cppreference.com/w/cpp/regex/ecmascript)
 
                                 An origin is allowed if it matches either an item in `allowOrigins` or an item in `allowOriginRegexes`.
+                              x-dcl-send-empty: true
                               x-dcl-list-type: list
                               items:
                                 type: string
@@ -1467,6 +1500,7 @@ components:
                               x-dcl-go-name: ExposeHeader
                               description: Specifies the content for the `Access-Control-Expose-Headers`
                                 header.
+                              x-dcl-send-empty: true
                               x-dcl-list-type: list
                               items:
                                 type: string
@@ -1624,6 +1658,7 @@ components:
                                 *   `deadline-exceeded`: Loadbalancer will retry if the gRPC status code in the response header is set to `deadline-exceeded`
                                 *   `resource-exhausted`: Loadbalancer will retry if the gRPC status code in the response header is set to `resource-exhausted`
                                 *   `unavailable`: Loadbalancer will retry if the gRPC status code in the response header is set to `unavailable`
+                              x-dcl-send-empty: true
                               x-dcl-list-type: list
                               items:
                                 type: string
@@ -1682,6 +1717,7 @@ components:
                             A list of weighted backend services to send traffic to when a route match occurs. The weights determine the fraction of traffic that flows to their corresponding `backend service`. If all traffic needs to go to a single backend service, there must be one `weightedBackendService` with weight set to a non 0 number.
 
                             Once a backendService is identified and before forwarding the request to the backend service, advanced routing actions like Url rewrites and header transformations are applied depending on additional settings specified in this `HttpRouteAction`.
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: object
@@ -1807,6 +1843,7 @@ components:
           description: The list of expected URL mapping tests. Request to update this
             UrlMap will succeed only if all of the test cases pass. You can specify
             a maximum of 100 tests per UrlMap.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object

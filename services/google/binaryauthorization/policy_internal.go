@@ -841,7 +841,7 @@ func expandPolicy(c *Client, f *Policy) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := expandPolicyAdmissionWhitelistPatternsSlice(c, f.AdmissionWhitelistPatterns); err != nil {
 		return nil, fmt.Errorf("error expanding AdmissionWhitelistPatterns into admissionWhitelistPatterns: %w", err)
-	} else if v != nil {
+	} else {
 		m["admissionWhitelistPatterns"] = v
 	}
 	if v, err := expandPolicyAdmissionRuleMap(c, f.ClusterAdmissionRules); err != nil {
@@ -1119,7 +1119,7 @@ func expandPolicyAdmissionRule(c *Client, f *PolicyAdmissionRule) (map[string]in
 	if v := f.EvaluationMode; !dcl.IsEmptyValueIndirect(v) {
 		m["evaluationMode"] = v
 	}
-	if v := f.RequireAttestationsBy; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.RequireAttestationsBy; v != nil {
 		m["requireAttestationsBy"] = v
 	}
 	if v := f.EnforcementMode; !dcl.IsEmptyValueIndirect(v) {

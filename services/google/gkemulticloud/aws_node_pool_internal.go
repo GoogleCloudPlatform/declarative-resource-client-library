@@ -1793,7 +1793,7 @@ func expandAwsNodePoolConfig(c *Client, f *AwsNodePoolConfig) (map[string]interf
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["sshConfig"] = v
 	}
-	if v := f.SecurityGroupIds; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SecurityGroupIds; v != nil {
 		m["securityGroupIds"] = v
 	}
 

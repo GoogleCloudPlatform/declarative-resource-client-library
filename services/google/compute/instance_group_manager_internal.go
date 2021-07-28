@@ -3111,15 +3111,13 @@ func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]
 	}
 	if v, err := expandInstanceGroupManagerVersionsSlice(c, f.Versions); err != nil {
 		return nil, fmt.Errorf("error expanding Versions into versions: %w", err)
-	} else if v != nil {
+	} else {
 		m["versions"] = v
 	}
 	if v := f.InstanceGroup; !dcl.IsEmptyValueIndirect(v) {
 		m["instanceGroup"] = v
 	}
-	if v := f.TargetPools; !dcl.IsEmptyValueIndirect(v) {
-		m["targetPools"] = v
-	}
+	m["targetPools"] = f.TargetPools
 	if v := f.BaseInstanceName; !dcl.IsEmptyValueIndirect(v) {
 		m["baseInstanceName"] = v
 	}
@@ -3144,7 +3142,7 @@ func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]
 	}
 	if v, err := expandInstanceGroupManagerAutoHealingPoliciesSlice(c, f.AutoHealingPolicies); err != nil {
 		return nil, fmt.Errorf("error expanding AutoHealingPolicies into autoHealingPolicies: %w", err)
-	} else if v != nil {
+	} else {
 		m["autoHealingPolicies"] = v
 	}
 	if v, err := expandInstanceGroupManagerUpdatePolicy(c, f.UpdatePolicy); err != nil {
@@ -3154,7 +3152,7 @@ func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]
 	}
 	if v, err := expandInstanceGroupManagerNamedPortsSlice(c, f.NamedPorts); err != nil {
 		return nil, fmt.Errorf("error expanding NamedPorts into namedPorts: %w", err)
-	} else if v != nil {
+	} else {
 		m["namedPorts"] = v
 	}
 	if v, err := expandInstanceGroupManagerStatefulPolicy(c, f.StatefulPolicy); err != nil {

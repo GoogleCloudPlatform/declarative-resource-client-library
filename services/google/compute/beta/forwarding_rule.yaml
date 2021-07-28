@@ -210,6 +210,7 @@ components:
 
             `metadataFilters` only applies to Loadbalancers that have their loadBalancingScheme set to `INTERNAL_SELF_MANAGED`.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -223,6 +224,7 @@ components:
 
                   This list must not be empty and can have at the most 64 entries.
                 x-kubernetes-immutable: true
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: object
@@ -321,6 +323,7 @@ components:
             rule''s protocol. @pattern: d+(?:-d+)? For more information, refer to
             [Port specifications](/load-balancing/docs/forwarding-rule-concepts#port_specifications).'
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

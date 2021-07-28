@@ -101,6 +101,7 @@ components:
                 ClusterRole to the users. At most one user can be specified. For more
                 info on RBAC, see https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -283,6 +284,7 @@ components:
                 create and manage security groups with the minimum rules needed for
                 a functioning cluster.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -311,6 +313,7 @@ components:
                 values can be provided. Each subnet must be in a different AWS Availability
                 Zone (AZ).
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -390,6 +393,7 @@ components:
                 IPv4 address from these ranges. Only a single range is supported.
                 This field cannot be changed after creation.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -401,6 +405,7 @@ components:
                 IPv4 address from these ranges. Only a single range is supported.
                 This field cannot be changed after creation.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -411,6 +416,7 @@ components:
               description: Required. When creating Kubernetes services of type 'Load
                 Balancer', the load balancer will be created in these subnets.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string

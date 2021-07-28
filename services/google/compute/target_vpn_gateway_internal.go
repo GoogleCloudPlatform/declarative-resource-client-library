@@ -587,18 +587,14 @@ func expandTargetVpnGateway(c *Client, f *TargetVpnGateway) (map[string]interfac
 	if v := f.Network; !dcl.IsEmptyValueIndirect(v) {
 		m["network"] = v
 	}
-	if v := f.Tunnel; !dcl.IsEmptyValueIndirect(v) {
-		m["tunnels"] = v
-	}
+	m["tunnels"] = f.Tunnel
 	if v := f.Status; !dcl.IsEmptyValueIndirect(v) {
 		m["status"] = v
 	}
 	if v := f.SelfLink; !dcl.IsEmptyValueIndirect(v) {
 		m["selfLink"] = v
 	}
-	if v := f.ForwardingRule; !dcl.IsEmptyValueIndirect(v) {
-		m["forwardingRules"] = v
-	}
+	m["forwardingRules"] = f.ForwardingRule
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
 	} else if v != nil {

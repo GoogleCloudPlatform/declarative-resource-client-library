@@ -91,6 +91,7 @@ components:
                 advertised in addition to any specified prefixes. Leave this field
                 blank to advertise no custom groups.  This enum field has the one
                 valid value: ALL_SUBNETS '
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -103,6 +104,7 @@ components:
                 is CUSTOM and is advertised to all peers of the router. These IP ranges
                 will be advertised in addition to any specified groups. Leave this
                 field blank to advertise no custom IP ranges. '
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -131,6 +133,7 @@ components:
           description: BGP information that must be configured into the routing stack
             to establish BGP peering. This information must specify the peer ASN and
             either the interface name, IP address, or peer IP address
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -146,6 +149,7 @@ components:
                 x-dcl-go-name: AdvertisedGroups
                 description: User-specified list of prefix groups to advertise in
                   custom mode
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string
@@ -160,6 +164,7 @@ components:
                 description: User-specified list of individual IP ranges to advertise
                   in custom mode. This field can only be populated if advertiseMode
                   is CUSTOM
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: object
@@ -228,6 +233,7 @@ components:
           description: Router interfaces. Each interface requires either one linked
             resource, (for example, linkedVpnTunnel), or IP address and IP address
             range (for example, ipRange), or both.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -272,6 +278,7 @@ components:
           type: array
           x-dcl-go-name: Nats
           description: A list of NAT services created in this router.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -283,6 +290,7 @@ components:
                 description: A list of URLs of the IP resources to be drained. These
                   IPs must be valid static external IPs that have been assigned to
                   the NAT. These IPs should be used for updating/patching a NAT only.
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string
@@ -333,6 +341,7 @@ components:
                 type: array
                 x-dcl-go-name: NatIPAllocateOption
                 description: The NAT IP Allocate Option
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string
@@ -346,6 +355,7 @@ components:
                 description: A list of URLs of the IP resources used for this Nat
                   service. These IP addresses must be valid static external IP addresses
                   assigned to the project.
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string
@@ -366,6 +376,7 @@ components:
                 description: A list of Subnetwork resources whose traffic should be
                   translated by NAT Gateway. It is used only when LIST_OF_SUBNETWORKS
                   is selected for the SubnetworkIpRangeToNatOption above.
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: object

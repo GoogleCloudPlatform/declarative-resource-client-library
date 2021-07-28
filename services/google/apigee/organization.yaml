@@ -108,6 +108,7 @@ components:
           readOnly: true
           description: Output only. List of environments in the Apigee organization.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -163,6 +164,7 @@ components:
               type: array
               x-dcl-go-name: Property
               description: List of all properties in the object
+              x-dcl-send-empty: true
               x-dcl-list-type: set
               items:
                 type: object

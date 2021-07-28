@@ -509,9 +509,7 @@ func expandDatabase(c *Client, f *Database) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["project"] = v
 	}
-	if v := f.Ddl; !dcl.IsEmptyValueIndirect(v) {
-		m["extraStatements"] = v
-	}
+	m["extraStatements"] = f.Ddl
 
 	return m, nil
 }

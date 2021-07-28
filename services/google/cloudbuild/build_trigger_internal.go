@@ -2961,9 +2961,7 @@ func expandBuildTrigger(c *Client, f *BuildTrigger) (map[string]interface{}, err
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
 	}
-	if v := f.Tags; !dcl.IsEmptyValueIndirect(v) {
-		m["tags"] = v
-	}
+	m["tags"] = f.Tags
 	if v := f.Disabled; !dcl.IsEmptyValueIndirect(v) {
 		m["disabled"] = v
 	}
@@ -2973,12 +2971,8 @@ func expandBuildTrigger(c *Client, f *BuildTrigger) (map[string]interface{}, err
 	if v := f.Filename; !dcl.IsEmptyValueIndirect(v) {
 		m["filename"] = v
 	}
-	if v := f.IgnoredFiles; !dcl.IsEmptyValueIndirect(v) {
-		m["ignoredFiles"] = v
-	}
-	if v := f.IncludedFiles; !dcl.IsEmptyValueIndirect(v) {
-		m["includedFiles"] = v
-	}
+	m["ignoredFiles"] = f.IgnoredFiles
+	m["includedFiles"] = f.IncludedFiles
 	if v, err := expandBuildTriggerTriggerTemplate(c, f.TriggerTemplate); err != nil {
 		return nil, fmt.Errorf("error expanding TriggerTemplate into triggerTemplate: %w", err)
 	} else if v != nil {
@@ -3644,10 +3638,10 @@ func expandBuildTriggerBuild(c *Client, f *BuildTriggerBuild) (map[string]interf
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Tags; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Tags; v != nil {
 		m["tags"] = v
 	}
-	if v := f.Images; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Images; v != nil {
 		m["images"] = v
 	}
 	if v := f.Substitutions; !dcl.IsEmptyValueIndirect(v) {
@@ -3921,10 +3915,10 @@ func expandBuildTriggerBuildSteps(c *Client, f *BuildTriggerBuildSteps) (map[str
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v := f.Env; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Env; v != nil {
 		m["env"] = v
 	}
-	if v := f.Args; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Args; v != nil {
 		m["args"] = v
 	}
 	if v := f.Dir; !dcl.IsEmptyValueIndirect(v) {
@@ -3933,13 +3927,13 @@ func expandBuildTriggerBuildSteps(c *Client, f *BuildTriggerBuildSteps) (map[str
 	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
 		m["id"] = v
 	}
-	if v := f.WaitFor; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.WaitFor; v != nil {
 		m["waitFor"] = v
 	}
 	if v := f.Entrypoint; !dcl.IsEmptyValueIndirect(v) {
 		m["entrypoint"] = v
 	}
-	if v := f.SecretEnv; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SecretEnv; v != nil {
 		m["secretEnv"] = v
 	}
 	if v, err := expandBuildTriggerBuildStepsVolumesSlice(c, f.Volumes); err != nil {

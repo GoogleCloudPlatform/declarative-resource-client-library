@@ -112,6 +112,7 @@ components:
           x-dcl-go-name: AutoHealingPolicies
           description: The autohealing policy for this managed instance group. You
             can specify only one value.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -274,6 +275,7 @@ components:
               description: Zones where the regional managed instance group will create
                 and manage its instances.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -352,6 +354,7 @@ components:
           description: Named ports configured for the Instance Groups complementary
             to this Instance Group Manager.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -532,6 +535,7 @@ components:
           description: The URLs for all TargetPool resources to which instances in
             the `instanceGroup` field are added. The target pools automatically apply
             to all of the instances in the managed instance group.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -641,6 +645,7 @@ components:
             Exactly one `version` must leave the `targetSize` field unset. That version
             will be applied to all remaining instances. For more information, read
             about [canary updates](/compute/docs/instance-groups/rolling-out-updates-to-managed-instance-groups#starting_a_canary_update).
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object

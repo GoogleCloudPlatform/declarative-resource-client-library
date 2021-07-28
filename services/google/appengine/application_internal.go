@@ -1011,7 +1011,7 @@ func expandApplication(c *Client, f *Application) (map[string]interface{}, error
 	}
 	if v, err := expandApplicationDispatchRulesSlice(c, f.DispatchRules); err != nil {
 		return nil, fmt.Errorf("error expanding DispatchRules into dispatchRules: %w", err)
-	} else if v != nil {
+	} else {
 		m["dispatchRules"] = v
 	}
 	if v := f.AuthDomain; !dcl.IsEmptyValueIndirect(v) {

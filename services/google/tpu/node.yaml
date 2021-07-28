@@ -185,6 +185,7 @@ components:
             accessed and sent work. It is recommended that Tensorflow clients of the
             node reach out to the 0th entry in this map first.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -278,6 +279,7 @@ components:
           readOnly: true
           description: Output only. The Symptoms that have occurred to the TPU Node.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object

@@ -236,6 +236,7 @@ components:
               description: The list of Google Compute Engine (https://cloud.google.com/compute/docs/zones#available)
                 in which the NodePool's nodes can be created by NAP.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -320,6 +321,7 @@ components:
                   type: array
                   x-dcl-go-name: OAuthScopes
                   description: Scopes that are used by NAP when creating node pools.
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -384,6 +386,7 @@ components:
               x-dcl-go-name: ResourceLimits
               description: Contains global constraints regarding minimum and maximum
                 amount of resources in the cluster.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -426,6 +429,7 @@ components:
           x-dcl-go-name: Conditions
           description: Which conditions caused the current cluster state.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -620,6 +624,7 @@ components:
           x-dcl-go-name: InstanceGroupUrls
           description: Deprecated. Use node_pools.instance_group_urls.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -754,6 +759,7 @@ components:
           x-dcl-go-name: Locations
           description: The list of Google Compute Engine zones in which the cluster's
             nodes should be located.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -899,6 +905,7 @@ components:
               x-dcl-go-name: CidrBlocks
               description: Define up to 50 external networks that could access Kubernetes
                 master through HTTPS.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -1044,6 +1051,7 @@ components:
                 node. See https://cloud.google.com/compute/docs/gpus for more information
                 about support for GPUs.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -1225,6 +1233,7 @@ components:
                 Monitoring are enabled, in which case their required scopes will be
                 added.'
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -1270,6 +1279,7 @@ components:
                   x-dcl-go-name: Values
                   description: Corresponds to the label value(s) of reservation resource(s).
                   x-kubernetes-immutable: true
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -1331,6 +1341,7 @@ components:
                 are specified by the client during cluster or node pool creation.
                 Each tag within the list must comply with RFC1035.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -1341,6 +1352,7 @@ components:
               description: 'List of kubernetes taints to be applied to each node.
                 For more information, including usage and the valid values, see: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/'
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -1403,6 +1415,7 @@ components:
           x-dcl-conflicts:
           - initialNodeCount
           - nodeConfig
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -1446,6 +1459,7 @@ components:
                 x-dcl-go-name: Conditions
                 description: Which conditions caused the current node pool state.
                 x-kubernetes-immutable: true
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: object
@@ -1527,6 +1541,7 @@ components:
                       each node. See https://cloud.google.com/compute/docs/gpus for
                       more information about support for GPUs.
                     x-kubernetes-immutable: true
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: object
@@ -1711,6 +1726,7 @@ components:
                       Cloud Monitoring are enabled, in which case their required scopes
                       will be added.'
                     x-kubernetes-immutable: true
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -1758,6 +1774,7 @@ components:
                         description: Corresponds to the label value(s) of reservation
                           resource(s).
                         x-kubernetes-immutable: true
+                        x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
                           type: string
@@ -1821,6 +1838,7 @@ components:
                       and are specified by the client during cluster or node pool
                       creation. Each tag within the list must comply with RFC1035.
                     x-kubernetes-immutable: true
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -1832,6 +1850,7 @@ components:
                       node. For more information, including usage and the valid values,
                       see: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/'
                     x-kubernetes-immutable: true
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: object
@@ -1896,6 +1915,7 @@ components:
                 description: (https://cloud.google.com/compute/docs/instance-groups/creating-groups-of-managed-instances)
                   associated with this node pool.
                 x-kubernetes-immutable: true
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string
@@ -1907,6 +1927,7 @@ components:
                   value will be used, instead. Warning: changing node pool locations
                   will result in nodes being added and/or removed.'
                 x-kubernetes-immutable: true
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string

@@ -1878,7 +1878,7 @@ func expandAutoscaler(c *Client, f *Autoscaler) (map[string]interface{}, error) 
 	}
 	if v, err := expandAutoscalerStatusDetailsSlice(c, f.StatusDetails); err != nil {
 		return nil, fmt.Errorf("error expanding StatusDetails into statusDetails: %w", err)
-	} else if v != nil {
+	} else {
 		m["statusDetails"] = v
 	}
 	if v := f.RecommendedSize; !dcl.IsEmptyValueIndirect(v) {

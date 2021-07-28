@@ -87,6 +87,7 @@ components:
           description: HTTP path dispatch rules for requests to the application that
             do not explicitly target a service or version. Rules are order-dependent.
             Up to 20 dispatch rules can be supported.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object

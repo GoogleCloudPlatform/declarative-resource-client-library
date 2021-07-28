@@ -117,6 +117,7 @@ components:
               x-dcl-go-name: ClientValidationCa
               description: Required. Defines the mechanism to obtain the Certificate
                 Authority certificate to validate the client certificate.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object

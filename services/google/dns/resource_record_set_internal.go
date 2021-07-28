@@ -488,9 +488,7 @@ func expandResourceRecordSet(c *Client, f *ResourceRecordSet) (map[string]interf
 	if v := f.Ttl; !dcl.IsEmptyValueIndirect(v) {
 		m["ttl"] = v
 	}
-	if v := f.Target; !dcl.IsEmptyValueIndirect(v) {
-		m["rrdatas"] = v
-	}
+	m["rrdatas"] = f.Target
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding ManagedZone into managedZone: %w", err)
 	} else if v != nil {

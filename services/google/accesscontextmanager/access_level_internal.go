@@ -1542,16 +1542,16 @@ func expandAccessLevelBasicConditions(c *Client, f *AccessLevelBasicConditions) 
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Regions; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Regions; v != nil {
 		m["regions"] = v
 	}
-	if v := f.IPSubnetworks; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.IPSubnetworks; v != nil {
 		m["ipSubnetworks"] = v
 	}
-	if v := f.RequiredAccessLevels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.RequiredAccessLevels; v != nil {
 		m["requiredAccessLevels"] = v
 	}
-	if v := f.Members; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Members; v != nil {
 		m["members"] = v
 	}
 	if v := f.Negate; !dcl.IsEmptyValueIndirect(v) {
@@ -1687,10 +1687,10 @@ func expandAccessLevelBasicConditionsDevicePolicy(c *Client, f *AccessLevelBasic
 	if v := f.RequireCorpOwned; !dcl.IsEmptyValueIndirect(v) {
 		m["requireCorpOwned"] = v
 	}
-	if v := f.AllowedEncryptionStatuses; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowedEncryptionStatuses; v != nil {
 		m["allowedEncryptionStatuses"] = v
 	}
-	if v := f.AllowedDeviceManagementLevels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowedDeviceManagementLevels; v != nil {
 		m["allowedDeviceManagementLevels"] = v
 	}
 	if v, err := expandAccessLevelBasicConditionsDevicePolicyOSConstraintsSlice(c, f.OSConstraints); err != nil {

@@ -1756,7 +1756,7 @@ func expandEndpointPolicyTrafficPortSelector(c *Client, f *EndpointPolicyTraffic
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Ports; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Ports; v != nil {
 		m["ports"] = v
 	}
 

@@ -73,6 +73,7 @@ components:
           type: array
           x-dcl-go-name: Args
           description: Optional arguments to pass to the source during execution.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -202,6 +203,7 @@ components:
                 are applicable for the VM. This filter is applied last in the filtering
                 chain and therefore a VM is guaranteed to be excluded if it satisfies
                 one of the below label sets.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -221,6 +223,7 @@ components:
               description: List of label sets used for VM inclusion. If the list has
                 more than one `LabelSet`, the VM is included if any of the label sets
                 are applicable for the VM.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -239,6 +242,7 @@ components:
               x-dcl-go-name: OSShortNames
               description: A VM is included if it's OS short name matches with any
                 of the values provided in this list.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -257,6 +261,7 @@ components:
         osPolicies:
           type: array
           x-dcl-go-name: OSPolicies
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -305,6 +310,7 @@ components:
                   the rest are ignored. If none of the resource groups are applicable
                   for a VM, the VM is considered to be non-compliant w.r.t this policy.
                   This behavior can be toggled by the flag `allow_no_resource_group_match`
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: object
@@ -337,6 +343,7 @@ components:
                       description: Required. List of resources configured for this
                         resource group. The resources are executed in the exact order
                         specified here.
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: object
@@ -559,6 +566,7 @@ components:
                                       installation. This should be in the format of
                                       Property=Setting. Appended to the defaults of
                                       `ACTION=INSTALL REBOOT=ReallySuppress`.
+                                    x-dcl-send-empty: true
                                     x-dcl-list-type: list
                                     items:
                                       type: string
@@ -642,6 +650,7 @@ components:
                                     x-dcl-go-name: Components
                                     description: Required. List of components for
                                       this repository. Must contain at least one item.
+                                    x-dcl-send-empty: true
                                     x-dcl-list-type: list
                                     items:
                                       type: string
@@ -698,6 +707,7 @@ components:
                                     type: array
                                     x-dcl-go-name: GpgKeys
                                     description: URIs of GPG keys.
+                                    x-dcl-send-empty: true
                                     x-dcl-list-type: list
                                     items:
                                       type: string
@@ -733,6 +743,7 @@ components:
                                     type: array
                                     x-dcl-go-name: GpgKeys
                                     description: URIs of GPG keys.
+                                    x-dcl-send-empty: true
                                     x-dcl-list-type: list
                                     items:
                                       type: string

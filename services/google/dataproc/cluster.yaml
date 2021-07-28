@@ -191,6 +191,7 @@ components:
           readOnly: true
           description: Output only. The previous cluster status.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -409,6 +410,7 @@ components:
                   description: Optional. Corresponds to the label values of reservation
                     resource.
                   x-kubernetes-immutable: true
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -433,6 +435,7 @@ components:
                 * https://www.googleapis.com/auth/bigquery * https://www.googleapis.com/auth/bigtable.admin.table
                 * https://www.googleapis.com/auth/bigtable.data * https://www.googleapis.com/auth/devstorage.full_control'
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -452,6 +455,7 @@ components:
               type: array
               x-dcl-go-name: Tags
               description: The Compute Engine tags to add to all instances (see (https://cloud.google.com/compute/docs/label-or-tag-resources#tags)).
+              x-dcl-send-empty: true
               x-dcl-list-type: set
               items:
                 type: string
@@ -478,6 +482,7 @@ components:
             if ; then ... master specific actions ... else ... worker specific actions
             ... fi'
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -681,6 +686,7 @@ components:
               x-dcl-go-name: OptionalComponents
               description: Optional. The set of components to activate on the cluster.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -759,6 +765,7 @@ components:
             these instances.
           x-kubernetes-immutable: true
           x-dcl-server-default: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -832,6 +839,7 @@ components:
             names from `cluster_name`, `num_instances`, and the instance group.
           x-kubernetes-immutable: true
           x-dcl-server-default: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

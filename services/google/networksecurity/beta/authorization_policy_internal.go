@@ -1246,7 +1246,7 @@ func expandAuthorizationPolicy(c *Client, f *AuthorizationPolicy) (map[string]in
 	}
 	if v, err := expandAuthorizationPolicyRulesSlice(c, f.Rules); err != nil {
 		return nil, fmt.Errorf("error expanding Rules into rules: %w", err)
-	} else if v != nil {
+	} else {
 		m["rules"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
@@ -1499,10 +1499,10 @@ func expandAuthorizationPolicyRulesSources(c *Client, f *AuthorizationPolicyRule
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Principals; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Principals; v != nil {
 		m["principals"] = v
 	}
-	if v := f.IPBlocks; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.IPBlocks; v != nil {
 		m["ipBlocks"] = v
 	}
 
@@ -1617,13 +1617,13 @@ func expandAuthorizationPolicyRulesDestinations(c *Client, f *AuthorizationPolic
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Hosts; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Hosts; v != nil {
 		m["hosts"] = v
 	}
-	if v := f.Ports; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Ports; v != nil {
 		m["ports"] = v
 	}
-	if v := f.Methods; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Methods; v != nil {
 		m["methods"] = v
 	}
 	if v, err := expandAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c, f.HttpHeaderMatch); err != nil {

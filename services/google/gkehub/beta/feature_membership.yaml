@@ -187,6 +187,7 @@ components:
                   description: The set of namespaces that are excluded from Policy
                     Controller checks. Namespaces do not need to currently exist on
                     the cluster.
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string

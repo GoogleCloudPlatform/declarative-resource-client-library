@@ -1803,7 +1803,7 @@ func expandKeyRestrictionsBrowserKeyRestrictions(c *Client, f *KeyRestrictionsBr
 	}
 
 	m := make(map[string]interface{})
-	if v := f.AllowedReferrers; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowedReferrers; v != nil {
 		m["allowedReferrers"] = v
 	}
 
@@ -1917,7 +1917,7 @@ func expandKeyRestrictionsServerKeyRestrictions(c *Client, f *KeyRestrictionsSer
 	}
 
 	m := make(map[string]interface{})
-	if v := f.AllowedIps; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowedIps; v != nil {
 		m["allowedIps"] = v
 	}
 
@@ -2265,7 +2265,7 @@ func expandKeyRestrictionsIosKeyRestrictions(c *Client, f *KeyRestrictionsIosKey
 	}
 
 	m := make(map[string]interface{})
-	if v := f.AllowedBundleIds; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowedBundleIds; v != nil {
 		m["allowedBundleIds"] = v
 	}
 
@@ -2382,7 +2382,7 @@ func expandKeyRestrictionsApiTargets(c *Client, f *KeyRestrictionsApiTargets) (m
 	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
 		m["service"] = v
 	}
-	if v := f.Methods; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Methods; v != nil {
 		m["methods"] = v
 	}
 

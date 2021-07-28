@@ -105,6 +105,7 @@ components:
           description: 'An array of disks that are associated with the instances that
             are created from this template. '
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -289,6 +290,7 @@ components:
           description: 'List of the type and count of accelerator cards attached to
             the instance '
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -370,6 +372,7 @@ components:
             such as connecting to the internet. Only one network interface is supported
             per instance. '
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -383,6 +386,7 @@ components:
                   no accessConfigs specified, then this instance will have no external
                   internet access. '
                 x-kubernetes-immutable: true
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: object
@@ -424,6 +428,7 @@ components:
                 description: 'An array of alias IP ranges for this network interface.
                   Can only be specified for network interfaces on subnet-mode networks. '
                 x-kubernetes-immutable: true
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: object
@@ -536,6 +541,7 @@ components:
           description: 'A list of service accounts, with their specified scopes, authorized
             for this instance. Only one service account per VM instance is supported. '
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -552,6 +558,7 @@ components:
                 description: 'The list of scopes to be made available for this service
                   account. '
                 x-kubernetes-immutable: true
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string
@@ -604,6 +611,7 @@ components:
             identify valid sources or targets for network firewalls and are specified
             by the client during instance creation. Each tag within the list must
             comply with RFC1035.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

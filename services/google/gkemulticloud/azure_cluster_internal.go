@@ -2158,10 +2158,10 @@ func expandAzureClusterNetworking(c *Client, f *AzureClusterNetworking) (map[str
 	if v := f.VirtualNetworkId; !dcl.IsEmptyValueIndirect(v) {
 		m["virtualNetworkId"] = v
 	}
-	if v := f.PodAddressCidrBlocks; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.PodAddressCidrBlocks; v != nil {
 		m["podAddressCidrBlocks"] = v
 	}
-	if v := f.ServiceAddressCidrBlocks; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ServiceAddressCidrBlocks; v != nil {
 		m["serviceAddressCidrBlocks"] = v
 	}
 

@@ -9258,7 +9258,7 @@ func expandAlertPolicy(c *Client, f *AlertPolicy) (map[string]interface{}, error
 	}
 	if v, err := expandAlertPolicyConditionsSlice(c, f.Conditions); err != nil {
 		return nil, fmt.Errorf("error expanding Conditions into conditions: %w", err)
-	} else if v != nil {
+	} else {
 		m["conditions"] = v
 	}
 	if v := f.Combiner; !dcl.IsEmptyValueIndirect(v) {
@@ -9277,9 +9277,7 @@ func expandAlertPolicy(c *Client, f *AlertPolicy) (map[string]interface{}, error
 	} else if v != nil {
 		m["validity"] = v
 	}
-	if v := f.NotificationChannels; !dcl.IsEmptyValueIndirect(v) {
-		m["notificationChannels"] = v
-	}
+	m["notificationChannels"] = f.NotificationChannels
 	if v, err := expandAlertPolicyCreationRecord(c, f.CreationRecord); err != nil {
 		return nil, fmt.Errorf("error expanding CreationRecord into creationRecord: %w", err)
 	} else if v != nil {
@@ -9880,7 +9878,7 @@ func expandAlertPolicyConditionsConditionThresholdAggregations(c *Client, f *Ale
 	if v := f.CrossSeriesReducer; !dcl.IsEmptyValueIndirect(v) {
 		m["crossSeriesReducer"] = v
 	}
-	if v := f.GroupByFields; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GroupByFields; v != nil {
 		m["groupByFields"] = v
 	}
 	if v, err := expandAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams(c, f.ReduceFractionLessThanParams); err != nil {
@@ -10617,7 +10615,7 @@ func expandAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistribu
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Bounds; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Bounds; v != nil {
 		m["bounds"] = v
 	}
 
@@ -10854,7 +10852,7 @@ func expandAlertPolicyConditionsConditionThresholdDenominatorAggregations(c *Cli
 	if v := f.CrossSeriesReducer; !dcl.IsEmptyValueIndirect(v) {
 		m["crossSeriesReducer"] = v
 	}
-	if v := f.GroupByFields; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GroupByFields; v != nil {
 		m["groupByFields"] = v
 	}
 	if v, err := expandAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams(c, f.ReduceFractionLessThanParams); err != nil {
@@ -11591,7 +11589,7 @@ func expandAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceM
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Bounds; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Bounds; v != nil {
 		m["bounds"] = v
 	}
 
@@ -12078,7 +12076,7 @@ func expandAlertPolicyConditionsConditionAbsentAggregations(c *Client, f *AlertP
 	if v := f.CrossSeriesReducer; !dcl.IsEmptyValueIndirect(v) {
 		m["crossSeriesReducer"] = v
 	}
-	if v := f.GroupByFields; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GroupByFields; v != nil {
 		m["groupByFields"] = v
 	}
 	if v, err := expandAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams(c, f.ReduceFractionLessThanParams); err != nil {
@@ -12815,7 +12813,7 @@ func expandAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributio
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Bounds; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Bounds; v != nil {
 		m["bounds"] = v
 	}
 
@@ -13660,7 +13658,7 @@ func expandAlertPolicyConditionsConditionRateAggregations(c *Client, f *AlertPol
 	if v := f.CrossSeriesReducer; !dcl.IsEmptyValueIndirect(v) {
 		m["crossSeriesReducer"] = v
 	}
-	if v := f.GroupByFields; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GroupByFields; v != nil {
 		m["groupByFields"] = v
 	}
 	if v, err := expandAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams(c, f.ReduceFractionLessThanParams); err != nil {
@@ -14397,7 +14395,7 @@ func expandAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionP
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Bounds; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Bounds; v != nil {
 		m["bounds"] = v
 	}
 
@@ -17035,7 +17033,7 @@ func expandAlertPolicyMetadata(c *Client, f *AlertPolicyMetadata) (map[string]in
 	}
 
 	m := make(map[string]interface{})
-	if v := f.SloNames; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SloNames; v != nil {
 		m["sloNames"] = v
 	}
 

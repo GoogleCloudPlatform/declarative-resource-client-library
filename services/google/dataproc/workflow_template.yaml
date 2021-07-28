@@ -205,6 +205,7 @@ components:
                   x-dcl-go-name: Values
                   description: Optional. Corresponds to the label values of reservation
                     resource.
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -227,6 +228,7 @@ components:
                 If no scopes are specified, the following defaults are also provided:
                 * https://www.googleapis.com/auth/bigquery * https://www.googleapis.com/auth/bigtable.admin.table
                 * https://www.googleapis.com/auth/bigtable.data * https://www.googleapis.com/auth/devstorage.full_control'
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -245,6 +247,7 @@ components:
               type: array
               x-dcl-go-name: Tags
               description: The Compute Engine tags to add to all instances (see (https://cloud.google.com/compute/docs/label-or-tag-resources#tags)).
+              x-dcl-send-empty: true
               x-dcl-list-type: set
               items:
                 type: string
@@ -269,6 +272,7 @@ components:
             ROLE=$(curl -H Metadata-Flavor:Google http://metadata/computeMetadata/v1/instance/attributes/dataproc-role)
             if ; then ... master specific actions ... else ... worker specific actions
             ... fi'
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -443,6 +447,7 @@ components:
               type: array
               x-dcl-go-name: OptionalComponents
               description: Optional. The set of components to activate on the cluster.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -518,6 +523,7 @@ components:
             these instances.
           x-kubernetes-immutable: true
           x-dcl-server-default: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -591,6 +597,7 @@ components:
             names from `cluster_name`, `num_instances`, and the instance group.
           x-kubernetes-immutable: true
           x-dcl-server-default: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -701,6 +708,7 @@ components:
           type: array
           x-dcl-go-name: Jobs
           description: Required. The Directed Acyclic Graph of Jobs to submit.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -720,6 +728,7 @@ components:
                     description: 'Optional. HCFS URIs of archives to be extracted
                       in the working directory of Hadoop drivers and tasks. Supported
                       file types: .jar, .tar, .tar.gz, .tgz, or .zip.'
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -731,6 +740,7 @@ components:
                       not include arguments, such as `-libjars` or `-Dfoo=bar`, that
                       can be set as job properties, since a collision may occur that
                       causes an incorrect job submission.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -741,6 +751,7 @@ components:
                     description: Optional. HCFS (Hadoop Compatible Filesystem) URIs
                       of files to be copied to the working directory of Hadoop drivers
                       and distributed tasks. Useful for naively parallel tasks.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -750,6 +761,7 @@ components:
                     x-dcl-go-name: JarFileUris
                     description: Optional. Jar file URIs to add to the CLASSPATHs
                       of the Hadoop driver and tasks.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -808,6 +820,7 @@ components:
                     description: Optional. HCFS URIs of jar files to add to the CLASSPATH
                       of the Hive server and Hadoop MapReduce (MR) tasks. Can contain
                       Hive SerDes and UDFs.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -843,6 +856,7 @@ components:
                           with a semicolon. Here is an example of a Dataproc API snippet
                           that uses a QueryList to specify a HiveJob: "hiveJob": {
                           "queryList": { "queries": } }'
+                        x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
                           type: string
@@ -881,6 +895,7 @@ components:
                     description: Optional. HCFS URIs of jar files to add to the CLASSPATH
                       of the Pig Client and Hadoop MapReduce (MR) tasks. Can contain
                       Pig UDFs.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -932,6 +947,7 @@ components:
                           with a semicolon. Here is an example of a Dataproc API snippet
                           that uses a QueryList to specify a HiveJob: "hiveJob": {
                           "queryList": { "queries": } }'
+                        x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
                           type: string
@@ -948,6 +964,7 @@ components:
                 x-dcl-go-name: PrerequisiteStepIds
                 description: Optional. The optional list of prerequisite job step_ids.
                   If not specified, the job will start at the beginning of workflow.
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string
@@ -962,6 +979,7 @@ components:
                     type: array
                     x-dcl-go-name: ClientTags
                     description: Optional. Presto client tags to attach to this query
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -1022,6 +1040,7 @@ components:
                           with a semicolon. Here is an example of a Dataproc API snippet
                           that uses a QueryList to specify a HiveJob: "hiveJob": {
                           "queryList": { "queries": } }'
+                        x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
                           type: string
@@ -1040,6 +1059,7 @@ components:
                     description: 'Optional. HCFS URIs of archives to be extracted
                       into the working directory of each executor. Supported file
                       types: .jar, .tar, .tar.gz, .tgz, and .zip.'
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -1051,6 +1071,7 @@ components:
                       not include arguments, such as `--conf`, that can be set as
                       job properties, since a collision may occur that causes an incorrect
                       job submission.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -1061,6 +1082,7 @@ components:
                     description: Optional. HCFS URIs of files to be placed in the
                       working directory of each executor. Useful for naively parallel
                       tasks.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -1070,6 +1092,7 @@ components:
                     x-dcl-go-name: JarFileUris
                     description: Optional. HCFS URIs of jar files to add to the CLASSPATHs
                       of the Python driver and tasks.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -1110,6 +1133,7 @@ components:
                     description: 'Optional. HCFS file URIs of Python files to pass
                       to the PySpark framework. Supported file types: .py, .egg, and
                       .zip.'
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -1148,6 +1172,7 @@ components:
                     description: 'Optional. HCFS URIs of archives to be extracted
                       into the working directory of each executor. Supported file
                       types: .jar, .tar, .tar.gz, .tgz, and .zip.'
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -1159,6 +1184,7 @@ components:
                       not include arguments, such as `--conf`, that can be set as
                       job properties, since a collision may occur that causes an incorrect
                       job submission.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -1169,6 +1195,7 @@ components:
                     description: Optional. HCFS URIs of files to be placed in the
                       working directory of each executor. Useful for naively parallel
                       tasks.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -1178,6 +1205,7 @@ components:
                     x-dcl-go-name: JarFileUris
                     description: Optional. HCFS URIs of jar files to add to the CLASSPATHs
                       of the Spark driver and tasks.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -1232,6 +1260,7 @@ components:
                     description: 'Optional. HCFS URIs of archives to be extracted
                       into the working directory of each executor. Supported file
                       types: .jar, .tar, .tar.gz, .tgz, and .zip.'
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -1243,6 +1272,7 @@ components:
                       not include arguments, such as `--conf`, that can be set as
                       job properties, since a collision may occur that causes an incorrect
                       job submission.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -1253,6 +1283,7 @@ components:
                     description: Optional. HCFS URIs of files to be placed in the
                       working directory of each executor. Useful for naively parallel
                       tasks.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -1298,6 +1329,7 @@ components:
                     x-dcl-go-name: JarFileUris
                     description: Optional. HCFS URIs of jar files to be added to the
                       Spark CLASSPATH.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -1346,6 +1378,7 @@ components:
                           with a semicolon. Here is an example of a Dataproc API snippet
                           that uses a QueryList to specify a HiveJob: "hiveJob": {
                           "queryList": { "queries": } }'
+                        x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
                           type: string
@@ -1397,6 +1430,7 @@ components:
           description: Optional. Template parameters whose values are substituted
             into the template. Values for parameters must be provided when the template
             is instantiated.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -1416,6 +1450,7 @@ components:
                 description: Required. Paths to all fields that the parameter replaces.
                   A field is allowed to appear in at most one parameter's list of
                   field paths. A field path is similar in syntax to a .sparkJob.args
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string
@@ -1450,6 +1485,7 @@ components:
                         description: Required. RE2 regular expressions used to validate
                           the parameter's value. The value must match the regex in
                           its entirety (substring matches are not sufficient).
+                        x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
                           type: string
@@ -1466,6 +1502,7 @@ components:
                         type: array
                         x-dcl-go-name: Values
                         description: Required. List of allowed values for the parameter.
+                        x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
                           type: string

@@ -91,6 +91,7 @@ components:
               description: Targets instances matching at least one of these label
                 sets. This allows an assignment to target disparate groups, for example
                 "env=prod or env=staging".
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -109,6 +110,7 @@ components:
               description: Targets VMs whose name starts with one of these prefixes.
                 Like labels, this is another way to group VMs when targeting configs,
                 for example prefix=”prod-”. Only supported for project-level policies.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -121,6 +123,7 @@ components:
                 is supported to facilitate orchestrating changes by instance or to
                 target specific VMs for development and testing. Only supported for
                 project-level policies and must reference instances within this project.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -131,6 +134,7 @@ components:
             osTypes:
               type: array
               x-dcl-go-name: OSTypes
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -157,6 +161,7 @@ components:
               description: Targets instances in ANY of these zones. Leave empty to
                 target instances in any zone. Zonal targeting is uncommon and is supported
                 to facilitate orchestrating changes by zone.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -187,6 +192,7 @@ components:
           x-dcl-go-name: PackageRepositories
           description: List of package repository configurations assigned to the VM
             instance.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -217,6 +223,7 @@ components:
                     x-dcl-go-name: Components
                     description: List of components for this repository. Must contain
                       at least one item.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -273,6 +280,7 @@ components:
                     type: array
                     x-dcl-go-name: GpgKeys
                     description: Optional. URIs of GPG keys.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -306,6 +314,7 @@ components:
                     type: array
                     x-dcl-go-name: GpgKeys
                     description: Optional. URIs of GPG keys.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -322,6 +331,7 @@ components:
           type: array
           x-dcl-go-name: Packages
           description: List of package configurations assigned to the VM instance.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -376,6 +386,7 @@ components:
           type: array
           x-dcl-go-name: Recipes
           description: Optional. A list of Recipes to install on the VM.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -385,6 +396,7 @@ components:
                 type: array
                 x-dcl-go-name: Artifacts
                 description: Resources available to be used in the steps in the recipe.
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: object
@@ -471,6 +483,7 @@ components:
                   it will stop executing steps and not attempt another installation.
                   Any steps taken (including partially completed steps) will not be
                   rolled back.
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: object
@@ -560,6 +573,7 @@ components:
                           x-dcl-go-name: AllowedExitCodes
                           description: Defaults to . A list of possible return values
                             that the program can return to indicate a success.
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: integer
@@ -569,6 +583,7 @@ components:
                           type: array
                           x-dcl-go-name: Args
                           description: Arguments to be passed to the provided executable.
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: string
@@ -594,6 +609,7 @@ components:
                           description: Return codes that indicate that the software
                             installed or updated successfully. Behaviour defaults
                             to
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: integer
@@ -608,6 +624,7 @@ components:
                           x-dcl-go-name: Flags
                           description: The flags to use when installing the MSI defaults
                             to (i.e. the install flag).
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: string
@@ -634,6 +651,7 @@ components:
                           description: Return codes that indicate that the software
                             installed or updated successfully. Behaviour defaults
                             to
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: integer
@@ -674,6 +692,7 @@ components:
                   it will stop executing steps and not attempt another update for
                   this recipe. Any steps taken (including partially completed steps)
                   will not be rolled back.
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: object
@@ -763,6 +782,7 @@ components:
                           x-dcl-go-name: AllowedExitCodes
                           description: Defaults to . A list of possible return values
                             that the program can return to indicate a success.
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: integer
@@ -772,6 +792,7 @@ components:
                           type: array
                           x-dcl-go-name: Args
                           description: Arguments to be passed to the provided executable.
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: string
@@ -797,6 +818,7 @@ components:
                           description: Return codes that indicate that the software
                             installed or updated successfully. Behaviour defaults
                             to
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: integer
@@ -811,6 +833,7 @@ components:
                           x-dcl-go-name: Flags
                           description: The flags to use when installing the MSI defaults
                             to (i.e. the install flag).
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: string
@@ -837,6 +860,7 @@ components:
                           description: Return codes that indicate that the software
                             installed or updated successfully. Behaviour defaults
                             to
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: integer

@@ -121,6 +121,7 @@ components:
               type: array
               x-dcl-go-name: ServerRoles
               description: The server roles for this user
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string

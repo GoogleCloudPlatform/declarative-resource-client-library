@@ -77,6 +77,7 @@ components:
             execute atomically with the creation of the database: if there is an error
             in any statement, the database is not created.'
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

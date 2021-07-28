@@ -865,7 +865,7 @@ func expandDomainMapping(c *Client, f *DomainMapping) (map[string]interface{}, e
 	}
 	if v, err := expandDomainMappingResourceRecordsSlice(c, f.ResourceRecords); err != nil {
 		return nil, fmt.Errorf("error expanding ResourceRecords into resourceRecords: %w", err)
-	} else if v != nil {
+	} else {
 		m["resourceRecords"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

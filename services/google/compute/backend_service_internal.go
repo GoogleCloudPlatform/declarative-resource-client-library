@@ -4102,12 +4102,10 @@ func expandBackendService(c *Client, f *BackendService) (map[string]interface{},
 	}
 	if v, err := expandBackendServiceBackendsSlice(c, f.Backends); err != nil {
 		return nil, fmt.Errorf("error expanding Backends into backends: %w", err)
-	} else if v != nil {
+	} else {
 		m["backends"] = v
 	}
-	if v := f.HealthChecks; !dcl.IsEmptyValueIndirect(v) {
-		m["healthChecks"] = v
-	}
+	m["healthChecks"] = f.HealthChecks
 	if v := f.TimeoutSec; !dcl.IsEmptyValueIndirect(v) {
 		m["timeoutSec"] = v
 	}
@@ -4160,12 +4158,8 @@ func expandBackendService(c *Client, f *BackendService) (map[string]interface{},
 	} else if v != nil {
 		m["cdnPolicy"] = v
 	}
-	if v := f.CustomRequestHeaders; !dcl.IsEmptyValueIndirect(v) {
-		m["customRequestHeaders"] = v
-	}
-	if v := f.CustomResponseHeaders; !dcl.IsEmptyValueIndirect(v) {
-		m["customResponseHeaders"] = v
-	}
+	m["customRequestHeaders"] = f.CustomRequestHeaders
+	m["customResponseHeaders"] = f.CustomResponseHeaders
 	if v := f.SecurityPolicy; !dcl.IsEmptyValueIndirect(v) {
 		m["securityPolicy"] = v
 	}
@@ -4877,7 +4871,7 @@ func expandBackendServiceCdnPolicy(c *Client, f *BackendServiceCdnPolicy) (map[s
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cacheKeyPolicy"] = v
 	}
-	if v := f.SignedUrlKeyNames; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SignedUrlKeyNames; v != nil {
 		m["signedUrlKeyNames"] = v
 	}
 	if v := f.SignedUrlCacheMaxAgeSec; !dcl.IsEmptyValueIndirect(v) {
@@ -5045,16 +5039,16 @@ func expandBackendServiceCdnPolicyCacheKeyPolicy(c *Client, f *BackendServiceCdn
 	if v := f.IncludeQueryString; !dcl.IsEmptyValueIndirect(v) {
 		m["includeQueryString"] = v
 	}
-	if v := f.QueryStringWhitelist; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.QueryStringWhitelist; v != nil {
 		m["queryStringWhitelist"] = v
 	}
-	if v := f.QueryStringBlacklist; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.QueryStringBlacklist; v != nil {
 		m["queryStringBlacklist"] = v
 	}
-	if v := f.IncludeHttpHeaders; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.IncludeHttpHeaders; v != nil {
 		m["includeHttpHeaders"] = v
 	}
-	if v := f.IncludeNamedCookies; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.IncludeNamedCookies; v != nil {
 		m["includeNamedCookies"] = v
 	}
 
@@ -5527,7 +5521,7 @@ func expandBackendServiceSecuritySettings(c *Client, f *BackendServiceSecuritySe
 	if v := f.ClientTlsPolicy; !dcl.IsEmptyValueIndirect(v) {
 		m["clientTlsPolicy"] = v
 	}
-	if v := f.SubjectAltNames; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SubjectAltNames; v != nil {
 		m["subjectAltNames"] = v
 	}
 

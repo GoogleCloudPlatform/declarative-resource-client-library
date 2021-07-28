@@ -2890,9 +2890,7 @@ func expandNodePool(c *Client, f *NodePool) (map[string]interface{}, error) {
 	if v := f.StatusMessage; !dcl.IsEmptyValueIndirect(v) {
 		m["statusMessage"] = v
 	}
-	if v := f.Locations; !dcl.IsEmptyValueIndirect(v) {
-		m["locations"] = v
-	}
+	m["locations"] = f.Locations
 	if v, err := expandNodePoolAutoscaling(c, f.Autoscaling); err != nil {
 		return nil, fmt.Errorf("error expanding Autoscaling into autoscaling: %w", err)
 	} else if v != nil {
@@ -2910,7 +2908,7 @@ func expandNodePool(c *Client, f *NodePool) (map[string]interface{}, error) {
 	}
 	if v, err := expandNodePoolConditionsSlice(c, f.Conditions); err != nil {
 		return nil, fmt.Errorf("error expanding Conditions into conditions: %w", err)
-	} else if v != nil {
+	} else {
 		m["conditions"] = v
 	}
 	if v := f.PodIPv4CidrSize; !dcl.IsEmptyValueIndirect(v) {
@@ -3067,7 +3065,7 @@ func expandNodePoolConfig(c *Client, f *NodePoolConfig) (map[string]interface{},
 	if v := f.DiskSizeGb; !dcl.IsEmptyValueIndirect(v) {
 		m["diskSizeGb"] = v
 	}
-	if v := f.OAuthScopes; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.OAuthScopes; v != nil {
 		m["oauthScopes"] = v
 	}
 	if v := f.ServiceAccount; !dcl.IsEmptyValueIndirect(v) {
@@ -3085,7 +3083,7 @@ func expandNodePoolConfig(c *Client, f *NodePoolConfig) (map[string]interface{},
 	if v := f.LocalSsdCount; !dcl.IsEmptyValueIndirect(v) {
 		m["localSsdCount"] = v
 	}
-	if v := f.Tags; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Tags; v != nil {
 		m["tags"] = v
 	}
 	if v := f.Preemptible; !dcl.IsEmptyValueIndirect(v) {
@@ -3609,7 +3607,7 @@ func expandNodePoolConfigReservationAffinity(c *Client, f *NodePoolConfigReserva
 	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
 		m["key"] = v
 	}
-	if v := f.Values; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Values; v != nil {
 		m["values"] = v
 	}
 

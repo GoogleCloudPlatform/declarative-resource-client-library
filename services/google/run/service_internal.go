@@ -8075,7 +8075,7 @@ func expandServiceMetadata(c *Client, f *ServiceMetadata) (map[string]interface{
 	if v := f.DeletionGracePeriodSeconds; !dcl.IsEmptyValueIndirect(v) {
 		m["deletionGracePeriodSeconds"] = v
 	}
-	if v := f.Finalizers; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Finalizers; v != nil {
 		m["finalizers"] = v
 	}
 	if v := f.ClusterName; !dcl.IsEmptyValueIndirect(v) {
@@ -8864,7 +8864,7 @@ func expandServiceSpecTemplateMetadata(c *Client, f *ServiceSpecTemplateMetadata
 	if v := f.DeletionGracePeriodSeconds; !dcl.IsEmptyValueIndirect(v) {
 		m["deletionGracePeriodSeconds"] = v
 	}
-	if v := f.Finalizers; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Finalizers; v != nil {
 		m["finalizers"] = v
 	}
 	if v := f.ClusterName; !dcl.IsEmptyValueIndirect(v) {
@@ -9505,10 +9505,10 @@ func expandServiceSpecTemplateSpecContainers(c *Client, f *ServiceSpecTemplateSp
 	if v := f.Image; !dcl.IsEmptyValueIndirect(v) {
 		m["image"] = v
 	}
-	if v := f.Command; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Command; v != nil {
 		m["command"] = v
 	}
-	if v := f.Args; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Args; v != nil {
 		m["args"] = v
 	}
 	if v, err := expandServiceSpecTemplateSpecContainersEnvSlice(c, f.Env); err != nil {

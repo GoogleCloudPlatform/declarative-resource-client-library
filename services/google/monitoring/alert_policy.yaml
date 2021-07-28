@@ -84,6 +84,7 @@ components:
             If `condition_time_series_query_language` is present, it must be the only
             `condition`.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -114,6 +115,7 @@ components:
                       It is advisable to use the `ListTimeSeries` method when debugging this
                       field.
                     x-kubernetes-immutable: true
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: object
@@ -190,6 +192,7 @@ components:
                             a single output time series. If `cross_series_reducer` is not
                             defined, this field is ignored.
                           x-kubernetes-immutable: true
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: string
@@ -284,6 +287,7 @@ components:
                                       description: The values must be monotonically
                                         increasing.
                                       x-kubernetes-immutable: true
+                                      x-dcl-send-empty: true
                                       x-dcl-list-type: list
                                       items:
                                         type: number
@@ -678,6 +682,7 @@ components:
                       It is advisable to use the `ListTimeSeries` method when debugging this
                       field.
                     x-kubernetes-immutable: true
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: object
@@ -754,6 +759,7 @@ components:
                             a single output time series. If `cross_series_reducer` is not
                             defined, this field is ignored.
                           x-kubernetes-immutable: true
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: string
@@ -848,6 +854,7 @@ components:
                                       description: The values must be monotonically
                                         increasing.
                                       x-kubernetes-immutable: true
+                                      x-dcl-send-empty: true
                                       x-dcl-list-type: list
                                       items:
                                         type: number
@@ -1033,6 +1040,7 @@ components:
                       It is advisable to use the `ListTimeSeries` method when debugging this
                       field.
                     x-kubernetes-immutable: true
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: object
@@ -1109,6 +1117,7 @@ components:
                             a single output time series. If `cross_series_reducer` is not
                             defined, this field is ignored.
                           x-kubernetes-immutable: true
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: string
@@ -1203,6 +1212,7 @@ components:
                                       description: The values must be monotonically
                                         increasing.
                                       x-kubernetes-immutable: true
+                                      x-dcl-send-empty: true
                                       x-dcl-list-type: list
                                       items:
                                         type: number
@@ -1307,6 +1317,7 @@ components:
                       `denominator_aggregations` fields must use the same alignment period
                       and produce time series that have the same periodicity and labels.
                     x-kubernetes-immutable: true
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: object
@@ -1383,6 +1394,7 @@ components:
                             a single output time series. If `cross_series_reducer` is not
                             defined, this field is ignored.
                           x-kubernetes-immutable: true
+                          x-dcl-send-empty: true
                           x-dcl-list-type: list
                           items:
                             type: string
@@ -1477,6 +1489,7 @@ components:
                                       description: The values must be monotonically
                                         increasing.
                                       x-kubernetes-immutable: true
+                                      x-dcl-send-empty: true
                                       x-dcl-list-type: list
                                       items:
                                         type: number
@@ -1943,6 +1956,7 @@ components:
                 A list of SLO names that are explicitly mentioned in the conditions of
                 the alert policy.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -2018,6 +2032,7 @@ components:
 
                 projects/[PROJECT_ID_OR_NUMBER]/notificationChannels/[CHANNEL_ID]
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -2067,6 +2082,7 @@ components:
                 A list of messages that carry the error details.  There is a common set of
                 message types for APIs to use.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object

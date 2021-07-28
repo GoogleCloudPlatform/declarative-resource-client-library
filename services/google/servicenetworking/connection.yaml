@@ -117,6 +117,7 @@ components:
             method is invoked repeatedly to reconnect when peering connection had
             been disconnected on the consumer side, leaving this field empty will
             restore previously allocated IP ranges.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

@@ -430,6 +430,7 @@ components:
               description: A list of messages that carry the error details. There
                 is a common set of message types for APIs to use.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object

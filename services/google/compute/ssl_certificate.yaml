@@ -162,6 +162,7 @@ components:
           description: Domains associated with the certificate via Subject Alternative
             Name.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

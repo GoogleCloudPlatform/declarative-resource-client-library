@@ -966,15 +966,11 @@ func expandSslPolicy(c *Client, f *SslPolicy) (map[string]interface{}, error) {
 	if v := f.MinTlsVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["minTlsVersion"] = v
 	}
-	if v := f.EnabledFeature; !dcl.IsEmptyValueIndirect(v) {
-		m["enabledFeatures"] = v
-	}
-	if v := f.CustomFeature; !dcl.IsEmptyValueIndirect(v) {
-		m["customFeatures"] = v
-	}
+	m["enabledFeatures"] = f.EnabledFeature
+	m["customFeatures"] = f.CustomFeature
 	if v, err := expandSslPolicyWarningSlice(c, f.Warning); err != nil {
 		return nil, fmt.Errorf("error expanding Warning into warnings: %w", err)
-	} else if v != nil {
+	} else {
 		m["warnings"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

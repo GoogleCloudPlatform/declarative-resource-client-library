@@ -675,7 +675,7 @@ func expandIndex(c *Client, f *Index) (map[string]interface{}, error) {
 	}
 	if v, err := expandIndexPropertiesSlice(c, f.Properties); err != nil {
 		return nil, fmt.Errorf("error expanding Properties into properties: %w", err)
-	} else if v != nil {
+	} else {
 		m["properties"] = v
 	}
 	if v := f.State; !dcl.IsEmptyValueIndirect(v) {

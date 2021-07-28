@@ -1302,32 +1302,20 @@ func expandFirewall(c *Client, f *Firewall) (map[string]interface{}, error) {
 	}
 	if v, err := expandFirewallAllowedSlice(c, f.Allowed); err != nil {
 		return nil, fmt.Errorf("error expanding Allowed into allowed: %w", err)
-	} else if v != nil {
+	} else {
 		m["allowed"] = v
 	}
 	if v, err := expandFirewallDeniedSlice(c, f.Denied); err != nil {
 		return nil, fmt.Errorf("error expanding Denied into denied: %w", err)
-	} else if v != nil {
+	} else {
 		m["denied"] = v
 	}
-	if v := f.DestinationRanges; !dcl.IsEmptyValueIndirect(v) {
-		m["destinationRanges"] = v
-	}
-	if v := f.SourceRanges; !dcl.IsEmptyValueIndirect(v) {
-		m["sourceRanges"] = v
-	}
-	if v := f.SourceServiceAccounts; !dcl.IsEmptyValueIndirect(v) {
-		m["sourceServiceAccounts"] = v
-	}
-	if v := f.SourceTags; !dcl.IsEmptyValueIndirect(v) {
-		m["sourceTags"] = v
-	}
-	if v := f.TargetServiceAccounts; !dcl.IsEmptyValueIndirect(v) {
-		m["targetServiceAccounts"] = v
-	}
-	if v := f.TargetTags; !dcl.IsEmptyValueIndirect(v) {
-		m["targetTags"] = v
-	}
+	m["destinationRanges"] = f.DestinationRanges
+	m["sourceRanges"] = f.SourceRanges
+	m["sourceServiceAccounts"] = f.SourceServiceAccounts
+	m["sourceTags"] = f.SourceTags
+	m["targetServiceAccounts"] = f.TargetServiceAccounts
+	m["targetTags"] = f.TargetTags
 
 	return m, nil
 }
@@ -1577,10 +1565,10 @@ func expandFirewallAllowed(c *Client, f *FirewallAllowed) (map[string]interface{
 	if v := f.IPProtocol; !dcl.IsEmptyValueIndirect(v) {
 		m["IPProtocol"] = v
 	}
-	if v := f.Ports; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Ports; v != nil {
 		m["ports"] = v
 	}
-	if v := f.IPProtocolAlt; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.IPProtocolAlt; v != nil {
 		m["ipProtocolAlt"] = v
 	}
 
@@ -1699,10 +1687,10 @@ func expandFirewallDenied(c *Client, f *FirewallDenied) (map[string]interface{},
 	if v := f.IPProtocol; !dcl.IsEmptyValueIndirect(v) {
 		m["IPProtocol"] = v
 	}
-	if v := f.Ports; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Ports; v != nil {
 		m["ports"] = v
 	}
-	if v := f.IPProtocolAlt; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.IPProtocolAlt; v != nil {
 		m["ipProtocolAlt"] = v
 	}
 

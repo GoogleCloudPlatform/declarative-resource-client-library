@@ -3897,7 +3897,7 @@ func expandNote(c *Client, f *Note) (map[string]interface{}, error) {
 	}
 	if v, err := expandNoteRelatedUrlSlice(c, f.RelatedUrl); err != nil {
 		return nil, fmt.Errorf("error expanding RelatedUrl into relatedUrl: %w", err)
-	} else if v != nil {
+	} else {
 		m["relatedUrl"] = v
 	}
 	if v := f.ExpirationTime; !dcl.IsEmptyValueIndirect(v) {
@@ -3909,9 +3909,7 @@ func expandNote(c *Client, f *Note) (map[string]interface{}, error) {
 	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["updateTime"] = v
 	}
-	if v := f.RelatedNoteNames; !dcl.IsEmptyValueIndirect(v) {
-		m["relatedNoteNames"] = v
-	}
+	m["relatedNoteNames"] = f.RelatedNoteNames
 	if v, err := expandNoteVulnerability(c, f.Vulnerability); err != nil {
 		return nil, fmt.Errorf("error expanding Vulnerability into vulnerability: %w", err)
 	} else if v != nil {
@@ -5526,7 +5524,7 @@ func expandNoteImageFingerprint(c *Client, f *NoteImageFingerprint) (map[string]
 	if v := f.V1Name; !dcl.IsEmptyValueIndirect(v) {
 		m["v1Name"] = v
 	}
-	if v := f.V2Blob; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.V2Blob; v != nil {
 		m["v2Blob"] = v
 	}
 	if v := f.V2Name; !dcl.IsEmptyValueIndirect(v) {
@@ -6145,7 +6143,7 @@ func expandNoteDeployment(c *Client, f *NoteDeployment) (map[string]interface{},
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ResourceUri; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceUri; v != nil {
 		m["resourceUri"] = v
 	}
 

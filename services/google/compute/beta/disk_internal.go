@@ -1660,7 +1660,7 @@ func expandDisk(c *Client, f *Disk) (map[string]interface{}, error) {
 	}
 	if v, err := expandDiskGuestOSFeatureSlice(c, f.GuestOSFeature); err != nil {
 		return nil, fmt.Errorf("error expanding GuestOSFeature into guestOSFeature: %w", err)
-	} else if v != nil {
+	} else {
 		m["guestOSFeature"] = v
 	}
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
@@ -1669,21 +1669,15 @@ func expandDisk(c *Client, f *Disk) (map[string]interface{}, error) {
 	if v := f.LabelFingerprint; !dcl.IsEmptyValueIndirect(v) {
 		m["labelFingerprint"] = v
 	}
-	if v := f.License; !dcl.IsEmptyValueIndirect(v) {
-		m["license"] = v
-	}
+	m["license"] = f.License
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Region; !dcl.IsEmptyValueIndirect(v) {
 		m["region"] = v
 	}
-	if v := f.ReplicaZones; !dcl.IsEmptyValueIndirect(v) {
-		m["replicaZones"] = v
-	}
-	if v := f.ResourcePolicy; !dcl.IsEmptyValueIndirect(v) {
-		m["resourcePolicy"] = v
-	}
+	m["replicaZones"] = f.ReplicaZones
+	m["resourcePolicy"] = f.ResourcePolicy
 	if v := f.SizeGb; !dcl.IsEmptyValueIndirect(v) {
 		m["sizeGb"] = v
 	}
@@ -1729,12 +1723,10 @@ func expandDisk(c *Client, f *Disk) (map[string]interface{}, error) {
 	if v := f.Options; !dcl.IsEmptyValueIndirect(v) {
 		m["options"] = v
 	}
-	if v := f.Licenses; !dcl.IsEmptyValueIndirect(v) {
-		m["licenses"] = v
-	}
+	m["licenses"] = f.Licenses
 	if v, err := expandDiskGuestOSFeaturesSlice(c, f.GuestOSFeatures); err != nil {
 		return nil, fmt.Errorf("error expanding GuestOSFeatures into guestOsFeatures: %w", err)
-	} else if v != nil {
+	} else {
 		m["guestOsFeatures"] = v
 	}
 	if v := f.LastAttachTimestamp; !dcl.IsEmptyValueIndirect(v) {
@@ -1743,18 +1735,12 @@ func expandDisk(c *Client, f *Disk) (map[string]interface{}, error) {
 	if v := f.LastDetachTimestamp; !dcl.IsEmptyValueIndirect(v) {
 		m["lastDetachTimestamp"] = v
 	}
-	if v := f.Users; !dcl.IsEmptyValueIndirect(v) {
-		m["users"] = v
-	}
-	if v := f.LicenseCodes; !dcl.IsEmptyValueIndirect(v) {
-		m["licenseCodes"] = v
-	}
+	m["users"] = f.Users
+	m["licenseCodes"] = f.LicenseCodes
 	if v := f.PhysicalBlockSizeBytes; !dcl.IsEmptyValueIndirect(v) {
 		m["physicalBlockSizeBytes"] = v
 	}
-	if v := f.ResourcePolicies; !dcl.IsEmptyValueIndirect(v) {
-		m["resourcePolicies"] = v
-	}
+	m["resourcePolicies"] = f.ResourcePolicies
 	if v := f.SourceDisk; !dcl.IsEmptyValueIndirect(v) {
 		m["sourceDisk"] = v
 	}
@@ -1913,7 +1899,7 @@ func expandDiskGuestOSFeature(c *Client, f *DiskGuestOSFeature) (map[string]inte
 	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
 		m["type"] = v
 	}
-	if v := f.TypeAlt; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.TypeAlt; v != nil {
 		m["typeAlt"] = v
 	}
 
@@ -2157,7 +2143,7 @@ func expandDiskGuestOSFeatures(c *Client, f *DiskGuestOSFeatures) (map[string]in
 	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
 		m["type"] = v
 	}
-	if v := f.TypeAlts; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.TypeAlts; v != nil {
 		m["typeAlts"] = v
 	}
 

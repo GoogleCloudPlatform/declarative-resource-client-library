@@ -1165,12 +1165,12 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := expandInstanceFileSharesSlice(c, f.FileShares); err != nil {
 		return nil, fmt.Errorf("error expanding FileShares into fileShares: %w", err)
-	} else if v != nil {
+	} else {
 		m["fileShares"] = v
 	}
 	if v, err := expandInstanceNetworksSlice(c, f.Networks); err != nil {
 		return nil, fmt.Errorf("error expanding Networks into networks: %w", err)
-	} else if v != nil {
+	} else {
 		m["networks"] = v
 	}
 	if v := f.Etag; !dcl.IsEmptyValueIndirect(v) {
@@ -1435,7 +1435,7 @@ func expandInstanceFileSharesNfsExportOptions(c *Client, f *InstanceFileSharesNf
 	}
 
 	m := make(map[string]interface{})
-	if v := f.IPRanges; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.IPRanges; v != nil {
 		m["ipRanges"] = v
 	}
 	if v := f.AccessMode; !dcl.IsEmptyValueIndirect(v) {
@@ -1570,13 +1570,13 @@ func expandInstanceNetworks(c *Client, f *InstanceNetworks) (map[string]interfac
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["network"] = v
 	}
-	if v := f.Modes; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Modes; v != nil {
 		m["modes"] = v
 	}
 	if v := f.ReservedIPRange; !dcl.IsEmptyValueIndirect(v) {
 		m["reservedIpRange"] = v
 	}
-	if v := f.IPAddresses; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.IPAddresses; v != nil {
 		m["ipAddresses"] = v
 	}
 

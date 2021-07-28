@@ -782,9 +782,7 @@ func expandConnector(c *Client, f *Connector) (map[string]interface{}, error) {
 	if v := f.MaxThroughput; !dcl.IsEmptyValueIndirect(v) {
 		m["maxThroughput"] = v
 	}
-	if v := f.ConnectedProjects; !dcl.IsEmptyValueIndirect(v) {
-		m["connectedProjects"] = v
-	}
+	m["connectedProjects"] = f.ConnectedProjects
 	if v, err := expandConnectorSubnet(c, f.Subnet); err != nil {
 		return nil, fmt.Errorf("error expanding Subnet into subnet: %w", err)
 	} else if v != nil {

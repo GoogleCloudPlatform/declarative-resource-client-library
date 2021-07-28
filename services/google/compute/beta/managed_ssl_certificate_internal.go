@@ -729,9 +729,7 @@ func expandManagedSslCertificate(c *Client, f *ManagedSslCertificate) (map[strin
 	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
 		m["type"] = v
 	}
-	if v := f.SubjectAlternativeNames; !dcl.IsEmptyValueIndirect(v) {
-		m["subjectAlternativeNames"] = v
-	}
+	m["subjectAlternativeNames"] = f.SubjectAlternativeNames
 	if v := f.ExpireTime; !dcl.IsEmptyValueIndirect(v) {
 		m["expireTime"] = v
 	}
@@ -863,7 +861,7 @@ func expandManagedSslCertificateManaged(c *Client, f *ManagedSslCertificateManag
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Domains; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Domains; v != nil {
 		m["domains"] = v
 	}
 	if v := f.Status; !dcl.IsEmptyValueIndirect(v) {

@@ -4662,12 +4662,12 @@ func expandJob(c *Client, f *Job) (map[string]interface{}, error) {
 	}
 	if v, err := expandJobStatusHistorySlice(c, f.StatusHistory); err != nil {
 		return nil, fmt.Errorf("error expanding StatusHistory into statusHistory: %w", err)
-	} else if v != nil {
+	} else {
 		m["statusHistory"] = v
 	}
 	if v, err := expandJobYarnApplicationsSlice(c, f.YarnApplications); err != nil {
 		return nil, fmt.Errorf("error expanding YarnApplications into yarnApplications: %w", err)
-	} else if v != nil {
+	} else {
 		m["yarnApplications"] = v
 	}
 	if v := f.DriverOutputResourceUri; !dcl.IsEmptyValueIndirect(v) {
@@ -5076,16 +5076,16 @@ func expandJobHadoopJob(c *Client, f *JobHadoopJob) (map[string]interface{}, err
 	if v := f.MainClass; !dcl.IsEmptyValueIndirect(v) {
 		m["mainClass"] = v
 	}
-	if v := f.Args; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Args; v != nil {
 		m["args"] = v
 	}
-	if v := f.JarFileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.JarFileUris; v != nil {
 		m["jarFileUris"] = v
 	}
-	if v := f.FileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.FileUris; v != nil {
 		m["fileUris"] = v
 	}
-	if v := f.ArchiveUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ArchiveUris; v != nil {
 		m["archiveUris"] = v
 	}
 	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
@@ -5334,16 +5334,16 @@ func expandJobSparkJob(c *Client, f *JobSparkJob) (map[string]interface{}, error
 	if v := f.MainClass; !dcl.IsEmptyValueIndirect(v) {
 		m["mainClass"] = v
 	}
-	if v := f.Args; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Args; v != nil {
 		m["args"] = v
 	}
-	if v := f.JarFileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.JarFileUris; v != nil {
 		m["jarFileUris"] = v
 	}
-	if v := f.FileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.FileUris; v != nil {
 		m["fileUris"] = v
 	}
-	if v := f.ArchiveUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ArchiveUris; v != nil {
 		m["archiveUris"] = v
 	}
 	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
@@ -5589,19 +5589,19 @@ func expandJobPysparkJob(c *Client, f *JobPysparkJob) (map[string]interface{}, e
 	if v := f.MainPythonFileUri; !dcl.IsEmptyValueIndirect(v) {
 		m["mainPythonFileUri"] = v
 	}
-	if v := f.Args; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Args; v != nil {
 		m["args"] = v
 	}
-	if v := f.PythonFileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.PythonFileUris; v != nil {
 		m["pythonFileUris"] = v
 	}
-	if v := f.JarFileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.JarFileUris; v != nil {
 		m["jarFileUris"] = v
 	}
-	if v := f.FileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.FileUris; v != nil {
 		m["fileUris"] = v
 	}
-	if v := f.ArchiveUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ArchiveUris; v != nil {
 		m["archiveUris"] = v
 	}
 	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
@@ -5861,7 +5861,7 @@ func expandJobHiveJob(c *Client, f *JobHiveJob) (map[string]interface{}, error) 
 	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
 		m["properties"] = v
 	}
-	if v := f.JarFileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.JarFileUris; v != nil {
 		m["jarFileUris"] = v
 	}
 
@@ -5980,7 +5980,7 @@ func expandJobHiveJobQueryList(c *Client, f *JobHiveJobQueryList) (map[string]in
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Queries; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Queries; v != nil {
 		m["queries"] = v
 	}
 
@@ -6111,7 +6111,7 @@ func expandJobPigJob(c *Client, f *JobPigJob) (map[string]interface{}, error) {
 	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
 		m["properties"] = v
 	}
-	if v := f.JarFileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.JarFileUris; v != nil {
 		m["jarFileUris"] = v
 	}
 	if v, err := expandJobPigJobLoggingConfig(c, f.LoggingConfig); err != nil {
@@ -6236,7 +6236,7 @@ func expandJobPigJobQueryList(c *Client, f *JobPigJobQueryList) (map[string]inte
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Queries; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Queries; v != nil {
 		m["queries"] = v
 	}
 
@@ -6467,13 +6467,13 @@ func expandJobSparkRJob(c *Client, f *JobSparkRJob) (map[string]interface{}, err
 	if v := f.MainRFileUri; !dcl.IsEmptyValueIndirect(v) {
 		m["mainRFileUri"] = v
 	}
-	if v := f.Args; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Args; v != nil {
 		m["args"] = v
 	}
-	if v := f.FileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.FileUris; v != nil {
 		m["fileUris"] = v
 	}
-	if v := f.ArchiveUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ArchiveUris; v != nil {
 		m["archiveUris"] = v
 	}
 	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
@@ -6728,7 +6728,7 @@ func expandJobSparkSqlJob(c *Client, f *JobSparkSqlJob) (map[string]interface{},
 	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
 		m["properties"] = v
 	}
-	if v := f.JarFileUris; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.JarFileUris; v != nil {
 		m["jarFileUris"] = v
 	}
 	if v, err := expandJobSparkSqlJobLoggingConfig(c, f.LoggingConfig); err != nil {
@@ -6852,7 +6852,7 @@ func expandJobSparkSqlJobQueryList(c *Client, f *JobSparkSqlJobQueryList) (map[s
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Queries; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Queries; v != nil {
 		m["queries"] = v
 	}
 
@@ -7094,7 +7094,7 @@ func expandJobPrestoJob(c *Client, f *JobPrestoJob) (map[string]interface{}, err
 	if v := f.OutputFormat; !dcl.IsEmptyValueIndirect(v) {
 		m["outputFormat"] = v
 	}
-	if v := f.ClientTags; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ClientTags; v != nil {
 		m["clientTags"] = v
 	}
 	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
@@ -7222,7 +7222,7 @@ func expandJobPrestoJobQueryList(c *Client, f *JobPrestoJobQueryList) (map[strin
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Queries; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Queries; v != nil {
 		m["queries"] = v
 	}
 

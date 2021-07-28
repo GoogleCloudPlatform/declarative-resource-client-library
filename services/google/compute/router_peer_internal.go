@@ -1019,12 +1019,10 @@ func expandRouterPeer(c *Client, f *RouterPeer) (map[string]interface{}, error) 
 	if v := f.ManagementType; !dcl.IsEmptyValueIndirect(v) {
 		m["managementType"] = v
 	}
-	if v := f.AdvertisedGroups; !dcl.IsEmptyValueIndirect(v) {
-		m["advertisedGroups"] = v
-	}
+	m["advertisedGroups"] = f.AdvertisedGroups
 	if v, err := expandRouterPeerAdvertisedIPRangesSlice(c, f.AdvertisedIPRanges); err != nil {
 		return nil, fmt.Errorf("error expanding AdvertisedIPRanges into advertisedIpRanges: %w", err)
-	} else if v != nil {
+	} else {
 		m["advertisedIpRanges"] = v
 	}
 	if v := f.Region; !dcl.IsEmptyValueIndirect(v) {

@@ -134,6 +134,7 @@ components:
               type: array
               x-dcl-go-name: Layer4Configs
               description: Pairs of IP protocols and ports that the rule should match.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object

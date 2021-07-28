@@ -579,9 +579,7 @@ func expandConnection(c *Client, f *Connection) (map[string]interface{}, error) 
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["peering"] = v
 	}
-	if v := f.ReservedPeeringRanges; !dcl.IsEmptyValueIndirect(v) {
-		m["reservedPeeringRanges"] = v
-	}
+	m["reservedPeeringRanges"] = f.ReservedPeeringRanges
 	if v, err := dcl.DeriveField("services/%s", f.Service, f.Service); err != nil {
 		return nil, fmt.Errorf("error expanding Service into service: %w", err)
 	} else if v != nil {

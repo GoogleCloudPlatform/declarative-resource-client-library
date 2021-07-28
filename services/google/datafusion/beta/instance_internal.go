@@ -1251,7 +1251,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := expandInstanceAvailableVersionSlice(c, f.AvailableVersion); err != nil {
 		return nil, fmt.Errorf("error expanding AvailableVersion into availableVersion: %w", err)
-	} else if v != nil {
+	} else {
 		m["availableVersion"] = v
 	}
 	if v := f.ApiEndpoint; !dcl.IsEmptyValueIndirect(v) {
@@ -1537,7 +1537,7 @@ func expandInstanceAvailableVersion(c *Client, f *InstanceAvailableVersion) (map
 	if v := f.DefaultVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["defaultVersion"] = v
 	}
-	if v := f.AvailableFeatures; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AvailableFeatures; v != nil {
 		m["availableFeatures"] = v
 	}
 

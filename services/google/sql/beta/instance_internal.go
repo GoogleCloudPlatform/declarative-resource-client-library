@@ -6322,7 +6322,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := expandInstanceIPAddressesSlice(c, f.IPAddresses); err != nil {
 		return nil, fmt.Errorf("error expanding IPAddresses into ipAddresses: %w", err)
-	} else if v != nil {
+	} else {
 		m["ipAddresses"] = v
 	}
 	if v, err := expandInstanceMasterInstance(c, f.MasterInstance); err != nil {
@@ -6350,7 +6350,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := expandInstanceReplicaInstancesSlice(c, f.ReplicaInstances); err != nil {
 		return nil, fmt.Errorf("error expanding ReplicaInstances into replicaInstances: %w", err)
-	} else if v != nil {
+	} else {
 		m["replicaInstances"] = v
 	}
 	if v, err := expandInstanceServerCaCert(c, f.ServerCaCert); err != nil {
@@ -6369,9 +6369,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["onPremisesConfiguration"] = v
 	}
-	if v := f.SuspensionReason; !dcl.IsEmptyValueIndirect(v) {
-		m["suspensionReason"] = v
-	}
+	m["suspensionReason"] = f.SuspensionReason
 	if v, err := expandInstanceDiskEncryptionStatus(c, f.DiskEncryptionStatus); err != nil {
 		return nil, fmt.Errorf("error expanding DiskEncryptionStatus into diskEncryptionStatus: %w", err)
 	} else if v != nil {
@@ -8490,7 +8488,7 @@ func expandInstanceSettings(c *Client, f *InstanceSettings) (map[string]interfac
 	}
 
 	m := make(map[string]interface{})
-	if v := f.AuthorizedGaeApplications; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AuthorizedGaeApplications; v != nil {
 		m["authorizedGaeApplications"] = v
 	}
 	if v := f.Tier; !dcl.IsEmptyValueIndirect(v) {
@@ -10587,7 +10585,7 @@ func expandInstanceOnPremisesConfiguration(c *Client, f *InstanceOnPremisesConfi
 	if v := f.Database; !dcl.IsEmptyValueIndirect(v) {
 		m["database"] = v
 	}
-	if v := f.ReplicatedDatabases; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ReplicatedDatabases; v != nil {
 		m["replicatedDatabases"] = v
 	}
 

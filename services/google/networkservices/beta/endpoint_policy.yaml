@@ -153,6 +153,7 @@ components:
                     can have at most 64 entries. The list can be empty if the match
                     criteria is MATCH_ANY, to specify a wildcard match (i.e this matches
                     any client).
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: object
@@ -221,6 +222,7 @@ components:
                 range (example, specifies all ports from 80 to 90, including 80 and
                 90) or named ports or * to specify all ports. If the list is empty,
                 all ports are selected.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string

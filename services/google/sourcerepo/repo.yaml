@@ -79,6 +79,7 @@ components:
           x-dcl-go-name: PubsubConfigs
           description: How this repository publishes a change in the repository through
             Cloud Pub/Sub.
+          x-dcl-send-empty: true
           x-dcl-list-type: set
           items:
             type: object

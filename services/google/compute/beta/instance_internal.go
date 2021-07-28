@@ -3351,12 +3351,12 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := expandInstanceDisksSlice(c, f.Disks); err != nil {
 		return nil, fmt.Errorf("error expanding Disks into disks: %w", err)
-	} else if v != nil {
+	} else {
 		m["disks"] = v
 	}
 	if v, err := expandInstanceGuestAcceleratorsSlice(c, f.GuestAccelerators); err != nil {
 		return nil, fmt.Errorf("error expanding GuestAccelerators into guestAccelerators: %w", err)
-	} else if v != nil {
+	} else {
 		m["guestAccelerators"] = v
 	}
 	if v := f.Hostname; !dcl.IsEmptyValueIndirect(v) {
@@ -3384,7 +3384,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := expandInstanceNetworkInterfacesSlice(c, f.NetworkInterfaces); err != nil {
 		return nil, fmt.Errorf("error expanding NetworkInterfaces into networkInterfaces: %w", err)
-	} else if v != nil {
+	} else {
 		m["networkInterfaces"] = v
 	}
 	if v, err := expandInstanceScheduling(c, f.Scheduling); err != nil {
@@ -3394,7 +3394,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := expandInstanceServiceAccountsSlice(c, f.ServiceAccounts); err != nil {
 		return nil, fmt.Errorf("error expanding ServiceAccounts into serviceAccounts: %w", err)
-	} else if v != nil {
+	} else {
 		m["serviceAccounts"] = v
 	}
 	if v, err := expandInstanceShieldedInstanceConfig(c, f.ShieldedInstanceConfig); err != nil {
@@ -3408,9 +3408,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	if v := f.StatusMessage; !dcl.IsEmptyValueIndirect(v) {
 		m["statusMessage"] = v
 	}
-	if v := f.Tags; !dcl.IsEmptyValueIndirect(v) {
-		m["tags"] = v
-	}
+	m["tags"] = f.Tags
 	if v := f.Zone; !dcl.IsEmptyValueIndirect(v) {
 		m["zone"] = v
 	}
@@ -4702,7 +4700,7 @@ func expandInstanceServiceAccounts(c *Client, f *InstanceServiceAccounts) (map[s
 	if v := f.Email; !dcl.IsEmptyValueIndirect(v) {
 		m["email"] = v
 	}
-	if v := f.Scopes; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Scopes; v != nil {
 		m["scopes"] = v
 	}
 

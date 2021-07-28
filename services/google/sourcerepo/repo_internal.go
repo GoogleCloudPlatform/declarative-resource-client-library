@@ -712,7 +712,7 @@ func expandRepo(c *Client, f *Repo) (map[string]interface{}, error) {
 	}
 	if v, err := expandRepoPubsubConfig(f, f.PubsubConfigs); err != nil {
 		return nil, fmt.Errorf("error expanding PubsubConfigs into pubsubConfigs: %w", err)
-	} else if v != nil {
+	} else {
 		m["pubsubConfigs"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

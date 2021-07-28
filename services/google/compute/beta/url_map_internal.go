@@ -8746,7 +8746,7 @@ func expandUrlMap(c *Client, f *UrlMap) (map[string]interface{}, error) {
 	}
 	if v, err := expandUrlMapHostRuleSlice(c, f.HostRule); err != nil {
 		return nil, fmt.Errorf("error expanding HostRule into hostRules: %w", err)
-	} else if v != nil {
+	} else {
 		m["hostRules"] = v
 	}
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
@@ -8754,7 +8754,7 @@ func expandUrlMap(c *Client, f *UrlMap) (map[string]interface{}, error) {
 	}
 	if v, err := expandUrlMapPathMatcherSlice(c, f.PathMatcher); err != nil {
 		return nil, fmt.Errorf("error expanding PathMatcher into pathMatchers: %w", err)
-	} else if v != nil {
+	} else {
 		m["pathMatchers"] = v
 	}
 	if v := f.Region; !dcl.IsEmptyValueIndirect(v) {
@@ -8762,7 +8762,7 @@ func expandUrlMap(c *Client, f *UrlMap) (map[string]interface{}, error) {
 	}
 	if v, err := expandUrlMapTestSlice(c, f.Test); err != nil {
 		return nil, fmt.Errorf("error expanding Test into tests: %w", err)
-	} else if v != nil {
+	} else {
 		m["tests"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
@@ -9167,7 +9167,7 @@ func expandUrlMapHeaderAction(c *Client, f *UrlMapHeaderAction) (map[string]inte
 	}
 
 	m := make(map[string]interface{})
-	if v := f.RequestHeadersToRemove; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.RequestHeadersToRemove; v != nil {
 		m["requestHeadersToRemove"] = v
 	}
 	if v, err := expandUrlMapHeaderActionRequestHeadersToAddSlice(c, f.RequestHeadersToAdd); err != nil {
@@ -9175,7 +9175,7 @@ func expandUrlMapHeaderAction(c *Client, f *UrlMapHeaderAction) (map[string]inte
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["requestHeadersToAdd"] = v
 	}
-	if v := f.ResponseHeadersToRemove; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResponseHeadersToRemove; v != nil {
 		m["responseHeadersToRemove"] = v
 	}
 	if v, err := expandUrlMapHeaderActionResponseHeadersToAddSlice(c, f.ResponseHeadersToAdd); err != nil {
@@ -9777,7 +9777,7 @@ func expandUrlMapDefaultRouteActionRetryPolicy(c *Client, f *UrlMapDefaultRouteA
 	}
 
 	m := make(map[string]interface{})
-	if v := f.RetryCondition; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.RetryCondition; v != nil {
 		m["retryConditions"] = v
 	}
 	if v := f.NumRetries; !dcl.IsEmptyValueIndirect(v) {
@@ -10133,19 +10133,19 @@ func expandUrlMapDefaultRouteActionCorsPolicy(c *Client, f *UrlMapDefaultRouteAc
 	}
 
 	m := make(map[string]interface{})
-	if v := f.AllowOrigin; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowOrigin; v != nil {
 		m["allowOrigins"] = v
 	}
-	if v := f.AllowOriginRegex; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowOriginRegex; v != nil {
 		m["allowOriginRegexes"] = v
 	}
-	if v := f.AllowMethod; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowMethod; v != nil {
 		m["allowMethods"] = v
 	}
-	if v := f.AllowHeader; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowHeader; v != nil {
 		m["allowHeaders"] = v
 	}
-	if v := f.ExposeHeader; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ExposeHeader; v != nil {
 		m["exposeHeaders"] = v
 	}
 	if v := f.MaxAge; !dcl.IsEmptyValueIndirect(v) {
@@ -10890,7 +10890,7 @@ func expandUrlMapHostRule(c *Client, f *UrlMapHostRule) (map[string]interface{},
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
 	}
-	if v := f.Host; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Host; v != nil {
 		m["hosts"] = v
 	}
 	if v := f.PathMatcher; !dcl.IsEmptyValueIndirect(v) {
@@ -11308,7 +11308,7 @@ func expandUrlMapPathMatcherPathRule(c *Client, f *UrlMapPathMatcherPathRule) (m
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["urlRedirect"] = v
 	}
-	if v := f.Path; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Path; v != nil {
 		m["paths"] = v
 	}
 
@@ -11937,7 +11937,7 @@ func expandUrlMapPathMatcherPathRuleRouteActionRetryPolicy(c *Client, f *UrlMapP
 	}
 
 	m := make(map[string]interface{})
-	if v := f.RetryCondition; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.RetryCondition; v != nil {
 		m["retryConditions"] = v
 	}
 	if v := f.NumRetries; !dcl.IsEmptyValueIndirect(v) {
@@ -12293,19 +12293,19 @@ func expandUrlMapPathMatcherPathRuleRouteActionCorsPolicy(c *Client, f *UrlMapPa
 	}
 
 	m := make(map[string]interface{})
-	if v := f.AllowOrigin; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowOrigin; v != nil {
 		m["allowOrigins"] = v
 	}
-	if v := f.AllowOriginRegex; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowOriginRegex; v != nil {
 		m["allowOriginRegexes"] = v
 	}
-	if v := f.AllowMethod; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowMethod; v != nil {
 		m["allowMethods"] = v
 	}
-	if v := f.AllowHeader; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowHeader; v != nil {
 		m["allowHeaders"] = v
 	}
-	if v := f.ExposeHeader; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ExposeHeader; v != nil {
 		m["exposeHeaders"] = v
 	}
 	if v := f.MaxAge; !dcl.IsEmptyValueIndirect(v) {
@@ -14475,7 +14475,7 @@ func expandUrlMapPathMatcherRouteRuleRouteActionRetryPolicy(c *Client, f *UrlMap
 	}
 
 	m := make(map[string]interface{})
-	if v := f.RetryCondition; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.RetryCondition; v != nil {
 		m["retryConditions"] = v
 	}
 	if v := f.NumRetries; !dcl.IsEmptyValueIndirect(v) {
@@ -14831,19 +14831,19 @@ func expandUrlMapPathMatcherRouteRuleRouteActionCorsPolicy(c *Client, f *UrlMapP
 	}
 
 	m := make(map[string]interface{})
-	if v := f.AllowOrigin; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowOrigin; v != nil {
 		m["allowOrigins"] = v
 	}
-	if v := f.AllowOriginRegex; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowOriginRegex; v != nil {
 		m["allowOriginRegexes"] = v
 	}
-	if v := f.AllowMethod; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowMethod; v != nil {
 		m["allowMethods"] = v
 	}
-	if v := f.AllowHeader; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowHeader; v != nil {
 		m["allowHeaders"] = v
 	}
-	if v := f.ExposeHeader; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ExposeHeader; v != nil {
 		m["exposeHeaders"] = v
 	}
 	if v := f.MaxAge; !dcl.IsEmptyValueIndirect(v) {

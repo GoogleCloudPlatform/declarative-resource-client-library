@@ -807,7 +807,7 @@ func expandVpnGateway(c *Client, f *VpnGateway) (map[string]interface{}, error) 
 	}
 	if v, err := expandVpnGatewayVpnInterfaceSlice(c, f.VpnInterface); err != nil {
 		return nil, fmt.Errorf("error expanding VpnInterface into vpnInterfaces: %w", err)
-	} else if v != nil {
+	} else {
 		m["vpnInterfaces"] = v
 	}
 

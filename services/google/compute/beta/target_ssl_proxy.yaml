@@ -122,6 +122,7 @@ components:
             connections to Backends. At least one SSL certificate must be specified.
             Currently, you may specify up to 15 SSL certificates.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

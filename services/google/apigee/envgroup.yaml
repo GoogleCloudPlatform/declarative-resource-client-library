@@ -70,6 +70,7 @@ components:
           x-dcl-go-name: Hostnames
           description: Required. Host names for this environment group.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

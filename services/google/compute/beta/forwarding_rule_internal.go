@@ -1167,7 +1167,7 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	}
 	if v, err := expandForwardingRuleMetadataFilterSlice(c, f.MetadataFilter); err != nil {
 		return nil, fmt.Errorf("error expanding MetadataFilter into metadataFilters: %w", err)
-	} else if v != nil {
+	} else {
 		m["metadataFilters"] = v
 	}
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
@@ -1182,9 +1182,7 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	if v := f.PortRange; !dcl.IsEmptyValueIndirect(v) {
 		m["portRange"] = v
 	}
-	if v := f.Ports; !dcl.IsEmptyValueIndirect(v) {
-		m["ports"] = v
-	}
+	m["ports"] = f.Ports
 	if v := f.Region; !dcl.IsEmptyValueIndirect(v) {
 		m["region"] = v
 	}

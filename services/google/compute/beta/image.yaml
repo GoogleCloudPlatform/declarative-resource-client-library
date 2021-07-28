@@ -147,6 +147,7 @@ components:
             features](/compute/docs/images/create-delete-deprecate-private-images#guest-os-features)
             to see a list of available options.
           x-dcl-server-default: true
+          x-dcl-send-empty: true
           x-dcl-list-type: set
           items:
             type: object
@@ -223,6 +224,7 @@ components:
           description: Any applicable license URI.
           x-kubernetes-immutable: true
           x-dcl-server-default: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -299,6 +301,7 @@ components:
               x-dcl-go-name: Db
               description: The Key Database (db).
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -325,6 +328,7 @@ components:
               x-dcl-go-name: Dbx
               description: The forbidden key database (dbx).
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -351,6 +355,7 @@ components:
               x-dcl-go-name: Kek
               description: The Key Exchange Key (KEK).
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -589,6 +594,7 @@ components:
             or multi-regional).
           x-kubernetes-immutable: true
           x-dcl-server-default: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

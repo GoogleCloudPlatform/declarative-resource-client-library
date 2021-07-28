@@ -85,6 +85,7 @@ components:
           description: The names of the permissions this role grants when bound in
             an IAM policy.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -93,6 +94,7 @@ components:
           type: array
           x-dcl-go-name: IncludedRoles
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

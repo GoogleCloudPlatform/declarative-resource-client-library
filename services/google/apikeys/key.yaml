@@ -128,6 +128,7 @@ components:
                   x-dcl-go-name: AllowedApplications
                   description: A list of Android applications that are allowed to
                     make API calls with this key.
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: object
@@ -151,6 +152,7 @@ components:
                 or more specific methods. Requests are allowed if they match any of
                 these restrictions. If no restrictions are specified, all targets
                 are allowed.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -164,6 +166,7 @@ components:
                       wildcard (*) can be used as the last symbol. Valid examples:
                       `google.cloud.translate.v2.TranslateService.GetSupportedLanguage`
                       `TranslateText` `Get*` `translate.googleapis.com.Get*`'
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -187,6 +190,7 @@ components:
                   x-dcl-go-name: AllowedReferrers
                   description: A list of regular expressions for the referrer URLs
                     that are allowed to make API calls with this key.
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -202,6 +206,7 @@ components:
                   x-dcl-go-name: AllowedBundleIds
                   description: A list of bundle IDs that are allowed when making API
                     calls with this key.
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -218,6 +223,7 @@ components:
                   x-dcl-go-name: AllowedIps
                   description: A list of the caller IP addresses that are allowed
                     to make API calls with this key.
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string

@@ -888,9 +888,7 @@ func expandAddress(c *Client, f *Address) (map[string]interface{}, error) {
 	if v := f.CreationTimestamp; !dcl.IsEmptyValueIndirect(v) {
 		m["creationTimestamp"] = v
 	}
-	if v := f.Users; !dcl.IsEmptyValueIndirect(v) {
-		m["users"] = v
-	}
+	m["users"] = f.Users
 	if v := f.LabelFingerprint; !dcl.IsEmptyValueIndirect(v) {
 		m["labelFingerprint"] = v
 	}

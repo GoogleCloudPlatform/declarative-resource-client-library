@@ -1413,13 +1413,13 @@ func expandServicePerimeterStatus(c *Client, f *ServicePerimeterStatus) (map[str
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Resources; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Resources; v != nil {
 		m["resources"] = v
 	}
-	if v := f.AccessLevels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AccessLevels; v != nil {
 		m["accessLevels"] = v
 	}
-	if v := f.RestrictedServices; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.RestrictedServices; v != nil {
 		m["restrictedServices"] = v
 	}
 	if v, err := expandServicePerimeterStatusVPCAccessibleServices(c, f.VPCAccessibleServices); err != nil {
@@ -1544,7 +1544,7 @@ func expandServicePerimeterStatusVPCAccessibleServices(c *Client, f *ServicePeri
 	if v := f.EnableRestriction; !dcl.IsEmptyValueIndirect(v) {
 		m["enableRestriction"] = v
 	}
-	if v := f.AllowedServices; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowedServices; v != nil {
 		m["allowedServices"] = v
 	}
 
@@ -1659,13 +1659,13 @@ func expandServicePerimeterSpec(c *Client, f *ServicePerimeterSpec) (map[string]
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Resources; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Resources; v != nil {
 		m["resources"] = v
 	}
-	if v := f.AccessLevels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AccessLevels; v != nil {
 		m["accessLevels"] = v
 	}
-	if v := f.RestrictedServices; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.RestrictedServices; v != nil {
 		m["restrictedServices"] = v
 	}
 	if v, err := expandServicePerimeterSpecVPCAccessibleServices(c, f.VPCAccessibleServices); err != nil {
@@ -1790,7 +1790,7 @@ func expandServicePerimeterSpecVPCAccessibleServices(c *Client, f *ServicePerime
 	if v := f.EnableRestriction; !dcl.IsEmptyValueIndirect(v) {
 		m["enableRestriction"] = v
 	}
-	if v := f.AllowedServices; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowedServices; v != nil {
 		m["allowedServices"] = v
 	}
 

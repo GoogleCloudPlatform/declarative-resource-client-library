@@ -1761,7 +1761,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := expandInstanceServerCaCertsSlice(c, f.ServerCaCerts); err != nil {
 		return nil, fmt.Errorf("error expanding ServerCaCerts into serverCaCerts: %w", err)
-	} else if v != nil {
+	} else {
 		m["serverCaCerts"] = v
 	}
 	if v := f.TransitEncryptionMode; !dcl.IsEmptyValueIndirect(v) {

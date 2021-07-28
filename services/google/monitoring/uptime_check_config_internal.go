@@ -1736,15 +1736,11 @@ func expandUptimeCheckConfig(c *Client, f *UptimeCheckConfig) (map[string]interf
 	}
 	if v, err := expandUptimeCheckConfigContentMatchersSlice(c, f.ContentMatchers); err != nil {
 		return nil, fmt.Errorf("error expanding ContentMatchers into contentMatchers: %w", err)
-	} else if v != nil {
+	} else {
 		m["contentMatchers"] = v
 	}
-	if v := f.PrivateCheckers; !dcl.IsEmptyValueIndirect(v) {
-		m["privateCheckers"] = v
-	}
-	if v := f.SelectedRegions; !dcl.IsEmptyValueIndirect(v) {
-		m["selectedRegions"] = v
-	}
+	m["privateCheckers"] = f.PrivateCheckers
+	m["selectedRegions"] = f.SelectedRegions
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
 	} else if v != nil {

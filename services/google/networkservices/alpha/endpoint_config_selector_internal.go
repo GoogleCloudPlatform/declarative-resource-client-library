@@ -1546,7 +1546,7 @@ func expandEndpointConfigSelectorHttpFilters(c *Client, f *EndpointConfigSelecto
 	}
 
 	m := make(map[string]interface{})
-	if v := f.HttpFilters; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.HttpFilters; v != nil {
 		m["httpFilters"] = v
 	}
 
@@ -2014,7 +2014,7 @@ func expandEndpointConfigSelectorTrafficPortSelector(c *Client, f *EndpointConfi
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Ports; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Ports; v != nil {
 		m["ports"] = v
 	}
 

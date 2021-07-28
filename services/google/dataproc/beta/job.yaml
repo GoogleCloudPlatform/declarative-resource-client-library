@@ -116,6 +116,7 @@ components:
                 working directory of Hadoop drivers and tasks. Supported file types:
                 .jar, .tar, .tar.gz, .tgz, or .zip.'
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -128,6 +129,7 @@ components:
                 properties, since a collision may occur that causes an incorrect job
                 submission.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -139,6 +141,7 @@ components:
                 to be copied to the working directory of Hadoop drivers and distributed
                 tasks. Useful for naively parallel tasks.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -149,6 +152,7 @@ components:
               description: Optional. Jar file URIs to add to the CLASSPATHs of the
                 Hadoop driver and tasks.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -222,6 +226,7 @@ components:
                 of the Hive server and Hadoop MapReduce (MR) tasks. Can contain Hive
                 SerDes and UDFs.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -260,6 +265,7 @@ components:
                     to specify a HiveJob: "hiveJob": { "queryList": { "queries": }
                     }'
                   x-kubernetes-immutable: true
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -318,6 +324,7 @@ components:
                 of the Pig Client and Hadoop MapReduce (MR) tasks. Can contain Pig
                 UDFs.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -372,6 +379,7 @@ components:
                     to specify a HiveJob: "hiveJob": { "queryList": { "queries": }
                     }'
                   x-kubernetes-immutable: true
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -438,6 +446,7 @@ components:
               x-dcl-go-name: ClientTags
               description: Optional. Presto client tags to attach to this query
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -504,6 +513,7 @@ components:
                     to specify a HiveJob: "hiveJob": { "queryList": { "queries": }
                     }'
                   x-kubernetes-immutable: true
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -541,6 +551,7 @@ components:
                 working directory of each executor. Supported file types: .jar, .tar,
                 .tar.gz, .tgz, and .zip.'
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -552,6 +563,7 @@ components:
                 arguments, such as `--conf`, that can be set as job properties, since
                 a collision may occur that causes an incorrect job submission.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -562,6 +574,7 @@ components:
               description: Optional. HCFS URIs of files to be placed in the working
                 directory of each executor. Useful for naively parallel tasks.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -572,6 +585,7 @@ components:
               description: Optional. HCFS URIs of jar files to add to the CLASSPATHs
                 of the Python driver and tasks.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -614,6 +628,7 @@ components:
               description: 'Optional. HCFS file URIs of Python files to pass to the
                 PySpark framework. Supported file types: .py, .egg, and .zip.'
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -694,6 +709,7 @@ components:
                 working directory of each executor. Supported file types: .jar, .tar,
                 .tar.gz, .tgz, and .zip.'
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -705,6 +721,7 @@ components:
                 arguments, such as `--conf`, that can be set as job properties, since
                 a collision may occur that causes an incorrect job submission.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -715,6 +732,7 @@ components:
               description: Optional. HCFS URIs of files to be placed in the working
                 directory of each executor. Useful for naively parallel tasks.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -725,6 +743,7 @@ components:
               description: Optional. HCFS URIs of jar files to add to the CLASSPATHs
                 of the Spark driver and tasks.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -791,6 +810,7 @@ components:
                 working directory of each executor. Supported file types: .jar, .tar,
                 .tar.gz, .tgz, and .zip.'
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -802,6 +822,7 @@ components:
                 arguments, such as `--conf`, that can be set as job properties, since
                 a collision may occur that causes an incorrect job submission.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -812,6 +833,7 @@ components:
               description: Optional. HCFS URIs of files to be placed in the working
                 directory of each executor. Useful for naively parallel tasks.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -869,6 +891,7 @@ components:
               description: Optional. HCFS URIs of jar files to be added to the Spark
                 CLASSPATH.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -922,6 +945,7 @@ components:
                     to specify a HiveJob: "hiveJob": { "queryList": { "queries": }
                     }'
                   x-kubernetes-immutable: true
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -996,6 +1020,7 @@ components:
           readOnly: true
           description: Output only. The previous job status.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -1062,6 +1087,7 @@ components:
             this job. **Beta** Feature: This report is available for testing purposes
             only. It may be changed before final release.'
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object

@@ -1740,7 +1740,7 @@ func expandBucket(c *Client, f *Bucket) (map[string]interface{}, error) {
 	}
 	if v, err := expandBucketCorsSlice(c, f.Cors); err != nil {
 		return nil, fmt.Errorf("error expanding Cors into cors: %w", err)
-	} else if v != nil {
+	} else {
 		m["cors"] = v
 	}
 	if v, err := expandBucketLifecycle(c, f.Lifecycle); err != nil {
@@ -1887,13 +1887,13 @@ func expandBucketCors(c *Client, f *BucketCors) (map[string]interface{}, error) 
 	if v := f.MaxAgeSeconds; !dcl.IsEmptyValueIndirect(v) {
 		m["maxAgeSeconds"] = v
 	}
-	if v := f.Method; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Method; v != nil {
 		m["method"] = v
 	}
-	if v := f.Origin; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Origin; v != nil {
 		m["origin"] = v
 	}
-	if v := f.ResponseHeader; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResponseHeader; v != nil {
 		m["responseHeader"] = v
 	}
 
@@ -2377,7 +2377,7 @@ func expandBucketLifecycleRuleCondition(c *Client, f *BucketLifecycleRuleConditi
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["isLive"] = v
 	}
-	if v := f.MatchesStorageClass; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.MatchesStorageClass; v != nil {
 		m["matchesStorageClass"] = v
 	}
 	if v := f.NumNewerVersions; !dcl.IsEmptyValueIndirect(v) {

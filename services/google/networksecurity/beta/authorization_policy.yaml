@@ -123,6 +123,7 @@ components:
           x-dcl-go-name: Rules
           description: Optional. List of rules to match. If not set, the action specified
             in the ‘action’ field will be applied without any additional rule checks.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -134,6 +135,7 @@ components:
                 description: Optional. List of attributes for the traffic destination.
                   If not set, the action specified in the ‘action’ field will be applied
                   without any rule checks for the destination.
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: object
@@ -150,6 +152,7 @@ components:
                         exact match, or a prefix match (example, “mydomain.*”) or
                         a suffix match (example, *.myorg.com”) or a presence(any)
                         match “*”.
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: string
@@ -187,6 +190,7 @@ components:
                       x-dcl-go-name: Methods
                       description: Optional. A list of HTTP methods to match. Should
                         not be set for gRPC services.
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: string
@@ -195,6 +199,7 @@ components:
                       type: array
                       x-dcl-go-name: Ports
                       description: Required. List of destination ports to match.
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: integer
@@ -206,6 +211,7 @@ components:
                 description: Optional. List of attributes for the traffic source.
                   If not set, the action specified in the ‘action’ field will be applied
                   without any rule checks for the source.
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: object
@@ -217,6 +223,7 @@ components:
                       description: Optional. List of CIDR ranges to match based on
                         source IP address. Single IP (e.g., "1.2.3.4") and CIDR (e.g.,
                         "1.2.3.0/24") are supported.
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: string
@@ -228,6 +235,7 @@ components:
                         authorization. Each peer can be an exact match, or a prefix
                         match (example, “namespace/*”) or a suffix match (example,
                         */service-account”) or a presence match “*”.
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: string

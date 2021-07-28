@@ -435,10 +435,10 @@ type dashboardApiOperation interface {
 	do(context.Context, *Dashboard, *Client) error
 }
 
-// newUpdateDashboardUpdateRequest creates a request for an
-// Dashboard resource's update update type by filling in the update
+// newUpdateDashboardUpdateDashboardRequest creates a request for an
+// Dashboard resource's UpdateDashboard update type by filling in the update
 // fields based on the intended state of the resource.
-func newUpdateDashboardUpdateRequest(ctx context.Context, f *Dashboard, c *Client) (map[string]interface{}, error) {
+func newUpdateDashboardUpdateDashboardRequest(ctx context.Context, f *Dashboard, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
@@ -453,6 +453,11 @@ func newUpdateDashboardUpdateRequest(ctx context.Context, f *Dashboard, c *Clien
 		return nil, fmt.Errorf("error expanding MosaicLayout into mosaicLayout: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["mosaicLayout"] = v
+	}
+	if v, err := expandDashboardRowLayout(c, f.RowLayout); err != nil {
+		return nil, fmt.Errorf("error expanding RowLayout into rowLayout: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["rowLayout"] = v
 	}
 	if v, err := expandDashboardColumnLayout(c, f.ColumnLayout); err != nil {
 		return nil, fmt.Errorf("error expanding ColumnLayout into columnLayout: %w", err)
@@ -481,14 +486,14 @@ func newUpdateDashboardUpdateRequest(ctx context.Context, f *Dashboard, c *Clien
 	return req, nil
 }
 
-// marshalUpdateDashboardUpdateRequest converts the update into
+// marshalUpdateDashboardUpdateDashboardRequest converts the update into
 // the final JSON request body.
-func marshalUpdateDashboardUpdateRequest(c *Client, m map[string]interface{}) ([]byte, error) {
+func marshalUpdateDashboardUpdateDashboardRequest(c *Client, m map[string]interface{}) ([]byte, error) {
 
 	return json.Marshal(m)
 }
 
-type updateDashboardUpdateOperation struct {
+type updateDashboardUpdateDashboardOperation struct {
 	// If the update operation has the REQUIRES_APPLY_OPTIONS trait, this will be populated.
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
@@ -500,24 +505,24 @@ type updateDashboardUpdateOperation struct {
 // do will transcribe a subset of the resource into a request object and send a
 // PUT request to a single URL.
 
-func (op *updateDashboardUpdateOperation) do(ctx context.Context, r *Dashboard, c *Client) error {
+func (op *updateDashboardUpdateDashboardOperation) do(ctx context.Context, r *Dashboard, c *Client) error {
 	_, err := c.GetDashboard(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
 
-	u, err := r.updateURL(c.Config.BasePath, "update")
+	u, err := r.updateURL(c.Config.BasePath, "UpdateDashboard")
 	if err != nil {
 		return err
 	}
 
-	req, err := newUpdateDashboardUpdateRequest(ctx, r, c)
+	req, err := newUpdateDashboardUpdateDashboardRequest(ctx, r, c)
 	if err != nil {
 		return err
 	}
 
 	c.Config.Logger.Infof("Created update: %#v", req)
-	body, err := marshalUpdateDashboardUpdateRequest(c, req)
+	body, err := marshalUpdateDashboardUpdateDashboardRequest(c, req)
 	if err != nil {
 		return err
 	}
@@ -4944,21 +4949,21 @@ func diffDashboard(c *Client, desired, actual *Dashboard, opts ...dcl.ApplyOptio
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GridLayout, actual.GridLayout, dcl.Info{ObjectFunction: compareDashboardGridLayoutNewStyle, EmptyObject: EmptyDashboardGridLayout, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateOperation")}, fn.AddNest("GridLayout")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GridLayout, actual.GridLayout, dcl.Info{ObjectFunction: compareDashboardGridLayoutNewStyle, EmptyObject: EmptyDashboardGridLayout, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GridLayout")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MosaicLayout, actual.MosaicLayout, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutNewStyle, EmptyObject: EmptyDashboardMosaicLayout, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateOperation")}, fn.AddNest("MosaicLayout")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MosaicLayout, actual.MosaicLayout, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutNewStyle, EmptyObject: EmptyDashboardMosaicLayout, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("MosaicLayout")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4972,7 +4977,7 @@ func diffDashboard(c *Client, desired, actual *Dashboard, opts ...dcl.ApplyOptio
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ColumnLayout, actual.ColumnLayout, dcl.Info{ObjectFunction: compareDashboardColumnLayoutNewStyle, EmptyObject: EmptyDashboardColumnLayout, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateOperation")}, fn.AddNest("ColumnLayout")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ColumnLayout, actual.ColumnLayout, dcl.Info{ObjectFunction: compareDashboardColumnLayoutNewStyle, EmptyObject: EmptyDashboardColumnLayout, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ColumnLayout")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6923,7 +6928,7 @@ func (r *Dashboard) deleteFields() (string, string) {
 
 func (r *Dashboard) updateURL(userBasePath, updateName string) (string, error) {
 	n := r.URLNormalized()
-	if updateName == "update" {
+	if updateName == "UpdateDashboard" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
 			"name":    dcl.ValueOrEmptyString(n.Name),
@@ -7119,7 +7124,7 @@ func expandDashboardGridLayout(c *Client, f *DashboardGridLayout) (map[string]in
 	if v := f.Columns; !dcl.IsEmptyValueIndirect(v) {
 		m["columns"] = v
 	}
-	if v := f.Widgets; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Widgets; v != nil {
 		m["widgets"] = v
 	}
 
@@ -7605,7 +7610,7 @@ func expandDashboardRowLayoutRows(c *Client, f *DashboardRowLayoutRows) (map[str
 	if v := f.Weight; !dcl.IsEmptyValueIndirect(v) {
 		m["weight"] = v
 	}
-	if v := f.Widgets; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Widgets; v != nil {
 		m["widgets"] = v
 	}
 
@@ -8637,7 +8642,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregat
 	if v := f.CrossSeriesReducer; !dcl.IsEmptyValueIndirect(v) {
 		m["crossSeriesReducer"] = v
 	}
-	if v := f.GroupByFields; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GroupByFields; v != nil {
 		m["groupByFields"] = v
 	}
 
@@ -8763,7 +8768,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondar
 	if v := f.CrossSeriesReducer; !dcl.IsEmptyValueIndirect(v) {
 		m["crossSeriesReducer"] = v
 	}
-	if v := f.GroupByFields; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GroupByFields; v != nil {
 		m["groupByFields"] = v
 	}
 
@@ -9265,7 +9270,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNum
 	if v := f.CrossSeriesReducer; !dcl.IsEmptyValueIndirect(v) {
 		m["crossSeriesReducer"] = v
 	}
-	if v := f.GroupByFields; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GroupByFields; v != nil {
 		m["groupByFields"] = v
 	}
 
@@ -9511,7 +9516,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDen
 	if v := f.CrossSeriesReducer; !dcl.IsEmptyValueIndirect(v) {
 		m["crossSeriesReducer"] = v
 	}
-	if v := f.GroupByFields; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GroupByFields; v != nil {
 		m["groupByFields"] = v
 	}
 
@@ -9637,7 +9642,7 @@ func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSec
 	if v := f.CrossSeriesReducer; !dcl.IsEmptyValueIndirect(v) {
 		m["crossSeriesReducer"] = v
 	}
-	if v := f.GroupByFields; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GroupByFields; v != nil {
 		m["groupByFields"] = v
 	}
 
@@ -10757,7 +10762,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c 
 	if v := f.CrossSeriesReducer; !dcl.IsEmptyValueIndirect(v) {
 		m["crossSeriesReducer"] = v
 	}
-	if v := f.GroupByFields; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GroupByFields; v != nil {
 		m["groupByFields"] = v
 	}
 
@@ -10883,7 +10888,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggre
 	if v := f.CrossSeriesReducer; !dcl.IsEmptyValueIndirect(v) {
 		m["crossSeriesReducer"] = v
 	}
-	if v := f.GroupByFields; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GroupByFields; v != nil {
 		m["groupByFields"] = v
 	}
 
@@ -11385,7 +11390,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
 	if v := f.CrossSeriesReducer; !dcl.IsEmptyValueIndirect(v) {
 		m["crossSeriesReducer"] = v
 	}
-	if v := f.GroupByFields; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GroupByFields; v != nil {
 		m["groupByFields"] = v
 	}
 
@@ -11631,7 +11636,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominat
 	if v := f.CrossSeriesReducer; !dcl.IsEmptyValueIndirect(v) {
 		m["crossSeriesReducer"] = v
 	}
-	if v := f.GroupByFields; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GroupByFields; v != nil {
 		m["groupByFields"] = v
 	}
 
@@ -11757,7 +11762,7 @@ func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondary
 	if v := f.CrossSeriesReducer; !dcl.IsEmptyValueIndirect(v) {
 		m["crossSeriesReducer"] = v
 	}
-	if v := f.GroupByFields; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GroupByFields; v != nil {
 		m["groupByFields"] = v
 	}
 
@@ -14510,8 +14515,8 @@ func convertFieldDiffsToDashboardDiffs(config *dcl.Config, fds []*dcl.FieldDiff,
 func convertOpNameToDashboardApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (dashboardApiOperation, error) {
 	switch opName {
 
-	case "updateDashboardUpdateOperation":
-		return &updateDashboardUpdateOperation{FieldDiffs: fieldDiffs}, nil
+	case "updateDashboardUpdateDashboardOperation":
+		return &updateDashboardUpdateDashboardOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", opName)

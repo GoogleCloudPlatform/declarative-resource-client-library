@@ -68,6 +68,7 @@ components:
             the first entry in the `content_matchers` list is supported, and additional
             entries will be ignored. This field is optional and should only be specified
             if a content match is required as part of the/ Uptime check.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -258,6 +259,7 @@ components:
             check will use the updated list). If the list is non-empty, only the specified
             `UptimePrivateCheckers` will be used, and at least 3 private checkers
             must be provided.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -308,6 +310,7 @@ components:
             field is specified, enough regions must be provided to include a minimum
             of 3 locations.  Not specifying this field will result in Uptime checks
             running from all available regions.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

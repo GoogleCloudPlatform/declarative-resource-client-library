@@ -943,7 +943,7 @@ func expandTenantMfaConfig(c *Client, f *TenantMfaConfig) (map[string]interface{
 	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
 		m["state"] = v
 	}
-	if v := f.EnabledProviders; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.EnabledProviders; v != nil {
 		m["enabledProviders"] = v
 	}
 

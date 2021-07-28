@@ -91,6 +91,7 @@ components:
           x-dcl-go-name: FileShares
           description: File system shares on the instance. For this version, only
             a single file share is supported.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -112,6 +113,7 @@ components:
                 x-dcl-go-name: NfsExportOptions
                 description: Nfs Export Options. There is a limit of 10 export options
                   per file share.
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: object
@@ -155,6 +157,7 @@ components:
                         not allowed, both within and across NfsExportOptions. An error
                         will be returned. The limit is 64 IP ranges/addresses for
                         each FileShareConfig among all NfsExportOptions.
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: string
@@ -201,6 +204,7 @@ components:
           description: VPC networks to which the instance is connected. For this version,
             only a single network is supported.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -214,6 +218,7 @@ components:
                   2}.{octet 3}.{octet 4} or IPv6 addresses in the format {block 1}:{block
                   2}:{block 3}:{block 4}:{block 5}:{block 6}:{block 7}:{block 8}.
                 x-kubernetes-immutable: true
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string
@@ -224,6 +229,7 @@ components:
                 description: Internet protocol versions for which the instance has
                   IP addresses assigned. For this version, only MODE_IPV4 is supported.
                 x-kubernetes-immutable: true
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string

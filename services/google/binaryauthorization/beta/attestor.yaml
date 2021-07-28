@@ -131,6 +131,7 @@ components:
                 signed by this attestor for the image specified in the admission request.
                 If this field is empty, this attestor always returns that no valid
                 attestations exist.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object

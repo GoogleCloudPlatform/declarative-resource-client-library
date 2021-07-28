@@ -79,6 +79,7 @@ components:
           description: A list of CircuitInfo objects, that describe the individual
             circuits in this LAG.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -117,6 +118,7 @@ components:
           readOnly: true
           description: A list of outages expected for this Interconnect.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -128,6 +130,7 @@ components:
                 description: If issue_type is IT_PARTIAL_OUTAGE, a list of the Google-side
                   circuit IDs that will be affected.
                 x-kubernetes-immutable: true
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string
@@ -226,6 +229,7 @@ components:
           description: A list of the URLs of all InterconnectAttachments configured
             to use this Interconnect.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

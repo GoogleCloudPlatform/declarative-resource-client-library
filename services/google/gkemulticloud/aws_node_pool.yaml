@@ -209,6 +209,7 @@ components:
                 to nodes in this pool. The manager will automatically create security
                 groups with minimum rules needed for a functioning cluster.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -244,6 +245,7 @@ components:
               description: Optional. The initial taints assigned to nodes of this
                 node pool.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object

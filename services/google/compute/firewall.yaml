@@ -66,6 +66,7 @@ components:
           x-dcl-go-name: Allowed
           description: The list of ALLOW rules specified by this firewall. Each rule
             specifies a protocol and port-range tuple that describes a permitted connection.
+          x-dcl-send-empty: true
           x-dcl-list-type: set
           items:
             type: object
@@ -84,6 +85,7 @@ components:
                 type: array
                 x-dcl-go-name: IPProtocolAlt
                 description: NO DESCRIPTION FOUND
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string
@@ -96,6 +98,7 @@ components:
                   entry must be either an integer or a range. If not specified, this
                   rule applies to connections through any port.  Example inputs include:
                   `["22"]`, `["80","443"]`, and `["12345-12349"]`.'
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string
@@ -112,6 +115,7 @@ components:
           x-dcl-go-name: Denied
           description: The list of DENY rules specified by this firewall. Each rule
             specifies a protocol and port-range tuple that describes a denied connection.
+          x-dcl-send-empty: true
           x-dcl-list-type: set
           items:
             type: object
@@ -130,6 +134,7 @@ components:
                 type: array
                 x-dcl-go-name: IPProtocolAlt
                 description: NO DESCRIPTION FOUND
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string
@@ -142,6 +147,7 @@ components:
                   entry must be either an integer or a range. If not specified, this
                   rule applies to connections through any port.  Example inputs include:
                   `["22"]`, `["80","443"]`, and `["12345-12349"]`.'
+                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string
@@ -160,6 +166,7 @@ components:
             ranges must be expressed in [CIDR](https://wikipedia.org/wiki/Classless_Inter-Domain_Routing)
             format. Only IPv4 is supported.
           x-dcl-server-default: true
+          x-dcl-send-empty: true
           x-dcl-list-type: set
           items:
             type: string
@@ -262,6 +269,7 @@ components:
             tag listed in the `sourceTags` field. The connection does not need to
             match both fields for the rule to apply. Only IPv4 is supported. '
           x-dcl-server-default: true
+          x-dcl-send-empty: true
           x-dcl-list-type: set
           items:
             type: string
@@ -280,6 +288,7 @@ components:
             The connection does not need to match both fields for the firewall to
             apply. `sourceServiceAccounts` cannot be used at the same time as `sourceTags`
             or `targetTags`.
+          x-dcl-send-empty: true
           x-dcl-list-type: set
           items:
             type: string
@@ -298,6 +307,7 @@ components:
             OR a source IP from a resource with a matching tag listed in the `sourceTags`
             field. The connection does not need to match both fields for the firewall
             to apply. '
+          x-dcl-send-empty: true
           x-dcl-list-type: set
           items:
             type: string
@@ -311,6 +321,7 @@ components:
             or `sourceTags`. If neither `targetServiceAccounts` nor `targetTags` are
             specified, the firewall rule applies to all instances on the specified
             network.
+          x-dcl-send-empty: true
           x-dcl-list-type: set
           items:
             type: string
@@ -323,6 +334,7 @@ components:
             applies only to instances in the VPC network that have one of those tags.
             If no `targetTags` are specified, the firewall rule applies to all instances
             on the specified network. '
+          x-dcl-send-empty: true
           x-dcl-list-type: set
           items:
             type: string

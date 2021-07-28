@@ -3691,7 +3691,7 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	}
 	if v, err := expandClusterStatusHistorySlice(c, f.StatusHistory); err != nil {
 		return nil, fmt.Errorf("error expanding StatusHistory into statusHistory: %w", err)
-	} else if v != nil {
+	} else {
 		m["statusHistory"] = v
 	}
 	if v := f.ClusterUuid; !dcl.IsEmptyValueIndirect(v) {
@@ -4027,10 +4027,10 @@ func expandClusterClusterConfigGceClusterConfig(c *Client, f *ClusterClusterConf
 	if v := f.ServiceAccount; !dcl.IsEmptyValueIndirect(v) {
 		m["serviceAccount"] = v
 	}
-	if v := f.ServiceAccountScopes; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ServiceAccountScopes; v != nil {
 		m["serviceAccountScopes"] = v
 	}
-	if v := f.Tags; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Tags; v != nil {
 		m["tags"] = v
 	}
 	if v := f.Metadata; !dcl.IsEmptyValueIndirect(v) {
@@ -4173,7 +4173,7 @@ func expandClusterClusterConfigGceClusterConfigReservationAffinity(c *Client, f 
 	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
 		m["key"] = v
 	}
-	if v := f.Values; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Values; v != nil {
 		m["values"] = v
 	}
 
@@ -4406,7 +4406,7 @@ func expandClusterInstanceGroupConfig(c *Client, f *ClusterInstanceGroupConfig) 
 	if v := f.NumInstances; !dcl.IsEmptyValueIndirect(v) {
 		m["numInstances"] = v
 	}
-	if v := f.InstanceNames; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.InstanceNames; v != nil {
 		m["instanceNames"] = v
 	}
 	if v := f.Image; !dcl.IsEmptyValueIndirect(v) {
@@ -4923,7 +4923,7 @@ func expandClusterClusterConfigSoftwareConfig(c *Client, f *ClusterClusterConfig
 	if v := f.Properties; !dcl.IsEmptyValueIndirect(v) {
 		m["properties"] = v
 	}
-	if v := f.OptionalComponents; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.OptionalComponents; v != nil {
 		m["optionalComponents"] = v
 	}
 

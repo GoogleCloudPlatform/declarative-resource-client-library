@@ -3455,7 +3455,7 @@ func expandInstanceTemplateProperties(c *Client, f *InstanceTemplateProperties) 
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["serviceAccounts"] = v
 	}
-	if v := f.Tags; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Tags; v != nil {
 		m["tags"] = v
 	}
 
@@ -3890,7 +3890,7 @@ func expandInstanceTemplatePropertiesDisksInitializeParams(c *Client, f *Instanc
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
 	}
-	if v := f.ResourcePolicies; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourcePolicies; v != nil {
 		m["resourcePolicies"] = v
 	}
 	if v := f.OnUpdateAction; !dcl.IsEmptyValueIndirect(v) {
@@ -4383,7 +4383,7 @@ func expandInstanceTemplatePropertiesReservationAffinity(c *Client, f *InstanceT
 	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
 		m["key"] = v
 	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Value; v != nil {
 		m["value"] = v
 	}
 
@@ -5262,7 +5262,7 @@ func expandInstanceTemplatePropertiesSchedulingNodeAffinities(c *Client, f *Inst
 	if v := f.Operator; !dcl.IsEmptyValueIndirect(v) {
 		m["operator"] = v
 	}
-	if v := f.Values; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Values; v != nil {
 		m["values"] = v
 	}
 
@@ -5381,7 +5381,7 @@ func expandInstanceTemplatePropertiesServiceAccounts(c *Client, f *InstanceTempl
 	if v := f.Email; !dcl.IsEmptyValueIndirect(v) {
 		m["email"] = v
 	}
-	if v := f.Scopes; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Scopes; v != nil {
 		m["scopes"] = v
 	}
 

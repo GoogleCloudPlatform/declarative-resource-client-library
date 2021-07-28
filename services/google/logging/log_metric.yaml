@@ -79,6 +79,7 @@ components:
                   type: array
                   x-dcl-go-name: Bounds
                   description: The values must be monotonically increasing.
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: number
@@ -209,6 +210,7 @@ components:
                 metric type has a label for the HTTP response code, `response_code`,
                 so you can look at latencies for successful responses or just for
                 responses that failed.
+              x-dcl-send-empty: true
               x-dcl-list-type: set
               items:
                 type: object
@@ -296,6 +298,7 @@ components:
                 is associated with this metric type can only be associated with one
                 of the monitored resource types listed here.
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string

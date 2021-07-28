@@ -77,6 +77,7 @@ components:
                 account's credentials. The digests of the pushed images will be stored
                 in the `Build` resource's results field. If any of the images fail
                 to be pushed, the build status is marked `FAILURE`.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -97,6 +98,7 @@ components:
               type: array
               x-dcl-go-name: Secrets
               description: Secrets to decrypt using Cloud Key Management Service.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -209,6 +211,7 @@ components:
               type: array
               x-dcl-go-name: Steps
               description: Required. The operations to be performed on the workspace.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -225,6 +228,7 @@ components:
                       to that entrypoint. If the image does not define an entrypoint,
                       the first element in args is used as the entrypoint, and the
                       remainder will be used as arguments.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -253,6 +257,7 @@ components:
                     description: A list of environment variable definitions to be
                       used when running a step. The elements are of the form "KEY=VALUE"
                       for the environment variable "KEY" being given the value "VALUE".
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -300,6 +305,7 @@ components:
                     description: A list of environment variables which are encrypted
                       using a Cloud Key Management Service crypto key. These values
                       must be specified in the build's `Secret`.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -356,6 +362,7 @@ components:
                       contents are discarded. Using a named volume in only one step
                       is not valid as it is indicative of a build request with an
                       incorrect configuration.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: object
@@ -386,6 +393,7 @@ components:
                       in `wait_for` have completed successfully. If `wait_for` is
                       empty, this build step will start when all previous build steps
                       in the `Build.Steps` list have completed successfully.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -401,6 +409,7 @@ components:
               x-dcl-go-name: Tags
               description: Tags for annotation of a `Build`. These are not docker
                 tags.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -521,6 +530,7 @@ components:
             is not empty, then we ignore any files that match any of the ignored_file
             globs. If the change has no files that are outside of the ignored_files
             globs, then we do not trigger a build.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -534,6 +544,7 @@ components:
             pass the ignored_files filter and included_files is not empty, then we
             make sure that at least one of those files matches a included_files glob.
             If not, then we do not trigger a build.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -565,6 +576,7 @@ components:
           type: array
           x-dcl-go-name: Tags
           description: Tags for annotation of a `BuildTrigger`
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

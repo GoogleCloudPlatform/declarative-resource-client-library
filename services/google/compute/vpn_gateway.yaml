@@ -148,6 +148,7 @@ components:
           readOnly: true
           description: A list of interfaces on this VPN gateway.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object

@@ -836,7 +836,7 @@ func expandTopicMessageStoragePolicy(c *Client, f *TopicMessageStoragePolicy) (m
 	}
 
 	m := make(map[string]interface{})
-	if v := f.AllowedPersistenceRegions; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowedPersistenceRegions; v != nil {
 		m["allowedPersistenceRegions"] = v
 	}
 

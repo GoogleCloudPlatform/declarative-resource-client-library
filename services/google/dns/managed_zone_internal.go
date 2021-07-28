@@ -1696,9 +1696,7 @@ func expandManagedZone(c *Client, f *ManagedZone) (map[string]interface{}, error
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v := f.NameServers; !dcl.IsEmptyValueIndirect(v) {
-		m["nameServers"] = v
-	}
+	m["nameServers"] = f.NameServers
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
 	}

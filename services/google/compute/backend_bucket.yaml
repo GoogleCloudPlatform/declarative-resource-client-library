@@ -86,6 +86,7 @@ components:
               type: array
               x-dcl-go-name: SignedUrlKeyNames
               description: '[Output Only] Names of the keys for signing request URLs.'
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string

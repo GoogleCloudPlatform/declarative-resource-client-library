@@ -129,6 +129,7 @@ components:
               description: 'An array of disks that are associated with the instances
                 that are created from this template. '
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -194,6 +195,7 @@ components:
                     description: A list of features to enable on the guest operating
                       system. Applicable only for bootable images.
                     x-kubernetes-immutable: true
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: object
@@ -271,6 +273,7 @@ components:
                           URL. For instance template, specify only the resource policy
                           name.
                         x-kubernetes-immutable: true
+                        x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
                           type: string
@@ -407,6 +410,7 @@ components:
               description: 'List of the type and count of accelerator cards attached
                 to the instance '
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -464,6 +468,7 @@ components:
                 such as connecting to the internet. Only one network interface is
                 supported per instance. '
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -477,6 +482,7 @@ components:
                       are no accessConfigs specified, then this instance will have
                       no external internet access. '
                     x-kubernetes-immutable: true
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: object
@@ -543,6 +549,7 @@ components:
                       Can only be specified for network interfaces on subnet-mode
                       networks. '
                     x-kubernetes-immutable: true
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: object
@@ -624,6 +631,7 @@ components:
                   x-dcl-go-name: Value
                   description: Corresponds to the label values of a reservation resource.
                   x-kubernetes-immutable: true
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -649,6 +657,7 @@ components:
                   x-dcl-go-name: NodeAffinities
                   description: A set of node affinity and anti-affinity configurations
                   x-kubernetes-immutable: true
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: object
@@ -674,6 +683,7 @@ components:
                         x-dcl-go-name: Values
                         description: Corresponds to the label values of Node resource.
                         x-kubernetes-immutable: true
+                        x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
                           type: string
@@ -700,6 +710,7 @@ components:
                 authorized for this instance. Only one service account per VM instance
                 is supported. '
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -716,6 +727,7 @@ components:
                     description: 'The list of scopes to be made available for this
                       service account. '
                     x-kubernetes-immutable: true
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: string
@@ -752,6 +764,7 @@ components:
                 later modified by the setTags method. Each tag within the list must
                 comply with RFC1035. '
               x-kubernetes-immutable: true
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string

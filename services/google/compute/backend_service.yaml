@@ -87,6 +87,7 @@ components:
           type: array
           x-dcl-go-name: Backends
           description: The list of backends that serve this BackendService.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -214,6 +215,7 @@ components:
               description: Bypass the cache when the specified request headers are
                 matched - e.g. Pragma or Authorization headers. Up to 5 headers can
                 be specified. The cache is bypassed for all cdnPolicy.cacheMode settings.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -240,6 +242,7 @@ components:
                   x-dcl-go-name: IncludeHttpHeaders
                   description: Allows HTTP request headers (by name) to be used in
                     the cache key.
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -250,6 +253,7 @@ components:
                   description: Allows HTTP cookies (by name) to be used in the cache
                     key. The name=value pair will be used in the cache key Cloud CDN
                     generates.
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -272,6 +276,7 @@ components:
                     keys. All other parameters will be included. Either specify query_string_whitelist
                     or query_string_blacklist, not both. '&' and '=' will be percent
                     encoded and not treated as delimiters.
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -283,6 +288,7 @@ components:
                     keys. All other parameters will be excluded. Either specify query_string_whitelist
                     or query_string_blacklist, not both. '&' and '=' will be percent
                     encoded and not treated as delimiters.
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -376,6 +382,7 @@ components:
                 you should take care to specify a cache TTL for all response codes
                 that you wish to cache. Cloud CDN will not apply any default negative
                 caching when a policy exists.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -431,6 +438,7 @@ components:
               x-dcl-go-name: SignedUrlKeyNames
               readOnly: true
               description: Names of the keys for signing request URLs.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -568,6 +576,7 @@ components:
           x-dcl-go-name: CustomRequestHeaders
           description: Headers that the HTTP/S load balancer should add to proxied
             requests.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -577,6 +586,7 @@ components:
           x-dcl-go-name: CustomResponseHeaders
           description: Headers that the HTTP/S load balancer should add to proxied
             responses.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -645,6 +655,7 @@ components:
             service. Backend services with instance group or zonal NEG backends must
             have a health check. Backend services with internet or serverless NEG
             backends must not have a health check.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -1058,6 +1069,7 @@ components:
                 `loadBalancingScheme` set to `INTERNAL_SELF_MANAGED`. Only applies
                 when `BackendService` has an attached `clientTlsPolicy` with `clientCertificate`
                 (mTLS mode). Note: This field currently has no impact.'
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string

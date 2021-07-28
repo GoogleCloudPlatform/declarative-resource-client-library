@@ -4986,17 +4986,17 @@ func expandGuestPolicy(c *Client, f *GuestPolicy) (map[string]interface{}, error
 	}
 	if v, err := expandGuestPolicyPackagesSlice(c, f.Packages); err != nil {
 		return nil, fmt.Errorf("error expanding Packages into packages: %w", err)
-	} else if v != nil {
+	} else {
 		m["packages"] = v
 	}
 	if v, err := expandGuestPolicyPackageRepositoriesSlice(c, f.PackageRepositories); err != nil {
 		return nil, fmt.Errorf("error expanding PackageRepositories into packageRepositories: %w", err)
-	} else if v != nil {
+	} else {
 		m["packageRepositories"] = v
 	}
 	if v, err := expandGuestPolicyRecipesSlice(c, f.Recipes); err != nil {
 		return nil, fmt.Errorf("error expanding Recipes into recipes: %w", err)
-	} else if v != nil {
+	} else {
 		m["recipes"] = v
 	}
 	if v := f.Etag; !dcl.IsEmptyValueIndirect(v) {
@@ -5131,7 +5131,7 @@ func expandGuestPolicyAssignment(c *Client, f *GuestPolicyAssignment) (map[strin
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["groupLabels"] = v
 	}
-	if v := f.Zones; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Zones; v != nil {
 		m["zones"] = v
 	}
 	if v, err := expandGuestPolicyInstances(f, f.Instances); err != nil {
@@ -5139,7 +5139,7 @@ func expandGuestPolicyAssignment(c *Client, f *GuestPolicyAssignment) (map[strin
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["instances"] = v
 	}
-	if v := f.InstanceNamePrefixes; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.InstanceNamePrefixes; v != nil {
 		m["instanceNamePrefixes"] = v
 	}
 	if v, err := expandGuestPolicyAssignmentOSTypesSlice(c, f.OSTypes); err != nil {
@@ -5763,7 +5763,7 @@ func expandGuestPolicyPackageRepositoriesApt(c *Client, f *GuestPolicyPackageRep
 	if v := f.Distribution; !dcl.IsEmptyValueIndirect(v) {
 		m["distribution"] = v
 	}
-	if v := f.Components; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Components; v != nil {
 		m["components"] = v
 	}
 	if v := f.GpgKey; !dcl.IsEmptyValueIndirect(v) {
@@ -5893,7 +5893,7 @@ func expandGuestPolicyPackageRepositoriesYum(c *Client, f *GuestPolicyPackageRep
 	if v := f.BaseUrl; !dcl.IsEmptyValueIndirect(v) {
 		m["baseUrl"] = v
 	}
-	if v := f.GpgKeys; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GpgKeys; v != nil {
 		m["gpgKeys"] = v
 	}
 
@@ -6019,7 +6019,7 @@ func expandGuestPolicyPackageRepositoriesZypper(c *Client, f *GuestPolicyPackage
 	if v := f.BaseUrl; !dcl.IsEmptyValueIndirect(v) {
 		m["baseUrl"] = v
 	}
-	if v := f.GpgKeys; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GpgKeys; v != nil {
 		m["gpgKeys"] = v
 	}
 
@@ -7167,10 +7167,10 @@ func expandGuestPolicyRecipesInstallStepsMsiInstallation(c *Client, f *GuestPoli
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
-	if v := f.Flags; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Flags; v != nil {
 		m["flags"] = v
 	}
-	if v := f.AllowedExitCodes; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowedExitCodes; v != nil {
 		m["allowedExitCodes"] = v
 	}
 
@@ -7520,10 +7520,10 @@ func expandGuestPolicyRecipesInstallStepsFileExec(c *Client, f *GuestPolicyRecip
 	if v := f.LocalPath; !dcl.IsEmptyValueIndirect(v) {
 		m["localPath"] = v
 	}
-	if v := f.Args; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Args; v != nil {
 		m["args"] = v
 	}
-	if v := f.AllowedExitCodes; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowedExitCodes; v != nil {
 		m["allowedExitCodes"] = v
 	}
 
@@ -7643,7 +7643,7 @@ func expandGuestPolicyRecipesInstallStepsScriptRun(c *Client, f *GuestPolicyReci
 	if v := f.Script; !dcl.IsEmptyValueIndirect(v) {
 		m["script"] = v
 	}
-	if v := f.AllowedExitCodes; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowedExitCodes; v != nil {
 		m["allowedExitCodes"] = v
 	}
 	if v := f.Interpreter; !dcl.IsEmptyValueIndirect(v) {
@@ -8165,10 +8165,10 @@ func expandGuestPolicyRecipesUpdateStepsMsiInstallation(c *Client, f *GuestPolic
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
-	if v := f.Flags; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Flags; v != nil {
 		m["flags"] = v
 	}
-	if v := f.AllowedExitCodes; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowedExitCodes; v != nil {
 		m["allowedExitCodes"] = v
 	}
 
@@ -8518,10 +8518,10 @@ func expandGuestPolicyRecipesUpdateStepsFileExec(c *Client, f *GuestPolicyRecipe
 	if v := f.LocalPath; !dcl.IsEmptyValueIndirect(v) {
 		m["localPath"] = v
 	}
-	if v := f.Args; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Args; v != nil {
 		m["args"] = v
 	}
-	if v := f.AllowedExitCodes; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowedExitCodes; v != nil {
 		m["allowedExitCodes"] = v
 	}
 
@@ -8641,7 +8641,7 @@ func expandGuestPolicyRecipesUpdateStepsScriptRun(c *Client, f *GuestPolicyRecip
 	if v := f.Script; !dcl.IsEmptyValueIndirect(v) {
 		m["script"] = v
 	}
-	if v := f.AllowedExitCodes; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowedExitCodes; v != nil {
 		m["allowedExitCodes"] = v
 	}
 	if v := f.Interpreter; !dcl.IsEmptyValueIndirect(v) {

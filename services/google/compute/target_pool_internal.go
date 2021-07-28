@@ -1021,12 +1021,10 @@ func expandTargetPool(c *Client, f *TargetPool) (map[string]interface{}, error) 
 	}
 	if v, err := dcl.DeriveFieldArray("projects/%s/global/httpHealthChecks/%s", f.HealthChecks, f.Project, f.HealthChecks); err != nil {
 		return nil, fmt.Errorf("error expanding HealthChecks into healthChecks: %w", err)
-	} else if v != nil {
+	} else {
 		m["healthChecks"] = v
 	}
-	if v := f.Instances; !dcl.IsEmptyValueIndirect(v) {
-		m["instances"] = v
-	}
+	m["instances"] = f.Instances
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}

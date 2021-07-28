@@ -48572,7 +48572,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := expandInstanceReferencesSlice(c, f.References); err != nil {
 		return nil, fmt.Errorf("error expanding References into references: %w", err)
-	} else if v != nil {
+	} else {
 		m["references"] = v
 	}
 	if v, err := expandInstancePreprocessCreateRecipe(c, f.PreprocessCreateRecipe); err != nil {
@@ -48695,7 +48695,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := expandInstanceHistorySlice(c, f.History); err != nil {
 		return nil, fmt.Errorf("error expanding History into history: %w", err)
-	} else if v != nil {
+	} else {
 		m["history"] = v
 	}
 	if v := f.PublicResourceViewOverride; !dcl.IsEmptyValueIndirect(v) {
@@ -49266,7 +49266,7 @@ func expandInstancePreprocessCreateRecipe(c *Client, f *InstancePreprocessCreate
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -51044,7 +51044,7 @@ func expandInstanceCreateRecipe(c *Client, f *InstanceCreateRecipe) (map[string]
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -52712,7 +52712,7 @@ func expandInstanceDeleteRecipe(c *Client, f *InstanceDeleteRecipe) (map[string]
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -54380,7 +54380,7 @@ func expandInstanceUpdateRecipe(c *Client, f *InstanceUpdateRecipe) (map[string]
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -56048,7 +56048,7 @@ func expandInstancePreprocessResetRecipe(c *Client, f *InstancePreprocessResetRe
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -57716,7 +57716,7 @@ func expandInstanceResetRecipe(c *Client, f *InstanceResetRecipe) (map[string]in
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -59384,7 +59384,7 @@ func expandInstancePreprocessRepairRecipe(c *Client, f *InstancePreprocessRepair
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -61052,7 +61052,7 @@ func expandInstanceRepairRecipe(c *Client, f *InstanceRepairRecipe) (map[string]
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -62720,7 +62720,7 @@ func expandInstancePreprocessDeleteRecipe(c *Client, f *InstancePreprocessDelete
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -64388,7 +64388,7 @@ func expandInstancePreprocessUpdateRecipe(c *Client, f *InstancePreprocessUpdate
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -66056,7 +66056,7 @@ func expandInstancePreprocessFreezeRecipe(c *Client, f *InstancePreprocessFreeze
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -67724,7 +67724,7 @@ func expandInstanceFreezeRecipe(c *Client, f *InstanceFreezeRecipe) (map[string]
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -69392,7 +69392,7 @@ func expandInstancePreprocessUnfreezeRecipe(c *Client, f *InstancePreprocessUnfr
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -71060,7 +71060,7 @@ func expandInstanceUnfreezeRecipe(c *Client, f *InstanceUnfreezeRecipe) (map[str
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -72728,7 +72728,7 @@ func expandInstancePreprocessReportInstanceHealthRecipe(c *Client, f *InstancePr
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -74396,7 +74396,7 @@ func expandInstanceReportInstanceHealthRecipe(c *Client, f *InstanceReportInstan
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -76064,7 +76064,7 @@ func expandInstancePreprocessGetRecipe(c *Client, f *InstancePreprocessGetRecipe
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -77732,7 +77732,7 @@ func expandInstanceNotifyKeyAvailableRecipe(c *Client, f *InstanceNotifyKeyAvail
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -79400,7 +79400,7 @@ func expandInstanceNotifyKeyUnavailableRecipe(c *Client, f *InstanceNotifyKeyUna
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -81068,7 +81068,7 @@ func expandInstanceReadonlyRecipe(c *Client, f *InstanceReadonlyRecipe) (map[str
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -82736,7 +82736,7 @@ func expandInstanceReconcileRecipe(c *Client, f *InstanceReconcileRecipe) (map[s
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -84404,7 +84404,7 @@ func expandInstancePreprocessPassthroughRecipe(c *Client, f *InstancePreprocessP
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {
@@ -86072,7 +86072,7 @@ func expandInstancePreprocessReconcileRecipe(c *Client, f *InstancePreprocessRec
 	if v := f.ReadonlyRecipeStartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["readonlyRecipeStartTime"] = v
 	}
-	if v := f.ResourceNamesStoredInClhWithDelay; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceNamesStoredInClhWithDelay; v != nil {
 		m["resourceNamesStoredInClhWithDelay"] = v
 	}
 	if v := f.DelayToStoreResourcesInClhDbNanos; !dcl.IsEmptyValueIndirect(v) {

@@ -126,6 +126,7 @@ components:
               x-dcl-go-name: CustomMetricUtilizations
               description: Configuration parameters of autoscaling based on a custom
                 metric.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -358,6 +359,7 @@ components:
             Read the documentation for [Commonly returned status messages](/compute/docs/autoscaler/understanding-autoscaler-decisions#commonly_returned_status_messages)
             for examples of status messages you might encounter.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object

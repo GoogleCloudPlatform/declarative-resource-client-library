@@ -854,9 +854,7 @@ func expandRole(c *Client, f *Role) (map[string]interface{}, error) {
 	if v := f.GroupTitle; !dcl.IsEmptyValueIndirect(v) {
 		m["groupTitle"] = v
 	}
-	if v := f.IncludedPermissions; !dcl.IsEmptyValueIndirect(v) {
-		m["includedPermissions"] = v
-	}
+	m["includedPermissions"] = f.IncludedPermissions
 	if v := f.Stage; !dcl.IsEmptyValueIndirect(v) {
 		m["stage"] = v
 	}
@@ -866,9 +864,7 @@ func expandRole(c *Client, f *Role) (map[string]interface{}, error) {
 	if v := f.Deleted; !dcl.IsEmptyValueIndirect(v) {
 		m["deleted"] = v
 	}
-	if v := f.IncludedRoles; !dcl.IsEmptyValueIndirect(v) {
-		m["includedRoles"] = v
-	}
+	m["includedRoles"] = f.IncludedRoles
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Parent into parent: %w", err)
 	} else if v != nil {

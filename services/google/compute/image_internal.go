@@ -2760,7 +2760,7 @@ func expandImage(c *Client, f *Image) (map[string]interface{}, error) {
 	}
 	if v, err := expandImageGuestOSFeatureSlice(c, f.GuestOSFeature); err != nil {
 		return nil, fmt.Errorf("error expanding GuestOSFeature into guestOsFeatures: %w", err)
-	} else if v != nil {
+	} else {
 		m["guestOsFeatures"] = v
 	}
 	if v, err := expandImageImageEncryptionKey(c, f.ImageEncryptionKey); err != nil {
@@ -2771,9 +2771,7 @@ func expandImage(c *Client, f *Image) (map[string]interface{}, error) {
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
 	}
-	if v := f.License; !dcl.IsEmptyValueIndirect(v) {
-		m["licenses"] = v
-	}
+	m["licenses"] = f.License
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -2829,9 +2827,7 @@ func expandImage(c *Client, f *Image) (map[string]interface{}, error) {
 	if v := f.Status; !dcl.IsEmptyValueIndirect(v) {
 		m["status"] = v
 	}
-	if v := f.StorageLocation; !dcl.IsEmptyValueIndirect(v) {
-		m["storageLocations"] = v
-	}
+	m["storageLocations"] = f.StorageLocation
 	if v, err := expandImageDeprecated(c, f.Deprecated); err != nil {
 		return nil, fmt.Errorf("error expanding Deprecated into deprecated: %w", err)
 	} else if v != nil {

@@ -2941,13 +2941,13 @@ func expandEnvironmentConfigNodeConfig(c *Client, f *EnvironmentConfigNodeConfig
 	if v := f.DiskSizeGb; !dcl.IsEmptyValueIndirect(v) {
 		m["diskSizeGb"] = v
 	}
-	if v := f.OAuthScopes; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.OAuthScopes; v != nil {
 		m["oauthScopes"] = v
 	}
 	if v := f.ServiceAccount; !dcl.IsEmptyValueIndirect(v) {
 		m["serviceAccount"] = v
 	}
-	if v := f.Tags; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Tags; v != nil {
 		m["tags"] = v
 	}
 	if v, err := expandEnvironmentConfigNodeConfigIPAllocationPolicy(c, f.IPAllocationPolicy, res); err != nil {

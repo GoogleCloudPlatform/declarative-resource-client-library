@@ -875,9 +875,7 @@ func expandRoute(c *Client, f *Route) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["network"] = v
 	}
-	if v := f.Tag; !dcl.IsEmptyValueIndirect(v) {
-		m["tags"] = v
-	}
+	m["tags"] = f.Tag
 	if v := f.DestRange; !dcl.IsEmptyValueIndirect(v) {
 		m["destRange"] = v
 	}
@@ -906,7 +904,7 @@ func expandRoute(c *Client, f *Route) (map[string]interface{}, error) {
 	}
 	if v, err := expandRouteWarningSlice(c, f.Warning); err != nil {
 		return nil, fmt.Errorf("error expanding Warning into warnings: %w", err)
-	} else if v != nil {
+	} else {
 		m["warnings"] = v
 	}
 	if v := f.NextHopVpnTunnel; !dcl.IsEmptyValueIndirect(v) {

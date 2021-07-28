@@ -74,6 +74,7 @@ components:
           readOnly: true
           description: Output only. List of projects using the connector.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

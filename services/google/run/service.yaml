@@ -243,6 +243,7 @@ components:
                 from the list. If the deletionTimestamp of the object is non-nil, entries
                 in this list can only be removed.
                 +patchStrategy=merge
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -316,6 +317,7 @@ components:
 
                 List of objects that own this object. If ALL objects in the list have
                 been deleted, this object will be garbage collected.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -597,6 +599,7 @@ components:
                         from the list. If the deletionTimestamp of the object is non-nil, entries
                         in this list can only be removed.
                         +patchStrategy=merge
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: string
@@ -681,6 +684,7 @@ components:
 
                         List of objects that own this object. If ALL objects in the list have
                         been deleted, this object will be garbage collected.
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: object
@@ -802,6 +806,7 @@ components:
                         In Cloud Run, only a single container may be provided.
                         The runtime contract is documented here:
                         https://github.com/knative/serving/blob/master/docs/runtime-contract.md
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: object
@@ -826,6 +831,7 @@ components:
                               regardless of whether the variable exists or not.
                               More info:
                               https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+                            x-dcl-send-empty: true
                             x-dcl-list-type: list
                             items:
                               type: string
@@ -833,6 +839,7 @@ components:
                           command:
                             type: array
                             x-dcl-go-name: Command
+                            x-dcl-send-empty: true
                             x-dcl-list-type: list
                             items:
                               type: string
@@ -848,6 +855,7 @@ components:
                               Cloud Run for Anthos: supported
 
                               List of environment variables to set in the container.
+                            x-dcl-send-empty: true
                             x-dcl-list-type: list
                             items:
                               type: object
@@ -1030,6 +1038,7 @@ components:
                               exists in multiple sources, the value associated with the last source will
                               take precedence. Values defined by an Env with a duplicate key will take
                               precedence. Cannot be updated.
+                            x-dcl-send-empty: true
                             x-dcl-list-type: list
                             items:
                               type: object
@@ -1282,6 +1291,7 @@ components:
                                       Cloud Run for Anthos: supported
 
                                       Custom headers to set in the request. HTTP allows repeated headers.
+                                    x-dcl-send-empty: true
                                     x-dcl-list-type: list
                                     items:
                                       type: object
@@ -1446,6 +1456,7 @@ components:
 
                               If omitted, a port number will be chosen and passed to the container
                               through the PORT environment variable for the container to listen on.
+                            x-dcl-send-empty: true
                             x-dcl-list-type: list
                             items:
                               type: object
@@ -1583,6 +1594,7 @@ components:
                                       Cloud Run for Anthos: supported
 
                                       Custom headers to set in the request. HTTP allows repeated headers.
+                                    x-dcl-send-empty: true
                                     x-dcl-list-type: list
                                     items:
                                       type: object
@@ -1851,6 +1863,7 @@ components:
                               Cloud Run for Anthos: supported
 
                               Pod volumes to mount into the container's filesystem.
+                            x-dcl-send-empty: true
                             x-dcl-list-type: list
                             items:
                               type: object
@@ -1936,6 +1949,7 @@ components:
                     volumes:
                       type: array
                       x-dcl-go-name: Volumes
+                      x-dcl-send-empty: true
                       x-dcl-list-type: list
                       items:
                         type: object
@@ -1981,6 +1995,7 @@ components:
                                   projected into the specified paths, and unlisted keys will not be
                                   present. If a key is specified which is not present in the Secret,
                                   the volume setup will error unless it is marked optional.
+                                x-dcl-send-empty: true
                                 x-dcl-list-type: list
                                 items:
                                   type: object
@@ -2091,6 +2106,7 @@ components:
                                   projected into the specified paths, and unlisted keys will not be
                                   present. If a key is specified which is not present in the Secret,
                                   the volume setup will error unless it is marked optional.
+                                x-dcl-send-empty: true
                                 x-dcl-list-type: list
                                 items:
                                   type: object
@@ -2158,6 +2174,7 @@ components:
               description: |-
                 Traffic specifies how to distribute traffic over a collection of Knative
                 Revisions and Configurations.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -2255,6 +2272,7 @@ components:
                 * "RoutesReady": true when the underlying Route is ready.
                 * "Ready": true when both the underlying Route and Configuration are
                 ready.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -2348,6 +2366,7 @@ components:
                 These entries will always contain RevisionName references.
                 When ConfigurationName appears in the spec, this will hold the
                 LatestReadyRevisionName that we last observed.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object

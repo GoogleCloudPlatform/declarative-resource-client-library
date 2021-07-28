@@ -1837,7 +1837,7 @@ func expandFeatureMembershipConfigmanagementPolicyController(c *Client, f *Featu
 	if v := f.Enabled; !dcl.IsEmptyValueIndirect(v) {
 		m["enabled"] = v
 	}
-	if v := f.ExemptableNamespaces; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ExemptableNamespaces; v != nil {
 		m["exemptableNamespaces"] = v
 	}
 	if v := f.ReferentialRulesEnabled; !dcl.IsEmptyValueIndirect(v) {

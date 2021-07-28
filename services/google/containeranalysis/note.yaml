@@ -132,6 +132,7 @@ components:
               type: array
               x-dcl-go-name: ResourceUri
               description: Required. Resource URI for the artifact being deployed.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -208,6 +209,7 @@ components:
                   x-dcl-go-name: V2Blob
                   description: Required. The ordered list of v2 blobs that represent
                     a given image.
+                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: string
@@ -251,6 +253,7 @@ components:
               type: array
               x-dcl-go-name: Distribution
               description: The various channels by which a package is distributed.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -354,6 +357,7 @@ components:
           type: array
           x-dcl-go-name: RelatedNoteNames
           description: Other notes related to this note.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -365,6 +369,7 @@ components:
           type: array
           x-dcl-go-name: RelatedUrl
           description: URLs associated with this note.
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -522,6 +527,7 @@ components:
               x-dcl-go-name: Details
               description: Details of all known distros and packages affected by this
                 vulnerability.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -759,6 +765,7 @@ components:
                 format and model don't match a normal detail. Specifically Windows
                 updates are done as patches, thus Windows vulnerabilities really are
                 a missing package, rather than a package being at an incorrect version.
+              x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -784,6 +791,7 @@ components:
                       to mitigate this vulnerability. Note that there may be multiple
                       hotfixes (and thus multiple KBs) that mitigate a given vulnerability.
                       Currently any listed KBs presence is considered a fix.
+                    x-dcl-send-empty: true
                     x-dcl-list-type: list
                     items:
                       type: object

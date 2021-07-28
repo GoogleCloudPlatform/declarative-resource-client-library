@@ -12946,12 +12946,10 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	}
 	if v, err := expandClusterNodePoolsSlice(c, f.NodePools); err != nil {
 		return nil, fmt.Errorf("error expanding NodePools into nodePools: %w", err)
-	} else if v != nil {
+	} else {
 		m["nodePools"] = v
 	}
-	if v := f.Locations; !dcl.IsEmptyValueIndirect(v) {
-		m["locations"] = v
-	}
+	m["locations"] = f.Locations
 	if v := f.EnableKubernetesAlpha; !dcl.IsEmptyValueIndirect(v) {
 		m["enableKubernetesAlpha"] = v
 	}
@@ -13071,7 +13069,7 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	}
 	if v, err := expandClusterConditionsSlice(c, f.Conditions); err != nil {
 		return nil, fmt.Errorf("error expanding Conditions into conditions: %w", err)
-	} else if v != nil {
+	} else {
 		m["conditions"] = v
 	}
 	if v, err := expandClusterAutopilot(c, f.Autopilot); err != nil {
@@ -13124,9 +13122,7 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	if v := f.CurrentNodeVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["currentNodeVersion"] = v
 	}
-	if v := f.InstanceGroupUrls; !dcl.IsEmptyValueIndirect(v) {
-		m["instanceGroupUrls"] = v
-	}
+	m["instanceGroupUrls"] = f.InstanceGroupUrls
 	if v := f.CurrentNodeCount; !dcl.IsEmptyValueIndirect(v) {
 		m["currentNodeCount"] = v
 	}
@@ -14634,7 +14630,7 @@ func expandClusterNodePools(c *Client, f *ClusterNodePools) (map[string]interfac
 	if v := f.InitialNodeCount; !dcl.IsEmptyValueIndirect(v) {
 		m["initialNodeCount"] = v
 	}
-	if v := f.Locations; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Locations; v != nil {
 		m["locations"] = v
 	}
 	if v := f.SelfLink; !dcl.IsEmptyValueIndirect(v) {
@@ -14643,7 +14639,7 @@ func expandClusterNodePools(c *Client, f *ClusterNodePools) (map[string]interfac
 	if v := f.Version; !dcl.IsEmptyValueIndirect(v) {
 		m["version"] = v
 	}
-	if v := f.InstanceGroupUrls; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.InstanceGroupUrls; v != nil {
 		m["instanceGroupUrls"] = v
 	}
 	if v := f.Status; !dcl.IsEmptyValueIndirect(v) {
@@ -14811,7 +14807,7 @@ func expandClusterNodePoolsConfig(c *Client, f *ClusterNodePoolsConfig) (map[str
 	if v := f.DiskSizeGb; !dcl.IsEmptyValueIndirect(v) {
 		m["diskSizeGb"] = v
 	}
-	if v := f.OAuthScopes; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.OAuthScopes; v != nil {
 		m["oauthScopes"] = v
 	}
 	if v := f.ServiceAccount; !dcl.IsEmptyValueIndirect(v) {
@@ -14829,7 +14825,7 @@ func expandClusterNodePoolsConfig(c *Client, f *ClusterNodePoolsConfig) (map[str
 	if v := f.LocalSsdCount; !dcl.IsEmptyValueIndirect(v) {
 		m["localSsdCount"] = v
 	}
-	if v := f.Tags; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Tags; v != nil {
 		m["tags"] = v
 	}
 	if v := f.Preemptible; !dcl.IsEmptyValueIndirect(v) {
@@ -15493,7 +15489,7 @@ func expandClusterNodePoolsConfigReservationAffinity(c *Client, f *ClusterNodePo
 	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
 		m["key"] = v
 	}
-	if v := f.Values; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Values; v != nil {
 		m["values"] = v
 	}
 
@@ -17444,7 +17440,7 @@ func expandClusterAutoscaling(c *Client, f *ClusterAutoscaling) (map[string]inte
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["autoprovisioningNodePoolDefaults"] = v
 	}
-	if v := f.AutoprovisioningLocations; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AutoprovisioningLocations; v != nil {
 		m["autoprovisioningLocations"] = v
 	}
 
@@ -17683,7 +17679,7 @@ func expandClusterAutoscalingAutoprovisioningNodePoolDefaults(c *Client, f *Clus
 	}
 
 	m := make(map[string]interface{})
-	if v := f.OAuthScopes; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.OAuthScopes; v != nil {
 		m["oauthScopes"] = v
 	}
 	if v := f.ServiceAccount; !dcl.IsEmptyValueIndirect(v) {
@@ -20593,7 +20589,7 @@ func expandClusterNodeConfig(c *Client, f *ClusterNodeConfig) (map[string]interf
 	if v := f.DiskSizeGb; !dcl.IsEmptyValueIndirect(v) {
 		m["diskSizeGb"] = v
 	}
-	if v := f.OAuthScopes; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.OAuthScopes; v != nil {
 		m["oauthScopes"] = v
 	}
 	if v := f.ServiceAccount; !dcl.IsEmptyValueIndirect(v) {
@@ -20611,7 +20607,7 @@ func expandClusterNodeConfig(c *Client, f *ClusterNodeConfig) (map[string]interf
 	if v := f.LocalSsdCount; !dcl.IsEmptyValueIndirect(v) {
 		m["localSsdCount"] = v
 	}
-	if v := f.Tags; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Tags; v != nil {
 		m["tags"] = v
 	}
 	if v := f.Preemptible; !dcl.IsEmptyValueIndirect(v) {
@@ -21275,7 +21271,7 @@ func expandClusterNodeConfigReservationAffinity(c *Client, f *ClusterNodeConfigR
 	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
 		m["key"] = v
 	}
-	if v := f.Values; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Values; v != nil {
 		m["values"] = v
 	}
 

@@ -959,9 +959,7 @@ func expandSnapshot(c *Client, f *Snapshot) (map[string]interface{}, error) {
 	if v := f.StorageBytes; !dcl.IsEmptyValueIndirect(v) {
 		m["storageBytes"] = v
 	}
-	if v := f.License; !dcl.IsEmptyValueIndirect(v) {
-		m["licenses"] = v
-	}
+	m["licenses"] = f.License
 	if v, err := expandSnapshotSnapshotEncryptionKey(c, f.SnapshotEncryptionKey); err != nil {
 		return nil, fmt.Errorf("error expanding SnapshotEncryptionKey into snapshotEncryptionKey: %w", err)
 	} else if v != nil {

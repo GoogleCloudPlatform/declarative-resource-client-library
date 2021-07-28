@@ -195,6 +195,7 @@ components:
           x-dcl-go-name: Tag
           description: A list of instance tags to which this route applies.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -207,6 +208,7 @@ components:
             [Output Only] If potential misconfigurations are detected for this
             route, this field will be populated with warning messages.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object

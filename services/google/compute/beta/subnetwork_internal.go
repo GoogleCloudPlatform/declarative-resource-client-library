@@ -1275,7 +1275,7 @@ func expandSubnetwork(c *Client, f *Subnetwork) (map[string]interface{}, error) 
 	}
 	if v, err := expandSubnetworkSecondaryIPRangesSlice(c, f.SecondaryIPRanges); err != nil {
 		return nil, fmt.Errorf("error expanding SecondaryIPRanges into secondaryIpRanges: %w", err)
-	} else if v != nil {
+	} else {
 		m["secondaryIpRanges"] = v
 	}
 	if v := f.PrivateIPGoogleAccess; !dcl.IsEmptyValueIndirect(v) {
