@@ -8,6 +8,6 @@
     "noExternalIP": true
   },
   "networkConfig": {
-    "peeredNetwork": "projects/{{project}}/global/networks/{{ref:basic.compute.network.json:name}}"
+    "peeredNetwork": "projects/{{project}}/global/networks/{{ref:first.compute.network.json:name}}"
   }
 }

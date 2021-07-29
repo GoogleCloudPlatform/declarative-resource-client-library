@@ -1,5 +1,5 @@
 {
-  "name": "{{network}}",
+  "name": "{{vpcaccess_network}}",
   "project": "{{project}}",
   "autoCreateSubnetworks": false
 }

@@ -16,12 +16,12 @@ dependencies:
 - samples/folder.firewall_policy.json
 - samples/folder_firewall.iam.member.json
 - samples/folder_compute.iam.member.json
+- samples/first_folder.network.json
+- samples/second_folder.network.json
+- samples/compute.serviceusage.service.json
+- samples/folder.cloudbilling.project_billing_info.json
 - samples/folder.cloudresourcemanager.folder.json
 - samples/folder.cloudresourcemanager.project.json
-- samples/folder.cloudbilling.project_billing_info.json
-- samples/compute.serviceusage.service.json
-- samples/folder.network.json
-- samples/update_folder.network.json
 description: An example of a compute firewall policy for a folder
 name: folder_firewall_policy
 resource: samples/folder.firewall_policy_rule.json
@@ -30,11 +30,11 @@ updates:
   - samples/update_folder.firewall_policy.json
   resource: samples/update_folder.firewall_policy_rule.json
 variables:
+- name: id
+  type: resource_name
 - name: org_id
   type: org_id
 - name: folder
-  type: resource_name
-- name: id
   type: resource_name
 - name: test_service_account
   type: test_service_account

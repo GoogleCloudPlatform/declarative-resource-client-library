@@ -1,6 +1,7 @@
 {
   "name": "{{instance}}",
   "project": "{{project}}",
+  "zone": "{{zone}}",
   "machineType": "zones/{{zone}}/machineTypes/e2-medium",
   "disks": [
     {
@@ -14,17 +15,7 @@
   ],
   "networkInterfaces": [
     {
-      "subnetwork": "{{ref:basic.subnetwork.json:selfLink}}"
-    },
-    {
-      "network": "global/networks/default",
-      "accessConfigs": [
-        {
-          "type": "ONE_TO_ONE_NAT",
-          "name": "External NAT"
-        }
-      ]
+      "network": "global/networks/default"
     }
-  ],
-  "zone": "{{zone}}"
+  ]
 }

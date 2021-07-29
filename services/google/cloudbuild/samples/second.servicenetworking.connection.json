@@ -1,0 +1,5 @@
+{
+  "project": "{{project}}",
+  "network": "projects/{{project}}/global/networks/{{ref:second.compute.network.json:name}}",
+  "reservedPeeringRanges": ["{{ref:second.compute.address.json:name}}"]
+}

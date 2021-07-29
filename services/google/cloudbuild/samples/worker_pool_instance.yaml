@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 dependencies:
-- samples/basic.compute.network.json
-- samples/basic.compute.address.json
-- samples/basic.servicenetworking.connection.json
-- samples/other.compute.network.json
-- samples/other.compute.address.json
-- samples/other.servicenetworking.connection.json
+- samples/first.compute.network.json
+- samples/first.compute.address.json
+- samples/first.servicenetworking.connection.json
+- samples/second.compute.network.json
+- samples/second.compute.address.json
+- samples/second.servicenetworking.connection.json
 description: Example for workerpool instance
 name: worker_pool_instance
 resource: samples/basic.worker_pool.json
@@ -26,13 +26,13 @@ updates:
 variables:
 - name: project
   type: project
-- name: network
+- name: cloudbuild_network1
   type: resource_name
-- name: othernetwork
+- name: cloudbuild_network2
   type: resource_name
-- name: otheraddress
+- name: address1
   type: resource_name
-- name: address
+- name: address2
   type: resource_name
 - name: resource_name
   type: resource_name

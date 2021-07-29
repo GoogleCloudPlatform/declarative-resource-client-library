@@ -17,5 +17,5 @@
   "action" : "allow",
   "direction": "INGRESS",
   "disabled" : true,
-  "targetResources": ["{{ref:update_folder.network.json:selfLink}}"]
+  "targetResources": ["{{ref:second_folder.network.json:selfLink}}"]
 }

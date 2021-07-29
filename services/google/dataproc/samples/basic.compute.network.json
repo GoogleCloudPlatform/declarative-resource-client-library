@@ -1,5 +1,5 @@
 {
-  "name": "{{network}}",
+  "name": "{{dataproc_network}}",
   "project": "{{project}}",
   "autoCreateSubnetworks": false
 }

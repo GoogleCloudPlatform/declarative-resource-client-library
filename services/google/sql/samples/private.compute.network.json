@@ -1,4 +1,4 @@
 {
-  "name": "{{network_name}}",
+  "name": "{{sql_network}}",
   "project": "{{project}}"
 }

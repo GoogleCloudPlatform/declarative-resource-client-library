@@ -22,10 +22,10 @@ resource: samples/basic.target_http_proxy.json
 updates:
 - resource: samples/update.target_http_proxy.json
 variables:
-- name: project
-  type: project
 - name: bucket
   type: resource_name
+- name: project
+  type: project
 - name: backend
   type: resource_name
 - name: map1

@@ -15,23 +15,23 @@ dependencies:
 - samples/basic.instance.json
 - samples/basic.image.json
 - samples/basic.network.json
-- samples/basic.subnetwork.json
+- samples/independent.subnetwork.json
 description: An example of a compute instance with an iam binding.
 name: iam_instance
 resource: samples/instance.iam.binding.json
 variables:
-- name: network
+- name: compute_network1
   type: resource_name
 - name: project
   type: project
 - name: image
   type: resource_name
-- name: range
-  type: resource_name
-- name: subnetwork
-  type: resource_name
 - name: region
   type: region
+- name: range
+  type: resource_name
+- name: compute_independent_subnetwork
+  type: resource_name
 - name: instance
   type: resource_name
 - name: zone

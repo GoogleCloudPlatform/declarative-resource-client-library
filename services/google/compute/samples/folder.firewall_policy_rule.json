@@ -16,5 +16,5 @@
   "action": "deny",
   "direction": "EGRESS",
   "disabled" : false,
-  "targetResources": ["{{ref:folder.network.json:selfLink}}"]
+  "targetResources": ["{{ref:first_folder.network.json:selfLink}}"]
 }

@@ -14,26 +14,18 @@
 dependencies:
 - samples/https.health_check.json
 - samples/zonal.network_endpoint_group.json
-- samples/basic.subnetwork.json
-- samples/basic.network.json
 description: An example of a global backend service.
 name: global_backend_service
 resource: samples/global.backend_service.json
 updates:
 - resource: samples/update_global.backend_service.json
 variables:
-- name: network
+- name: s_check
   type: resource_name
 - name: project
   type: project
-- name: s_check
-  type: resource_name
-- name: subnetwork
-  type: resource_name
 - name: region
   type: region
-- name: range
-  type: resource_name
 - name: zone
   type: zone
 - name: group
