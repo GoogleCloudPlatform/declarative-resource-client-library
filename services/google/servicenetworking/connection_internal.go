@@ -91,7 +91,7 @@ func newUpdateConnectionPatchRequest(ctx context.Context, f *Connection, c *Clie
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["network"] = v
 	}
-	if v := f.ReservedPeeringRanges; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ReservedPeeringRanges; v != nil {
 		req["reservedPeeringRanges"] = v
 	}
 	if v, err := dcl.DeriveField("services/%s", f.Service, f.Service); err != nil {

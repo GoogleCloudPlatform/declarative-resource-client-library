@@ -119,7 +119,7 @@ func newUpdateFirewallPolicyRulePatchRuleRequest(ctx context.Context, f *Firewal
 	if v := f.Direction; !dcl.IsEmptyValueIndirect(v) {
 		req["direction"] = v
 	}
-	if v := f.TargetResources; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.TargetResources; v != nil {
 		req["targetResources"] = v
 	}
 	if v := f.EnableLogging; !dcl.IsEmptyValueIndirect(v) {
@@ -128,7 +128,7 @@ func newUpdateFirewallPolicyRulePatchRuleRequest(ctx context.Context, f *Firewal
 	if v := f.RuleTupleCount; !dcl.IsEmptyValueIndirect(v) {
 		req["ruleTupleCount"] = v
 	}
-	if v := f.TargetServiceAccounts; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.TargetServiceAccounts; v != nil {
 		req["targetServiceAccounts"] = v
 	}
 	if v := f.Disabled; !dcl.IsEmptyValueIndirect(v) {

@@ -155,7 +155,7 @@ func (op *updateTargetPoolAddHCOperation) do(ctx context.Context, r *TargetPool,
 func newUpdateTargetPoolAddInstanceRequest(ctx context.Context, f *TargetPool, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	if v := f.Instances; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Instances; v != nil {
 		req["instances"] = v
 	}
 	return req, nil
@@ -299,7 +299,7 @@ func (op *updateTargetPoolRemoveHCOperation) do(ctx context.Context, r *TargetPo
 func newUpdateTargetPoolRemoveInstanceRequest(ctx context.Context, f *TargetPool, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	if v := f.Instances; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Instances; v != nil {
 		req["instances"] = v
 	}
 	return req, nil

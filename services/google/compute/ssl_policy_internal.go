@@ -93,7 +93,7 @@ func newUpdateSslPolicyPatchRequest(ctx context.Context, f *SslPolicy, c *Client
 	if v := f.MinTlsVersion; !dcl.IsEmptyValueIndirect(v) {
 		req["minTlsVersion"] = v
 	}
-	if v := f.CustomFeature; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.CustomFeature; v != nil {
 		req["customFeatures"] = v
 	}
 	b, err := c.getSslPolicyRaw(ctx, f.URLNormalized())

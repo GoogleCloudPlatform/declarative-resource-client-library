@@ -293,7 +293,7 @@ func newUpdateNoteUpdateNoteRequest(ctx context.Context, f *Note, c *Client) (ma
 	if v := f.ExpirationTime; !dcl.IsEmptyValueIndirect(v) {
 		req["expirationTime"] = v
 	}
-	if v := f.RelatedNoteNames; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.RelatedNoteNames; v != nil {
 		req["relatedNoteNames"] = v
 	}
 	if v, err := expandNoteVulnerability(c, f.Vulnerability); err != nil {

@@ -15,9 +15,9 @@ description: A test ga log metric with an integer value type
 name: int_metric
 resource: samples/int.log_metric.json
 variables:
-- name: metric
-  type: resource_name
 - name: project
   type: project
+- name: metric
+  type: resource_name
 versions:
 - ga

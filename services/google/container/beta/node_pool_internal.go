@@ -422,7 +422,7 @@ func newUpdateNodePoolUpdateRequest(ctx context.Context, f *NodePool, c *Client)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["config"] = v
 	}
-	if v := f.Locations; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Locations; v != nil {
 		req["locations"] = v
 	}
 	return req, nil

@@ -160,6 +160,9 @@ func newUpdateUptimeCheckConfigUpdateUptimeCheckConfigRequest(ctx context.Contex
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["tcpCheck"] = v
 	}
+	if v := f.Period; !dcl.IsEmptyValueIndirect(v) {
+		req["period"] = v
+	}
 	if v := f.Timeout; !dcl.IsEmptyValueIndirect(v) {
 		req["timeout"] = v
 	}
@@ -168,10 +171,7 @@ func newUpdateUptimeCheckConfigUpdateUptimeCheckConfigRequest(ctx context.Contex
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["contentMatchers"] = v
 	}
-	if v := f.PrivateCheckers; !dcl.IsEmptyValueIndirect(v) {
-		req["privateCheckers"] = v
-	}
-	if v := f.SelectedRegions; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SelectedRegions; v != nil {
 		req["selectedRegions"] = v
 	}
 	req["name"] = fmt.Sprintf("projects/%s/uptimeCheckConfigs/%s", *f.Project, *f.Name)
@@ -596,11 +596,6 @@ func canonicalizeUptimeCheckConfigDesiredState(rawDesired, rawInitial *UptimeChe
 	} else {
 		canonicalDesired.ContentMatchers = rawDesired.ContentMatchers
 	}
-	if dcl.IsZeroValue(rawDesired.PrivateCheckers) {
-		canonicalDesired.PrivateCheckers = rawInitial.PrivateCheckers
-	} else {
-		canonicalDesired.PrivateCheckers = rawDesired.PrivateCheckers
-	}
 	if dcl.IsZeroValue(rawDesired.SelectedRegions) {
 		canonicalDesired.SelectedRegions = rawInitial.SelectedRegions
 	} else {
@@ -674,11 +669,6 @@ func canonicalizeUptimeCheckConfigNewState(c *Client, rawNew, rawDesired *Uptime
 		rawNew.ContentMatchers = rawDesired.ContentMatchers
 	} else {
 		rawNew.ContentMatchers = canonicalizeNewUptimeCheckConfigContentMatchersSlice(c, rawDesired.ContentMatchers, rawNew.ContentMatchers)
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.PrivateCheckers) && dcl.IsEmptyValueIndirect(rawDesired.PrivateCheckers) {
-		rawNew.PrivateCheckers = rawDesired.PrivateCheckers
-	} else {
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.SelectedRegions) && dcl.IsEmptyValueIndirect(rawDesired.SelectedRegions) {
@@ -964,9 +954,7 @@ func canonicalizeNewUptimeCheckConfigHttpCheck(c *Client, des, nw *UptimeCheckCo
 	if dcl.BoolCanonicalize(des.MaskHeaders, nw.MaskHeaders) {
 		nw.MaskHeaders = des.MaskHeaders
 	}
-	if dcl.IsZeroValue(nw.Headers) {
-		nw.Headers = des.Headers
-	}
+	nw.Headers = des.Headers
 	if dcl.IsZeroValue(nw.ContentType) {
 		nw.ContentType = des.ContentType
 	}
@@ -1322,7 +1310,7 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HttpCheck, actual.HttpCheck, dcl.Info{ObjectFunction: compareUptimeCheckConfigHttpCheckNewStyle, EmptyObject: EmptyUptimeCheckConfigHttpCheck, OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("HttpCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpCheck, actual.HttpCheck, dcl.Info{ObjectFunction: compareUptimeCheckConfigHttpCheckNewStyle, EmptyObject: EmptyUptimeCheckConfigHttpCheck, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HttpCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1336,7 +1324,7 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Period, actual.Period, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Period")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Period, actual.Period, dcl.Info{OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("Period")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1351,13 +1339,6 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 	}
 
 	if ds, err := dcl.Diff(desired.ContentMatchers, actual.ContentMatchers, dcl.Info{ObjectFunction: compareUptimeCheckConfigContentMatchersNewStyle, EmptyObject: EmptyUptimeCheckConfigContentMatchers, OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("ContentMatchers")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.PrivateCheckers, actual.PrivateCheckers, dcl.Info{OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("PrivateCheckers")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1493,7 +1474,7 @@ func compareUptimeCheckConfigHttpCheckNewStyle(d, a interface{}, fn dcl.FieldNam
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1507,21 +1488,21 @@ func compareUptimeCheckConfigHttpCheckNewStyle(d, a interface{}, fn dcl.FieldNam
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaskHeaders, actual.MaskHeaders, dcl.Info{OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("MaskHeaders")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaskHeaders, actual.MaskHeaders, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaskHeaders")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Headers, actual.Headers, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Headers")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Headers, actual.Headers, dcl.Info{OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("Headers")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ContentType, actual.ContentType, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("ContentType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ContentType, actual.ContentType, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ContentType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1629,14 +1610,14 @@ func compareUptimeCheckConfigContentMatchersNewStyle(d, a interface{}, fn dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Content, actual.Content, dcl.Info{OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("Content")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Content, actual.Content, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Content")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Matcher, actual.Matcher, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("Matcher")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Matcher, actual.Matcher, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Matcher")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1739,7 +1720,6 @@ func expandUptimeCheckConfig(c *Client, f *UptimeCheckConfig) (map[string]interf
 	} else {
 		m["contentMatchers"] = v
 	}
-	m["privateCheckers"] = f.PrivateCheckers
 	m["selectedRegions"] = f.SelectedRegions
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
@@ -1775,7 +1755,6 @@ func flattenUptimeCheckConfig(c *Client, i interface{}) *UptimeCheckConfig {
 	}
 	res.Timeout = dcl.FlattenString(m["timeout"])
 	res.ContentMatchers = flattenUptimeCheckConfigContentMatchersSlice(c, m["contentMatchers"])
-	res.PrivateCheckers = dcl.FlattenStringSlice(m["privateCheckers"])
 	res.SelectedRegions = dcl.FlattenStringSlice(m["selectedRegions"])
 	res.Project = dcl.FlattenString(m["project"])
 
@@ -1989,9 +1968,7 @@ func expandUptimeCheckConfigResourceGroup(c *Client, f *UptimeCheckConfigResourc
 	}
 
 	m := make(map[string]interface{})
-	if v, err := dcl.EmptyValue(); err != nil {
-		return nil, fmt.Errorf("error expanding GroupId into groupId: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GroupId; !dcl.IsEmptyValueIndirect(v) {
 		m["groupId"] = v
 	}
 	if v := f.ResourceType; !dcl.IsEmptyValueIndirect(v) {

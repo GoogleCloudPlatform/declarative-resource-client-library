@@ -237,7 +237,7 @@ func newUpdateInstanceGroupManagerPatchRequest(ctx context.Context, f *InstanceG
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["versions"] = v
 	}
-	if v := f.TargetPools; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.TargetPools; v != nil {
 		req["targetPools"] = v
 	}
 	if v := f.BaseInstanceName; !dcl.IsEmptyValueIndirect(v) {

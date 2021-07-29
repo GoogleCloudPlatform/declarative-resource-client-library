@@ -205,7 +205,7 @@ func newUpdateBuildTriggerUpdateBuildTriggerRequest(ctx context.Context, f *Buil
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
-	if v := f.Tags; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Tags; v != nil {
 		req["tags"] = v
 	}
 	if v := f.Disabled; !dcl.IsEmptyValueIndirect(v) {
@@ -217,10 +217,10 @@ func newUpdateBuildTriggerUpdateBuildTriggerRequest(ctx context.Context, f *Buil
 	if v := f.Filename; !dcl.IsEmptyValueIndirect(v) {
 		req["filename"] = v
 	}
-	if v := f.IgnoredFiles; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.IgnoredFiles; v != nil {
 		req["ignoredFiles"] = v
 	}
-	if v := f.IncludedFiles; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.IncludedFiles; v != nil {
 		req["includedFiles"] = v
 	}
 	if v, err := expandBuildTriggerTriggerTemplate(c, f.TriggerTemplate); err != nil {

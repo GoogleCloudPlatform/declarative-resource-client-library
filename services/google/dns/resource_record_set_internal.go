@@ -106,7 +106,7 @@ func newUpdateResourceRecordSetUpdateRequest(ctx context.Context, f *ResourceRec
 	if v := f.Ttl; !dcl.IsEmptyValueIndirect(v) {
 		req["ttl"] = v
 	}
-	if v := f.Target; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Target; v != nil {
 		req["rrdatas"] = v
 	}
 	return req, nil

@@ -19,10 +19,10 @@ resource: samples/regional.network_endpoint_group.json
 variables:
 - name: region
   type: region
-- name: project
-  type: project
 - name: function
   type: resource_name
+- name: project
+  type: project
 - name: group
   type: resource_name
 versions:

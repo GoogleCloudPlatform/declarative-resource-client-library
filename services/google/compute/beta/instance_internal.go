@@ -513,7 +513,7 @@ func (op *updateInstanceSetMetadataOperation) do(ctx context.Context, r *Instanc
 func newUpdateInstanceSetTagsRequest(ctx context.Context, f *Instance, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	if v := f.Tags; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Tags; v != nil {
 		req["items"] = v
 	}
 	b, err := c.getInstanceRaw(ctx, f.URLNormalized())

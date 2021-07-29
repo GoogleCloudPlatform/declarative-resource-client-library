@@ -103,6 +103,7 @@ components:
           x-dcl-go-name: HttpCheck
           x-dcl-go-type: UptimeCheckConfigHttpCheck
           description: Contains information needed to make an HTTP or HTTPS check.
+          x-kubernetes-immutable: true
           x-dcl-conflicts:
           - tcpCheck
           properties:
@@ -141,6 +142,7 @@ components:
               x-dcl-go-type: UptimeCheckConfigHttpCheckContentTypeEnum
               description: 'The content type to use for the check.  Possible values:
                 TYPE_UNSPECIFIED, URL_ENCODED'
+              x-kubernetes-immutable: true
               enum:
               - TYPE_UNSPECIFIED
               - URL_ENCODED
@@ -157,6 +159,7 @@ components:
                 call will cause the first to be overwritten by the second. The maximum
                 number of headers allowed is 100.
               x-dcl-server-default: true
+              x-dcl-mutable-unreadable: true
             maskHeaders:
               type: boolean
               x-dcl-go-name: MaskHeaders
@@ -166,6 +169,7 @@ components:
                 The server will be responsible for encrypting the headers. On Get/List
                 calls, if `mask_headers` is set to `true` then the headers will be
                 obscured with `******.`
+              x-kubernetes-immutable: true
             path:
               type: string
               x-dcl-go-name: Path
@@ -190,6 +194,7 @@ components:
               x-dcl-go-type: UptimeCheckConfigHttpCheckRequestMethodEnum
               description: The HTTP request method to use for the check. If set to
                 `METHOD_UNSPECIFIED` then `request_method` defaults to `GET`.
+              x-kubernetes-immutable: true
               default: GET
               enum:
               - METHOD_UNSPECIFIED
@@ -246,24 +251,7 @@ components:
           description: How often, in seconds, the Uptime check is performed. Currently,
             the only supported values are `60s` (1 minute), `300s` (5 minutes), `600s`
             (10 minutes), and `900s` (15 minutes). Optional, defaults to `60s`.
-          x-kubernetes-immutable: true
           default: 60s
-        privateCheckers:
-          type: array
-          x-dcl-go-name: PrivateCheckers
-          description: Optional, and only valid if the `checker_type` is `PRIVATE_CHECKERS`.
-            The list of `UptimePrivateChecker` `name`s from which this check will
-            egress. If this list is empty, the check will egress from all the `UptimePrivateCheckers`
-            configured for the project that owns this `UptimeCheckConfig` (if the
-            list of `UptimePrivateCheckers` changes after the check is created, the
-            check will use the updated list). If the list is non-empty, only the specified
-            `UptimePrivateCheckers` will be used, and at least 3 private checkers
-            must be provided.
-          x-dcl-send-empty: true
-          x-dcl-list-type: list
-          items:
-            type: string
-            x-dcl-go-type: string
         project:
           type: string
           x-dcl-go-name: Project

@@ -1190,7 +1190,7 @@ func (op *updateClusterUpdateLegacyAbacOperation) do(ctx context.Context, r *Clu
 func newUpdateClusterUpdateLocationsRequest(ctx context.Context, f *Cluster, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	if v := f.Locations; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Locations; v != nil {
 		req["desiredLocations"] = v
 	}
 	return req, nil

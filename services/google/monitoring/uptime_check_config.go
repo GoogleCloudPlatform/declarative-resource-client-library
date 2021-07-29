@@ -34,7 +34,6 @@ type UptimeCheckConfig struct {
 	Period            *string                             `json:"period"`
 	Timeout           *string                             `json:"timeout"`
 	ContentMatchers   []UptimeCheckConfigContentMatchers  `json:"contentMatchers"`
-	PrivateCheckers   []string                            `json:"privateCheckers"`
 	SelectedRegions   []string                            `json:"selectedRegions"`
 	Project           *string                             `json:"project"`
 }

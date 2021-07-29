@@ -57,9 +57,8 @@ message MonitoringUptimeCheckConfig {
   string period = 7;
   string timeout = 8;
   repeated MonitoringUptimeCheckConfigContentMatchers content_matchers = 9;
-  repeated string private_checkers = 10;
-  repeated string selected_regions = 11;
-  string project = 12;
+  repeated string selected_regions = 10;
+  string project = 11;
 }
 
 message MonitoringUptimeCheckConfigMonitoredResource {

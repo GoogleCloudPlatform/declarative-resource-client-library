@@ -128,19 +128,19 @@ func newUpdateFirewallUpdateRequest(ctx context.Context, f *Firewall, c *Client)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["denied"] = v
 	}
-	if v := f.SourceRanges; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SourceRanges; v != nil {
 		req["sourceRanges"] = v
 	}
-	if v := f.SourceServiceAccounts; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SourceServiceAccounts; v != nil {
 		req["sourceServiceAccounts"] = v
 	}
-	if v := f.SourceTags; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SourceTags; v != nil {
 		req["sourceTags"] = v
 	}
-	if v := f.TargetServiceAccounts; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.TargetServiceAccounts; v != nil {
 		req["targetServiceAccounts"] = v
 	}
-	if v := f.TargetTags; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.TargetTags; v != nil {
 		req["targetTags"] = v
 	}
 	return req, nil

@@ -34,9 +34,9 @@ variables:
   type: resource_name
 - name: address2
   type: resource_name
-- name: region
-  type: region
 - name: resource_name
   type: resource_name
+- name: region
+  type: region
 versions:
 - ga

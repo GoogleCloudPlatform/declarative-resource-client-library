@@ -37,14 +37,14 @@ type ResourceWithPolicy interface {
 // Policy is the core resource of an IAM policy.
 type Policy struct {
 	Bindings []Binding          `json:"bindings"`
-	Etag     string             `json:"etag"`
-	Version  int                `json:"version"`
+	Etag     *string            `json:"etag"`
+	Version  *int               `json:"version"`
 	Resource ResourceWithPolicy `json:"resource"`
 }
 
 // Binding maps a single role to all of its members.
 type Binding struct {
-	Role      string             `json:"role"`
+	Role      *string            `json:"role"`
 	Members   []string           `json:"members"`
 	Condition *Condition         `json:"condition,omitempty"`
 	Resource  ResourceWithPolicy `json:"resource"`
@@ -53,15 +53,15 @@ type Binding struct {
 // Condition represents an IAM condition.
 // See https://cloud.google.com/iam/docs/conditions-overview#resources for details.
 type Condition struct {
-	Title       string `json:"title"`
-	Description string `json:"description"`
-	Expression  string `json:"expression"`
+	Title       *string `json:"title"`
+	Description *string `json:"description"`
+	Expression  *string `json:"expression"`
 }
 
 // Member maps a single IAM member to one of its roles.
 type Member struct {
-	Role     string             `json:"role"`
-	Member   string             `json:"member"`
+	Role     *string            `json:"role"`
+	Member   *string            `json:"member"`
 	Resource ResourceWithPolicy `json:"resource"`
 }
 
@@ -131,7 +131,8 @@ func (c *Client) SetPolicy(ctx context.Context, p *Policy) (*Policy, error) {
 		return nil, err
 	}
 	p.Etag = currentPolicy.Etag
-	p.Version = p.Resource.IAMPolicyVersion()
+	versionPtr := p.Resource.IAMPolicyVersion()
+	p.Version = &versionPtr
 	verb := p.Resource.SetPolicyVerb()
 	m, err := p.Encode()
 	if err != nil {
@@ -158,8 +159,9 @@ func (c *Client) SetPolicy(ctx context.Context, p *Policy) (*Policy, error) {
 	if err != nil {
 		return nil, err
 	}
-	err = json.Unmarshal(respB, p)
-	return p, err
+	newP := &Policy{}
+	err = json.Unmarshal(respB, newP)
+	return newP, err
 }
 
 // SetBinding sets one binding, authoritatively on the role, for the given resource.
@@ -170,7 +172,7 @@ func (c *Client) SetBinding(ctx context.Context, b *Binding) (*Policy, error) {
 	}
 	roleExists := false
 	for i, eb := range p.Bindings {
-		if eb.Role == b.Role && reflect.DeepEqual(eb.Condition, b.Condition) {
+		if dcl.StringEquals(eb.Role, b.Role) && reflect.DeepEqual(eb.Condition, b.Condition) {
 			p.Bindings[i].Members = b.Members
 			roleExists = true
 			break
@@ -189,7 +191,7 @@ func (c *Client) GetBinding(ctx context.Context, r ResourceWithPolicy, role stri
 		return nil, err
 	}
 	for _, eb := range p.Bindings {
-		if eb.Role == role {
+		if dcl.StringEquals(eb.Role, &role) {
 			return &eb, nil
 		}
 	}
@@ -198,7 +200,7 @@ func (c *Client) GetBinding(ctx context.Context, r ResourceWithPolicy, role stri
 
 // SetMember adds a member to the binding for its role if not already present.
 func (c *Client) SetMember(ctx context.Context, m *Member) (*Policy, error) {
-	b, err := c.GetBinding(ctx, m.Resource, m.Role)
+	b, err := c.GetBinding(ctx, m.Resource, dcl.ValueOrEmptyString(m.Role))
 	if err != nil {
 		return nil, err
 	}
@@ -207,13 +209,13 @@ func (c *Client) SetMember(ctx context.Context, m *Member) (*Policy, error) {
 	}
 	containsMember := false
 	for _, em := range b.Members {
-		if em == m.Member {
+		if dcl.StringEquals(&em, m.Member) {
 			containsMember = true
 			break
 		}
 	}
 	if !containsMember {
-		b.Members = append(b.Members, m.Member)
+		b.Members = append(b.Members, dcl.ValueOrEmptyString(m.Member))
 	}
 	b.Resource = m.Resource
 	return c.SetBinding(ctx, b)
@@ -235,8 +237,8 @@ func (c *Client) GetMember(ctx context.Context, r ResourceWithPolicy, role, memb
 	for _, em := range b.Members {
 		if em == member {
 			return &Member{
-				Role:     role,
-				Member:   member,
+				Role:     &role,
+				Member:   &member,
 				Resource: r,
 			}, nil
 		}
@@ -250,7 +252,7 @@ func (c *Client) GetMember(ctx context.Context, r ResourceWithPolicy, role, memb
 // ignores other lifecycle parameters as they are not relevant to IAM bindings.
 func (c *Client) ApplyBinding(ctx context.Context, binding *Binding, opts ...dcl.ApplyOption) (*Binding, error) {
 	lp := dcl.FetchLifecycleParams(opts)
-	exists, err := c.GetBinding(ctx, binding.Resource, binding.Role)
+	exists, err := c.GetBinding(ctx, binding.Resource, dcl.ValueOrEmptyString(binding.Role))
 	if exists != nil && dcl.HasLifecycleParam(lp, dcl.BlockAcquire) {
 		return exists, dcl.ApplyInfeasibleError{
 			Message: fmt.Sprintf("Resource already exists - apply blocked by lifecycle params: %#v.", exists),
@@ -275,7 +277,7 @@ func (c *Client) DeleteBinding(ctx context.Context, binding *Binding) error {
 	}
 	var bindings []Binding
 	for _, b := range policy.Bindings {
-		if b.Role != binding.Role {
+		if !dcl.StringEquals(b.Role, binding.Role) {
 			bindings = append(bindings, b)
 		}
 	}
@@ -288,7 +290,9 @@ func (c *Client) DeleteBinding(ctx context.Context, binding *Binding) error {
 // ignores other lifecycle parameters as they are not relevant to IAM members.
 func (c *Client) ApplyMember(ctx context.Context, member *Member, opts ...dcl.ApplyOption) (*Member, error) {
 	lp := dcl.FetchLifecycleParams(opts)
-	exists, err := c.GetMember(ctx, member.Resource, member.Role, member.Member)
+	role := dcl.ValueOrEmptyString(member.Role)
+	memberString := dcl.ValueOrEmptyString(member.Member)
+	exists, err := c.GetMember(ctx, member.Resource, role, memberString)
 	if exists != nil && dcl.HasLifecycleParam(lp, dcl.BlockAcquire) {
 		return exists, dcl.ApplyInfeasibleError{
 			Message: fmt.Sprintf("Resource already exists - apply blocked by lifecycle params: %#v.", exists),
@@ -299,10 +303,18 @@ func (c *Client) ApplyMember(ctx context.Context, member *Member, opts ...dcl.Ap
 			Message: fmt.Sprintf("Resource does not exist - apply blocked by lifecycle params: %#v.", opts),
 		}
 	}
-	c.SetMember(ctx, member)
-	exists, err = c.GetMember(ctx, member.Resource, member.Role, member.Member)
+	_, err = c.SetMember(ctx, member)
 	if err != nil {
 		return nil, err
+	}
+	exists, err = c.GetMember(ctx, member.Resource, dcl.ValueOrEmptyString(member.Role), dcl.ValueOrEmptyString(member.Member))
+	if err != nil {
+		return nil, err
+	}
+	if exists == nil {
+		return nil, dcl.ApplyInfeasibleError{
+			Message: fmt.Sprintf("Resource does not exist after creation: (%#v, %#v).", dcl.ValueOrEmptyString(member.Role), dcl.ValueOrEmptyString(member.Member)),
+		}
 	}
 	return &Member{
 		Resource: member.Resource,
@@ -313,7 +325,7 @@ func (c *Client) ApplyMember(ctx context.Context, member *Member, opts ...dcl.Ap
 
 // DeleteMember deletes a member from its specified binding.
 func (c *Client) DeleteMember(ctx context.Context, member *Member) error {
-	binding, err := c.GetBinding(ctx, member.Resource, member.Role)
+	binding, err := c.GetBinding(ctx, member.Resource, dcl.ValueOrEmptyString(member.Role))
 	if err != nil {
 		return err
 	}
@@ -322,7 +334,7 @@ func (c *Client) DeleteMember(ctx context.Context, member *Member) error {
 	}
 	var members []string
 	for _, m := range binding.Members {
-		if m != member.Member {
+		if !dcl.StringEquals(&m, member.Member) {
 			members = append(members, m)
 		}
 	}

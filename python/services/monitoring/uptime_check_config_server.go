@@ -166,9 +166,6 @@ func ProtoToUptimeCheckConfig(p *monitoringpb.MonitoringUptimeCheckConfig) *moni
 	for _, r := range p.GetContentMatchers() {
 		obj.ContentMatchers = append(obj.ContentMatchers, *ProtoToMonitoringUptimeCheckConfigContentMatchers(r))
 	}
-	for _, r := range p.GetPrivateCheckers() {
-		obj.PrivateCheckers = append(obj.PrivateCheckers, r)
-	}
 	for _, r := range p.GetSelectedRegions() {
 		obj.SelectedRegions = append(obj.SelectedRegions, r)
 	}
@@ -319,9 +316,6 @@ func UptimeCheckConfigToProto(resource *monitoring.UptimeCheckConfig) *monitorin
 	}
 	for _, r := range resource.ContentMatchers {
 		p.ContentMatchers = append(p.ContentMatchers, MonitoringUptimeCheckConfigContentMatchersToProto(&r))
-	}
-	for _, r := range resource.PrivateCheckers {
-		p.PrivateCheckers = append(p.PrivateCheckers, r)
 	}
 	for _, r := range resource.SelectedRegions {
 		p.SelectedRegions = append(p.SelectedRegions, r)

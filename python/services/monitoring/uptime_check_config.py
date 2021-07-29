@@ -34,7 +34,6 @@ class UptimeCheckConfig(object):
         period: str = None,
         timeout: str = None,
         content_matchers: list = None,
-        private_checkers: list = None,
         selected_regions: list = None,
         project: str = None,
         service_account_file: str = "",
@@ -50,7 +49,6 @@ class UptimeCheckConfig(object):
         self.period = period
         self.timeout = timeout
         self.content_matchers = content_matchers
-        self.private_checkers = private_checkers
         self.selected_regions = selected_regions
         self.project = project
         self.service_account_file = service_account_file
@@ -100,10 +98,6 @@ class UptimeCheckConfig(object):
             request.resource.content_matchers.extend(
                 UptimeCheckConfigContentMatchersArray.to_proto(self.content_matchers)
             )
-        if Primitive.to_proto(self.private_checkers):
-            request.resource.private_checkers.extend(
-                Primitive.to_proto(self.private_checkers)
-            )
         if Primitive.to_proto(self.selected_regions):
             request.resource.selected_regions.extend(
                 Primitive.to_proto(self.selected_regions)
@@ -129,7 +123,6 @@ class UptimeCheckConfig(object):
         self.content_matchers = UptimeCheckConfigContentMatchersArray.from_proto(
             response.content_matchers
         )
-        self.private_checkers = Primitive.from_proto(response.private_checkers)
         self.selected_regions = Primitive.from_proto(response.selected_regions)
         self.project = Primitive.from_proto(response.project)
 
@@ -178,10 +171,6 @@ class UptimeCheckConfig(object):
         if UptimeCheckConfigContentMatchersArray.to_proto(self.content_matchers):
             request.resource.content_matchers.extend(
                 UptimeCheckConfigContentMatchersArray.to_proto(self.content_matchers)
-            )
-        if Primitive.to_proto(self.private_checkers):
-            request.resource.private_checkers.extend(
-                Primitive.to_proto(self.private_checkers)
             )
         if Primitive.to_proto(self.selected_regions):
             request.resource.selected_regions.extend(
@@ -241,8 +230,6 @@ class UptimeCheckConfig(object):
             resource.content_matchers.extend(
                 UptimeCheckConfigContentMatchersArray.to_proto(self.content_matchers)
             )
-        if Primitive.to_proto(self.private_checkers):
-            resource.private_checkers.extend(Primitive.to_proto(self.private_checkers))
         if Primitive.to_proto(self.selected_regions):
             resource.selected_regions.extend(Primitive.to_proto(self.selected_regions))
         if Primitive.to_proto(self.project):

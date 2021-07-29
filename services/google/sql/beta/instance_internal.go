@@ -352,7 +352,7 @@ func newUpdateInstanceUpdateRequest(ctx context.Context, f *Instance, c *Client)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["onPremisesConfiguration"] = v
 	}
-	if v := f.SuspensionReason; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SuspensionReason; v != nil {
 		req["suspensionReason"] = v
 	}
 	if v, err := expandInstanceDiskEncryptionStatus(c, f.DiskEncryptionStatus); err != nil {

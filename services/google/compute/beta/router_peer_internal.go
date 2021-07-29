@@ -106,7 +106,7 @@ func newUpdateRouterPeerUpdateRequest(ctx context.Context, f *RouterPeer, c *Cli
 	if v := f.AdvertiseMode; !dcl.IsEmptyValueIndirect(v) {
 		req["advertiseMode"] = v
 	}
-	if v := f.AdvertisedGroups; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AdvertisedGroups; v != nil {
 		req["advertisedGroups"] = v
 	}
 	if v, err := expandRouterPeerAdvertisedIPRangesSlice(c, f.AdvertisedIPRanges); err != nil {

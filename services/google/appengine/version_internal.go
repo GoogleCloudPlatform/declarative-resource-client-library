@@ -314,7 +314,7 @@ func newUpdateVersionPatchVersionRequest(ctx context.Context, f *Version, c *Cli
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["manualScaling"] = v
 	}
-	if v := f.InboundServices; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.InboundServices; v != nil {
 		req["inboundServices"] = v
 	}
 	if v := f.InstanceClass; !dcl.IsEmptyValueIndirect(v) {
@@ -325,7 +325,7 @@ func newUpdateVersionPatchVersionRequest(ctx context.Context, f *Version, c *Cli
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["network"] = v
 	}
-	if v := f.Zones; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Zones; v != nil {
 		req["zones"] = v
 	}
 	if v, err := expandVersionResources(c, f.Resources); err != nil {

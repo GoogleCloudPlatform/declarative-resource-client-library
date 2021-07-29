@@ -241,7 +241,7 @@ func newUpdateBackendServiceUpdateRequest(ctx context.Context, f *BackendService
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["backends"] = v
 	}
-	if v := f.HealthChecks; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.HealthChecks; v != nil {
 		req["healthChecks"] = v
 	}
 	if v := f.TimeoutSec; !dcl.IsEmptyValueIndirect(v) {
@@ -288,10 +288,10 @@ func newUpdateBackendServiceUpdateRequest(ctx context.Context, f *BackendService
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["cdnPolicy"] = v
 	}
-	if v := f.CustomRequestHeaders; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.CustomRequestHeaders; v != nil {
 		req["customRequestHeaders"] = v
 	}
-	if v := f.CustomResponseHeaders; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.CustomResponseHeaders; v != nil {
 		req["customResponseHeaders"] = v
 	}
 	if v, err := expandBackendServiceLogConfig(c, f.LogConfig); err != nil {
