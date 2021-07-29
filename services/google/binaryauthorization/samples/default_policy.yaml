@@ -19,10 +19,10 @@ description: A sample which matches the default policy of a newly created projec
 name: default_policy
 resource: samples/default.policy.json
 variables:
-- name: org_id
-  type: org_id
 - name: id
   type: resource_name
+- name: org_id
+  type: org_id
 - name: billing_account
   type: billing_account
 versions:

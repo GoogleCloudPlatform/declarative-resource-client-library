@@ -15,6 +15,8 @@ description: A basic example of a gkemulticloud azure cluster
 name: basic_azure_cluster
 resource: samples/basic.azure_cluster.json
 variables:
+- name: project_number
+  type: project_number
 - name: azure_subscription
   type: azure_subscription
 - name: azure_database_encryption_key_version
@@ -23,6 +25,4 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: project_number
-  type: project_number
 versions: []

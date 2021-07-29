@@ -17,10 +17,10 @@ description: An example of a basic spanner database.
 name: basic_database
 resource: samples/basic.database.json
 variables:
-- name: project
-  type: project
 - name: instance
   type: resource_name
+- name: project
+  type: project
 - name: database
   type: resource_name
 versions:

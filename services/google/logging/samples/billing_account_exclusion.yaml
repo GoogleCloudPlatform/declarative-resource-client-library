@@ -15,9 +15,9 @@ description: A basic example for a billing_account-level logging exclusion
 name: billing_account_exclusion
 resource: samples/billing_account.log_exclusion.json
 variables:
-- name: billing_account
-  type: billing_account
 - name: log_exclusion_name
   type: resource_name
+- name: billing_account
+  type: billing_account
 versions:
 - ga
