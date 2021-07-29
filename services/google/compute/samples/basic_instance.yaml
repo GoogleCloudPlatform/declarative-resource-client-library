@@ -27,12 +27,12 @@ variables:
   type: project
 - name: network
   type: resource_name
+- name: region
+  type: region
 - name: range
   type: resource_name
 - name: subnetwork
   type: resource_name
-- name: region
-  type: region
 - name: zone
   type: zone
 - name: instance

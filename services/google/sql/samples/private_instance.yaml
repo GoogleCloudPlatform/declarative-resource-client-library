@@ -19,18 +19,18 @@ description: A basic example for a private SQL instance
 name: private_instance
 resource: samples/private.instance.json
 variables:
-- name: project
-  type: project
 - name: network_name
   type: resource_name
+- name: project
+  type: project
 - name: address_name
+  type: resource_name
+- name: instance_name
   type: resource_name
 - name: region
   type: region
 - name: random
   type: random
-- name: instance_name
-  type: resource_name
 versions:
 - ga
 - beta

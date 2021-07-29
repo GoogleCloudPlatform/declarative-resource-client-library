@@ -17,9 +17,9 @@ resource: samples/basic.network.json
 updates:
 - resource: samples/update.network.json
 variables:
-- name: project
-  type: project
 - name: network
   type: resource_name
+- name: project
+  type: project
 versions:
 - ga

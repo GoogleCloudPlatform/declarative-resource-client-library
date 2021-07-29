@@ -17,12 +17,12 @@ description: An example of a custom sans privateca certificate authority
 name: custom_sans_certificate_authority
 resource: samples/custom_sans.certificate_authority.json
 variables:
+- name: region
+  type: region
 - name: pool
   type: resource_name
 - name: project
   type: project
-- name: region
-  type: region
 - name: cs_authority
   type: resource_name
 versions:

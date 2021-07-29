@@ -33,11 +33,11 @@ variables:
   type: region
 - name: range
   type: resource_name
-- name: instance
+- name: group
   type: resource_name
 - name: zone
   type: zone
-- name: group
+- name: instance
   type: resource_name
 versions:
 - ga

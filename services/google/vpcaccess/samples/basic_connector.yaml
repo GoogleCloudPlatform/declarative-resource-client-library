@@ -17,10 +17,10 @@ description: A basic example of a vpcaccess connector
 name: basic_connector
 resource: samples/basic.connector.json
 variables:
-- name: project
-  type: project
 - name: network
   type: resource_name
+- name: project
+  type: project
 - name: c
   type: resource_name
 versions:

@@ -23,11 +23,11 @@ updates:
 - resource: samples/instance.target_pool.json
 - resource: samples/first.target_pool.json
 variables:
+- name: image
+  type: resource_name
 - name: project
   type: project
 - name: network
-  type: resource_name
-- name: image
   type: resource_name
 - name: range
   type: resource_name

@@ -41,10 +41,10 @@ variables:
   type: resource_name
 - name: sa
   type: resource_name
-- name: region
-  type: region
 - name: subnetwork
   type: resource_name
+- name: region
+  type: region
 - name: environment
   type: resource_name
 versions:
