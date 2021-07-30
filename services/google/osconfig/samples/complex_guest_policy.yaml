@@ -21,9 +21,9 @@ variables:
   type: project
 - name: policy_inst
   type: resource_name
-- name: policy
-  type: resource_name
 - name: zone
   type: zone
+- name: policy
+  type: resource_name
 versions:
 - beta

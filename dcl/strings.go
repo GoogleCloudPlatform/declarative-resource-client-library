@@ -114,6 +114,10 @@ func ProtoCamelCase(s string) string {
 
 // TitleToSnakeCase takes in a snake_case string and returns a TitleCase string.
 func TitleToSnakeCase(s string) string {
+	for k, v := range initialisms {
+		kCap := strings.ToUpper(k[0:1]) + k[1:]
+		s = strings.Replace(s, v, kCap, -1)
+	}
 	str := regexp.MustCompile("(.)([A-Z][a-z]+)").ReplaceAllString(s, "${1}_${2}")
 	return strings.ToLower(regexp.MustCompile("([a-z0-9])([A-Z])").ReplaceAllString(str, "${1}_${2}"))
 }

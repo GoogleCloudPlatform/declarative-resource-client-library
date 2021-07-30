@@ -13,10 +13,10 @@
 # limitations under the License.
 from connector import channel
 from google3.cloud.graphite.mmv2.services.google.identity_toolkit import (
-    tenant_o_auth_idp_config_pb2,
+    tenant_oauth_idp_config_pb2,
 )
 from google3.cloud.graphite.mmv2.services.google.identity_toolkit import (
-    tenant_o_auth_idp_config_pb2_grpc,
+    tenant_oauth_idp_config_pb2_grpc,
 )
 
 from typing import List
@@ -50,11 +50,11 @@ class TenantOAuthIdpConfig(object):
         self.service_account_file = service_account_file
 
     def apply(self):
-        stub = tenant_o_auth_idp_config_pb2_grpc.IdentitytoolkitTenantOAuthIdpConfigServiceStub(
+        stub = tenant_oauth_idp_config_pb2_grpc.IdentitytoolkitTenantOAuthIdpConfigServiceStub(
             channel.Channel()
         )
         request = (
-            tenant_o_auth_idp_config_pb2.ApplyIdentitytoolkitTenantOAuthIdpConfigRequest()
+            tenant_oauth_idp_config_pb2.ApplyIdentitytoolkitTenantOAuthIdpConfigRequest()
         )
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
@@ -102,11 +102,11 @@ class TenantOAuthIdpConfig(object):
         self.tenant = Primitive.from_proto(response.tenant)
 
     def delete(self):
-        stub = tenant_o_auth_idp_config_pb2_grpc.IdentitytoolkitTenantOAuthIdpConfigServiceStub(
+        stub = tenant_oauth_idp_config_pb2_grpc.IdentitytoolkitTenantOAuthIdpConfigServiceStub(
             channel.Channel()
         )
         request = (
-            tenant_o_auth_idp_config_pb2.DeleteIdentitytoolkitTenantOAuthIdpConfigRequest()
+            tenant_oauth_idp_config_pb2.DeleteIdentitytoolkitTenantOAuthIdpConfigRequest()
         )
         request.service_account_file = self.service_account_file
         if Primitive.to_proto(self.name):
@@ -143,11 +143,11 @@ class TenantOAuthIdpConfig(object):
 
     @classmethod
     def list(self, project, tenant, service_account_file=""):
-        stub = tenant_o_auth_idp_config_pb2_grpc.IdentitytoolkitTenantOAuthIdpConfigServiceStub(
+        stub = tenant_oauth_idp_config_pb2_grpc.IdentitytoolkitTenantOAuthIdpConfigServiceStub(
             channel.Channel()
         )
         request = (
-            tenant_o_auth_idp_config_pb2.ListIdentitytoolkitTenantOAuthIdpConfigRequest()
+            tenant_oauth_idp_config_pb2.ListIdentitytoolkitTenantOAuthIdpConfigRequest()
         )
         request.service_account_file = service_account_file
         request.Project = project
@@ -157,7 +157,7 @@ class TenantOAuthIdpConfig(object):
         return stub.ListIdentitytoolkitTenantOAuthIdpConfig(request).items
 
     def to_proto(self):
-        resource = tenant_o_auth_idp_config_pb2.IdentitytoolkitTenantOAuthIdpConfig()
+        resource = tenant_oauth_idp_config_pb2.IdentitytoolkitTenantOAuthIdpConfig()
         if Primitive.to_proto(self.name):
             resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.client_id):
@@ -195,7 +195,7 @@ class TenantOAuthIdpConfigResponseType(object):
             return None
 
         res = (
-            tenant_o_auth_idp_config_pb2.IdentitytoolkitTenantOAuthIdpConfigResponseType()
+            tenant_oauth_idp_config_pb2.IdentitytoolkitTenantOAuthIdpConfigResponseType()
         )
         if Primitive.to_proto(resource.id_token):
             res.id_token = Primitive.to_proto(resource.id_token)

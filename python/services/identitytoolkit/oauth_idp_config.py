@@ -13,10 +13,10 @@
 # limitations under the License.
 from connector import channel
 from google3.cloud.graphite.mmv2.services.google.identity_toolkit import (
-    o_auth_idp_config_pb2,
+    oauth_idp_config_pb2,
 )
 from google3.cloud.graphite.mmv2.services.google.identity_toolkit import (
-    o_auth_idp_config_pb2_grpc,
+    oauth_idp_config_pb2_grpc,
 )
 
 from typing import List
@@ -48,10 +48,10 @@ class OAuthIdpConfig(object):
         self.service_account_file = service_account_file
 
     def apply(self):
-        stub = o_auth_idp_config_pb2_grpc.IdentitytoolkitOAuthIdpConfigServiceStub(
+        stub = oauth_idp_config_pb2_grpc.IdentitytoolkitOAuthIdpConfigServiceStub(
             channel.Channel()
         )
-        request = o_auth_idp_config_pb2.ApplyIdentitytoolkitOAuthIdpConfigRequest()
+        request = oauth_idp_config_pb2.ApplyIdentitytoolkitOAuthIdpConfigRequest()
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
@@ -94,10 +94,10 @@ class OAuthIdpConfig(object):
         self.project = Primitive.from_proto(response.project)
 
     def delete(self):
-        stub = o_auth_idp_config_pb2_grpc.IdentitytoolkitOAuthIdpConfigServiceStub(
+        stub = oauth_idp_config_pb2_grpc.IdentitytoolkitOAuthIdpConfigServiceStub(
             channel.Channel()
         )
-        request = o_auth_idp_config_pb2.DeleteIdentitytoolkitOAuthIdpConfigRequest()
+        request = oauth_idp_config_pb2.DeleteIdentitytoolkitOAuthIdpConfigRequest()
         request.service_account_file = self.service_account_file
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
@@ -130,17 +130,17 @@ class OAuthIdpConfig(object):
 
     @classmethod
     def list(self, project, service_account_file=""):
-        stub = o_auth_idp_config_pb2_grpc.IdentitytoolkitOAuthIdpConfigServiceStub(
+        stub = oauth_idp_config_pb2_grpc.IdentitytoolkitOAuthIdpConfigServiceStub(
             channel.Channel()
         )
-        request = o_auth_idp_config_pb2.ListIdentitytoolkitOAuthIdpConfigRequest()
+        request = oauth_idp_config_pb2.ListIdentitytoolkitOAuthIdpConfigRequest()
         request.service_account_file = service_account_file
         request.Project = project
 
         return stub.ListIdentitytoolkitOAuthIdpConfig(request).items
 
     def to_proto(self):
-        resource = o_auth_idp_config_pb2.IdentitytoolkitOAuthIdpConfig()
+        resource = oauth_idp_config_pb2.IdentitytoolkitOAuthIdpConfig()
         if Primitive.to_proto(self.name):
             resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.client_id):
@@ -175,7 +175,7 @@ class OAuthIdpConfigResponseType(object):
         if not resource:
             return None
 
-        res = o_auth_idp_config_pb2.IdentitytoolkitOAuthIdpConfigResponseType()
+        res = oauth_idp_config_pb2.IdentitytoolkitOAuthIdpConfigResponseType()
         if Primitive.to_proto(resource.id_token):
             res.id_token = Primitive.to_proto(resource.id_token)
         if Primitive.to_proto(resource.code):

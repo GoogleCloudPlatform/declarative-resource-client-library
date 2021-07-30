@@ -15,10 +15,10 @@ description: A regional example of a compute ssl certificate.
 name: regional_ssl_certificate
 resource: samples/regional.ssl_certificate.json
 variables:
-- name: certificate
-  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
+- name: certificate
+  type: resource_name
 versions: []
