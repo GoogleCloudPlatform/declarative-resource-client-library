@@ -122,6 +122,9 @@ components:
               type: string
               x-dcl-go-name: Bucket
               description: Required. Bucket of the Cloud Storage object.
+              x-dcl-references:
+              - resource: Storage/Bucket
+                field: name
             generation:
               type: integer
               format: int64
@@ -131,6 +134,9 @@ components:
               type: string
               x-dcl-go-name: Object
               description: Required. Name of the Cloud Storage object.
+              x-dcl-references:
+              - resource: Storage/Object
+                field: name
         localPath:
           type: string
           x-dcl-go-name: LocalPath

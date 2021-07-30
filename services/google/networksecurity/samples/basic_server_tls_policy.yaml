@@ -17,9 +17,9 @@ resource: samples/basic.server_tls_policy.json
 updates:
 - resource: samples/update.server_tls_policy.json
 variables:
-- name: policy
-  type: resource_name
 - name: project
   type: project
+- name: policy
+  type: resource_name
 versions:
 - alpha

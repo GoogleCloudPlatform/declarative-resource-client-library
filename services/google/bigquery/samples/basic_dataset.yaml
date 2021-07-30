@@ -19,9 +19,9 @@ updates:
 variables:
 - name: region
   type: region
-- name: project
-  type: project
 - name: _dataset
   type: resource_name
+- name: project
+  type: project
 versions:
 - ga

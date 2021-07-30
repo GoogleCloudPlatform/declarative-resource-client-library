@@ -2340,12 +2340,12 @@ func canonicalizeOSPolicyAssignmentFileGcs(des, initial *OSPolicyAssignmentFileG
 
 	cDes := &OSPolicyAssignmentFileGcs{}
 
-	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) || dcl.IsZeroValue(des.Bucket) {
+	if dcl.NameToSelfLink(des.Bucket, initial.Bucket) || dcl.IsZeroValue(des.Bucket) {
 		cDes.Bucket = initial.Bucket
 	} else {
 		cDes.Bucket = des.Bucket
 	}
-	if dcl.StringCanonicalize(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
+	if dcl.NameToSelfLink(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
 		cDes.Object = initial.Object
 	} else {
 		cDes.Object = des.Object
@@ -2364,10 +2364,10 @@ func canonicalizeNewOSPolicyAssignmentFileGcs(c *Client, des, nw *OSPolicyAssign
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Bucket, nw.Bucket) {
+	if dcl.NameToSelfLink(des.Bucket, nw.Bucket) {
 		nw.Bucket = des.Bucket
 	}
-	if dcl.StringCanonicalize(des.Object, nw.Object) {
+	if dcl.NameToSelfLink(des.Object, nw.Object) {
 		nw.Object = des.Object
 	}
 	if dcl.IsZeroValue(nw.Generation) {
@@ -4603,14 +4603,14 @@ func compareOSPolicyAssignmentFileGcsNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Bucket, actual.Bucket, dcl.Info{OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Bucket")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Bucket, actual.Bucket, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Bucket")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Object, actual.Object, dcl.Info{OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Object")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Object, actual.Object, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Object")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

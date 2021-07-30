@@ -27,9 +27,9 @@ variables:
   type: org_id
 - name: region
   type: region
-- name: envgroup
-  type: resource_name
 - name: environment
+  type: resource_name
+- name: envgroup
   type: resource_name
 versions:
 - ga
