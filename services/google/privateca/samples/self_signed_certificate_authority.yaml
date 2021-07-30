@@ -19,12 +19,12 @@ resource: samples/self_signed.certificate_authority.json
 updates:
 - resource: samples/update_self_signed.certificate_authority.json
 variables:
+- name: pool
+  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
-- name: pool
-  type: resource_name
 - name: authority
   type: resource_name
 versions:

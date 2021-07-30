@@ -17,10 +17,10 @@ description: A basic test of a storage object
 name: basic_object
 resource: samples/basic.object.json
 variables:
-- name: bucket
-  type: resource_name
 - name: project
   type: project
+- name: bucket
+  type: resource_name
 - name: content
   type: resource_name
 - name: object

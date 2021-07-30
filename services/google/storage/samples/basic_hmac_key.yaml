@@ -15,9 +15,9 @@ description: A basic test of a storage hmac key
 name: basic_hmac_key
 resource: samples/basic.hmac_key.json
 variables:
-- name: test_service_account
-  type: test_service_account
 - name: project
   type: project
+- name: test_service_account
+  type: test_service_account
 versions:
 - ga
