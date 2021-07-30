@@ -1,0 +1,6 @@
+{
+  "project": "{{project}}",
+  "name": "{{gateway}}",
+  "region": "{{region}}",
+  "network": "{{ref:basic.network.json:selfLink}}"
+}

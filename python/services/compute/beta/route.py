@@ -50,7 +50,6 @@ class Route(object):
         self.priority = priority
         self.next_hop_instance = next_hop_instance
         self.next_hop_ip = next_hop_ip
-        self.next_hop_network = next_hop_network
         self.next_hop_gateway = next_hop_gateway
         self.next_hop_ilb = next_hop_ilb
         self.next_hop_vpn_tunnel = next_hop_vpn_tunnel
@@ -84,11 +83,6 @@ class Route(object):
 
         if Primitive.to_proto(self.next_hop_ip):
             request.resource.next_hop_ip = Primitive.to_proto(self.next_hop_ip)
-
-        if Primitive.to_proto(self.next_hop_network):
-            request.resource.next_hop_network = Primitive.to_proto(
-                self.next_hop_network
-            )
 
         if Primitive.to_proto(self.next_hop_gateway):
             request.resource.next_hop_gateway = Primitive.to_proto(
@@ -156,11 +150,6 @@ class Route(object):
         if Primitive.to_proto(self.next_hop_ip):
             request.resource.next_hop_ip = Primitive.to_proto(self.next_hop_ip)
 
-        if Primitive.to_proto(self.next_hop_network):
-            request.resource.next_hop_network = Primitive.to_proto(
-                self.next_hop_network
-            )
-
         if Primitive.to_proto(self.next_hop_gateway):
             request.resource.next_hop_gateway = Primitive.to_proto(
                 self.next_hop_gateway
@@ -206,8 +195,6 @@ class Route(object):
             resource.next_hop_instance = Primitive.to_proto(self.next_hop_instance)
         if Primitive.to_proto(self.next_hop_ip):
             resource.next_hop_ip = Primitive.to_proto(self.next_hop_ip)
-        if Primitive.to_proto(self.next_hop_network):
-            resource.next_hop_network = Primitive.to_proto(self.next_hop_network)
         if Primitive.to_proto(self.next_hop_gateway):
             resource.next_hop_gateway = Primitive.to_proto(self.next_hop_gateway)
         if Primitive.to_proto(self.next_hop_ilb):

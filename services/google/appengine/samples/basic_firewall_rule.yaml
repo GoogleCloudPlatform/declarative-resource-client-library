@@ -18,10 +18,10 @@ description: A basic example for an appengine firewall rule
 name: basic_firewall_rule
 resource: samples/basic.firewall_rule.json
 variables:
-- name: app
-  type: resource_name
 - name: org_id
   type: org_id
+- name: app
+  type: resource_name
 versions:
 - ga
 - beta

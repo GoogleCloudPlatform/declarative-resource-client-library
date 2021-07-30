@@ -29,9 +29,9 @@ updates:
 variables:
 - name: org_id
   type: org_id
-- name: folder
-  type: resource_name
 - name: id
+  type: resource_name
+- name: folder
   type: resource_name
 - name: billing_account
   type: billing_account

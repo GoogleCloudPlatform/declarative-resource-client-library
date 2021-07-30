@@ -113,6 +113,11 @@ components:
             <code>projects/<var
             class="apiparam">project</var>/global/gateways/default-internet-gateway</code>
           x-kubernetes-immutable: true
+          x-dcl-conflicts:
+          - nextHopVpnTunnel
+          - nextHopIP
+          - nextHopInstance
+          - nextHopIlb
         nextHopIP:
           type: string
           x-dcl-go-name: NextHopIP
@@ -120,6 +125,11 @@ components:
             The network IP address of an instance that should handle matching packets.
             Only IPv4 is supported.
           x-kubernetes-immutable: true
+          x-dcl-conflicts:
+          - nextHopVpnTunnel
+          - nextHopInstance
+          - nextHopGateway
+          - nextHopIlb
           x-dcl-server-default: true
         nextHopIlb:
           type: string
@@ -138,6 +148,11 @@ components:
                class="apiparam">forwardingRule</var></code></li>
             </ul>
           x-kubernetes-immutable: true
+          x-dcl-conflicts:
+          - nextHopVpnTunnel
+          - nextHopIP
+          - nextHopInstance
+          - nextHopGateway
         nextHopInstance:
           type: string
           x-dcl-go-name: NextHopInstance
@@ -149,9 +164,15 @@ components:
             class="apiparam">project</var>/zones/<var
             class="apiparam">zone</var>/instances/<instance-name></code>
           x-kubernetes-immutable: true
+          x-dcl-conflicts:
+          - nextHopVpnTunnel
+          - nextHopIP
+          - nextHopGateway
+          - nextHopIlb
         nextHopNetwork:
           type: string
           x-dcl-go-name: NextHopNetwork
+          readOnly: true
           description: The URL of the local network if it should handle matching packets.
           x-kubernetes-immutable: true
         nextHopPeering:
@@ -167,6 +188,11 @@ components:
           x-dcl-go-name: NextHopVpnTunnel
           description: The URL to a VpnTunnel that should handle matching packets.
           x-kubernetes-immutable: true
+          x-dcl-conflicts:
+          - nextHopIP
+          - nextHopInstance
+          - nextHopGateway
+          - nextHopIlb
         priority:
           type: integer
           format: int64

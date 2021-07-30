@@ -24,14 +24,14 @@ updates:
   - samples/basic.version.json
   resource: samples/update.application.json
 variables:
-- name: app
-  type: resource_name
 - name: org_id
   type: org_id
-- name: test_service_account
-  type: test_service_account
+- name: app
+  type: resource_name
 - name: billing_account
   type: billing_account
+- name: test_service_account
+  type: test_service_account
 versions:
 - ga
 - beta

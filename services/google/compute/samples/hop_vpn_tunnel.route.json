@@ -1,0 +1,10 @@
+{
+  "name": "{{name}}",
+  "project": "{{project}}",
+  "destRange": "0.0.0.0/0",
+  "network": "{{ref:basic.network.json:selfLink}}",
+  "nextHopVpnTunnel": "{{ref:basic.vpn_tunnel.json:selfLink}}",
+  "priority": 100,
+  "tag": ["test"],
+  "description": "test description."
+}

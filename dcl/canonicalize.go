@@ -560,7 +560,7 @@ func DeriveField(pattern string, cVal *string, fs ...*string) (*string, error) {
 		currentValue = *cVal
 	}
 	for i, f := range fs {
-		if f == nil {
+		if IsEmptyValueIndirect(f) {
 			if currentValue == "" {
 				// This field may not be required, so we shouldn't error out.
 				// Erroring out would cause the DCL to stop if this field isn't set (which it might not be!)

@@ -17,11 +17,11 @@ resource: samples/regional.disk.json
 updates:
 - resource: samples/update_regional.disk.json
 variables:
-- name: disk
-  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
+- name: disk
+  type: resource_name
 versions:
 - ga
