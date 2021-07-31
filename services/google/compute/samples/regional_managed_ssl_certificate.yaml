@@ -15,12 +15,12 @@ description: A regional example of a compute managed ssl certificate.
 name: regional_managed_ssl_certificate
 resource: samples/regional.managed_ssl_certificate.json
 variables:
-- name: cert
-  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
 - name: domain
+  type: resource_name
+- name: cert
   type: resource_name
 versions: []
