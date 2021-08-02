@@ -17,11 +17,11 @@ resource: samples/basic.service.json
 updates:
 - resource: samples/update.service.json
 variables:
+- name: service
+  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
-- name: service
-  type: resource_name
 versions:
 - ga

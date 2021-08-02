@@ -20,10 +20,10 @@ description: An example of a compute instance with an iam binding.
 name: iam_instance
 resource: samples/instance.iam.binding.json
 variables:
-- name: image
-  type: resource_name
 - name: project
   type: project
+- name: image
+  type: resource_name
 - name: compute_network1
   type: resource_name
 - name: range

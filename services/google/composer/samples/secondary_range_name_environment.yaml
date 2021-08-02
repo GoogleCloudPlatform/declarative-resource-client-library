@@ -39,14 +39,14 @@ variables:
   type: billing_account
 - name: test_service_account
   type: test_service_account
-- name: composer_network
-  type: resource_name
 - name: sa
   type: resource_name
-- name: composer_subnetwork
+- name: composer_network
   type: resource_name
 - name: region
   type: region
+- name: composer_subnetwork
+  type: resource_name
 - name: environment
   type: resource_name
 - name: zone

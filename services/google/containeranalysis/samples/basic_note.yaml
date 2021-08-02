@@ -17,9 +17,9 @@ resource: samples/basic.note.json
 updates:
 - resource: samples/update.note.json
 variables:
-- name: note
-  type: resource_name
 - name: project
   type: project
+- name: note
+  type: resource_name
 versions:
 - ga

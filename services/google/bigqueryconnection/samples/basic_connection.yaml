@@ -29,9 +29,9 @@ variables:
   type: project
 - name: region
   type: region
-- name: database
-  type: resource_name
 - name: password
+  type: resource_name
+- name: database
   type: resource_name
 - name: connection_name
   type: resource_name
