@@ -194,7 +194,7 @@ components:
               resourceId:
                 type: string
                 x-dcl-go-name: ResourceId
-                description: Resource identifier. For a project this represents project_id.
+                description: Resource identifier. For a project this represents project_number.
                   If the project is already taken, the workload creation will fail.
                 x-kubernetes-immutable: true
               resourceType:

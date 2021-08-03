@@ -17,10 +17,10 @@ description: An example of a basic subnetwork instance.
 name: basic_subnetwork
 resource: samples/independent.subnetwork.json
 variables:
-- name: compute_network1
-  type: resource_name
 - name: project
   type: project
+- name: compute_network1
+  type: resource_name
 - name: region
   type: region
 - name: range

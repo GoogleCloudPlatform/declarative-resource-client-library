@@ -17,11 +17,11 @@ resource: samples/autopilot.cluster.json
 updates:
 - resource: samples/update_autopilot.cluster.json
 variables:
+- name: cluster
+  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
-- name: cluster
-  type: resource_name
 versions:
 - ga

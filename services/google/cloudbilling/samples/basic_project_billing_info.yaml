@@ -17,10 +17,10 @@ description: A basic example for a cloudbilling project billing info
 name: basic_project_billing_info
 resource: samples/basic.project_billing_info.json
 variables:
-- name: org_id
-  type: org_id
 - name: id
   type: resource_name
+- name: org_id
+  type: org_id
 - name: billing_account
   type: billing_account
 versions:
