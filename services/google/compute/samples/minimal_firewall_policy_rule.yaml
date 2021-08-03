@@ -27,11 +27,11 @@ resource: samples/minimal.firewall_policy_rule.json
 updates:
 - resource: samples/update_minimal.firewall_policy_rule.json
 variables:
-- name: folder
+- name: id
   type: resource_name
 - name: org_id
   type: org_id
-- name: id
+- name: folder
   type: resource_name
 - name: billing_account
   type: billing_account

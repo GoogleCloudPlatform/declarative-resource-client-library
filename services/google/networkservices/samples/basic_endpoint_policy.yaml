@@ -25,12 +25,8 @@ updates:
 - resource: samples/update_1.endpoint_policy.json
 - resource: samples/update_2.endpoint_policy.json
 variables:
-- name: auth1
-  type: resource_name
 - name: project
   type: project
-- name: client1
-  type: resource_name
 - name: server1
   type: resource_name
 - name: auth2
@@ -38,6 +34,10 @@ variables:
 - name: client2
   type: resource_name
 - name: server2
+  type: resource_name
+- name: auth1
+  type: resource_name
+- name: client1
   type: resource_name
 - name: selector
   type: resource_name

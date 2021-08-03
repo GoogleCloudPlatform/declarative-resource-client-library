@@ -17,9 +17,9 @@ resource: samples/basic.key.json
 updates:
 - resource: samples/update.key.json
 variables:
-- name: project
-  type: project
 - name: key
   type: resource_name
+- name: project
+  type: project
 versions:
 - ga

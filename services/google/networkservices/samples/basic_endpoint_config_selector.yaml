@@ -27,16 +27,10 @@ updates:
 - resource: samples/update_1.endpoint_config_selector.json
 - resource: samples/update_2.endpoint_config_selector.json
 variables:
-- name: filter1
+- name: server1
   type: resource_name
 - name: project
   type: project
-- name: auth1
-  type: resource_name
-- name: client1
-  type: resource_name
-- name: server1
-  type: resource_name
 - name: filter2
   type: resource_name
 - name: auth2
@@ -44,6 +38,12 @@ variables:
 - name: client2
   type: resource_name
 - name: server2
+  type: resource_name
+- name: filter1
+  type: resource_name
+- name: auth1
+  type: resource_name
+- name: client1
   type: resource_name
 - name: selector
   type: resource_name

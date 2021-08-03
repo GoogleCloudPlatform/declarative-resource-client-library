@@ -20,12 +20,12 @@ description: A service account example for a binary authorization policy with ia
 name: iam_policy
 resource: samples/default.iam.binding.json
 variables:
-- name: package
-  type: resource_name
 - name: note
   type: resource_name
 - name: project
   type: project
+- name: package
+  type: resource_name
 - name: attestor
   type: resource_name
 versions: []
