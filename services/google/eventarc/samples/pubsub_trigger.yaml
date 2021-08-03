@@ -18,14 +18,14 @@ description: An example for building an Eventarc trigger using Pubsub
 name: pubsub_trigger
 resource: samples/pubsub.trigger.json
 variables:
-- name: topic
-  type: resource_name
 - name: project
   type: project
 - name: name
   type: resource_name
 - name: region
   type: region
+- name: topic
+  type: resource_name
 - name: service_account
   type: service_account
 versions:

@@ -26,10 +26,10 @@ variables:
   type: project
 - name: compute_network1
   type: resource_name
-- name: instance
-  type: resource_name
 - name: zone
   type: zone
+- name: instance
+  type: resource_name
 - name: region
   type: region
 - name: range

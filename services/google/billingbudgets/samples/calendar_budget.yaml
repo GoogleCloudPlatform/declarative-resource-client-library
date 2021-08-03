@@ -26,6 +26,10 @@ resource: samples/calendar.budget.json
 updates:
 - resource: samples/update_calendar.budget.json
 variables:
+- name: topic2
+  type: resource_name
+- name: project
+  type: project
 - name: id1
   type: resource_name
 - name: org_id
@@ -33,10 +37,6 @@ variables:
 - name: id2
   type: resource_name
 - name: topic1
-  type: resource_name
-- name: project
-  type: project
-- name: topic2
   type: resource_name
 versions:
 - ga
