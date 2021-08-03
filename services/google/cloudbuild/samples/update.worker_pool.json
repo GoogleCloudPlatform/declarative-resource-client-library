@@ -3,7 +3,7 @@
  "location": "{{region}}",
  "project": "{{project}}",
   "networkConfig": {
-    "peeredNetwork": "projects/{{project}}/global/networks/{{ref:second.compute.network.json:name}}"
+    "peeredNetwork": "projects/{{project}}/global/networks/{{ref:basic.compute.network.json:name}}"
   },
  "workerConfig": {
    "machineType": "e2-standard-4",

@@ -1066,29 +1066,11 @@ func canonicalizeNewNodePoolConfig(c *Client, des, nw *NodePoolConfig) *NodePool
 	if dcl.StringCanonicalize(des.MachineType, nw.MachineType) {
 		nw.MachineType = des.MachineType
 	}
-	if dcl.IsZeroValue(nw.DiskSizeGb) {
-		nw.DiskSizeGb = des.DiskSizeGb
-	}
-	if dcl.IsZeroValue(nw.OAuthScopes) {
-		nw.OAuthScopes = des.OAuthScopes
-	}
 	if dcl.StringCanonicalize(des.ServiceAccount, nw.ServiceAccount) {
 		nw.ServiceAccount = des.ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.Metadata) {
-		nw.Metadata = des.Metadata
-	}
 	if dcl.StringCanonicalize(des.ImageType, nw.ImageType) {
 		nw.ImageType = des.ImageType
-	}
-	if dcl.IsZeroValue(nw.Labels) {
-		nw.Labels = des.Labels
-	}
-	if dcl.IsZeroValue(nw.LocalSsdCount) {
-		nw.LocalSsdCount = des.LocalSsdCount
-	}
-	if dcl.IsZeroValue(nw.Tags) {
-		nw.Tags = des.Tags
 	}
 	if dcl.BoolCanonicalize(des.Preemptible, nw.Preemptible) {
 		nw.Preemptible = des.Preemptible
@@ -1184,9 +1166,6 @@ func canonicalizeNewNodePoolConfigAccelerators(c *Client, des, nw *NodePoolConfi
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.AcceleratorCount) {
-		nw.AcceleratorCount = des.AcceleratorCount
-	}
 	if dcl.StringCanonicalize(des.AcceleratorType, nw.AcceleratorType) {
 		nw.AcceleratorType = des.AcceleratorType
 	}
@@ -1359,10 +1338,6 @@ func canonicalizeNewNodePoolConfigSandboxConfig(c *Client, des, nw *NodePoolConf
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Type) {
-		nw.Type = des.Type
-	}
-
 	return nw
 }
 
@@ -1447,14 +1422,8 @@ func canonicalizeNewNodePoolConfigReservationAffinity(c *Client, des, nw *NodePo
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.ConsumeReservationType) {
-		nw.ConsumeReservationType = des.ConsumeReservationType
-	}
 	if dcl.StringCanonicalize(des.Key, nw.Key) {
 		nw.Key = des.Key
-	}
-	if dcl.IsZeroValue(nw.Values) {
-		nw.Values = des.Values
 	}
 
 	return nw
@@ -1635,12 +1604,6 @@ func canonicalizeNewNodePoolAutoscaling(c *Client, des, nw *NodePoolAutoscaling)
 	if dcl.BoolCanonicalize(des.Enabled, nw.Enabled) {
 		nw.Enabled = des.Enabled
 	}
-	if dcl.IsZeroValue(nw.MinNodeCount) {
-		nw.MinNodeCount = des.MinNodeCount
-	}
-	if dcl.IsZeroValue(nw.MaxNodeCount) {
-		nw.MaxNodeCount = des.MaxNodeCount
-	}
 	if dcl.BoolCanonicalize(des.Autoprovisioned, nw.Autoprovisioned) {
 		nw.Autoprovisioned = des.Autoprovisioned
 	}
@@ -1801,9 +1764,6 @@ func canonicalizeNewNodePoolManagementUpgradeOptions(c *Client, des, nw *NodePoo
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.AutoUpgradeStartTime) {
-		nw.AutoUpgradeStartTime = des.AutoUpgradeStartTime
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
@@ -1882,10 +1842,6 @@ func canonicalizeNewNodePoolMaxPodsConstraint(c *Client, des, nw *NodePoolMaxPod
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.MaxPodsPerNode) {
-		nw.MaxPodsPerNode = des.MaxPodsPerNode
-	}
-
 	return nw
 }
 
@@ -1954,9 +1910,6 @@ func canonicalizeNewNodePoolConditions(c *Client, des, nw *NodePoolConditions) *
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -2038,13 +1991,6 @@ func canonicalizeNodePoolUpgradeSettings(des, initial *NodePoolUpgradeSettings, 
 func canonicalizeNewNodePoolUpgradeSettings(c *Client, des, nw *NodePoolUpgradeSettings) *NodePoolUpgradeSettings {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.MaxSurge) {
-		nw.MaxSurge = des.MaxSurge
-	}
-	if dcl.IsZeroValue(nw.MaxUnavailable) {
-		nw.MaxUnavailable = des.MaxUnavailable
 	}
 
 	return nw

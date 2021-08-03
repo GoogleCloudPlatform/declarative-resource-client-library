@@ -491,9 +491,6 @@ func canonicalizeNewFeatureResourceState(c *Client, des, nw *FeatureResourceStat
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.State) {
-		nw.State = des.State
-	}
 	if dcl.BoolCanonicalize(des.HasResources, nw.HasResources) {
 		nw.HasResources = des.HasResources
 	}
@@ -786,9 +783,6 @@ func canonicalizeNewFeatureStateState(c *Client, des, nw *FeatureStateState) *Fe
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}

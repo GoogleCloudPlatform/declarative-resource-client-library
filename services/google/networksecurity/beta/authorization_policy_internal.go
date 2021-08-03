@@ -693,13 +693,6 @@ func canonicalizeNewAuthorizationPolicyRulesSources(c *Client, des, nw *Authoriz
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Principals) {
-		nw.Principals = des.Principals
-	}
-	if dcl.IsZeroValue(nw.IPBlocks) {
-		nw.IPBlocks = des.IPBlocks
-	}
-
 	return nw
 }
 
@@ -785,15 +778,6 @@ func canonicalizeNewAuthorizationPolicyRulesDestinations(c *Client, des, nw *Aut
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Hosts) {
-		nw.Hosts = des.Hosts
-	}
-	if dcl.IsZeroValue(nw.Ports) {
-		nw.Ports = des.Ports
-	}
-	if dcl.IsZeroValue(nw.Methods) {
-		nw.Methods = des.Methods
-	}
 	nw.HttpHeaderMatch = canonicalizeNewAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c, des.HttpHeaderMatch, nw.HttpHeaderMatch)
 
 	return nw

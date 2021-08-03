@@ -1487,21 +1487,9 @@ func canonicalizeNewInstanceDisks(c *Client, des, nw *InstanceDisks) *InstanceDi
 		nw.DeviceName = des.DeviceName
 	}
 	nw.DiskEncryptionKey = canonicalizeNewInstanceDisksDiskEncryptionKey(c, des.DiskEncryptionKey, nw.DiskEncryptionKey)
-	if dcl.IsZeroValue(nw.Index) {
-		nw.Index = des.Index
-	}
 	nw.InitializeParams = canonicalizeNewInstanceDisksInitializeParams(c, des.InitializeParams, nw.InitializeParams)
-	if dcl.IsZeroValue(nw.Interface) {
-		nw.Interface = des.Interface
-	}
-	if dcl.IsZeroValue(nw.Mode) {
-		nw.Mode = des.Mode
-	}
 	if dcl.NameToSelfLink(des.Source, nw.Source) {
 		nw.Source = des.Source
-	}
-	if dcl.IsZeroValue(nw.Type) {
-		nw.Type = des.Type
 	}
 
 	return nw
@@ -1686,9 +1674,6 @@ func canonicalizeNewInstanceDisksInitializeParams(c *Client, des, nw *InstanceDi
 	if dcl.StringCanonicalize(des.DiskName, nw.DiskName) {
 		nw.DiskName = des.DiskName
 	}
-	if dcl.IsZeroValue(nw.DiskSizeGb) {
-		nw.DiskSizeGb = des.DiskSizeGb
-	}
 	if dcl.NameToSelfLink(des.DiskType, nw.DiskType) {
 		nw.DiskType = des.DiskType
 	}
@@ -1857,9 +1842,6 @@ func canonicalizeNewInstanceGuestAccelerators(c *Client, des, nw *InstanceGuestA
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.AcceleratorCount) {
-		nw.AcceleratorCount = des.AcceleratorCount
-	}
 	if dcl.StringCanonicalize(des.AcceleratorType, nw.AcceleratorType) {
 		nw.AcceleratorType = des.AcceleratorType
 	}
@@ -2062,9 +2044,6 @@ func canonicalizeNewInstanceNetworkInterfacesAccessConfigs(c *Client, des, nw *I
 	}
 	if dcl.StringCanonicalize(des.NatIP, nw.NatIP) {
 		nw.NatIP = des.NatIP
-	}
-	if dcl.IsZeroValue(nw.Type) {
-		nw.Type = des.Type
 	}
 
 	return nw
@@ -2328,9 +2307,6 @@ func canonicalizeNewInstanceServiceAccounts(c *Client, des, nw *InstanceServiceA
 
 	if dcl.StringCanonicalize(des.Email, nw.Email) {
 		nw.Email = des.Email
-	}
-	if dcl.IsZeroValue(nw.Scopes) {
-		nw.Scopes = des.Scopes
 	}
 
 	return nw

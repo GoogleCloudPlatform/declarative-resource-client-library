@@ -815,9 +815,6 @@ func canonicalizeNewInstanceAvailableVersion(c *Client, des, nw *InstanceAvailab
 	if dcl.BoolCanonicalize(des.DefaultVersion, nw.DefaultVersion) {
 		nw.DefaultVersion = des.DefaultVersion
 	}
-	if dcl.IsZeroValue(nw.AvailableFeatures) {
-		nw.AvailableFeatures = des.AvailableFeatures
-	}
 
 	return nw
 }

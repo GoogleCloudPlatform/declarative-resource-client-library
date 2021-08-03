@@ -965,13 +965,6 @@ func canonicalizeNewDashboardGridLayout(c *Client, des, nw *DashboardGridLayout)
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Columns) {
-		nw.Columns = des.Columns
-	}
-	if dcl.IsZeroValue(nw.Widgets) {
-		nw.Widgets = des.Widgets
-	}
-
 	return nw
 }
 
@@ -1051,9 +1044,6 @@ func canonicalizeNewDashboardMosaicLayout(c *Client, des, nw *DashboardMosaicLay
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Columns) {
-		nw.Columns = des.Columns
-	}
 	nw.Tiles = canonicalizeNewDashboardMosaicLayoutTilesSlice(c, des.Tiles, nw.Tiles)
 
 	return nw
@@ -1146,18 +1136,6 @@ func canonicalizeNewDashboardMosaicLayoutTiles(c *Client, des, nw *DashboardMosa
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.XPos) {
-		nw.XPos = des.XPos
-	}
-	if dcl.IsZeroValue(nw.YPos) {
-		nw.YPos = des.YPos
-	}
-	if dcl.IsZeroValue(nw.Width) {
-		nw.Width = des.Width
-	}
-	if dcl.IsZeroValue(nw.Height) {
-		nw.Height = des.Height
-	}
 	nw.Widget = canonicalizeNewDashboardWidget(c, des.Widget, nw.Widget)
 
 	return nw
@@ -1315,13 +1293,6 @@ func canonicalizeNewDashboardRowLayoutRows(c *Client, des, nw *DashboardRowLayou
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Weight) {
-		nw.Weight = des.Weight
-	}
-	if dcl.IsZeroValue(nw.Widgets) {
-		nw.Widgets = des.Widgets
-	}
-
 	return nw
 }
 
@@ -1477,9 +1448,6 @@ func canonicalizeNewDashboardColumnLayoutColumns(c *Client, des, nw *DashboardCo
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Weight) {
-		nw.Weight = des.Weight
-	}
 	nw.Widgets = canonicalizeNewDashboardWidgetSlice(c, des.Widgets, nw.Widgets)
 
 	return nw
@@ -1790,9 +1758,6 @@ func canonicalizeNewDashboardWidgetXyChartDataSets(c *Client, des, nw *Dashboard
 	}
 
 	nw.TimeSeriesQuery = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, des.TimeSeriesQuery, nw.TimeSeriesQuery)
-	if dcl.IsZeroValue(nw.PlotType) {
-		nw.PlotType = des.PlotType
-	}
 	if dcl.StringCanonicalize(des.LegendTemplate, nw.LegendTemplate) {
 		nw.LegendTemplate = des.LegendTemplate
 	}
@@ -2066,15 +2031,6 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
 		nw.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(nw.PerSeriesAligner) {
-		nw.PerSeriesAligner = des.PerSeriesAligner
-	}
-	if dcl.IsZeroValue(nw.CrossSeriesReducer) {
-		nw.CrossSeriesReducer = des.CrossSeriesReducer
-	}
-	if dcl.IsZeroValue(nw.GroupByFields) {
-		nw.GroupByFields = des.GroupByFields
-	}
 
 	return nw
 }
@@ -2168,15 +2124,6 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
 		nw.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(nw.PerSeriesAligner) {
-		nw.PerSeriesAligner = des.PerSeriesAligner
-	}
-	if dcl.IsZeroValue(nw.CrossSeriesReducer) {
-		nw.CrossSeriesReducer = des.CrossSeriesReducer
-	}
-	if dcl.IsZeroValue(nw.GroupByFields) {
-		nw.GroupByFields = des.GroupByFields
-	}
 
 	return nw
 }
@@ -2260,16 +2207,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPi
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.RankingMethod) {
-		nw.RankingMethod = des.RankingMethod
-	}
-	if dcl.IsZeroValue(nw.NumTimeSeries) {
-		nw.NumTimeSeries = des.NumTimeSeries
-	}
-	if dcl.IsZeroValue(nw.Direction) {
-		nw.Direction = des.Direction
 	}
 
 	return nw
@@ -2522,15 +2459,6 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
 		nw.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(nw.PerSeriesAligner) {
-		nw.PerSeriesAligner = des.PerSeriesAligner
-	}
-	if dcl.IsZeroValue(nw.CrossSeriesReducer) {
-		nw.CrossSeriesReducer = des.CrossSeriesReducer
-	}
-	if dcl.IsZeroValue(nw.GroupByFields) {
-		nw.GroupByFields = des.GroupByFields
-	}
 
 	return nw
 }
@@ -2704,15 +2632,6 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
 		nw.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(nw.PerSeriesAligner) {
-		nw.PerSeriesAligner = des.PerSeriesAligner
-	}
-	if dcl.IsZeroValue(nw.CrossSeriesReducer) {
-		nw.CrossSeriesReducer = des.CrossSeriesReducer
-	}
-	if dcl.IsZeroValue(nw.GroupByFields) {
-		nw.GroupByFields = des.GroupByFields
-	}
 
 	return nw
 }
@@ -2806,15 +2725,6 @@ func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
 		nw.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(nw.PerSeriesAligner) {
-		nw.PerSeriesAligner = des.PerSeriesAligner
-	}
-	if dcl.IsZeroValue(nw.CrossSeriesReducer) {
-		nw.CrossSeriesReducer = des.CrossSeriesReducer
-	}
-	if dcl.IsZeroValue(nw.GroupByFields) {
-		nw.GroupByFields = des.GroupByFields
-	}
 
 	return nw
 }
@@ -2898,16 +2808,6 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.RankingMethod) {
-		nw.RankingMethod = des.RankingMethod
-	}
-	if dcl.IsZeroValue(nw.NumTimeSeries) {
-		nw.NumTimeSeries = des.NumTimeSeries
-	}
-	if dcl.IsZeroValue(nw.Direction) {
-		nw.Direction = des.Direction
 	}
 
 	return nw
@@ -3002,15 +2902,6 @@ func canonicalizeNewDashboardWidgetXyChartThresholds(c *Client, des, nw *Dashboa
 	if dcl.StringCanonicalize(des.Label, nw.Label) {
 		nw.Label = des.Label
 	}
-	if dcl.IsZeroValue(nw.Value) {
-		nw.Value = des.Value
-	}
-	if dcl.IsZeroValue(nw.Color) {
-		nw.Color = des.Color
-	}
-	if dcl.IsZeroValue(nw.Direction) {
-		nw.Direction = des.Direction
-	}
 
 	return nw
 }
@@ -3093,9 +2984,6 @@ func canonicalizeNewDashboardWidgetXyChartXAxis(c *Client, des, nw *DashboardWid
 
 	if dcl.StringCanonicalize(des.Label, nw.Label) {
 		nw.Label = des.Label
-	}
-	if dcl.IsZeroValue(nw.Scale) {
-		nw.Scale = des.Scale
 	}
 
 	return nw
@@ -3180,9 +3068,6 @@ func canonicalizeNewDashboardWidgetXyChartYAxis(c *Client, des, nw *DashboardWid
 	if dcl.StringCanonicalize(des.Label, nw.Label) {
 		nw.Label = des.Label
 	}
-	if dcl.IsZeroValue(nw.Scale) {
-		nw.Scale = des.Scale
-	}
 
 	return nw
 }
@@ -3256,10 +3141,6 @@ func canonicalizeDashboardWidgetXyChartChartOptions(des, initial *DashboardWidge
 func canonicalizeNewDashboardWidgetXyChartChartOptions(c *Client, des, nw *DashboardWidgetXyChartChartOptions) *DashboardWidgetXyChartChartOptions {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Mode) {
-		nw.Mode = des.Mode
 	}
 
 	return nw
@@ -3610,15 +3491,6 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggre
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
 		nw.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(nw.PerSeriesAligner) {
-		nw.PerSeriesAligner = des.PerSeriesAligner
-	}
-	if dcl.IsZeroValue(nw.CrossSeriesReducer) {
-		nw.CrossSeriesReducer = des.CrossSeriesReducer
-	}
-	if dcl.IsZeroValue(nw.GroupByFields) {
-		nw.GroupByFields = des.GroupByFields
-	}
 
 	return nw
 }
@@ -3712,15 +3584,6 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecon
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
 		nw.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(nw.PerSeriesAligner) {
-		nw.PerSeriesAligner = des.PerSeriesAligner
-	}
-	if dcl.IsZeroValue(nw.CrossSeriesReducer) {
-		nw.CrossSeriesReducer = des.CrossSeriesReducer
-	}
-	if dcl.IsZeroValue(nw.GroupByFields) {
-		nw.GroupByFields = des.GroupByFields
-	}
 
 	return nw
 }
@@ -3804,16 +3667,6 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTime
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.RankingMethod) {
-		nw.RankingMethod = des.RankingMethod
-	}
-	if dcl.IsZeroValue(nw.NumTimeSeries) {
-		nw.NumTimeSeries = des.NumTimeSeries
-	}
-	if dcl.IsZeroValue(nw.Direction) {
-		nw.Direction = des.Direction
 	}
 
 	return nw
@@ -4066,15 +3919,6 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
 		nw.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(nw.PerSeriesAligner) {
-		nw.PerSeriesAligner = des.PerSeriesAligner
-	}
-	if dcl.IsZeroValue(nw.CrossSeriesReducer) {
-		nw.CrossSeriesReducer = des.CrossSeriesReducer
-	}
-	if dcl.IsZeroValue(nw.GroupByFields) {
-		nw.GroupByFields = des.GroupByFields
-	}
 
 	return nw
 }
@@ -4248,15 +4092,6 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
 		nw.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(nw.PerSeriesAligner) {
-		nw.PerSeriesAligner = des.PerSeriesAligner
-	}
-	if dcl.IsZeroValue(nw.CrossSeriesReducer) {
-		nw.CrossSeriesReducer = des.CrossSeriesReducer
-	}
-	if dcl.IsZeroValue(nw.GroupByFields) {
-		nw.GroupByFields = des.GroupByFields
-	}
 
 	return nw
 }
@@ -4350,15 +4185,6 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
 		nw.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(nw.PerSeriesAligner) {
-		nw.PerSeriesAligner = des.PerSeriesAligner
-	}
-	if dcl.IsZeroValue(nw.CrossSeriesReducer) {
-		nw.CrossSeriesReducer = des.CrossSeriesReducer
-	}
-	if dcl.IsZeroValue(nw.GroupByFields) {
-		nw.GroupByFields = des.GroupByFields
-	}
 
 	return nw
 }
@@ -4444,16 +4270,6 @@ func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RankingMethod) {
-		nw.RankingMethod = des.RankingMethod
-	}
-	if dcl.IsZeroValue(nw.NumTimeSeries) {
-		nw.NumTimeSeries = des.NumTimeSeries
-	}
-	if dcl.IsZeroValue(nw.Direction) {
-		nw.Direction = des.Direction
-	}
-
 	return nw
 }
 
@@ -4531,13 +4347,6 @@ func canonicalizeDashboardWidgetScorecardGaugeView(des, initial *DashboardWidget
 func canonicalizeNewDashboardWidgetScorecardGaugeView(c *Client, des, nw *DashboardWidgetScorecardGaugeView) *DashboardWidgetScorecardGaugeView {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.LowerBound) {
-		nw.LowerBound = des.LowerBound
-	}
-	if dcl.IsZeroValue(nw.UpperBound) {
-		nw.UpperBound = des.UpperBound
 	}
 
 	return nw
@@ -4619,9 +4428,6 @@ func canonicalizeNewDashboardWidgetScorecardSparkChartView(c *Client, des, nw *D
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.SparkChartType) {
-		nw.SparkChartType = des.SparkChartType
-	}
 	if dcl.StringCanonicalize(des.MinAlignmentPeriod, nw.MinAlignmentPeriod) {
 		nw.MinAlignmentPeriod = des.MinAlignmentPeriod
 	}
@@ -4718,15 +4524,6 @@ func canonicalizeNewDashboardWidgetScorecardThresholds(c *Client, des, nw *Dashb
 	if dcl.StringCanonicalize(des.Label, nw.Label) {
 		nw.Label = des.Label
 	}
-	if dcl.IsZeroValue(nw.Value) {
-		nw.Value = des.Value
-	}
-	if dcl.IsZeroValue(nw.Color) {
-		nw.Color = des.Color
-	}
-	if dcl.IsZeroValue(nw.Direction) {
-		nw.Direction = des.Direction
-	}
 
 	return nw
 }
@@ -4809,9 +4606,6 @@ func canonicalizeNewDashboardWidgetText(c *Client, des, nw *DashboardWidgetText)
 
 	if dcl.StringCanonicalize(des.Content, nw.Content) {
 		nw.Content = des.Content
-	}
-	if dcl.IsZeroValue(nw.Format) {
-		nw.Format = des.Format
 	}
 
 	return nw

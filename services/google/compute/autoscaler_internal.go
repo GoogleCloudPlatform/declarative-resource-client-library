@@ -749,22 +749,10 @@ func canonicalizeNewAutoscalerAutoscalingPolicy(c *Client, des, nw *AutoscalerAu
 		nw.Mode = AutoscalerAutoscalingPolicyModeEnumRef("ON")
 	}
 
-	if dcl.IsZeroValue(nw.MinNumReplicas) {
-		nw.MinNumReplicas = des.MinNumReplicas
-	}
-	if dcl.IsZeroValue(nw.MaxNumReplicas) {
-		nw.MaxNumReplicas = des.MaxNumReplicas
-	}
 	nw.ScaleInControl = canonicalizeNewAutoscalerAutoscalingPolicyScaleInControl(c, des.ScaleInControl, nw.ScaleInControl)
-	if dcl.IsZeroValue(nw.CoolDownPeriodSec) {
-		nw.CoolDownPeriodSec = des.CoolDownPeriodSec
-	}
 	nw.CpuUtilization = canonicalizeNewAutoscalerAutoscalingPolicyCpuUtilization(c, des.CpuUtilization, nw.CpuUtilization)
 	nw.CustomMetricUtilizations = canonicalizeNewAutoscalerAutoscalingPolicyCustomMetricUtilizationsSlice(c, des.CustomMetricUtilizations, nw.CustomMetricUtilizations)
 	nw.LoadBalancingUtilization = canonicalizeNewAutoscalerAutoscalingPolicyLoadBalancingUtilization(c, des.LoadBalancingUtilization, nw.LoadBalancingUtilization)
-	if dcl.IsZeroValue(nw.Mode) {
-		nw.Mode = des.Mode
-	}
 
 	return nw
 }
@@ -842,9 +830,6 @@ func canonicalizeNewAutoscalerAutoscalingPolicyScaleInControl(c *Client, des, nw
 	}
 
 	nw.MaxScaledInReplicas = canonicalizeNewAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(c, des.MaxScaledInReplicas, nw.MaxScaledInReplicas)
-	if dcl.IsZeroValue(nw.TimeWindowSec) {
-		nw.TimeWindowSec = des.TimeWindowSec
-	}
 
 	return nw
 }
@@ -925,16 +910,6 @@ func canonicalizeNewAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Fixed) {
-		nw.Fixed = des.Fixed
-	}
-	if dcl.IsZeroValue(nw.Percent) {
-		nw.Percent = des.Percent
-	}
-	if dcl.IsZeroValue(nw.Calculated) {
-		nw.Calculated = des.Calculated
-	}
-
 	return nw
 }
 
@@ -1007,10 +982,6 @@ func canonicalizeAutoscalerAutoscalingPolicyCpuUtilization(des, initial *Autosca
 func canonicalizeNewAutoscalerAutoscalingPolicyCpuUtilization(c *Client, des, nw *AutoscalerAutoscalingPolicyCpuUtilization) *AutoscalerAutoscalingPolicyCpuUtilization {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.UtilizationTarget) {
-		nw.UtilizationTarget = des.UtilizationTarget
 	}
 
 	return nw
@@ -1100,12 +1071,6 @@ func canonicalizeNewAutoscalerAutoscalingPolicyCustomMetricUtilizations(c *Clien
 	if dcl.StringCanonicalize(des.Metric, nw.Metric) {
 		nw.Metric = des.Metric
 	}
-	if dcl.IsZeroValue(nw.UtilizationTarget) {
-		nw.UtilizationTarget = des.UtilizationTarget
-	}
-	if dcl.IsZeroValue(nw.UtilizationTargetType) {
-		nw.UtilizationTargetType = des.UtilizationTargetType
-	}
 
 	return nw
 }
@@ -1179,10 +1144,6 @@ func canonicalizeAutoscalerAutoscalingPolicyLoadBalancingUtilization(des, initia
 func canonicalizeNewAutoscalerAutoscalingPolicyLoadBalancingUtilization(c *Client, des, nw *AutoscalerAutoscalingPolicyLoadBalancingUtilization) *AutoscalerAutoscalingPolicyLoadBalancingUtilization {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.UtilizationTarget) {
-		nw.UtilizationTarget = des.UtilizationTarget
 	}
 
 	return nw
@@ -1266,9 +1227,6 @@ func canonicalizeNewAutoscalerStatusDetails(c *Client, des, nw *AutoscalerStatus
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
-	}
-	if dcl.IsZeroValue(nw.Type) {
-		nw.Type = des.Type
 	}
 
 	return nw

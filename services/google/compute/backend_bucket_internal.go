@@ -541,13 +541,6 @@ func canonicalizeNewBackendBucketCdnPolicy(c *Client, des, nw *BackendBucketCdnP
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.SignedUrlKeyNames) {
-		nw.SignedUrlKeyNames = des.SignedUrlKeyNames
-	}
-	if dcl.IsZeroValue(nw.SignedUrlCacheMaxAgeSec) {
-		nw.SignedUrlCacheMaxAgeSec = des.SignedUrlCacheMaxAgeSec
-	}
-
 	return nw
 }
 

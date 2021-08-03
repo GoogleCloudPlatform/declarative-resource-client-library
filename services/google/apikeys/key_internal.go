@@ -665,10 +665,6 @@ func canonicalizeNewKeyRestrictionsBrowserKeyRestrictions(c *Client, des, nw *Ke
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.AllowedReferrers) {
-		nw.AllowedReferrers = des.AllowedReferrers
-	}
-
 	return nw
 }
 
@@ -741,10 +737,6 @@ func canonicalizeKeyRestrictionsServerKeyRestrictions(des, initial *KeyRestricti
 func canonicalizeNewKeyRestrictionsServerKeyRestrictions(c *Client, des, nw *KeyRestrictionsServerKeyRestrictions) *KeyRestrictionsServerKeyRestrictions {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.AllowedIps) {
-		nw.AllowedIps = des.AllowedIps
 	}
 
 	return nw
@@ -983,10 +975,6 @@ func canonicalizeNewKeyRestrictionsIosKeyRestrictions(c *Client, des, nw *KeyRes
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.AllowedBundleIds) {
-		nw.AllowedBundleIds = des.AllowedBundleIds
-	}
-
 	return nw
 }
 
@@ -1068,9 +1056,6 @@ func canonicalizeNewKeyRestrictionsApiTargets(c *Client, des, nw *KeyRestriction
 
 	if dcl.StringCanonicalize(des.Service, nw.Service) {
 		nw.Service = des.Service
-	}
-	if dcl.IsZeroValue(nw.Methods) {
-		nw.Methods = des.Methods
 	}
 
 	return nw

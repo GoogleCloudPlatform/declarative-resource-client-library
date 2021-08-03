@@ -505,12 +505,6 @@ func canonicalizeNewFirewallPolicyRuleMatch(c *Client, des, nw *FirewallPolicyRu
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.SrcIPRanges) {
-		nw.SrcIPRanges = des.SrcIPRanges
-	}
-	if dcl.IsZeroValue(nw.DestIPRanges) {
-		nw.DestIPRanges = des.DestIPRanges
-	}
 	nw.Layer4Configs = canonicalizeNewFirewallPolicyRuleMatchLayer4ConfigsSlice(c, des.Layer4Configs, nw.Layer4Configs)
 
 	return nw
@@ -594,9 +588,6 @@ func canonicalizeNewFirewallPolicyRuleMatchLayer4Configs(c *Client, des, nw *Fir
 
 	if dcl.StringCanonicalize(des.IPProtocol, nw.IPProtocol) {
 		nw.IPProtocol = des.IPProtocol
-	}
-	if dcl.IsZeroValue(nw.Ports) {
-		nw.Ports = des.Ports
 	}
 
 	return nw

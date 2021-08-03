@@ -30,19 +30,19 @@ variables:
   type: project
 - name: template2
   type: resource_name
-- name: pool1
-  type: resource_name
 - name: region
   type: region
+- name: pool1
+  type: resource_name
 - name: pool2
   type: resource_name
 - name: s_check
   type: resource_name
 - name: check
   type: resource_name
-- name: zone
-  type: zone
 - name: instance_group_manager
   type: resource_name
+- name: zone
+  type: zone
 versions:
 - ga

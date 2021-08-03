@@ -513,10 +513,6 @@ func canonicalizeNewTopicMessageStoragePolicy(c *Client, des, nw *TopicMessageSt
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.AllowedPersistenceRegions) {
-		nw.AllowedPersistenceRegions = des.AllowedPersistenceRegions
-	}
-
 	return nw
 }
 

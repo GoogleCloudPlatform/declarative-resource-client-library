@@ -564,9 +564,6 @@ func canonicalizeNewObjectAccessControlProjectTeam(c *Client, des, nw *ObjectAcc
 	if dcl.NameToSelfLink(des.ProjectNumber, nw.ProjectNumber) {
 		nw.ProjectNumber = des.ProjectNumber
 	}
-	if dcl.IsZeroValue(nw.Team) {
-		nw.Team = des.Team
-	}
 
 	return nw
 }

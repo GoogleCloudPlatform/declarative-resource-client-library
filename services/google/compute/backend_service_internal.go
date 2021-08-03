@@ -1114,33 +1114,6 @@ func canonicalizeNewBackendServiceBackends(c *Client, des, nw *BackendServiceBac
 	if dcl.NameToSelfLink(des.Group, nw.Group) {
 		nw.Group = des.Group
 	}
-	if dcl.IsZeroValue(nw.BalancingMode) {
-		nw.BalancingMode = des.BalancingMode
-	}
-	if dcl.IsZeroValue(nw.MaxUtilization) {
-		nw.MaxUtilization = des.MaxUtilization
-	}
-	if dcl.IsZeroValue(nw.MaxRate) {
-		nw.MaxRate = des.MaxRate
-	}
-	if dcl.IsZeroValue(nw.MaxRatePerInstance) {
-		nw.MaxRatePerInstance = des.MaxRatePerInstance
-	}
-	if dcl.IsZeroValue(nw.MaxRatePerEndpoint) {
-		nw.MaxRatePerEndpoint = des.MaxRatePerEndpoint
-	}
-	if dcl.IsZeroValue(nw.MaxConnections) {
-		nw.MaxConnections = des.MaxConnections
-	}
-	if dcl.IsZeroValue(nw.MaxConnectionsPerInstance) {
-		nw.MaxConnectionsPerInstance = des.MaxConnectionsPerInstance
-	}
-	if dcl.IsZeroValue(nw.MaxConnectionsPerEndpoint) {
-		nw.MaxConnectionsPerEndpoint = des.MaxConnectionsPerEndpoint
-	}
-	if dcl.IsZeroValue(nw.CapacityScaler) {
-		nw.CapacityScaler = des.CapacityScaler
-	}
 	if dcl.BoolCanonicalize(des.Failover, nw.Failover) {
 		nw.Failover = des.Failover
 	}
@@ -1235,9 +1208,6 @@ func canonicalizeNewBackendServiceFailoverPolicy(c *Client, des, nw *BackendServ
 	if dcl.BoolCanonicalize(des.DropTrafficIfUnhealthy, nw.DropTrafficIfUnhealthy) {
 		nw.DropTrafficIfUnhealthy = des.DropTrafficIfUnhealthy
 	}
-	if dcl.IsZeroValue(nw.FailoverRatio) {
-		nw.FailoverRatio = des.FailoverRatio
-	}
 
 	return nw
 }
@@ -1311,10 +1281,6 @@ func canonicalizeBackendServiceConnectionDraining(des, initial *BackendServiceCo
 func canonicalizeNewBackendServiceConnectionDraining(c *Client, des, nw *BackendServiceConnectionDraining) *BackendServiceConnectionDraining {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.DrainingTimeoutSec) {
-		nw.DrainingTimeoutSec = des.DrainingTimeoutSec
 	}
 
 	return nw
@@ -1533,35 +1499,14 @@ func canonicalizeNewBackendServiceCdnPolicy(c *Client, des, nw *BackendServiceCd
 	}
 
 	nw.CacheKeyPolicy = canonicalizeNewBackendServiceCdnPolicyCacheKeyPolicy(c, des.CacheKeyPolicy, nw.CacheKeyPolicy)
-	if dcl.IsZeroValue(nw.SignedUrlKeyNames) {
-		nw.SignedUrlKeyNames = des.SignedUrlKeyNames
-	}
-	if dcl.IsZeroValue(nw.SignedUrlCacheMaxAgeSec) {
-		nw.SignedUrlCacheMaxAgeSec = des.SignedUrlCacheMaxAgeSec
-	}
 	if dcl.BoolCanonicalize(des.RequestCoalescing, nw.RequestCoalescing) {
 		nw.RequestCoalescing = des.RequestCoalescing
-	}
-	if dcl.IsZeroValue(nw.CacheMode) {
-		nw.CacheMode = des.CacheMode
-	}
-	if dcl.IsZeroValue(nw.DefaultTtl) {
-		nw.DefaultTtl = des.DefaultTtl
-	}
-	if dcl.IsZeroValue(nw.MaxTtl) {
-		nw.MaxTtl = des.MaxTtl
-	}
-	if dcl.IsZeroValue(nw.ClientTtl) {
-		nw.ClientTtl = des.ClientTtl
 	}
 	if dcl.BoolCanonicalize(des.NegativeCaching, nw.NegativeCaching) {
 		nw.NegativeCaching = des.NegativeCaching
 	}
 	nw.NegativeCachingPolicy = canonicalizeNewBackendServiceCdnPolicyNegativeCachingPolicySlice(c, des.NegativeCachingPolicy, nw.NegativeCachingPolicy)
 	nw.BypassCacheOnRequestHeaders = canonicalizeNewBackendServiceCdnPolicyBypassCacheOnRequestHeadersSlice(c, des.BypassCacheOnRequestHeaders, nw.BypassCacheOnRequestHeaders)
-	if dcl.IsZeroValue(nw.ServeWhileStale) {
-		nw.ServeWhileStale = des.ServeWhileStale
-	}
 
 	return nw
 }
@@ -1676,18 +1621,6 @@ func canonicalizeNewBackendServiceCdnPolicyCacheKeyPolicy(c *Client, des, nw *Ba
 	if dcl.BoolCanonicalize(des.IncludeQueryString, nw.IncludeQueryString) {
 		nw.IncludeQueryString = des.IncludeQueryString
 	}
-	if dcl.IsZeroValue(nw.QueryStringWhitelist) {
-		nw.QueryStringWhitelist = des.QueryStringWhitelist
-	}
-	if dcl.IsZeroValue(nw.QueryStringBlacklist) {
-		nw.QueryStringBlacklist = des.QueryStringBlacklist
-	}
-	if dcl.IsZeroValue(nw.IncludeHttpHeaders) {
-		nw.IncludeHttpHeaders = des.IncludeHttpHeaders
-	}
-	if dcl.IsZeroValue(nw.IncludeNamedCookies) {
-		nw.IncludeNamedCookies = des.IncludeNamedCookies
-	}
 
 	return nw
 }
@@ -1766,13 +1699,6 @@ func canonicalizeBackendServiceCdnPolicyNegativeCachingPolicy(des, initial *Back
 func canonicalizeNewBackendServiceCdnPolicyNegativeCachingPolicy(c *Client, des, nw *BackendServiceCdnPolicyNegativeCachingPolicy) *BackendServiceCdnPolicyNegativeCachingPolicy {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
-	if dcl.IsZeroValue(nw.Ttl) {
-		nw.Ttl = des.Ttl
 	}
 
 	return nw
@@ -1935,9 +1861,6 @@ func canonicalizeNewBackendServiceLogConfig(c *Client, des, nw *BackendServiceLo
 	if dcl.BoolCanonicalize(des.Enable, nw.Enable) {
 		nw.Enable = des.Enable
 	}
-	if dcl.IsZeroValue(nw.SampleRate) {
-		nw.SampleRate = des.SampleRate
-	}
 
 	return nw
 }
@@ -2020,9 +1943,6 @@ func canonicalizeNewBackendServiceSecuritySettings(c *Client, des, nw *BackendSe
 
 	if dcl.NameToSelfLink(des.ClientTlsPolicy, nw.ClientTlsPolicy) {
 		nw.ClientTlsPolicy = des.ClientTlsPolicy
-	}
-	if dcl.IsZeroValue(nw.SubjectAltNames) {
-		nw.SubjectAltNames = des.SubjectAltNames
 	}
 
 	return nw
@@ -2108,9 +2028,6 @@ func canonicalizeNewBackendServiceConsistentHash(c *Client, des, nw *BackendServ
 	nw.HttpCookie = canonicalizeNewBackendServiceConsistentHashHttpCookie(c, des.HttpCookie, nw.HttpCookie)
 	if dcl.StringCanonicalize(des.HttpHeaderName, nw.HttpHeaderName) {
 		nw.HttpHeaderName = des.HttpHeaderName
-	}
-	if dcl.IsZeroValue(nw.MinimumRingSize) {
-		nw.MinimumRingSize = des.MinimumRingSize
 	}
 
 	return nw
@@ -2280,13 +2197,6 @@ func canonicalizeNewBackendServiceConsistentHashHttpCookieTtl(c *Client, des, nw
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
-	}
-
 	return nw
 }
 
@@ -2379,22 +2289,6 @@ func canonicalizeBackendServiceCircuitBreakers(des, initial *BackendServiceCircu
 func canonicalizeNewBackendServiceCircuitBreakers(c *Client, des, nw *BackendServiceCircuitBreakers) *BackendServiceCircuitBreakers {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.MaxRequestsPerConnection) {
-		nw.MaxRequestsPerConnection = des.MaxRequestsPerConnection
-	}
-	if dcl.IsZeroValue(nw.MaxConnections) {
-		nw.MaxConnections = des.MaxConnections
-	}
-	if dcl.IsZeroValue(nw.MaxPendingRequests) {
-		nw.MaxPendingRequests = des.MaxPendingRequests
-	}
-	if dcl.IsZeroValue(nw.MaxRequests) {
-		nw.MaxRequests = des.MaxRequests
-	}
-	if dcl.IsZeroValue(nw.MaxRetries) {
-		nw.MaxRetries = des.MaxRetries
 	}
 
 	return nw
@@ -2513,35 +2407,8 @@ func canonicalizeNewBackendServiceOutlierDetection(c *Client, des, nw *BackendSe
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.ConsecutiveErrors) {
-		nw.ConsecutiveErrors = des.ConsecutiveErrors
-	}
 	nw.Interval = canonicalizeNewBackendServiceOutlierDetectionInterval(c, des.Interval, nw.Interval)
 	nw.BaseEjectionTime = canonicalizeNewBackendServiceOutlierDetectionBaseEjectionTime(c, des.BaseEjectionTime, nw.BaseEjectionTime)
-	if dcl.IsZeroValue(nw.MaxEjectionPercent) {
-		nw.MaxEjectionPercent = des.MaxEjectionPercent
-	}
-	if dcl.IsZeroValue(nw.EnforcingConsecutiveErrors) {
-		nw.EnforcingConsecutiveErrors = des.EnforcingConsecutiveErrors
-	}
-	if dcl.IsZeroValue(nw.EnforcingSuccessRate) {
-		nw.EnforcingSuccessRate = des.EnforcingSuccessRate
-	}
-	if dcl.IsZeroValue(nw.SuccessRateMinimumHosts) {
-		nw.SuccessRateMinimumHosts = des.SuccessRateMinimumHosts
-	}
-	if dcl.IsZeroValue(nw.SuccessRateRequestVolume) {
-		nw.SuccessRateRequestVolume = des.SuccessRateRequestVolume
-	}
-	if dcl.IsZeroValue(nw.SuccessRateStdevFactor) {
-		nw.SuccessRateStdevFactor = des.SuccessRateStdevFactor
-	}
-	if dcl.IsZeroValue(nw.ConsecutiveGatewayFailure) {
-		nw.ConsecutiveGatewayFailure = des.ConsecutiveGatewayFailure
-	}
-	if dcl.IsZeroValue(nw.EnforcingConsecutiveGatewayFailure) {
-		nw.EnforcingConsecutiveGatewayFailure = des.EnforcingConsecutiveGatewayFailure
-	}
 
 	return nw
 }
@@ -2620,13 +2487,6 @@ func canonicalizeBackendServiceOutlierDetectionInterval(des, initial *BackendSer
 func canonicalizeNewBackendServiceOutlierDetectionInterval(c *Client, des, nw *BackendServiceOutlierDetectionInterval) *BackendServiceOutlierDetectionInterval {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
 	}
 
 	return nw
@@ -2708,13 +2568,6 @@ func canonicalizeNewBackendServiceOutlierDetectionBaseEjectionTime(c *Client, de
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
-	}
-
 	return nw
 }
 
@@ -2792,13 +2645,6 @@ func canonicalizeBackendServiceMaxStreamDuration(des, initial *BackendServiceMax
 func canonicalizeNewBackendServiceMaxStreamDuration(c *Client, des, nw *BackendServiceMaxStreamDuration) *BackendServiceMaxStreamDuration {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
 	}
 
 	return nw

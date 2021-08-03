@@ -639,19 +639,10 @@ func canonicalizeNewAwsNodePoolConfig(c *Client, des, nw *AwsNodePoolConfig) *Aw
 	}
 	nw.RootVolume = canonicalizeNewAwsNodePoolConfigRootVolume(c, des.RootVolume, nw.RootVolume)
 	nw.Taints = canonicalizeNewAwsNodePoolConfigTaintsSlice(c, des.Taints, nw.Taints)
-	if dcl.IsZeroValue(nw.Labels) {
-		nw.Labels = des.Labels
-	}
-	if dcl.IsZeroValue(nw.Tags) {
-		nw.Tags = des.Tags
-	}
 	if dcl.StringCanonicalize(des.IamInstanceProfile, nw.IamInstanceProfile) {
 		nw.IamInstanceProfile = des.IamInstanceProfile
 	}
 	nw.SshConfig = canonicalizeNewAwsNodePoolConfigSshConfig(c, des.SshConfig, nw.SshConfig)
-	if dcl.IsZeroValue(nw.SecurityGroupIds) {
-		nw.SecurityGroupIds = des.SecurityGroupIds
-	}
 
 	return nw
 }
@@ -742,15 +733,6 @@ func canonicalizeNewAwsNodePoolConfigRootVolume(c *Client, des, nw *AwsNodePoolC
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.SizeGib) {
-		nw.SizeGib = des.SizeGib
-	}
-	if dcl.IsZeroValue(nw.VolumeType) {
-		nw.VolumeType = des.VolumeType
-	}
-	if dcl.IsZeroValue(nw.Iops) {
-		nw.Iops = des.Iops
-	}
 	if dcl.StringCanonicalize(des.KmsKeyArn, nw.KmsKeyArn) {
 		nw.KmsKeyArn = des.KmsKeyArn
 	}
@@ -844,9 +826,6 @@ func canonicalizeNewAwsNodePoolConfigTaints(c *Client, des, nw *AwsNodePoolConfi
 	}
 	if dcl.StringCanonicalize(des.Value, nw.Value) {
 		nw.Value = des.Value
-	}
-	if dcl.IsZeroValue(nw.Effect) {
-		nw.Effect = des.Effect
 	}
 
 	return nw
@@ -1006,13 +985,6 @@ func canonicalizeNewAwsNodePoolAutoscaling(c *Client, des, nw *AwsNodePoolAutosc
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.MinNodeCount) {
-		nw.MinNodeCount = des.MinNodeCount
-	}
-	if dcl.IsZeroValue(nw.MaxNodeCount) {
-		nw.MaxNodeCount = des.MaxNodeCount
-	}
-
 	return nw
 }
 
@@ -1085,10 +1057,6 @@ func canonicalizeAwsNodePoolMaxPodsConstraint(des, initial *AwsNodePoolMaxPodsCo
 func canonicalizeNewAwsNodePoolMaxPodsConstraint(c *Client, des, nw *AwsNodePoolMaxPodsConstraint) *AwsNodePoolMaxPodsConstraint {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.MaxPodsPerNode) {
-		nw.MaxPodsPerNode = des.MaxPodsPerNode
 	}
 
 	return nw

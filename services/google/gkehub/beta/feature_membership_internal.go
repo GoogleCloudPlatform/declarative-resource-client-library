@@ -655,9 +655,6 @@ func canonicalizeNewFeatureMembershipConfigmanagementPolicyController(c *Client,
 	if dcl.BoolCanonicalize(des.Enabled, nw.Enabled) {
 		nw.Enabled = des.Enabled
 	}
-	if dcl.IsZeroValue(nw.ExemptableNamespaces) {
-		nw.ExemptableNamespaces = des.ExemptableNamespaces
-	}
 	if dcl.BoolCanonicalize(des.ReferentialRulesEnabled, nw.ReferentialRulesEnabled) {
 		nw.ReferentialRulesEnabled = des.ReferentialRulesEnabled
 	}

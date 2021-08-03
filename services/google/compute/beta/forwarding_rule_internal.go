@@ -693,9 +693,6 @@ func canonicalizeNewForwardingRuleMetadataFilter(c *Client, des, nw *ForwardingR
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.FilterMatchCriteria) {
-		nw.FilterMatchCriteria = des.FilterMatchCriteria
-	}
 	nw.FilterLabel = canonicalizeNewForwardingRuleMetadataFilterFilterLabelSlice(c, des.FilterLabel, nw.FilterLabel)
 
 	return nw

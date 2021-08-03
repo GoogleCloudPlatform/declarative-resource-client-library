@@ -17,12 +17,12 @@ description: A test of a basic GKE node pool
 name: basic_node_pool
 resource: samples/basic.node_pool.json
 variables:
-- name: cluster
-  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
+- name: cluster
+  type: resource_name
 - name: pool
   type: resource_name
 versions:

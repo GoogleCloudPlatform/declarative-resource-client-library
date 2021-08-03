@@ -720,9 +720,6 @@ func canonicalizeNewEndpointPolicyEndpointMatcherMetadataLabelMatcher(c *Client,
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.MetadataLabelMatchCriteria) {
-		nw.MetadataLabelMatchCriteria = des.MetadataLabelMatchCriteria
-	}
 	nw.MetadataLabels = canonicalizeNewEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice(c, des.MetadataLabels, nw.MetadataLabels)
 
 	return nw
@@ -883,10 +880,6 @@ func canonicalizeEndpointPolicyTrafficPortSelector(des, initial *EndpointPolicyT
 func canonicalizeNewEndpointPolicyTrafficPortSelector(c *Client, des, nw *EndpointPolicyTrafficPortSelector) *EndpointPolicyTrafficPortSelector {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Ports) {
-		nw.Ports = des.Ports
 	}
 
 	return nw

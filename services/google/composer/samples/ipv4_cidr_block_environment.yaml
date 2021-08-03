@@ -37,9 +37,9 @@ variables:
   type: test_service_account
 - name: billing_account
   type: billing_account
-- name: sa
-  type: resource_name
 - name: composer_network
+  type: resource_name
+- name: sa
   type: resource_name
 - name: region
   type: region

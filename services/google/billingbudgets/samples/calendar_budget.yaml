@@ -1,0 +1,42 @@
+# Copyright 2021 Google LLC. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+dependencies:
+- samples/first.cloudbilling.project_billing_info.json
+- samples/second.cloudbilling.project_billing_info.json
+- samples/first.cloudresourcemanager.project.json
+- samples/second.cloudresourcemanager.project.json
+- samples/first.pubsub.topic.json
+- samples/first.monitoring.notification_channel.json
+- samples/second.pubsub.topic.json
+- samples/second.monitoring.notification_channel.json
+description: A basic example a Billing Budget budget with a calendar period.
+name: calendar_budget
+resource: samples/calendar.budget.json
+updates:
+- resource: samples/update_calendar.budget.json
+variables:
+- name: project
+  type: project
+- name: id1
+  type: resource_name
+- name: org_id
+  type: org_id
+- name: id2
+  type: resource_name
+- name: topic1
+  type: resource_name
+- name: topic2
+  type: resource_name
+versions:
+- ga

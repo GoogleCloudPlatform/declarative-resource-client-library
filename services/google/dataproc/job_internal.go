@@ -1051,9 +1051,6 @@ func canonicalizeNewJobPlacement(c *Client, des, nw *JobPlacement) *JobPlacement
 	if dcl.StringCanonicalize(des.ClusterUuid, nw.ClusterUuid) {
 		nw.ClusterUuid = des.ClusterUuid
 	}
-	if dcl.IsZeroValue(nw.ClusterLabels) {
-		nw.ClusterLabels = des.ClusterLabels
-	}
 
 	return nw
 }
@@ -1166,21 +1163,6 @@ func canonicalizeNewJobHadoopJob(c *Client, des, nw *JobHadoopJob) *JobHadoopJob
 	if dcl.StringCanonicalize(des.MainClass, nw.MainClass) {
 		nw.MainClass = des.MainClass
 	}
-	if dcl.IsZeroValue(nw.Args) {
-		nw.Args = des.Args
-	}
-	if dcl.IsZeroValue(nw.JarFileUris) {
-		nw.JarFileUris = des.JarFileUris
-	}
-	if dcl.IsZeroValue(nw.FileUris) {
-		nw.FileUris = des.FileUris
-	}
-	if dcl.IsZeroValue(nw.ArchiveUris) {
-		nw.ArchiveUris = des.ArchiveUris
-	}
-	if dcl.IsZeroValue(nw.Properties) {
-		nw.Properties = des.Properties
-	}
 	nw.LoggingConfig = canonicalizeNewJobHadoopJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
 	return nw
@@ -1255,10 +1237,6 @@ func canonicalizeJobHadoopJobLoggingConfig(des, initial *JobHadoopJobLoggingConf
 func canonicalizeNewJobHadoopJobLoggingConfig(c *Client, des, nw *JobHadoopJobLoggingConfig) *JobHadoopJobLoggingConfig {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.DriverLogLevels) {
-		nw.DriverLogLevels = des.DriverLogLevels
 	}
 
 	return nw
@@ -1372,21 +1350,6 @@ func canonicalizeNewJobSparkJob(c *Client, des, nw *JobSparkJob) *JobSparkJob {
 	if dcl.StringCanonicalize(des.MainClass, nw.MainClass) {
 		nw.MainClass = des.MainClass
 	}
-	if dcl.IsZeroValue(nw.Args) {
-		nw.Args = des.Args
-	}
-	if dcl.IsZeroValue(nw.JarFileUris) {
-		nw.JarFileUris = des.JarFileUris
-	}
-	if dcl.IsZeroValue(nw.FileUris) {
-		nw.FileUris = des.FileUris
-	}
-	if dcl.IsZeroValue(nw.ArchiveUris) {
-		nw.ArchiveUris = des.ArchiveUris
-	}
-	if dcl.IsZeroValue(nw.Properties) {
-		nw.Properties = des.Properties
-	}
 	nw.LoggingConfig = canonicalizeNewJobSparkJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
 	return nw
@@ -1461,10 +1424,6 @@ func canonicalizeJobSparkJobLoggingConfig(des, initial *JobSparkJobLoggingConfig
 func canonicalizeNewJobSparkJobLoggingConfig(c *Client, des, nw *JobSparkJobLoggingConfig) *JobSparkJobLoggingConfig {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.DriverLogLevels) {
-		nw.DriverLogLevels = des.DriverLogLevels
 	}
 
 	return nw
@@ -1575,24 +1534,6 @@ func canonicalizeNewJobPysparkJob(c *Client, des, nw *JobPysparkJob) *JobPyspark
 	if dcl.StringCanonicalize(des.MainPythonFileUri, nw.MainPythonFileUri) {
 		nw.MainPythonFileUri = des.MainPythonFileUri
 	}
-	if dcl.IsZeroValue(nw.Args) {
-		nw.Args = des.Args
-	}
-	if dcl.IsZeroValue(nw.PythonFileUris) {
-		nw.PythonFileUris = des.PythonFileUris
-	}
-	if dcl.IsZeroValue(nw.JarFileUris) {
-		nw.JarFileUris = des.JarFileUris
-	}
-	if dcl.IsZeroValue(nw.FileUris) {
-		nw.FileUris = des.FileUris
-	}
-	if dcl.IsZeroValue(nw.ArchiveUris) {
-		nw.ArchiveUris = des.ArchiveUris
-	}
-	if dcl.IsZeroValue(nw.Properties) {
-		nw.Properties = des.Properties
-	}
 	nw.LoggingConfig = canonicalizeNewJobPysparkJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
 	return nw
@@ -1667,10 +1608,6 @@ func canonicalizeJobPysparkJobLoggingConfig(des, initial *JobPysparkJobLoggingCo
 func canonicalizeNewJobPysparkJobLoggingConfig(c *Client, des, nw *JobPysparkJobLoggingConfig) *JobPysparkJobLoggingConfig {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.DriverLogLevels) {
-		nw.DriverLogLevels = des.DriverLogLevels
 	}
 
 	return nw
@@ -1775,15 +1712,6 @@ func canonicalizeNewJobHiveJob(c *Client, des, nw *JobHiveJob) *JobHiveJob {
 	if dcl.BoolCanonicalize(des.ContinueOnFailure, nw.ContinueOnFailure) {
 		nw.ContinueOnFailure = des.ContinueOnFailure
 	}
-	if dcl.IsZeroValue(nw.ScriptVariables) {
-		nw.ScriptVariables = des.ScriptVariables
-	}
-	if dcl.IsZeroValue(nw.Properties) {
-		nw.Properties = des.Properties
-	}
-	if dcl.IsZeroValue(nw.JarFileUris) {
-		nw.JarFileUris = des.JarFileUris
-	}
 
 	return nw
 }
@@ -1857,10 +1785,6 @@ func canonicalizeJobHiveJobQueryList(des, initial *JobHiveJobQueryList, opts ...
 func canonicalizeNewJobHiveJobQueryList(c *Client, des, nw *JobHiveJobQueryList) *JobHiveJobQueryList {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Queries) {
-		nw.Queries = des.Queries
 	}
 
 	return nw
@@ -1966,15 +1890,6 @@ func canonicalizeNewJobPigJob(c *Client, des, nw *JobPigJob) *JobPigJob {
 	if dcl.BoolCanonicalize(des.ContinueOnFailure, nw.ContinueOnFailure) {
 		nw.ContinueOnFailure = des.ContinueOnFailure
 	}
-	if dcl.IsZeroValue(nw.ScriptVariables) {
-		nw.ScriptVariables = des.ScriptVariables
-	}
-	if dcl.IsZeroValue(nw.Properties) {
-		nw.Properties = des.Properties
-	}
-	if dcl.IsZeroValue(nw.JarFileUris) {
-		nw.JarFileUris = des.JarFileUris
-	}
 	nw.LoggingConfig = canonicalizeNewJobPigJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
 	return nw
@@ -2051,10 +1966,6 @@ func canonicalizeNewJobPigJobQueryList(c *Client, des, nw *JobPigJobQueryList) *
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Queries) {
-		nw.Queries = des.Queries
-	}
-
 	return nw
 }
 
@@ -2127,10 +2038,6 @@ func canonicalizeJobPigJobLoggingConfig(des, initial *JobPigJobLoggingConfig, op
 func canonicalizeNewJobPigJobLoggingConfig(c *Client, des, nw *JobPigJobLoggingConfig) *JobPigJobLoggingConfig {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.DriverLogLevels) {
-		nw.DriverLogLevels = des.DriverLogLevels
 	}
 
 	return nw
@@ -2231,18 +2138,6 @@ func canonicalizeNewJobSparkRJob(c *Client, des, nw *JobSparkRJob) *JobSparkRJob
 	if dcl.StringCanonicalize(des.MainRFileUri, nw.MainRFileUri) {
 		nw.MainRFileUri = des.MainRFileUri
 	}
-	if dcl.IsZeroValue(nw.Args) {
-		nw.Args = des.Args
-	}
-	if dcl.IsZeroValue(nw.FileUris) {
-		nw.FileUris = des.FileUris
-	}
-	if dcl.IsZeroValue(nw.ArchiveUris) {
-		nw.ArchiveUris = des.ArchiveUris
-	}
-	if dcl.IsZeroValue(nw.Properties) {
-		nw.Properties = des.Properties
-	}
 	nw.LoggingConfig = canonicalizeNewJobSparkRJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
 	return nw
@@ -2317,10 +2212,6 @@ func canonicalizeJobSparkRJobLoggingConfig(des, initial *JobSparkRJobLoggingConf
 func canonicalizeNewJobSparkRJobLoggingConfig(c *Client, des, nw *JobSparkRJobLoggingConfig) *JobSparkRJobLoggingConfig {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.DriverLogLevels) {
-		nw.DriverLogLevels = des.DriverLogLevels
 	}
 
 	return nw
@@ -2418,15 +2309,6 @@ func canonicalizeNewJobSparkSqlJob(c *Client, des, nw *JobSparkSqlJob) *JobSpark
 		nw.QueryFileUri = des.QueryFileUri
 	}
 	nw.QueryList = canonicalizeNewJobSparkSqlJobQueryList(c, des.QueryList, nw.QueryList)
-	if dcl.IsZeroValue(nw.ScriptVariables) {
-		nw.ScriptVariables = des.ScriptVariables
-	}
-	if dcl.IsZeroValue(nw.Properties) {
-		nw.Properties = des.Properties
-	}
-	if dcl.IsZeroValue(nw.JarFileUris) {
-		nw.JarFileUris = des.JarFileUris
-	}
 	nw.LoggingConfig = canonicalizeNewJobSparkSqlJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
 	return nw
@@ -2503,10 +2385,6 @@ func canonicalizeNewJobSparkSqlJobQueryList(c *Client, des, nw *JobSparkSqlJobQu
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Queries) {
-		nw.Queries = des.Queries
-	}
-
 	return nw
 }
 
@@ -2579,10 +2457,6 @@ func canonicalizeJobSparkSqlJobLoggingConfig(des, initial *JobSparkSqlJobLogging
 func canonicalizeNewJobSparkSqlJobLoggingConfig(c *Client, des, nw *JobSparkSqlJobLoggingConfig) *JobSparkSqlJobLoggingConfig {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.DriverLogLevels) {
-		nw.DriverLogLevels = des.DriverLogLevels
 	}
 
 	return nw
@@ -2691,12 +2565,6 @@ func canonicalizeNewJobPrestoJob(c *Client, des, nw *JobPrestoJob) *JobPrestoJob
 	if dcl.StringCanonicalize(des.OutputFormat, nw.OutputFormat) {
 		nw.OutputFormat = des.OutputFormat
 	}
-	if dcl.IsZeroValue(nw.ClientTags) {
-		nw.ClientTags = des.ClientTags
-	}
-	if dcl.IsZeroValue(nw.Properties) {
-		nw.Properties = des.Properties
-	}
 	nw.LoggingConfig = canonicalizeNewJobPrestoJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
 	return nw
@@ -2773,10 +2641,6 @@ func canonicalizeNewJobPrestoJobQueryList(c *Client, des, nw *JobPrestoJobQueryL
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Queries) {
-		nw.Queries = des.Queries
-	}
-
 	return nw
 }
 
@@ -2851,10 +2715,6 @@ func canonicalizeNewJobPrestoJobLoggingConfig(c *Client, des, nw *JobPrestoJobLo
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DriverLogLevels) {
-		nw.DriverLogLevels = des.DriverLogLevels
-	}
-
 	return nw
 }
 
@@ -2923,17 +2783,8 @@ func canonicalizeNewJobStatus(c *Client, des, nw *JobStatus) *JobStatus {
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.State) {
-		nw.State = des.State
-	}
 	if dcl.StringCanonicalize(des.Details, nw.Details) {
 		nw.Details = des.Details
-	}
-	if dcl.IsZeroValue(nw.StateStartTime) {
-		nw.StateStartTime = des.StateStartTime
-	}
-	if dcl.IsZeroValue(nw.Substate) {
-		nw.Substate = des.Substate
 	}
 
 	return nw
@@ -3004,17 +2855,8 @@ func canonicalizeNewJobStatusHistory(c *Client, des, nw *JobStatusHistory) *JobS
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.State) {
-		nw.State = des.State
-	}
 	if dcl.StringCanonicalize(des.Details, nw.Details) {
 		nw.Details = des.Details
-	}
-	if dcl.IsZeroValue(nw.StateStartTime) {
-		nw.StateStartTime = des.StateStartTime
-	}
-	if dcl.IsZeroValue(nw.Substate) {
-		nw.Substate = des.Substate
 	}
 
 	return nw
@@ -3087,12 +2929,6 @@ func canonicalizeNewJobYarnApplications(c *Client, des, nw *JobYarnApplications)
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
-	}
-	if dcl.IsZeroValue(nw.State) {
-		nw.State = des.State
-	}
-	if dcl.IsZeroValue(nw.Progress) {
-		nw.Progress = des.Progress
 	}
 	if dcl.StringCanonicalize(des.TrackingUrl, nw.TrackingUrl) {
 		nw.TrackingUrl = des.TrackingUrl
@@ -3175,13 +3011,6 @@ func canonicalizeJobScheduling(des, initial *JobScheduling, opts ...dcl.ApplyOpt
 func canonicalizeNewJobScheduling(c *Client, des, nw *JobScheduling) *JobScheduling {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.MaxFailuresPerHour) {
-		nw.MaxFailuresPerHour = des.MaxFailuresPerHour
-	}
-	if dcl.IsZeroValue(nw.MaxFailuresTotal) {
-		nw.MaxFailuresTotal = des.MaxFailuresTotal
 	}
 
 	return nw

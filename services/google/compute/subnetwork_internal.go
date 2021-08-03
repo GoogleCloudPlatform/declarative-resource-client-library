@@ -906,16 +906,6 @@ func canonicalizeNewSubnetworkLogConfig(c *Client, des, nw *SubnetworkLogConfig)
 		nw.Metadata = SubnetworkLogConfigMetadataEnumRef("INCLUDE_ALL_METADATA")
 	}
 
-	if dcl.IsZeroValue(nw.AggregationInterval) {
-		nw.AggregationInterval = des.AggregationInterval
-	}
-	if dcl.IsZeroValue(nw.FlowSampling) {
-		nw.FlowSampling = des.FlowSampling
-	}
-	if dcl.IsZeroValue(nw.Metadata) {
-		nw.Metadata = des.Metadata
-	}
-
 	return nw
 }
 

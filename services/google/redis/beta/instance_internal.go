@@ -774,12 +774,6 @@ func canonicalizeNewInstanceServerCaCerts(c *Client, des, nw *InstanceServerCaCe
 	if dcl.StringCanonicalize(des.Cert, nw.Cert) {
 		nw.Cert = des.Cert
 	}
-	if dcl.IsZeroValue(nw.CreateTime) {
-		nw.CreateTime = des.CreateTime
-	}
-	if dcl.IsZeroValue(nw.ExpireTime) {
-		nw.ExpireTime = des.ExpireTime
-	}
 	if dcl.StringCanonicalize(des.Sha1Fingerprint, nw.Sha1Fingerprint) {
 		nw.Sha1Fingerprint = des.Sha1Fingerprint
 	}
@@ -863,12 +857,6 @@ func canonicalizeNewInstanceMaintenancePolicy(c *Client, des, nw *InstanceMainte
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.CreateTime) {
-		nw.CreateTime = des.CreateTime
-	}
-	if dcl.IsZeroValue(nw.UpdateTime) {
-		nw.UpdateTime = des.UpdateTime
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
@@ -949,9 +937,6 @@ func canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindow(c *Client, 
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Day) {
-		nw.Day = des.Day
-	}
 	nw.StartTime = canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c, des.StartTime, nw.StartTime)
 	if dcl.StringCanonicalize(des.Duration, nw.Duration) {
 		nw.Duration = des.Duration
@@ -1046,19 +1031,6 @@ func canonicalizeNewInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c 
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Hours) {
-		nw.Hours = des.Hours
-	}
-	if dcl.IsZeroValue(nw.Minutes) {
-		nw.Minutes = des.Minutes
-	}
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
-	}
-
 	return nw
 }
 
@@ -1133,17 +1105,8 @@ func canonicalizeNewInstanceMaintenanceSchedule(c *Client, des, nw *InstanceMain
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.StartTime) {
-		nw.StartTime = des.StartTime
-	}
-	if dcl.IsZeroValue(nw.EndTime) {
-		nw.EndTime = des.EndTime
-	}
 	if dcl.BoolCanonicalize(des.CanReschedule, nw.CanReschedule) {
 		nw.CanReschedule = des.CanReschedule
-	}
-	if dcl.IsZeroValue(nw.ScheduleDeadlineTime) {
-		nw.ScheduleDeadlineTime = des.ScheduleDeadlineTime
 	}
 
 	return nw

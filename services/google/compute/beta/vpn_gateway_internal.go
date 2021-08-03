@@ -552,9 +552,6 @@ func canonicalizeNewVpnGatewayVpnInterface(c *Client, des, nw *VpnGatewayVpnInte
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Id) {
-		nw.Id = des.Id
-	}
 	if dcl.StringCanonicalize(des.IPAddress, nw.IPAddress) {
 		nw.IPAddress = des.IPAddress
 	}

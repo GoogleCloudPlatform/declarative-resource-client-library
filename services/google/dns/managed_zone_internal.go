@@ -621,12 +621,6 @@ func canonicalizeNewManagedZoneDnssecConfig(c *Client, des, nw *ManagedZoneDnsse
 	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
-	if dcl.IsZeroValue(nw.NonExistence) {
-		nw.NonExistence = des.NonExistence
-	}
-	if dcl.IsZeroValue(nw.State) {
-		nw.State = des.State
-	}
 	nw.DefaultKeySpecs = canonicalizeNewManagedZoneDnssecConfigDefaultKeySpecsSlice(c, des.DefaultKeySpecs, nw.DefaultKeySpecs)
 
 	return nw
@@ -718,15 +712,6 @@ func canonicalizeNewManagedZoneDnssecConfigDefaultKeySpecs(c *Client, des, nw *M
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Algorithm) {
-		nw.Algorithm = des.Algorithm
-	}
-	if dcl.IsZeroValue(nw.KeyLength) {
-		nw.KeyLength = des.KeyLength
-	}
-	if dcl.IsZeroValue(nw.KeyType) {
-		nw.KeyType = des.KeyType
-	}
 	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
@@ -1042,9 +1027,6 @@ func canonicalizeNewManagedZoneForwardingConfigTargetNameServers(c *Client, des,
 
 	if dcl.StringCanonicalize(des.IPv4Address, nw.IPv4Address) {
 		nw.IPv4Address = des.IPv4Address
-	}
-	if dcl.IsZeroValue(nw.ForwardingPath) {
-		nw.ForwardingPath = des.ForwardingPath
 	}
 
 	return nw

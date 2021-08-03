@@ -817,18 +817,6 @@ func canonicalizeNewMembershipEndpointKubernetesMetadata(c *Client, des, nw *Mem
 	if dcl.StringCanonicalize(des.NodeProviderId, nw.NodeProviderId) {
 		nw.NodeProviderId = des.NodeProviderId
 	}
-	if dcl.IsZeroValue(nw.NodeCount) {
-		nw.NodeCount = des.NodeCount
-	}
-	if dcl.IsZeroValue(nw.VcpuCount) {
-		nw.VcpuCount = des.VcpuCount
-	}
-	if dcl.IsZeroValue(nw.MemoryMb) {
-		nw.MemoryMb = des.MemoryMb
-	}
-	if dcl.IsZeroValue(nw.UpdateTime) {
-		nw.UpdateTime = des.UpdateTime
-	}
 
 	return nw
 }
@@ -1234,10 +1222,6 @@ func canonicalizeMembershipState(des, initial *MembershipState, opts ...dcl.Appl
 func canonicalizeNewMembershipState(c *Client, des, nw *MembershipState) *MembershipState {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
 	}
 
 	return nw

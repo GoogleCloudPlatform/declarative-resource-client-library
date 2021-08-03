@@ -515,12 +515,6 @@ func canonicalizeNewReservationSpecificReservation(c *Client, des, nw *Reservati
 	}
 
 	nw.InstanceProperties = canonicalizeNewReservationSpecificReservationInstanceProperties(c, des.InstanceProperties, nw.InstanceProperties)
-	if dcl.IsZeroValue(nw.Count) {
-		nw.Count = des.Count
-	}
-	if dcl.IsZeroValue(nw.InUseCount) {
-		nw.InUseCount = des.InUseCount
-	}
 
 	return nw
 }
@@ -702,9 +696,6 @@ func canonicalizeNewReservationSpecificReservationInstancePropertiesGuestAcceler
 	if dcl.StringCanonicalize(des.AcceleratorType, nw.AcceleratorType) {
 		nw.AcceleratorType = des.AcceleratorType
 	}
-	if dcl.IsZeroValue(nw.AcceleratorCount) {
-		nw.AcceleratorCount = des.AcceleratorCount
-	}
 
 	return nw
 }
@@ -783,13 +774,6 @@ func canonicalizeReservationSpecificReservationInstancePropertiesLocalSsds(des, 
 func canonicalizeNewReservationSpecificReservationInstancePropertiesLocalSsds(c *Client, des, nw *ReservationSpecificReservationInstancePropertiesLocalSsds) *ReservationSpecificReservationInstancePropertiesLocalSsds {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.DiskSizeGb) {
-		nw.DiskSizeGb = des.DiskSizeGb
-	}
-	if dcl.IsZeroValue(nw.Interface) {
-		nw.Interface = des.Interface
 	}
 
 	return nw

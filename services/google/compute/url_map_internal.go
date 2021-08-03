@@ -1100,9 +1100,6 @@ func canonicalizeNewUrlMapDefaultRouteActionWeightedBackendService(c *Client, de
 	if dcl.NameToSelfLink(des.BackendService, nw.BackendService) {
 		nw.BackendService = des.BackendService
 	}
-	if dcl.IsZeroValue(nw.Weight) {
-		nw.Weight = des.Weight
-	}
 	nw.HeaderAction = canonicalizeNewUrlMapHeaderAction(c, des.HeaderAction, nw.HeaderAction)
 
 	return nw
@@ -1194,13 +1191,7 @@ func canonicalizeNewUrlMapHeaderAction(c *Client, des, nw *UrlMapHeaderAction) *
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RequestHeadersToRemove) {
-		nw.RequestHeadersToRemove = des.RequestHeadersToRemove
-	}
 	nw.RequestHeadersToAdd = canonicalizeNewUrlMapHeaderActionRequestHeadersToAddSlice(c, des.RequestHeadersToAdd, nw.RequestHeadersToAdd)
-	if dcl.IsZeroValue(nw.ResponseHeadersToRemove) {
-		nw.ResponseHeadersToRemove = des.ResponseHeadersToRemove
-	}
 	nw.ResponseHeadersToAdd = canonicalizeNewUrlMapHeaderActionResponseHeadersToAddSlice(c, des.ResponseHeadersToAdd, nw.ResponseHeadersToAdd)
 
 	return nw
@@ -1556,13 +1547,6 @@ func canonicalizeNewUrlMapDefaultRouteActionTimeout(c *Client, des, nw *UrlMapDe
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
-	}
-
 	return nw
 }
 
@@ -1643,12 +1627,6 @@ func canonicalizeNewUrlMapDefaultRouteActionRetryPolicy(c *Client, des, nw *UrlM
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RetryCondition) {
-		nw.RetryCondition = des.RetryCondition
-	}
-	if dcl.IsZeroValue(nw.NumRetries) {
-		nw.NumRetries = des.NumRetries
-	}
 	nw.PerTryTimeout = canonicalizeNewUrlMapDefaultRouteActionRetryPolicyPerTryTimeout(c, des.PerTryTimeout, nw.PerTryTimeout)
 
 	return nw
@@ -1728,13 +1706,6 @@ func canonicalizeUrlMapDefaultRouteActionRetryPolicyPerTryTimeout(des, initial *
 func canonicalizeNewUrlMapDefaultRouteActionRetryPolicyPerTryTimeout(c *Client, des, nw *UrlMapDefaultRouteActionRetryPolicyPerTryTimeout) *UrlMapDefaultRouteActionRetryPolicyPerTryTimeout {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
 	}
 
 	return nw
@@ -1924,24 +1895,6 @@ func canonicalizeNewUrlMapDefaultRouteActionCorsPolicy(c *Client, des, nw *UrlMa
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.AllowOrigin) {
-		nw.AllowOrigin = des.AllowOrigin
-	}
-	if dcl.IsZeroValue(nw.AllowOriginRegex) {
-		nw.AllowOriginRegex = des.AllowOriginRegex
-	}
-	if dcl.IsZeroValue(nw.AllowMethod) {
-		nw.AllowMethod = des.AllowMethod
-	}
-	if dcl.IsZeroValue(nw.AllowHeader) {
-		nw.AllowHeader = des.AllowHeader
-	}
-	if dcl.IsZeroValue(nw.ExposeHeader) {
-		nw.ExposeHeader = des.ExposeHeader
-	}
-	if dcl.IsZeroValue(nw.MaxAge) {
-		nw.MaxAge = des.MaxAge
-	}
 	if dcl.BoolCanonicalize(des.AllowCredentials, nw.AllowCredentials) {
 		nw.AllowCredentials = des.AllowCredentials
 	}
@@ -2099,9 +2052,6 @@ func canonicalizeNewUrlMapDefaultRouteActionFaultInjectionPolicyDelay(c *Client,
 	}
 
 	nw.FixedDelay = canonicalizeNewUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay(c, des.FixedDelay, nw.FixedDelay)
-	if dcl.IsZeroValue(nw.Percentage) {
-		nw.Percentage = des.Percentage
-	}
 
 	return nw
 }
@@ -2182,13 +2132,6 @@ func canonicalizeNewUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay(
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
-	}
-
 	return nw
 }
 
@@ -2266,13 +2209,6 @@ func canonicalizeUrlMapDefaultRouteActionFaultInjectionPolicyAbort(des, initial 
 func canonicalizeNewUrlMapDefaultRouteActionFaultInjectionPolicyAbort(c *Client, des, nw *UrlMapDefaultRouteActionFaultInjectionPolicyAbort) *UrlMapDefaultRouteActionFaultInjectionPolicyAbort {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.HttpStatus) {
-		nw.HttpStatus = des.HttpStatus
-	}
-	if dcl.IsZeroValue(nw.Percentage) {
-		nw.Percentage = des.Percentage
 	}
 
 	return nw
@@ -2383,9 +2319,6 @@ func canonicalizeNewUrlMapDefaultUrlRedirect(c *Client, des, nw *UrlMapDefaultUr
 	if dcl.StringCanonicalize(des.PrefixRedirect, nw.PrefixRedirect) {
 		nw.PrefixRedirect = des.PrefixRedirect
 	}
-	if dcl.IsZeroValue(nw.RedirectResponseCode) {
-		nw.RedirectResponseCode = des.RedirectResponseCode
-	}
 	if dcl.BoolCanonicalize(des.HttpsRedirect, nw.HttpsRedirect) {
 		nw.HttpsRedirect = des.HttpsRedirect
 	}
@@ -2479,9 +2412,6 @@ func canonicalizeNewUrlMapHostRule(c *Client, des, nw *UrlMapHostRule) *UrlMapHo
 
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.Host) {
-		nw.Host = des.Host
 	}
 	if dcl.StringCanonicalize(des.PathMatcher, nw.PathMatcher) {
 		nw.PathMatcher = des.PathMatcher
@@ -2707,9 +2637,6 @@ func canonicalizeNewUrlMapPathMatcherDefaultUrlRedirect(c *Client, des, nw *UrlM
 	if dcl.StringCanonicalize(des.PrefixRedirect, nw.PrefixRedirect) {
 		nw.PrefixRedirect = des.PrefixRedirect
 	}
-	if dcl.IsZeroValue(nw.RedirectResponseCode) {
-		nw.RedirectResponseCode = des.RedirectResponseCode
-	}
 	if dcl.BoolCanonicalize(des.HttpsRedirect, nw.HttpsRedirect) {
 		nw.HttpsRedirect = des.HttpsRedirect
 	}
@@ -2803,9 +2730,6 @@ func canonicalizeNewUrlMapPathMatcherPathRule(c *Client, des, nw *UrlMapPathMatc
 	}
 	nw.RouteAction = canonicalizeNewUrlMapPathMatcherPathRuleRouteAction(c, des.RouteAction, nw.RouteAction)
 	nw.UrlRedirect = canonicalizeNewUrlMapPathMatcherPathRuleUrlRedirect(c, des.UrlRedirect, nw.UrlRedirect)
-	if dcl.IsZeroValue(nw.Path) {
-		nw.Path = des.Path
-	}
 
 	return nw
 }
@@ -2978,9 +2902,6 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionWeightedBackendService(c
 	if dcl.StringCanonicalize(des.BackendService, nw.BackendService) {
 		nw.BackendService = des.BackendService
 	}
-	if dcl.IsZeroValue(nw.Weight) {
-		nw.Weight = des.Weight
-	}
 	nw.HeaderAction = canonicalizeNewUrlMapHeaderAction(c, des.HeaderAction, nw.HeaderAction)
 
 	return nw
@@ -3148,13 +3069,6 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionTimeout(c *Client, des, 
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
-	}
-
 	return nw
 }
 
@@ -3235,12 +3149,6 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionRetryPolicy(c *Client, d
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RetryCondition) {
-		nw.RetryCondition = des.RetryCondition
-	}
-	if dcl.IsZeroValue(nw.NumRetries) {
-		nw.NumRetries = des.NumRetries
-	}
 	nw.PerTryTimeout = canonicalizeNewUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout(c, des.PerTryTimeout, nw.PerTryTimeout)
 
 	return nw
@@ -3320,13 +3228,6 @@ func canonicalizeUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout(de
 func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout(c *Client, des, nw *UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout) *UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
 	}
 
 	return nw
@@ -3516,24 +3417,6 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionCorsPolicy(c *Client, de
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.AllowOrigin) {
-		nw.AllowOrigin = des.AllowOrigin
-	}
-	if dcl.IsZeroValue(nw.AllowOriginRegex) {
-		nw.AllowOriginRegex = des.AllowOriginRegex
-	}
-	if dcl.IsZeroValue(nw.AllowMethod) {
-		nw.AllowMethod = des.AllowMethod
-	}
-	if dcl.IsZeroValue(nw.AllowHeader) {
-		nw.AllowHeader = des.AllowHeader
-	}
-	if dcl.IsZeroValue(nw.ExposeHeader) {
-		nw.ExposeHeader = des.ExposeHeader
-	}
-	if dcl.IsZeroValue(nw.MaxAge) {
-		nw.MaxAge = des.MaxAge
-	}
 	if dcl.BoolCanonicalize(des.AllowCredentials, nw.AllowCredentials) {
 		nw.AllowCredentials = des.AllowCredentials
 	}
@@ -3691,9 +3574,6 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDela
 	}
 
 	nw.FixedDelay = canonicalizeNewUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay(c, des.FixedDelay, nw.FixedDelay)
-	if dcl.IsZeroValue(nw.Percentage) {
-		nw.Percentage = des.Percentage
-	}
 
 	return nw
 }
@@ -3774,13 +3654,6 @@ func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDela
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
-	}
-
 	return nw
 }
 
@@ -3858,13 +3731,6 @@ func canonicalizeUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort(d
 func canonicalizeNewUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort(c *Client, des, nw *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort) *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.HttpStatus) {
-		nw.HttpStatus = des.HttpStatus
-	}
-	if dcl.IsZeroValue(nw.Percentage) {
-		nw.Percentage = des.Percentage
 	}
 
 	return nw
@@ -3975,9 +3841,6 @@ func canonicalizeNewUrlMapPathMatcherPathRuleUrlRedirect(c *Client, des, nw *Url
 	if dcl.StringCanonicalize(des.PrefixRedirect, nw.PrefixRedirect) {
 		nw.PrefixRedirect = des.PrefixRedirect
 	}
-	if dcl.IsZeroValue(nw.RedirectResponseCode) {
-		nw.RedirectResponseCode = des.RedirectResponseCode
-	}
 	if dcl.BoolCanonicalize(des.HttpsRedirect, nw.HttpsRedirect) {
 		nw.HttpsRedirect = des.HttpsRedirect
 	}
@@ -4077,9 +3940,6 @@ func canonicalizeNewUrlMapPathMatcherRouteRule(c *Client, des, nw *UrlMapPathMat
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Priority) {
-		nw.Priority = des.Priority
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
@@ -4418,13 +4278,6 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch(c *
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RangeStart) {
-		nw.RangeStart = des.RangeStart
-	}
-	if dcl.IsZeroValue(nw.RangeEnd) {
-		nw.RangeEnd = des.RangeEnd
-	}
-
 	return nw
 }
 
@@ -4606,9 +4459,6 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleMetadataFilter(c *Client,
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.FilterMatchCriteria) {
-		nw.FilterMatchCriteria = des.FilterMatchCriteria
-	}
 	nw.FilterLabel = canonicalizeNewUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabelSlice(c, des.FilterLabel, nw.FilterLabel)
 
 	return nw
@@ -4868,9 +4718,6 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionWeightedBackendService(
 	if dcl.StringCanonicalize(des.BackendService, nw.BackendService) {
 		nw.BackendService = des.BackendService
 	}
-	if dcl.IsZeroValue(nw.Weight) {
-		nw.Weight = des.Weight
-	}
 	nw.HeaderAction = canonicalizeNewUrlMapHeaderAction(c, des.HeaderAction, nw.HeaderAction)
 
 	return nw
@@ -5038,13 +4885,6 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionTimeout(c *Client, des,
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
-	}
-
 	return nw
 }
 
@@ -5125,12 +4965,6 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionRetryPolicy(c *Client, 
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RetryCondition) {
-		nw.RetryCondition = des.RetryCondition
-	}
-	if dcl.IsZeroValue(nw.NumRetries) {
-		nw.NumRetries = des.NumRetries
-	}
 	nw.PerTryTimeout = canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout(c, des.PerTryTimeout, nw.PerTryTimeout)
 
 	return nw
@@ -5210,13 +5044,6 @@ func canonicalizeUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout(d
 func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout(c *Client, des, nw *UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout) *UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
 	}
 
 	return nw
@@ -5406,24 +5233,6 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionCorsPolicy(c *Client, d
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.AllowOrigin) {
-		nw.AllowOrigin = des.AllowOrigin
-	}
-	if dcl.IsZeroValue(nw.AllowOriginRegex) {
-		nw.AllowOriginRegex = des.AllowOriginRegex
-	}
-	if dcl.IsZeroValue(nw.AllowMethod) {
-		nw.AllowMethod = des.AllowMethod
-	}
-	if dcl.IsZeroValue(nw.AllowHeader) {
-		nw.AllowHeader = des.AllowHeader
-	}
-	if dcl.IsZeroValue(nw.ExposeHeader) {
-		nw.ExposeHeader = des.ExposeHeader
-	}
-	if dcl.IsZeroValue(nw.MaxAge) {
-		nw.MaxAge = des.MaxAge
-	}
 	if dcl.BoolCanonicalize(des.AllowCredentials, nw.AllowCredentials) {
 		nw.AllowCredentials = des.AllowCredentials
 	}
@@ -5581,9 +5390,6 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDel
 	}
 
 	nw.FixedDelay = canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay(c, des.FixedDelay, nw.FixedDelay)
-	if dcl.IsZeroValue(nw.Percentage) {
-		nw.Percentage = des.Percentage
-	}
 
 	return nw
 }
@@ -5664,13 +5470,6 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDel
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
-	}
-
 	return nw
 }
 
@@ -5748,13 +5547,6 @@ func canonicalizeUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort(
 func canonicalizeNewUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort(c *Client, des, nw *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort) *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.HttpStatus) {
-		nw.HttpStatus = des.HttpStatus
-	}
-	if dcl.IsZeroValue(nw.Percentage) {
-		nw.Percentage = des.Percentage
 	}
 
 	return nw
@@ -5864,9 +5656,6 @@ func canonicalizeNewUrlMapPathMatcherRouteRuleUrlRedirect(c *Client, des, nw *Ur
 	}
 	if dcl.StringCanonicalize(des.PrefixRedirect, nw.PrefixRedirect) {
 		nw.PrefixRedirect = des.PrefixRedirect
-	}
-	if dcl.IsZeroValue(nw.RedirectResponseCode) {
-		nw.RedirectResponseCode = des.RedirectResponseCode
 	}
 	if dcl.BoolCanonicalize(des.HttpsRedirect, nw.HttpsRedirect) {
 		nw.HttpsRedirect = des.HttpsRedirect

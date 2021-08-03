@@ -2910,13 +2910,6 @@ func canonicalizeNewInstanceSku(c *Client, des, nw *InstanceSku) *InstanceSku {
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Tier) {
-		nw.Tier = des.Tier
-	}
-	if dcl.IsZeroValue(nw.Size) {
-		nw.Size = des.Size
-	}
-
 	return nw
 }
 
@@ -3001,9 +2994,6 @@ func canonicalizeNewInstanceReferences(c *Client, des, nw *InstanceReferences) *
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Name) {
-		nw.Name = des.Name
-	}
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
 		nw.Type = des.Type
 	}
@@ -3011,9 +3001,6 @@ func canonicalizeNewInstanceReferences(c *Client, des, nw *InstanceReferences) *
 		nw.SourceResource = des.SourceResource
 	}
 	nw.Details = canonicalizeNewInstanceReferencesDetailsSlice(c, des.Details, nw.Details)
-	if dcl.IsZeroValue(nw.CreateTime) {
-		nw.CreateTime = des.CreateTime
-	}
 
 	return nw
 }
@@ -3214,23 +3201,8 @@ func canonicalizeNewInstancePreprocessCreateRecipe(c *Client, des, nw *InstanceP
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -3371,15 +3343,6 @@ func canonicalizeNewInstancePreprocessCreateRecipeSteps(c *Client, des, nw *Inst
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstancePreprocessCreateRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -3387,14 +3350,8 @@ func canonicalizeNewInstancePreprocessCreateRecipeSteps(c *Client, des, nw *Inst
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstancePreprocessCreateRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstancePreprocessCreateRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -3404,9 +3361,6 @@ func canonicalizeNewInstancePreprocessCreateRecipeSteps(c *Client, des, nw *Inst
 	nw.RequestedTenantProject = canonicalizeNewInstancePreprocessCreateRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstancePreprocessCreateRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -3495,9 +3449,6 @@ func canonicalizeNewInstancePreprocessCreateRecipeStepsStatus(c *Client, des, nw
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -3675,9 +3626,6 @@ func canonicalizeNewInstancePreprocessCreateRecipeStepsQuotaRequestDeltas(c *Cli
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -3858,9 +3806,6 @@ func canonicalizeNewInstancePreprocessCreateRecipeStepsRequestedTenantProject(c 
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -4346,9 +4291,6 @@ func canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKey
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -4443,9 +4385,6 @@ func canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKey
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -4561,23 +4500,8 @@ func canonicalizeNewInstanceCreateRecipe(c *Client, des, nw *InstanceCreateRecip
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -4718,15 +4642,6 @@ func canonicalizeNewInstanceCreateRecipeSteps(c *Client, des, nw *InstanceCreate
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstanceCreateRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -4734,14 +4649,8 @@ func canonicalizeNewInstanceCreateRecipeSteps(c *Client, des, nw *InstanceCreate
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstanceCreateRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstanceCreateRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -4751,9 +4660,6 @@ func canonicalizeNewInstanceCreateRecipeSteps(c *Client, des, nw *InstanceCreate
 	nw.RequestedTenantProject = canonicalizeNewInstanceCreateRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstanceCreateRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -4842,9 +4748,6 @@ func canonicalizeNewInstanceCreateRecipeStepsStatus(c *Client, des, nw *Instance
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -5022,9 +4925,6 @@ func canonicalizeNewInstanceCreateRecipeStepsQuotaRequestDeltas(c *Client, des, 
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -5205,9 +5105,6 @@ func canonicalizeNewInstanceCreateRecipeStepsRequestedTenantProject(c *Client, d
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -5626,9 +5523,6 @@ func canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificati
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -5723,9 +5617,6 @@ func canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificati
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -5841,23 +5732,8 @@ func canonicalizeNewInstanceDeleteRecipe(c *Client, des, nw *InstanceDeleteRecip
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -5998,15 +5874,6 @@ func canonicalizeNewInstanceDeleteRecipeSteps(c *Client, des, nw *InstanceDelete
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstanceDeleteRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -6014,14 +5881,8 @@ func canonicalizeNewInstanceDeleteRecipeSteps(c *Client, des, nw *InstanceDelete
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstanceDeleteRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstanceDeleteRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -6031,9 +5892,6 @@ func canonicalizeNewInstanceDeleteRecipeSteps(c *Client, des, nw *InstanceDelete
 	nw.RequestedTenantProject = canonicalizeNewInstanceDeleteRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstanceDeleteRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -6122,9 +5980,6 @@ func canonicalizeNewInstanceDeleteRecipeStepsStatus(c *Client, des, nw *Instance
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -6302,9 +6157,6 @@ func canonicalizeNewInstanceDeleteRecipeStepsQuotaRequestDeltas(c *Client, des, 
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -6485,9 +6337,6 @@ func canonicalizeNewInstanceDeleteRecipeStepsRequestedTenantProject(c *Client, d
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -6906,9 +6755,6 @@ func canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificati
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -7003,9 +6849,6 @@ func canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificati
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -7121,23 +6964,8 @@ func canonicalizeNewInstanceUpdateRecipe(c *Client, des, nw *InstanceUpdateRecip
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -7278,15 +7106,6 @@ func canonicalizeNewInstanceUpdateRecipeSteps(c *Client, des, nw *InstanceUpdate
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstanceUpdateRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -7294,14 +7113,8 @@ func canonicalizeNewInstanceUpdateRecipeSteps(c *Client, des, nw *InstanceUpdate
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstanceUpdateRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstanceUpdateRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -7311,9 +7124,6 @@ func canonicalizeNewInstanceUpdateRecipeSteps(c *Client, des, nw *InstanceUpdate
 	nw.RequestedTenantProject = canonicalizeNewInstanceUpdateRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstanceUpdateRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -7402,9 +7212,6 @@ func canonicalizeNewInstanceUpdateRecipeStepsStatus(c *Client, des, nw *Instance
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -7582,9 +7389,6 @@ func canonicalizeNewInstanceUpdateRecipeStepsQuotaRequestDeltas(c *Client, des, 
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -7765,9 +7569,6 @@ func canonicalizeNewInstanceUpdateRecipeStepsRequestedTenantProject(c *Client, d
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -8186,9 +7987,6 @@ func canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificati
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -8283,9 +8081,6 @@ func canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificati
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -8401,23 +8196,8 @@ func canonicalizeNewInstancePreprocessResetRecipe(c *Client, des, nw *InstancePr
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -8558,15 +8338,6 @@ func canonicalizeNewInstancePreprocessResetRecipeSteps(c *Client, des, nw *Insta
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstancePreprocessResetRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -8574,14 +8345,8 @@ func canonicalizeNewInstancePreprocessResetRecipeSteps(c *Client, des, nw *Insta
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstancePreprocessResetRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstancePreprocessResetRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -8591,9 +8356,6 @@ func canonicalizeNewInstancePreprocessResetRecipeSteps(c *Client, des, nw *Insta
 	nw.RequestedTenantProject = canonicalizeNewInstancePreprocessResetRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstancePreprocessResetRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -8682,9 +8444,6 @@ func canonicalizeNewInstancePreprocessResetRecipeStepsStatus(c *Client, des, nw 
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -8862,9 +8621,6 @@ func canonicalizeNewInstancePreprocessResetRecipeStepsQuotaRequestDeltas(c *Clie
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -9045,9 +8801,6 @@ func canonicalizeNewInstancePreprocessResetRecipeStepsRequestedTenantProject(c *
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -9466,9 +9219,6 @@ func canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyN
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -9563,9 +9313,6 @@ func canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyN
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -9681,23 +9428,8 @@ func canonicalizeNewInstanceResetRecipe(c *Client, des, nw *InstanceResetRecipe)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -9838,15 +9570,6 @@ func canonicalizeNewInstanceResetRecipeSteps(c *Client, des, nw *InstanceResetRe
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstanceResetRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -9854,14 +9577,8 @@ func canonicalizeNewInstanceResetRecipeSteps(c *Client, des, nw *InstanceResetRe
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstanceResetRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstanceResetRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -9871,9 +9588,6 @@ func canonicalizeNewInstanceResetRecipeSteps(c *Client, des, nw *InstanceResetRe
 	nw.RequestedTenantProject = canonicalizeNewInstanceResetRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstanceResetRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -9962,9 +9676,6 @@ func canonicalizeNewInstanceResetRecipeStepsStatus(c *Client, des, nw *InstanceR
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -10142,9 +9853,6 @@ func canonicalizeNewInstanceResetRecipeStepsQuotaRequestDeltas(c *Client, des, n
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -10325,9 +10033,6 @@ func canonicalizeNewInstanceResetRecipeStepsRequestedTenantProject(c *Client, de
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -10746,9 +10451,6 @@ func canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificatio
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -10843,9 +10545,6 @@ func canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificatio
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -10961,23 +10660,8 @@ func canonicalizeNewInstancePreprocessRepairRecipe(c *Client, des, nw *InstanceP
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -11118,15 +10802,6 @@ func canonicalizeNewInstancePreprocessRepairRecipeSteps(c *Client, des, nw *Inst
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstancePreprocessRepairRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -11134,14 +10809,8 @@ func canonicalizeNewInstancePreprocessRepairRecipeSteps(c *Client, des, nw *Inst
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstancePreprocessRepairRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstancePreprocessRepairRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -11151,9 +10820,6 @@ func canonicalizeNewInstancePreprocessRepairRecipeSteps(c *Client, des, nw *Inst
 	nw.RequestedTenantProject = canonicalizeNewInstancePreprocessRepairRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstancePreprocessRepairRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -11242,9 +10908,6 @@ func canonicalizeNewInstancePreprocessRepairRecipeStepsStatus(c *Client, des, nw
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -11422,9 +11085,6 @@ func canonicalizeNewInstancePreprocessRepairRecipeStepsQuotaRequestDeltas(c *Cli
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -11605,9 +11265,6 @@ func canonicalizeNewInstancePreprocessRepairRecipeStepsRequestedTenantProject(c 
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -12026,9 +11683,6 @@ func canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKey
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -12123,9 +11777,6 @@ func canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKey
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -12241,23 +11892,8 @@ func canonicalizeNewInstanceRepairRecipe(c *Client, des, nw *InstanceRepairRecip
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -12398,15 +12034,6 @@ func canonicalizeNewInstanceRepairRecipeSteps(c *Client, des, nw *InstanceRepair
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstanceRepairRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -12414,14 +12041,8 @@ func canonicalizeNewInstanceRepairRecipeSteps(c *Client, des, nw *InstanceRepair
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstanceRepairRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstanceRepairRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -12431,9 +12052,6 @@ func canonicalizeNewInstanceRepairRecipeSteps(c *Client, des, nw *InstanceRepair
 	nw.RequestedTenantProject = canonicalizeNewInstanceRepairRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstanceRepairRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -12522,9 +12140,6 @@ func canonicalizeNewInstanceRepairRecipeStepsStatus(c *Client, des, nw *Instance
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -12702,9 +12317,6 @@ func canonicalizeNewInstanceRepairRecipeStepsQuotaRequestDeltas(c *Client, des, 
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -12885,9 +12497,6 @@ func canonicalizeNewInstanceRepairRecipeStepsRequestedTenantProject(c *Client, d
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -13306,9 +12915,6 @@ func canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificati
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -13403,9 +13009,6 @@ func canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificati
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -13521,23 +13124,8 @@ func canonicalizeNewInstancePreprocessDeleteRecipe(c *Client, des, nw *InstanceP
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -13678,15 +13266,6 @@ func canonicalizeNewInstancePreprocessDeleteRecipeSteps(c *Client, des, nw *Inst
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstancePreprocessDeleteRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -13694,14 +13273,8 @@ func canonicalizeNewInstancePreprocessDeleteRecipeSteps(c *Client, des, nw *Inst
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstancePreprocessDeleteRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstancePreprocessDeleteRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -13711,9 +13284,6 @@ func canonicalizeNewInstancePreprocessDeleteRecipeSteps(c *Client, des, nw *Inst
 	nw.RequestedTenantProject = canonicalizeNewInstancePreprocessDeleteRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstancePreprocessDeleteRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -13802,9 +13372,6 @@ func canonicalizeNewInstancePreprocessDeleteRecipeStepsStatus(c *Client, des, nw
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -13982,9 +13549,6 @@ func canonicalizeNewInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(c *Cli
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -14165,9 +13729,6 @@ func canonicalizeNewInstancePreprocessDeleteRecipeStepsRequestedTenantProject(c 
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -14586,9 +14147,6 @@ func canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKey
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -14683,9 +14241,6 @@ func canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKey
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -14801,23 +14356,8 @@ func canonicalizeNewInstancePreprocessUpdateRecipe(c *Client, des, nw *InstanceP
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -14958,15 +14498,6 @@ func canonicalizeNewInstancePreprocessUpdateRecipeSteps(c *Client, des, nw *Inst
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstancePreprocessUpdateRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -14974,14 +14505,8 @@ func canonicalizeNewInstancePreprocessUpdateRecipeSteps(c *Client, des, nw *Inst
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstancePreprocessUpdateRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstancePreprocessUpdateRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -14991,9 +14516,6 @@ func canonicalizeNewInstancePreprocessUpdateRecipeSteps(c *Client, des, nw *Inst
 	nw.RequestedTenantProject = canonicalizeNewInstancePreprocessUpdateRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstancePreprocessUpdateRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -15082,9 +14604,6 @@ func canonicalizeNewInstancePreprocessUpdateRecipeStepsStatus(c *Client, des, nw
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -15262,9 +14781,6 @@ func canonicalizeNewInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(c *Cli
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -15445,9 +14961,6 @@ func canonicalizeNewInstancePreprocessUpdateRecipeStepsRequestedTenantProject(c 
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -15866,9 +15379,6 @@ func canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKey
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -15963,9 +15473,6 @@ func canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKey
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -16081,23 +15588,8 @@ func canonicalizeNewInstancePreprocessFreezeRecipe(c *Client, des, nw *InstanceP
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -16238,15 +15730,6 @@ func canonicalizeNewInstancePreprocessFreezeRecipeSteps(c *Client, des, nw *Inst
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstancePreprocessFreezeRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -16254,14 +15737,8 @@ func canonicalizeNewInstancePreprocessFreezeRecipeSteps(c *Client, des, nw *Inst
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstancePreprocessFreezeRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstancePreprocessFreezeRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -16271,9 +15748,6 @@ func canonicalizeNewInstancePreprocessFreezeRecipeSteps(c *Client, des, nw *Inst
 	nw.RequestedTenantProject = canonicalizeNewInstancePreprocessFreezeRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstancePreprocessFreezeRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -16362,9 +15836,6 @@ func canonicalizeNewInstancePreprocessFreezeRecipeStepsStatus(c *Client, des, nw
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -16542,9 +16013,6 @@ func canonicalizeNewInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(c *Cli
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -16725,9 +16193,6 @@ func canonicalizeNewInstancePreprocessFreezeRecipeStepsRequestedTenantProject(c 
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -17146,9 +16611,6 @@ func canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKey
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -17243,9 +16705,6 @@ func canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKey
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -17361,23 +16820,8 @@ func canonicalizeNewInstanceFreezeRecipe(c *Client, des, nw *InstanceFreezeRecip
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -17518,15 +16962,6 @@ func canonicalizeNewInstanceFreezeRecipeSteps(c *Client, des, nw *InstanceFreeze
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstanceFreezeRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -17534,14 +16969,8 @@ func canonicalizeNewInstanceFreezeRecipeSteps(c *Client, des, nw *InstanceFreeze
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstanceFreezeRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstanceFreezeRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -17551,9 +16980,6 @@ func canonicalizeNewInstanceFreezeRecipeSteps(c *Client, des, nw *InstanceFreeze
 	nw.RequestedTenantProject = canonicalizeNewInstanceFreezeRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstanceFreezeRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -17642,9 +17068,6 @@ func canonicalizeNewInstanceFreezeRecipeStepsStatus(c *Client, des, nw *Instance
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -17822,9 +17245,6 @@ func canonicalizeNewInstanceFreezeRecipeStepsQuotaRequestDeltas(c *Client, des, 
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -18005,9 +17425,6 @@ func canonicalizeNewInstanceFreezeRecipeStepsRequestedTenantProject(c *Client, d
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -18426,9 +17843,6 @@ func canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificati
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -18523,9 +17937,6 @@ func canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificati
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -18641,23 +18052,8 @@ func canonicalizeNewInstancePreprocessUnfreezeRecipe(c *Client, des, nw *Instanc
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -18798,15 +18194,6 @@ func canonicalizeNewInstancePreprocessUnfreezeRecipeSteps(c *Client, des, nw *In
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstancePreprocessUnfreezeRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -18814,14 +18201,8 @@ func canonicalizeNewInstancePreprocessUnfreezeRecipeSteps(c *Client, des, nw *In
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -18831,9 +18212,6 @@ func canonicalizeNewInstancePreprocessUnfreezeRecipeSteps(c *Client, des, nw *In
 	nw.RequestedTenantProject = canonicalizeNewInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -18922,9 +18300,6 @@ func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsStatus(c *Client, des, 
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -19102,9 +18477,6 @@ func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(c *C
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -19285,9 +18657,6 @@ func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject(
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -19706,9 +19075,6 @@ func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateK
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -19803,9 +19169,6 @@ func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateK
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -19921,23 +19284,8 @@ func canonicalizeNewInstanceUnfreezeRecipe(c *Client, des, nw *InstanceUnfreezeR
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -20078,15 +19426,6 @@ func canonicalizeNewInstanceUnfreezeRecipeSteps(c *Client, des, nw *InstanceUnfr
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstanceUnfreezeRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -20094,14 +19433,8 @@ func canonicalizeNewInstanceUnfreezeRecipeSteps(c *Client, des, nw *InstanceUnfr
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstanceUnfreezeRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstanceUnfreezeRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -20111,9 +19444,6 @@ func canonicalizeNewInstanceUnfreezeRecipeSteps(c *Client, des, nw *InstanceUnfr
 	nw.RequestedTenantProject = canonicalizeNewInstanceUnfreezeRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstanceUnfreezeRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -20202,9 +19532,6 @@ func canonicalizeNewInstanceUnfreezeRecipeStepsStatus(c *Client, des, nw *Instan
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -20382,9 +19709,6 @@ func canonicalizeNewInstanceUnfreezeRecipeStepsQuotaRequestDeltas(c *Client, des
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -20565,9 +19889,6 @@ func canonicalizeNewInstanceUnfreezeRecipeStepsRequestedTenantProject(c *Client,
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -20986,9 +20307,6 @@ func canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifica
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -21083,9 +20401,6 @@ func canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -21201,23 +20516,8 @@ func canonicalizeNewInstancePreprocessReportInstanceHealthRecipe(c *Client, des,
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -21358,15 +20658,6 @@ func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeSteps(c *Client,
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -21374,14 +20665,8 @@ func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeSteps(c *Client,
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -21391,9 +20676,6 @@ func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeSteps(c *Client,
 	nw.RequestedTenantProject = canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -21482,9 +20764,6 @@ func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsStatus(c *C
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -21662,9 +20941,6 @@ func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsQuotaReques
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -21845,9 +21121,6 @@ func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsRequestedTe
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -22266,9 +21539,6 @@ func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotifica
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -22363,9 +21633,6 @@ func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotifica
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -22481,23 +21748,8 @@ func canonicalizeNewInstanceReportInstanceHealthRecipe(c *Client, des, nw *Insta
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -22638,15 +21890,6 @@ func canonicalizeNewInstanceReportInstanceHealthRecipeSteps(c *Client, des, nw *
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstanceReportInstanceHealthRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -22654,14 +21897,8 @@ func canonicalizeNewInstanceReportInstanceHealthRecipeSteps(c *Client, des, nw *
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstanceReportInstanceHealthRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -22671,9 +21908,6 @@ func canonicalizeNewInstanceReportInstanceHealthRecipeSteps(c *Client, des, nw *
 	nw.RequestedTenantProject = canonicalizeNewInstanceReportInstanceHealthRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstanceReportInstanceHealthRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -22762,9 +21996,6 @@ func canonicalizeNewInstanceReportInstanceHealthRecipeStepsStatus(c *Client, des
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -22942,9 +22173,6 @@ func canonicalizeNewInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(c 
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -23125,9 +22353,6 @@ func canonicalizeNewInstanceReportInstanceHealthRecipeStepsRequestedTenantProjec
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -23546,9 +22771,6 @@ func canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdat
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -23643,9 +22865,6 @@ func canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdat
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -23761,23 +22980,8 @@ func canonicalizeNewInstancePreprocessGetRecipe(c *Client, des, nw *InstancePrep
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -23918,15 +23122,6 @@ func canonicalizeNewInstancePreprocessGetRecipeSteps(c *Client, des, nw *Instanc
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstancePreprocessGetRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -23934,14 +23129,8 @@ func canonicalizeNewInstancePreprocessGetRecipeSteps(c *Client, des, nw *Instanc
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstancePreprocessGetRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstancePreprocessGetRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -23951,9 +23140,6 @@ func canonicalizeNewInstancePreprocessGetRecipeSteps(c *Client, des, nw *Instanc
 	nw.RequestedTenantProject = canonicalizeNewInstancePreprocessGetRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstancePreprocessGetRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -24042,9 +23228,6 @@ func canonicalizeNewInstancePreprocessGetRecipeStepsStatus(c *Client, des, nw *I
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -24222,9 +23405,6 @@ func canonicalizeNewInstancePreprocessGetRecipeStepsQuotaRequestDeltas(c *Client
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -24405,9 +23585,6 @@ func canonicalizeNewInstancePreprocessGetRecipeStepsRequestedTenantProject(c *Cl
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -24826,9 +24003,6 @@ func canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNot
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -24923,9 +24097,6 @@ func canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNot
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -25041,23 +24212,8 @@ func canonicalizeNewInstanceNotifyKeyAvailableRecipe(c *Client, des, nw *Instanc
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -25198,15 +24354,6 @@ func canonicalizeNewInstanceNotifyKeyAvailableRecipeSteps(c *Client, des, nw *In
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -25214,14 +24361,8 @@ func canonicalizeNewInstanceNotifyKeyAvailableRecipeSteps(c *Client, des, nw *In
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -25231,9 +24372,6 @@ func canonicalizeNewInstanceNotifyKeyAvailableRecipeSteps(c *Client, des, nw *In
 	nw.RequestedTenantProject = canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -25322,9 +24460,6 @@ func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsStatus(c *Client, des, 
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -25502,9 +24637,6 @@ func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(c *C
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -25685,9 +24817,6 @@ func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject(
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -26106,9 +25235,6 @@ func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateK
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -26203,9 +25329,6 @@ func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateK
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -26321,23 +25444,8 @@ func canonicalizeNewInstanceNotifyKeyUnavailableRecipe(c *Client, des, nw *Insta
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -26478,15 +25586,6 @@ func canonicalizeNewInstanceNotifyKeyUnavailableRecipeSteps(c *Client, des, nw *
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -26494,14 +25593,8 @@ func canonicalizeNewInstanceNotifyKeyUnavailableRecipeSteps(c *Client, des, nw *
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -26511,9 +25604,6 @@ func canonicalizeNewInstanceNotifyKeyUnavailableRecipeSteps(c *Client, des, nw *
 	nw.RequestedTenantProject = canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -26602,9 +25692,6 @@ func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsStatus(c *Client, des
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -26782,9 +25869,6 @@ func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(c 
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -26965,9 +26049,6 @@ func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjec
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -27386,9 +26467,6 @@ func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdat
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -27483,9 +26561,6 @@ func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdat
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -27601,23 +26676,8 @@ func canonicalizeNewInstanceReadonlyRecipe(c *Client, des, nw *InstanceReadonlyR
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -27758,15 +26818,6 @@ func canonicalizeNewInstanceReadonlyRecipeSteps(c *Client, des, nw *InstanceRead
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstanceReadonlyRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -27774,14 +26825,8 @@ func canonicalizeNewInstanceReadonlyRecipeSteps(c *Client, des, nw *InstanceRead
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstanceReadonlyRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstanceReadonlyRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -27791,9 +26836,6 @@ func canonicalizeNewInstanceReadonlyRecipeSteps(c *Client, des, nw *InstanceRead
 	nw.RequestedTenantProject = canonicalizeNewInstanceReadonlyRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstanceReadonlyRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -27882,9 +26924,6 @@ func canonicalizeNewInstanceReadonlyRecipeStepsStatus(c *Client, des, nw *Instan
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -28062,9 +27101,6 @@ func canonicalizeNewInstanceReadonlyRecipeStepsQuotaRequestDeltas(c *Client, des
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -28245,9 +27281,6 @@ func canonicalizeNewInstanceReadonlyRecipeStepsRequestedTenantProject(c *Client,
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -28666,9 +27699,6 @@ func canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotifica
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -28763,9 +27793,6 @@ func canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -28881,23 +27908,8 @@ func canonicalizeNewInstanceReconcileRecipe(c *Client, des, nw *InstanceReconcil
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -29038,15 +28050,6 @@ func canonicalizeNewInstanceReconcileRecipeSteps(c *Client, des, nw *InstanceRec
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstanceReconcileRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -29054,14 +28057,8 @@ func canonicalizeNewInstanceReconcileRecipeSteps(c *Client, des, nw *InstanceRec
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstanceReconcileRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstanceReconcileRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -29071,9 +28068,6 @@ func canonicalizeNewInstanceReconcileRecipeSteps(c *Client, des, nw *InstanceRec
 	nw.RequestedTenantProject = canonicalizeNewInstanceReconcileRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstanceReconcileRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -29162,9 +28156,6 @@ func canonicalizeNewInstanceReconcileRecipeStepsStatus(c *Client, des, nw *Insta
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -29342,9 +28333,6 @@ func canonicalizeNewInstanceReconcileRecipeStepsQuotaRequestDeltas(c *Client, de
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -29525,9 +28513,6 @@ func canonicalizeNewInstanceReconcileRecipeStepsRequestedTenantProject(c *Client
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -29946,9 +28931,6 @@ func canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotific
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -30043,9 +29025,6 @@ func canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotific
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -30161,23 +29140,8 @@ func canonicalizeNewInstancePreprocessPassthroughRecipe(c *Client, des, nw *Inst
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -30318,15 +29282,6 @@ func canonicalizeNewInstancePreprocessPassthroughRecipeSteps(c *Client, des, nw 
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstancePreprocessPassthroughRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -30334,14 +29289,8 @@ func canonicalizeNewInstancePreprocessPassthroughRecipeSteps(c *Client, des, nw 
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstancePreprocessPassthroughRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -30351,9 +29300,6 @@ func canonicalizeNewInstancePreprocessPassthroughRecipeSteps(c *Client, des, nw 
 	nw.RequestedTenantProject = canonicalizeNewInstancePreprocessPassthroughRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstancePreprocessPassthroughRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -30442,9 +29388,6 @@ func canonicalizeNewInstancePreprocessPassthroughRecipeStepsStatus(c *Client, de
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -30622,9 +29565,6 @@ func canonicalizeNewInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(c
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -30805,9 +29745,6 @@ func canonicalizeNewInstancePreprocessPassthroughRecipeStepsRequestedTenantProje
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -31226,9 +30163,6 @@ func canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpda
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -31323,9 +30257,6 @@ func canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpda
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -31441,23 +30372,8 @@ func canonicalizeNewInstancePreprocessReconcileRecipe(c *Client, des, nw *Instan
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, nw.HonorCancelRequest) {
 		nw.HonorCancelRequest = des.HonorCancelRequest
 	}
-	if dcl.IsZeroValue(nw.IgnoreRecipeAfter) {
-		nw.IgnoreRecipeAfter = des.IgnoreRecipeAfter
-	}
-	if dcl.IsZeroValue(nw.VerifyDeadlineSecondsBelow) {
-		nw.VerifyDeadlineSecondsBelow = des.VerifyDeadlineSecondsBelow
-	}
 	if dcl.BoolCanonicalize(des.PopulateOperationResult, nw.PopulateOperationResult) {
 		nw.PopulateOperationResult = des.PopulateOperationResult
-	}
-	if dcl.IsZeroValue(nw.ReadonlyRecipeStartTime) {
-		nw.ReadonlyRecipeStartTime = des.ReadonlyRecipeStartTime
-	}
-	if dcl.IsZeroValue(nw.ResourceNamesStoredInClhWithDelay) {
-		nw.ResourceNamesStoredInClhWithDelay = des.ResourceNamesStoredInClhWithDelay
-	}
-	if dcl.IsZeroValue(nw.DelayToStoreResourcesInClhDbNanos) {
-		nw.DelayToStoreResourcesInClhDbNanos = des.DelayToStoreResourcesInClhDbNanos
 	}
 
 	return nw
@@ -31598,15 +30514,6 @@ func canonicalizeNewInstancePreprocessReconcileRecipeSteps(c *Client, des, nw *I
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RelativeTime) {
-		nw.RelativeTime = des.RelativeTime
-	}
-	if dcl.IsZeroValue(nw.SleepDuration) {
-		nw.SleepDuration = des.SleepDuration
-	}
-	if dcl.IsZeroValue(nw.Action) {
-		nw.Action = des.Action
-	}
 	nw.Status = canonicalizeNewInstancePreprocessReconcileRecipeStepsStatus(c, des.Status, nw.Status)
 	if dcl.StringCanonicalize(des.ErrorSpace, nw.ErrorSpace) {
 		nw.ErrorSpace = des.ErrorSpace
@@ -31614,14 +30521,8 @@ func canonicalizeNewInstancePreprocessReconcileRecipeSteps(c *Client, des, nw *I
 	if dcl.StringCanonicalize(des.P4ServiceAccount, nw.P4ServiceAccount) {
 		nw.P4ServiceAccount = des.P4ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.ResourceMetadataSize) {
-		nw.ResourceMetadataSize = des.ResourceMetadataSize
-	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.UpdatedRepeatOperationDelaySec) {
-		nw.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
 	nw.QuotaRequestDeltas = canonicalizeNewInstancePreprocessReconcileRecipeStepsQuotaRequestDeltasSlice(c, des.QuotaRequestDeltas, nw.QuotaRequestDeltas)
 	nw.PreprocessUpdate = canonicalizeNewInstancePreprocessReconcileRecipeStepsPreprocessUpdate(c, des.PreprocessUpdate, nw.PreprocessUpdate)
@@ -31631,9 +30532,6 @@ func canonicalizeNewInstancePreprocessReconcileRecipeSteps(c *Client, des, nw *I
 	nw.RequestedTenantProject = canonicalizeNewInstancePreprocessReconcileRecipeStepsRequestedTenantProject(c, des.RequestedTenantProject, nw.RequestedTenantProject)
 	nw.PermissionsInfo = canonicalizeNewInstancePreprocessReconcileRecipeStepsPermissionsInfoSlice(c, des.PermissionsInfo, nw.PermissionsInfo)
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
-	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
-		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
-	}
 	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
 		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
@@ -31722,9 +30620,6 @@ func canonicalizeNewInstancePreprocessReconcileRecipeStepsStatus(c *Client, des,
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -31902,9 +30797,6 @@ func canonicalizeNewInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(c *
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
 		nw.MetricName = des.MetricName
-	}
-	if dcl.IsZeroValue(nw.Amount) {
-		nw.Amount = des.Amount
 	}
 	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
 		nw.QuotaLocationName = des.QuotaLocationName
@@ -32085,9 +30977,6 @@ func canonicalizeNewInstancePreprocessReconcileRecipeStepsRequestedTenantProject
 	}
 	if dcl.StringCanonicalize(des.Folder, nw.Folder) {
 		nw.Folder = des.Folder
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
 	}
 
 	return nw
@@ -32506,9 +31395,6 @@ func canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DataVersion) {
-		nw.DataVersion = des.DataVersion
-	}
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
 		nw.Delegate = des.Delegate
 	}
@@ -32603,9 +31489,6 @@ func canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate
 	}
 	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
 		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
 	}
 
 	return nw
@@ -32712,20 +31595,11 @@ func canonicalizeNewInstanceHistory(c *Client, des, nw *InstanceHistory) *Instan
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Timestamp) {
-		nw.Timestamp = des.Timestamp
-	}
 	if dcl.StringCanonicalize(des.OperationHandle, nw.OperationHandle) {
 		nw.OperationHandle = des.OperationHandle
 	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
-	}
-	if dcl.IsZeroValue(nw.StepIndex) {
-		nw.StepIndex = des.StepIndex
-	}
-	if dcl.IsZeroValue(nw.TenantProjectNumber) {
-		nw.TenantProjectNumber = des.TenantProjectNumber
 	}
 	if dcl.StringCanonicalize(des.TenantProjectId, nw.TenantProjectId) {
 		nw.TenantProjectId = des.TenantProjectId

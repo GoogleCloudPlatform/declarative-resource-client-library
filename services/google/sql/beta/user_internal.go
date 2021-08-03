@@ -552,9 +552,6 @@ func canonicalizeNewUserSqlserverUserDetails(c *Client, des, nw *UserSqlserverUs
 	if dcl.BoolCanonicalize(des.Disabled, nw.Disabled) {
 		nw.Disabled = des.Disabled
 	}
-	if dcl.IsZeroValue(nw.ServerRoles) {
-		nw.ServerRoles = des.ServerRoles
-	}
 
 	return nw
 }

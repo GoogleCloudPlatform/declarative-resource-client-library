@@ -26,6 +26,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigquery"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryconnection"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryreservation"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/billingbudgets"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/binaryauthorization"
 	binaryauthorization_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/binaryauthorization/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbilling"
@@ -324,6 +325,8 @@ func Services() *Directory {
 	d.AddResource("ga", "bigqueryreservation", "Assignment", bigqueryreservation.YAML_assignment)
 	d.AddResource("ga", "bigqueryreservation", dcl.TitleToSnakeCase("Reservation"), bigqueryreservation.YAML_reservation)
 	d.AddResource("ga", "bigqueryreservation", "Reservation", bigqueryreservation.YAML_reservation)
+	d.AddResource("ga", "billingbudgets", dcl.TitleToSnakeCase("Budget"), billingbudgets.YAML_budget)
+	d.AddResource("ga", "billingbudgets", "Budget", billingbudgets.YAML_budget)
 	d.AddResource("ga", "binaryauthorization", dcl.TitleToSnakeCase("Attestor"), binaryauthorization.YAML_attestor)
 	d.AddResource("ga", "binaryauthorization", "Attestor", binaryauthorization.YAML_attestor)
 	d.AddResource("ga", "binaryauthorization", dcl.TitleToSnakeCase("Policy"), binaryauthorization.YAML_policy)

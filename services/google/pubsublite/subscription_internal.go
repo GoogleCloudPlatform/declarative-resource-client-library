@@ -520,10 +520,6 @@ func canonicalizeNewSubscriptionDeliveryConfig(c *Client, des, nw *SubscriptionD
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DeliveryRequirement) {
-		nw.DeliveryRequirement = des.DeliveryRequirement
-	}
-
 	return nw
 }
 

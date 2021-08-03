@@ -855,10 +855,6 @@ func canonicalizeNewImageGuestOSFeature(c *Client, des, nw *ImageGuestOSFeature)
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Type) {
-		nw.Type = des.Type
-	}
-
 	return nw
 }
 
@@ -1059,9 +1055,6 @@ func canonicalizeNewImageRawDisk(c *Client, des, nw *ImageRawDisk) *ImageRawDisk
 	if dcl.StringCanonicalize(des.Sha1Checksum, nw.Sha1Checksum) {
 		nw.Sha1Checksum = des.Sha1Checksum
 	}
-	if dcl.IsZeroValue(nw.ContainerType) {
-		nw.ContainerType = des.ContainerType
-	}
 
 	return nw
 }
@@ -1235,9 +1228,6 @@ func canonicalizeNewImageShieldedInstanceInitialStatePk(c *Client, des, nw *Imag
 	if dcl.StringCanonicalize(des.Content, nw.Content) {
 		nw.Content = des.Content
 	}
-	if dcl.IsZeroValue(nw.FileType) {
-		nw.FileType = des.FileType
-	}
 
 	return nw
 }
@@ -1320,9 +1310,6 @@ func canonicalizeNewImageShieldedInstanceInitialStateKek(c *Client, des, nw *Ima
 
 	if dcl.StringCanonicalize(des.Content, nw.Content) {
 		nw.Content = des.Content
-	}
-	if dcl.IsZeroValue(nw.FileType) {
-		nw.FileType = des.FileType
 	}
 
 	return nw
@@ -1407,9 +1394,6 @@ func canonicalizeNewImageShieldedInstanceInitialStateDb(c *Client, des, nw *Imag
 	if dcl.StringCanonicalize(des.Content, nw.Content) {
 		nw.Content = des.Content
 	}
-	if dcl.IsZeroValue(nw.FileType) {
-		nw.FileType = des.FileType
-	}
 
 	return nw
 }
@@ -1492,9 +1476,6 @@ func canonicalizeNewImageShieldedInstanceInitialStateDbx(c *Client, des, nw *Ima
 
 	if dcl.StringCanonicalize(des.Content, nw.Content) {
 		nw.Content = des.Content
-	}
-	if dcl.IsZeroValue(nw.FileType) {
-		nw.FileType = des.FileType
 	}
 
 	return nw
@@ -1897,9 +1878,6 @@ func canonicalizeNewImageDeprecated(c *Client, des, nw *ImageDeprecated) *ImageD
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.State) {
-		nw.State = des.State
-	}
 	if dcl.StringCanonicalize(des.Replacement, nw.Replacement) {
 		nw.Replacement = des.Replacement
 	}

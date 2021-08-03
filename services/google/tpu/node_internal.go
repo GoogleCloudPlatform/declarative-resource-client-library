@@ -685,13 +685,6 @@ func canonicalizeNewNodeCreateTime(c *Client, des, nw *NodeCreateTime) *NodeCrea
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
-	}
-
 	return nw
 }
 
@@ -849,9 +842,6 @@ func canonicalizeNewNodeNetworkEndpoints(c *Client, des, nw *NodeNetworkEndpoint
 	if dcl.StringCanonicalize(des.IPAddress, nw.IPAddress) {
 		nw.IPAddress = des.IPAddress
 	}
-	if dcl.IsZeroValue(nw.Port) {
-		nw.Port = des.Port
-	}
 
 	return nw
 }
@@ -939,9 +929,6 @@ func canonicalizeNewNodeSymptoms(c *Client, des, nw *NodeSymptoms) *NodeSymptoms
 	}
 
 	nw.CreateTime = canonicalizeNewNodeSymptomsCreateTime(c, des.CreateTime, nw.CreateTime)
-	if dcl.IsZeroValue(nw.SymptomType) {
-		nw.SymptomType = des.SymptomType
-	}
 	if dcl.StringCanonicalize(des.Details, nw.Details) {
 		nw.Details = des.Details
 	}
@@ -1026,13 +1013,6 @@ func canonicalizeNodeSymptomsCreateTime(des, initial *NodeSymptomsCreateTime, op
 func canonicalizeNewNodeSymptomsCreateTime(c *Client, des, nw *NodeSymptomsCreateTime) *NodeSymptomsCreateTime {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
 	}
 
 	return nw

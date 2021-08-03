@@ -1207,23 +1207,8 @@ func canonicalizeNewVersionAutomaticScaling(c *Client, des, nw *VersionAutomatic
 		nw.CoolDownPeriod = des.CoolDownPeriod
 	}
 	nw.CpuUtilization = canonicalizeNewVersionAutomaticScalingCpuUtilization(c, des.CpuUtilization, nw.CpuUtilization)
-	if dcl.IsZeroValue(nw.MaxConcurrentRequests) {
-		nw.MaxConcurrentRequests = des.MaxConcurrentRequests
-	}
-	if dcl.IsZeroValue(nw.MaxIdleInstances) {
-		nw.MaxIdleInstances = des.MaxIdleInstances
-	}
-	if dcl.IsZeroValue(nw.MaxTotalInstances) {
-		nw.MaxTotalInstances = des.MaxTotalInstances
-	}
 	if dcl.StringCanonicalize(des.MaxPendingLatency, nw.MaxPendingLatency) {
 		nw.MaxPendingLatency = des.MaxPendingLatency
-	}
-	if dcl.IsZeroValue(nw.MinIdleInstances) {
-		nw.MinIdleInstances = des.MinIdleInstances
-	}
-	if dcl.IsZeroValue(nw.MinTotalInstances) {
-		nw.MinTotalInstances = des.MinTotalInstances
 	}
 	if dcl.StringCanonicalize(des.MinPendingLatency, nw.MinPendingLatency) {
 		nw.MinPendingLatency = des.MinPendingLatency
@@ -1315,9 +1300,6 @@ func canonicalizeNewVersionAutomaticScalingCpuUtilization(c *Client, des, nw *Ve
 	if dcl.StringCanonicalize(des.AggregationWindowLength, nw.AggregationWindowLength) {
 		nw.AggregationWindowLength = des.AggregationWindowLength
 	}
-	if dcl.IsZeroValue(nw.TargetUtilization) {
-		nw.TargetUtilization = des.TargetUtilization
-	}
 
 	return nw
 }
@@ -1396,13 +1378,6 @@ func canonicalizeVersionAutomaticScalingRequestUtilization(des, initial *Version
 func canonicalizeNewVersionAutomaticScalingRequestUtilization(c *Client, des, nw *VersionAutomaticScalingRequestUtilization) *VersionAutomaticScalingRequestUtilization {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.TargetRequestCountPerSecond) {
-		nw.TargetRequestCountPerSecond = des.TargetRequestCountPerSecond
-	}
-	if dcl.IsZeroValue(nw.TargetConcurrentRequests) {
-		nw.TargetConcurrentRequests = des.TargetConcurrentRequests
 	}
 
 	return nw
@@ -1494,19 +1469,6 @@ func canonicalizeNewVersionAutomaticScalingDiskUtilization(c *Client, des, nw *V
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.TargetWriteBytesPerSecond) {
-		nw.TargetWriteBytesPerSecond = des.TargetWriteBytesPerSecond
-	}
-	if dcl.IsZeroValue(nw.TargetWriteOpsPerSecond) {
-		nw.TargetWriteOpsPerSecond = des.TargetWriteOpsPerSecond
-	}
-	if dcl.IsZeroValue(nw.TargetReadBytesPerSecond) {
-		nw.TargetReadBytesPerSecond = des.TargetReadBytesPerSecond
-	}
-	if dcl.IsZeroValue(nw.TargetReadOpsPerSecond) {
-		nw.TargetReadOpsPerSecond = des.TargetReadOpsPerSecond
-	}
-
 	return nw
 }
 
@@ -1594,19 +1556,6 @@ func canonicalizeVersionAutomaticScalingNetworkUtilization(des, initial *Version
 func canonicalizeNewVersionAutomaticScalingNetworkUtilization(c *Client, des, nw *VersionAutomaticScalingNetworkUtilization) *VersionAutomaticScalingNetworkUtilization {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.TargetSentBytesPerSecond) {
-		nw.TargetSentBytesPerSecond = des.TargetSentBytesPerSecond
-	}
-	if dcl.IsZeroValue(nw.TargetSentPacketsPerSecond) {
-		nw.TargetSentPacketsPerSecond = des.TargetSentPacketsPerSecond
-	}
-	if dcl.IsZeroValue(nw.TargetReceivedBytesPerSecond) {
-		nw.TargetReceivedBytesPerSecond = des.TargetReceivedBytesPerSecond
-	}
-	if dcl.IsZeroValue(nw.TargetReceivedPacketsPerSecond) {
-		nw.TargetReceivedPacketsPerSecond = des.TargetReceivedPacketsPerSecond
 	}
 
 	return nw
@@ -1698,19 +1647,6 @@ func canonicalizeNewVersionAutomaticScalingStandardSchedulerSettings(c *Client, 
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.TargetCpuUtilization) {
-		nw.TargetCpuUtilization = des.TargetCpuUtilization
-	}
-	if dcl.IsZeroValue(nw.TargetThroughputUtilization) {
-		nw.TargetThroughputUtilization = des.TargetThroughputUtilization
-	}
-	if dcl.IsZeroValue(nw.MinInstances) {
-		nw.MinInstances = des.MinInstances
-	}
-	if dcl.IsZeroValue(nw.MaxInstances) {
-		nw.MaxInstances = des.MaxInstances
-	}
-
 	return nw
 }
 
@@ -1793,9 +1729,6 @@ func canonicalizeNewVersionBasicScaling(c *Client, des, nw *VersionBasicScaling)
 	if dcl.StringCanonicalize(des.IdleTimeout, nw.IdleTimeout) {
 		nw.IdleTimeout = des.IdleTimeout
 	}
-	if dcl.IsZeroValue(nw.MaxInstances) {
-		nw.MaxInstances = des.MaxInstances
-	}
 
 	return nw
 }
@@ -1869,10 +1802,6 @@ func canonicalizeVersionManualScaling(des, initial *VersionManualScaling, opts .
 func canonicalizeNewVersionManualScaling(c *Client, des, nw *VersionManualScaling) *VersionManualScaling {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Instances) {
-		nw.Instances = des.Instances
 	}
 
 	return nw
@@ -1969,9 +1898,6 @@ func canonicalizeNewVersionNetwork(c *Client, des, nw *VersionNetwork) *VersionN
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.ForwardedPorts) {
-		nw.ForwardedPorts = des.ForwardedPorts
-	}
 	if dcl.StringCanonicalize(des.InstanceTag, nw.InstanceTag) {
 		nw.InstanceTag = des.InstanceTag
 	}
@@ -2074,15 +2000,6 @@ func canonicalizeNewVersionResources(c *Client, des, nw *VersionResources) *Vers
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Cpu) {
-		nw.Cpu = des.Cpu
-	}
-	if dcl.IsZeroValue(nw.DiskGb) {
-		nw.DiskGb = des.DiskGb
-	}
-	if dcl.IsZeroValue(nw.MemoryGb) {
-		nw.MemoryGb = des.MemoryGb
-	}
 	nw.Volumes = canonicalizeNewVersionResourcesVolumesSlice(c, des.Volumes, nw.Volumes)
 
 	return nw
@@ -2174,9 +2091,6 @@ func canonicalizeNewVersionResourcesVolumes(c *Client, des, nw *VersionResources
 	}
 	if dcl.StringCanonicalize(des.VolumeType, nw.VolumeType) {
 		nw.VolumeType = des.VolumeType
-	}
-	if dcl.IsZeroValue(nw.SizeGb) {
-		nw.SizeGb = des.SizeGb
 	}
 
 	return nw
@@ -2282,18 +2196,6 @@ func canonicalizeNewVersionHandlers(c *Client, des, nw *VersionHandlers) *Versio
 	nw.StaticFiles = canonicalizeNewVersionHandlersStaticFiles(c, des.StaticFiles, nw.StaticFiles)
 	nw.Script = canonicalizeNewVersionHandlersScript(c, des.Script, nw.Script)
 	nw.ApiEndpoint = canonicalizeNewVersionHandlersApiEndpoint(c, des.ApiEndpoint, nw.ApiEndpoint)
-	if dcl.IsZeroValue(nw.SecurityLevel) {
-		nw.SecurityLevel = des.SecurityLevel
-	}
-	if dcl.IsZeroValue(nw.Login) {
-		nw.Login = des.Login
-	}
-	if dcl.IsZeroValue(nw.AuthFailAction) {
-		nw.AuthFailAction = des.AuthFailAction
-	}
-	if dcl.IsZeroValue(nw.RedirectHttpResponseCode) {
-		nw.RedirectHttpResponseCode = des.RedirectHttpResponseCode
-	}
 
 	return nw
 }
@@ -2404,9 +2306,6 @@ func canonicalizeNewVersionHandlersStaticFiles(c *Client, des, nw *VersionHandle
 	}
 	if dcl.StringCanonicalize(des.UploadPathRegex, nw.UploadPathRegex) {
 		nw.UploadPathRegex = des.UploadPathRegex
-	}
-	if dcl.IsZeroValue(nw.HttpHeaders) {
-		nw.HttpHeaders = des.HttpHeaders
 	}
 	if dcl.StringCanonicalize(des.MimeType, nw.MimeType) {
 		nw.MimeType = des.MimeType
@@ -2661,9 +2560,6 @@ func canonicalizeNewVersionErrorHandlers(c *Client, des, nw *VersionErrorHandler
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.ErrorCode) {
-		nw.ErrorCode = des.ErrorCode
-	}
 	if dcl.StringCanonicalize(des.StaticFile, nw.StaticFile) {
 		nw.StaticFile = des.StaticFile
 	}
@@ -2851,17 +2747,8 @@ func canonicalizeNewVersionApiConfig(c *Client, des, nw *VersionApiConfig) *Vers
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.AuthFailAction) {
-		nw.AuthFailAction = des.AuthFailAction
-	}
-	if dcl.IsZeroValue(nw.Login) {
-		nw.Login = des.Login
-	}
 	if dcl.StringCanonicalize(des.Script, nw.Script) {
 		nw.Script = des.Script
-	}
-	if dcl.IsZeroValue(nw.SecurityLevel) {
-		nw.SecurityLevel = des.SecurityLevel
 	}
 	if dcl.StringCanonicalize(des.Url, nw.Url) {
 		nw.Url = des.Url
@@ -2944,9 +2831,6 @@ func canonicalizeNewVersionDeployment(c *Client, des, nw *VersionDeployment) *Ve
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Files) {
-		nw.Files = des.Files
-	}
 	nw.Container = canonicalizeNewVersionDeploymentContainer(c, des.Container, nw.Container)
 	nw.Zip = canonicalizeNewVersionDeploymentZip(c, des.Zip, nw.Zip)
 	nw.CloudBuildOptions = canonicalizeNewVersionDeploymentCloudBuildOptions(c, des.CloudBuildOptions, nw.CloudBuildOptions)
@@ -3205,9 +3089,6 @@ func canonicalizeNewVersionDeploymentZip(c *Client, des, nw *VersionDeploymentZi
 	if dcl.StringCanonicalize(des.SourceUrl, nw.SourceUrl) {
 		nw.SourceUrl = des.SourceUrl
 	}
-	if dcl.IsZeroValue(nw.FilesCount) {
-		nw.FilesCount = des.FilesCount
-	}
 
 	return nw
 }
@@ -3405,15 +3286,6 @@ func canonicalizeNewVersionHealthCheck(c *Client, des, nw *VersionHealthCheck) *
 	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
 	}
-	if dcl.IsZeroValue(nw.HealthyThreshold) {
-		nw.HealthyThreshold = des.HealthyThreshold
-	}
-	if dcl.IsZeroValue(nw.UnhealthyThreshold) {
-		nw.UnhealthyThreshold = des.UnhealthyThreshold
-	}
-	if dcl.IsZeroValue(nw.RestartThreshold) {
-		nw.RestartThreshold = des.RestartThreshold
-	}
 	if dcl.StringCanonicalize(des.CheckInterval, nw.CheckInterval) {
 		nw.CheckInterval = des.CheckInterval
 	}
@@ -3530,12 +3402,6 @@ func canonicalizeNewVersionReadinessCheck(c *Client, des, nw *VersionReadinessCh
 	}
 	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
-	}
-	if dcl.IsZeroValue(nw.FailureThreshold) {
-		nw.FailureThreshold = des.FailureThreshold
-	}
-	if dcl.IsZeroValue(nw.SuccessThreshold) {
-		nw.SuccessThreshold = des.SuccessThreshold
 	}
 	if dcl.StringCanonicalize(des.CheckInterval, nw.CheckInterval) {
 		nw.CheckInterval = des.CheckInterval
@@ -3656,12 +3522,6 @@ func canonicalizeNewVersionLivenessCheck(c *Client, des, nw *VersionLivenessChec
 	}
 	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
-	}
-	if dcl.IsZeroValue(nw.FailureThreshold) {
-		nw.FailureThreshold = des.FailureThreshold
-	}
-	if dcl.IsZeroValue(nw.SuccessThreshold) {
-		nw.SuccessThreshold = des.SuccessThreshold
 	}
 	if dcl.StringCanonicalize(des.CheckInterval, nw.CheckInterval) {
 		nw.CheckInterval = des.CheckInterval

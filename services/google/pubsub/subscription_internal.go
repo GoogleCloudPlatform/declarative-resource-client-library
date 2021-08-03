@@ -684,9 +684,6 @@ func canonicalizeNewSubscriptionDeadLetterPolicy(c *Client, des, nw *Subscriptio
 	if dcl.NameToSelfLink(des.DeadLetterTopic, nw.DeadLetterTopic) {
 		nw.DeadLetterTopic = des.DeadLetterTopic
 	}
-	if dcl.IsZeroValue(nw.MaxDeliveryAttempts) {
-		nw.MaxDeliveryAttempts = des.MaxDeliveryAttempts
-	}
 
 	return nw
 }
@@ -778,9 +775,6 @@ func canonicalizeNewSubscriptionPushConfig(c *Client, des, nw *SubscriptionPushC
 
 	if dcl.StringCanonicalize(des.PushEndpoint, nw.PushEndpoint) {
 		nw.PushEndpoint = des.PushEndpoint
-	}
-	if dcl.IsZeroValue(nw.Attributes) {
-		nw.Attributes = des.Attributes
 	}
 	nw.OidcToken = canonicalizeNewSubscriptionPushConfigOidcToken(c, des.OidcToken, nw.OidcToken)
 

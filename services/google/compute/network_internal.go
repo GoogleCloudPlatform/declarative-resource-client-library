@@ -540,10 +540,6 @@ func canonicalizeNewNetworkRoutingConfig(c *Client, des, nw *NetworkRoutingConfi
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RoutingMode) {
-		nw.RoutingMode = des.RoutingMode
-	}
-
 	return nw
 }
 

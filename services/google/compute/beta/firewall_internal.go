@@ -794,12 +794,6 @@ func canonicalizeNewFirewallAllowed(c *Client, des, nw *FirewallAllowed) *Firewa
 	if dcl.StringCanonicalize(des.IPProtocol, nw.IPProtocol) {
 		nw.IPProtocol = des.IPProtocol
 	}
-	if dcl.IsZeroValue(nw.Ports) {
-		nw.Ports = des.Ports
-	}
-	if dcl.IsZeroValue(nw.IPProtocolAlt) {
-		nw.IPProtocolAlt = des.IPProtocolAlt
-	}
 
 	return nw
 }
@@ -887,12 +881,6 @@ func canonicalizeNewFirewallDenied(c *Client, des, nw *FirewallDenied) *Firewall
 
 	if dcl.StringCanonicalize(des.IPProtocol, nw.IPProtocol) {
 		nw.IPProtocol = des.IPProtocol
-	}
-	if dcl.IsZeroValue(nw.Ports) {
-		nw.Ports = des.Ports
-	}
-	if dcl.IsZeroValue(nw.IPProtocolAlt) {
-		nw.IPProtocolAlt = des.IPProtocolAlt
 	}
 
 	return nw

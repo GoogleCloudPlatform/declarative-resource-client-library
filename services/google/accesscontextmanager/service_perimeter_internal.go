@@ -611,15 +611,6 @@ func canonicalizeNewServicePerimeterStatus(c *Client, des, nw *ServicePerimeterS
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Resources) {
-		nw.Resources = des.Resources
-	}
-	if dcl.IsZeroValue(nw.AccessLevels) {
-		nw.AccessLevels = des.AccessLevels
-	}
-	if dcl.IsZeroValue(nw.RestrictedServices) {
-		nw.RestrictedServices = des.RestrictedServices
-	}
 	nw.VPCAccessibleServices = canonicalizeNewServicePerimeterStatusVPCAccessibleServices(c, des.VPCAccessibleServices, nw.VPCAccessibleServices)
 
 	return nw
@@ -703,9 +694,6 @@ func canonicalizeNewServicePerimeterStatusVPCAccessibleServices(c *Client, des, 
 
 	if dcl.BoolCanonicalize(des.EnableRestriction, nw.EnableRestriction) {
 		nw.EnableRestriction = des.EnableRestriction
-	}
-	if dcl.IsZeroValue(nw.AllowedServices) {
-		nw.AllowedServices = des.AllowedServices
 	}
 
 	return nw
@@ -793,15 +781,6 @@ func canonicalizeNewServicePerimeterSpec(c *Client, des, nw *ServicePerimeterSpe
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Resources) {
-		nw.Resources = des.Resources
-	}
-	if dcl.IsZeroValue(nw.AccessLevels) {
-		nw.AccessLevels = des.AccessLevels
-	}
-	if dcl.IsZeroValue(nw.RestrictedServices) {
-		nw.RestrictedServices = des.RestrictedServices
-	}
 	nw.VPCAccessibleServices = canonicalizeNewServicePerimeterSpecVPCAccessibleServices(c, des.VPCAccessibleServices, nw.VPCAccessibleServices)
 
 	return nw
@@ -885,9 +864,6 @@ func canonicalizeNewServicePerimeterSpecVPCAccessibleServices(c *Client, des, nw
 
 	if dcl.BoolCanonicalize(des.EnableRestriction, nw.EnableRestriction) {
 		nw.EnableRestriction = des.EnableRestriction
-	}
-	if dcl.IsZeroValue(nw.AllowedServices) {
-		nw.AllowedServices = des.AllowedServices
 	}
 
 	return nw

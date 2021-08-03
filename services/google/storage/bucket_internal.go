@@ -627,19 +627,6 @@ func canonicalizeNewBucketCors(c *Client, des, nw *BucketCors) *BucketCors {
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.MaxAgeSeconds) {
-		nw.MaxAgeSeconds = des.MaxAgeSeconds
-	}
-	if dcl.IsZeroValue(nw.Method) {
-		nw.Method = des.Method
-	}
-	if dcl.IsZeroValue(nw.Origin) {
-		nw.Origin = des.Origin
-	}
-	if dcl.IsZeroValue(nw.ResponseHeader) {
-		nw.ResponseHeader = des.ResponseHeader
-	}
-
 	return nw
 }
 
@@ -872,9 +859,6 @@ func canonicalizeNewBucketLifecycleRuleAction(c *Client, des, nw *BucketLifecycl
 	if dcl.StringCanonicalize(des.StorageClass, nw.StorageClass) {
 		nw.StorageClass = des.StorageClass
 	}
-	if dcl.IsZeroValue(nw.Type) {
-		nw.Type = des.Type
-	}
 
 	return nw
 }
@@ -968,22 +952,6 @@ func canonicalizeBucketLifecycleRuleCondition(des, initial *BucketLifecycleRuleC
 func canonicalizeNewBucketLifecycleRuleCondition(c *Client, des, nw *BucketLifecycleRuleCondition) *BucketLifecycleRuleCondition {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Age) {
-		nw.Age = des.Age
-	}
-	if dcl.IsZeroValue(nw.CreatedBefore) {
-		nw.CreatedBefore = des.CreatedBefore
-	}
-	if dcl.IsZeroValue(nw.WithState) {
-		nw.WithState = des.WithState
-	}
-	if dcl.IsZeroValue(nw.MatchesStorageClass) {
-		nw.MatchesStorageClass = des.MatchesStorageClass
-	}
-	if dcl.IsZeroValue(nw.NumNewerVersions) {
-		nw.NumNewerVersions = des.NumNewerVersions
 	}
 
 	return nw

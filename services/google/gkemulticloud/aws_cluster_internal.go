@@ -672,15 +672,6 @@ func canonicalizeNewAwsClusterNetworking(c *Client, des, nw *AwsClusterNetworkin
 	if dcl.StringCanonicalize(des.VPCId, nw.VPCId) {
 		nw.VPCId = des.VPCId
 	}
-	if dcl.IsZeroValue(nw.PodAddressCidrBlocks) {
-		nw.PodAddressCidrBlocks = des.PodAddressCidrBlocks
-	}
-	if dcl.IsZeroValue(nw.ServiceAddressCidrBlocks) {
-		nw.ServiceAddressCidrBlocks = des.ServiceAddressCidrBlocks
-	}
-	if dcl.IsZeroValue(nw.ServiceLoadBalancerSubnetIds) {
-		nw.ServiceLoadBalancerSubnetIds = des.ServiceLoadBalancerSubnetIds
-	}
 
 	return nw
 }
@@ -793,21 +784,12 @@ func canonicalizeNewAwsClusterControlPlane(c *Client, des, nw *AwsClusterControl
 		nw.InstanceType = des.InstanceType
 	}
 	nw.SshConfig = canonicalizeNewAwsClusterControlPlaneSshConfig(c, des.SshConfig, nw.SshConfig)
-	if dcl.IsZeroValue(nw.SubnetIds) {
-		nw.SubnetIds = des.SubnetIds
-	}
-	if dcl.IsZeroValue(nw.SecurityGroupIds) {
-		nw.SecurityGroupIds = des.SecurityGroupIds
-	}
 	if dcl.StringCanonicalize(des.IamInstanceProfile, nw.IamInstanceProfile) {
 		nw.IamInstanceProfile = des.IamInstanceProfile
 	}
 	nw.RootVolume = canonicalizeNewAwsClusterControlPlaneRootVolume(c, des.RootVolume, nw.RootVolume)
 	nw.MainVolume = canonicalizeNewAwsClusterControlPlaneMainVolume(c, des.MainVolume, nw.MainVolume)
 	nw.DatabaseEncryption = canonicalizeNewAwsClusterControlPlaneDatabaseEncryption(c, des.DatabaseEncryption, nw.DatabaseEncryption)
-	if dcl.IsZeroValue(nw.Tags) {
-		nw.Tags = des.Tags
-	}
 	nw.AwsServicesAuthentication = canonicalizeNewAwsClusterControlPlaneAwsServicesAuthentication(c, des.AwsServicesAuthentication, nw.AwsServicesAuthentication)
 
 	return nw
@@ -977,15 +959,6 @@ func canonicalizeNewAwsClusterControlPlaneRootVolume(c *Client, des, nw *AwsClus
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.SizeGib) {
-		nw.SizeGib = des.SizeGib
-	}
-	if dcl.IsZeroValue(nw.VolumeType) {
-		nw.VolumeType = des.VolumeType
-	}
-	if dcl.IsZeroValue(nw.Iops) {
-		nw.Iops = des.Iops
-	}
 	if dcl.StringCanonicalize(des.KmsKeyArn, nw.KmsKeyArn) {
 		nw.KmsKeyArn = des.KmsKeyArn
 	}
@@ -1079,15 +1052,6 @@ func canonicalizeNewAwsClusterControlPlaneMainVolume(c *Client, des, nw *AwsClus
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.SizeGib) {
-		nw.SizeGib = des.SizeGib
-	}
-	if dcl.IsZeroValue(nw.VolumeType) {
-		nw.VolumeType = des.VolumeType
-	}
-	if dcl.IsZeroValue(nw.Iops) {
-		nw.Iops = des.Iops
-	}
 	if dcl.StringCanonicalize(des.KmsKeyArn, nw.KmsKeyArn) {
 		nw.KmsKeyArn = des.KmsKeyArn
 	}

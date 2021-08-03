@@ -12,9 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 dependencies:
+- samples/basic.network.json
+- samples/independent.subnetwork.json
 - samples/basic.instance.json
 - samples/basic.image.json
-- samples/basic.network.json
 description: Terraform resource_compute_route_test.go testAccComputeRoute_hopInstance
 name: hop_instance_route
 resource: samples/hop_instance.route.json
@@ -29,6 +30,12 @@ variables:
   type: resource_name
 - name: zone
   type: zone
+- name: compute_independent_subnetwork
+  type: resource_name
+- name: region
+  type: region
+- name: range
+  type: resource_name
 - name: name
   type: resource_name
 versions:

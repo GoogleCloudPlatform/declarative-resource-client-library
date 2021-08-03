@@ -567,16 +567,6 @@ func canonicalizeNewPolicyAdmissionRule(c *Client, des, nw *PolicyAdmissionRule)
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.EvaluationMode) {
-		nw.EvaluationMode = des.EvaluationMode
-	}
-	if dcl.IsZeroValue(nw.RequireAttestationsBy) {
-		nw.RequireAttestationsBy = des.RequireAttestationsBy
-	}
-	if dcl.IsZeroValue(nw.EnforcementMode) {
-		nw.EnforcementMode = des.EnforcementMode
-	}
-
 	return nw
 }
 

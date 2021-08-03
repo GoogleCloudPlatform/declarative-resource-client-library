@@ -1025,18 +1025,9 @@ func canonicalizeNewNoteVulnerability(c *Client, des, nw *NoteVulnerability) *No
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.CvssScore) {
-		nw.CvssScore = des.CvssScore
-	}
-	if dcl.IsZeroValue(nw.Severity) {
-		nw.Severity = des.Severity
-	}
 	nw.Details = canonicalizeNewNoteVulnerabilityDetailsSlice(c, des.Details, nw.Details)
 	nw.CvssV3 = canonicalizeNewNoteVulnerabilityCvssV3(c, des.CvssV3, nw.CvssV3)
 	nw.WindowsDetails = canonicalizeNewNoteVulnerabilityWindowsDetailsSlice(c, des.WindowsDetails, nw.WindowsDetails)
-	if dcl.IsZeroValue(nw.SourceUpdateTime) {
-		nw.SourceUpdateTime = des.SourceUpdateTime
-	}
 
 	return nw
 }
@@ -1182,9 +1173,6 @@ func canonicalizeNewNoteVulnerabilityDetails(c *Client, des, nw *NoteVulnerabili
 	if dcl.BoolCanonicalize(des.IsObsolete, nw.IsObsolete) {
 		nw.IsObsolete = des.IsObsolete
 	}
-	if dcl.IsZeroValue(nw.SourceUpdateTime) {
-		nw.SourceUpdateTime = des.SourceUpdateTime
-	}
 
 	return nw
 }
@@ -1280,17 +1268,11 @@ func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionStart(c *Client, des,
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Epoch) {
-		nw.Epoch = des.Epoch
-	}
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.Revision, nw.Revision) {
 		nw.Revision = des.Revision
-	}
-	if dcl.IsZeroValue(nw.Kind) {
-		nw.Kind = des.Kind
 	}
 	if dcl.StringCanonicalize(des.FullName, nw.FullName) {
 		nw.FullName = des.FullName
@@ -1390,17 +1372,11 @@ func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionEnd(c *Client, des, n
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Epoch) {
-		nw.Epoch = des.Epoch
-	}
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.Revision, nw.Revision) {
 		nw.Revision = des.Revision
-	}
-	if dcl.IsZeroValue(nw.Kind) {
-		nw.Kind = des.Kind
 	}
 	if dcl.StringCanonicalize(des.FullName, nw.FullName) {
 		nw.FullName = des.FullName
@@ -1500,17 +1476,11 @@ func canonicalizeNewNoteVulnerabilityDetailsFixedVersion(c *Client, des, nw *Not
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Epoch) {
-		nw.Epoch = des.Epoch
-	}
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.Revision, nw.Revision) {
 		nw.Revision = des.Revision
-	}
-	if dcl.IsZeroValue(nw.Kind) {
-		nw.Kind = des.Kind
 	}
 	if dcl.StringCanonicalize(des.FullName, nw.FullName) {
 		nw.FullName = des.FullName
@@ -1638,40 +1608,6 @@ func canonicalizeNoteVulnerabilityCvssV3(des, initial *NoteVulnerabilityCvssV3, 
 func canonicalizeNewNoteVulnerabilityCvssV3(c *Client, des, nw *NoteVulnerabilityCvssV3) *NoteVulnerabilityCvssV3 {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.BaseScore) {
-		nw.BaseScore = des.BaseScore
-	}
-	if dcl.IsZeroValue(nw.ExploitabilityScore) {
-		nw.ExploitabilityScore = des.ExploitabilityScore
-	}
-	if dcl.IsZeroValue(nw.ImpactScore) {
-		nw.ImpactScore = des.ImpactScore
-	}
-	if dcl.IsZeroValue(nw.AttackVector) {
-		nw.AttackVector = des.AttackVector
-	}
-	if dcl.IsZeroValue(nw.AttackComplexity) {
-		nw.AttackComplexity = des.AttackComplexity
-	}
-	if dcl.IsZeroValue(nw.PrivilegesRequired) {
-		nw.PrivilegesRequired = des.PrivilegesRequired
-	}
-	if dcl.IsZeroValue(nw.UserInteraction) {
-		nw.UserInteraction = des.UserInteraction
-	}
-	if dcl.IsZeroValue(nw.Scope) {
-		nw.Scope = des.Scope
-	}
-	if dcl.IsZeroValue(nw.ConfidentialityImpact) {
-		nw.ConfidentialityImpact = des.ConfidentialityImpact
-	}
-	if dcl.IsZeroValue(nw.IntegrityImpact) {
-		nw.IntegrityImpact = des.IntegrityImpact
-	}
-	if dcl.IsZeroValue(nw.AvailabilityImpact) {
-		nw.AvailabilityImpact = des.AvailabilityImpact
 	}
 
 	return nw
@@ -2038,9 +1974,6 @@ func canonicalizeNewNoteBuildSignature(c *Client, des, nw *NoteBuildSignature) *
 	if dcl.StringCanonicalize(des.KeyId, nw.KeyId) {
 		nw.KeyId = des.KeyId
 	}
-	if dcl.IsZeroValue(nw.KeyType) {
-		nw.KeyType = des.KeyType
-	}
 
 	return nw
 }
@@ -2203,9 +2136,6 @@ func canonicalizeNewNoteImageFingerprint(c *Client, des, nw *NoteImageFingerprin
 
 	if dcl.StringCanonicalize(des.V1Name, nw.V1Name) {
 		nw.V1Name = des.V1Name
-	}
-	if dcl.IsZeroValue(nw.V2Blob) {
-		nw.V2Blob = des.V2Blob
 	}
 	if dcl.StringCanonicalize(des.V2Name, nw.V2Name) {
 		nw.V2Name = des.V2Name
@@ -2393,9 +2323,6 @@ func canonicalizeNewNotePackageDistribution(c *Client, des, nw *NotePackageDistr
 	if dcl.StringCanonicalize(des.CpeUri, nw.CpeUri) {
 		nw.CpeUri = des.CpeUri
 	}
-	if dcl.IsZeroValue(nw.Architecture) {
-		nw.Architecture = des.Architecture
-	}
 	nw.LatestVersion = canonicalizeNewNotePackageDistributionLatestVersion(c, des.LatestVersion, nw.LatestVersion)
 	if dcl.StringCanonicalize(des.Maintainer, nw.Maintainer) {
 		nw.Maintainer = des.Maintainer
@@ -2501,17 +2428,11 @@ func canonicalizeNewNotePackageDistributionLatestVersion(c *Client, des, nw *Not
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Epoch) {
-		nw.Epoch = des.Epoch
-	}
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.Revision, nw.Revision) {
 		nw.Revision = des.Revision
-	}
-	if dcl.IsZeroValue(nw.Kind) {
-		nw.Kind = des.Kind
 	}
 	if dcl.StringCanonicalize(des.FullName, nw.FullName) {
 		nw.FullName = des.FullName
@@ -2591,10 +2512,6 @@ func canonicalizeNewNoteDiscovery(c *Client, des, nw *NoteDiscovery) *NoteDiscov
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.AnalysisKind) {
-		nw.AnalysisKind = des.AnalysisKind
-	}
-
 	return nw
 }
 
@@ -2667,10 +2584,6 @@ func canonicalizeNoteDeployment(des, initial *NoteDeployment, opts ...dcl.ApplyO
 func canonicalizeNewNoteDeployment(c *Client, des, nw *NoteDeployment) *NoteDeployment {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.ResourceUri) {
-		nw.ResourceUri = des.ResourceUri
 	}
 
 	return nw

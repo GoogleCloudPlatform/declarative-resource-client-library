@@ -1022,10 +1022,6 @@ func canonicalizeNewInstanceMaxDiskSize(c *Client, des, nw *InstanceMaxDiskSize)
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Value) {
-		nw.Value = des.Value
-	}
-
 	return nw
 }
 
@@ -1098,10 +1094,6 @@ func canonicalizeInstanceCurrentDiskSize(des, initial *InstanceCurrentDiskSize, 
 func canonicalizeNewInstanceCurrentDiskSize(c *Client, des, nw *InstanceCurrentDiskSize) *InstanceCurrentDiskSize {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Value) {
-		nw.Value = des.Value
 	}
 
 	return nw
@@ -1444,9 +1436,6 @@ func canonicalizeNewInstanceIPAddresses(c *Client, des, nw *InstanceIPAddresses)
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Type) {
-		nw.Type = des.Type
-	}
 	if dcl.StringCanonicalize(des.IPAddress, nw.IPAddress) {
 		nw.IPAddress = des.IPAddress
 	}
@@ -1529,13 +1518,6 @@ func canonicalizeInstanceIPAddressesTimeToRetire(des, initial *InstanceIPAddress
 func canonicalizeNewInstanceIPAddressesTimeToRetire(c *Client, des, nw *InstanceIPAddressesTimeToRetire) *InstanceIPAddressesTimeToRetire {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
 	}
 
 	return nw
@@ -1843,9 +1825,6 @@ func canonicalizeNewInstanceReplicaConfigurationMysqlReplicaConfiguration(c *Cli
 	if dcl.StringCanonicalize(des.Password, nw.Password) {
 		nw.Password = des.Password
 	}
-	if dcl.IsZeroValue(nw.ConnectRetryInterval) {
-		nw.ConnectRetryInterval = des.ConnectRetryInterval
-	}
 	nw.MasterHeartbeatPeriod = canonicalizeNewInstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriod(c, des.MasterHeartbeatPeriod, nw.MasterHeartbeatPeriod)
 	if dcl.StringCanonicalize(des.CaCertificate, nw.CaCertificate) {
 		nw.CaCertificate = des.CaCertificate
@@ -1940,10 +1919,6 @@ func canonicalizeNewInstanceReplicaConfigurationMysqlReplicaConfigurationMasterH
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Value) {
-		nw.Value = des.Value
-	}
-
 	return nw
 }
 
@@ -2035,9 +2010,6 @@ func canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfiguration(c *Clie
 	}
 	nw.StaticPoolConfiguration = canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguration(c, des.StaticPoolConfiguration, nw.StaticPoolConfiguration)
 	nw.AutoscalingPoolConfiguration = canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfiguration(c, des.AutoscalingPoolConfiguration, nw.AutoscalingPoolConfiguration)
-	if dcl.IsZeroValue(nw.ReplicaCount) {
-		nw.ReplicaCount = des.ReplicaCount
-	}
 	if dcl.BoolCanonicalize(des.ExposeReplicaIP, nw.ExposeReplicaIP) {
 		nw.ExposeReplicaIP = des.ExposeReplicaIP
 	}
@@ -2128,9 +2100,6 @@ func canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfigurationStaticPo
 
 	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
-	}
-	if dcl.IsZeroValue(nw.ReplicaCount) {
-		nw.ReplicaCount = des.ReplicaCount
 	}
 	if dcl.BoolCanonicalize(des.ExposeReplicaIP, nw.ExposeReplicaIP) {
 		nw.ExposeReplicaIP = des.ExposeReplicaIP
@@ -2227,15 +2196,6 @@ func canonicalizeNewInstanceReplicaConfigurationReplicaPoolConfigurationAutoscal
 
 	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
-	}
-	if dcl.IsZeroValue(nw.MinReplicaCount) {
-		nw.MinReplicaCount = des.MinReplicaCount
-	}
-	if dcl.IsZeroValue(nw.MaxReplicaCount) {
-		nw.MaxReplicaCount = des.MaxReplicaCount
-	}
-	if dcl.IsZeroValue(nw.TargetCpuUtil) {
-		nw.TargetCpuUtil = des.TargetCpuUtil
 	}
 
 	return nw
@@ -2405,13 +2365,6 @@ func canonicalizeNewInstanceScheduledMaintenanceStartTime(c *Client, des, nw *In
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
-	}
-
 	return nw
 }
 
@@ -2565,32 +2518,14 @@ func canonicalizeNewInstanceSettings(c *Client, des, nw *InstanceSettings) *Inst
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.AuthorizedGaeApplications) {
-		nw.AuthorizedGaeApplications = des.AuthorizedGaeApplications
-	}
 	if dcl.StringCanonicalize(des.Tier, nw.Tier) {
 		nw.Tier = des.Tier
 	}
 	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
-	if dcl.IsZeroValue(nw.AvailabilityType) {
-		nw.AvailabilityType = des.AvailabilityType
-	}
-	if dcl.IsZeroValue(nw.PricingPlan) {
-		nw.PricingPlan = des.PricingPlan
-	}
-	if dcl.IsZeroValue(nw.ReplicationType) {
-		nw.ReplicationType = des.ReplicationType
-	}
-	if dcl.IsZeroValue(nw.ActivationPolicy) {
-		nw.ActivationPolicy = des.ActivationPolicy
-	}
 	if dcl.BoolCanonicalize(des.StorageAutoResize, nw.StorageAutoResize) {
 		nw.StorageAutoResize = des.StorageAutoResize
-	}
-	if dcl.IsZeroValue(nw.DataDiskType) {
-		nw.DataDiskType = des.DataDiskType
 	}
 	if dcl.BoolCanonicalize(des.DatabaseReplicationEnabled, nw.DatabaseReplicationEnabled) {
 		nw.DatabaseReplicationEnabled = des.DatabaseReplicationEnabled
@@ -2599,9 +2534,6 @@ func canonicalizeNewInstanceSettings(c *Client, des, nw *InstanceSettings) *Inst
 		nw.CrashSafeReplicationEnabled = des.CrashSafeReplicationEnabled
 	}
 	nw.SettingsVersion = canonicalizeNewInstanceSettingsSettingsVersion(c, des.SettingsVersion, nw.SettingsVersion)
-	if dcl.IsZeroValue(nw.UserLabels) {
-		nw.UserLabels = des.UserLabels
-	}
 	nw.StorageAutoResizeLimit = canonicalizeNewInstanceSettingsStorageAutoResizeLimit(c, des.StorageAutoResizeLimit, nw.StorageAutoResizeLimit)
 	nw.IPConfiguration = canonicalizeNewInstanceSettingsIPConfiguration(c, des.IPConfiguration, nw.IPConfiguration)
 	nw.LocationPreference = canonicalizeNewInstanceSettingsLocationPreference(c, des.LocationPreference, nw.LocationPreference)
@@ -2690,10 +2622,6 @@ func canonicalizeNewInstanceSettingsSettingsVersion(c *Client, des, nw *Instance
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Value) {
-		nw.Value = des.Value
-	}
-
 	return nw
 }
 
@@ -2766,10 +2694,6 @@ func canonicalizeInstanceSettingsStorageAutoResizeLimit(des, initial *InstanceSe
 func canonicalizeNewInstanceSettingsStorageAutoResizeLimit(c *Client, des, nw *InstanceSettingsStorageAutoResizeLimit) *InstanceSettingsStorageAutoResizeLimit {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Value) {
-		nw.Value = des.Value
 	}
 
 	return nw
@@ -2963,9 +2887,6 @@ func canonicalizeNewInstanceSettingsIPConfigurationAuthorizedNetworks(c *Client,
 
 	if dcl.StringCanonicalize(des.Value, nw.Value) {
 		nw.Value = des.Value
-	}
-	if dcl.IsZeroValue(nw.ExpirationTime) {
-		nw.ExpirationTime = des.ExpirationTime
 	}
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
@@ -3235,15 +3156,6 @@ func canonicalizeNewInstanceSettingsMaintenanceWindow(c *Client, des, nw *Instan
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Hour) {
-		nw.Hour = des.Hour
-	}
-	if dcl.IsZeroValue(nw.Day) {
-		nw.Day = des.Day
-	}
-	if dcl.IsZeroValue(nw.UpdateTrack) {
-		nw.UpdateTrack = des.UpdateTrack
-	}
 	if dcl.StringCanonicalize(des.Kind, nw.Kind) {
 		nw.Kind = des.Kind
 	}
@@ -3364,9 +3276,6 @@ func canonicalizeNewInstanceSettingsBackupConfiguration(c *Client, des, nw *Inst
 		nw.Location = des.Location
 	}
 	nw.BackupRetentionSettings = canonicalizeNewInstanceSettingsBackupConfigurationBackupRetentionSettings(c, des.BackupRetentionSettings, nw.BackupRetentionSettings)
-	if dcl.IsZeroValue(nw.TransactionLogRetentionDays) {
-		nw.TransactionLogRetentionDays = des.TransactionLogRetentionDays
-	}
 
 	return nw
 }
@@ -3447,13 +3356,6 @@ func canonicalizeNewInstanceSettingsBackupConfigurationBackupRetentionSettings(c
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RetentionUnit) {
-		nw.RetentionUnit = des.RetentionUnit
-	}
-	if dcl.IsZeroValue(nw.RetainedBackups) {
-		nw.RetainedBackups = des.RetainedBackups
-	}
-
 	return nw
 }
 
@@ -3526,10 +3428,6 @@ func canonicalizeInstanceSettingsDataDiskSizeGb(des, initial *InstanceSettingsDa
 func canonicalizeNewInstanceSettingsDataDiskSizeGb(c *Client, des, nw *InstanceSettingsDataDiskSizeGb) *InstanceSettingsDataDiskSizeGb {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Value) {
-		nw.Value = des.Value
 	}
 
 	return nw
@@ -3810,9 +3708,6 @@ func canonicalizeNewInstanceSettingsInsightsConfig(c *Client, des, nw *InstanceS
 	if dcl.BoolCanonicalize(des.RecordApplicationTags, nw.RecordApplicationTags) {
 		nw.RecordApplicationTags = des.RecordApplicationTags
 	}
-	if dcl.IsZeroValue(nw.QueryStringLength) {
-		nw.QueryStringLength = des.QueryStringLength
-	}
 
 	return nw
 }
@@ -4018,14 +3913,8 @@ func canonicalizeNewInstanceServerCaCert(c *Client, des, nw *InstanceServerCaCer
 	if dcl.StringCanonicalize(des.Cert, nw.Cert) {
 		nw.Cert = des.Cert
 	}
-	if dcl.IsZeroValue(nw.CreateTime) {
-		nw.CreateTime = des.CreateTime
-	}
 	if dcl.StringCanonicalize(des.CommonName, nw.CommonName) {
 		nw.CommonName = des.CommonName
-	}
-	if dcl.IsZeroValue(nw.ExpirationTime) {
-		nw.ExpirationTime = des.ExpirationTime
 	}
 	if dcl.StringCanonicalize(des.Sha1Fingerprint, nw.Sha1Fingerprint) {
 		nw.Sha1Fingerprint = des.Sha1Fingerprint
@@ -4179,9 +4068,6 @@ func canonicalizeNewInstanceOnPremisesConfiguration(c *Client, des, nw *Instance
 	}
 	if dcl.StringCanonicalize(des.Database, nw.Database) {
 		nw.Database = des.Database
-	}
-	if dcl.IsZeroValue(nw.ReplicatedDatabases) {
-		nw.ReplicatedDatabases = des.ReplicatedDatabases
 	}
 
 	return nw

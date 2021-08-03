@@ -640,9 +640,6 @@ func canonicalizeNewLogMetricMetricDescriptor(c *Client, des, nw *LogMetricMetri
 		nw.Type = des.Type
 	}
 	nw.Labels = canonicalizeNewLogMetricMetricDescriptorLabelsSet(c, des.Labels, nw.Labels)
-	if dcl.IsZeroValue(nw.MetricKind) {
-		nw.MetricKind = des.MetricKind
-	}
 	if canonicalizeLogMetricMetricDescriptorValueType(des.ValueType, nw.ValueType) {
 		nw.ValueType = des.ValueType
 	}
@@ -657,9 +654,6 @@ func canonicalizeNewLogMetricMetricDescriptor(c *Client, des, nw *LogMetricMetri
 	}
 	nw.Metadata = canonicalizeNewLogMetricMetricDescriptorMetadata(c, des.Metadata, nw.Metadata)
 	nw.LaunchStage = des.LaunchStage
-	if dcl.IsZeroValue(nw.MonitoredResourceTypes) {
-		nw.MonitoredResourceTypes = des.MonitoredResourceTypes
-	}
 
 	return nw
 }
@@ -1031,16 +1025,6 @@ func canonicalizeNewLogMetricBucketOptionsLinearBuckets(c *Client, des, nw *LogM
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.NumFiniteBuckets) {
-		nw.NumFiniteBuckets = des.NumFiniteBuckets
-	}
-	if dcl.IsZeroValue(nw.Width) {
-		nw.Width = des.Width
-	}
-	if dcl.IsZeroValue(nw.Offset) {
-		nw.Offset = des.Offset
-	}
-
 	return nw
 }
 
@@ -1125,16 +1109,6 @@ func canonicalizeNewLogMetricBucketOptionsExponentialBuckets(c *Client, des, nw 
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.NumFiniteBuckets) {
-		nw.NumFiniteBuckets = des.NumFiniteBuckets
-	}
-	if dcl.IsZeroValue(nw.GrowthFactor) {
-		nw.GrowthFactor = des.GrowthFactor
-	}
-	if dcl.IsZeroValue(nw.Scale) {
-		nw.Scale = des.Scale
-	}
-
 	return nw
 }
 
@@ -1207,10 +1181,6 @@ func canonicalizeLogMetricBucketOptionsExplicitBuckets(des, initial *LogMetricBu
 func canonicalizeNewLogMetricBucketOptionsExplicitBuckets(c *Client, des, nw *LogMetricBucketOptionsExplicitBuckets) *LogMetricBucketOptionsExplicitBuckets {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Bounds) {
-		nw.Bounds = des.Bounds
 	}
 
 	return nw

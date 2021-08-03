@@ -563,13 +563,6 @@ func canonicalizeNewTenantMfaConfig(c *Client, des, nw *TenantMfaConfig) *Tenant
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.State) {
-		nw.State = des.State
-	}
-	if dcl.IsZeroValue(nw.EnabledProviders) {
-		nw.EnabledProviders = des.EnabledProviders
-	}
-
 	return nw
 }
 

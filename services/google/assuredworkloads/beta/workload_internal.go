@@ -604,13 +604,6 @@ func canonicalizeNewWorkloadResources(c *Client, des, nw *WorkloadResources) *Wo
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.ResourceId) {
-		nw.ResourceId = des.ResourceId
-	}
-	if dcl.IsZeroValue(nw.ResourceType) {
-		nw.ResourceType = des.ResourceType
-	}
-
 	return nw
 }
 
@@ -690,9 +683,6 @@ func canonicalizeNewWorkloadKmsSettings(c *Client, des, nw *WorkloadKmsSettings)
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.NextRotationTime) {
-		nw.NextRotationTime = des.NextRotationTime
-	}
 	if dcl.StringCanonicalize(des.RotationPeriod, nw.RotationPeriod) {
 		nw.RotationPeriod = des.RotationPeriod
 	}
@@ -778,9 +768,6 @@ func canonicalizeNewWorkloadResourceSettings(c *Client, des, nw *WorkloadResourc
 
 	if dcl.StringCanonicalize(des.ResourceId, nw.ResourceId) {
 		nw.ResourceId = des.ResourceId
-	}
-	if dcl.IsZeroValue(nw.ResourceType) {
-		nw.ResourceType = des.ResourceType
 	}
 
 	return nw

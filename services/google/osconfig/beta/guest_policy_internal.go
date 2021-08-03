@@ -804,15 +804,6 @@ func canonicalizeNewGuestPolicyAssignment(c *Client, des, nw *GuestPolicyAssignm
 	}
 
 	nw.GroupLabels = canonicalizeNewGuestPolicyAssignmentGroupLabelsSlice(c, des.GroupLabels, nw.GroupLabels)
-	if dcl.IsZeroValue(nw.Zones) {
-		nw.Zones = des.Zones
-	}
-	if dcl.IsZeroValue(nw.Instances) {
-		nw.Instances = des.Instances
-	}
-	if dcl.IsZeroValue(nw.InstanceNamePrefixes) {
-		nw.InstanceNamePrefixes = des.InstanceNamePrefixes
-	}
 	nw.OSTypes = canonicalizeNewGuestPolicyAssignmentOSTypesSlice(c, des.OSTypes, nw.OSTypes)
 
 	return nw
@@ -887,10 +878,6 @@ func canonicalizeGuestPolicyAssignmentGroupLabels(des, initial *GuestPolicyAssig
 func canonicalizeNewGuestPolicyAssignmentGroupLabels(c *Client, des, nw *GuestPolicyAssignmentGroupLabels) *GuestPolicyAssignmentGroupLabels {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Labels) {
-		nw.Labels = des.Labels
 	}
 
 	return nw
@@ -1073,12 +1060,6 @@ func canonicalizeNewGuestPolicyPackages(c *Client, des, nw *GuestPolicyPackages)
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
-	}
-	if dcl.IsZeroValue(nw.DesiredState) {
-		nw.DesiredState = des.DesiredState
-	}
-	if dcl.IsZeroValue(nw.Manager) {
-		nw.Manager = des.Manager
 	}
 
 	return nw
@@ -1293,17 +1274,11 @@ func canonicalizeNewGuestPolicyPackageRepositoriesApt(c *Client, des, nw *GuestP
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.ArchiveType) {
-		nw.ArchiveType = des.ArchiveType
-	}
 	if dcl.StringCanonicalize(des.Uri, nw.Uri) {
 		nw.Uri = des.Uri
 	}
 	if dcl.StringCanonicalize(des.Distribution, nw.Distribution) {
 		nw.Distribution = des.Distribution
-	}
-	if dcl.IsZeroValue(nw.Components) {
-		nw.Components = des.Components
 	}
 	if dcl.StringCanonicalize(des.GpgKey, nw.GpgKey) {
 		nw.GpgKey = des.GpgKey
@@ -1407,9 +1382,6 @@ func canonicalizeNewGuestPolicyPackageRepositoriesYum(c *Client, des, nw *GuestP
 	if dcl.StringCanonicalize(des.BaseUrl, nw.BaseUrl) {
 		nw.BaseUrl = des.BaseUrl
 	}
-	if dcl.IsZeroValue(nw.GpgKeys) {
-		nw.GpgKeys = des.GpgKeys
-	}
 
 	return nw
 }
@@ -1508,9 +1480,6 @@ func canonicalizeNewGuestPolicyPackageRepositoriesZypper(c *Client, des, nw *Gue
 	}
 	if dcl.StringCanonicalize(des.BaseUrl, nw.BaseUrl) {
 		nw.BaseUrl = des.BaseUrl
-	}
-	if dcl.IsZeroValue(nw.GpgKeys) {
-		nw.GpgKeys = des.GpgKeys
 	}
 
 	return nw
@@ -1727,9 +1696,6 @@ func canonicalizeNewGuestPolicyRecipes(c *Client, des, nw *GuestPolicyRecipes) *
 	nw.Artifacts = canonicalizeNewGuestPolicyRecipesArtifactsSlice(c, des.Artifacts, nw.Artifacts)
 	nw.InstallSteps = canonicalizeNewGuestPolicyRecipesInstallStepsSlice(c, des.InstallSteps, nw.InstallSteps)
 	nw.UpdateSteps = canonicalizeNewGuestPolicyRecipesUpdateStepsSlice(c, des.UpdateSteps, nw.UpdateSteps)
-	if dcl.IsZeroValue(nw.DesiredState) {
-		nw.DesiredState = des.DesiredState
-	}
 
 	return nw
 }
@@ -1996,9 +1962,6 @@ func canonicalizeNewGuestPolicyRecipesArtifactsGcs(c *Client, des, nw *GuestPoli
 	}
 	if dcl.StringCanonicalize(des.Object, nw.Object) {
 		nw.Object = des.Object
-	}
-	if dcl.IsZeroValue(nw.Generation) {
-		nw.Generation = des.Generation
 	}
 
 	return nw
@@ -2277,9 +2240,6 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsArchiveExtraction(c *Client, d
 	if dcl.StringCanonicalize(des.Destination, nw.Destination) {
 		nw.Destination = des.Destination
 	}
-	if dcl.IsZeroValue(nw.Type) {
-		nw.Type = des.Type
-	}
 
 	return nw
 }
@@ -2367,12 +2327,6 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsMsiInstallation(c *Client, des
 
 	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
 		nw.ArtifactId = des.ArtifactId
-	}
-	if dcl.IsZeroValue(nw.Flags) {
-		nw.Flags = des.Flags
-	}
-	if dcl.IsZeroValue(nw.AllowedExitCodes) {
-		nw.AllowedExitCodes = des.AllowedExitCodes
 	}
 
 	return nw
@@ -2626,12 +2580,6 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsFileExec(c *Client, des, nw *G
 	if dcl.StringCanonicalize(des.LocalPath, nw.LocalPath) {
 		nw.LocalPath = des.LocalPath
 	}
-	if dcl.IsZeroValue(nw.Args) {
-		nw.Args = des.Args
-	}
-	if dcl.IsZeroValue(nw.AllowedExitCodes) {
-		nw.AllowedExitCodes = des.AllowedExitCodes
-	}
 
 	return nw
 }
@@ -2719,12 +2667,6 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsScriptRun(c *Client, des, nw *
 
 	if dcl.StringCanonicalize(des.Script, nw.Script) {
 		nw.Script = des.Script
-	}
-	if dcl.IsZeroValue(nw.AllowedExitCodes) {
-		nw.AllowedExitCodes = des.AllowedExitCodes
-	}
-	if dcl.IsZeroValue(nw.Interpreter) {
-		nw.Interpreter = des.Interpreter
 	}
 
 	return nw
@@ -3003,9 +2945,6 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsArchiveExtraction(c *Client, de
 	if dcl.StringCanonicalize(des.Destination, nw.Destination) {
 		nw.Destination = des.Destination
 	}
-	if dcl.IsZeroValue(nw.Type) {
-		nw.Type = des.Type
-	}
 
 	return nw
 }
@@ -3093,12 +3032,6 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsMsiInstallation(c *Client, des,
 
 	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
 		nw.ArtifactId = des.ArtifactId
-	}
-	if dcl.IsZeroValue(nw.Flags) {
-		nw.Flags = des.Flags
-	}
-	if dcl.IsZeroValue(nw.AllowedExitCodes) {
-		nw.AllowedExitCodes = des.AllowedExitCodes
 	}
 
 	return nw
@@ -3352,12 +3285,6 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsFileExec(c *Client, des, nw *Gu
 	if dcl.StringCanonicalize(des.LocalPath, nw.LocalPath) {
 		nw.LocalPath = des.LocalPath
 	}
-	if dcl.IsZeroValue(nw.Args) {
-		nw.Args = des.Args
-	}
-	if dcl.IsZeroValue(nw.AllowedExitCodes) {
-		nw.AllowedExitCodes = des.AllowedExitCodes
-	}
 
 	return nw
 }
@@ -3445,12 +3372,6 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsScriptRun(c *Client, des, nw *G
 
 	if dcl.StringCanonicalize(des.Script, nw.Script) {
 		nw.Script = des.Script
-	}
-	if dcl.IsZeroValue(nw.AllowedExitCodes) {
-		nw.AllowedExitCodes = des.AllowedExitCodes
-	}
-	if dcl.IsZeroValue(nw.Interpreter) {
-		nw.Interpreter = des.Interpreter
 	}
 
 	return nw

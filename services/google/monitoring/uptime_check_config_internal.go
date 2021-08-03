@@ -717,9 +717,6 @@ func canonicalizeNewUptimeCheckConfigMonitoredResource(c *Client, des, nw *Uptim
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
 		nw.Type = des.Type
 	}
-	if dcl.IsZeroValue(nw.FilterLabels) {
-		nw.FilterLabels = des.FilterLabels
-	}
 
 	return nw
 }
@@ -802,9 +799,6 @@ func canonicalizeNewUptimeCheckConfigResourceGroup(c *Client, des, nw *UptimeChe
 
 	if dcl.NameToSelfLink(des.GroupId, nw.GroupId) {
 		nw.GroupId = des.GroupId
-	}
-	if dcl.IsZeroValue(nw.ResourceType) {
-		nw.ResourceType = des.ResourceType
 	}
 
 	return nw
@@ -938,26 +932,17 @@ func canonicalizeNewUptimeCheckConfigHttpCheck(c *Client, des, nw *UptimeCheckCo
 		nw.Path = dcl.String("/")
 	}
 
-	if dcl.IsZeroValue(nw.RequestMethod) {
-		nw.RequestMethod = des.RequestMethod
-	}
 	if dcl.BoolCanonicalize(des.UseSsl, nw.UseSsl) {
 		nw.UseSsl = des.UseSsl
 	}
 	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
 	}
-	if dcl.IsZeroValue(nw.Port) {
-		nw.Port = des.Port
-	}
 	nw.AuthInfo = canonicalizeNewUptimeCheckConfigHttpCheckAuthInfo(c, des.AuthInfo, nw.AuthInfo)
 	if dcl.BoolCanonicalize(des.MaskHeaders, nw.MaskHeaders) {
 		nw.MaskHeaders = des.MaskHeaders
 	}
 	nw.Headers = des.Headers
-	if dcl.IsZeroValue(nw.ContentType) {
-		nw.ContentType = des.ContentType
-	}
 	if dcl.BoolCanonicalize(des.ValidateSsl, nw.ValidateSsl) {
 		nw.ValidateSsl = des.ValidateSsl
 	}
@@ -1123,10 +1108,6 @@ func canonicalizeNewUptimeCheckConfigTcpCheck(c *Client, des, nw *UptimeCheckCon
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Port) {
-		nw.Port = des.Port
-	}
-
 	return nw
 }
 
@@ -1216,9 +1197,6 @@ func canonicalizeNewUptimeCheckConfigContentMatchers(c *Client, des, nw *UptimeC
 
 	if dcl.StringCanonicalize(des.Content, nw.Content) {
 		nw.Content = des.Content
-	}
-	if dcl.IsZeroValue(nw.Matcher) {
-		nw.Matcher = des.Matcher
 	}
 
 	return nw

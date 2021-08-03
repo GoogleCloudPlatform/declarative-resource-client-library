@@ -571,9 +571,6 @@ func canonicalizeNewEnvironmentConfig(c *Client, des, nw *EnvironmentConfig) *En
 	if dcl.StringCanonicalize(des.DagGcsPrefix, nw.DagGcsPrefix) {
 		nw.DagGcsPrefix = des.DagGcsPrefix
 	}
-	if dcl.IsZeroValue(nw.NodeCount) {
-		nw.NodeCount = des.NodeCount
-	}
 	nw.SoftwareConfig = canonicalizeNewEnvironmentConfigSoftwareConfig(c, des.SoftwareConfig, nw.SoftwareConfig)
 	nw.NodeConfig = canonicalizeNewEnvironmentConfigNodeConfig(c, des.NodeConfig, nw.NodeConfig)
 	nw.PrivateEnvironmentConfig = canonicalizeNewEnvironmentConfigPrivateEnvironmentConfig(c, des.PrivateEnvironmentConfig, nw.PrivateEnvironmentConfig)
@@ -682,15 +679,6 @@ func canonicalizeNewEnvironmentConfigSoftwareConfig(c *Client, des, nw *Environm
 
 	if dcl.StringCanonicalize(des.ImageVersion, nw.ImageVersion) {
 		nw.ImageVersion = des.ImageVersion
-	}
-	if dcl.IsZeroValue(nw.AirflowConfigOverrides) {
-		nw.AirflowConfigOverrides = des.AirflowConfigOverrides
-	}
-	if dcl.IsZeroValue(nw.PypiPackages) {
-		nw.PypiPackages = des.PypiPackages
-	}
-	if dcl.IsZeroValue(nw.EnvVariables) {
-		nw.EnvVariables = des.EnvVariables
 	}
 	if dcl.StringCanonicalize(des.PythonVersion, nw.PythonVersion) {
 		nw.PythonVersion = des.PythonVersion
@@ -823,22 +811,10 @@ func canonicalizeNewEnvironmentConfigNodeConfig(c *Client, des, nw *EnvironmentC
 	if dcl.NameToSelfLink(des.Subnetwork, nw.Subnetwork) {
 		nw.Subnetwork = des.Subnetwork
 	}
-	if dcl.IsZeroValue(nw.DiskSizeGb) {
-		nw.DiskSizeGb = des.DiskSizeGb
-	}
-	if dcl.IsZeroValue(nw.OAuthScopes) {
-		nw.OAuthScopes = des.OAuthScopes
-	}
 	if dcl.NameToSelfLink(des.ServiceAccount, nw.ServiceAccount) {
 		nw.ServiceAccount = des.ServiceAccount
 	}
-	if dcl.IsZeroValue(nw.Tags) {
-		nw.Tags = des.Tags
-	}
 	nw.IPAllocationPolicy = canonicalizeNewEnvironmentConfigNodeConfigIPAllocationPolicy(c, des.IPAllocationPolicy, nw.IPAllocationPolicy)
-	if dcl.IsZeroValue(nw.MaxPodsPerNode) {
-		nw.MaxPodsPerNode = des.MaxPodsPerNode
-	}
 
 	return nw
 }
@@ -1658,12 +1634,6 @@ func canonicalizeNewEnvironmentConfigMaintenanceWindow(c *Client, des, nw *Envir
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.StartTime) {
-		nw.StartTime = des.StartTime
-	}
-	if dcl.IsZeroValue(nw.EndTime) {
-		nw.EndTime = des.EndTime
-	}
 	if dcl.StringCanonicalize(des.Recurrence, nw.Recurrence) {
 		nw.Recurrence = des.Recurrence
 	}
@@ -1934,7 +1904,7 @@ func compareEnvironmentConfigSoftwareConfigNewStyle(d, a interface{}, fn dcl.Fie
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PypiPackages, actual.PypiPackages, dcl.Info{OperationSelector: dcl.TriggersOperation("updateEnvironmentPatchEvironmentOperation")}, fn.AddNest("PypiPackages")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PypiPackages, actual.PypiPackages, dcl.Info{OperationSelector: dcl.TriggersOperation("updateEnvironmentPatchEnvironmentOperation")}, fn.AddNest("PypiPackages")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

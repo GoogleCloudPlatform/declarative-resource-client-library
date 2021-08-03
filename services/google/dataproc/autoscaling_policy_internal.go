@@ -653,18 +653,6 @@ func canonicalizeNewAutoscalingPolicyBasicAlgorithmYarnConfig(c *Client, des, nw
 	if dcl.StringCanonicalize(des.GracefulDecommissionTimeout, nw.GracefulDecommissionTimeout) {
 		nw.GracefulDecommissionTimeout = des.GracefulDecommissionTimeout
 	}
-	if dcl.IsZeroValue(nw.ScaleUpFactor) {
-		nw.ScaleUpFactor = des.ScaleUpFactor
-	}
-	if dcl.IsZeroValue(nw.ScaleDownFactor) {
-		nw.ScaleDownFactor = des.ScaleDownFactor
-	}
-	if dcl.IsZeroValue(nw.ScaleUpMinWorkerFraction) {
-		nw.ScaleUpMinWorkerFraction = des.ScaleUpMinWorkerFraction
-	}
-	if dcl.IsZeroValue(nw.ScaleDownMinWorkerFraction) {
-		nw.ScaleDownMinWorkerFraction = des.ScaleDownMinWorkerFraction
-	}
 
 	return nw
 }
@@ -750,16 +738,6 @@ func canonicalizeNewAutoscalingPolicyWorkerConfig(c *Client, des, nw *Autoscalin
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.MinInstances) {
-		nw.MinInstances = des.MinInstances
-	}
-	if dcl.IsZeroValue(nw.MaxInstances) {
-		nw.MaxInstances = des.MaxInstances
-	}
-	if dcl.IsZeroValue(nw.Weight) {
-		nw.Weight = des.Weight
-	}
-
 	return nw
 }
 
@@ -842,16 +820,6 @@ func canonicalizeAutoscalingPolicySecondaryWorkerConfig(des, initial *Autoscalin
 func canonicalizeNewAutoscalingPolicySecondaryWorkerConfig(c *Client, des, nw *AutoscalingPolicySecondaryWorkerConfig) *AutoscalingPolicySecondaryWorkerConfig {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.MinInstances) {
-		nw.MinInstances = des.MinInstances
-	}
-	if dcl.IsZeroValue(nw.MaxInstances) {
-		nw.MaxInstances = des.MaxInstances
-	}
-	if dcl.IsZeroValue(nw.Weight) {
-		nw.Weight = des.Weight
 	}
 
 	return nw

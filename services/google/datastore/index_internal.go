@@ -466,9 +466,6 @@ func canonicalizeNewIndexProperties(c *Client, des, nw *IndexProperties) *IndexP
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.IsZeroValue(nw.Direction) {
-		nw.Direction = des.Direction
-	}
 
 	return nw
 }

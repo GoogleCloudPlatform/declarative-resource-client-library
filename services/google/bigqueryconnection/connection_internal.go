@@ -587,9 +587,6 @@ func canonicalizeNewConnectionCloudSql(c *Client, des, nw *ConnectionCloudSql) *
 	if dcl.NameToSelfLink(des.Database, nw.Database) {
 		nw.Database = des.Database
 	}
-	if dcl.IsZeroValue(nw.Type) {
-		nw.Type = des.Type
-	}
 	nw.Credential = canonicalizeNewConnectionCloudSqlCredential(c, des.Credential, nw.Credential)
 
 	return nw

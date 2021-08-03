@@ -623,9 +623,6 @@ func canonicalizeNewMetricDescriptorMetadata(c *Client, des, nw *MetricDescripto
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.LaunchStage) {
-		nw.LaunchStage = des.LaunchStage
-	}
 	if dcl.StringCanonicalize(des.SamplePeriod, nw.SamplePeriod) {
 		nw.SamplePeriod = des.SamplePeriod
 	}

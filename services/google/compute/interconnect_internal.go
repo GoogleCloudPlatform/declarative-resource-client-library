@@ -712,24 +712,6 @@ func canonicalizeNewInterconnectExpectedOutages(c *Client, des, nw *Interconnect
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
-	if dcl.IsZeroValue(nw.Source) {
-		nw.Source = des.Source
-	}
-	if dcl.IsZeroValue(nw.State) {
-		nw.State = des.State
-	}
-	if dcl.IsZeroValue(nw.IssueType) {
-		nw.IssueType = des.IssueType
-	}
-	if dcl.IsZeroValue(nw.AffectedCircuits) {
-		nw.AffectedCircuits = des.AffectedCircuits
-	}
-	if dcl.IsZeroValue(nw.StartTime) {
-		nw.StartTime = des.StartTime
-	}
-	if dcl.IsZeroValue(nw.EndTime) {
-		nw.EndTime = des.EndTime
-	}
 
 	return nw
 }

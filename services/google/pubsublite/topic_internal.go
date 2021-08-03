@@ -530,9 +530,6 @@ func canonicalizeNewTopicPartitionConfig(c *Client, des, nw *TopicPartitionConfi
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Count) {
-		nw.Count = des.Count
-	}
 	nw.Capacity = canonicalizeNewTopicPartitionConfigCapacity(c, des.Capacity, nw.Capacity)
 
 	return nw
@@ -614,13 +611,6 @@ func canonicalizeNewTopicPartitionConfigCapacity(c *Client, des, nw *TopicPartit
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.PublishMibPerSec) {
-		nw.PublishMibPerSec = des.PublishMibPerSec
-	}
-	if dcl.IsZeroValue(nw.SubscribeMibPerSec) {
-		nw.SubscribeMibPerSec = des.SubscribeMibPerSec
-	}
-
 	return nw
 }
 
@@ -700,9 +690,6 @@ func canonicalizeNewTopicRetentionConfig(c *Client, des, nw *TopicRetentionConfi
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.PerPartitionBytes) {
-		nw.PerPartitionBytes = des.PerPartitionBytes
-	}
 	if dcl.StringCanonicalize(des.Period, nw.Period) {
 		nw.Period = des.Period
 	}

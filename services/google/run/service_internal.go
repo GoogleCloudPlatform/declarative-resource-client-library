@@ -873,24 +873,9 @@ func canonicalizeNewServiceMetadata(c *Client, des, nw *ServiceMetadata) *Servic
 	if dcl.StringCanonicalize(des.ResourceVersion, nw.ResourceVersion) {
 		nw.ResourceVersion = des.ResourceVersion
 	}
-	if dcl.IsZeroValue(nw.Generation) {
-		nw.Generation = des.Generation
-	}
 	nw.CreateTime = canonicalizeNewServiceMetadataCreateTime(c, des.CreateTime, nw.CreateTime)
-	if dcl.IsZeroValue(nw.Labels) {
-		nw.Labels = des.Labels
-	}
-	if dcl.IsZeroValue(nw.Annotations) {
-		nw.Annotations = des.Annotations
-	}
 	nw.OwnerReferences = canonicalizeNewServiceMetadataOwnerReferencesSlice(c, des.OwnerReferences, nw.OwnerReferences)
 	nw.DeleteTime = canonicalizeNewServiceMetadataDeleteTime(c, des.DeleteTime, nw.DeleteTime)
-	if dcl.IsZeroValue(nw.DeletionGracePeriodSeconds) {
-		nw.DeletionGracePeriodSeconds = des.DeletionGracePeriodSeconds
-	}
-	if dcl.IsZeroValue(nw.Finalizers) {
-		nw.Finalizers = des.Finalizers
-	}
 	if dcl.NameToSelfLink(des.ClusterName, nw.ClusterName) {
 		nw.ClusterName = des.ClusterName
 	}
@@ -961,13 +946,6 @@ func canonicalizeServiceMetadataCreateTime(des, initial *ServiceMetadataCreateTi
 func canonicalizeNewServiceMetadataCreateTime(c *Client, des, nw *ServiceMetadataCreateTime) *ServiceMetadataCreateTime {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
 	}
 
 	return nw
@@ -1154,13 +1132,6 @@ func canonicalizeServiceMetadataDeleteTime(des, initial *ServiceMetadataDeleteTi
 func canonicalizeNewServiceMetadataDeleteTime(c *Client, des, nw *ServiceMetadataDeleteTime) *ServiceMetadataDeleteTime {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
 	}
 
 	return nw
@@ -1442,24 +1413,9 @@ func canonicalizeNewServiceSpecTemplateMetadata(c *Client, des, nw *ServiceSpecT
 	if dcl.StringCanonicalize(des.ResourceVersion, nw.ResourceVersion) {
 		nw.ResourceVersion = des.ResourceVersion
 	}
-	if dcl.IsZeroValue(nw.Generation) {
-		nw.Generation = des.Generation
-	}
 	nw.CreateTime = canonicalizeNewServiceSpecTemplateMetadataCreateTime(c, des.CreateTime, nw.CreateTime)
-	if dcl.IsZeroValue(nw.Labels) {
-		nw.Labels = des.Labels
-	}
-	if dcl.IsZeroValue(nw.Annotations) {
-		nw.Annotations = des.Annotations
-	}
 	nw.OwnerReferences = canonicalizeNewServiceSpecTemplateMetadataOwnerReferencesSlice(c, des.OwnerReferences, nw.OwnerReferences)
 	nw.DeleteTime = canonicalizeNewServiceSpecTemplateMetadataDeleteTime(c, des.DeleteTime, nw.DeleteTime)
-	if dcl.IsZeroValue(nw.DeletionGracePeriodSeconds) {
-		nw.DeletionGracePeriodSeconds = des.DeletionGracePeriodSeconds
-	}
-	if dcl.IsZeroValue(nw.Finalizers) {
-		nw.Finalizers = des.Finalizers
-	}
 	if dcl.NameToSelfLink(des.ClusterName, nw.ClusterName) {
 		nw.ClusterName = des.ClusterName
 	}
@@ -1530,13 +1486,6 @@ func canonicalizeServiceSpecTemplateMetadataCreateTime(des, initial *ServiceSpec
 func canonicalizeNewServiceSpecTemplateMetadataCreateTime(c *Client, des, nw *ServiceSpecTemplateMetadataCreateTime) *ServiceSpecTemplateMetadataCreateTime {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
 	}
 
 	return nw
@@ -1725,13 +1674,6 @@ func canonicalizeNewServiceSpecTemplateMetadataDeleteTime(c *Client, des, nw *Se
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
-	}
-
 	return nw
 }
 
@@ -1826,12 +1768,6 @@ func canonicalizeNewServiceSpecTemplateSpec(c *Client, des, nw *ServiceSpecTempl
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.ContainerConcurrency) {
-		nw.ContainerConcurrency = des.ContainerConcurrency
-	}
-	if dcl.IsZeroValue(nw.TimeoutSeconds) {
-		nw.TimeoutSeconds = des.TimeoutSeconds
-	}
 	if dcl.StringCanonicalize(des.ServiceAccountName, nw.ServiceAccountName) {
 		nw.ServiceAccountName = des.ServiceAccountName
 	}
@@ -1976,12 +1912,6 @@ func canonicalizeNewServiceSpecTemplateSpecContainers(c *Client, des, nw *Servic
 	}
 	if dcl.StringCanonicalize(des.Image, nw.Image) {
 		nw.Image = des.Image
-	}
-	if dcl.IsZeroValue(nw.Command) {
-		nw.Command = des.Command
-	}
-	if dcl.IsZeroValue(nw.Args) {
-		nw.Args = des.Args
 	}
 	nw.Env = canonicalizeNewServiceSpecTemplateSpecContainersEnvSlice(c, des.Env, nw.Env)
 	nw.Resources = canonicalizeNewServiceSpecTemplateSpecContainersResources(c, des.Resources, nw.Resources)
@@ -2593,13 +2523,6 @@ func canonicalizeNewServiceSpecTemplateSpecContainersResources(c *Client, des, n
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Limits) {
-		nw.Limits = des.Limits
-	}
-	if dcl.IsZeroValue(nw.Requests) {
-		nw.Requests = des.Requests
-	}
-
 	return nw
 }
 
@@ -2686,9 +2609,6 @@ func canonicalizeNewServiceSpecTemplateSpecContainersPorts(c *Client, des, nw *S
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
-	}
-	if dcl.IsZeroValue(nw.ContainerPort) {
-		nw.ContainerPort = des.ContainerPort
 	}
 	if dcl.StringCanonicalize(des.Protocol, nw.Protocol) {
 		nw.Protocol = des.Protocol
@@ -3307,21 +3227,6 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbe(c *Client, de
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.InitialDelaySeconds) {
-		nw.InitialDelaySeconds = des.InitialDelaySeconds
-	}
-	if dcl.IsZeroValue(nw.TimeoutSeconds) {
-		nw.TimeoutSeconds = des.TimeoutSeconds
-	}
-	if dcl.IsZeroValue(nw.PeriodSeconds) {
-		nw.PeriodSeconds = des.PeriodSeconds
-	}
-	if dcl.IsZeroValue(nw.SuccessThreshold) {
-		nw.SuccessThreshold = des.SuccessThreshold
-	}
-	if dcl.IsZeroValue(nw.FailureThreshold) {
-		nw.FailureThreshold = des.FailureThreshold
-	}
 	nw.Exec = canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeExec(c, des.Exec, nw.Exec)
 	nw.HttpGet = canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c, des.HttpGet, nw.HttpGet)
 	nw.TcpSocket = canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c, des.TcpSocket, nw.TcpSocket)
@@ -3669,9 +3574,6 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c *C
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Port) {
-		nw.Port = des.Port
-	}
 	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
 	}
@@ -3773,21 +3675,6 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbe(c *Client, d
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.InitialDelaySeconds) {
-		nw.InitialDelaySeconds = des.InitialDelaySeconds
-	}
-	if dcl.IsZeroValue(nw.TimeoutSeconds) {
-		nw.TimeoutSeconds = des.TimeoutSeconds
-	}
-	if dcl.IsZeroValue(nw.PeriodSeconds) {
-		nw.PeriodSeconds = des.PeriodSeconds
-	}
-	if dcl.IsZeroValue(nw.SuccessThreshold) {
-		nw.SuccessThreshold = des.SuccessThreshold
-	}
-	if dcl.IsZeroValue(nw.FailureThreshold) {
-		nw.FailureThreshold = des.FailureThreshold
-	}
 	nw.Exec = canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeExec(c, des.Exec, nw.Exec)
 	nw.HttpGet = canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c, des.HttpGet, nw.HttpGet)
 	nw.TcpSocket = canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c, des.TcpSocket, nw.TcpSocket)
@@ -4135,9 +4022,6 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c *
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Port) {
-		nw.Port = des.Port
-	}
 	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
 	}
@@ -4214,10 +4098,6 @@ func canonicalizeServiceSpecTemplateSpecContainersSecurityContext(des, initial *
 func canonicalizeNewServiceSpecTemplateSpecContainersSecurityContext(c *Client, des, nw *ServiceSpecTemplateSpecContainersSecurityContext) *ServiceSpecTemplateSpecContainersSecurityContext {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.RunAsUser) {
-		nw.RunAsUser = des.RunAsUser
 	}
 
 	return nw
@@ -4395,9 +4275,6 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesSecret(c *Client, des, nw *Ser
 		nw.SecretName = des.SecretName
 	}
 	nw.Items = canonicalizeNewServiceSpecTemplateSpecVolumesSecretItemsSlice(c, des.Items, nw.Items)
-	if dcl.IsZeroValue(nw.DefaultMode) {
-		nw.DefaultMode = des.DefaultMode
-	}
 	if dcl.BoolCanonicalize(des.Optional, nw.Optional) {
 		nw.Optional = des.Optional
 	}
@@ -4491,9 +4368,6 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesSecretItems(c *Client, des, nw
 	}
 	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
-	}
-	if dcl.IsZeroValue(nw.Mode) {
-		nw.Mode = des.Mode
 	}
 
 	return nw
@@ -4589,9 +4463,6 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesConfigMap(c *Client, des, nw *
 		nw.Name = des.Name
 	}
 	nw.Items = canonicalizeNewServiceSpecTemplateSpecVolumesConfigMapItemsSlice(c, des.Items, nw.Items)
-	if dcl.IsZeroValue(nw.DefaultMode) {
-		nw.DefaultMode = des.DefaultMode
-	}
 	if dcl.BoolCanonicalize(des.Optional, nw.Optional) {
 		nw.Optional = des.Optional
 	}
@@ -4685,9 +4556,6 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesConfigMapItems(c *Client, des,
 	}
 	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
-	}
-	if dcl.IsZeroValue(nw.Mode) {
-		nw.Mode = des.Mode
 	}
 
 	return nw
@@ -4789,9 +4657,6 @@ func canonicalizeNewServiceSpecTraffic(c *Client, des, nw *ServiceSpecTraffic) *
 	}
 	if dcl.StringCanonicalize(des.RevisionName, nw.RevisionName) {
 		nw.RevisionName = des.RevisionName
-	}
-	if dcl.IsZeroValue(nw.Percent) {
-		nw.Percent = des.Percent
 	}
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
 		nw.Tag = des.Tag
@@ -4903,9 +4768,6 @@ func canonicalizeNewServiceStatus(c *Client, des, nw *ServiceStatus) *ServiceSta
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.ObservedGeneration) {
-		nw.ObservedGeneration = des.ObservedGeneration
-	}
 	nw.Conditions = canonicalizeNewServiceStatusConditionsSlice(c, des.Conditions, nw.Conditions)
 	if dcl.StringCanonicalize(des.LatestReadyRevisionName, nw.LatestReadyRevisionName) {
 		nw.LatestReadyRevisionName = des.LatestReadyRevisionName
@@ -5110,13 +4972,6 @@ func canonicalizeNewServiceStatusConditionsLastTransitionTime(c *Client, des, nw
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
-	}
-
 	return nw
 }
 
@@ -5216,9 +5071,6 @@ func canonicalizeNewServiceStatusTraffic(c *Client, des, nw *ServiceStatusTraffi
 	}
 	if dcl.StringCanonicalize(des.RevisionName, nw.RevisionName) {
 		nw.RevisionName = des.RevisionName
-	}
-	if dcl.IsZeroValue(nw.Percent) {
-		nw.Percent = des.Percent
 	}
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
 		nw.Tag = des.Tag

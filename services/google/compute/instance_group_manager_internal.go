@@ -995,9 +995,6 @@ func canonicalizeNewInstanceGroupManagerDistributionPolicy(c *Client, des, nw *I
 	}
 
 	nw.Zones = canonicalizeNewInstanceGroupManagerDistributionPolicyZonesSlice(c, des.Zones, nw.Zones)
-	if dcl.IsZeroValue(nw.TargetShape) {
-		nw.TargetShape = des.TargetShape
-	}
 
 	return nw
 }
@@ -1244,16 +1241,6 @@ func canonicalizeNewInstanceGroupManagerFixedOrPercent(c *Client, des, nw *Insta
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Fixed) {
-		nw.Fixed = des.Fixed
-	}
-	if dcl.IsZeroValue(nw.Percent) {
-		nw.Percent = des.Percent
-	}
-	if dcl.IsZeroValue(nw.Calculated) {
-		nw.Calculated = des.Calculated
-	}
-
 	return nw
 }
 
@@ -1320,34 +1307,6 @@ func canonicalizeInstanceGroupManagerCurrentActions(des, initial *InstanceGroupM
 func canonicalizeNewInstanceGroupManagerCurrentActions(c *Client, des, nw *InstanceGroupManagerCurrentActions) *InstanceGroupManagerCurrentActions {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.None) {
-		nw.None = des.None
-	}
-	if dcl.IsZeroValue(nw.Creating) {
-		nw.Creating = des.Creating
-	}
-	if dcl.IsZeroValue(nw.CreatingWithoutRetries) {
-		nw.CreatingWithoutRetries = des.CreatingWithoutRetries
-	}
-	if dcl.IsZeroValue(nw.Verifying) {
-		nw.Verifying = des.Verifying
-	}
-	if dcl.IsZeroValue(nw.Recreating) {
-		nw.Recreating = des.Recreating
-	}
-	if dcl.IsZeroValue(nw.Deleting) {
-		nw.Deleting = des.Deleting
-	}
-	if dcl.IsZeroValue(nw.Abandoning) {
-		nw.Abandoning = des.Abandoning
-	}
-	if dcl.IsZeroValue(nw.Restarting) {
-		nw.Restarting = des.Restarting
-	}
-	if dcl.IsZeroValue(nw.Refreshing) {
-		nw.Refreshing = des.Refreshing
 	}
 
 	return nw
@@ -1732,9 +1691,6 @@ func canonicalizeNewInstanceGroupManagerAutoHealingPolicies(c *Client, des, nw *
 	if dcl.NameToSelfLink(des.HealthCheck, nw.HealthCheck) {
 		nw.HealthCheck = des.HealthCheck
 	}
-	if dcl.IsZeroValue(nw.InitialDelaySec) {
-		nw.InitialDelaySec = des.InitialDelaySec
-	}
 
 	return nw
 }
@@ -1827,20 +1783,8 @@ func canonicalizeNewInstanceGroupManagerUpdatePolicy(c *Client, des, nw *Instanc
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Type) {
-		nw.Type = des.Type
-	}
-	if dcl.IsZeroValue(nw.InstanceRedistributionType) {
-		nw.InstanceRedistributionType = des.InstanceRedistributionType
-	}
-	if dcl.IsZeroValue(nw.MinimalAction) {
-		nw.MinimalAction = des.MinimalAction
-	}
 	nw.MaxSurge = canonicalizeNewInstanceGroupManagerFixedOrPercent(c, des.MaxSurge, nw.MaxSurge)
 	nw.MaxUnavailable = canonicalizeNewInstanceGroupManagerFixedOrPercent(c, des.MaxUnavailable, nw.MaxUnavailable)
-	if dcl.IsZeroValue(nw.ReplacementMethod) {
-		nw.ReplacementMethod = des.ReplacementMethod
-	}
 
 	return nw
 }
@@ -1923,9 +1867,6 @@ func canonicalizeNewInstanceGroupManagerNamedPorts(c *Client, des, nw *InstanceG
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
-	}
-	if dcl.IsZeroValue(nw.Port) {
-		nw.Port = des.Port
 	}
 
 	return nw
@@ -2074,10 +2015,6 @@ func canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedState(c *Client, 
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Disks) {
-		nw.Disks = des.Disks
-	}
-
 	return nw
 }
 
@@ -2150,10 +2087,6 @@ func canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateDisks(des, init
 func canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedStateDisks(c *Client, des, nw *InstanceGroupManagerStatefulPolicyPreservedStateDisks) *InstanceGroupManagerStatefulPolicyPreservedStateDisks {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.AutoDelete) {
-		nw.AutoDelete = des.AutoDelete
 	}
 
 	return nw

@@ -682,12 +682,6 @@ func canonicalizeNewAzureClusterNetworking(c *Client, des, nw *AzureClusterNetwo
 	if dcl.StringCanonicalize(des.VirtualNetworkId, nw.VirtualNetworkId) {
 		nw.VirtualNetworkId = des.VirtualNetworkId
 	}
-	if dcl.IsZeroValue(nw.PodAddressCidrBlocks) {
-		nw.PodAddressCidrBlocks = des.PodAddressCidrBlocks
-	}
-	if dcl.IsZeroValue(nw.ServiceAddressCidrBlocks) {
-		nw.ServiceAddressCidrBlocks = des.ServiceAddressCidrBlocks
-	}
 
 	return nw
 }
@@ -795,9 +789,6 @@ func canonicalizeNewAzureClusterControlPlane(c *Client, des, nw *AzureClusterCon
 	nw.RootVolume = canonicalizeNewAzureClusterControlPlaneRootVolume(c, des.RootVolume, nw.RootVolume)
 	nw.MainVolume = canonicalizeNewAzureClusterControlPlaneMainVolume(c, des.MainVolume, nw.MainVolume)
 	nw.DatabaseEncryption = canonicalizeNewAzureClusterControlPlaneDatabaseEncryption(c, des.DatabaseEncryption, nw.DatabaseEncryption)
-	if dcl.IsZeroValue(nw.Tags) {
-		nw.Tags = des.Tags
-	}
 
 	return nw
 }
@@ -951,10 +942,6 @@ func canonicalizeNewAzureClusterControlPlaneRootVolume(c *Client, des, nw *Azure
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.SizeGib) {
-		nw.SizeGib = des.SizeGib
-	}
-
 	return nw
 }
 
@@ -1027,10 +1014,6 @@ func canonicalizeAzureClusterControlPlaneMainVolume(des, initial *AzureClusterCo
 func canonicalizeNewAzureClusterControlPlaneMainVolume(c *Client, des, nw *AzureClusterControlPlaneMainVolume) *AzureClusterControlPlaneMainVolume {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.SizeGib) {
-		nw.SizeGib = des.SizeGib
 	}
 
 	return nw

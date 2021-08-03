@@ -892,13 +892,6 @@ func canonicalizeNewCaPoolIssuancePolicyAllowedKeyTypesRsa(c *Client, des, nw *C
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.MinModulusSize) {
-		nw.MinModulusSize = des.MinModulusSize
-	}
-	if dcl.IsZeroValue(nw.MaxModulusSize) {
-		nw.MaxModulusSize = des.MaxModulusSize
-	}
-
 	return nw
 }
 
@@ -971,10 +964,6 @@ func canonicalizeCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(des, initial *
 func canonicalizeNewCaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(c *Client, des, nw *CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve) *CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.SignatureAlgorithm) {
-		nw.SignatureAlgorithm = des.SignatureAlgorithm
 	}
 
 	return nw
@@ -1152,9 +1141,6 @@ func canonicalizeNewCaPoolIssuancePolicyBaselineValues(c *Client, des, nw *CaPoo
 	nw.KeyUsage = canonicalizeNewCaPoolIssuancePolicyBaselineValuesKeyUsage(c, des.KeyUsage, nw.KeyUsage)
 	nw.CaOptions = canonicalizeNewCaPoolIssuancePolicyBaselineValuesCaOptions(c, des.CaOptions, nw.CaOptions)
 	nw.PolicyIds = canonicalizeNewCaPoolIssuancePolicyBaselineValuesPolicyIdsSlice(c, des.PolicyIds, nw.PolicyIds)
-	if dcl.IsZeroValue(nw.AiaOcspServers) {
-		nw.AiaOcspServers = des.AiaOcspServers
-	}
 	nw.AdditionalExtensions = canonicalizeNewCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsSlice(c, des.AdditionalExtensions, nw.AdditionalExtensions)
 
 	return nw
@@ -1571,10 +1557,6 @@ func canonicalizeNewCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKey
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.ObjectIdPath) {
-		nw.ObjectIdPath = des.ObjectIdPath
-	}
-
 	return nw
 }
 
@@ -1657,9 +1639,7 @@ func canonicalizeNewCaPoolIssuancePolicyBaselineValuesCaOptions(c *Client, des, 
 	if dcl.BoolCanonicalize(des.IsCa, nw.IsCa) {
 		nw.IsCa = des.IsCa
 	}
-	if dcl.IsZeroValue(nw.MaxIssuerPathLength) {
-		nw.MaxIssuerPathLength = des.MaxIssuerPathLength
-	}
+	nw.MaxIssuerPathLength = des.MaxIssuerPathLength
 
 	return nw
 }
@@ -1733,10 +1713,6 @@ func canonicalizeCaPoolIssuancePolicyBaselineValuesPolicyIds(des, initial *CaPoo
 func canonicalizeNewCaPoolIssuancePolicyBaselineValuesPolicyIds(c *Client, des, nw *CaPoolIssuancePolicyBaselineValuesPolicyIds) *CaPoolIssuancePolicyBaselineValuesPolicyIds {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.ObjectIdPath) {
-		nw.ObjectIdPath = des.ObjectIdPath
 	}
 
 	return nw
@@ -1899,10 +1875,6 @@ func canonicalizeCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(
 func canonicalizeNewCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(c *Client, des, nw *CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId) *CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.ObjectIdPath) {
-		nw.ObjectIdPath = des.ObjectIdPath
 	}
 
 	return nw
@@ -2174,9 +2146,6 @@ func canonicalizeNewCaPoolIssuancePolicyPassthroughExtensions(c *Client, des, nw
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.KnownExtensions) {
-		nw.KnownExtensions = des.KnownExtensions
-	}
 	nw.AdditionalExtensions = canonicalizeNewCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsSlice(c, des.AdditionalExtensions, nw.AdditionalExtensions)
 
 	return nw
@@ -2251,10 +2220,6 @@ func canonicalizeCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions(d
 func canonicalizeNewCaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions(c *Client, des, nw *CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions) *CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.ObjectIdPath) {
-		nw.ObjectIdPath = des.ObjectIdPath
 	}
 
 	return nw

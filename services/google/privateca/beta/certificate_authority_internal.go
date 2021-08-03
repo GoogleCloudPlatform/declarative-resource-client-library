@@ -1280,18 +1280,6 @@ func canonicalizeNewCertificateAuthorityConfigSubjectConfigSubjectAltName(c *Cli
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DnsNames) {
-		nw.DnsNames = des.DnsNames
-	}
-	if dcl.IsZeroValue(nw.Uris) {
-		nw.Uris = des.Uris
-	}
-	if dcl.IsZeroValue(nw.EmailAddresses) {
-		nw.EmailAddresses = des.EmailAddresses
-	}
-	if dcl.IsZeroValue(nw.IPAddresses) {
-		nw.IPAddresses = des.IPAddresses
-	}
 	nw.CustomSans = canonicalizeNewCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansSlice(c, des.CustomSans, nw.CustomSans)
 
 	return nw
@@ -1456,10 +1444,6 @@ func canonicalizeNewCertificateAuthorityConfigSubjectConfigSubjectAltNameCustomS
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.ObjectIdPath) {
-		nw.ObjectIdPath = des.ObjectIdPath
-	}
-
 	return nw
 }
 
@@ -1544,9 +1528,6 @@ func canonicalizeNewCertificateAuthorityConfigX509Config(c *Client, des, nw *Cer
 	nw.KeyUsage = canonicalizeNewCertificateAuthorityConfigX509ConfigKeyUsage(c, des.KeyUsage, nw.KeyUsage)
 	nw.CaOptions = canonicalizeNewCertificateAuthorityConfigX509ConfigCaOptions(c, des.CaOptions, nw.CaOptions)
 	nw.PolicyIds = canonicalizeNewCertificateAuthorityConfigX509ConfigPolicyIdsSlice(c, des.PolicyIds, nw.PolicyIds)
-	if dcl.IsZeroValue(nw.AiaOcspServers) {
-		nw.AiaOcspServers = des.AiaOcspServers
-	}
 	nw.AdditionalExtensions = canonicalizeNewCertificateAuthorityConfigX509ConfigAdditionalExtensionsSlice(c, des.AdditionalExtensions, nw.AdditionalExtensions)
 
 	return nw
@@ -1963,10 +1944,6 @@ func canonicalizeNewCertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedK
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.ObjectIdPath) {
-		nw.ObjectIdPath = des.ObjectIdPath
-	}
-
 	return nw
 }
 
@@ -2049,9 +2026,6 @@ func canonicalizeNewCertificateAuthorityConfigX509ConfigCaOptions(c *Client, des
 	if dcl.BoolCanonicalize(des.IsCa, nw.IsCa) {
 		nw.IsCa = des.IsCa
 	}
-	if dcl.IsZeroValue(nw.MaxIssuerPathLength) {
-		nw.MaxIssuerPathLength = des.MaxIssuerPathLength
-	}
 
 	return nw
 }
@@ -2125,10 +2099,6 @@ func canonicalizeCertificateAuthorityConfigX509ConfigPolicyIds(des, initial *Cer
 func canonicalizeNewCertificateAuthorityConfigX509ConfigPolicyIds(c *Client, des, nw *CertificateAuthorityConfigX509ConfigPolicyIds) *CertificateAuthorityConfigX509ConfigPolicyIds {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.ObjectIdPath) {
-		nw.ObjectIdPath = des.ObjectIdPath
 	}
 
 	return nw
@@ -2293,10 +2263,6 @@ func canonicalizeNewCertificateAuthorityConfigX509ConfigAdditionalExtensionsObje
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.ObjectIdPath) {
-		nw.ObjectIdPath = des.ObjectIdPath
-	}
-
 	return nw
 }
 
@@ -2378,9 +2344,6 @@ func canonicalizeNewCertificateAuthorityConfigPublicKey(c *Client, des, nw *Cert
 
 	if dcl.StringCanonicalize(des.Key, nw.Key) {
 		nw.Key = des.Key
-	}
-	if dcl.IsZeroValue(nw.Format) {
-		nw.Format = des.Format
 	}
 
 	return nw
@@ -2484,9 +2447,6 @@ func canonicalizeNewCertificateAuthorityKeySpec(c *Client, des, nw *CertificateA
 
 	if dcl.NameToSelfLink(des.CloudKmsKeyVersion, nw.CloudKmsKeyVersion) {
 		nw.CloudKmsKeyVersion = des.CloudKmsKeyVersion
-	}
-	if dcl.IsZeroValue(nw.Algorithm) {
-		nw.Algorithm = des.Algorithm
 	}
 
 	return nw
@@ -2663,10 +2623,6 @@ func canonicalizeNewCertificateAuthoritySubordinateConfigPemIssuerChain(c *Clien
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.PemCertificates) {
-		nw.PemCertificates = des.PemCertificates
-	}
-
 	return nw
 }
 
@@ -2757,12 +2713,6 @@ func canonicalizeNewCertificateAuthorityCaCertificateDescriptions(c *Client, des
 	nw.PublicKey = canonicalizeNewCertificateAuthorityCaCertificateDescriptionsPublicKey(c, des.PublicKey, nw.PublicKey)
 	nw.SubjectKeyId = canonicalizeNewCertificateAuthorityCaCertificateDescriptionsSubjectKeyId(c, des.SubjectKeyId, nw.SubjectKeyId)
 	nw.AuthorityKeyId = canonicalizeNewCertificateAuthorityCaCertificateDescriptionsAuthorityKeyId(c, des.AuthorityKeyId, nw.AuthorityKeyId)
-	if dcl.IsZeroValue(nw.CrlDistributionPoints) {
-		nw.CrlDistributionPoints = des.CrlDistributionPoints
-	}
-	if dcl.IsZeroValue(nw.AiaIssuingCertificateUrls) {
-		nw.AiaIssuingCertificateUrls = des.AiaIssuingCertificateUrls
-	}
 	nw.CertFingerprint = canonicalizeNewCertificateAuthorityCaCertificateDescriptionsCertFingerprint(c, des.CertFingerprint, nw.CertFingerprint)
 
 	return nw
@@ -2863,12 +2813,6 @@ func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsSubjectDescript
 	}
 	if dcl.StringCanonicalize(des.Lifetime, nw.Lifetime) {
 		nw.Lifetime = des.Lifetime
-	}
-	if dcl.IsZeroValue(nw.NotBeforeTime) {
-		nw.NotBeforeTime = des.NotBeforeTime
-	}
-	if dcl.IsZeroValue(nw.NotAfterTime) {
-		nw.NotAfterTime = des.NotAfterTime
 	}
 
 	return nw
@@ -3099,18 +3043,6 @@ func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsSubjectDescript
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DnsNames) {
-		nw.DnsNames = des.DnsNames
-	}
-	if dcl.IsZeroValue(nw.Uris) {
-		nw.Uris = des.Uris
-	}
-	if dcl.IsZeroValue(nw.EmailAddresses) {
-		nw.EmailAddresses = des.EmailAddresses
-	}
-	if dcl.IsZeroValue(nw.IPAddresses) {
-		nw.IPAddresses = des.IPAddresses
-	}
 	nw.CustomSans = canonicalizeNewCertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansSlice(c, des.CustomSans, nw.CustomSans)
 
 	return nw
@@ -3275,10 +3207,6 @@ func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsSubjectDescript
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.ObjectIdPath) {
-		nw.ObjectIdPath = des.ObjectIdPath
-	}
-
 	return nw
 }
 
@@ -3363,9 +3291,6 @@ func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsX509Description
 	nw.KeyUsage = canonicalizeNewCertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage(c, des.KeyUsage, nw.KeyUsage)
 	nw.CaOptions = canonicalizeNewCertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions(c, des.CaOptions, nw.CaOptions)
 	nw.PolicyIds = canonicalizeNewCertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIdsSlice(c, des.PolicyIds, nw.PolicyIds)
-	if dcl.IsZeroValue(nw.AiaOcspServers) {
-		nw.AiaOcspServers = des.AiaOcspServers
-	}
 	nw.AdditionalExtensions = canonicalizeNewCertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsSlice(c, des.AdditionalExtensions, nw.AdditionalExtensions)
 
 	return nw
@@ -3782,10 +3707,6 @@ func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsX509Description
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.ObjectIdPath) {
-		nw.ObjectIdPath = des.ObjectIdPath
-	}
-
 	return nw
 }
 
@@ -3868,9 +3789,6 @@ func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsX509Description
 	if dcl.BoolCanonicalize(des.IsCa, nw.IsCa) {
 		nw.IsCa = des.IsCa
 	}
-	if dcl.IsZeroValue(nw.MaxIssuerPathLength) {
-		nw.MaxIssuerPathLength = des.MaxIssuerPathLength
-	}
 
 	return nw
 }
@@ -3944,10 +3862,6 @@ func canonicalizeCertificateAuthorityCaCertificateDescriptionsX509DescriptionPol
 func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds(c *Client, des, nw *CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds) *CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.ObjectIdPath) {
-		nw.ObjectIdPath = des.ObjectIdPath
 	}
 
 	return nw
@@ -4112,10 +4026,6 @@ func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsX509Description
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.ObjectIdPath) {
-		nw.ObjectIdPath = des.ObjectIdPath
-	}
-
 	return nw
 }
 
@@ -4197,9 +4107,6 @@ func canonicalizeNewCertificateAuthorityCaCertificateDescriptionsPublicKey(c *Cl
 
 	if dcl.StringCanonicalize(des.Key, nw.Key) {
 		nw.Key = des.Key
-	}
-	if dcl.IsZeroValue(nw.Format) {
-		nw.Format = des.Format
 	}
 
 	return nw
@@ -4517,9 +4424,6 @@ func canonicalizeNewCertificateAuthorityAccessUrls(c *Client, des, nw *Certifica
 
 	if dcl.StringCanonicalize(des.CaCertificateAccessUrl, nw.CaCertificateAccessUrl) {
 		nw.CaCertificateAccessUrl = des.CaCertificateAccessUrl
-	}
-	if dcl.IsZeroValue(nw.CrlAccessUrls) {
-		nw.CrlAccessUrls = des.CrlAccessUrls
 	}
 
 	return nw

@@ -672,33 +672,6 @@ func canonicalizeNewRouterNats(c *Client, des, nw *RouterNats) *RouterNats {
 		nw.Name = des.Name
 	}
 	nw.LogConfig = canonicalizeNewRouterNatsLogConfig(c, des.LogConfig, nw.LogConfig)
-	if dcl.IsZeroValue(nw.SourceSubnetworkIPRangesToNat) {
-		nw.SourceSubnetworkIPRangesToNat = des.SourceSubnetworkIPRangesToNat
-	}
-	if dcl.IsZeroValue(nw.NatIps) {
-		nw.NatIps = des.NatIps
-	}
-	if dcl.IsZeroValue(nw.DrainNatIps) {
-		nw.DrainNatIps = des.DrainNatIps
-	}
-	if dcl.IsZeroValue(nw.NatIPAllocateOption) {
-		nw.NatIPAllocateOption = des.NatIPAllocateOption
-	}
-	if dcl.IsZeroValue(nw.MinPortsPerVm) {
-		nw.MinPortsPerVm = des.MinPortsPerVm
-	}
-	if dcl.IsZeroValue(nw.UdpIdleTimeoutSec) {
-		nw.UdpIdleTimeoutSec = des.UdpIdleTimeoutSec
-	}
-	if dcl.IsZeroValue(nw.IcmpIdleTimeoutSec) {
-		nw.IcmpIdleTimeoutSec = des.IcmpIdleTimeoutSec
-	}
-	if dcl.IsZeroValue(nw.TcpEstablishedIdleTimeoutSec) {
-		nw.TcpEstablishedIdleTimeoutSec = des.TcpEstablishedIdleTimeoutSec
-	}
-	if dcl.IsZeroValue(nw.TcpTransitoryIdleTimeoutSec) {
-		nw.TcpTransitoryIdleTimeoutSec = des.TcpTransitoryIdleTimeoutSec
-	}
 	nw.Subnetworks = canonicalizeNewRouterNatsSubnetworksSlice(c, des.Subnetworks, nw.Subnetworks)
 
 	return nw
@@ -782,9 +755,6 @@ func canonicalizeNewRouterNatsLogConfig(c *Client, des, nw *RouterNatsLogConfig)
 
 	if dcl.BoolCanonicalize(des.Enable, nw.Enable) {
 		nw.Enable = des.Enable
-	}
-	if dcl.IsZeroValue(nw.Filter) {
-		nw.Filter = des.Filter
 	}
 
 	return nw
@@ -974,9 +944,6 @@ func canonicalizeNewRouterInterfaces(c *Client, des, nw *RouterInterfaces) *Rout
 	if dcl.StringCanonicalize(des.IPRange, nw.IPRange) {
 		nw.IPRange = des.IPRange
 	}
-	if dcl.IsZeroValue(nw.ManagementType) {
-		nw.ManagementType = des.ManagementType
-	}
 
 	return nw
 }
@@ -1102,20 +1069,11 @@ func canonicalizeNewRouterBgpPeers(c *Client, des, nw *RouterBgpPeers) *RouterBg
 		nw.IPAddress = des.IPAddress
 	}
 	nw.PeerIPAddress = des.PeerIPAddress
-	if dcl.IsZeroValue(nw.PeerAsn) {
-		nw.PeerAsn = des.PeerAsn
-	}
-	if dcl.IsZeroValue(nw.AdvertisedRoutePriority) {
-		nw.AdvertisedRoutePriority = des.AdvertisedRoutePriority
-	}
 	if dcl.StringCanonicalize(des.AdvertiseMode, nw.AdvertiseMode) {
 		nw.AdvertiseMode = des.AdvertiseMode
 	}
 	if dcl.StringCanonicalize(des.ManagementType, nw.ManagementType) {
 		nw.ManagementType = des.ManagementType
-	}
-	if dcl.IsZeroValue(nw.AdvertisedGroups) {
-		nw.AdvertisedGroups = des.AdvertisedGroups
 	}
 	nw.AdvertisedIPRanges = canonicalizeNewRouterBgpPeersAdvertisedIPRangesSlice(c, des.AdvertisedIPRanges, nw.AdvertisedIPRanges)
 
@@ -1294,15 +1252,6 @@ func canonicalizeNewRouterBgp(c *Client, des, nw *RouterBgp) *RouterBgp {
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Asn) {
-		nw.Asn = des.Asn
-	}
-	if dcl.IsZeroValue(nw.AdvertiseMode) {
-		nw.AdvertiseMode = des.AdvertiseMode
-	}
-	if dcl.IsZeroValue(nw.AdvertisedGroups) {
-		nw.AdvertisedGroups = des.AdvertisedGroups
-	}
 	nw.AdvertisedIPRanges = canonicalizeNewRouterBgpAdvertisedIPRangesSlice(c, des.AdvertisedIPRanges, nw.AdvertisedIPRanges)
 
 	return nw

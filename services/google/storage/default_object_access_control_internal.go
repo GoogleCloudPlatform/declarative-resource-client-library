@@ -518,9 +518,6 @@ func canonicalizeNewDefaultObjectAccessControlProjectTeam(c *Client, des, nw *De
 	if dcl.StringCanonicalize(des.ProjectNumber, nw.ProjectNumber) {
 		nw.ProjectNumber = des.ProjectNumber
 	}
-	if dcl.IsZeroValue(nw.Team) {
-		nw.Team = des.Team
-	}
 
 	return nw
 }

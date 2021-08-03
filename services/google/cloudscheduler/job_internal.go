@@ -689,9 +689,6 @@ func canonicalizeNewJobPubsubTarget(c *Client, des, nw *JobPubsubTarget) *JobPub
 	if dcl.StringCanonicalize(des.Data, nw.Data) {
 		nw.Data = des.Data
 	}
-	if dcl.IsZeroValue(nw.Attributes) {
-		nw.Attributes = des.Attributes
-	}
 
 	return nw
 }
@@ -783,15 +780,9 @@ func canonicalizeNewJobAppEngineHttpTarget(c *Client, des, nw *JobAppEngineHttpT
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.HttpMethod) {
-		nw.HttpMethod = des.HttpMethod
-	}
 	nw.AppEngineRouting = canonicalizeNewJobAppEngineHttpTargetAppEngineRouting(c, des.AppEngineRouting, nw.AppEngineRouting)
 	if dcl.StringCanonicalize(des.RelativeUri, nw.RelativeUri) {
 		nw.RelativeUri = des.RelativeUri
-	}
-	if dcl.IsZeroValue(nw.Headers) {
-		nw.Headers = des.Headers
 	}
 	if dcl.StringCanonicalize(des.Body, nw.Body) {
 		nw.Body = des.Body
@@ -987,12 +978,6 @@ func canonicalizeNewJobHttpTarget(c *Client, des, nw *JobHttpTarget) *JobHttpTar
 
 	if dcl.StringCanonicalize(des.Uri, nw.Uri) {
 		nw.Uri = des.Uri
-	}
-	if dcl.IsZeroValue(nw.HttpMethod) {
-		nw.HttpMethod = des.HttpMethod
-	}
-	if dcl.IsZeroValue(nw.Headers) {
-		nw.Headers = des.Headers
 	}
 	if dcl.StringCanonicalize(des.Body, nw.Body) {
 		nw.Body = des.Body
@@ -1256,9 +1241,6 @@ func canonicalizeNewJobStatus(c *Client, des, nw *JobStatus) *JobStatus {
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -1444,9 +1426,6 @@ func canonicalizeNewJobRetryConfig(c *Client, des, nw *JobRetryConfig) *JobRetry
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.RetryCount) {
-		nw.RetryCount = des.RetryCount
-	}
 	if dcl.StringCanonicalize(des.MaxRetryDuration, nw.MaxRetryDuration) {
 		nw.MaxRetryDuration = des.MaxRetryDuration
 	}
@@ -1455,9 +1434,6 @@ func canonicalizeNewJobRetryConfig(c *Client, des, nw *JobRetryConfig) *JobRetry
 	}
 	if dcl.StringCanonicalize(des.MaxBackoffDuration, nw.MaxBackoffDuration) {
 		nw.MaxBackoffDuration = des.MaxBackoffDuration
-	}
-	if dcl.IsZeroValue(nw.MaxDoublings) {
-		nw.MaxDoublings = des.MaxDoublings
 	}
 
 	return nw

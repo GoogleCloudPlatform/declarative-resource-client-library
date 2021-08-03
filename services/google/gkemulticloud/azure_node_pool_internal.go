@@ -619,9 +619,6 @@ func canonicalizeNewAzureNodePoolConfig(c *Client, des, nw *AzureNodePoolConfig)
 		nw.VmSize = des.VmSize
 	}
 	nw.RootVolume = canonicalizeNewAzureNodePoolConfigRootVolume(c, des.RootVolume, nw.RootVolume)
-	if dcl.IsZeroValue(nw.Tags) {
-		nw.Tags = des.Tags
-	}
 	nw.SshConfig = canonicalizeNewAzureNodePoolConfigSshConfig(c, des.SshConfig, nw.SshConfig)
 
 	return nw
@@ -696,10 +693,6 @@ func canonicalizeAzureNodePoolConfigRootVolume(des, initial *AzureNodePoolConfig
 func canonicalizeNewAzureNodePoolConfigRootVolume(c *Client, des, nw *AzureNodePoolConfigRootVolume) *AzureNodePoolConfigRootVolume {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.SizeGib) {
-		nw.SizeGib = des.SizeGib
 	}
 
 	return nw
@@ -859,13 +852,6 @@ func canonicalizeNewAzureNodePoolAutoscaling(c *Client, des, nw *AzureNodePoolAu
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.MinNodeCount) {
-		nw.MinNodeCount = des.MinNodeCount
-	}
-	if dcl.IsZeroValue(nw.MaxNodeCount) {
-		nw.MaxNodeCount = des.MaxNodeCount
-	}
-
 	return nw
 }
 
@@ -938,10 +924,6 @@ func canonicalizeAzureNodePoolMaxPodsConstraint(des, initial *AzureNodePoolMaxPo
 func canonicalizeNewAzureNodePoolMaxPodsConstraint(c *Client, des, nw *AzureNodePoolMaxPodsConstraint) *AzureNodePoolMaxPodsConstraint {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.MaxPodsPerNode) {
-		nw.MaxPodsPerNode = des.MaxPodsPerNode
 	}
 
 	return nw

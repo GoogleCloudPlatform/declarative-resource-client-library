@@ -990,9 +990,6 @@ func canonicalizeNewOSPolicyAssignmentOSPolicies(c *Client, des, nw *OSPolicyAss
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
-	if dcl.IsZeroValue(nw.Mode) {
-		nw.Mode = des.Mode
-	}
 	nw.ResourceGroups = canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsSlice(c, des.ResourceGroups, nw.ResourceGroups)
 	if dcl.BoolCanonicalize(des.AllowNoResourceGroupMatch, nw.AllowNoResourceGroupMatch) {
 		nw.AllowNoResourceGroupMatch = des.AllowNoResourceGroupMatch
@@ -1399,9 +1396,6 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c *Cl
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.DesiredState) {
-		nw.DesiredState = des.DesiredState
-	}
 	nw.Apt = canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c, des.Apt, nw.Apt)
 	nw.Deb = canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c, des.Deb, nw.Deb)
 	nw.Yum = canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(c, des.Yum, nw.Yum)
@@ -1833,9 +1827,6 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSou
 	}
 	if dcl.NameToSelfLink(des.Object, nw.Object) {
 		nw.Object = des.Object
-	}
-	if dcl.IsZeroValue(nw.Generation) {
-		nw.Generation = des.Generation
 	}
 
 	return nw
@@ -2370,9 +2361,6 @@ func canonicalizeNewOSPolicyAssignmentFileGcs(c *Client, des, nw *OSPolicyAssign
 	if dcl.NameToSelfLink(des.Object, nw.Object) {
 		nw.Object = des.Object
 	}
-	if dcl.IsZeroValue(nw.Generation) {
-		nw.Generation = des.Generation
-	}
 
 	return nw
 }
@@ -2528,9 +2516,6 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c 
 	}
 
 	nw.Source = canonicalizeNewOSPolicyAssignmentFile(c, des.Source, nw.Source)
-	if dcl.IsZeroValue(nw.Properties) {
-		nw.Properties = des.Properties
-	}
 
 	return nw
 }
@@ -2744,17 +2729,11 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositor
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.ArchiveType) {
-		nw.ArchiveType = des.ArchiveType
-	}
 	if dcl.StringCanonicalize(des.Uri, nw.Uri) {
 		nw.Uri = des.Uri
 	}
 	if dcl.StringCanonicalize(des.Distribution, nw.Distribution) {
 		nw.Distribution = des.Distribution
-	}
-	if dcl.IsZeroValue(nw.Components) {
-		nw.Components = des.Components
 	}
 	if dcl.StringCanonicalize(des.GpgKey, nw.GpgKey) {
 		nw.GpgKey = des.GpgKey
@@ -2858,9 +2837,6 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositor
 	if dcl.StringCanonicalize(des.BaseUrl, nw.BaseUrl) {
 		nw.BaseUrl = des.BaseUrl
 	}
-	if dcl.IsZeroValue(nw.GpgKeys) {
-		nw.GpgKeys = des.GpgKeys
-	}
 
 	return nw
 }
@@ -2959,9 +2935,6 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositor
 	}
 	if dcl.StringCanonicalize(des.BaseUrl, nw.BaseUrl) {
 		nw.BaseUrl = des.BaseUrl
-	}
-	if dcl.IsZeroValue(nw.GpgKeys) {
-		nw.GpgKeys = des.GpgKeys
 	}
 
 	return nw
@@ -3233,12 +3206,6 @@ func canonicalizeNewOSPolicyAssignmentExec(c *Client, des, nw *OSPolicyAssignmen
 	if dcl.StringCanonicalize(des.Script, nw.Script) {
 		nw.Script = des.Script
 	}
-	if dcl.IsZeroValue(nw.Args) {
-		nw.Args = des.Args
-	}
-	if dcl.IsZeroValue(nw.Interpreter) {
-		nw.Interpreter = des.Interpreter
-	}
 
 	return nw
 }
@@ -3337,9 +3304,6 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c *C
 	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
 	}
-	if dcl.IsZeroValue(nw.State) {
-		nw.State = des.State
-	}
 	if dcl.StringCanonicalize(des.Permissions, nw.Permissions) {
 		nw.Permissions = des.Permissions
 	}
@@ -3436,9 +3400,6 @@ func canonicalizeNewOSPolicyAssignmentInstanceFilter(c *Client, des, nw *OSPolic
 	if dcl.BoolCanonicalize(des.All, nw.All) {
 		nw.All = des.All
 	}
-	if dcl.IsZeroValue(nw.OSShortNames) {
-		nw.OSShortNames = des.OSShortNames
-	}
 	nw.InclusionLabels = canonicalizeNewOSPolicyAssignmentInstanceFilterInclusionLabelsSlice(c, des.InclusionLabels, nw.InclusionLabels)
 	nw.ExclusionLabels = canonicalizeNewOSPolicyAssignmentInstanceFilterExclusionLabelsSlice(c, des.ExclusionLabels, nw.ExclusionLabels)
 
@@ -3516,10 +3477,6 @@ func canonicalizeNewOSPolicyAssignmentInstanceFilterInclusionLabels(c *Client, d
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Labels) {
-		nw.Labels = des.Labels
-	}
-
 	return nw
 }
 
@@ -3592,10 +3549,6 @@ func canonicalizeOSPolicyAssignmentInstanceFilterExclusionLabels(des, initial *O
 func canonicalizeNewOSPolicyAssignmentInstanceFilterExclusionLabels(c *Client, des, nw *OSPolicyAssignmentInstanceFilterExclusionLabels) *OSPolicyAssignmentInstanceFilterExclusionLabels {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Labels) {
-		nw.Labels = des.Labels
 	}
 
 	return nw
@@ -3775,13 +3728,6 @@ func canonicalizeOSPolicyAssignmentRolloutDisruptionBudget(des, initial *OSPolic
 func canonicalizeNewOSPolicyAssignmentRolloutDisruptionBudget(c *Client, des, nw *OSPolicyAssignmentRolloutDisruptionBudget) *OSPolicyAssignmentRolloutDisruptionBudget {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Fixed) {
-		nw.Fixed = des.Fixed
-	}
-	if dcl.IsZeroValue(nw.Percent) {
-		nw.Percent = des.Percent
 	}
 
 	return nw

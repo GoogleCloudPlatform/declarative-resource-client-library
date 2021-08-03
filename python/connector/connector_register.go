@@ -36,6 +36,8 @@ import (
 
 	bigqueryreservation_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryreservation/connector"
 
+	billingbudgets_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/billingbudgets/connector"
+
 	binaryauthorization_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/binaryauthorization/connector"
 
 	binaryauthorization_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/binaryauthorization/beta_connector"
@@ -178,6 +180,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	bigqueryconnection_connector.RegisterServers(grpcServer)
 
 	bigqueryreservation_connector.RegisterServers(grpcServer)
+
+	billingbudgets_connector.RegisterServers(grpcServer)
 
 	binaryauthorization_connector.RegisterServers(grpcServer)
 

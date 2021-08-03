@@ -915,20 +915,8 @@ func canonicalizeNewClusterClusterConfigGceClusterConfig(c *Client, des, nw *Clu
 	if dcl.BoolCanonicalize(des.InternalIPOnly, nw.InternalIPOnly) {
 		nw.InternalIPOnly = des.InternalIPOnly
 	}
-	if dcl.IsZeroValue(nw.PrivateIPv6GoogleAccess) {
-		nw.PrivateIPv6GoogleAccess = des.PrivateIPv6GoogleAccess
-	}
 	if dcl.NameToSelfLink(des.ServiceAccount, nw.ServiceAccount) {
 		nw.ServiceAccount = des.ServiceAccount
-	}
-	if dcl.IsZeroValue(nw.ServiceAccountScopes) {
-		nw.ServiceAccountScopes = des.ServiceAccountScopes
-	}
-	if dcl.IsZeroValue(nw.Tags) {
-		nw.Tags = des.Tags
-	}
-	if dcl.IsZeroValue(nw.Metadata) {
-		nw.Metadata = des.Metadata
 	}
 	nw.ReservationAffinity = canonicalizeNewClusterClusterConfigGceClusterConfigReservationAffinity(c, des.ReservationAffinity, nw.ReservationAffinity)
 	nw.NodeGroupAffinity = canonicalizeNewClusterClusterConfigGceClusterConfigNodeGroupAffinity(c, des.NodeGroupAffinity, nw.NodeGroupAffinity)
@@ -1017,14 +1005,8 @@ func canonicalizeNewClusterClusterConfigGceClusterConfigReservationAffinity(c *C
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.ConsumeReservationType) {
-		nw.ConsumeReservationType = des.ConsumeReservationType
-	}
 	if dcl.StringCanonicalize(des.Key, nw.Key) {
 		nw.Key = des.Key
-	}
-	if dcl.IsZeroValue(nw.Values) {
-		nw.Values = des.Values
 	}
 
 	return nw
@@ -1205,12 +1187,6 @@ func canonicalizeNewClusterInstanceGroupConfig(c *Client, des, nw *ClusterInstan
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.NumInstances) {
-		nw.NumInstances = des.NumInstances
-	}
-	if dcl.IsZeroValue(nw.InstanceNames) {
-		nw.InstanceNames = des.InstanceNames
-	}
 	if dcl.NameToSelfLink(des.Image, nw.Image) {
 		nw.Image = des.Image
 	}
@@ -1220,9 +1196,6 @@ func canonicalizeNewClusterInstanceGroupConfig(c *Client, des, nw *ClusterInstan
 	nw.DiskConfig = canonicalizeNewClusterInstanceGroupConfigDiskConfig(c, des.DiskConfig, nw.DiskConfig)
 	if dcl.BoolCanonicalize(des.IsPreemptible, nw.IsPreemptible) {
 		nw.IsPreemptible = des.IsPreemptible
-	}
-	if dcl.IsZeroValue(nw.Preemptibility) {
-		nw.Preemptibility = des.Preemptibility
 	}
 	nw.ManagedGroupConfig = canonicalizeNewClusterInstanceGroupConfigManagedGroupConfig(c, des.ManagedGroupConfig, nw.ManagedGroupConfig)
 	nw.Accelerators = canonicalizeNewClusterInstanceGroupConfigAcceleratorsSlice(c, des.Accelerators, nw.Accelerators)
@@ -1316,12 +1289,6 @@ func canonicalizeNewClusterInstanceGroupConfigDiskConfig(c *Client, des, nw *Clu
 
 	if dcl.StringCanonicalize(des.BootDiskType, nw.BootDiskType) {
 		nw.BootDiskType = des.BootDiskType
-	}
-	if dcl.IsZeroValue(nw.BootDiskSizeGb) {
-		nw.BootDiskSizeGb = des.BootDiskSizeGb
-	}
-	if dcl.IsZeroValue(nw.NumLocalSsds) {
-		nw.NumLocalSsds = des.NumLocalSsds
 	}
 
 	return nw
@@ -1481,9 +1448,6 @@ func canonicalizeNewClusterInstanceGroupConfigAccelerators(c *Client, des, nw *C
 	if dcl.StringCanonicalize(des.AcceleratorType, nw.AcceleratorType) {
 		nw.AcceleratorType = des.AcceleratorType
 	}
-	if dcl.IsZeroValue(nw.AcceleratorCount) {
-		nw.AcceleratorCount = des.AcceleratorCount
-	}
 
 	return nw
 }
@@ -1571,12 +1535,6 @@ func canonicalizeNewClusterClusterConfigSoftwareConfig(c *Client, des, nw *Clust
 
 	if dcl.StringCanonicalize(des.ImageVersion, nw.ImageVersion) {
 		nw.ImageVersion = des.ImageVersion
-	}
-	if dcl.IsZeroValue(nw.Properties) {
-		nw.Properties = des.Properties
-	}
-	if dcl.IsZeroValue(nw.OptionalComponents) {
-		nw.OptionalComponents = des.OptionalComponents
 	}
 
 	return nw
@@ -2076,9 +2034,6 @@ func canonicalizeNewClusterClusterConfigSecurityConfigKerberosConfig(c *Client, 
 	if dcl.StringCanonicalize(des.KdcDbKey, nw.KdcDbKey) {
 		nw.KdcDbKey = des.KdcDbKey
 	}
-	if dcl.IsZeroValue(nw.TgtLifetimeHours) {
-		nw.TgtLifetimeHours = des.TgtLifetimeHours
-	}
 	if dcl.StringCanonicalize(des.Realm, nw.Realm) {
 		nw.Realm = des.Realm
 	}
@@ -2170,14 +2125,8 @@ func canonicalizeNewClusterClusterConfigLifecycleConfig(c *Client, des, nw *Clus
 	if dcl.StringCanonicalize(des.IdleDeleteTtl, nw.IdleDeleteTtl) {
 		nw.IdleDeleteTtl = des.IdleDeleteTtl
 	}
-	if dcl.IsZeroValue(nw.AutoDeleteTime) {
-		nw.AutoDeleteTime = des.AutoDeleteTime
-	}
 	if dcl.StringCanonicalize(des.AutoDeleteTtl, nw.AutoDeleteTtl) {
 		nw.AutoDeleteTtl = des.AutoDeleteTtl
-	}
-	if dcl.IsZeroValue(nw.IdleStartTime) {
-		nw.IdleStartTime = des.IdleStartTime
 	}
 
 	return nw
@@ -2254,9 +2203,6 @@ func canonicalizeNewClusterClusterConfigEndpointConfig(c *Client, des, nw *Clust
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.HttpPorts) {
-		nw.HttpPorts = des.HttpPorts
-	}
 	if dcl.BoolCanonicalize(des.EnableHttpPortAccess, nw.EnableHttpPortAccess) {
 		nw.EnableHttpPortAccess = des.EnableHttpPortAccess
 	}
@@ -2565,17 +2511,8 @@ func canonicalizeNewClusterStatus(c *Client, des, nw *ClusterStatus) *ClusterSta
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.State) {
-		nw.State = des.State
-	}
 	if dcl.StringCanonicalize(des.Detail, nw.Detail) {
 		nw.Detail = des.Detail
-	}
-	if dcl.IsZeroValue(nw.StateStartTime) {
-		nw.StateStartTime = des.StateStartTime
-	}
-	if dcl.IsZeroValue(nw.Substate) {
-		nw.Substate = des.Substate
 	}
 
 	return nw
@@ -2646,17 +2583,8 @@ func canonicalizeNewClusterStatusHistory(c *Client, des, nw *ClusterStatusHistor
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.State) {
-		nw.State = des.State
-	}
 	if dcl.StringCanonicalize(des.Detail, nw.Detail) {
 		nw.Detail = des.Detail
-	}
-	if dcl.IsZeroValue(nw.StateStartTime) {
-		nw.StateStartTime = des.StateStartTime
-	}
-	if dcl.IsZeroValue(nw.Substate) {
-		nw.Substate = des.Substate
 	}
 
 	return nw
@@ -2736,13 +2664,6 @@ func canonicalizeClusterMetrics(des, initial *ClusterMetrics, opts ...dcl.ApplyO
 func canonicalizeNewClusterMetrics(c *Client, des, nw *ClusterMetrics) *ClusterMetrics {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.HdfsMetrics) {
-		nw.HdfsMetrics = des.HdfsMetrics
-	}
-	if dcl.IsZeroValue(nw.YarnMetrics) {
-		nw.YarnMetrics = des.YarnMetrics
 	}
 
 	return nw

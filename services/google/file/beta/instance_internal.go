@@ -563,9 +563,6 @@ func canonicalizeNewInstanceFileShares(c *Client, des, nw *InstanceFileShares) *
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.IsZeroValue(nw.CapacityGb) {
-		nw.CapacityGb = des.CapacityGb
-	}
 	if dcl.NameToSelfLink(des.SourceBackup, nw.SourceBackup) {
 		nw.SourceBackup = des.SourceBackup
 	}
@@ -665,22 +662,6 @@ func canonicalizeNewInstanceFileSharesNfsExportOptions(c *Client, des, nw *Insta
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.IPRanges) {
-		nw.IPRanges = des.IPRanges
-	}
-	if dcl.IsZeroValue(nw.AccessMode) {
-		nw.AccessMode = des.AccessMode
-	}
-	if dcl.IsZeroValue(nw.SquashMode) {
-		nw.SquashMode = des.SquashMode
-	}
-	if dcl.IsZeroValue(nw.AnonUid) {
-		nw.AnonUid = des.AnonUid
-	}
-	if dcl.IsZeroValue(nw.AnonGid) {
-		nw.AnonGid = des.AnonGid
-	}
-
 	return nw
 }
 
@@ -768,14 +749,8 @@ func canonicalizeNewInstanceNetworks(c *Client, des, nw *InstanceNetworks) *Inst
 	if dcl.NameToSelfLink(des.Network, nw.Network) {
 		nw.Network = des.Network
 	}
-	if dcl.IsZeroValue(nw.Modes) {
-		nw.Modes = des.Modes
-	}
 	if dcl.StringCanonicalize(des.ReservedIPRange, nw.ReservedIPRange) {
 		nw.ReservedIPRange = des.ReservedIPRange
-	}
-	if dcl.IsZeroValue(nw.IPAddresses) {
-		nw.IPAddresses = des.IPAddresses
 	}
 
 	return nw

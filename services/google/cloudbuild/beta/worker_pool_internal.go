@@ -556,9 +556,6 @@ func canonicalizeNewWorkerPoolWorkerConfig(c *Client, des, nw *WorkerPoolWorkerC
 	if dcl.StringCanonicalize(des.MachineType, nw.MachineType) {
 		nw.MachineType = des.MachineType
 	}
-	if dcl.IsZeroValue(nw.DiskSizeGb) {
-		nw.DiskSizeGb = des.DiskSizeGb
-	}
 	if dcl.BoolCanonicalize(des.NoExternalIP, nw.NoExternalIP) {
 		nw.NoExternalIP = des.NoExternalIP
 	}
@@ -737,7 +734,7 @@ func diffWorkerPool(c *Client, desired, actual *WorkerPool, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WorkerConfig, actual.WorkerConfig, dcl.Info{ObjectFunction: compareWorkerPoolWorkerConfigNewStyle, EmptyObject: EmptyWorkerPoolWorkerConfig, OperationSelector: dcl.TriggersOperation("updateWorkerPoolUpdateWorkerPoolOperation")}, fn.AddNest("WorkerConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WorkerConfig, actual.WorkerConfig, dcl.Info{ObjectFunction: compareWorkerPoolWorkerConfigNewStyle, EmptyObject: EmptyWorkerPoolWorkerConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WorkerConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -787,21 +784,21 @@ func compareWorkerPoolWorkerConfigNewStyle(d, a interface{}, fn dcl.FieldName) (
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{OperationSelector: dcl.TriggersOperation("updateWorkerPoolUpdateWorkerPoolOperation")}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskSizeGb")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{OperationSelector: dcl.TriggersOperation("updateWorkerPoolUpdateWorkerPoolOperation")}, fn.AddNest("DiskSizeGb")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NoExternalIP, actual.NoExternalIP, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NoExternalIp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NoExternalIP, actual.NoExternalIP, dcl.Info{OperationSelector: dcl.TriggersOperation("updateWorkerPoolUpdateWorkerPoolOperation")}, fn.AddNest("NoExternalIp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

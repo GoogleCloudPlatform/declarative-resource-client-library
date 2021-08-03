@@ -1166,9 +1166,6 @@ func canonicalizeNewAlertPolicyConditions(c *Client, des, nw *AlertPolicyConditi
 	if dcl.StringCanonicalize(des.DisplayName, nw.DisplayName) {
 		nw.DisplayName = des.DisplayName
 	}
-	if dcl.IsZeroValue(nw.ResourceStateFilter) {
-		nw.ResourceStateFilter = des.ResourceStateFilter
-	}
 	nw.ConditionThreshold = canonicalizeNewAlertPolicyConditionsConditionThreshold(c, des.ConditionThreshold, nw.ConditionThreshold)
 	nw.ConditionAbsent = canonicalizeNewAlertPolicyConditionsConditionAbsent(c, des.ConditionAbsent, nw.ConditionAbsent)
 	nw.ConditionMatchedLog = canonicalizeNewAlertPolicyConditionsConditionMatchedLog(c, des.ConditionMatchedLog, nw.ConditionMatchedLog)
@@ -1292,12 +1289,6 @@ func canonicalizeNewAlertPolicyConditionsConditionThreshold(c *Client, des, nw *
 		nw.DenominatorFilter = des.DenominatorFilter
 	}
 	nw.DenominatorAggregations = canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsSlice(c, des.DenominatorAggregations, nw.DenominatorAggregations)
-	if dcl.IsZeroValue(nw.Comparison) {
-		nw.Comparison = des.Comparison
-	}
-	if dcl.IsZeroValue(nw.ThresholdValue) {
-		nw.ThresholdValue = des.ThresholdValue
-	}
 	if dcl.StringCanonicalize(des.Duration, nw.Duration) {
 		nw.Duration = des.Duration
 	}
@@ -1397,15 +1388,6 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregations(c *Clien
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
 		nw.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(nw.PerSeriesAligner) {
-		nw.PerSeriesAligner = des.PerSeriesAligner
-	}
-	if dcl.IsZeroValue(nw.CrossSeriesReducer) {
-		nw.CrossSeriesReducer = des.CrossSeriesReducer
-	}
-	if dcl.IsZeroValue(nw.GroupByFields) {
-		nw.GroupByFields = des.GroupByFields
-	}
 	nw.ReduceFractionLessThanParams = canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams(c, des.ReduceFractionLessThanParams, nw.ReduceFractionLessThanParams)
 	nw.ReduceMakeDistributionParams = canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams(c, des.ReduceMakeDistributionParams, nw.ReduceMakeDistributionParams)
 
@@ -1481,10 +1463,6 @@ func canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceFracti
 func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams(c *Client, des, nw *AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams) *AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Threshold) {
-		nw.Threshold = des.Threshold
 	}
 
 	return nw
@@ -1721,16 +1699,6 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.NumFiniteBuckets) {
-		nw.NumFiniteBuckets = des.NumFiniteBuckets
-	}
-	if dcl.IsZeroValue(nw.Width) {
-		nw.Width = des.Width
-	}
-	if dcl.IsZeroValue(nw.Offset) {
-		nw.Offset = des.Offset
-	}
-
 	return nw
 }
 
@@ -1815,16 +1783,6 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.NumFiniteBuckets) {
-		nw.NumFiniteBuckets = des.NumFiniteBuckets
-	}
-	if dcl.IsZeroValue(nw.GrowthFactor) {
-		nw.GrowthFactor = des.GrowthFactor
-	}
-	if dcl.IsZeroValue(nw.Scale) {
-		nw.Scale = des.Scale
-	}
-
 	return nw
 }
 
@@ -1899,10 +1857,6 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Bounds) {
-		nw.Bounds = des.Bounds
-	}
-
 	return nw
 }
 
@@ -1975,10 +1929,6 @@ func canonicalizeAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDi
 func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling(c *Client, des, nw *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling) *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.MinimumValue) {
-		nw.MinimumValue = des.MinimumValue
 	}
 
 	return nw
@@ -2075,15 +2025,6 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
 		nw.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(nw.PerSeriesAligner) {
-		nw.PerSeriesAligner = des.PerSeriesAligner
-	}
-	if dcl.IsZeroValue(nw.CrossSeriesReducer) {
-		nw.CrossSeriesReducer = des.CrossSeriesReducer
-	}
-	if dcl.IsZeroValue(nw.GroupByFields) {
-		nw.GroupByFields = des.GroupByFields
-	}
 	nw.ReduceFractionLessThanParams = canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams(c, des.ReduceFractionLessThanParams, nw.ReduceFractionLessThanParams)
 	nw.ReduceMakeDistributionParams = canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams(c, des.ReduceMakeDistributionParams, nw.ReduceMakeDistributionParams)
 
@@ -2159,10 +2100,6 @@ func canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsR
 func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams(c *Client, des, nw *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams) *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Threshold) {
-		nw.Threshold = des.Threshold
 	}
 
 	return nw
@@ -2399,16 +2336,6 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.NumFiniteBuckets) {
-		nw.NumFiniteBuckets = des.NumFiniteBuckets
-	}
-	if dcl.IsZeroValue(nw.Width) {
-		nw.Width = des.Width
-	}
-	if dcl.IsZeroValue(nw.Offset) {
-		nw.Offset = des.Offset
-	}
-
 	return nw
 }
 
@@ -2493,16 +2420,6 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.NumFiniteBuckets) {
-		nw.NumFiniteBuckets = des.NumFiniteBuckets
-	}
-	if dcl.IsZeroValue(nw.GrowthFactor) {
-		nw.GrowthFactor = des.GrowthFactor
-	}
-	if dcl.IsZeroValue(nw.Scale) {
-		nw.Scale = des.Scale
-	}
-
 	return nw
 }
 
@@ -2577,10 +2494,6 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Bounds) {
-		nw.Bounds = des.Bounds
-	}
-
 	return nw
 }
 
@@ -2653,10 +2566,6 @@ func canonicalizeAlertPolicyConditionsConditionThresholdDenominatorAggregationsR
 func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling(c *Client, des, nw *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling) *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.MinimumValue) {
-		nw.MinimumValue = des.MinimumValue
 	}
 
 	return nw
@@ -2736,13 +2645,6 @@ func canonicalizeAlertPolicyConditionsConditionThresholdTrigger(des, initial *Al
 func canonicalizeNewAlertPolicyConditionsConditionThresholdTrigger(c *Client, des, nw *AlertPolicyConditionsConditionThresholdTrigger) *AlertPolicyConditionsConditionThresholdTrigger {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Count) {
-		nw.Count = des.Count
-	}
-	if dcl.IsZeroValue(nw.Percent) {
-		nw.Percent = des.Percent
 	}
 
 	return nw
@@ -2927,15 +2829,6 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregations(c *Client, 
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
 		nw.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(nw.PerSeriesAligner) {
-		nw.PerSeriesAligner = des.PerSeriesAligner
-	}
-	if dcl.IsZeroValue(nw.CrossSeriesReducer) {
-		nw.CrossSeriesReducer = des.CrossSeriesReducer
-	}
-	if dcl.IsZeroValue(nw.GroupByFields) {
-		nw.GroupByFields = des.GroupByFields
-	}
 	nw.ReduceFractionLessThanParams = canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams(c, des.ReduceFractionLessThanParams, nw.ReduceFractionLessThanParams)
 	nw.ReduceMakeDistributionParams = canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams(c, des.ReduceMakeDistributionParams, nw.ReduceMakeDistributionParams)
 
@@ -3011,10 +2904,6 @@ func canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceFractionL
 func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams(c *Client, des, nw *AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams) *AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Threshold) {
-		nw.Threshold = des.Threshold
 	}
 
 	return nw
@@ -3251,16 +3140,6 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.NumFiniteBuckets) {
-		nw.NumFiniteBuckets = des.NumFiniteBuckets
-	}
-	if dcl.IsZeroValue(nw.Width) {
-		nw.Width = des.Width
-	}
-	if dcl.IsZeroValue(nw.Offset) {
-		nw.Offset = des.Offset
-	}
-
 	return nw
 }
 
@@ -3345,16 +3224,6 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.NumFiniteBuckets) {
-		nw.NumFiniteBuckets = des.NumFiniteBuckets
-	}
-	if dcl.IsZeroValue(nw.GrowthFactor) {
-		nw.GrowthFactor = des.GrowthFactor
-	}
-	if dcl.IsZeroValue(nw.Scale) {
-		nw.Scale = des.Scale
-	}
-
 	return nw
 }
 
@@ -3429,10 +3298,6 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Bounds) {
-		nw.Bounds = des.Bounds
-	}
-
 	return nw
 }
 
@@ -3505,10 +3370,6 @@ func canonicalizeAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistr
 func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling(c *Client, des, nw *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling) *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.MinimumValue) {
-		nw.MinimumValue = des.MinimumValue
 	}
 
 	return nw
@@ -3590,13 +3451,6 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentDuration(c *Client, des,
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
-	}
-
 	return nw
 }
 
@@ -3674,13 +3528,6 @@ func canonicalizeAlertPolicyConditionsConditionAbsentTrigger(des, initial *Alert
 func canonicalizeNewAlertPolicyConditionsConditionAbsentTrigger(c *Client, des, nw *AlertPolicyConditionsConditionAbsentTrigger) *AlertPolicyConditionsConditionAbsentTrigger {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Count) {
-		nw.Count = des.Count
-	}
-	if dcl.IsZeroValue(nw.Percent) {
-		nw.Percent = des.Percent
 	}
 
 	return nw
@@ -3764,9 +3611,6 @@ func canonicalizeNewAlertPolicyConditionsConditionMatchedLog(c *Client, des, nw 
 
 	if dcl.StringCanonicalize(des.Filter, nw.Filter) {
 		nw.Filter = des.Filter
-	}
-	if dcl.IsZeroValue(nw.LabelExtractors) {
-		nw.LabelExtractors = des.LabelExtractors
 	}
 
 	return nw
@@ -3942,12 +3786,6 @@ func canonicalizeNewAlertPolicyConditionsConditionRate(c *Client, des, nw *Alert
 		nw.Filter = des.Filter
 	}
 	nw.Aggregations = canonicalizeNewAlertPolicyConditionsConditionRateAggregationsSlice(c, des.Aggregations, nw.Aggregations)
-	if dcl.IsZeroValue(nw.Comparison) {
-		nw.Comparison = des.Comparison
-	}
-	if dcl.IsZeroValue(nw.ThresholdValue) {
-		nw.ThresholdValue = des.ThresholdValue
-	}
 	nw.TimeWindow = canonicalizeNewAlertPolicyConditionsConditionRateTimeWindow(c, des.TimeWindow, nw.TimeWindow)
 	nw.Trigger = canonicalizeNewAlertPolicyConditionsConditionRateTrigger(c, des.Trigger, nw.Trigger)
 
@@ -4045,15 +3883,6 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregations(c *Client, de
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
 		nw.AlignmentPeriod = des.AlignmentPeriod
 	}
-	if dcl.IsZeroValue(nw.PerSeriesAligner) {
-		nw.PerSeriesAligner = des.PerSeriesAligner
-	}
-	if dcl.IsZeroValue(nw.CrossSeriesReducer) {
-		nw.CrossSeriesReducer = des.CrossSeriesReducer
-	}
-	if dcl.IsZeroValue(nw.GroupByFields) {
-		nw.GroupByFields = des.GroupByFields
-	}
 	nw.ReduceFractionLessThanParams = canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams(c, des.ReduceFractionLessThanParams, nw.ReduceFractionLessThanParams)
 	nw.ReduceMakeDistributionParams = canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams(c, des.ReduceMakeDistributionParams, nw.ReduceMakeDistributionParams)
 
@@ -4129,10 +3958,6 @@ func canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceFractionLes
 func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams(c *Client, des, nw *AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams) *AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Threshold) {
-		nw.Threshold = des.Threshold
 	}
 
 	return nw
@@ -4369,16 +4194,6 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.NumFiniteBuckets) {
-		nw.NumFiniteBuckets = des.NumFiniteBuckets
-	}
-	if dcl.IsZeroValue(nw.Width) {
-		nw.Width = des.Width
-	}
-	if dcl.IsZeroValue(nw.Offset) {
-		nw.Offset = des.Offset
-	}
-
 	return nw
 }
 
@@ -4463,16 +4278,6 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.NumFiniteBuckets) {
-		nw.NumFiniteBuckets = des.NumFiniteBuckets
-	}
-	if dcl.IsZeroValue(nw.GrowthFactor) {
-		nw.GrowthFactor = des.GrowthFactor
-	}
-	if dcl.IsZeroValue(nw.Scale) {
-		nw.Scale = des.Scale
-	}
-
 	return nw
 }
 
@@ -4547,10 +4352,6 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Bounds) {
-		nw.Bounds = des.Bounds
-	}
-
 	return nw
 }
 
@@ -4623,10 +4424,6 @@ func canonicalizeAlertPolicyConditionsConditionRateAggregationsReduceMakeDistrib
 func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling(c *Client, des, nw *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling) *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.MinimumValue) {
-		nw.MinimumValue = des.MinimumValue
 	}
 
 	return nw
@@ -4708,13 +4505,6 @@ func canonicalizeNewAlertPolicyConditionsConditionRateTimeWindow(c *Client, des,
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
-	}
-
 	return nw
 }
 
@@ -4792,13 +4582,6 @@ func canonicalizeAlertPolicyConditionsConditionRateTrigger(des, initial *AlertPo
 func canonicalizeNewAlertPolicyConditionsConditionRateTrigger(c *Client, des, nw *AlertPolicyConditionsConditionRateTrigger) *AlertPolicyConditionsConditionRateTrigger {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Count) {
-		nw.Count = des.Count
-	}
-	if dcl.IsZeroValue(nw.Percent) {
-		nw.Percent = des.Percent
 	}
 
 	return nw
@@ -4978,13 +4761,6 @@ func canonicalizeNewAlertPolicyConditionsConditionUpMonDuration(c *Client, des, 
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
-	}
-
 	return nw
 }
 
@@ -5062,13 +4838,6 @@ func canonicalizeAlertPolicyConditionsConditionUpMonTrigger(des, initial *AlertP
 func canonicalizeNewAlertPolicyConditionsConditionUpMonTrigger(c *Client, des, nw *AlertPolicyConditionsConditionUpMonTrigger) *AlertPolicyConditionsConditionUpMonTrigger {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Count) {
-		nw.Count = des.Count
-	}
-	if dcl.IsZeroValue(nw.Percent) {
-		nw.Percent = des.Percent
 	}
 
 	return nw
@@ -5176,12 +4945,6 @@ func canonicalizeNewAlertPolicyConditionsConditionProcessCount(c *Client, des, n
 	if dcl.StringCanonicalize(des.Filter, nw.Filter) {
 		nw.Filter = des.Filter
 	}
-	if dcl.IsZeroValue(nw.Comparison) {
-		nw.Comparison = des.Comparison
-	}
-	if dcl.IsZeroValue(nw.ProcessCountThreshold) {
-		nw.ProcessCountThreshold = des.ProcessCountThreshold
-	}
 	nw.Trigger = canonicalizeNewAlertPolicyConditionsConditionProcessCountTrigger(c, des.Trigger, nw.Trigger)
 	nw.Duration = canonicalizeNewAlertPolicyConditionsConditionProcessCountDuration(c, des.Duration, nw.Duration)
 
@@ -5264,13 +5027,6 @@ func canonicalizeNewAlertPolicyConditionsConditionProcessCountTrigger(c *Client,
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Count) {
-		nw.Count = des.Count
-	}
-	if dcl.IsZeroValue(nw.Percent) {
-		nw.Percent = des.Percent
-	}
-
 	return nw
 }
 
@@ -5348,13 +5104,6 @@ func canonicalizeAlertPolicyConditionsConditionProcessCountDuration(des, initial
 func canonicalizeNewAlertPolicyConditionsConditionProcessCountDuration(c *Client, des, nw *AlertPolicyConditionsConditionProcessCountDuration) *AlertPolicyConditionsConditionProcessCountDuration {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
 	}
 
 	return nw
@@ -5604,13 +5353,6 @@ func canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguageDuratio
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
-	}
-
 	return nw
 }
 
@@ -5688,13 +5430,6 @@ func canonicalizeAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger(de
 func canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger(c *Client, des, nw *AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger) *AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Count) {
-		nw.Count = des.Count
-	}
-	if dcl.IsZeroValue(nw.Percent) {
-		nw.Percent = des.Percent
 	}
 
 	return nw
@@ -5859,9 +5594,6 @@ func canonicalizeNewAlertPolicyValidity(c *Client, des, nw *AlertPolicyValidity)
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Code) {
-		nw.Code = des.Code
-	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -6112,13 +5844,6 @@ func canonicalizeNewAlertPolicyCreationRecordMutateTime(c *Client, des, nw *Aler
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
-	}
-
 	return nw
 }
 
@@ -6278,13 +6003,6 @@ func canonicalizeNewAlertPolicyMutationRecordMutateTime(c *Client, des, nw *Aler
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Seconds) {
-		nw.Seconds = des.Seconds
-	}
-	if dcl.IsZeroValue(nw.Nanos) {
-		nw.Nanos = des.Nanos
-	}
-
 	return nw
 }
 
@@ -6359,10 +6077,6 @@ func canonicalizeNewAlertPolicyIncidentStrategy(c *Client, des, nw *AlertPolicyI
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Type) {
-		nw.Type = des.Type
-	}
-
 	return nw
 }
 
@@ -6435,10 +6149,6 @@ func canonicalizeAlertPolicyMetadata(des, initial *AlertPolicyMetadata, opts ...
 func canonicalizeNewAlertPolicyMetadata(c *Client, des, nw *AlertPolicyMetadata) *AlertPolicyMetadata {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.SloNames) {
-		nw.SloNames = des.SloNames
 	}
 
 	return nw

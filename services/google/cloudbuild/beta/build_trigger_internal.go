@@ -983,9 +983,6 @@ func canonicalizeNewBuildTriggerGithubPullRequest(c *Client, des, nw *BuildTrigg
 	if dcl.StringCanonicalize(des.Branch, nw.Branch) {
 		nw.Branch = des.Branch
 	}
-	if dcl.IsZeroValue(nw.CommentControl) {
-		nw.CommentControl = des.CommentControl
-	}
 	if dcl.BoolCanonicalize(des.InvertRegex, nw.InvertRegex) {
 		nw.InvertRegex = des.InvertRegex
 	}
@@ -1202,15 +1199,6 @@ func canonicalizeNewBuildTriggerBuild(c *Client, des, nw *BuildTriggerBuild) *Bu
 		nw.Timeout = dcl.String("600s")
 	}
 
-	if dcl.IsZeroValue(nw.Tags) {
-		nw.Tags = des.Tags
-	}
-	if dcl.IsZeroValue(nw.Images) {
-		nw.Images = des.Images
-	}
-	if dcl.IsZeroValue(nw.Substitutions) {
-		nw.Substitutions = des.Substitutions
-	}
 	if dcl.StringCanonicalize(des.QueueTtl, nw.QueueTtl) {
 		nw.QueueTtl = des.QueueTtl
 	}
@@ -1305,9 +1293,6 @@ func canonicalizeNewBuildTriggerBuildSecrets(c *Client, des, nw *BuildTriggerBui
 
 	if dcl.StringCanonicalize(des.KmsKeyName, nw.KmsKeyName) {
 		nw.KmsKeyName = des.KmsKeyName
-	}
-	if dcl.IsZeroValue(nw.SecretEnv) {
-		nw.SecretEnv = des.SecretEnv
 	}
 
 	return nw
@@ -1440,35 +1425,20 @@ func canonicalizeNewBuildTriggerBuildSteps(c *Client, des, nw *BuildTriggerBuild
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.IsZeroValue(nw.Env) {
-		nw.Env = des.Env
-	}
-	if dcl.IsZeroValue(nw.Args) {
-		nw.Args = des.Args
-	}
 	if dcl.StringCanonicalize(des.Dir, nw.Dir) {
 		nw.Dir = des.Dir
 	}
 	if dcl.StringCanonicalize(des.Id, nw.Id) {
 		nw.Id = des.Id
 	}
-	if dcl.IsZeroValue(nw.WaitFor) {
-		nw.WaitFor = des.WaitFor
-	}
 	if dcl.StringCanonicalize(des.Entrypoint, nw.Entrypoint) {
 		nw.Entrypoint = des.Entrypoint
-	}
-	if dcl.IsZeroValue(nw.SecretEnv) {
-		nw.SecretEnv = des.SecretEnv
 	}
 	nw.Volumes = canonicalizeNewBuildTriggerBuildStepsVolumesSlice(c, des.Volumes, nw.Volumes)
 	nw.Timing = canonicalizeNewBuildTriggerBuildStepsTiming(c, des.Timing, nw.Timing)
 	nw.PullTiming = canonicalizeNewBuildTriggerBuildStepsPullTiming(c, des.PullTiming, nw.PullTiming)
 	if dcl.StringCanonicalize(des.Timeout, nw.Timeout) {
 		nw.Timeout = des.Timeout
-	}
-	if dcl.IsZeroValue(nw.Status) {
-		nw.Status = des.Status
 	}
 
 	return nw
@@ -2026,9 +1996,6 @@ func canonicalizeNewBuildTriggerBuildSourceRepoSource(c *Client, des, nw *BuildT
 	}
 	if dcl.BoolCanonicalize(des.InvertRegex, nw.InvertRegex) {
 		nw.InvertRegex = des.InvertRegex
-	}
-	if dcl.IsZeroValue(nw.Substitutions) {
-		nw.Substitutions = des.Substitutions
 	}
 
 	return nw

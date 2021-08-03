@@ -572,9 +572,6 @@ func canonicalizeNewAccessLevelBasic(c *Client, des, nw *AccessLevelBasic) *Acce
 		nw.CombiningFunction = AccessLevelBasicCombiningFunctionEnumRef("AND")
 	}
 
-	if dcl.IsZeroValue(nw.CombiningFunction) {
-		nw.CombiningFunction = des.CombiningFunction
-	}
 	nw.Conditions = canonicalizeNewAccessLevelBasicConditionsSlice(c, des.Conditions, nw.Conditions)
 
 	return nw
@@ -672,18 +669,6 @@ func canonicalizeNewAccessLevelBasicConditions(c *Client, des, nw *AccessLevelBa
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Regions) {
-		nw.Regions = des.Regions
-	}
-	if dcl.IsZeroValue(nw.IPSubnetworks) {
-		nw.IPSubnetworks = des.IPSubnetworks
-	}
-	if dcl.IsZeroValue(nw.RequiredAccessLevels) {
-		nw.RequiredAccessLevels = des.RequiredAccessLevels
-	}
-	if dcl.IsZeroValue(nw.Members) {
-		nw.Members = des.Members
-	}
 	if dcl.BoolCanonicalize(des.Negate, nw.Negate) {
 		nw.Negate = des.Negate
 	}
@@ -797,12 +782,6 @@ func canonicalizeNewAccessLevelBasicConditionsDevicePolicy(c *Client, des, nw *A
 	if dcl.BoolCanonicalize(des.RequireCorpOwned, nw.RequireCorpOwned) {
 		nw.RequireCorpOwned = des.RequireCorpOwned
 	}
-	if dcl.IsZeroValue(nw.AllowedEncryptionStatuses) {
-		nw.AllowedEncryptionStatuses = des.AllowedEncryptionStatuses
-	}
-	if dcl.IsZeroValue(nw.AllowedDeviceManagementLevels) {
-		nw.AllowedDeviceManagementLevels = des.AllowedDeviceManagementLevels
-	}
 	nw.OSConstraints = canonicalizeNewAccessLevelBasicConditionsDevicePolicyOSConstraintsSlice(c, des.OSConstraints, nw.OSConstraints)
 
 	return nw
@@ -891,9 +870,6 @@ func canonicalizeNewAccessLevelBasicConditionsDevicePolicyOSConstraints(c *Clien
 
 	if dcl.StringCanonicalize(des.MinimumVersion, nw.MinimumVersion) {
 		nw.MinimumVersion = des.MinimumVersion
-	}
-	if dcl.IsZeroValue(nw.OSType) {
-		nw.OSType = des.OSType
 	}
 	if dcl.BoolCanonicalize(des.RequireVerifiedChromeOS, nw.RequireVerifiedChromeOS) {
 		nw.RequireVerifiedChromeOS = des.RequireVerifiedChromeOS

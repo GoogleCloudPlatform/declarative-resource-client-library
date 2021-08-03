@@ -667,10 +667,6 @@ func canonicalizeNewEndpointConfigSelectorHttpFilters(c *Client, des, nw *Endpoi
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.HttpFilters) {
-		nw.HttpFilters = des.HttpFilters
-	}
-
 	return nw
 }
 
@@ -822,9 +818,6 @@ func canonicalizeNewEndpointConfigSelectorEndpointMatcherMetadataLabelMatcher(c 
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.MetadataLabelMatchCriteria) {
-		nw.MetadataLabelMatchCriteria = des.MetadataLabelMatchCriteria
-	}
 	nw.MetadataLabels = canonicalizeNewEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice(c, des.MetadataLabels, nw.MetadataLabels)
 
 	return nw
@@ -985,10 +978,6 @@ func canonicalizeEndpointConfigSelectorTrafficPortSelector(des, initial *Endpoin
 func canonicalizeNewEndpointConfigSelectorTrafficPortSelector(c *Client, des, nw *EndpointConfigSelectorTrafficPortSelector) *EndpointConfigSelectorTrafficPortSelector {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Ports) {
-		nw.Ports = des.Ports
 	}
 
 	return nw

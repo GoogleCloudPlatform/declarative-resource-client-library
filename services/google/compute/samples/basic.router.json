@@ -2,7 +2,7 @@
   "name": "{{router}}",
   "project": "{{project}}",
   "region": "{{region}}",
-  "network": "global/networks/default",
+  "network": "{{ref:basic.network.json:selfLink}}",
   "bgp": {
     "asn": 64514,
     "advertiseMode": "CUSTOM",

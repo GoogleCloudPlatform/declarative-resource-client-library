@@ -946,13 +946,6 @@ func canonicalizeNewDiskGuestOSFeature(c *Client, des, nw *DiskGuestOSFeature) *
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.Type) {
-		nw.Type = des.Type
-	}
-	if dcl.IsZeroValue(nw.TypeAlt) {
-		nw.TypeAlt = des.TypeAlt
-	}
-
 	return nw
 }
 
@@ -1125,13 +1118,6 @@ func canonicalizeDiskGuestOSFeatures(des, initial *DiskGuestOSFeatures, opts ...
 func canonicalizeNewDiskGuestOSFeatures(c *Client, des, nw *DiskGuestOSFeatures) *DiskGuestOSFeatures {
 	if des == nil || nw == nil {
 		return nw
-	}
-
-	if dcl.IsZeroValue(nw.Type) {
-		nw.Type = des.Type
-	}
-	if dcl.IsZeroValue(nw.TypeAlts) {
-		nw.TypeAlts = des.TypeAlts
 	}
 
 	return nw

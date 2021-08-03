@@ -900,9 +900,6 @@ func canonicalizeNewFunctionHttpsTrigger(c *Client, des, nw *FunctionHttpsTrigge
 	if dcl.StringCanonicalize(des.Url, nw.Url) {
 		nw.Url = des.Url
 	}
-	if dcl.IsZeroValue(nw.SecurityLevel) {
-		nw.SecurityLevel = des.SecurityLevel
-	}
 
 	return nw
 }
