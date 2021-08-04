@@ -20,13 +20,13 @@ resource: samples/basic.trigger.json
 updates:
 - resource: samples/update.trigger.json
 variables:
-- name: name
-  type: resource_name
 - name: region
   type: region
 - name: project
   type: project
 - name: secondname
+  type: resource_name
+- name: name
   type: resource_name
 - name: service_account
   type: service_account

@@ -21,14 +21,14 @@ resource: samples/project.log_bucket.json
 updates:
 - resource: samples/update_project.log_bucket.json
 variables:
-- name: org_id
-  type: org_id
 - name: log
   type: resource_name
-- name: billing_account
-  type: billing_account
+- name: org_id
+  type: org_id
 - name: test_service_account
   type: test_service_account
+- name: billing_account
+  type: billing_account
 - name: bucket
   type: resource_name
 versions:

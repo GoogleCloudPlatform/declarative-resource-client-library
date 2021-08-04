@@ -21,14 +21,14 @@ resource: samples/basic.connection.json
 updates:
 - resource: samples/update.connection.json
 variables:
-- name: random
-  type: random
-- name: instance_name
-  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
+- name: random
+  type: random
+- name: instance_name
+  type: resource_name
 - name: database
   type: resource_name
 - name: password
