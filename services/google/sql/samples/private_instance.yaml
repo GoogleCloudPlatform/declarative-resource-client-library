@@ -25,12 +25,12 @@ variables:
   type: project
 - name: address_name
   type: resource_name
+- name: instance_name
+  type: resource_name
 - name: region
   type: region
 - name: random
   type: random
-- name: instance_name
-  type: resource_name
 versions:
 - ga
 - beta

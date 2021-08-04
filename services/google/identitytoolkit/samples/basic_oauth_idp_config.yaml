@@ -17,11 +17,11 @@ resource: samples/basic.oauth_idp_config.json
 updates:
 - resource: samples/update.oauth_idp_config.json
 variables:
-- name: project
-  type: project
 - name: client
   type: resource_name
 - name: oauthidpconfig
   type: resource_name
+- name: project
+  type: project
 versions:
 - ga

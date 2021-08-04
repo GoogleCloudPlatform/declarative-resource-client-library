@@ -15,11 +15,11 @@ description: A basic example for an Tier2 instance
 name: basic_instance
 resource: samples/basic.instance.json
 variables:
-- name: project
-  type: project
 - name: region
   type: region
 - name: name
   type: resource_name
+- name: project
+  type: project
 versions:
 - alpha
