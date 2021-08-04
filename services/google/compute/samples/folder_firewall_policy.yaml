@@ -32,9 +32,9 @@ updates:
 variables:
 - name: org_id
   type: org_id
-- name: folder
-  type: resource_name
 - name: id
+  type: resource_name
+- name: folder
   type: resource_name
 - name: test_service_account
   type: test_service_account

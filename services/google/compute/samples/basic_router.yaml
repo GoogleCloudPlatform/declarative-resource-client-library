@@ -19,10 +19,10 @@ resource: samples/basic.router.json
 updates:
 - resource: samples/update.router.json
 variables:
-- name: project
-  type: project
 - name: compute_network1
   type: resource_name
+- name: project
+  type: project
 - name: router
   type: resource_name
 - name: region

@@ -21,14 +21,14 @@ variables:
   type: aws_subnet
 - name: aws_volume_encryption_key
   type: aws_volume_encryption_key
+- name: aws_security_group
+  type: aws_security_group
 - name: aws_database_encryption_key
   type: aws_database_encryption_key
 - name: aws_vpc
   type: aws_vpc
 - name: cluster
   type: resource_name
-- name: aws_security_group
-  type: aws_security_group
 - name: project_number
   type: project_number
 versions: []

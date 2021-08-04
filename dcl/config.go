@@ -383,7 +383,7 @@ func (l glogger) Fatal(args ...interface{}) {
 
 // Fatalf records Fatal errors with added arguments.
 func (l glogger) Fatalf(format string, args ...interface{}) {
-	if l.level <= Fatal {
+	if l.level >= Fatal {
 		a := make([]interface{}, len(args))
 		for i, v := range args {
 			if s, ok := v.(*string); ok && s != nil {
@@ -399,14 +399,14 @@ func (l glogger) Fatalf(format string, args ...interface{}) {
 
 // Info records Info errors.
 func (l glogger) Info(args ...interface{}) {
-	if l.level <= LoggerInfo {
+	if l.level >= LoggerInfo {
 		glog.Info(args)
 	}
 }
 
 // Infof records Info errors with added arguments.
 func (l glogger) Infof(format string, args ...interface{}) {
-	if l.level <= LoggerInfo {
+	if l.level >= LoggerInfo {
 		a := make([]interface{}, len(args))
 		for i, v := range args {
 			if s, ok := v.(*string); ok && s != nil {
@@ -421,7 +421,7 @@ func (l glogger) Infof(format string, args ...interface{}) {
 
 // Warningf records Warning errors with added arguments.
 func (l glogger) Warningf(format string, args ...interface{}) {
-	if l.level <= Warning {
+	if l.level >= Warning {
 		a := make([]interface{}, len(args))
 		for i, v := range args {
 			if s, ok := v.(*string); ok && s != nil {
@@ -437,7 +437,7 @@ func (l glogger) Warningf(format string, args ...interface{}) {
 
 // Warning records Warning errors.
 func (l glogger) Warning(args ...interface{}) {
-	if l.level <= Warning {
+	if l.level >= Warning {
 		glog.Warning(args...)
 	}
 }

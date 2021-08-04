@@ -32,10 +32,10 @@ variables:
   type: org_id
 - name: id2
   type: resource_name
-- name: project
-  type: project
 - name: topic1
   type: resource_name
+- name: project
+  type: project
 - name: topic2
   type: resource_name
 versions:
