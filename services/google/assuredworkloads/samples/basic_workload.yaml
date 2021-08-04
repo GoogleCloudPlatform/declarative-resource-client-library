@@ -17,10 +17,10 @@ resource: samples/basic.workload.json
 updates:
 - resource: samples/update.workload.json
 variables:
-- name: billing_account
-  type: billing_account
 - name: ring
   type: resource_name
+- name: billing_account
+  type: billing_account
 - name: org_id
   type: org_id
 - name: region

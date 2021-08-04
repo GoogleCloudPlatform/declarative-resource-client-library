@@ -20,11 +20,11 @@ description: Terraform resource_compute_route_test.go testAccComputeRoute_hopIns
 name: hop_instance_route
 resource: samples/hop_instance.route.json
 variables:
-- name: image
+- name: compute_network1
   type: resource_name
 - name: project
   type: project
-- name: compute_network1
+- name: image
   type: resource_name
 - name: range
   type: resource_name
@@ -32,10 +32,10 @@ variables:
   type: resource_name
 - name: region
   type: region
-- name: zone
-  type: zone
 - name: instance
   type: resource_name
+- name: zone
+  type: zone
 - name: name
   type: resource_name
 versions:

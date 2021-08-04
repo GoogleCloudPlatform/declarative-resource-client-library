@@ -15,10 +15,10 @@ description: A basic example for a folder in an organization.
 name: organization_folder
 resource: samples/organization.folder.json
 variables:
-- name: org_id
-  type: org_id
 - name: folder
   type: resource_name
+- name: org_id
+  type: org_id
 versions:
 - ga
 - beta

@@ -23,9 +23,9 @@ updates:
 variables:
 - name: project
   type: project
-- name: template1
-  type: resource_name
 - name: s_check
+  type: resource_name
+- name: template1
   type: resource_name
 - name: zone
   type: zone
