@@ -17,10 +17,10 @@ description: An example of a regional compute network endpoint group.
 name: regional_network_endpoint_group
 resource: samples/regional.network_endpoint_group.json
 variables:
-- name: region
-  type: region
 - name: project
   type: project
+- name: region
+  type: region
 - name: function
   type: resource_name
 - name: group

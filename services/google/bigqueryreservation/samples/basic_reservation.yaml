@@ -15,11 +15,11 @@ description: A basic test of a bigqueryreservation api
 name: basic_reservation
 resource: samples/basic.reservation.json
 variables:
+- name: project
+  type: project
 - name: region
   type: region
 - name: reservation_name
   type: resource_name
-- name: project
-  type: project
 versions:
 - ga
