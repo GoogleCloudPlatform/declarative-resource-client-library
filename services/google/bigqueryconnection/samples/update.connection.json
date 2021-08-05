@@ -1,6 +1,0 @@
-{
-  "name": "{{ref:basic.connection.json:name}}",
-  "friendlyName": "updatedName",
-  "project": "{{project}}",
-  "location": "{{region}}"
-}

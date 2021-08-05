@@ -1,9 +1,0 @@
-{
-  "name": "{{instance_name}}",
-  "project": "{{project}}",
-  "region": "{{region}}",
-  "settings": {
-    "tier": "db-f1-micro"
-  },
-  "rootPassword": "{{random}}"
-}

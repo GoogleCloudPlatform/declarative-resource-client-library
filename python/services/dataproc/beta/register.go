@@ -22,6 +22,6 @@ import (
 func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterDataprocBetaAutoscalingPolicyServiceServer(s, &AutoscalingPolicyServer{})
 	sdkgrpc.RegisterDataprocBetaClusterServiceServer(s, &ClusterServer{})
-	sdkgrpc.RegisterDataprocBetaJobServiceServer(s, &JobServer{})
 	sdkgrpc.RegisterDataprocBetaWorkflowTemplateServiceServer(s, &WorkflowTemplateServer{})
+	sdkgrpc.RegisterDataprocBetaJobServiceServer(s, &JobServer{})
 }

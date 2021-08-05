@@ -1,7 +1,0 @@
-{
-  "name": "{{pool}}",
-  "project": "{{project}}",
-  "location": "{{region}}",
-  "cluster": "{{ref:basic.cluster.json:name}}",
-  "nodeCount": 1
-}

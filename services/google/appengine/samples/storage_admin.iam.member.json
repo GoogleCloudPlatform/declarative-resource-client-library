@@ -1,5 +1,0 @@
-{
-  "role": "roles/storage.admin",
-  "member": "serviceAccount:{{test_service_account}}",
-  "resource": "{{ref:basic.cloudresourcemanager.project.json:__resource__}}"
-}

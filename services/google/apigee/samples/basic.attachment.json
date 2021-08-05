@@ -1,4 +1,0 @@
-{
-  "environment": "{{ref:basic.environment.json:name}}",
-  "envgroup": "organizations/{{ref:basic.envgroup.json:organization}}/envgroups/{{ref:basic.envgroup.json:name}}"
-}

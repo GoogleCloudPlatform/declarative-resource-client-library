@@ -17,12 +17,7 @@ package beta
 import (
 	"bytes"
 	"context"
-	"encoding/json"
-	"errors"
-	"io/ioutil"
-	"time"
 
-	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -98,17 +93,6 @@ func equalReservationCPUPlatform(o, n *string) bool {
 	}
 
 	return *o == *n
-}
-
-func deriveAutoscalerTarget(as *Autoscaler, _ *string) (*string, error) {
-	if !dcl.IsEmptyValueIndirect(as.Location) {
-		if dcl.IsZone(as.Location) {
-			return dcl.DeriveField("projects/%s/zones/%s/instanceGroupManagers/%s", as.Target, as.Project, dcl.SelfLinkToName(as.Location), dcl.SelfLinkToName(as.Target))
-		} else if dcl.IsRegion(as.Location) {
-			return dcl.DeriveField("projects/%s/regions/%s/instanceGroupManagers/%s", as.Target, as.Project, dcl.SelfLinkToName(as.Location), dcl.SelfLinkToName(as.Target))
-		}
-	}
-	return nil, errors.New("could not derive autoscaler target - location was neither zone or region")
 }
 
 // Custom methods for firewall policy and firewall policy rule and association which wait on a compute global organization operation.
@@ -451,127 +435,6 @@ func encodeNetworkEndpointRequest(m map[string]interface{}) map[string]interface
 		return nil
 	}
 	return req
-}
-
-func customUnmarshalNetworkEndpoint(b []byte, c *Client) (*NetworkEndpoint, error) {
-	var m map[string]interface{}
-	if err := json.Unmarshal(b, &m); err != nil {
-		return nil, err
-	}
-	return flattenNetworkEndpoint(c, m["networkEndpoint"]), nil
-}
-
-func (r *NetworkEndpoint) customMatcher(c *Client) func([]byte) bool {
-	return func(b []byte) bool {
-		cr, err := customUnmarshalNetworkEndpoint(b, c)
-		if err != nil {
-			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
-			return false
-		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
-
-		if nr.Port == nil && ncr.Port == nil {
-			c.Config.Logger.Info("Both Port fields null - considering equal.")
-		} else if nr.Port == nil || ncr.Port == nil {
-			c.Config.Logger.Info("Only one Port field is null - considering unequal.")
-			return false
-		} else if *nr.Port != *ncr.Port {
-			return false
-		}
-		return true
-	}
-}
-
-func (c *Client) getNetworkEndpointRaw(ctx context.Context, r *NetworkEndpoint) ([]byte, error) {
-	u, err := networkEndpointGetURL(c.Config.BasePath, r.URLNormalized())
-	if err != nil {
-		return nil, err
-	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, &bytes.Buffer{}, c.Config.RetryProvider)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Response.Body.Close()
-	b, err := ioutil.ReadAll(resp.Response.Body)
-	if err != nil {
-		return nil, err
-	}
-	return b, nil
-}
-
-func (c *Client) GetNetworkEndpoint(ctx context.Context, r *NetworkEndpoint) (*NetworkEndpoint, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(60*time.Second))
-	defer cancel()
-
-	b, err := c.getNetworkEndpointRaw(ctx, r)
-	if err != nil {
-		if dcl.IsNotFound(err) {
-			return nil, &googleapi.Error{
-				Code:    404,
-				Message: err.Error(),
-			}
-		}
-		return nil, err
-	}
-	b, err = dcl.ExtractElementFromList(b, "items", r.customMatcher(c))
-	if err != nil {
-		return nil, err
-	}
-	result, err := customUnmarshalNetworkEndpoint(b, c)
-	if err != nil {
-		return nil, err
-	}
-
-	result.Project = r.Project
-	result.Location = r.Location
-	result.Group = r.Group
-	result.Port = r.Port
-
-	c.Config.Logger.Infof("Retrieved raw result state: %v", result)
-	c.Config.Logger.Infof("Canonicalizing with specified state: %v", r)
-	result, err = canonicalizeNetworkEndpointNewState(c, result, r)
-	if err != nil {
-		return nil, err
-	}
-	c.Config.Logger.Infof("Created result state: %v", result)
-
-	return result, nil
-}
-
-func (op *deleteNetworkEndpointOperation) do(ctx context.Context, r *NetworkEndpoint, c *Client) error {
-	c.Config.Logger.Infof("Attempting to delete %v", r)
-
-	u, err := networkEndpointDeleteURL(c.Config.BasePath, r.URLNormalized())
-
-	if err != nil {
-		return err
-	}
-
-	req, err := r.marshal(c)
-	if err != nil {
-		return err
-	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
-	if err != nil {
-		return err
-	}
-	// wait for object to be deleted.
-	var o operations.ComputeOperation
-	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
-		return err
-	}
-	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/v1/", "GET"); err != nil {
-		c.Config.Logger.Warningf("Deletion failed after waiting for operation: %v", err)
-		return err
-	}
-	c.Config.Logger.Infof("Successfully waited for operation")
-
-	_, err = c.GetNetworkEndpoint(ctx, r.URLNormalized())
-	if !dcl.IsNotFound(err) {
-		return dcl.NotDeletedError{ExistingResource: r}
-	}
-	return nil
 }
 
 func machineTypeOperations() func(fd *dcl.FieldDiff) []string {

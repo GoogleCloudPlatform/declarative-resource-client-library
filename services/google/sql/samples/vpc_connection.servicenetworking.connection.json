@@ -1,6 +1,0 @@
-{
-  "network": "{{ref:private_address.compute.address.json:network}}",
-  "project": "{{project}}",
-  "service": "servicenetworking.googleapis.com",
-  "reservedPeeringRanges": ["{{ref:private_address.compute.address.json:name}}"]
-}

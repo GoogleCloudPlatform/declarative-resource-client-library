@@ -1,9 +1,0 @@
-{
-  "name": "{{cluster}}",
-  "project": "{{project}}",
-  "location": "{{region}}",
-  "networkConfig": {
-    "enableIntraNodeVisibility": true
-  },
-  "initialNodeCount": 1
-}

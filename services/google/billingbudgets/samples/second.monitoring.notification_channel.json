@@ -1,7 +1,0 @@
-{
-  "project": "{{project}}",
-  "type": "email",
-  "labels": {
-    "email_address": "test@example.com"
-  }
-}

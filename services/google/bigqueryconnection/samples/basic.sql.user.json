@@ -1,7 +1,0 @@
-{
-  "name": "root",
-  "password": "{{password}}",
-  "host": "test.example.com",
-  "instance": "{{ref:basic.sql.instance.json:name}}",
-  "project": "{{project}}"
-}

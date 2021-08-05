@@ -1,7 +1,0 @@
-{
-  "name": "{{cluster}}",
-  "project": "{{project}}",
-  "location": "{{region}}",
-  "initialNodeCount": 1,
-  "masterVersion": "1.19.9-gke.1400"
-}

@@ -27,8 +27,6 @@ updates:
 - resource: samples/update_1.endpoint_config_selector.json
 - resource: samples/update_2.endpoint_config_selector.json
 variables:
-- name: client1
-  type: resource_name
 - name: project
   type: project
 - name: server1
@@ -44,6 +42,8 @@ variables:
 - name: filter1
   type: resource_name
 - name: auth1
+  type: resource_name
+- name: client1
   type: resource_name
 - name: selector
   type: resource_name

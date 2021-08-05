@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="networkservices/alpha", resources=["endpoint_config_selector","http_filter"])
+connector(name="networkservices/alpha", resources=["endpoint_config_selector"])

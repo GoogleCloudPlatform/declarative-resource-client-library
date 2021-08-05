@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="logging", resources=["log_bucket","log_exclusion","log_metric"])
+connector(name="logging", resources=["log_exclusion"])

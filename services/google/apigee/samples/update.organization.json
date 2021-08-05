@@ -1,8 +1,0 @@
-{
-  "name": "{{ref:basic.organization.json:name}}",
-  "parent": "projects/{{project}}",
-  "displayName": "basic-organization",
-  "description": "An updated organization",
-  "analyticsRegion": "{{region}}",
-  "runtimeType": "CLOUD"
-}

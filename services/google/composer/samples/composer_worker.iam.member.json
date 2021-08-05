@@ -1,5 +1,0 @@
-{
-  "role": "roles/composer.worker",
-  "member": "serviceAccount:{{ref:basic.iam.service_account.json:email}}",
-  "resource": "{{ref:basic.cloudresourcemanager.project.json:__resource__}}"
-}

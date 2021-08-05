@@ -16,53 +16,27 @@ package connector
 import (
 	connectorpb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/connector_go_proto"
 
-	cloudbuild_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/beta_connector"
-
-	accesscontextmanager_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/accesscontextmanager/connector"
-
-	apigee_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apigee/connector"
-
-	apikeys_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apikeys/connector"
-
-	appengine_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/appengine/connector"
-
 	assuredworkloads_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads/connector"
 
 	assuredworkloads_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads/beta_connector"
 
-	bigquery_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigquery/connector"
-
-	bigqueryconnection_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryconnection/connector"
-
 	bigqueryreservation_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryreservation/connector"
 
-	billingbudgets_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/billingbudgets/connector"
+	bigqueryreservation_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryreservation/beta_connector"
 
 	binaryauthorization_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/binaryauthorization/connector"
 
 	binaryauthorization_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/binaryauthorization/beta_connector"
 
-	cloudbilling_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbilling/connector"
-
-	cloudbuild_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/connector"
-
-	cloudfunctions_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudfunctions/connector"
-
-	cloudresourcemanager_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudresourcemanager/connector"
+	cloudbuild_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/beta_connector"
 
 	cloudscheduler_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudscheduler/connector"
 
-	composer_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/composer/connector"
-
-	composer_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/composer/beta_connector"
+	cloudscheduler_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudscheduler/beta_connector"
 
 	compute_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/services/redis"
 
 	compute_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute/beta_connector"
-
-	container_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/container/connector"
-
-	container_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/container/beta_connector"
 
 	containeranalysis_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeranalysis/connector"
 
@@ -74,19 +48,17 @@ import (
 
 	dataproc_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataproc/beta_connector"
 
-	datastore_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/datastore/connector"
+	eventarc_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc/connector"
 
-	dns_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dns/connector"
+	eventarc_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc/beta_connector"
 
 	file_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/file/connector"
 
 	file_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/file/beta_connector"
 
-	eventarc_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc/beta_connector"
-
-	eventarc_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc/connector"
-
 	gameservices_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices/connector"
+
+	gameservices_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices/beta_connector"
 
 	gkehub_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/beta_connector"
 
@@ -94,17 +66,25 @@ import (
 
 	gkemulticloud_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkemulticloud/beta_connector"
 
-	logging_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/logging/connector"
-
 	iam_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam/connector"
+
+	iam_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam/beta_connector"
 
 	iap_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iap/connector"
 
+	iap_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iap/beta_connector"
+
 	identitytoolkit_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/identitytoolkit/connector"
 
-	krmapihosting_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/krmapihosting/alpha_connector"
+	identitytoolkit_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/identitytoolkit/beta_connector"
+
+	logging_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/logging/connector"
+
+	logging_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/logging/beta_connector"
 
 	monitoring_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring/connector"
+
+	monitoring_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring/beta_connector"
 
 	networksecurity_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networksecurity/alpha_connector"
 
@@ -118,39 +98,7 @@ import (
 
 	osconfig_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/beta_connector"
 
-	privateca_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca/beta_connector"
-
-	pubsub_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub/connector"
-
-	pubsublite_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsublite/connector"
-
-	redis_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/redis/connector"
-
-	redis_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/redis/beta_connector"
-
-	run_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/run/connector"
-
-	runtimeconfig_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/runtimeconfig/beta_connector"
-
-	servicemanagement_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/servicemanagement/connector"
-
-	servicenetworking_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/servicenetworking/connector"
-
-	sourcerepo_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/sourcerepo/connector"
-
-	serviceusage_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/serviceusage/connector"
-
-	spanner_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/spanner/connector"
-
-	sql_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/sql/beta_connector"
-
-	storage_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/connector"
-
 	tier2_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/tier2/alpha_connector"
-
-	tpu_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/tpu/connector"
-
-	vpcaccess_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vpcaccess/connector"
 
 	statuspb "google.golang.org/genproto/googleapis/rpc/status"
 	"google.golang.org/grpc"
@@ -161,53 +109,27 @@ import (
 // attempting to response to any requests.
 func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
-	cloudbuild_beta_connector.RegisterServers(grpcServer)
-
-	accesscontextmanager_connector.RegisterServers(grpcServer)
-
-	apigee_connector.RegisterServers(grpcServer)
-
-	apikeys_connector.RegisterServers(grpcServer)
-
-	appengine_connector.RegisterServers(grpcServer)
-
 	assuredworkloads_connector.RegisterServers(grpcServer)
 
 	assuredworkloads_beta_connector.RegisterServers(grpcServer)
 
-	bigquery_connector.RegisterServers(grpcServer)
-
-	bigqueryconnection_connector.RegisterServers(grpcServer)
-
 	bigqueryreservation_connector.RegisterServers(grpcServer)
 
-	billingbudgets_connector.RegisterServers(grpcServer)
+	bigqueryreservation_beta_connector.RegisterServers(grpcServer)
 
 	binaryauthorization_connector.RegisterServers(grpcServer)
 
 	binaryauthorization_beta_connector.RegisterServers(grpcServer)
 
-	cloudbilling_connector.RegisterServers(grpcServer)
-
-	cloudbuild_connector.RegisterServers(grpcServer)
-
-	cloudfunctions_connector.RegisterServers(grpcServer)
-
-	cloudresourcemanager_connector.RegisterServers(grpcServer)
+	cloudbuild_beta_connector.RegisterServers(grpcServer)
 
 	cloudscheduler_connector.RegisterServers(grpcServer)
 
-	composer_connector.RegisterServers(grpcServer)
-
-	composer_beta_connector.RegisterServers(grpcServer)
+	cloudscheduler_beta_connector.RegisterServers(grpcServer)
 
 	compute_connector.RegisterServers(grpcServer)
 
 	compute_beta_connector.RegisterServers(grpcServer)
-
-	container_connector.RegisterServers(grpcServer)
-
-	container_beta_connector.RegisterServers(grpcServer)
 
 	containeranalysis_connector.RegisterServers(grpcServer)
 
@@ -219,19 +141,17 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	dataproc_beta_connector.RegisterServers(grpcServer)
 
-	datastore_connector.RegisterServers(grpcServer)
+	eventarc_connector.RegisterServers(grpcServer)
 
-	dns_connector.RegisterServers(grpcServer)
+	eventarc_beta_connector.RegisterServers(grpcServer)
 
 	file_connector.RegisterServers(grpcServer)
 
 	file_beta_connector.RegisterServers(grpcServer)
 
-	eventarc_beta_connector.RegisterServers(grpcServer)
-
-	eventarc_connector.RegisterServers(grpcServer)
-
 	gameservices_connector.RegisterServers(grpcServer)
+
+	gameservices_beta_connector.RegisterServers(grpcServer)
 
 	gkehub_beta_connector.RegisterServers(grpcServer)
 
@@ -239,17 +159,25 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	gkemulticloud_beta_connector.RegisterServers(grpcServer)
 
-	logging_connector.RegisterServers(grpcServer)
-
 	iam_connector.RegisterServers(grpcServer)
+
+	iam_beta_connector.RegisterServers(grpcServer)
 
 	iap_connector.RegisterServers(grpcServer)
 
+	iap_beta_connector.RegisterServers(grpcServer)
+
 	identitytoolkit_connector.RegisterServers(grpcServer)
 
-	krmapihosting_alpha_connector.RegisterServers(grpcServer)
+	identitytoolkit_beta_connector.RegisterServers(grpcServer)
+
+	logging_connector.RegisterServers(grpcServer)
+
+	logging_beta_connector.RegisterServers(grpcServer)
 
 	monitoring_connector.RegisterServers(grpcServer)
+
+	monitoring_beta_connector.RegisterServers(grpcServer)
 
 	networksecurity_alpha_connector.RegisterServers(grpcServer)
 
@@ -263,39 +191,7 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	osconfig_beta_connector.RegisterServers(grpcServer)
 
-	privateca_beta_connector.RegisterServers(grpcServer)
-
-	pubsub_connector.RegisterServers(grpcServer)
-
-	pubsublite_connector.RegisterServers(grpcServer)
-
-	redis_connector.RegisterServers(grpcServer)
-
-	redis_beta_connector.RegisterServers(grpcServer)
-
-	run_connector.RegisterServers(grpcServer)
-
-	runtimeconfig_beta_connector.RegisterServers(grpcServer)
-
-	servicemanagement_connector.RegisterServers(grpcServer)
-
-	servicenetworking_connector.RegisterServers(grpcServer)
-
-	sourcerepo_connector.RegisterServers(grpcServer)
-
-	serviceusage_connector.RegisterServers(grpcServer)
-
-	spanner_connector.RegisterServers(grpcServer)
-
-	sql_beta_connector.RegisterServers(grpcServer)
-
-	storage_connector.RegisterServers(grpcServer)
-
 	tier2_alpha_connector.RegisterServers(grpcServer)
-
-	tpu_connector.RegisterServers(grpcServer)
-
-	vpcaccess_connector.RegisterServers(grpcServer)
 
 	return &connectorpb.InitializeResponse{
 		Status: &statuspb.Status{

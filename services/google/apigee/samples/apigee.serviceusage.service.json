@@ -1,5 +1,0 @@
-{
-  "name": "apigee.googleapis.com",
-  "project": "{{ref:basic.cloudresourcemanager.project.json:name}}",
-  "state": "ENABLED"
-}

@@ -1,9 +1,0 @@
-{
-  "name": "{{subscription}}",
-  "topic": "{{ref:basic.pubsublite.topic.json:name}}",
-  "deliveryConfig": {
-    "deliveryRequirement": "DELIVER_AFTER_STORED"
-  },
-  "project": "{{ref:basic.pubsublite.topic.json:project}}",
-  "location": "{{zone}}"
-}

@@ -1,7 +1,0 @@
-{
-  "parent": "projects/{{ref:apigee.serviceusage.service.json:project}}",
-  "displayName": "basic-organization",
-  "description": "A sample organization",
-  "analyticsRegion": "{{region}}",
-  "runtimeType": "CLOUD"
-}

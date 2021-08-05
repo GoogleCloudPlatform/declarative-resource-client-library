@@ -1,7 +1,0 @@
-{
-  "name": "{{service}}",
-  "parent": {
-    "type": "organization",
-    "id": "{{org_id}}"
-  }
-}

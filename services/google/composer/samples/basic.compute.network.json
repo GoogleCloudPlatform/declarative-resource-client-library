@@ -1,5 +1,0 @@
-{
-  "name": "{{composer_network}}",
-  "project": "{{ref:compute.serviceusage.service.json:project}}",
-  "autoCreateSubnetworks": false
-}

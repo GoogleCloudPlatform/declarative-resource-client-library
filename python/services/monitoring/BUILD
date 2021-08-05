@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="monitoring", resources=["alert_policy","dashboard","group","metric_descriptor","notification_channel","uptime_check_config"])
+connector(name="monitoring", resources=["dashboard","group"])

@@ -1,6 +1,0 @@
-{
-  "name": "{{bucket}}",
-  "project": "{{project}}",
-  "location": "US",
-  "storageClass": "ARCHIVE"
-}
