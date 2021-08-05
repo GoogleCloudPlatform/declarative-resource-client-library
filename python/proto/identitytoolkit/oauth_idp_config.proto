@@ -48,7 +48,7 @@ message DeleteIdentitytoolkitOAuthIdpConfigRequest {
 
 message ListIdentitytoolkitOAuthIdpConfigRequest {
   string service_account_file = 1;
-  string Project = 2;
+	IdentitytoolkitOAuthIdpConfig resource = 2;
 }
 
 message ListIdentitytoolkitOAuthIdpConfigResponse {

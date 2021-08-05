@@ -208,18 +208,68 @@ class EndpointConfigSelector(object):
 
         response = stub.DeleteNetworkservicesAlphaEndpointConfigSelector(request)
 
-    @classmethod
-    def list(self, project, location, service_account_file=""):
+    def list(self):
         stub = endpoint_config_selector_pb2_grpc.NetworkservicesAlphaEndpointConfigSelectorServiceStub(
             channel.Channel()
         )
         request = (
             endpoint_config_selector_pb2.ListNetworkservicesAlphaEndpointConfigSelectorRequest()
         )
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
+        if EndpointConfigSelectorTypeEnum.to_proto(self.type):
+            request.resource.type = EndpointConfigSelectorTypeEnum.to_proto(self.type)
+
+        if Primitive.to_proto(self.authorization_policy):
+            request.resource.authorization_policy = Primitive.to_proto(
+                self.authorization_policy
+            )
+
+        if EndpointConfigSelectorHttpFilters.to_proto(self.http_filters):
+            request.resource.http_filters.CopyFrom(
+                EndpointConfigSelectorHttpFilters.to_proto(self.http_filters)
+            )
+        else:
+            request.resource.ClearField("http_filters")
+        if EndpointConfigSelectorEndpointMatcher.to_proto(self.endpoint_matcher):
+            request.resource.endpoint_matcher.CopyFrom(
+                EndpointConfigSelectorEndpointMatcher.to_proto(self.endpoint_matcher)
+            )
+        else:
+            request.resource.ClearField("endpoint_matcher")
+        if EndpointConfigSelectorTrafficPortSelector.to_proto(
+            self.traffic_port_selector
+        ):
+            request.resource.traffic_port_selector.CopyFrom(
+                EndpointConfigSelectorTrafficPortSelector.to_proto(
+                    self.traffic_port_selector
+                )
+            )
+        else:
+            request.resource.ClearField("traffic_port_selector")
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if Primitive.to_proto(self.server_tls_policy):
+            request.resource.server_tls_policy = Primitive.to_proto(
+                self.server_tls_policy
+            )
+
+        if Primitive.to_proto(self.client_tls_policy):
+            request.resource.client_tls_policy = Primitive.to_proto(
+                self.client_tls_policy
+            )
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         return stub.ListNetworkservicesAlphaEndpointConfigSelector(request).items
 

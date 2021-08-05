@@ -325,7 +325,7 @@ func (s *InstanceServer) ListFileBetaInstance(ctx context.Context, request *beta
 		return nil, err
 	}
 
-	resources, err := cl.ListInstance(ctx, request.Project, request.Location)
+	resources, err := cl.ListInstance(ctx, ProtoToInstance(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

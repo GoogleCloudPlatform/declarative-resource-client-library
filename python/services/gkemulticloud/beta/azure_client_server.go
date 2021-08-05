@@ -94,7 +94,7 @@ func (s *AzureClientServer) ListGkemulticloudBetaAzureClient(ctx context.Context
 		return nil, err
 	}
 
-	resources, err := cl.ListAzureClient(ctx, request.Project, request.Location)
+	resources, err := cl.ListAzureClient(ctx, ProtoToAzureClient(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

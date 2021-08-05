@@ -91,41 +91,49 @@ func (r *AutoscalingPolicyWorkerConfig) validate() error {
 func (r *AutoscalingPolicySecondaryWorkerConfig) validate() error {
 	return nil
 }
-
-func autoscalingPolicyGetURL(userBasePath string, r *AutoscalingPolicy) (string, error) {
-	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/autoscalingPolicies/{{name}}", "https://dataproc.googleapis.com/v1beta2/", userBasePath, params), nil
+func (r *AutoscalingPolicy) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://dataproc.googleapis.com/v1beta2/", params)
 }
 
-func autoscalingPolicyListURL(userBasePath, project, location string) (string, error) {
+func (r *AutoscalingPolicy) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/autoscalingPolicies", "https://dataproc.googleapis.com/v1beta2/", userBasePath, params), nil
-
+	return dcl.URL("projects/{{project}}/locations/{{location}}/autoscalingPolicies/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-func autoscalingPolicyCreateURL(userBasePath, project, location string) (string, error) {
+func (r *AutoscalingPolicy) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/autoscalingPolicies", "https://dataproc.googleapis.com/v1beta2/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/autoscalingPolicies", nr.basePath(), userBasePath, params), nil
 
 }
 
-func autoscalingPolicyDeleteURL(userBasePath string, r *AutoscalingPolicy) (string, error) {
+func (r *AutoscalingPolicy) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/autoscalingPolicies/{{name}}", "https://dataproc.googleapis.com/v1beta2/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/autoscalingPolicies", nr.basePath(), userBasePath, params), nil
+
+}
+
+func (r *AutoscalingPolicy) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/autoscalingPolicies/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // autoscalingPolicyApiOperation represents a mutable operation in the underlying REST
@@ -184,7 +192,7 @@ type updateAutoscalingPolicyUpdateAutoscalingPolicyOperation struct {
 // PUT request to a single URL.
 
 func (op *updateAutoscalingPolicyUpdateAutoscalingPolicyOperation) do(ctx context.Context, r *AutoscalingPolicy, c *Client) error {
-	_, err := c.GetAutoscalingPolicy(ctx, r.URLNormalized())
+	_, err := c.GetAutoscalingPolicy(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -212,8 +220,8 @@ func (op *updateAutoscalingPolicyUpdateAutoscalingPolicyOperation) do(ctx contex
 	return nil
 }
 
-func (c *Client) listAutoscalingPolicyRaw(ctx context.Context, project, location, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := autoscalingPolicyListURL(c.Config.BasePath, project, location)
+func (c *Client) listAutoscalingPolicyRaw(ctx context.Context, r *AutoscalingPolicy, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -244,8 +252,8 @@ type listAutoscalingPolicyOperation struct {
 	Token    string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listAutoscalingPolicy(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*AutoscalingPolicy, string, error) {
-	b, err := c.listAutoscalingPolicyRaw(ctx, project, location, pageToken, pageSize)
+func (c *Client) listAutoscalingPolicy(ctx context.Context, r *AutoscalingPolicy, pageToken string, pageSize int32) ([]*AutoscalingPolicy, string, error) {
+	b, err := c.listAutoscalingPolicyRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -261,8 +269,8 @@ func (c *Client) listAutoscalingPolicy(ctx context.Context, project, location, p
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
-		res.Location = &location
+		res.Project = r.Project
+		res.Location = r.Location
 		l = append(l, res)
 	}
 
@@ -290,7 +298,7 @@ func (c *Client) deleteAllAutoscalingPolicy(ctx context.Context, f func(*Autosca
 type deleteAutoscalingPolicyOperation struct{}
 
 func (op *deleteAutoscalingPolicyOperation) do(ctx context.Context, r *AutoscalingPolicy, c *Client) error {
-	r, err := c.GetAutoscalingPolicy(ctx, r.URLNormalized())
+	r, err := c.GetAutoscalingPolicy(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("AutoscalingPolicy not found, returning. Original error: %v", err)
@@ -300,7 +308,7 @@ func (op *deleteAutoscalingPolicyOperation) do(ctx context.Context, r *Autoscali
 		return err
 	}
 
-	u, err := autoscalingPolicyDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -316,7 +324,7 @@ func (op *deleteAutoscalingPolicyOperation) do(ctx context.Context, r *Autoscali
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetAutoscalingPolicy(ctx, r.URLNormalized())
+		_, err = c.GetAutoscalingPolicy(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -342,10 +350,7 @@ func (op *createAutoscalingPolicyOperation) FirstResponse() (map[string]interfac
 
 func (op *createAutoscalingPolicyOperation) do(ctx context.Context, r *AutoscalingPolicy, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, location := r.createFields()
-	u, err := autoscalingPolicyCreateURL(c.Config.BasePath, project, location)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -365,7 +370,7 @@ func (op *createAutoscalingPolicyOperation) do(ctx context.Context, r *Autoscali
 	}
 	op.response = o
 
-	if _, err := c.GetAutoscalingPolicy(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetAutoscalingPolicy(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -375,7 +380,7 @@ func (op *createAutoscalingPolicyOperation) do(ctx context.Context, r *Autoscali
 
 func (c *Client) getAutoscalingPolicyRaw(ctx context.Context, r *AutoscalingPolicy) ([]byte, error) {
 
-	u, err := autoscalingPolicyGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -408,7 +413,7 @@ func (c *Client) autoscalingPolicyDiffsForRawDesired(ctx context.Context, rawDes
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetAutoscalingPolicy(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetAutoscalingPolicy(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a AutoscalingPolicy resource already exists: %s", err)
@@ -1106,32 +1111,29 @@ func compareAutoscalingPolicySecondaryWorkerConfigNewStyle(d, a interface{}, fn 
 	return diffs, nil
 }
 
-func (r *AutoscalingPolicy) getFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *AutoscalingPolicy) createFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location)
-}
-
-func (r *AutoscalingPolicy) deleteFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *AutoscalingPolicy) urlNormalized() *AutoscalingPolicy {
+	normalized := dcl.Copy(*r).(AutoscalingPolicy)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
 }
 
 func (r *AutoscalingPolicy) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "UpdateAutoscalingPolicy" {
 		fields := map[string]interface{}{
-			"project":  dcl.ValueOrEmptyString(n.Project),
-			"location": dcl.ValueOrEmptyString(n.Location),
-			"name":     dcl.ValueOrEmptyString(n.Name),
+			"project":  dcl.ValueOrEmptyString(nr.Project),
+			"location": dcl.ValueOrEmptyString(nr.Location),
+			"name":     dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("projects/{{project}}/locations/{{location}}/autoscalingPolicies/{{name}}", "https://dataproc.googleapis.com/v1beta2/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/locations/{{location}}/autoscalingPolicies/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -1722,8 +1724,8 @@ func (r *AutoscalingPolicy) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

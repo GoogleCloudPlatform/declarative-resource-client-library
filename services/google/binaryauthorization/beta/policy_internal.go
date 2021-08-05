@@ -50,20 +50,25 @@ func (r *PolicyAdmissionRule) validate() error {
 	}
 	return nil
 }
+func (r *Policy) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://binaryauthorization.googleapis.com/v1", params)
+}
 
-func policyGetURL(userBasePath string, r *Policy) (string, error) {
+func (r *Policy) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(r.Project),
+		"project": dcl.ValueOrEmptyString(nr.Project),
 	}
-	return dcl.URL("projects/{{project}}/policy", "https://binaryauthorization.googleapis.com/v1", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/policy", nr.basePath(), userBasePath, params), nil
 }
 
 func (r *Policy) SetPolicyURL(userBasePath string) string {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	fields := map[string]interface{}{
-		"project": *n.Project,
+		"project": *nr.Project,
 	}
-	return dcl.URL("projects/{{project}}/policy:setIamPolicy", "https://binaryauthorization.googleapis.com/v1", userBasePath, fields)
+	return dcl.URL("projects/{{project}}/policy:setIamPolicy", nr.basePath(), userBasePath, fields)
 }
 
 func (r *Policy) SetPolicyVerb() string {
@@ -71,11 +76,11 @@ func (r *Policy) SetPolicyVerb() string {
 }
 
 func (r *Policy) getPolicyURL(userBasePath string) string {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	fields := map[string]interface{}{
-		"project": *n.Project,
+		"project": *nr.Project,
 	}
-	return dcl.URL("projects/{{project}}/policy:getIamPolicy", "https://binaryauthorization.googleapis.com/v1", userBasePath, fields)
+	return dcl.URL("projects/{{project}}/policy:getIamPolicy", nr.basePath(), userBasePath, fields)
 }
 
 func (r *Policy) IAMPolicyVersion() int {
@@ -147,7 +152,7 @@ type updatePolicyUpdatePolicyOperation struct {
 // PUT request to a single URL.
 
 func (op *updatePolicyUpdatePolicyOperation) do(ctx context.Context, r *Policy, c *Client) error {
-	_, err := c.GetPolicy(ctx, r.URLNormalized())
+	_, err := c.GetPolicy(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -188,7 +193,7 @@ func (op *createPolicyOperation) FirstResponse() (map[string]interface{}, bool) 
 
 func (c *Client) getPolicyRaw(ctx context.Context, r *Policy) ([]byte, error) {
 
-	u, err := policyGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -221,7 +226,7 @@ func (c *Client) policyDiffsForRawDesired(ctx context.Context, rawDesired *Polic
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetPolicy(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetPolicy(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Policy resource already exists: %s", err)
@@ -779,24 +784,27 @@ func comparePolicyAdmissionRuleNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 	return diffs, nil
 }
 
-func (r *Policy) getFields() string {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project)
-}
-
-func (r *Policy) createFields() string {
-	return ""
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Policy) urlNormalized() *Policy {
+	normalized := dcl.Copy(*r).(Policy)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
 }
 
 func (r *Policy) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "UpdatePolicy" {
 		fields := map[string]interface{}{
-			"project": dcl.ValueOrEmptyString(n.Project),
+			"project": dcl.ValueOrEmptyString(nr.Project),
 		}
-		return dcl.URL("projects/{{project}}/policy", "https://binaryauthorization.googleapis.com/v1", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/policy", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -1302,8 +1310,8 @@ func (r *Policy) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

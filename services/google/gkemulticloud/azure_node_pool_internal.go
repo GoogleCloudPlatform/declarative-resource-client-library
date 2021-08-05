@@ -112,46 +112,56 @@ func (r *AzureNodePoolMaxPodsConstraint) validate() error {
 	}
 	return nil
 }
-
-func azureNodePoolGetURL(userBasePath string, r *AzureNodePool) (string, error) {
+func (r *AzureNodePool) basePath() string {
 	params := map[string]interface{}{
-		"project":      dcl.ValueOrEmptyString(r.Project),
-		"location":     dcl.ValueOrEmptyString(r.Location),
-		"azureCluster": dcl.ValueOrEmptyString(r.AzureCluster),
-		"name":         dcl.ValueOrEmptyString(r.Name),
+		"location": dcl.ValueOrEmptyString(r.Location),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/azureClusters/{{azureCluster}}/azureNodePools/{{name}}", "https://us-west1-gkemulticloud.googleapis.com/v1", userBasePath, params), nil
+	return dcl.Nprintf("https://{{location}}-gkemulticloud.googleapis.com/v1", params)
 }
 
-func azureNodePoolListURL(userBasePath, project, location, azureCluster string) (string, error) {
+func (r *AzureNodePool) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":      project,
-		"location":     location,
-		"azureCluster": azureCluster,
+		"project":      dcl.ValueOrEmptyString(nr.Project),
+		"location":     dcl.ValueOrEmptyString(nr.Location),
+		"azureCluster": dcl.ValueOrEmptyString(nr.AzureCluster),
+		"name":         dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/azureClusters/{{azureCluster}}/azureNodePools", "https://us-west1-gkemulticloud.googleapis.com/v1", userBasePath, params), nil
-
+	return dcl.URL("projects/{{project}}/locations/{{location}}/azureClusters/{{azureCluster}}/azureNodePools/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-func azureNodePoolCreateURL(userBasePath, project, location, azureCluster, name string) (string, error) {
+func (r *AzureNodePool) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":      project,
-		"location":     location,
-		"azureCluster": azureCluster,
-		"name":         name,
+		"project":      dcl.ValueOrEmptyString(nr.Project),
+		"location":     dcl.ValueOrEmptyString(nr.Location),
+		"azureCluster": dcl.ValueOrEmptyString(nr.AzureCluster),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/azureClusters/{{azureCluster}}/azureNodePools?azureNodePoolId={{name}}", "https://us-west1-gkemulticloud.googleapis.com/v1", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/azureClusters/{{azureCluster}}/azureNodePools", nr.basePath(), userBasePath, params), nil
 
 }
 
-func azureNodePoolDeleteURL(userBasePath string, r *AzureNodePool) (string, error) {
+func (r *AzureNodePool) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":      dcl.ValueOrEmptyString(r.Project),
-		"location":     dcl.ValueOrEmptyString(r.Location),
-		"azureCluster": dcl.ValueOrEmptyString(r.AzureCluster),
-		"name":         dcl.ValueOrEmptyString(r.Name),
+		"project":      dcl.ValueOrEmptyString(nr.Project),
+		"location":     dcl.ValueOrEmptyString(nr.Location),
+		"azureCluster": dcl.ValueOrEmptyString(nr.AzureCluster),
+		"name":         dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/azureClusters/{{azureCluster}}/azureNodePools/{{name}}", "https://us-west1-gkemulticloud.googleapis.com/v1", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/azureClusters/{{azureCluster}}/azureNodePools?azureNodePoolId={{name}}", nr.basePath(), userBasePath, params), nil
+
+}
+
+func (r *AzureNodePool) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project":      dcl.ValueOrEmptyString(nr.Project),
+		"location":     dcl.ValueOrEmptyString(nr.Location),
+		"azureCluster": dcl.ValueOrEmptyString(nr.AzureCluster),
+		"name":         dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/azureClusters/{{azureCluster}}/azureNodePools/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // azureNodePoolApiOperation represents a mutable operation in the underlying REST
@@ -160,8 +170,8 @@ type azureNodePoolApiOperation interface {
 	do(context.Context, *AzureNodePool, *Client) error
 }
 
-func (c *Client) listAzureNodePoolRaw(ctx context.Context, project, location, azureCluster, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := azureNodePoolListURL(c.Config.BasePath, project, location, azureCluster)
+func (c *Client) listAzureNodePoolRaw(ctx context.Context, r *AzureNodePool, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -192,8 +202,8 @@ type listAzureNodePoolOperation struct {
 	Token          string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listAzureNodePool(ctx context.Context, project, location, azureCluster, pageToken string, pageSize int32) ([]*AzureNodePool, string, error) {
-	b, err := c.listAzureNodePoolRaw(ctx, project, location, azureCluster, pageToken, pageSize)
+func (c *Client) listAzureNodePool(ctx context.Context, r *AzureNodePool, pageToken string, pageSize int32) ([]*AzureNodePool, string, error) {
+	b, err := c.listAzureNodePoolRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -209,9 +219,9 @@ func (c *Client) listAzureNodePool(ctx context.Context, project, location, azure
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
-		res.Location = &location
-		res.AzureCluster = &azureCluster
+		res.Project = r.Project
+		res.Location = r.Location
+		res.AzureCluster = r.AzureCluster
 		l = append(l, res)
 	}
 
@@ -239,7 +249,7 @@ func (c *Client) deleteAllAzureNodePool(ctx context.Context, f func(*AzureNodePo
 type deleteAzureNodePoolOperation struct{}
 
 func (op *deleteAzureNodePoolOperation) do(ctx context.Context, r *AzureNodePool, c *Client) error {
-	r, err := c.GetAzureNodePool(ctx, r.URLNormalized())
+	r, err := c.GetAzureNodePool(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("AzureNodePool not found, returning. Original error: %v", err)
@@ -249,7 +259,7 @@ func (op *deleteAzureNodePoolOperation) do(ctx context.Context, r *AzureNodePool
 		return err
 	}
 
-	u, err := azureNodePoolDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -266,7 +276,7 @@ func (op *deleteAzureNodePoolOperation) do(ctx context.Context, r *AzureNodePool
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://us-west1-gkemulticloud.googleapis.com/v1", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		return err
 	}
 
@@ -274,7 +284,7 @@ func (op *deleteAzureNodePoolOperation) do(ctx context.Context, r *AzureNodePool
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetAzureNodePool(ctx, r.URLNormalized())
+		_, err = c.GetAzureNodePool(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -300,10 +310,7 @@ func (op *createAzureNodePoolOperation) FirstResponse() (map[string]interface{},
 
 func (op *createAzureNodePoolOperation) do(ctx context.Context, r *AzureNodePool, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, location, azureCluster, name := r.createFields()
-	u, err := azureNodePoolCreateURL(c.Config.BasePath, project, location, azureCluster, name)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -321,14 +328,14 @@ func (op *createAzureNodePoolOperation) do(ctx context.Context, r *AzureNodePool
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://us-west1-gkemulticloud.googleapis.com/v1", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetAzureNodePool(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetAzureNodePool(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -338,7 +345,7 @@ func (op *createAzureNodePoolOperation) do(ctx context.Context, r *AzureNodePool
 
 func (c *Client) getAzureNodePoolRaw(ctx context.Context, r *AzureNodePool) ([]byte, error) {
 
-	u, err := azureNodePoolGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -371,7 +378,7 @@ func (c *Client) azureNodePoolDiffsForRawDesired(ctx context.Context, rawDesired
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetAzureNodePool(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetAzureNodePool(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a AzureNodePool resource already exists: %s", err)
@@ -1281,19 +1288,21 @@ func compareAzureNodePoolMaxPodsConstraintNewStyle(d, a interface{}, fn dcl.Fiel
 	return diffs, nil
 }
 
-func (r *AzureNodePool) getFields() (string, string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.AzureCluster), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *AzureNodePool) createFields() (string, string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.AzureCluster), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *AzureNodePool) deleteFields() (string, string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.AzureCluster), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *AzureNodePool) urlNormalized() *AzureNodePool {
+	normalized := dcl.Copy(*r).(AzureNodePool)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Version = dcl.SelfLinkToName(r.Version)
+	normalized.SubnetId = dcl.SelfLinkToName(r.SubnetId)
+	normalized.Uid = dcl.SelfLinkToName(r.Uid)
+	normalized.Etag = dcl.SelfLinkToName(r.Etag)
+	normalized.AzureAvailabilityZone = dcl.SelfLinkToName(r.AzureAvailabilityZone)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.AzureCluster = dcl.SelfLinkToName(r.AzureCluster)
+	return &normalized
 }
 
 func (r *AzureNodePool) updateURL(userBasePath, updateName string) (string, error) {
@@ -2082,8 +2091,8 @@ func (r *AzureNodePool) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

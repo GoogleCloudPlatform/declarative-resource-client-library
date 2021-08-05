@@ -100,8 +100,7 @@ func equalReservationCPUPlatform(o, n *string) bool {
 func (op *createFirewallPolicyOperation) do(ctx context.Context, r *FirewallPolicy, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
 
-	parent := r.createFields()
-	u, err := firewallPolicyCreateURL(c.Config.BasePath, parent)
+	u, err := r.createURL(c.Config.BasePath)
 
 	if err != nil {
 		return err
@@ -128,7 +127,7 @@ func (op *createFirewallPolicyOperation) do(ctx context.Context, r *FirewallPoli
 
 	r.Name = &o.BaseOperation.TargetID
 
-	if _, err := c.GetFirewallPolicy(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetFirewallPolicy(ctx, r); err != nil {
 		return err
 	}
 
@@ -136,7 +135,7 @@ func (op *createFirewallPolicyOperation) do(ctx context.Context, r *FirewallPoli
 }
 
 func (op *updateFirewallPolicyPatchOperation) do(ctx context.Context, r *FirewallPolicy, c *Client) error {
-	_, err := c.GetFirewallPolicy(ctx, r.URLNormalized())
+	_, err := c.GetFirewallPolicy(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -178,7 +177,7 @@ func (op *updateFirewallPolicyPatchOperation) do(ctx context.Context, r *Firewal
 
 func (op *deleteFirewallPolicyOperation) do(ctx context.Context, r *FirewallPolicy, c *Client) error {
 
-	_, err := c.GetFirewallPolicy(ctx, r.URLNormalized())
+	_, err := c.GetFirewallPolicy(ctx, r)
 
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -189,7 +188,7 @@ func (op *deleteFirewallPolicyOperation) do(ctx context.Context, r *FirewallPoli
 		return err
 	}
 
-	u, err := firewallPolicyDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -209,7 +208,7 @@ func (op *deleteFirewallPolicyOperation) do(ctx context.Context, r *FirewallPoli
 	if err := o.Wait(ctx, c.Config, r.Parent); err != nil {
 		return err
 	}
-	_, err = c.GetFirewallPolicy(ctx, r.URLNormalized())
+	_, err = c.GetFirewallPolicy(ctx, r)
 	if !dcl.IsNotFound(err) {
 		return dcl.NotDeletedError{ExistingResource: r}
 	}
@@ -219,8 +218,7 @@ func (op *deleteFirewallPolicyOperation) do(ctx context.Context, r *FirewallPoli
 func (op *createFirewallPolicyRuleOperation) do(ctx context.Context, r *FirewallPolicyRule, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
 
-	firewallPolicy := r.createFields()
-	u, err := firewallPolicyRuleCreateURL(c.Config.BasePath, firewallPolicy)
+	u, err := r.createURL(c.Config.BasePath)
 
 	if err != nil {
 		return err
@@ -250,14 +248,14 @@ func (op *createFirewallPolicyRuleOperation) do(ctx context.Context, r *Firewall
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 
-	if _, err := c.GetFirewallPolicyRule(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetFirewallPolicyRule(ctx, r); err != nil {
 		return err
 	}
 	return nil
 }
 
 func (op *updateFirewallPolicyRulePatchRuleOperation) do(ctx context.Context, r *FirewallPolicyRule, c *Client) error {
-	_, err := c.GetFirewallPolicyRule(ctx, r.URLNormalized())
+	_, err := c.GetFirewallPolicyRule(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -299,7 +297,7 @@ func (op *updateFirewallPolicyRulePatchRuleOperation) do(ctx context.Context, r 
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 
-	if _, err := c.GetFirewallPolicyRule(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetFirewallPolicyRule(ctx, r); err != nil {
 		return err
 	}
 	return nil
@@ -308,7 +306,7 @@ func (op *updateFirewallPolicyRulePatchRuleOperation) do(ctx context.Context, r 
 func (op *deleteFirewallPolicyRuleOperation) do(ctx context.Context, r *FirewallPolicyRule, c *Client) error {
 	c.Config.Logger.Infof("Attempting to delete %v", r)
 
-	u, err := firewallPolicyRuleDeleteURL(c.Config.BasePath, r)
+	u, err := r.deleteURL(c.Config.BasePath)
 
 	if err != nil {
 		return err
@@ -339,7 +337,7 @@ func (op *deleteFirewallPolicyRuleOperation) do(ctx context.Context, r *Firewall
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 
-	_, err = c.GetFirewallPolicyRule(ctx, r.URLNormalized())
+	_, err = c.GetFirewallPolicyRule(ctx, r)
 	if !dcl.IsNotFoundOrCode(err, 400) {
 		return dcl.NotDeletedError{ExistingResource: r}
 	}
@@ -349,8 +347,7 @@ func (op *deleteFirewallPolicyRuleOperation) do(ctx context.Context, r *Firewall
 func (op *createFirewallPolicyAssociationOperation) do(ctx context.Context, r *FirewallPolicyAssociation, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
 
-	firewallPolicy := r.createFields()
-	u, err := firewallPolicyAssociationCreateURL(c.Config.BasePath, firewallPolicy)
+	u, err := r.createURL(c.Config.BasePath)
 
 	if err != nil {
 		return err
@@ -380,7 +377,7 @@ func (op *createFirewallPolicyAssociationOperation) do(ctx context.Context, r *F
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 
-	if _, err := c.GetFirewallPolicyAssociation(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetFirewallPolicyAssociation(ctx, r); err != nil {
 		return err
 	}
 	return nil
@@ -389,7 +386,7 @@ func (op *createFirewallPolicyAssociationOperation) do(ctx context.Context, r *F
 func (op *deleteFirewallPolicyAssociationOperation) do(ctx context.Context, r *FirewallPolicyAssociation, c *Client) error {
 	c.Config.Logger.Infof("Attempting to delete %v", r)
 
-	u, err := firewallPolicyAssociationDeleteURL(c.Config.BasePath, r)
+	u, err := r.deleteURL(c.Config.BasePath)
 
 	if err != nil {
 		return err
@@ -420,7 +417,7 @@ func (op *deleteFirewallPolicyAssociationOperation) do(ctx context.Context, r *F
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 
-	_, err = c.GetFirewallPolicyAssociation(ctx, r.URLNormalized())
+	_, err = c.GetFirewallPolicyAssociation(ctx, r)
 	if !dcl.IsNotFoundOrCode(err, 400) {
 		return dcl.NotDeletedError{ExistingResource: r}
 	}

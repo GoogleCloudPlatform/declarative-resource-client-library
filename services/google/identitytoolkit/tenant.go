@@ -162,7 +162,7 @@ type TenantList struct {
 
 	pageSize int32
 
-	project string
+	resource *Tenant
 }
 
 func (l *TenantList) HasNext() bool {
@@ -176,7 +176,7 @@ func (l *TenantList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listTenant(ctx, l.project, l.nextToken, l.pageSize)
+	items, token, err := c.listTenant(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -185,19 +185,19 @@ func (l *TenantList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListTenant(ctx context.Context, project string) (*TenantList, error) {
+func (c *Client) ListTenant(ctx context.Context, r *Tenant) (*TenantList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListTenantWithMaxResults(ctx, project, TenantMaxPage)
+	return c.ListTenantWithMaxResults(ctx, r, TenantMaxPage)
 
 }
 
-func (c *Client) ListTenantWithMaxResults(ctx context.Context, project string, pageSize int32) (*TenantList, error) {
+func (c *Client) ListTenantWithMaxResults(ctx context.Context, r *Tenant, pageSize int32) (*TenantList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listTenant(ctx, project, "", pageSize)
+	items, token, err := c.listTenant(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -205,20 +205,8 @@ func (c *Client) ListTenantWithMaxResults(ctx context.Context, project string, p
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Tenant) URLNormalized() *Tenant {
-	normalized := dcl.Copy(*r).(Tenant)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
 }
 
 func (c *Client) GetTenant(ctx context.Context, r *Tenant) (*Tenant, error) {
@@ -266,8 +254,8 @@ func (c *Client) DeleteTenant(ctx context.Context, r *Tenant) error {
 }
 
 // DeleteAllTenant deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllTenant(ctx context.Context, project string, filter func(*Tenant) bool) error {
-	listObj, err := c.ListTenant(ctx, project)
+func (c *Client) DeleteAllTenant(ctx context.Context, r *Tenant, filter func(*Tenant) bool) error {
+	listObj, err := c.ListTenant(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -391,7 +379,7 @@ func applyTenantHelper(c *Client, ctx context.Context, rawDesired *Tenant, opts 
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetTenant(ctx, desired.URLNormalized())
+	rawNew, err := c.GetTenant(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

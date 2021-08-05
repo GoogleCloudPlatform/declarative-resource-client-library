@@ -267,9 +267,7 @@ type AutoscalingPolicyList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
+	resource *AutoscalingPolicy
 }
 
 func (l *AutoscalingPolicyList) HasNext() bool {
@@ -283,7 +281,7 @@ func (l *AutoscalingPolicyList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listAutoscalingPolicy(ctx, l.project, l.location, l.nextToken, l.pageSize)
+	items, token, err := c.listAutoscalingPolicy(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -292,19 +290,19 @@ func (l *AutoscalingPolicyList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListAutoscalingPolicy(ctx context.Context, project, location string) (*AutoscalingPolicyList, error) {
+func (c *Client) ListAutoscalingPolicy(ctx context.Context, r *AutoscalingPolicy) (*AutoscalingPolicyList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListAutoscalingPolicyWithMaxResults(ctx, project, location, AutoscalingPolicyMaxPage)
+	return c.ListAutoscalingPolicyWithMaxResults(ctx, r, AutoscalingPolicyMaxPage)
 
 }
 
-func (c *Client) ListAutoscalingPolicyWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*AutoscalingPolicyList, error) {
+func (c *Client) ListAutoscalingPolicyWithMaxResults(ctx context.Context, r *AutoscalingPolicy, pageSize int32) (*AutoscalingPolicyList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listAutoscalingPolicy(ctx, project, location, "", pageSize)
+	items, token, err := c.listAutoscalingPolicy(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -312,22 +310,8 @@ func (c *Client) ListAutoscalingPolicyWithMaxResults(ctx context.Context, projec
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		location: location,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *AutoscalingPolicy) URLNormalized() *AutoscalingPolicy {
-	normalized := dcl.Copy(*r).(AutoscalingPolicy)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
 }
 
 func (c *Client) GetAutoscalingPolicy(ctx context.Context, r *AutoscalingPolicy) (*AutoscalingPolicy, error) {
@@ -376,8 +360,8 @@ func (c *Client) DeleteAutoscalingPolicy(ctx context.Context, r *AutoscalingPoli
 }
 
 // DeleteAllAutoscalingPolicy deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllAutoscalingPolicy(ctx context.Context, project, location string, filter func(*AutoscalingPolicy) bool) error {
-	listObj, err := c.ListAutoscalingPolicy(ctx, project, location)
+func (c *Client) DeleteAllAutoscalingPolicy(ctx context.Context, r *AutoscalingPolicy, filter func(*AutoscalingPolicy) bool) error {
+	listObj, err := c.ListAutoscalingPolicy(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -501,7 +485,7 @@ func applyAutoscalingPolicyHelper(c *Client, ctx context.Context, rawDesired *Au
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetAutoscalingPolicy(ctx, desired.URLNormalized())
+	rawNew, err := c.GetAutoscalingPolicy(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

@@ -129,12 +129,42 @@ class Dashboard(object):
 
         response = stub.DeleteMonitoringBetaDashboard(request)
 
-    @classmethod
-    def list(self, project, service_account_file=""):
+    def list(self):
         stub = dashboard_pb2_grpc.MonitoringBetaDashboardServiceStub(channel.Channel())
         request = dashboard_pb2.ListMonitoringBetaDashboardRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.display_name):
+            request.resource.display_name = Primitive.to_proto(self.display_name)
+
+        if DashboardGridLayout.to_proto(self.grid_layout):
+            request.resource.grid_layout.CopyFrom(
+                DashboardGridLayout.to_proto(self.grid_layout)
+            )
+        else:
+            request.resource.ClearField("grid_layout")
+        if DashboardMosaicLayout.to_proto(self.mosaic_layout):
+            request.resource.mosaic_layout.CopyFrom(
+                DashboardMosaicLayout.to_proto(self.mosaic_layout)
+            )
+        else:
+            request.resource.ClearField("mosaic_layout")
+        if DashboardRowLayout.to_proto(self.row_layout):
+            request.resource.row_layout.CopyFrom(
+                DashboardRowLayout.to_proto(self.row_layout)
+            )
+        else:
+            request.resource.ClearField("row_layout")
+        if DashboardColumnLayout.to_proto(self.column_layout):
+            request.resource.column_layout.CopyFrom(
+                DashboardColumnLayout.to_proto(self.column_layout)
+            )
+        else:
+            request.resource.ClearField("column_layout")
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         return stub.ListMonitoringBetaDashboard(request).items
 

@@ -84,8 +84,7 @@ message DeleteNetworkservicesAlphaEndpointConfigSelectorRequest {
 
 message ListNetworkservicesAlphaEndpointConfigSelectorRequest {
   string service_account_file = 1;
-  string Project = 2;
-  string Location = 3;
+	NetworkservicesAlphaEndpointConfigSelector resource = 2;
 }
 
 message ListNetworkservicesAlphaEndpointConfigSelectorResponse {

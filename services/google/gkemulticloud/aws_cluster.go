@@ -674,9 +674,7 @@ type AwsClusterList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
+	resource *AwsCluster
 }
 
 func (l *AwsClusterList) HasNext() bool {
@@ -690,7 +688,7 @@ func (l *AwsClusterList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listAwsCluster(ctx, l.project, l.location, l.nextToken, l.pageSize)
+	items, token, err := c.listAwsCluster(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -699,19 +697,19 @@ func (l *AwsClusterList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListAwsCluster(ctx context.Context, project, location string) (*AwsClusterList, error) {
+func (c *Client) ListAwsCluster(ctx context.Context, r *AwsCluster) (*AwsClusterList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListAwsClusterWithMaxResults(ctx, project, location, AwsClusterMaxPage)
+	return c.ListAwsClusterWithMaxResults(ctx, r, AwsClusterMaxPage)
 
 }
 
-func (c *Client) ListAwsClusterWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*AwsClusterList, error) {
+func (c *Client) ListAwsClusterWithMaxResults(ctx context.Context, r *AwsCluster, pageSize int32) (*AwsClusterList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listAwsCluster(ctx, project, location, "", pageSize)
+	items, token, err := c.listAwsCluster(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -719,27 +717,8 @@ func (c *Client) ListAwsClusterWithMaxResults(ctx context.Context, project, loca
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		location: location,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *AwsCluster) URLNormalized() *AwsCluster {
-	normalized := dcl.Copy(*r).(AwsCluster)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.AwsRegion = dcl.SelfLinkToName(r.AwsRegion)
-	normalized.Endpoint = dcl.SelfLinkToName(r.Endpoint)
-	normalized.Uid = dcl.SelfLinkToName(r.Uid)
-	normalized.Etag = dcl.SelfLinkToName(r.Etag)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
 }
 
 func (c *Client) GetAwsCluster(ctx context.Context, r *AwsCluster) (*AwsCluster, error) {
@@ -788,8 +767,8 @@ func (c *Client) DeleteAwsCluster(ctx context.Context, r *AwsCluster) error {
 }
 
 // DeleteAllAwsCluster deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllAwsCluster(ctx context.Context, project, location string, filter func(*AwsCluster) bool) error {
-	listObj, err := c.ListAwsCluster(ctx, project, location)
+func (c *Client) DeleteAllAwsCluster(ctx context.Context, r *AwsCluster, filter func(*AwsCluster) bool) error {
+	listObj, err := c.ListAwsCluster(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -913,7 +892,7 @@ func applyAwsClusterHelper(c *Client, ctx context.Context, rawDesired *AwsCluste
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetAwsCluster(ctx, desired.URLNormalized())
+	rawNew, err := c.GetAwsCluster(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

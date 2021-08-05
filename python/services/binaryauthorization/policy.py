@@ -185,11 +185,56 @@ class Policy(object):
 
         response = stub.DeleteBinaryauthorizationPolicy(request)
 
-    @classmethod
-    def list(self, service_account_file=""):
+    def list(self):
         stub = policy_pb2_grpc.BinaryauthorizationPolicyServiceStub(channel.Channel())
         request = policy_pb2.ListBinaryauthorizationPolicyRequest()
-        request.service_account_file = service_account_file
+        request.service_account_file = self.service_account_file
+        if PolicyAdmissionWhitelistPatternsArray.to_proto(
+            self.admission_whitelist_patterns
+        ):
+            request.resource.admission_whitelist_patterns.extend(
+                PolicyAdmissionWhitelistPatternsArray.to_proto(
+                    self.admission_whitelist_patterns
+                )
+            )
+        if Primitive.to_proto(self.cluster_admission_rules):
+            request.resource.cluster_admission_rules = Primitive.to_proto(
+                self.cluster_admission_rules
+            )
+
+        if Primitive.to_proto(self.kubernetes_namespace_admission_rules):
+            request.resource.kubernetes_namespace_admission_rules = Primitive.to_proto(
+                self.kubernetes_namespace_admission_rules
+            )
+
+        if Primitive.to_proto(self.kubernetes_service_account_admission_rules):
+            request.resource.kubernetes_service_account_admission_rules = Primitive.to_proto(
+                self.kubernetes_service_account_admission_rules
+            )
+
+        if Primitive.to_proto(self.istio_service_identity_admission_rules):
+            request.resource.istio_service_identity_admission_rules = Primitive.to_proto(
+                self.istio_service_identity_admission_rules
+            )
+
+        if PolicyAdmissionRule.to_proto(self.default_admission_rule):
+            request.resource.default_admission_rule.CopyFrom(
+                PolicyAdmissionRule.to_proto(self.default_admission_rule)
+            )
+        else:
+            request.resource.ClearField("default_admission_rule")
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if PolicyGlobalPolicyEvaluationModeEnum.to_proto(
+            self.global_policy_evaluation_mode
+        ):
+            request.resource.global_policy_evaluation_mode = PolicyGlobalPolicyEvaluationModeEnum.to_proto(
+                self.global_policy_evaluation_mode
+            )
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         return stub.ListBinaryauthorizationPolicy(request).items
 

@@ -115,9 +115,7 @@ type BackupList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
+	resource *Backup
 }
 
 func (l *BackupList) HasNext() bool {
@@ -131,7 +129,7 @@ func (l *BackupList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listBackup(ctx, l.project, l.location, l.nextToken, l.pageSize)
+	items, token, err := c.listBackup(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -140,19 +138,19 @@ func (l *BackupList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListBackup(ctx context.Context, project, location string) (*BackupList, error) {
+func (c *Client) ListBackup(ctx context.Context, r *Backup) (*BackupList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListBackupWithMaxResults(ctx, project, location, BackupMaxPage)
+	return c.ListBackupWithMaxResults(ctx, r, BackupMaxPage)
 
 }
 
-func (c *Client) ListBackupWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*BackupList, error) {
+func (c *Client) ListBackupWithMaxResults(ctx context.Context, r *Backup, pageSize int32) (*BackupList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listBackup(ctx, project, location, "", pageSize)
+	items, token, err := c.listBackup(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -160,25 +158,8 @@ func (c *Client) ListBackupWithMaxResults(ctx context.Context, project, location
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		location: location,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Backup) URLNormalized() *Backup {
-	normalized := dcl.Copy(*r).(Backup)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.SourceInstance = dcl.SelfLinkToName(r.SourceInstance)
-	normalized.SourceFileShare = dcl.SelfLinkToName(r.SourceFileShare)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
 }
 
 func (c *Client) GetBackup(ctx context.Context, r *Backup) (*Backup, error) {
@@ -227,8 +208,8 @@ func (c *Client) DeleteBackup(ctx context.Context, r *Backup) error {
 }
 
 // DeleteAllBackup deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllBackup(ctx context.Context, project, location string, filter func(*Backup) bool) error {
-	listObj, err := c.ListBackup(ctx, project, location)
+func (c *Client) DeleteAllBackup(ctx context.Context, r *Backup, filter func(*Backup) bool) error {
+	listObj, err := c.ListBackup(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -352,7 +333,7 @@ func applyBackupHelper(c *Client, ctx context.Context, rawDesired *Backup, opts 
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetBackup(ctx, desired.URLNormalized())
+	rawNew, err := c.GetBackup(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

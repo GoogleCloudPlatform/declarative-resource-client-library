@@ -290,9 +290,7 @@ type WorkloadList struct {
 
 	pageSize int32
 
-	organization string
-
-	location string
+	resource *Workload
 }
 
 func (l *WorkloadList) HasNext() bool {
@@ -306,7 +304,7 @@ func (l *WorkloadList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listWorkload(ctx, l.organization, l.location, l.nextToken, l.pageSize)
+	items, token, err := c.listWorkload(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -315,19 +313,19 @@ func (l *WorkloadList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListWorkload(ctx context.Context, organization, location string) (*WorkloadList, error) {
+func (c *Client) ListWorkload(ctx context.Context, r *Workload) (*WorkloadList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListWorkloadWithMaxResults(ctx, organization, location, WorkloadMaxPage)
+	return c.ListWorkloadWithMaxResults(ctx, r, WorkloadMaxPage)
 
 }
 
-func (c *Client) ListWorkloadWithMaxResults(ctx context.Context, organization, location string, pageSize int32) (*WorkloadList, error) {
+func (c *Client) ListWorkloadWithMaxResults(ctx context.Context, r *Workload, pageSize int32) (*WorkloadList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listWorkload(ctx, organization, location, "", pageSize)
+	items, token, err := c.listWorkload(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -335,25 +333,8 @@ func (c *Client) ListWorkloadWithMaxResults(ctx context.Context, organization, l
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		organization: organization,
-
-		location: location,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Workload) URLNormalized() *Workload {
-	normalized := dcl.Copy(*r).(Workload)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
-	normalized.BillingAccount = dcl.SelfLinkToName(r.BillingAccount)
-	normalized.ProvisionedResourcesParent = dcl.SelfLinkToName(r.ProvisionedResourcesParent)
-	normalized.Organization = dcl.SelfLinkToName(r.Organization)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
 }
 
 func (c *Client) GetWorkload(ctx context.Context, r *Workload) (*Workload, error) {
@@ -402,8 +383,8 @@ func (c *Client) DeleteWorkload(ctx context.Context, r *Workload) error {
 }
 
 // DeleteAllWorkload deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllWorkload(ctx context.Context, organization, location string, filter func(*Workload) bool) error {
-	listObj, err := c.ListWorkload(ctx, organization, location)
+func (c *Client) DeleteAllWorkload(ctx context.Context, r *Workload, filter func(*Workload) bool) error {
+	listObj, err := c.ListWorkload(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -527,7 +508,7 @@ func applyWorkloadHelper(c *Client, ctx context.Context, rawDesired *Workload, o
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetWorkload(ctx, desired.URLNormalized())
+	rawNew, err := c.GetWorkload(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

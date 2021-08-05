@@ -138,8 +138,7 @@ message DeleteGkemulticloudBetaAwsClusterRequest {
 
 message ListGkemulticloudBetaAwsClusterRequest {
   string service_account_file = 1;
-  string Project = 2;
-  string Location = 3;
+	GkemulticloudBetaAwsCluster resource = 2;
 }
 
 message ListGkemulticloudBetaAwsClusterResponse {

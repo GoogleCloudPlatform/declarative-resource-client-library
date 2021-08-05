@@ -53,9 +53,7 @@ type IdentityAwareProxyClientList struct {
 
 	pageSize int32
 
-	project string
-
-	brand string
+	resource *IdentityAwareProxyClient
 }
 
 func (l *IdentityAwareProxyClientList) HasNext() bool {
@@ -69,7 +67,7 @@ func (l *IdentityAwareProxyClientList) Next(ctx context.Context, c *Client) erro
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listIdentityAwareProxyClient(ctx, l.project, l.brand, l.nextToken, l.pageSize)
+	items, token, err := c.listIdentityAwareProxyClient(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -78,19 +76,19 @@ func (l *IdentityAwareProxyClientList) Next(ctx context.Context, c *Client) erro
 	return err
 }
 
-func (c *Client) ListIdentityAwareProxyClient(ctx context.Context, project, brand string) (*IdentityAwareProxyClientList, error) {
+func (c *Client) ListIdentityAwareProxyClient(ctx context.Context, r *IdentityAwareProxyClient) (*IdentityAwareProxyClientList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListIdentityAwareProxyClientWithMaxResults(ctx, project, brand, IdentityAwareProxyClientMaxPage)
+	return c.ListIdentityAwareProxyClientWithMaxResults(ctx, r, IdentityAwareProxyClientMaxPage)
 
 }
 
-func (c *Client) ListIdentityAwareProxyClientWithMaxResults(ctx context.Context, project, brand string, pageSize int32) (*IdentityAwareProxyClientList, error) {
+func (c *Client) ListIdentityAwareProxyClientWithMaxResults(ctx context.Context, r *IdentityAwareProxyClient, pageSize int32) (*IdentityAwareProxyClientList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listIdentityAwareProxyClient(ctx, project, brand, "", pageSize)
+	items, token, err := c.listIdentityAwareProxyClient(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -98,24 +96,8 @@ func (c *Client) ListIdentityAwareProxyClientWithMaxResults(ctx context.Context,
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		brand: brand,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *IdentityAwareProxyClient) URLNormalized() *IdentityAwareProxyClient {
-	normalized := dcl.Copy(*r).(IdentityAwareProxyClient)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Secret = dcl.SelfLinkToName(r.Secret)
-	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Brand = dcl.SelfLinkToName(r.Brand)
-	return &normalized
 }
 
 func (c *Client) GetIdentityAwareProxyClient(ctx context.Context, r *IdentityAwareProxyClient) (*IdentityAwareProxyClient, error) {
@@ -164,8 +146,8 @@ func (c *Client) DeleteIdentityAwareProxyClient(ctx context.Context, r *Identity
 }
 
 // DeleteAllIdentityAwareProxyClient deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllIdentityAwareProxyClient(ctx context.Context, project, brand string, filter func(*IdentityAwareProxyClient) bool) error {
-	listObj, err := c.ListIdentityAwareProxyClient(ctx, project, brand)
+func (c *Client) DeleteAllIdentityAwareProxyClient(ctx context.Context, r *IdentityAwareProxyClient, filter func(*IdentityAwareProxyClient) bool) error {
+	listObj, err := c.ListIdentityAwareProxyClient(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -289,7 +271,7 @@ func applyIdentityAwareProxyClientHelper(c *Client, ctx context.Context, rawDesi
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetIdentityAwareProxyClient(ctx, desired.URLNormalized())
+	rawNew, err := c.GetIdentityAwareProxyClient(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

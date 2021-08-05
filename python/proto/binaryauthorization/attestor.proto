@@ -76,7 +76,7 @@ message DeleteBinaryauthorizationAttestorRequest {
 
 message ListBinaryauthorizationAttestorRequest {
   string service_account_file = 1;
-  string Project = 2;
+	BinaryauthorizationAttestor resource = 2;
 }
 
 message ListBinaryauthorizationAttestorResponse {

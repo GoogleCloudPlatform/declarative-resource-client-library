@@ -110,7 +110,7 @@ type OAuthIdpConfigList struct {
 
 	pageSize int32
 
-	project string
+	resource *OAuthIdpConfig
 }
 
 func (l *OAuthIdpConfigList) HasNext() bool {
@@ -124,7 +124,7 @@ func (l *OAuthIdpConfigList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listOAuthIdpConfig(ctx, l.project, l.nextToken, l.pageSize)
+	items, token, err := c.listOAuthIdpConfig(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -133,19 +133,19 @@ func (l *OAuthIdpConfigList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListOAuthIdpConfig(ctx context.Context, project string) (*OAuthIdpConfigList, error) {
+func (c *Client) ListOAuthIdpConfig(ctx context.Context, r *OAuthIdpConfig) (*OAuthIdpConfigList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListOAuthIdpConfigWithMaxResults(ctx, project, OAuthIdpConfigMaxPage)
+	return c.ListOAuthIdpConfigWithMaxResults(ctx, r, OAuthIdpConfigMaxPage)
 
 }
 
-func (c *Client) ListOAuthIdpConfigWithMaxResults(ctx context.Context, project string, pageSize int32) (*OAuthIdpConfigList, error) {
+func (c *Client) ListOAuthIdpConfigWithMaxResults(ctx context.Context, r *OAuthIdpConfig, pageSize int32) (*OAuthIdpConfigList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listOAuthIdpConfig(ctx, project, "", pageSize)
+	items, token, err := c.listOAuthIdpConfig(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -153,23 +153,8 @@ func (c *Client) ListOAuthIdpConfigWithMaxResults(ctx context.Context, project s
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *OAuthIdpConfig) URLNormalized() *OAuthIdpConfig {
-	normalized := dcl.Copy(*r).(OAuthIdpConfig)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.ClientId = dcl.SelfLinkToName(r.ClientId)
-	normalized.Issuer = dcl.SelfLinkToName(r.Issuer)
-	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
-	normalized.ClientSecret = dcl.SelfLinkToName(r.ClientSecret)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
 }
 
 func (c *Client) GetOAuthIdpConfig(ctx context.Context, r *OAuthIdpConfig) (*OAuthIdpConfig, error) {
@@ -217,8 +202,8 @@ func (c *Client) DeleteOAuthIdpConfig(ctx context.Context, r *OAuthIdpConfig) er
 }
 
 // DeleteAllOAuthIdpConfig deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllOAuthIdpConfig(ctx context.Context, project string, filter func(*OAuthIdpConfig) bool) error {
-	listObj, err := c.ListOAuthIdpConfig(ctx, project)
+func (c *Client) DeleteAllOAuthIdpConfig(ctx context.Context, r *OAuthIdpConfig, filter func(*OAuthIdpConfig) bool) error {
+	listObj, err := c.ListOAuthIdpConfig(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -342,7 +327,7 @@ func applyOAuthIdpConfigHelper(c *Client, ctx context.Context, rawDesired *OAuth
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetOAuthIdpConfig(ctx, desired.URLNormalized())
+	rawNew, err := c.GetOAuthIdpConfig(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

@@ -39,57 +39,65 @@ func (r *ForwardingRuleMetadataFilter) validate() error {
 func (r *ForwardingRuleMetadataFilterFilterLabel) validate() error {
 	return nil
 }
-
-func forwardingRuleGetURL(userBasePath string, r *ForwardingRule) (string, error) {
-	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
-	}
-	if dcl.IsRegion(r.Location) {
-		return dcl.URL("projects/{{project}}/regions/{{location}}/forwardingRules/{{name}}", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
-	}
-
-	return dcl.URL("projects/{{project}}/global/forwardingRules/{{name}}", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+func (r *ForwardingRule) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://www.googleapis.com/compute/v1/", params)
 }
 
-func forwardingRuleListURL(userBasePath, project, location string) (string, error) {
+func (r *ForwardingRule) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	if dcl.IsRegion(&location) {
-		return dcl.URL("projects/{{project}}/regions/{{location}}/forwardingRules", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+	if dcl.IsRegion(nr.Location) {
+		return dcl.URL("projects/{{project}}/regions/{{location}}/forwardingRules/{{name}}", nr.basePath(), userBasePath, params), nil
 	}
 
-	return dcl.URL("projects/{{project}}/global/forwardingRules", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
-
+	return dcl.URL("projects/{{project}}/global/forwardingRules/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-func forwardingRuleCreateURL(userBasePath, project, location string) (string, error) {
+func (r *ForwardingRule) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
 	}
-	if dcl.IsRegion(&location) {
-		return dcl.URL("projects/{{project}}/regions/{{location}}/forwardingRules", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+	if dcl.IsRegion(nr.Location) {
+		return dcl.URL("projects/{{project}}/regions/{{location}}/forwardingRules", nr.basePath(), userBasePath, params), nil
 	}
 
-	return dcl.URL("projects/{{project}}/global/forwardingRules", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/global/forwardingRules", nr.basePath(), userBasePath, params), nil
 
 }
 
-func forwardingRuleDeleteURL(userBasePath string, r *ForwardingRule) (string, error) {
+func (r *ForwardingRule) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
 	}
-	if dcl.IsRegion(r.Location) {
-		return dcl.URL("projects/{{project}}/regions/{{location}}/forwardingRules/{{name}}", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+	if dcl.IsRegion(nr.Location) {
+		return dcl.URL("projects/{{project}}/regions/{{location}}/forwardingRules", nr.basePath(), userBasePath, params), nil
 	}
 
-	return dcl.URL("projects/{{project}}/global/forwardingRules/{{name}}", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/global/forwardingRules", nr.basePath(), userBasePath, params), nil
+
+}
+
+func (r *ForwardingRule) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
+	}
+	if dcl.IsRegion(nr.Location) {
+		return dcl.URL("projects/{{project}}/regions/{{location}}/forwardingRules/{{name}}", nr.basePath(), userBasePath, params), nil
+	}
+
+	return dcl.URL("projects/{{project}}/global/forwardingRules/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // forwardingRuleApiOperation represents a mutable operation in the underlying REST
@@ -98,8 +106,8 @@ type forwardingRuleApiOperation interface {
 	do(context.Context, *ForwardingRule, *Client) error
 }
 
-func (c *Client) listForwardingRuleRaw(ctx context.Context, project, location, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := forwardingRuleListURL(c.Config.BasePath, project, location)
+func (c *Client) listForwardingRuleRaw(ctx context.Context, r *ForwardingRule, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -130,8 +138,8 @@ type listForwardingRuleOperation struct {
 	Token string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listForwardingRule(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*ForwardingRule, string, error) {
-	b, err := c.listForwardingRuleRaw(ctx, project, location, pageToken, pageSize)
+func (c *Client) listForwardingRule(ctx context.Context, r *ForwardingRule, pageToken string, pageSize int32) ([]*ForwardingRule, string, error) {
+	b, err := c.listForwardingRuleRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -147,8 +155,8 @@ func (c *Client) listForwardingRule(ctx context.Context, project, location, page
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
-		res.Location = &location
+		res.Project = r.Project
+		res.Location = r.Location
 		l = append(l, res)
 	}
 
@@ -176,7 +184,7 @@ func (c *Client) deleteAllForwardingRule(ctx context.Context, f func(*Forwarding
 type deleteForwardingRuleOperation struct{}
 
 func (op *deleteForwardingRuleOperation) do(ctx context.Context, r *ForwardingRule, c *Client) error {
-	r, err := c.GetForwardingRule(ctx, r.URLNormalized())
+	r, err := c.GetForwardingRule(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("ForwardingRule not found, returning. Original error: %v", err)
@@ -186,7 +194,7 @@ func (op *deleteForwardingRuleOperation) do(ctx context.Context, r *ForwardingRu
 		return err
 	}
 
-	u, err := forwardingRuleDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -203,7 +211,7 @@ func (op *deleteForwardingRuleOperation) do(ctx context.Context, r *ForwardingRu
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/v1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		return err
 	}
 
@@ -211,7 +219,7 @@ func (op *deleteForwardingRuleOperation) do(ctx context.Context, r *ForwardingRu
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetForwardingRule(ctx, r.URLNormalized())
+		_, err = c.GetForwardingRule(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -237,10 +245,7 @@ func (op *createForwardingRuleOperation) FirstResponse() (map[string]interface{}
 
 func (op *createForwardingRuleOperation) do(ctx context.Context, r *ForwardingRule, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, location := r.createFields()
-	u, err := forwardingRuleCreateURL(c.Config.BasePath, project, location)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -258,14 +263,14 @@ func (op *createForwardingRuleOperation) do(ctx context.Context, r *ForwardingRu
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/v1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetForwardingRule(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetForwardingRule(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -275,7 +280,7 @@ func (op *createForwardingRuleOperation) do(ctx context.Context, r *ForwardingRu
 
 func (c *Client) getForwardingRuleRaw(ctx context.Context, r *ForwardingRule) ([]byte, error) {
 
-	u, err := forwardingRuleGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -308,7 +313,7 @@ func (c *Client) forwardingRuleDiffsForRawDesired(ctx context.Context, rawDesire
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetForwardingRule(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetForwardingRule(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a ForwardingRule resource already exists: %s", err)
@@ -1084,19 +1089,27 @@ func compareForwardingRuleMetadataFilterFilterLabelNewStyle(d, a interface{}, fn
 	return diffs, nil
 }
 
-func (r *ForwardingRule) getFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *ForwardingRule) createFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location)
-}
-
-func (r *ForwardingRule) deleteFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *ForwardingRule) urlNormalized() *ForwardingRule {
+	normalized := dcl.Copy(*r).(ForwardingRule)
+	normalized.BackendService = dcl.SelfLinkToName(r.BackendService)
+	normalized.CreationTimestamp = dcl.SelfLinkToName(r.CreationTimestamp)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.IPAddress = dcl.SelfLinkToName(r.IPAddress)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Network = dcl.SelfLinkToName(r.Network)
+	normalized.PortRange = dcl.SelfLinkToName(r.PortRange)
+	normalized.Region = dcl.SelfLinkToName(r.Region)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.ServiceLabel = dcl.SelfLinkToName(r.ServiceLabel)
+	normalized.ServiceName = dcl.SelfLinkToName(r.ServiceName)
+	normalized.Subnetwork = dcl.SelfLinkToName(r.Subnetwork)
+	normalized.Target = dcl.SelfLinkToName(r.Target)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
 }
 
 func (r *ForwardingRule) updateURL(userBasePath, updateName string) (string, error) {
@@ -1753,8 +1766,8 @@ func (r *ForwardingRule) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

@@ -58,42 +58,50 @@ func (r *WorkerPoolNetworkConfig) validate() error {
 	}
 	return nil
 }
-
-func workerPoolGetURL(userBasePath string, r *WorkerPool) (string, error) {
-	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/workerPools/{{name}}", "https://cloudbuild.googleapis.com/v1beta1/", userBasePath, params), nil
+func (r *WorkerPool) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://cloudbuild.googleapis.com/v1beta1/", params)
 }
 
-func workerPoolListURL(userBasePath, project, location string) (string, error) {
+func (r *WorkerPool) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/workerPools", "https://cloudbuild.googleapis.com/v1beta1/", userBasePath, params), nil
-
+	return dcl.URL("projects/{{project}}/locations/{{location}}/workerPools/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-func workerPoolCreateURL(userBasePath, project, location, name string) (string, error) {
+func (r *WorkerPool) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
-		"name":     name,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/workerPools?workerPoolId={{name}}", "https://cloudbuild.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/workerPools", nr.basePath(), userBasePath, params), nil
 
 }
 
-func workerPoolDeleteURL(userBasePath string, r *WorkerPool) (string, error) {
+func (r *WorkerPool) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/workerPools/{{name}}", "https://cloudbuild.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/workerPools?workerPoolId={{name}}", nr.basePath(), userBasePath, params), nil
+
+}
+
+func (r *WorkerPool) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/workerPools/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // workerPoolApiOperation represents a mutable operation in the underlying REST
@@ -136,7 +144,7 @@ type updateWorkerPoolUpdateWorkerPoolOperation struct {
 // PUT request to a single URL.
 
 func (op *updateWorkerPoolUpdateWorkerPoolOperation) do(ctx context.Context, r *WorkerPool, c *Client) error {
-	_, err := c.GetWorkerPool(ctx, r.URLNormalized())
+	_, err := c.GetWorkerPool(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -170,7 +178,7 @@ func (op *updateWorkerPoolUpdateWorkerPoolOperation) do(ctx context.Context, r *
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	err = o.Wait(ctx, c.Config, "https://cloudbuild.googleapis.com/v1beta1/", "GET")
+	err = o.Wait(ctx, c.Config, r.basePath(), "GET")
 
 	if err != nil {
 		return err
@@ -179,8 +187,8 @@ func (op *updateWorkerPoolUpdateWorkerPoolOperation) do(ctx context.Context, r *
 	return nil
 }
 
-func (c *Client) listWorkerPoolRaw(ctx context.Context, project, location, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := workerPoolListURL(c.Config.BasePath, project, location)
+func (c *Client) listWorkerPoolRaw(ctx context.Context, r *WorkerPool, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -211,8 +219,8 @@ type listWorkerPoolOperation struct {
 	Token       string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listWorkerPool(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*WorkerPool, string, error) {
-	b, err := c.listWorkerPoolRaw(ctx, project, location, pageToken, pageSize)
+func (c *Client) listWorkerPool(ctx context.Context, r *WorkerPool, pageToken string, pageSize int32) ([]*WorkerPool, string, error) {
+	b, err := c.listWorkerPoolRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -228,8 +236,8 @@ func (c *Client) listWorkerPool(ctx context.Context, project, location, pageToke
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
-		res.Location = &location
+		res.Project = r.Project
+		res.Location = r.Location
 		l = append(l, res)
 	}
 
@@ -257,7 +265,7 @@ func (c *Client) deleteAllWorkerPool(ctx context.Context, f func(*WorkerPool) bo
 type deleteWorkerPoolOperation struct{}
 
 func (op *deleteWorkerPoolOperation) do(ctx context.Context, r *WorkerPool, c *Client) error {
-	r, err := c.GetWorkerPool(ctx, r.URLNormalized())
+	r, err := c.GetWorkerPool(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("WorkerPool not found, returning. Original error: %v", err)
@@ -267,7 +275,7 @@ func (op *deleteWorkerPoolOperation) do(ctx context.Context, r *WorkerPool, c *C
 		return err
 	}
 
-	u, err := workerPoolDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -284,7 +292,7 @@ func (op *deleteWorkerPoolOperation) do(ctx context.Context, r *WorkerPool, c *C
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://cloudbuild.googleapis.com/v1beta1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		return err
 	}
 
@@ -292,7 +300,7 @@ func (op *deleteWorkerPoolOperation) do(ctx context.Context, r *WorkerPool, c *C
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetWorkerPool(ctx, r.URLNormalized())
+		_, err = c.GetWorkerPool(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -318,10 +326,7 @@ func (op *createWorkerPoolOperation) FirstResponse() (map[string]interface{}, bo
 
 func (op *createWorkerPoolOperation) do(ctx context.Context, r *WorkerPool, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, location, name := r.createFields()
-	u, err := workerPoolCreateURL(c.Config.BasePath, project, location, name)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -339,14 +344,14 @@ func (op *createWorkerPoolOperation) do(ctx context.Context, r *WorkerPool, c *C
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://cloudbuild.googleapis.com/v1beta1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetWorkerPool(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetWorkerPool(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -356,7 +361,7 @@ func (op *createWorkerPoolOperation) do(ctx context.Context, r *WorkerPool, c *C
 
 func (c *Client) getWorkerPoolRaw(ctx context.Context, r *WorkerPool) ([]byte, error) {
 
-	u, err := workerPoolGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -389,7 +394,7 @@ func (c *Client) workerPoolDiffsForRawDesired(ctx context.Context, rawDesired *W
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetWorkerPool(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetWorkerPool(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a WorkerPool resource already exists: %s", err)
@@ -836,32 +841,29 @@ func compareWorkerPoolNetworkConfigNewStyle(d, a interface{}, fn dcl.FieldName) 
 	return diffs, nil
 }
 
-func (r *WorkerPool) getFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *WorkerPool) createFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *WorkerPool) deleteFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *WorkerPool) urlNormalized() *WorkerPool {
+	normalized := dcl.Copy(*r).(WorkerPool)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
 }
 
 func (r *WorkerPool) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "UpdateWorkerPool" {
 		fields := map[string]interface{}{
-			"project":  dcl.ValueOrEmptyString(n.Project),
-			"location": dcl.ValueOrEmptyString(n.Location),
-			"name":     dcl.ValueOrEmptyString(n.Name),
+			"project":  dcl.ValueOrEmptyString(nr.Project),
+			"location": dcl.ValueOrEmptyString(nr.Location),
+			"name":     dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("projects/{{project}}/locations/{{location}}/workerPools/{{name}}", "https://cloudbuild.googleapis.com/v1beta1/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/locations/{{location}}/workerPools/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -1257,8 +1259,8 @@ func (r *WorkerPool) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

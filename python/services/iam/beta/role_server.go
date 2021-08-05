@@ -159,7 +159,7 @@ func (s *RoleServer) ListIamBetaRole(ctx context.Context, request *betapb.ListIa
 		return nil, err
 	}
 
-	resources, err := cl.ListRole(ctx, request.Parent)
+	resources, err := cl.ListRole(ctx, ProtoToRole(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

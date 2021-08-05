@@ -56,7 +56,7 @@ func projectLifecycleState(ctx context.Context, client *Client, url string) (str
 
 // Deletes projects owned by the workload prior to workload deletion.
 func (r *Workload) deleteProjectResources(ctx context.Context, client *Client) error {
-	nr := r.URLNormalized()
+	nr := r.urlNormalized()
 	return dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		for i, resource := range nr.Resources {
 			if resource.ResourceType == nil {

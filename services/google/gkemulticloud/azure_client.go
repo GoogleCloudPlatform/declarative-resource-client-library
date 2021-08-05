@@ -56,9 +56,7 @@ type AzureClientList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
+	resource *AzureClient
 }
 
 func (l *AzureClientList) HasNext() bool {
@@ -72,7 +70,7 @@ func (l *AzureClientList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listAzureClient(ctx, l.project, l.location, l.nextToken, l.pageSize)
+	items, token, err := c.listAzureClient(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -81,19 +79,19 @@ func (l *AzureClientList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListAzureClient(ctx context.Context, project, location string) (*AzureClientList, error) {
+func (c *Client) ListAzureClient(ctx context.Context, r *AzureClient) (*AzureClientList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListAzureClientWithMaxResults(ctx, project, location, AzureClientMaxPage)
+	return c.ListAzureClientWithMaxResults(ctx, r, AzureClientMaxPage)
 
 }
 
-func (c *Client) ListAzureClientWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*AzureClientList, error) {
+func (c *Client) ListAzureClientWithMaxResults(ctx context.Context, r *AzureClient, pageSize int32) (*AzureClientList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listAzureClient(ctx, project, location, "", pageSize)
+	items, token, err := c.listAzureClient(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -101,26 +99,8 @@ func (c *Client) ListAzureClientWithMaxResults(ctx context.Context, project, loc
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		location: location,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *AzureClient) URLNormalized() *AzureClient {
-	normalized := dcl.Copy(*r).(AzureClient)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.TenantId = dcl.SelfLinkToName(r.TenantId)
-	normalized.ApplicationId = dcl.SelfLinkToName(r.ApplicationId)
-	normalized.Certificate = dcl.SelfLinkToName(r.Certificate)
-	normalized.Uid = dcl.SelfLinkToName(r.Uid)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
 }
 
 func (c *Client) GetAzureClient(ctx context.Context, r *AzureClient) (*AzureClient, error) {
@@ -169,8 +149,8 @@ func (c *Client) DeleteAzureClient(ctx context.Context, r *AzureClient) error {
 }
 
 // DeleteAllAzureClient deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllAzureClient(ctx context.Context, project, location string, filter func(*AzureClient) bool) error {
-	listObj, err := c.ListAzureClient(ctx, project, location)
+func (c *Client) DeleteAllAzureClient(ctx context.Context, r *AzureClient, filter func(*AzureClient) bool) error {
+	listObj, err := c.ListAzureClient(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -294,7 +274,7 @@ func applyAzureClientHelper(c *Client, ctx context.Context, rawDesired *AzureCli
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetAzureClient(ctx, desired.URLNormalized())
+	rawNew, err := c.GetAzureClient(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

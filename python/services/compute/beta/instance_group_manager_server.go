@@ -716,7 +716,7 @@ func (s *InstanceGroupManagerServer) ListComputeBetaInstanceGroupManager(ctx con
 		return nil, err
 	}
 
-	resources, err := cl.ListInstanceGroupManager(ctx, request.Project, request.Location)
+	resources, err := cl.ListInstanceGroupManager(ctx, ProtoToInstanceGroupManager(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

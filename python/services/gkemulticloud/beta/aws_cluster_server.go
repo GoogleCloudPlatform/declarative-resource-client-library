@@ -467,7 +467,7 @@ func (s *AwsClusterServer) ListGkemulticloudBetaAwsCluster(ctx context.Context, 
 		return nil, err
 	}
 
-	resources, err := cl.ListAwsCluster(ctx, request.Project, request.Location)
+	resources, err := cl.ListAwsCluster(ctx, ProtoToAwsCluster(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

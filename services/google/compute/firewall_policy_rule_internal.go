@@ -60,37 +60,45 @@ func (r *FirewallPolicyRuleMatchLayer4Configs) validate() error {
 	}
 	return nil
 }
-
-func firewallPolicyRuleGetURL(userBasePath string, r *FirewallPolicyRule) (string, error) {
-	params := map[string]interface{}{
-		"firewallPolicy": dcl.ValueOrEmptyString(r.FirewallPolicy),
-		"priority":       dcl.ValueOrEmptyString(r.Priority),
-	}
-	return dcl.URL("locations/global/firewallPolicies/{{firewallPolicy}}/getRule?priority={{priority}}", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+func (r *FirewallPolicyRule) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://www.googleapis.com/compute/v1/", params)
 }
 
-func firewallPolicyRuleListURL(userBasePath, firewallPolicy string) (string, error) {
+func (r *FirewallPolicyRule) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"firewallPolicy": firewallPolicy,
+		"firewallPolicy": dcl.ValueOrEmptyString(nr.FirewallPolicy),
+		"priority":       dcl.ValueOrEmptyString(nr.Priority),
 	}
-	return dcl.URL("locations/global/firewallPolicies/{{firewallPolicy}}", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+	return dcl.URL("locations/global/firewallPolicies/{{firewallPolicy}}/getRule?priority={{priority}}", nr.basePath(), userBasePath, params), nil
+}
+
+func (r *FirewallPolicyRule) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"firewallPolicy": dcl.ValueOrEmptyString(nr.FirewallPolicy),
+	}
+	return dcl.URL("locations/global/firewallPolicies/{{firewallPolicy}}", nr.basePath(), userBasePath, params), nil
 
 }
 
-func firewallPolicyRuleCreateURL(userBasePath, firewallPolicy string) (string, error) {
+func (r *FirewallPolicyRule) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"firewallPolicy": firewallPolicy,
+		"firewallPolicy": dcl.ValueOrEmptyString(nr.FirewallPolicy),
 	}
-	return dcl.URL("locations/global/firewallPolicies/{{firewallPolicy}}/addRule", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+	return dcl.URL("locations/global/firewallPolicies/{{firewallPolicy}}/addRule", nr.basePath(), userBasePath, params), nil
 
 }
 
-func firewallPolicyRuleDeleteURL(userBasePath string, r *FirewallPolicyRule) (string, error) {
+func (r *FirewallPolicyRule) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"firewallPolicy": dcl.ValueOrEmptyString(r.FirewallPolicy),
-		"priority":       dcl.ValueOrEmptyString(r.Priority),
+		"firewallPolicy": dcl.ValueOrEmptyString(nr.FirewallPolicy),
+		"priority":       dcl.ValueOrEmptyString(nr.Priority),
 	}
-	return dcl.URL("locations/global/firewallPolicies/{{firewallPolicy}}/removeRule?priority={{priority}}", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+	return dcl.URL("locations/global/firewallPolicies/{{firewallPolicy}}/removeRule?priority={{priority}}", nr.basePath(), userBasePath, params), nil
 }
 
 // firewallPolicyRuleApiOperation represents a mutable operation in the underlying REST
@@ -156,8 +164,8 @@ type updateFirewallPolicyRulePatchRuleOperation struct {
 // do will transcribe a subset of the resource into a request object and send a
 // PUT request to a single URL.
 
-func (c *Client) listFirewallPolicyRuleRaw(ctx context.Context, firewallPolicy, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := firewallPolicyRuleListURL(c.Config.BasePath, firewallPolicy)
+func (c *Client) listFirewallPolicyRuleRaw(ctx context.Context, r *FirewallPolicyRule, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -188,8 +196,8 @@ type listFirewallPolicyRuleOperation struct {
 	Token string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listFirewallPolicyRule(ctx context.Context, firewallPolicy, pageToken string, pageSize int32) ([]*FirewallPolicyRule, string, error) {
-	b, err := c.listFirewallPolicyRuleRaw(ctx, firewallPolicy, pageToken, pageSize)
+func (c *Client) listFirewallPolicyRule(ctx context.Context, r *FirewallPolicyRule, pageToken string, pageSize int32) ([]*FirewallPolicyRule, string, error) {
+	b, err := c.listFirewallPolicyRuleRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -205,7 +213,7 @@ func (c *Client) listFirewallPolicyRule(ctx context.Context, firewallPolicy, pag
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.FirewallPolicy = &firewallPolicy
+		res.FirewallPolicy = r.FirewallPolicy
 		l = append(l, res)
 	}
 
@@ -245,7 +253,7 @@ func (op *createFirewallPolicyRuleOperation) FirstResponse() (map[string]interfa
 
 func (c *Client) getFirewallPolicyRuleRaw(ctx context.Context, r *FirewallPolicyRule) ([]byte, error) {
 
-	u, err := firewallPolicyRuleGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -278,7 +286,7 @@ func (c *Client) firewallPolicyRuleDiffsForRawDesired(ctx context.Context, rawDe
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetFirewallPolicyRule(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetFirewallPolicyRule(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFoundOrCode(err, 400) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a FirewallPolicyRule resource already exists: %s", err)
@@ -816,31 +824,29 @@ func compareFirewallPolicyRuleMatchLayer4ConfigsNewStyle(d, a interface{}, fn dc
 	return diffs, nil
 }
 
-func (r *FirewallPolicyRule) getFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.FirewallPolicy), dcl.ValueOrEmptyString(n.Priority)
-}
-
-func (r *FirewallPolicyRule) createFields() string {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.FirewallPolicy)
-}
-
-func (r *FirewallPolicyRule) deleteFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.FirewallPolicy), dcl.ValueOrEmptyString(n.Priority)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *FirewallPolicyRule) urlNormalized() *FirewallPolicyRule {
+	normalized := dcl.Copy(*r).(FirewallPolicyRule)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Action = dcl.SelfLinkToName(r.Action)
+	normalized.Kind = dcl.SelfLinkToName(r.Kind)
+	normalized.FirewallPolicy = dcl.SelfLinkToName(r.FirewallPolicy)
+	return &normalized
 }
 
 func (r *FirewallPolicyRule) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "PatchRule" {
 		fields := map[string]interface{}{
-			"firewallPolicy": dcl.ValueOrEmptyString(n.FirewallPolicy),
-			"priority":       dcl.ValueOrEmptyString(n.Priority),
+			"firewallPolicy": dcl.ValueOrEmptyString(nr.FirewallPolicy),
+			"priority":       dcl.ValueOrEmptyString(nr.Priority),
 		}
-		return dcl.URL("locations/global/firewallPolicies/{{firewallPolicy}}/patchRule?priority={{priority}}", "https://www.googleapis.com/compute/v1/", userBasePath, fields), nil
+		return dcl.URL("locations/global/firewallPolicies/{{firewallPolicy}}/patchRule?priority={{priority}}", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -1242,8 +1248,8 @@ func (r *FirewallPolicyRule) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.FirewallPolicy == nil && ncr.FirewallPolicy == nil {

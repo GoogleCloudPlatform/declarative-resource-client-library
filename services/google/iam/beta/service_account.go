@@ -152,7 +152,7 @@ type ServiceAccountList struct {
 
 	pageSize int32
 
-	project string
+	resource *ServiceAccount
 }
 
 func (l *ServiceAccountList) HasNext() bool {
@@ -166,7 +166,7 @@ func (l *ServiceAccountList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listServiceAccount(ctx, l.project, l.nextToken, l.pageSize)
+	items, token, err := c.listServiceAccount(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -175,19 +175,19 @@ func (l *ServiceAccountList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListServiceAccount(ctx context.Context, project string) (*ServiceAccountList, error) {
+func (c *Client) ListServiceAccount(ctx context.Context, r *ServiceAccount) (*ServiceAccountList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListServiceAccountWithMaxResults(ctx, project, ServiceAccountMaxPage)
+	return c.ListServiceAccountWithMaxResults(ctx, r, ServiceAccountMaxPage)
 
 }
 
-func (c *Client) ListServiceAccountWithMaxResults(ctx context.Context, project string, pageSize int32) (*ServiceAccountList, error) {
+func (c *Client) ListServiceAccountWithMaxResults(ctx context.Context, r *ServiceAccount, pageSize int32) (*ServiceAccountList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listServiceAccount(ctx, project, "", pageSize)
+	items, token, err := c.listServiceAccount(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -195,24 +195,8 @@ func (c *Client) ListServiceAccountWithMaxResults(ctx context.Context, project s
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *ServiceAccount) URLNormalized() *ServiceAccount {
-	normalized := dcl.Copy(*r).(ServiceAccount)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.UniqueId = dcl.SelfLinkToName(r.UniqueId)
-	normalized.Email = dcl.SelfLinkToName(r.Email)
-	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.OAuth2ClientId = dcl.SelfLinkToName(r.OAuth2ClientId)
-	return &normalized
 }
 
 func (c *Client) GetServiceAccount(ctx context.Context, r *ServiceAccount) (*ServiceAccount, error) {
@@ -260,8 +244,8 @@ func (c *Client) DeleteServiceAccount(ctx context.Context, r *ServiceAccount) er
 }
 
 // DeleteAllServiceAccount deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllServiceAccount(ctx context.Context, project string, filter func(*ServiceAccount) bool) error {
-	listObj, err := c.ListServiceAccount(ctx, project)
+func (c *Client) DeleteAllServiceAccount(ctx context.Context, r *ServiceAccount, filter func(*ServiceAccount) bool) error {
+	listObj, err := c.ListServiceAccount(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -385,7 +369,7 @@ func applyServiceAccountHelper(c *Client, ctx context.Context, rawDesired *Servi
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetServiceAccount(ctx, desired.URLNormalized())
+	rawNew, err := c.GetServiceAccount(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

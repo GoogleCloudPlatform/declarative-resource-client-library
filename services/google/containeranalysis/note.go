@@ -1513,7 +1513,7 @@ type NoteList struct {
 
 	pageSize int32
 
-	project string
+	resource *Note
 }
 
 func (l *NoteList) HasNext() bool {
@@ -1527,7 +1527,7 @@ func (l *NoteList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listNote(ctx, l.project, l.nextToken, l.pageSize)
+	items, token, err := c.listNote(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -1536,19 +1536,19 @@ func (l *NoteList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListNote(ctx context.Context, project string) (*NoteList, error) {
+func (c *Client) ListNote(ctx context.Context, r *Note) (*NoteList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListNoteWithMaxResults(ctx, project, NoteMaxPage)
+	return c.ListNoteWithMaxResults(ctx, r, NoteMaxPage)
 
 }
 
-func (c *Client) ListNoteWithMaxResults(ctx context.Context, project string, pageSize int32) (*NoteList, error) {
+func (c *Client) ListNoteWithMaxResults(ctx context.Context, r *Note, pageSize int32) (*NoteList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listNote(ctx, project, "", pageSize)
+	items, token, err := c.listNote(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -1556,21 +1556,8 @@ func (c *Client) ListNoteWithMaxResults(ctx context.Context, project string, pag
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Note) URLNormalized() *Note {
-	normalized := dcl.Copy(*r).(Note)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.ShortDescription = dcl.SelfLinkToName(r.ShortDescription)
-	normalized.LongDescription = dcl.SelfLinkToName(r.LongDescription)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
 }
 
 func (c *Client) GetNote(ctx context.Context, r *Note) (*Note, error) {
@@ -1618,8 +1605,8 @@ func (c *Client) DeleteNote(ctx context.Context, r *Note) error {
 }
 
 // DeleteAllNote deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllNote(ctx context.Context, project string, filter func(*Note) bool) error {
-	listObj, err := c.ListNote(ctx, project)
+func (c *Client) DeleteAllNote(ctx context.Context, r *Note, filter func(*Note) bool) error {
+	listObj, err := c.ListNote(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -1743,7 +1730,7 @@ func applyNoteHelper(c *Client, ctx context.Context, rawDesired *Note, opts ...d
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetNote(ctx, desired.URLNormalized())
+	rawNew, err := c.GetNote(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

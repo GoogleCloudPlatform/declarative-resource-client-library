@@ -94,14 +94,26 @@ class Attestor(object):
 
         response = stub.DeleteBinaryauthorizationAttestor(request)
 
-    @classmethod
-    def list(self, project, service_account_file=""):
+    def list(self):
         stub = attestor_pb2_grpc.BinaryauthorizationAttestorServiceStub(
             channel.Channel()
         )
         request = attestor_pb2.ListBinaryauthorizationAttestorRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if AttestorUserOwnedDrydockNote.to_proto(self.user_owned_drydock_note):
+            request.resource.user_owned_drydock_note.CopyFrom(
+                AttestorUserOwnedDrydockNote.to_proto(self.user_owned_drydock_note)
+            )
+        else:
+            request.resource.ClearField("user_owned_drydock_note")
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         return stub.ListBinaryauthorizationAttestor(request).items
 

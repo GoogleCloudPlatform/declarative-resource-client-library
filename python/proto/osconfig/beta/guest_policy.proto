@@ -294,7 +294,7 @@ message DeleteOsconfigBetaGuestPolicyRequest {
 
 message ListOsconfigBetaGuestPolicyRequest {
   string service_account_file = 1;
-  string Project = 2;
+	OsconfigBetaGuestPolicy resource = 2;
 }
 
 message ListOsconfigBetaGuestPolicyResponse {

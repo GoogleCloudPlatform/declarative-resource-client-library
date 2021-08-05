@@ -162,16 +162,49 @@ class Workload(object):
 
         response = stub.DeleteAssuredworkloadsBetaWorkload(request)
 
-    @classmethod
-    def list(self, organization, location, service_account_file=""):
+    def list(self):
         stub = workload_pb2_grpc.AssuredworkloadsBetaWorkloadServiceStub(
             channel.Channel()
         )
         request = workload_pb2.ListAssuredworkloadsBetaWorkloadRequest()
-        request.service_account_file = service_account_file
-        request.Organization = organization
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if Primitive.to_proto(self.display_name):
+            request.resource.display_name = Primitive.to_proto(self.display_name)
+
+        if WorkloadComplianceRegimeEnum.to_proto(self.compliance_regime):
+            request.resource.compliance_regime = WorkloadComplianceRegimeEnum.to_proto(
+                self.compliance_regime
+            )
+
+        if Primitive.to_proto(self.billing_account):
+            request.resource.billing_account = Primitive.to_proto(self.billing_account)
+
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
+        if Primitive.to_proto(self.provisioned_resources_parent):
+            request.resource.provisioned_resources_parent = Primitive.to_proto(
+                self.provisioned_resources_parent
+            )
+
+        if WorkloadKmsSettings.to_proto(self.kms_settings):
+            request.resource.kms_settings.CopyFrom(
+                WorkloadKmsSettings.to_proto(self.kms_settings)
+            )
+        else:
+            request.resource.ClearField("kms_settings")
+        if WorkloadResourceSettingsArray.to_proto(self.resource_settings):
+            request.resource.resource_settings.extend(
+                WorkloadResourceSettingsArray.to_proto(self.resource_settings)
+            )
+        if Primitive.to_proto(self.organization):
+            request.resource.organization = Primitive.to_proto(self.organization)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         return stub.ListAssuredworkloadsBetaWorkload(request).items
 

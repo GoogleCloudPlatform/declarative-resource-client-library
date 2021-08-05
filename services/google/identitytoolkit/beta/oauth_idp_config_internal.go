@@ -40,38 +40,46 @@ func (r *OAuthIdpConfig) validate() error {
 func (r *OAuthIdpConfigResponseType) validate() error {
 	return nil
 }
-
-func oAuthIdpConfigGetURL(userBasePath string, r *OAuthIdpConfig) (string, error) {
-	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(r.Project),
-		"name":    dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("projects/{{project}}/oauthIdpConfigs/{{name}}", "https://identitytoolkit.googleapis.com/v2/", userBasePath, params), nil
+func (r *OAuthIdpConfig) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://identitytoolkit.googleapis.com/v2/", params)
 }
 
-func oAuthIdpConfigListURL(userBasePath, project string) (string, error) {
+func (r *OAuthIdpConfig) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": project,
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/oauthIdpConfigs", "https://identitytoolkit.googleapis.com/v2/", userBasePath, params), nil
-
+	return dcl.URL("projects/{{project}}/oauthIdpConfigs/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-func oAuthIdpConfigCreateURL(userBasePath, project, name string) (string, error) {
+func (r *OAuthIdpConfig) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": project,
-		"name":    name,
+		"project": dcl.ValueOrEmptyString(nr.Project),
 	}
-	return dcl.URL("projects/{{project}}/oauthIdpConfigs?oauthIdpConfigId={{name}}", "https://identitytoolkit.googleapis.com/v2/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/oauthIdpConfigs", nr.basePath(), userBasePath, params), nil
 
 }
 
-func oAuthIdpConfigDeleteURL(userBasePath string, r *OAuthIdpConfig) (string, error) {
+func (r *OAuthIdpConfig) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(r.Project),
-		"name":    dcl.ValueOrEmptyString(r.Name),
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/oauthIdpConfigs/{{name}}", "https://identitytoolkit.googleapis.com/v2/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/oauthIdpConfigs?oauthIdpConfigId={{name}}", nr.basePath(), userBasePath, params), nil
+
+}
+
+func (r *OAuthIdpConfig) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("projects/{{project}}/oauthIdpConfigs/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // oAuthIdpConfigApiOperation represents a mutable operation in the underlying REST
@@ -137,7 +145,7 @@ type updateOAuthIdpConfigUpdateConfigOperation struct {
 // PUT request to a single URL.
 
 func (op *updateOAuthIdpConfigUpdateConfigOperation) do(ctx context.Context, r *OAuthIdpConfig, c *Client) error {
-	_, err := c.GetOAuthIdpConfig(ctx, r.URLNormalized())
+	_, err := c.GetOAuthIdpConfig(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -165,8 +173,8 @@ func (op *updateOAuthIdpConfigUpdateConfigOperation) do(ctx context.Context, r *
 	return nil
 }
 
-func (c *Client) listOAuthIdpConfigRaw(ctx context.Context, project, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := oAuthIdpConfigListURL(c.Config.BasePath, project)
+func (c *Client) listOAuthIdpConfigRaw(ctx context.Context, r *OAuthIdpConfig, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -197,8 +205,8 @@ type listOAuthIdpConfigOperation struct {
 	Token           string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listOAuthIdpConfig(ctx context.Context, project, pageToken string, pageSize int32) ([]*OAuthIdpConfig, string, error) {
-	b, err := c.listOAuthIdpConfigRaw(ctx, project, pageToken, pageSize)
+func (c *Client) listOAuthIdpConfig(ctx context.Context, r *OAuthIdpConfig, pageToken string, pageSize int32) ([]*OAuthIdpConfig, string, error) {
+	b, err := c.listOAuthIdpConfigRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -214,7 +222,7 @@ func (c *Client) listOAuthIdpConfig(ctx context.Context, project, pageToken stri
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
+		res.Project = r.Project
 		l = append(l, res)
 	}
 
@@ -242,7 +250,7 @@ func (c *Client) deleteAllOAuthIdpConfig(ctx context.Context, f func(*OAuthIdpCo
 type deleteOAuthIdpConfigOperation struct{}
 
 func (op *deleteOAuthIdpConfigOperation) do(ctx context.Context, r *OAuthIdpConfig, c *Client) error {
-	r, err := c.GetOAuthIdpConfig(ctx, r.URLNormalized())
+	r, err := c.GetOAuthIdpConfig(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("OAuthIdpConfig not found, returning. Original error: %v", err)
@@ -252,7 +260,7 @@ func (op *deleteOAuthIdpConfigOperation) do(ctx context.Context, r *OAuthIdpConf
 		return err
 	}
 
-	u, err := oAuthIdpConfigDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -268,7 +276,7 @@ func (op *deleteOAuthIdpConfigOperation) do(ctx context.Context, r *OAuthIdpConf
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetOAuthIdpConfig(ctx, r.URLNormalized())
+		_, err = c.GetOAuthIdpConfig(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -294,10 +302,7 @@ func (op *createOAuthIdpConfigOperation) FirstResponse() (map[string]interface{}
 
 func (op *createOAuthIdpConfigOperation) do(ctx context.Context, r *OAuthIdpConfig, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, name := r.createFields()
-	u, err := oAuthIdpConfigCreateURL(c.Config.BasePath, project, name)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -317,7 +322,7 @@ func (op *createOAuthIdpConfigOperation) do(ctx context.Context, r *OAuthIdpConf
 	}
 	op.response = o
 
-	if _, err := c.GetOAuthIdpConfig(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetOAuthIdpConfig(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -327,7 +332,7 @@ func (op *createOAuthIdpConfigOperation) do(ctx context.Context, r *OAuthIdpConf
 
 func (c *Client) getOAuthIdpConfigRaw(ctx context.Context, r *OAuthIdpConfig) ([]byte, error) {
 
-	u, err := oAuthIdpConfigGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -360,7 +365,7 @@ func (c *Client) oAuthIdpConfigDiffsForRawDesired(ctx context.Context, rawDesire
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetOAuthIdpConfig(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetOAuthIdpConfig(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a OAuthIdpConfig resource already exists: %s", err)
@@ -726,31 +731,31 @@ func compareOAuthIdpConfigResponseTypeNewStyle(d, a interface{}, fn dcl.FieldNam
 	return diffs, nil
 }
 
-func (r *OAuthIdpConfig) getFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *OAuthIdpConfig) createFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *OAuthIdpConfig) deleteFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *OAuthIdpConfig) urlNormalized() *OAuthIdpConfig {
+	normalized := dcl.Copy(*r).(OAuthIdpConfig)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.ClientId = dcl.SelfLinkToName(r.ClientId)
+	normalized.Issuer = dcl.SelfLinkToName(r.Issuer)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.ClientSecret = dcl.SelfLinkToName(r.ClientSecret)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
 }
 
 func (r *OAuthIdpConfig) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "UpdateConfig" {
 		fields := map[string]interface{}{
-			"project": dcl.ValueOrEmptyString(n.Project),
-			"name":    dcl.ValueOrEmptyString(n.Name),
+			"project": dcl.ValueOrEmptyString(nr.Project),
+			"name":    dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("projects/{{project}}/oauthIdpConfigs/{{name}}", "https://identitytoolkit.googleapis.com/v2/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/oauthIdpConfigs/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -976,8 +981,8 @@ func (r *OAuthIdpConfig) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

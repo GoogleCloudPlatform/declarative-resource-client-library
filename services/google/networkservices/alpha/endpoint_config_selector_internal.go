@@ -89,42 +89,50 @@ func (r *EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels
 func (r *EndpointConfigSelectorTrafficPortSelector) validate() error {
 	return nil
 }
-
-func endpointConfigSelectorGetURL(userBasePath string, r *EndpointConfigSelector) (string, error) {
-	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/endpointConfigSelectors/{{name}}", "https://networkservices.googleapis.com/v1alpha1/", userBasePath, params), nil
+func (r *EndpointConfigSelector) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://networkservices.googleapis.com/v1alpha1/", params)
 }
 
-func endpointConfigSelectorListURL(userBasePath, project, location string) (string, error) {
+func (r *EndpointConfigSelector) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/endpointConfigSelectors", "https://networkservices.googleapis.com/v1alpha1/", userBasePath, params), nil
-
+	return dcl.URL("projects/{{project}}/locations/{{location}}/endpointConfigSelectors/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-func endpointConfigSelectorCreateURL(userBasePath, project, location, name string) (string, error) {
+func (r *EndpointConfigSelector) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
-		"name":     name,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/endpointConfigSelectors?endpointConfigSelectorId={{name}}", "https://networkservices.googleapis.com/v1alpha1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/endpointConfigSelectors", nr.basePath(), userBasePath, params), nil
 
 }
 
-func endpointConfigSelectorDeleteURL(userBasePath string, r *EndpointConfigSelector) (string, error) {
+func (r *EndpointConfigSelector) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/endpointConfigSelectors/{{name}}", "https://networkservices.googleapis.com/v1alpha1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/endpointConfigSelectors?endpointConfigSelectorId={{name}}", nr.basePath(), userBasePath, params), nil
+
+}
+
+func (r *EndpointConfigSelector) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/endpointConfigSelectors/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // endpointConfigSelectorApiOperation represents a mutable operation in the underlying REST
@@ -195,7 +203,7 @@ type updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation struct {
 // PUT request to a single URL.
 
 func (op *updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation) do(ctx context.Context, r *EndpointConfigSelector, c *Client) error {
-	_, err := c.GetEndpointConfigSelector(ctx, r.URLNormalized())
+	_, err := c.GetEndpointConfigSelector(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -224,7 +232,7 @@ func (op *updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation) do(
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	err = o.Wait(ctx, c.Config, "https://networkservices.googleapis.com/v1alpha1/", "GET")
+	err = o.Wait(ctx, c.Config, r.basePath(), "GET")
 
 	if err != nil {
 		return err
@@ -233,8 +241,8 @@ func (op *updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation) do(
 	return nil
 }
 
-func (c *Client) listEndpointConfigSelectorRaw(ctx context.Context, project, location, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := endpointConfigSelectorListURL(c.Config.BasePath, project, location)
+func (c *Client) listEndpointConfigSelectorRaw(ctx context.Context, r *EndpointConfigSelector, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -265,8 +273,8 @@ type listEndpointConfigSelectorOperation struct {
 	Token                   string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listEndpointConfigSelector(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*EndpointConfigSelector, string, error) {
-	b, err := c.listEndpointConfigSelectorRaw(ctx, project, location, pageToken, pageSize)
+func (c *Client) listEndpointConfigSelector(ctx context.Context, r *EndpointConfigSelector, pageToken string, pageSize int32) ([]*EndpointConfigSelector, string, error) {
+	b, err := c.listEndpointConfigSelectorRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -282,8 +290,8 @@ func (c *Client) listEndpointConfigSelector(ctx context.Context, project, locati
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
-		res.Location = &location
+		res.Project = r.Project
+		res.Location = r.Location
 		l = append(l, res)
 	}
 
@@ -311,7 +319,7 @@ func (c *Client) deleteAllEndpointConfigSelector(ctx context.Context, f func(*En
 type deleteEndpointConfigSelectorOperation struct{}
 
 func (op *deleteEndpointConfigSelectorOperation) do(ctx context.Context, r *EndpointConfigSelector, c *Client) error {
-	r, err := c.GetEndpointConfigSelector(ctx, r.URLNormalized())
+	r, err := c.GetEndpointConfigSelector(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("EndpointConfigSelector not found, returning. Original error: %v", err)
@@ -321,7 +329,7 @@ func (op *deleteEndpointConfigSelectorOperation) do(ctx context.Context, r *Endp
 		return err
 	}
 
-	u, err := endpointConfigSelectorDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -338,7 +346,7 @@ func (op *deleteEndpointConfigSelectorOperation) do(ctx context.Context, r *Endp
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://networkservices.googleapis.com/v1alpha1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		return err
 	}
 
@@ -346,7 +354,7 @@ func (op *deleteEndpointConfigSelectorOperation) do(ctx context.Context, r *Endp
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetEndpointConfigSelector(ctx, r.URLNormalized())
+		_, err = c.GetEndpointConfigSelector(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -372,10 +380,7 @@ func (op *createEndpointConfigSelectorOperation) FirstResponse() (map[string]int
 
 func (op *createEndpointConfigSelectorOperation) do(ctx context.Context, r *EndpointConfigSelector, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, location, name := r.createFields()
-	u, err := endpointConfigSelectorCreateURL(c.Config.BasePath, project, location, name)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -393,14 +398,14 @@ func (op *createEndpointConfigSelectorOperation) do(ctx context.Context, r *Endp
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://networkservices.googleapis.com/v1alpha1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetEndpointConfigSelector(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetEndpointConfigSelector(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -410,7 +415,7 @@ func (op *createEndpointConfigSelectorOperation) do(ctx context.Context, r *Endp
 
 func (c *Client) getEndpointConfigSelectorRaw(ctx context.Context, r *EndpointConfigSelector) ([]byte, error) {
 
-	u, err := endpointConfigSelectorGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -443,7 +448,7 @@ func (c *Client) endpointConfigSelectorDiffsForRawDesired(ctx context.Context, r
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetEndpointConfigSelector(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetEndpointConfigSelector(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a EndpointConfigSelector resource already exists: %s", err)
@@ -1300,32 +1305,33 @@ func compareEndpointConfigSelectorTrafficPortSelectorNewStyle(d, a interface{}, 
 	return diffs, nil
 }
 
-func (r *EndpointConfigSelector) getFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *EndpointConfigSelector) createFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *EndpointConfigSelector) deleteFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *EndpointConfigSelector) urlNormalized() *EndpointConfigSelector {
+	normalized := dcl.Copy(*r).(EndpointConfigSelector)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.AuthorizationPolicy = dcl.SelfLinkToName(r.AuthorizationPolicy)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.ServerTlsPolicy = dcl.SelfLinkToName(r.ServerTlsPolicy)
+	normalized.ClientTlsPolicy = dcl.SelfLinkToName(r.ClientTlsPolicy)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
 }
 
 func (r *EndpointConfigSelector) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "UpdateEndpointConfigSelector" {
 		fields := map[string]interface{}{
-			"project":  dcl.ValueOrEmptyString(n.Project),
-			"location": dcl.ValueOrEmptyString(n.Location),
-			"name":     dcl.ValueOrEmptyString(n.Name),
+			"project":  dcl.ValueOrEmptyString(nr.Project),
+			"location": dcl.ValueOrEmptyString(nr.Location),
+			"name":     dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("projects/{{project}}/locations/{{location}}/endpointConfigSelectors/{{name}}", "https://networkservices.googleapis.com/v1alpha1/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/locations/{{location}}/endpointConfigSelectors/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -2140,8 +2146,8 @@ func (r *EndpointConfigSelector) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

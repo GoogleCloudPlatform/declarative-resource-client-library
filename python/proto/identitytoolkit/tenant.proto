@@ -62,7 +62,7 @@ message DeleteIdentitytoolkitTenantRequest {
 
 message ListIdentitytoolkitTenantRequest {
   string service_account_file = 1;
-  string Project = 2;
+	IdentitytoolkitTenant resource = 2;
 }
 
 message ListIdentitytoolkitTenantResponse {

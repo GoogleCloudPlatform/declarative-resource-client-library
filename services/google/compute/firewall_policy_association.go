@@ -52,7 +52,7 @@ type FirewallPolicyAssociationList struct {
 
 	pageSize int32
 
-	firewallPolicy string
+	resource *FirewallPolicyAssociation
 }
 
 func (l *FirewallPolicyAssociationList) HasNext() bool {
@@ -66,7 +66,7 @@ func (l *FirewallPolicyAssociationList) Next(ctx context.Context, c *Client) err
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listFirewallPolicyAssociation(ctx, l.firewallPolicy, l.nextToken, l.pageSize)
+	items, token, err := c.listFirewallPolicyAssociation(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -75,19 +75,19 @@ func (l *FirewallPolicyAssociationList) Next(ctx context.Context, c *Client) err
 	return err
 }
 
-func (c *Client) ListFirewallPolicyAssociation(ctx context.Context, firewallPolicy string) (*FirewallPolicyAssociationList, error) {
+func (c *Client) ListFirewallPolicyAssociation(ctx context.Context, r *FirewallPolicyAssociation) (*FirewallPolicyAssociationList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListFirewallPolicyAssociationWithMaxResults(ctx, firewallPolicy, FirewallPolicyAssociationMaxPage)
+	return c.ListFirewallPolicyAssociationWithMaxResults(ctx, r, FirewallPolicyAssociationMaxPage)
 
 }
 
-func (c *Client) ListFirewallPolicyAssociationWithMaxResults(ctx context.Context, firewallPolicy string, pageSize int32) (*FirewallPolicyAssociationList, error) {
+func (c *Client) ListFirewallPolicyAssociationWithMaxResults(ctx context.Context, r *FirewallPolicyAssociation, pageSize int32) (*FirewallPolicyAssociationList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listFirewallPolicyAssociation(ctx, firewallPolicy, "", pageSize)
+	items, token, err := c.listFirewallPolicyAssociation(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -95,21 +95,8 @@ func (c *Client) ListFirewallPolicyAssociationWithMaxResults(ctx context.Context
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		firewallPolicy: firewallPolicy,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *FirewallPolicyAssociation) URLNormalized() *FirewallPolicyAssociation {
-	normalized := dcl.Copy(*r).(FirewallPolicyAssociation)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.AttachmentTarget = dcl.SelfLinkToName(r.AttachmentTarget)
-	normalized.FirewallPolicy = dcl.SelfLinkToName(r.FirewallPolicy)
-	normalized.ShortName = dcl.SelfLinkToName(r.ShortName)
-	return &normalized
 }
 
 func (c *Client) GetFirewallPolicyAssociation(ctx context.Context, r *FirewallPolicyAssociation) (*FirewallPolicyAssociation, error) {
@@ -157,8 +144,8 @@ func (c *Client) DeleteFirewallPolicyAssociation(ctx context.Context, r *Firewal
 }
 
 // DeleteAllFirewallPolicyAssociation deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllFirewallPolicyAssociation(ctx context.Context, firewallPolicy string, filter func(*FirewallPolicyAssociation) bool) error {
-	listObj, err := c.ListFirewallPolicyAssociation(ctx, firewallPolicy)
+func (c *Client) DeleteAllFirewallPolicyAssociation(ctx context.Context, r *FirewallPolicyAssociation, filter func(*FirewallPolicyAssociation) bool) error {
+	listObj, err := c.ListFirewallPolicyAssociation(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -282,7 +269,7 @@ func applyFirewallPolicyAssociationHelper(c *Client, ctx context.Context, rawDes
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetFirewallPolicyAssociation(ctx, desired.URLNormalized())
+	rawNew, err := c.GetFirewallPolicyAssociation(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

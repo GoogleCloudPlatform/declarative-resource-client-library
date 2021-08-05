@@ -39,8 +39,7 @@ message DeleteIapIdentityAwareProxyClientRequest {
 
 message ListIapIdentityAwareProxyClientRequest {
   string service_account_file = 1;
-  string Project = 2;
-  string Brand = 3;
+	IapIdentityAwareProxyClient resource = 2;
 }
 
 message ListIapIdentityAwareProxyClientResponse {

@@ -187,16 +187,55 @@ class AzureCluster(object):
 
         response = stub.DeleteGkemulticloudBetaAzureCluster(request)
 
-    @classmethod
-    def list(self, project, location, service_account_file=""):
+    def list(self):
         stub = azure_cluster_pb2_grpc.GkemulticloudBetaAzureClusterServiceStub(
             channel.Channel()
         )
         request = azure_cluster_pb2.ListGkemulticloudBetaAzureClusterRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if Primitive.to_proto(self.azure_region):
+            request.resource.azure_region = Primitive.to_proto(self.azure_region)
+
+        if Primitive.to_proto(self.resource_group_id):
+            request.resource.resource_group_id = Primitive.to_proto(
+                self.resource_group_id
+            )
+
+        if Primitive.to_proto(self.azure_client):
+            request.resource.azure_client = Primitive.to_proto(self.azure_client)
+
+        if AzureClusterNetworking.to_proto(self.networking):
+            request.resource.networking.CopyFrom(
+                AzureClusterNetworking.to_proto(self.networking)
+            )
+        else:
+            request.resource.ClearField("networking")
+        if AzureClusterControlPlane.to_proto(self.control_plane):
+            request.resource.control_plane.CopyFrom(
+                AzureClusterControlPlane.to_proto(self.control_plane)
+            )
+        else:
+            request.resource.ClearField("control_plane")
+        if AzureClusterAuthorization.to_proto(self.authorization):
+            request.resource.authorization.CopyFrom(
+                AzureClusterAuthorization.to_proto(self.authorization)
+            )
+        else:
+            request.resource.ClearField("authorization")
+        if Primitive.to_proto(self.annotations):
+            request.resource.annotations = Primitive.to_proto(self.annotations)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         return stub.ListGkemulticloudBetaAzureCluster(request).items
 

@@ -181,18 +181,53 @@ class AzureNodePool(object):
 
         response = stub.DeleteGkemulticloudAzureNodePool(request)
 
-    @classmethod
-    def list(self, project, location, azureCluster, service_account_file=""):
+    def list(self):
         stub = azure_node_pool_pb2_grpc.GkemulticloudAzureNodePoolServiceStub(
             channel.Channel()
         )
         request = azure_node_pool_pb2.ListGkemulticloudAzureNodePoolRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if Primitive.to_proto(self.version):
+            request.resource.version = Primitive.to_proto(self.version)
 
-        request.AzureCluster = azureCluster
+        if AzureNodePoolConfig.to_proto(self.config):
+            request.resource.config.CopyFrom(AzureNodePoolConfig.to_proto(self.config))
+        else:
+            request.resource.ClearField("config")
+        if Primitive.to_proto(self.subnet_id):
+            request.resource.subnet_id = Primitive.to_proto(self.subnet_id)
+
+        if AzureNodePoolAutoscaling.to_proto(self.autoscaling):
+            request.resource.autoscaling.CopyFrom(
+                AzureNodePoolAutoscaling.to_proto(self.autoscaling)
+            )
+        else:
+            request.resource.ClearField("autoscaling")
+        if Primitive.to_proto(self.annotations):
+            request.resource.annotations = Primitive.to_proto(self.annotations)
+
+        if AzureNodePoolMaxPodsConstraint.to_proto(self.max_pods_constraint):
+            request.resource.max_pods_constraint.CopyFrom(
+                AzureNodePoolMaxPodsConstraint.to_proto(self.max_pods_constraint)
+            )
+        else:
+            request.resource.ClearField("max_pods_constraint")
+        if Primitive.to_proto(self.azure_availability_zone):
+            request.resource.azure_availability_zone = Primitive.to_proto(
+                self.azure_availability_zone
+            )
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
+
+        if Primitive.to_proto(self.azure_cluster):
+            request.resource.azure_cluster = Primitive.to_proto(self.azure_cluster)
 
         return stub.ListGkemulticloudAzureNodePool(request).items
 

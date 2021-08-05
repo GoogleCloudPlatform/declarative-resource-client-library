@@ -97,16 +97,26 @@ class AzureClient(object):
 
         response = stub.DeleteGkemulticloudBetaAzureClient(request)
 
-    @classmethod
-    def list(self, project, location, service_account_file=""):
+    def list(self):
         stub = azure_client_pb2_grpc.GkemulticloudBetaAzureClientServiceStub(
             channel.Channel()
         )
         request = azure_client_pb2.ListGkemulticloudBetaAzureClientRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if Primitive.to_proto(self.tenant_id):
+            request.resource.tenant_id = Primitive.to_proto(self.tenant_id)
+
+        if Primitive.to_proto(self.application_id):
+            request.resource.application_id = Primitive.to_proto(self.application_id)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         return stub.ListGkemulticloudBetaAzureClient(request).items
 

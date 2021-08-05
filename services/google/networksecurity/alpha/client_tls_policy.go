@@ -398,9 +398,7 @@ type ClientTlsPolicyList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
+	resource *ClientTlsPolicy
 }
 
 func (l *ClientTlsPolicyList) HasNext() bool {
@@ -414,7 +412,7 @@ func (l *ClientTlsPolicyList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listClientTlsPolicy(ctx, l.project, l.location, l.nextToken, l.pageSize)
+	items, token, err := c.listClientTlsPolicy(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -423,19 +421,19 @@ func (l *ClientTlsPolicyList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListClientTlsPolicy(ctx context.Context, project, location string) (*ClientTlsPolicyList, error) {
+func (c *Client) ListClientTlsPolicy(ctx context.Context, r *ClientTlsPolicy) (*ClientTlsPolicyList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListClientTlsPolicyWithMaxResults(ctx, project, location, ClientTlsPolicyMaxPage)
+	return c.ListClientTlsPolicyWithMaxResults(ctx, r, ClientTlsPolicyMaxPage)
 
 }
 
-func (c *Client) ListClientTlsPolicyWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*ClientTlsPolicyList, error) {
+func (c *Client) ListClientTlsPolicyWithMaxResults(ctx context.Context, r *ClientTlsPolicy, pageSize int32) (*ClientTlsPolicyList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listClientTlsPolicy(ctx, project, location, "", pageSize)
+	items, token, err := c.listClientTlsPolicy(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -443,24 +441,8 @@ func (c *Client) ListClientTlsPolicyWithMaxResults(ctx context.Context, project,
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		location: location,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *ClientTlsPolicy) URLNormalized() *ClientTlsPolicy {
-	normalized := dcl.Copy(*r).(ClientTlsPolicy)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Sni = dcl.SelfLinkToName(r.Sni)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
 }
 
 func (c *Client) GetClientTlsPolicy(ctx context.Context, r *ClientTlsPolicy) (*ClientTlsPolicy, error) {
@@ -509,8 +491,8 @@ func (c *Client) DeleteClientTlsPolicy(ctx context.Context, r *ClientTlsPolicy) 
 }
 
 // DeleteAllClientTlsPolicy deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllClientTlsPolicy(ctx context.Context, project, location string, filter func(*ClientTlsPolicy) bool) error {
-	listObj, err := c.ListClientTlsPolicy(ctx, project, location)
+func (c *Client) DeleteAllClientTlsPolicy(ctx context.Context, r *ClientTlsPolicy, filter func(*ClientTlsPolicy) bool) error {
+	listObj, err := c.ListClientTlsPolicy(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -634,7 +616,7 @@ func applyClientTlsPolicyHelper(c *Client, ctx context.Context, rawDesired *Clie
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetClientTlsPolicy(ctx, desired.URLNormalized())
+	rawNew, err := c.GetClientTlsPolicy(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

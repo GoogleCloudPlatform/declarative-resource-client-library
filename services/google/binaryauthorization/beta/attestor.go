@@ -238,7 +238,7 @@ type AttestorList struct {
 
 	pageSize int32
 
-	project string
+	resource *Attestor
 }
 
 func (l *AttestorList) HasNext() bool {
@@ -252,7 +252,7 @@ func (l *AttestorList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listAttestor(ctx, l.project, l.nextToken, l.pageSize)
+	items, token, err := c.listAttestor(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -261,19 +261,19 @@ func (l *AttestorList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListAttestor(ctx context.Context, project string) (*AttestorList, error) {
+func (c *Client) ListAttestor(ctx context.Context, r *Attestor) (*AttestorList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListAttestorWithMaxResults(ctx, project, AttestorMaxPage)
+	return c.ListAttestorWithMaxResults(ctx, r, AttestorMaxPage)
 
 }
 
-func (c *Client) ListAttestorWithMaxResults(ctx context.Context, project string, pageSize int32) (*AttestorList, error) {
+func (c *Client) ListAttestorWithMaxResults(ctx context.Context, r *Attestor, pageSize int32) (*AttestorList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listAttestor(ctx, project, "", pageSize)
+	items, token, err := c.listAttestor(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -281,20 +281,8 @@ func (c *Client) ListAttestorWithMaxResults(ctx context.Context, project string,
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Attestor) URLNormalized() *Attestor {
-	normalized := dcl.Copy(*r).(Attestor)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
 }
 
 func (c *Client) GetAttestor(ctx context.Context, r *Attestor) (*Attestor, error) {
@@ -342,8 +330,8 @@ func (c *Client) DeleteAttestor(ctx context.Context, r *Attestor) error {
 }
 
 // DeleteAllAttestor deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllAttestor(ctx context.Context, project string, filter func(*Attestor) bool) error {
-	listObj, err := c.ListAttestor(ctx, project)
+func (c *Client) DeleteAllAttestor(ctx context.Context, r *Attestor, filter func(*Attestor) bool) error {
+	listObj, err := c.ListAttestor(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -467,7 +455,7 @@ func applyAttestorHelper(c *Client, ctx context.Context, rawDesired *Attestor, o
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetAttestor(ctx, desired.URLNormalized())
+	rawNew, err := c.GetAttestor(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

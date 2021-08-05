@@ -1088,7 +1088,7 @@ func (s *OSPolicyAssignmentServer) ListOsconfigAlphaOSPolicyAssignment(ctx conte
 		return nil, err
 	}
 
-	resources, err := cl.ListOSPolicyAssignment(ctx, request.Project, request.Location)
+	resources, err := cl.ListOSPolicyAssignment(ctx, ProtoToOSPolicyAssignment(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

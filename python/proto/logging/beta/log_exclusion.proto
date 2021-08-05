@@ -41,7 +41,7 @@ message DeleteLoggingBetaLogExclusionRequest {
 
 message ListLoggingBetaLogExclusionRequest {
   string service_account_file = 1;
-  string Parent = 2;
+	LoggingBetaLogExclusion resource = 2;
 }
 
 message ListLoggingBetaLogExclusionResponse {

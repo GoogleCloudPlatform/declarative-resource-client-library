@@ -112,8 +112,7 @@ message DeleteGkemulticloudAzureClusterRequest {
 
 message ListGkemulticloudAzureClusterRequest {
   string service_account_file = 1;
-  string Project = 2;
-  string Location = 3;
+	GkemulticloudAzureCluster resource = 2;
 }
 
 message ListGkemulticloudAzureClusterResponse {

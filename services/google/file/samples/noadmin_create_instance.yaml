@@ -18,12 +18,12 @@ resource: samples/noadmin.instance.json
 updates:
 - resource: samples/update.instance.json
 variables:
-- name: project
-  type: project
 - name: zone
   type: zone
 - name: instance_name
   type: resource_name
+- name: project
+  type: project
 versions:
 - ga
 - beta

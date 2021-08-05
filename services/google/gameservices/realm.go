@@ -56,9 +56,7 @@ type RealmList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
+	resource *Realm
 }
 
 func (l *RealmList) HasNext() bool {
@@ -72,7 +70,7 @@ func (l *RealmList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listRealm(ctx, l.project, l.location, l.nextToken, l.pageSize)
+	items, token, err := c.listRealm(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -81,19 +79,19 @@ func (l *RealmList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListRealm(ctx context.Context, project, location string) (*RealmList, error) {
+func (c *Client) ListRealm(ctx context.Context, r *Realm) (*RealmList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListRealmWithMaxResults(ctx, project, location, RealmMaxPage)
+	return c.ListRealmWithMaxResults(ctx, r, RealmMaxPage)
 
 }
 
-func (c *Client) ListRealmWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*RealmList, error) {
+func (c *Client) ListRealmWithMaxResults(ctx context.Context, r *Realm, pageSize int32) (*RealmList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listRealm(ctx, project, location, "", pageSize)
+	items, token, err := c.listRealm(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -101,24 +99,8 @@ func (c *Client) ListRealmWithMaxResults(ctx context.Context, project, location 
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		location: location,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Realm) URLNormalized() *Realm {
-	normalized := dcl.Copy(*r).(Realm)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.TimeZone = dcl.SelfLinkToName(r.TimeZone)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
 }
 
 func (c *Client) GetRealm(ctx context.Context, r *Realm) (*Realm, error) {
@@ -167,8 +149,8 @@ func (c *Client) DeleteRealm(ctx context.Context, r *Realm) error {
 }
 
 // DeleteAllRealm deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllRealm(ctx context.Context, project, location string, filter func(*Realm) bool) error {
-	listObj, err := c.ListRealm(ctx, project, location)
+func (c *Client) DeleteAllRealm(ctx context.Context, r *Realm, filter func(*Realm) bool) error {
+	listObj, err := c.ListRealm(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -292,7 +274,7 @@ func applyRealmHelper(c *Client, ctx context.Context, rawDesired *Realm, opts ..
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetRealm(ctx, desired.URLNormalized())
+	rawNew, err := c.GetRealm(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

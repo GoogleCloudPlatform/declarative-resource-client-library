@@ -81,8 +81,7 @@ func (op *createInstanceOperation) do(ctx context.Context, r *Instance, c *Clien
 func createInstance(ctx context.Context, r *Instance, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
 
-	project, location, name := r.createFields()
-	u, err := instanceCreateURL(c.Config.BasePath, project, location, name)
+	u, err := r.createURL(c.Config.BasePath)
 
 	if err != nil {
 		return err
@@ -107,7 +106,7 @@ func createInstance(ctx context.Context, r *Instance, c *Client) error {
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 
-	if _, err := c.GetInstance(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetInstance(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}

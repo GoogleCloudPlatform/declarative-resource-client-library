@@ -45,42 +45,52 @@ func (r *AzureClient) validate() error {
 	}
 	return nil
 }
-
-func azureClientGetURL(userBasePath string, r *AzureClient) (string, error) {
+func (r *AzureClient) basePath() string {
 	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
 		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/azureClients/{{name}}", "https://us-west1-gkemulticloud.googleapis.com/v1", userBasePath, params), nil
+	return dcl.Nprintf("https://{{location}}-gkemulticloud.googleapis.com/v1", params)
 }
 
-func azureClientListURL(userBasePath, project, location string) (string, error) {
+func (r *AzureClient) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/azureClients", "https://us-west1-gkemulticloud.googleapis.com/v1", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/azureClients/{{name}}", nr.basePath(), userBasePath, params), nil
+}
+
+func (r *AzureClient) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/azureClients", nr.basePath(), userBasePath, params), nil
 
 }
 
-func azureClientCreateURL(userBasePath, project, location, name string) (string, error) {
+func (r *AzureClient) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
-		"name":     name,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/azureClients?azureClientId={{name}}", "https://us-west1-gkemulticloud.googleapis.com/v1", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/azureClients?azureClientId={{name}}", nr.basePath(), userBasePath, params), nil
 
 }
 
-func azureClientDeleteURL(userBasePath string, r *AzureClient) (string, error) {
+func (r *AzureClient) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/azureClients/{{name}}", "https://us-west1-gkemulticloud.googleapis.com/v1", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/azureClients/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // azureClientApiOperation represents a mutable operation in the underlying REST
@@ -89,8 +99,8 @@ type azureClientApiOperation interface {
 	do(context.Context, *AzureClient, *Client) error
 }
 
-func (c *Client) listAzureClientRaw(ctx context.Context, project, location, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := azureClientListURL(c.Config.BasePath, project, location)
+func (c *Client) listAzureClientRaw(ctx context.Context, r *AzureClient, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -121,8 +131,8 @@ type listAzureClientOperation struct {
 	Token        string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listAzureClient(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*AzureClient, string, error) {
-	b, err := c.listAzureClientRaw(ctx, project, location, pageToken, pageSize)
+func (c *Client) listAzureClient(ctx context.Context, r *AzureClient, pageToken string, pageSize int32) ([]*AzureClient, string, error) {
+	b, err := c.listAzureClientRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -138,8 +148,8 @@ func (c *Client) listAzureClient(ctx context.Context, project, location, pageTok
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
-		res.Location = &location
+		res.Project = r.Project
+		res.Location = r.Location
 		l = append(l, res)
 	}
 
@@ -167,7 +177,7 @@ func (c *Client) deleteAllAzureClient(ctx context.Context, f func(*AzureClient) 
 type deleteAzureClientOperation struct{}
 
 func (op *deleteAzureClientOperation) do(ctx context.Context, r *AzureClient, c *Client) error {
-	r, err := c.GetAzureClient(ctx, r.URLNormalized())
+	r, err := c.GetAzureClient(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("AzureClient not found, returning. Original error: %v", err)
@@ -177,7 +187,7 @@ func (op *deleteAzureClientOperation) do(ctx context.Context, r *AzureClient, c 
 		return err
 	}
 
-	u, err := azureClientDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -194,7 +204,7 @@ func (op *deleteAzureClientOperation) do(ctx context.Context, r *AzureClient, c 
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://us-west1-gkemulticloud.googleapis.com/v1", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		return err
 	}
 
@@ -202,7 +212,7 @@ func (op *deleteAzureClientOperation) do(ctx context.Context, r *AzureClient, c 
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetAzureClient(ctx, r.URLNormalized())
+		_, err = c.GetAzureClient(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -228,10 +238,7 @@ func (op *createAzureClientOperation) FirstResponse() (map[string]interface{}, b
 
 func (op *createAzureClientOperation) do(ctx context.Context, r *AzureClient, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, location, name := r.createFields()
-	u, err := azureClientCreateURL(c.Config.BasePath, project, location, name)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -249,14 +256,14 @@ func (op *createAzureClientOperation) do(ctx context.Context, r *AzureClient, c 
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://us-west1-gkemulticloud.googleapis.com/v1", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetAzureClient(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetAzureClient(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -266,7 +273,7 @@ func (op *createAzureClientOperation) do(ctx context.Context, r *AzureClient, c 
 
 func (c *Client) getAzureClientRaw(ctx context.Context, r *AzureClient) ([]byte, error) {
 
-	u, err := azureClientGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -299,7 +306,7 @@ func (c *Client) azureClientDiffsForRawDesired(ctx context.Context, rawDesired *
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetAzureClient(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetAzureClient(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a AzureClient resource already exists: %s", err)
@@ -510,19 +517,19 @@ func diffAzureClient(c *Client, desired, actual *AzureClient, opts ...dcl.ApplyO
 	return newDiffs, nil
 }
 
-func (r *AzureClient) getFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *AzureClient) createFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *AzureClient) deleteFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *AzureClient) urlNormalized() *AzureClient {
+	normalized := dcl.Copy(*r).(AzureClient)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.TenantId = dcl.SelfLinkToName(r.TenantId)
+	normalized.ApplicationId = dcl.SelfLinkToName(r.ApplicationId)
+	normalized.Certificate = dcl.SelfLinkToName(r.Certificate)
+	normalized.Uid = dcl.SelfLinkToName(r.Uid)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
 }
 
 func (r *AzureClient) updateURL(userBasePath, updateName string) (string, error) {
@@ -626,8 +633,8 @@ func (r *AzureClient) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

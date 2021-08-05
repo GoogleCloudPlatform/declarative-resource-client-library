@@ -79,6 +79,10 @@ func (r *FeatureState) validate() error {
 func (r *FeatureStateState) validate() error {
 	return nil
 }
+func (r *Feature) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://gkehub.googleapis.com/v1beta1/", params)
+}
 
 // featureApiOperation represents a mutable operation in the underlying REST
 // API such as Create, Update, or Delete.
@@ -122,8 +126,8 @@ type updateFeatureUpdateFeatureOperation struct {
 // do will transcribe a subset of the resource into a request object and send a
 // PUT request to a single URL.
 
-func (c *Client) listFeatureRaw(ctx context.Context, project, location, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := featureListURL(c.Config.BasePath, project, location)
+func (c *Client) listFeatureRaw(ctx context.Context, r *Feature, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -154,8 +158,8 @@ type listFeatureOperation struct {
 	Token     string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listFeature(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*Feature, string, error) {
-	b, err := c.listFeatureRaw(ctx, project, location, pageToken, pageSize)
+func (c *Client) listFeature(ctx context.Context, r *Feature, pageToken string, pageSize int32) ([]*Feature, string, error) {
+	b, err := c.listFeatureRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -171,8 +175,8 @@ func (c *Client) listFeature(ctx context.Context, project, location, pageToken s
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
-		res.Location = &location
+		res.Project = r.Project
+		res.Location = r.Location
 		l = append(l, res)
 	}
 
@@ -200,7 +204,7 @@ func (c *Client) deleteAllFeature(ctx context.Context, f func(*Feature) bool, re
 type deleteFeatureOperation struct{}
 
 func (op *deleteFeatureOperation) do(ctx context.Context, r *Feature, c *Client) error {
-	r, err := c.GetFeature(ctx, r.URLNormalized())
+	r, err := c.GetFeature(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Feature not found, returning. Original error: %v", err)
@@ -210,7 +214,7 @@ func (op *deleteFeatureOperation) do(ctx context.Context, r *Feature, c *Client)
 		return err
 	}
 
-	u, err := featureDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -227,7 +231,7 @@ func (op *deleteFeatureOperation) do(ctx context.Context, r *Feature, c *Client)
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://gkehub.googleapis.com/v1beta1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		return err
 	}
 
@@ -235,7 +239,7 @@ func (op *deleteFeatureOperation) do(ctx context.Context, r *Feature, c *Client)
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetFeature(ctx, r.URLNormalized())
+		_, err = c.GetFeature(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -261,10 +265,7 @@ func (op *createFeatureOperation) FirstResponse() (map[string]interface{}, bool)
 
 func (op *createFeatureOperation) do(ctx context.Context, r *Feature, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, location, name := r.createFields()
-	u, err := featureCreateURL(c.Config.BasePath, project, location, name)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -282,14 +283,14 @@ func (op *createFeatureOperation) do(ctx context.Context, r *Feature, c *Client)
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://gkehub.googleapis.com/v1beta1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetFeature(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetFeature(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -299,7 +300,7 @@ func (op *createFeatureOperation) do(ctx context.Context, r *Feature, c *Client)
 
 func (c *Client) getFeatureRaw(ctx context.Context, r *Feature) ([]byte, error) {
 
-	u, err := featureGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -332,7 +333,7 @@ func (c *Client) featureDiffsForRawDesired(ctx context.Context, rawDesired *Feat
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetFeature(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetFeature(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Feature resource already exists: %s", err)
@@ -1089,32 +1090,29 @@ func compareFeatureStateStateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 	return diffs, nil
 }
 
-func (r *Feature) getFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *Feature) createFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *Feature) deleteFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Feature) urlNormalized() *Feature {
+	normalized := dcl.Copy(*r).(Feature)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
 }
 
 func (r *Feature) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "UpdateFeature" {
 		fields := map[string]interface{}{
-			"project":  dcl.ValueOrEmptyString(n.Project),
-			"location": dcl.ValueOrEmptyString(n.Location),
-			"name":     dcl.ValueOrEmptyString(n.Name),
+			"project":  dcl.ValueOrEmptyString(nr.Project),
+			"location": dcl.ValueOrEmptyString(nr.Location),
+			"name":     dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{name}}", "https://gkehub.googleapis.com/v1beta1/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -1917,8 +1915,8 @@ func (r *Feature) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

@@ -307,9 +307,7 @@ type TriggerList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
+	resource *Trigger
 }
 
 func (l *TriggerList) HasNext() bool {
@@ -323,7 +321,7 @@ func (l *TriggerList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listTrigger(ctx, l.project, l.location, l.nextToken, l.pageSize)
+	items, token, err := c.listTrigger(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -332,19 +330,19 @@ func (l *TriggerList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListTrigger(ctx context.Context, project, location string) (*TriggerList, error) {
+func (c *Client) ListTrigger(ctx context.Context, r *Trigger) (*TriggerList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListTriggerWithMaxResults(ctx, project, location, TriggerMaxPage)
+	return c.ListTriggerWithMaxResults(ctx, r, TriggerMaxPage)
 
 }
 
-func (c *Client) ListTriggerWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*TriggerList, error) {
+func (c *Client) ListTriggerWithMaxResults(ctx context.Context, r *Trigger, pageSize int32) (*TriggerList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listTrigger(ctx, project, location, "", pageSize)
+	items, token, err := c.listTrigger(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -352,25 +350,8 @@ func (c *Client) ListTriggerWithMaxResults(ctx context.Context, project, locatio
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		location: location,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Trigger) URLNormalized() *Trigger {
-	normalized := dcl.Copy(*r).(Trigger)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Uid = dcl.SelfLinkToName(r.Uid)
-	normalized.ServiceAccount = dcl.SelfLinkToName(r.ServiceAccount)
-	normalized.Etag = dcl.SelfLinkToName(r.Etag)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
 }
 
 func (c *Client) GetTrigger(ctx context.Context, r *Trigger) (*Trigger, error) {
@@ -419,8 +400,8 @@ func (c *Client) DeleteTrigger(ctx context.Context, r *Trigger) error {
 }
 
 // DeleteAllTrigger deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllTrigger(ctx context.Context, project, location string, filter func(*Trigger) bool) error {
-	listObj, err := c.ListTrigger(ctx, project, location)
+func (c *Client) DeleteAllTrigger(ctx context.Context, r *Trigger, filter func(*Trigger) bool) error {
+	listObj, err := c.ListTrigger(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -544,7 +525,7 @@ func applyTriggerHelper(c *Client, ctx context.Context, rawDesired *Trigger, opt
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetTrigger(ctx, desired.URLNormalized())
+	rawNew, err := c.GetTrigger(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

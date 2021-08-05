@@ -58,7 +58,7 @@ type FirewallPolicyList struct {
 
 	pageSize int32
 
-	parent string
+	resource *FirewallPolicy
 }
 
 func (l *FirewallPolicyList) HasNext() bool {
@@ -72,7 +72,7 @@ func (l *FirewallPolicyList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listFirewallPolicy(ctx, l.parent, l.nextToken, l.pageSize)
+	items, token, err := c.listFirewallPolicy(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -81,19 +81,19 @@ func (l *FirewallPolicyList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListFirewallPolicy(ctx context.Context, parent string) (*FirewallPolicyList, error) {
+func (c *Client) ListFirewallPolicy(ctx context.Context, r *FirewallPolicy) (*FirewallPolicyList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListFirewallPolicyWithMaxResults(ctx, parent, FirewallPolicyMaxPage)
+	return c.ListFirewallPolicyWithMaxResults(ctx, r, FirewallPolicyMaxPage)
 
 }
 
-func (c *Client) ListFirewallPolicyWithMaxResults(ctx context.Context, parent string, pageSize int32) (*FirewallPolicyList, error) {
+func (c *Client) ListFirewallPolicyWithMaxResults(ctx context.Context, r *FirewallPolicy, pageSize int32) (*FirewallPolicyList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listFirewallPolicy(ctx, parent, "", pageSize)
+	items, token, err := c.listFirewallPolicy(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -101,26 +101,8 @@ func (c *Client) ListFirewallPolicyWithMaxResults(ctx context.Context, parent st
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		parent: parent,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *FirewallPolicy) URLNormalized() *FirewallPolicy {
-	normalized := dcl.Copy(*r).(FirewallPolicy)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Id = dcl.SelfLinkToName(r.Id)
-	normalized.CreationTimestamp = dcl.SelfLinkToName(r.CreationTimestamp)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Fingerprint = dcl.SelfLinkToName(r.Fingerprint)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.SelfLinkWithId = dcl.SelfLinkToName(r.SelfLinkWithId)
-	normalized.ShortName = dcl.SelfLinkToName(r.ShortName)
-	normalized.Parent = r.Parent
-	return &normalized
 }
 
 func (c *Client) GetFirewallPolicy(ctx context.Context, r *FirewallPolicy) (*FirewallPolicy, error) {
@@ -167,8 +149,8 @@ func (c *Client) DeleteFirewallPolicy(ctx context.Context, r *FirewallPolicy) er
 }
 
 // DeleteAllFirewallPolicy deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllFirewallPolicy(ctx context.Context, parent string, filter func(*FirewallPolicy) bool) error {
-	listObj, err := c.ListFirewallPolicy(ctx, parent)
+func (c *Client) DeleteAllFirewallPolicy(ctx context.Context, r *FirewallPolicy, filter func(*FirewallPolicy) bool) error {
+	listObj, err := c.ListFirewallPolicy(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -292,7 +274,7 @@ func applyFirewallPolicyHelper(c *Client, ctx context.Context, rawDesired *Firew
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetFirewallPolicy(ctx, desired.URLNormalized())
+	rawNew, err := c.GetFirewallPolicy(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

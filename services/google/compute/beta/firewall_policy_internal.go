@@ -34,35 +34,43 @@ func (r *FirewallPolicy) validate() error {
 	}
 	return nil
 }
-
-func firewallPolicyGetURL(userBasePath string, r *FirewallPolicy) (string, error) {
-	params := map[string]interface{}{
-		"name": dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("locations/global/firewallPolicies/{{name}}", "https://www.googleapis.com/compute/beta/", userBasePath, params), nil
+func (r *FirewallPolicy) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://www.googleapis.com/compute/beta/", params)
 }
 
-func firewallPolicyListURL(userBasePath, parent string) (string, error) {
+func (r *FirewallPolicy) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"parent": parent,
+		"name": dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("locations/global/firewallPolicies?parentId={{parent}}", "https://www.googleapis.com/compute/beta/", userBasePath, params), nil
+	return dcl.URL("locations/global/firewallPolicies/{{name}}", nr.basePath(), userBasePath, params), nil
+}
+
+func (r *FirewallPolicy) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"parent": dcl.ValueOrEmptyString(nr.Parent),
+	}
+	return dcl.URL("locations/global/firewallPolicies?parentId={{parent}}", nr.basePath(), userBasePath, params), nil
 
 }
 
-func firewallPolicyCreateURL(userBasePath, parent string) (string, error) {
+func (r *FirewallPolicy) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"parent": parent,
+		"parent": dcl.ValueOrEmptyString(nr.Parent),
 	}
-	return dcl.URL("locations/global/firewallPolicies?parentId={{parent}}", "https://www.googleapis.com/compute/beta/", userBasePath, params), nil
+	return dcl.URL("locations/global/firewallPolicies?parentId={{parent}}", nr.basePath(), userBasePath, params), nil
 
 }
 
-func firewallPolicyDeleteURL(userBasePath string, r *FirewallPolicy) (string, error) {
+func (r *FirewallPolicy) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name": dcl.ValueOrEmptyString(r.Name),
+		"name": dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("locations/global/firewallPolicies/{{name}}", "https://www.googleapis.com/compute/beta/", userBasePath, params), nil
+	return dcl.URL("locations/global/firewallPolicies/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // firewallPolicyApiOperation represents a mutable operation in the underlying REST
@@ -80,7 +88,7 @@ func newUpdateFirewallPolicyPatchRequest(ctx context.Context, f *FirewallPolicy,
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
-	b, err := c.getFirewallPolicyRaw(ctx, f.URLNormalized())
+	b, err := c.getFirewallPolicyRaw(ctx, f)
 	if err != nil {
 		return nil, err
 	}
@@ -119,8 +127,8 @@ type updateFirewallPolicyPatchOperation struct {
 // do will transcribe a subset of the resource into a request object and send a
 // PUT request to a single URL.
 
-func (c *Client) listFirewallPolicyRaw(ctx context.Context, parent, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := firewallPolicyListURL(c.Config.BasePath, parent)
+func (c *Client) listFirewallPolicyRaw(ctx context.Context, r *FirewallPolicy, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -151,8 +159,8 @@ type listFirewallPolicyOperation struct {
 	Token string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listFirewallPolicy(ctx context.Context, parent, pageToken string, pageSize int32) ([]*FirewallPolicy, string, error) {
-	b, err := c.listFirewallPolicyRaw(ctx, parent, pageToken, pageSize)
+func (c *Client) listFirewallPolicy(ctx context.Context, r *FirewallPolicy, pageToken string, pageSize int32) ([]*FirewallPolicy, string, error) {
+	b, err := c.listFirewallPolicyRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -168,7 +176,7 @@ func (c *Client) listFirewallPolicy(ctx context.Context, parent, pageToken strin
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Parent = &parent
+		res.Parent = r.Parent
 		l = append(l, res)
 	}
 
@@ -208,7 +216,7 @@ func (op *createFirewallPolicyOperation) FirstResponse() (map[string]interface{}
 
 func (c *Client) getFirewallPolicyRaw(ctx context.Context, r *FirewallPolicy) ([]byte, error) {
 
-	u, err := firewallPolicyGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -247,7 +255,7 @@ func (c *Client) firewallPolicyDiffsForRawDesired(ctx context.Context, rawDesire
 		return nil, desired, nil, err
 	}
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetFirewallPolicy(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetFirewallPolicy(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a FirewallPolicy resource already exists: %s", err)
@@ -492,30 +500,33 @@ func diffFirewallPolicy(c *Client, desired, actual *FirewallPolicy, opts ...dcl.
 	return newDiffs, nil
 }
 
-func (r *FirewallPolicy) getFields() string {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *FirewallPolicy) createFields() string {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Parent)
-}
-
-func (r *FirewallPolicy) deleteFields() string {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *FirewallPolicy) urlNormalized() *FirewallPolicy {
+	normalized := dcl.Copy(*r).(FirewallPolicy)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Id = dcl.SelfLinkToName(r.Id)
+	normalized.CreationTimestamp = dcl.SelfLinkToName(r.CreationTimestamp)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Fingerprint = dcl.SelfLinkToName(r.Fingerprint)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.SelfLinkWithId = dcl.SelfLinkToName(r.SelfLinkWithId)
+	normalized.ShortName = dcl.SelfLinkToName(r.ShortName)
+	normalized.Parent = r.Parent
+	return &normalized
 }
 
 func (r *FirewallPolicy) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "Patch" {
 		fields := map[string]interface{}{
-			"name": dcl.ValueOrEmptyString(n.Name),
+			"name": dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("locations/global/firewallPolicies/{{name}}", "https://www.googleapis.com/compute/beta/", userBasePath, fields), nil
+		return dcl.URL("locations/global/firewallPolicies/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -618,8 +629,8 @@ func (r *FirewallPolicy) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Name == nil && ncr.Name == nil {

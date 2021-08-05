@@ -192,51 +192,59 @@ func (r *ClusterStatusHistory) validate() error {
 func (r *ClusterMetrics) validate() error {
 	return nil
 }
-
-func clusterGetURL(userBasePath string, r *Cluster) (string, error) {
-	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("projects/{{project}}/regions/{{location}}/clusters/{{name}}", "https://dataproc.googleapis.com/v1/", userBasePath, params), nil
+func (r *Cluster) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://dataproc.googleapis.com/v1/", params)
 }
 
-func clusterListURL(userBasePath, project, location string) (string, error) {
+func (r *Cluster) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/regions/{{location}}/clusters", "https://dataproc.googleapis.com/v1/", userBasePath, params), nil
-
+	return dcl.URL("projects/{{project}}/regions/{{location}}/clusters/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-func clusterCreateURL(userBasePath, project, location string) (string, error) {
+func (r *Cluster) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
 	}
-	return dcl.URL("projects/{{project}}/regions/{{location}}/clusters", "https://dataproc.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/regions/{{location}}/clusters", nr.basePath(), userBasePath, params), nil
 
 }
 
-func clusterDeleteURL(userBasePath string, r *Cluster) (string, error) {
+func (r *Cluster) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
 	}
-	return dcl.URL("projects/{{project}}/regions/{{location}}/clusters/{{name}}", "https://dataproc.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/regions/{{location}}/clusters", nr.basePath(), userBasePath, params), nil
+
+}
+
+func (r *Cluster) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("projects/{{project}}/regions/{{location}}/clusters/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 func (r *Cluster) SetPolicyURL(userBasePath string) string {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	fields := map[string]interface{}{
-		"project":  *n.Project,
-		"location": *n.Location,
-		"name":     *n.Name,
+		"project":  *nr.Project,
+		"location": *nr.Location,
+		"name":     *nr.Name,
 	}
-	return dcl.URL("projects/{{project}}/regions/{{location}}/clusters/{{name}}:setIamPolicy", "https://dataproc.googleapis.com/v1/", userBasePath, fields)
+	return dcl.URL("projects/{{project}}/regions/{{location}}/clusters/{{name}}:setIamPolicy", nr.basePath(), userBasePath, fields)
 }
 
 func (r *Cluster) SetPolicyVerb() string {
@@ -244,13 +252,13 @@ func (r *Cluster) SetPolicyVerb() string {
 }
 
 func (r *Cluster) getPolicyURL(userBasePath string) string {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	fields := map[string]interface{}{
-		"project":  *n.Project,
-		"location": *n.Location,
-		"name":     *n.Name,
+		"project":  *nr.Project,
+		"location": *nr.Location,
+		"name":     *nr.Name,
 	}
-	return dcl.URL("projects/{{project}}/regions/{{location}}/clusters/{{name}}:getIamPolicy", "https://dataproc.googleapis.com/v1/", userBasePath, fields)
+	return dcl.URL("projects/{{project}}/regions/{{location}}/clusters/{{name}}:getIamPolicy", nr.basePath(), userBasePath, fields)
 }
 
 func (r *Cluster) IAMPolicyVersion() int {
@@ -295,7 +303,7 @@ type updateClusterUpdateClusterOperation struct {
 // PUT request to a single URL.
 
 func (op *updateClusterUpdateClusterOperation) do(ctx context.Context, r *Cluster, c *Client) error {
-	_, err := c.GetCluster(ctx, r.URLNormalized())
+	_, err := c.GetCluster(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -329,7 +337,7 @@ func (op *updateClusterUpdateClusterOperation) do(ctx context.Context, r *Cluste
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	err = o.Wait(ctx, c.Config, "https://dataproc.googleapis.com/v1/", "GET")
+	err = o.Wait(ctx, c.Config, r.basePath(), "GET")
 
 	if err != nil {
 		return err
@@ -338,8 +346,8 @@ func (op *updateClusterUpdateClusterOperation) do(ctx context.Context, r *Cluste
 	return nil
 }
 
-func (c *Client) listClusterRaw(ctx context.Context, project, location, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := clusterListURL(c.Config.BasePath, project, location)
+func (c *Client) listClusterRaw(ctx context.Context, r *Cluster, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -370,8 +378,8 @@ type listClusterOperation struct {
 	Token    string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listCluster(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*Cluster, string, error) {
-	b, err := c.listClusterRaw(ctx, project, location, pageToken, pageSize)
+func (c *Client) listCluster(ctx context.Context, r *Cluster, pageToken string, pageSize int32) ([]*Cluster, string, error) {
+	b, err := c.listClusterRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -387,8 +395,8 @@ func (c *Client) listCluster(ctx context.Context, project, location, pageToken s
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
-		res.Location = &location
+		res.Project = r.Project
+		res.Location = r.Location
 		l = append(l, res)
 	}
 
@@ -416,7 +424,7 @@ func (c *Client) deleteAllCluster(ctx context.Context, f func(*Cluster) bool, re
 type deleteClusterOperation struct{}
 
 func (op *deleteClusterOperation) do(ctx context.Context, r *Cluster, c *Client) error {
-	r, err := c.GetCluster(ctx, r.URLNormalized())
+	r, err := c.GetCluster(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Cluster not found, returning. Original error: %v", err)
@@ -426,7 +434,7 @@ func (op *deleteClusterOperation) do(ctx context.Context, r *Cluster, c *Client)
 		return err
 	}
 
-	u, err := clusterDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -443,7 +451,7 @@ func (op *deleteClusterOperation) do(ctx context.Context, r *Cluster, c *Client)
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://dataproc.googleapis.com/v1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		return err
 	}
 
@@ -451,7 +459,7 @@ func (op *deleteClusterOperation) do(ctx context.Context, r *Cluster, c *Client)
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetCluster(ctx, r.URLNormalized())
+		_, err = c.GetCluster(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -477,10 +485,7 @@ func (op *createClusterOperation) FirstResponse() (map[string]interface{}, bool)
 
 func (op *createClusterOperation) do(ctx context.Context, r *Cluster, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, location := r.createFields()
-	u, err := clusterCreateURL(c.Config.BasePath, project, location)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -498,14 +503,14 @@ func (op *createClusterOperation) do(ctx context.Context, r *Cluster, c *Client)
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://dataproc.googleapis.com/v1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetCluster(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetCluster(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -515,7 +520,7 @@ func (op *createClusterOperation) do(ctx context.Context, r *Cluster, c *Client)
 
 func (c *Client) getClusterRaw(ctx context.Context, r *Cluster) ([]byte, error) {
 
-	u, err := clusterGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -548,7 +553,7 @@ func (c *Client) clusterDiffsForRawDesired(ctx context.Context, rawDesired *Clus
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetCluster(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetCluster(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Cluster resource already exists: %s", err)
@@ -3531,32 +3536,30 @@ func compareClusterMetricsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 	return diffs, nil
 }
 
-func (r *Cluster) getFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *Cluster) createFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location)
-}
-
-func (r *Cluster) deleteFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Cluster) urlNormalized() *Cluster {
+	normalized := dcl.Copy(*r).(Cluster)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.ClusterUuid = dcl.SelfLinkToName(r.ClusterUuid)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
 }
 
 func (r *Cluster) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "UpdateCluster" {
 		fields := map[string]interface{}{
-			"project":  dcl.ValueOrEmptyString(n.Project),
-			"location": dcl.ValueOrEmptyString(n.Location),
-			"name":     dcl.ValueOrEmptyString(n.Name),
+			"project":  dcl.ValueOrEmptyString(nr.Project),
+			"location": dcl.ValueOrEmptyString(nr.Location),
+			"name":     dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("projects/{{project}}/regions/{{location}}/clusters/{{name}}", "https://dataproc.googleapis.com/v1/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/regions/{{location}}/clusters/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -6535,8 +6538,8 @@ func (r *Cluster) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

@@ -1829,9 +1829,7 @@ type OSPolicyAssignmentList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
+	resource *OSPolicyAssignment
 }
 
 func (l *OSPolicyAssignmentList) HasNext() bool {
@@ -1845,7 +1843,7 @@ func (l *OSPolicyAssignmentList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listOSPolicyAssignment(ctx, l.project, l.location, l.nextToken, l.pageSize)
+	items, token, err := c.listOSPolicyAssignment(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -1854,19 +1852,19 @@ func (l *OSPolicyAssignmentList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListOSPolicyAssignment(ctx context.Context, project, location string) (*OSPolicyAssignmentList, error) {
+func (c *Client) ListOSPolicyAssignment(ctx context.Context, r *OSPolicyAssignment) (*OSPolicyAssignmentList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListOSPolicyAssignmentWithMaxResults(ctx, project, location, OSPolicyAssignmentMaxPage)
+	return c.ListOSPolicyAssignmentWithMaxResults(ctx, r, OSPolicyAssignmentMaxPage)
 
 }
 
-func (c *Client) ListOSPolicyAssignmentWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*OSPolicyAssignmentList, error) {
+func (c *Client) ListOSPolicyAssignmentWithMaxResults(ctx context.Context, r *OSPolicyAssignment, pageSize int32) (*OSPolicyAssignmentList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listOSPolicyAssignment(ctx, project, location, "", pageSize)
+	items, token, err := c.listOSPolicyAssignment(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -1874,25 +1872,8 @@ func (c *Client) ListOSPolicyAssignmentWithMaxResults(ctx context.Context, proje
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		location: location,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *OSPolicyAssignment) URLNormalized() *OSPolicyAssignment {
-	normalized := dcl.Copy(*r).(OSPolicyAssignment)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.RevisionId = dcl.SelfLinkToName(r.RevisionId)
-	normalized.Uid = dcl.SelfLinkToName(r.Uid)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
 }
 
 func (c *Client) GetOSPolicyAssignment(ctx context.Context, r *OSPolicyAssignment) (*OSPolicyAssignment, error) {
@@ -1941,8 +1922,8 @@ func (c *Client) DeleteOSPolicyAssignment(ctx context.Context, r *OSPolicyAssign
 }
 
 // DeleteAllOSPolicyAssignment deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllOSPolicyAssignment(ctx context.Context, project, location string, filter func(*OSPolicyAssignment) bool) error {
-	listObj, err := c.ListOSPolicyAssignment(ctx, project, location)
+func (c *Client) DeleteAllOSPolicyAssignment(ctx context.Context, r *OSPolicyAssignment, filter func(*OSPolicyAssignment) bool) error {
+	listObj, err := c.ListOSPolicyAssignment(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -2066,7 +2047,7 @@ func applyOSPolicyAssignmentHelper(c *Client, ctx context.Context, rawDesired *O
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetOSPolicyAssignment(ctx, desired.URLNormalized())
+	rawNew, err := c.GetOSPolicyAssignment(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

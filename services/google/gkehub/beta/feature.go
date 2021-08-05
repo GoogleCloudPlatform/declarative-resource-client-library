@@ -353,9 +353,7 @@ type FeatureList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
+	resource *Feature
 }
 
 func (l *FeatureList) HasNext() bool {
@@ -369,7 +367,7 @@ func (l *FeatureList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listFeature(ctx, l.project, l.location, l.nextToken, l.pageSize)
+	items, token, err := c.listFeature(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -378,19 +376,19 @@ func (l *FeatureList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListFeature(ctx context.Context, project, location string) (*FeatureList, error) {
+func (c *Client) ListFeature(ctx context.Context, r *Feature) (*FeatureList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListFeatureWithMaxResults(ctx, project, location, FeatureMaxPage)
+	return c.ListFeatureWithMaxResults(ctx, r, FeatureMaxPage)
 
 }
 
-func (c *Client) ListFeatureWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*FeatureList, error) {
+func (c *Client) ListFeatureWithMaxResults(ctx context.Context, r *Feature, pageSize int32) (*FeatureList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listFeature(ctx, project, location, "", pageSize)
+	items, token, err := c.listFeature(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -398,22 +396,8 @@ func (c *Client) ListFeatureWithMaxResults(ctx context.Context, project, locatio
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		location: location,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Feature) URLNormalized() *Feature {
-	normalized := dcl.Copy(*r).(Feature)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
 }
 
 func (c *Client) GetFeature(ctx context.Context, r *Feature) (*Feature, error) {
@@ -462,8 +446,8 @@ func (c *Client) DeleteFeature(ctx context.Context, r *Feature) error {
 }
 
 // DeleteAllFeature deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllFeature(ctx context.Context, project, location string, filter func(*Feature) bool) error {
-	listObj, err := c.ListFeature(ctx, project, location)
+func (c *Client) DeleteAllFeature(ctx context.Context, r *Feature, filter func(*Feature) bool) error {
+	listObj, err := c.ListFeature(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -587,7 +571,7 @@ func applyFeatureHelper(c *Client, ctx context.Context, rawDesired *Feature, opt
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetFeature(ctx, desired.URLNormalized())
+	rawNew, err := c.GetFeature(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

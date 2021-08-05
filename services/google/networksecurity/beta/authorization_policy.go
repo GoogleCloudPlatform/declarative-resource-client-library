@@ -289,9 +289,7 @@ type AuthorizationPolicyList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
+	resource *AuthorizationPolicy
 }
 
 func (l *AuthorizationPolicyList) HasNext() bool {
@@ -305,7 +303,7 @@ func (l *AuthorizationPolicyList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listAuthorizationPolicy(ctx, l.project, l.location, l.nextToken, l.pageSize)
+	items, token, err := c.listAuthorizationPolicy(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -314,19 +312,19 @@ func (l *AuthorizationPolicyList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListAuthorizationPolicy(ctx context.Context, project, location string) (*AuthorizationPolicyList, error) {
+func (c *Client) ListAuthorizationPolicy(ctx context.Context, r *AuthorizationPolicy) (*AuthorizationPolicyList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListAuthorizationPolicyWithMaxResults(ctx, project, location, AuthorizationPolicyMaxPage)
+	return c.ListAuthorizationPolicyWithMaxResults(ctx, r, AuthorizationPolicyMaxPage)
 
 }
 
-func (c *Client) ListAuthorizationPolicyWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*AuthorizationPolicyList, error) {
+func (c *Client) ListAuthorizationPolicyWithMaxResults(ctx context.Context, r *AuthorizationPolicy, pageSize int32) (*AuthorizationPolicyList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listAuthorizationPolicy(ctx, project, location, "", pageSize)
+	items, token, err := c.listAuthorizationPolicy(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -334,23 +332,8 @@ func (c *Client) ListAuthorizationPolicyWithMaxResults(ctx context.Context, proj
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		location: location,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *AuthorizationPolicy) URLNormalized() *AuthorizationPolicy {
-	normalized := dcl.Copy(*r).(AuthorizationPolicy)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
 }
 
 func (c *Client) GetAuthorizationPolicy(ctx context.Context, r *AuthorizationPolicy) (*AuthorizationPolicy, error) {
@@ -399,8 +382,8 @@ func (c *Client) DeleteAuthorizationPolicy(ctx context.Context, r *Authorization
 }
 
 // DeleteAllAuthorizationPolicy deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllAuthorizationPolicy(ctx context.Context, project, location string, filter func(*AuthorizationPolicy) bool) error {
-	listObj, err := c.ListAuthorizationPolicy(ctx, project, location)
+func (c *Client) DeleteAllAuthorizationPolicy(ctx context.Context, r *AuthorizationPolicy, filter func(*AuthorizationPolicy) bool) error {
+	listObj, err := c.ListAuthorizationPolicy(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -524,7 +507,7 @@ func applyAuthorizationPolicyHelper(c *Client, ctx context.Context, rawDesired *
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetAuthorizationPolicy(ctx, desired.URLNormalized())
+	rawNew, err := c.GetAuthorizationPolicy(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

@@ -10505,7 +10505,7 @@ func (s *InstanceServer) ListTier2AlphaInstance(ctx context.Context, request *al
 		return nil, err
 	}
 
-	resources, err := cl.ListInstance(ctx, request.Project, request.Location)
+	resources, err := cl.ListInstance(ctx, ProtoToInstance(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

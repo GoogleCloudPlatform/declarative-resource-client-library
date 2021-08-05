@@ -163,16 +163,47 @@ class AwsCluster(object):
 
         response = stub.DeleteGkemulticloudAwsCluster(request)
 
-    @classmethod
-    def list(self, project, location, service_account_file=""):
+    def list(self):
         stub = aws_cluster_pb2_grpc.GkemulticloudAwsClusterServiceStub(
             channel.Channel()
         )
         request = aws_cluster_pb2.ListGkemulticloudAwsClusterRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if AwsClusterNetworking.to_proto(self.networking):
+            request.resource.networking.CopyFrom(
+                AwsClusterNetworking.to_proto(self.networking)
+            )
+        else:
+            request.resource.ClearField("networking")
+        if Primitive.to_proto(self.aws_region):
+            request.resource.aws_region = Primitive.to_proto(self.aws_region)
+
+        if AwsClusterControlPlane.to_proto(self.control_plane):
+            request.resource.control_plane.CopyFrom(
+                AwsClusterControlPlane.to_proto(self.control_plane)
+            )
+        else:
+            request.resource.ClearField("control_plane")
+        if AwsClusterAuthorization.to_proto(self.authorization):
+            request.resource.authorization.CopyFrom(
+                AwsClusterAuthorization.to_proto(self.authorization)
+            )
+        else:
+            request.resource.ClearField("authorization")
+        if Primitive.to_proto(self.annotations):
+            request.resource.annotations = Primitive.to_proto(self.annotations)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         return stub.ListGkemulticloudAwsCluster(request).items
 

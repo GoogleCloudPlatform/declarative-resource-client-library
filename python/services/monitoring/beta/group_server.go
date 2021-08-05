@@ -90,7 +90,7 @@ func (s *GroupServer) ListMonitoringBetaGroup(ctx context.Context, request *beta
 		return nil, err
 	}
 
-	resources, err := cl.ListGroup(ctx, request.Project)
+	resources, err := cl.ListGroup(ctx, ProtoToGroup(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

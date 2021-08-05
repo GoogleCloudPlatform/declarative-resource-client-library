@@ -141,71 +141,79 @@ func (r *InstanceGroupManagerStatefulPolicyPreservedState) validate() error {
 func (r *InstanceGroupManagerStatefulPolicyPreservedStateDisks) validate() error {
 	return nil
 }
+func (r *InstanceGroupManager) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://www.googleapis.com/compute/v1/", params)
+}
 
-func instanceGroupManagerGetURL(userBasePath string, r *InstanceGroupManager) (string, error) {
+func (r *InstanceGroupManager) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	if dcl.IsRegion(r.Location) {
-		return dcl.URL("projects/{{project}}/regions/{{location}}/instanceGroupManagers/{{name}}", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+	if dcl.IsRegion(nr.Location) {
+		return dcl.URL("projects/{{project}}/regions/{{location}}/instanceGroupManagers/{{name}}", nr.basePath(), userBasePath, params), nil
 	}
 
-	if dcl.IsZone(r.Location) {
-		return dcl.URL("projects/{{project}}/zones/{{location}}/instanceGroupManagers/{{name}}", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+	if dcl.IsZone(nr.Location) {
+		return dcl.URL("projects/{{project}}/zones/{{location}}/instanceGroupManagers/{{name}}", nr.basePath(), userBasePath, params), nil
 	}
 
 	return "", fmt.Errorf("No valid Get URL found")
 
 }
 
-func instanceGroupManagerListURL(userBasePath, project, location string) (string, error) {
+func (r *InstanceGroupManager) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
 	}
-	if dcl.IsRegion(&location) {
-		return dcl.URL("projects/{{project}}/regions/{{location}}/instanceGroupManagers", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+	if dcl.IsRegion(nr.Location) {
+		return dcl.URL("projects/{{project}}/regions/{{location}}/instanceGroupManagers", nr.basePath(), userBasePath, params), nil
 	}
 
-	if dcl.IsZone(&location) {
-		return dcl.URL("projects/{{project}}/zones/{{location}}/instanceGroupManagers", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+	if dcl.IsZone(nr.Location) {
+		return dcl.URL("projects/{{project}}/zones/{{location}}/instanceGroupManagers", nr.basePath(), userBasePath, params), nil
 	}
 
 	return "", fmt.Errorf("No valid List URL found")
 
 }
 
-func instanceGroupManagerCreateURL(userBasePath, project, location string) (string, error) {
+func (r *InstanceGroupManager) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
 	}
-	if dcl.IsRegion(&location) {
-		return dcl.URL("projects/{{project}}/regions/{{location}}/instanceGroupManagers", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+	if dcl.IsRegion(nr.Location) {
+		return dcl.URL("projects/{{project}}/regions/{{location}}/instanceGroupManagers", nr.basePath(), userBasePath, params), nil
 	}
 
-	if dcl.IsZone(&location) {
-		return dcl.URL("projects/{{project}}/zones/{{location}}/instanceGroupManagers", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+	if dcl.IsZone(nr.Location) {
+		return dcl.URL("projects/{{project}}/zones/{{location}}/instanceGroupManagers", nr.basePath(), userBasePath, params), nil
 	}
 
 	return "", fmt.Errorf("No valid Create URL found")
 
 }
 
-func instanceGroupManagerDeleteURL(userBasePath string, r *InstanceGroupManager) (string, error) {
+func (r *InstanceGroupManager) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	if dcl.IsRegion(r.Location) {
-		return dcl.URL("projects/{{project}}/regions/{{location}}/instanceGroupManagers/{{name}}", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+	if dcl.IsRegion(nr.Location) {
+		return dcl.URL("projects/{{project}}/regions/{{location}}/instanceGroupManagers/{{name}}", nr.basePath(), userBasePath, params), nil
 	}
 
-	if dcl.IsZone(r.Location) {
-		return dcl.URL("projects/{{project}}/zones/{{location}}/instanceGroupManagers/{{name}}", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+	if dcl.IsZone(nr.Location) {
+		return dcl.URL("projects/{{project}}/zones/{{location}}/instanceGroupManagers/{{name}}", nr.basePath(), userBasePath, params), nil
 	}
 
 	return "", fmt.Errorf("No valid Delete URL found")
@@ -266,7 +274,7 @@ func newUpdateInstanceGroupManagerPatchRequest(ctx context.Context, f *InstanceG
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["statefulPolicy"] = v
 	}
-	b, err := c.getInstanceGroupManagerRaw(ctx, f.URLNormalized())
+	b, err := c.getInstanceGroupManagerRaw(ctx, f)
 	if err != nil {
 		return nil, err
 	}
@@ -306,7 +314,7 @@ type updateInstanceGroupManagerPatchOperation struct {
 // PUT request to a single URL.
 
 func (op *updateInstanceGroupManagerPatchOperation) do(ctx context.Context, r *InstanceGroupManager, c *Client) error {
-	_, err := c.GetInstanceGroupManager(ctx, r.URLNormalized())
+	_, err := c.GetInstanceGroupManager(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -335,7 +343,7 @@ func (op *updateInstanceGroupManagerPatchOperation) do(ctx context.Context, r *I
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	err = o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/v1/", "GET")
+	err = o.Wait(ctx, c.Config, r.basePath(), "GET")
 
 	if err != nil {
 		return err
@@ -373,7 +381,7 @@ type updateInstanceGroupManagerSetInstanceTemplateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateInstanceGroupManagerSetInstanceTemplateOperation) do(ctx context.Context, r *InstanceGroupManager, c *Client) error {
-	_, err := c.GetInstanceGroupManager(ctx, r.URLNormalized())
+	_, err := c.GetInstanceGroupManager(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -402,7 +410,7 @@ func (op *updateInstanceGroupManagerSetInstanceTemplateOperation) do(ctx context
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	err = o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/v1/", "GET")
+	err = o.Wait(ctx, c.Config, r.basePath(), "GET")
 
 	if err != nil {
 		return err
@@ -440,7 +448,7 @@ type updateInstanceGroupManagerSetTargetPoolsOperation struct {
 // PUT request to a single URL.
 
 func (op *updateInstanceGroupManagerSetTargetPoolsOperation) do(ctx context.Context, r *InstanceGroupManager, c *Client) error {
-	_, err := c.GetInstanceGroupManager(ctx, r.URLNormalized())
+	_, err := c.GetInstanceGroupManager(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -469,7 +477,7 @@ func (op *updateInstanceGroupManagerSetTargetPoolsOperation) do(ctx context.Cont
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	err = o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/v1/", "GET")
+	err = o.Wait(ctx, c.Config, r.basePath(), "GET")
 
 	if err != nil {
 		return err
@@ -478,8 +486,8 @@ func (op *updateInstanceGroupManagerSetTargetPoolsOperation) do(ctx context.Cont
 	return nil
 }
 
-func (c *Client) listInstanceGroupManagerRaw(ctx context.Context, project, location, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := instanceGroupManagerListURL(c.Config.BasePath, project, location)
+func (c *Client) listInstanceGroupManagerRaw(ctx context.Context, r *InstanceGroupManager, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -510,8 +518,8 @@ type listInstanceGroupManagerOperation struct {
 	Token string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listInstanceGroupManager(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*InstanceGroupManager, string, error) {
-	b, err := c.listInstanceGroupManagerRaw(ctx, project, location, pageToken, pageSize)
+func (c *Client) listInstanceGroupManager(ctx context.Context, r *InstanceGroupManager, pageToken string, pageSize int32) ([]*InstanceGroupManager, string, error) {
+	b, err := c.listInstanceGroupManagerRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -527,8 +535,8 @@ func (c *Client) listInstanceGroupManager(ctx context.Context, project, location
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
-		res.Location = &location
+		res.Project = r.Project
+		res.Location = r.Location
 		l = append(l, res)
 	}
 
@@ -556,7 +564,7 @@ func (c *Client) deleteAllInstanceGroupManager(ctx context.Context, f func(*Inst
 type deleteInstanceGroupManagerOperation struct{}
 
 func (op *deleteInstanceGroupManagerOperation) do(ctx context.Context, r *InstanceGroupManager, c *Client) error {
-	r, err := c.GetInstanceGroupManager(ctx, r.URLNormalized())
+	r, err := c.GetInstanceGroupManager(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("InstanceGroupManager not found, returning. Original error: %v", err)
@@ -566,7 +574,7 @@ func (op *deleteInstanceGroupManagerOperation) do(ctx context.Context, r *Instan
 		return err
 	}
 
-	u, err := instanceGroupManagerDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -583,7 +591,7 @@ func (op *deleteInstanceGroupManagerOperation) do(ctx context.Context, r *Instan
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/v1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		return err
 	}
 
@@ -591,7 +599,7 @@ func (op *deleteInstanceGroupManagerOperation) do(ctx context.Context, r *Instan
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetInstanceGroupManager(ctx, r.URLNormalized())
+		_, err = c.GetInstanceGroupManager(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -617,10 +625,7 @@ func (op *createInstanceGroupManagerOperation) FirstResponse() (map[string]inter
 
 func (op *createInstanceGroupManagerOperation) do(ctx context.Context, r *InstanceGroupManager, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, location := r.createFields()
-	u, err := instanceGroupManagerCreateURL(c.Config.BasePath, project, location)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -638,14 +643,14 @@ func (op *createInstanceGroupManagerOperation) do(ctx context.Context, r *Instan
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/v1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetInstanceGroupManager(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetInstanceGroupManager(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -655,7 +660,7 @@ func (op *createInstanceGroupManagerOperation) do(ctx context.Context, r *Instan
 
 func (c *Client) getInstanceGroupManagerRaw(ctx context.Context, r *InstanceGroupManager) ([]byte, error) {
 
-	u, err := instanceGroupManagerGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -688,7 +693,7 @@ func (c *Client) instanceGroupManagerDiffsForRawDesired(ctx context.Context, raw
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetInstanceGroupManager(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetInstanceGroupManager(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a InstanceGroupManager resource already exists: %s", err)
@@ -2916,35 +2921,40 @@ func compareInstanceGroupManagerStatefulPolicyPreservedStateDisksNewStyle(d, a i
 	return diffs, nil
 }
 
-func (r *InstanceGroupManager) getFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *InstanceGroupManager) createFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location)
-}
-
-func (r *InstanceGroupManager) deleteFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *InstanceGroupManager) urlNormalized() *InstanceGroupManager {
+	normalized := dcl.Copy(*r).(InstanceGroupManager)
+	normalized.CreationTimestamp = dcl.SelfLinkToName(r.CreationTimestamp)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Zone = dcl.SelfLinkToName(r.Zone)
+	normalized.Region = dcl.SelfLinkToName(r.Region)
+	normalized.InstanceTemplate = r.InstanceTemplate
+	normalized.InstanceGroup = dcl.SelfLinkToName(r.InstanceGroup)
+	normalized.BaseInstanceName = dcl.SelfLinkToName(r.BaseInstanceName)
+	normalized.Fingerprint = dcl.SelfLinkToName(r.Fingerprint)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
 }
 
 func (r *InstanceGroupManager) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "Patch" {
 		fields := map[string]interface{}{
-			"project":  dcl.ValueOrEmptyString(n.Project),
-			"location": dcl.ValueOrEmptyString(n.Location),
-			"name":     dcl.ValueOrEmptyString(n.Name),
+			"project":  dcl.ValueOrEmptyString(nr.Project),
+			"location": dcl.ValueOrEmptyString(nr.Location),
+			"name":     dcl.ValueOrEmptyString(nr.Name),
 		}
-		if dcl.IsRegion(r.Location) {
-			return dcl.URL("projects/{{project}}/regions/{{location}}/instanceGroupManagers/{{name}}", "https://www.googleapis.com/compute/v1/", userBasePath, fields), nil
+		if dcl.IsRegion(nr.Location) {
+			return dcl.URL("projects/{{project}}/regions/{{location}}/instanceGroupManagers/{{name}}", nr.basePath(), userBasePath, fields), nil
 		}
 
-		if dcl.IsZone(r.Location) {
-			return dcl.URL("projects/{{project}}/zones/{{location}}/instanceGroupManagers/{{name}}", "https://www.googleapis.com/compute/v1/", userBasePath, fields), nil
+		if dcl.IsZone(nr.Location) {
+			return dcl.URL("projects/{{project}}/zones/{{location}}/instanceGroupManagers/{{name}}", nr.basePath(), userBasePath, fields), nil
 		}
 
 		return "", fmt.Errorf("No valid update URL for %s", updateName)
@@ -2952,16 +2962,16 @@ func (r *InstanceGroupManager) updateURL(userBasePath, updateName string) (strin
 	}
 	if updateName == "setInstanceTemplate" {
 		fields := map[string]interface{}{
-			"project":  dcl.ValueOrEmptyString(n.Project),
-			"location": dcl.ValueOrEmptyString(n.Location),
-			"name":     dcl.ValueOrEmptyString(n.Name),
+			"project":  dcl.ValueOrEmptyString(nr.Project),
+			"location": dcl.ValueOrEmptyString(nr.Location),
+			"name":     dcl.ValueOrEmptyString(nr.Name),
 		}
-		if dcl.IsRegion(r.Location) {
-			return dcl.URL("projects/{{project}}/regions/{{location}}/instanceGroupManagers/{{name}}/setInstanceTemplate", "https://www.googleapis.com/compute/v1/", userBasePath, fields), nil
+		if dcl.IsRegion(nr.Location) {
+			return dcl.URL("projects/{{project}}/regions/{{location}}/instanceGroupManagers/{{name}}/setInstanceTemplate", nr.basePath(), userBasePath, fields), nil
 		}
 
-		if dcl.IsZone(r.Location) {
-			return dcl.URL("projects/{{project}}/zones/{{location}}/instanceGroupManagers/{{name}}/setInstanceTemplate", "https://www.googleapis.com/compute/v1/", userBasePath, fields), nil
+		if dcl.IsZone(nr.Location) {
+			return dcl.URL("projects/{{project}}/zones/{{location}}/instanceGroupManagers/{{name}}/setInstanceTemplate", nr.basePath(), userBasePath, fields), nil
 		}
 
 		return "", fmt.Errorf("No valid update URL for %s", updateName)
@@ -2969,21 +2979,22 @@ func (r *InstanceGroupManager) updateURL(userBasePath, updateName string) (strin
 	}
 	if updateName == "setTargetPools" {
 		fields := map[string]interface{}{
-			"project":  dcl.ValueOrEmptyString(n.Project),
-			"location": dcl.ValueOrEmptyString(n.Location),
-			"name":     dcl.ValueOrEmptyString(n.Name),
+			"project":  dcl.ValueOrEmptyString(nr.Project),
+			"location": dcl.ValueOrEmptyString(nr.Location),
+			"name":     dcl.ValueOrEmptyString(nr.Name),
 		}
-		if dcl.IsRegion(r.Location) {
-			return dcl.URL("projects/{{project}}/regions/{{location}}/instanceGroupManagers/{{name}}/setTargetPools", "https://www.googleapis.com/compute/v1/", userBasePath, fields), nil
+		if dcl.IsRegion(nr.Location) {
+			return dcl.URL("projects/{{project}}/regions/{{location}}/instanceGroupManagers/{{name}}/setTargetPools", nr.basePath(), userBasePath, fields), nil
 		}
 
-		if dcl.IsZone(r.Location) {
-			return dcl.URL("projects/{{project}}/zones/{{location}}/instanceGroupManagers/{{name}}/setTargetPools", "https://www.googleapis.com/compute/v1/", userBasePath, fields), nil
+		if dcl.IsZone(nr.Location) {
+			return dcl.URL("projects/{{project}}/zones/{{location}}/instanceGroupManagers/{{name}}/setTargetPools", nr.basePath(), userBasePath, fields), nil
 		}
 
 		return "", fmt.Errorf("No valid update URL for %s", updateName)
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -5286,8 +5297,8 @@ func (r *InstanceGroupManager) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

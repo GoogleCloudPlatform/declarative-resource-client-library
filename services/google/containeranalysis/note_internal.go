@@ -222,38 +222,46 @@ func (r *NoteAttestationHint) validate() error {
 	}
 	return nil
 }
-
-func noteGetURL(userBasePath string, r *Note) (string, error) {
-	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(r.Project),
-		"name":    dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("projects/{{project}}/notes/{{name}}", "https://containeranalysis.googleapis.com/v1/", userBasePath, params), nil
+func (r *Note) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://containeranalysis.googleapis.com/v1/", params)
 }
 
-func noteListURL(userBasePath, project string) (string, error) {
+func (r *Note) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": project,
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/notes", "https://containeranalysis.googleapis.com/v1/", userBasePath, params), nil
-
+	return dcl.URL("projects/{{project}}/notes/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-func noteCreateURL(userBasePath, project, name string) (string, error) {
+func (r *Note) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": project,
-		"name":    name,
+		"project": dcl.ValueOrEmptyString(nr.Project),
 	}
-	return dcl.URL("projects/{{project}}/notes?noteId={{name}}", "https://containeranalysis.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/notes", nr.basePath(), userBasePath, params), nil
 
 }
 
-func noteDeleteURL(userBasePath string, r *Note) (string, error) {
+func (r *Note) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(r.Project),
-		"name":    dcl.ValueOrEmptyString(r.Name),
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/notes/{{name}}", "https://containeranalysis.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/notes?noteId={{name}}", nr.basePath(), userBasePath, params), nil
+
+}
+
+func (r *Note) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("projects/{{project}}/notes/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // noteApiOperation represents a mutable operation in the underlying REST
@@ -343,7 +351,7 @@ type updateNoteUpdateNoteOperation struct {
 // PUT request to a single URL.
 
 func (op *updateNoteUpdateNoteOperation) do(ctx context.Context, r *Note, c *Client) error {
-	_, err := c.GetNote(ctx, r.URLNormalized())
+	_, err := c.GetNote(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -371,8 +379,8 @@ func (op *updateNoteUpdateNoteOperation) do(ctx context.Context, r *Note, c *Cli
 	return nil
 }
 
-func (c *Client) listNoteRaw(ctx context.Context, project, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := noteListURL(c.Config.BasePath, project)
+func (c *Client) listNoteRaw(ctx context.Context, r *Note, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -403,8 +411,8 @@ type listNoteOperation struct {
 	Token string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listNote(ctx context.Context, project, pageToken string, pageSize int32) ([]*Note, string, error) {
-	b, err := c.listNoteRaw(ctx, project, pageToken, pageSize)
+func (c *Client) listNote(ctx context.Context, r *Note, pageToken string, pageSize int32) ([]*Note, string, error) {
+	b, err := c.listNoteRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -420,7 +428,7 @@ func (c *Client) listNote(ctx context.Context, project, pageToken string, pageSi
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
+		res.Project = r.Project
 		l = append(l, res)
 	}
 
@@ -448,7 +456,7 @@ func (c *Client) deleteAllNote(ctx context.Context, f func(*Note) bool, resource
 type deleteNoteOperation struct{}
 
 func (op *deleteNoteOperation) do(ctx context.Context, r *Note, c *Client) error {
-	r, err := c.GetNote(ctx, r.URLNormalized())
+	r, err := c.GetNote(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Note not found, returning. Original error: %v", err)
@@ -458,7 +466,7 @@ func (op *deleteNoteOperation) do(ctx context.Context, r *Note, c *Client) error
 		return err
 	}
 
-	u, err := noteDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -474,7 +482,7 @@ func (op *deleteNoteOperation) do(ctx context.Context, r *Note, c *Client) error
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetNote(ctx, r.URLNormalized())
+		_, err = c.GetNote(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -500,10 +508,7 @@ func (op *createNoteOperation) FirstResponse() (map[string]interface{}, bool) {
 
 func (op *createNoteOperation) do(ctx context.Context, r *Note, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, name := r.createFields()
-	u, err := noteCreateURL(c.Config.BasePath, project, name)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -523,7 +528,7 @@ func (op *createNoteOperation) do(ctx context.Context, r *Note, c *Client) error
 	}
 	op.response = o
 
-	if _, err := c.GetNote(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetNote(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -533,7 +538,7 @@ func (op *createNoteOperation) do(ctx context.Context, r *Note, c *Client) error
 
 func (c *Client) getNoteRaw(ctx context.Context, r *Note) ([]byte, error) {
 
-	u, err := noteGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -566,7 +571,7 @@ func (c *Client) noteDiffsForRawDesired(ctx context.Context, rawDesired *Note, o
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetNote(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetNote(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Note resource already exists: %s", err)
@@ -3743,31 +3748,29 @@ func compareNoteAttestationHintNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 	return diffs, nil
 }
 
-func (r *Note) getFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *Note) createFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *Note) deleteFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Note) urlNormalized() *Note {
+	normalized := dcl.Copy(*r).(Note)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.ShortDescription = dcl.SelfLinkToName(r.ShortDescription)
+	normalized.LongDescription = dcl.SelfLinkToName(r.LongDescription)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
 }
 
 func (r *Note) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "UpdateNote" {
 		fields := map[string]interface{}{
-			"project": dcl.ValueOrEmptyString(n.Project),
-			"name":    dcl.ValueOrEmptyString(n.Name),
+			"project": dcl.ValueOrEmptyString(nr.Project),
+			"name":    dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("projects/{{project}}/notes/{{name}}", "https://containeranalysis.googleapis.com/v1/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/notes/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -7089,8 +7092,8 @@ func (r *Note) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

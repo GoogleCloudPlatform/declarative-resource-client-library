@@ -578,9 +578,7 @@ type MembershipList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
+	resource *Membership
 }
 
 func (l *MembershipList) HasNext() bool {
@@ -594,7 +592,7 @@ func (l *MembershipList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listMembership(ctx, l.project, l.location, l.nextToken, l.pageSize)
+	items, token, err := c.listMembership(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -603,19 +601,19 @@ func (l *MembershipList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListMembership(ctx context.Context, project, location string) (*MembershipList, error) {
+func (c *Client) ListMembership(ctx context.Context, r *Membership) (*MembershipList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListMembershipWithMaxResults(ctx, project, location, MembershipMaxPage)
+	return c.ListMembershipWithMaxResults(ctx, r, MembershipMaxPage)
 
 }
 
-func (c *Client) ListMembershipWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*MembershipList, error) {
+func (c *Client) ListMembershipWithMaxResults(ctx context.Context, r *Membership, pageSize int32) (*MembershipList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listMembership(ctx, project, location, "", pageSize)
+	items, token, err := c.listMembership(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -623,25 +621,8 @@ func (c *Client) ListMembershipWithMaxResults(ctx context.Context, project, loca
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		location: location,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Membership) URLNormalized() *Membership {
-	normalized := dcl.Copy(*r).(Membership)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.ExternalId = dcl.SelfLinkToName(r.ExternalId)
-	normalized.UniqueId = dcl.SelfLinkToName(r.UniqueId)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
 }
 
 func (c *Client) GetMembership(ctx context.Context, r *Membership) (*Membership, error) {
@@ -690,8 +671,8 @@ func (c *Client) DeleteMembership(ctx context.Context, r *Membership) error {
 }
 
 // DeleteAllMembership deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllMembership(ctx context.Context, project, location string, filter func(*Membership) bool) error {
-	listObj, err := c.ListMembership(ctx, project, location)
+func (c *Client) DeleteAllMembership(ctx context.Context, r *Membership, filter func(*Membership) bool) error {
+	listObj, err := c.ListMembership(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -815,7 +796,7 @@ func applyMembershipHelper(c *Client, ctx context.Context, rawDesired *Membershi
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetMembership(ctx, desired.URLNormalized())
+	rawNew, err := c.GetMembership(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

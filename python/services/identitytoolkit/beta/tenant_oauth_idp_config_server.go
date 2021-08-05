@@ -122,7 +122,7 @@ func (s *TenantOAuthIdpConfigServer) ListIdentitytoolkitBetaTenantOAuthIdpConfig
 		return nil, err
 	}
 
-	resources, err := cl.ListTenantOAuthIdpConfig(ctx, request.Project, request.Tenant)
+	resources, err := cl.ListTenantOAuthIdpConfig(ctx, ProtoToTenantOAuthIdpConfig(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

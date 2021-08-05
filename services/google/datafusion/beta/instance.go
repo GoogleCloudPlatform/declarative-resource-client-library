@@ -230,9 +230,7 @@ type InstanceList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
+	resource *Instance
 }
 
 func (l *InstanceList) HasNext() bool {
@@ -246,7 +244,7 @@ func (l *InstanceList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listInstance(ctx, l.project, l.location, l.nextToken, l.pageSize)
+	items, token, err := c.listInstance(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -255,19 +253,19 @@ func (l *InstanceList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListInstance(ctx context.Context, project, location string) (*InstanceList, error) {
+func (c *Client) ListInstance(ctx context.Context, r *Instance) (*InstanceList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListInstanceWithMaxResults(ctx, project, location, InstanceMaxPage)
+	return c.ListInstanceWithMaxResults(ctx, r, InstanceMaxPage)
 
 }
 
-func (c *Client) ListInstanceWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*InstanceList, error) {
+func (c *Client) ListInstanceWithMaxResults(ctx context.Context, r *Instance, pageSize int32) (*InstanceList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listInstance(ctx, project, location, "", pageSize)
+	items, token, err := c.listInstance(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -275,33 +273,8 @@ func (c *Client) ListInstanceWithMaxResults(ctx context.Context, project, locati
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		location: location,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Instance) URLNormalized() *Instance {
-	normalized := dcl.Copy(*r).(Instance)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.StateMessage = dcl.SelfLinkToName(r.StateMessage)
-	normalized.ServiceEndpoint = dcl.SelfLinkToName(r.ServiceEndpoint)
-	normalized.Zone = dcl.SelfLinkToName(r.Zone)
-	normalized.Version = dcl.SelfLinkToName(r.Version)
-	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
-	normalized.ApiEndpoint = dcl.SelfLinkToName(r.ApiEndpoint)
-	normalized.GcsBucket = dcl.SelfLinkToName(r.GcsBucket)
-	normalized.P4ServiceAccount = dcl.SelfLinkToName(r.P4ServiceAccount)
-	normalized.TenantProjectId = dcl.SelfLinkToName(r.TenantProjectId)
-	normalized.DataprocServiceAccount = dcl.SelfLinkToName(r.DataprocServiceAccount)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
 }
 
 func (c *Client) GetInstance(ctx context.Context, r *Instance) (*Instance, error) {
@@ -350,8 +323,8 @@ func (c *Client) DeleteInstance(ctx context.Context, r *Instance) error {
 }
 
 // DeleteAllInstance deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllInstance(ctx context.Context, project, location string, filter func(*Instance) bool) error {
-	listObj, err := c.ListInstance(ctx, project, location)
+func (c *Client) DeleteAllInstance(ctx context.Context, r *Instance, filter func(*Instance) bool) error {
+	listObj, err := c.ListInstance(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -475,7 +448,7 @@ func applyInstanceHelper(c *Client, ctx context.Context, rawDesired *Instance, o
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetInstance(ctx, desired.URLNormalized())
+	rawNew, err := c.GetInstance(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

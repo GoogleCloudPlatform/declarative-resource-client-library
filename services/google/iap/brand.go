@@ -53,7 +53,7 @@ type BrandList struct {
 
 	pageSize int32
 
-	project string
+	resource *Brand
 }
 
 func (l *BrandList) HasNext() bool {
@@ -67,7 +67,7 @@ func (l *BrandList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listBrand(ctx, l.project, l.nextToken, l.pageSize)
+	items, token, err := c.listBrand(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -76,19 +76,19 @@ func (l *BrandList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListBrand(ctx context.Context, project string) (*BrandList, error) {
+func (c *Client) ListBrand(ctx context.Context, r *Brand) (*BrandList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListBrandWithMaxResults(ctx, project, BrandMaxPage)
+	return c.ListBrandWithMaxResults(ctx, r, BrandMaxPage)
 
 }
 
-func (c *Client) ListBrandWithMaxResults(ctx context.Context, project string, pageSize int32) (*BrandList, error) {
+func (c *Client) ListBrandWithMaxResults(ctx context.Context, r *Brand, pageSize int32) (*BrandList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listBrand(ctx, project, "", pageSize)
+	items, token, err := c.listBrand(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -96,21 +96,8 @@ func (c *Client) ListBrandWithMaxResults(ctx context.Context, project string, pa
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Brand) URLNormalized() *Brand {
-	normalized := dcl.Copy(*r).(Brand)
-	normalized.ApplicationTitle = dcl.SelfLinkToName(r.ApplicationTitle)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.SupportEmail = dcl.SelfLinkToName(r.SupportEmail)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
 }
 
 func (c *Client) GetBrand(ctx context.Context, r *Brand) (*Brand, error) {
@@ -246,7 +233,7 @@ func applyBrandHelper(c *Client, ctx context.Context, rawDesired *Brand, opts ..
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetBrand(ctx, desired.URLNormalized())
+	rawNew, err := c.GetBrand(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

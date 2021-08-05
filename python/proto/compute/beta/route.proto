@@ -69,7 +69,7 @@ message DeleteComputeBetaRouteRequest {
 
 message ListComputeBetaRouteRequest {
   string service_account_file = 1;
-  string Project = 2;
+	ComputeBetaRoute resource = 2;
 }
 
 message ListComputeBetaRouteResponse {

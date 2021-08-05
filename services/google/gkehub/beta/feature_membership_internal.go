@@ -83,43 +83,51 @@ func (r *FeatureMembershipConfigmanagementBinauthz) validate() error {
 func (r *FeatureMembershipConfigmanagementHierarchyController) validate() error {
 	return nil
 }
-
-func featureMembershipGetURL(userBasePath string, r *FeatureMembership) (string, error) {
-	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"feature":  dcl.ValueOrEmptyString(r.Feature),
-	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{feature}}", "https://gkehub.googleapis.com/v1beta1/", userBasePath, params), nil
+func (r *FeatureMembership) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://gkehub.googleapis.com/v1beta1/", params)
 }
 
-func featureMembershipListURL(userBasePath, project, location, feature string) (string, error) {
+func (r *FeatureMembership) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
-		"feature":  feature,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"feature":  dcl.ValueOrEmptyString(nr.Feature),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{feature}}", "https://gkehub.googleapis.com/v1beta1/", userBasePath, params), nil
-
+	return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{feature}}", nr.basePath(), userBasePath, params), nil
 }
 
-func featureMembershipCreateURL(userBasePath, project, location, feature string) (string, error) {
+func (r *FeatureMembership) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
-		"feature":  feature,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"feature":  dcl.ValueOrEmptyString(nr.Feature),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{feature}}", "https://gkehub.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{feature}}", nr.basePath(), userBasePath, params), nil
 
 }
 
-func featureMembershipDeleteURL(userBasePath string, r *FeatureMembership) (string, error) {
+func (r *FeatureMembership) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"feature":  dcl.ValueOrEmptyString(r.Feature),
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"feature":  dcl.ValueOrEmptyString(nr.Feature),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{feature}}", "https://gkehub.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{feature}}", nr.basePath(), userBasePath, params), nil
+
+}
+
+func (r *FeatureMembership) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"feature":  dcl.ValueOrEmptyString(nr.Feature),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{feature}}", nr.basePath(), userBasePath, params), nil
 }
 
 // featureMembershipApiOperation represents a mutable operation in the underlying REST
@@ -208,7 +216,7 @@ func (c *Client) featureMembershipDiffsForRawDesired(ctx context.Context, rawDes
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetFeatureMembership(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetFeatureMembership(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a FeatureMembership resource already exists: %s", err)
@@ -1238,32 +1246,30 @@ func compareFeatureMembershipConfigmanagementHierarchyControllerNewStyle(d, a in
 	return diffs, nil
 }
 
-func (r *FeatureMembership) getFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Feature)
-}
-
-func (r *FeatureMembership) createFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Feature)
-}
-
-func (r *FeatureMembership) deleteFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Feature)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *FeatureMembership) urlNormalized() *FeatureMembership {
+	normalized := dcl.Copy(*r).(FeatureMembership)
+	normalized.Membership = dcl.SelfLinkToName(r.Membership)
+	normalized.Feature = dcl.SelfLinkToName(r.Feature)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
 }
 
 func (r *FeatureMembership) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "UpdateFeatureMembership" {
 		fields := map[string]interface{}{
-			"project":  dcl.ValueOrEmptyString(n.Project),
-			"location": dcl.ValueOrEmptyString(n.Location),
-			"feature":  dcl.ValueOrEmptyString(n.Feature),
+			"project":  dcl.ValueOrEmptyString(nr.Project),
+			"location": dcl.ValueOrEmptyString(nr.Location),
+			"feature":  dcl.ValueOrEmptyString(nr.Feature),
 		}
-		return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{feature}}", "https://gkehub.googleapis.com/v1beta1/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{feature}}", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -2122,8 +2128,8 @@ func (r *FeatureMembership) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

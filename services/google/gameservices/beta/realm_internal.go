@@ -39,42 +39,50 @@ func (r *Realm) validate() error {
 	}
 	return nil
 }
-
-func realmGetURL(userBasePath string, r *Realm) (string, error) {
-	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/realms/{{name}}", "https://gameservices.googleapis.com/v1beta1/", userBasePath, params), nil
+func (r *Realm) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://gameservices.googleapis.com/v1beta1/", params)
 }
 
-func realmListURL(userBasePath, project, location string) (string, error) {
+func (r *Realm) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/realms", "https://gameservices.googleapis.com/v1beta1/", userBasePath, params), nil
-
+	return dcl.URL("projects/{{project}}/locations/{{location}}/realms/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-func realmCreateURL(userBasePath, project, location, name string) (string, error) {
+func (r *Realm) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
-		"name":     name,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/realms?realmId={{name}}", "https://gameservices.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/realms", nr.basePath(), userBasePath, params), nil
 
 }
 
-func realmDeleteURL(userBasePath string, r *Realm) (string, error) {
+func (r *Realm) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/realms/{{name}}", "https://gameservices.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/realms?realmId={{name}}", nr.basePath(), userBasePath, params), nil
+
+}
+
+func (r *Realm) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/realms/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // realmApiOperation represents a mutable operation in the underlying REST
@@ -121,7 +129,7 @@ type updateRealmUpdateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateRealmUpdateOperation) do(ctx context.Context, r *Realm, c *Client) error {
-	_, err := c.GetRealm(ctx, r.URLNormalized())
+	_, err := c.GetRealm(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -155,7 +163,7 @@ func (op *updateRealmUpdateOperation) do(ctx context.Context, r *Realm, c *Clien
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	err = o.Wait(ctx, c.Config, "https://gameservices.googleapis.com/v1beta1/", "GET")
+	err = o.Wait(ctx, c.Config, r.basePath(), "GET")
 
 	if err != nil {
 		return err
@@ -164,8 +172,8 @@ func (op *updateRealmUpdateOperation) do(ctx context.Context, r *Realm, c *Clien
 	return nil
 }
 
-func (c *Client) listRealmRaw(ctx context.Context, project, location, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := realmListURL(c.Config.BasePath, project, location)
+func (c *Client) listRealmRaw(ctx context.Context, r *Realm, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -196,8 +204,8 @@ type listRealmOperation struct {
 	Token string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listRealm(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*Realm, string, error) {
-	b, err := c.listRealmRaw(ctx, project, location, pageToken, pageSize)
+func (c *Client) listRealm(ctx context.Context, r *Realm, pageToken string, pageSize int32) ([]*Realm, string, error) {
+	b, err := c.listRealmRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -213,8 +221,8 @@ func (c *Client) listRealm(ctx context.Context, project, location, pageToken str
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
-		res.Location = &location
+		res.Project = r.Project
+		res.Location = r.Location
 		l = append(l, res)
 	}
 
@@ -242,7 +250,7 @@ func (c *Client) deleteAllRealm(ctx context.Context, f func(*Realm) bool, resour
 type deleteRealmOperation struct{}
 
 func (op *deleteRealmOperation) do(ctx context.Context, r *Realm, c *Client) error {
-	r, err := c.GetRealm(ctx, r.URLNormalized())
+	r, err := c.GetRealm(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Realm not found, returning. Original error: %v", err)
@@ -252,7 +260,7 @@ func (op *deleteRealmOperation) do(ctx context.Context, r *Realm, c *Client) err
 		return err
 	}
 
-	u, err := realmDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -269,7 +277,7 @@ func (op *deleteRealmOperation) do(ctx context.Context, r *Realm, c *Client) err
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://gameservices.googleapis.com/v1beta1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		return err
 	}
 
@@ -277,7 +285,7 @@ func (op *deleteRealmOperation) do(ctx context.Context, r *Realm, c *Client) err
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetRealm(ctx, r.URLNormalized())
+		_, err = c.GetRealm(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -303,10 +311,7 @@ func (op *createRealmOperation) FirstResponse() (map[string]interface{}, bool) {
 
 func (op *createRealmOperation) do(ctx context.Context, r *Realm, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, location, name := r.createFields()
-	u, err := realmCreateURL(c.Config.BasePath, project, location, name)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -324,14 +329,14 @@ func (op *createRealmOperation) do(ctx context.Context, r *Realm, c *Client) err
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://gameservices.googleapis.com/v1beta1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetRealm(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetRealm(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -341,7 +346,7 @@ func (op *createRealmOperation) do(ctx context.Context, r *Realm, c *Client) err
 
 func (c *Client) getRealmRaw(ctx context.Context, r *Realm) ([]byte, error) {
 
-	u, err := realmGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -374,7 +379,7 @@ func (c *Client) realmDiffsForRawDesired(ctx context.Context, rawDesired *Realm,
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetRealm(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetRealm(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Realm resource already exists: %s", err)
@@ -572,32 +577,31 @@ func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]*d
 	return newDiffs, nil
 }
 
-func (r *Realm) getFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *Realm) createFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *Realm) deleteFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Realm) urlNormalized() *Realm {
+	normalized := dcl.Copy(*r).(Realm)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.TimeZone = dcl.SelfLinkToName(r.TimeZone)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
 }
 
 func (r *Realm) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "update" {
 		fields := map[string]interface{}{
-			"project":  dcl.ValueOrEmptyString(n.Project),
-			"location": dcl.ValueOrEmptyString(n.Location),
-			"name":     dcl.ValueOrEmptyString(n.Name),
+			"project":  dcl.ValueOrEmptyString(nr.Project),
+			"location": dcl.ValueOrEmptyString(nr.Location),
+			"name":     dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("projects/{{project}}/locations/{{location}}/realms/{{name}}", "https://gameservices.googleapis.com/v1beta1/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/locations/{{location}}/realms/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -692,8 +696,8 @@ func (r *Realm) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

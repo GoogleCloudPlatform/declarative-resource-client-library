@@ -1062,9 +1062,7 @@ type InstanceGroupManagerList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
+	resource *InstanceGroupManager
 }
 
 func (l *InstanceGroupManagerList) HasNext() bool {
@@ -1078,7 +1076,7 @@ func (l *InstanceGroupManagerList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listInstanceGroupManager(ctx, l.project, l.location, l.nextToken, l.pageSize)
+	items, token, err := c.listInstanceGroupManager(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -1087,20 +1085,20 @@ func (l *InstanceGroupManagerList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListInstanceGroupManager(ctx context.Context, project, location string) (*InstanceGroupManagerList, error) {
+func (c *Client) ListInstanceGroupManager(ctx context.Context, r *InstanceGroupManager) (*InstanceGroupManagerList, error) {
 	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]bool{412: false})))
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListInstanceGroupManagerWithMaxResults(ctx, project, location, InstanceGroupManagerMaxPage)
+	return c.ListInstanceGroupManagerWithMaxResults(ctx, r, InstanceGroupManagerMaxPage)
 
 }
 
-func (c *Client) ListInstanceGroupManagerWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*InstanceGroupManagerList, error) {
+func (c *Client) ListInstanceGroupManagerWithMaxResults(ctx context.Context, r *InstanceGroupManager, pageSize int32) (*InstanceGroupManagerList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listInstanceGroupManager(ctx, project, location, "", pageSize)
+	items, token, err := c.listInstanceGroupManager(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -1108,32 +1106,8 @@ func (c *Client) ListInstanceGroupManagerWithMaxResults(ctx context.Context, pro
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		location: location,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *InstanceGroupManager) URLNormalized() *InstanceGroupManager {
-	normalized := dcl.Copy(*r).(InstanceGroupManager)
-	normalized.CreationTimestamp = dcl.SelfLinkToName(r.CreationTimestamp)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Zone = dcl.SelfLinkToName(r.Zone)
-	normalized.Region = dcl.SelfLinkToName(r.Region)
-	normalized.InstanceTemplate = r.InstanceTemplate
-	normalized.InstanceGroup = dcl.SelfLinkToName(r.InstanceGroup)
-	normalized.BaseInstanceName = dcl.SelfLinkToName(r.BaseInstanceName)
-	normalized.Fingerprint = dcl.SelfLinkToName(r.Fingerprint)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.ServiceAccount = dcl.SelfLinkToName(r.ServiceAccount)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
 }
 
 func (c *Client) GetInstanceGroupManager(ctx context.Context, r *InstanceGroupManager) (*InstanceGroupManager, error) {
@@ -1184,8 +1158,8 @@ func (c *Client) DeleteInstanceGroupManager(ctx context.Context, r *InstanceGrou
 }
 
 // DeleteAllInstanceGroupManager deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllInstanceGroupManager(ctx context.Context, project, location string, filter func(*InstanceGroupManager) bool) error {
-	listObj, err := c.ListInstanceGroupManager(ctx, project, location)
+func (c *Client) DeleteAllInstanceGroupManager(ctx context.Context, r *InstanceGroupManager, filter func(*InstanceGroupManager) bool) error {
+	listObj, err := c.ListInstanceGroupManager(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -1310,7 +1284,7 @@ func applyInstanceGroupManagerHelper(c *Client, ctx context.Context, rawDesired 
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetInstanceGroupManager(ctx, desired.URLNormalized())
+	rawNew, err := c.GetInstanceGroupManager(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

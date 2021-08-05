@@ -326,7 +326,7 @@ message DeleteContaineranalysisNoteRequest {
 
 message ListContaineranalysisNoteRequest {
   string service_account_file = 1;
-  string Project = 2;
+	ContaineranalysisNote resource = 2;
 }
 
 message ListContaineranalysisNoteResponse {

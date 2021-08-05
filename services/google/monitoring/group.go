@@ -54,7 +54,7 @@ type GroupList struct {
 
 	pageSize int32
 
-	project string
+	resource *Group
 }
 
 func (l *GroupList) HasNext() bool {
@@ -68,7 +68,7 @@ func (l *GroupList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listGroup(ctx, l.project, l.nextToken, l.pageSize)
+	items, token, err := c.listGroup(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -77,19 +77,19 @@ func (l *GroupList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListGroup(ctx context.Context, project string) (*GroupList, error) {
+func (c *Client) ListGroup(ctx context.Context, r *Group) (*GroupList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListGroupWithMaxResults(ctx, project, GroupMaxPage)
+	return c.ListGroupWithMaxResults(ctx, r, GroupMaxPage)
 
 }
 
-func (c *Client) ListGroupWithMaxResults(ctx context.Context, project string, pageSize int32) (*GroupList, error) {
+func (c *Client) ListGroupWithMaxResults(ctx context.Context, r *Group, pageSize int32) (*GroupList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listGroup(ctx, project, "", pageSize)
+	items, token, err := c.listGroup(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -97,22 +97,8 @@ func (c *Client) ListGroupWithMaxResults(ctx context.Context, project string, pa
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Group) URLNormalized() *Group {
-	normalized := dcl.Copy(*r).(Group)
-	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
-	normalized.Filter = dcl.SelfLinkToName(r.Filter)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.ParentName = dcl.SelfLinkToName(r.ParentName)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
 }
 
 func (c *Client) GetGroup(ctx context.Context, r *Group) (*Group, error) {
@@ -160,8 +146,8 @@ func (c *Client) DeleteGroup(ctx context.Context, r *Group) error {
 }
 
 // DeleteAllGroup deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllGroup(ctx context.Context, project string, filter func(*Group) bool) error {
-	listObj, err := c.ListGroup(ctx, project)
+func (c *Client) DeleteAllGroup(ctx context.Context, r *Group, filter func(*Group) bool) error {
+	listObj, err := c.ListGroup(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -285,7 +271,7 @@ func applyGroupHelper(c *Client, ctx context.Context, rawDesired *Group, opts ..
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetGroup(ctx, desired.URLNormalized())
+	rawNew, err := c.GetGroup(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

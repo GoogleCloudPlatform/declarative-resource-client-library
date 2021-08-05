@@ -55,7 +55,7 @@ type LogExclusionList struct {
 
 	pageSize int32
 
-	parent string
+	resource *LogExclusion
 }
 
 func (l *LogExclusionList) HasNext() bool {
@@ -69,7 +69,7 @@ func (l *LogExclusionList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listLogExclusion(ctx, l.parent, l.nextToken, l.pageSize)
+	items, token, err := c.listLogExclusion(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -78,19 +78,19 @@ func (l *LogExclusionList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListLogExclusion(ctx context.Context, parent string) (*LogExclusionList, error) {
+func (c *Client) ListLogExclusion(ctx context.Context, r *LogExclusion) (*LogExclusionList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListLogExclusionWithMaxResults(ctx, parent, LogExclusionMaxPage)
+	return c.ListLogExclusionWithMaxResults(ctx, r, LogExclusionMaxPage)
 
 }
 
-func (c *Client) ListLogExclusionWithMaxResults(ctx context.Context, parent string, pageSize int32) (*LogExclusionList, error) {
+func (c *Client) ListLogExclusionWithMaxResults(ctx context.Context, r *LogExclusion, pageSize int32) (*LogExclusionList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listLogExclusion(ctx, parent, "", pageSize)
+	items, token, err := c.listLogExclusion(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -98,21 +98,8 @@ func (c *Client) ListLogExclusionWithMaxResults(ctx context.Context, parent stri
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		parent: parent,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *LogExclusion) URLNormalized() *LogExclusion {
-	normalized := dcl.Copy(*r).(LogExclusion)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Filter = dcl.SelfLinkToName(r.Filter)
-	normalized.Parent = r.Parent
-	return &normalized
 }
 
 func (c *Client) GetLogExclusion(ctx context.Context, r *LogExclusion) (*LogExclusion, error) {
@@ -160,8 +147,8 @@ func (c *Client) DeleteLogExclusion(ctx context.Context, r *LogExclusion) error 
 }
 
 // DeleteAllLogExclusion deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllLogExclusion(ctx context.Context, parent string, filter func(*LogExclusion) bool) error {
-	listObj, err := c.ListLogExclusion(ctx, parent)
+func (c *Client) DeleteAllLogExclusion(ctx context.Context, r *LogExclusion, filter func(*LogExclusion) bool) error {
+	listObj, err := c.ListLogExclusion(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -285,7 +272,7 @@ func applyLogExclusionHelper(c *Client, ctx context.Context, rawDesired *LogExcl
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetLogExclusion(ctx, desired.URLNormalized())
+	rawNew, err := c.GetLogExclusion(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

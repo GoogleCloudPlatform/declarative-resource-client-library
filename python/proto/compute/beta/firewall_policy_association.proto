@@ -38,7 +38,7 @@ message DeleteComputeBetaFirewallPolicyAssociationRequest {
 
 message ListComputeBetaFirewallPolicyAssociationRequest {
   string service_account_file = 1;
-  string FirewallPolicy = 2;
+	ComputeBetaFirewallPolicyAssociation resource = 2;
 }
 
 message ListComputeBetaFirewallPolicyAssociationResponse {

@@ -462,11 +462,7 @@ type AwsNodePoolList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
-
-	awsCluster string
+	resource *AwsNodePool
 }
 
 func (l *AwsNodePoolList) HasNext() bool {
@@ -480,7 +476,7 @@ func (l *AwsNodePoolList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listAwsNodePool(ctx, l.project, l.location, l.awsCluster, l.nextToken, l.pageSize)
+	items, token, err := c.listAwsNodePool(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -489,19 +485,19 @@ func (l *AwsNodePoolList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListAwsNodePool(ctx context.Context, project, location, awsCluster string) (*AwsNodePoolList, error) {
+func (c *Client) ListAwsNodePool(ctx context.Context, r *AwsNodePool) (*AwsNodePoolList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListAwsNodePoolWithMaxResults(ctx, project, location, awsCluster, AwsNodePoolMaxPage)
+	return c.ListAwsNodePoolWithMaxResults(ctx, r, AwsNodePoolMaxPage)
 
 }
 
-func (c *Client) ListAwsNodePoolWithMaxResults(ctx context.Context, project, location, awsCluster string, pageSize int32) (*AwsNodePoolList, error) {
+func (c *Client) ListAwsNodePoolWithMaxResults(ctx context.Context, r *AwsNodePool, pageSize int32) (*AwsNodePoolList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listAwsNodePool(ctx, project, location, awsCluster, "", pageSize)
+	items, token, err := c.listAwsNodePool(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -509,29 +505,8 @@ func (c *Client) ListAwsNodePoolWithMaxResults(ctx context.Context, project, loc
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		location: location,
-
-		awsCluster: awsCluster,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *AwsNodePool) URLNormalized() *AwsNodePool {
-	normalized := dcl.Copy(*r).(AwsNodePool)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Version = dcl.SelfLinkToName(r.Version)
-	normalized.SubnetId = dcl.SelfLinkToName(r.SubnetId)
-	normalized.Uid = dcl.SelfLinkToName(r.Uid)
-	normalized.Etag = dcl.SelfLinkToName(r.Etag)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	normalized.AwsCluster = dcl.SelfLinkToName(r.AwsCluster)
-	return &normalized
 }
 
 func (c *Client) GetAwsNodePool(ctx context.Context, r *AwsNodePool) (*AwsNodePool, error) {
@@ -581,8 +556,8 @@ func (c *Client) DeleteAwsNodePool(ctx context.Context, r *AwsNodePool) error {
 }
 
 // DeleteAllAwsNodePool deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllAwsNodePool(ctx context.Context, project, location, awsCluster string, filter func(*AwsNodePool) bool) error {
-	listObj, err := c.ListAwsNodePool(ctx, project, location, awsCluster)
+func (c *Client) DeleteAllAwsNodePool(ctx context.Context, r *AwsNodePool, filter func(*AwsNodePool) bool) error {
+	listObj, err := c.ListAwsNodePool(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -706,7 +681,7 @@ func applyAwsNodePoolHelper(c *Client, ctx context.Context, rawDesired *AwsNodeP
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetAwsNodePool(ctx, desired.URLNormalized())
+	rawNew, err := c.GetAwsNodePool(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

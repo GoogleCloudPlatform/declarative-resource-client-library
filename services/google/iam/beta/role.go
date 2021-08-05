@@ -139,7 +139,7 @@ type RoleList struct {
 
 	pageSize int32
 
-	parent string
+	resource *Role
 }
 
 func (l *RoleList) HasNext() bool {
@@ -153,7 +153,7 @@ func (l *RoleList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listRole(ctx, l.parent, l.nextToken, l.pageSize)
+	items, token, err := c.listRole(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -162,19 +162,19 @@ func (l *RoleList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListRole(ctx context.Context, parent string) (*RoleList, error) {
+func (c *Client) ListRole(ctx context.Context, r *Role) (*RoleList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListRoleWithMaxResults(ctx, parent, RoleMaxPage)
+	return c.ListRoleWithMaxResults(ctx, r, RoleMaxPage)
 
 }
 
-func (c *Client) ListRoleWithMaxResults(ctx context.Context, parent string, pageSize int32) (*RoleList, error) {
+func (c *Client) ListRoleWithMaxResults(ctx context.Context, r *Role, pageSize int32) (*RoleList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listRole(ctx, parent, "", pageSize)
+	items, token, err := c.listRole(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -182,25 +182,8 @@ func (c *Client) ListRoleWithMaxResults(ctx context.Context, parent string, page
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		parent: parent,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Role) URLNormalized() *Role {
-	normalized := dcl.Copy(*r).(Role)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Title = dcl.SelfLinkToName(r.Title)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.LifecyclePhase = dcl.SelfLinkToName(r.LifecyclePhase)
-	normalized.GroupName = dcl.SelfLinkToName(r.GroupName)
-	normalized.GroupTitle = dcl.SelfLinkToName(r.GroupTitle)
-	normalized.Etag = dcl.SelfLinkToName(r.Etag)
-	normalized.Parent = r.Parent
-	return &normalized
 }
 
 func (c *Client) GetRole(ctx context.Context, r *Role) (*Role, error) {
@@ -248,8 +231,8 @@ func (c *Client) DeleteRole(ctx context.Context, r *Role) error {
 }
 
 // DeleteAllRole deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllRole(ctx context.Context, parent string, filter func(*Role) bool) error {
-	listObj, err := c.ListRole(ctx, parent)
+func (c *Client) DeleteAllRole(ctx context.Context, r *Role, filter func(*Role) bool) error {
+	listObj, err := c.ListRole(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -373,7 +356,7 @@ func applyRoleHelper(c *Client, ctx context.Context, rawDesired *Role, opts ...d
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetRole(ctx, desired.URLNormalized())
+	rawNew, err := c.GetRole(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

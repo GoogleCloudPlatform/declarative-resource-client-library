@@ -124,46 +124,56 @@ func (r *AwsNodePoolMaxPodsConstraint) validate() error {
 	}
 	return nil
 }
-
-func awsNodePoolGetURL(userBasePath string, r *AwsNodePool) (string, error) {
+func (r *AwsNodePool) basePath() string {
 	params := map[string]interface{}{
-		"project":    dcl.ValueOrEmptyString(r.Project),
-		"location":   dcl.ValueOrEmptyString(r.Location),
-		"awsCluster": dcl.ValueOrEmptyString(r.AwsCluster),
-		"name":       dcl.ValueOrEmptyString(r.Name),
+		"location": dcl.ValueOrEmptyString(r.Location),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/awsClusters/{{awsCluster}}/awsNodePools/{{name}}", "https://us-west1-gkemulticloud.googleapis.com/v1", userBasePath, params), nil
+	return dcl.Nprintf("https://{{location}}-gkemulticloud.googleapis.com/v1", params)
 }
 
-func awsNodePoolListURL(userBasePath, project, location, awsCluster string) (string, error) {
+func (r *AwsNodePool) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":    project,
-		"location":   location,
-		"awsCluster": awsCluster,
+		"project":    dcl.ValueOrEmptyString(nr.Project),
+		"location":   dcl.ValueOrEmptyString(nr.Location),
+		"awsCluster": dcl.ValueOrEmptyString(nr.AwsCluster),
+		"name":       dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/awsClusters/{{awsCluster}}/awsNodePools", "https://us-west1-gkemulticloud.googleapis.com/v1", userBasePath, params), nil
-
+	return dcl.URL("projects/{{project}}/locations/{{location}}/awsClusters/{{awsCluster}}/awsNodePools/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-func awsNodePoolCreateURL(userBasePath, project, location, awsCluster, name string) (string, error) {
+func (r *AwsNodePool) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":    project,
-		"location":   location,
-		"awsCluster": awsCluster,
-		"name":       name,
+		"project":    dcl.ValueOrEmptyString(nr.Project),
+		"location":   dcl.ValueOrEmptyString(nr.Location),
+		"awsCluster": dcl.ValueOrEmptyString(nr.AwsCluster),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/awsClusters/{{awsCluster}}/awsNodePools?awsNodePoolId={{name}}", "https://us-west1-gkemulticloud.googleapis.com/v1", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/awsClusters/{{awsCluster}}/awsNodePools", nr.basePath(), userBasePath, params), nil
 
 }
 
-func awsNodePoolDeleteURL(userBasePath string, r *AwsNodePool) (string, error) {
+func (r *AwsNodePool) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":    dcl.ValueOrEmptyString(r.Project),
-		"location":   dcl.ValueOrEmptyString(r.Location),
-		"awsCluster": dcl.ValueOrEmptyString(r.AwsCluster),
-		"name":       dcl.ValueOrEmptyString(r.Name),
+		"project":    dcl.ValueOrEmptyString(nr.Project),
+		"location":   dcl.ValueOrEmptyString(nr.Location),
+		"awsCluster": dcl.ValueOrEmptyString(nr.AwsCluster),
+		"name":       dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/awsClusters/{{awsCluster}}/awsNodePools/{{name}}", "https://us-west1-gkemulticloud.googleapis.com/v1", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/awsClusters/{{awsCluster}}/awsNodePools?awsNodePoolId={{name}}", nr.basePath(), userBasePath, params), nil
+
+}
+
+func (r *AwsNodePool) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project":    dcl.ValueOrEmptyString(nr.Project),
+		"location":   dcl.ValueOrEmptyString(nr.Location),
+		"awsCluster": dcl.ValueOrEmptyString(nr.AwsCluster),
+		"name":       dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/awsClusters/{{awsCluster}}/awsNodePools/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // awsNodePoolApiOperation represents a mutable operation in the underlying REST
@@ -172,8 +182,8 @@ type awsNodePoolApiOperation interface {
 	do(context.Context, *AwsNodePool, *Client) error
 }
 
-func (c *Client) listAwsNodePoolRaw(ctx context.Context, project, location, awsCluster, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := awsNodePoolListURL(c.Config.BasePath, project, location, awsCluster)
+func (c *Client) listAwsNodePoolRaw(ctx context.Context, r *AwsNodePool, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -204,8 +214,8 @@ type listAwsNodePoolOperation struct {
 	Token        string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listAwsNodePool(ctx context.Context, project, location, awsCluster, pageToken string, pageSize int32) ([]*AwsNodePool, string, error) {
-	b, err := c.listAwsNodePoolRaw(ctx, project, location, awsCluster, pageToken, pageSize)
+func (c *Client) listAwsNodePool(ctx context.Context, r *AwsNodePool, pageToken string, pageSize int32) ([]*AwsNodePool, string, error) {
+	b, err := c.listAwsNodePoolRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -221,9 +231,9 @@ func (c *Client) listAwsNodePool(ctx context.Context, project, location, awsClus
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
-		res.Location = &location
-		res.AwsCluster = &awsCluster
+		res.Project = r.Project
+		res.Location = r.Location
+		res.AwsCluster = r.AwsCluster
 		l = append(l, res)
 	}
 
@@ -251,7 +261,7 @@ func (c *Client) deleteAllAwsNodePool(ctx context.Context, f func(*AwsNodePool) 
 type deleteAwsNodePoolOperation struct{}
 
 func (op *deleteAwsNodePoolOperation) do(ctx context.Context, r *AwsNodePool, c *Client) error {
-	r, err := c.GetAwsNodePool(ctx, r.URLNormalized())
+	r, err := c.GetAwsNodePool(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("AwsNodePool not found, returning. Original error: %v", err)
@@ -261,7 +271,7 @@ func (op *deleteAwsNodePoolOperation) do(ctx context.Context, r *AwsNodePool, c 
 		return err
 	}
 
-	u, err := awsNodePoolDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -278,7 +288,7 @@ func (op *deleteAwsNodePoolOperation) do(ctx context.Context, r *AwsNodePool, c 
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://us-west1-gkemulticloud.googleapis.com/v1", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		return err
 	}
 
@@ -286,7 +296,7 @@ func (op *deleteAwsNodePoolOperation) do(ctx context.Context, r *AwsNodePool, c 
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetAwsNodePool(ctx, r.URLNormalized())
+		_, err = c.GetAwsNodePool(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -312,10 +322,7 @@ func (op *createAwsNodePoolOperation) FirstResponse() (map[string]interface{}, b
 
 func (op *createAwsNodePoolOperation) do(ctx context.Context, r *AwsNodePool, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, location, awsCluster, name := r.createFields()
-	u, err := awsNodePoolCreateURL(c.Config.BasePath, project, location, awsCluster, name)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -333,14 +340,14 @@ func (op *createAwsNodePoolOperation) do(ctx context.Context, r *AwsNodePool, c 
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://us-west1-gkemulticloud.googleapis.com/v1", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetAwsNodePool(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetAwsNodePool(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -350,7 +357,7 @@ func (op *createAwsNodePoolOperation) do(ctx context.Context, r *AwsNodePool, c 
 
 func (c *Client) getAwsNodePoolRaw(ctx context.Context, r *AwsNodePool) ([]byte, error) {
 
-	u, err := awsNodePoolGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -383,7 +390,7 @@ func (c *Client) awsNodePoolDiffsForRawDesired(ctx context.Context, rawDesired *
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetAwsNodePool(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetAwsNodePool(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a AwsNodePool resource already exists: %s", err)
@@ -1499,19 +1506,20 @@ func compareAwsNodePoolMaxPodsConstraintNewStyle(d, a interface{}, fn dcl.FieldN
 	return diffs, nil
 }
 
-func (r *AwsNodePool) getFields() (string, string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.AwsCluster), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *AwsNodePool) createFields() (string, string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.AwsCluster), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *AwsNodePool) deleteFields() (string, string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.AwsCluster), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *AwsNodePool) urlNormalized() *AwsNodePool {
+	normalized := dcl.Copy(*r).(AwsNodePool)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Version = dcl.SelfLinkToName(r.Version)
+	normalized.SubnetId = dcl.SelfLinkToName(r.SubnetId)
+	normalized.Uid = dcl.SelfLinkToName(r.Uid)
+	normalized.Etag = dcl.SelfLinkToName(r.Etag)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.AwsCluster = dcl.SelfLinkToName(r.AwsCluster)
+	return &normalized
 }
 
 func (r *AwsNodePool) updateURL(userBasePath, updateName string) (string, error) {
@@ -2550,8 +2558,8 @@ func (r *AwsNodePool) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

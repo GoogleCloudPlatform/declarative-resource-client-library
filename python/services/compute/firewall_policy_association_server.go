@@ -86,7 +86,7 @@ func (s *FirewallPolicyAssociationServer) ListComputeFirewallPolicyAssociation(c
 		return nil, err
 	}
 
-	resources, err := cl.ListFirewallPolicyAssociation(ctx, request.FirewallPolicy)
+	resources, err := cl.ListFirewallPolicyAssociation(ctx, ProtoToFirewallPolicyAssociation(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

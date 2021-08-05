@@ -38,46 +38,54 @@ func (r *Assignment) validate() error {
 	}
 	return nil
 }
-
-func assignmentGetURL(userBasePath string, r *Assignment) (string, error) {
-	params := map[string]interface{}{
-		"project":     dcl.ValueOrEmptyString(r.Project),
-		"location":    dcl.ValueOrEmptyString(r.Location),
-		"reservation": dcl.ValueOrEmptyString(r.Reservation),
-		"assignee":    dcl.ValueOrEmptyString(r.Assignee),
-		"jobType":     dcl.ValueOrEmptyString(r.JobType),
-	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/reservations/{{reservation}}/assignments?fetchId=%s%s", "https://bigqueryreservation.googleapis.com/v1/", userBasePath, params), nil
+func (r *Assignment) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://bigqueryreservation.googleapis.com/v1/", params)
 }
 
-func assignmentListURL(userBasePath, project, location, reservation string) (string, error) {
+func (r *Assignment) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":     project,
-		"location":    location,
-		"reservation": reservation,
+		"project":     dcl.ValueOrEmptyString(nr.Project),
+		"location":    dcl.ValueOrEmptyString(nr.Location),
+		"reservation": dcl.ValueOrEmptyString(nr.Reservation),
+		"assignee":    dcl.ValueOrEmptyString(nr.Assignee),
+		"jobType":     dcl.ValueOrEmptyString(nr.JobType),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/reservations/{{reservation}}/assignments", "https://bigqueryreservation.googleapis.com/v1/", userBasePath, params), nil
-
+	return dcl.URL("projects/{{project}}/locations/{{location}}/reservations/{{reservation}}/assignments?fetchId=%s%s", nr.basePath(), userBasePath, params), nil
 }
 
-func assignmentCreateURL(userBasePath, project, location, reservation string) (string, error) {
+func (r *Assignment) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":     project,
-		"location":    location,
-		"reservation": reservation,
+		"project":     dcl.ValueOrEmptyString(nr.Project),
+		"location":    dcl.ValueOrEmptyString(nr.Location),
+		"reservation": dcl.ValueOrEmptyString(nr.Reservation),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/reservations/{{reservation}}/assignments", "https://bigqueryreservation.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/reservations/{{reservation}}/assignments", nr.basePath(), userBasePath, params), nil
 
 }
 
-func assignmentDeleteURL(userBasePath string, r *Assignment) (string, error) {
+func (r *Assignment) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":     dcl.ValueOrEmptyString(r.Project),
-		"location":    dcl.ValueOrEmptyString(r.Location),
-		"reservation": dcl.ValueOrEmptyString(r.Reservation),
-		"name":        dcl.ValueOrEmptyString(r.Name),
+		"project":     dcl.ValueOrEmptyString(nr.Project),
+		"location":    dcl.ValueOrEmptyString(nr.Location),
+		"reservation": dcl.ValueOrEmptyString(nr.Reservation),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/reservations/{{reservation}}/assignments/{{name}}", "https://bigqueryreservation.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/reservations/{{reservation}}/assignments", nr.basePath(), userBasePath, params), nil
+
+}
+
+func (r *Assignment) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project":     dcl.ValueOrEmptyString(nr.Project),
+		"location":    dcl.ValueOrEmptyString(nr.Location),
+		"reservation": dcl.ValueOrEmptyString(nr.Reservation),
+		"name":        dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/reservations/{{reservation}}/assignments/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // assignmentApiOperation represents a mutable operation in the underlying REST
@@ -86,8 +94,8 @@ type assignmentApiOperation interface {
 	do(context.Context, *Assignment, *Client) error
 }
 
-func (c *Client) listAssignmentRaw(ctx context.Context, project, location, reservation, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := assignmentListURL(c.Config.BasePath, project, location, reservation)
+func (c *Client) listAssignmentRaw(ctx context.Context, r *Assignment, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -118,8 +126,8 @@ type listAssignmentOperation struct {
 	Token       string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listAssignment(ctx context.Context, project, location, reservation, pageToken string, pageSize int32) ([]*Assignment, string, error) {
-	b, err := c.listAssignmentRaw(ctx, project, location, reservation, pageToken, pageSize)
+func (c *Client) listAssignment(ctx context.Context, r *Assignment, pageToken string, pageSize int32) ([]*Assignment, string, error) {
+	b, err := c.listAssignmentRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -135,9 +143,9 @@ func (c *Client) listAssignment(ctx context.Context, project, location, reservat
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
-		res.Location = &location
-		res.Reservation = &reservation
+		res.Project = r.Project
+		res.Location = r.Location
+		res.Reservation = r.Reservation
 		l = append(l, res)
 	}
 
@@ -165,7 +173,7 @@ func (c *Client) deleteAllAssignment(ctx context.Context, f func(*Assignment) bo
 type deleteAssignmentOperation struct{}
 
 func (op *deleteAssignmentOperation) do(ctx context.Context, r *Assignment, c *Client) error {
-	r, err := c.GetAssignment(ctx, r.URLNormalized())
+	r, err := c.GetAssignment(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Assignment not found, returning. Original error: %v", err)
@@ -175,7 +183,7 @@ func (op *deleteAssignmentOperation) do(ctx context.Context, r *Assignment, c *C
 		return err
 	}
 
-	u, err := assignmentDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -191,7 +199,7 @@ func (op *deleteAssignmentOperation) do(ctx context.Context, r *Assignment, c *C
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetAssignment(ctx, r.URLNormalized())
+		_, err = c.GetAssignment(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -217,10 +225,7 @@ func (op *createAssignmentOperation) FirstResponse() (map[string]interface{}, bo
 
 func (op *createAssignmentOperation) do(ctx context.Context, r *Assignment, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, location, reservation := r.createFields()
-	u, err := assignmentCreateURL(c.Config.BasePath, project, location, reservation)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -247,7 +252,7 @@ func (op *createAssignmentOperation) do(ctx context.Context, r *Assignment, c *C
 	}
 	r.Name = &name
 
-	if _, err := c.GetAssignment(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetAssignment(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -257,7 +262,7 @@ func (op *createAssignmentOperation) do(ctx context.Context, r *Assignment, c *C
 
 func (c *Client) getAssignmentRaw(ctx context.Context, r *Assignment) ([]byte, error) {
 
-	u, err := assignmentGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -300,7 +305,7 @@ func (c *Client) assignmentDiffsForRawDesired(ctx context.Context, rawDesired *A
 		return nil, desired, nil, err
 	}
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetAssignment(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetAssignment(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Assignment resource already exists: %s", err)
@@ -489,19 +494,17 @@ func diffAssignment(c *Client, desired, actual *Assignment, opts ...dcl.ApplyOpt
 	return newDiffs, nil
 }
 
-func (r *Assignment) getFields() (string, string, string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Reservation), dcl.ValueOrEmptyString(n.Assignee), dcl.ValueOrEmptyString(n.JobType)
-}
-
-func (r *Assignment) createFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Reservation)
-}
-
-func (r *Assignment) deleteFields() (string, string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Reservation), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Assignment) urlNormalized() *Assignment {
+	normalized := dcl.Copy(*r).(Assignment)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Assignee = dcl.SelfLinkToName(r.Assignee)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.Reservation = dcl.SelfLinkToName(r.Reservation)
+	return &normalized
 }
 
 func (r *Assignment) updateURL(userBasePath, updateName string) (string, error) {
@@ -703,8 +706,8 @@ func (r *Assignment) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Assignee == nil && ncr.Assignee == nil {

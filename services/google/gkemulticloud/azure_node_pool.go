@@ -336,11 +336,7 @@ type AzureNodePoolList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
-
-	azureCluster string
+	resource *AzureNodePool
 }
 
 func (l *AzureNodePoolList) HasNext() bool {
@@ -354,7 +350,7 @@ func (l *AzureNodePoolList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listAzureNodePool(ctx, l.project, l.location, l.azureCluster, l.nextToken, l.pageSize)
+	items, token, err := c.listAzureNodePool(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -363,19 +359,19 @@ func (l *AzureNodePoolList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListAzureNodePool(ctx context.Context, project, location, azureCluster string) (*AzureNodePoolList, error) {
+func (c *Client) ListAzureNodePool(ctx context.Context, r *AzureNodePool) (*AzureNodePoolList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListAzureNodePoolWithMaxResults(ctx, project, location, azureCluster, AzureNodePoolMaxPage)
+	return c.ListAzureNodePoolWithMaxResults(ctx, r, AzureNodePoolMaxPage)
 
 }
 
-func (c *Client) ListAzureNodePoolWithMaxResults(ctx context.Context, project, location, azureCluster string, pageSize int32) (*AzureNodePoolList, error) {
+func (c *Client) ListAzureNodePoolWithMaxResults(ctx context.Context, r *AzureNodePool, pageSize int32) (*AzureNodePoolList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listAzureNodePool(ctx, project, location, azureCluster, "", pageSize)
+	items, token, err := c.listAzureNodePool(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -383,30 +379,8 @@ func (c *Client) ListAzureNodePoolWithMaxResults(ctx context.Context, project, l
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		location: location,
-
-		azureCluster: azureCluster,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *AzureNodePool) URLNormalized() *AzureNodePool {
-	normalized := dcl.Copy(*r).(AzureNodePool)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Version = dcl.SelfLinkToName(r.Version)
-	normalized.SubnetId = dcl.SelfLinkToName(r.SubnetId)
-	normalized.Uid = dcl.SelfLinkToName(r.Uid)
-	normalized.Etag = dcl.SelfLinkToName(r.Etag)
-	normalized.AzureAvailabilityZone = dcl.SelfLinkToName(r.AzureAvailabilityZone)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	normalized.AzureCluster = dcl.SelfLinkToName(r.AzureCluster)
-	return &normalized
 }
 
 func (c *Client) GetAzureNodePool(ctx context.Context, r *AzureNodePool) (*AzureNodePool, error) {
@@ -456,8 +430,8 @@ func (c *Client) DeleteAzureNodePool(ctx context.Context, r *AzureNodePool) erro
 }
 
 // DeleteAllAzureNodePool deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllAzureNodePool(ctx context.Context, project, location, azureCluster string, filter func(*AzureNodePool) bool) error {
-	listObj, err := c.ListAzureNodePool(ctx, project, location, azureCluster)
+func (c *Client) DeleteAllAzureNodePool(ctx context.Context, r *AzureNodePool, filter func(*AzureNodePool) bool) error {
+	listObj, err := c.ListAzureNodePool(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -581,7 +555,7 @@ func applyAzureNodePoolHelper(c *Client, ctx context.Context, rawDesired *AzureN
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetAzureNodePool(ctx, desired.URLNormalized())
+	rawNew, err := c.GetAzureNodePool(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

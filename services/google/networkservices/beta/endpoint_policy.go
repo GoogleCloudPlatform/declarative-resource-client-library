@@ -307,9 +307,7 @@ type EndpointPolicyList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
+	resource *EndpointPolicy
 }
 
 func (l *EndpointPolicyList) HasNext() bool {
@@ -323,7 +321,7 @@ func (l *EndpointPolicyList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listEndpointPolicy(ctx, l.project, l.location, l.nextToken, l.pageSize)
+	items, token, err := c.listEndpointPolicy(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -332,19 +330,19 @@ func (l *EndpointPolicyList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListEndpointPolicy(ctx context.Context, project, location string) (*EndpointPolicyList, error) {
+func (c *Client) ListEndpointPolicy(ctx context.Context, r *EndpointPolicy) (*EndpointPolicyList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListEndpointPolicyWithMaxResults(ctx, project, location, EndpointPolicyMaxPage)
+	return c.ListEndpointPolicyWithMaxResults(ctx, r, EndpointPolicyMaxPage)
 
 }
 
-func (c *Client) ListEndpointPolicyWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*EndpointPolicyList, error) {
+func (c *Client) ListEndpointPolicyWithMaxResults(ctx context.Context, r *EndpointPolicy, pageSize int32) (*EndpointPolicyList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listEndpointPolicy(ctx, project, location, "", pageSize)
+	items, token, err := c.listEndpointPolicy(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -352,26 +350,8 @@ func (c *Client) ListEndpointPolicyWithMaxResults(ctx context.Context, project, 
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		location: location,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *EndpointPolicy) URLNormalized() *EndpointPolicy {
-	normalized := dcl.Copy(*r).(EndpointPolicy)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.AuthorizationPolicy = dcl.SelfLinkToName(r.AuthorizationPolicy)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.ServerTlsPolicy = dcl.SelfLinkToName(r.ServerTlsPolicy)
-	normalized.ClientTlsPolicy = dcl.SelfLinkToName(r.ClientTlsPolicy)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
 }
 
 func (c *Client) GetEndpointPolicy(ctx context.Context, r *EndpointPolicy) (*EndpointPolicy, error) {
@@ -420,8 +400,8 @@ func (c *Client) DeleteEndpointPolicy(ctx context.Context, r *EndpointPolicy) er
 }
 
 // DeleteAllEndpointPolicy deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllEndpointPolicy(ctx context.Context, project, location string, filter func(*EndpointPolicy) bool) error {
-	listObj, err := c.ListEndpointPolicy(ctx, project, location)
+func (c *Client) DeleteAllEndpointPolicy(ctx context.Context, r *EndpointPolicy, filter func(*EndpointPolicy) bool) error {
+	listObj, err := c.ListEndpointPolicy(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -545,7 +525,7 @@ func applyEndpointPolicyHelper(c *Client, ctx context.Context, rawDesired *Endpo
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetEndpointPolicy(ctx, desired.URLNormalized())
+	rawNew, err := c.GetEndpointPolicy(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

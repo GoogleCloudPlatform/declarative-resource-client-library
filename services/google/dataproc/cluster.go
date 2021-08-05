@@ -1345,9 +1345,7 @@ type ClusterList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
+	resource *Cluster
 }
 
 func (l *ClusterList) HasNext() bool {
@@ -1361,7 +1359,7 @@ func (l *ClusterList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listCluster(ctx, l.project, l.location, l.nextToken, l.pageSize)
+	items, token, err := c.listCluster(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -1370,19 +1368,19 @@ func (l *ClusterList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListCluster(ctx context.Context, project, location string) (*ClusterList, error) {
+func (c *Client) ListCluster(ctx context.Context, r *Cluster) (*ClusterList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListClusterWithMaxResults(ctx, project, location, ClusterMaxPage)
+	return c.ListClusterWithMaxResults(ctx, r, ClusterMaxPage)
 
 }
 
-func (c *Client) ListClusterWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*ClusterList, error) {
+func (c *Client) ListClusterWithMaxResults(ctx context.Context, r *Cluster, pageSize int32) (*ClusterList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listCluster(ctx, project, location, "", pageSize)
+	items, token, err := c.listCluster(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -1390,23 +1388,8 @@ func (c *Client) ListClusterWithMaxResults(ctx context.Context, project, locatio
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		location: location,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Cluster) URLNormalized() *Cluster {
-	normalized := dcl.Copy(*r).(Cluster)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.ClusterUuid = dcl.SelfLinkToName(r.ClusterUuid)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
 }
 
 func (c *Client) GetCluster(ctx context.Context, r *Cluster) (*Cluster, error) {
@@ -1455,8 +1438,8 @@ func (c *Client) DeleteCluster(ctx context.Context, r *Cluster) error {
 }
 
 // DeleteAllCluster deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllCluster(ctx context.Context, project, location string, filter func(*Cluster) bool) error {
-	listObj, err := c.ListCluster(ctx, project, location)
+func (c *Client) DeleteAllCluster(ctx context.Context, r *Cluster, filter func(*Cluster) bool) error {
+	listObj, err := c.ListCluster(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -1580,7 +1563,7 @@ func applyClusterHelper(c *Client, ctx context.Context, rawDesired *Cluster, opt
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetCluster(ctx, desired.URLNormalized())
+	rawNew, err := c.GetCluster(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

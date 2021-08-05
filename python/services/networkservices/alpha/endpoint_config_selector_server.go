@@ -272,7 +272,7 @@ func (s *EndpointConfigSelectorServer) ListNetworkservicesAlphaEndpointConfigSel
 		return nil, err
 	}
 
-	resources, err := cl.ListEndpointConfigSelector(ctx, request.Project, request.Location)
+	resources, err := cl.ListEndpointConfigSelector(ctx, ProtoToEndpointConfigSelector(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

@@ -109,11 +109,7 @@ type AssignmentList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
-
-	reservation string
+	resource *Assignment
 }
 
 func (l *AssignmentList) HasNext() bool {
@@ -127,7 +123,7 @@ func (l *AssignmentList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listAssignment(ctx, l.project, l.location, l.reservation, l.nextToken, l.pageSize)
+	items, token, err := c.listAssignment(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -136,19 +132,19 @@ func (l *AssignmentList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListAssignment(ctx context.Context, project, location, reservation string) (*AssignmentList, error) {
+func (c *Client) ListAssignment(ctx context.Context, r *Assignment) (*AssignmentList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListAssignmentWithMaxResults(ctx, project, location, reservation, AssignmentMaxPage)
+	return c.ListAssignmentWithMaxResults(ctx, r, AssignmentMaxPage)
 
 }
 
-func (c *Client) ListAssignmentWithMaxResults(ctx context.Context, project, location, reservation string, pageSize int32) (*AssignmentList, error) {
+func (c *Client) ListAssignmentWithMaxResults(ctx context.Context, r *Assignment, pageSize int32) (*AssignmentList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listAssignment(ctx, project, location, reservation, "", pageSize)
+	items, token, err := c.listAssignment(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -156,26 +152,8 @@ func (c *Client) ListAssignmentWithMaxResults(ctx context.Context, project, loca
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		location: location,
-
-		reservation: reservation,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Assignment) URLNormalized() *Assignment {
-	normalized := dcl.Copy(*r).(Assignment)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Assignee = dcl.SelfLinkToName(r.Assignee)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	normalized.Reservation = dcl.SelfLinkToName(r.Reservation)
-	return &normalized
 }
 
 func (c *Client) GetAssignment(ctx context.Context, r *Assignment) (*Assignment, error) {
@@ -226,8 +204,8 @@ func (c *Client) DeleteAssignment(ctx context.Context, r *Assignment) error {
 }
 
 // DeleteAllAssignment deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllAssignment(ctx context.Context, project, location, reservation string, filter func(*Assignment) bool) error {
-	listObj, err := c.ListAssignment(ctx, project, location, reservation)
+func (c *Client) DeleteAllAssignment(ctx context.Context, r *Assignment, filter func(*Assignment) bool) error {
+	listObj, err := c.ListAssignment(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -361,7 +339,7 @@ func applyAssignmentHelper(c *Client, ctx context.Context, rawDesired *Assignmen
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetAssignment(ctx, desired.URLNormalized())
+	rawNew, err := c.GetAssignment(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

@@ -146,7 +146,7 @@ type RouteList struct {
 
 	pageSize int32
 
-	project string
+	resource *Route
 }
 
 func (l *RouteList) HasNext() bool {
@@ -160,7 +160,7 @@ func (l *RouteList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listRoute(ctx, l.project, l.nextToken, l.pageSize)
+	items, token, err := c.listRoute(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -169,19 +169,19 @@ func (l *RouteList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListRoute(ctx context.Context, project string) (*RouteList, error) {
+func (c *Client) ListRoute(ctx context.Context, r *Route) (*RouteList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListRouteWithMaxResults(ctx, project, RouteMaxPage)
+	return c.ListRouteWithMaxResults(ctx, r, RouteMaxPage)
 
 }
 
-func (c *Client) ListRouteWithMaxResults(ctx context.Context, project string, pageSize int32) (*RouteList, error) {
+func (c *Client) ListRouteWithMaxResults(ctx context.Context, r *Route, pageSize int32) (*RouteList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listRoute(ctx, project, "", pageSize)
+	items, token, err := c.listRoute(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -189,30 +189,8 @@ func (c *Client) ListRouteWithMaxResults(ctx context.Context, project string, pa
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Route) URLNormalized() *Route {
-	normalized := dcl.Copy(*r).(Route)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Network = dcl.SelfLinkToName(r.Network)
-	normalized.DestRange = dcl.SelfLinkToName(r.DestRange)
-	normalized.NextHopInstance = dcl.SelfLinkToName(r.NextHopInstance)
-	normalized.NextHopIP = dcl.SelfLinkToName(r.NextHopIP)
-	normalized.NextHopNetwork = dcl.SelfLinkToName(r.NextHopNetwork)
-	normalized.NextHopGateway = dcl.SelfLinkToName(r.NextHopGateway)
-	normalized.NextHopPeering = dcl.SelfLinkToName(r.NextHopPeering)
-	normalized.NextHopIlb = dcl.SelfLinkToName(r.NextHopIlb)
-	normalized.NextHopVpnTunnel = dcl.SelfLinkToName(r.NextHopVpnTunnel)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
 }
 
 func (c *Client) GetRoute(ctx context.Context, r *Route) (*Route, error) {
@@ -263,8 +241,8 @@ func (c *Client) DeleteRoute(ctx context.Context, r *Route) error {
 }
 
 // DeleteAllRoute deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllRoute(ctx context.Context, project string, filter func(*Route) bool) error {
-	listObj, err := c.ListRoute(ctx, project)
+func (c *Client) DeleteAllRoute(ctx context.Context, r *Route, filter func(*Route) bool) error {
+	listObj, err := c.ListRoute(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -388,7 +366,7 @@ func applyRouteHelper(c *Client, ctx context.Context, rawDesired *Route, opts ..
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetRoute(ctx, desired.URLNormalized())
+	rawNew, err := c.GetRoute(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

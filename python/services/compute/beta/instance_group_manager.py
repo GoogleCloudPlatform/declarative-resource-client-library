@@ -274,18 +274,84 @@ class InstanceGroupManager(object):
 
         response = stub.DeleteComputeBetaInstanceGroupManager(request)
 
-    @classmethod
-    def list(self, project, location, service_account_file=""):
+    def list(self):
         stub = instance_group_manager_pb2_grpc.ComputeBetaInstanceGroupManagerServiceStub(
             channel.Channel()
         )
         request = (
             instance_group_manager_pb2.ListComputeBetaInstanceGroupManagerRequest()
         )
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if InstanceGroupManagerDistributionPolicy.to_proto(self.distribution_policy):
+            request.resource.distribution_policy.CopyFrom(
+                InstanceGroupManagerDistributionPolicy.to_proto(
+                    self.distribution_policy
+                )
+            )
+        else:
+            request.resource.ClearField("distribution_policy")
+        if Primitive.to_proto(self.instance_template):
+            request.resource.instance_template = Primitive.to_proto(
+                self.instance_template
+            )
+
+        if InstanceGroupManagerVersionsArray.to_proto(self.versions):
+            request.resource.versions.extend(
+                InstanceGroupManagerVersionsArray.to_proto(self.versions)
+            )
+        if Primitive.to_proto(self.target_pools):
+            request.resource.target_pools.extend(Primitive.to_proto(self.target_pools))
+        if Primitive.to_proto(self.base_instance_name):
+            request.resource.base_instance_name = Primitive.to_proto(
+                self.base_instance_name
+            )
+
+        if Primitive.to_proto(self.target_size):
+            request.resource.target_size = Primitive.to_proto(self.target_size)
+
+        if InstanceGroupManagerAutoHealingPoliciesArray.to_proto(
+            self.auto_healing_policies
+        ):
+            request.resource.auto_healing_policies.extend(
+                InstanceGroupManagerAutoHealingPoliciesArray.to_proto(
+                    self.auto_healing_policies
+                )
+            )
+        if InstanceGroupManagerUpdatePolicy.to_proto(self.update_policy):
+            request.resource.update_policy.CopyFrom(
+                InstanceGroupManagerUpdatePolicy.to_proto(self.update_policy)
+            )
+        else:
+            request.resource.ClearField("update_policy")
+        if InstanceGroupManagerNamedPortsArray.to_proto(self.named_ports):
+            request.resource.named_ports.extend(
+                InstanceGroupManagerNamedPortsArray.to_proto(self.named_ports)
+            )
+        if InstanceGroupManagerStatefulPolicy.to_proto(self.stateful_policy):
+            request.resource.stateful_policy.CopyFrom(
+                InstanceGroupManagerStatefulPolicy.to_proto(self.stateful_policy)
+            )
+        else:
+            request.resource.ClearField("stateful_policy")
+        if Primitive.to_proto(self.service_account):
+            request.resource.service_account = Primitive.to_proto(self.service_account)
+
+        if InstanceGroupManagerFailoverActionEnum.to_proto(self.failover_action):
+            request.resource.failover_action = InstanceGroupManagerFailoverActionEnum.to_proto(
+                self.failover_action
+            )
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         return stub.ListComputeBetaInstanceGroupManager(request).items
 

@@ -278,8 +278,7 @@ message DeleteOsconfigAlphaOSPolicyAssignmentRequest {
 
 message ListOsconfigAlphaOSPolicyAssignmentRequest {
   string service_account_file = 1;
-  string Project = 2;
-  string Location = 3;
+	OsconfigAlphaOSPolicyAssignment resource = 2;
 }
 
 message ListOsconfigAlphaOSPolicyAssignmentResponse {

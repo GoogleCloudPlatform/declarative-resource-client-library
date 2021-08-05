@@ -307,9 +307,7 @@ type ForwardingRuleList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
+	resource *ForwardingRule
 }
 
 func (l *ForwardingRuleList) HasNext() bool {
@@ -323,7 +321,7 @@ func (l *ForwardingRuleList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listForwardingRule(ctx, l.project, l.location, l.nextToken, l.pageSize)
+	items, token, err := c.listForwardingRule(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -332,19 +330,19 @@ func (l *ForwardingRuleList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListForwardingRule(ctx context.Context, project, location string) (*ForwardingRuleList, error) {
+func (c *Client) ListForwardingRule(ctx context.Context, r *ForwardingRule) (*ForwardingRuleList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListForwardingRuleWithMaxResults(ctx, project, location, ForwardingRuleMaxPage)
+	return c.ListForwardingRuleWithMaxResults(ctx, r, ForwardingRuleMaxPage)
 
 }
 
-func (c *Client) ListForwardingRuleWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*ForwardingRuleList, error) {
+func (c *Client) ListForwardingRuleWithMaxResults(ctx context.Context, r *ForwardingRule, pageSize int32) (*ForwardingRuleList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listForwardingRule(ctx, project, location, "", pageSize)
+	items, token, err := c.listForwardingRule(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -352,34 +350,8 @@ func (c *Client) ListForwardingRuleWithMaxResults(ctx context.Context, project, 
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		location: location,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *ForwardingRule) URLNormalized() *ForwardingRule {
-	normalized := dcl.Copy(*r).(ForwardingRule)
-	normalized.BackendService = dcl.SelfLinkToName(r.BackendService)
-	normalized.CreationTimestamp = dcl.SelfLinkToName(r.CreationTimestamp)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.IPAddress = dcl.SelfLinkToName(r.IPAddress)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Network = dcl.SelfLinkToName(r.Network)
-	normalized.PortRange = dcl.SelfLinkToName(r.PortRange)
-	normalized.Region = dcl.SelfLinkToName(r.Region)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.ServiceLabel = dcl.SelfLinkToName(r.ServiceLabel)
-	normalized.ServiceName = dcl.SelfLinkToName(r.ServiceName)
-	normalized.Subnetwork = dcl.SelfLinkToName(r.Subnetwork)
-	normalized.Target = dcl.SelfLinkToName(r.Target)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
 }
 
 func (c *Client) GetForwardingRule(ctx context.Context, r *ForwardingRule) (*ForwardingRule, error) {
@@ -428,8 +400,8 @@ func (c *Client) DeleteForwardingRule(ctx context.Context, r *ForwardingRule) er
 }
 
 // DeleteAllForwardingRule deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllForwardingRule(ctx context.Context, project, location string, filter func(*ForwardingRule) bool) error {
-	listObj, err := c.ListForwardingRule(ctx, project, location)
+func (c *Client) DeleteAllForwardingRule(ctx context.Context, r *ForwardingRule, filter func(*ForwardingRule) bool) error {
+	listObj, err := c.ListForwardingRule(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -553,7 +525,7 @@ func applyForwardingRuleHelper(c *Client, ctx context.Context, rawDesired *Forwa
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetForwardingRule(ctx, desired.URLNormalized())
+	rawNew, err := c.GetForwardingRule(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

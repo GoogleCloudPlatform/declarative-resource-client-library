@@ -164,18 +164,48 @@ class AwsNodePool(object):
 
         response = stub.DeleteGkemulticloudAwsNodePool(request)
 
-    @classmethod
-    def list(self, project, location, awsCluster, service_account_file=""):
+    def list(self):
         stub = aws_node_pool_pb2_grpc.GkemulticloudAwsNodePoolServiceStub(
             channel.Channel()
         )
         request = aws_node_pool_pb2.ListGkemulticloudAwsNodePoolRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if Primitive.to_proto(self.version):
+            request.resource.version = Primitive.to_proto(self.version)
 
-        request.AwsCluster = awsCluster
+        if AwsNodePoolConfig.to_proto(self.config):
+            request.resource.config.CopyFrom(AwsNodePoolConfig.to_proto(self.config))
+        else:
+            request.resource.ClearField("config")
+        if AwsNodePoolAutoscaling.to_proto(self.autoscaling):
+            request.resource.autoscaling.CopyFrom(
+                AwsNodePoolAutoscaling.to_proto(self.autoscaling)
+            )
+        else:
+            request.resource.ClearField("autoscaling")
+        if Primitive.to_proto(self.subnet_id):
+            request.resource.subnet_id = Primitive.to_proto(self.subnet_id)
+
+        if Primitive.to_proto(self.annotations):
+            request.resource.annotations = Primitive.to_proto(self.annotations)
+
+        if AwsNodePoolMaxPodsConstraint.to_proto(self.max_pods_constraint):
+            request.resource.max_pods_constraint.CopyFrom(
+                AwsNodePoolMaxPodsConstraint.to_proto(self.max_pods_constraint)
+            )
+        else:
+            request.resource.ClearField("max_pods_constraint")
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
+
+        if Primitive.to_proto(self.aws_cluster):
+            request.resource.aws_cluster = Primitive.to_proto(self.aws_cluster)
 
         return stub.ListGkemulticloudAwsNodePool(request).items
 

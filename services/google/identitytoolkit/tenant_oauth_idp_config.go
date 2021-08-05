@@ -111,9 +111,7 @@ type TenantOAuthIdpConfigList struct {
 
 	pageSize int32
 
-	project string
-
-	tenant string
+	resource *TenantOAuthIdpConfig
 }
 
 func (l *TenantOAuthIdpConfigList) HasNext() bool {
@@ -127,7 +125,7 @@ func (l *TenantOAuthIdpConfigList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listTenantOAuthIdpConfig(ctx, l.project, l.tenant, l.nextToken, l.pageSize)
+	items, token, err := c.listTenantOAuthIdpConfig(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -136,19 +134,19 @@ func (l *TenantOAuthIdpConfigList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListTenantOAuthIdpConfig(ctx context.Context, project, tenant string) (*TenantOAuthIdpConfigList, error) {
+func (c *Client) ListTenantOAuthIdpConfig(ctx context.Context, r *TenantOAuthIdpConfig) (*TenantOAuthIdpConfigList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListTenantOAuthIdpConfigWithMaxResults(ctx, project, tenant, TenantOAuthIdpConfigMaxPage)
+	return c.ListTenantOAuthIdpConfigWithMaxResults(ctx, r, TenantOAuthIdpConfigMaxPage)
 
 }
 
-func (c *Client) ListTenantOAuthIdpConfigWithMaxResults(ctx context.Context, project, tenant string, pageSize int32) (*TenantOAuthIdpConfigList, error) {
+func (c *Client) ListTenantOAuthIdpConfigWithMaxResults(ctx context.Context, r *TenantOAuthIdpConfig, pageSize int32) (*TenantOAuthIdpConfigList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listTenantOAuthIdpConfig(ctx, project, tenant, "", pageSize)
+	items, token, err := c.listTenantOAuthIdpConfig(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -156,26 +154,8 @@ func (c *Client) ListTenantOAuthIdpConfigWithMaxResults(ctx context.Context, pro
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		tenant: tenant,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *TenantOAuthIdpConfig) URLNormalized() *TenantOAuthIdpConfig {
-	normalized := dcl.Copy(*r).(TenantOAuthIdpConfig)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.ClientId = dcl.SelfLinkToName(r.ClientId)
-	normalized.Issuer = dcl.SelfLinkToName(r.Issuer)
-	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
-	normalized.ClientSecret = dcl.SelfLinkToName(r.ClientSecret)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Tenant = dcl.SelfLinkToName(r.Tenant)
-	return &normalized
 }
 
 func (c *Client) GetTenantOAuthIdpConfig(ctx context.Context, r *TenantOAuthIdpConfig) (*TenantOAuthIdpConfig, error) {
@@ -224,8 +204,8 @@ func (c *Client) DeleteTenantOAuthIdpConfig(ctx context.Context, r *TenantOAuthI
 }
 
 // DeleteAllTenantOAuthIdpConfig deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllTenantOAuthIdpConfig(ctx context.Context, project, tenant string, filter func(*TenantOAuthIdpConfig) bool) error {
-	listObj, err := c.ListTenantOAuthIdpConfig(ctx, project, tenant)
+func (c *Client) DeleteAllTenantOAuthIdpConfig(ctx context.Context, r *TenantOAuthIdpConfig, filter func(*TenantOAuthIdpConfig) bool) error {
+	listObj, err := c.ListTenantOAuthIdpConfig(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -349,7 +329,7 @@ func applyTenantOAuthIdpConfigHelper(c *Client, ctx context.Context, rawDesired 
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetTenantOAuthIdpConfig(ctx, desired.URLNormalized())
+	rawNew, err := c.GetTenantOAuthIdpConfig(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

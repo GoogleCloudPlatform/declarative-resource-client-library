@@ -78,42 +78,50 @@ func (r *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels) valida
 func (r *EndpointPolicyTrafficPortSelector) validate() error {
 	return nil
 }
-
-func endpointPolicyGetURL(userBasePath string, r *EndpointPolicy) (string, error) {
-	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/endpointPolicies/{{name}}", "https://networkservices.googleapis.com/v1beta1/", userBasePath, params), nil
+func (r *EndpointPolicy) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://networkservices.googleapis.com/v1beta1/", params)
 }
 
-func endpointPolicyListURL(userBasePath, project, location string) (string, error) {
+func (r *EndpointPolicy) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/endpointPolicies", "https://networkservices.googleapis.com/v1beta1/", userBasePath, params), nil
-
+	return dcl.URL("projects/{{project}}/locations/{{location}}/endpointPolicies/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-func endpointPolicyCreateURL(userBasePath, project, location, name string) (string, error) {
+func (r *EndpointPolicy) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
-		"name":     name,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/endpointPolicies?endpointPolicyId={{name}}", "https://networkservices.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/endpointPolicies", nr.basePath(), userBasePath, params), nil
 
 }
 
-func endpointPolicyDeleteURL(userBasePath string, r *EndpointPolicy) (string, error) {
+func (r *EndpointPolicy) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/endpointPolicies/{{name}}", "https://networkservices.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/endpointPolicies?endpointPolicyId={{name}}", nr.basePath(), userBasePath, params), nil
+
+}
+
+func (r *EndpointPolicy) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/endpointPolicies/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // endpointPolicyApiOperation represents a mutable operation in the underlying REST
@@ -179,7 +187,7 @@ type updateEndpointPolicyUpdateEndpointPolicyOperation struct {
 // PUT request to a single URL.
 
 func (op *updateEndpointPolicyUpdateEndpointPolicyOperation) do(ctx context.Context, r *EndpointPolicy, c *Client) error {
-	_, err := c.GetEndpointPolicy(ctx, r.URLNormalized())
+	_, err := c.GetEndpointPolicy(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -208,7 +216,7 @@ func (op *updateEndpointPolicyUpdateEndpointPolicyOperation) do(ctx context.Cont
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	err = o.Wait(ctx, c.Config, "https://networkservices.googleapis.com/v1beta1/", "GET")
+	err = o.Wait(ctx, c.Config, r.basePath(), "GET")
 
 	if err != nil {
 		return err
@@ -217,8 +225,8 @@ func (op *updateEndpointPolicyUpdateEndpointPolicyOperation) do(ctx context.Cont
 	return nil
 }
 
-func (c *Client) listEndpointPolicyRaw(ctx context.Context, project, location, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := endpointPolicyListURL(c.Config.BasePath, project, location)
+func (c *Client) listEndpointPolicyRaw(ctx context.Context, r *EndpointPolicy, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -249,8 +257,8 @@ type listEndpointPolicyOperation struct {
 	Token            string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listEndpointPolicy(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*EndpointPolicy, string, error) {
-	b, err := c.listEndpointPolicyRaw(ctx, project, location, pageToken, pageSize)
+func (c *Client) listEndpointPolicy(ctx context.Context, r *EndpointPolicy, pageToken string, pageSize int32) ([]*EndpointPolicy, string, error) {
+	b, err := c.listEndpointPolicyRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -266,8 +274,8 @@ func (c *Client) listEndpointPolicy(ctx context.Context, project, location, page
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
-		res.Location = &location
+		res.Project = r.Project
+		res.Location = r.Location
 		l = append(l, res)
 	}
 
@@ -295,7 +303,7 @@ func (c *Client) deleteAllEndpointPolicy(ctx context.Context, f func(*EndpointPo
 type deleteEndpointPolicyOperation struct{}
 
 func (op *deleteEndpointPolicyOperation) do(ctx context.Context, r *EndpointPolicy, c *Client) error {
-	r, err := c.GetEndpointPolicy(ctx, r.URLNormalized())
+	r, err := c.GetEndpointPolicy(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("EndpointPolicy not found, returning. Original error: %v", err)
@@ -305,7 +313,7 @@ func (op *deleteEndpointPolicyOperation) do(ctx context.Context, r *EndpointPoli
 		return err
 	}
 
-	u, err := endpointPolicyDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -322,7 +330,7 @@ func (op *deleteEndpointPolicyOperation) do(ctx context.Context, r *EndpointPoli
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://networkservices.googleapis.com/v1beta1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		return err
 	}
 
@@ -330,7 +338,7 @@ func (op *deleteEndpointPolicyOperation) do(ctx context.Context, r *EndpointPoli
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetEndpointPolicy(ctx, r.URLNormalized())
+		_, err = c.GetEndpointPolicy(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -356,10 +364,7 @@ func (op *createEndpointPolicyOperation) FirstResponse() (map[string]interface{}
 
 func (op *createEndpointPolicyOperation) do(ctx context.Context, r *EndpointPolicy, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, location, name := r.createFields()
-	u, err := endpointPolicyCreateURL(c.Config.BasePath, project, location, name)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -377,14 +382,14 @@ func (op *createEndpointPolicyOperation) do(ctx context.Context, r *EndpointPoli
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://networkservices.googleapis.com/v1beta1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetEndpointPolicy(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetEndpointPolicy(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -394,7 +399,7 @@ func (op *createEndpointPolicyOperation) do(ctx context.Context, r *EndpointPoli
 
 func (c *Client) getEndpointPolicyRaw(ctx context.Context, r *EndpointPolicy) ([]byte, error) {
 
-	u, err := endpointPolicyGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -427,7 +432,7 @@ func (c *Client) endpointPolicyDiffsForRawDesired(ctx context.Context, rawDesire
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetEndpointPolicy(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetEndpointPolicy(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a EndpointPolicy resource already exists: %s", err)
@@ -1166,32 +1171,33 @@ func compareEndpointPolicyTrafficPortSelectorNewStyle(d, a interface{}, fn dcl.F
 	return diffs, nil
 }
 
-func (r *EndpointPolicy) getFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *EndpointPolicy) createFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *EndpointPolicy) deleteFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *EndpointPolicy) urlNormalized() *EndpointPolicy {
+	normalized := dcl.Copy(*r).(EndpointPolicy)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.AuthorizationPolicy = dcl.SelfLinkToName(r.AuthorizationPolicy)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.ServerTlsPolicy = dcl.SelfLinkToName(r.ServerTlsPolicy)
+	normalized.ClientTlsPolicy = dcl.SelfLinkToName(r.ClientTlsPolicy)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
 }
 
 func (r *EndpointPolicy) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "UpdateEndpointPolicy" {
 		fields := map[string]interface{}{
-			"project":  dcl.ValueOrEmptyString(n.Project),
-			"location": dcl.ValueOrEmptyString(n.Location),
-			"name":     dcl.ValueOrEmptyString(n.Name),
+			"project":  dcl.ValueOrEmptyString(nr.Project),
+			"location": dcl.ValueOrEmptyString(nr.Location),
+			"name":     dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("projects/{{project}}/locations/{{location}}/endpointPolicies/{{name}}", "https://networkservices.googleapis.com/v1beta1/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/locations/{{location}}/endpointPolicies/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -1886,8 +1892,8 @@ func (r *EndpointPolicy) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

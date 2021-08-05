@@ -168,42 +168,52 @@ func (r *AwsClusterAuthorizationAdminUsers) validate() error {
 func (r *AwsClusterWorkloadIdentityConfig) validate() error {
 	return nil
 }
-
-func awsClusterGetURL(userBasePath string, r *AwsCluster) (string, error) {
+func (r *AwsCluster) basePath() string {
 	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
 		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/awsClusters/{{name}}", "https://us-west1-gkemulticloud.googleapis.com/v1", userBasePath, params), nil
+	return dcl.Nprintf("https://{{location}}-gkemulticloud.googleapis.com/v1", params)
 }
 
-func awsClusterListURL(userBasePath, project, location string) (string, error) {
+func (r *AwsCluster) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/awsClusters", "https://us-west1-gkemulticloud.googleapis.com/v1", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/awsClusters/{{name}}", nr.basePath(), userBasePath, params), nil
+}
+
+func (r *AwsCluster) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/awsClusters", nr.basePath(), userBasePath, params), nil
 
 }
 
-func awsClusterCreateURL(userBasePath, project, location, name string) (string, error) {
+func (r *AwsCluster) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
-		"name":     name,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/awsClusters?awsClusterId={{name}}", "https://us-west1-gkemulticloud.googleapis.com/v1", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/awsClusters?awsClusterId={{name}}", nr.basePath(), userBasePath, params), nil
 
 }
 
-func awsClusterDeleteURL(userBasePath string, r *AwsCluster) (string, error) {
+func (r *AwsCluster) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/awsClusters/{{name}}", "https://us-west1-gkemulticloud.googleapis.com/v1", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/awsClusters/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // awsClusterApiOperation represents a mutable operation in the underlying REST
@@ -212,8 +222,8 @@ type awsClusterApiOperation interface {
 	do(context.Context, *AwsCluster, *Client) error
 }
 
-func (c *Client) listAwsClusterRaw(ctx context.Context, project, location, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := awsClusterListURL(c.Config.BasePath, project, location)
+func (c *Client) listAwsClusterRaw(ctx context.Context, r *AwsCluster, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -244,8 +254,8 @@ type listAwsClusterOperation struct {
 	Token       string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listAwsCluster(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*AwsCluster, string, error) {
-	b, err := c.listAwsClusterRaw(ctx, project, location, pageToken, pageSize)
+func (c *Client) listAwsCluster(ctx context.Context, r *AwsCluster, pageToken string, pageSize int32) ([]*AwsCluster, string, error) {
+	b, err := c.listAwsClusterRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -261,8 +271,8 @@ func (c *Client) listAwsCluster(ctx context.Context, project, location, pageToke
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
-		res.Location = &location
+		res.Project = r.Project
+		res.Location = r.Location
 		l = append(l, res)
 	}
 
@@ -290,7 +300,7 @@ func (c *Client) deleteAllAwsCluster(ctx context.Context, f func(*AwsCluster) bo
 type deleteAwsClusterOperation struct{}
 
 func (op *deleteAwsClusterOperation) do(ctx context.Context, r *AwsCluster, c *Client) error {
-	r, err := c.GetAwsCluster(ctx, r.URLNormalized())
+	r, err := c.GetAwsCluster(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("AwsCluster not found, returning. Original error: %v", err)
@@ -300,7 +310,7 @@ func (op *deleteAwsClusterOperation) do(ctx context.Context, r *AwsCluster, c *C
 		return err
 	}
 
-	u, err := awsClusterDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -317,7 +327,7 @@ func (op *deleteAwsClusterOperation) do(ctx context.Context, r *AwsCluster, c *C
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://us-west1-gkemulticloud.googleapis.com/v1", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		return err
 	}
 
@@ -325,7 +335,7 @@ func (op *deleteAwsClusterOperation) do(ctx context.Context, r *AwsCluster, c *C
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetAwsCluster(ctx, r.URLNormalized())
+		_, err = c.GetAwsCluster(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -351,10 +361,7 @@ func (op *createAwsClusterOperation) FirstResponse() (map[string]interface{}, bo
 
 func (op *createAwsClusterOperation) do(ctx context.Context, r *AwsCluster, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, location, name := r.createFields()
-	u, err := awsClusterCreateURL(c.Config.BasePath, project, location, name)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -372,14 +379,14 @@ func (op *createAwsClusterOperation) do(ctx context.Context, r *AwsCluster, c *C
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://us-west1-gkemulticloud.googleapis.com/v1", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetAwsCluster(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetAwsCluster(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -389,7 +396,7 @@ func (op *createAwsClusterOperation) do(ctx context.Context, r *AwsCluster, c *C
 
 func (c *Client) getAwsClusterRaw(ctx context.Context, r *AwsCluster) ([]byte, error) {
 
-	u, err := awsClusterGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -422,7 +429,7 @@ func (c *Client) awsClusterDiffsForRawDesired(ctx context.Context, rawDesired *A
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetAwsCluster(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetAwsCluster(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a AwsCluster resource already exists: %s", err)
@@ -2094,19 +2101,20 @@ func compareAwsClusterWorkloadIdentityConfigNewStyle(d, a interface{}, fn dcl.Fi
 	return diffs, nil
 }
 
-func (r *AwsCluster) getFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *AwsCluster) createFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *AwsCluster) deleteFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *AwsCluster) urlNormalized() *AwsCluster {
+	normalized := dcl.Copy(*r).(AwsCluster)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.AwsRegion = dcl.SelfLinkToName(r.AwsRegion)
+	normalized.Endpoint = dcl.SelfLinkToName(r.Endpoint)
+	normalized.Uid = dcl.SelfLinkToName(r.Uid)
+	normalized.Etag = dcl.SelfLinkToName(r.Etag)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
 }
 
 func (r *AwsCluster) updateURL(userBasePath, updateName string) (string, error) {
@@ -3647,8 +3655,8 @@ func (r *AwsCluster) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

@@ -57,38 +57,46 @@ func (r *AttestorUserOwnedDrydockNotePublicKeys) validate() error {
 func (r *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) validate() error {
 	return nil
 }
-
-func attestorGetURL(userBasePath string, r *Attestor) (string, error) {
-	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(r.Project),
-		"name":    dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("projects/{{project}}/attestors/{{name}}", "https://binaryauthorization.googleapis.com/v1", userBasePath, params), nil
+func (r *Attestor) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://binaryauthorization.googleapis.com/v1", params)
 }
 
-func attestorListURL(userBasePath, project string) (string, error) {
+func (r *Attestor) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": project,
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/attestors", "https://binaryauthorization.googleapis.com/v1", userBasePath, params), nil
-
+	return dcl.URL("projects/{{project}}/attestors/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-func attestorCreateURL(userBasePath, project, name string) (string, error) {
+func (r *Attestor) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": project,
-		"name":    name,
+		"project": dcl.ValueOrEmptyString(nr.Project),
 	}
-	return dcl.URL("projects/{{project}}/attestors?attestorId={{name}}", "https://binaryauthorization.googleapis.com/v1", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/attestors", nr.basePath(), userBasePath, params), nil
 
 }
 
-func attestorDeleteURL(userBasePath string, r *Attestor) (string, error) {
+func (r *Attestor) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(r.Project),
-		"name":    dcl.ValueOrEmptyString(r.Name),
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/attestors/{{name}}", "https://binaryauthorization.googleapis.com/v1", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/attestors?attestorId={{name}}", nr.basePath(), userBasePath, params), nil
+
+}
+
+func (r *Attestor) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("projects/{{project}}/attestors/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // attestorApiOperation represents a mutable operation in the underlying REST
@@ -134,7 +142,7 @@ type updateAttestorUpdateAttestorOperation struct {
 // PUT request to a single URL.
 
 func (op *updateAttestorUpdateAttestorOperation) do(ctx context.Context, r *Attestor, c *Client) error {
-	_, err := c.GetAttestor(ctx, r.URLNormalized())
+	_, err := c.GetAttestor(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -162,8 +170,8 @@ func (op *updateAttestorUpdateAttestorOperation) do(ctx context.Context, r *Atte
 	return nil
 }
 
-func (c *Client) listAttestorRaw(ctx context.Context, project, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := attestorListURL(c.Config.BasePath, project)
+func (c *Client) listAttestorRaw(ctx context.Context, r *Attestor, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -194,8 +202,8 @@ type listAttestorOperation struct {
 	Token     string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listAttestor(ctx context.Context, project, pageToken string, pageSize int32) ([]*Attestor, string, error) {
-	b, err := c.listAttestorRaw(ctx, project, pageToken, pageSize)
+func (c *Client) listAttestor(ctx context.Context, r *Attestor, pageToken string, pageSize int32) ([]*Attestor, string, error) {
+	b, err := c.listAttestorRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -211,7 +219,7 @@ func (c *Client) listAttestor(ctx context.Context, project, pageToken string, pa
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
+		res.Project = r.Project
 		l = append(l, res)
 	}
 
@@ -239,7 +247,7 @@ func (c *Client) deleteAllAttestor(ctx context.Context, f func(*Attestor) bool, 
 type deleteAttestorOperation struct{}
 
 func (op *deleteAttestorOperation) do(ctx context.Context, r *Attestor, c *Client) error {
-	r, err := c.GetAttestor(ctx, r.URLNormalized())
+	r, err := c.GetAttestor(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Attestor not found, returning. Original error: %v", err)
@@ -249,7 +257,7 @@ func (op *deleteAttestorOperation) do(ctx context.Context, r *Attestor, c *Clien
 		return err
 	}
 
-	u, err := attestorDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -265,7 +273,7 @@ func (op *deleteAttestorOperation) do(ctx context.Context, r *Attestor, c *Clien
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetAttestor(ctx, r.URLNormalized())
+		_, err = c.GetAttestor(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -291,10 +299,7 @@ func (op *createAttestorOperation) FirstResponse() (map[string]interface{}, bool
 
 func (op *createAttestorOperation) do(ctx context.Context, r *Attestor, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, name := r.createFields()
-	u, err := attestorCreateURL(c.Config.BasePath, project, name)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -314,7 +319,7 @@ func (op *createAttestorOperation) do(ctx context.Context, r *Attestor, c *Clien
 	}
 	op.response = o
 
-	if _, err := c.GetAttestor(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetAttestor(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -324,7 +329,7 @@ func (op *createAttestorOperation) do(ctx context.Context, r *Attestor, c *Clien
 
 func (c *Client) getAttestorRaw(ctx context.Context, r *Attestor) ([]byte, error) {
 
-	u, err := attestorGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -357,7 +362,7 @@ func (c *Client) attestorDiffsForRawDesired(ctx context.Context, rawDesired *Att
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetAttestor(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetAttestor(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Attestor resource already exists: %s", err)
@@ -913,31 +918,28 @@ func compareAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyNewStyle(d, a int
 	return diffs, nil
 }
 
-func (r *Attestor) getFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *Attestor) createFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *Attestor) deleteFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Attestor) urlNormalized() *Attestor {
+	normalized := dcl.Copy(*r).(Attestor)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
 }
 
 func (r *Attestor) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "UpdateAttestor" {
 		fields := map[string]interface{}{
-			"project": dcl.ValueOrEmptyString(n.Project),
-			"name":    dcl.ValueOrEmptyString(n.Name),
+			"project": dcl.ValueOrEmptyString(nr.Project),
+			"name":    dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("projects/{{project}}/attestors/{{name}}", "https://binaryauthorization.googleapis.com/v1", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/attestors/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -1447,8 +1449,8 @@ func (r *Attestor) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

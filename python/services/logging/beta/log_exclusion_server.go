@@ -92,7 +92,7 @@ func (s *LogExclusionServer) ListLoggingBetaLogExclusion(ctx context.Context, re
 		return nil, err
 	}
 
-	resources, err := cl.ListLogExclusion(ctx, request.Parent)
+	resources, err := cl.ListLogExclusion(ctx, ProtoToLogExclusion(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

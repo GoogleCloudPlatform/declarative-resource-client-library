@@ -371,7 +371,7 @@ func (s *AzureClusterServer) ListGkemulticloudAzureCluster(ctx context.Context, 
 		return nil, err
 	}
 
-	resources, err := cl.ListAzureCluster(ctx, request.Project, request.Location)
+	resources, err := cl.ListAzureCluster(ctx, ProtoToAzureCluster(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

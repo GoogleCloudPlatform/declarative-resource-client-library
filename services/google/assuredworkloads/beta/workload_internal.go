@@ -65,41 +65,49 @@ func (r *WorkloadKmsSettings) validate() error {
 func (r *WorkloadResourceSettings) validate() error {
 	return nil
 }
-
-func workloadGetURL(userBasePath string, r *Workload) (string, error) {
-	params := map[string]interface{}{
-		"organization": dcl.ValueOrEmptyString(r.Organization),
-		"location":     dcl.ValueOrEmptyString(r.Location),
-		"name":         dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("organizations/{{organization}}/locations/{{location}}/workloads/{{name}}", "https://us-central1-assuredworkloads.googleapis.com/v1beta1/", userBasePath, params), nil
+func (r *Workload) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://us-central1-assuredworkloads.googleapis.com/v1beta1/", params)
 }
 
-func workloadListURL(userBasePath, organization, location string) (string, error) {
+func (r *Workload) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"organization": organization,
-		"location":     location,
+		"organization": dcl.ValueOrEmptyString(nr.Organization),
+		"location":     dcl.ValueOrEmptyString(nr.Location),
+		"name":         dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("organizations/{{organization}}/locations/{{location}}/workloads", "https://us-central1-assuredworkloads.googleapis.com/v1beta1/", userBasePath, params), nil
-
+	return dcl.URL("organizations/{{organization}}/locations/{{location}}/workloads/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-func workloadCreateURL(userBasePath, organization, location string) (string, error) {
+func (r *Workload) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"organization": organization,
-		"location":     location,
+		"organization": dcl.ValueOrEmptyString(nr.Organization),
+		"location":     dcl.ValueOrEmptyString(nr.Location),
 	}
-	return dcl.URL("organizations/{{organization}}/locations/{{location}}/workloads", "https://us-central1-assuredworkloads.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("organizations/{{organization}}/locations/{{location}}/workloads", nr.basePath(), userBasePath, params), nil
 
 }
 
-func workloadDeleteURL(userBasePath string, r *Workload) (string, error) {
+func (r *Workload) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"organization": dcl.ValueOrEmptyString(r.Organization),
-		"location":     dcl.ValueOrEmptyString(r.Location),
-		"name":         dcl.ValueOrEmptyString(r.Name),
+		"organization": dcl.ValueOrEmptyString(nr.Organization),
+		"location":     dcl.ValueOrEmptyString(nr.Location),
 	}
-	return dcl.URL("organizations/{{organization}}/locations/{{location}}/workloads/{{name}}", "https://us-central1-assuredworkloads.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("organizations/{{organization}}/locations/{{location}}/workloads", nr.basePath(), userBasePath, params), nil
+
+}
+
+func (r *Workload) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"organization": dcl.ValueOrEmptyString(nr.Organization),
+		"location":     dcl.ValueOrEmptyString(nr.Location),
+		"name":         dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("organizations/{{organization}}/locations/{{location}}/workloads/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // workloadApiOperation represents a mutable operation in the underlying REST
@@ -120,7 +128,7 @@ func newUpdateWorkloadUpdateWorkloadRequest(ctx context.Context, f *Workload, c 
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
 	}
-	b, err := c.getWorkloadRaw(ctx, f.URLNormalized())
+	b, err := c.getWorkloadRaw(ctx, f)
 	if err != nil {
 		return nil, err
 	}
@@ -160,7 +168,7 @@ type updateWorkloadUpdateWorkloadOperation struct {
 // PUT request to a single URL.
 
 func (op *updateWorkloadUpdateWorkloadOperation) do(ctx context.Context, r *Workload, c *Client) error {
-	_, err := c.GetWorkload(ctx, r.URLNormalized())
+	_, err := c.GetWorkload(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -193,8 +201,8 @@ func (op *updateWorkloadUpdateWorkloadOperation) do(ctx context.Context, r *Work
 	return nil
 }
 
-func (c *Client) listWorkloadRaw(ctx context.Context, organization, location, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := workloadListURL(c.Config.BasePath, organization, location)
+func (c *Client) listWorkloadRaw(ctx context.Context, r *Workload, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -225,8 +233,8 @@ type listWorkloadOperation struct {
 	Token     string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listWorkload(ctx context.Context, organization, location, pageToken string, pageSize int32) ([]*Workload, string, error) {
-	b, err := c.listWorkloadRaw(ctx, organization, location, pageToken, pageSize)
+func (c *Client) listWorkload(ctx context.Context, r *Workload, pageToken string, pageSize int32) ([]*Workload, string, error) {
+	b, err := c.listWorkloadRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -242,8 +250,8 @@ func (c *Client) listWorkload(ctx context.Context, organization, location, pageT
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Organization = &organization
-		res.Location = &location
+		res.Organization = r.Organization
+		res.Location = r.Location
 		l = append(l, res)
 	}
 
@@ -271,7 +279,7 @@ func (c *Client) deleteAllWorkload(ctx context.Context, f func(*Workload) bool, 
 type deleteWorkloadOperation struct{}
 
 func (op *deleteWorkloadOperation) do(ctx context.Context, r *Workload, c *Client) error {
-	r, err := c.GetWorkload(ctx, r.URLNormalized())
+	r, err := c.GetWorkload(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Workload not found, returning. Original error: %v", err)
@@ -285,7 +293,7 @@ func (op *deleteWorkloadOperation) do(ctx context.Context, r *Workload, c *Clien
 	if err != nil {
 		return err
 	}
-	u, err := workloadDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -301,7 +309,7 @@ func (op *deleteWorkloadOperation) do(ctx context.Context, r *Workload, c *Clien
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetWorkload(ctx, r.URLNormalized())
+		_, err = c.GetWorkload(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -327,10 +335,7 @@ func (op *createWorkloadOperation) FirstResponse() (map[string]interface{}, bool
 
 func (op *createWorkloadOperation) do(ctx context.Context, r *Workload, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	organization, location := r.createFields()
-	u, err := workloadCreateURL(c.Config.BasePath, organization, location)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -348,7 +353,7 @@ func (op *createWorkloadOperation) do(ctx context.Context, r *Workload, c *Clien
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://us-central1-assuredworkloads.googleapis.com/v1beta1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
@@ -362,7 +367,7 @@ func (op *createWorkloadOperation) do(ctx context.Context, r *Workload, c *Clien
 	}
 	r.Name = &name
 
-	if _, err := c.GetWorkload(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetWorkload(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -372,7 +377,7 @@ func (op *createWorkloadOperation) do(ctx context.Context, r *Workload, c *Clien
 
 func (c *Client) getWorkloadRaw(ctx context.Context, r *Workload) ([]byte, error) {
 
-	u, err := workloadGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -411,7 +416,7 @@ func (c *Client) workloadDiffsForRawDesired(ctx context.Context, rawDesired *Wor
 		return nil, desired, nil, err
 	}
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetWorkload(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetWorkload(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Workload resource already exists: %s", err)
@@ -1025,32 +1030,32 @@ func compareWorkloadResourceSettingsNewStyle(d, a interface{}, fn dcl.FieldName)
 	return diffs, nil
 }
 
-func (r *Workload) getFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Organization), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *Workload) createFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Organization), dcl.ValueOrEmptyString(n.Location)
-}
-
-func (r *Workload) deleteFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Organization), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Workload) urlNormalized() *Workload {
+	normalized := dcl.Copy(*r).(Workload)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.BillingAccount = dcl.SelfLinkToName(r.BillingAccount)
+	normalized.ProvisionedResourcesParent = dcl.SelfLinkToName(r.ProvisionedResourcesParent)
+	normalized.Organization = dcl.SelfLinkToName(r.Organization)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
 }
 
 func (r *Workload) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "UpdateWorkload" {
 		fields := map[string]interface{}{
-			"organization": dcl.ValueOrEmptyString(n.Organization),
-			"location":     dcl.ValueOrEmptyString(n.Location),
-			"name":         dcl.ValueOrEmptyString(n.Name),
+			"organization": dcl.ValueOrEmptyString(nr.Organization),
+			"location":     dcl.ValueOrEmptyString(nr.Location),
+			"name":         dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("organizations/{{organization}}/locations/{{location}}/workloads/{{name}}", "https://us-central1-assuredworkloads.googleapis.com/v1beta1/", userBasePath, fields), nil
+		return dcl.URL("organizations/{{organization}}/locations/{{location}}/workloads/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -1680,8 +1685,8 @@ func (r *Workload) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Organization == nil && ncr.Organization == nil {

@@ -3387,7 +3387,7 @@ type DashboardList struct {
 
 	pageSize int32
 
-	project string
+	resource *Dashboard
 }
 
 func (l *DashboardList) HasNext() bool {
@@ -3401,7 +3401,7 @@ func (l *DashboardList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listDashboard(ctx, l.project, l.nextToken, l.pageSize)
+	items, token, err := c.listDashboard(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -3410,19 +3410,19 @@ func (l *DashboardList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListDashboard(ctx context.Context, project string) (*DashboardList, error) {
+func (c *Client) ListDashboard(ctx context.Context, r *Dashboard) (*DashboardList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListDashboardWithMaxResults(ctx, project, DashboardMaxPage)
+	return c.ListDashboardWithMaxResults(ctx, r, DashboardMaxPage)
 
 }
 
-func (c *Client) ListDashboardWithMaxResults(ctx context.Context, project string, pageSize int32) (*DashboardList, error) {
+func (c *Client) ListDashboardWithMaxResults(ctx context.Context, r *Dashboard, pageSize int32) (*DashboardList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listDashboard(ctx, project, "", pageSize)
+	items, token, err := c.listDashboard(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -3430,21 +3430,8 @@ func (c *Client) ListDashboardWithMaxResults(ctx context.Context, project string
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Dashboard) URLNormalized() *Dashboard {
-	normalized := dcl.Copy(*r).(Dashboard)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Etag = dcl.SelfLinkToName(r.Etag)
-	return &normalized
 }
 
 func (c *Client) GetDashboard(ctx context.Context, r *Dashboard) (*Dashboard, error) {
@@ -3492,8 +3479,8 @@ func (c *Client) DeleteDashboard(ctx context.Context, r *Dashboard) error {
 }
 
 // DeleteAllDashboard deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllDashboard(ctx context.Context, project string, filter func(*Dashboard) bool) error {
-	listObj, err := c.ListDashboard(ctx, project)
+func (c *Client) DeleteAllDashboard(ctx context.Context, r *Dashboard, filter func(*Dashboard) bool) error {
+	listObj, err := c.ListDashboard(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -3617,7 +3604,7 @@ func applyDashboardHelper(c *Client, ctx context.Context, rawDesired *Dashboard,
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetDashboard(ctx, desired.URLNormalized())
+	rawNew, err := c.GetDashboard(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

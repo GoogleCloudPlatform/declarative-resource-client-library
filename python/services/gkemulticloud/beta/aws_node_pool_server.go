@@ -347,7 +347,7 @@ func (s *AwsNodePoolServer) ListGkemulticloudBetaAwsNodePool(ctx context.Context
 		return nil, err
 	}
 
-	resources, err := cl.ListAwsNodePool(ctx, request.Project, request.Location, request.AwsCluster)
+	resources, err := cl.ListAwsNodePool(ctx, ProtoToAwsNodePool(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

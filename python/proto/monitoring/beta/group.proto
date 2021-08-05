@@ -40,7 +40,7 @@ message DeleteMonitoringBetaGroupRequest {
 
 message ListMonitoringBetaGroupRequest {
   string service_account_file = 1;
-  string Project = 2;
+	MonitoringBetaGroup resource = 2;
 }
 
 message ListMonitoringBetaGroupResponse {

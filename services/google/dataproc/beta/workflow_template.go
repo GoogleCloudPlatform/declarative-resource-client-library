@@ -1553,9 +1553,7 @@ type WorkflowTemplateList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
+	resource *WorkflowTemplate
 }
 
 func (l *WorkflowTemplateList) HasNext() bool {
@@ -1569,7 +1567,7 @@ func (l *WorkflowTemplateList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listWorkflowTemplate(ctx, l.project, l.location, l.nextToken, l.pageSize)
+	items, token, err := c.listWorkflowTemplate(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -1578,19 +1576,19 @@ func (l *WorkflowTemplateList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListWorkflowTemplate(ctx context.Context, project, location string) (*WorkflowTemplateList, error) {
+func (c *Client) ListWorkflowTemplate(ctx context.Context, r *WorkflowTemplate) (*WorkflowTemplateList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListWorkflowTemplateWithMaxResults(ctx, project, location, WorkflowTemplateMaxPage)
+	return c.ListWorkflowTemplateWithMaxResults(ctx, r, WorkflowTemplateMaxPage)
 
 }
 
-func (c *Client) ListWorkflowTemplateWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*WorkflowTemplateList, error) {
+func (c *Client) ListWorkflowTemplateWithMaxResults(ctx context.Context, r *WorkflowTemplate, pageSize int32) (*WorkflowTemplateList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listWorkflowTemplate(ctx, project, location, "", pageSize)
+	items, token, err := c.listWorkflowTemplate(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -1598,23 +1596,8 @@ func (c *Client) ListWorkflowTemplateWithMaxResults(ctx context.Context, project
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		location: location,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *WorkflowTemplate) URLNormalized() *WorkflowTemplate {
-	normalized := dcl.Copy(*r).(WorkflowTemplate)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.DagTimeout = dcl.SelfLinkToName(r.DagTimeout)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
 }
 
 func (c *Client) GetWorkflowTemplate(ctx context.Context, r *WorkflowTemplate) (*WorkflowTemplate, error) {
@@ -1663,8 +1646,8 @@ func (c *Client) DeleteWorkflowTemplate(ctx context.Context, r *WorkflowTemplate
 }
 
 // DeleteAllWorkflowTemplate deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllWorkflowTemplate(ctx context.Context, project, location string, filter func(*WorkflowTemplate) bool) error {
-	listObj, err := c.ListWorkflowTemplate(ctx, project, location)
+func (c *Client) DeleteAllWorkflowTemplate(ctx context.Context, r *WorkflowTemplate, filter func(*WorkflowTemplate) bool) error {
+	listObj, err := c.ListWorkflowTemplate(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -1788,7 +1771,7 @@ func applyWorkflowTemplateHelper(c *Client, ctx context.Context, rawDesired *Wor
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetWorkflowTemplate(ctx, desired.URLNormalized())
+	rawNew, err := c.GetWorkflowTemplate(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

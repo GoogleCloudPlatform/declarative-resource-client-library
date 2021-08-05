@@ -384,23 +384,7 @@ type FeatureMembershipList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
-
-	feature string
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *FeatureMembership) URLNormalized() *FeatureMembership {
-	normalized := dcl.Copy(*r).(FeatureMembership)
-	normalized.Membership = dcl.SelfLinkToName(r.Membership)
-	normalized.Feature = dcl.SelfLinkToName(r.Feature)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
+	resource *FeatureMembership
 }
 
 func (c *Client) DeleteFeatureMembership(ctx context.Context, r *FeatureMembership) error {
@@ -416,8 +400,8 @@ func (c *Client) DeleteFeatureMembership(ctx context.Context, r *FeatureMembersh
 }
 
 // DeleteAllFeatureMembership deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllFeatureMembership(ctx context.Context, project, location, feature string, filter func(*FeatureMembership) bool) error {
-	listObj, err := c.ListFeatureMembership(ctx, project, location, feature)
+func (c *Client) DeleteAllFeatureMembership(ctx context.Context, r *FeatureMembership, filter func(*FeatureMembership) bool) error {
+	listObj, err := c.ListFeatureMembership(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -541,7 +525,7 @@ func applyFeatureMembershipHelper(c *Client, ctx context.Context, rawDesired *Fe
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetFeatureMembership(ctx, desired.URLNormalized())
+	rawNew, err := c.GetFeatureMembership(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

@@ -35,41 +35,49 @@ func (r *IdentityAwareProxyClient) validate() error {
 	}
 	return nil
 }
-
-func identityAwareProxyClientGetURL(userBasePath string, r *IdentityAwareProxyClient) (string, error) {
-	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(r.Project),
-		"brand":   dcl.ValueOrEmptyString(r.Brand),
-		"name":    dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("projects/{{project}}/brands/{{brand}}/identityAwareProxyClients/{{name}}", "https://iap.googleapis.com/v1/", userBasePath, params), nil
+func (r *IdentityAwareProxyClient) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://iap.googleapis.com/v1/", params)
 }
 
-func identityAwareProxyClientListURL(userBasePath, project, brand string) (string, error) {
+func (r *IdentityAwareProxyClient) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": project,
-		"brand":   brand,
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"brand":   dcl.ValueOrEmptyString(nr.Brand),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/brands/{{brand}}/identityAwareProxyClients", "https://iap.googleapis.com/v1/", userBasePath, params), nil
-
+	return dcl.URL("projects/{{project}}/brands/{{brand}}/identityAwareProxyClients/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-func identityAwareProxyClientCreateURL(userBasePath, project, brand string) (string, error) {
+func (r *IdentityAwareProxyClient) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": project,
-		"brand":   brand,
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"brand":   dcl.ValueOrEmptyString(nr.Brand),
 	}
-	return dcl.URL("projects/{{project}}/brands/{{brand}}/identityAwareProxyClients", "https://iap.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/brands/{{brand}}/identityAwareProxyClients", nr.basePath(), userBasePath, params), nil
 
 }
 
-func identityAwareProxyClientDeleteURL(userBasePath string, r *IdentityAwareProxyClient) (string, error) {
+func (r *IdentityAwareProxyClient) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(r.Project),
-		"brand":   dcl.ValueOrEmptyString(r.Brand),
-		"name":    dcl.ValueOrEmptyString(r.Name),
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"brand":   dcl.ValueOrEmptyString(nr.Brand),
 	}
-	return dcl.URL("projects/{{project}}/brands/{{brand}}/identityAwareProxyClients/{{name}}", "https://iap.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/brands/{{brand}}/identityAwareProxyClients", nr.basePath(), userBasePath, params), nil
+
+}
+
+func (r *IdentityAwareProxyClient) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"brand":   dcl.ValueOrEmptyString(nr.Brand),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("projects/{{project}}/brands/{{brand}}/identityAwareProxyClients/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // identityAwareProxyClientApiOperation represents a mutable operation in the underlying REST
@@ -78,8 +86,8 @@ type identityAwareProxyClientApiOperation interface {
 	do(context.Context, *IdentityAwareProxyClient, *Client) error
 }
 
-func (c *Client) listIdentityAwareProxyClientRaw(ctx context.Context, project, brand, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := identityAwareProxyClientListURL(c.Config.BasePath, project, brand)
+func (c *Client) listIdentityAwareProxyClientRaw(ctx context.Context, r *IdentityAwareProxyClient, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -110,8 +118,8 @@ type listIdentityAwareProxyClientOperation struct {
 	Token string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listIdentityAwareProxyClient(ctx context.Context, project, brand, pageToken string, pageSize int32) ([]*IdentityAwareProxyClient, string, error) {
-	b, err := c.listIdentityAwareProxyClientRaw(ctx, project, brand, pageToken, pageSize)
+func (c *Client) listIdentityAwareProxyClient(ctx context.Context, r *IdentityAwareProxyClient, pageToken string, pageSize int32) ([]*IdentityAwareProxyClient, string, error) {
+	b, err := c.listIdentityAwareProxyClientRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -127,8 +135,8 @@ func (c *Client) listIdentityAwareProxyClient(ctx context.Context, project, bran
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
-		res.Brand = &brand
+		res.Project = r.Project
+		res.Brand = r.Brand
 		l = append(l, res)
 	}
 
@@ -156,7 +164,7 @@ func (c *Client) deleteAllIdentityAwareProxyClient(ctx context.Context, f func(*
 type deleteIdentityAwareProxyClientOperation struct{}
 
 func (op *deleteIdentityAwareProxyClientOperation) do(ctx context.Context, r *IdentityAwareProxyClient, c *Client) error {
-	r, err := c.GetIdentityAwareProxyClient(ctx, r.URLNormalized())
+	r, err := c.GetIdentityAwareProxyClient(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("IdentityAwareProxyClient not found, returning. Original error: %v", err)
@@ -166,7 +174,7 @@ func (op *deleteIdentityAwareProxyClientOperation) do(ctx context.Context, r *Id
 		return err
 	}
 
-	u, err := identityAwareProxyClientDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -182,7 +190,7 @@ func (op *deleteIdentityAwareProxyClientOperation) do(ctx context.Context, r *Id
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetIdentityAwareProxyClient(ctx, r.URLNormalized())
+		_, err = c.GetIdentityAwareProxyClient(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -208,10 +216,7 @@ func (op *createIdentityAwareProxyClientOperation) FirstResponse() (map[string]i
 
 func (op *createIdentityAwareProxyClientOperation) do(ctx context.Context, r *IdentityAwareProxyClient, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, brand := r.createFields()
-	u, err := identityAwareProxyClientCreateURL(c.Config.BasePath, project, brand)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -238,7 +243,7 @@ func (op *createIdentityAwareProxyClientOperation) do(ctx context.Context, r *Id
 	}
 	r.Name = &name
 
-	if _, err := c.GetIdentityAwareProxyClient(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetIdentityAwareProxyClient(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -248,7 +253,7 @@ func (op *createIdentityAwareProxyClientOperation) do(ctx context.Context, r *Id
 
 func (c *Client) getIdentityAwareProxyClientRaw(ctx context.Context, r *IdentityAwareProxyClient) ([]byte, error) {
 
-	u, err := identityAwareProxyClientGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -287,7 +292,7 @@ func (c *Client) identityAwareProxyClientDiffsForRawDesired(ctx context.Context,
 		return nil, desired, nil, err
 	}
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetIdentityAwareProxyClient(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetIdentityAwareProxyClient(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a IdentityAwareProxyClient resource already exists: %s", err)
@@ -448,19 +453,17 @@ func diffIdentityAwareProxyClient(c *Client, desired, actual *IdentityAwareProxy
 	return newDiffs, nil
 }
 
-func (r *IdentityAwareProxyClient) getFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Brand), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *IdentityAwareProxyClient) createFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Brand)
-}
-
-func (r *IdentityAwareProxyClient) deleteFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Brand), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *IdentityAwareProxyClient) urlNormalized() *IdentityAwareProxyClient {
+	normalized := dcl.Copy(*r).(IdentityAwareProxyClient)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Secret = dcl.SelfLinkToName(r.Secret)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Brand = dcl.SelfLinkToName(r.Brand)
+	return &normalized
 }
 
 func (r *IdentityAwareProxyClient) updateURL(userBasePath, updateName string) (string, error) {
@@ -552,8 +555,8 @@ func (r *IdentityAwareProxyClient) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

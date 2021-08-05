@@ -1817,7 +1817,7 @@ type GuestPolicyList struct {
 
 	pageSize int32
 
-	project string
+	resource *GuestPolicy
 }
 
 func (l *GuestPolicyList) HasNext() bool {
@@ -1831,7 +1831,7 @@ func (l *GuestPolicyList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listGuestPolicy(ctx, l.project, l.nextToken, l.pageSize)
+	items, token, err := c.listGuestPolicy(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -1840,19 +1840,19 @@ func (l *GuestPolicyList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListGuestPolicy(ctx context.Context, project string) (*GuestPolicyList, error) {
+func (c *Client) ListGuestPolicy(ctx context.Context, r *GuestPolicy) (*GuestPolicyList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListGuestPolicyWithMaxResults(ctx, project, GuestPolicyMaxPage)
+	return c.ListGuestPolicyWithMaxResults(ctx, r, GuestPolicyMaxPage)
 
 }
 
-func (c *Client) ListGuestPolicyWithMaxResults(ctx context.Context, project string, pageSize int32) (*GuestPolicyList, error) {
+func (c *Client) ListGuestPolicyWithMaxResults(ctx context.Context, r *GuestPolicy, pageSize int32) (*GuestPolicyList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listGuestPolicy(ctx, project, "", pageSize)
+	items, token, err := c.listGuestPolicy(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -1860,21 +1860,8 @@ func (c *Client) ListGuestPolicyWithMaxResults(ctx context.Context, project stri
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *GuestPolicy) URLNormalized() *GuestPolicy {
-	normalized := dcl.Copy(*r).(GuestPolicy)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Etag = dcl.SelfLinkToName(r.Etag)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
 }
 
 func (c *Client) GetGuestPolicy(ctx context.Context, r *GuestPolicy) (*GuestPolicy, error) {
@@ -1922,8 +1909,8 @@ func (c *Client) DeleteGuestPolicy(ctx context.Context, r *GuestPolicy) error {
 }
 
 // DeleteAllGuestPolicy deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllGuestPolicy(ctx context.Context, project string, filter func(*GuestPolicy) bool) error {
-	listObj, err := c.ListGuestPolicy(ctx, project)
+func (c *Client) DeleteAllGuestPolicy(ctx context.Context, r *GuestPolicy, filter func(*GuestPolicy) bool) error {
+	listObj, err := c.ListGuestPolicy(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -2047,7 +2034,7 @@ func applyGuestPolicyHelper(c *Client, ctx context.Context, rawDesired *GuestPol
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetGuestPolicy(ctx, desired.URLNormalized())
+	rawNew, err := c.GetGuestPolicy(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

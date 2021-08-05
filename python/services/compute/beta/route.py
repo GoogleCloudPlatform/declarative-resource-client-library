@@ -168,12 +168,50 @@ class Route(object):
 
         response = stub.DeleteComputeBetaRoute(request)
 
-    @classmethod
-    def list(self, project, service_account_file=""):
+    def list(self):
         stub = route_pb2_grpc.ComputeBetaRouteServiceStub(channel.Channel())
         request = route_pb2.ListComputeBetaRouteRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if Primitive.to_proto(self.network):
+            request.resource.network = Primitive.to_proto(self.network)
+
+        if Primitive.to_proto(self.tag):
+            request.resource.tag.extend(Primitive.to_proto(self.tag))
+        if Primitive.to_proto(self.dest_range):
+            request.resource.dest_range = Primitive.to_proto(self.dest_range)
+
+        if Primitive.to_proto(self.priority):
+            request.resource.priority = Primitive.to_proto(self.priority)
+
+        if Primitive.to_proto(self.next_hop_instance):
+            request.resource.next_hop_instance = Primitive.to_proto(
+                self.next_hop_instance
+            )
+
+        if Primitive.to_proto(self.next_hop_ip):
+            request.resource.next_hop_ip = Primitive.to_proto(self.next_hop_ip)
+
+        if Primitive.to_proto(self.next_hop_gateway):
+            request.resource.next_hop_gateway = Primitive.to_proto(
+                self.next_hop_gateway
+            )
+
+        if Primitive.to_proto(self.next_hop_ilb):
+            request.resource.next_hop_ilb = Primitive.to_proto(self.next_hop_ilb)
+
+        if Primitive.to_proto(self.next_hop_vpn_tunnel):
+            request.resource.next_hop_vpn_tunnel = Primitive.to_proto(
+                self.next_hop_vpn_tunnel
+            )
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         return stub.ListComputeBetaRoute(request).items
 

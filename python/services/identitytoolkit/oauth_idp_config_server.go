@@ -120,7 +120,7 @@ func (s *OAuthIdpConfigServer) ListIdentitytoolkitOAuthIdpConfig(ctx context.Con
 		return nil, err
 	}
 
-	resources, err := cl.ListOAuthIdpConfig(ctx, request.Project)
+	resources, err := cl.ListOAuthIdpConfig(ctx, ProtoToOAuthIdpConfig(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

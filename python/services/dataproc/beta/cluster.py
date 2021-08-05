@@ -97,14 +97,25 @@ class Cluster(object):
 
         response = stub.DeleteDataprocBetaCluster(request)
 
-    @classmethod
-    def list(self, project, location, service_account_file=""):
+    def list(self):
         stub = cluster_pb2_grpc.DataprocBetaClusterServiceStub(channel.Channel())
         request = cluster_pb2.ListDataprocBetaClusterRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
-        request.Location = location
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if ClusterClusterConfig.to_proto(self.config):
+            request.resource.config.CopyFrom(ClusterClusterConfig.to_proto(self.config))
+        else:
+            request.resource.ClearField("config")
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         return stub.ListDataprocBetaCluster(request).items
 

@@ -63,7 +63,7 @@ message DeleteComputeFirewallPolicyRuleRequest {
 
 message ListComputeFirewallPolicyRuleRequest {
   string service_account_file = 1;
-  string FirewallPolicy = 2;
+	ComputeFirewallPolicyRule resource = 2;
 }
 
 message ListComputeFirewallPolicyRuleResponse {

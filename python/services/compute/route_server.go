@@ -171,7 +171,7 @@ func (s *RouteServer) ListComputeRoute(ctx context.Context, request *computepb.L
 		return nil, err
 	}
 
-	resources, err := cl.ListRoute(ctx, request.Project)
+	resources, err := cl.ListRoute(ctx, ProtoToRoute(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

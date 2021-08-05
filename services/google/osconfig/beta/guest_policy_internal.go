@@ -257,38 +257,46 @@ func (r *GuestPolicyRecipesUpdateStepsFileExec) validate() error {
 func (r *GuestPolicyRecipesUpdateStepsScriptRun) validate() error {
 	return nil
 }
-
-func guestPolicyGetURL(userBasePath string, r *GuestPolicy) (string, error) {
-	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(r.Project),
-		"name":    dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("projects/{{project}}/guestPolicies/{{name}}", "https://osconfig.googleapis.com/v1beta/", userBasePath, params), nil
+func (r *GuestPolicy) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://osconfig.googleapis.com/v1beta/", params)
 }
 
-func guestPolicyListURL(userBasePath, project string) (string, error) {
+func (r *GuestPolicy) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": project,
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/guestPolicies", "https://osconfig.googleapis.com/v1beta/", userBasePath, params), nil
-
+	return dcl.URL("projects/{{project}}/guestPolicies/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-func guestPolicyCreateURL(userBasePath, project, name string) (string, error) {
+func (r *GuestPolicy) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": project,
-		"name":    name,
+		"project": dcl.ValueOrEmptyString(nr.Project),
 	}
-	return dcl.URL("projects/{{project}}/guestPolicies?guestPolicyId={{name}}", "https://osconfig.googleapis.com/v1beta/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/guestPolicies", nr.basePath(), userBasePath, params), nil
 
 }
 
-func guestPolicyDeleteURL(userBasePath string, r *GuestPolicy) (string, error) {
+func (r *GuestPolicy) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(r.Project),
-		"name":    dcl.ValueOrEmptyString(r.Name),
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/guestPolicies/{{name}}", "https://osconfig.googleapis.com/v1beta/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/guestPolicies?guestPolicyId={{name}}", nr.basePath(), userBasePath, params), nil
+
+}
+
+func (r *GuestPolicy) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("projects/{{project}}/guestPolicies/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // guestPolicyApiOperation represents a mutable operation in the underlying REST
@@ -332,7 +340,7 @@ func newUpdateGuestPolicyUpdateGuestPolicyRequest(ctx context.Context, f *GuestP
 	if v := f.Etag; !dcl.IsEmptyValueIndirect(v) {
 		req["etag"] = v
 	}
-	b, err := c.getGuestPolicyRaw(ctx, f.URLNormalized())
+	b, err := c.getGuestPolicyRaw(ctx, f)
 	if err != nil {
 		return nil, err
 	}
@@ -372,7 +380,7 @@ type updateGuestPolicyUpdateGuestPolicyOperation struct {
 // PUT request to a single URL.
 
 func (op *updateGuestPolicyUpdateGuestPolicyOperation) do(ctx context.Context, r *GuestPolicy, c *Client) error {
-	_, err := c.GetGuestPolicy(ctx, r.URLNormalized())
+	_, err := c.GetGuestPolicy(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -400,8 +408,8 @@ func (op *updateGuestPolicyUpdateGuestPolicyOperation) do(ctx context.Context, r
 	return nil
 }
 
-func (c *Client) listGuestPolicyRaw(ctx context.Context, project, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := guestPolicyListURL(c.Config.BasePath, project)
+func (c *Client) listGuestPolicyRaw(ctx context.Context, r *GuestPolicy, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -432,8 +440,8 @@ type listGuestPolicyOperation struct {
 	Token         string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listGuestPolicy(ctx context.Context, project, pageToken string, pageSize int32) ([]*GuestPolicy, string, error) {
-	b, err := c.listGuestPolicyRaw(ctx, project, pageToken, pageSize)
+func (c *Client) listGuestPolicy(ctx context.Context, r *GuestPolicy, pageToken string, pageSize int32) ([]*GuestPolicy, string, error) {
+	b, err := c.listGuestPolicyRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -449,7 +457,7 @@ func (c *Client) listGuestPolicy(ctx context.Context, project, pageToken string,
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
+		res.Project = r.Project
 		l = append(l, res)
 	}
 
@@ -477,7 +485,7 @@ func (c *Client) deleteAllGuestPolicy(ctx context.Context, f func(*GuestPolicy) 
 type deleteGuestPolicyOperation struct{}
 
 func (op *deleteGuestPolicyOperation) do(ctx context.Context, r *GuestPolicy, c *Client) error {
-	r, err := c.GetGuestPolicy(ctx, r.URLNormalized())
+	r, err := c.GetGuestPolicy(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("GuestPolicy not found, returning. Original error: %v", err)
@@ -487,7 +495,7 @@ func (op *deleteGuestPolicyOperation) do(ctx context.Context, r *GuestPolicy, c 
 		return err
 	}
 
-	u, err := guestPolicyDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -503,7 +511,7 @@ func (op *deleteGuestPolicyOperation) do(ctx context.Context, r *GuestPolicy, c 
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetGuestPolicy(ctx, r.URLNormalized())
+		_, err = c.GetGuestPolicy(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -529,10 +537,7 @@ func (op *createGuestPolicyOperation) FirstResponse() (map[string]interface{}, b
 
 func (op *createGuestPolicyOperation) do(ctx context.Context, r *GuestPolicy, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, name := r.createFields()
-	u, err := guestPolicyCreateURL(c.Config.BasePath, project, name)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -552,7 +557,7 @@ func (op *createGuestPolicyOperation) do(ctx context.Context, r *GuestPolicy, c 
 	}
 	op.response = o
 
-	if _, err := c.GetGuestPolicy(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetGuestPolicy(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -562,7 +567,7 @@ func (op *createGuestPolicyOperation) do(ctx context.Context, r *GuestPolicy, c 
 
 func (c *Client) getGuestPolicyRaw(ctx context.Context, r *GuestPolicy) ([]byte, error) {
 
-	u, err := guestPolicyGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -595,7 +600,7 @@ func (c *Client) guestPolicyDiffsForRawDesired(ctx context.Context, rawDesired *
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetGuestPolicy(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetGuestPolicy(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a GuestPolicy resource already exists: %s", err)
@@ -4831,31 +4836,29 @@ func compareGuestPolicyRecipesUpdateStepsScriptRunNewStyle(d, a interface{}, fn 
 	return diffs, nil
 }
 
-func (r *GuestPolicy) getFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *GuestPolicy) createFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *GuestPolicy) deleteFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *GuestPolicy) urlNormalized() *GuestPolicy {
+	normalized := dcl.Copy(*r).(GuestPolicy)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Etag = dcl.SelfLinkToName(r.Etag)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
 }
 
 func (r *GuestPolicy) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "UpdateGuestPolicy" {
 		fields := map[string]interface{}{
-			"project": dcl.ValueOrEmptyString(n.Project),
-			"name":    dcl.ValueOrEmptyString(n.Name),
+			"project": dcl.ValueOrEmptyString(nr.Project),
+			"name":    dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("projects/{{project}}/guestPolicies/{{name}}", "https://osconfig.googleapis.com/v1beta/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/guestPolicies/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -9010,8 +9013,8 @@ func (r *GuestPolicy) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

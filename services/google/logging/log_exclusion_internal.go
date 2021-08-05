@@ -35,37 +35,45 @@ func (r *LogExclusion) validate() error {
 	}
 	return nil
 }
-
-func logExclusionGetURL(userBasePath string, r *LogExclusion) (string, error) {
-	params := map[string]interface{}{
-		"parent": dcl.ValueOrEmptyString(r.Parent),
-		"name":   dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("{{parent}}/exclusions/{{name}}", "https://logging.googleapis.com/v2/", userBasePath, params), nil
+func (r *LogExclusion) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://logging.googleapis.com/v2/", params)
 }
 
-func logExclusionListURL(userBasePath, parent string) (string, error) {
+func (r *LogExclusion) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"parent": parent,
+		"parent": dcl.ValueOrEmptyString(nr.Parent),
+		"name":   dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("{{parent}}/exclusions", "https://logging.googleapis.com/v2/", userBasePath, params), nil
+	return dcl.URL("{{parent}}/exclusions/{{name}}", nr.basePath(), userBasePath, params), nil
+}
+
+func (r *LogExclusion) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"parent": dcl.ValueOrEmptyString(nr.Parent),
+	}
+	return dcl.URL("{{parent}}/exclusions", nr.basePath(), userBasePath, params), nil
 
 }
 
-func logExclusionCreateURL(userBasePath, parent string) (string, error) {
+func (r *LogExclusion) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"parent": parent,
+		"parent": dcl.ValueOrEmptyString(nr.Parent),
 	}
-	return dcl.URL("{{parent}}/exclusions", "https://logging.googleapis.com/v2/", userBasePath, params), nil
+	return dcl.URL("{{parent}}/exclusions", nr.basePath(), userBasePath, params), nil
 
 }
 
-func logExclusionDeleteURL(userBasePath string, r *LogExclusion) (string, error) {
+func (r *LogExclusion) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"parent": dcl.ValueOrEmptyString(r.Parent),
-		"name":   dcl.ValueOrEmptyString(r.Name),
+		"parent": dcl.ValueOrEmptyString(nr.Parent),
+		"name":   dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("{{parent}}/exclusions/{{name}}", "https://logging.googleapis.com/v2/", userBasePath, params), nil
+	return dcl.URL("{{parent}}/exclusions/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // logExclusionApiOperation represents a mutable operation in the underlying REST
@@ -112,7 +120,7 @@ type updateLogExclusionUpdateExclusionOperation struct {
 // PUT request to a single URL.
 
 func (op *updateLogExclusionUpdateExclusionOperation) do(ctx context.Context, r *LogExclusion, c *Client) error {
-	_, err := c.GetLogExclusion(ctx, r.URLNormalized())
+	_, err := c.GetLogExclusion(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -145,8 +153,8 @@ func (op *updateLogExclusionUpdateExclusionOperation) do(ctx context.Context, r 
 	return nil
 }
 
-func (c *Client) listLogExclusionRaw(ctx context.Context, parent, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := logExclusionListURL(c.Config.BasePath, parent)
+func (c *Client) listLogExclusionRaw(ctx context.Context, r *LogExclusion, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -177,8 +185,8 @@ type listLogExclusionOperation struct {
 	Token      string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listLogExclusion(ctx context.Context, parent, pageToken string, pageSize int32) ([]*LogExclusion, string, error) {
-	b, err := c.listLogExclusionRaw(ctx, parent, pageToken, pageSize)
+func (c *Client) listLogExclusion(ctx context.Context, r *LogExclusion, pageToken string, pageSize int32) ([]*LogExclusion, string, error) {
+	b, err := c.listLogExclusionRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -194,7 +202,7 @@ func (c *Client) listLogExclusion(ctx context.Context, parent, pageToken string,
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Parent = &parent
+		res.Parent = r.Parent
 		l = append(l, res)
 	}
 
@@ -222,7 +230,7 @@ func (c *Client) deleteAllLogExclusion(ctx context.Context, f func(*LogExclusion
 type deleteLogExclusionOperation struct{}
 
 func (op *deleteLogExclusionOperation) do(ctx context.Context, r *LogExclusion, c *Client) error {
-	r, err := c.GetLogExclusion(ctx, r.URLNormalized())
+	r, err := c.GetLogExclusion(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("LogExclusion not found, returning. Original error: %v", err)
@@ -232,7 +240,7 @@ func (op *deleteLogExclusionOperation) do(ctx context.Context, r *LogExclusion, 
 		return err
 	}
 
-	u, err := logExclusionDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -248,7 +256,7 @@ func (op *deleteLogExclusionOperation) do(ctx context.Context, r *LogExclusion, 
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetLogExclusion(ctx, r.URLNormalized())
+		_, err = c.GetLogExclusion(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -274,10 +282,7 @@ func (op *createLogExclusionOperation) FirstResponse() (map[string]interface{}, 
 
 func (op *createLogExclusionOperation) do(ctx context.Context, r *LogExclusion, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	parent := r.createFields()
-	u, err := logExclusionCreateURL(c.Config.BasePath, parent)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -297,7 +302,7 @@ func (op *createLogExclusionOperation) do(ctx context.Context, r *LogExclusion, 
 	}
 	op.response = o
 
-	if _, err := c.GetLogExclusion(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetLogExclusion(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -307,7 +312,7 @@ func (op *createLogExclusionOperation) do(ctx context.Context, r *LogExclusion, 
 
 func (c *Client) getLogExclusionRaw(ctx context.Context, r *LogExclusion) ([]byte, error) {
 
-	u, err := logExclusionGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -340,7 +345,7 @@ func (c *Client) logExclusionDiffsForRawDesired(ctx context.Context, rawDesired 
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetLogExclusion(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetLogExclusion(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a LogExclusion resource already exists: %s", err)
@@ -541,31 +546,29 @@ func diffLogExclusion(c *Client, desired, actual *LogExclusion, opts ...dcl.Appl
 	return newDiffs, nil
 }
 
-func (r *LogExclusion) getFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Parent), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *LogExclusion) createFields() string {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Parent)
-}
-
-func (r *LogExclusion) deleteFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Parent), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *LogExclusion) urlNormalized() *LogExclusion {
+	normalized := dcl.Copy(*r).(LogExclusion)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Filter = dcl.SelfLinkToName(r.Filter)
+	normalized.Parent = r.Parent
+	return &normalized
 }
 
 func (r *LogExclusion) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "UpdateExclusion" {
 		fields := map[string]interface{}{
-			"parent": dcl.ValueOrEmptyString(n.Parent),
-			"name":   dcl.ValueOrEmptyString(n.Name),
+			"parent": dcl.ValueOrEmptyString(nr.Parent),
+			"name":   dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("{{parent}}/exclusions/{{name}}", "https://logging.googleapis.com/v2/", userBasePath, fields), nil
+		return dcl.URL("{{parent}}/exclusions/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -658,8 +661,8 @@ func (r *LogExclusion) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Parent == nil && ncr.Parent == nil {

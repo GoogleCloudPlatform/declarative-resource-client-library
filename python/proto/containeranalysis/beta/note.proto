@@ -341,7 +341,7 @@ message DeleteContaineranalysisBetaNoteRequest {
 
 message ListContaineranalysisBetaNoteRequest {
   string service_account_file = 1;
-  string Project = 2;
+	ContaineranalysisBetaNote resource = 2;
 }
 
 message ListContaineranalysisBetaNoteResponse {

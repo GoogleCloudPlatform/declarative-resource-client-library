@@ -648,14 +648,225 @@ class Instance(object):
 
         response = stub.DeleteTier2AlphaInstance(request)
 
-    @classmethod
-    def list(self, project, location, service_account_file=""):
+    def list(self):
         stub = instance_pb2_grpc.Tier2AlphaInstanceServiceStub(channel.Channel())
         request = instance_pb2.ListTier2AlphaInstanceRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if Primitive.to_proto(self.display_name):
+            request.resource.display_name = Primitive.to_proto(self.display_name)
+
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
+        if Primitive.to_proto(self.zone):
+            request.resource.zone = Primitive.to_proto(self.zone)
+
+        if Primitive.to_proto(self.alternative_zone):
+            request.resource.alternative_zone = Primitive.to_proto(
+                self.alternative_zone
+            )
+
+        if InstanceSku.to_proto(self.sku):
+            request.resource.sku.CopyFrom(InstanceSku.to_proto(self.sku))
+        else:
+            request.resource.ClearField("sku")
+        if Primitive.to_proto(self.authorized_network_id):
+            request.resource.authorized_network_id = Primitive.to_proto(
+                self.authorized_network_id
+            )
+
+        if Primitive.to_proto(self.reserved_ip_range):
+            request.resource.reserved_ip_range = Primitive.to_proto(
+                self.reserved_ip_range
+            )
+
+        if InstanceReferencesArray.to_proto(self.references):
+            request.resource.references.extend(
+                InstanceReferencesArray.to_proto(self.references)
+            )
+        if InstancePreprocessCreateRecipe.to_proto(self.preprocess_create_recipe):
+            request.resource.preprocess_create_recipe.CopyFrom(
+                InstancePreprocessCreateRecipe.to_proto(self.preprocess_create_recipe)
+            )
+        else:
+            request.resource.ClearField("preprocess_create_recipe")
+        if InstanceCreateRecipe.to_proto(self.create_recipe):
+            request.resource.create_recipe.CopyFrom(
+                InstanceCreateRecipe.to_proto(self.create_recipe)
+            )
+        else:
+            request.resource.ClearField("create_recipe")
+        if InstanceDeleteRecipe.to_proto(self.delete_recipe):
+            request.resource.delete_recipe.CopyFrom(
+                InstanceDeleteRecipe.to_proto(self.delete_recipe)
+            )
+        else:
+            request.resource.ClearField("delete_recipe")
+        if InstanceUpdateRecipe.to_proto(self.update_recipe):
+            request.resource.update_recipe.CopyFrom(
+                InstanceUpdateRecipe.to_proto(self.update_recipe)
+            )
+        else:
+            request.resource.ClearField("update_recipe")
+        if InstancePreprocessResetRecipe.to_proto(self.preprocess_reset_recipe):
+            request.resource.preprocess_reset_recipe.CopyFrom(
+                InstancePreprocessResetRecipe.to_proto(self.preprocess_reset_recipe)
+            )
+        else:
+            request.resource.ClearField("preprocess_reset_recipe")
+        if InstanceResetRecipe.to_proto(self.reset_recipe):
+            request.resource.reset_recipe.CopyFrom(
+                InstanceResetRecipe.to_proto(self.reset_recipe)
+            )
+        else:
+            request.resource.ClearField("reset_recipe")
+        if InstancePreprocessRepairRecipe.to_proto(self.preprocess_repair_recipe):
+            request.resource.preprocess_repair_recipe.CopyFrom(
+                InstancePreprocessRepairRecipe.to_proto(self.preprocess_repair_recipe)
+            )
+        else:
+            request.resource.ClearField("preprocess_repair_recipe")
+        if InstanceRepairRecipe.to_proto(self.repair_recipe):
+            request.resource.repair_recipe.CopyFrom(
+                InstanceRepairRecipe.to_proto(self.repair_recipe)
+            )
+        else:
+            request.resource.ClearField("repair_recipe")
+        if InstancePreprocessDeleteRecipe.to_proto(self.preprocess_delete_recipe):
+            request.resource.preprocess_delete_recipe.CopyFrom(
+                InstancePreprocessDeleteRecipe.to_proto(self.preprocess_delete_recipe)
+            )
+        else:
+            request.resource.ClearField("preprocess_delete_recipe")
+        if InstancePreprocessUpdateRecipe.to_proto(self.preprocess_update_recipe):
+            request.resource.preprocess_update_recipe.CopyFrom(
+                InstancePreprocessUpdateRecipe.to_proto(self.preprocess_update_recipe)
+            )
+        else:
+            request.resource.ClearField("preprocess_update_recipe")
+        if InstancePreprocessFreezeRecipe.to_proto(self.preprocess_freeze_recipe):
+            request.resource.preprocess_freeze_recipe.CopyFrom(
+                InstancePreprocessFreezeRecipe.to_proto(self.preprocess_freeze_recipe)
+            )
+        else:
+            request.resource.ClearField("preprocess_freeze_recipe")
+        if InstanceFreezeRecipe.to_proto(self.freeze_recipe):
+            request.resource.freeze_recipe.CopyFrom(
+                InstanceFreezeRecipe.to_proto(self.freeze_recipe)
+            )
+        else:
+            request.resource.ClearField("freeze_recipe")
+        if InstancePreprocessUnfreezeRecipe.to_proto(self.preprocess_unfreeze_recipe):
+            request.resource.preprocess_unfreeze_recipe.CopyFrom(
+                InstancePreprocessUnfreezeRecipe.to_proto(
+                    self.preprocess_unfreeze_recipe
+                )
+            )
+        else:
+            request.resource.ClearField("preprocess_unfreeze_recipe")
+        if InstanceUnfreezeRecipe.to_proto(self.unfreeze_recipe):
+            request.resource.unfreeze_recipe.CopyFrom(
+                InstanceUnfreezeRecipe.to_proto(self.unfreeze_recipe)
+            )
+        else:
+            request.resource.ClearField("unfreeze_recipe")
+        if InstancePreprocessReportInstanceHealthRecipe.to_proto(
+            self.preprocess_report_instance_health_recipe
+        ):
+            request.resource.preprocess_report_instance_health_recipe.CopyFrom(
+                InstancePreprocessReportInstanceHealthRecipe.to_proto(
+                    self.preprocess_report_instance_health_recipe
+                )
+            )
+        else:
+            request.resource.ClearField("preprocess_report_instance_health_recipe")
+        if InstanceReportInstanceHealthRecipe.to_proto(
+            self.report_instance_health_recipe
+        ):
+            request.resource.report_instance_health_recipe.CopyFrom(
+                InstanceReportInstanceHealthRecipe.to_proto(
+                    self.report_instance_health_recipe
+                )
+            )
+        else:
+            request.resource.ClearField("report_instance_health_recipe")
+        if InstancePreprocessGetRecipe.to_proto(self.preprocess_get_recipe):
+            request.resource.preprocess_get_recipe.CopyFrom(
+                InstancePreprocessGetRecipe.to_proto(self.preprocess_get_recipe)
+            )
+        else:
+            request.resource.ClearField("preprocess_get_recipe")
+        if InstanceNotifyKeyAvailableRecipe.to_proto(self.notify_key_available_recipe):
+            request.resource.notify_key_available_recipe.CopyFrom(
+                InstanceNotifyKeyAvailableRecipe.to_proto(
+                    self.notify_key_available_recipe
+                )
+            )
+        else:
+            request.resource.ClearField("notify_key_available_recipe")
+        if InstanceNotifyKeyUnavailableRecipe.to_proto(
+            self.notify_key_unavailable_recipe
+        ):
+            request.resource.notify_key_unavailable_recipe.CopyFrom(
+                InstanceNotifyKeyUnavailableRecipe.to_proto(
+                    self.notify_key_unavailable_recipe
+                )
+            )
+        else:
+            request.resource.ClearField("notify_key_unavailable_recipe")
+        if InstanceReadonlyRecipe.to_proto(self.readonly_recipe):
+            request.resource.readonly_recipe.CopyFrom(
+                InstanceReadonlyRecipe.to_proto(self.readonly_recipe)
+            )
+        else:
+            request.resource.ClearField("readonly_recipe")
+        if InstanceReconcileRecipe.to_proto(self.reconcile_recipe):
+            request.resource.reconcile_recipe.CopyFrom(
+                InstanceReconcileRecipe.to_proto(self.reconcile_recipe)
+            )
+        else:
+            request.resource.ClearField("reconcile_recipe")
+        if InstancePreprocessPassthroughRecipe.to_proto(
+            self.preprocess_passthrough_recipe
+        ):
+            request.resource.preprocess_passthrough_recipe.CopyFrom(
+                InstancePreprocessPassthroughRecipe.to_proto(
+                    self.preprocess_passthrough_recipe
+                )
+            )
+        else:
+            request.resource.ClearField("preprocess_passthrough_recipe")
+        if InstancePreprocessReconcileRecipe.to_proto(self.preprocess_reconcile_recipe):
+            request.resource.preprocess_reconcile_recipe.CopyFrom(
+                InstancePreprocessReconcileRecipe.to_proto(
+                    self.preprocess_reconcile_recipe
+                )
+            )
+        else:
+            request.resource.ClearField("preprocess_reconcile_recipe")
+        if Primitive.to_proto(self.enable_call_history):
+            request.resource.enable_call_history = Primitive.to_proto(
+                self.enable_call_history
+            )
+
+        if InstanceHistoryArray.to_proto(self.history):
+            request.resource.history.extend(InstanceHistoryArray.to_proto(self.history))
+        if Primitive.to_proto(self.public_resource_view_override):
+            request.resource.public_resource_view_override = Primitive.to_proto(
+                self.public_resource_view_override
+            )
+
+        if Primitive.to_proto(self.uid):
+            request.resource.uid = Primitive.to_proto(self.uid)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         return stub.ListTier2AlphaInstance(request).items
 

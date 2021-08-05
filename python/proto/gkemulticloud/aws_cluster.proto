@@ -138,8 +138,7 @@ message DeleteGkemulticloudAwsClusterRequest {
 
 message ListGkemulticloudAwsClusterRequest {
   string service_account_file = 1;
-  string Project = 2;
-  string Location = 3;
+	GkemulticloudAwsCluster resource = 2;
 }
 
 message ListGkemulticloudAwsClusterResponse {

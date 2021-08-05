@@ -139,16 +139,41 @@ class WorkflowTemplate(object):
 
         response = stub.DeleteDataprocWorkflowTemplate(request)
 
-    @classmethod
-    def list(self, project, location, service_account_file=""):
+    def list(self):
         stub = workflow_template_pb2_grpc.DataprocWorkflowTemplateServiceStub(
             channel.Channel()
         )
         request = workflow_template_pb2.ListDataprocWorkflowTemplateRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if Primitive.to_proto(self.version):
+            request.resource.version = Primitive.to_proto(self.version)
+
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
+        if WorkflowTemplatePlacement.to_proto(self.placement):
+            request.resource.placement.CopyFrom(
+                WorkflowTemplatePlacement.to_proto(self.placement)
+            )
+        else:
+            request.resource.ClearField("placement")
+        if WorkflowTemplateJobsArray.to_proto(self.jobs):
+            request.resource.jobs.extend(WorkflowTemplateJobsArray.to_proto(self.jobs))
+        if WorkflowTemplateParametersArray.to_proto(self.parameters):
+            request.resource.parameters.extend(
+                WorkflowTemplateParametersArray.to_proto(self.parameters)
+            )
+        if Primitive.to_proto(self.dag_timeout):
+            request.resource.dag_timeout = Primitive.to_proto(self.dag_timeout)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         return stub.ListDataprocWorkflowTemplate(request).items
 

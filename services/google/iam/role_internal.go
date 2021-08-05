@@ -36,37 +36,45 @@ func (r *Role) validate() error {
 func (r *RoleLocalizedValues) validate() error {
 	return nil
 }
-
-func roleGetURL(userBasePath string, r *Role) (string, error) {
-	params := map[string]interface{}{
-		"parent": dcl.ValueOrEmptyString(r.Parent),
-		"name":   dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("{{parent}}/roles/{{name}}", "https://iam.googleapis.com/v1/", userBasePath, params), nil
+func (r *Role) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://iam.googleapis.com/v1/", params)
 }
 
-func roleListURL(userBasePath, parent string) (string, error) {
+func (r *Role) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"parent": parent,
+		"parent": dcl.ValueOrEmptyString(nr.Parent),
+		"name":   dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("{{parent}}/roles", "https://iam.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("{{parent}}/roles/{{name}}", nr.basePath(), userBasePath, params), nil
+}
+
+func (r *Role) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"parent": dcl.ValueOrEmptyString(nr.Parent),
+	}
+	return dcl.URL("{{parent}}/roles", nr.basePath(), userBasePath, params), nil
 
 }
 
-func roleCreateURL(userBasePath, parent string) (string, error) {
+func (r *Role) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"parent": parent,
+		"parent": dcl.ValueOrEmptyString(nr.Parent),
 	}
-	return dcl.URL("{{parent}}/roles", "https://iam.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("{{parent}}/roles", nr.basePath(), userBasePath, params), nil
 
 }
 
-func roleDeleteURL(userBasePath string, r *Role) (string, error) {
+func (r *Role) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"parent": dcl.ValueOrEmptyString(r.Parent),
-		"name":   dcl.ValueOrEmptyString(r.Name),
+		"parent": dcl.ValueOrEmptyString(nr.Parent),
+		"name":   dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("{{parent}}/roles/{{name}}", "https://iam.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("{{parent}}/roles/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // roleApiOperation represents a mutable operation in the underlying REST
@@ -81,7 +89,7 @@ type roleApiOperation interface {
 func newUpdateRoleUpdateRoleRequest(ctx context.Context, f *Role, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	b, err := c.getRoleRaw(ctx, f.URLNormalized())
+	b, err := c.getRoleRaw(ctx, f)
 	if err != nil {
 		return nil, err
 	}
@@ -121,7 +129,7 @@ type updateRoleUpdateRoleOperation struct {
 // PUT request to a single URL.
 
 func (op *updateRoleUpdateRoleOperation) do(ctx context.Context, r *Role, c *Client) error {
-	_, err := c.GetRole(ctx, r.URLNormalized())
+	_, err := c.GetRole(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -149,8 +157,8 @@ func (op *updateRoleUpdateRoleOperation) do(ctx context.Context, r *Role, c *Cli
 	return nil
 }
 
-func (c *Client) listRoleRaw(ctx context.Context, parent, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := roleListURL(c.Config.BasePath, parent)
+func (c *Client) listRoleRaw(ctx context.Context, r *Role, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -181,8 +189,8 @@ type listRoleOperation struct {
 	Token string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listRole(ctx context.Context, parent, pageToken string, pageSize int32) ([]*Role, string, error) {
-	b, err := c.listRoleRaw(ctx, parent, pageToken, pageSize)
+func (c *Client) listRole(ctx context.Context, r *Role, pageToken string, pageSize int32) ([]*Role, string, error) {
+	b, err := c.listRoleRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -198,7 +206,7 @@ func (c *Client) listRole(ctx context.Context, parent, pageToken string, pageSiz
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Parent = &parent
+		res.Parent = r.Parent
 		l = append(l, res)
 	}
 
@@ -226,7 +234,7 @@ func (c *Client) deleteAllRole(ctx context.Context, f func(*Role) bool, resource
 type deleteRoleOperation struct{}
 
 func (op *deleteRoleOperation) do(ctx context.Context, r *Role, c *Client) error {
-	r, err := c.GetRole(ctx, r.URLNormalized())
+	r, err := c.GetRole(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Role not found, returning. Original error: %v", err)
@@ -236,7 +244,7 @@ func (op *deleteRoleOperation) do(ctx context.Context, r *Role, c *Client) error
 		return err
 	}
 
-	u, err := roleDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -263,10 +271,7 @@ func (op *createRoleOperation) FirstResponse() (map[string]interface{}, bool) {
 
 func (op *createRoleOperation) do(ctx context.Context, r *Role, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	parent := r.createFields()
-	u, err := roleCreateURL(c.Config.BasePath, parent)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -286,7 +291,7 @@ func (op *createRoleOperation) do(ctx context.Context, r *Role, c *Client) error
 	}
 	op.response = o
 
-	if _, err := c.GetRole(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetRole(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -296,7 +301,7 @@ func (op *createRoleOperation) do(ctx context.Context, r *Role, c *Client) error
 
 func (c *Client) getRoleRaw(ctx context.Context, r *Role) ([]byte, error) {
 
-	u, err := roleGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -329,7 +334,7 @@ func (c *Client) roleDiffsForRawDesired(ctx context.Context, rawDesired *Role, o
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetRole(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetRole(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Role resource already exists: %s", err)
@@ -771,31 +776,33 @@ func compareRoleLocalizedValuesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 	return diffs, nil
 }
 
-func (r *Role) getFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Parent), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *Role) createFields() string {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Parent)
-}
-
-func (r *Role) deleteFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Parent), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Role) urlNormalized() *Role {
+	normalized := dcl.Copy(*r).(Role)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Title = dcl.SelfLinkToName(r.Title)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.LifecyclePhase = dcl.SelfLinkToName(r.LifecyclePhase)
+	normalized.GroupName = dcl.SelfLinkToName(r.GroupName)
+	normalized.GroupTitle = dcl.SelfLinkToName(r.GroupTitle)
+	normalized.Etag = dcl.SelfLinkToName(r.Etag)
+	normalized.Parent = r.Parent
+	return &normalized
 }
 
 func (r *Role) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "UpdateRole" {
 		fields := map[string]interface{}{
-			"parent": dcl.ValueOrEmptyString(n.Parent),
-			"name":   dcl.ValueOrEmptyString(n.Name),
+			"parent": dcl.ValueOrEmptyString(nr.Parent),
+			"name":   dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("{{parent}}/roles/{{name}}", "https://iam.googleapis.com/v1/", userBasePath, fields), nil
+		return dcl.URL("{{parent}}/roles/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -1082,8 +1089,8 @@ func (r *Role) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Parent == nil && ncr.Parent == nil {

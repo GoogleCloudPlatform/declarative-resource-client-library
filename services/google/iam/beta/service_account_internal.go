@@ -41,46 +41,54 @@ func (r *ServiceAccountActasResources) validate() error {
 func (r *ServiceAccountActasResourcesResources) validate() error {
 	return nil
 }
-
-func serviceAccountGetURL(userBasePath string, r *ServiceAccount) (string, error) {
-	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(r.Project),
-		"name":    dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("projects/{{project}}/serviceAccounts/{{name}}@{{project}}.iam.gserviceaccount.com", "https://iam.googleapis.com/v1/", userBasePath, params), nil
+func (r *ServiceAccount) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://iam.googleapis.com/v1/", params)
 }
 
-func serviceAccountListURL(userBasePath, project string) (string, error) {
+func (r *ServiceAccount) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": project,
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/serviceAccounts", "https://iam.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/serviceAccounts/{{name}}@{{project}}.iam.gserviceaccount.com", nr.basePath(), userBasePath, params), nil
+}
+
+func (r *ServiceAccount) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project": dcl.ValueOrEmptyString(nr.Project),
+	}
+	return dcl.URL("projects/{{project}}/serviceAccounts", nr.basePath(), userBasePath, params), nil
 
 }
 
-func serviceAccountCreateURL(userBasePath, project string) (string, error) {
+func (r *ServiceAccount) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": project,
+		"project": dcl.ValueOrEmptyString(nr.Project),
 	}
-	return dcl.URL("projects/{{project}}/serviceAccounts", "https://iam.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/serviceAccounts", nr.basePath(), userBasePath, params), nil
 
 }
 
-func serviceAccountDeleteURL(userBasePath string, r *ServiceAccount) (string, error) {
+func (r *ServiceAccount) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(r.Project),
-		"name":    dcl.ValueOrEmptyString(r.Name),
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/serviceAccounts/{{name}}@{{project}}.iam.gserviceaccount.com", "https://iam.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/serviceAccounts/{{name}}@{{project}}.iam.gserviceaccount.com", nr.basePath(), userBasePath, params), nil
 }
 
 func (r *ServiceAccount) SetPolicyURL(userBasePath string) string {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	fields := map[string]interface{}{
-		"project": *n.Project,
-		"name":    *n.Name,
+		"project": *nr.Project,
+		"name":    *nr.Name,
 	}
-	return dcl.URL("projects/{{project}}/serviceAccounts/{{name}}@{{project}}.iam.gserviceaccount.com:setIamPolicy", "https://iam.googleapis.com/v1/", userBasePath, fields)
+	return dcl.URL("projects/{{project}}/serviceAccounts/{{name}}@{{project}}.iam.gserviceaccount.com:setIamPolicy", nr.basePath(), userBasePath, fields)
 }
 
 func (r *ServiceAccount) SetPolicyVerb() string {
@@ -88,12 +96,12 @@ func (r *ServiceAccount) SetPolicyVerb() string {
 }
 
 func (r *ServiceAccount) getPolicyURL(userBasePath string) string {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	fields := map[string]interface{}{
-		"project": *n.Project,
-		"name":    *n.Name,
+		"project": *nr.Project,
+		"name":    *nr.Name,
 	}
-	return dcl.URL("projects/{{project}}/serviceAccounts/{{name}}@{{project}}.iam.gserviceaccount.com:getIamPolicy", "https://iam.googleapis.com/v1/", userBasePath, fields)
+	return dcl.URL("projects/{{project}}/serviceAccounts/{{name}}@{{project}}.iam.gserviceaccount.com:getIamPolicy", nr.basePath(), userBasePath, fields)
 }
 
 func (r *ServiceAccount) IAMPolicyVersion() int {
@@ -151,7 +159,7 @@ type updateServiceAccountPatchServiceAccountOperation struct {
 // PUT request to a single URL.
 
 func (op *updateServiceAccountPatchServiceAccountOperation) do(ctx context.Context, r *ServiceAccount, c *Client) error {
-	_, err := c.GetServiceAccount(ctx, r.URLNormalized())
+	_, err := c.GetServiceAccount(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -180,7 +188,7 @@ func (op *updateServiceAccountPatchServiceAccountOperation) do(ctx context.Conte
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	err = o.Wait(ctx, c.Config, "https://iam.googleapis.com/v1/", "GET")
+	err = o.Wait(ctx, c.Config, r.basePath(), "GET")
 
 	if err != nil {
 		return err
@@ -189,8 +197,8 @@ func (op *updateServiceAccountPatchServiceAccountOperation) do(ctx context.Conte
 	return nil
 }
 
-func (c *Client) listServiceAccountRaw(ctx context.Context, project, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := serviceAccountListURL(c.Config.BasePath, project)
+func (c *Client) listServiceAccountRaw(ctx context.Context, r *ServiceAccount, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -221,8 +229,8 @@ type listServiceAccountOperation struct {
 	Token    string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listServiceAccount(ctx context.Context, project, pageToken string, pageSize int32) ([]*ServiceAccount, string, error) {
-	b, err := c.listServiceAccountRaw(ctx, project, pageToken, pageSize)
+func (c *Client) listServiceAccount(ctx context.Context, r *ServiceAccount, pageToken string, pageSize int32) ([]*ServiceAccount, string, error) {
+	b, err := c.listServiceAccountRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -238,7 +246,7 @@ func (c *Client) listServiceAccount(ctx context.Context, project, pageToken stri
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
+		res.Project = r.Project
 		l = append(l, res)
 	}
 
@@ -266,7 +274,7 @@ func (c *Client) deleteAllServiceAccount(ctx context.Context, f func(*ServiceAcc
 type deleteServiceAccountOperation struct{}
 
 func (op *deleteServiceAccountOperation) do(ctx context.Context, r *ServiceAccount, c *Client) error {
-	r, err := c.GetServiceAccount(ctx, r.URLNormalized())
+	r, err := c.GetServiceAccount(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("ServiceAccount not found, returning. Original error: %v", err)
@@ -276,7 +284,7 @@ func (op *deleteServiceAccountOperation) do(ctx context.Context, r *ServiceAccou
 		return err
 	}
 
-	u, err := serviceAccountDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -292,7 +300,7 @@ func (op *deleteServiceAccountOperation) do(ctx context.Context, r *ServiceAccou
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetServiceAccount(ctx, r.URLNormalized())
+		_, err = c.GetServiceAccount(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -318,10 +326,7 @@ func (op *createServiceAccountOperation) FirstResponse() (map[string]interface{}
 
 func (op *createServiceAccountOperation) do(ctx context.Context, r *ServiceAccount, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project := r.createFields()
-	u, err := serviceAccountCreateURL(c.Config.BasePath, project)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -341,7 +346,7 @@ func (op *createServiceAccountOperation) do(ctx context.Context, r *ServiceAccou
 	}
 	op.response = o
 
-	if _, err := c.GetServiceAccount(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetServiceAccount(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -351,7 +356,7 @@ func (op *createServiceAccountOperation) do(ctx context.Context, r *ServiceAccou
 
 func (c *Client) getServiceAccountRaw(ctx context.Context, r *ServiceAccount) ([]byte, error) {
 
-	u, err := serviceAccountGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -384,7 +389,7 @@ func (c *Client) serviceAccountDiffsForRawDesired(ctx context.Context, rawDesire
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetServiceAccount(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetServiceAccount(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a ServiceAccount resource already exists: %s", err)
@@ -826,31 +831,32 @@ func compareServiceAccountActasResourcesResourcesNewStyle(d, a interface{}, fn d
 	return diffs, nil
 }
 
-func (r *ServiceAccount) getFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *ServiceAccount) createFields() string {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project)
-}
-
-func (r *ServiceAccount) deleteFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *ServiceAccount) urlNormalized() *ServiceAccount {
+	normalized := dcl.Copy(*r).(ServiceAccount)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.UniqueId = dcl.SelfLinkToName(r.UniqueId)
+	normalized.Email = dcl.SelfLinkToName(r.Email)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.OAuth2ClientId = dcl.SelfLinkToName(r.OAuth2ClientId)
+	return &normalized
 }
 
 func (r *ServiceAccount) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "PatchServiceAccount" {
 		fields := map[string]interface{}{
-			"project": dcl.ValueOrEmptyString(n.Project),
-			"name":    dcl.ValueOrEmptyString(n.Name),
+			"project": dcl.ValueOrEmptyString(nr.Project),
+			"name":    dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("projects/{{project}}/serviceAccounts/{{name}}@{{project}}.iam.gserviceaccount.com", "https://iam.googleapis.com/v1/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/serviceAccounts/{{name}}@{{project}}.iam.gserviceaccount.com", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -1194,8 +1200,8 @@ func (r *ServiceAccount) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

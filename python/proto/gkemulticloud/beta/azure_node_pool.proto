@@ -86,9 +86,7 @@ message DeleteGkemulticloudBetaAzureNodePoolRequest {
 
 message ListGkemulticloudBetaAzureNodePoolRequest {
   string service_account_file = 1;
-  string Project = 2;
-  string Location = 3;
-  string AzureCluster = 4;
+	GkemulticloudBetaAzureNodePool resource = 2;
 }
 
 message ListGkemulticloudBetaAzureNodePoolResponse {

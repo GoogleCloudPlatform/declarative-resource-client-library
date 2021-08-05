@@ -49,8 +49,7 @@ message DeleteIdentitytoolkitBetaTenantOAuthIdpConfigRequest {
 
 message ListIdentitytoolkitBetaTenantOAuthIdpConfigRequest {
   string service_account_file = 1;
-  string Project = 2;
-  string Tenant = 3;
+	IdentitytoolkitBetaTenantOAuthIdpConfig resource = 2;
 }
 
 message ListIdentitytoolkitBetaTenantOAuthIdpConfigResponse {

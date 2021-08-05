@@ -54,7 +54,7 @@ func flattenHubReferenceLink(config interface{}) *string {
 }
 
 // Feature has custom url methods because it uses v1beta endpoints instead of v1beta1.
-func featureGetURL(userBasePath string, r *Feature) (string, error) {
+func (r *Feature) getURL(userBasePath string) (string, error) {
 	params := map[string]interface{}{
 		"project":  dcl.ValueOrEmptyString(r.Project),
 		"location": dcl.ValueOrEmptyString(r.Location),
@@ -63,36 +63,36 @@ func featureGetURL(userBasePath string, r *Feature) (string, error) {
 	return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{name}}", "https://gkehub.googleapis.com/v1beta/", userBasePath, params), nil
 }
 
-func featureListURL(userBasePath, project, location string) (string, error) {
+func (r *Feature) listURL(userBasePath string) (string, error) {
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
+		"project":  dcl.ValueOrEmptyString(r.Project),
+		"location": dcl.ValueOrEmptyString(r.Location),
 	}
 	return dcl.URL("projects/{{project}}/locations/{{location}}/features", "https://gkehub.googleapis.com/v1beta/", userBasePath, params), nil
 
 }
 
-func featureCreateURL(userBasePath, project, location, name string) (string, error) {
+func (r *Feature) createURL(userBasePath string) (string, error) {
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
-		"name":     name,
+		"name":     dcl.ValueOrEmptyString(r.Name),
+		"project":  dcl.ValueOrEmptyString(r.Project),
+		"location": dcl.ValueOrEmptyString(r.Location),
 	}
 	return dcl.URL("projects/{{project}}/locations/{{location}}/features?featureId={{name}}", "https://gkehub.googleapis.com/v1beta/", userBasePath, params), nil
 
 }
 
-func featureDeleteURL(userBasePath string, r *Feature) (string, error) {
+func (r *Feature) deleteURL(userBasePath string) (string, error) {
 	params := map[string]interface{}{
+		"name":     dcl.ValueOrEmptyString(r.Name),
 		"project":  dcl.ValueOrEmptyString(r.Project),
 		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
 	}
 	return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{name}}", "https://gkehub.googleapis.com/v1beta/", userBasePath, params), nil
 }
 
 func (op *updateFeatureUpdateFeatureOperation) do(ctx context.Context, r *Feature, c *Client) error {
-	_, err := c.GetFeature(ctx, r.URLNormalized())
+	_, err := c.GetFeature(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -137,7 +137,7 @@ func (op *updateFeatureUpdateFeatureOperation) do(ctx context.Context, r *Featur
 
 // getMembershipSpecs returns a map of membership specs taken from the get response of the feature membership's feature object.
 func getMembershipSpecs(ctx context.Context, r *FeatureMembership, c *Client) (map[string]interface{}, error) {
-	u, err := featureMembershipGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -219,23 +219,21 @@ func sendFeatureUpdate(ctx context.Context, req map[string]interface{}, c *Clien
 }
 
 func (op *createFeatureMembershipOperation) do(ctx context.Context, r *FeatureMembership, c *Client) error {
-	nr := r.URLNormalized()
-	project, location, feature := nr.createFields()
-	u, err := featureMembershipCreateURL(c.Config.BasePath, project, location, feature)
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
 	u = strings.Replace(u, "v1beta1", "v1beta", 1)
 
-	membershipSpecs, err := getMembershipSpecs(ctx, nr, c)
+	membershipSpecs, err := getMembershipSpecs(ctx, r, c)
 	if err != nil {
 		return err
 	}
-	m, err := expandFeatureMembership(c, nr)
+	m, err := expandFeatureMembership(c, r)
 	if err != nil {
 		return err
 	}
-	if err := dcl.PutMapEntry(membershipSpecs, []string{membershipSpecKey(nr)}, m); err != nil {
+	if err := dcl.PutMapEntry(membershipSpecs, []string{membershipSpecKey(r)}, m); err != nil {
 		return err
 	}
 	req := map[string]interface{}{
@@ -246,7 +244,7 @@ func (op *createFeatureMembershipOperation) do(ctx context.Context, r *FeatureMe
 
 // GetFeatureMembership returns a feature membership object retrieved from the membershipSpecs field of a feature.
 func (c *Client) GetFeatureMembership(ctx context.Context, r *FeatureMembership) (*FeatureMembership, error) {
-	nr := r.URLNormalized()
+	nr := r.urlNormalized()
 	membershipSpecs, err := getMembershipSpecs(ctx, nr, c)
 	if err != nil {
 		return nil, err
@@ -286,12 +284,8 @@ func (l *FeatureMembershipList) Next(_ context.Context, _ *Client) error {
 }
 
 // ListFeatureMembership returns a list of feature memberships retrieved from the membershipSpecs field of a feature.
-func (c *Client) ListFeatureMembership(ctx context.Context, project, location, feature string) (*FeatureMembershipList, error) {
-	membershipSpecs, err := getMembershipSpecs(ctx, &FeatureMembership{
-		Project:  dcl.String(project),
-		Location: dcl.String(location),
-		Feature:  dcl.String(feature),
-	}, c)
+func (c *Client) ListFeatureMembership(ctx context.Context, r *FeatureMembership) (*FeatureMembershipList, error) {
+	membershipSpecs, err := getMembershipSpecs(ctx, r, c)
 	if err != nil {
 		return nil, err
 	}
@@ -301,15 +295,15 @@ func (c *Client) ListFeatureMembership(ctx context.Context, project, location, f
 		if !ok {
 			return nil, errors.New("membership spec was not of map type")
 		}
-		r, err := unmarshalMapFeatureMembership(m, c)
+		ri, err := unmarshalMapFeatureMembership(m, c)
 		if err != nil {
 			return nil, err
 		}
-		r.Project = &project
-		r.Location = &location
-		r.Feature = &feature
-		r.Membership = dcl.SelfLinkToName(&key)
-		list.Items = append(list.Items, r)
+		ri.Project = r.Project
+		ri.Location = r.Location
+		ri.Feature = r.Feature
+		ri.Membership = dcl.SelfLinkToName(&key)
+		list.Items = append(list.Items, ri)
 	}
 	return list, nil
 }
@@ -343,8 +337,8 @@ func (op *updateFeatureMembershipUpdateFeatureMembershipOperation) do(ctx contex
 }
 
 func (op *deleteFeatureMembershipOperation) do(ctx context.Context, r *FeatureMembership, c *Client) error {
-	nr := r.URLNormalized()
-	u, err := featureMembershipDeleteURL(c.Config.BasePath, nr)
+	nr := r.urlNormalized()
+	u, err := nr.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}

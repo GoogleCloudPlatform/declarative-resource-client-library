@@ -43,42 +43,50 @@ func (r *TenantOAuthIdpConfig) validate() error {
 func (r *TenantOAuthIdpConfigResponseType) validate() error {
 	return nil
 }
-
-func tenantOAuthIdpConfigGetURL(userBasePath string, r *TenantOAuthIdpConfig) (string, error) {
-	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(r.Project),
-		"tenant":  dcl.ValueOrEmptyString(r.Tenant),
-		"name":    dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("projects/{{project}}/tenants/{{tenant}}/oauthIdpConfigs/{{name}}", "https://identitytoolkit.googleapis.com/v2/", userBasePath, params), nil
+func (r *TenantOAuthIdpConfig) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://identitytoolkit.googleapis.com/v2/", params)
 }
 
-func tenantOAuthIdpConfigListURL(userBasePath, project, tenant string) (string, error) {
+func (r *TenantOAuthIdpConfig) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": project,
-		"tenant":  tenant,
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"tenant":  dcl.ValueOrEmptyString(nr.Tenant),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/tenants/{{tenant}}/oauthIdpConfigs", "https://identitytoolkit.googleapis.com/v2/", userBasePath, params), nil
-
+	return dcl.URL("projects/{{project}}/tenants/{{tenant}}/oauthIdpConfigs/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-func tenantOAuthIdpConfigCreateURL(userBasePath, project, tenant, name string) (string, error) {
+func (r *TenantOAuthIdpConfig) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": project,
-		"tenant":  tenant,
-		"name":    name,
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"tenant":  dcl.ValueOrEmptyString(nr.Tenant),
 	}
-	return dcl.URL("projects/{{project}}/tenants/{{tenant}}/oauthIdpConfigs?oauthIdpConfigId={{name}}", "https://identitytoolkit.googleapis.com/v2/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/tenants/{{tenant}}/oauthIdpConfigs", nr.basePath(), userBasePath, params), nil
 
 }
 
-func tenantOAuthIdpConfigDeleteURL(userBasePath string, r *TenantOAuthIdpConfig) (string, error) {
+func (r *TenantOAuthIdpConfig) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(r.Project),
-		"tenant":  dcl.ValueOrEmptyString(r.Tenant),
-		"name":    dcl.ValueOrEmptyString(r.Name),
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"tenant":  dcl.ValueOrEmptyString(nr.Tenant),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/tenants/{{tenant}}/oauthIdpConfigs/{{name}}", "https://identitytoolkit.googleapis.com/v2/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/tenants/{{tenant}}/oauthIdpConfigs?oauthIdpConfigId={{name}}", nr.basePath(), userBasePath, params), nil
+
+}
+
+func (r *TenantOAuthIdpConfig) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"tenant":  dcl.ValueOrEmptyString(nr.Tenant),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("projects/{{project}}/tenants/{{tenant}}/oauthIdpConfigs/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // tenantOAuthIdpConfigApiOperation represents a mutable operation in the underlying REST
@@ -144,7 +152,7 @@ type updateTenantOAuthIdpConfigUpdateConfigOperation struct {
 // PUT request to a single URL.
 
 func (op *updateTenantOAuthIdpConfigUpdateConfigOperation) do(ctx context.Context, r *TenantOAuthIdpConfig, c *Client) error {
-	_, err := c.GetTenantOAuthIdpConfig(ctx, r.URLNormalized())
+	_, err := c.GetTenantOAuthIdpConfig(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -172,8 +180,8 @@ func (op *updateTenantOAuthIdpConfigUpdateConfigOperation) do(ctx context.Contex
 	return nil
 }
 
-func (c *Client) listTenantOAuthIdpConfigRaw(ctx context.Context, project, tenant, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := tenantOAuthIdpConfigListURL(c.Config.BasePath, project, tenant)
+func (c *Client) listTenantOAuthIdpConfigRaw(ctx context.Context, r *TenantOAuthIdpConfig, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -204,8 +212,8 @@ type listTenantOAuthIdpConfigOperation struct {
 	Token           string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listTenantOAuthIdpConfig(ctx context.Context, project, tenant, pageToken string, pageSize int32) ([]*TenantOAuthIdpConfig, string, error) {
-	b, err := c.listTenantOAuthIdpConfigRaw(ctx, project, tenant, pageToken, pageSize)
+func (c *Client) listTenantOAuthIdpConfig(ctx context.Context, r *TenantOAuthIdpConfig, pageToken string, pageSize int32) ([]*TenantOAuthIdpConfig, string, error) {
+	b, err := c.listTenantOAuthIdpConfigRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -221,8 +229,8 @@ func (c *Client) listTenantOAuthIdpConfig(ctx context.Context, project, tenant, 
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
-		res.Tenant = &tenant
+		res.Project = r.Project
+		res.Tenant = r.Tenant
 		l = append(l, res)
 	}
 
@@ -250,7 +258,7 @@ func (c *Client) deleteAllTenantOAuthIdpConfig(ctx context.Context, f func(*Tena
 type deleteTenantOAuthIdpConfigOperation struct{}
 
 func (op *deleteTenantOAuthIdpConfigOperation) do(ctx context.Context, r *TenantOAuthIdpConfig, c *Client) error {
-	r, err := c.GetTenantOAuthIdpConfig(ctx, r.URLNormalized())
+	r, err := c.GetTenantOAuthIdpConfig(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("TenantOAuthIdpConfig not found, returning. Original error: %v", err)
@@ -260,7 +268,7 @@ func (op *deleteTenantOAuthIdpConfigOperation) do(ctx context.Context, r *Tenant
 		return err
 	}
 
-	u, err := tenantOAuthIdpConfigDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -276,7 +284,7 @@ func (op *deleteTenantOAuthIdpConfigOperation) do(ctx context.Context, r *Tenant
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetTenantOAuthIdpConfig(ctx, r.URLNormalized())
+		_, err = c.GetTenantOAuthIdpConfig(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -302,10 +310,7 @@ func (op *createTenantOAuthIdpConfigOperation) FirstResponse() (map[string]inter
 
 func (op *createTenantOAuthIdpConfigOperation) do(ctx context.Context, r *TenantOAuthIdpConfig, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, tenant, name := r.createFields()
-	u, err := tenantOAuthIdpConfigCreateURL(c.Config.BasePath, project, tenant, name)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -325,7 +330,7 @@ func (op *createTenantOAuthIdpConfigOperation) do(ctx context.Context, r *Tenant
 	}
 	op.response = o
 
-	if _, err := c.GetTenantOAuthIdpConfig(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetTenantOAuthIdpConfig(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -335,7 +340,7 @@ func (op *createTenantOAuthIdpConfigOperation) do(ctx context.Context, r *Tenant
 
 func (c *Client) getTenantOAuthIdpConfigRaw(ctx context.Context, r *TenantOAuthIdpConfig) ([]byte, error) {
 
-	u, err := tenantOAuthIdpConfigGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -368,7 +373,7 @@ func (c *Client) tenantOAuthIdpConfigDiffsForRawDesired(ctx context.Context, raw
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetTenantOAuthIdpConfig(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetTenantOAuthIdpConfig(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a TenantOAuthIdpConfig resource already exists: %s", err)
@@ -748,32 +753,33 @@ func compareTenantOAuthIdpConfigResponseTypeNewStyle(d, a interface{}, fn dcl.Fi
 	return diffs, nil
 }
 
-func (r *TenantOAuthIdpConfig) getFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Tenant), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *TenantOAuthIdpConfig) createFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Tenant), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *TenantOAuthIdpConfig) deleteFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Tenant), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *TenantOAuthIdpConfig) urlNormalized() *TenantOAuthIdpConfig {
+	normalized := dcl.Copy(*r).(TenantOAuthIdpConfig)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.ClientId = dcl.SelfLinkToName(r.ClientId)
+	normalized.Issuer = dcl.SelfLinkToName(r.Issuer)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.ClientSecret = dcl.SelfLinkToName(r.ClientSecret)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Tenant = dcl.SelfLinkToName(r.Tenant)
+	return &normalized
 }
 
 func (r *TenantOAuthIdpConfig) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "UpdateConfig" {
 		fields := map[string]interface{}{
-			"project": dcl.ValueOrEmptyString(n.Project),
-			"tenant":  dcl.ValueOrEmptyString(n.Tenant),
-			"name":    dcl.ValueOrEmptyString(n.Name),
+			"project": dcl.ValueOrEmptyString(nr.Project),
+			"tenant":  dcl.ValueOrEmptyString(nr.Tenant),
+			"name":    dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("projects/{{project}}/tenants/{{tenant}}/oauthIdpConfigs/{{name}}", "https://identitytoolkit.googleapis.com/v2/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/tenants/{{tenant}}/oauthIdpConfigs/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -1005,8 +1011,8 @@ func (r *TenantOAuthIdpConfig) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

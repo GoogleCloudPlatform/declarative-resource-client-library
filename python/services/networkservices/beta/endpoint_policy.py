@@ -179,16 +179,56 @@ class EndpointPolicy(object):
 
         response = stub.DeleteNetworkservicesBetaEndpointPolicy(request)
 
-    @classmethod
-    def list(self, project, location, service_account_file=""):
+    def list(self):
         stub = endpoint_policy_pb2_grpc.NetworkservicesBetaEndpointPolicyServiceStub(
             channel.Channel()
         )
         request = endpoint_policy_pb2.ListNetworkservicesBetaEndpointPolicyRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
+        if EndpointPolicyTypeEnum.to_proto(self.type):
+            request.resource.type = EndpointPolicyTypeEnum.to_proto(self.type)
+
+        if Primitive.to_proto(self.authorization_policy):
+            request.resource.authorization_policy = Primitive.to_proto(
+                self.authorization_policy
+            )
+
+        if EndpointPolicyEndpointMatcher.to_proto(self.endpoint_matcher):
+            request.resource.endpoint_matcher.CopyFrom(
+                EndpointPolicyEndpointMatcher.to_proto(self.endpoint_matcher)
+            )
+        else:
+            request.resource.ClearField("endpoint_matcher")
+        if EndpointPolicyTrafficPortSelector.to_proto(self.traffic_port_selector):
+            request.resource.traffic_port_selector.CopyFrom(
+                EndpointPolicyTrafficPortSelector.to_proto(self.traffic_port_selector)
+            )
+        else:
+            request.resource.ClearField("traffic_port_selector")
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if Primitive.to_proto(self.server_tls_policy):
+            request.resource.server_tls_policy = Primitive.to_proto(
+                self.server_tls_policy
+            )
+
+        if Primitive.to_proto(self.client_tls_policy):
+            request.resource.client_tls_policy = Primitive.to_proto(
+                self.client_tls_policy
+            )
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         return stub.ListNetworkservicesBetaEndpointPolicy(request).items
 

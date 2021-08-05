@@ -253,7 +253,7 @@ func (s *AzureNodePoolServer) ListGkemulticloudBetaAzureNodePool(ctx context.Con
 		return nil, err
 	}
 
-	resources, err := cl.ListAzureNodePool(ctx, request.Project, request.Location, request.AzureCluster)
+	resources, err := cl.ListAzureNodePool(ctx, ProtoToAzureNodePool(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

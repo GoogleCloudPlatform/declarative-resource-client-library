@@ -27,28 +27,35 @@ func (r *Brand) validate() error {
 
 	return nil
 }
-
-func brandGetURL(userBasePath string, r *Brand) (string, error) {
-	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(r.Project),
-		"name":    dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("projects/{{project}}/brands/{{name}}", "https://iap.googleapis.com/v1/", userBasePath, params), nil
+func (r *Brand) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://iap.googleapis.com/v1/", params)
 }
 
-func brandListURL(userBasePath, project string) (string, error) {
+func (r *Brand) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": project,
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/brands", "https://iap.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/brands/{{name}}", nr.basePath(), userBasePath, params), nil
+}
+
+func (r *Brand) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project": dcl.ValueOrEmptyString(nr.Project),
+	}
+	return dcl.URL("projects/{{project}}/brands", nr.basePath(), userBasePath, params), nil
 
 }
 
-func brandCreateURL(userBasePath, project string) (string, error) {
+func (r *Brand) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": project,
+		"project": dcl.ValueOrEmptyString(nr.Project),
 	}
-	return dcl.URL("projects/{{project}}/brands", "https://iap.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/brands", nr.basePath(), userBasePath, params), nil
 
 }
 
@@ -58,8 +65,8 @@ type brandApiOperation interface {
 	do(context.Context, *Brand, *Client) error
 }
 
-func (c *Client) listBrandRaw(ctx context.Context, project, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := brandListURL(c.Config.BasePath, project)
+func (c *Client) listBrandRaw(ctx context.Context, r *Brand, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -90,8 +97,8 @@ type listBrandOperation struct {
 	Token  string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listBrand(ctx context.Context, project, pageToken string, pageSize int32) ([]*Brand, string, error) {
-	b, err := c.listBrandRaw(ctx, project, pageToken, pageSize)
+func (c *Client) listBrand(ctx context.Context, r *Brand, pageToken string, pageSize int32) ([]*Brand, string, error) {
+	b, err := c.listBrandRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -107,7 +114,7 @@ func (c *Client) listBrand(ctx context.Context, project, pageToken string, pageS
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
+		res.Project = r.Project
 		l = append(l, res)
 	}
 
@@ -127,10 +134,7 @@ func (op *createBrandOperation) FirstResponse() (map[string]interface{}, bool) {
 
 func (op *createBrandOperation) do(ctx context.Context, r *Brand, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project := r.createFields()
-	u, err := brandCreateURL(c.Config.BasePath, project)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -157,7 +161,7 @@ func (op *createBrandOperation) do(ctx context.Context, r *Brand, c *Client) err
 	}
 	r.Name = &name
 
-	if _, err := c.GetBrand(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetBrand(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -167,7 +171,7 @@ func (op *createBrandOperation) do(ctx context.Context, r *Brand, c *Client) err
 
 func (c *Client) getBrandRaw(ctx context.Context, r *Brand) ([]byte, error) {
 
-	u, err := brandGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -206,7 +210,7 @@ func (c *Client) brandDiffsForRawDesired(ctx context.Context, rawDesired *Brand,
 		return nil, desired, nil, err
 	}
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetBrand(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetBrand(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Brand resource already exists: %s", err)
@@ -373,14 +377,16 @@ func diffBrand(c *Client, desired, actual *Brand, opts ...dcl.ApplyOption) ([]*d
 	return newDiffs, nil
 }
 
-func (r *Brand) getFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *Brand) createFields() string {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Brand) urlNormalized() *Brand {
+	normalized := dcl.Copy(*r).(Brand)
+	normalized.ApplicationTitle = dcl.SelfLinkToName(r.ApplicationTitle)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.SupportEmail = dcl.SelfLinkToName(r.SupportEmail)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
 }
 
 func (r *Brand) updateURL(userBasePath, updateName string) (string, error) {
@@ -470,8 +476,8 @@ func (r *Brand) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

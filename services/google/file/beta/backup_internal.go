@@ -39,42 +39,50 @@ func (r *Backup) validate() error {
 	}
 	return nil
 }
-
-func backupGetURL(userBasePath string, r *Backup) (string, error) {
-	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/backups/{{name}}", "https://file.googleapis.com/v1beta1/", userBasePath, params), nil
+func (r *Backup) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://file.googleapis.com/v1beta1/", params)
 }
 
-func backupListURL(userBasePath, project, location string) (string, error) {
+func (r *Backup) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/backups", "https://file.googleapis.com/v1beta1/", userBasePath, params), nil
-
+	return dcl.URL("projects/{{project}}/locations/{{location}}/backups/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-func backupCreateURL(userBasePath, project, location, name string) (string, error) {
+func (r *Backup) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
-		"name":     name,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/backups?backupId={{name}}", "https://file.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/backups", nr.basePath(), userBasePath, params), nil
 
 }
 
-func backupDeleteURL(userBasePath string, r *Backup) (string, error) {
+func (r *Backup) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/backups/{{name}}", "https://file.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/backups?backupId={{name}}", nr.basePath(), userBasePath, params), nil
+
+}
+
+func (r *Backup) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/backups/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // backupApiOperation represents a mutable operation in the underlying REST
@@ -118,7 +126,7 @@ type updateBackupUpdateBackupOperation struct {
 // PUT request to a single URL.
 
 func (op *updateBackupUpdateBackupOperation) do(ctx context.Context, r *Backup, c *Client) error {
-	_, err := c.GetBackup(ctx, r.URLNormalized())
+	_, err := c.GetBackup(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -152,7 +160,7 @@ func (op *updateBackupUpdateBackupOperation) do(ctx context.Context, r *Backup, 
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	err = o.Wait(ctx, c.Config, "https://file.googleapis.com/v1beta1/", "GET")
+	err = o.Wait(ctx, c.Config, r.basePath(), "GET")
 
 	if err != nil {
 		return err
@@ -161,8 +169,8 @@ func (op *updateBackupUpdateBackupOperation) do(ctx context.Context, r *Backup, 
 	return nil
 }
 
-func (c *Client) listBackupRaw(ctx context.Context, project, location, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := backupListURL(c.Config.BasePath, project, location)
+func (c *Client) listBackupRaw(ctx context.Context, r *Backup, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -193,8 +201,8 @@ type listBackupOperation struct {
 	Token   string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listBackup(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*Backup, string, error) {
-	b, err := c.listBackupRaw(ctx, project, location, pageToken, pageSize)
+func (c *Client) listBackup(ctx context.Context, r *Backup, pageToken string, pageSize int32) ([]*Backup, string, error) {
+	b, err := c.listBackupRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -210,8 +218,8 @@ func (c *Client) listBackup(ctx context.Context, project, location, pageToken st
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
-		res.Location = &location
+		res.Project = r.Project
+		res.Location = r.Location
 		l = append(l, res)
 	}
 
@@ -239,7 +247,7 @@ func (c *Client) deleteAllBackup(ctx context.Context, f func(*Backup) bool, reso
 type deleteBackupOperation struct{}
 
 func (op *deleteBackupOperation) do(ctx context.Context, r *Backup, c *Client) error {
-	r, err := c.GetBackup(ctx, r.URLNormalized())
+	r, err := c.GetBackup(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Backup not found, returning. Original error: %v", err)
@@ -249,7 +257,7 @@ func (op *deleteBackupOperation) do(ctx context.Context, r *Backup, c *Client) e
 		return err
 	}
 
-	u, err := backupDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -266,7 +274,7 @@ func (op *deleteBackupOperation) do(ctx context.Context, r *Backup, c *Client) e
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://file.googleapis.com/v1beta1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		return err
 	}
 
@@ -274,7 +282,7 @@ func (op *deleteBackupOperation) do(ctx context.Context, r *Backup, c *Client) e
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetBackup(ctx, r.URLNormalized())
+		_, err = c.GetBackup(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -300,10 +308,7 @@ func (op *createBackupOperation) FirstResponse() (map[string]interface{}, bool) 
 
 func (op *createBackupOperation) do(ctx context.Context, r *Backup, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, location, name := r.createFields()
-	u, err := backupCreateURL(c.Config.BasePath, project, location, name)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -321,14 +326,14 @@ func (op *createBackupOperation) do(ctx context.Context, r *Backup, c *Client) e
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://file.googleapis.com/v1beta1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetBackup(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetBackup(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -338,7 +343,7 @@ func (op *createBackupOperation) do(ctx context.Context, r *Backup, c *Client) e
 
 func (c *Client) getBackupRaw(ctx context.Context, r *Backup) ([]byte, error) {
 
-	u, err := backupGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -371,7 +376,7 @@ func (c *Client) backupDiffsForRawDesired(ctx context.Context, rawDesired *Backu
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetBackup(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetBackup(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Backup resource already exists: %s", err)
@@ -643,32 +648,32 @@ func diffBackup(c *Client, desired, actual *Backup, opts ...dcl.ApplyOption) ([]
 	return newDiffs, nil
 }
 
-func (r *Backup) getFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *Backup) createFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *Backup) deleteFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Backup) urlNormalized() *Backup {
+	normalized := dcl.Copy(*r).(Backup)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.SourceInstance = dcl.SelfLinkToName(r.SourceInstance)
+	normalized.SourceFileShare = dcl.SelfLinkToName(r.SourceFileShare)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
 }
 
 func (r *Backup) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "UpdateBackup" {
 		fields := map[string]interface{}{
-			"project":  dcl.ValueOrEmptyString(n.Project),
-			"location": dcl.ValueOrEmptyString(n.Location),
-			"name":     dcl.ValueOrEmptyString(n.Name),
+			"project":  dcl.ValueOrEmptyString(nr.Project),
+			"location": dcl.ValueOrEmptyString(nr.Location),
+			"name":     dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("projects/{{project}}/locations/{{location}}/backups/{{name}}", "https://file.googleapis.com/v1beta1/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/locations/{{location}}/backups/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -891,8 +896,8 @@ func (r *Backup) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

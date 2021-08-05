@@ -111,41 +111,49 @@ func (r *JobStatusDetails) validate() error {
 func (r *JobRetryConfig) validate() error {
 	return nil
 }
-
-func jobGetURL(userBasePath string, r *Job) (string, error) {
-	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/jobs/{{name}}", "https://cloudscheduler.googleapis.com/v1/", userBasePath, params), nil
+func (r *Job) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://cloudscheduler.googleapis.com/v1/", params)
 }
 
-func jobListURL(userBasePath, project, location string) (string, error) {
+func (r *Job) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/jobs", "https://cloudscheduler.googleapis.com/v1/", userBasePath, params), nil
-
+	return dcl.URL("projects/{{project}}/locations/{{location}}/jobs/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-func jobCreateURL(userBasePath, project, location string) (string, error) {
+func (r *Job) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/jobs", "https://cloudscheduler.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/jobs", nr.basePath(), userBasePath, params), nil
 
 }
 
-func jobDeleteURL(userBasePath string, r *Job) (string, error) {
+func (r *Job) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/jobs/{{name}}", "https://cloudscheduler.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/jobs", nr.basePath(), userBasePath, params), nil
+
+}
+
+func (r *Job) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/jobs/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // jobApiOperation represents a mutable operation in the underlying REST
@@ -220,7 +228,7 @@ type updateJobUpdateJobOperation struct {
 // PUT request to a single URL.
 
 func (op *updateJobUpdateJobOperation) do(ctx context.Context, r *Job, c *Client) error {
-	_, err := c.GetJob(ctx, r.URLNormalized())
+	_, err := c.GetJob(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -248,8 +256,8 @@ func (op *updateJobUpdateJobOperation) do(ctx context.Context, r *Job, c *Client
 	return nil
 }
 
-func (c *Client) listJobRaw(ctx context.Context, project, location, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := jobListURL(c.Config.BasePath, project, location)
+func (c *Client) listJobRaw(ctx context.Context, r *Job, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -280,8 +288,8 @@ type listJobOperation struct {
 	Token string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listJob(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*Job, string, error) {
-	b, err := c.listJobRaw(ctx, project, location, pageToken, pageSize)
+func (c *Client) listJob(ctx context.Context, r *Job, pageToken string, pageSize int32) ([]*Job, string, error) {
+	b, err := c.listJobRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -297,8 +305,8 @@ func (c *Client) listJob(ctx context.Context, project, location, pageToken strin
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
-		res.Location = &location
+		res.Project = r.Project
+		res.Location = r.Location
 		l = append(l, res)
 	}
 
@@ -326,7 +334,7 @@ func (c *Client) deleteAllJob(ctx context.Context, f func(*Job) bool, resources 
 type deleteJobOperation struct{}
 
 func (op *deleteJobOperation) do(ctx context.Context, r *Job, c *Client) error {
-	r, err := c.GetJob(ctx, r.URLNormalized())
+	r, err := c.GetJob(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Job not found, returning. Original error: %v", err)
@@ -336,7 +344,7 @@ func (op *deleteJobOperation) do(ctx context.Context, r *Job, c *Client) error {
 		return err
 	}
 
-	u, err := jobDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -352,7 +360,7 @@ func (op *deleteJobOperation) do(ctx context.Context, r *Job, c *Client) error {
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetJob(ctx, r.URLNormalized())
+		_, err = c.GetJob(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -378,10 +386,7 @@ func (op *createJobOperation) FirstResponse() (map[string]interface{}, bool) {
 
 func (op *createJobOperation) do(ctx context.Context, r *Job, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, location := r.createFields()
-	u, err := jobCreateURL(c.Config.BasePath, project, location)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -401,7 +406,7 @@ func (op *createJobOperation) do(ctx context.Context, r *Job, c *Client) error {
 	}
 	op.response = o
 
-	if _, err := c.GetJob(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetJob(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -411,7 +416,7 @@ func (op *createJobOperation) do(ctx context.Context, r *Job, c *Client) error {
 
 func (c *Client) getJobRaw(ctx context.Context, r *Job) ([]byte, error) {
 
-	u, err := jobGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -444,7 +449,7 @@ func (c *Client) jobDiffsForRawDesired(ctx context.Context, rawDesired *Job, opt
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetJob(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetJob(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Job resource already exists: %s", err)
@@ -2033,32 +2038,33 @@ func compareJobRetryConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 	return diffs, nil
 }
 
-func (r *Job) getFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *Job) createFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location)
-}
-
-func (r *Job) deleteFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Job) urlNormalized() *Job {
+	normalized := dcl.Copy(*r).(Job)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Schedule = dcl.SelfLinkToName(r.Schedule)
+	normalized.TimeZone = dcl.SelfLinkToName(r.TimeZone)
+	normalized.AttemptDeadline = dcl.SelfLinkToName(r.AttemptDeadline)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
 }
 
 func (r *Job) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "UpdateJob" {
 		fields := map[string]interface{}{
-			"project":  dcl.ValueOrEmptyString(n.Project),
-			"location": dcl.ValueOrEmptyString(n.Location),
-			"name":     dcl.ValueOrEmptyString(n.Name),
+			"project":  dcl.ValueOrEmptyString(nr.Project),
+			"location": dcl.ValueOrEmptyString(nr.Location),
+			"name":     dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("projects/{{project}}/locations/{{location}}/jobs/{{name}}", "https://cloudscheduler.googleapis.com/v1/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/locations/{{location}}/jobs/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -3480,8 +3486,8 @@ func (r *Job) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

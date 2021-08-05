@@ -125,18 +125,37 @@ class AuthorizationPolicy(object):
 
         response = stub.DeleteNetworksecurityAlphaAuthorizationPolicy(request)
 
-    @classmethod
-    def list(self, project, location, service_account_file=""):
+    def list(self):
         stub = authorization_policy_pb2_grpc.NetworksecurityAlphaAuthorizationPolicyServiceStub(
             channel.Channel()
         )
         request = (
             authorization_policy_pb2.ListNetworksecurityAlphaAuthorizationPolicyRequest()
         )
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
-        request.Location = location
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
+        if AuthorizationPolicyActionEnum.to_proto(self.action):
+            request.resource.action = AuthorizationPolicyActionEnum.to_proto(
+                self.action
+            )
+
+        if AuthorizationPolicyRulesArray.to_proto(self.rules):
+            request.resource.rules.extend(
+                AuthorizationPolicyRulesArray.to_proto(self.rules)
+            )
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         return stub.ListNetworksecurityAlphaAuthorizationPolicy(request).items
 

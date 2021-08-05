@@ -184,9 +184,7 @@ type WorkerPoolList struct {
 
 	pageSize int32
 
-	project string
-
-	location string
+	resource *WorkerPool
 }
 
 func (l *WorkerPoolList) HasNext() bool {
@@ -200,7 +198,7 @@ func (l *WorkerPoolList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listWorkerPool(ctx, l.project, l.location, l.nextToken, l.pageSize)
+	items, token, err := c.listWorkerPool(ctx, l.resource, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -209,19 +207,19 @@ func (l *WorkerPoolList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListWorkerPool(ctx context.Context, project, location string) (*WorkerPoolList, error) {
+func (c *Client) ListWorkerPool(ctx context.Context, r *WorkerPool) (*WorkerPoolList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListWorkerPoolWithMaxResults(ctx, project, location, WorkerPoolMaxPage)
+	return c.ListWorkerPoolWithMaxResults(ctx, r, WorkerPoolMaxPage)
 
 }
 
-func (c *Client) ListWorkerPoolWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*WorkerPoolList, error) {
+func (c *Client) ListWorkerPoolWithMaxResults(ctx context.Context, r *WorkerPool, pageSize int32) (*WorkerPoolList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listWorkerPool(ctx, project, location, "", pageSize)
+	items, token, err := c.listWorkerPool(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -229,22 +227,8 @@ func (c *Client) ListWorkerPoolWithMaxResults(ctx context.Context, project, loca
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		project: project,
-
-		location: location,
+		resource:  r,
 	}, nil
-}
-
-// URLNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *WorkerPool) URLNormalized() *WorkerPool {
-	normalized := dcl.Copy(*r).(WorkerPool)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
 }
 
 func (c *Client) GetWorkerPool(ctx context.Context, r *WorkerPool) (*WorkerPool, error) {
@@ -293,8 +277,8 @@ func (c *Client) DeleteWorkerPool(ctx context.Context, r *WorkerPool) error {
 }
 
 // DeleteAllWorkerPool deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllWorkerPool(ctx context.Context, project, location string, filter func(*WorkerPool) bool) error {
-	listObj, err := c.ListWorkerPool(ctx, project, location)
+func (c *Client) DeleteAllWorkerPool(ctx context.Context, r *WorkerPool, filter func(*WorkerPool) bool) error {
+	listObj, err := c.ListWorkerPool(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -418,7 +402,7 @@ func applyWorkerPoolHelper(c *Client, ctx context.Context, rawDesired *WorkerPoo
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetWorkerPool(ctx, desired.URLNormalized())
+	rawNew, err := c.GetWorkerPool(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
 	}

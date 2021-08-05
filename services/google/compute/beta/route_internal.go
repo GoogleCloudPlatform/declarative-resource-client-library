@@ -48,37 +48,45 @@ func (r *Route) validate() error {
 func (r *RouteWarning) validate() error {
 	return nil
 }
-
-func routeGetURL(userBasePath string, r *Route) (string, error) {
-	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(r.Project),
-		"name":    dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("projects/{{project}}/global/routes/{{name}}", "https://www.googleapis.com/compute/beta/", userBasePath, params), nil
+func (r *Route) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://www.googleapis.com/compute/beta/", params)
 }
 
-func routeListURL(userBasePath, project string) (string, error) {
+func (r *Route) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": project,
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/global/routes", "https://www.googleapis.com/compute/beta/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/global/routes/{{name}}", nr.basePath(), userBasePath, params), nil
+}
+
+func (r *Route) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project": dcl.ValueOrEmptyString(nr.Project),
+	}
+	return dcl.URL("projects/{{project}}/global/routes", nr.basePath(), userBasePath, params), nil
 
 }
 
-func routeCreateURL(userBasePath, project string) (string, error) {
+func (r *Route) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": project,
+		"project": dcl.ValueOrEmptyString(nr.Project),
 	}
-	return dcl.URL("projects/{{project}}/global/routes", "https://www.googleapis.com/compute/beta/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/global/routes", nr.basePath(), userBasePath, params), nil
 
 }
 
-func routeDeleteURL(userBasePath string, r *Route) (string, error) {
+func (r *Route) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(r.Project),
-		"name":    dcl.ValueOrEmptyString(r.Name),
+		"project": dcl.ValueOrEmptyString(nr.Project),
+		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/global/routes/{{name}}", "https://www.googleapis.com/compute/beta/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/global/routes/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 // routeApiOperation represents a mutable operation in the underlying REST
@@ -87,8 +95,8 @@ type routeApiOperation interface {
 	do(context.Context, *Route, *Client) error
 }
 
-func (c *Client) listRouteRaw(ctx context.Context, project, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := routeListURL(c.Config.BasePath, project)
+func (c *Client) listRouteRaw(ctx context.Context, r *Route, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -119,8 +127,8 @@ type listRouteOperation struct {
 	Token string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listRoute(ctx context.Context, project, pageToken string, pageSize int32) ([]*Route, string, error) {
-	b, err := c.listRouteRaw(ctx, project, pageToken, pageSize)
+func (c *Client) listRoute(ctx context.Context, r *Route, pageToken string, pageSize int32) ([]*Route, string, error) {
+	b, err := c.listRouteRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -136,7 +144,7 @@ func (c *Client) listRoute(ctx context.Context, project, pageToken string, pageS
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
+		res.Project = r.Project
 		l = append(l, res)
 	}
 
@@ -164,7 +172,7 @@ func (c *Client) deleteAllRoute(ctx context.Context, f func(*Route) bool, resour
 type deleteRouteOperation struct{}
 
 func (op *deleteRouteOperation) do(ctx context.Context, r *Route, c *Client) error {
-	r, err := c.GetRoute(ctx, r.URLNormalized())
+	r, err := c.GetRoute(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Route not found, returning. Original error: %v", err)
@@ -174,7 +182,7 @@ func (op *deleteRouteOperation) do(ctx context.Context, r *Route, c *Client) err
 		return err
 	}
 
-	u, err := routeDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -191,7 +199,7 @@ func (op *deleteRouteOperation) do(ctx context.Context, r *Route, c *Client) err
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/beta/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		return err
 	}
 
@@ -199,7 +207,7 @@ func (op *deleteRouteOperation) do(ctx context.Context, r *Route, c *Client) err
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetRoute(ctx, r.URLNormalized())
+		_, err = c.GetRoute(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -225,10 +233,7 @@ func (op *createRouteOperation) FirstResponse() (map[string]interface{}, bool) {
 
 func (op *createRouteOperation) do(ctx context.Context, r *Route, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project := r.createFields()
-	u, err := routeCreateURL(c.Config.BasePath, project)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -246,14 +251,14 @@ func (op *createRouteOperation) do(ctx context.Context, r *Route, c *Client) err
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/beta/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetRoute(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetRoute(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -266,7 +271,7 @@ func (c *Client) getRouteRaw(ctx context.Context, r *Route) ([]byte, error) {
 		r.Priority = dcl.Int64(1000)
 	}
 
-	u, err := routeGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -299,7 +304,7 @@ func (c *Client) routeDiffsForRawDesired(ctx context.Context, rawDesired *Route,
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetRoute(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetRoute(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Route resource already exists: %s", err)
@@ -873,19 +878,25 @@ func compareRouteWarningNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fie
 	return diffs, nil
 }
 
-func (r *Route) getFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *Route) createFields() string {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project)
-}
-
-func (r *Route) deleteFields() (string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Route) urlNormalized() *Route {
+	normalized := dcl.Copy(*r).(Route)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Network = dcl.SelfLinkToName(r.Network)
+	normalized.DestRange = dcl.SelfLinkToName(r.DestRange)
+	normalized.NextHopInstance = dcl.SelfLinkToName(r.NextHopInstance)
+	normalized.NextHopIP = dcl.SelfLinkToName(r.NextHopIP)
+	normalized.NextHopNetwork = dcl.SelfLinkToName(r.NextHopNetwork)
+	normalized.NextHopGateway = dcl.SelfLinkToName(r.NextHopGateway)
+	normalized.NextHopPeering = dcl.SelfLinkToName(r.NextHopPeering)
+	normalized.NextHopIlb = dcl.SelfLinkToName(r.NextHopIlb)
+	normalized.NextHopVpnTunnel = dcl.SelfLinkToName(r.NextHopVpnTunnel)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
 }
 
 func (r *Route) updateURL(userBasePath, updateName string) (string, error) {
@@ -1213,8 +1224,8 @@ func (r *Route) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

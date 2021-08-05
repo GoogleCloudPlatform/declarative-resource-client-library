@@ -1152,7 +1152,7 @@ func (s *GuestPolicyServer) ListOsconfigBetaGuestPolicy(ctx context.Context, req
 		return nil, err
 	}
 
-	resources, err := cl.ListGuestPolicy(ctx, request.Project)
+	resources, err := cl.ListGuestPolicy(ctx, ProtoToGuestPolicy(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

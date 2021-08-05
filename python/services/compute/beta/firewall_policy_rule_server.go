@@ -197,7 +197,7 @@ func (s *FirewallPolicyRuleServer) ListComputeBetaFirewallPolicyRule(ctx context
 		return nil, err
 	}
 
-	resources, err := cl.ListFirewallPolicyRule(ctx, request.FirewallPolicy)
+	resources, err := cl.ListFirewallPolicyRule(ctx, ProtoToFirewallPolicyRule(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

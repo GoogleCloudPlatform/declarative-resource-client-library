@@ -260,7 +260,7 @@ func (s *FeatureMembershipServer) ListGkehubBetaFeatureMembership(ctx context.Co
 		return nil, err
 	}
 
-	resources, err := cl.ListFeatureMembership(ctx, request.Project, request.Location, request.Feature)
+	resources, err := cl.ListFeatureMembership(ctx, ProtoToFeatureMembership(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

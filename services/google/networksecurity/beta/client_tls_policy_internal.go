@@ -100,52 +100,60 @@ func (r *ClientTlsPolicyServerValidationCaCertificateProviderInstance) validate(
 	}
 	return nil
 }
-
-func clientTlsPolicyGetURL(userBasePath string, r *ClientTlsPolicy) (string, error) {
-	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
-	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/clientTlsPolicies/{{name}}", "https://networksecurity.googleapis.com/v1beta1/", userBasePath, params), nil
+func (r *ClientTlsPolicy) basePath() string {
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://networksecurity.googleapis.com/v1beta1/", params)
 }
 
-func clientTlsPolicyListURL(userBasePath, project, location string) (string, error) {
+func (r *ClientTlsPolicy) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/clientTlsPolicies", "https://networksecurity.googleapis.com/v1beta1/", userBasePath, params), nil
-
+	return dcl.URL("projects/{{project}}/locations/{{location}}/clientTlsPolicies/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-func clientTlsPolicyCreateURL(userBasePath, project, location, name string) (string, error) {
+func (r *ClientTlsPolicy) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  project,
-		"location": location,
-		"name":     name,
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/clientTlsPolicies?clientTlsPolicyId={{name}}", "https://networksecurity.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/clientTlsPolicies", nr.basePath(), userBasePath, params), nil
 
 }
 
-func clientTlsPolicyDeleteURL(userBasePath string, r *ClientTlsPolicy) (string, error) {
+func (r *ClientTlsPolicy) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/clientTlsPolicies/{{name}}", "https://networksecurity.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/clientTlsPolicies?clientTlsPolicyId={{name}}", nr.basePath(), userBasePath, params), nil
+
+}
+
+func (r *ClientTlsPolicy) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/clientTlsPolicies/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
 func (r *ClientTlsPolicy) SetPolicyURL(userBasePath string) string {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	fields := map[string]interface{}{
-		"project":  *n.Project,
-		"location": *n.Location,
-		"name":     *n.Name,
+		"project":  *nr.Project,
+		"location": *nr.Location,
+		"name":     *nr.Name,
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/clientTlsPolicies/{{name}}:setIamPolicy", "https://networksecurity.googleapis.com/v1beta1/", userBasePath, fields)
+	return dcl.URL("projects/{{project}}/locations/{{location}}/clientTlsPolicies/{{name}}:setIamPolicy", nr.basePath(), userBasePath, fields)
 }
 
 func (r *ClientTlsPolicy) SetPolicyVerb() string {
@@ -153,13 +161,13 @@ func (r *ClientTlsPolicy) SetPolicyVerb() string {
 }
 
 func (r *ClientTlsPolicy) getPolicyURL(userBasePath string) string {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	fields := map[string]interface{}{
-		"project":  *n.Project,
-		"location": *n.Location,
-		"name":     *n.Name,
+		"project":  *nr.Project,
+		"location": *nr.Location,
+		"name":     *nr.Name,
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/clientTlsPolicies/{{name}}:getIamPolicy", "https://networksecurity.googleapis.com/v1beta1/", userBasePath, fields)
+	return dcl.URL("projects/{{project}}/locations/{{location}}/clientTlsPolicies/{{name}}:getIamPolicy", nr.basePath(), userBasePath, fields)
 }
 
 func (r *ClientTlsPolicy) IAMPolicyVersion() int {
@@ -220,7 +228,7 @@ type updateClientTlsPolicyUpdateClientTlsPolicyOperation struct {
 // PUT request to a single URL.
 
 func (op *updateClientTlsPolicyUpdateClientTlsPolicyOperation) do(ctx context.Context, r *ClientTlsPolicy, c *Client) error {
-	_, err := c.GetClientTlsPolicy(ctx, r.URLNormalized())
+	_, err := c.GetClientTlsPolicy(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -249,7 +257,7 @@ func (op *updateClientTlsPolicyUpdateClientTlsPolicyOperation) do(ctx context.Co
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	err = o.Wait(ctx, c.Config, "https://networksecurity.googleapis.com/v1beta1/", "GET")
+	err = o.Wait(ctx, c.Config, r.basePath(), "GET")
 
 	if err != nil {
 		return err
@@ -258,8 +266,8 @@ func (op *updateClientTlsPolicyUpdateClientTlsPolicyOperation) do(ctx context.Co
 	return nil
 }
 
-func (c *Client) listClientTlsPolicyRaw(ctx context.Context, project, location, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := clientTlsPolicyListURL(c.Config.BasePath, project, location)
+func (c *Client) listClientTlsPolicyRaw(ctx context.Context, r *ClientTlsPolicy, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -290,8 +298,8 @@ type listClientTlsPolicyOperation struct {
 	Token             string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listClientTlsPolicy(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*ClientTlsPolicy, string, error) {
-	b, err := c.listClientTlsPolicyRaw(ctx, project, location, pageToken, pageSize)
+func (c *Client) listClientTlsPolicy(ctx context.Context, r *ClientTlsPolicy, pageToken string, pageSize int32) ([]*ClientTlsPolicy, string, error) {
+	b, err := c.listClientTlsPolicyRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -307,8 +315,8 @@ func (c *Client) listClientTlsPolicy(ctx context.Context, project, location, pag
 		if err != nil {
 			return nil, m.Token, err
 		}
-		res.Project = &project
-		res.Location = &location
+		res.Project = r.Project
+		res.Location = r.Location
 		l = append(l, res)
 	}
 
@@ -336,7 +344,7 @@ func (c *Client) deleteAllClientTlsPolicy(ctx context.Context, f func(*ClientTls
 type deleteClientTlsPolicyOperation struct{}
 
 func (op *deleteClientTlsPolicyOperation) do(ctx context.Context, r *ClientTlsPolicy, c *Client) error {
-	r, err := c.GetClientTlsPolicy(ctx, r.URLNormalized())
+	r, err := c.GetClientTlsPolicy(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("ClientTlsPolicy not found, returning. Original error: %v", err)
@@ -346,7 +354,7 @@ func (op *deleteClientTlsPolicyOperation) do(ctx context.Context, r *ClientTlsPo
 		return err
 	}
 
-	u, err := clientTlsPolicyDeleteURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.deleteURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -363,7 +371,7 @@ func (op *deleteClientTlsPolicyOperation) do(ctx context.Context, r *ClientTlsPo
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://networksecurity.googleapis.com/v1beta1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		return err
 	}
 
@@ -371,7 +379,7 @@ func (op *deleteClientTlsPolicyOperation) do(ctx context.Context, r *ClientTlsPo
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetClientTlsPolicy(ctx, r.URLNormalized())
+		_, err = c.GetClientTlsPolicy(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -397,10 +405,7 @@ func (op *createClientTlsPolicyOperation) FirstResponse() (map[string]interface{
 
 func (op *createClientTlsPolicyOperation) do(ctx context.Context, r *ClientTlsPolicy, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, location, name := r.createFields()
-	u, err := clientTlsPolicyCreateURL(c.Config.BasePath, project, location, name)
-
+	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
 	}
@@ -418,14 +423,14 @@ func (op *createClientTlsPolicyOperation) do(ctx context.Context, r *ClientTlsPo
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://networksecurity.googleapis.com/v1beta1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetClientTlsPolicy(ctx, r.URLNormalized()); err != nil {
+	if _, err := c.GetClientTlsPolicy(ctx, r); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -435,7 +440,7 @@ func (op *createClientTlsPolicyOperation) do(ctx context.Context, r *ClientTlsPo
 
 func (c *Client) getClientTlsPolicyRaw(ctx context.Context, r *ClientTlsPolicy) ([]byte, error) {
 
-	u, err := clientTlsPolicyGetURL(c.Config.BasePath, r.URLNormalized())
+	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
 	}
@@ -468,7 +473,7 @@ func (c *Client) clientTlsPolicyDiffsForRawDesired(ctx context.Context, rawDesir
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetClientTlsPolicy(ctx, fetchState.URLNormalized())
+	rawInitial, err := c.GetClientTlsPolicy(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a ClientTlsPolicy resource already exists: %s", err)
@@ -1398,32 +1403,31 @@ func compareClientTlsPolicyServerValidationCaCertificateProviderInstanceNewStyle
 	return diffs, nil
 }
 
-func (r *ClientTlsPolicy) getFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *ClientTlsPolicy) createFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
-}
-
-func (r *ClientTlsPolicy) deleteFields() (string, string, string) {
-	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *ClientTlsPolicy) urlNormalized() *ClientTlsPolicy {
+	normalized := dcl.Copy(*r).(ClientTlsPolicy)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Sni = dcl.SelfLinkToName(r.Sni)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
 }
 
 func (r *ClientTlsPolicy) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.URLNormalized()
+	nr := r.urlNormalized()
 	if updateName == "UpdateClientTlsPolicy" {
 		fields := map[string]interface{}{
-			"project":  dcl.ValueOrEmptyString(n.Project),
-			"location": dcl.ValueOrEmptyString(n.Location),
-			"name":     dcl.ValueOrEmptyString(n.Name),
+			"project":  dcl.ValueOrEmptyString(nr.Project),
+			"location": dcl.ValueOrEmptyString(nr.Location),
+			"name":     dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("projects/{{project}}/locations/{{location}}/clientTlsPolicies/{{name}}", "https://networksecurity.googleapis.com/v1beta1/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/locations/{{location}}/clientTlsPolicies/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -2236,8 +2240,8 @@ func (r *ClientTlsPolicy) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.URLNormalized()
-		ncr := cr.URLNormalized()
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

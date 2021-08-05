@@ -193,7 +193,7 @@ func (s *AttestorServer) ListBinaryauthorizationBetaAttestor(ctx context.Context
 		return nil, err
 	}
 
-	resources, err := cl.ListAttestor(ctx, request.Project)
+	resources, err := cl.ListAttestor(ctx, ProtoToAttestor(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

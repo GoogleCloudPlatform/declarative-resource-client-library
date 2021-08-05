@@ -1068,7 +1068,7 @@ func (s *NoteServer) ListContaineranalysisBetaNote(ctx context.Context, request 
 		return nil, err
 	}
 
-	resources, err := cl.ListNote(ctx, request.Project)
+	resources, err := cl.ListNote(ctx, ProtoToNote(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}
