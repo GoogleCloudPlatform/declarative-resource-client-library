@@ -17,15 +17,15 @@ description: A basic example an IAP brand.
 name: basic_brand
 resource: samples/basic.brand.json
 variables:
-- name: org_id
-  type: org_id
 - name: brand
   type: resource_name
-- name: project
-  type: project
+- name: org_id
+  type: org_id
 - name: application
   type: resource_name
 - name: test_service_account
   type: test_service_account
+- name: project
+  type: project
 versions:
 - ga
