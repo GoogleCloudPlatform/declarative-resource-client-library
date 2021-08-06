@@ -15,14 +15,14 @@ description: A basic example of a dataproc workflow_template
 name: basic_workflow_template
 resource: samples/basic.workflow_template.json
 variables:
+- name: template_name
+  type: resource_name
 - name: region
   type: region
 - name: zone
   type: zone
 - name: project
   type: project
-- name: template_name
-  type: resource_name
 versions:
 - ga
 - beta
