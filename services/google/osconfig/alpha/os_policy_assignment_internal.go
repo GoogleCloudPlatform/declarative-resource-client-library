@@ -1808,7 +1808,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource
 	} else {
 		cDes.Bucket = des.Bucket
 	}
-	if dcl.NameToSelfLink(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
+	if dcl.StringCanonicalize(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
 		cDes.Object = initial.Object
 	} else {
 		cDes.Object = des.Object
@@ -1830,7 +1830,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSou
 	if dcl.NameToSelfLink(des.Bucket, nw.Bucket) {
 		nw.Bucket = des.Bucket
 	}
-	if dcl.NameToSelfLink(des.Object, nw.Object) {
+	if dcl.StringCanonicalize(des.Object, nw.Object) {
 		nw.Object = des.Object
 	}
 
@@ -2341,7 +2341,7 @@ func canonicalizeOSPolicyAssignmentFileGcs(des, initial *OSPolicyAssignmentFileG
 	} else {
 		cDes.Bucket = des.Bucket
 	}
-	if dcl.NameToSelfLink(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
+	if dcl.StringCanonicalize(des.Object, initial.Object) || dcl.IsZeroValue(des.Object) {
 		cDes.Object = initial.Object
 	} else {
 		cDes.Object = des.Object
@@ -2363,7 +2363,7 @@ func canonicalizeNewOSPolicyAssignmentFileGcs(c *Client, des, nw *OSPolicyAssign
 	if dcl.NameToSelfLink(des.Bucket, nw.Bucket) {
 		nw.Bucket = des.Bucket
 	}
-	if dcl.NameToSelfLink(des.Object, nw.Object) {
+	if dcl.StringCanonicalize(des.Object, nw.Object) {
 		nw.Object = des.Object
 	}
 
@@ -4338,7 +4338,7 @@ func compareOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsNe
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Object, actual.Object, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Object")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Object, actual.Object, dcl.Info{OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Object")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4561,7 +4561,7 @@ func compareOSPolicyAssignmentFileGcsNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Object, actual.Object, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Object")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Object, actual.Object, dcl.Info{OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Object")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -1,21 +1,18 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
-    name = "io_bazel_rules_go",
-    sha256 = "e5de048e72612598c45f564202f6a3c74616be4ffd2dbd6f7bc75045f8ecbdce",
+    name = "com_google_protobuf",
+    sha256 = "a79d19dcdf9139fa4b81206e318e33d245c4c9da1ffed21c87288ed4380426f9",
+    strip_prefix = "protobuf-3.11.4",
     urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.23.4/rules_go-v0.23.4.tar.gz",
-        "https://github.com/bazelbuild/rules_go/releases/download/v0.23.4/rules_go-v0.23.4.tar.gz",
+        "https://mirror.bazel.build/github.com/protocolbuffers/protobuf/archive/v3.11.4.tar.gz",
+        "https://github.com/protocolbuffers/protobuf/archive/v3.11.4.tar.gz",
     ],
 )
 
-load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 
-go_rules_dependencies()
-
-go_register_toolchains()
-
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+protobuf_deps()
 
 http_archive(
     name = "io_bazel_rules_go",
@@ -195,8 +192,7 @@ go_repository(
 go_repository(
     name = "com_github_google_go_cmp",
     importpath = "github.com/google/go-cmp",
-    sum = "h1:xsAVV57WRhGj6kEIi8ReJzQlHHqcBYCElAvkovg3B/4=",
-    version = "v0.4.0",
+    tag = "v0.88.0",
 )
 
 go_repository(
@@ -433,15 +429,13 @@ go_repository(
 go_repository(
     name = "org_golang_google_api",
     importpath = "google.golang.org/api",
-    sum = "h1:VJZ8h6E8ip82FRpQl848c5vAadxlTXrUh8RzQzSRm08=",
-    version = "v0.26.0",
+    tag = "v0.52.0",
 )
 
 go_repository(
     name = "org_golang_google_appengine",
     importpath = "google.golang.org/appengine",
-    sum = "h1:tycE03LOZYQNhDpS27tcQdAzLCVMaj7QT2SXxebnpCM=",
-    version = "v1.6.5",
+    tag = "v1.6.7",
 )
 
 go_repository(
@@ -510,8 +504,7 @@ go_repository(
 go_repository(
     name = "org_golang_x_oauth2",
     importpath = "golang.org/x/oauth2",
-    sum = "h1:TzXSXBo42m9gQenoE3b9BGiEpg5IG2JkU5FkPIawgtw=",
-    version = "v0.0.0-20200107190931-bf48bf16ab8d",
+    tag = "a41e5a781914",
 )
 
 go_repository(

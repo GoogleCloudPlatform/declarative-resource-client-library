@@ -1,0 +1,21 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "client.go",
+        "dashboard.go",
+        "dashboard_beta_yaml_embed.go",
+        "dashboard_internal.go",
+        "group.go",
+        "group_beta_yaml_embed.go",
+        "group_internal.go",
+        "monitoring_utils.go",
+    ],
+    importpath = "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring/beta",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//dcl:go_default_library",
+        "@org_golang_google_api//googleapi:go_default_library",
+    ],
+)

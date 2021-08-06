@@ -17,12 +17,12 @@ resource: samples/basic.autoscaling_policy.json
 updates:
 - resource: samples/update.autoscaling_policy.json
 variables:
-- name: name
-  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
+- name: name
+  type: resource_name
 versions:
 - ga
 - beta
