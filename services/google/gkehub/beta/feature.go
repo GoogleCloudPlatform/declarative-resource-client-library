@@ -561,12 +561,12 @@ func applyFeatureHelper(c *Client, ctx context.Context, rawDesired *Feature, opt
 
 	// 2.5 Request Actuation
 	for _, op := range ops {
-		c.Config.Logger.Infof("Performing operation %#v", op)
+		c.Config.Logger.Infof("Performing operation %T %+v", op, op)
 		if err := op.do(ctx, desired, c); err != nil {
-			c.Config.Logger.Infof("Failed operation %#v: %v", op, err)
+			c.Config.Logger.Infof("Failed operation %T %+v: %v", op, op, err)
 			return nil, err
 		}
-		c.Config.Logger.Infof("Finished operation %#v", op)
+		c.Config.Logger.Infof("Finished operation %T %+v", op, op)
 	}
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state

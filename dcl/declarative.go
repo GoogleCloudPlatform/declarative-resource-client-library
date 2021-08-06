@@ -54,6 +54,15 @@ func HasLifecycleParam(lps []LifecycleParam, p LifecycleParam) bool {
 	return false
 }
 
+// SprintResourceCompact prints a struct into a compact single line string.
+func SprintResourceCompact(v interface{}) string {
+	prettyConfig := &pretty.Config{
+		Compact:           true,
+		IncludeUnexported: true,
+	}
+	return prettyConfig.Sprint(v)
+}
+
 // SprintResource prints a struct into a multiline string to display to readers.
 func SprintResource(v interface{}) string {
 	prettyConfig := &pretty.Config{

@@ -85,7 +85,7 @@ func (d *FieldDiff) String() string {
 	} else if len(d.ToAdd) != 0 || len(d.ToRemove) != 0 {
 		return fmt.Sprintf("Field %s: add %v, remove %v", d.FieldName, d.ToAdd, d.ToRemove)
 	}
-	return fmt.Sprintf("Field %s: got %s, want %s", d.FieldName, stringValue(d.Actual), stringValue(d.Desired))
+	return fmt.Sprintf("Field %s: got %s, want %s", d.FieldName, SprintResourceCompact(d.Actual), SprintResourceCompact(d.Desired))
 }
 
 func stringValue(i interface{}) string {
