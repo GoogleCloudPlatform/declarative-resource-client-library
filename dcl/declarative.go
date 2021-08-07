@@ -324,7 +324,7 @@ func FlattenTime(v interface{}) time.Time {
 }
 
 // FlattenSecretValue behaves the same way as FlattenString, except that it
-// returns nil if the value is no present.
+// returns nil if the value is not present.
 func FlattenSecretValue(v interface{}) *string {
 	p, ok := v.(string)
 	if !ok {

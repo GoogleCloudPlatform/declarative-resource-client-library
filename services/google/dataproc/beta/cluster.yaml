@@ -85,7 +85,9 @@ components:
             type: string
           x-dcl-go-name: Labels
           description: Optional. The labels to associate with this cluster. Label
-            **keys** must contain 1 to 63 characters, and must conform to (https://www.ietf.org/rfc/rfc1035.txt).
+            **keys** must contain 1 to 63 characters, and must conform to [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt).
+            Label **values** may be empty, but, if present, must contain 1 to 63 characters,
+            and must conform to [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt).
             No more than 32 labels can be associated with a cluster.
         location:
           type: string
@@ -170,7 +172,7 @@ components:
               x-dcl-go-name: StateStartTime
               readOnly: true
               description: Output only. Time when this state was entered (see JSON
-                representation of (https://developers.google.com/protocol-buffers/docs/proto3#json)).
+                representation of [Timestamp](https://developers.google.com/protocol-buffers/docs/proto3#json)).
               x-kubernetes-immutable: true
             substate:
               type: string
@@ -228,7 +230,7 @@ components:
                 x-dcl-go-name: StateStartTime
                 readOnly: true
                 description: Output only. Time when this state was entered (see JSON
-                  representation of (https://developers.google.com/protocol-buffers/docs/proto3#json)).
+                  representation of [Timestamp](https://developers.google.com/protocol-buffers/docs/proto3#json)).
                 x-kubernetes-immutable: true
               substate:
                 type: string
@@ -247,8 +249,8 @@ components:
       type: object
       x-dcl-go-name: Config
       x-dcl-go-type: ClusterClusterConfig
-      description: The cluster config. Note that Dataproc may set default values,
-        and values may change when clusters are updated.
+      description: Required. The cluster config. Note that Dataproc may set default
+        values, and values may change when clusters are updated.
       x-kubernetes-immutable: true
       properties:
         autoscalingConfig:
@@ -264,7 +266,8 @@ components:
               x-dcl-go-name: Policy
               description: 'Optional. The autoscaling policy used by the cluster.
                 Only resource names including projectid and location (region) are
-                valid. Examples: * `https://www.googleapis.com/compute/v1/projects/`
+                valid. Examples: * `https://www.googleapis.com/compute/v1/projects/[project_id]/locations/[dataproc_region]/autoscalingPolicies/[policy_id]`
+                * `projects/[project_id]/locations/[dataproc_region]/autoscalingPolicies/[policy_id]`
                 Note that the policy must be in the same project and Dataproc region.'
               x-kubernetes-immutable: true
               x-dcl-references:
@@ -334,16 +337,19 @@ components:
                 type: string
               x-dcl-go-name: Metadata
               description: The Compute Engine metadata entries to add to all instances
-                (see (https://cloud.google.com/compute/docs/storing-retrieving-metadata#project_and_instance_metadata)).
+                (see [Project and instance metadata](https://cloud.google.com/compute/docs/storing-retrieving-metadata#project_and_instance_metadata)).
               x-kubernetes-immutable: true
             network:
               type: string
               x-dcl-go-name: Network
-              description: Optional. The Compute Engine network to be used for machine
+              description: 'Optional. The Compute Engine network to be used for machine
                 communications. Cannot be specified with subnetwork_uri. If neither
                 `network_uri` nor `subnetwork_uri` is specified, the "default" network
                 of the project is used, if it exists. Cannot be a "Custom Subnet Network"
-                (see /regions/global/default` * `default`
+                (see [Using Subnetworks](https://cloud.google.com/compute/docs/subnetworks)
+                for more information). A full URL, partial URI, or short name are
+                valid. Examples: * `https://www.googleapis.com/compute/v1/projects/[project_id]/regions/global/default`
+                * `projects/[project_id]/regions/global/default` * `default`'
               x-kubernetes-immutable: true
               x-dcl-references:
               - resource: Compute/Network
@@ -360,8 +366,11 @@ components:
                 nodeGroup:
                   type: string
                   x-dcl-go-name: NodeGroup
-                  description: Required. The URI of a sole-tenant /zones/us-central1-a/nodeGroups/node-group-1`
-                    * `node-group-1`
+                  description: 'Required. The URI of a sole-tenant [node group resource](https://cloud.google.com/compute/docs/reference/rest/v1/nodeGroups)
+                    that the cluster will be created on. A full URL, partial URI,
+                    or node group name are valid. Examples: * `https://www.googleapis.com/compute/v1/projects/[project_id]/zones/us-central1-a/nodeGroups/node-group-1`
+                    * `projects/[project_id]/zones/us-central1-a/nodeGroups/node-group-1`
+                    * `node-group-1`'
                   x-kubernetes-immutable: true
                   x-dcl-references:
                   - resource: Compute/NodeGroup
@@ -418,7 +427,10 @@ components:
             serviceAccount:
               type: string
               x-dcl-go-name: ServiceAccount
-              description: Optional. The (https://cloud.google.com/compute/docs/access/service-accounts#default_service_account)
+              description: Optional. The [Dataproc service account](https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/service-accounts#service_accounts_in_dataproc)
+                (also see [VM Data Plane identity](https://cloud.google.com/dataproc/docs/concepts/iam/dataproc-principals#vm_service_account_data_plane_identity))
+                used by Dataproc cluster VM instances to access Google Cloud Platform
+                services. If not specified, the [Compute Engine default service account](https://cloud.google.com/compute/docs/access/service-accounts#default_service_account)
                 is used.
               x-kubernetes-immutable: true
               x-dcl-references:
@@ -445,8 +457,8 @@ components:
               x-dcl-go-name: Subnetwork
               description: 'Optional. The Compute Engine subnetwork to be used for
                 machine communications. Cannot be specified with network_uri. A full
-                URL, partial URI, or short name are valid. Examples: * `https://www.googleapis.com/compute/v1/projects//regions/us-east1/subnetworks/sub0`
-                * `sub0`'
+                URL, partial URI, or short name are valid. Examples: * `https://www.googleapis.com/compute/v1/projects/[project_id]/regions/us-east1/subnetworks/sub0`
+                * `projects/[project_id]/regions/us-east1/subnetworks/sub0` * `sub0`'
               x-kubernetes-immutable: true
               x-dcl-references:
               - resource: Compute/Subnetwork
@@ -454,7 +466,8 @@ components:
             tags:
               type: array
               x-dcl-go-name: Tags
-              description: The Compute Engine tags to add to all instances (see (https://cloud.google.com/compute/docs/label-or-tag-resources#tags)).
+              description: The Compute Engine tags to add to all instances (see [Tagging
+                instances](https://cloud.google.com/compute/docs/label-or-tag-resources#tags)).
               x-dcl-send-empty: true
               x-dcl-list-type: set
               items:
@@ -468,14 +481,14 @@ components:
                 If omitted in a non-global Dataproc region, the service will pick
                 a zone in the corresponding Compute Engine region. On a get request,
                 zone will always be present. A full URL, partial URI, or short name
-                are valid. Examples: * `https://www.googleapis.com/compute/v1/projects/`
-                * `us-central1-f`'
+                are valid. Examples: * `https://www.googleapis.com/compute/v1/projects/[project_id]/zones/[zone]`
+                * `projects/[project_id]/zones/[zone]` * `us-central1-f`'
               x-kubernetes-immutable: true
         gkeClusterConfig:
           type: object
           x-dcl-go-name: GkeClusterConfig
           x-dcl-go-type: ClusterClusterConfigGkeClusterConfig
-          description: Optional. The Kubernetes Engine config for Dataproc clusters
+          description: Optional. BETA. The Kubernetes Engine config for Dataproc clusters
             deployed to Kubernetes. Setting this is considered mutually exclusive
             with Compute Engine-based options such as `gce_cluster_config`, `master_config`,
             `worker_config`, `secondary_worker_config`, and `autoscaling_config`.
@@ -511,8 +524,8 @@ components:
             You can test a node''s `role` metadata to run an executable on a master
             or worker node, as shown below using `curl` (you can also use `wget`):
             ROLE=$(curl -H Metadata-Flavor:Google http://metadata/computeMetadata/v1/instance/attributes/dataproc-role)
-            if ; then ... master specific actions ... else ... worker specific actions
-            ... fi'
+            if [[ "${ROLE}" == ''Master'' ]]; then ... master specific actions ...
+            else ... worker specific actions ... fi'
           x-kubernetes-immutable: true
           x-dcl-send-empty: true
           x-dcl-list-type: list
@@ -531,7 +544,7 @@ components:
                 type: string
                 x-dcl-go-name: ExecutionTimeout
                 description: Optional. Amount of time executable has to complete.
-                  Default is 10 minutes (see JSON representation of (https://developers.google.com/protocol-buffers/docs/proto3#json)).
+                  Default is 10 minutes (see JSON representation of [Duration](https://developers.google.com/protocol-buffers/docs/proto3#json)).
                   Cluster creation fails with an explanatory error message (the name
                   of the executable that caused the error and the exceeded timeout
                   period) if the executable is not completed at end of the timeout
@@ -549,14 +562,14 @@ components:
               format: date-time
               x-dcl-go-name: AutoDeleteTime
               description: Optional. The time when cluster will be auto-deleted (see
-                JSON representation of (https://developers.google.com/protocol-buffers/docs/proto3#json)).
+                JSON representation of [Timestamp](https://developers.google.com/protocol-buffers/docs/proto3#json)).
               x-kubernetes-immutable: true
             autoDeleteTtl:
               type: string
               x-dcl-go-name: AutoDeleteTtl
               description: Optional. The lifetime duration of cluster. The cluster
                 will be auto-deleted at the end of this period. Minimum value is 10
-                minutes; maximum value is 14 days (see JSON representation of (https://developers.google.com/protocol-buffers/docs/proto3#json)).
+                minutes; maximum value is 14 days (see JSON representation of [Duration](https://developers.google.com/protocol-buffers/docs/proto3#json)).
               x-kubernetes-immutable: true
             idleDeleteTtl:
               type: string
@@ -564,7 +577,7 @@ components:
               description: Optional. The duration to keep the cluster alive while
                 idling (when no jobs are running). Passing this threshold will cause
                 the cluster to be deleted. Minimum value is 5 minutes; maximum value
-                is 14 days (see JSON representation of (https://developers.google.com/protocol-buffers/docs/proto3#json).
+                is 14 days (see JSON representation of [Duration](https://developers.google.com/protocol-buffers/docs/proto3#json)).
               x-kubernetes-immutable: true
             idleStartTime:
               type: string
@@ -573,7 +586,7 @@ components:
               readOnly: true
               description: Output only. The time when cluster became idle (most recent
                 job finished) and became eligible for deletion due to idleness (see
-                JSON representation of (https://developers.google.com/protocol-buffers/docs/proto3#json)).
+                JSON representation of [Timestamp](https://developers.google.com/protocol-buffers/docs/proto3#json)).
               x-kubernetes-immutable: true
         masterConfig:
           $ref: '#/components/schemas/InstanceGroupConfig'
@@ -591,7 +604,7 @@ components:
               type: string
               x-dcl-go-name: DataprocMetastoreService
               description: 'Required. Resource name of an existing Dataproc Metastore
-                service. Example: * `projects/`'
+                service. Example: * `projects/[project_id]/locations/[dataproc_region]/services/[service-name]`'
               x-kubernetes-immutable: true
               x-dcl-references:
               - resource: Metastore/Service
@@ -610,7 +623,7 @@ components:
               type: object
               x-dcl-go-name: KerberosConfig
               x-dcl-go-type: ClusterClusterConfigSecurityConfigKerberosConfig
-              description: Kerberos related configuration.
+              description: Optional. Kerberos related configuration.
               x-kubernetes-immutable: true
               properties:
                 crossRealmTrustAdminServer:
@@ -728,7 +741,9 @@ components:
               type: string
               x-dcl-go-name: ImageVersion
               description: Optional. The version of software inside the cluster. It
-                must be one of the supported (https://cloud.google.com/dataproc/docs/concepts/versioning/dataproc-versions#other_versions).
+                must be one of the supported [Dataproc Versions](https://cloud.google.com/dataproc/docs/concepts/versioning/dataproc-versions#supported_dataproc_versions),
+                such as "1.2" (including a subminor version, such as "1.2.29"), or
+                the ["preview" version](https://cloud.google.com/dataproc/docs/concepts/versioning/dataproc-versions#other_versions).
                 If unspecified, it defaults to the latest Debian version.
               x-kubernetes-immutable: true
             optionalComponents:
@@ -767,7 +782,7 @@ components:
                 mappings: * capacity-scheduler: `capacity-scheduler.xml` * core: `core-site.xml`
                 * distcp: `distcp-default.xml` * hdfs: `hdfs-site.xml` * hive: `hive-site.xml`
                 * mapred: `mapred-site.xml` * pig: `pig.properties` * spark: `spark-defaults.conf`
-                * yarn: `yarn-site.xml` For more information, see (https://cloud.google.com/dataproc/docs/concepts/cluster-properties).'
+                * yarn: `yarn-site.xml` For more information, see [Cluster properties](https://cloud.google.com/dataproc/docs/concepts/cluster-properties).'
               x-kubernetes-immutable: true
         stagingBucket:
           type: string
@@ -777,7 +792,9 @@ components:
             bucket, Cloud Dataproc will determine a Cloud Storage location (US, ASIA,
             or EU) for your cluster's staging bucket according to the Compute Engine
             zone where your cluster is deployed, and then create and manage this project-level,
-            per-location bucket (see (https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/staging-bucket)).
+            per-location bucket (see [Dataproc staging bucket](https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/staging-bucket)).
+            **This field requires a Cloud Storage bucket name, not a URI to a Cloud
+            Storage bucket.**
           x-kubernetes-immutable: true
           x-dcl-references:
           - resource: Storage/Bucket
@@ -792,6 +809,8 @@ components:
             Engine zone where your cluster is deployed, and then create and manage
             this project-level, per-location bucket. The default bucket has a TTL
             of 90 days, but you can use any TTL (or none) if you specify a bucket.
+            **This field requires a Cloud Storage bucket name, not a URI to a Cloud
+            Storage bucket.**
           x-kubernetes-immutable: true
           x-dcl-references:
           - resource: Storage/Bucket
@@ -831,10 +850,14 @@ components:
               acceleratorType:
                 type: string
                 x-dcl-go-name: AcceleratorType
-                description: Full URL, partial URI, or short name of the accelerator
-                  type resource to expose to this instance. See (https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/auto-zone#using_auto_zone_placement)
+                description: 'Full URL, partial URI, or short name of the accelerator
+                  type resource to expose to this instance. See [Compute Engine AcceleratorTypes](https://cloud.google.com/compute/docs/reference/beta/acceleratorTypes).
+                  Examples: * `https://www.googleapis.com/compute/beta/projects/[project_id]/zones/us-east1-a/acceleratorTypes/nvidia-tesla-k80`
+                  * `projects/[project_id]/zones/us-east1-a/acceleratorTypes/nvidia-tesla-k80`
+                  * `nvidia-tesla-k80` **Auto Zone Exception**: If you are using the
+                  Dataproc [Auto Zone Placement](https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/auto-zone#using_auto_zone_placement)
                   feature, you must use the short name of the accelerator type resource,
-                  for example, `nvidia-tesla-k80`.
+                  for example, `nvidia-tesla-k80`.'
                 x-kubernetes-immutable: true
         diskConfig:
           type: object
@@ -854,8 +877,9 @@ components:
               type: string
               x-dcl-go-name: BootDiskType
               description: 'Optional. Type of the boot disk (default is "pd-standard").
-                Valid values: "pd-ssd" (Persistent Disk Solid State Drive) or "pd-standard"
-                (Persistent Disk Hard Disk Drive).'
+                Valid values: "pd-balanced" (Persistent Disk Balanced Solid State
+                Drive), "pd-ssd" (Persistent Disk Solid State Drive), or "pd-standard"
+                (Persistent Disk Hard Disk Drive). See [Disk types](https://cloud.google.com/compute/docs/disks#disk-types).'
               x-kubernetes-immutable: true
             numLocalSsds:
               type: integer
@@ -863,7 +887,7 @@ components:
               x-dcl-go-name: NumLocalSsds
               description: Optional. Number of attached SSDs, from 0 to 4 (default
                 is 0). If SSDs are not attached, the boot disk is used to store runtime
-                logs and (https://hadoop.apache.org/docs/r1.2.1/hdfs_user_guide.html)
+                logs and [HDFS](https://hadoop.apache.org/docs/r1.2.1/hdfs_user_guide.html)
                 data. If one or more SSDs are attached, this runtime bulk data is
                 spread across them, and the boot disk contains only basic config and
                 installed binaries.
@@ -874,9 +898,13 @@ components:
           x-dcl-go-name: Image
           description: 'Optional. The Compute Engine image resource used for cluster
             instances. The URI can represent an image or image family. Image examples:
-            * `https://www.googleapis.com/compute/beta/projects/` If the URI is unspecified,
-            it will be inferred from `SoftwareConfig.image_version` or the system
-            default.'
+            * `https://www.googleapis.com/compute/beta/projects/[project_id]/global/images/[image-id]`
+            * `projects/[project_id]/global/images/[image-id]` * `image-id` Image
+            family examples. Dataproc will use the most recent image from the family:
+            * `https://www.googleapis.com/compute/beta/projects/[project_id]/global/images/family/[custom-image-family-name]`
+            * `projects/[project_id]/global/images/family/[custom-image-family-name]`
+            If the URI is unspecified, it will be inferred from `SoftwareConfig.image_version`
+            or the system default.'
           x-kubernetes-immutable: true
           x-dcl-references:
           - resource: Compute/Image
@@ -909,7 +937,10 @@ components:
           x-dcl-go-name: MachineType
           description: 'Optional. The Compute Engine machine type used for cluster
             instances. A full URL, partial URI, or short name are valid. Examples:
-            * `https://www.googleapis.com/compute/v1/projects/(https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/auto-zone#using_auto_zone_placement)
+            * `https://www.googleapis.com/compute/v1/projects/[project_id]/zones/us-east1-a/machineTypes/n1-standard-2`
+            * `projects/[project_id]/zones/us-east1-a/machineTypes/n1-standard-2`
+            * `n1-standard-2` **Auto Zone Exception**: If you are using the Dataproc
+            [Auto Zone Placement](https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/auto-zone#using_auto_zone_placement)
             feature, you must use the short name of the machine type resource, for
             example, `n1-standard-2`.'
           x-kubernetes-immutable: true
@@ -941,7 +972,7 @@ components:
           type: string
           x-dcl-go-name: MinCpuPlatform
           description: Optional. Specifies the minimum cpu platform for the Instance
-            Group. See (https://cloud.google.com/dataproc/docs/concepts/compute/dataproc-min-cpu).
+            Group. See [Dataproc -> Minimum CPU Platform](https://cloud.google.com/dataproc/docs/concepts/compute/dataproc-min-cpu).
           x-kubernetes-immutable: true
           x-dcl-server-default: true
         numInstances:
@@ -949,7 +980,10 @@ components:
           format: int64
           x-dcl-go-name: NumInstances
           description: Optional. The number of VM instances in the instance group.
-            For master instance groups, must be set to 1.
+            For [HA cluster](/dataproc/docs/concepts/configuring-clusters/high-availability)
+            [master_config](#FIELDS.master_config) groups, **must be set to 3**. For
+            standard cluster [master_config](#FIELDS.master_config) groups, **must
+            be set to 1**.
           x-kubernetes-immutable: true
         preemptibility:
           type: string

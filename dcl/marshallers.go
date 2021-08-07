@@ -187,7 +187,7 @@ func PutMapEntry(m map[string]interface{}, path []string, item interface{}) erro
 // expect relatively few of these in newer APIs - it is explicitly against https://aip.dev/apps/2717 -
 // ("such a map is represented by a normal JSON object").
 // That AIP didn't exist at the time of development of, for instance, Compute v1.
-func MapFromListOfKeyValues(rawFetch map[string]interface{}, path []string) (map[string]string, error) {
+func MapFromListOfKeyValues(rawFetch map[string]interface{}, path []string, keyName, valueName string) (map[string]string, error) {
 	i, err := GetMapEntry(rawFetch, path)
 	if err != nil {
 		// If there's nothing there, it's okay to ignore.
@@ -209,11 +209,11 @@ func MapFromListOfKeyValues(rawFetch map[string]interface{}, path []string) (map
 
 	m := make(map[string]string, len(items))
 	for _, item := range items {
-		key, ok := item["key"].(string)
+		key, ok := item[keyName].(string)
 		if !ok {
 			return nil, fmt.Errorf("could not find 'key' in %v", item)
 		}
-		value, ok := item["value"].(string)
+		value, ok := item[valueName].(string)
 		if !ok {
 			return nil, fmt.Errorf("could not find 'value' in %v", item)
 		}
@@ -223,25 +223,25 @@ func MapFromListOfKeyValues(rawFetch map[string]interface{}, path []string) (map
 }
 
 // ListOfKeyValuesFromMap is the opposite of MapFromListOfKeyValues, used in marshalling instead of unmarshalling.
-func ListOfKeyValuesFromMap(m map[string]string) ([]map[string]string, error) {
+func ListOfKeyValuesFromMap(m map[string]string, keyName, valueName string) ([]map[string]string, error) {
 	var items []map[string]string
 	for k, v := range m {
 		items = append(items, map[string]string{
-			"key":   k,
-			"value": v,
+			keyName:   k,
+			valueName: v,
 		})
 	}
 	return items, nil
 }
 
-// ListOfKeyValuesFromMapInItemsStruct returns the opposite of MapFromListOfKeyValues, except nested inside an struct under the key "items".
-func ListOfKeyValuesFromMapInItemsStruct(m map[string]string) (map[string][]map[string]string, error) {
-	maps, err := ListOfKeyValuesFromMap(m)
+// ListOfKeyValuesFromMapInStruct returns the opposite of MapFromListOfKeyValues, except nested inside an struct under the subfield name.
+func ListOfKeyValuesFromMapInStruct(m map[string]string, subfieldName, keyName, valueName string) (map[string][]map[string]string, error) {
+	maps, err := ListOfKeyValuesFromMap(m, keyName, valueName)
 	if err != nil {
 		return nil, err
 	}
 	return map[string][]map[string]string{
-		"items": maps,
+		subfieldName: maps,
 	}, nil
 }
 

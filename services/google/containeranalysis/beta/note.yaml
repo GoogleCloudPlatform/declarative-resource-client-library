@@ -202,9 +202,9 @@ components:
               type: string
               x-dcl-go-name: AnalysisKind
               x-dcl-go-type: NoteDiscoveryAnalysisKindEnum
-              description: 'Required. Immutable. The kind of analysis that is handled
-                by this discovery. Possible values: NOTE_KIND_UNSPECIFIED, VULNERABILITY,
-                BUILD, IMAGE, PACKAGE, DEPLOYMENT, DISCOVERY, ATTESTATION, UPGRADE'
+              description: 'The kind of analysis that is handled by this discovery.
+                Possible values: NOTE_KIND_UNSPECIFIED, VULNERABILITY, BUILD, IMAGE,
+                PACKAGE, DEPLOYMENT, DISCOVERY, ATTESTATION, UPGRADE'
               enum:
               - NOTE_KIND_UNSPECIFIED
               - VULNERABILITY
@@ -278,7 +278,7 @@ components:
         name:
           type: string
           x-dcl-go-name: Name
-          description: The name of the note.
+          description: Required. Immutable. The name of the package.
           x-kubernetes-immutable: true
         package:
           type: object
@@ -312,7 +312,7 @@ components:
                     x-dcl-go-name: Architecture
                     x-dcl-go-type: NotePackageDistributionArchitectureEnum
                     description: 'The CPU architecture for which packages in this
-                      distribution channel were built. Possible values: ARCHITECTURE_UNSPECIFIED,
+                      distribution channel were built Possible values: ARCHITECTURE_UNSPECIFIED,
                       X86, X64'
                     enum:
                     - ARCHITECTURE_UNSPECIFIED
@@ -321,7 +321,7 @@ components:
                   cpeUri:
                     type: string
                     x-dcl-go-name: CpeUri
-                    description: Required. The cpe_uri in (https://cpe.mitre.org/specification/)
+                    description: The cpe_uri in [cpe format](https://cpe.mitre.org/specification/)
                       denoting the package manager version distributing a package.
                   description:
                     type: string
@@ -352,8 +352,9 @@ components:
                         type: string
                         x-dcl-go-name: Kind
                         x-dcl-go-type: NotePackageDistributionLatestVersionKindEnum
-                        description: 'Required. Distinguishes between sentinel MIN/MAX
-                          versions and normal versions. Possible values: NOTE_KIND_UNSPECIFIED,
+                        description: 'Distinguish between sentinel MIN/MAX versions
+                          and normal versions. If kind is not NORMAL, then the other
+                          fields are ignored. Possible values: NOTE_KIND_UNSPECIFIED,
                           VULNERABILITY, BUILD, IMAGE, PACKAGE, DEPLOYMENT, DISCOVERY,
                           ATTESTATION, UPGRADE'
                         enum:
@@ -369,8 +370,7 @@ components:
                       name:
                         type: string
                         x-dcl-go-name: Name
-                        description: Required only when version kind is NORMAL. The
-                          main part of the version name.
+                        description: The main part of the version name.
                       revision:
                         type: string
                         x-dcl-go-name: Revision
@@ -389,7 +389,7 @@ components:
             name:
               type: string
               x-dcl-go-name: Name
-              description: Required. Immutable. The name of the package.
+              description: The name of the package.
         project:
           type: string
           x-dcl-go-name: Project
@@ -424,11 +424,11 @@ components:
               label:
                 type: string
                 x-dcl-go-name: Label
-                description: Label to describe usage of the URL.
+                description: Label to describe usage of the URL
               url:
                 type: string
                 x-dcl-go-name: Url
-                description: Specific URL associated with the resource.
+                description: Specific URL to associate with the note
         shortDescription:
           type: string
           x-dcl-go-name: ShortDescription

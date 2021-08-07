@@ -17,22 +17,22 @@ description: A basic example of a gkemulticloud aws node pool
 name: basic_aws_node_pool
 resource: samples/basic.aws_node_pool.json
 variables:
-- name: aws_security_group
-  type: aws_security_group
 - name: aws_volume_encryption_key
   type: aws_volume_encryption_key
-- name: aws_database_encryption_key
-  type: aws_database_encryption_key
-- name: project_number
-  type: project_number
-- name: cluster
-  type: resource_name
-- name: aws_subnet
-  type: aws_subnet
-- name: aws_vpc
-  type: aws_vpc
 - name: test_service_account
   type: test_service_account
+- name: cluster
+  type: resource_name
+- name: aws_vpc
+  type: aws_vpc
+- name: project_number
+  type: project_number
+- name: aws_security_group
+  type: aws_security_group
+- name: aws_database_encryption_key
+  type: aws_database_encryption_key
+- name: aws_subnet
+  type: aws_subnet
 - name: pool
   type: resource_name
 - name: project

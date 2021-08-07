@@ -17,12 +17,12 @@ description: An example of a compute forwarding rule
 name: basic_forwarding_rule
 resource: samples/basic.forwarding_rule.json
 variables:
+- name: project
+  type: project
 - name: region
   type: region
 - name: pool1
   type: resource_name
-- name: project
-  type: project
 - name: rule
   type: resource_name
 versions:

@@ -424,16 +424,6 @@ func (op *deleteFirewallPolicyAssociationOperation) do(ctx context.Context, r *F
 	return nil
 }
 
-func encodeNetworkEndpointRequest(m map[string]interface{}) map[string]interface{} {
-	req := make(map[string]interface{}, 1)
-	endpoints := make([]map[string]interface{}, 1)
-	endpoints = append(endpoints, m)
-	if err := dcl.PutMapEntry(req, []string{"networkEndpoints"}, endpoints); err != nil {
-		return nil
-	}
-	return req
-}
-
 func machineTypeOperations() func(fd *dcl.FieldDiff) []string {
 	return func(fd *dcl.FieldDiff) []string {
 		// We're assuming that the instance is currently running. If it isn't, this will lead to a no-op stop operation.

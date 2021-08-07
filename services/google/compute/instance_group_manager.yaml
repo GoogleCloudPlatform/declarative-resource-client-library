@@ -68,7 +68,8 @@ components:
         `targetSize.fixed` or `instanceGroupManager.targetSize` is used. - if expressed
         as a `percent`, the `targetSize` would be `(targetSize.percent/100 * InstanceGroupManager.targetSize)`
         If there is a remainder, the number is rounded. If unset, this version will
-        update any remaining instances not updated by another `version`. Read (/compute/docs/instance-groups/rolling-out-updates-to-managed-instance-groups#starting_a_canary_update)
+        update any remaining instances not updated by another `version`. Read [Starting
+        a canary update](/compute/docs/instance-groups/rolling-out-updates-to-managed-instance-groups#starting_a_canary_update)
         for more information.'
       properties:
         calculated:
@@ -76,12 +77,13 @@ components:
           format: int64
           x-dcl-go-name: Calculated
           readOnly: true
-          description: Absolute value of VM instances calculated based on the specific
-            mode. - If the value is `fixed`, then the `calculated` value is equal
-            to the `fixed` value. - If the value is a `percent`, then the `calculated`
-            value is `percent`/100 * `targetSize`. For example, the `calculated` value
-            of a 80% of a managed instance group with 150 instances would be (80/100
-            * 150) = 120 VM instances. If there is a remainder, the number is rounded.
+          description: '[Output Only] Absolute value of VM instances calculated based
+            on the specific mode. - If the value is `fixed`, then the `calculated`
+            value is equal to the `fixed` value. - If the value is a `percent`, then
+            the `calculated` value is `percent`/100 * `targetSize`. For example, the
+            `calculated` value of a 80% of a managed instance group with 150 instances
+            would be (80/100 * 150) = 120 VM instances. If there is a remainder, the
+            number is rounded.'
         fixed:
           type: integer
           format: int64
@@ -135,7 +137,7 @@ components:
                   to initialize and run their startup scripts before the instance
                   group determines that they are UNHEALTHY. This prevents the managed
                   instance group from recreating its instances prematurely. This value
-                  must be from range .
+                  must be from range [0, 3600].
         baseInstanceName:
           type: string
           x-dcl-go-name: BaseInstanceName
@@ -155,8 +157,9 @@ components:
           x-dcl-go-name: CurrentActions
           x-dcl-go-type: InstanceGroupManagerCurrentActions
           readOnly: true
-          description: The list of instance actions and the number of instances in
-            this managed instance group that are scheduled for each of those actions.
+          description: '[Output Only] The list of instance actions and the number
+            of instances in this managed instance group that are scheduled for each
+            of those actions.'
           x-kubernetes-immutable: true
           properties:
             abandoning:
@@ -164,90 +167,90 @@ components:
               format: int64
               x-dcl-go-name: Abandoning
               readOnly: true
-              description: The total number of instances in the managed instance group
-                that are scheduled to be abandoned. Abandoning an instance removes
-                it from the managed instance group without deleting it.
+              description: '[Output Only] The total number of instances in the managed
+                instance group that are scheduled to be abandoned. Abandoning an instance
+                removes it from the managed instance group without deleting it.'
               x-kubernetes-immutable: true
             creating:
               type: integer
               format: int64
               x-dcl-go-name: Creating
               readOnly: true
-              description: The number of instances in the managed instance group that
-                are scheduled to be created or are currently being created. If the
-                group fails to create any of these instances, it tries again until
-                it creates the instance successfully. If you have disabled creation
+              description: '[Output Only] The number of instances in the managed instance
+                group that are scheduled to be created or are currently being created.
+                If the group fails to create any of these instances, it tries again
+                until it creates the instance successfully. If you have disabled creation
                 retries, this field will not be populated; instead, the `creatingWithoutRetries`
-                field will be populated.
+                field will be populated.'
               x-kubernetes-immutable: true
             creatingWithoutRetries:
               type: integer
               format: int64
               x-dcl-go-name: CreatingWithoutRetries
               readOnly: true
-              description: The number of instances that the managed instance group
-                will attempt to create. The group attempts to create each instance
-                only once. If the group fails to create any of these instances, it
-                decreases the group's `targetSize` value accordingly.
+              description: '[Output Only] The number of instances that the managed
+                instance group will attempt to create. The group attempts to create
+                each instance only once. If the group fails to create any of these
+                instances, it decreases the group''s `targetSize` value accordingly.'
               x-kubernetes-immutable: true
             deleting:
               type: integer
               format: int64
               x-dcl-go-name: Deleting
               readOnly: true
-              description: The number of instances in the managed instance group that
-                are scheduled to be deleted or are currently being deleted.
+              description: '[Output Only] The number of instances in the managed instance
+                group that are scheduled to be deleted or are currently being deleted.'
               x-kubernetes-immutable: true
             none:
               type: integer
               format: int64
               x-dcl-go-name: None
               readOnly: true
-              description: The number of instances in the managed instance group that
-                are running and have no scheduled actions.
+              description: '[Output Only] The number of instances in the managed instance
+                group that are running and have no scheduled actions.'
               x-kubernetes-immutable: true
             recreating:
               type: integer
               format: int64
               x-dcl-go-name: Recreating
               readOnly: true
-              description: The number of instances in the managed instance group that
-                are scheduled to be recreated or are currently being being recreated.
-                Recreating an instance deletes the existing root persistent disk and
-                creates a new disk from the image that is defined in the instance
-                template.
+              description: '[Output Only] The number of instances in the managed instance
+                group that are scheduled to be recreated or are currently being being
+                recreated. Recreating an instance deletes the existing root persistent
+                disk and creates a new disk from the image that is defined in the
+                instance template.'
               x-kubernetes-immutable: true
             refreshing:
               type: integer
               format: int64
               x-dcl-go-name: Refreshing
               readOnly: true
-              description: The number of instances in the managed instance group that
-                are being reconfigured with properties that do not require a restart
-                or a recreate action. For example, setting or removing target pools
-                for the instance.
+              description: '[Output Only] The number of instances in the managed instance
+                group that are being reconfigured with properties that do not require
+                a restart or a recreate action. For example, setting or removing target
+                pools for the instance.'
               x-kubernetes-immutable: true
             restarting:
               type: integer
               format: int64
               x-dcl-go-name: Restarting
               readOnly: true
-              description: The number of instances in the managed instance group that
-                are scheduled to be restarted or are currently being restarted.
+              description: '[Output Only] The number of instances in the managed instance
+                group that are scheduled to be restarted or are currently being restarted.'
               x-kubernetes-immutable: true
             verifying:
               type: integer
               format: int64
               x-dcl-go-name: Verifying
               readOnly: true
-              description: .currentAction property in the `listManagedInstances` method
-                documentation.
+              description: '[Output Only] The number of instances in the managed instance
+                group that are being verified. See the `managedInstances[].currentAction`
+                property in the `listManagedInstances` method documentation.'
               x-kubernetes-immutable: true
         description:
           type: string
           x-dcl-go-name: Description
-          description: An optional description of this resource. Provide this property
-            when you create the resource.
+          description: An optional description of this resource.
           x-kubernetes-immutable: true
         distributionPolicy:
           type: object
@@ -284,7 +287,7 @@ components:
                   zone:
                     type: string
                     x-dcl-go-name: Zone
-                    description: The URL of the zone (/compute/docs/regions-zones/#available).
+                    description: The URL of the [zone](/compute/docs/regions-zones/#available).
                       The zone must exist in the region where the managed instance
                       group is located.
                     x-kubernetes-immutable: true
@@ -303,14 +306,14 @@ components:
           format: int64
           x-dcl-go-name: Id
           readOnly: true
-          description: A unique identifier for this resource type. The server generates
-            this identifier.
+          description: '[Output Only] A unique identifier for this resource type.
+            The server generates this identifier.'
           x-kubernetes-immutable: true
         instanceGroup:
           type: string
           x-dcl-go-name: InstanceGroup
           readOnly: true
-          description: The URL of the Instance Group resource.
+          description: '[Output Only] The URL of the Instance Group resource.'
           x-kubernetes-immutable: true
           x-dcl-references:
           - resource: Compute/InstanceGroup
@@ -354,7 +357,7 @@ components:
                 type: string
                 x-dcl-go-name: Name
                 description: The name for this named port. The name must be 1-63 characters
-                  long, and comply with RFC1035 (https://www.ietf.org/rfc/rfc1035.txt).
+                  long, and comply with [RFC1035](https://www.ietf.org/rfc/rfc1035.txt).
                 x-kubernetes-immutable: true
               port:
                 type: integer
@@ -374,15 +377,15 @@ components:
           type: string
           x-dcl-go-name: Region
           readOnly: true
-          description: The URL of the [region](/compute/docs/regions-zones/#available)
-            where the managed instance group resides (for regional resources).
+          description: '[Output Only] The URL of the [region](/compute/docs/regions-zones/#available)
+            where the managed instance group resides (for regional resources).'
           x-kubernetes-immutable: true
         selfLink:
           type: string
           x-dcl-go-name: SelfLink
           readOnly: true
-          description: The URL for this managed instance group. The server defines
-            this URL.
+          description: '[Output Only] The URL for this managed instance group. The
+            server defines this URL.'
           x-kubernetes-immutable: true
         statefulPolicy:
           type: object
@@ -424,52 +427,55 @@ components:
           x-dcl-go-name: Status
           x-dcl-go-type: InstanceGroupManagerStatus
           readOnly: true
-          description: The status of this managed instance group.
+          description: '[Output Only] The status of this managed instance group.'
           x-kubernetes-immutable: true
           properties:
             autoscaler:
               type: string
               x-dcl-go-name: Autoscaler
               readOnly: true
-              description: The URL of the Autoscaler (/compute/docs/autoscaler/) that
-                targets this instance group manager.
+              description: '[Output Only] The URL of the [Autoscaler](/compute/docs/autoscaler/)
+                that targets this instance group manager.'
               x-kubernetes-immutable: true
             isStable:
               type: boolean
               x-dcl-go-name: IsStable
               readOnly: true
-              description: 'A bit indicating whether the managed instance group is
-                in a stable state. A stable state means that: none of the instances
-                in the managed instance group is currently undergoing any type of
-                change (for example, creation, restart, or deletion); no future changes
-                are scheduled for instances in the managed instance group; and the
-                managed instance group itself is not being modified.'
+              description: '[Output Only] A bit indicating whether the managed instance
+                group is in a stable state. A stable state means that: none of the
+                instances in the managed instance group is currently undergoing any
+                type of change (for example, creation, restart, or deletion); no future
+                changes are scheduled for instances in the managed instance group;
+                and the managed instance group itself is not being modified.'
               x-kubernetes-immutable: true
             stateful:
               type: object
               x-dcl-go-name: Stateful
               x-dcl-go-type: InstanceGroupManagerStatusStateful
               readOnly: true
-              description: Stateful status of the given Instance Group Manager.
+              description: '[Output Only] Stateful status of the given Instance Group
+                Manager.'
               x-kubernetes-immutable: true
               properties:
                 hasStatefulConfig:
                   type: boolean
                   x-dcl-go-name: HasStatefulConfig
                   readOnly: true
-                  description: A bit indicating whether the managed instance group
-                    has stateful configuration, that is, if you have configured any
-                    items in a stateful policy or in per-instance configs. The group
-                    might report that it has no stateful config even when there is
-                    still some preserved state on a managed instance, for example,
-                    if you have deleted all PICs but not yet applied those deletions.
+                  description: '[Output Only] A bit indicating whether the managed
+                    instance group has stateful configuration, that is, if you have
+                    configured any items in a stateful policy or in per-instance configs.
+                    The group might report that it has no stateful config even when
+                    there is still some preserved state on a managed instance, for
+                    example, if you have deleted all PICs but not yet applied those
+                    deletions.'
                   x-kubernetes-immutable: true
                 perInstanceConfigs:
                   type: object
                   x-dcl-go-name: PerInstanceConfigs
                   x-dcl-go-type: InstanceGroupManagerStatusStatefulPerInstanceConfigs
                   readOnly: true
-                  description: Status of per-instance configs on the instance.
+                  description: '[Output Only] Status of per-instance configs on the
+                    instance.'
                   x-kubernetes-immutable: true
                   properties:
                     allEffective:
@@ -483,18 +489,19 @@ components:
               x-dcl-go-name: VersionTarget
               x-dcl-go-type: InstanceGroupManagerStatusVersionTarget
               readOnly: true
-              description: A status of consistency of Instances' versions with their
-                target version specified by `version` field on Instance Group Manager.
+              description: '[Output Only] A status of consistency of Instances'' versions
+                with their target version specified by `version` field on Instance
+                Group Manager.'
               x-kubernetes-immutable: true
               properties:
                 isReached:
                   type: boolean
                   x-dcl-go-name: IsReached
                   readOnly: true
-                  description: A bit indicating whether version target has been reached
-                    in this managed instance group, i.e. all instances are in their
-                    target version. Instances' target version are specified by `version`
-                    field on Instance Group Manager.
+                  description: '[Output Only] A bit indicating whether version target
+                    has been reached in this managed instance group, i.e. all instances
+                    are in their target version. Instances'' target version are specified
+                    by `version` field on Instance Group Manager.'
                   x-kubernetes-immutable: true
         targetPools:
           type: array
@@ -527,7 +534,7 @@ components:
               type: string
               x-dcl-go-name: InstanceRedistributionType
               x-dcl-go-type: InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum
-              description: 'The instance redistribution policy (/compute/docs/instance-groups/regional-migs#proactive_instance_redistribution)
+              description: 'The [instance redistribution policy](/compute/docs/instance-groups/regional-migs#proactive_instance_redistribution)
                 for regional managed instance groups. Valid values are: - `PROACTIVE`
                 (default): The group attempts to maintain an even distribution of
                 VM instances across zones in the region. - `NONE`: For non-autoscaled
@@ -622,6 +629,6 @@ components:
           type: string
           x-dcl-go-name: Zone
           readOnly: true
-          description: The URL of a [zone](/compute/docs/regions-zones/#available)
-            where the managed instance group is located (for zonal resources).
+          description: '[Output Only] The URL of a [zone](/compute/docs/regions-zones/#available)
+            where the managed instance group is located (for zonal resources).'
           x-kubernetes-immutable: true

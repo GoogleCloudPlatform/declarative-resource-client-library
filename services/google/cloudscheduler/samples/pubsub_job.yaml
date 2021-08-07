@@ -17,10 +17,10 @@ description: A basic example for a pubsub SQL instance
 name: pubsub_job
 resource: samples/pubsub.job.json
 variables:
-- name: topic
-  type: resource_name
 - name: project
   type: project
+- name: topic
+  type: resource_name
 - name: job
   type: resource_name
 - name: region

@@ -12,20 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 dependencies:
-- samples/basic.cloudresourcemanager.project.json
-description: A basic example an IAP brand.
-name: basic_brand
-resource: samples/basic.brand.json
+- samples/basic.network.json
+description: A basic example of a compute network peering.
+name: basic_network_peering
+resource: samples/basic.network_peering.json
+updates:
+- resource: samples/update.network_peering.json
 variables:
-- name: brand
+- name: compute_network1
   type: resource_name
-- name: org_id
-  type: org_id
-- name: application
-  type: resource_name
-- name: test_service_account
-  type: test_service_account
 - name: project
   type: project
-versions:
-- ga
+- name: peering
+  type: resource_name
+versions: []

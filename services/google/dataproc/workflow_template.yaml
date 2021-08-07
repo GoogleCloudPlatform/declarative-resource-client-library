@@ -76,7 +76,8 @@ components:
               x-dcl-go-name: Policy
               description: 'Optional. The autoscaling policy used by the cluster.
                 Only resource names including projectid and location (region) are
-                valid. Examples: * `https://www.googleapis.com/compute/v1/projects/`
+                valid. Examples: * `https://www.googleapis.com/compute/v1/projects/[project_id]/locations/[dataproc_region]/autoscalingPolicies/[policy_id]`
+                * `projects/[project_id]/locations/[dataproc_region]/autoscalingPolicies/[policy_id]`
                 Note that the policy must be in the same project and Dataproc region.'
               x-dcl-references:
               - resource: Dataproc/AutoscalingPolicy
@@ -138,15 +139,18 @@ components:
                 type: string
               x-dcl-go-name: Metadata
               description: The Compute Engine metadata entries to add to all instances
-                (see (https://cloud.google.com/compute/docs/storing-retrieving-metadata#project_and_instance_metadata)).
+                (see [Project and instance metadata](https://cloud.google.com/compute/docs/storing-retrieving-metadata#project_and_instance_metadata)).
             network:
               type: string
               x-dcl-go-name: Network
-              description: Optional. The Compute Engine network to be used for machine
+              description: 'Optional. The Compute Engine network to be used for machine
                 communications. Cannot be specified with subnetwork_uri. If neither
                 `network_uri` nor `subnetwork_uri` is specified, the "default" network
                 of the project is used, if it exists. Cannot be a "Custom Subnet Network"
-                (see /regions/global/default` * `default`
+                (see [Using Subnetworks](https://cloud.google.com/compute/docs/subnetworks)
+                for more information). A full URL, partial URI, or short name are
+                valid. Examples: * `https://www.googleapis.com/compute/v1/projects/[project_id]/regions/global/default`
+                * `projects/[project_id]/regions/global/default` * `default`'
               x-dcl-references:
               - resource: Compute/Network
                 field: selfLink
@@ -161,8 +165,11 @@ components:
                 nodeGroup:
                   type: string
                   x-dcl-go-name: NodeGroup
-                  description: Required. The URI of a sole-tenant /zones/us-central1-a/nodeGroups/node-group-1`
-                    * `node-group-1`
+                  description: 'Required. The URI of a sole-tenant [node group resource](https://cloud.google.com/compute/docs/reference/rest/v1/nodeGroups)
+                    that the cluster will be created on. A full URL, partial URI,
+                    or node group name are valid. Examples: * `https://www.googleapis.com/compute/v1/projects/[project_id]/zones/us-central1-a/nodeGroups/node-group-1`
+                    * `projects/[project_id]/zones/us-central1-a/nodeGroups/node-group-1`
+                    * `node-group-1`'
                   x-dcl-references:
                   - resource: Compute/NodeGroup
                     field: selfLink
@@ -213,7 +220,10 @@ components:
             serviceAccount:
               type: string
               x-dcl-go-name: ServiceAccount
-              description: Optional. The (https://cloud.google.com/compute/docs/access/service-accounts#default_service_account)
+              description: Optional. The [Dataproc service account](https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/service-accounts#service_accounts_in_dataproc)
+                (also see [VM Data Plane identity](https://cloud.google.com/dataproc/docs/concepts/iam/dataproc-principals#vm_service_account_data_plane_identity))
+                used by Dataproc cluster VM instances to access Google Cloud Platform
+                services. If not specified, the [Compute Engine default service account](https://cloud.google.com/compute/docs/access/service-accounts#default_service_account)
                 is used.
               x-dcl-references:
               - resource: Iam/ServiceAccount
@@ -238,15 +248,16 @@ components:
               x-dcl-go-name: Subnetwork
               description: 'Optional. The Compute Engine subnetwork to be used for
                 machine communications. Cannot be specified with network_uri. A full
-                URL, partial URI, or short name are valid. Examples: * `https://www.googleapis.com/compute/v1/projects//regions/us-east1/subnetworks/sub0`
-                * `sub0`'
+                URL, partial URI, or short name are valid. Examples: * `https://www.googleapis.com/compute/v1/projects/[project_id]/regions/us-east1/subnetworks/sub0`
+                * `projects/[project_id]/regions/us-east1/subnetworks/sub0` * `sub0`'
               x-dcl-references:
               - resource: Compute/Subnetwork
                 field: selfLink
             tags:
               type: array
               x-dcl-go-name: Tags
-              description: The Compute Engine tags to add to all instances (see (https://cloud.google.com/compute/docs/label-or-tag-resources#tags)).
+              description: The Compute Engine tags to add to all instances (see [Tagging
+                instances](https://cloud.google.com/compute/docs/label-or-tag-resources#tags)).
               x-dcl-send-empty: true
               x-dcl-list-type: set
               items:
@@ -260,8 +271,8 @@ components:
                 If omitted in a non-global Dataproc region, the service will pick
                 a zone in the corresponding Compute Engine region. On a get request,
                 zone will always be present. A full URL, partial URI, or short name
-                are valid. Examples: * `https://www.googleapis.com/compute/v1/projects/`
-                * `us-central1-f`'
+                are valid. Examples: * `https://www.googleapis.com/compute/v1/projects/[project_id]/zones/[zone]`
+                * `projects/[project_id]/zones/[zone]` * `us-central1-f`'
         initializationActions:
           type: array
           x-dcl-go-name: InitializationActions
@@ -270,8 +281,8 @@ components:
             You can test a node''s `role` metadata to run an executable on a master
             or worker node, as shown below using `curl` (you can also use `wget`):
             ROLE=$(curl -H Metadata-Flavor:Google http://metadata/computeMetadata/v1/instance/attributes/dataproc-role)
-            if ; then ... master specific actions ... else ... worker specific actions
-            ... fi'
+            if [[ "${ROLE}" == ''Master'' ]]; then ... master specific actions ...
+            else ... worker specific actions ... fi'
           x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
@@ -286,7 +297,7 @@ components:
                 type: string
                 x-dcl-go-name: ExecutionTimeout
                 description: Optional. Amount of time executable has to complete.
-                  Default is 10 minutes (see JSON representation of (https://developers.google.com/protocol-buffers/docs/proto3#json)).
+                  Default is 10 minutes (see JSON representation of [Duration](https://developers.google.com/protocol-buffers/docs/proto3#json)).
                   Cluster creation fails with an explanatory error message (the name
                   of the executable that caused the error and the exceeded timeout
                   period) if the executable is not completed at end of the timeout
@@ -302,20 +313,20 @@ components:
               format: date-time
               x-dcl-go-name: AutoDeleteTime
               description: Optional. The time when cluster will be auto-deleted (see
-                JSON representation of (https://developers.google.com/protocol-buffers/docs/proto3#json)).
+                JSON representation of [Timestamp](https://developers.google.com/protocol-buffers/docs/proto3#json)).
             autoDeleteTtl:
               type: string
               x-dcl-go-name: AutoDeleteTtl
               description: Optional. The lifetime duration of cluster. The cluster
                 will be auto-deleted at the end of this period. Minimum value is 10
-                minutes; maximum value is 14 days (see JSON representation of (https://developers.google.com/protocol-buffers/docs/proto3#json)).
+                minutes; maximum value is 14 days (see JSON representation of [Duration](https://developers.google.com/protocol-buffers/docs/proto3#json)).
             idleDeleteTtl:
               type: string
               x-dcl-go-name: IdleDeleteTtl
               description: Optional. The duration to keep the cluster alive while
                 idling (when no jobs are running). Passing this threshold will cause
                 the cluster to be deleted. Minimum value is 5 minutes; maximum value
-                is 14 days (see JSON representation of (https://developers.google.com/protocol-buffers/docs/proto3#json).
+                is 14 days (see JSON representation of [Duration](https://developers.google.com/protocol-buffers/docs/proto3#json)).
             idleStartTime:
               type: string
               format: date-time
@@ -323,7 +334,7 @@ components:
               readOnly: true
               description: Output only. The time when cluster became idle (most recent
                 job finished) and became eligible for deletion due to idleness (see
-                JSON representation of (https://developers.google.com/protocol-buffers/docs/proto3#json)).
+                JSON representation of [Timestamp](https://developers.google.com/protocol-buffers/docs/proto3#json)).
         masterConfig:
           $ref: '#/components/schemas/InstanceGroupConfig'
           x-dcl-go-name: MasterConfig
@@ -340,7 +351,7 @@ components:
               type: object
               x-dcl-go-name: KerberosConfig
               x-dcl-go-type: ClusterClusterConfigSecurityConfigKerberosConfig
-              description: Kerberos related configuration.
+              description: Optional. Kerberos related configuration.
               properties:
                 crossRealmTrustAdminServer:
                   type: string
@@ -441,7 +452,9 @@ components:
               type: string
               x-dcl-go-name: ImageVersion
               description: Optional. The version of software inside the cluster. It
-                must be one of the supported (https://cloud.google.com/dataproc/docs/concepts/versioning/dataproc-versions#other_versions).
+                must be one of the supported [Dataproc Versions](https://cloud.google.com/dataproc/docs/concepts/versioning/dataproc-versions#supported_dataproc_versions),
+                such as "1.2" (including a subminor version, such as "1.2.29"), or
+                the ["preview" version](https://cloud.google.com/dataproc/docs/concepts/versioning/dataproc-versions#other_versions).
                 If unspecified, it defaults to the latest Debian version.
             optionalComponents:
               type: array
@@ -478,7 +491,7 @@ components:
                 mappings: * capacity-scheduler: `capacity-scheduler.xml` * core: `core-site.xml`
                 * distcp: `distcp-default.xml` * hdfs: `hdfs-site.xml` * hive: `hive-site.xml`
                 * mapred: `mapred-site.xml` * pig: `pig.properties` * spark: `spark-defaults.conf`
-                * yarn: `yarn-site.xml` For more information, see (https://cloud.google.com/dataproc/docs/concepts/cluster-properties).'
+                * yarn: `yarn-site.xml` For more information, see [Cluster properties](https://cloud.google.com/dataproc/docs/concepts/cluster-properties).'
         stagingBucket:
           type: string
           x-dcl-go-name: StagingBucket
@@ -487,7 +500,9 @@ components:
             bucket, Cloud Dataproc will determine a Cloud Storage location (US, ASIA,
             or EU) for your cluster's staging bucket according to the Compute Engine
             zone where your cluster is deployed, and then create and manage this project-level,
-            per-location bucket (see (https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/staging-bucket)).
+            per-location bucket (see [Dataproc staging bucket](https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/staging-bucket)).
+            **This field requires a Cloud Storage bucket name, not a URI to a Cloud
+            Storage bucket.**
           x-dcl-references:
           - resource: Storage/Bucket
             field: name
@@ -501,6 +516,8 @@ components:
             Engine zone where your cluster is deployed, and then create and manage
             this project-level, per-location bucket. The default bucket has a TTL
             of 90 days, but you can use any TTL (or none) if you specify a bucket.
+            **This field requires a Cloud Storage bucket name, not a URI to a Cloud
+            Storage bucket.**
           x-dcl-references:
           - resource: Storage/Bucket
             field: name
@@ -539,10 +556,14 @@ components:
               acceleratorType:
                 type: string
                 x-dcl-go-name: AcceleratorType
-                description: Full URL, partial URI, or short name of the accelerator
-                  type resource to expose to this instance. See (https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/auto-zone#using_auto_zone_placement)
+                description: 'Full URL, partial URI, or short name of the accelerator
+                  type resource to expose to this instance. See [Compute Engine AcceleratorTypes](https://cloud.google.com/compute/docs/reference/beta/acceleratorTypes).
+                  Examples: * `https://www.googleapis.com/compute/beta/projects/[project_id]/zones/us-east1-a/acceleratorTypes/nvidia-tesla-k80`
+                  * `projects/[project_id]/zones/us-east1-a/acceleratorTypes/nvidia-tesla-k80`
+                  * `nvidia-tesla-k80` **Auto Zone Exception**: If you are using the
+                  Dataproc [Auto Zone Placement](https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/auto-zone#using_auto_zone_placement)
                   feature, you must use the short name of the accelerator type resource,
-                  for example, `nvidia-tesla-k80`.
+                  for example, `nvidia-tesla-k80`.'
                 x-kubernetes-immutable: true
         diskConfig:
           type: object
@@ -562,8 +583,9 @@ components:
               type: string
               x-dcl-go-name: BootDiskType
               description: 'Optional. Type of the boot disk (default is "pd-standard").
-                Valid values: "pd-ssd" (Persistent Disk Solid State Drive) or "pd-standard"
-                (Persistent Disk Hard Disk Drive).'
+                Valid values: "pd-balanced" (Persistent Disk Balanced Solid State
+                Drive), "pd-ssd" (Persistent Disk Solid State Drive), or "pd-standard"
+                (Persistent Disk Hard Disk Drive). See [Disk types](https://cloud.google.com/compute/docs/disks#disk-types).'
               x-kubernetes-immutable: true
             numLocalSsds:
               type: integer
@@ -571,7 +593,7 @@ components:
               x-dcl-go-name: NumLocalSsds
               description: Optional. Number of attached SSDs, from 0 to 4 (default
                 is 0). If SSDs are not attached, the boot disk is used to store runtime
-                logs and (https://hadoop.apache.org/docs/r1.2.1/hdfs_user_guide.html)
+                logs and [HDFS](https://hadoop.apache.org/docs/r1.2.1/hdfs_user_guide.html)
                 data. If one or more SSDs are attached, this runtime bulk data is
                 spread across them, and the boot disk contains only basic config and
                 installed binaries.
@@ -582,9 +604,13 @@ components:
           x-dcl-go-name: Image
           description: 'Optional. The Compute Engine image resource used for cluster
             instances. The URI can represent an image or image family. Image examples:
-            * `https://www.googleapis.com/compute/beta/projects/` If the URI is unspecified,
-            it will be inferred from `SoftwareConfig.image_version` or the system
-            default.'
+            * `https://www.googleapis.com/compute/beta/projects/[project_id]/global/images/[image-id]`
+            * `projects/[project_id]/global/images/[image-id]` * `image-id` Image
+            family examples. Dataproc will use the most recent image from the family:
+            * `https://www.googleapis.com/compute/beta/projects/[project_id]/global/images/family/[custom-image-family-name]`
+            * `projects/[project_id]/global/images/family/[custom-image-family-name]`
+            If the URI is unspecified, it will be inferred from `SoftwareConfig.image_version`
+            or the system default.'
           x-kubernetes-immutable: true
           x-dcl-references:
           - resource: Compute/Image
@@ -617,7 +643,10 @@ components:
           x-dcl-go-name: MachineType
           description: 'Optional. The Compute Engine machine type used for cluster
             instances. A full URL, partial URI, or short name are valid. Examples:
-            * `https://www.googleapis.com/compute/v1/projects/(https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/auto-zone#using_auto_zone_placement)
+            * `https://www.googleapis.com/compute/v1/projects/[project_id]/zones/us-east1-a/machineTypes/n1-standard-2`
+            * `projects/[project_id]/zones/us-east1-a/machineTypes/n1-standard-2`
+            * `n1-standard-2` **Auto Zone Exception**: If you are using the Dataproc
+            [Auto Zone Placement](https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/auto-zone#using_auto_zone_placement)
             feature, you must use the short name of the machine type resource, for
             example, `n1-standard-2`.'
           x-kubernetes-immutable: true
@@ -649,7 +678,7 @@ components:
           type: string
           x-dcl-go-name: MinCpuPlatform
           description: Optional. Specifies the minimum cpu platform for the Instance
-            Group. See (https://cloud.google.com/dataproc/docs/concepts/compute/dataproc-min-cpu).
+            Group. See [Dataproc -> Minimum CPU Platform](https://cloud.google.com/dataproc/docs/concepts/compute/dataproc-min-cpu).
           x-kubernetes-immutable: true
           x-dcl-server-default: true
         numInstances:
@@ -657,7 +686,10 @@ components:
           format: int64
           x-dcl-go-name: NumInstances
           description: Optional. The number of VM instances in the instance group.
-            For master instance groups, must be set to 1.
+            For [HA cluster](/dataproc/docs/concepts/configuring-clusters/high-availability)
+            [master_config](#FIELDS.master_config) groups, **must be set to 3**. For
+            standard cluster [master_config](#FIELDS.master_config) groups, **must
+            be set to 1**.
           x-kubernetes-immutable: true
         preemptibility:
           type: string
@@ -696,13 +728,12 @@ components:
         dagTimeout:
           type: string
           x-dcl-go-name: DagTimeout
-          description: Optional. Timeout duration for the DAG of jobs. You can use
-            "s", "m", "h", and "d" suffixes for second, minute, hour, and day duration
-            values, respectively. The timeout duration must be from 10 minutes ("10m")
-            to 24 hours ("24h" or "1d"). The timer begins when the first job is submitted.
-            If the workflow is running at the end of the timeout period, any remaining
-            jobs are cancelled, the workflow is ended, and if the workflow was running
-            on a (/dataproc/docs/concepts/workflows/using-workflows#configuring_or_selecting_a_cluster),
+          description: Optional. Timeout duration for the DAG of jobs, expressed in
+            seconds (see [JSON representation of duration](https://developers.google.com/protocol-buffers/docs/proto3#json)).
+            The timeout duration must be from 10 minutes ("600s") to 24 hours ("86400s").
+            The timer begins when the first job is submitted. If the workflow is running
+            at the end of the timeout period, any remaining jobs are cancelled, the
+            workflow is ended, and if the workflow was running on a [managed cluster](/dataproc/docs/concepts/workflows/using-workflows#configuring_or_selecting_a_cluster),
             the cluster is deleted.
         jobs:
           type: array
@@ -855,7 +886,8 @@ components:
                           queries can be specified in one string by separating each
                           with a semicolon. Here is an example of a Dataproc API snippet
                           that uses a QueryList to specify a HiveJob: "hiveJob": {
-                          "queryList": { "queries": } }'
+                          "queryList": { "queries": [ "query1", "query2", "query3;query4",
+                          ] } }'
                         x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
@@ -875,8 +907,10 @@ components:
                 x-dcl-go-name: Labels
                 description: 'Optional. The labels to associate with this job. Label
                   keys must be between 1 and 63 characters long, and must conform
-                  to the following regular expression: {0,63} No more than 32 labels
-                  can be associated with a given job.'
+                  to the following regular expression: p{Ll}p{Lo}{0,62} Label values
+                  must be between 1 and 63 characters long, and must conform to the
+                  following regular expression: [p{Ll}p{Lo}p{N}_-]{0,63} No more than
+                  32 labels can be associated with a given job.'
               pigJob:
                 type: object
                 x-dcl-go-name: PigJob
@@ -946,7 +980,8 @@ components:
                           queries can be specified in one string by separating each
                           with a semicolon. Here is an example of a Dataproc API snippet
                           that uses a QueryList to specify a HiveJob: "hiveJob": {
-                          "queryList": { "queries": } }'
+                          "queryList": { "queries": [ "query1", "query2", "query3;query4",
+                          ] } }'
                         x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
@@ -958,7 +993,7 @@ components:
                       type: string
                     x-dcl-go-name: ScriptVariables
                     description: 'Optional. Mapping of query variable names to values
-                      (equivalent to the Pig command: `name=`).'
+                      (equivalent to the Pig command: `name=[value]`).'
               prerequisiteStepIds:
                 type: array
                 x-dcl-go-name: PrerequisiteStepIds
@@ -1017,7 +1052,7 @@ components:
                       type: string
                     x-dcl-go-name: Properties
                     description: Optional. A mapping of property names to values.
-                      Used to set Presto (https://prestodb.io/docs/current/sql/set-session.html)
+                      Used to set Presto [session properties](https://prestodb.io/docs/current/sql/set-session.html)
                       Equivalent to using the --session flag in the Presto CLI
                   queryFileUri:
                     type: string
@@ -1039,7 +1074,8 @@ components:
                           queries can be specified in one string by separating each
                           with a semicolon. Here is an example of a Dataproc API snippet
                           that uses a QueryList to specify a HiveJob: "hiveJob": {
-                          "queryList": { "queries": } }'
+                          "queryList": { "queries": [ "query1", "query2", "query3;query4",
+                          ] } }'
                         x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
@@ -1159,7 +1195,7 @@ components:
                     x-dcl-go-name: MaxFailuresTotal
                     description: Optional. Maximum number of times in total a driver
                       may be restarted as a result of driver exiting with non-zero
-                      code before job is reported failed. Maximum value is 240
+                      code before job is reported failed. Maximum value is 240.
               sparkJob:
                 type: object
                 x-dcl-go-name: SparkJob
@@ -1377,7 +1413,8 @@ components:
                           queries can be specified in one string by separating each
                           with a semicolon. Here is an example of a Dataproc API snippet
                           that uses a QueryList to specify a HiveJob: "hiveJob": {
-                          "queryList": { "queries": } }'
+                          "queryList": { "queries": [ "query1", "query2", "query3;query4",
+                          ] } }'
                         x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
@@ -1395,10 +1432,11 @@ components:
                 x-dcl-go-name: StepId
                 description: Required. The step id. The id must be unique among all
                   jobs within the template. The step id is used as prefix for job
-                  id, as job `goog-dataproc-workflow-step-id` label, and in field
-                  from other steps. The id must contain only letters (a-z, A-Z), numbers
-                  (0-9), underscores (_), and hyphens (-). Cannot begin or end with
-                  underscore or hyphen. Must consist of between 3 and 50 characters.
+                  id, as job `goog-dataproc-workflow-step-id` label, and in prerequisiteStepIds
+                  field from other steps. The id must contain only letters (a-z, A-Z),
+                  numbers (0-9), underscores (_), and hyphens (-). Cannot begin or
+                  end with underscore or hyphen. Must consist of between 3 and 50
+                  characters.
         labels:
           type: object
           additionalProperties:
@@ -1407,8 +1445,10 @@ components:
           description: Optional. The labels to associate with this template. These
             labels will be propagated to all jobs and clusters created by the workflow
             instance. Label **keys** must contain 1 to 63 characters, and must conform
-            to (https://www.ietf.org/rfc/rfc1035.txt). No more than 32 labels can
-            be associated with a template.
+            to [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt). Label **values**
+            may be empty, but, if present, must contain 1 to 63 characters, and must
+            conform to [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt). No more than
+            32 labels can be associated with a template.
         location:
           type: string
           x-dcl-go-name: Location
@@ -1447,9 +1487,28 @@ components:
               fields:
                 type: array
                 x-dcl-go-name: Fields
-                description: Required. Paths to all fields that the parameter replaces.
-                  A field is allowed to appear in at most one parameter's list of
-                  field paths. A field path is similar in syntax to a .sparkJob.args
+                description: 'Required. Paths to all fields that the parameter replaces.
+                  A field is allowed to appear in at most one parameter''s list of
+                  field paths. A field path is similar in syntax to a google.protobuf.FieldMask.
+                  For example, a field path that references the zone field of a workflow
+                  template''s cluster selector would be specified as `placement.clusterSelector.zone`.
+                  Also, field paths can reference fields using the following syntax:
+                  * Values in maps can be referenced by key: * labels[''key''] * placement.clusterSelector.clusterLabels[''key'']
+                  * placement.managedCluster.labels[''key''] * placement.clusterSelector.clusterLabels[''key'']
+                  * jobs[''step-id''].labels[''key''] * Jobs in the jobs list can
+                  be referenced by step-id: * jobs[''step-id''].hadoopJob.mainJarFileUri
+                  * jobs[''step-id''].hiveJob.queryFileUri * jobs[''step-id''].pySparkJob.mainPythonFileUri
+                  * jobs[''step-id''].hadoopJob.jarFileUris[0] * jobs[''step-id''].hadoopJob.archiveUris[0]
+                  * jobs[''step-id''].hadoopJob.fileUris[0] * jobs[''step-id''].pySparkJob.pythonFileUris[0]
+                  * Items in repeated fields can be referenced by a zero-based index:
+                  * jobs[''step-id''].sparkJob.args[0] * Other examples: * jobs[''step-id''].hadoopJob.properties[''key'']
+                  * jobs[''step-id''].hadoopJob.args[0] * jobs[''step-id''].hiveJob.scriptVariables[''key'']
+                  * jobs[''step-id''].hadoopJob.mainJarFileUri * placement.clusterSelector.zone
+                  It may not be possible to parameterize maps and repeated fields
+                  in their entirety since only individual map values and individual
+                  items in repeated fields can be referenced. For example, the following
+                  field paths are invalid: - placement.clusterSelector.clusterLabels
+                  - jobs[''step-id''].sparkJob.args'
                 x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
@@ -1564,8 +1623,10 @@ components:
                   x-dcl-go-name: Labels
                   description: 'Optional. The labels to associate with this cluster.
                     Label keys must be between 1 and 63 characters long, and must
-                    conform to the following PCRE regular expression: {0,63} No more
-                    than 32 labels can be associated with a given cluster.'
+                    conform to the following PCRE regular expression: p{Ll}p{Lo}{0,62}
+                    Label values must be between 1 and 63 characters long, and must
+                    conform to the following PCRE regular expression: [p{Ll}p{Lo}p{N}_-]{0,63}
+                    No more than 32 labels can be associated with a given cluster.'
         project:
           type: string
           x-dcl-go-name: Project

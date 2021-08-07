@@ -925,7 +925,7 @@ func unmarshalRoute(b []byte, c *Client) (*Route, error) {
 }
 
 func unmarshalMapRoute(m map[string]interface{}, c *Client) (*Route, error) {
-	if v, err := dcl.MapFromListOfKeyValues(m, []string{"warning", "data", "items"}); err != nil {
+	if v, err := dcl.MapFromListOfKeyValues(m, []string{"warning", "data", "items"}, "key", "value"); err != nil {
 		return nil, err
 	} else {
 		dcl.PutMapEntry(
@@ -1134,7 +1134,7 @@ func expandRouteWarning(c *Client, f *RouteWarning) (map[string]interface{}, err
 	if v := f.Message; !dcl.IsEmptyValueIndirect(v) {
 		m["message"] = v
 	}
-	if v, err := dcl.ListOfKeyValuesFromMapInItemsStruct(f.Data); err != nil {
+	if v, err := dcl.ListOfKeyValuesFromMapInStruct(f.Data, "items", "key", "value"); err != nil {
 		return nil, fmt.Errorf("error expanding Data into data: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["data"] = v
