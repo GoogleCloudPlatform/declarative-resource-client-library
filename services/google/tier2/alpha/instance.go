@@ -215,6 +215,33 @@ func (v InstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnum) Vali
 	}
 }
 
+// The enum InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
 // The enum InstanceCreateRecipeStepsActionEnum.
 type InstanceCreateRecipeStepsActionEnum string
 
@@ -264,6 +291,33 @@ func (v InstanceCreateRecipeStepsRequestedTenantProjectScopeEnum) Validate() err
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "InstanceCreateRecipeStepsRequestedTenantProjectScopeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -323,6 +377,33 @@ func (v InstanceDeleteRecipeStepsRequestedTenantProjectScopeEnum) Validate() err
 	}
 }
 
+// The enum InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
 // The enum InstanceUpdateRecipeStepsActionEnum.
 type InstanceUpdateRecipeStepsActionEnum string
 
@@ -372,6 +453,33 @@ func (v InstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum) Validate() err
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "InstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -431,6 +539,33 @@ func (v InstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum) Valid
 	}
 }
 
+// The enum InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
 // The enum InstanceResetRecipeStepsActionEnum.
 type InstanceResetRecipeStepsActionEnum string
 
@@ -480,6 +615,33 @@ func (v InstanceResetRecipeStepsRequestedTenantProjectScopeEnum) Validate() erro
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "InstanceResetRecipeStepsRequestedTenantProjectScopeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -539,6 +701,33 @@ func (v InstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum) Vali
 	}
 }
 
+// The enum InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
 // The enum InstanceRepairRecipeStepsActionEnum.
 type InstanceRepairRecipeStepsActionEnum string
 
@@ -588,6 +777,33 @@ func (v InstanceRepairRecipeStepsRequestedTenantProjectScopeEnum) Validate() err
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "InstanceRepairRecipeStepsRequestedTenantProjectScopeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -647,6 +863,33 @@ func (v InstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnum) Vali
 	}
 }
 
+// The enum InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
 // The enum InstancePreprocessUpdateRecipeStepsActionEnum.
 type InstancePreprocessUpdateRecipeStepsActionEnum string
 
@@ -696,6 +939,33 @@ func (v InstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum) Vali
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "InstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -755,6 +1025,33 @@ func (v InstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnum) Vali
 	}
 }
 
+// The enum InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
 // The enum InstanceFreezeRecipeStepsActionEnum.
 type InstanceFreezeRecipeStepsActionEnum string
 
@@ -804,6 +1101,33 @@ func (v InstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum) Validate() err
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "InstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -863,6 +1187,33 @@ func (v InstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnum) Va
 	}
 }
 
+// The enum InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
 // The enum InstanceUnfreezeRecipeStepsActionEnum.
 type InstanceUnfreezeRecipeStepsActionEnum string
 
@@ -912,6 +1263,33 @@ func (v InstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum) Validate() e
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "InstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -971,6 +1349,33 @@ func (v InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectS
 	}
 }
 
+// The enum InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
 // The enum InstanceReportInstanceHealthRecipeStepsActionEnum.
 type InstanceReportInstanceHealthRecipeStepsActionEnum string
 
@@ -1020,6 +1425,33 @@ func (v InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum) 
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -1079,6 +1511,33 @@ func (v InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum) Validat
 	}
 }
 
+// The enum InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
 // The enum InstanceNotifyKeyAvailableRecipeStepsActionEnum.
 type InstanceNotifyKeyAvailableRecipeStepsActionEnum string
 
@@ -1128,6 +1587,33 @@ func (v InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum) Va
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -1187,6 +1673,33 @@ func (v InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum) 
 	}
 }
 
+// The enum InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
 // The enum InstanceReadonlyRecipeStepsActionEnum.
 type InstanceReadonlyRecipeStepsActionEnum string
 
@@ -1236,6 +1749,33 @@ func (v InstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum) Validate() e
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "InstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -1295,6 +1835,33 @@ func (v InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum) Validate() 
 	}
 }
 
+// The enum InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
 // The enum InstancePreprocessPassthroughRecipeStepsActionEnum.
 type InstancePreprocessPassthroughRecipeStepsActionEnum string
 
@@ -1349,6 +1916,33 @@ func (v InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum)
 	}
 }
 
+// The enum InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
 // The enum InstancePreprocessReconcileRecipeStepsActionEnum.
 type InstancePreprocessReconcileRecipeStepsActionEnum string
 
@@ -1398,6 +1992,33 @@ func (v InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum) V
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum.
+type InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum string
+
+// InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumRef returns a *InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(s)
+	return &v
+}
+
+func (v InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -1975,11 +2596,12 @@ func (r *InstancePreprocessCreateRecipeStepsRequestedTenantProject) HashCode() s
 }
 
 type InstancePreprocessCreateRecipeStepsPermissionsInfo struct {
-	empty          bool                                                               `json:"-"`
-	PolicyName     *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                            `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                                      `json:"apiAttrs"`
+	empty          bool                                                                  `json:"-"`
+	PolicyName     *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                               `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                                         `json:"apiAttrs"`
+	PolicyNameMode *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstancePreprocessCreateRecipeStepsPermissionsInfo InstancePreprocessCreateRecipeStepsPermissionsInfo
@@ -2004,6 +2626,8 @@ func (r *InstancePreprocessCreateRecipeStepsPermissionsInfo) UnmarshalJSON(data 
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -2736,11 +3360,12 @@ func (r *InstanceCreateRecipeStepsRequestedTenantProject) HashCode() string {
 }
 
 type InstanceCreateRecipeStepsPermissionsInfo struct {
-	empty          bool                                                     `json:"-"`
-	PolicyName     *InstanceCreateRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstanceCreateRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                  `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                            `json:"apiAttrs"`
+	empty          bool                                                        `json:"-"`
+	PolicyName     *InstanceCreateRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstanceCreateRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                     `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                               `json:"apiAttrs"`
+	PolicyNameMode *InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstanceCreateRecipeStepsPermissionsInfo InstanceCreateRecipeStepsPermissionsInfo
@@ -2765,6 +3390,8 @@ func (r *InstanceCreateRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) er
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -3454,11 +4081,12 @@ func (r *InstanceDeleteRecipeStepsRequestedTenantProject) HashCode() string {
 }
 
 type InstanceDeleteRecipeStepsPermissionsInfo struct {
-	empty          bool                                                     `json:"-"`
-	PolicyName     *InstanceDeleteRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstanceDeleteRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                  `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                            `json:"apiAttrs"`
+	empty          bool                                                        `json:"-"`
+	PolicyName     *InstanceDeleteRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstanceDeleteRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                     `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                               `json:"apiAttrs"`
+	PolicyNameMode *InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstanceDeleteRecipeStepsPermissionsInfo InstanceDeleteRecipeStepsPermissionsInfo
@@ -3483,6 +4111,8 @@ func (r *InstanceDeleteRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) er
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -4172,11 +4802,12 @@ func (r *InstanceUpdateRecipeStepsRequestedTenantProject) HashCode() string {
 }
 
 type InstanceUpdateRecipeStepsPermissionsInfo struct {
-	empty          bool                                                     `json:"-"`
-	PolicyName     *InstanceUpdateRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstanceUpdateRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                  `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                            `json:"apiAttrs"`
+	empty          bool                                                        `json:"-"`
+	PolicyName     *InstanceUpdateRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstanceUpdateRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                     `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                               `json:"apiAttrs"`
+	PolicyNameMode *InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstanceUpdateRecipeStepsPermissionsInfo InstanceUpdateRecipeStepsPermissionsInfo
@@ -4201,6 +4832,8 @@ func (r *InstanceUpdateRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) er
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -4890,11 +5523,12 @@ func (r *InstancePreprocessResetRecipeStepsRequestedTenantProject) HashCode() st
 }
 
 type InstancePreprocessResetRecipeStepsPermissionsInfo struct {
-	empty          bool                                                              `json:"-"`
-	PolicyName     *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                           `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                                     `json:"apiAttrs"`
+	empty          bool                                                                 `json:"-"`
+	PolicyName     *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                              `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                                        `json:"apiAttrs"`
+	PolicyNameMode *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstancePreprocessResetRecipeStepsPermissionsInfo InstancePreprocessResetRecipeStepsPermissionsInfo
@@ -4919,6 +5553,8 @@ func (r *InstancePreprocessResetRecipeStepsPermissionsInfo) UnmarshalJSON(data [
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -5608,11 +6244,12 @@ func (r *InstanceResetRecipeStepsRequestedTenantProject) HashCode() string {
 }
 
 type InstanceResetRecipeStepsPermissionsInfo struct {
-	empty          bool                                                    `json:"-"`
-	PolicyName     *InstanceResetRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstanceResetRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                 `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                           `json:"apiAttrs"`
+	empty          bool                                                       `json:"-"`
+	PolicyName     *InstanceResetRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstanceResetRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                    `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                              `json:"apiAttrs"`
+	PolicyNameMode *InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstanceResetRecipeStepsPermissionsInfo InstanceResetRecipeStepsPermissionsInfo
@@ -5637,6 +6274,8 @@ func (r *InstanceResetRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) err
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -6326,11 +6965,12 @@ func (r *InstancePreprocessRepairRecipeStepsRequestedTenantProject) HashCode() s
 }
 
 type InstancePreprocessRepairRecipeStepsPermissionsInfo struct {
-	empty          bool                                                               `json:"-"`
-	PolicyName     *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                            `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                                      `json:"apiAttrs"`
+	empty          bool                                                                  `json:"-"`
+	PolicyName     *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                               `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                                         `json:"apiAttrs"`
+	PolicyNameMode *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstancePreprocessRepairRecipeStepsPermissionsInfo InstancePreprocessRepairRecipeStepsPermissionsInfo
@@ -6355,6 +6995,8 @@ func (r *InstancePreprocessRepairRecipeStepsPermissionsInfo) UnmarshalJSON(data 
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -7044,11 +7686,12 @@ func (r *InstanceRepairRecipeStepsRequestedTenantProject) HashCode() string {
 }
 
 type InstanceRepairRecipeStepsPermissionsInfo struct {
-	empty          bool                                                     `json:"-"`
-	PolicyName     *InstanceRepairRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstanceRepairRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                  `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                            `json:"apiAttrs"`
+	empty          bool                                                        `json:"-"`
+	PolicyName     *InstanceRepairRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstanceRepairRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                     `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                               `json:"apiAttrs"`
+	PolicyNameMode *InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstanceRepairRecipeStepsPermissionsInfo InstanceRepairRecipeStepsPermissionsInfo
@@ -7073,6 +7716,8 @@ func (r *InstanceRepairRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) er
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -7762,11 +8407,12 @@ func (r *InstancePreprocessDeleteRecipeStepsRequestedTenantProject) HashCode() s
 }
 
 type InstancePreprocessDeleteRecipeStepsPermissionsInfo struct {
-	empty          bool                                                               `json:"-"`
-	PolicyName     *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                            `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                                      `json:"apiAttrs"`
+	empty          bool                                                                  `json:"-"`
+	PolicyName     *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                               `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                                         `json:"apiAttrs"`
+	PolicyNameMode *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstancePreprocessDeleteRecipeStepsPermissionsInfo InstancePreprocessDeleteRecipeStepsPermissionsInfo
@@ -7791,6 +8437,8 @@ func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfo) UnmarshalJSON(data 
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -8480,11 +9128,12 @@ func (r *InstancePreprocessUpdateRecipeStepsRequestedTenantProject) HashCode() s
 }
 
 type InstancePreprocessUpdateRecipeStepsPermissionsInfo struct {
-	empty          bool                                                               `json:"-"`
-	PolicyName     *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                            `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                                      `json:"apiAttrs"`
+	empty          bool                                                                  `json:"-"`
+	PolicyName     *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                               `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                                         `json:"apiAttrs"`
+	PolicyNameMode *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstancePreprocessUpdateRecipeStepsPermissionsInfo InstancePreprocessUpdateRecipeStepsPermissionsInfo
@@ -8509,6 +9158,8 @@ func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfo) UnmarshalJSON(data 
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -9198,11 +9849,12 @@ func (r *InstancePreprocessFreezeRecipeStepsRequestedTenantProject) HashCode() s
 }
 
 type InstancePreprocessFreezeRecipeStepsPermissionsInfo struct {
-	empty          bool                                                               `json:"-"`
-	PolicyName     *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                            `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                                      `json:"apiAttrs"`
+	empty          bool                                                                  `json:"-"`
+	PolicyName     *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                               `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                                         `json:"apiAttrs"`
+	PolicyNameMode *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstancePreprocessFreezeRecipeStepsPermissionsInfo InstancePreprocessFreezeRecipeStepsPermissionsInfo
@@ -9227,6 +9879,8 @@ func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfo) UnmarshalJSON(data 
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -9916,11 +10570,12 @@ func (r *InstanceFreezeRecipeStepsRequestedTenantProject) HashCode() string {
 }
 
 type InstanceFreezeRecipeStepsPermissionsInfo struct {
-	empty          bool                                                     `json:"-"`
-	PolicyName     *InstanceFreezeRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstanceFreezeRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                  `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                            `json:"apiAttrs"`
+	empty          bool                                                        `json:"-"`
+	PolicyName     *InstanceFreezeRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstanceFreezeRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                     `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                               `json:"apiAttrs"`
+	PolicyNameMode *InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstanceFreezeRecipeStepsPermissionsInfo InstanceFreezeRecipeStepsPermissionsInfo
@@ -9945,6 +10600,8 @@ func (r *InstanceFreezeRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) er
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -10634,11 +11291,12 @@ func (r *InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject) HashCode()
 }
 
 type InstancePreprocessUnfreezeRecipeStepsPermissionsInfo struct {
-	empty          bool                                                                 `json:"-"`
-	PolicyName     *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                              `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                                        `json:"apiAttrs"`
+	empty          bool                                                                    `json:"-"`
+	PolicyName     *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                                 `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                                           `json:"apiAttrs"`
+	PolicyNameMode *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstancePreprocessUnfreezeRecipeStepsPermissionsInfo InstancePreprocessUnfreezeRecipeStepsPermissionsInfo
@@ -10663,6 +11321,8 @@ func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfo) UnmarshalJSON(dat
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -11352,11 +12012,12 @@ func (r *InstanceUnfreezeRecipeStepsRequestedTenantProject) HashCode() string {
 }
 
 type InstanceUnfreezeRecipeStepsPermissionsInfo struct {
-	empty          bool                                                       `json:"-"`
-	PolicyName     *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                    `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                              `json:"apiAttrs"`
+	empty          bool                                                          `json:"-"`
+	PolicyName     *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                       `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                                 `json:"apiAttrs"`
+	PolicyNameMode *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstanceUnfreezeRecipeStepsPermissionsInfo InstanceUnfreezeRecipeStepsPermissionsInfo
@@ -11381,6 +12042,8 @@ func (r *InstanceUnfreezeRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) 
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -12070,11 +12733,12 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject
 }
 
 type InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo struct {
-	empty          bool                                                                             `json:"-"`
-	PolicyName     *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                                          `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                                                    `json:"apiAttrs"`
+	empty          bool                                                                                `json:"-"`
+	PolicyName     *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                                             `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                                                       `json:"apiAttrs"`
+	PolicyNameMode *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo
@@ -12099,6 +12763,8 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo) Unmar
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -12788,11 +13454,12 @@ func (r *InstanceReportInstanceHealthRecipeStepsRequestedTenantProject) HashCode
 }
 
 type InstanceReportInstanceHealthRecipeStepsPermissionsInfo struct {
-	empty          bool                                                                   `json:"-"`
-	PolicyName     *InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                                `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                                          `json:"apiAttrs"`
+	empty          bool                                                                      `json:"-"`
+	PolicyName     *InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                                   `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                                             `json:"apiAttrs"`
+	PolicyNameMode *InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstanceReportInstanceHealthRecipeStepsPermissionsInfo InstanceReportInstanceHealthRecipeStepsPermissionsInfo
@@ -12817,6 +13484,8 @@ func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfo) UnmarshalJSON(d
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -13506,11 +14175,12 @@ func (r *InstancePreprocessGetRecipeStepsRequestedTenantProject) HashCode() stri
 }
 
 type InstancePreprocessGetRecipeStepsPermissionsInfo struct {
-	empty          bool                                                            `json:"-"`
-	PolicyName     *InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                         `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                                   `json:"apiAttrs"`
+	empty          bool                                                               `json:"-"`
+	PolicyName     *InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                            `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                                      `json:"apiAttrs"`
+	PolicyNameMode *InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstancePreprocessGetRecipeStepsPermissionsInfo InstancePreprocessGetRecipeStepsPermissionsInfo
@@ -13535,6 +14205,8 @@ func (r *InstancePreprocessGetRecipeStepsPermissionsInfo) UnmarshalJSON(data []b
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -14224,11 +14896,12 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject) HashCode()
 }
 
 type InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo struct {
-	empty          bool                                                                 `json:"-"`
-	PolicyName     *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                              `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                                        `json:"apiAttrs"`
+	empty          bool                                                                    `json:"-"`
+	PolicyName     *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                                 `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                                           `json:"apiAttrs"`
+	PolicyNameMode *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo
@@ -14253,6 +14926,8 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo) UnmarshalJSON(dat
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -14942,11 +15617,12 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject) HashCode
 }
 
 type InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo struct {
-	empty          bool                                                                   `json:"-"`
-	PolicyName     *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                                `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                                          `json:"apiAttrs"`
+	empty          bool                                                                      `json:"-"`
+	PolicyName     *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                                   `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                                             `json:"apiAttrs"`
+	PolicyNameMode *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo
@@ -14971,6 +15647,8 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo) UnmarshalJSON(d
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -15660,11 +16338,12 @@ func (r *InstanceReadonlyRecipeStepsRequestedTenantProject) HashCode() string {
 }
 
 type InstanceReadonlyRecipeStepsPermissionsInfo struct {
-	empty          bool                                                       `json:"-"`
-	PolicyName     *InstanceReadonlyRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                    `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                              `json:"apiAttrs"`
+	empty          bool                                                          `json:"-"`
+	PolicyName     *InstanceReadonlyRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                       `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                                 `json:"apiAttrs"`
+	PolicyNameMode *InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstanceReadonlyRecipeStepsPermissionsInfo InstanceReadonlyRecipeStepsPermissionsInfo
@@ -15689,6 +16368,8 @@ func (r *InstanceReadonlyRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) 
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -16378,11 +17059,12 @@ func (r *InstanceReconcileRecipeStepsRequestedTenantProject) HashCode() string {
 }
 
 type InstanceReconcileRecipeStepsPermissionsInfo struct {
-	empty          bool                                                        `json:"-"`
-	PolicyName     *InstanceReconcileRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstanceReconcileRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                     `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                               `json:"apiAttrs"`
+	empty          bool                                                           `json:"-"`
+	PolicyName     *InstanceReconcileRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstanceReconcileRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                        `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                                  `json:"apiAttrs"`
+	PolicyNameMode *InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstanceReconcileRecipeStepsPermissionsInfo InstanceReconcileRecipeStepsPermissionsInfo
@@ -16407,6 +17089,8 @@ func (r *InstanceReconcileRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte)
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -17096,11 +17780,12 @@ func (r *InstancePreprocessPassthroughRecipeStepsRequestedTenantProject) HashCod
 }
 
 type InstancePreprocessPassthroughRecipeStepsPermissionsInfo struct {
-	empty          bool                                                                    `json:"-"`
-	PolicyName     *InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                                 `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                                           `json:"apiAttrs"`
+	empty          bool                                                                       `json:"-"`
+	PolicyName     *InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                                    `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                                              `json:"apiAttrs"`
+	PolicyNameMode *InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstancePreprocessPassthroughRecipeStepsPermissionsInfo InstancePreprocessPassthroughRecipeStepsPermissionsInfo
@@ -17125,6 +17810,8 @@ func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfo) UnmarshalJSON(
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil
@@ -17814,11 +18501,12 @@ func (r *InstancePreprocessReconcileRecipeStepsRequestedTenantProject) HashCode(
 }
 
 type InstancePreprocessReconcileRecipeStepsPermissionsInfo struct {
-	empty          bool                                                                  `json:"-"`
-	PolicyName     *InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName      `json:"policyName"`
-	IamPermissions []InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions `json:"iamPermissions"`
-	ResourcePath   *string                                                               `json:"resourcePath"`
-	ApiAttrs       *InstanceGoogleprotobufstruct                                         `json:"apiAttrs"`
+	empty          bool                                                                     `json:"-"`
+	PolicyName     *InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName         `json:"policyName"`
+	IamPermissions []InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions    `json:"iamPermissions"`
+	ResourcePath   *string                                                                  `json:"resourcePath"`
+	ApiAttrs       *InstanceGoogleprotobufstruct                                            `json:"apiAttrs"`
+	PolicyNameMode *InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
 }
 
 type jsonInstancePreprocessReconcileRecipeStepsPermissionsInfo InstancePreprocessReconcileRecipeStepsPermissionsInfo
@@ -17843,6 +18531,8 @@ func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfo) UnmarshalJSON(da
 		r.ResourcePath = res.ResourcePath
 
 		r.ApiAttrs = res.ApiAttrs
+
+		r.PolicyNameMode = res.PolicyNameMode
 
 	}
 	return nil

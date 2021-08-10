@@ -59,6 +59,13 @@ enum Tier2AlphaInstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnu
   Tier2AlphaInstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
 }
 
+enum Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
+}
+
 enum Tier2AlphaInstanceCreateRecipeStepsActionEnum {
   Tier2AlphaInstanceCreateRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
   Tier2AlphaInstanceCreateRecipeStepsActionEnumNO_ACTION = 1;
@@ -74,6 +81,13 @@ enum Tier2AlphaInstanceCreateRecipeStepsRequestedTenantProjectScopeEnum {
   Tier2AlphaInstanceCreateRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
   Tier2AlphaInstanceCreateRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
   Tier2AlphaInstanceCreateRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
+}
+
+enum Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
 }
 
 enum Tier2AlphaInstanceDeleteRecipeStepsActionEnum {
@@ -93,6 +107,13 @@ enum Tier2AlphaInstanceDeleteRecipeStepsRequestedTenantProjectScopeEnum {
   Tier2AlphaInstanceDeleteRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
 }
 
+enum Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
+}
+
 enum Tier2AlphaInstanceUpdateRecipeStepsActionEnum {
   Tier2AlphaInstanceUpdateRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
   Tier2AlphaInstanceUpdateRecipeStepsActionEnumNO_ACTION = 1;
@@ -108,6 +129,13 @@ enum Tier2AlphaInstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum {
   Tier2AlphaInstanceUpdateRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
   Tier2AlphaInstanceUpdateRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
   Tier2AlphaInstanceUpdateRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
+}
+
+enum Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
 }
 
 enum Tier2AlphaInstancePreprocessResetRecipeStepsActionEnum {
@@ -127,6 +155,13 @@ enum Tier2AlphaInstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum
   Tier2AlphaInstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
 }
 
+enum Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
+}
+
 enum Tier2AlphaInstanceResetRecipeStepsActionEnum {
   Tier2AlphaInstanceResetRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
   Tier2AlphaInstanceResetRecipeStepsActionEnumNO_ACTION = 1;
@@ -142,6 +177,13 @@ enum Tier2AlphaInstanceResetRecipeStepsRequestedTenantProjectScopeEnum {
   Tier2AlphaInstanceResetRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
   Tier2AlphaInstanceResetRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
   Tier2AlphaInstanceResetRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
+}
+
+enum Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
 }
 
 enum Tier2AlphaInstancePreprocessRepairRecipeStepsActionEnum {
@@ -161,6 +203,13 @@ enum Tier2AlphaInstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnu
   Tier2AlphaInstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
 }
 
+enum Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
+}
+
 enum Tier2AlphaInstanceRepairRecipeStepsActionEnum {
   Tier2AlphaInstanceRepairRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
   Tier2AlphaInstanceRepairRecipeStepsActionEnumNO_ACTION = 1;
@@ -176,6 +225,13 @@ enum Tier2AlphaInstanceRepairRecipeStepsRequestedTenantProjectScopeEnum {
   Tier2AlphaInstanceRepairRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
   Tier2AlphaInstanceRepairRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
   Tier2AlphaInstanceRepairRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
+}
+
+enum Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
 }
 
 enum Tier2AlphaInstancePreprocessDeleteRecipeStepsActionEnum {
@@ -195,6 +251,13 @@ enum Tier2AlphaInstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnu
   Tier2AlphaInstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
 }
 
+enum Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
+}
+
 enum Tier2AlphaInstancePreprocessUpdateRecipeStepsActionEnum {
   Tier2AlphaInstancePreprocessUpdateRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
   Tier2AlphaInstancePreprocessUpdateRecipeStepsActionEnumNO_ACTION = 1;
@@ -210,6 +273,13 @@ enum Tier2AlphaInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnu
   Tier2AlphaInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
   Tier2AlphaInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
   Tier2AlphaInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
+}
+
+enum Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
 }
 
 enum Tier2AlphaInstancePreprocessFreezeRecipeStepsActionEnum {
@@ -229,6 +299,13 @@ enum Tier2AlphaInstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnu
   Tier2AlphaInstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
 }
 
+enum Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
+}
+
 enum Tier2AlphaInstanceFreezeRecipeStepsActionEnum {
   Tier2AlphaInstanceFreezeRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
   Tier2AlphaInstanceFreezeRecipeStepsActionEnumNO_ACTION = 1;
@@ -244,6 +321,13 @@ enum Tier2AlphaInstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum {
   Tier2AlphaInstanceFreezeRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
   Tier2AlphaInstanceFreezeRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
   Tier2AlphaInstanceFreezeRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
+}
+
+enum Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
 }
 
 enum Tier2AlphaInstancePreprocessUnfreezeRecipeStepsActionEnum {
@@ -263,6 +347,13 @@ enum Tier2AlphaInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeE
   Tier2AlphaInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
 }
 
+enum Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
+}
+
 enum Tier2AlphaInstanceUnfreezeRecipeStepsActionEnum {
   Tier2AlphaInstanceUnfreezeRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
   Tier2AlphaInstanceUnfreezeRecipeStepsActionEnumNO_ACTION = 1;
@@ -278,6 +369,13 @@ enum Tier2AlphaInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum {
   Tier2AlphaInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
   Tier2AlphaInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
   Tier2AlphaInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
+}
+
+enum Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
 }
 
 enum Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsActionEnum {
@@ -297,6 +395,13 @@ enum Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantP
   Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
 }
 
+enum Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
+}
+
 enum Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnum {
   Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
   Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnumNO_ACTION = 1;
@@ -312,6 +417,13 @@ enum Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScop
   Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
   Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
   Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
+}
+
+enum Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
 }
 
 enum Tier2AlphaInstancePreprocessGetRecipeStepsActionEnum {
@@ -331,6 +443,13 @@ enum Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum {
   Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
 }
 
+enum Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
+}
+
 enum Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnum {
   Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
   Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnumNO_ACTION = 1;
@@ -346,6 +465,13 @@ enum Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeE
   Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
   Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
   Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
+}
+
+enum Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
 }
 
 enum Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsActionEnum {
@@ -365,6 +491,13 @@ enum Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScop
   Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
 }
 
+enum Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
+}
+
 enum Tier2AlphaInstanceReadonlyRecipeStepsActionEnum {
   Tier2AlphaInstanceReadonlyRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
   Tier2AlphaInstanceReadonlyRecipeStepsActionEnumNO_ACTION = 1;
@@ -380,6 +513,13 @@ enum Tier2AlphaInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum {
   Tier2AlphaInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
   Tier2AlphaInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
   Tier2AlphaInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
+}
+
+enum Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
 }
 
 enum Tier2AlphaInstanceReconcileRecipeStepsActionEnum {
@@ -399,6 +539,13 @@ enum Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum {
   Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
 }
 
+enum Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
+}
+
 enum Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnum {
   Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
   Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnumNO_ACTION = 1;
@@ -416,6 +563,13 @@ enum Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectSco
   Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
 }
 
+enum Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
+}
+
 enum Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnum {
   Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
   Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnumNO_ACTION = 1;
@@ -431,6 +585,13 @@ enum Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScope
   Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
   Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
   Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
+}
+
+enum Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum {
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumUNSPECIFIED = 1;
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_POLICY_NAME = 2;
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumFROM_RESOURCE_PATH = 3;
 }
 
 message Tier2AlphaInstance {
@@ -567,6 +728,7 @@ message Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName {
@@ -662,6 +824,7 @@ message Tier2AlphaInstanceCreateRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyName {
@@ -754,6 +917,7 @@ message Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyName {
@@ -846,6 +1010,7 @@ message Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyName {
@@ -938,6 +1103,7 @@ message Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName {
@@ -1030,6 +1196,7 @@ message Tier2AlphaInstanceResetRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstanceResetRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyName {
@@ -1122,6 +1289,7 @@ message Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName {
@@ -1214,6 +1382,7 @@ message Tier2AlphaInstanceRepairRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyName {
@@ -1306,6 +1475,7 @@ message Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName {
@@ -1398,6 +1568,7 @@ message Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName {
@@ -1490,6 +1661,7 @@ message Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName {
@@ -1582,6 +1754,7 @@ message Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyName {
@@ -1674,6 +1847,7 @@ message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName {
@@ -1766,6 +1940,7 @@ message Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName {
@@ -1858,6 +2033,7 @@ message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsIn
   repeated Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName {
@@ -1950,6 +2126,7 @@ message Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName {
@@ -2042,6 +2219,7 @@ message Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName {
@@ -2134,6 +2312,7 @@ message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName {
@@ -2226,6 +2405,7 @@ message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName {
@@ -2318,6 +2498,7 @@ message Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyName {
@@ -2410,6 +2591,7 @@ message Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyName {
@@ -2502,6 +2684,7 @@ message Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName {
@@ -2594,6 +2777,7 @@ message Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfo {
   repeated Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
 }
 
 message Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName {

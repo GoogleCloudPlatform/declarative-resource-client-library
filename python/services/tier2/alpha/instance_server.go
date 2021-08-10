@@ -85,6 +85,18 @@ func ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsRequestedTenantProjectS
 	return nil
 }
 
+// ProtoToInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToInstanceCreateRecipeStepsActionEnum converts a InstanceCreateRecipeStepsActionEnum enum from its proto representation.
 func ProtoToTier2AlphaInstanceCreateRecipeStepsActionEnum(e alphapb.Tier2AlphaInstanceCreateRecipeStepsActionEnum) *alpha.InstanceCreateRecipeStepsActionEnum {
 	if e == 0 {
@@ -104,6 +116,18 @@ func ProtoToTier2AlphaInstanceCreateRecipeStepsRequestedTenantProjectScopeEnum(e
 	}
 	if n, ok := alphapb.Tier2AlphaInstanceCreateRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
 		e := alpha.InstanceCreateRecipeStepsRequestedTenantProjectScopeEnum(n[len("Tier2AlphaInstanceCreateRecipeStepsRequestedTenantProjectScopeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
 		return &e
 	}
 	return nil
@@ -133,6 +157,18 @@ func ProtoToTier2AlphaInstanceDeleteRecipeStepsRequestedTenantProjectScopeEnum(e
 	return nil
 }
 
+// ProtoToInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToInstanceUpdateRecipeStepsActionEnum converts a InstanceUpdateRecipeStepsActionEnum enum from its proto representation.
 func ProtoToTier2AlphaInstanceUpdateRecipeStepsActionEnum(e alphapb.Tier2AlphaInstanceUpdateRecipeStepsActionEnum) *alpha.InstanceUpdateRecipeStepsActionEnum {
 	if e == 0 {
@@ -152,6 +188,18 @@ func ProtoToTier2AlphaInstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum(e
 	}
 	if n, ok := alphapb.Tier2AlphaInstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
 		e := alpha.InstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum(n[len("Tier2AlphaInstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
 		return &e
 	}
 	return nil
@@ -181,6 +229,18 @@ func ProtoToTier2AlphaInstancePreprocessResetRecipeStepsRequestedTenantProjectSc
 	return nil
 }
 
+// ProtoToInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToInstanceResetRecipeStepsActionEnum converts a InstanceResetRecipeStepsActionEnum enum from its proto representation.
 func ProtoToTier2AlphaInstanceResetRecipeStepsActionEnum(e alphapb.Tier2AlphaInstanceResetRecipeStepsActionEnum) *alpha.InstanceResetRecipeStepsActionEnum {
 	if e == 0 {
@@ -200,6 +260,18 @@ func ProtoToTier2AlphaInstanceResetRecipeStepsRequestedTenantProjectScopeEnum(e 
 	}
 	if n, ok := alphapb.Tier2AlphaInstanceResetRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
 		e := alpha.InstanceResetRecipeStepsRequestedTenantProjectScopeEnum(n[len("Tier2AlphaInstanceResetRecipeStepsRequestedTenantProjectScopeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
 		return &e
 	}
 	return nil
@@ -229,6 +301,18 @@ func ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsRequestedTenantProjectS
 	return nil
 }
 
+// ProtoToInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToInstanceRepairRecipeStepsActionEnum converts a InstanceRepairRecipeStepsActionEnum enum from its proto representation.
 func ProtoToTier2AlphaInstanceRepairRecipeStepsActionEnum(e alphapb.Tier2AlphaInstanceRepairRecipeStepsActionEnum) *alpha.InstanceRepairRecipeStepsActionEnum {
 	if e == 0 {
@@ -248,6 +332,18 @@ func ProtoToTier2AlphaInstanceRepairRecipeStepsRequestedTenantProjectScopeEnum(e
 	}
 	if n, ok := alphapb.Tier2AlphaInstanceRepairRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
 		e := alpha.InstanceRepairRecipeStepsRequestedTenantProjectScopeEnum(n[len("Tier2AlphaInstanceRepairRecipeStepsRequestedTenantProjectScopeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
 		return &e
 	}
 	return nil
@@ -277,6 +373,18 @@ func ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsRequestedTenantProjectS
 	return nil
 }
 
+// ProtoToInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToInstancePreprocessUpdateRecipeStepsActionEnum converts a InstancePreprocessUpdateRecipeStepsActionEnum enum from its proto representation.
 func ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsActionEnum(e alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsActionEnum) *alpha.InstancePreprocessUpdateRecipeStepsActionEnum {
 	if e == 0 {
@@ -296,6 +404,18 @@ func ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsRequestedTenantProjectS
 	}
 	if n, ok := alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
 		e := alpha.InstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum(n[len("Tier2AlphaInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
 		return &e
 	}
 	return nil
@@ -325,6 +445,18 @@ func ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsRequestedTenantProjectS
 	return nil
 }
 
+// ProtoToInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToInstanceFreezeRecipeStepsActionEnum converts a InstanceFreezeRecipeStepsActionEnum enum from its proto representation.
 func ProtoToTier2AlphaInstanceFreezeRecipeStepsActionEnum(e alphapb.Tier2AlphaInstanceFreezeRecipeStepsActionEnum) *alpha.InstanceFreezeRecipeStepsActionEnum {
 	if e == 0 {
@@ -344,6 +476,18 @@ func ProtoToTier2AlphaInstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum(e
 	}
 	if n, ok := alphapb.Tier2AlphaInstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
 		e := alpha.InstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum(n[len("Tier2AlphaInstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
 		return &e
 	}
 	return nil
@@ -373,6 +517,18 @@ func ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjec
 	return nil
 }
 
+// ProtoToInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToInstanceUnfreezeRecipeStepsActionEnum converts a InstanceUnfreezeRecipeStepsActionEnum enum from its proto representation.
 func ProtoToTier2AlphaInstanceUnfreezeRecipeStepsActionEnum(e alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsActionEnum) *alpha.InstanceUnfreezeRecipeStepsActionEnum {
 	if e == 0 {
@@ -392,6 +548,18 @@ func ProtoToTier2AlphaInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum
 	}
 	if n, ok := alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
 		e := alpha.InstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum(n[len("Tier2AlphaInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
 		return &e
 	}
 	return nil
@@ -421,6 +589,18 @@ func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequested
 	return nil
 }
 
+// ProtoToInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToInstanceReportInstanceHealthRecipeStepsActionEnum converts a InstanceReportInstanceHealthRecipeStepsActionEnum enum from its proto representation.
 func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnum(e alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnum) *alpha.InstanceReportInstanceHealthRecipeStepsActionEnum {
 	if e == 0 {
@@ -440,6 +620,18 @@ func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProj
 	}
 	if n, ok := alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
 		e := alpha.InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum(n[len("Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
 		return &e
 	}
 	return nil
@@ -469,6 +661,18 @@ func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScop
 	return nil
 }
 
+// ProtoToInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToInstanceNotifyKeyAvailableRecipeStepsActionEnum converts a InstanceNotifyKeyAvailableRecipeStepsActionEnum enum from its proto representation.
 func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnum(e alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnum) *alpha.InstanceNotifyKeyAvailableRecipeStepsActionEnum {
 	if e == 0 {
@@ -488,6 +692,18 @@ func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjec
 	}
 	if n, ok := alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
 		e := alpha.InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum(n[len("Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
 		return &e
 	}
 	return nil
@@ -517,6 +733,18 @@ func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProj
 	return nil
 }
 
+// ProtoToInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToInstanceReadonlyRecipeStepsActionEnum converts a InstanceReadonlyRecipeStepsActionEnum enum from its proto representation.
 func ProtoToTier2AlphaInstanceReadonlyRecipeStepsActionEnum(e alphapb.Tier2AlphaInstanceReadonlyRecipeStepsActionEnum) *alpha.InstanceReadonlyRecipeStepsActionEnum {
 	if e == 0 {
@@ -536,6 +764,18 @@ func ProtoToTier2AlphaInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum
 	}
 	if n, ok := alphapb.Tier2AlphaInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
 		e := alpha.InstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum(n[len("Tier2AlphaInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
 		return &e
 	}
 	return nil
@@ -565,6 +805,18 @@ func ProtoToTier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnu
 	return nil
 }
 
+// ProtoToInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToInstancePreprocessPassthroughRecipeStepsActionEnum converts a InstancePreprocessPassthroughRecipeStepsActionEnum enum from its proto representation.
 func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnum(e alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnum) *alpha.InstancePreprocessPassthroughRecipeStepsActionEnum {
 	if e == 0 {
@@ -589,6 +841,18 @@ func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantPro
 	return nil
 }
 
+// ProtoToInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToInstancePreprocessReconcileRecipeStepsActionEnum converts a InstancePreprocessReconcileRecipeStepsActionEnum enum from its proto representation.
 func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsActionEnum(e alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnum) *alpha.InstancePreprocessReconcileRecipeStepsActionEnum {
 	if e == 0 {
@@ -608,6 +872,18 @@ func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProje
 	}
 	if n, ok := alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
 		e := alpha.InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum(n[len("Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum converts a InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(e alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum) *alpha.InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum_name[int32(e)]; ok {
+		e := alpha.InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(n[len("Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum"):])
 		return &e
 	}
 	return nil
@@ -778,9 +1054,10 @@ func ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfo(p *alph
 		return nil
 	}
 	obj := &alpha.InstancePreprocessCreateRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions(r))
@@ -984,9 +1261,10 @@ func ProtoToTier2AlphaInstanceCreateRecipeStepsPermissionsInfo(p *alphapb.Tier2A
 		return nil
 	}
 	obj := &alpha.InstanceCreateRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceCreateRecipeStepsPermissionsInfoIamPermissions(r))
@@ -1181,9 +1459,10 @@ func ProtoToTier2AlphaInstanceDeleteRecipeStepsPermissionsInfo(p *alphapb.Tier2A
 		return nil
 	}
 	obj := &alpha.InstanceDeleteRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceDeleteRecipeStepsPermissionsInfoIamPermissions(r))
@@ -1378,9 +1657,10 @@ func ProtoToTier2AlphaInstanceUpdateRecipeStepsPermissionsInfo(p *alphapb.Tier2A
 		return nil
 	}
 	obj := &alpha.InstanceUpdateRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceUpdateRecipeStepsPermissionsInfoIamPermissions(r))
@@ -1575,9 +1855,10 @@ func ProtoToTier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfo(p *alpha
 		return nil
 	}
 	obj := &alpha.InstancePreprocessResetRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions(r))
@@ -1772,9 +2053,10 @@ func ProtoToTier2AlphaInstanceResetRecipeStepsPermissionsInfo(p *alphapb.Tier2Al
 		return nil
 	}
 	obj := &alpha.InstanceResetRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceResetRecipeStepsPermissionsInfoIamPermissions(r))
@@ -1969,9 +2251,10 @@ func ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfo(p *alph
 		return nil
 	}
 	obj := &alpha.InstancePreprocessRepairRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions(r))
@@ -2166,9 +2449,10 @@ func ProtoToTier2AlphaInstanceRepairRecipeStepsPermissionsInfo(p *alphapb.Tier2A
 		return nil
 	}
 	obj := &alpha.InstanceRepairRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceRepairRecipeStepsPermissionsInfoIamPermissions(r))
@@ -2363,9 +2647,10 @@ func ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfo(p *alph
 		return nil
 	}
 	obj := &alpha.InstancePreprocessDeleteRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions(r))
@@ -2560,9 +2845,10 @@ func ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfo(p *alph
 		return nil
 	}
 	obj := &alpha.InstancePreprocessUpdateRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions(r))
@@ -2757,9 +3043,10 @@ func ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfo(p *alph
 		return nil
 	}
 	obj := &alpha.InstancePreprocessFreezeRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions(r))
@@ -2954,9 +3241,10 @@ func ProtoToTier2AlphaInstanceFreezeRecipeStepsPermissionsInfo(p *alphapb.Tier2A
 		return nil
 	}
 	obj := &alpha.InstanceFreezeRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceFreezeRecipeStepsPermissionsInfoIamPermissions(r))
@@ -3151,9 +3439,10 @@ func ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfo(p *al
 		return nil
 	}
 	obj := &alpha.InstancePreprocessUnfreezeRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions(r))
@@ -3348,9 +3637,10 @@ func ProtoToTier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfo(p *alphapb.Tier
 		return nil
 	}
 	obj := &alpha.InstanceUnfreezeRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions(r))
@@ -3545,9 +3835,10 @@ func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissio
 		return nil
 	}
 	obj := &alpha.InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(r))
@@ -3742,9 +4033,10 @@ func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfo(p *
 		return nil
 	}
 	obj := &alpha.InstanceReportInstanceHealthRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(r))
@@ -3939,9 +4231,10 @@ func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfo(p *alphapb
 		return nil
 	}
 	obj := &alpha.InstancePreprocessGetRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions(r))
@@ -4136,9 +4429,10 @@ func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(p *al
 		return nil
 	}
 	obj := &alpha.InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions(r))
@@ -4333,9 +4627,10 @@ func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(p *
 		return nil
 	}
 	obj := &alpha.InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions(r))
@@ -4530,9 +4825,10 @@ func ProtoToTier2AlphaInstanceReadonlyRecipeStepsPermissionsInfo(p *alphapb.Tier
 		return nil
 	}
 	obj := &alpha.InstanceReadonlyRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions(r))
@@ -4727,9 +5023,10 @@ func ProtoToTier2AlphaInstanceReconcileRecipeStepsPermissionsInfo(p *alphapb.Tie
 		return nil
 	}
 	obj := &alpha.InstanceReconcileRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceReconcileRecipeStepsPermissionsInfoIamPermissions(r))
@@ -4924,9 +5221,10 @@ func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfo(p 
 		return nil
 	}
 	obj := &alpha.InstancePreprocessPassthroughRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions(r))
@@ -5121,9 +5419,10 @@ func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfo(p *a
 		return nil
 	}
 	obj := &alpha.InstancePreprocessReconcileRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyName:     ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions(r))
@@ -5325,6 +5624,17 @@ func Tier2AlphaInstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnu
 	return alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnum(0)
 }
 
+// InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+}
+
 // InstanceCreateRecipeStepsActionEnumToProto converts a InstanceCreateRecipeStepsActionEnum enum to its proto representation.
 func Tier2AlphaInstanceCreateRecipeStepsActionEnumToProto(e *alpha.InstanceCreateRecipeStepsActionEnum) alphapb.Tier2AlphaInstanceCreateRecipeStepsActionEnum {
 	if e == nil {
@@ -5345,6 +5655,17 @@ func Tier2AlphaInstanceCreateRecipeStepsRequestedTenantProjectScopeEnumToProto(e
 		return alphapb.Tier2AlphaInstanceCreateRecipeStepsRequestedTenantProjectScopeEnum(v)
 	}
 	return alphapb.Tier2AlphaInstanceCreateRecipeStepsRequestedTenantProjectScopeEnum(0)
+}
+
+// InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
 }
 
 // InstanceDeleteRecipeStepsActionEnumToProto converts a InstanceDeleteRecipeStepsActionEnum enum to its proto representation.
@@ -5369,6 +5690,17 @@ func Tier2AlphaInstanceDeleteRecipeStepsRequestedTenantProjectScopeEnumToProto(e
 	return alphapb.Tier2AlphaInstanceDeleteRecipeStepsRequestedTenantProjectScopeEnum(0)
 }
 
+// InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+}
+
 // InstanceUpdateRecipeStepsActionEnumToProto converts a InstanceUpdateRecipeStepsActionEnum enum to its proto representation.
 func Tier2AlphaInstanceUpdateRecipeStepsActionEnumToProto(e *alpha.InstanceUpdateRecipeStepsActionEnum) alphapb.Tier2AlphaInstanceUpdateRecipeStepsActionEnum {
 	if e == nil {
@@ -5389,6 +5721,17 @@ func Tier2AlphaInstanceUpdateRecipeStepsRequestedTenantProjectScopeEnumToProto(e
 		return alphapb.Tier2AlphaInstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum(v)
 	}
 	return alphapb.Tier2AlphaInstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum(0)
+}
+
+// InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
 }
 
 // InstancePreprocessResetRecipeStepsActionEnumToProto converts a InstancePreprocessResetRecipeStepsActionEnum enum to its proto representation.
@@ -5413,6 +5756,17 @@ func Tier2AlphaInstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum
 	return alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum(0)
 }
 
+// InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+}
+
 // InstanceResetRecipeStepsActionEnumToProto converts a InstanceResetRecipeStepsActionEnum enum to its proto representation.
 func Tier2AlphaInstanceResetRecipeStepsActionEnumToProto(e *alpha.InstanceResetRecipeStepsActionEnum) alphapb.Tier2AlphaInstanceResetRecipeStepsActionEnum {
 	if e == nil {
@@ -5433,6 +5787,17 @@ func Tier2AlphaInstanceResetRecipeStepsRequestedTenantProjectScopeEnumToProto(e 
 		return alphapb.Tier2AlphaInstanceResetRecipeStepsRequestedTenantProjectScopeEnum(v)
 	}
 	return alphapb.Tier2AlphaInstanceResetRecipeStepsRequestedTenantProjectScopeEnum(0)
+}
+
+// InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
 }
 
 // InstancePreprocessRepairRecipeStepsActionEnumToProto converts a InstancePreprocessRepairRecipeStepsActionEnum enum to its proto representation.
@@ -5457,6 +5822,17 @@ func Tier2AlphaInstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnu
 	return alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum(0)
 }
 
+// InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+}
+
 // InstanceRepairRecipeStepsActionEnumToProto converts a InstanceRepairRecipeStepsActionEnum enum to its proto representation.
 func Tier2AlphaInstanceRepairRecipeStepsActionEnumToProto(e *alpha.InstanceRepairRecipeStepsActionEnum) alphapb.Tier2AlphaInstanceRepairRecipeStepsActionEnum {
 	if e == nil {
@@ -5477,6 +5853,17 @@ func Tier2AlphaInstanceRepairRecipeStepsRequestedTenantProjectScopeEnumToProto(e
 		return alphapb.Tier2AlphaInstanceRepairRecipeStepsRequestedTenantProjectScopeEnum(v)
 	}
 	return alphapb.Tier2AlphaInstanceRepairRecipeStepsRequestedTenantProjectScopeEnum(0)
+}
+
+// InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
 }
 
 // InstancePreprocessDeleteRecipeStepsActionEnumToProto converts a InstancePreprocessDeleteRecipeStepsActionEnum enum to its proto representation.
@@ -5501,6 +5888,17 @@ func Tier2AlphaInstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnu
 	return alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnum(0)
 }
 
+// InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+}
+
 // InstancePreprocessUpdateRecipeStepsActionEnumToProto converts a InstancePreprocessUpdateRecipeStepsActionEnum enum to its proto representation.
 func Tier2AlphaInstancePreprocessUpdateRecipeStepsActionEnumToProto(e *alpha.InstancePreprocessUpdateRecipeStepsActionEnum) alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsActionEnum {
 	if e == nil {
@@ -5521,6 +5919,17 @@ func Tier2AlphaInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnu
 		return alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum(v)
 	}
 	return alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum(0)
+}
+
+// InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
 }
 
 // InstancePreprocessFreezeRecipeStepsActionEnumToProto converts a InstancePreprocessFreezeRecipeStepsActionEnum enum to its proto representation.
@@ -5545,6 +5954,17 @@ func Tier2AlphaInstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnu
 	return alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnum(0)
 }
 
+// InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+}
+
 // InstanceFreezeRecipeStepsActionEnumToProto converts a InstanceFreezeRecipeStepsActionEnum enum to its proto representation.
 func Tier2AlphaInstanceFreezeRecipeStepsActionEnumToProto(e *alpha.InstanceFreezeRecipeStepsActionEnum) alphapb.Tier2AlphaInstanceFreezeRecipeStepsActionEnum {
 	if e == nil {
@@ -5565,6 +5985,17 @@ func Tier2AlphaInstanceFreezeRecipeStepsRequestedTenantProjectScopeEnumToProto(e
 		return alphapb.Tier2AlphaInstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum(v)
 	}
 	return alphapb.Tier2AlphaInstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum(0)
+}
+
+// InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
 }
 
 // InstancePreprocessUnfreezeRecipeStepsActionEnumToProto converts a InstancePreprocessUnfreezeRecipeStepsActionEnum enum to its proto representation.
@@ -5589,6 +6020,17 @@ func Tier2AlphaInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeE
 	return alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnum(0)
 }
 
+// InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+}
+
 // InstanceUnfreezeRecipeStepsActionEnumToProto converts a InstanceUnfreezeRecipeStepsActionEnum enum to its proto representation.
 func Tier2AlphaInstanceUnfreezeRecipeStepsActionEnumToProto(e *alpha.InstanceUnfreezeRecipeStepsActionEnum) alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsActionEnum {
 	if e == nil {
@@ -5609,6 +6051,17 @@ func Tier2AlphaInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnumToProto
 		return alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum(v)
 	}
 	return alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum(0)
+}
+
+// InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
 }
 
 // InstancePreprocessReportInstanceHealthRecipeStepsActionEnumToProto converts a InstancePreprocessReportInstanceHealthRecipeStepsActionEnum enum to its proto representation.
@@ -5633,6 +6086,17 @@ func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantP
 	return alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum(0)
 }
 
+// InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+}
+
 // InstanceReportInstanceHealthRecipeStepsActionEnumToProto converts a InstanceReportInstanceHealthRecipeStepsActionEnum enum to its proto representation.
 func Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnumToProto(e *alpha.InstanceReportInstanceHealthRecipeStepsActionEnum) alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnum {
 	if e == nil {
@@ -5653,6 +6117,17 @@ func Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScop
 		return alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum(v)
 	}
 	return alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum(0)
+}
+
+// InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
 }
 
 // InstancePreprocessGetRecipeStepsActionEnumToProto converts a InstancePreprocessGetRecipeStepsActionEnum enum to its proto representation.
@@ -5677,6 +6152,17 @@ func Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnumTo
 	return alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum(0)
 }
 
+// InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+}
+
 // InstanceNotifyKeyAvailableRecipeStepsActionEnumToProto converts a InstanceNotifyKeyAvailableRecipeStepsActionEnum enum to its proto representation.
 func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnumToProto(e *alpha.InstanceNotifyKeyAvailableRecipeStepsActionEnum) alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnum {
 	if e == nil {
@@ -5697,6 +6183,17 @@ func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeE
 		return alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum(v)
 	}
 	return alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum(0)
+}
+
+// InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
 }
 
 // InstanceNotifyKeyUnavailableRecipeStepsActionEnumToProto converts a InstanceNotifyKeyUnavailableRecipeStepsActionEnum enum to its proto representation.
@@ -5721,6 +6218,17 @@ func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScop
 	return alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum(0)
 }
 
+// InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+}
+
 // InstanceReadonlyRecipeStepsActionEnumToProto converts a InstanceReadonlyRecipeStepsActionEnum enum to its proto representation.
 func Tier2AlphaInstanceReadonlyRecipeStepsActionEnumToProto(e *alpha.InstanceReadonlyRecipeStepsActionEnum) alphapb.Tier2AlphaInstanceReadonlyRecipeStepsActionEnum {
 	if e == nil {
@@ -5741,6 +6249,17 @@ func Tier2AlphaInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnumToProto
 		return alphapb.Tier2AlphaInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum(v)
 	}
 	return alphapb.Tier2AlphaInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum(0)
+}
+
+// InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
 }
 
 // InstanceReconcileRecipeStepsActionEnumToProto converts a InstanceReconcileRecipeStepsActionEnum enum to its proto representation.
@@ -5765,6 +6284,17 @@ func Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnumToProt
 	return alphapb.Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum(0)
 }
 
+// InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+}
+
 // InstancePreprocessPassthroughRecipeStepsActionEnumToProto converts a InstancePreprocessPassthroughRecipeStepsActionEnum enum to its proto representation.
 func Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnumToProto(e *alpha.InstancePreprocessPassthroughRecipeStepsActionEnum) alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnum {
 	if e == nil {
@@ -5787,6 +6317,17 @@ func Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectSco
 	return alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum(0)
 }
 
+// InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+}
+
 // InstancePreprocessReconcileRecipeStepsActionEnumToProto converts a InstancePreprocessReconcileRecipeStepsActionEnum enum to its proto representation.
 func Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnumToProto(e *alpha.InstancePreprocessReconcileRecipeStepsActionEnum) alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnum {
 	if e == nil {
@@ -5807,6 +6348,17 @@ func Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScope
 		return alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum(v)
 	}
 	return alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum(0)
+}
+
+// InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumToProto converts a InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum enum to its proto representation.
+func Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(e *alpha.InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum) alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum_value["InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(0)
 }
 
 // InstanceSkuToProto converts a InstanceSku resource to its proto representation.
@@ -5974,9 +6526,10 @@ func Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoToProto(o *alph
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -6180,9 +6733,10 @@ func Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoToProto(o *alpha.Instance
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceCreateRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -6377,9 +6931,10 @@ func Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoToProto(o *alpha.Instance
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -6574,9 +7129,10 @@ func Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoToProto(o *alpha.Instance
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -6771,9 +7327,10 @@ func Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoToProto(o *alpha
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -6968,9 +7525,10 @@ func Tier2AlphaInstanceResetRecipeStepsPermissionsInfoToProto(o *alpha.InstanceR
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceResetRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceResetRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -7165,9 +7723,10 @@ func Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoToProto(o *alph
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -7362,9 +7921,10 @@ func Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoToProto(o *alpha.Instance
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceRepairRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -7559,9 +8119,10 @@ func Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoToProto(o *alph
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -7756,9 +8317,10 @@ func Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoToProto(o *alph
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -7953,9 +8515,10 @@ func Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoToProto(o *alph
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -8150,9 +8713,10 @@ func Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoToProto(o *alpha.Instance
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -8347,9 +8911,10 @@ func Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoToProto(o *al
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -8544,9 +9109,10 @@ func Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoToProto(o *alpha.Instan
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -8741,9 +9307,10 @@ func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoT
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -8938,9 +9505,10 @@ func Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoToProto(o *
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -9135,9 +9703,10 @@ func Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoToProto(o *alpha.I
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -9332,9 +9901,10 @@ func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoToProto(o *al
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -9529,9 +10099,10 @@ func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoToProto(o *
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -9726,9 +10297,10 @@ func Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoToProto(o *alpha.Instan
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -9923,9 +10495,10 @@ func Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoToProto(o *alpha.Insta
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -10120,9 +10693,10 @@ func Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoToProto(o 
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -10317,9 +10891,10 @@ func Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoToProto(o *a
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyName:     Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+		PolicyNameMode: Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissionsToProto(&r))

@@ -81,19 +81,25 @@ func (e NotDeletedError) Error() string {
 	return fmt.Sprintf("resource not successfully deleted: %#v.", e.ExistingResource)
 }
 
+// IsRetryableGoogleError returns true if the error is retryable according to the given retryability.
+func IsRetryableGoogleError(gerr *googleapi.Error, retryability Retryability) bool {
+	return retryability.retryable && retryability.regex.MatchString(gerr.Message)
+}
+
 // IsRetryableHTTPError returns true if the error is retryable - in GCP that's a 500, 502, 503, or 429.
-func IsRetryableHTTPError(err error, retryability map[int]bool) bool {
+func IsRetryableHTTPError(err error, retryability map[int]Retryability) bool {
 	if gerr, ok := err.(*googleapi.Error); ok {
-		return retryability[gerr.Code]
+		rtblt, ok := retryability[gerr.Code]
+		return ok && IsRetryableGoogleError(gerr, rtblt)
 	}
 	return false
 }
 
 // IsNonRetryableHTTPError returns true if we know that the error is not retryable - in GCP that's a 400, 403, 404, or 409.
-func IsNonRetryableHTTPError(err error, retryability map[int]bool) bool {
+func IsNonRetryableHTTPError(err error, retryability map[int]Retryability) bool {
 	if gerr, ok := err.(*googleapi.Error); ok {
-		retryable, ok := retryability[gerr.Code]
-		return !retryable && ok
+		rtblt, ok := retryability[gerr.Code]
+		return ok && !IsRetryableGoogleError(gerr, rtblt)
 	}
 	return false
 }

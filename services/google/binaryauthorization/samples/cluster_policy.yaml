@@ -20,11 +20,11 @@ resource: samples/cluster.policy.json
 updates:
 - resource: samples/namespace.policy.json
 variables:
-- name: note
-  type: resource_name
 - name: project
   type: project
 - name: package
+  type: resource_name
+- name: note
   type: resource_name
 - name: attestor
   type: resource_name

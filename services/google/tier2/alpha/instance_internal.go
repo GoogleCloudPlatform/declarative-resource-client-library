@@ -3885,6 +3885,11 @@ func canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfo(des, initial
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -5184,6 +5189,11 @@ func canonicalizeInstanceCreateRecipeStepsPermissionsInfo(des, initial *Instance
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -6416,6 +6426,11 @@ func canonicalizeInstanceDeleteRecipeStepsPermissionsInfo(des, initial *Instance
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -7648,6 +7663,11 @@ func canonicalizeInstanceUpdateRecipeStepsPermissionsInfo(des, initial *Instance
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -8880,6 +8900,11 @@ func canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfo(des, initial 
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -10112,6 +10137,11 @@ func canonicalizeInstanceResetRecipeStepsPermissionsInfo(des, initial *InstanceR
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -11344,6 +11374,11 @@ func canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfo(des, initial
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -12576,6 +12611,11 @@ func canonicalizeInstanceRepairRecipeStepsPermissionsInfo(des, initial *Instance
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -13808,6 +13848,11 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfo(des, initial
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -15040,6 +15085,11 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfo(des, initial
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -16272,6 +16322,11 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfo(des, initial
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -17504,6 +17559,11 @@ func canonicalizeInstanceFreezeRecipeStepsPermissionsInfo(des, initial *Instance
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -18736,6 +18796,11 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfo(des, initi
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -19968,6 +20033,11 @@ func canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfo(des, initial *Instan
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -21200,6 +21270,11 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInf
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -22432,6 +22507,11 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfo(des, ini
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -23664,6 +23744,11 @@ func canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfo(des, initial *I
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -24896,6 +24981,11 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(des, initi
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -26128,6 +26218,11 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(des, ini
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -27360,6 +27455,11 @@ func canonicalizeInstanceReadonlyRecipeStepsPermissionsInfo(des, initial *Instan
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -28592,6 +28692,11 @@ func canonicalizeInstanceReconcileRecipeStepsPermissionsInfo(des, initial *Insta
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -29824,6 +29929,11 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfo(des, in
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -31056,6 +31166,11 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfo(des, init
 		cDes.ResourcePath = des.ResourcePath
 	}
 	cDes.ApiAttrs = canonicalizeInstanceGoogleprotobufstruct(des.ApiAttrs, initial.ApiAttrs, opts...)
+	if dcl.IsZeroValue(des.PolicyNameMode) {
+		des.PolicyNameMode = initial.PolicyNameMode
+	} else {
+		cDes.PolicyNameMode = des.PolicyNameMode
+	}
 
 	return cDes
 }
@@ -32615,6 +32730,13 @@ func compareInstancePreprocessCreateRecipeStepsPermissionsInfoNewStyle(d, a inte
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -33278,6 +33400,13 @@ func compareInstanceCreateRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -33930,6 +34059,13 @@ func compareInstanceDeleteRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 	}
 
 	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34592,6 +34728,13 @@ func compareInstanceUpdateRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -35244,6 +35387,13 @@ func compareInstancePreprocessResetRecipeStepsPermissionsInfoNewStyle(d, a inter
 	}
 
 	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35906,6 +36056,13 @@ func compareInstanceResetRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -36558,6 +36715,13 @@ func compareInstancePreprocessRepairRecipeStepsPermissionsInfoNewStyle(d, a inte
 	}
 
 	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37220,6 +37384,13 @@ func compareInstanceRepairRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -37872,6 +38043,13 @@ func compareInstancePreprocessDeleteRecipeStepsPermissionsInfoNewStyle(d, a inte
 	}
 
 	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38534,6 +38712,13 @@ func compareInstancePreprocessUpdateRecipeStepsPermissionsInfoNewStyle(d, a inte
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -39186,6 +39371,13 @@ func compareInstancePreprocessFreezeRecipeStepsPermissionsInfoNewStyle(d, a inte
 	}
 
 	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39848,6 +40040,13 @@ func compareInstanceFreezeRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -40500,6 +40699,13 @@ func compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoNewStyle(d, a in
 	}
 
 	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41162,6 +41368,13 @@ func compareInstanceUnfreezeRecipeStepsPermissionsInfoNewStyle(d, a interface{},
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -41814,6 +42027,13 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoNewS
 	}
 
 	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42476,6 +42696,13 @@ func compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoNewStyle(d, a 
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -43128,6 +43355,13 @@ func compareInstancePreprocessGetRecipeStepsPermissionsInfoNewStyle(d, a interfa
 	}
 
 	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43790,6 +44024,13 @@ func compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoNewStyle(d, a in
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -44442,6 +44683,13 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoNewStyle(d, a 
 	}
 
 	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -45104,6 +45352,13 @@ func compareInstanceReadonlyRecipeStepsPermissionsInfoNewStyle(d, a interface{},
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -45756,6 +46011,13 @@ func compareInstanceReconcileRecipeStepsPermissionsInfoNewStyle(d, a interface{}
 	}
 
 	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -46418,6 +46680,13 @@ func compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoNewStyle(d, a
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -47070,6 +47339,13 @@ func compareInstancePreprocessReconcileRecipeStepsPermissionsInfoNewStyle(d, a i
 	}
 
 	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyNameMode, actual.PolicyNameMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyNameMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -49090,6 +49366,9 @@ func expandInstancePreprocessCreateRecipeStepsPermissionsInfo(c *Client, f *Inst
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -49111,6 +49390,7 @@ func flattenInstancePreprocessCreateRecipeStepsPermissionsInfo(c *Client, i inte
 	r.IamPermissions = flattenInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -50868,6 +51148,9 @@ func expandInstanceCreateRecipeStepsPermissionsInfo(c *Client, f *InstanceCreate
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -50889,6 +51172,7 @@ func flattenInstanceCreateRecipeStepsPermissionsInfo(c *Client, i interface{}) *
 	r.IamPermissions = flattenInstanceCreateRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -52536,6 +52820,9 @@ func expandInstanceDeleteRecipeStepsPermissionsInfo(c *Client, f *InstanceDelete
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -52557,6 +52844,7 @@ func flattenInstanceDeleteRecipeStepsPermissionsInfo(c *Client, i interface{}) *
 	r.IamPermissions = flattenInstanceDeleteRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -54204,6 +54492,9 @@ func expandInstanceUpdateRecipeStepsPermissionsInfo(c *Client, f *InstanceUpdate
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -54225,6 +54516,7 @@ func flattenInstanceUpdateRecipeStepsPermissionsInfo(c *Client, i interface{}) *
 	r.IamPermissions = flattenInstanceUpdateRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -55872,6 +56164,9 @@ func expandInstancePreprocessResetRecipeStepsPermissionsInfo(c *Client, f *Insta
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -55893,6 +56188,7 @@ func flattenInstancePreprocessResetRecipeStepsPermissionsInfo(c *Client, i inter
 	r.IamPermissions = flattenInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -57540,6 +57836,9 @@ func expandInstanceResetRecipeStepsPermissionsInfo(c *Client, f *InstanceResetRe
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -57561,6 +57860,7 @@ func flattenInstanceResetRecipeStepsPermissionsInfo(c *Client, i interface{}) *I
 	r.IamPermissions = flattenInstanceResetRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -59208,6 +59508,9 @@ func expandInstancePreprocessRepairRecipeStepsPermissionsInfo(c *Client, f *Inst
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -59229,6 +59532,7 @@ func flattenInstancePreprocessRepairRecipeStepsPermissionsInfo(c *Client, i inte
 	r.IamPermissions = flattenInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -60876,6 +61180,9 @@ func expandInstanceRepairRecipeStepsPermissionsInfo(c *Client, f *InstanceRepair
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -60897,6 +61204,7 @@ func flattenInstanceRepairRecipeStepsPermissionsInfo(c *Client, i interface{}) *
 	r.IamPermissions = flattenInstanceRepairRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -62544,6 +62852,9 @@ func expandInstancePreprocessDeleteRecipeStepsPermissionsInfo(c *Client, f *Inst
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -62565,6 +62876,7 @@ func flattenInstancePreprocessDeleteRecipeStepsPermissionsInfo(c *Client, i inte
 	r.IamPermissions = flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -64212,6 +64524,9 @@ func expandInstancePreprocessUpdateRecipeStepsPermissionsInfo(c *Client, f *Inst
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -64233,6 +64548,7 @@ func flattenInstancePreprocessUpdateRecipeStepsPermissionsInfo(c *Client, i inte
 	r.IamPermissions = flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -65880,6 +66196,9 @@ func expandInstancePreprocessFreezeRecipeStepsPermissionsInfo(c *Client, f *Inst
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -65901,6 +66220,7 @@ func flattenInstancePreprocessFreezeRecipeStepsPermissionsInfo(c *Client, i inte
 	r.IamPermissions = flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -67548,6 +67868,9 @@ func expandInstanceFreezeRecipeStepsPermissionsInfo(c *Client, f *InstanceFreeze
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -67569,6 +67892,7 @@ func flattenInstanceFreezeRecipeStepsPermissionsInfo(c *Client, i interface{}) *
 	r.IamPermissions = flattenInstanceFreezeRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -69216,6 +69540,9 @@ func expandInstancePreprocessUnfreezeRecipeStepsPermissionsInfo(c *Client, f *In
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -69237,6 +69564,7 @@ func flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfo(c *Client, i in
 	r.IamPermissions = flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -70884,6 +71212,9 @@ func expandInstanceUnfreezeRecipeStepsPermissionsInfo(c *Client, f *InstanceUnfr
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -70905,6 +71236,7 @@ func flattenInstanceUnfreezeRecipeStepsPermissionsInfo(c *Client, i interface{})
 	r.IamPermissions = flattenInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -72552,6 +72884,9 @@ func expandInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo(c *C
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -72573,6 +72908,7 @@ func flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo(c *
 	r.IamPermissions = flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -74220,6 +74556,9 @@ func expandInstanceReportInstanceHealthRecipeStepsPermissionsInfo(c *Client, f *
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -74241,6 +74580,7 @@ func flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfo(c *Client, i 
 	r.IamPermissions = flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -75888,6 +76228,9 @@ func expandInstancePreprocessGetRecipeStepsPermissionsInfo(c *Client, f *Instanc
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -75909,6 +76252,7 @@ func flattenInstancePreprocessGetRecipeStepsPermissionsInfo(c *Client, i interfa
 	r.IamPermissions = flattenInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -77556,6 +77900,9 @@ func expandInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(c *Client, f *In
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -77577,6 +77924,7 @@ func flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(c *Client, i in
 	r.IamPermissions = flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -79224,6 +79572,9 @@ func expandInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(c *Client, f *
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -79245,6 +79596,7 @@ func flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(c *Client, i 
 	r.IamPermissions = flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -80892,6 +81244,9 @@ func expandInstanceReadonlyRecipeStepsPermissionsInfo(c *Client, f *InstanceRead
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -80913,6 +81268,7 @@ func flattenInstanceReadonlyRecipeStepsPermissionsInfo(c *Client, i interface{})
 	r.IamPermissions = flattenInstanceReadonlyRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -82560,6 +82916,9 @@ func expandInstanceReconcileRecipeStepsPermissionsInfo(c *Client, f *InstanceRec
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -82581,6 +82940,7 @@ func flattenInstanceReconcileRecipeStepsPermissionsInfo(c *Client, i interface{}
 	r.IamPermissions = flattenInstanceReconcileRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -84228,6 +84588,9 @@ func expandInstancePreprocessPassthroughRecipeStepsPermissionsInfo(c *Client, f 
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -84249,6 +84612,7 @@ func flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfo(c *Client, i
 	r.IamPermissions = flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -85896,6 +86260,9 @@ func expandInstancePreprocessReconcileRecipeStepsPermissionsInfo(c *Client, f *I
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiAttrs"] = v
 	}
+	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
+		m["policyNameMode"] = v
+	}
 
 	return m, nil
 }
@@ -85917,6 +86284,7 @@ func flattenInstancePreprocessReconcileRecipeStepsPermissionsInfo(c *Client, i i
 	r.IamPermissions = flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
+	r.PolicyNameMode = flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
 
 	return r
 }
@@ -86912,6 +87280,57 @@ func flattenInstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnum(i
 	return InstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnumRef(s)
 }
 
+// flattenInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
+}
+
 // flattenInstanceCreateRecipeStepsActionEnumMap flattens the contents of InstanceCreateRecipeStepsActionEnum from a JSON
 // response object.
 func flattenInstanceCreateRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstanceCreateRecipeStepsActionEnum {
@@ -87012,6 +87431,57 @@ func flattenInstanceCreateRecipeStepsRequestedTenantProjectScopeEnum(i interface
 	}
 
 	return InstanceCreateRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
 }
 
 // flattenInstanceDeleteRecipeStepsActionEnumMap flattens the contents of InstanceDeleteRecipeStepsActionEnum from a JSON
@@ -87116,6 +87586,57 @@ func flattenInstanceDeleteRecipeStepsRequestedTenantProjectScopeEnum(i interface
 	return InstanceDeleteRecipeStepsRequestedTenantProjectScopeEnumRef(s)
 }
 
+// flattenInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
+}
+
 // flattenInstanceUpdateRecipeStepsActionEnumMap flattens the contents of InstanceUpdateRecipeStepsActionEnum from a JSON
 // response object.
 func flattenInstanceUpdateRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstanceUpdateRecipeStepsActionEnum {
@@ -87216,6 +87737,57 @@ func flattenInstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum(i interface
 	}
 
 	return InstanceUpdateRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
 }
 
 // flattenInstancePreprocessResetRecipeStepsActionEnumMap flattens the contents of InstancePreprocessResetRecipeStepsActionEnum from a JSON
@@ -87320,6 +87892,57 @@ func flattenInstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum(i 
 	return InstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnumRef(s)
 }
 
+// flattenInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
+}
+
 // flattenInstanceResetRecipeStepsActionEnumMap flattens the contents of InstanceResetRecipeStepsActionEnum from a JSON
 // response object.
 func flattenInstanceResetRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstanceResetRecipeStepsActionEnum {
@@ -87420,6 +88043,57 @@ func flattenInstanceResetRecipeStepsRequestedTenantProjectScopeEnum(i interface{
 	}
 
 	return InstanceResetRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
 }
 
 // flattenInstancePreprocessRepairRecipeStepsActionEnumMap flattens the contents of InstancePreprocessRepairRecipeStepsActionEnum from a JSON
@@ -87524,6 +88198,57 @@ func flattenInstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum(i
 	return InstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnumRef(s)
 }
 
+// flattenInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
+}
+
 // flattenInstanceRepairRecipeStepsActionEnumMap flattens the contents of InstanceRepairRecipeStepsActionEnum from a JSON
 // response object.
 func flattenInstanceRepairRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstanceRepairRecipeStepsActionEnum {
@@ -87624,6 +88349,57 @@ func flattenInstanceRepairRecipeStepsRequestedTenantProjectScopeEnum(i interface
 	}
 
 	return InstanceRepairRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
 }
 
 // flattenInstancePreprocessDeleteRecipeStepsActionEnumMap flattens the contents of InstancePreprocessDeleteRecipeStepsActionEnum from a JSON
@@ -87728,6 +88504,57 @@ func flattenInstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnum(i
 	return InstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnumRef(s)
 }
 
+// flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
+}
+
 // flattenInstancePreprocessUpdateRecipeStepsActionEnumMap flattens the contents of InstancePreprocessUpdateRecipeStepsActionEnum from a JSON
 // response object.
 func flattenInstancePreprocessUpdateRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstancePreprocessUpdateRecipeStepsActionEnum {
@@ -87828,6 +88655,57 @@ func flattenInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum(i
 	}
 
 	return InstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
 }
 
 // flattenInstancePreprocessFreezeRecipeStepsActionEnumMap flattens the contents of InstancePreprocessFreezeRecipeStepsActionEnum from a JSON
@@ -87932,6 +88810,57 @@ func flattenInstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnum(i
 	return InstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnumRef(s)
 }
 
+// flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
+}
+
 // flattenInstanceFreezeRecipeStepsActionEnumMap flattens the contents of InstanceFreezeRecipeStepsActionEnum from a JSON
 // response object.
 func flattenInstanceFreezeRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstanceFreezeRecipeStepsActionEnum {
@@ -88032,6 +88961,57 @@ func flattenInstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum(i interface
 	}
 
 	return InstanceFreezeRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
 }
 
 // flattenInstancePreprocessUnfreezeRecipeStepsActionEnumMap flattens the contents of InstancePreprocessUnfreezeRecipeStepsActionEnum from a JSON
@@ -88136,6 +89116,57 @@ func flattenInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnum
 	return InstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnumRef(s)
 }
 
+// flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
+}
+
 // flattenInstanceUnfreezeRecipeStepsActionEnumMap flattens the contents of InstanceUnfreezeRecipeStepsActionEnum from a JSON
 // response object.
 func flattenInstanceUnfreezeRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstanceUnfreezeRecipeStepsActionEnum {
@@ -88236,6 +89267,57 @@ func flattenInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum(i interfa
 	}
 
 	return InstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
 }
 
 // flattenInstancePreprocessReportInstanceHealthRecipeStepsActionEnumMap flattens the contents of InstancePreprocessReportInstanceHealthRecipeStepsActionEnum from a JSON
@@ -88340,6 +89422,57 @@ func flattenInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProj
 	return InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumRef(s)
 }
 
+// flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
+}
+
 // flattenInstanceReportInstanceHealthRecipeStepsActionEnumMap flattens the contents of InstanceReportInstanceHealthRecipeStepsActionEnum from a JSON
 // response object.
 func flattenInstanceReportInstanceHealthRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstanceReportInstanceHealthRecipeStepsActionEnum {
@@ -88440,6 +89573,57 @@ func flattenInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEn
 	}
 
 	return InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
 }
 
 // flattenInstancePreprocessGetRecipeStepsActionEnumMap flattens the contents of InstancePreprocessGetRecipeStepsActionEnum from a JSON
@@ -88544,6 +89728,57 @@ func flattenInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum(i in
 	return InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnumRef(s)
 }
 
+// flattenInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
+}
+
 // flattenInstanceNotifyKeyAvailableRecipeStepsActionEnumMap flattens the contents of InstanceNotifyKeyAvailableRecipeStepsActionEnum from a JSON
 // response object.
 func flattenInstanceNotifyKeyAvailableRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstanceNotifyKeyAvailableRecipeStepsActionEnum {
@@ -88644,6 +89879,57 @@ func flattenInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum
 	}
 
 	return InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
 }
 
 // flattenInstanceNotifyKeyUnavailableRecipeStepsActionEnumMap flattens the contents of InstanceNotifyKeyUnavailableRecipeStepsActionEnum from a JSON
@@ -88748,6 +90034,57 @@ func flattenInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEn
 	return InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnumRef(s)
 }
 
+// flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
+}
+
 // flattenInstanceReadonlyRecipeStepsActionEnumMap flattens the contents of InstanceReadonlyRecipeStepsActionEnum from a JSON
 // response object.
 func flattenInstanceReadonlyRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstanceReadonlyRecipeStepsActionEnum {
@@ -88848,6 +90185,57 @@ func flattenInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum(i interfa
 	}
 
 	return InstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
 }
 
 // flattenInstanceReconcileRecipeStepsActionEnumMap flattens the contents of InstanceReconcileRecipeStepsActionEnum from a JSON
@@ -88952,6 +90340,57 @@ func flattenInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum(i interf
 	return InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnumRef(s)
 }
 
+// flattenInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
+}
+
 // flattenInstancePreprocessPassthroughRecipeStepsActionEnumMap flattens the contents of InstancePreprocessPassthroughRecipeStepsActionEnum from a JSON
 // response object.
 func flattenInstancePreprocessPassthroughRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstancePreprocessPassthroughRecipeStepsActionEnum {
@@ -89054,6 +90493,57 @@ func flattenInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeE
 	return InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnumRef(s)
 }
 
+// flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
+}
+
 // flattenInstancePreprocessReconcileRecipeStepsActionEnumMap flattens the contents of InstancePreprocessReconcileRecipeStepsActionEnum from a JSON
 // response object.
 func flattenInstancePreprocessReconcileRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstancePreprocessReconcileRecipeStepsActionEnum {
@@ -89154,6 +90644,57 @@ func flattenInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnu
 	}
 
 	return InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumMap flattens the contents of InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumSlice flattens the contents of InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum from a JSON
+// response object.
+func flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumSlice(c *Client, i interface{}) []InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum{}
+	}
+
+	items := make([]InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum asserts that an interface is a string, and returns a
+// pointer to a *InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum with the same value as that string.
+func flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(i interface{}) *InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumRef("")
+	}
+
+	return InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s)
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource

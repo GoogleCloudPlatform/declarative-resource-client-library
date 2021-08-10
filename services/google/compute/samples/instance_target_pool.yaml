@@ -23,22 +23,22 @@ updates:
 - resource: samples/instance.target_pool.json
 - resource: samples/first.target_pool.json
 variables:
-- name: compute_network1
+- name: image
   type: resource_name
 - name: project
   type: project
-- name: image
+- name: compute_network1
   type: resource_name
-- name: range
-  type: resource_name
-- name: compute_independent_subnetwork
-  type: resource_name
-- name: region
-  type: region
 - name: instance
   type: resource_name
 - name: zone
   type: zone
+- name: compute_independent_subnetwork
+  type: resource_name
+- name: region
+  type: region
+- name: range
+  type: resource_name
 - name: pool1
   type: resource_name
 versions:

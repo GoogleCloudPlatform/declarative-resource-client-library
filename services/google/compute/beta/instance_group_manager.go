@@ -1086,7 +1086,7 @@ func (l *InstanceGroupManagerList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListInstanceGroupManager(ctx context.Context, r *InstanceGroupManager) (*InstanceGroupManagerList, error) {
-	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]bool{412: false})))
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.CustomRetryability{412: dcl.CustomRetryability{Retryable: false, Regex: ""}})))
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -1111,7 +1111,7 @@ func (c *Client) ListInstanceGroupManagerWithMaxResults(ctx context.Context, r *
 }
 
 func (c *Client) GetInstanceGroupManager(ctx context.Context, r *InstanceGroupManager) (*InstanceGroupManager, error) {
-	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]bool{412: false})))
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.CustomRetryability{412: dcl.CustomRetryability{Retryable: false, Regex: ""}})))
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -1145,7 +1145,7 @@ func (c *Client) GetInstanceGroupManager(ctx context.Context, r *InstanceGroupMa
 }
 
 func (c *Client) DeleteInstanceGroupManager(ctx context.Context, r *InstanceGroupManager) error {
-	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]bool{412: false})))
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.CustomRetryability{412: dcl.CustomRetryability{Retryable: false, Regex: ""}})))
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -1182,7 +1182,7 @@ func (c *Client) DeleteAllInstanceGroupManager(ctx context.Context, r *InstanceG
 }
 
 func (c *Client) ApplyInstanceGroupManager(ctx context.Context, rawDesired *InstanceGroupManager, opts ...dcl.ApplyOption) (*InstanceGroupManager, error) {
-	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]bool{412: false})))
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.CustomRetryability{412: dcl.CustomRetryability{Retryable: false, Regex: ""}})))
 	var resultNewState *InstanceGroupManager
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyInstanceGroupManagerHelper(c, ctx, rawDesired, opts...)

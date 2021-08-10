@@ -18,6 +18,7 @@ import (
 	"math/rand"
 	"net/http"
 	"net/http/httputil"
+	"regexp"
 	"strings"
 	"time"
 
@@ -39,7 +40,7 @@ type ConfigOption func(*Config)
 // requests to GCP APIs.
 type Config struct {
 	RetryProvider       RetryProvider
-	codeRetryability    map[int]bool
+	codeRetryability    map[int]Retryability
 	timeout             time.Duration
 	header              http.Header
 	clientOptions       []option.ClientOption
@@ -50,6 +51,22 @@ type Config struct {
 	BasePath            string
 	billingProject      string
 	userOverrideProject bool
+}
+
+// CustomRetryability holds the details for one error code to determine if it is
+// retryable. The regex field is uncompiled for use in the generator.
+// To be retryable, the boolean must be true and the regex must match.
+type CustomRetryability struct {
+	Retryable bool
+	Regex     string
+}
+
+// Retryability holds the details for one error code to determine if it is retyable.
+// The regex field is compiled for use in error handling.
+// To be retryable, the boolean must be true and the regex must match.
+type Retryability struct {
+	retryable bool
+	regex     *regexp.Regexp
 }
 
 // UserAgent returns the user agent for the config, which will always include the
@@ -64,15 +81,15 @@ func (c *Config) UserAgent() string {
 // NewConfig creates a Config object.
 func NewConfig(o ...ConfigOption) *Config {
 	c := &Config{
-		codeRetryability: map[int]bool{
-			400: false,
-			403: false,
-			404: false,
-			409: false,
-			429: true,
-			500: true,
-			502: true,
-			503: true,
+		codeRetryability: map[int]Retryability{
+			400: Retryability{true, regexp.MustCompile("The resource '[-/a-zA-Z0-9]*' is not ready")},
+			403: Retryability{false, nil},
+			404: Retryability{false, nil},
+			409: Retryability{false, nil},
+			429: Retryability{true, regexp.MustCompile(".*")},
+			500: Retryability{true, regexp.MustCompile(".*")},
+			502: Retryability{true, regexp.MustCompile(".*")},
+			503: Retryability{true, regexp.MustCompile(".*")},
 		},
 		contentType:   "application/json",
 		queryParams:   map[string]string{"alt": "json"},
@@ -219,10 +236,18 @@ func WithRetryProvider(r RetryProvider) ConfigOption {
 }
 
 // WithCodeRetryability allows a user to add additional retryable or non-retryable error codes.
-func WithCodeRetryability(cr map[int]bool) ConfigOption {
+// Each error code is mapped to a regexp which must match the error message to be retryable.
+func WithCodeRetryability(cr map[int]CustomRetryability) ConfigOption {
 	return func(c *Config) {
 		for code, retryability := range cr {
-			c.codeRetryability[code] = retryability
+			var re *regexp.Regexp
+			if retryability.Retryable {
+				re = regexp.MustCompile(retryability.Regex)
+			}
+			c.codeRetryability[code] = Retryability{
+				retryable: retryability.Retryable,
+				regex:     re,
+			}
 		}
 	}
 }
@@ -376,7 +401,7 @@ type glogger struct {
 
 // Fatal records Fatal errors.
 func (l glogger) Fatal(args ...interface{}) {
-	if l.level <= Fatal {
+	if l.level >= Fatal {
 		glog.Fatal(args)
 	}
 }
@@ -384,16 +409,7 @@ func (l glogger) Fatal(args ...interface{}) {
 // Fatalf records Fatal errors with added arguments.
 func (l glogger) Fatalf(format string, args ...interface{}) {
 	if l.level >= Fatal {
-		a := make([]interface{}, len(args))
-		for i, v := range args {
-			if s, ok := v.(*string); ok && s != nil {
-				a[i] = *s
-			} else {
-				a[i] = v
-			}
-		}
-
-		glog.Fatalf(format, a...)
+		glog.Fatalf(format, HandleLogArgs(args...)...)
 	}
 }
 
@@ -407,31 +423,14 @@ func (l glogger) Info(args ...interface{}) {
 // Infof records Info errors with added arguments.
 func (l glogger) Infof(format string, args ...interface{}) {
 	if l.level >= LoggerInfo {
-		a := make([]interface{}, len(args))
-		for i, v := range args {
-			if s, ok := v.(*string); ok && s != nil {
-				a[i] = *s
-			} else {
-				a[i] = v
-			}
-		}
-		glog.Infof(format, a...)
+		glog.Infof(format, HandleLogArgs(args...)...)
 	}
 }
 
 // Warningf records Warning errors with added arguments.
 func (l glogger) Warningf(format string, args ...interface{}) {
 	if l.level >= Warning {
-		a := make([]interface{}, len(args))
-		for i, v := range args {
-			if s, ok := v.(*string); ok && s != nil {
-				a[i] = *s
-			} else {
-				a[i] = v
-			}
-		}
-
-		glog.Warningf(format, a...)
+		glog.Warningf(format, HandleLogArgs(args...)...)
 	}
 }
 
@@ -440,6 +439,19 @@ func (l glogger) Warning(args ...interface{}) {
 	if l.level >= Warning {
 		glog.Warning(args...)
 	}
+}
+
+// HandleLogArgs ensures that pointer arguments are dereferenced well.
+func HandleLogArgs(args ...interface{}) []interface{} {
+	a := make([]interface{}, len(args))
+	for i, v := range args {
+		if s, ok := v.(*string); ok && s != nil {
+			a[i] = *s
+		} else {
+			a[i] = v
+		}
+	}
+	return a
 }
 
 func randomString(length int) string {

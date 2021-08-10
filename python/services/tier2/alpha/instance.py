@@ -1783,11 +1783,13 @@ class InstancePreprocessCreateRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -1823,6 +1825,12 @@ class InstancePreprocessCreateRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -1839,6 +1847,9 @@ class InstancePreprocessCreateRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -2716,11 +2727,13 @@ class InstanceCreateRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -2754,6 +2767,12 @@ class InstanceCreateRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -2770,6 +2789,9 @@ class InstanceCreateRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -3606,11 +3628,13 @@ class InstanceDeleteRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -3644,6 +3668,12 @@ class InstanceDeleteRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -3660,6 +3690,9 @@ class InstanceDeleteRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -4496,11 +4529,13 @@ class InstanceUpdateRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -4534,6 +4569,12 @@ class InstanceUpdateRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -4550,6 +4591,9 @@ class InstanceUpdateRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -5414,11 +5458,13 @@ class InstancePreprocessResetRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -5452,6 +5498,12 @@ class InstancePreprocessResetRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -5468,6 +5520,9 @@ class InstancePreprocessResetRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -6314,11 +6369,13 @@ class InstanceResetRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -6352,6 +6409,12 @@ class InstanceResetRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -6368,6 +6431,9 @@ class InstanceResetRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -7234,11 +7300,13 @@ class InstancePreprocessRepairRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -7274,6 +7342,12 @@ class InstancePreprocessRepairRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -7290,6 +7364,9 @@ class InstancePreprocessRepairRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -8138,11 +8215,13 @@ class InstanceRepairRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -8176,6 +8255,12 @@ class InstanceRepairRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -8192,6 +8277,9 @@ class InstanceRepairRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -9060,11 +9148,13 @@ class InstancePreprocessDeleteRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -9100,6 +9190,12 @@ class InstancePreprocessDeleteRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -9116,6 +9212,9 @@ class InstancePreprocessDeleteRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -9996,11 +10095,13 @@ class InstancePreprocessUpdateRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -10036,6 +10137,12 @@ class InstancePreprocessUpdateRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -10052,6 +10159,9 @@ class InstancePreprocessUpdateRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -10932,11 +11042,13 @@ class InstancePreprocessFreezeRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -10972,6 +11084,12 @@ class InstancePreprocessFreezeRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -10988,6 +11106,9 @@ class InstancePreprocessFreezeRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -11836,11 +11957,13 @@ class InstanceFreezeRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -11874,6 +11997,12 @@ class InstanceFreezeRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -11890,6 +12019,9 @@ class InstanceFreezeRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -12760,11 +12892,13 @@ class InstancePreprocessUnfreezeRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -12800,6 +12934,12 @@ class InstancePreprocessUnfreezeRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -12816,6 +12956,9 @@ class InstancePreprocessUnfreezeRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -13669,11 +13812,13 @@ class InstanceUnfreezeRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -13707,6 +13852,12 @@ class InstanceUnfreezeRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -13723,6 +13874,9 @@ class InstanceUnfreezeRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -14638,11 +14792,13 @@ class InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -14678,6 +14834,12 @@ class InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -14694,6 +14856,9 @@ class InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -15603,11 +15768,13 @@ class InstanceReportInstanceHealthRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -15643,6 +15810,12 @@ class InstanceReportInstanceHealthRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -15659,6 +15832,9 @@ class InstanceReportInstanceHealthRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -16534,11 +16710,13 @@ class InstancePreprocessGetRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -16572,6 +16750,12 @@ class InstancePreprocessGetRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -16588,6 +16772,9 @@ class InstancePreprocessGetRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -17468,11 +17655,13 @@ class InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -17508,6 +17697,12 @@ class InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -17524,6 +17719,9 @@ class InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -18413,11 +18611,13 @@ class InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -18453,6 +18653,12 @@ class InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -18469,6 +18675,9 @@ class InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -19324,11 +19533,13 @@ class InstanceReadonlyRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -19362,6 +19573,12 @@ class InstanceReadonlyRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -19378,6 +19595,9 @@ class InstanceReadonlyRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -20231,11 +20451,13 @@ class InstanceReconcileRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -20269,6 +20491,12 @@ class InstanceReconcileRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -20285,6 +20513,9 @@ class InstanceReconcileRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -21167,11 +21398,13 @@ class InstancePreprocessPassthroughRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -21207,6 +21440,12 @@ class InstancePreprocessPassthroughRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -21223,6 +21462,9 @@ class InstancePreprocessPassthroughRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -22116,11 +22358,13 @@ class InstancePreprocessReconcileRecipeStepsPermissionsInfo(object):
         iam_permissions: list = None,
         resource_path: str = None,
         api_attrs: dict = None,
+        policy_name_mode: str = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
+        self.policy_name_mode = policy_name_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -22156,6 +22400,12 @@ class InstancePreprocessReconcileRecipeStepsPermissionsInfo(object):
             )
         else:
             res.ClearField("api_attrs")
+        if InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+            resource.policy_name_mode
+        ):
+            res.policy_name_mode = InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
+                resource.policy_name_mode
+            )
         return res
 
     @classmethod
@@ -22172,6 +22422,9 @@ class InstancePreprocessReconcileRecipeStepsPermissionsInfo(object):
             ),
             resource_path=Primitive.from_proto(resource.resource_path),
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
+            policy_name_mode=InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
+                resource.policy_name_mode
+            ),
         )
 
 
@@ -22655,6 +22908,29 @@ class InstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnum(object)
         ]
 
 
+class InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum"
+            ) :
+        ]
+
+
 class InstanceCreateRecipeStepsActionEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -22691,6 +22967,29 @@ class InstanceCreateRecipeStepsRequestedTenantProjectScopeEnum(object):
             resource
         )[
             len("Tier2AlphaInstanceCreateRecipeStepsRequestedTenantProjectScopeEnum") :
+        ]
+
+
+class InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum"
+            ) :
         ]
 
 
@@ -22733,6 +23032,29 @@ class InstanceDeleteRecipeStepsRequestedTenantProjectScopeEnum(object):
         ]
 
 
+class InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum"
+            ) :
+        ]
+
+
 class InstanceUpdateRecipeStepsActionEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -22769,6 +23091,29 @@ class InstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum(object):
             resource
         )[
             len("Tier2AlphaInstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum") :
+        ]
+
+
+class InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum"
+            ) :
         ]
 
 
@@ -22813,6 +23158,29 @@ class InstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum(object):
         ]
 
 
+class InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum"
+            ) :
+        ]
+
+
 class InstanceResetRecipeStepsActionEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -22849,6 +23217,27 @@ class InstanceResetRecipeStepsRequestedTenantProjectScopeEnum(object):
             resource
         )[
             len("Tier2AlphaInstanceResetRecipeStepsRequestedTenantProjectScopeEnum") :
+        ]
+
+
+class InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len("Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum") :
         ]
 
 
@@ -22895,6 +23284,29 @@ class InstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum(object)
         ]
 
 
+class InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum"
+            ) :
+        ]
+
+
 class InstanceRepairRecipeStepsActionEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -22931,6 +23343,29 @@ class InstanceRepairRecipeStepsRequestedTenantProjectScopeEnum(object):
             resource
         )[
             len("Tier2AlphaInstanceRepairRecipeStepsRequestedTenantProjectScopeEnum") :
+        ]
+
+
+class InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum"
+            ) :
         ]
 
 
@@ -22973,6 +23408,29 @@ class InstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnum(object)
         )[
             len(
                 "Tier2AlphaInstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnum"
+            ) :
+        ]
+
+
+class InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum"
             ) :
         ]
 
@@ -23020,6 +23478,29 @@ class InstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum(object)
         ]
 
 
+class InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum"
+            ) :
+        ]
+
+
 class InstancePreprocessFreezeRecipeStepsActionEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -23063,6 +23544,29 @@ class InstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnum(object)
         ]
 
 
+class InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum"
+            ) :
+        ]
+
+
 class InstanceFreezeRecipeStepsActionEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -23099,6 +23603,29 @@ class InstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum(object):
             resource
         )[
             len("Tier2AlphaInstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum") :
+        ]
+
+
+class InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum"
+            ) :
         ]
 
 
@@ -23145,6 +23672,29 @@ class InstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnum(objec
         ]
 
 
+class InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum"
+            ) :
+        ]
+
+
 class InstanceUnfreezeRecipeStepsActionEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -23182,6 +23732,29 @@ class InstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum(object):
         )[
             len(
                 "Tier2AlphaInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum"
+            ) :
+        ]
+
+
+class InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum"
             ) :
         ]
 
@@ -23234,6 +23807,31 @@ class InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectSco
         ]
 
 
+class InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(
+    object
+):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum"
+            ) :
+        ]
+
+
 class InstanceReportInstanceHealthRecipeStepsActionEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -23277,6 +23875,29 @@ class InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum(obj
         ]
 
 
+class InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum"
+            ) :
+        ]
+
+
 class InstancePreprocessGetRecipeStepsActionEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -23314,6 +23935,29 @@ class InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum(object):
         )[
             len(
                 "Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum"
+            ) :
+        ]
+
+
+class InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum"
             ) :
         ]
 
@@ -23361,6 +24005,29 @@ class InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum(objec
         ]
 
 
+class InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum"
+            ) :
+        ]
+
+
 class InstanceNotifyKeyUnavailableRecipeStepsActionEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -23400,6 +24067,29 @@ class InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum(obj
         )[
             len(
                 "Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum"
+            ) :
+        ]
+
+
+class InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum"
             ) :
         ]
 
@@ -23445,6 +24135,29 @@ class InstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum(object):
         ]
 
 
+class InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum"
+            ) :
+        ]
+
+
 class InstanceReconcileRecipeStepsActionEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -23482,6 +24195,29 @@ class InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum(object):
         )[
             len(
                 "Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum"
+            ) :
+        ]
+
+
+class InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum"
             ) :
         ]
 
@@ -23529,6 +24265,29 @@ class InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum(ob
         ]
 
 
+class InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum"
+            ) :
+        ]
+
+
 class InstancePreprocessReconcileRecipeStepsActionEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -23568,6 +24327,29 @@ class InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum(obje
         )[
             len(
                 "Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum"
+            ) :
+        ]
+
+
+class InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum.Value(
+            "Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum"
             ) :
         ]
 
