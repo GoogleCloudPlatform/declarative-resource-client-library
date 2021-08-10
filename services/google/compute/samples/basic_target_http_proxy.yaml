@@ -19,6 +19,7 @@ dependencies:
 description: An example of a basic compute target http proxy.
 name: basic_target_http_proxy
 resource: samples/basic.target_http_proxy.json
+type: target_http_proxy
 updates:
 - resource: samples/update.target_http_proxy.json
 variables:

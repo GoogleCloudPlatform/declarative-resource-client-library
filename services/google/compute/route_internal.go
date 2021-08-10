@@ -199,7 +199,7 @@ func (op *deleteRouteOperation) do(ctx context.Context, r *Route, c *Client) err
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
+	if err := o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.basePath(), "GET"); err != nil {
 		return err
 	}
 
@@ -251,7 +251,7 @@ func (op *createRouteOperation) do(ctx context.Context, r *Route, c *Client) err
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
+	if err := o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.basePath(), "GET"); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}

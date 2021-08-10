@@ -16,19 +16,20 @@ dependencies:
 description: A basic example of a filestore backup
 name: basic_backup
 resource: samples/basic.backup.json
+type: backup
 updates:
 - resource: samples/update.backup.json
 variables:
-- name: instance_name
-  type: resource_name
 - name: project
   type: project
 - name: zone
   type: zone
-- name: region
-  type: region
+- name: instance_name
+  type: resource_name
 - name: backup
   type: resource_name
+- name: region
+  type: region
 versions:
 - ga
 - beta

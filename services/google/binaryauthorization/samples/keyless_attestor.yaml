@@ -17,14 +17,15 @@ description: An example of a binary authorization attestor with no public keys b
   updated to have one public key.
 name: keyless_attestor
 resource: samples/keyless.attestor.json
+type: attestor
 updates:
 - resource: samples/update.attestor.json
 variables:
-- name: note
-  type: resource_name
 - name: project
   type: project
 - name: package
+  type: resource_name
+- name: note
   type: resource_name
 - name: attestor
   type: resource_name

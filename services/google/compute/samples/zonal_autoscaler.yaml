@@ -18,6 +18,7 @@ dependencies:
 description: An example of a zonal autoscaler.
 name: zonal_autoscaler
 resource: samples/zonal.autoscaler.json
+type: autoscaler
 updates:
 - resource: samples/update_zonal.autoscaler.json
 variables:

@@ -14,6 +14,7 @@
 description: A basic example of a monitoring dashboard
 name: basic_dashboard
 resource: samples/basic.dashboard.json
+type: dashboard
 updates:
 - resource: samples/update_1.dashboard.json
 - resource: samples/update_2.dashboard.json

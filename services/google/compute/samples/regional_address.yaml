@@ -14,10 +14,11 @@
 description: An example of a regional compute address
 name: regional_address
 resource: samples/regional.address.json
+type: address
 variables:
-- name: project
-  type: project
 - name: address
   type: resource_name
+- name: project
+  type: project
 versions:
 - ga

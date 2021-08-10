@@ -19,6 +19,7 @@ dependencies:
 description: An example of a compute target pool with an instance
 name: instance_target_pool
 resource: samples/first.target_pool.json
+type: target_pool
 updates:
 - resource: samples/instance.target_pool.json
 - resource: samples/first.target_pool.json
@@ -29,15 +30,15 @@ variables:
   type: project
 - name: compute_network1
   type: resource_name
-- name: instance
+- name: range
   type: resource_name
-- name: zone
-  type: zone
 - name: compute_independent_subnetwork
   type: resource_name
 - name: region
   type: region
-- name: range
+- name: zone
+  type: zone
+- name: instance
   type: resource_name
 - name: pool1
   type: resource_name

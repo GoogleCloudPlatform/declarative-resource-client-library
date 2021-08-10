@@ -15,6 +15,7 @@ description: A example of an osconfig os policy assignment with percent rollout 
   budget
 name: percent_os_policy_assignment
 resource: samples/percent.os_policy_assignment.json
+type: os_policy_assignment
 updates:
 - resource: samples/update_percent.os_policy_assignment.json
 variables:

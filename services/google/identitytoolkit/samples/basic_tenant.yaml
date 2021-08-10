@@ -14,6 +14,7 @@
 description: A basic example an Identity Toolkit tenant.
 name: basic_tenant
 resource: samples/basic.tenant.json
+type: tenant
 updates:
 - resource: samples/update.tenant.json
 variables:

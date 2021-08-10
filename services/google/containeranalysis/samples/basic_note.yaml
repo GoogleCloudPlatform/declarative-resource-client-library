@@ -14,6 +14,7 @@
 description: A basic example an Container Analysis note.
 name: basic_note
 resource: samples/basic.note.json
+type: note
 updates:
 - resource: samples/update.note.json
 variables:

@@ -14,13 +14,14 @@
 description: An example for a compute firewall policy for an organization
 name: organization_firewall_policy
 resource: samples/organization.firewall_policy.json
+type: firewall_policy
 updates:
 - resource: samples/update_organization.firewall_policy.json
 variables:
-- name: policy
-  type: resource_name
 - name: org_id
   type: org_id
+- name: policy
+  type: resource_name
 versions:
 - ga
 - beta

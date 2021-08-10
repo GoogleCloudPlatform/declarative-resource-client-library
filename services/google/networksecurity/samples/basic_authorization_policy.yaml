@@ -14,12 +14,13 @@
 description: A basic example a network security authorization policy.
 name: basic_authorization_policy
 resource: samples/basic.authorization_policy.json
+type: authorization_policy
 updates:
 - resource: samples/update.authorization_policy.json
 variables:
-- name: policy
-  type: resource_name
 - name: project
   type: project
+- name: policy
+  type: resource_name
 versions:
 - alpha

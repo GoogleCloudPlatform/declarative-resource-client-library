@@ -16,6 +16,7 @@ dependencies:
 description: A basic example of a compute network peering.
 name: basic_network_peering
 resource: samples/basic.network_peering.json
+type: network_peering
 updates:
 - resource: samples/update.network_peering.json
 variables:

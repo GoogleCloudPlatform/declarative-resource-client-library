@@ -15,15 +15,16 @@ description: A example of an osconfig os policy assignment with fixed rollout di
   budget
 name: fixed_os_policy_assignment
 resource: samples/fixed.os_policy_assignment.json
+type: os_policy_assignment
 updates:
 - resource: samples/update_fixed.os_policy_assignment.json
 - resource: samples/percent.os_policy_assignment.json
 variables:
+- name: zone
+  type: zone
 - name: assignment
   type: resource_name
 - name: project
   type: project
-- name: zone
-  type: zone
 versions:
 - alpha

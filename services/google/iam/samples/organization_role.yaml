@@ -14,6 +14,7 @@
 description: A basic example for an organization IAM role
 name: organization_role
 resource: samples/organization.role.json
+type: role
 variables:
 - name: org_id
   type: org_id

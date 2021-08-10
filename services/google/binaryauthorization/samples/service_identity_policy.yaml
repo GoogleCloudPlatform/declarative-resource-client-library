@@ -17,14 +17,15 @@ dependencies:
 description: A service identity example for a binary authorization policy
 name: service_identity_policy
 resource: samples/service_identity.policy.json
+type: policy
 updates:
 - resource: samples/cluster.policy.json
 variables:
-- name: note
-  type: resource_name
 - name: project
   type: project
 - name: package
+  type: resource_name
+- name: note
   type: resource_name
 - name: attestor
   type: resource_name

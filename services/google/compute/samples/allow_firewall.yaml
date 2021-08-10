@@ -14,12 +14,13 @@
 description: An example of an allow firewall.
 name: allow_firewall
 resource: samples/allow.firewall.json
+type: firewall
 updates:
 - resource: samples/update_allow.firewall.json
 variables:
-- name: firewall
-  type: resource_name
 - name: project
   type: project
+- name: firewall
+  type: resource_name
 versions:
 - ga

@@ -14,6 +14,7 @@
 description: A test beta log metric with linear buckets
 name: linear_metric_beta
 resource: samples/linear.log_metric.json
+type: log_metric
 updates:
 - resource: samples/update_linear.log_metric.json
 variables:

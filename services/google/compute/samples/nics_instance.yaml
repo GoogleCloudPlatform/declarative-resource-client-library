@@ -18,21 +18,22 @@ dependencies:
 description: An example of a compute instance with multiple network interfaces.
 name: nics_instance
 resource: samples/nics.instance.json
+type: instance
 updates:
 - resource: samples/update_nics.instance.json
 variables:
-- name: image
-  type: resource_name
 - name: project
   type: project
 - name: compute_network1
   type: resource_name
-- name: region
-  type: region
+- name: image
+  type: resource_name
 - name: range
   type: resource_name
 - name: compute_independent_subnetwork
   type: resource_name
+- name: region
+  type: region
 - name: zone
   type: zone
 - name: instance

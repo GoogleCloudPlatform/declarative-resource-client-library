@@ -18,6 +18,7 @@ dependencies:
 description: Example for workerpool instance
 name: basic_worker_pool
 resource: samples/basic.worker_pool.json
+type: worker_pool
 updates:
 - resource: samples/update.worker_pool.json
 variables:

@@ -364,7 +364,7 @@ func (op *updateClusterUpdateClusterOperation) do(ctx context.Context, r *Cluste
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	err = o.Wait(ctx, c.Config, r.basePath(), "GET")
+	err = o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.basePath(), "GET")
 
 	if err != nil {
 		return err
@@ -478,7 +478,7 @@ func (op *deleteClusterOperation) do(ctx context.Context, r *Cluster, c *Client)
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
+	if err := o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.basePath(), "GET"); err != nil {
 		return err
 	}
 
@@ -530,7 +530,7 @@ func (op *createClusterOperation) do(ctx context.Context, r *Cluster, c *Client)
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
+	if err := o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.basePath(), "GET"); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}

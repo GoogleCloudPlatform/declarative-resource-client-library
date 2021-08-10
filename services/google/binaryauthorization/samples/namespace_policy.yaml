@@ -17,6 +17,7 @@ dependencies:
 description: A namespace example for a binary authorization policy
 name: namespace_policy
 resource: samples/namespace.policy.json
+type: policy
 updates:
 - resource: samples/service_account.policy.json
 variables:

@@ -14,6 +14,7 @@
 description: A http example for a monitoring uptime check config
 name: http_uptime_check_config
 resource: samples/http.uptime_check_config.json
+type: uptime_check_config
 updates:
 - resource: samples/update_1_http.uptime_check_config.json
 - resource: samples/update_2_http.uptime_check_config.json

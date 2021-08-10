@@ -188,7 +188,7 @@ func (op *updateServiceAccountPatchServiceAccountOperation) do(ctx context.Conte
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	err = o.Wait(ctx, c.Config, r.basePath(), "GET")
+	err = o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.basePath(), "GET")
 
 	if err != nil {
 		return err

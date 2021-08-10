@@ -343,7 +343,7 @@ func (op *updateInstanceGroupManagerPatchOperation) do(ctx context.Context, r *I
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	err = o.Wait(ctx, c.Config, r.basePath(), "GET")
+	err = o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.basePath(), "GET")
 
 	if err != nil {
 		return err
@@ -410,7 +410,7 @@ func (op *updateInstanceGroupManagerSetInstanceTemplateOperation) do(ctx context
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	err = o.Wait(ctx, c.Config, r.basePath(), "GET")
+	err = o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.basePath(), "GET")
 
 	if err != nil {
 		return err
@@ -477,7 +477,7 @@ func (op *updateInstanceGroupManagerSetTargetPoolsOperation) do(ctx context.Cont
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	err = o.Wait(ctx, c.Config, r.basePath(), "GET")
+	err = o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.basePath(), "GET")
 
 	if err != nil {
 		return err
@@ -591,7 +591,7 @@ func (op *deleteInstanceGroupManagerOperation) do(ctx context.Context, r *Instan
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
+	if err := o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.basePath(), "GET"); err != nil {
 		return err
 	}
 
@@ -643,7 +643,7 @@ func (op *createInstanceGroupManagerOperation) do(ctx context.Context, r *Instan
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, r.basePath(), "GET"); err != nil {
+	if err := o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.basePath(), "GET"); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}

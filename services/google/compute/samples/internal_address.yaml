@@ -16,6 +16,7 @@ dependencies:
 description: An example of an internal compute address
 name: internal_address
 resource: samples/internal.address.json
+type: address
 variables:
 - name: compute_network1
   type: resource_name

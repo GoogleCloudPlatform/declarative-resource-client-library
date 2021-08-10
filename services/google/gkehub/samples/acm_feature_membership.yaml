@@ -23,6 +23,7 @@ dependencies:
 description: A basic example for a GKEHub acm feature membership
 name: acm_feature_membership
 resource: samples/acm.feature_membership.json
+type: feature_membership
 updates:
 - dependencies:
   - samples/update_acm.feature.json
@@ -34,10 +35,10 @@ variables:
   type: org_id
 - name: billing_account
   type: billing_account
-- name: cluster1
-  type: resource_name
 - name: zone
   type: zone
+- name: cluster1
+  type: resource_name
 - name: membership1
   type: resource_name
 versions:

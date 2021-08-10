@@ -14,6 +14,7 @@
 description: A basic example a network security authorization policy.
 name: kcc_authorization_policy
 resource: samples/kccbasic.authorization_policy.json
+type: authorization_policy
 updates:
 - resource: samples/kccupdate.authorization_policy.json
 variables:

@@ -16,15 +16,16 @@ dependencies:
 description: A basic example of a dataproc job
 name: basic_job
 resource: samples/basic.job.json
+type: job
 updates:
 - resource: samples/update.job.json
 variables:
-- name: project
-  type: project
 - name: cluster_name
   type: resource_name
 - name: region
   type: region
+- name: project
+  type: project
 versions:
 - ga
 - beta

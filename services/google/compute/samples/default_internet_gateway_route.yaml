@@ -14,11 +14,12 @@
 description: Terraform resource_compute_route_test.go testAccComputeRoute_defaultInternetGateway
 name: default_internet_gateway_route
 resource: samples/default_internet_gateway.route.json
+type: route
 variables:
-- name: project
-  type: project
 - name: name
   type: resource_name
+- name: project
+  type: project
 versions:
 - ga
 - beta

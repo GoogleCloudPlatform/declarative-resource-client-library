@@ -15,6 +15,7 @@ description: An example for filestore instance that allows for a non-admin value
   create
 name: noadmin_create_instance
 resource: samples/noadmin.instance.json
+type: instance
 updates:
 - resource: samples/update.instance.json
 variables:

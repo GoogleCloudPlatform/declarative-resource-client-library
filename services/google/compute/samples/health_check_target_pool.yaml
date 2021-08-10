@@ -16,6 +16,7 @@ dependencies:
 description: An example of a compute target pool with an http health check
 name: health_check_target_pool
 resource: samples/first.target_pool.json
+type: target_pool
 updates:
 - resource: samples/health_check.target_pool.json
 variables:

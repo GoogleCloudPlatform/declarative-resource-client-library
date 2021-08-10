@@ -14,6 +14,7 @@
 description: A test ga log metric with explicit buckets
 name: explicit_metric
 resource: samples/explicit.log_metric.json
+type: log_metric
 updates:
 - resource: samples/update_explicit.log_metric.json
 variables:

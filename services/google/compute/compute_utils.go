@@ -119,7 +119,7 @@ func (op *createFirewallPolicyOperation) do(ctx context.Context, r *FirewallPoli
 	if err := dcl.ParseResponse(resp.Response, &o.BaseOperation); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, r.Parent); err != nil {
+	if err := o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.Parent); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
@@ -165,7 +165,7 @@ func (op *updateFirewallPolicyPatchOperation) do(ctx context.Context, r *Firewal
 	if err := dcl.ParseResponse(resp.Response, &o.BaseOperation); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, r.Parent); err != nil {
+	if err := o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.Parent); err != nil {
 		c.Config.Logger.Warningf("Update failed after waiting for operation: %v", err)
 		return err
 	}
@@ -205,7 +205,7 @@ func (op *deleteFirewallPolicyOperation) do(ctx context.Context, r *FirewallPoli
 	if err := dcl.ParseResponse(resp.Response, &o.BaseOperation); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, r.Parent); err != nil {
+	if err := o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.Parent); err != nil {
 		return err
 	}
 	_, err = c.GetFirewallPolicy(ctx, r)
@@ -242,7 +242,7 @@ func (op *createFirewallPolicyRuleOperation) do(ctx context.Context, r *Firewall
 	if err := dcl.ParseResponse(resp.Response, &o.BaseOperation); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, policy.Parent); err != nil {
+	if err := o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, policy.Parent); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
@@ -291,7 +291,7 @@ func (op *updateFirewallPolicyRulePatchRuleOperation) do(ctx context.Context, r 
 	if err := dcl.ParseResponse(resp.Response, &o.BaseOperation); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, policy.Parent); err != nil {
+	if err := o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, policy.Parent); err != nil {
 		c.Config.Logger.Warningf("Update failed after waiting for operation: %v", err)
 		return err
 	}
@@ -331,7 +331,7 @@ func (op *deleteFirewallPolicyRuleOperation) do(ctx context.Context, r *Firewall
 	if err := dcl.ParseResponse(resp.Response, &o.BaseOperation); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, policy.Parent); err != nil {
+	if err := o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, policy.Parent); err != nil {
 		c.Config.Logger.Warningf("Deletion failed after waiting for operation: %v", err)
 		return err
 	}
@@ -371,7 +371,7 @@ func (op *createFirewallPolicyAssociationOperation) do(ctx context.Context, r *F
 	if err := dcl.ParseResponse(resp.Response, &o.BaseOperation); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, policy.Parent); err != nil {
+	if err := o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, policy.Parent); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
@@ -411,7 +411,7 @@ func (op *deleteFirewallPolicyAssociationOperation) do(ctx context.Context, r *F
 	if err := dcl.ParseResponse(resp.Response, &o.BaseOperation); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, policy.Parent); err != nil {
+	if err := o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, policy.Parent); err != nil {
 		c.Config.Logger.Warningf("Deletion failed after waiting for operation: %v", err)
 		return err
 	}

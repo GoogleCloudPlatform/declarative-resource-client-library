@@ -19,6 +19,7 @@ dependencies:
 description: An example for a compute firewall policy for an organization
 name: basic_firewall_policy_association
 resource: samples/folder.firewall_policy_association.json
+type: firewall_policy_association
 variables:
 - name: org_id
   type: org_id

@@ -19,12 +19,13 @@ dependencies:
 description: Terraform resource_compute_route_test.go testAccComputeRoute_hopInstance
 name: hop_instance_route
 resource: samples/hop_instance.route.json
+type: route
 variables:
-- name: compute_network1
+- name: image
   type: resource_name
 - name: project
   type: project
-- name: image
+- name: compute_network1
   type: resource_name
 - name: range
   type: resource_name
@@ -32,10 +33,10 @@ variables:
   type: resource_name
 - name: region
   type: region
-- name: instance
-  type: resource_name
 - name: zone
   type: zone
+- name: instance
+  type: resource_name
 - name: name
   type: resource_name
 versions:

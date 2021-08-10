@@ -14,6 +14,7 @@
 description: An example of a regional disk.
 name: regional_disk
 resource: samples/regional.disk.json
+type: disk
 updates:
 - resource: samples/update_regional.disk.json
 variables:

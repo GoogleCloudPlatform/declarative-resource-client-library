@@ -14,12 +14,13 @@
 description: A basic example of a compute network.
 name: basic_network
 resource: samples/basic.network.json
+type: network
 updates:
 - resource: samples/update.network.json
 variables:
-- name: project
-  type: project
 - name: compute_network1
   type: resource_name
+- name: project
+  type: project
 versions:
 - ga

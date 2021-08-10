@@ -17,6 +17,7 @@ dependencies:
 description: A basic example for a folder-level logging exclusion
 name: folder_exclusion
 resource: samples/folder.log_exclusion.json
+type: log_exclusion
 variables:
 - name: org_id
   type: org_id

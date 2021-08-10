@@ -14,9 +14,10 @@
 description: A global example of a compute ssl certificate.
 name: global_ssl_certificate
 resource: samples/global.ssl_certificate.json
+type: ssl_certificate
 variables:
-- name: project
-  type: project
 - name: certificate
   type: resource_name
+- name: project
+  type: project
 versions: []

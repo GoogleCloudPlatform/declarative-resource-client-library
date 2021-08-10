@@ -19,6 +19,7 @@ dependencies:
 description: A basic example for an GKEHub MCSD feature
 name: mcsd_feature
 resource: samples/mcsd.feature.json
+type: feature
 updates:
 - resource: samples/update_mcsd.feature.json
 variables:

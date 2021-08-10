@@ -256,12 +256,12 @@ func applyAssignmentHelper(c *Client, ctx context.Context, rawDesired *Assignmen
 	if err := rawDesired.validate(); err != nil {
 		return nil, err
 	}
-	vProject, err := dcl.ValueFromRegexOnField(rawDesired.Project, rawDesired.Reservation, "projects/([a-z0-9A-Z-]*)/locations/.*")
+	vProject, err := dcl.ValueFromRegexOnField("Project", rawDesired.Project, rawDesired.Reservation, "projects/([a-z0-9A-Z-]*)/locations/.*")
 	if err != nil {
 		return nil, err
 	}
 	rawDesired.Project = vProject
-	vLocation, err := dcl.ValueFromRegexOnField(rawDesired.Location, rawDesired.Reservation, "projects/.*/locations/([a-z0-9A-Z-]*)/reservations/.*")
+	vLocation, err := dcl.ValueFromRegexOnField("Location", rawDesired.Location, rawDesired.Reservation, "projects/.*/locations/([a-z0-9A-Z-]*)/reservations/.*")
 	if err != nil {
 		return nil, err
 	}

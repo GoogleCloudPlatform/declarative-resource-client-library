@@ -16,6 +16,7 @@ dependencies:
 description: An example of a basic compute router
 name: basic_router
 resource: samples/basic.router.json
+type: router
 updates:
 - resource: samples/update.router.json
 variables:

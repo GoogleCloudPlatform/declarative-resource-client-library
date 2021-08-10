@@ -16,15 +16,16 @@ dependencies:
 description: A Dataproc Cluster that matches the KCC Test
 name: kcc_cluster
 resource: samples/kcc.cluster.json
+type: cluster
 updates:
 - resource: samples/kccupdate.cluster.json
 variables:
-- name: region
-  type: region
 - name: name
   type: resource_name
 - name: project
   type: project
+- name: region
+  type: region
 - name: cluster_name
   type: resource_name
 versions:

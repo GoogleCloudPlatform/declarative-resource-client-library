@@ -24,6 +24,7 @@ description: An example of a compute firewall policy for a folder with only requ
   fields
 name: minimal_firewall_policy_rule
 resource: samples/minimal.firewall_policy_rule.json
+type: firewall_policy_rule
 updates:
 - resource: samples/update_minimal.firewall_policy_rule.json
 variables:
@@ -33,10 +34,10 @@ variables:
   type: resource_name
 - name: id
   type: resource_name
-- name: test_service_account
-  type: test_service_account
 - name: billing_account
   type: billing_account
+- name: test_service_account
+  type: test_service_account
 - name: policy
   type: resource_name
 - name: association

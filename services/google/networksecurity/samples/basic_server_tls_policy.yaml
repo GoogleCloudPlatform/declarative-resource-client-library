@@ -14,12 +14,13 @@
 description: A basic example a network security server tls policy.
 name: basic_server_tls_policy
 resource: samples/basic.server_tls_policy.json
+type: server_tls_policy
 updates:
 - resource: samples/update.server_tls_policy.json
 variables:
-- name: policy
-  type: resource_name
 - name: project
   type: project
+- name: policy
+  type: resource_name
 versions:
 - alpha

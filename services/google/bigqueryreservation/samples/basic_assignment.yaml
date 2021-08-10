@@ -16,12 +16,13 @@ dependencies:
 description: A basic test of a bigqueryreservation assignment api
 name: basic_assignment
 resource: samples/basic.assignment.json
+type: assignment
 variables:
-- name: region
-  type: region
 - name: reservation_name
   type: resource_name
 - name: project
   type: project
+- name: region
+  type: region
 versions:
 - ga

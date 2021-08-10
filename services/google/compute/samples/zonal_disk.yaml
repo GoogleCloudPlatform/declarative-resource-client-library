@@ -14,6 +14,7 @@
 description: An example of a zonal disk.
 name: zonal_disk
 resource: samples/zonal.disk.json
+type: disk
 updates:
 - resource: samples/update_zonal.disk.json
 variables:

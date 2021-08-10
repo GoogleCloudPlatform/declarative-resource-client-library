@@ -17,6 +17,7 @@ dependencies:
 description: check next_hop_ip for route resource.
 name: hop_ip_route
 resource: samples/hop_ip.route.json
+type: route
 variables:
 - name: compute_network1
   type: resource_name
