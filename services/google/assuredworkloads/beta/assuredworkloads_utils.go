@@ -24,7 +24,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
-// Returns the URL of the reource (always a project) with the given index in the workload.
+// Returns the URL of the project resource with the given index in the workload.
 func (r *Workload) projectURL(userBasePath string, index int) (string, error) {
 	params := map[string]interface{}{
 		"project": dcl.ValueOrEmptyString(r.Resources[index].ResourceId),
@@ -32,8 +32,16 @@ func (r *Workload) projectURL(userBasePath string, index int) (string, error) {
 	return dcl.URL("projects/{{project}}", "https://cloudresourcemanager.googleapis.com/v1/", userBasePath, params), nil
 }
 
-// Returns the lifecycle state of the given project resource with the given url in the workload.
-func projectLifecycleState(ctx context.Context, client *Client, url string) (string, error) {
+// Returns the URL of the folder resource with the given index in the workload.
+func (r *Workload) folderURL(userBasePath string, index int) (string, error) {
+	params := map[string]interface{}{
+		"folder": dcl.ValueOrEmptyString(r.Resources[index].ResourceId),
+	}
+	return dcl.URL("folders/{{folder}}", "https://cloudresourcemanager.googleapis.com/v2/", userBasePath, params), nil
+}
+
+// Returns the lifecycle state of the project or folder resource with the given url.
+func lifecycleState(ctx context.Context, client *Client, url string) (string, error) {
 	resp, err := dcl.SendRequest(ctx, client.Config, "GET", url, &bytes.Buffer{}, client.Config.RetryProvider)
 	if err != nil {
 		return "", err
@@ -49,55 +57,68 @@ func projectLifecycleState(ctx context.Context, client *Client, url string) (str
 	}
 	state, ok := m["lifecycleState"].(string)
 	if !ok {
-		return "", fmt.Errorf("no lifecycle state for project at %q", url)
+		return "", fmt.Errorf("no lifecycle state for resource at %q", url)
 	}
 	return state, nil
 }
 
-// Deletes projects owned by the workload prior to workload deletion.
-func (r *Workload) deleteProjectResources(ctx context.Context, client *Client) error {
+// Deletes the resource with the given URL. Returns true if it is already in DELETE_REQUESTED state,
+// otherwise returns false.
+func deleteResource(ctx context.Context, client *Client, url string) (bool, error) {
+	state, err := lifecycleState(ctx, client, url)
+	if err != nil {
+		return false, err
+	}
+	if state == "DELETE_REQUESTED" {
+		// Do not delete an already deleted resource.
+		return true, nil
+	}
+	// Send delete request for resources not already deleted.
+	_, err = dcl.SendRequest(ctx, client.Config, "DELETE", url, &bytes.Buffer{}, client.Config.RetryProvider)
+	if err != nil {
+		return false, fmt.Errorf("failed to delete resource at %s: %w", url, err)
+	}
+	return false, nil
+}
+
+// Deletes projects and folders owned by the workload prior to workload deletion.
+func (r *Workload) deleteResources(ctx context.Context, client *Client) error {
 	nr := r.urlNormalized()
 	return dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		for i, resource := range nr.Resources {
 			if resource.ResourceType == nil {
 				return nil, fmt.Errorf("nil resource type in workload %q", dcl.ValueOrEmptyString(nr.Name))
 			}
-			isProject := false
-			projectResourceTypeEnums := []WorkloadResourcesResourceTypeEnum{
-				WorkloadResourcesResourceTypeEnum("CONSUMER_PROJECT"),
-				WorkloadResourcesResourceTypeEnum("ENCRYPTION_KEYS_PROJECT"),
-			}
-			resourceType := *resource.ResourceType
-			for _, prte := range projectResourceTypeEnums {
-				if resourceType == prte {
-					isProject = true
+			switch *resource.ResourceType {
+			case WorkloadResourcesResourceTypeEnum("CONSUMER_PROJECT"), WorkloadResourcesResourceTypeEnum("ENCRYPTION_KEYS_PROJECT"):
+				u, err := nr.projectURL(client.Config.BasePath, i)
+				if err != nil {
+					return nil, err
+				}
+				deleted, err := deleteResource(ctx, client, u)
+				if err != nil {
+					return nil, err
+				}
+				if !deleted {
+					// Retry until all resources are being deleted.
+					return &dcl.RetryDetails{}, dcl.OperationNotDone{}
+				}
+			case WorkloadResourcesResourceTypeEnum("CONSUMER_FOLDER"):
+				u, err := nr.folderURL(client.Config.BasePath, i)
+				if err != nil {
+					return nil, err
+				}
+				deleted, err := deleteResource(ctx, client, u)
+				if err != nil {
+					return nil, err
+				}
+				if !deleted {
+					// Retry until all resources are being deleted.
+					return &dcl.RetryDetails{}, dcl.OperationNotDone{}
 				}
 			}
-			if !isProject {
-				// Only projects can be deleted.
-				continue
-			}
-			u, err := nr.projectURL(client.Config.BasePath, i)
-			if err != nil {
-				return nil, err
-			}
-			state, err := projectLifecycleState(ctx, client, u)
-			if err != nil {
-				return nil, err
-			}
-			if state == "DELETE_REQUESTED" {
-				// Do not delete an already deleted project.
-				continue
-			}
-			// Send delete request for projects not already deleted.
-			_, err = dcl.SendRequest(ctx, client.Config, "DELETE", u, &bytes.Buffer{}, client.Config.RetryProvider)
-			if err != nil {
-				return nil, fmt.Errorf("failed to delete Workload Resource: %w", err)
-			}
-			// Retry until all projects are being deleted.
-			return &dcl.RetryDetails{}, dcl.OperationNotDone{}
 		}
-		// All project resources are in DELETE_REQUESTED state.
+		// All project and folder resources are in DELETE_REQUESTED state.
 		return nil, nil
 	}, client.Config.RetryProvider)
 }

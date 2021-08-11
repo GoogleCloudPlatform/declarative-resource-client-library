@@ -24,6 +24,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/binaryauthorization"
 	binaryauthorization_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/binaryauthorization/beta"
 	cloudbuild_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudresourcemanager"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudscheduler"
 	cloudscheduler_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudscheduler/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute"
@@ -58,6 +59,8 @@ import (
 	networkservices_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkservices/beta"
 	osconfig_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/alpha"
 	osconfig_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage"
 	tier2_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/tier2/alpha"
 )
 
@@ -123,6 +126,10 @@ func Services() *Directory {
 	d.AddResource("ga", "binaryauthorization", "Attestor", binaryauthorization.YAML_attestor)
 	d.AddResource("ga", "binaryauthorization", dcl.TitleToSnakeCase("Policy"), binaryauthorization.YAML_policy)
 	d.AddResource("ga", "binaryauthorization", "Policy", binaryauthorization.YAML_policy)
+	d.AddResource("ga", "cloudresourcemanager", dcl.TitleToSnakeCase("Folder"), cloudresourcemanager.YAML_folder)
+	d.AddResource("ga", "cloudresourcemanager", "Folder", cloudresourcemanager.YAML_folder)
+	d.AddResource("ga", "cloudresourcemanager", dcl.TitleToSnakeCase("Project"), cloudresourcemanager.YAML_project)
+	d.AddResource("ga", "cloudresourcemanager", "Project", cloudresourcemanager.YAML_project)
 	d.AddResource("ga", "cloudscheduler", dcl.TitleToSnakeCase("Job"), cloudscheduler.YAML_job)
 	d.AddResource("ga", "cloudscheduler", "Job", cloudscheduler.YAML_job)
 	d.AddResource("ga", "compute", dcl.TitleToSnakeCase("FirewallPolicy"), compute.YAML_firewall_policy)
@@ -181,6 +188,10 @@ func Services() *Directory {
 	d.AddResource("ga", "monitoring", "Dashboard", monitoring.YAML_dashboard)
 	d.AddResource("ga", "monitoring", dcl.TitleToSnakeCase("Group"), monitoring.YAML_group)
 	d.AddResource("ga", "monitoring", "Group", monitoring.YAML_group)
+	d.AddResource("ga", "pubsub", dcl.TitleToSnakeCase("Topic"), pubsub.YAML_topic)
+	d.AddResource("ga", "pubsub", "Topic", pubsub.YAML_topic)
+	d.AddResource("ga", "storage", dcl.TitleToSnakeCase("Bucket"), storage.YAML_bucket)
+	d.AddResource("ga", "storage", "Bucket", storage.YAML_bucket)
 	d.AddResource("beta", "assuredworkloads", dcl.TitleToSnakeCase("Workload"), assuredworkloads_beta.YAML_workload)
 	d.AddResource("beta", "assuredworkloads", "Workload", assuredworkloads_beta.YAML_workload)
 	d.AddResource("beta", "bigqueryreservation", dcl.TitleToSnakeCase("Assignment"), bigqueryreservation_beta.YAML_assignment)

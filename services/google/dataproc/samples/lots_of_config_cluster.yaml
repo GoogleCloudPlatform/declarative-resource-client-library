@@ -16,14 +16,14 @@ name: lots_of_config_cluster
 resource: samples/lots_of_config.cluster.json
 type: cluster
 variables:
-- name: cluster_name
-  type: resource_name
 - name: region
   type: region
 - name: project
   type: project
 - name: zone
   type: zone
+- name: cluster_name
+  type: resource_name
 versions:
 - ga
 - beta

@@ -110,7 +110,7 @@ func (s *TopicServer) ListPubsubTopic(ctx context.Context, request *pubsubpb.Lis
 		return nil, err
 	}
 
-	resources, err := cl.ListTopic(ctx, request.Project)
+	resources, err := cl.ListTopic(ctx, ProtoToTopic(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

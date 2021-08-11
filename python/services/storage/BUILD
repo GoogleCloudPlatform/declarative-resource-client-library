@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="storage", resources=["bucket","default_object_access_control","hmac_key","object","object_access_control"])
+connector(name="storage", resources=["bucket"])

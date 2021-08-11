@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="storage", resources=["bucket","default_object_access_control","hmac_key","object","object_access_control"])
+proto_package(name="storage", resources=["bucket"])

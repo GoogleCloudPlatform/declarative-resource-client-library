@@ -204,13 +204,14 @@ components:
                 description: 'Indicates the type of resource. This field should be
                   specified to correspond the id to the right project type (CONSUMER_PROJECT
                   or ENCRYPTION_KEYS_PROJECT) Possible values: RESOURCE_TYPE_UNSPECIFIED,
-                  CONSUMER_PROJECT, ENCRYPTION_KEYS_PROJECT, KEYRING'
+                  CONSUMER_PROJECT, ENCRYPTION_KEYS_PROJECT, KEYRING, CONSUMER_FOLDER'
                 x-kubernetes-immutable: true
                 enum:
                 - RESOURCE_TYPE_UNSPECIFIED
                 - CONSUMER_PROJECT
                 - ENCRYPTION_KEYS_PROJECT
                 - KEYRING
+                - CONSUMER_FOLDER
           x-dcl-mutable-unreadable: true
         resources:
           type: array
@@ -237,10 +238,11 @@ components:
                 x-dcl-go-name: ResourceType
                 x-dcl-go-type: WorkloadResourcesResourceTypeEnum
                 description: 'Indicates the type of resource. Possible values: RESOURCE_TYPE_UNSPECIFIED,
-                  CONSUMER_PROJECT, ENCRYPTION_KEYS_PROJECT, KEYRING'
+                  CONSUMER_PROJECT, ENCRYPTION_KEYS_PROJECT, KEYRING, CONSUMER_FOLDER'
                 x-kubernetes-immutable: true
                 enum:
                 - RESOURCE_TYPE_UNSPECIFIED
                 - CONSUMER_PROJECT
                 - ENCRYPTION_KEYS_PROJECT
                 - KEYRING
+                - CONSUMER_FOLDER

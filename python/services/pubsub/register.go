@@ -20,6 +20,6 @@ import (
 
 // RegisterServers registers each resource with the gRPC server.
 func RegisterServers(s *grpc.Server) {
-	sdkgrpc.RegisterPubsubSubscriptionServiceServer(s, &SubscriptionServer{})
 	sdkgrpc.RegisterPubsubTopicServiceServer(s, &TopicServer{})
+	sdkgrpc.RegisterPubsubSubscriptionServiceServer(s, &SubscriptionServer{})
 }

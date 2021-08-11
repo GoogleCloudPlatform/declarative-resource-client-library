@@ -92,13 +92,24 @@ class Project(object):
 
         response = stub.DeleteCloudresourcemanagerProject(request)
 
-    @classmethod
-    def list(self, service_account_file=""):
+    def list(self):
         stub = project_pb2_grpc.CloudresourcemanagerProjectServiceStub(
             channel.Channel()
         )
         request = project_pb2.ListCloudresourcemanagerProjectRequest()
-        request.service_account_file = service_account_file
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
+        if Primitive.to_proto(self.displayName):
+            request.resource.displayName = Primitive.to_proto(self.displayName)
+
+        if ProjectParent.to_proto(self.parent):
+            request.resource.parent.CopyFrom(ProjectParent.to_proto(self.parent))
+        else:
+            request.resource.ClearField("parent")
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
         return stub.ListCloudresourcemanagerProject(request).items
 

@@ -27,6 +27,12 @@ updates:
 variables:
 - name: project
   type: project
+- name: template1
+  type: resource_name
+- name: template2
+  type: resource_name
+- name: pool1
+  type: resource_name
 - name: region
   type: region
 - name: pool2
@@ -34,12 +40,6 @@ variables:
 - name: s_check
   type: resource_name
 - name: check
-  type: resource_name
-- name: template1
-  type: resource_name
-- name: template2
-  type: resource_name
-- name: pool1
   type: resource_name
 - name: zone
   type: zone

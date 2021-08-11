@@ -58,7 +58,7 @@ func WorkloadResourcesResourceTypeEnumRef(s string) *WorkloadResourcesResourceTy
 }
 
 func (v WorkloadResourcesResourceTypeEnum) Validate() error {
-	for _, s := range []string{"RESOURCE_TYPE_UNSPECIFIED", "CONSUMER_PROJECT", "ENCRYPTION_KEYS_PROJECT", "KEYRING"} {
+	for _, s := range []string{"RESOURCE_TYPE_UNSPECIFIED", "CONSUMER_PROJECT", "ENCRYPTION_KEYS_PROJECT", "KEYRING", "CONSUMER_FOLDER"} {
 		if string(v) == s {
 			return nil
 		}
@@ -112,7 +112,7 @@ func WorkloadResourceSettingsResourceTypeEnumRef(s string) *WorkloadResourceSett
 }
 
 func (v WorkloadResourceSettingsResourceTypeEnum) Validate() error {
-	for _, s := range []string{"RESOURCE_TYPE_UNSPECIFIED", "CONSUMER_PROJECT", "ENCRYPTION_KEYS_PROJECT", "KEYRING"} {
+	for _, s := range []string{"RESOURCE_TYPE_UNSPECIFIED", "CONSUMER_PROJECT", "ENCRYPTION_KEYS_PROJECT", "KEYRING", "CONSUMER_FOLDER"} {
 		if string(v) == s {
 			return nil
 		}

@@ -24,6 +24,7 @@ enum AssuredworkloadsBetaWorkloadResourcesResourceTypeEnum {
   AssuredworkloadsBetaWorkloadResourcesResourceTypeEnumCONSUMER_PROJECT = 2;
   AssuredworkloadsBetaWorkloadResourcesResourceTypeEnumENCRYPTION_KEYS_PROJECT = 3;
   AssuredworkloadsBetaWorkloadResourcesResourceTypeEnumKEYRING = 4;
+  AssuredworkloadsBetaWorkloadResourcesResourceTypeEnumCONSUMER_FOLDER = 5;
 }
 
 enum AssuredworkloadsBetaWorkloadComplianceRegimeEnum {
@@ -42,6 +43,7 @@ enum AssuredworkloadsBetaWorkloadResourceSettingsResourceTypeEnum {
   AssuredworkloadsBetaWorkloadResourceSettingsResourceTypeEnumCONSUMER_PROJECT = 2;
   AssuredworkloadsBetaWorkloadResourceSettingsResourceTypeEnumENCRYPTION_KEYS_PROJECT = 3;
   AssuredworkloadsBetaWorkloadResourceSettingsResourceTypeEnumKEYRING = 4;
+  AssuredworkloadsBetaWorkloadResourceSettingsResourceTypeEnumCONSUMER_FOLDER = 5;
 }
 
 message AssuredworkloadsBetaWorkload {

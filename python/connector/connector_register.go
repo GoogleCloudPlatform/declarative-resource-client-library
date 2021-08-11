@@ -30,6 +30,8 @@ import (
 
 	cloudbuild_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/beta_connector"
 
+	cloudresourcemanager_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudresourcemanager/connector"
+
 	cloudscheduler_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudscheduler/connector"
 
 	cloudscheduler_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudscheduler/beta_connector"
@@ -98,6 +100,10 @@ import (
 
 	osconfig_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/beta_connector"
 
+	pubsub_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub/connector"
+
+	storage_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/connector"
+
 	tier2_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/tier2/alpha_connector"
 
 	statuspb "google.golang.org/genproto/googleapis/rpc/status"
@@ -122,6 +128,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	binaryauthorization_beta_connector.RegisterServers(grpcServer)
 
 	cloudbuild_beta_connector.RegisterServers(grpcServer)
+
+	cloudresourcemanager_connector.RegisterServers(grpcServer)
 
 	cloudscheduler_connector.RegisterServers(grpcServer)
 
@@ -190,6 +198,10 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	osconfig_alpha_connector.RegisterServers(grpcServer)
 
 	osconfig_beta_connector.RegisterServers(grpcServer)
+
+	pubsub_connector.RegisterServers(grpcServer)
+
+	storage_connector.RegisterServers(grpcServer)
 
 	tier2_alpha_connector.RegisterServers(grpcServer)
 
