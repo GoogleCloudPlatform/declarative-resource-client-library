@@ -20,11 +20,11 @@ updates:
 variables:
 - name: org_id
   type: org_id
+- name: ring
+  type: resource_name
 - name: region
   type: region
 - name: billing_account
   type: billing_account
-- name: ring
-  type: resource_name
 versions:
 - ga

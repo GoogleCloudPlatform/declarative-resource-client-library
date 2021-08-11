@@ -16,12 +16,12 @@ name: regional_managed_ssl_certificate
 resource: samples/regional.managed_ssl_certificate.json
 type: managed_ssl_certificate
 variables:
-- name: cert
-  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
 - name: domain
+  type: resource_name
+- name: cert
   type: resource_name
 versions: []
