@@ -18,12 +18,12 @@ type: azure_cluster
 variables:
 - name: azure_subscription
   type: azure_subscription
-- name: azure_database_encryption_key_version
-  type: azure_database_encryption_key_version
-- name: cluster
-  type: resource_name
-- name: project_number
-  type: project_number
 - name: project
   type: project
+- name: project_number
+  type: project_number
+- name: cluster
+  type: resource_name
+- name: azure_database_encryption_key_version
+  type: azure_database_encryption_key_version
 versions: []
