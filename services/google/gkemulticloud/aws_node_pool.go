@@ -556,15 +556,7 @@ func (c *Client) DeleteAwsNodePool(ctx context.Context, r *AwsNodePool) error {
 }
 
 // DeleteAllAwsNodePool deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllAwsNodePool(ctx context.Context, project, location, awsCluster string, filter func(*AwsNodePool) bool) error {
-	r := &AwsNodePool{
-
-		Project: &project,
-
-		Location: &location,
-
-		AwsCluster: &awsCluster,
-	}
+func (c *Client) DeleteAllAwsNodePool(ctx context.Context, r *AwsNodePool, filter func(*AwsNodePool) bool) error {
 	listObj, err := c.ListAwsNodePool(ctx, r)
 	if err != nil {
 		return err

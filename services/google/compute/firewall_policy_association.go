@@ -144,11 +144,7 @@ func (c *Client) DeleteFirewallPolicyAssociation(ctx context.Context, r *Firewal
 }
 
 // DeleteAllFirewallPolicyAssociation deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllFirewallPolicyAssociation(ctx context.Context, firewallPolicy string, filter func(*FirewallPolicyAssociation) bool) error {
-	r := &FirewallPolicyAssociation{
-
-		FirewallPolicy: &firewallPolicy,
-	}
+func (c *Client) DeleteAllFirewallPolicyAssociation(ctx context.Context, r *FirewallPolicyAssociation, filter func(*FirewallPolicyAssociation) bool) error {
 	listObj, err := c.ListFirewallPolicyAssociation(ctx, r)
 	if err != nil {
 		return err

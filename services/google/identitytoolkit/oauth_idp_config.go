@@ -202,11 +202,7 @@ func (c *Client) DeleteOAuthIdpConfig(ctx context.Context, r *OAuthIdpConfig) er
 }
 
 // DeleteAllOAuthIdpConfig deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllOAuthIdpConfig(ctx context.Context, project string, filter func(*OAuthIdpConfig) bool) error {
-	r := &OAuthIdpConfig{
-
-		Project: &project,
-	}
+func (c *Client) DeleteAllOAuthIdpConfig(ctx context.Context, r *OAuthIdpConfig, filter func(*OAuthIdpConfig) bool) error {
 	listObj, err := c.ListOAuthIdpConfig(ctx, r)
 	if err != nil {
 		return err

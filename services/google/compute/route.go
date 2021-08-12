@@ -241,11 +241,7 @@ func (c *Client) DeleteRoute(ctx context.Context, r *Route) error {
 }
 
 // DeleteAllRoute deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllRoute(ctx context.Context, project string, filter func(*Route) bool) error {
-	r := &Route{
-
-		Project: &project,
-	}
+func (c *Client) DeleteAllRoute(ctx context.Context, r *Route, filter func(*Route) bool) error {
 	listObj, err := c.ListRoute(ctx, r)
 	if err != nil {
 		return err

@@ -146,11 +146,7 @@ func (c *Client) DeleteGroup(ctx context.Context, r *Group) error {
 }
 
 // DeleteAllGroup deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllGroup(ctx context.Context, project string, filter func(*Group) bool) error {
-	r := &Group{
-
-		Project: &project,
-	}
+func (c *Client) DeleteAllGroup(ctx context.Context, r *Group, filter func(*Group) bool) error {
 	listObj, err := c.ListGroup(ctx, r)
 	if err != nil {
 		return err

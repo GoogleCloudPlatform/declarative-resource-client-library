@@ -3479,11 +3479,7 @@ func (c *Client) DeleteDashboard(ctx context.Context, r *Dashboard) error {
 }
 
 // DeleteAllDashboard deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllDashboard(ctx context.Context, project string, filter func(*Dashboard) bool) error {
-	r := &Dashboard{
-
-		Project: &project,
-	}
+func (c *Client) DeleteAllDashboard(ctx context.Context, r *Dashboard, filter func(*Dashboard) bool) error {
 	listObj, err := c.ListDashboard(ctx, r)
 	if err != nil {
 		return err

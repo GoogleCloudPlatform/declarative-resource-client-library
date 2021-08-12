@@ -1158,13 +1158,7 @@ func (c *Client) DeleteInstanceGroupManager(ctx context.Context, r *InstanceGrou
 }
 
 // DeleteAllInstanceGroupManager deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllInstanceGroupManager(ctx context.Context, project, location string, filter func(*InstanceGroupManager) bool) error {
-	r := &InstanceGroupManager{
-
-		Project: &project,
-
-		Location: &location,
-	}
+func (c *Client) DeleteAllInstanceGroupManager(ctx context.Context, r *InstanceGroupManager, filter func(*InstanceGroupManager) bool) error {
 	listObj, err := c.ListInstanceGroupManager(ctx, r)
 	if err != nil {
 		return err

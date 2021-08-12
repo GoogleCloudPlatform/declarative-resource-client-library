@@ -22,11 +22,11 @@ variables:
   type: org_id
 - name: region
   type: region
+- name: ring
+  type: resource_name
 - name: display
   type: resource_name
 - name: billing_account
   type: billing_account
-- name: ring
-  type: resource_name
 versions:
 - beta

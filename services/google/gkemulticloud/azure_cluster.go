@@ -639,13 +639,7 @@ func (c *Client) DeleteAzureCluster(ctx context.Context, r *AzureCluster) error 
 }
 
 // DeleteAllAzureCluster deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllAzureCluster(ctx context.Context, project, location string, filter func(*AzureCluster) bool) error {
-	r := &AzureCluster{
-
-		Project: &project,
-
-		Location: &location,
-	}
+func (c *Client) DeleteAllAzureCluster(ctx context.Context, r *AzureCluster, filter func(*AzureCluster) bool) error {
 	listObj, err := c.ListAzureCluster(ctx, r)
 	if err != nil {
 		return err

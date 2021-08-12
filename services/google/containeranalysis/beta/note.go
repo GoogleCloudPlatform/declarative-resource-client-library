@@ -1690,11 +1690,7 @@ func (c *Client) DeleteNote(ctx context.Context, r *Note) error {
 }
 
 // DeleteAllNote deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllNote(ctx context.Context, project string, filter func(*Note) bool) error {
-	r := &Note{
-
-		Project: &project,
-	}
+func (c *Client) DeleteAllNote(ctx context.Context, r *Note, filter func(*Note) bool) error {
 	listObj, err := c.ListNote(ctx, r)
 	if err != nil {
 		return err

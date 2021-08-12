@@ -400,13 +400,7 @@ func (c *Client) DeleteEndpointPolicy(ctx context.Context, r *EndpointPolicy) er
 }
 
 // DeleteAllEndpointPolicy deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllEndpointPolicy(ctx context.Context, project, location string, filter func(*EndpointPolicy) bool) error {
-	r := &EndpointPolicy{
-
-		Project: &project,
-
-		Location: &location,
-	}
+func (c *Client) DeleteAllEndpointPolicy(ctx context.Context, r *EndpointPolicy, filter func(*EndpointPolicy) bool) error {
 	listObj, err := c.ListEndpointPolicy(ctx, r)
 	if err != nil {
 		return err

@@ -430,15 +430,7 @@ func (c *Client) DeleteAzureNodePool(ctx context.Context, r *AzureNodePool) erro
 }
 
 // DeleteAllAzureNodePool deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllAzureNodePool(ctx context.Context, project, location, azureCluster string, filter func(*AzureNodePool) bool) error {
-	r := &AzureNodePool{
-
-		Project: &project,
-
-		Location: &location,
-
-		AzureCluster: &azureCluster,
-	}
+func (c *Client) DeleteAllAzureNodePool(ctx context.Context, r *AzureNodePool, filter func(*AzureNodePool) bool) error {
 	listObj, err := c.ListAzureNodePool(ctx, r)
 	if err != nil {
 		return err

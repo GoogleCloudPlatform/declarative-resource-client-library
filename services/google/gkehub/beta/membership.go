@@ -671,13 +671,7 @@ func (c *Client) DeleteMembership(ctx context.Context, r *Membership) error {
 }
 
 // DeleteAllMembership deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllMembership(ctx context.Context, project, location string, filter func(*Membership) bool) error {
-	r := &Membership{
-
-		Project: &project,
-
-		Location: &location,
-	}
+func (c *Client) DeleteAllMembership(ctx context.Context, r *Membership, filter func(*Membership) bool) error {
 	listObj, err := c.ListMembership(ctx, r)
 	if err != nil {
 		return err

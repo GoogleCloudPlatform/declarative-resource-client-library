@@ -204,15 +204,7 @@ func (c *Client) DeleteAssignment(ctx context.Context, r *Assignment) error {
 }
 
 // DeleteAllAssignment deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllAssignment(ctx context.Context, project, location, reservation string, filter func(*Assignment) bool) error {
-	r := &Assignment{
-
-		Project: &project,
-
-		Location: &location,
-
-		Reservation: &reservation,
-	}
+func (c *Client) DeleteAllAssignment(ctx context.Context, r *Assignment, filter func(*Assignment) bool) error {
 	listObj, err := c.ListAssignment(ctx, r)
 	if err != nil {
 		return err

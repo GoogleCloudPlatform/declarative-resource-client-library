@@ -193,11 +193,7 @@ func (c *Client) DeleteTopic(ctx context.Context, r *Topic) error {
 }
 
 // DeleteAllTopic deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllTopic(ctx context.Context, project string, filter func(*Topic) bool) error {
-	r := &Topic{
-
-		Project: &project,
-	}
+func (c *Client) DeleteAllTopic(ctx context.Context, r *Topic, filter func(*Topic) bool) error {
 	listObj, err := c.ListTopic(ctx, r)
 	if err != nil {
 		return err
