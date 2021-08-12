@@ -18,9 +18,9 @@ type: instance_template
 updates:
 - resource: samples/update.instance_template.json
 variables:
-- name: project
-  type: project
 - name: template1
   type: resource_name
+- name: project
+  type: project
 versions:
 - ga
