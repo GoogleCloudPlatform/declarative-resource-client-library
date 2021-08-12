@@ -2,7 +2,7 @@
   "name": "{{cluster}}",
   "project": "{{project}}",
   "location": "us-west1",
-  "azureClient": "projects/{{project_number}}/locations/us-west1/azureClients/testclient",
+  "azureClient": "projects/{{project}}/locations/us-west1/azureClients/testclient",
   "description": "A sample azure cluster",
   "azureRegion": "westus2",
   "networking": {

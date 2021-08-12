@@ -16,11 +16,11 @@ name: basic_reservation
 resource: samples/basic.reservation.json
 type: reservation
 variables:
-- name: reservation_name
-  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
+- name: reservation_name
+  type: resource_name
 versions:
 - ga

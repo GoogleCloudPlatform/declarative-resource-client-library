@@ -458,7 +458,13 @@ func (c *Client) DeleteInstance(ctx context.Context, r *Instance) error {
 }
 
 // DeleteAllInstance deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllInstance(ctx context.Context, r *Instance, filter func(*Instance) bool) error {
+func (c *Client) DeleteAllInstance(ctx context.Context, project, location string, filter func(*Instance) bool) error {
+	r := &Instance{
+
+		Project: &project,
+
+		Location: &location,
+	}
 	listObj, err := c.ListInstance(ctx, r)
 	if err != nil {
 		return err

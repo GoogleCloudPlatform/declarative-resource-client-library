@@ -16,9 +16,9 @@ name: organization_exclusion
 resource: samples/organization.log_exclusion.json
 type: log_exclusion
 variables:
-- name: log_exclusion_name
-  type: resource_name
 - name: org_id
   type: org_id
+- name: log_exclusion_name
+  type: resource_name
 versions:
 - ga

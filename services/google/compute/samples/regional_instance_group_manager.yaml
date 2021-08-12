@@ -31,10 +31,10 @@ variables:
   type: resource_name
 - name: template2
   type: resource_name
-- name: pool1
-  type: resource_name
 - name: region
   type: region
+- name: pool1
+  type: resource_name
 - name: pool2
   type: resource_name
 - name: s_check

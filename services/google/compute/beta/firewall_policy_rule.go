@@ -282,7 +282,11 @@ func (c *Client) DeleteFirewallPolicyRule(ctx context.Context, r *FirewallPolicy
 }
 
 // DeleteAllFirewallPolicyRule deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllFirewallPolicyRule(ctx context.Context, r *FirewallPolicyRule, filter func(*FirewallPolicyRule) bool) error {
+func (c *Client) DeleteAllFirewallPolicyRule(ctx context.Context, firewallPolicy string, filter func(*FirewallPolicyRule) bool) error {
+	r := &FirewallPolicyRule{
+
+		FirewallPolicy: &firewallPolicy,
+	}
 	listObj, err := c.ListFirewallPolicyRule(ctx, r)
 	if err != nil {
 		return err

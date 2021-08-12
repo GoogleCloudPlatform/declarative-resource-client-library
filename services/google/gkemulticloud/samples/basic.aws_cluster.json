@@ -1,6 +1,6 @@
 {
   "name": "{{cluster}}",
-  "project": "{{project_number}}",
+  "project": "{{project}}",
   "location": "us-west1",
   "description": "A sample aws cluster",
   "networking": {

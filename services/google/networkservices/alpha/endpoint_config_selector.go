@@ -447,7 +447,13 @@ func (c *Client) DeleteEndpointConfigSelector(ctx context.Context, r *EndpointCo
 }
 
 // DeleteAllEndpointConfigSelector deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllEndpointConfigSelector(ctx context.Context, r *EndpointConfigSelector, filter func(*EndpointConfigSelector) bool) error {
+func (c *Client) DeleteAllEndpointConfigSelector(ctx context.Context, project, location string, filter func(*EndpointConfigSelector) bool) error {
+	r := &EndpointConfigSelector{
+
+		Project: &project,
+
+		Location: &location,
+	}
 	listObj, err := c.ListEndpointConfigSelector(ctx, r)
 	if err != nil {
 		return err

@@ -330,7 +330,11 @@ func (c *Client) DeleteAttestor(ctx context.Context, r *Attestor) error {
 }
 
 // DeleteAllAttestor deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllAttestor(ctx context.Context, r *Attestor, filter func(*Attestor) bool) error {
+func (c *Client) DeleteAllAttestor(ctx context.Context, project string, filter func(*Attestor) bool) error {
+	r := &Attestor{
+
+		Project: &project,
+	}
 	listObj, err := c.ListAttestor(ctx, r)
 	if err != nil {
 		return err

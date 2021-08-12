@@ -224,7 +224,8 @@ func (c *Client) DeleteProject(ctx context.Context, r *Project) error {
 }
 
 // DeleteAllProject deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllProject(ctx context.Context, r *Project, filter func(*Project) bool) error {
+func (c *Client) DeleteAllProject(ctx context.Context, filter func(*Project) bool) error {
+	r := &Project{}
 	listObj, err := c.ListProject(ctx, r)
 	if err != nil {
 		return err
