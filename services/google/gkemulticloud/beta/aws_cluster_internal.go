@@ -3732,3 +3732,7 @@ func convertOpNameToAwsClusterApiOperation(opName string, fieldDiffs []*dcl.Fiel
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractAwsClusterFields(r *AwsCluster) error {
+	return nil
+}

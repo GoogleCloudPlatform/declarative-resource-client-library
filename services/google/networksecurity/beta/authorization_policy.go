@@ -280,6 +280,25 @@ func (r *AuthorizationPolicy) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *AuthorizationPolicy) ID() (string, error) {
+	if err := extractAuthorizationPolicyFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":        dcl.ValueOrEmptyString(nr.Name),
+		"description": dcl.ValueOrEmptyString(nr.Description),
+		"createTime":  dcl.ValueOrEmptyString(nr.CreateTime),
+		"updateTime":  dcl.ValueOrEmptyString(nr.UpdateTime),
+		"labels":      dcl.ValueOrEmptyString(nr.Labels),
+		"action":      dcl.ValueOrEmptyString(nr.Action),
+		"rules":       dcl.ValueOrEmptyString(nr.Rules),
+		"project":     dcl.ValueOrEmptyString(nr.Project),
+		"location":    dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/authorizationPolicies/{{name}}", params), nil
+}
+
 const AuthorizationPolicyMaxPage = -1
 
 type AuthorizationPolicyList struct {
@@ -438,6 +457,10 @@ func applyAuthorizationPolicyHelper(c *Client, ctx context.Context, rawDesired *
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractAuthorizationPolicyFields(rawDesired); err != nil {
 		return nil, err
 	}
 

@@ -106,6 +106,29 @@ func (r *Backup) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Backup) ID() (string, error) {
+	if err := extractBackupFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":               dcl.ValueOrEmptyString(nr.Name),
+		"description":        dcl.ValueOrEmptyString(nr.Description),
+		"state":              dcl.ValueOrEmptyString(nr.State),
+		"createTime":         dcl.ValueOrEmptyString(nr.CreateTime),
+		"labels":             dcl.ValueOrEmptyString(nr.Labels),
+		"capacityGb":         dcl.ValueOrEmptyString(nr.CapacityGb),
+		"storageBytes":       dcl.ValueOrEmptyString(nr.StorageBytes),
+		"sourceInstance":     dcl.ValueOrEmptyString(nr.SourceInstance),
+		"sourceFileShare":    dcl.ValueOrEmptyString(nr.SourceFileShare),
+		"sourceInstanceTier": dcl.ValueOrEmptyString(nr.SourceInstanceTier),
+		"downloadBytes":      dcl.ValueOrEmptyString(nr.DownloadBytes),
+		"project":            dcl.ValueOrEmptyString(nr.Project),
+		"location":           dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/backups/{{name}}", params), nil
+}
+
 const BackupMaxPage = -1
 
 type BackupList struct {
@@ -264,6 +287,10 @@ func applyBackupHelper(c *Client, ctx context.Context, rawDesired *Backup, opts 
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractBackupFields(rawDesired); err != nil {
 		return nil, err
 	}
 

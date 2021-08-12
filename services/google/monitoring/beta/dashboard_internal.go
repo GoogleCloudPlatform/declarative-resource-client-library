@@ -14319,3 +14319,7 @@ func convertOpNameToDashboardApiOperation(opName string, fieldDiffs []*dcl.Field
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractDashboardFields(r *Dashboard) error {
+	return nil
+}

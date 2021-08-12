@@ -3378,6 +3378,24 @@ func (r *Dashboard) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Dashboard) ID() (string, error) {
+	if err := extractDashboardFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":         dcl.ValueOrEmptyString(nr.Name),
+		"displayName":  dcl.ValueOrEmptyString(nr.DisplayName),
+		"gridLayout":   dcl.ValueOrEmptyString(nr.GridLayout),
+		"mosaicLayout": dcl.ValueOrEmptyString(nr.MosaicLayout),
+		"rowLayout":    dcl.ValueOrEmptyString(nr.RowLayout),
+		"columnLayout": dcl.ValueOrEmptyString(nr.ColumnLayout),
+		"project":      dcl.ValueOrEmptyString(nr.Project),
+		"etag":         dcl.ValueOrEmptyString(nr.Etag),
+	}
+	return dcl.Nprintf("projects/{{project}}/dashboards/{{name}}", params), nil
+}
+
 const DashboardMaxPage = -1
 
 type DashboardList struct {
@@ -3533,6 +3551,10 @@ func applyDashboardHelper(c *Client, ctx context.Context, rawDesired *Dashboard,
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractDashboardFields(rawDesired); err != nil {
 		return nil, err
 	}
 

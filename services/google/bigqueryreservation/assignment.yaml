@@ -68,7 +68,7 @@ components:
   schemas:
     Assignment:
       title: Assignment
-      x-dcl-id: assignees/{{assignee}}/job_types/{{job_type}}
+      x-dcl-id: projects/{{project}}/locations/{{location}}/reservations/{{reservation}}/assignments/{{name}}
       x-dcl-parent-container: project
       type: object
       required:

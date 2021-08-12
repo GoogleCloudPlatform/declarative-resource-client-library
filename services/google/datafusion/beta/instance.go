@@ -221,6 +221,41 @@ func (r *Instance) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Instance) ID() (string, error) {
+	if err := extractInstanceFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":                        dcl.ValueOrEmptyString(nr.Name),
+		"description":                 dcl.ValueOrEmptyString(nr.Description),
+		"type":                        dcl.ValueOrEmptyString(nr.Type),
+		"enableStackdriverLogging":    dcl.ValueOrEmptyString(nr.EnableStackdriverLogging),
+		"enableStackdriverMonitoring": dcl.ValueOrEmptyString(nr.EnableStackdriverMonitoring),
+		"privateInstance":             dcl.ValueOrEmptyString(nr.PrivateInstance),
+		"networkConfig":               dcl.ValueOrEmptyString(nr.NetworkConfig),
+		"labels":                      dcl.ValueOrEmptyString(nr.Labels),
+		"options":                     dcl.ValueOrEmptyString(nr.Options),
+		"createTime":                  dcl.ValueOrEmptyString(nr.CreateTime),
+		"updateTime":                  dcl.ValueOrEmptyString(nr.UpdateTime),
+		"state":                       dcl.ValueOrEmptyString(nr.State),
+		"stateMessage":                dcl.ValueOrEmptyString(nr.StateMessage),
+		"serviceEndpoint":             dcl.ValueOrEmptyString(nr.ServiceEndpoint),
+		"zone":                        dcl.ValueOrEmptyString(nr.Zone),
+		"version":                     dcl.ValueOrEmptyString(nr.Version),
+		"displayName":                 dcl.ValueOrEmptyString(nr.DisplayName),
+		"availableVersion":            dcl.ValueOrEmptyString(nr.AvailableVersion),
+		"apiEndpoint":                 dcl.ValueOrEmptyString(nr.ApiEndpoint),
+		"gcsBucket":                   dcl.ValueOrEmptyString(nr.GcsBucket),
+		"p4ServiceAccount":            dcl.ValueOrEmptyString(nr.P4ServiceAccount),
+		"tenantProjectId":             dcl.ValueOrEmptyString(nr.TenantProjectId),
+		"dataprocServiceAccount":      dcl.ValueOrEmptyString(nr.DataprocServiceAccount),
+		"project":                     dcl.ValueOrEmptyString(nr.Project),
+		"location":                    dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/instances/{{name}}", params), nil
+}
+
 const InstanceMaxPage = -1
 
 type InstanceList struct {
@@ -379,6 +414,10 @@ func applyInstanceHelper(c *Client, ctx context.Context, rawDesired *Instance, o
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractInstanceFields(rawDesired); err != nil {
 		return nil, err
 	}
 

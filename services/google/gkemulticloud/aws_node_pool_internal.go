@@ -2643,3 +2643,7 @@ func convertOpNameToAwsNodePoolApiOperation(opName string, fieldDiffs []*dcl.Fie
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractAwsNodePoolFields(r *AwsNodePool) error {
+	return nil
+}

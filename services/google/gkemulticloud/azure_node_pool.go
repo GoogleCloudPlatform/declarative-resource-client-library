@@ -327,6 +327,33 @@ func (r *AzureNodePool) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *AzureNodePool) ID() (string, error) {
+	if err := extractAzureNodePoolFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":                  dcl.ValueOrEmptyString(nr.Name),
+		"version":               dcl.ValueOrEmptyString(nr.Version),
+		"config":                dcl.ValueOrEmptyString(nr.Config),
+		"subnetId":              dcl.ValueOrEmptyString(nr.SubnetId),
+		"autoscaling":           dcl.ValueOrEmptyString(nr.Autoscaling),
+		"state":                 dcl.ValueOrEmptyString(nr.State),
+		"uid":                   dcl.ValueOrEmptyString(nr.Uid),
+		"reconciling":           dcl.ValueOrEmptyString(nr.Reconciling),
+		"createTime":            dcl.ValueOrEmptyString(nr.CreateTime),
+		"updateTime":            dcl.ValueOrEmptyString(nr.UpdateTime),
+		"etag":                  dcl.ValueOrEmptyString(nr.Etag),
+		"annotations":           dcl.ValueOrEmptyString(nr.Annotations),
+		"maxPodsConstraint":     dcl.ValueOrEmptyString(nr.MaxPodsConstraint),
+		"azureAvailabilityZone": dcl.ValueOrEmptyString(nr.AzureAvailabilityZone),
+		"project":               dcl.ValueOrEmptyString(nr.Project),
+		"location":              dcl.ValueOrEmptyString(nr.Location),
+		"azureCluster":          dcl.ValueOrEmptyString(nr.AzureCluster),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/azureClusters/{{azure_cluster}}/azureNodePools/{{name}}", params), nil
+}
+
 const AzureNodePoolMaxPage = -1
 
 type AzureNodePoolList struct {
@@ -488,6 +515,10 @@ func applyAzureNodePoolHelper(c *Client, ctx context.Context, rawDesired *AzureN
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractAzureNodePoolFields(rawDesired); err != nil {
 		return nil, err
 	}
 

@@ -47,6 +47,24 @@ func (r *AzureClient) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *AzureClient) ID() (string, error) {
+	if err := extractAzureClientFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":          dcl.ValueOrEmptyString(nr.Name),
+		"tenantId":      dcl.ValueOrEmptyString(nr.TenantId),
+		"applicationId": dcl.ValueOrEmptyString(nr.ApplicationId),
+		"certificate":   dcl.ValueOrEmptyString(nr.Certificate),
+		"uid":           dcl.ValueOrEmptyString(nr.Uid),
+		"createTime":    dcl.ValueOrEmptyString(nr.CreateTime),
+		"project":       dcl.ValueOrEmptyString(nr.Project),
+		"location":      dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/azureClients/{{name}}", params), nil
+}
+
 const AzureClientMaxPage = -1
 
 type AzureClientList struct {
@@ -205,6 +223,10 @@ func applyAzureClientHelper(c *Client, ctx context.Context, rawDesired *AzureCli
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractAzureClientFields(rawDesired); err != nil {
 		return nil, err
 	}
 

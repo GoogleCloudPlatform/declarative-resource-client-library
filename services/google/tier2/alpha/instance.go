@@ -18880,6 +18880,65 @@ func (r *Instance) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Instance) ID() (string, error) {
+	if err := extractInstanceFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":                                 dcl.ValueOrEmptyString(nr.Name),
+		"displayName":                          dcl.ValueOrEmptyString(nr.DisplayName),
+		"labels":                               dcl.ValueOrEmptyString(nr.Labels),
+		"zone":                                 dcl.ValueOrEmptyString(nr.Zone),
+		"alternativeZone":                      dcl.ValueOrEmptyString(nr.AlternativeZone),
+		"sku":                                  dcl.ValueOrEmptyString(nr.Sku),
+		"authorizedNetworkId":                  dcl.ValueOrEmptyString(nr.AuthorizedNetworkId),
+		"reservedIPRange":                      dcl.ValueOrEmptyString(nr.ReservedIPRange),
+		"host":                                 dcl.ValueOrEmptyString(nr.Host),
+		"port":                                 dcl.ValueOrEmptyString(nr.Port),
+		"currentZone":                          dcl.ValueOrEmptyString(nr.CurrentZone),
+		"createTime":                           dcl.ValueOrEmptyString(nr.CreateTime),
+		"state":                                dcl.ValueOrEmptyString(nr.State),
+		"statusMessage":                        dcl.ValueOrEmptyString(nr.StatusMessage),
+		"updateTime":                           dcl.ValueOrEmptyString(nr.UpdateTime),
+		"mutateUserId":                         dcl.ValueOrEmptyString(nr.MutateUserId),
+		"readUserId":                           dcl.ValueOrEmptyString(nr.ReadUserId),
+		"references":                           dcl.ValueOrEmptyString(nr.References),
+		"preprocessCreateRecipe":               dcl.ValueOrEmptyString(nr.PreprocessCreateRecipe),
+		"createRecipe":                         dcl.ValueOrEmptyString(nr.CreateRecipe),
+		"deleteRecipe":                         dcl.ValueOrEmptyString(nr.DeleteRecipe),
+		"updateRecipe":                         dcl.ValueOrEmptyString(nr.UpdateRecipe),
+		"preprocessResetRecipe":                dcl.ValueOrEmptyString(nr.PreprocessResetRecipe),
+		"resetRecipe":                          dcl.ValueOrEmptyString(nr.ResetRecipe),
+		"preprocessRepairRecipe":               dcl.ValueOrEmptyString(nr.PreprocessRepairRecipe),
+		"repairRecipe":                         dcl.ValueOrEmptyString(nr.RepairRecipe),
+		"preprocessDeleteRecipe":               dcl.ValueOrEmptyString(nr.PreprocessDeleteRecipe),
+		"preprocessUpdateRecipe":               dcl.ValueOrEmptyString(nr.PreprocessUpdateRecipe),
+		"preprocessFreezeRecipe":               dcl.ValueOrEmptyString(nr.PreprocessFreezeRecipe),
+		"freezeRecipe":                         dcl.ValueOrEmptyString(nr.FreezeRecipe),
+		"preprocessUnfreezeRecipe":             dcl.ValueOrEmptyString(nr.PreprocessUnfreezeRecipe),
+		"unfreezeRecipe":                       dcl.ValueOrEmptyString(nr.UnfreezeRecipe),
+		"preprocessReportInstanceHealthRecipe": dcl.ValueOrEmptyString(nr.PreprocessReportInstanceHealthRecipe),
+		"reportInstanceHealthRecipe":           dcl.ValueOrEmptyString(nr.ReportInstanceHealthRecipe),
+		"preprocessGetRecipe":                  dcl.ValueOrEmptyString(nr.PreprocessGetRecipe),
+		"notifyKeyAvailableRecipe":             dcl.ValueOrEmptyString(nr.NotifyKeyAvailableRecipe),
+		"notifyKeyUnavailableRecipe":           dcl.ValueOrEmptyString(nr.NotifyKeyUnavailableRecipe),
+		"readonlyRecipe":                       dcl.ValueOrEmptyString(nr.ReadonlyRecipe),
+		"reconcileRecipe":                      dcl.ValueOrEmptyString(nr.ReconcileRecipe),
+		"preprocessPassthroughRecipe":          dcl.ValueOrEmptyString(nr.PreprocessPassthroughRecipe),
+		"preprocessReconcileRecipe":            dcl.ValueOrEmptyString(nr.PreprocessReconcileRecipe),
+		"enableCallHistory":                    dcl.ValueOrEmptyString(nr.EnableCallHistory),
+		"history":                              dcl.ValueOrEmptyString(nr.History),
+		"publicResourceViewOverride":           dcl.ValueOrEmptyString(nr.PublicResourceViewOverride),
+		"extraInfo":                            dcl.ValueOrEmptyString(nr.ExtraInfo),
+		"uid":                                  dcl.ValueOrEmptyString(nr.Uid),
+		"etag":                                 dcl.ValueOrEmptyString(nr.Etag),
+		"project":                              dcl.ValueOrEmptyString(nr.Project),
+		"location":                             dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/instances/{{name}}", params), nil
+}
+
 const InstanceMaxPage = -1
 
 type InstanceList struct {
@@ -19038,6 +19097,10 @@ func applyInstanceHelper(c *Client, ctx context.Context, rawDesired *Instance, o
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractInstanceFields(rawDesired); err != nil {
 		return nil, err
 	}
 

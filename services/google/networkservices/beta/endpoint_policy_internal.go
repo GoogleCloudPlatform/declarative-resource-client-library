@@ -1972,3 +1972,7 @@ func convertOpNameToEndpointPolicyApiOperation(opName string, fieldDiffs []*dcl.
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractEndpointPolicyFields(r *EndpointPolicy) error {
+	return nil
+}

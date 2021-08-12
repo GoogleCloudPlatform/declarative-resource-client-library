@@ -779,3 +779,7 @@ func convertOpNameToFolderApiOperation(opName string, fieldDiffs []*dcl.FieldDif
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractFolderFields(r *Folder) error {
+	return nil
+}

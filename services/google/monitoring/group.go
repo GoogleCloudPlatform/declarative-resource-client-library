@@ -45,6 +45,22 @@ func (r *Group) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Group) ID() (string, error) {
+	if err := extractGroupFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"displayName": dcl.ValueOrEmptyString(nr.DisplayName),
+		"filter":      dcl.ValueOrEmptyString(nr.Filter),
+		"isCluster":   dcl.ValueOrEmptyString(nr.IsCluster),
+		"name":        dcl.ValueOrEmptyString(nr.Name),
+		"parentName":  dcl.ValueOrEmptyString(nr.ParentName),
+		"project":     dcl.ValueOrEmptyString(nr.Project),
+	}
+	return dcl.Nprintf("projects/{{project}}/groups/{{name}}", params), nil
+}
+
 const GroupMaxPage = -1
 
 type GroupList struct {
@@ -200,6 +216,10 @@ func applyGroupHelper(c *Client, ctx context.Context, rawDesired *Group, opts ..
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractGroupFields(rawDesired); err != nil {
 		return nil, err
 	}
 

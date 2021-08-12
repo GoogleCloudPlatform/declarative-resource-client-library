@@ -92,6 +92,21 @@ func (r *Topic) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Topic) ID() (string, error) {
+	if err := extractTopicFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":                 dcl.ValueOrEmptyString(nr.Name),
+		"kmsKeyName":           dcl.ValueOrEmptyString(nr.KmsKeyName),
+		"labels":               dcl.ValueOrEmptyString(nr.Labels),
+		"messageStoragePolicy": dcl.ValueOrEmptyString(nr.MessageStoragePolicy),
+		"project":              dcl.ValueOrEmptyString(nr.Project),
+	}
+	return dcl.Nprintf("projects/{{project}}/topics/{{name}}", params), nil
+}
+
 const TopicMaxPage = -1
 
 type TopicList struct {
@@ -247,6 +262,10 @@ func applyTopicHelper(c *Client, ctx context.Context, rawDesired *Topic, opts ..
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractTopicFields(rawDesired); err != nil {
 		return nil, err
 	}
 

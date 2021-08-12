@@ -2143,3 +2143,7 @@ func convertOpNameToTriggerApiOperation(opName string, fieldDiffs []*dcl.FieldDi
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractTriggerFields(r *Trigger) error {
+	return nil
+}

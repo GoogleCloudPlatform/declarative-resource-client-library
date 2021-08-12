@@ -537,6 +537,35 @@ func (r *AzureCluster) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *AzureCluster) ID() (string, error) {
+	if err := extractAzureClusterFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":                   dcl.ValueOrEmptyString(nr.Name),
+		"description":            dcl.ValueOrEmptyString(nr.Description),
+		"azureRegion":            dcl.ValueOrEmptyString(nr.AzureRegion),
+		"resourceGroupId":        dcl.ValueOrEmptyString(nr.ResourceGroupId),
+		"azureClient":            dcl.ValueOrEmptyString(nr.AzureClient),
+		"networking":             dcl.ValueOrEmptyString(nr.Networking),
+		"controlPlane":           dcl.ValueOrEmptyString(nr.ControlPlane),
+		"authorization":          dcl.ValueOrEmptyString(nr.Authorization),
+		"state":                  dcl.ValueOrEmptyString(nr.State),
+		"endpoint":               dcl.ValueOrEmptyString(nr.Endpoint),
+		"uid":                    dcl.ValueOrEmptyString(nr.Uid),
+		"reconciling":            dcl.ValueOrEmptyString(nr.Reconciling),
+		"createTime":             dcl.ValueOrEmptyString(nr.CreateTime),
+		"updateTime":             dcl.ValueOrEmptyString(nr.UpdateTime),
+		"etag":                   dcl.ValueOrEmptyString(nr.Etag),
+		"annotations":            dcl.ValueOrEmptyString(nr.Annotations),
+		"workloadIdentityConfig": dcl.ValueOrEmptyString(nr.WorkloadIdentityConfig),
+		"project":                dcl.ValueOrEmptyString(nr.Project),
+		"location":               dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/azureClusters/{{name}}", params), nil
+}
+
 const AzureClusterMaxPage = -1
 
 type AzureClusterList struct {
@@ -695,6 +724,10 @@ func applyAzureClusterHelper(c *Client, ctx context.Context, rawDesired *AzureCl
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractAzureClusterFields(rawDesired); err != nil {
 		return nil, err
 	}
 

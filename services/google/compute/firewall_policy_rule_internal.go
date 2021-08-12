@@ -1320,3 +1320,7 @@ func convertOpNameToFirewallPolicyRuleApiOperation(opName string, fieldDiffs []*
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractFirewallPolicyRuleFields(r *FirewallPolicyRule) error {
+	return nil
+}

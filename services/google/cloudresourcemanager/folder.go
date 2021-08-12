@@ -75,6 +75,24 @@ func (r *Folder) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Folder) ID() (string, error) {
+	if err := extractFolderFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":        dcl.ValueOrEmptyString(nr.Name),
+		"parent":      dcl.ValueOrEmptyString(nr.Parent),
+		"displayName": dcl.ValueOrEmptyString(nr.DisplayName),
+		"state":       dcl.ValueOrEmptyString(nr.State),
+		"createTime":  dcl.ValueOrEmptyString(nr.CreateTime),
+		"updateTime":  dcl.ValueOrEmptyString(nr.UpdateTime),
+		"deleteTime":  dcl.ValueOrEmptyString(nr.DeleteTime),
+		"etag":        dcl.ValueOrEmptyString(nr.Etag),
+	}
+	return dcl.Nprintf("folders/{{name}}", params), nil
+}
+
 const FolderMaxPage = -1
 
 type FolderList struct {
@@ -229,6 +247,10 @@ func applyFolderHelper(c *Client, ctx context.Context, rawDesired *Folder, opts 
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractFolderFields(rawDesired); err != nil {
 		return nil, err
 	}
 

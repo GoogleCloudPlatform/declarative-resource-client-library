@@ -9584,3 +9584,7 @@ func convertOpNameToOSPolicyAssignmentApiOperation(opName string, fieldDiffs []*
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractOSPolicyAssignmentFields(r *OSPolicyAssignment) error {
+	return nil
+}

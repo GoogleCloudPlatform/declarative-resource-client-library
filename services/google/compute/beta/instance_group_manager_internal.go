@@ -5583,3 +5583,7 @@ func convertOpNameToInstanceGroupManagerApiOperation(opName string, fieldDiffs [
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractInstanceGroupManagerFields(r *InstanceGroupManager) error {
+	return nil
+}

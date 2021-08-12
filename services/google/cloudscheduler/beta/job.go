@@ -621,6 +621,32 @@ func (r *Job) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Job) ID() (string, error) {
+	if err := extractJobFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":                dcl.ValueOrEmptyString(nr.Name),
+		"description":         dcl.ValueOrEmptyString(nr.Description),
+		"pubsubTarget":        dcl.ValueOrEmptyString(nr.PubsubTarget),
+		"appEngineHttpTarget": dcl.ValueOrEmptyString(nr.AppEngineHttpTarget),
+		"httpTarget":          dcl.ValueOrEmptyString(nr.HttpTarget),
+		"schedule":            dcl.ValueOrEmptyString(nr.Schedule),
+		"timeZone":            dcl.ValueOrEmptyString(nr.TimeZone),
+		"userUpdateTime":      dcl.ValueOrEmptyString(nr.UserUpdateTime),
+		"state":               dcl.ValueOrEmptyString(nr.State),
+		"status":              dcl.ValueOrEmptyString(nr.Status),
+		"scheduleTime":        dcl.ValueOrEmptyString(nr.ScheduleTime),
+		"lastAttemptTime":     dcl.ValueOrEmptyString(nr.LastAttemptTime),
+		"retryConfig":         dcl.ValueOrEmptyString(nr.RetryConfig),
+		"attemptDeadline":     dcl.ValueOrEmptyString(nr.AttemptDeadline),
+		"project":             dcl.ValueOrEmptyString(nr.Project),
+		"location":            dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/jobs/{{name}}", params), nil
+}
+
 const JobMaxPage = -1
 
 type JobList struct {
@@ -779,6 +805,10 @@ func applyJobHelper(c *Client, ctx context.Context, rawDesired *Job, opts ...dcl
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractJobFields(rawDesired); err != nil {
 		return nil, err
 	}
 

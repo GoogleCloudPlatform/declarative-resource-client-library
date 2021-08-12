@@ -130,6 +130,29 @@ func (r *Role) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Role) ID() (string, error) {
+	if err := extractRoleFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":                dcl.ValueOrEmptyString(nr.Name),
+		"title":               dcl.ValueOrEmptyString(nr.Title),
+		"description":         dcl.ValueOrEmptyString(nr.Description),
+		"localizedValues":     dcl.ValueOrEmptyString(nr.LocalizedValues),
+		"lifecyclePhase":      dcl.ValueOrEmptyString(nr.LifecyclePhase),
+		"groupName":           dcl.ValueOrEmptyString(nr.GroupName),
+		"groupTitle":          dcl.ValueOrEmptyString(nr.GroupTitle),
+		"includedPermissions": dcl.ValueOrEmptyString(nr.IncludedPermissions),
+		"stage":               dcl.ValueOrEmptyString(nr.Stage),
+		"etag":                dcl.ValueOrEmptyString(nr.Etag),
+		"deleted":             dcl.ValueOrEmptyString(nr.Deleted),
+		"includedRoles":       dcl.ValueOrEmptyString(nr.IncludedRoles),
+		"parent":              dcl.ValueOrEmptyString(nr.Parent),
+	}
+	return dcl.Nprintf("{{parent}}/roles/{{name}}", params), nil
+}
+
 const RoleMaxPage = -1
 
 type RoleList struct {
@@ -285,6 +308,10 @@ func applyRoleHelper(c *Client, ctx context.Context, rawDesired *Role, opts ...d
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractRoleFields(rawDesired); err != nil {
 		return nil, err
 	}
 

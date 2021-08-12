@@ -3566,3 +3566,7 @@ func convertOpNameToJobApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, 
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractJobFields(r *Job) error {
+	return nil
+}

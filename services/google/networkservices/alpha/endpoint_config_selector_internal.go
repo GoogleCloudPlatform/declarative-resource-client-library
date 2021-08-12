@@ -2226,3 +2226,7 @@ func convertOpNameToEndpointConfigSelectorApiOperation(opName string, fieldDiffs
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractEndpointConfigSelectorFields(r *EndpointConfigSelector) error {
+	return nil
+}

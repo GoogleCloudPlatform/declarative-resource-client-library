@@ -2176,3 +2176,7 @@ func convertOpNameToAzureNodePoolApiOperation(opName string, fieldDiffs []*dcl.F
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractAzureNodePoolFields(r *AzureNodePool) error {
+	return nil
+}

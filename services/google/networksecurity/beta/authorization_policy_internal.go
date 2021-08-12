@@ -1902,3 +1902,7 @@ func convertOpNameToAuthorizationPolicyApiOperation(opName string, fieldDiffs []
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractAuthorizationPolicyFields(r *AuthorizationPolicy) error {
+	return nil
+}

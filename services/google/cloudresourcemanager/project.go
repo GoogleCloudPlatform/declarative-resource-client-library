@@ -124,6 +124,22 @@ func (r *Project) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Project) ID() (string, error) {
+	if err := extractProjectFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"labels":         dcl.ValueOrEmptyString(nr.Labels),
+		"lifecycleState": dcl.ValueOrEmptyString(nr.LifecycleState),
+		"displayName":    dcl.ValueOrEmptyString(nr.DisplayName),
+		"parent":         dcl.ValueOrEmptyString(nr.Parent),
+		"name":           dcl.ValueOrEmptyString(nr.Name),
+		"projectNumber":  dcl.ValueOrEmptyString(nr.ProjectNumber),
+	}
+	return dcl.Nprintf("v1/projects/{{name}}", params), nil
+}
+
 const ProjectMaxPage = -1
 
 type ProjectList struct {
@@ -275,6 +291,10 @@ func applyProjectHelper(c *Client, ctx context.Context, rawDesired *Project, opt
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractProjectFields(rawDesired); err != nil {
 		return nil, err
 	}
 

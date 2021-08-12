@@ -153,6 +153,25 @@ func (r *Tenant) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Tenant) ID() (string, error) {
+	if err := extractTenantFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":                  dcl.ValueOrEmptyString(nr.Name),
+		"displayName":           dcl.ValueOrEmptyString(nr.DisplayName),
+		"allowPasswordSignup":   dcl.ValueOrEmptyString(nr.AllowPasswordSignup),
+		"enableEmailLinkSignin": dcl.ValueOrEmptyString(nr.EnableEmailLinkSignin),
+		"disableAuth":           dcl.ValueOrEmptyString(nr.DisableAuth),
+		"enableAnonymousUser":   dcl.ValueOrEmptyString(nr.EnableAnonymousUser),
+		"mfaConfig":             dcl.ValueOrEmptyString(nr.MfaConfig),
+		"testPhoneNumbers":      dcl.ValueOrEmptyString(nr.TestPhoneNumbers),
+		"project":               dcl.ValueOrEmptyString(nr.Project),
+	}
+	return dcl.Nprintf("projects/{{project}}/tenants/{{name}}", params), nil
+}
+
 const TenantMaxPage = -1
 
 type TenantList struct {
@@ -308,6 +327,10 @@ func applyTenantHelper(c *Client, ctx context.Context, rawDesired *Tenant, opts 
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractTenantFields(rawDesired); err != nil {
 		return nil, err
 	}
 

@@ -232,6 +232,27 @@ func (r *Policy) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Policy) ID() (string, error) {
+	if err := extractPolicyFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"admissionWhitelistPatterns":             dcl.ValueOrEmptyString(nr.AdmissionWhitelistPatterns),
+		"clusterAdmissionRules":                  dcl.ValueOrEmptyString(nr.ClusterAdmissionRules),
+		"kubernetesNamespaceAdmissionRules":      dcl.ValueOrEmptyString(nr.KubernetesNamespaceAdmissionRules),
+		"kubernetesServiceAccountAdmissionRules": dcl.ValueOrEmptyString(nr.KubernetesServiceAccountAdmissionRules),
+		"istioServiceIdentityAdmissionRules":     dcl.ValueOrEmptyString(nr.IstioServiceIdentityAdmissionRules),
+		"defaultAdmissionRule":                   dcl.ValueOrEmptyString(nr.DefaultAdmissionRule),
+		"description":                            dcl.ValueOrEmptyString(nr.Description),
+		"globalPolicyEvaluationMode":             dcl.ValueOrEmptyString(nr.GlobalPolicyEvaluationMode),
+		"selfLink":                               dcl.ValueOrEmptyString(nr.SelfLink),
+		"project":                                dcl.ValueOrEmptyString(nr.Project),
+		"updateTime":                             dcl.ValueOrEmptyString(nr.UpdateTime),
+	}
+	return dcl.Nprintf("projects/{{project}}/policy", params), nil
+}
+
 const PolicyMaxPage = -1
 
 type PolicyList struct {
@@ -300,6 +321,10 @@ func applyPolicyHelper(c *Client, ctx context.Context, rawDesired *Policy, opts 
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractPolicyFields(rawDesired); err != nil {
 		return nil, err
 	}
 

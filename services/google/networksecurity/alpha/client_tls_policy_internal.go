@@ -2628,3 +2628,7 @@ func convertOpNameToClientTlsPolicyApiOperation(opName string, fieldDiffs []*dcl
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractClientTlsPolicyFields(r *ClientTlsPolicy) error {
+	return nil
+}

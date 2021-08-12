@@ -1053,3 +1053,7 @@ func convertOpNameToOAuthIdpConfigApiOperation(opName string, fieldDiffs []*dcl.
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractOAuthIdpConfigFields(r *OAuthIdpConfig) error {
+	return nil
+}

@@ -1521,3 +1521,7 @@ func convertOpNameToAttestorApiOperation(opName string, fieldDiffs []*dcl.FieldD
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractAttestorFields(r *Attestor) error {
+	return nil
+}

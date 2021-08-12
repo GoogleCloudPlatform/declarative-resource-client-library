@@ -345,6 +345,30 @@ func (r *EndpointConfigSelector) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *EndpointConfigSelector) ID() (string, error) {
+	if err := extractEndpointConfigSelectorFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":                dcl.ValueOrEmptyString(nr.Name),
+		"createTime":          dcl.ValueOrEmptyString(nr.CreateTime),
+		"updateTime":          dcl.ValueOrEmptyString(nr.UpdateTime),
+		"labels":              dcl.ValueOrEmptyString(nr.Labels),
+		"type":                dcl.ValueOrEmptyString(nr.Type),
+		"authorizationPolicy": dcl.ValueOrEmptyString(nr.AuthorizationPolicy),
+		"httpFilters":         dcl.ValueOrEmptyString(nr.HttpFilters),
+		"endpointMatcher":     dcl.ValueOrEmptyString(nr.EndpointMatcher),
+		"trafficPortSelector": dcl.ValueOrEmptyString(nr.TrafficPortSelector),
+		"description":         dcl.ValueOrEmptyString(nr.Description),
+		"serverTlsPolicy":     dcl.ValueOrEmptyString(nr.ServerTlsPolicy),
+		"clientTlsPolicy":     dcl.ValueOrEmptyString(nr.ClientTlsPolicy),
+		"project":             dcl.ValueOrEmptyString(nr.Project),
+		"location":            dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/endpointConfigSelectors/{{name}}", params), nil
+}
+
 const EndpointConfigSelectorMaxPage = -1
 
 type EndpointConfigSelectorList struct {
@@ -503,6 +527,10 @@ func applyEndpointConfigSelectorHelper(c *Client, ctx context.Context, rawDesire
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractEndpointConfigSelectorFields(rawDesired); err != nil {
 		return nil, err
 	}
 

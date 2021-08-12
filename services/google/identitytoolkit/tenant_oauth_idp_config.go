@@ -102,6 +102,25 @@ func (r *TenantOAuthIdpConfig) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *TenantOAuthIdpConfig) ID() (string, error) {
+	if err := extractTenantOAuthIdpConfigFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":         dcl.ValueOrEmptyString(nr.Name),
+		"clientId":     dcl.ValueOrEmptyString(nr.ClientId),
+		"issuer":       dcl.ValueOrEmptyString(nr.Issuer),
+		"displayName":  dcl.ValueOrEmptyString(nr.DisplayName),
+		"enabled":      dcl.ValueOrEmptyString(nr.Enabled),
+		"clientSecret": dcl.ValueOrEmptyString(nr.ClientSecret),
+		"responseType": dcl.ValueOrEmptyString(nr.ResponseType),
+		"project":      dcl.ValueOrEmptyString(nr.Project),
+		"tenant":       dcl.ValueOrEmptyString(nr.Tenant),
+	}
+	return dcl.Nprintf("projects/{{project}}/tenants/{{tenant}}/oauthIdpConfigs/{{name}}", params), nil
+}
+
 const TenantOAuthIdpConfigMaxPage = -1
 
 type TenantOAuthIdpConfigList struct {
@@ -260,6 +279,10 @@ func applyTenantOAuthIdpConfigHelper(c *Client, ctx context.Context, rawDesired 
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractTenantOAuthIdpConfigFields(rawDesired); err != nil {
 		return nil, err
 	}
 

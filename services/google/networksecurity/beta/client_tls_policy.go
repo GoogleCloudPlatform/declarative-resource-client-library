@@ -334,6 +334,26 @@ func (r *ClientTlsPolicy) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *ClientTlsPolicy) ID() (string, error) {
+	if err := extractClientTlsPolicyFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":               dcl.ValueOrEmptyString(nr.Name),
+		"description":        dcl.ValueOrEmptyString(nr.Description),
+		"createTime":         dcl.ValueOrEmptyString(nr.CreateTime),
+		"updateTime":         dcl.ValueOrEmptyString(nr.UpdateTime),
+		"labels":             dcl.ValueOrEmptyString(nr.Labels),
+		"sni":                dcl.ValueOrEmptyString(nr.Sni),
+		"clientCertificate":  dcl.ValueOrEmptyString(nr.ClientCertificate),
+		"serverValidationCa": dcl.ValueOrEmptyString(nr.ServerValidationCa),
+		"project":            dcl.ValueOrEmptyString(nr.Project),
+		"location":           dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/clientTlsPolicies/{{name}}", params), nil
+}
+
 const ClientTlsPolicyMaxPage = -1
 
 type ClientTlsPolicyList struct {
@@ -492,6 +512,10 @@ func applyClientTlsPolicyHelper(c *Client, ctx context.Context, rawDesired *Clie
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractClientTlsPolicyFields(rawDesired); err != nil {
 		return nil, err
 	}
 

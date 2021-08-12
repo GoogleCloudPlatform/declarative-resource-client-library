@@ -1766,3 +1766,7 @@ func convertOpNameToInstanceApiOperation(opName string, fieldDiffs []*dcl.FieldD
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractInstanceFields(r *Instance) error {
+	return nil
+}

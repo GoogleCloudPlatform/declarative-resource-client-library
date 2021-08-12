@@ -941,3 +941,7 @@ func convertOpNameToTopicApiOperation(opName string, fieldDiffs []*dcl.FieldDiff
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractTopicFields(r *Topic) error {
+	return nil
+}

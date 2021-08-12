@@ -1808,6 +1808,26 @@ func (r *GuestPolicy) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *GuestPolicy) ID() (string, error) {
+	if err := extractGuestPolicyFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":                dcl.ValueOrEmptyString(nr.Name),
+		"description":         dcl.ValueOrEmptyString(nr.Description),
+		"createTime":          dcl.ValueOrEmptyString(nr.CreateTime),
+		"updateTime":          dcl.ValueOrEmptyString(nr.UpdateTime),
+		"assignment":          dcl.ValueOrEmptyString(nr.Assignment),
+		"packages":            dcl.ValueOrEmptyString(nr.Packages),
+		"packageRepositories": dcl.ValueOrEmptyString(nr.PackageRepositories),
+		"recipes":             dcl.ValueOrEmptyString(nr.Recipes),
+		"etag":                dcl.ValueOrEmptyString(nr.Etag),
+		"project":             dcl.ValueOrEmptyString(nr.Project),
+	}
+	return dcl.Nprintf("projects/{{project}}/guestPolicies/{{name}}", params), nil
+}
+
 const GuestPolicyMaxPage = -1
 
 type GuestPolicyList struct {
@@ -1963,6 +1983,10 @@ func applyGuestPolicyHelper(c *Client, ctx context.Context, rawDesired *GuestPol
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractGuestPolicyFields(rawDesired); err != nil {
 		return nil, err
 	}
 

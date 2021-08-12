@@ -775,3 +775,17 @@ func convertOpNameToAssignmentApiOperation(opName string, fieldDiffs []*dcl.Fiel
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractAssignmentFields(r *Assignment) error {
+	vProject, err := dcl.ValueFromRegexOnField("Project", r.Project, r.Reservation, "projects/([a-z0-9A-Z-]*)/locations/.*")
+	if err != nil {
+		return err
+	}
+	r.Project = vProject
+	vLocation, err := dcl.ValueFromRegexOnField("Location", r.Location, r.Reservation, "projects/.*/locations/([a-z0-9A-Z-]*)/reservations/.*")
+	if err != nil {
+		return err
+	}
+	r.Location = vLocation
+	return nil
+}

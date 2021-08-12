@@ -1483,6 +1483,25 @@ func (r *Cluster) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Cluster) ID() (string, error) {
+	if err := extractClusterFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project":       dcl.ValueOrEmptyString(nr.Project),
+		"name":          dcl.ValueOrEmptyString(nr.Name),
+		"config":        dcl.ValueOrEmptyString(nr.Config),
+		"labels":        dcl.ValueOrEmptyString(nr.Labels),
+		"status":        dcl.ValueOrEmptyString(nr.Status),
+		"statusHistory": dcl.ValueOrEmptyString(nr.StatusHistory),
+		"clusterUuid":   dcl.ValueOrEmptyString(nr.ClusterUuid),
+		"metrics":       dcl.ValueOrEmptyString(nr.Metrics),
+		"location":      dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("projects/{{project}}/regions/{{location}}/clusters/{{name}}", params), nil
+}
+
 const ClusterMaxPage = -1
 
 type ClusterList struct {
@@ -1641,6 +1660,10 @@ func applyClusterHelper(c *Client, ctx context.Context, rawDesired *Cluster, opt
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractClusterFields(rawDesired); err != nil {
 		return nil, err
 	}
 

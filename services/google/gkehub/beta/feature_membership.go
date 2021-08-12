@@ -375,6 +375,21 @@ func (r *FeatureMembership) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *FeatureMembership) ID() (string, error) {
+	if err := extractFeatureMembershipFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"membership":       dcl.ValueOrEmptyString(nr.Membership),
+		"feature":          dcl.ValueOrEmptyString(nr.Feature),
+		"location":         dcl.ValueOrEmptyString(nr.Location),
+		"project":          dcl.ValueOrEmptyString(nr.Project),
+		"configmanagement": dcl.ValueOrEmptyString(nr.Configmanagement),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/features/{{feature}}", params), nil
+}
+
 const FeatureMembershipMaxPage = -1
 
 type FeatureMembershipList struct {
@@ -458,6 +473,10 @@ func applyFeatureMembershipHelper(c *Client, ctx context.Context, rawDesired *Fe
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractFeatureMembershipFields(rawDesired); err != nil {
 		return nil, err
 	}
 

@@ -137,6 +137,33 @@ func (r *Route) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Route) ID() (string, error) {
+	if err := extractRouteFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"id":               dcl.ValueOrEmptyString(nr.Id),
+		"name":             dcl.ValueOrEmptyString(nr.Name),
+		"description":      dcl.ValueOrEmptyString(nr.Description),
+		"network":          dcl.ValueOrEmptyString(nr.Network),
+		"tag":              dcl.ValueOrEmptyString(nr.Tag),
+		"destRange":        dcl.ValueOrEmptyString(nr.DestRange),
+		"priority":         dcl.ValueOrEmptyString(nr.Priority),
+		"nextHopInstance":  dcl.ValueOrEmptyString(nr.NextHopInstance),
+		"nextHopIP":        dcl.ValueOrEmptyString(nr.NextHopIP),
+		"nextHopNetwork":   dcl.ValueOrEmptyString(nr.NextHopNetwork),
+		"nextHopGateway":   dcl.ValueOrEmptyString(nr.NextHopGateway),
+		"nextHopPeering":   dcl.ValueOrEmptyString(nr.NextHopPeering),
+		"nextHopIlb":       dcl.ValueOrEmptyString(nr.NextHopIlb),
+		"warning":          dcl.ValueOrEmptyString(nr.Warning),
+		"nextHopVpnTunnel": dcl.ValueOrEmptyString(nr.NextHopVpnTunnel),
+		"selfLink":         dcl.ValueOrEmptyString(nr.SelfLink),
+		"project":          dcl.ValueOrEmptyString(nr.Project),
+	}
+	return dcl.Nprintf("projects/{{project}}/global/routes/{{name}}", params), nil
+}
+
 const RouteMaxPage = -1
 
 type RouteList struct {
@@ -295,6 +322,10 @@ func applyRouteHelper(c *Client, ctx context.Context, rawDesired *Route, opts ..
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractRouteFields(rawDesired); err != nil {
 		return nil, err
 	}
 

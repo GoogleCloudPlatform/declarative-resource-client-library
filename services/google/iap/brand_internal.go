@@ -545,3 +545,7 @@ func convertOpNameToBrandApiOperation(opName string, fieldDiffs []*dcl.FieldDiff
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractBrandFields(r *Brand) error {
+	return nil
+}

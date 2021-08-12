@@ -344,6 +344,26 @@ func (r *Feature) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Feature) ID() (string, error) {
+	if err := extractFeatureFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":          dcl.ValueOrEmptyString(nr.Name),
+		"labels":        dcl.ValueOrEmptyString(nr.Labels),
+		"resourceState": dcl.ValueOrEmptyString(nr.ResourceState),
+		"spec":          dcl.ValueOrEmptyString(nr.Spec),
+		"state":         dcl.ValueOrEmptyString(nr.State),
+		"createTime":    dcl.ValueOrEmptyString(nr.CreateTime),
+		"updateTime":    dcl.ValueOrEmptyString(nr.UpdateTime),
+		"deleteTime":    dcl.ValueOrEmptyString(nr.DeleteTime),
+		"project":       dcl.ValueOrEmptyString(nr.Project),
+		"location":      dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/features/{{name}}", params), nil
+}
+
 const FeatureMaxPage = -1
 
 type FeatureList struct {
@@ -502,6 +522,10 @@ func applyFeatureHelper(c *Client, ctx context.Context, rawDesired *Feature, opt
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractFeatureFields(rawDesired); err != nil {
 		return nil, err
 	}
 

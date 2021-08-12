@@ -356,6 +356,28 @@ func (r *Instance) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Instance) ID() (string, error) {
+	if err := extractInstanceFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":          dcl.ValueOrEmptyString(nr.Name),
+		"description":   dcl.ValueOrEmptyString(nr.Description),
+		"state":         dcl.ValueOrEmptyString(nr.State),
+		"statusMessage": dcl.ValueOrEmptyString(nr.StatusMessage),
+		"createTime":    dcl.ValueOrEmptyString(nr.CreateTime),
+		"tier":          dcl.ValueOrEmptyString(nr.Tier),
+		"labels":        dcl.ValueOrEmptyString(nr.Labels),
+		"fileShares":    dcl.ValueOrEmptyString(nr.FileShares),
+		"networks":      dcl.ValueOrEmptyString(nr.Networks),
+		"etag":          dcl.ValueOrEmptyString(nr.Etag),
+		"project":       dcl.ValueOrEmptyString(nr.Project),
+		"location":      dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/instances/{{name}}", params), nil
+}
+
 const InstanceMaxPage = -1
 
 type InstanceList struct {
@@ -514,6 +536,10 @@ func applyInstanceHelper(c *Client, ctx context.Context, rawDesired *Instance, o
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractInstanceFields(rawDesired); err != nil {
 		return nil, err
 	}
 

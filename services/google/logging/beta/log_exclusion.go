@@ -46,6 +46,23 @@ func (r *LogExclusion) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *LogExclusion) ID() (string, error) {
+	if err := extractLogExclusionFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":        dcl.ValueOrEmptyString(nr.Name),
+		"description": dcl.ValueOrEmptyString(nr.Description),
+		"filter":      dcl.ValueOrEmptyString(nr.Filter),
+		"disabled":    dcl.ValueOrEmptyString(nr.Disabled),
+		"createTime":  dcl.ValueOrEmptyString(nr.CreateTime),
+		"updateTime":  dcl.ValueOrEmptyString(nr.UpdateTime),
+		"parent":      dcl.ValueOrEmptyString(nr.Parent),
+	}
+	return dcl.Nprintf("{{parent}}/exclusions/{{name}}", params), nil
+}
+
 const LogExclusionMaxPage = -1
 
 type LogExclusionList struct {
@@ -201,6 +218,10 @@ func applyLogExclusionHelper(c *Client, ctx context.Context, rawDesired *LogExcl
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractLogExclusionFields(rawDesired); err != nil {
 		return nil, err
 	}
 

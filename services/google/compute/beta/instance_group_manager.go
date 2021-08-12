@@ -1053,6 +1053,41 @@ func (r *InstanceGroupManager) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *InstanceGroupManager) ID() (string, error) {
+	if err := extractInstanceGroupManagerFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"id":                  dcl.ValueOrEmptyString(nr.Id),
+		"creationTimestamp":   dcl.ValueOrEmptyString(nr.CreationTimestamp),
+		"name":                dcl.ValueOrEmptyString(nr.Name),
+		"description":         dcl.ValueOrEmptyString(nr.Description),
+		"zone":                dcl.ValueOrEmptyString(nr.Zone),
+		"region":              dcl.ValueOrEmptyString(nr.Region),
+		"distributionPolicy":  dcl.ValueOrEmptyString(nr.DistributionPolicy),
+		"instanceTemplate":    dcl.ValueOrEmptyString(nr.InstanceTemplate),
+		"versions":            dcl.ValueOrEmptyString(nr.Versions),
+		"instanceGroup":       dcl.ValueOrEmptyString(nr.InstanceGroup),
+		"targetPools":         dcl.ValueOrEmptyString(nr.TargetPools),
+		"baseInstanceName":    dcl.ValueOrEmptyString(nr.BaseInstanceName),
+		"fingerprint":         dcl.ValueOrEmptyString(nr.Fingerprint),
+		"currentActions":      dcl.ValueOrEmptyString(nr.CurrentActions),
+		"status":              dcl.ValueOrEmptyString(nr.Status),
+		"targetSize":          dcl.ValueOrEmptyString(nr.TargetSize),
+		"selfLink":            dcl.ValueOrEmptyString(nr.SelfLink),
+		"autoHealingPolicies": dcl.ValueOrEmptyString(nr.AutoHealingPolicies),
+		"updatePolicy":        dcl.ValueOrEmptyString(nr.UpdatePolicy),
+		"namedPorts":          dcl.ValueOrEmptyString(nr.NamedPorts),
+		"statefulPolicy":      dcl.ValueOrEmptyString(nr.StatefulPolicy),
+		"serviceAccount":      dcl.ValueOrEmptyString(nr.ServiceAccount),
+		"failoverAction":      dcl.ValueOrEmptyString(nr.FailoverAction),
+		"project":             dcl.ValueOrEmptyString(nr.Project),
+		"location":            dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("", params), nil
+}
+
 const InstanceGroupManagerMaxPage = -1
 
 type InstanceGroupManagerList struct {
@@ -1215,6 +1250,10 @@ func applyInstanceGroupManagerHelper(c *Client, ctx context.Context, rawDesired 
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractInstanceGroupManagerFields(rawDesired); err != nil {
 		return nil, err
 	}
 

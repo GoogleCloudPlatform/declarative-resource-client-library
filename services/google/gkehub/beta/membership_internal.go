@@ -3289,3 +3289,7 @@ func convertOpNameToMembershipApiOperation(opName string, fieldDiffs []*dcl.Fiel
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractMembershipFields(r *Membership) error {
+	return nil
+}

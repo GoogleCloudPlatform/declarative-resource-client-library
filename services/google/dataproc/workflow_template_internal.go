@@ -8323,3 +8323,7 @@ func convertOpNameToWorkflowTemplateApiOperation(opName string, fieldDiffs []*dc
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractWorkflowTemplateFields(r *WorkflowTemplate) error {
+	return nil
+}

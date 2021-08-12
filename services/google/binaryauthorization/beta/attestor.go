@@ -229,6 +229,21 @@ func (r *Attestor) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Attestor) ID() (string, error) {
+	if err := extractAttestorFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":                 dcl.ValueOrEmptyString(nr.Name),
+		"description":          dcl.ValueOrEmptyString(nr.Description),
+		"userOwnedDrydockNote": dcl.ValueOrEmptyString(nr.UserOwnedDrydockNote),
+		"updateTime":           dcl.ValueOrEmptyString(nr.UpdateTime),
+		"project":              dcl.ValueOrEmptyString(nr.Project),
+	}
+	return dcl.Nprintf("projects/{{project}}/attestors/{{name}}", params), nil
+}
+
 const AttestorMaxPage = -1
 
 type AttestorList struct {
@@ -384,6 +399,10 @@ func applyAttestorHelper(c *Client, ctx context.Context, rawDesired *Attestor, o
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractAttestorFields(rawDesired); err != nil {
 		return nil, err
 	}
 

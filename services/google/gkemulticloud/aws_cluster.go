@@ -665,6 +665,33 @@ func (r *AwsCluster) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *AwsCluster) ID() (string, error) {
+	if err := extractAwsClusterFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":                   dcl.ValueOrEmptyString(nr.Name),
+		"description":            dcl.ValueOrEmptyString(nr.Description),
+		"networking":             dcl.ValueOrEmptyString(nr.Networking),
+		"awsRegion":              dcl.ValueOrEmptyString(nr.AwsRegion),
+		"controlPlane":           dcl.ValueOrEmptyString(nr.ControlPlane),
+		"authorization":          dcl.ValueOrEmptyString(nr.Authorization),
+		"state":                  dcl.ValueOrEmptyString(nr.State),
+		"endpoint":               dcl.ValueOrEmptyString(nr.Endpoint),
+		"uid":                    dcl.ValueOrEmptyString(nr.Uid),
+		"reconciling":            dcl.ValueOrEmptyString(nr.Reconciling),
+		"createTime":             dcl.ValueOrEmptyString(nr.CreateTime),
+		"updateTime":             dcl.ValueOrEmptyString(nr.UpdateTime),
+		"etag":                   dcl.ValueOrEmptyString(nr.Etag),
+		"annotations":            dcl.ValueOrEmptyString(nr.Annotations),
+		"workloadIdentityConfig": dcl.ValueOrEmptyString(nr.WorkloadIdentityConfig),
+		"project":                dcl.ValueOrEmptyString(nr.Project),
+		"location":               dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/awsClusters/{{name}}", params), nil
+}
+
 const AwsClusterMaxPage = -1
 
 type AwsClusterList struct {
@@ -823,6 +850,10 @@ func applyAwsClusterHelper(c *Client, ctx context.Context, rawDesired *AwsCluste
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractAwsClusterFields(rawDesired); err != nil {
 		return nil, err
 	}
 

@@ -569,6 +569,31 @@ func (r *Membership) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Membership) ID() (string, error) {
+	if err := extractMembershipFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"endpoint":           dcl.ValueOrEmptyString(nr.Endpoint),
+		"name":               dcl.ValueOrEmptyString(nr.Name),
+		"labels":             dcl.ValueOrEmptyString(nr.Labels),
+		"description":        dcl.ValueOrEmptyString(nr.Description),
+		"state":              dcl.ValueOrEmptyString(nr.State),
+		"createTime":         dcl.ValueOrEmptyString(nr.CreateTime),
+		"updateTime":         dcl.ValueOrEmptyString(nr.UpdateTime),
+		"deleteTime":         dcl.ValueOrEmptyString(nr.DeleteTime),
+		"externalId":         dcl.ValueOrEmptyString(nr.ExternalId),
+		"lastConnectionTime": dcl.ValueOrEmptyString(nr.LastConnectionTime),
+		"uniqueId":           dcl.ValueOrEmptyString(nr.UniqueId),
+		"authority":          dcl.ValueOrEmptyString(nr.Authority),
+		"infrastructureType": dcl.ValueOrEmptyString(nr.InfrastructureType),
+		"project":            dcl.ValueOrEmptyString(nr.Project),
+		"location":           dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/memberships/{{name}}", params), nil
+}
+
 const MembershipMaxPage = -1
 
 type MembershipList struct {
@@ -727,6 +752,10 @@ func applyMembershipHelper(c *Client, ctx context.Context, rawDesired *Membershi
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractMembershipFields(rawDesired); err != nil {
 		return nil, err
 	}
 

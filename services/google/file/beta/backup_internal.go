@@ -976,3 +976,7 @@ func convertOpNameToBackupApiOperation(opName string, fieldDiffs []*dcl.FieldDif
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractBackupFields(r *Backup) error {
+	return nil
+}

@@ -1820,6 +1820,30 @@ func (r *OSPolicyAssignment) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *OSPolicyAssignment) ID() (string, error) {
+	if err := extractOSPolicyAssignmentFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":               dcl.ValueOrEmptyString(nr.Name),
+		"description":        dcl.ValueOrEmptyString(nr.Description),
+		"oSPolicies":         dcl.ValueOrEmptyString(nr.OSPolicies),
+		"instanceFilter":     dcl.ValueOrEmptyString(nr.InstanceFilter),
+		"rollout":            dcl.ValueOrEmptyString(nr.Rollout),
+		"revisionId":         dcl.ValueOrEmptyString(nr.RevisionId),
+		"revisionCreateTime": dcl.ValueOrEmptyString(nr.RevisionCreateTime),
+		"rolloutState":       dcl.ValueOrEmptyString(nr.RolloutState),
+		"baseline":           dcl.ValueOrEmptyString(nr.Baseline),
+		"deleted":            dcl.ValueOrEmptyString(nr.Deleted),
+		"reconciling":        dcl.ValueOrEmptyString(nr.Reconciling),
+		"uid":                dcl.ValueOrEmptyString(nr.Uid),
+		"project":            dcl.ValueOrEmptyString(nr.Project),
+		"location":           dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/osPolicyAssignments/{{name}}", params), nil
+}
+
 const OSPolicyAssignmentMaxPage = -1
 
 type OSPolicyAssignmentList struct {
@@ -1978,6 +2002,10 @@ func applyOSPolicyAssignmentHelper(c *Client, ctx context.Context, rawDesired *O
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractOSPolicyAssignmentFields(rawDesired); err != nil {
 		return nil, err
 	}
 

@@ -43,6 +43,20 @@ func (r *FirewallPolicyAssociation) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *FirewallPolicyAssociation) ID() (string, error) {
+	if err := extractFirewallPolicyAssociationFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":             dcl.ValueOrEmptyString(nr.Name),
+		"attachmentTarget": dcl.ValueOrEmptyString(nr.AttachmentTarget),
+		"firewallPolicy":   dcl.ValueOrEmptyString(nr.FirewallPolicy),
+		"shortName":        dcl.ValueOrEmptyString(nr.ShortName),
+	}
+	return dcl.Nprintf("locations/global/firewallPolicies/{{firewall_policy}}/associations/{{name}}", params), nil
+}
+
 const FirewallPolicyAssociationMaxPage = -1
 
 type FirewallPolicyAssociationList struct {
@@ -198,6 +212,10 @@ func applyFirewallPolicyAssociationHelper(c *Client, ctx context.Context, rawDes
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractFirewallPolicyAssociationFields(rawDesired); err != nil {
 		return nil, err
 	}
 

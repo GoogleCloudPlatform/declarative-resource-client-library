@@ -776,3 +776,7 @@ func convertOpNameToRealmApiOperation(opName string, fieldDiffs []*dcl.FieldDiff
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractRealmFields(r *Realm) error {
+	return nil
+}

@@ -1339,3 +1339,7 @@ func convertOpNameToWorkerPoolApiOperation(opName string, fieldDiffs []*dcl.Fiel
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractWorkerPoolFields(r *WorkerPool) error {
+	return nil
+}

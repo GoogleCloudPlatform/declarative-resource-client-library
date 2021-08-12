@@ -3281,3 +3281,7 @@ func convertOpNameToAzureClusterApiOperation(opName string, fieldDiffs []*dcl.Fi
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractAzureClusterFields(r *AzureCluster) error {
+	return nil
+}

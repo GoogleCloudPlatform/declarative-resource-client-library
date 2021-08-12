@@ -453,6 +453,32 @@ func (r *AwsNodePool) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *AwsNodePool) ID() (string, error) {
+	if err := extractAwsNodePoolFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":              dcl.ValueOrEmptyString(nr.Name),
+		"version":           dcl.ValueOrEmptyString(nr.Version),
+		"config":            dcl.ValueOrEmptyString(nr.Config),
+		"autoscaling":       dcl.ValueOrEmptyString(nr.Autoscaling),
+		"subnetId":          dcl.ValueOrEmptyString(nr.SubnetId),
+		"state":             dcl.ValueOrEmptyString(nr.State),
+		"uid":               dcl.ValueOrEmptyString(nr.Uid),
+		"reconciling":       dcl.ValueOrEmptyString(nr.Reconciling),
+		"createTime":        dcl.ValueOrEmptyString(nr.CreateTime),
+		"updateTime":        dcl.ValueOrEmptyString(nr.UpdateTime),
+		"etag":              dcl.ValueOrEmptyString(nr.Etag),
+		"annotations":       dcl.ValueOrEmptyString(nr.Annotations),
+		"maxPodsConstraint": dcl.ValueOrEmptyString(nr.MaxPodsConstraint),
+		"project":           dcl.ValueOrEmptyString(nr.Project),
+		"location":          dcl.ValueOrEmptyString(nr.Location),
+		"awsCluster":        dcl.ValueOrEmptyString(nr.AwsCluster),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/awsClusters/{{aws_cluster}}/awsNodePools/{{name}}", params), nil
+}
+
 const AwsNodePoolMaxPage = -1
 
 type AwsNodePoolList struct {
@@ -614,6 +640,10 @@ func applyAwsNodePoolHelper(c *Client, ctx context.Context, rawDesired *AwsNodeP
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractAwsNodePoolFields(rawDesired); err != nil {
 		return nil, err
 	}
 

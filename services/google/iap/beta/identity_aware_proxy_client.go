@@ -44,6 +44,21 @@ func (r *IdentityAwareProxyClient) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *IdentityAwareProxyClient) ID() (string, error) {
+	if err := extractIdentityAwareProxyClientFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":        dcl.ValueOrEmptyString(nr.Name),
+		"secret":      dcl.ValueOrEmptyString(nr.Secret),
+		"displayName": dcl.ValueOrEmptyString(nr.DisplayName),
+		"project":     dcl.ValueOrEmptyString(nr.Project),
+		"brand":       dcl.ValueOrEmptyString(nr.Brand),
+	}
+	return dcl.Nprintf("projects/{{project}}/brands/{{brand}}/identityAwareProxyClients/{{name}}", params), nil
+}
+
 const IdentityAwareProxyClientMaxPage = -1
 
 type IdentityAwareProxyClientList struct {
@@ -202,6 +217,10 @@ func applyIdentityAwareProxyClientHelper(c *Client, ctx context.Context, rawDesi
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractIdentityAwareProxyClientFields(rawDesired); err != nil {
 		return nil, err
 	}
 

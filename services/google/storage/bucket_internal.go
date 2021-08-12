@@ -2964,3 +2964,7 @@ func convertOpNameToBucketApiOperation(opName string, fieldDiffs []*dcl.FieldDif
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractBucketFields(r *Bucket) error {
+	return nil
+}

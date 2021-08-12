@@ -9085,3 +9085,7 @@ func convertOpNameToGuestPolicyApiOperation(opName string, fieldDiffs []*dcl.Fie
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractGuestPolicyFields(r *GuestPolicy) error {
+	return nil
+}

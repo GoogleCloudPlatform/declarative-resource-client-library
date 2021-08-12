@@ -632,3 +632,7 @@ func convertOpNameToIdentityAwareProxyClientApiOperation(opName string, fieldDif
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractIdentityAwareProxyClientFields(r *IdentityAwareProxyClient) error {
+	return nil
+}

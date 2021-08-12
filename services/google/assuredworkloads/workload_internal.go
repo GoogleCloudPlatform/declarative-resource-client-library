@@ -1765,3 +1765,7 @@ func convertOpNameToWorkloadApiOperation(opName string, fieldDiffs []*dcl.FieldD
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractWorkloadFields(r *Workload) error {
+	return nil
+}

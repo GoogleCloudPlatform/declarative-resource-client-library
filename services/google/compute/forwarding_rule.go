@@ -298,6 +298,40 @@ func (r *ForwardingRule) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *ForwardingRule) ID() (string, error) {
+	if err := extractForwardingRuleFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"allPorts":             dcl.ValueOrEmptyString(nr.AllPorts),
+		"allowGlobalAccess":    dcl.ValueOrEmptyString(nr.AllowGlobalAccess),
+		"backendService":       dcl.ValueOrEmptyString(nr.BackendService),
+		"creationTimestamp":    dcl.ValueOrEmptyString(nr.CreationTimestamp),
+		"description":          dcl.ValueOrEmptyString(nr.Description),
+		"iPAddress":            dcl.ValueOrEmptyString(nr.IPAddress),
+		"iPProtocol":           dcl.ValueOrEmptyString(nr.IPProtocol),
+		"iPVersion":            dcl.ValueOrEmptyString(nr.IPVersion),
+		"isMirroringCollector": dcl.ValueOrEmptyString(nr.IsMirroringCollector),
+		"loadBalancingScheme":  dcl.ValueOrEmptyString(nr.LoadBalancingScheme),
+		"metadataFilter":       dcl.ValueOrEmptyString(nr.MetadataFilter),
+		"name":                 dcl.ValueOrEmptyString(nr.Name),
+		"network":              dcl.ValueOrEmptyString(nr.Network),
+		"networkTier":          dcl.ValueOrEmptyString(nr.NetworkTier),
+		"portRange":            dcl.ValueOrEmptyString(nr.PortRange),
+		"ports":                dcl.ValueOrEmptyString(nr.Ports),
+		"region":               dcl.ValueOrEmptyString(nr.Region),
+		"selfLink":             dcl.ValueOrEmptyString(nr.SelfLink),
+		"serviceLabel":         dcl.ValueOrEmptyString(nr.ServiceLabel),
+		"serviceName":          dcl.ValueOrEmptyString(nr.ServiceName),
+		"subnetwork":           dcl.ValueOrEmptyString(nr.Subnetwork),
+		"target":               dcl.ValueOrEmptyString(nr.Target),
+		"project":              dcl.ValueOrEmptyString(nr.Project),
+		"location":             dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("projects/{{project}}/global/forwardingRules/{{name}}", params), nil
+}
+
 const ForwardingRuleMaxPage = -1
 
 type ForwardingRuleList struct {
@@ -456,6 +490,10 @@ func applyForwardingRuleHelper(c *Client, ctx context.Context, rawDesired *Forwa
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractForwardingRuleFields(rawDesired); err != nil {
 		return nil, err
 	}
 

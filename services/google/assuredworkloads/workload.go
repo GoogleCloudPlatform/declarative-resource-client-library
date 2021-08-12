@@ -281,6 +281,28 @@ func (r *Workload) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Workload) ID() (string, error) {
+	if err := extractWorkloadFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":                       dcl.ValueOrEmptyString(nr.Name),
+		"displayName":                dcl.ValueOrEmptyString(nr.DisplayName),
+		"resources":                  dcl.ValueOrEmptyString(nr.Resources),
+		"complianceRegime":           dcl.ValueOrEmptyString(nr.ComplianceRegime),
+		"createTime":                 dcl.ValueOrEmptyString(nr.CreateTime),
+		"billingAccount":             dcl.ValueOrEmptyString(nr.BillingAccount),
+		"labels":                     dcl.ValueOrEmptyString(nr.Labels),
+		"provisionedResourcesParent": dcl.ValueOrEmptyString(nr.ProvisionedResourcesParent),
+		"kmsSettings":                dcl.ValueOrEmptyString(nr.KmsSettings),
+		"resourceSettings":           dcl.ValueOrEmptyString(nr.ResourceSettings),
+		"organization":               dcl.ValueOrEmptyString(nr.Organization),
+		"location":                   dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("organizations/{{organization}}/locations/{{location}}/workloads/{{name}}", params), nil
+}
+
 const WorkloadMaxPage = -1
 
 type WorkloadList struct {
@@ -439,6 +461,10 @@ func applyWorkloadHelper(c *Client, ctx context.Context, rawDesired *Workload, o
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractWorkloadFields(rawDesired); err != nil {
 		return nil, err
 	}
 

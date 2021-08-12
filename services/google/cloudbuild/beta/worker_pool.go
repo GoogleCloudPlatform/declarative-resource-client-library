@@ -175,6 +175,25 @@ func (r *WorkerPool) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *WorkerPool) ID() (string, error) {
+	if err := extractWorkerPoolFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":          dcl.ValueOrEmptyString(nr.Name),
+		"state":         dcl.ValueOrEmptyString(nr.State),
+		"createTime":    dcl.ValueOrEmptyString(nr.CreateTime),
+		"updateTime":    dcl.ValueOrEmptyString(nr.UpdateTime),
+		"deleteTime":    dcl.ValueOrEmptyString(nr.DeleteTime),
+		"workerConfig":  dcl.ValueOrEmptyString(nr.WorkerConfig),
+		"networkConfig": dcl.ValueOrEmptyString(nr.NetworkConfig),
+		"project":       dcl.ValueOrEmptyString(nr.Project),
+		"location":      dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/workerPools/{{name}}", params), nil
+}
+
 const WorkerPoolMaxPage = -1
 
 type WorkerPoolList struct {
@@ -333,6 +352,10 @@ func applyWorkerPoolHelper(c *Client, ctx context.Context, rawDesired *WorkerPoo
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractWorkerPoolFields(rawDesired); err != nil {
 		return nil, err
 	}
 

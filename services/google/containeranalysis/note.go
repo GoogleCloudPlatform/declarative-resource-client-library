@@ -1504,6 +1504,32 @@ func (r *Note) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Note) ID() (string, error) {
+	if err := extractNoteFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":             dcl.ValueOrEmptyString(nr.Name),
+		"shortDescription": dcl.ValueOrEmptyString(nr.ShortDescription),
+		"longDescription":  dcl.ValueOrEmptyString(nr.LongDescription),
+		"relatedUrl":       dcl.ValueOrEmptyString(nr.RelatedUrl),
+		"expirationTime":   dcl.ValueOrEmptyString(nr.ExpirationTime),
+		"createTime":       dcl.ValueOrEmptyString(nr.CreateTime),
+		"updateTime":       dcl.ValueOrEmptyString(nr.UpdateTime),
+		"relatedNoteNames": dcl.ValueOrEmptyString(nr.RelatedNoteNames),
+		"vulnerability":    dcl.ValueOrEmptyString(nr.Vulnerability),
+		"build":            dcl.ValueOrEmptyString(nr.Build),
+		"image":            dcl.ValueOrEmptyString(nr.Image),
+		"package":          dcl.ValueOrEmptyString(nr.Package),
+		"discovery":        dcl.ValueOrEmptyString(nr.Discovery),
+		"deployment":       dcl.ValueOrEmptyString(nr.Deployment),
+		"attestation":      dcl.ValueOrEmptyString(nr.Attestation),
+		"project":          dcl.ValueOrEmptyString(nr.Project),
+	}
+	return dcl.Nprintf("projects/{{project}}/notes/{{name}}", params), nil
+}
+
 const NoteMaxPage = -1
 
 type NoteList struct {
@@ -1659,6 +1685,10 @@ func applyNoteHelper(c *Client, ctx context.Context, rawDesired *Note, opts ...d
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractNoteFields(rawDesired); err != nil {
 		return nil, err
 	}
 

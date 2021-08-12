@@ -1804,3 +1804,7 @@ func convertOpNameToAutoscalingPolicyApiOperation(opName string, fieldDiffs []*d
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractAutoscalingPolicyFields(r *AutoscalingPolicy) error {
+	return nil
+}

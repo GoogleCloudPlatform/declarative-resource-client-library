@@ -1148,3 +1148,7 @@ func convertOpNameToTenantApiOperation(opName string, fieldDiffs []*dcl.FieldDif
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractTenantFields(r *Tenant) error {
+	return nil
+}

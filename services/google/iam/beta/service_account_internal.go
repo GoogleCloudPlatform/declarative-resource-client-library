@@ -1272,3 +1272,7 @@ func convertOpNameToServiceAccountApiOperation(opName string, fieldDiffs []*dcl.
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractServiceAccountFields(r *ServiceAccount) error {
+	return nil
+}

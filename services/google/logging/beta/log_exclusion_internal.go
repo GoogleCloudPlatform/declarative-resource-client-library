@@ -733,3 +733,7 @@ func convertOpNameToLogExclusionApiOperation(opName string, fieldDiffs []*dcl.Fi
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractLogExclusionFields(r *LogExclusion) error {
+	return nil
+}

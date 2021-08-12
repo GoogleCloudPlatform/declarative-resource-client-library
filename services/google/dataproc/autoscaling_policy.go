@@ -258,6 +258,22 @@ func (r *AutoscalingPolicy) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *AutoscalingPolicy) ID() (string, error) {
+	if err := extractAutoscalingPolicyFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":                  dcl.ValueOrEmptyString(nr.Name),
+		"basicAlgorithm":        dcl.ValueOrEmptyString(nr.BasicAlgorithm),
+		"workerConfig":          dcl.ValueOrEmptyString(nr.WorkerConfig),
+		"secondaryWorkerConfig": dcl.ValueOrEmptyString(nr.SecondaryWorkerConfig),
+		"project":               dcl.ValueOrEmptyString(nr.Project),
+		"location":              dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/autoscalingPolicies/{{name}}", params), nil
+}
+
 const AutoscalingPolicyMaxPage = -1
 
 type AutoscalingPolicyList struct {
@@ -416,6 +432,10 @@ func applyAutoscalingPolicyHelper(c *Client, ctx context.Context, rawDesired *Au
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractAutoscalingPolicyFields(rawDesired); err != nil {
 		return nil, err
 	}
 

@@ -1374,3 +1374,7 @@ func convertOpNameToPolicyApiOperation(opName string, fieldDiffs []*dcl.FieldDif
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractPolicyFields(r *Policy) error {
+	return nil
+}

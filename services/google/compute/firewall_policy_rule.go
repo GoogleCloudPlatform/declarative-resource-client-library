@@ -181,6 +181,28 @@ func (r *FirewallPolicyRule) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *FirewallPolicyRule) ID() (string, error) {
+	if err := extractFirewallPolicyRuleFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"description":           dcl.ValueOrEmptyString(nr.Description),
+		"priority":              dcl.ValueOrEmptyString(nr.Priority),
+		"match":                 dcl.ValueOrEmptyString(nr.Match),
+		"action":                dcl.ValueOrEmptyString(nr.Action),
+		"direction":             dcl.ValueOrEmptyString(nr.Direction),
+		"targetResources":       dcl.ValueOrEmptyString(nr.TargetResources),
+		"enableLogging":         dcl.ValueOrEmptyString(nr.EnableLogging),
+		"ruleTupleCount":        dcl.ValueOrEmptyString(nr.RuleTupleCount),
+		"targetServiceAccounts": dcl.ValueOrEmptyString(nr.TargetServiceAccounts),
+		"disabled":              dcl.ValueOrEmptyString(nr.Disabled),
+		"kind":                  dcl.ValueOrEmptyString(nr.Kind),
+		"firewallPolicy":        dcl.ValueOrEmptyString(nr.FirewallPolicy),
+	}
+	return dcl.Nprintf("locations/global/firewallPolicies/{{firewall_policy}}/rules/{{priority}}", params), nil
+}
+
 const FirewallPolicyRuleMaxPage = -1
 
 type FirewallPolicyRuleList struct {
@@ -336,6 +358,10 @@ func applyFirewallPolicyRuleHelper(c *Client, ctx context.Context, rawDesired *F
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractFirewallPolicyRuleFields(rawDesired); err != nil {
 		return nil, err
 	}
 

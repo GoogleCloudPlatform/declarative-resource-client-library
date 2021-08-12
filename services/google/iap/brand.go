@@ -44,6 +44,21 @@ func (r *Brand) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Brand) ID() (string, error) {
+	if err := extractBrandFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"applicationTitle": dcl.ValueOrEmptyString(nr.ApplicationTitle),
+		"name":             dcl.ValueOrEmptyString(nr.Name),
+		"orgInternalOnly":  dcl.ValueOrEmptyString(nr.OrgInternalOnly),
+		"supportEmail":     dcl.ValueOrEmptyString(nr.SupportEmail),
+		"project":          dcl.ValueOrEmptyString(nr.Project),
+	}
+	return dcl.Nprintf("projects/{{project}}/brands/{{name}}", params), nil
+}
+
 const BrandMaxPage = -1
 
 type BrandList struct {
@@ -159,6 +174,10 @@ func applyBrandHelper(c *Client, ctx context.Context, rawDesired *Brand, opts ..
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractBrandFields(rawDesired); err != nil {
 		return nil, err
 	}
 

@@ -46,6 +46,23 @@ func (r *Realm) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Realm) ID() (string, error) {
+	if err := extractRealmFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":        dcl.ValueOrEmptyString(nr.Name),
+		"createTime":  dcl.ValueOrEmptyString(nr.CreateTime),
+		"labels":      dcl.ValueOrEmptyString(nr.Labels),
+		"timeZone":    dcl.ValueOrEmptyString(nr.TimeZone),
+		"description": dcl.ValueOrEmptyString(nr.Description),
+		"location":    dcl.ValueOrEmptyString(nr.Location),
+		"project":     dcl.ValueOrEmptyString(nr.Project),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/realms/{{name}}", params), nil
+}
+
 const RealmMaxPage = -1
 
 type RealmList struct {
@@ -204,6 +221,10 @@ func applyRealmHelper(c *Client, ctx context.Context, rawDesired *Realm, opts ..
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractRealmFields(rawDesired); err != nil {
 		return nil, err
 	}
 

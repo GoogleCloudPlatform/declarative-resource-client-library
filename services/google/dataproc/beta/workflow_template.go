@@ -1544,6 +1544,27 @@ func (r *WorkflowTemplate) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *WorkflowTemplate) ID() (string, error) {
+	if err := extractWorkflowTemplateFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":       dcl.ValueOrEmptyString(nr.Name),
+		"version":    dcl.ValueOrEmptyString(nr.Version),
+		"createTime": dcl.ValueOrEmptyString(nr.CreateTime),
+		"updateTime": dcl.ValueOrEmptyString(nr.UpdateTime),
+		"labels":     dcl.ValueOrEmptyString(nr.Labels),
+		"placement":  dcl.ValueOrEmptyString(nr.Placement),
+		"jobs":       dcl.ValueOrEmptyString(nr.Jobs),
+		"parameters": dcl.ValueOrEmptyString(nr.Parameters),
+		"dagTimeout": dcl.ValueOrEmptyString(nr.DagTimeout),
+		"project":    dcl.ValueOrEmptyString(nr.Project),
+		"location":   dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/workflowTemplates/{{name}}", params), nil
+}
+
 const WorkflowTemplateMaxPage = -1
 
 type WorkflowTemplateList struct {
@@ -1702,6 +1723,10 @@ func applyWorkflowTemplateHelper(c *Client, ctx context.Context, rawDesired *Wor
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractWorkflowTemplateFields(rawDesired); err != nil {
 		return nil, err
 	}
 

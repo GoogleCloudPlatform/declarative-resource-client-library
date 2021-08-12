@@ -1293,3 +1293,7 @@ func convertOpNameToRouteApiOperation(opName string, fieldDiffs []*dcl.FieldDiff
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractRouteFields(r *Route) error {
+	return nil
+}

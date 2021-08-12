@@ -533,6 +533,25 @@ func (r *Bucket) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Bucket) ID() (string, error) {
+	if err := extractBucketFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project":      dcl.ValueOrEmptyString(nr.Project),
+		"location":     dcl.ValueOrEmptyString(nr.Location),
+		"name":         dcl.ValueOrEmptyString(nr.Name),
+		"cors":         dcl.ValueOrEmptyString(nr.Cors),
+		"lifecycle":    dcl.ValueOrEmptyString(nr.Lifecycle),
+		"logging":      dcl.ValueOrEmptyString(nr.Logging),
+		"storageClass": dcl.ValueOrEmptyString(nr.StorageClass),
+		"versioning":   dcl.ValueOrEmptyString(nr.Versioning),
+		"website":      dcl.ValueOrEmptyString(nr.Website),
+	}
+	return dcl.Nprintf("b/{{name}}?userProject={{project}}", params), nil
+}
+
 const BucketMaxPage = -1
 
 type BucketList struct {
@@ -688,6 +707,10 @@ func applyBucketHelper(c *Client, ctx context.Context, rawDesired *Bucket, opts 
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractBucketFields(rawDesired); err != nil {
 		return nil, err
 	}
 

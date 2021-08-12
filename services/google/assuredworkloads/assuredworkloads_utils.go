@@ -85,12 +85,12 @@ func deleteResource(ctx context.Context, client *Client, url string) (bool, erro
 func (r *Workload) deleteResources(ctx context.Context, client *Client) error {
 	nr := r.urlNormalized()
 	return dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		// First, delete projects
 		for i, resource := range nr.Resources {
 			if resource.ResourceType == nil {
 				return nil, fmt.Errorf("nil resource type in workload %q", dcl.ValueOrEmptyString(nr.Name))
 			}
-			switch *resource.ResourceType {
-			case WorkloadResourcesResourceTypeEnum("CONSUMER_PROJECT"), WorkloadResourcesResourceTypeEnum("ENCRYPTION_KEYS_PROJECT"):
+			if *resource.ResourceType == WorkloadResourcesResourceTypeEnum("CONSUMER_PROJECT") || *resource.ResourceType == WorkloadResourcesResourceTypeEnum("ENCRYPTION_KEYS_PROJECT") {
 				u, err := nr.projectURL(client.Config.BasePath, i)
 				if err != nil {
 					return nil, err
@@ -103,7 +103,11 @@ func (r *Workload) deleteResources(ctx context.Context, client *Client) error {
 					// Retry until all resources are being deleted.
 					return &dcl.RetryDetails{}, dcl.OperationNotDone{}
 				}
-			case WorkloadResourcesResourceTypeEnum("CONSUMER_FOLDER"):
+			}
+		}
+		// Then, delete folders
+		for i, resource := range nr.Resources {
+			if *resource.ResourceType == WorkloadResourcesResourceTypeEnum("CONSUMER_FOLDER") {
 				u, err := nr.folderURL(client.Config.BasePath, i)
 				if err != nil {
 					return nil, err

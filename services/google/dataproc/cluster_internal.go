@@ -6618,3 +6618,7 @@ func convertOpNameToClusterApiOperation(opName string, fieldDiffs []*dcl.FieldDi
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractClusterFields(r *Cluster) error {
+	return nil
+}

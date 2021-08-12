@@ -522,3 +522,7 @@ func convertOpNameToFirewallPolicyAssociationApiOperation(opName string, fieldDi
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractFirewallPolicyAssociationFields(r *FirewallPolicyAssociation) error {
+	return nil
+}

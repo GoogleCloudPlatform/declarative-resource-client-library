@@ -298,6 +298,29 @@ func (r *EndpointPolicy) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *EndpointPolicy) ID() (string, error) {
+	if err := extractEndpointPolicyFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":                dcl.ValueOrEmptyString(nr.Name),
+		"createTime":          dcl.ValueOrEmptyString(nr.CreateTime),
+		"updateTime":          dcl.ValueOrEmptyString(nr.UpdateTime),
+		"labels":              dcl.ValueOrEmptyString(nr.Labels),
+		"type":                dcl.ValueOrEmptyString(nr.Type),
+		"authorizationPolicy": dcl.ValueOrEmptyString(nr.AuthorizationPolicy),
+		"endpointMatcher":     dcl.ValueOrEmptyString(nr.EndpointMatcher),
+		"trafficPortSelector": dcl.ValueOrEmptyString(nr.TrafficPortSelector),
+		"description":         dcl.ValueOrEmptyString(nr.Description),
+		"serverTlsPolicy":     dcl.ValueOrEmptyString(nr.ServerTlsPolicy),
+		"clientTlsPolicy":     dcl.ValueOrEmptyString(nr.ClientTlsPolicy),
+		"project":             dcl.ValueOrEmptyString(nr.Project),
+		"location":            dcl.ValueOrEmptyString(nr.Location),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/endpointPolicies/{{name}}", params), nil
+}
+
 const EndpointPolicyMaxPage = -1
 
 type EndpointPolicyList struct {
@@ -456,6 +479,10 @@ func applyEndpointPolicyHelper(c *Client, ctx context.Context, rawDesired *Endpo
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractEndpointPolicyFields(rawDesired); err != nil {
 		return nil, err
 	}
 

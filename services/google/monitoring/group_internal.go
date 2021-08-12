@@ -739,3 +739,7 @@ func convertOpNameToGroupApiOperation(opName string, fieldDiffs []*dcl.FieldDiff
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractGroupFields(r *Group) error {
+	return nil
+}

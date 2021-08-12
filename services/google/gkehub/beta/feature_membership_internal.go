@@ -2208,3 +2208,7 @@ func convertOpNameToFeatureMembershipApiOperation(opName string, fieldDiffs []*d
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractFeatureMembershipFields(r *FeatureMembership) error {
+	return nil
+}

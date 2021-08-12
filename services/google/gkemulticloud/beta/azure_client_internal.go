@@ -710,3 +710,7 @@ func convertOpNameToAzureClientApiOperation(opName string, fieldDiffs []*dcl.Fie
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractAzureClientFields(r *AzureClient) error {
+	return nil
+}

@@ -1995,3 +1995,7 @@ func convertOpNameToFeatureApiOperation(opName string, fieldDiffs []*dcl.FieldDi
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractFeatureFields(r *Feature) error {
+	return nil
+}

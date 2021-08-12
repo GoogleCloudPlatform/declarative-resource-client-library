@@ -1843,3 +1843,7 @@ func convertOpNameToForwardingRuleApiOperation(opName string, fieldDiffs []*dcl.
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
+
+func extractForwardingRuleFields(r *ForwardingRule) error {
+	return nil
+}

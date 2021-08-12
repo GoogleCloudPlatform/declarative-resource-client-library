@@ -100,6 +100,23 @@ func (r *Assignment) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *Assignment) ID() (string, error) {
+	if err := extractAssignmentFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":        dcl.ValueOrEmptyString(nr.Name),
+		"assignee":    dcl.ValueOrEmptyString(nr.Assignee),
+		"jobType":     dcl.ValueOrEmptyString(nr.JobType),
+		"state":       dcl.ValueOrEmptyString(nr.State),
+		"project":     dcl.ValueOrEmptyString(nr.Project),
+		"location":    dcl.ValueOrEmptyString(nr.Location),
+		"reservation": dcl.ValueOrEmptyString(nr.Reservation),
+	}
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/reservations/{{reservation}}/assignments/{{name}}", params), nil
+}
+
 const AssignmentMaxPage = -1
 
 type AssignmentList struct {
@@ -264,16 +281,10 @@ func applyAssignmentHelper(c *Client, ctx context.Context, rawDesired *Assignmen
 	if err := rawDesired.validate(); err != nil {
 		return nil, err
 	}
-	vProject, err := dcl.ValueFromRegexOnField("Project", rawDesired.Project, rawDesired.Reservation, "projects/([a-z0-9A-Z-]*)/locations/.*")
-	if err != nil {
+
+	if err := extractAssignmentFields(rawDesired); err != nil {
 		return nil, err
 	}
-	rawDesired.Project = vProject
-	vLocation, err := dcl.ValueFromRegexOnField("Location", rawDesired.Location, rawDesired.Reservation, "projects/.*/locations/([a-z0-9A-Z-]*)/reservations/.*")
-	if err != nil {
-		return nil, err
-	}
-	rawDesired.Location = vLocation
 
 	initial, desired, fieldDiffs, err := c.assignmentDiffsForRawDesired(ctx, rawDesired, opts...)
 	if err != nil {

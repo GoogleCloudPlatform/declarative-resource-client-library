@@ -101,6 +101,24 @@ func (r *OAuthIdpConfig) Describe() dcl.ServiceTypeVersion {
 	}
 }
 
+func (r *OAuthIdpConfig) ID() (string, error) {
+	if err := extractOAuthIdpConfigFields(r); err != nil {
+		return "", err
+	}
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"name":         dcl.ValueOrEmptyString(nr.Name),
+		"clientId":     dcl.ValueOrEmptyString(nr.ClientId),
+		"issuer":       dcl.ValueOrEmptyString(nr.Issuer),
+		"displayName":  dcl.ValueOrEmptyString(nr.DisplayName),
+		"enabled":      dcl.ValueOrEmptyString(nr.Enabled),
+		"clientSecret": dcl.ValueOrEmptyString(nr.ClientSecret),
+		"responseType": dcl.ValueOrEmptyString(nr.ResponseType),
+		"project":      dcl.ValueOrEmptyString(nr.Project),
+	}
+	return dcl.Nprintf("projects/{{project}}/oauthIdpConfigs/{{name}}", params), nil
+}
+
 const OAuthIdpConfigMaxPage = -1
 
 type OAuthIdpConfigList struct {
@@ -256,6 +274,10 @@ func applyOAuthIdpConfigHelper(c *Client, ctx context.Context, rawDesired *OAuth
 
 	// 1.1: Validation of user-specified fields in desired state.
 	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	if err := extractOAuthIdpConfigFields(rawDesired); err != nil {
 		return nil, err
 	}
 
