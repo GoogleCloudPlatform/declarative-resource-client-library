@@ -400,7 +400,13 @@ func (c *Client) DeleteForwardingRule(ctx context.Context, r *ForwardingRule) er
 }
 
 // DeleteAllForwardingRule deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllForwardingRule(ctx context.Context, r *ForwardingRule, filter func(*ForwardingRule) bool) error {
+func (c *Client) DeleteAllForwardingRule(ctx context.Context, project, location string, filter func(*ForwardingRule) bool) error {
+	r := &ForwardingRule{
+
+		Project: &project,
+
+		Location: &location,
+	}
 	listObj, err := c.ListForwardingRule(ctx, r)
 	if err != nil {
 		return err

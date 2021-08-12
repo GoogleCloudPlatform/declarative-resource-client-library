@@ -149,7 +149,13 @@ func (c *Client) DeleteAzureClient(ctx context.Context, r *AzureClient) error {
 }
 
 // DeleteAllAzureClient deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllAzureClient(ctx context.Context, r *AzureClient, filter func(*AzureClient) bool) error {
+func (c *Client) DeleteAllAzureClient(ctx context.Context, project, location string, filter func(*AzureClient) bool) error {
+	r := &AzureClient{
+
+		Project: &project,
+
+		Location: &location,
+	}
 	listObj, err := c.ListAzureClient(ctx, r)
 	if err != nil {
 		return err

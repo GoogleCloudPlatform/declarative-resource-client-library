@@ -634,7 +634,11 @@ func (c *Client) DeleteBucket(ctx context.Context, r *Bucket) error {
 }
 
 // DeleteAllBucket deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllBucket(ctx context.Context, r *Bucket, filter func(*Bucket) bool) error {
+func (c *Client) DeleteAllBucket(ctx context.Context, project string, filter func(*Bucket) bool) error {
+	r := &Bucket{
+
+		Project: &project,
+	}
 	listObj, err := c.ListBucket(ctx, r)
 	if err != nil {
 		return err

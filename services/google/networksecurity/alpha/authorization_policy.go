@@ -382,7 +382,13 @@ func (c *Client) DeleteAuthorizationPolicy(ctx context.Context, r *Authorization
 }
 
 // DeleteAllAuthorizationPolicy deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllAuthorizationPolicy(ctx context.Context, r *AuthorizationPolicy, filter func(*AuthorizationPolicy) bool) error {
+func (c *Client) DeleteAllAuthorizationPolicy(ctx context.Context, project, location string, filter func(*AuthorizationPolicy) bool) error {
+	r := &AuthorizationPolicy{
+
+		Project: &project,
+
+		Location: &location,
+	}
 	listObj, err := c.ListAuthorizationPolicy(ctx, r)
 	if err != nil {
 		return err

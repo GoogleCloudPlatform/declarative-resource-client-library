@@ -254,7 +254,11 @@ func (c *Client) DeleteTenant(ctx context.Context, r *Tenant) error {
 }
 
 // DeleteAllTenant deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllTenant(ctx context.Context, r *Tenant, filter func(*Tenant) bool) error {
+func (c *Client) DeleteAllTenant(ctx context.Context, project string, filter func(*Tenant) bool) error {
+	r := &Tenant{
+
+		Project: &project,
+	}
 	listObj, err := c.ListTenant(ctx, r)
 	if err != nil {
 		return err

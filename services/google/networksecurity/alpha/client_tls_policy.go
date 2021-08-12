@@ -491,7 +491,13 @@ func (c *Client) DeleteClientTlsPolicy(ctx context.Context, r *ClientTlsPolicy) 
 }
 
 // DeleteAllClientTlsPolicy deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllClientTlsPolicy(ctx context.Context, r *ClientTlsPolicy, filter func(*ClientTlsPolicy) bool) error {
+func (c *Client) DeleteAllClientTlsPolicy(ctx context.Context, project, location string, filter func(*ClientTlsPolicy) bool) error {
+	r := &ClientTlsPolicy{
+
+		Project: &project,
+
+		Location: &location,
+	}
 	listObj, err := c.ListClientTlsPolicy(ctx, r)
 	if err != nil {
 		return err

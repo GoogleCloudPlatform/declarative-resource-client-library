@@ -277,7 +277,13 @@ func (c *Client) DeleteWorkerPool(ctx context.Context, r *WorkerPool) error {
 }
 
 // DeleteAllWorkerPool deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllWorkerPool(ctx context.Context, r *WorkerPool, filter func(*WorkerPool) bool) error {
+func (c *Client) DeleteAllWorkerPool(ctx context.Context, project, location string, filter func(*WorkerPool) bool) error {
+	r := &WorkerPool{
+
+		Project: &project,
+
+		Location: &location,
+	}
 	listObj, err := c.ListWorkerPool(ctx, r)
 	if err != nil {
 		return err

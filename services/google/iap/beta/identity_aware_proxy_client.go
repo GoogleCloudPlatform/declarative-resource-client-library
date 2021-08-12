@@ -146,7 +146,13 @@ func (c *Client) DeleteIdentityAwareProxyClient(ctx context.Context, r *Identity
 }
 
 // DeleteAllIdentityAwareProxyClient deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllIdentityAwareProxyClient(ctx context.Context, r *IdentityAwareProxyClient, filter func(*IdentityAwareProxyClient) bool) error {
+func (c *Client) DeleteAllIdentityAwareProxyClient(ctx context.Context, project, brand string, filter func(*IdentityAwareProxyClient) bool) error {
+	r := &IdentityAwareProxyClient{
+
+		Project: &project,
+
+		Brand: &brand,
+	}
 	listObj, err := c.ListIdentityAwareProxyClient(ctx, r)
 	if err != nil {
 		return err
