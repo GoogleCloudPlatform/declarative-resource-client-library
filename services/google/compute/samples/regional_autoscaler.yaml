@@ -21,10 +21,10 @@ type: autoscaler
 updates:
 - resource: samples/update_regional.autoscaler.json
 variables:
-- name: template1
-  type: resource_name
 - name: project
   type: project
+- name: template1
+  type: resource_name
 - name: region
   type: region
 - name: manager

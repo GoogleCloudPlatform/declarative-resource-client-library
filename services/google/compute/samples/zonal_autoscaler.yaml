@@ -22,10 +22,10 @@ type: autoscaler
 updates:
 - resource: samples/update_zonal.autoscaler.json
 variables:
-- name: s_check
-  type: resource_name
 - name: project
   type: project
+- name: s_check
+  type: resource_name
 - name: template1
   type: resource_name
 - name: instance_group_manager

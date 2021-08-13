@@ -18,10 +18,10 @@ type: workload
 updates:
 - resource: samples/update.workload.json
 variables:
-- name: display
-  type: resource_name
 - name: region
   type: region
+- name: display
+  type: resource_name
 - name: billing_account
   type: billing_account
 - name: ring
