@@ -18,11 +18,11 @@ name: basic_assignment
 resource: samples/basic.assignment.json
 type: assignment
 variables:
+- name: project
+  type: project
 - name: region
   type: region
 - name: reservation_name
   type: resource_name
-- name: project
-  type: project
 versions:
 - ga
