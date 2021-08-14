@@ -11,25 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A basic example of a gkemulticloud aws cluster
-name: basic_aws_cluster
-resource: samples/basic.aws_cluster.json
-type: aws_cluster
+description: A basic test of a bigqueryreservation capacity commitment
+name: basic_capacity_commitment
+resource: samples/basic.capacity_commitment.json
+type: capacity_commitment
 variables:
-- name: aws_database_encryption_key
-  type: aws_database_encryption_key
-- name: test_service_account
-  type: test_service_account
-- name: aws_subnet
-  type: aws_subnet
-- name: aws_vpc
-  type: aws_vpc
-- name: aws_security_group
-  type: aws_security_group
-- name: aws_volume_encryption_key
-  type: aws_volume_encryption_key
 - name: project
   type: project
-- name: cluster
-  type: resource_name
-versions: []
+versions:
+- ga

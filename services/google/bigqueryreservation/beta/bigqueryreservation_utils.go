@@ -11,16 +11,5 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package server
-
-import (
-	"google.golang.org/grpc"
-	sdkgrpc "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/bigqueryreservation/beta/bigqueryreservation_beta_go_proto"
-)
-
-// RegisterServers registers each resource with the gRPC server.
-func RegisterServers(s *grpc.Server) {
-	sdkgrpc.RegisterBigqueryreservationBetaAssignmentServiceServer(s, &AssignmentServer{})
-	sdkgrpc.RegisterBigqueryreservationBetaCapacityCommitmentServiceServer(s, &CapacityCommitmentServer{})
-	sdkgrpc.RegisterBigqueryreservationBetaReservationServiceServer(s, &ReservationServer{})
-}
+// Package bigqueryreservation defines types and methods for working with bigqueryreservation GCP resources.
+package beta

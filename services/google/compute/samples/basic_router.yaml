@@ -24,9 +24,9 @@ variables:
   type: project
 - name: compute_network1
   type: resource_name
-- name: region
-  type: region
 - name: router
   type: resource_name
+- name: region
+  type: region
 versions:
 - ga
