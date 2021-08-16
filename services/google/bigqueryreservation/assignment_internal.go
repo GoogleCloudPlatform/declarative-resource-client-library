@@ -359,7 +359,7 @@ func canonicalizeAssignmentDesiredState(rawDesired, rawInitial *Assignment, opts
 		return rawDesired, nil
 	}
 	canonicalDesired := &Assignment{}
-	if dcl.StringCanonicalize(rawDesired.Assignee, rawInitial.Assignee) {
+	if dcl.NameToSelfLink(rawDesired.Assignee, rawInitial.Assignee) {
 		canonicalDesired.Assignee = rawInitial.Assignee
 	} else {
 		canonicalDesired.Assignee = rawDesired.Assignee
@@ -403,7 +403,7 @@ func canonicalizeAssignmentNewState(c *Client, rawNew, rawDesired *Assignment) (
 	if dcl.IsEmptyValueIndirect(rawNew.Assignee) && dcl.IsEmptyValueIndirect(rawDesired.Assignee) {
 		rawNew.Assignee = rawDesired.Assignee
 	} else {
-		if dcl.StringCanonicalize(rawDesired.Assignee, rawNew.Assignee) {
+		if dcl.NameToSelfLink(rawDesired.Assignee, rawNew.Assignee) {
 			rawNew.Assignee = rawDesired.Assignee
 		}
 	}
@@ -449,7 +449,7 @@ func diffAssignment(c *Client, desired, actual *Assignment, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Assignee, actual.Assignee, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Assignee")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Assignee, actual.Assignee, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Assignee")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

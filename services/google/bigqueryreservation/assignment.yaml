@@ -82,6 +82,13 @@ components:
           description: The resource which will use the reservation. E.g. projects/myproject,
             folders/123, organizations/456.
           x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+          - resource: Cloudresourcemanager/Folder
+            field: name
+          - resource: Cloudresourcemanager/Organization
+            field: name
         jobType:
           type: string
           x-dcl-go-name: JobType

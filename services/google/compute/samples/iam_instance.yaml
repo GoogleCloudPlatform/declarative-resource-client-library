@@ -21,11 +21,11 @@ name: iam_instance
 resource: samples/instance.iam.binding.json
 type: iam.binding
 variables:
-- name: image
+- name: compute_network1
   type: resource_name
 - name: project
   type: project
-- name: compute_network1
+- name: image
   type: resource_name
 - name: region
   type: region
