@@ -23,15 +23,15 @@ type: target_http_proxy
 updates:
 - resource: samples/update.target_http_proxy.json
 variables:
-- name: bucket
-  type: resource_name
 - name: project
   type: project
+- name: bucket
+  type: resource_name
 - name: backend
   type: resource_name
-- name: map1
-  type: resource_name
 - name: map2
+  type: resource_name
+- name: map1
   type: resource_name
 - name: proxy
   type: resource_name
