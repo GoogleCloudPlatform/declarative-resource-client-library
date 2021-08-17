@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="compute/beta", resources=["firewall_policy","firewall_policy_association","firewall_policy_rule","forwarding_rule","instance_group_manager","route"])
+connector(name="compute/beta", resources=["firewall_policy","firewall_policy_association","firewall_policy_rule","forwarding_rule","instance_group_manager","packet_mirroring","route"])

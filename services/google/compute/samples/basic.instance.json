@@ -1,5 +1,5 @@
 {
-  "name": "{{instance}}",
+  "name": "{{instance1}}",
   "project": "{{project}}",
   "zone": "{{zone}}",
   "machineType": "zones/{{zone}}/machineTypes/e2-medium",

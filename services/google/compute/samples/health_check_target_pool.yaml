@@ -20,10 +20,10 @@ type: target_pool
 updates:
 - resource: samples/health_check.target_pool.json
 variables:
-- name: project
-  type: project
 - name: check
   type: resource_name
+- name: project
+  type: project
 - name: region
   type: region
 - name: pool1

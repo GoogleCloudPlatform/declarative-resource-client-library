@@ -1,5 +1,5 @@
 {
-  "name": "{{instance}}",
+  "name": "{{instance2}}",
   "project": "{{project}}",
   "machineType": "zones/{{zone}}/machineTypes/e2-medium",
   "disks": [
@@ -14,7 +14,7 @@
   ],
   "networkInterfaces": [
     {
-      "subnetwork": "{{ref:independent.subnetwork.json:selfLink}}"
+      "subnetwork": "{{ref:basic.subnetwork.json:selfLink}}"
     },
     {
       "network": "global/networks/default",

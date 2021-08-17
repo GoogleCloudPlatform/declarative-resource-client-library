@@ -1,5 +1,5 @@
 {
-  "name": "{{subnetwork}}",
+  "name": "{{compute_subnetwork}}",
   "project": "{{project}}",
   "ipCidrRange": "10.2.0.0/16",
   "region": "{{region}}",
@@ -9,5 +9,7 @@
       "rangeName": "{{range}}",
       "ipCidrRange": "192.168.10.0/24"
     }
-  ]
+  ],
+  "logConfig": {},
+  "privateIpGoogleAccess": true
 }

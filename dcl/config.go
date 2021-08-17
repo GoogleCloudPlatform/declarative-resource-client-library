@@ -168,6 +168,9 @@ func (t loggingTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 		if err == nil {
 			if shouldLogRequest {
 				t.logger.Infof("Google API Response: (id %s) \n-----------[RESPONSE]----------\n%s\n-------[END RESPONSE]--------", randString, strings.ReplaceAll(string(respDump), "\r\n", "\n"))
+			} else if resp.StatusCode >= 400 {
+				t.logger.Infof("Google API Request: (id %s)\n-----------[REQUEST]----------\n%s\n-------[END REQUEST]--------", randString, strings.ReplaceAll(string(reqDump), "\r\n", "\n"))
+				t.logger.Infof("Google API Response: (id %s) \n-----------[RESPONSE]----------\n%s\n-------[END RESPONSE]--------", randString, strings.ReplaceAll(string(respDump), "\r\n", "\n"))
 			}
 		} else {
 			t.logger.Warningf("Failed to parse response (id %s): %s", randString, err)

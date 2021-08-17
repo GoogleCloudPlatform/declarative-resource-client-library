@@ -1,13 +1,10 @@
 {
-  "name": "{{instance}}",
+  "name": "{{instance2}}",
   "project": "{{project}}",
   "zone": "{{zone}}",
   "tags": ["one", "two"],
   "labels": {
     "label-one": "value-one"
-  },
-  "metadata": {
-    "key-one": "value-one"
   },
   "machineType": "zones/{{zone}}/machineTypes/e2-medium",
   "disks": [
@@ -22,7 +19,7 @@
   ],
   "networkInterfaces": [
     {
-      "subnetwork": "{{ref:independent.subnetwork.json:selfLink}}"
+      "subnetwork": "{{ref:basic.subnetwork.json:selfLink}}"
     },
     {
       "network": "global/networks/default",

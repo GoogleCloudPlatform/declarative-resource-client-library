@@ -1,0 +1,57 @@
+# Copyright 2021 Google LLC. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+dependencies:
+- samples/basic.instance.json
+- samples/nics.instance.json
+- samples/basic.image.json
+- samples/first_internal.forwarding_rule.json
+- samples/second_internal.forwarding_rule.json
+- samples/regional.backend_service.json
+- samples/basic.subnetwork.json
+- samples/basic.network.json
+description: An example of a compute packet mirroring
+name: basic_packet_mirroring
+resource: samples/basic.packet_mirroring.json
+type: packet_mirroring
+updates:
+- resource: samples/update.packet_mirroring.json
+variables:
+- name: image
+  type: resource_name
+- name: project
+  type: project
+- name: service
+  type: resource_name
+- name: region
+  type: region
+- name: compute_network1
+  type: resource_name
+- name: compute_subnetwork
+  type: resource_name
+- name: range
+  type: resource_name
+- name: zone
+  type: zone
+- name: instance1
+  type: resource_name
+- name: rule1
+  type: resource_name
+- name: rule2
+  type: resource_name
+- name: instance2
+  type: resource_name
+- name: mirroring
+  type: resource_name
+versions:
+- ga
