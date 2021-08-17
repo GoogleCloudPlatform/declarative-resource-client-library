@@ -265,7 +265,6 @@ func (c *Client) DeleteServiceAccount(ctx context.Context, r *ServiceAccount) er
 // DeleteAllServiceAccount deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllServiceAccount(ctx context.Context, project string, filter func(*ServiceAccount) bool) error {
 	r := &ServiceAccount{
-
 		Project: &project,
 	}
 	listObj, err := c.ListServiceAccount(ctx, r)

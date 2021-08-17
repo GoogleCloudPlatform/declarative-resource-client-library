@@ -1669,9 +1669,7 @@ func (c *Client) DeleteWorkflowTemplate(ctx context.Context, r *WorkflowTemplate
 // DeleteAllWorkflowTemplate deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllWorkflowTemplate(ctx context.Context, project, location string, filter func(*WorkflowTemplate) bool) error {
 	r := &WorkflowTemplate{
-
-		Project: &project,
-
+		Project:  &project,
 		Location: &location,
 	}
 	listObj, err := c.ListWorkflowTemplate(ctx, r)

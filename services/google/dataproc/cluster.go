@@ -1459,9 +1459,7 @@ func (c *Client) DeleteCluster(ctx context.Context, r *Cluster) error {
 // DeleteAllCluster deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllCluster(ctx context.Context, project, location string, filter func(*Cluster) bool) error {
 	r := &Cluster{
-
-		Project: &project,
-
+		Project:  &project,
 		Location: &location,
 	}
 	listObj, err := c.ListCluster(ctx, r)

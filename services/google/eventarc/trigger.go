@@ -424,9 +424,7 @@ func (c *Client) DeleteTrigger(ctx context.Context, r *Trigger) error {
 // DeleteAllTrigger deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllTrigger(ctx context.Context, project, location string, filter func(*Trigger) bool) error {
 	r := &Trigger{
-
-		Project: &project,
-
+		Project:  &project,
 		Location: &location,
 	}
 	listObj, err := c.ListTrigger(ctx, r)

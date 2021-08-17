@@ -378,9 +378,7 @@ func (c *Client) DeleteAutoscalingPolicy(ctx context.Context, r *AutoscalingPoli
 // DeleteAllAutoscalingPolicy deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllAutoscalingPolicy(ctx context.Context, project, location string, filter func(*AutoscalingPolicy) bool) error {
 	r := &AutoscalingPolicy{
-
-		Project: &project,
-
+		Project:  &project,
 		Location: &location,
 	}
 	listObj, err := c.ListAutoscalingPolicy(ctx, r)

@@ -21,12 +21,12 @@ type: policy
 updates:
 - resource: samples/service_account.policy.json
 variables:
-- name: project
-  type: project
 - name: package
   type: resource_name
 - name: note
   type: resource_name
+- name: project
+  type: project
 - name: attestor
   type: resource_name
 versions:

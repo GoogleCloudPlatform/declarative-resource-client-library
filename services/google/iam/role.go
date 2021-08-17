@@ -256,7 +256,6 @@ func (c *Client) DeleteRole(ctx context.Context, r *Role) error {
 // DeleteAllRole deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllRole(ctx context.Context, parent string, filter func(*Role) bool) error {
 	r := &Role{
-
 		Parent: &parent,
 	}
 	listObj, err := c.ListRole(ctx, r)

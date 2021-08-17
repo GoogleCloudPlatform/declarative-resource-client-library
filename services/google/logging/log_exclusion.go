@@ -166,7 +166,6 @@ func (c *Client) DeleteLogExclusion(ctx context.Context, r *LogExclusion) error 
 // DeleteAllLogExclusion deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllLogExclusion(ctx context.Context, parent string, filter func(*LogExclusion) bool) error {
 	r := &LogExclusion{
-
 		Parent: &parent,
 	}
 	listObj, err := c.ListLogExclusion(ctx, r)

@@ -20,6 +20,6 @@ import (
 
 // RegisterServers registers each resource with the gRPC server.
 func RegisterServers(s *grpc.Server) {
-	sdkgrpc.RegisterNetworkservicesAlphaEndpointConfigSelectorServiceServer(s, &EndpointConfigSelectorServer{})
+	sdkgrpc.RegisterNetworkservicesAlphaEndpointPolicyServiceServer(s, &EndpointPolicyServer{})
 	sdkgrpc.RegisterNetworkservicesAlphaHttpFilterServiceServer(s, &HttpFilterServer{})
 }

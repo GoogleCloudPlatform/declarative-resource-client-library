@@ -22,14 +22,14 @@ name: zonal_network_endpoint_group
 resource: samples/zonal.network_endpoint.json
 type: network_endpoint
 variables:
-- name: zone
-  type: zone
 - name: group
   type: resource_name
 - name: project
   type: project
 - name: region
   type: region
+- name: zone
+  type: zone
 - name: image
   type: resource_name
 - name: compute_network1

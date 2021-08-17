@@ -38,7 +38,6 @@ class Assignment(object):
         channel.initialize()
         self.assignee = assignee
         self.job_type = job_type
-        self.state = state
         self.project = project
         self.location = location
         self.reservation = reservation
@@ -54,9 +53,6 @@ class Assignment(object):
 
         if AssignmentJobTypeEnum.to_proto(self.job_type):
             request.resource.job_type = AssignmentJobTypeEnum.to_proto(self.job_type)
-
-        if AssignmentStateEnum.to_proto(self.state):
-            request.resource.state = AssignmentStateEnum.to_proto(self.state)
 
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
@@ -90,9 +86,6 @@ class Assignment(object):
         if AssignmentJobTypeEnum.to_proto(self.job_type):
             request.resource.job_type = AssignmentJobTypeEnum.to_proto(self.job_type)
 
-        if AssignmentStateEnum.to_proto(self.state):
-            request.resource.state = AssignmentStateEnum.to_proto(self.state)
-
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -116,9 +109,6 @@ class Assignment(object):
         if AssignmentJobTypeEnum.to_proto(self.job_type):
             request.resource.job_type = AssignmentJobTypeEnum.to_proto(self.job_type)
 
-        if AssignmentStateEnum.to_proto(self.state):
-            request.resource.state = AssignmentStateEnum.to_proto(self.state)
-
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -136,8 +126,6 @@ class Assignment(object):
             resource.assignee = Primitive.to_proto(self.assignee)
         if AssignmentJobTypeEnum.to_proto(self.job_type):
             resource.job_type = AssignmentJobTypeEnum.to_proto(self.job_type)
-        if AssignmentStateEnum.to_proto(self.state):
-            resource.state = AssignmentStateEnum.to_proto(self.state)
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.location):

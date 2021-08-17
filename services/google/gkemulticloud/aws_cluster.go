@@ -796,9 +796,7 @@ func (c *Client) DeleteAwsCluster(ctx context.Context, r *AwsCluster) error {
 // DeleteAllAwsCluster deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllAwsCluster(ctx context.Context, project, location string, filter func(*AwsCluster) bool) error {
 	r := &AwsCluster{
-
-		Project: &project,
-
+		Project:  &project,
 		Location: &location,
 	}
 	listObj, err := c.ListAwsCluster(ctx, r)

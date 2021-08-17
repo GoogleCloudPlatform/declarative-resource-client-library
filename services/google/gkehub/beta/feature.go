@@ -468,9 +468,7 @@ func (c *Client) DeleteFeature(ctx context.Context, r *Feature) error {
 // DeleteAllFeature deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllFeature(ctx context.Context, project, location string, filter func(*Feature) bool) error {
 	r := &Feature{
-
-		Project: &project,
-
+		Project:  &project,
 		Location: &location,
 	}
 	listObj, err := c.ListFeature(ctx, r)

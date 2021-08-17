@@ -225,10 +225,8 @@ func (c *Client) DeleteTenantOAuthIdpConfig(ctx context.Context, r *TenantOAuthI
 // DeleteAllTenantOAuthIdpConfig deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllTenantOAuthIdpConfig(ctx context.Context, project, tenant string, filter func(*TenantOAuthIdpConfig) bool) error {
 	r := &TenantOAuthIdpConfig{
-
 		Project: &project,
-
-		Tenant: &tenant,
+		Tenant:  &tenant,
 	}
 	listObj, err := c.ListTenantOAuthIdpConfig(ctx, r)
 	if err != nil {

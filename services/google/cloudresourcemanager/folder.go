@@ -195,7 +195,6 @@ func (c *Client) DeleteFolder(ctx context.Context, r *Folder) error {
 // DeleteAllFolder deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllFolder(ctx context.Context, parent string, filter func(*Folder) bool) error {
 	r := &Folder{
-
 		Parent: &parent,
 	}
 	listObj, err := c.ListFolder(ctx, r)

@@ -134,6 +134,7 @@ components:
           type: string
           x-dcl-go-name: State
           x-dcl-go-type: AssignmentStateEnum
+          readOnly: true
           description: 'Assignment will remain in PENDING state if no active capacity
             commitment is present. It will become ACTIVE when some capacity commitment
             becomes active. Possible values: STATE_UNSPECIFIED, PENDING, ACTIVE'

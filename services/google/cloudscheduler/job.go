@@ -751,9 +751,7 @@ func (c *Client) DeleteJob(ctx context.Context, r *Job) error {
 // DeleteAllJob deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllJob(ctx context.Context, project, location string, filter func(*Job) bool) error {
 	r := &Job{
-
-		Project: &project,
-
+		Project:  &project,
 		Location: &location,
 	}
 	listObj, err := c.ListJob(ctx, r)

@@ -407,10 +407,8 @@ func (c *Client) DeleteWorkload(ctx context.Context, r *Workload) error {
 // DeleteAllWorkload deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllWorkload(ctx context.Context, organization, location string, filter func(*Workload) bool) error {
 	r := &Workload{
-
 		Organization: &organization,
-
-		Location: &location,
+		Location:     &location,
 	}
 	listObj, err := c.ListWorkload(ctx, r)
 	if err != nil {

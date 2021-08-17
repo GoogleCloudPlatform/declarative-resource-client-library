@@ -1931,7 +1931,6 @@ func (c *Client) DeleteGuestPolicy(ctx context.Context, r *GuestPolicy) error {
 // DeleteAllGuestPolicy deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllGuestPolicy(ctx context.Context, project string, filter func(*GuestPolicy) bool) error {
 	r := &GuestPolicy{
-
 		Project: &project,
 	}
 	listObj, err := c.ListGuestPolicy(ctx, r)

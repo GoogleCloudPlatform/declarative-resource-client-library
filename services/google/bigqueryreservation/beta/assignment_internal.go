@@ -369,11 +369,6 @@ func canonicalizeAssignmentDesiredState(rawDesired, rawInitial *Assignment, opts
 	} else {
 		canonicalDesired.JobType = rawDesired.JobType
 	}
-	if dcl.IsZeroValue(rawDesired.State) {
-		canonicalDesired.State = rawInitial.State
-	} else {
-		canonicalDesired.State = rawDesired.State
-	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		canonicalDesired.Project = rawInitial.Project
 	} else {
@@ -463,7 +458,7 @@ func diffAssignment(c *Client, desired, actual *Assignment, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

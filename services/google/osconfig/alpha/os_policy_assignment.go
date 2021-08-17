@@ -1948,9 +1948,7 @@ func (c *Client) DeleteOSPolicyAssignment(ctx context.Context, r *OSPolicyAssign
 // DeleteAllOSPolicyAssignment deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllOSPolicyAssignment(ctx context.Context, project, location string, filter func(*OSPolicyAssignment) bool) error {
 	r := &OSPolicyAssignment{
-
-		Project: &project,
-
+		Project:  &project,
 		Location: &location,
 	}
 	listObj, err := c.ListOSPolicyAssignment(ctx, r)

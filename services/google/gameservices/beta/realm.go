@@ -167,9 +167,7 @@ func (c *Client) DeleteRealm(ctx context.Context, r *Realm) error {
 // DeleteAllRealm deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllRealm(ctx context.Context, project, location string, filter func(*Realm) bool) error {
 	r := &Realm{
-
-		Project: &project,
-
+		Project:  &project,
 		Location: &location,
 	}
 	listObj, err := c.ListRealm(ctx, r)

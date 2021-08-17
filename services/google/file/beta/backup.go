@@ -233,9 +233,7 @@ func (c *Client) DeleteBackup(ctx context.Context, r *Backup) error {
 // DeleteAllBackup deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllBackup(ctx context.Context, project, location string, filter func(*Backup) bool) error {
 	r := &Backup{
-
-		Project: &project,
-
+		Project:  &project,
 		Location: &location,
 	}
 	listObj, err := c.ListBackup(ctx, r)
