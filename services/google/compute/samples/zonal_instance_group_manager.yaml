@@ -22,17 +22,17 @@ type: instance_group_manager
 updates:
 - resource: samples/update_zonal.instance_group_manager.json
 variables:
-- name: template2
+- name: s_check
   type: resource_name
 - name: project
   type: project
-- name: s_check
-  type: resource_name
 - name: template1
   type: resource_name
-- name: instance_group_manager
+- name: template2
   type: resource_name
 - name: zone
   type: zone
+- name: instance_group_manager
+  type: resource_name
 versions:
 - ga

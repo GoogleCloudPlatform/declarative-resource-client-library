@@ -22,6 +22,7 @@ import (
 // We can assume camelCase is the same as TitleCase except that we downcase the
 // first segment
 var initialisms = map[string]string{
+	"ai":      "AI",
 	"ip":      "IP",
 	"os":      "OS",
 	"ipv4":    "IPv4",
