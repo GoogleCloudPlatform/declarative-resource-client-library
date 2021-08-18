@@ -390,12 +390,12 @@ func canonicalizeAssignmentDesiredState(rawDesired, rawInitial *Assignment, opts
 
 func canonicalizeAssignmentNewState(c *Client, rawNew, rawDesired *Assignment) (*Assignment, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Assignee) && dcl.IsEmptyValueIndirect(rawDesired.Assignee) {
+	if dcl.IsNotReturnedByServer(rawNew.Assignee) && dcl.IsNotReturnedByServer(rawDesired.Assignee) {
 		rawNew.Assignee = rawDesired.Assignee
 	} else {
 		if dcl.NameToSelfLink(rawDesired.Assignee, rawNew.Assignee) {
@@ -403,12 +403,12 @@ func canonicalizeAssignmentNewState(c *Client, rawNew, rawDesired *Assignment) (
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.JobType) && dcl.IsEmptyValueIndirect(rawDesired.JobType) {
+	if dcl.IsNotReturnedByServer(rawNew.JobType) && dcl.IsNotReturnedByServer(rawDesired.JobType) {
 		rawNew.JobType = rawDesired.JobType
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
+	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
 		rawNew.State = rawDesired.State
 	} else {
 	}

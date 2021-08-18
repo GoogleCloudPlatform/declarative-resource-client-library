@@ -417,7 +417,7 @@ func canonicalizeFeatureDesiredState(rawDesired, rawInitial *Feature, opts ...dc
 
 func canonicalizeFeatureNewState(c *Client, rawNew, rawDesired *Feature) (*Feature, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
@@ -425,40 +425,40 @@ func canonicalizeFeatureNewState(c *Client, rawNew, rawDesired *Feature) (*Featu
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
+	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
 		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ResourceState) && dcl.IsEmptyValueIndirect(rawDesired.ResourceState) {
+	if dcl.IsNotReturnedByServer(rawNew.ResourceState) && dcl.IsNotReturnedByServer(rawDesired.ResourceState) {
 		rawNew.ResourceState = rawDesired.ResourceState
 	} else {
 		rawNew.ResourceState = canonicalizeNewFeatureResourceState(c, rawDesired.ResourceState, rawNew.ResourceState)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Spec) && dcl.IsEmptyValueIndirect(rawDesired.Spec) {
+	if dcl.IsNotReturnedByServer(rawNew.Spec) && dcl.IsNotReturnedByServer(rawDesired.Spec) {
 		rawNew.Spec = rawDesired.Spec
 	} else {
 		rawNew.Spec = canonicalizeNewFeatureSpec(c, rawDesired.Spec, rawNew.Spec)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
+	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
 		rawNew.State = rawDesired.State
 	} else {
 		rawNew.State = canonicalizeNewFeatureState(c, rawDesired.State, rawNew.State)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.DeleteTime) && dcl.IsEmptyValueIndirect(rawDesired.DeleteTime) {
+	if dcl.IsNotReturnedByServer(rawNew.DeleteTime) && dcl.IsNotReturnedByServer(rawDesired.DeleteTime) {
 		rawNew.DeleteTime = rawDesired.DeleteTime
 	} else {
 	}
@@ -488,8 +488,17 @@ func canonicalizeFeatureResourceState(des, initial *FeatureResourceState, opts .
 }
 
 func canonicalizeNewFeatureResourceState(c *Client, des, nw *FeatureResourceState) *FeatureResourceState {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for FeatureResourceState while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.BoolCanonicalize(des.HasResources, nw.HasResources) {
@@ -562,8 +571,17 @@ func canonicalizeFeatureSpec(des, initial *FeatureSpec, opts ...dcl.ApplyOption)
 }
 
 func canonicalizeNewFeatureSpec(c *Client, des, nw *FeatureSpec) *FeatureSpec {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for FeatureSpec while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Multiclusteringress = canonicalizeNewFeatureSpecMulticlusteringress(c, des.Multiclusteringress, nw.Multiclusteringress)
@@ -638,8 +656,17 @@ func canonicalizeFeatureSpecMulticlusteringress(des, initial *FeatureSpecMulticl
 }
 
 func canonicalizeNewFeatureSpecMulticlusteringress(c *Client, des, nw *FeatureSpecMulticlusteringress) *FeatureSpecMulticlusteringress {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for FeatureSpecMulticlusteringress while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.NameToSelfLink(des.ConfigMembership, nw.ConfigMembership) {
@@ -710,8 +737,17 @@ func canonicalizeFeatureState(des, initial *FeatureState, opts ...dcl.ApplyOptio
 }
 
 func canonicalizeNewFeatureState(c *Client, des, nw *FeatureState) *FeatureState {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for FeatureState while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.State = canonicalizeNewFeatureStateState(c, des.State, nw.State)
@@ -780,8 +816,17 @@ func canonicalizeFeatureStateState(des, initial *FeatureStateState, opts ...dcl.
 }
 
 func canonicalizeNewFeatureStateState(c *Client, des, nw *FeatureStateState) *FeatureStateState {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for FeatureStateState while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Description, nw.Description) {

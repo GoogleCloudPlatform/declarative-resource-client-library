@@ -390,28 +390,28 @@ func canonicalizePolicyDesiredState(rawDesired, rawInitial *Policy, opts ...dcl.
 
 func canonicalizePolicyNewState(c *Client, rawNew, rawDesired *Policy) (*Policy, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.AdmissionWhitelistPatterns) && dcl.IsEmptyValueIndirect(rawDesired.AdmissionWhitelistPatterns) {
+	if dcl.IsNotReturnedByServer(rawNew.AdmissionWhitelistPatterns) && dcl.IsNotReturnedByServer(rawDesired.AdmissionWhitelistPatterns) {
 		rawNew.AdmissionWhitelistPatterns = rawDesired.AdmissionWhitelistPatterns
 	} else {
 		rawNew.AdmissionWhitelistPatterns = canonicalizeNewPolicyAdmissionWhitelistPatternsSlice(c, rawDesired.AdmissionWhitelistPatterns, rawNew.AdmissionWhitelistPatterns)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ClusterAdmissionRules) && dcl.IsEmptyValueIndirect(rawDesired.ClusterAdmissionRules) {
+	if dcl.IsNotReturnedByServer(rawNew.ClusterAdmissionRules) && dcl.IsNotReturnedByServer(rawDesired.ClusterAdmissionRules) {
 		rawNew.ClusterAdmissionRules = rawDesired.ClusterAdmissionRules
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.KubernetesNamespaceAdmissionRules) && dcl.IsEmptyValueIndirect(rawDesired.KubernetesNamespaceAdmissionRules) {
+	if dcl.IsNotReturnedByServer(rawNew.KubernetesNamespaceAdmissionRules) && dcl.IsNotReturnedByServer(rawDesired.KubernetesNamespaceAdmissionRules) {
 		rawNew.KubernetesNamespaceAdmissionRules = rawDesired.KubernetesNamespaceAdmissionRules
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.KubernetesServiceAccountAdmissionRules) && dcl.IsEmptyValueIndirect(rawDesired.KubernetesServiceAccountAdmissionRules) {
+	if dcl.IsNotReturnedByServer(rawNew.KubernetesServiceAccountAdmissionRules) && dcl.IsNotReturnedByServer(rawDesired.KubernetesServiceAccountAdmissionRules) {
 		rawNew.KubernetesServiceAccountAdmissionRules = rawDesired.KubernetesServiceAccountAdmissionRules
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.IstioServiceIdentityAdmissionRules) && dcl.IsEmptyValueIndirect(rawDesired.IstioServiceIdentityAdmissionRules) {
+	if dcl.IsNotReturnedByServer(rawNew.IstioServiceIdentityAdmissionRules) && dcl.IsNotReturnedByServer(rawDesired.IstioServiceIdentityAdmissionRules) {
 		rawNew.IstioServiceIdentityAdmissionRules = rawDesired.IstioServiceIdentityAdmissionRules
 	} else {
 		if canonicalizePolicyISIAR(rawDesired.IstioServiceIdentityAdmissionRules, rawNew.IstioServiceIdentityAdmissionRules) {
@@ -419,13 +419,13 @@ func canonicalizePolicyNewState(c *Client, rawNew, rawDesired *Policy) (*Policy,
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.DefaultAdmissionRule) && dcl.IsEmptyValueIndirect(rawDesired.DefaultAdmissionRule) {
+	if dcl.IsNotReturnedByServer(rawNew.DefaultAdmissionRule) && dcl.IsNotReturnedByServer(rawDesired.DefaultAdmissionRule) {
 		rawNew.DefaultAdmissionRule = rawDesired.DefaultAdmissionRule
 	} else {
 		rawNew.DefaultAdmissionRule = canonicalizeNewPolicyAdmissionRule(c, rawDesired.DefaultAdmissionRule, rawNew.DefaultAdmissionRule)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
+	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
@@ -433,12 +433,12 @@ func canonicalizePolicyNewState(c *Client, rawNew, rawDesired *Policy) (*Policy,
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.GlobalPolicyEvaluationMode) && dcl.IsEmptyValueIndirect(rawDesired.GlobalPolicyEvaluationMode) {
+	if dcl.IsNotReturnedByServer(rawNew.GlobalPolicyEvaluationMode) && dcl.IsNotReturnedByServer(rawDesired.GlobalPolicyEvaluationMode) {
 		rawNew.GlobalPolicyEvaluationMode = rawDesired.GlobalPolicyEvaluationMode
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
+	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.SelfLink, rawNew.SelfLink) {
@@ -448,7 +448,7 @@ func canonicalizePolicyNewState(c *Client, rawNew, rawDesired *Policy) (*Policy,
 
 	rawNew.Project = rawDesired.Project
 
-	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
@@ -480,8 +480,17 @@ func canonicalizePolicyAdmissionWhitelistPatterns(des, initial *PolicyAdmissionW
 }
 
 func canonicalizeNewPolicyAdmissionWhitelistPatterns(c *Client, des, nw *PolicyAdmissionWhitelistPatterns) *PolicyAdmissionWhitelistPatterns {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for PolicyAdmissionWhitelistPatterns while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.NamePattern, nw.NamePattern) {
@@ -568,8 +577,17 @@ func canonicalizePolicyAdmissionRule(des, initial *PolicyAdmissionRule, opts ...
 }
 
 func canonicalizeNewPolicyAdmissionRule(c *Client, des, nw *PolicyAdmissionRule) *PolicyAdmissionRule {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for PolicyAdmissionRule while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw

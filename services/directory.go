@@ -59,6 +59,7 @@ import (
 	networkservices_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkservices/beta"
 	osconfig_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/alpha"
 	osconfig_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage"
 	tier2_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/tier2/alpha"
@@ -194,6 +195,8 @@ func Services() *Directory {
 	d.AddResource("ga", "pubsub", "Topic", pubsub.YAML_topic)
 	d.AddResource("ga", "storage", dcl.TitleToSnakeCase("Bucket"), storage.YAML_bucket)
 	d.AddResource("ga", "storage", "Bucket", storage.YAML_bucket)
+	d.AddResource("ga", "privateca", dcl.TitleToSnakeCase("CertificateTemplate"), privateca.YAML_certificate_template)
+	d.AddResource("ga", "privateca", "CertificateTemplate", privateca.YAML_certificate_template)
 	d.AddResource("beta", "assuredworkloads", dcl.TitleToSnakeCase("Workload"), assuredworkloads_beta.YAML_workload)
 	d.AddResource("beta", "assuredworkloads", "Workload", assuredworkloads_beta.YAML_workload)
 	d.AddResource("beta", "bigqueryreservation", dcl.TitleToSnakeCase("Assignment"), bigqueryreservation_beta.YAML_assignment)

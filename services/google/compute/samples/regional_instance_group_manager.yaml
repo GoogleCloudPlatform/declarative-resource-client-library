@@ -25,8 +25,12 @@ type: instance_group_manager
 updates:
 - resource: samples/update_regional.instance_group_manager.json
 variables:
+- name: s_check
+  type: resource_name
 - name: project
   type: project
+- name: check
+  type: resource_name
 - name: template1
   type: resource_name
 - name: template2
@@ -36,10 +40,6 @@ variables:
 - name: region
   type: region
 - name: pool2
-  type: resource_name
-- name: s_check
-  type: resource_name
-- name: check
   type: resource_name
 - name: instance_group_manager
   type: resource_name

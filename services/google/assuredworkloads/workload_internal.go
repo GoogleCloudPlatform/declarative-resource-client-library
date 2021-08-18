@@ -523,12 +523,12 @@ func canonicalizeWorkloadDesiredState(rawDesired, rawInitial *Workload, opts ...
 
 func canonicalizeWorkloadNewState(c *Client, rawNew, rawDesired *Workload) (*Workload, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
+	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
@@ -536,29 +536,29 @@ func canonicalizeWorkloadNewState(c *Client, rawNew, rawDesired *Workload) (*Wor
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Resources) && dcl.IsEmptyValueIndirect(rawDesired.Resources) {
+	if dcl.IsNotReturnedByServer(rawNew.Resources) && dcl.IsNotReturnedByServer(rawDesired.Resources) {
 		rawNew.Resources = rawDesired.Resources
 	} else {
 		rawNew.Resources = canonicalizeNewWorkloadResourcesSlice(c, rawDesired.Resources, rawNew.Resources)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ComplianceRegime) && dcl.IsEmptyValueIndirect(rawDesired.ComplianceRegime) {
+	if dcl.IsNotReturnedByServer(rawNew.ComplianceRegime) && dcl.IsNotReturnedByServer(rawDesired.ComplianceRegime) {
 		rawNew.ComplianceRegime = rawDesired.ComplianceRegime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.BillingAccount) && dcl.IsEmptyValueIndirect(rawDesired.BillingAccount) {
+	if dcl.IsNotReturnedByServer(rawNew.BillingAccount) && dcl.IsNotReturnedByServer(rawDesired.BillingAccount) {
 		rawNew.BillingAccount = rawDesired.BillingAccount
 	} else {
 		rawNew.BillingAccount = rawDesired.BillingAccount
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
+	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
 		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
@@ -605,8 +605,17 @@ func canonicalizeWorkloadResources(des, initial *WorkloadResources, opts ...dcl.
 }
 
 func canonicalizeNewWorkloadResources(c *Client, des, nw *WorkloadResources) *WorkloadResources {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for WorkloadResources while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -684,8 +693,17 @@ func canonicalizeWorkloadKmsSettings(des, initial *WorkloadKmsSettings, opts ...
 }
 
 func canonicalizeNewWorkloadKmsSettings(c *Client, des, nw *WorkloadKmsSettings) *WorkloadKmsSettings {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for WorkloadKmsSettings while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.RotationPeriod, nw.RotationPeriod) {
@@ -767,8 +785,17 @@ func canonicalizeWorkloadResourceSettings(des, initial *WorkloadResourceSettings
 }
 
 func canonicalizeNewWorkloadResourceSettings(c *Client, des, nw *WorkloadResourceSettings) *WorkloadResourceSettings {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for WorkloadResourceSettings while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.ResourceId, nw.ResourceId) {

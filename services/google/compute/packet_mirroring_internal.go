@@ -539,12 +539,12 @@ func canonicalizePacketMirroringDesiredState(rawDesired, rawInitial *PacketMirro
 
 func canonicalizePacketMirroringNewState(c *Client, rawNew, rawDesired *PacketMirroring) (*PacketMirroring, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Id) && dcl.IsEmptyValueIndirect(rawDesired.Id) {
+	if dcl.IsNotReturnedByServer(rawNew.Id) && dcl.IsNotReturnedByServer(rawDesired.Id) {
 		rawNew.Id = rawDesired.Id
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
+	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
@@ -552,7 +552,7 @@ func canonicalizePacketMirroringNewState(c *Client, rawNew, rawDesired *PacketMi
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
@@ -560,7 +560,7 @@ func canonicalizePacketMirroringNewState(c *Client, rawNew, rawDesired *PacketMi
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
+	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
@@ -568,7 +568,7 @@ func canonicalizePacketMirroringNewState(c *Client, rawNew, rawDesired *PacketMi
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Region) && dcl.IsEmptyValueIndirect(rawDesired.Region) {
+	if dcl.IsNotReturnedByServer(rawNew.Region) && dcl.IsNotReturnedByServer(rawDesired.Region) {
 		rawNew.Region = rawDesired.Region
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Region, rawNew.Region) {
@@ -576,36 +576,36 @@ func canonicalizePacketMirroringNewState(c *Client, rawNew, rawDesired *PacketMi
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Network) && dcl.IsEmptyValueIndirect(rawDesired.Network) {
+	if dcl.IsNotReturnedByServer(rawNew.Network) && dcl.IsNotReturnedByServer(rawDesired.Network) {
 		rawNew.Network = rawDesired.Network
 	} else {
 		rawNew.Network = canonicalizeNewPacketMirroringNetwork(c, rawDesired.Network, rawNew.Network)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Priority) && dcl.IsEmptyValueIndirect(rawDesired.Priority) {
+	if dcl.IsNotReturnedByServer(rawNew.Priority) && dcl.IsNotReturnedByServer(rawDesired.Priority) {
 		rawNew.Priority = rawDesired.Priority
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.CollectorIlb) && dcl.IsEmptyValueIndirect(rawDesired.CollectorIlb) {
+	if dcl.IsNotReturnedByServer(rawNew.CollectorIlb) && dcl.IsNotReturnedByServer(rawDesired.CollectorIlb) {
 		rawNew.CollectorIlb = rawDesired.CollectorIlb
 	} else {
 		rawNew.CollectorIlb = canonicalizeNewPacketMirroringCollectorIlb(c, rawDesired.CollectorIlb, rawNew.CollectorIlb)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.MirroredResources) && dcl.IsEmptyValueIndirect(rawDesired.MirroredResources) {
+	if dcl.IsNotReturnedByServer(rawNew.MirroredResources) && dcl.IsNotReturnedByServer(rawDesired.MirroredResources) {
 		rawNew.MirroredResources = rawDesired.MirroredResources
 	} else {
 		rawNew.MirroredResources = canonicalizeNewPacketMirroringMirroredResources(c, rawDesired.MirroredResources, rawNew.MirroredResources)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Filter) && dcl.IsEmptyValueIndirect(rawDesired.Filter) {
+	if dcl.IsNotReturnedByServer(rawNew.Filter) && dcl.IsNotReturnedByServer(rawDesired.Filter) {
 		rawNew.Filter = rawDesired.Filter
 	} else {
 		rawNew.Filter = canonicalizeNewPacketMirroringFilter(c, rawDesired.Filter, rawNew.Filter)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Enable) && dcl.IsEmptyValueIndirect(rawDesired.Enable) {
+	if dcl.IsNotReturnedByServer(rawNew.Enable) && dcl.IsNotReturnedByServer(rawDesired.Enable) {
 		rawNew.Enable = rawDesired.Enable
 	} else {
 	}
@@ -641,8 +641,17 @@ func canonicalizePacketMirroringNetwork(des, initial *PacketMirroringNetwork, op
 }
 
 func canonicalizeNewPacketMirroringNetwork(c *Client, des, nw *PacketMirroringNetwork) *PacketMirroringNetwork {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for PacketMirroringNetwork while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.NameToSelfLink(des.Url, nw.Url) {
@@ -722,8 +731,17 @@ func canonicalizePacketMirroringCollectorIlb(des, initial *PacketMirroringCollec
 }
 
 func canonicalizeNewPacketMirroringCollectorIlb(c *Client, des, nw *PacketMirroringCollectorIlb) *PacketMirroringCollectorIlb {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for PacketMirroringCollectorIlb while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.NameToSelfLink(des.Url, nw.Url) {
@@ -813,8 +831,17 @@ func canonicalizePacketMirroringMirroredResources(des, initial *PacketMirroringM
 }
 
 func canonicalizeNewPacketMirroringMirroredResources(c *Client, des, nw *PacketMirroringMirroredResources) *PacketMirroringMirroredResources {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for PacketMirroringMirroredResources while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Subnetworks = canonicalizeNewPacketMirroringMirroredResourcesSubnetworksSlice(c, des.Subnetworks, nw.Subnetworks)
@@ -890,8 +917,17 @@ func canonicalizePacketMirroringMirroredResourcesSubnetworks(des, initial *Packe
 }
 
 func canonicalizeNewPacketMirroringMirroredResourcesSubnetworks(c *Client, des, nw *PacketMirroringMirroredResourcesSubnetworks) *PacketMirroringMirroredResourcesSubnetworks {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for PacketMirroringMirroredResourcesSubnetworks while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.NameToSelfLink(des.Url, nw.Url) {
@@ -971,8 +1007,17 @@ func canonicalizePacketMirroringMirroredResourcesInstances(des, initial *PacketM
 }
 
 func canonicalizeNewPacketMirroringMirroredResourcesInstances(c *Client, des, nw *PacketMirroringMirroredResourcesInstances) *PacketMirroringMirroredResourcesInstances {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for PacketMirroringMirroredResourcesInstances while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.NameToSelfLink(des.Url, nw.Url) {
@@ -1062,8 +1107,17 @@ func canonicalizePacketMirroringFilter(des, initial *PacketMirroringFilter, opts
 }
 
 func canonicalizeNewPacketMirroringFilter(c *Client, des, nw *PacketMirroringFilter) *PacketMirroringFilter {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for PacketMirroringFilter while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw

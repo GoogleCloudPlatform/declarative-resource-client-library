@@ -28,9 +28,9 @@ variables:
   type: project
 - name: address1
   type: resource_name
-- name: region
-  type: region
 - name: resource_name
   type: resource_name
+- name: region
+  type: region
 versions:
 - ga

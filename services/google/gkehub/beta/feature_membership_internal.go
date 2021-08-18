@@ -306,7 +306,7 @@ func canonicalizeFeatureMembershipNewState(c *Client, rawNew, rawDesired *Featur
 
 	rawNew.Project = rawDesired.Project
 
-	if dcl.IsEmptyValueIndirect(rawNew.Configmanagement) && dcl.IsEmptyValueIndirect(rawDesired.Configmanagement) {
+	if dcl.IsNotReturnedByServer(rawNew.Configmanagement) && dcl.IsNotReturnedByServer(rawDesired.Configmanagement) {
 		rawNew.Configmanagement = rawDesired.Configmanagement
 	} else {
 		rawNew.Configmanagement = canonicalizeNewFeatureMembershipConfigmanagement(c, rawDesired.Configmanagement, rawNew.Configmanagement)
@@ -343,8 +343,17 @@ func canonicalizeFeatureMembershipConfigmanagement(des, initial *FeatureMembersh
 }
 
 func canonicalizeNewFeatureMembershipConfigmanagement(c *Client, des, nw *FeatureMembershipConfigmanagement) *FeatureMembershipConfigmanagement {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for FeatureMembershipConfigmanagement while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.ConfigSync = canonicalizeNewFeatureMembershipConfigmanagementConfigSync(c, des.ConfigSync, nw.ConfigSync)
@@ -426,8 +435,17 @@ func canonicalizeFeatureMembershipConfigmanagementConfigSync(des, initial *Featu
 }
 
 func canonicalizeNewFeatureMembershipConfigmanagementConfigSync(c *Client, des, nw *FeatureMembershipConfigmanagementConfigSync) *FeatureMembershipConfigmanagementConfigSync {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for FeatureMembershipConfigmanagementConfigSync while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Git = canonicalizeNewFeatureMembershipConfigmanagementConfigSyncGit(c, des.Git, nw.Git)
@@ -535,8 +553,17 @@ func canonicalizeFeatureMembershipConfigmanagementConfigSyncGit(des, initial *Fe
 }
 
 func canonicalizeNewFeatureMembershipConfigmanagementConfigSyncGit(c *Client, des, nw *FeatureMembershipConfigmanagementConfigSyncGit) *FeatureMembershipConfigmanagementConfigSyncGit {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for FeatureMembershipConfigmanagementConfigSyncGit while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.SyncRepo, nw.SyncRepo) {
@@ -656,8 +683,17 @@ func canonicalizeFeatureMembershipConfigmanagementPolicyController(des, initial 
 }
 
 func canonicalizeNewFeatureMembershipConfigmanagementPolicyController(c *Client, des, nw *FeatureMembershipConfigmanagementPolicyController) *FeatureMembershipConfigmanagementPolicyController {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for FeatureMembershipConfigmanagementPolicyController while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.BoolCanonicalize(des.Enabled, nw.Enabled) {
@@ -746,8 +782,17 @@ func canonicalizeFeatureMembershipConfigmanagementBinauthz(des, initial *Feature
 }
 
 func canonicalizeNewFeatureMembershipConfigmanagementBinauthz(c *Client, des, nw *FeatureMembershipConfigmanagementBinauthz) *FeatureMembershipConfigmanagementBinauthz {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for FeatureMembershipConfigmanagementBinauthz while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.BoolCanonicalize(des.Enabled, nw.Enabled) {
@@ -834,8 +879,17 @@ func canonicalizeFeatureMembershipConfigmanagementHierarchyController(des, initi
 }
 
 func canonicalizeNewFeatureMembershipConfigmanagementHierarchyController(c *Client, des, nw *FeatureMembershipConfigmanagementHierarchyController) *FeatureMembershipConfigmanagementHierarchyController {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for FeatureMembershipConfigmanagementHierarchyController while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.BoolCanonicalize(des.Enabled, nw.Enabled) {

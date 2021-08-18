@@ -525,7 +525,7 @@ func canonicalizeAzureClusterDesiredState(rawDesired, rawInitial *AzureCluster, 
 
 func canonicalizeAzureClusterNewState(c *Client, rawNew, rawDesired *AzureCluster) (*AzureCluster, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
@@ -533,7 +533,7 @@ func canonicalizeAzureClusterNewState(c *Client, rawNew, rawDesired *AzureCluste
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
+	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
@@ -541,7 +541,7 @@ func canonicalizeAzureClusterNewState(c *Client, rawNew, rawDesired *AzureCluste
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.AzureRegion) && dcl.IsEmptyValueIndirect(rawDesired.AzureRegion) {
+	if dcl.IsNotReturnedByServer(rawNew.AzureRegion) && dcl.IsNotReturnedByServer(rawDesired.AzureRegion) {
 		rawNew.AzureRegion = rawDesired.AzureRegion
 	} else {
 		if dcl.StringCanonicalize(rawDesired.AzureRegion, rawNew.AzureRegion) {
@@ -549,7 +549,7 @@ func canonicalizeAzureClusterNewState(c *Client, rawNew, rawDesired *AzureCluste
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ResourceGroupId) && dcl.IsEmptyValueIndirect(rawDesired.ResourceGroupId) {
+	if dcl.IsNotReturnedByServer(rawNew.ResourceGroupId) && dcl.IsNotReturnedByServer(rawDesired.ResourceGroupId) {
 		rawNew.ResourceGroupId = rawDesired.ResourceGroupId
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ResourceGroupId, rawNew.ResourceGroupId) {
@@ -557,7 +557,7 @@ func canonicalizeAzureClusterNewState(c *Client, rawNew, rawDesired *AzureCluste
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.AzureClient) && dcl.IsEmptyValueIndirect(rawDesired.AzureClient) {
+	if dcl.IsNotReturnedByServer(rawNew.AzureClient) && dcl.IsNotReturnedByServer(rawDesired.AzureClient) {
 		rawNew.AzureClient = rawDesired.AzureClient
 	} else {
 		if dcl.NameToSelfLink(rawDesired.AzureClient, rawNew.AzureClient) {
@@ -565,30 +565,30 @@ func canonicalizeAzureClusterNewState(c *Client, rawNew, rawDesired *AzureCluste
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Networking) && dcl.IsEmptyValueIndirect(rawDesired.Networking) {
+	if dcl.IsNotReturnedByServer(rawNew.Networking) && dcl.IsNotReturnedByServer(rawDesired.Networking) {
 		rawNew.Networking = rawDesired.Networking
 	} else {
 		rawNew.Networking = canonicalizeNewAzureClusterNetworking(c, rawDesired.Networking, rawNew.Networking)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ControlPlane) && dcl.IsEmptyValueIndirect(rawDesired.ControlPlane) {
+	if dcl.IsNotReturnedByServer(rawNew.ControlPlane) && dcl.IsNotReturnedByServer(rawDesired.ControlPlane) {
 		rawNew.ControlPlane = rawDesired.ControlPlane
 	} else {
 		rawNew.ControlPlane = canonicalizeNewAzureClusterControlPlane(c, rawDesired.ControlPlane, rawNew.ControlPlane)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Authorization) && dcl.IsEmptyValueIndirect(rawDesired.Authorization) {
+	if dcl.IsNotReturnedByServer(rawNew.Authorization) && dcl.IsNotReturnedByServer(rawDesired.Authorization) {
 		rawNew.Authorization = rawDesired.Authorization
 	} else {
 		rawNew.Authorization = canonicalizeNewAzureClusterAuthorization(c, rawDesired.Authorization, rawNew.Authorization)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
+	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
 		rawNew.State = rawDesired.State
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Endpoint) && dcl.IsEmptyValueIndirect(rawDesired.Endpoint) {
+	if dcl.IsNotReturnedByServer(rawNew.Endpoint) && dcl.IsNotReturnedByServer(rawDesired.Endpoint) {
 		rawNew.Endpoint = rawDesired.Endpoint
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Endpoint, rawNew.Endpoint) {
@@ -596,7 +596,7 @@ func canonicalizeAzureClusterNewState(c *Client, rawNew, rawDesired *AzureCluste
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Uid) && dcl.IsEmptyValueIndirect(rawDesired.Uid) {
+	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
 		rawNew.Uid = rawDesired.Uid
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
@@ -604,7 +604,7 @@ func canonicalizeAzureClusterNewState(c *Client, rawNew, rawDesired *AzureCluste
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Reconciling) && dcl.IsEmptyValueIndirect(rawDesired.Reconciling) {
+	if dcl.IsNotReturnedByServer(rawNew.Reconciling) && dcl.IsNotReturnedByServer(rawDesired.Reconciling) {
 		rawNew.Reconciling = rawDesired.Reconciling
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Reconciling, rawNew.Reconciling) {
@@ -612,17 +612,17 @@ func canonicalizeAzureClusterNewState(c *Client, rawNew, rawDesired *AzureCluste
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
+	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
 		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
@@ -630,12 +630,12 @@ func canonicalizeAzureClusterNewState(c *Client, rawNew, rawDesired *AzureCluste
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Annotations) && dcl.IsEmptyValueIndirect(rawDesired.Annotations) {
+	if dcl.IsNotReturnedByServer(rawNew.Annotations) && dcl.IsNotReturnedByServer(rawDesired.Annotations) {
 		rawNew.Annotations = rawDesired.Annotations
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.WorkloadIdentityConfig) && dcl.IsEmptyValueIndirect(rawDesired.WorkloadIdentityConfig) {
+	if dcl.IsNotReturnedByServer(rawNew.WorkloadIdentityConfig) && dcl.IsNotReturnedByServer(rawDesired.WorkloadIdentityConfig) {
 		rawNew.WorkloadIdentityConfig = rawDesired.WorkloadIdentityConfig
 	} else {
 		rawNew.WorkloadIdentityConfig = canonicalizeNewAzureClusterWorkloadIdentityConfig(c, rawDesired.WorkloadIdentityConfig, rawNew.WorkloadIdentityConfig)
@@ -682,8 +682,17 @@ func canonicalizeAzureClusterNetworking(des, initial *AzureClusterNetworking, op
 }
 
 func canonicalizeNewAzureClusterNetworking(c *Client, des, nw *AzureClusterNetworking) *AzureClusterNetworking {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AzureClusterNetworking while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.VirtualNetworkId, nw.VirtualNetworkId) {
@@ -779,8 +788,17 @@ func canonicalizeAzureClusterControlPlane(des, initial *AzureClusterControlPlane
 }
 
 func canonicalizeNewAzureClusterControlPlane(c *Client, des, nw *AzureClusterControlPlane) *AzureClusterControlPlane {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AzureClusterControlPlane while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Version, nw.Version) {
@@ -867,8 +885,17 @@ func canonicalizeAzureClusterControlPlaneSshConfig(des, initial *AzureClusterCon
 }
 
 func canonicalizeNewAzureClusterControlPlaneSshConfig(c *Client, des, nw *AzureClusterControlPlaneSshConfig) *AzureClusterControlPlaneSshConfig {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AzureClusterControlPlaneSshConfig while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.AuthorizedKey, nw.AuthorizedKey) {
@@ -945,8 +972,17 @@ func canonicalizeAzureClusterControlPlaneRootVolume(des, initial *AzureClusterCo
 }
 
 func canonicalizeNewAzureClusterControlPlaneRootVolume(c *Client, des, nw *AzureClusterControlPlaneRootVolume) *AzureClusterControlPlaneRootVolume {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AzureClusterControlPlaneRootVolume while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -1019,8 +1055,17 @@ func canonicalizeAzureClusterControlPlaneMainVolume(des, initial *AzureClusterCo
 }
 
 func canonicalizeNewAzureClusterControlPlaneMainVolume(c *Client, des, nw *AzureClusterControlPlaneMainVolume) *AzureClusterControlPlaneMainVolume {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AzureClusterControlPlaneMainVolume while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -1098,8 +1143,17 @@ func canonicalizeAzureClusterControlPlaneDatabaseEncryption(des, initial *AzureC
 }
 
 func canonicalizeNewAzureClusterControlPlaneDatabaseEncryption(c *Client, des, nw *AzureClusterControlPlaneDatabaseEncryption) *AzureClusterControlPlaneDatabaseEncryption {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AzureClusterControlPlaneDatabaseEncryption while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.ResourceGroupId, nw.ResourceGroupId) {
@@ -1179,8 +1233,17 @@ func canonicalizeAzureClusterAuthorization(des, initial *AzureClusterAuthorizati
 }
 
 func canonicalizeNewAzureClusterAuthorization(c *Client, des, nw *AzureClusterAuthorization) *AzureClusterAuthorization {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AzureClusterAuthorization while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.AdminUsers = canonicalizeNewAzureClusterAuthorizationAdminUsersSlice(c, des.AdminUsers, nw.AdminUsers)
@@ -1255,8 +1318,17 @@ func canonicalizeAzureClusterAuthorizationAdminUsers(des, initial *AzureClusterA
 }
 
 func canonicalizeNewAzureClusterAuthorizationAdminUsers(c *Client, des, nw *AzureClusterAuthorizationAdminUsers) *AzureClusterAuthorizationAdminUsers {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AzureClusterAuthorizationAdminUsers while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Username, nw.Username) {
@@ -1343,8 +1415,17 @@ func canonicalizeAzureClusterWorkloadIdentityConfig(des, initial *AzureClusterWo
 }
 
 func canonicalizeNewAzureClusterWorkloadIdentityConfig(c *Client, des, nw *AzureClusterWorkloadIdentityConfig) *AzureClusterWorkloadIdentityConfig {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AzureClusterWorkloadIdentityConfig while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.IssuerUri, nw.IssuerUri) {

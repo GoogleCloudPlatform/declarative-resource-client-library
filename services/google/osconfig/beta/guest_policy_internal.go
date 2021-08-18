@@ -697,7 +697,7 @@ func canonicalizeGuestPolicyDesiredState(rawDesired, rawInitial *GuestPolicy, op
 
 func canonicalizeGuestPolicyNewState(c *Client, rawNew, rawDesired *GuestPolicy) (*GuestPolicy, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
@@ -705,7 +705,7 @@ func canonicalizeGuestPolicyNewState(c *Client, rawNew, rawDesired *GuestPolicy)
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
+	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
@@ -713,41 +713,41 @@ func canonicalizeGuestPolicyNewState(c *Client, rawNew, rawDesired *GuestPolicy)
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Assignment) && dcl.IsEmptyValueIndirect(rawDesired.Assignment) {
+	if dcl.IsNotReturnedByServer(rawNew.Assignment) && dcl.IsNotReturnedByServer(rawDesired.Assignment) {
 		rawNew.Assignment = rawDesired.Assignment
 	} else {
 		rawNew.Assignment = canonicalizeNewGuestPolicyAssignment(c, rawDesired.Assignment, rawNew.Assignment)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Packages) && dcl.IsEmptyValueIndirect(rawDesired.Packages) {
+	if dcl.IsNotReturnedByServer(rawNew.Packages) && dcl.IsNotReturnedByServer(rawDesired.Packages) {
 		rawNew.Packages = rawDesired.Packages
 	} else {
 		rawNew.Packages = canonicalizeNewGuestPolicyPackagesSlice(c, rawDesired.Packages, rawNew.Packages)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.PackageRepositories) && dcl.IsEmptyValueIndirect(rawDesired.PackageRepositories) {
+	if dcl.IsNotReturnedByServer(rawNew.PackageRepositories) && dcl.IsNotReturnedByServer(rawDesired.PackageRepositories) {
 		rawNew.PackageRepositories = rawDesired.PackageRepositories
 	} else {
 		rawNew.PackageRepositories = canonicalizeNewGuestPolicyPackageRepositoriesSlice(c, rawDesired.PackageRepositories, rawNew.PackageRepositories)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Recipes) && dcl.IsEmptyValueIndirect(rawDesired.Recipes) {
+	if dcl.IsNotReturnedByServer(rawNew.Recipes) && dcl.IsNotReturnedByServer(rawDesired.Recipes) {
 		rawNew.Recipes = rawDesired.Recipes
 	} else {
 		rawNew.Recipes = canonicalizeNewGuestPolicyRecipesSlice(c, rawDesired.Recipes, rawNew.Recipes)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
+	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
 		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
@@ -804,8 +804,17 @@ func canonicalizeGuestPolicyAssignment(des, initial *GuestPolicyAssignment, opts
 }
 
 func canonicalizeNewGuestPolicyAssignment(c *Client, des, nw *GuestPolicyAssignment) *GuestPolicyAssignment {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyAssignment while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.GroupLabels = canonicalizeNewGuestPolicyAssignmentGroupLabelsSlice(c, des.GroupLabels, nw.GroupLabels)
@@ -881,8 +890,17 @@ func canonicalizeGuestPolicyAssignmentGroupLabels(des, initial *GuestPolicyAssig
 }
 
 func canonicalizeNewGuestPolicyAssignmentGroupLabels(c *Client, des, nw *GuestPolicyAssignmentGroupLabels) *GuestPolicyAssignmentGroupLabels {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyAssignmentGroupLabels while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -965,8 +983,17 @@ func canonicalizeGuestPolicyAssignmentOSTypes(des, initial *GuestPolicyAssignmen
 }
 
 func canonicalizeNewGuestPolicyAssignmentOSTypes(c *Client, des, nw *GuestPolicyAssignmentOSTypes) *GuestPolicyAssignmentOSTypes {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyAssignmentOSTypes while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.OSShortName, nw.OSShortName) {
@@ -1059,8 +1086,17 @@ func canonicalizeGuestPolicyPackages(des, initial *GuestPolicyPackages, opts ...
 }
 
 func canonicalizeNewGuestPolicyPackages(c *Client, des, nw *GuestPolicyPackages) *GuestPolicyPackages {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyPackages while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
@@ -1176,8 +1212,17 @@ func canonicalizeGuestPolicyPackageRepositories(des, initial *GuestPolicyPackage
 }
 
 func canonicalizeNewGuestPolicyPackageRepositories(c *Client, des, nw *GuestPolicyPackageRepositories) *GuestPolicyPackageRepositories {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyPackageRepositories while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Apt = canonicalizeNewGuestPolicyPackageRepositoriesApt(c, des.Apt, nw.Apt)
@@ -1275,8 +1320,17 @@ func canonicalizeGuestPolicyPackageRepositoriesApt(des, initial *GuestPolicyPack
 }
 
 func canonicalizeNewGuestPolicyPackageRepositoriesApt(c *Client, des, nw *GuestPolicyPackageRepositoriesApt) *GuestPolicyPackageRepositoriesApt {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyPackageRepositoriesApt while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Uri, nw.Uri) {
@@ -1374,8 +1428,17 @@ func canonicalizeGuestPolicyPackageRepositoriesYum(des, initial *GuestPolicyPack
 }
 
 func canonicalizeNewGuestPolicyPackageRepositoriesYum(c *Client, des, nw *GuestPolicyPackageRepositoriesYum) *GuestPolicyPackageRepositoriesYum {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyPackageRepositoriesYum while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Id, nw.Id) {
@@ -1473,8 +1536,17 @@ func canonicalizeGuestPolicyPackageRepositoriesZypper(des, initial *GuestPolicyP
 }
 
 func canonicalizeNewGuestPolicyPackageRepositoriesZypper(c *Client, des, nw *GuestPolicyPackageRepositoriesZypper) *GuestPolicyPackageRepositoriesZypper {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyPackageRepositoriesZypper while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Id, nw.Id) {
@@ -1562,8 +1634,17 @@ func canonicalizeGuestPolicyPackageRepositoriesGoo(des, initial *GuestPolicyPack
 }
 
 func canonicalizeNewGuestPolicyPackageRepositoriesGoo(c *Client, des, nw *GuestPolicyPackageRepositoriesGoo) *GuestPolicyPackageRepositoriesGoo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyPackageRepositoriesGoo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
@@ -1688,8 +1769,17 @@ func canonicalizeGuestPolicyRecipes(des, initial *GuestPolicyRecipes, opts ...dc
 }
 
 func canonicalizeNewGuestPolicyRecipes(c *Client, des, nw *GuestPolicyRecipes) *GuestPolicyRecipes {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyRecipes while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
@@ -1779,8 +1869,17 @@ func canonicalizeGuestPolicyRecipesArtifacts(des, initial *GuestPolicyRecipesArt
 }
 
 func canonicalizeNewGuestPolicyRecipesArtifacts(c *Client, des, nw *GuestPolicyRecipesArtifacts) *GuestPolicyRecipesArtifacts {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyRecipesArtifacts while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Id, nw.Id) {
@@ -1867,8 +1966,17 @@ func canonicalizeGuestPolicyRecipesArtifactsRemote(des, initial *GuestPolicyReci
 }
 
 func canonicalizeNewGuestPolicyRecipesArtifactsRemote(c *Client, des, nw *GuestPolicyRecipesArtifactsRemote) *GuestPolicyRecipesArtifactsRemote {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyRecipesArtifactsRemote while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Uri, nw.Uri) {
@@ -1958,8 +2066,17 @@ func canonicalizeGuestPolicyRecipesArtifactsGcs(des, initial *GuestPolicyRecipes
 }
 
 func canonicalizeNewGuestPolicyRecipesArtifactsGcs(c *Client, des, nw *GuestPolicyRecipesArtifactsGcs) *GuestPolicyRecipesArtifactsGcs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyRecipesArtifactsGcs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.NameToSelfLink(des.Bucket, nw.Bucket) {
@@ -2041,8 +2158,17 @@ func canonicalizeGuestPolicyRecipesInstallSteps(des, initial *GuestPolicyRecipes
 }
 
 func canonicalizeNewGuestPolicyRecipesInstallSteps(c *Client, des, nw *GuestPolicyRecipesInstallSteps) *GuestPolicyRecipesInstallSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyRecipesInstallSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.FileCopy = canonicalizeNewGuestPolicyRecipesInstallStepsFileCopy(c, des.FileCopy, nw.FileCopy)
@@ -2138,8 +2264,17 @@ func canonicalizeGuestPolicyRecipesInstallStepsFileCopy(des, initial *GuestPolic
 }
 
 func canonicalizeNewGuestPolicyRecipesInstallStepsFileCopy(c *Client, des, nw *GuestPolicyRecipesInstallStepsFileCopy) *GuestPolicyRecipesInstallStepsFileCopy {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyRecipesInstallStepsFileCopy while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
@@ -2235,8 +2370,17 @@ func canonicalizeGuestPolicyRecipesInstallStepsArchiveExtraction(des, initial *G
 }
 
 func canonicalizeNewGuestPolicyRecipesInstallStepsArchiveExtraction(c *Client, des, nw *GuestPolicyRecipesInstallStepsArchiveExtraction) *GuestPolicyRecipesInstallStepsArchiveExtraction {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyRecipesInstallStepsArchiveExtraction while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
@@ -2326,8 +2470,17 @@ func canonicalizeGuestPolicyRecipesInstallStepsMsiInstallation(des, initial *Gue
 }
 
 func canonicalizeNewGuestPolicyRecipesInstallStepsMsiInstallation(c *Client, des, nw *GuestPolicyRecipesInstallStepsMsiInstallation) *GuestPolicyRecipesInstallStepsMsiInstallation {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyRecipesInstallStepsMsiInstallation while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
@@ -2404,8 +2557,17 @@ func canonicalizeGuestPolicyRecipesInstallStepsDpkgInstallation(des, initial *Gu
 }
 
 func canonicalizeNewGuestPolicyRecipesInstallStepsDpkgInstallation(c *Client, des, nw *GuestPolicyRecipesInstallStepsDpkgInstallation) *GuestPolicyRecipesInstallStepsDpkgInstallation {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyRecipesInstallStepsDpkgInstallation while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
@@ -2482,8 +2644,17 @@ func canonicalizeGuestPolicyRecipesInstallStepsRpmInstallation(des, initial *Gue
 }
 
 func canonicalizeNewGuestPolicyRecipesInstallStepsRpmInstallation(c *Client, des, nw *GuestPolicyRecipesInstallStepsRpmInstallation) *GuestPolicyRecipesInstallStepsRpmInstallation {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyRecipesInstallStepsRpmInstallation while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
@@ -2575,8 +2746,17 @@ func canonicalizeGuestPolicyRecipesInstallStepsFileExec(des, initial *GuestPolic
 }
 
 func canonicalizeNewGuestPolicyRecipesInstallStepsFileExec(c *Client, des, nw *GuestPolicyRecipesInstallStepsFileExec) *GuestPolicyRecipesInstallStepsFileExec {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyRecipesInstallStepsFileExec while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
@@ -2666,8 +2846,17 @@ func canonicalizeGuestPolicyRecipesInstallStepsScriptRun(des, initial *GuestPoli
 }
 
 func canonicalizeNewGuestPolicyRecipesInstallStepsScriptRun(c *Client, des, nw *GuestPolicyRecipesInstallStepsScriptRun) *GuestPolicyRecipesInstallStepsScriptRun {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyRecipesInstallStepsScriptRun while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Script, nw.Script) {
@@ -2746,8 +2935,17 @@ func canonicalizeGuestPolicyRecipesUpdateSteps(des, initial *GuestPolicyRecipesU
 }
 
 func canonicalizeNewGuestPolicyRecipesUpdateSteps(c *Client, des, nw *GuestPolicyRecipesUpdateSteps) *GuestPolicyRecipesUpdateSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyRecipesUpdateSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.FileCopy = canonicalizeNewGuestPolicyRecipesUpdateStepsFileCopy(c, des.FileCopy, nw.FileCopy)
@@ -2843,8 +3041,17 @@ func canonicalizeGuestPolicyRecipesUpdateStepsFileCopy(des, initial *GuestPolicy
 }
 
 func canonicalizeNewGuestPolicyRecipesUpdateStepsFileCopy(c *Client, des, nw *GuestPolicyRecipesUpdateStepsFileCopy) *GuestPolicyRecipesUpdateStepsFileCopy {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyRecipesUpdateStepsFileCopy while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
@@ -2940,8 +3147,17 @@ func canonicalizeGuestPolicyRecipesUpdateStepsArchiveExtraction(des, initial *Gu
 }
 
 func canonicalizeNewGuestPolicyRecipesUpdateStepsArchiveExtraction(c *Client, des, nw *GuestPolicyRecipesUpdateStepsArchiveExtraction) *GuestPolicyRecipesUpdateStepsArchiveExtraction {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyRecipesUpdateStepsArchiveExtraction while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
@@ -3031,8 +3247,17 @@ func canonicalizeGuestPolicyRecipesUpdateStepsMsiInstallation(des, initial *Gues
 }
 
 func canonicalizeNewGuestPolicyRecipesUpdateStepsMsiInstallation(c *Client, des, nw *GuestPolicyRecipesUpdateStepsMsiInstallation) *GuestPolicyRecipesUpdateStepsMsiInstallation {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyRecipesUpdateStepsMsiInstallation while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
@@ -3109,8 +3334,17 @@ func canonicalizeGuestPolicyRecipesUpdateStepsDpkgInstallation(des, initial *Gue
 }
 
 func canonicalizeNewGuestPolicyRecipesUpdateStepsDpkgInstallation(c *Client, des, nw *GuestPolicyRecipesUpdateStepsDpkgInstallation) *GuestPolicyRecipesUpdateStepsDpkgInstallation {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyRecipesUpdateStepsDpkgInstallation while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
@@ -3187,8 +3421,17 @@ func canonicalizeGuestPolicyRecipesUpdateStepsRpmInstallation(des, initial *Gues
 }
 
 func canonicalizeNewGuestPolicyRecipesUpdateStepsRpmInstallation(c *Client, des, nw *GuestPolicyRecipesUpdateStepsRpmInstallation) *GuestPolicyRecipesUpdateStepsRpmInstallation {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyRecipesUpdateStepsRpmInstallation while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
@@ -3280,8 +3523,17 @@ func canonicalizeGuestPolicyRecipesUpdateStepsFileExec(des, initial *GuestPolicy
 }
 
 func canonicalizeNewGuestPolicyRecipesUpdateStepsFileExec(c *Client, des, nw *GuestPolicyRecipesUpdateStepsFileExec) *GuestPolicyRecipesUpdateStepsFileExec {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyRecipesUpdateStepsFileExec while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
@@ -3371,8 +3623,17 @@ func canonicalizeGuestPolicyRecipesUpdateStepsScriptRun(des, initial *GuestPolic
 }
 
 func canonicalizeNewGuestPolicyRecipesUpdateStepsScriptRun(c *Client, des, nw *GuestPolicyRecipesUpdateStepsScriptRun) *GuestPolicyRecipesUpdateStepsScriptRun {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GuestPolicyRecipesUpdateStepsScriptRun while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Script, nw.Script) {

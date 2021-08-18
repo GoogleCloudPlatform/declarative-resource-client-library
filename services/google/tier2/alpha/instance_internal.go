@@ -2572,7 +2572,7 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 
 func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Instance, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
@@ -2580,7 +2580,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
+	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
@@ -2588,12 +2588,12 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
+	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
 		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Zone) && dcl.IsEmptyValueIndirect(rawDesired.Zone) {
+	if dcl.IsNotReturnedByServer(rawNew.Zone) && dcl.IsNotReturnedByServer(rawDesired.Zone) {
 		rawNew.Zone = rawDesired.Zone
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Zone, rawNew.Zone) {
@@ -2601,7 +2601,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.AlternativeZone) && dcl.IsEmptyValueIndirect(rawDesired.AlternativeZone) {
+	if dcl.IsNotReturnedByServer(rawNew.AlternativeZone) && dcl.IsNotReturnedByServer(rawDesired.AlternativeZone) {
 		rawNew.AlternativeZone = rawDesired.AlternativeZone
 	} else {
 		if dcl.StringCanonicalize(rawDesired.AlternativeZone, rawNew.AlternativeZone) {
@@ -2609,13 +2609,13 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Sku) && dcl.IsEmptyValueIndirect(rawDesired.Sku) {
+	if dcl.IsNotReturnedByServer(rawNew.Sku) && dcl.IsNotReturnedByServer(rawDesired.Sku) {
 		rawNew.Sku = rawDesired.Sku
 	} else {
 		rawNew.Sku = canonicalizeNewInstanceSku(c, rawDesired.Sku, rawNew.Sku)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.AuthorizedNetworkId) && dcl.IsEmptyValueIndirect(rawDesired.AuthorizedNetworkId) {
+	if dcl.IsNotReturnedByServer(rawNew.AuthorizedNetworkId) && dcl.IsNotReturnedByServer(rawDesired.AuthorizedNetworkId) {
 		rawNew.AuthorizedNetworkId = rawDesired.AuthorizedNetworkId
 	} else {
 		if dcl.StringCanonicalize(rawDesired.AuthorizedNetworkId, rawNew.AuthorizedNetworkId) {
@@ -2623,7 +2623,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ReservedIPRange) && dcl.IsEmptyValueIndirect(rawDesired.ReservedIPRange) {
+	if dcl.IsNotReturnedByServer(rawNew.ReservedIPRange) && dcl.IsNotReturnedByServer(rawDesired.ReservedIPRange) {
 		rawNew.ReservedIPRange = rawDesired.ReservedIPRange
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ReservedIPRange, rawNew.ReservedIPRange) {
@@ -2631,7 +2631,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Host) && dcl.IsEmptyValueIndirect(rawDesired.Host) {
+	if dcl.IsNotReturnedByServer(rawNew.Host) && dcl.IsNotReturnedByServer(rawDesired.Host) {
 		rawNew.Host = rawDesired.Host
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Host, rawNew.Host) {
@@ -2639,12 +2639,12 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Port) && dcl.IsEmptyValueIndirect(rawDesired.Port) {
+	if dcl.IsNotReturnedByServer(rawNew.Port) && dcl.IsNotReturnedByServer(rawDesired.Port) {
 		rawNew.Port = rawDesired.Port
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.CurrentZone) && dcl.IsEmptyValueIndirect(rawDesired.CurrentZone) {
+	if dcl.IsNotReturnedByServer(rawNew.CurrentZone) && dcl.IsNotReturnedByServer(rawDesired.CurrentZone) {
 		rawNew.CurrentZone = rawDesired.CurrentZone
 	} else {
 		if dcl.StringCanonicalize(rawDesired.CurrentZone, rawNew.CurrentZone) {
@@ -2652,17 +2652,17 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
+	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
 		rawNew.State = rawDesired.State
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.StatusMessage) && dcl.IsEmptyValueIndirect(rawDesired.StatusMessage) {
+	if dcl.IsNotReturnedByServer(rawNew.StatusMessage) && dcl.IsNotReturnedByServer(rawDesired.StatusMessage) {
 		rawNew.StatusMessage = rawDesired.StatusMessage
 	} else {
 		if dcl.StringCanonicalize(rawDesired.StatusMessage, rawNew.StatusMessage) {
@@ -2670,166 +2670,166 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.MutateUserId) && dcl.IsEmptyValueIndirect(rawDesired.MutateUserId) {
+	if dcl.IsNotReturnedByServer(rawNew.MutateUserId) && dcl.IsNotReturnedByServer(rawDesired.MutateUserId) {
 		rawNew.MutateUserId = rawDesired.MutateUserId
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ReadUserId) && dcl.IsEmptyValueIndirect(rawDesired.ReadUserId) {
+	if dcl.IsNotReturnedByServer(rawNew.ReadUserId) && dcl.IsNotReturnedByServer(rawDesired.ReadUserId) {
 		rawNew.ReadUserId = rawDesired.ReadUserId
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.References) && dcl.IsEmptyValueIndirect(rawDesired.References) {
+	if dcl.IsNotReturnedByServer(rawNew.References) && dcl.IsNotReturnedByServer(rawDesired.References) {
 		rawNew.References = rawDesired.References
 	} else {
 		rawNew.References = canonicalizeNewInstanceReferencesSlice(c, rawDesired.References, rawNew.References)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.PreprocessCreateRecipe) && dcl.IsEmptyValueIndirect(rawDesired.PreprocessCreateRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.PreprocessCreateRecipe) && dcl.IsNotReturnedByServer(rawDesired.PreprocessCreateRecipe) {
 		rawNew.PreprocessCreateRecipe = rawDesired.PreprocessCreateRecipe
 	} else {
 		rawNew.PreprocessCreateRecipe = canonicalizeNewInstancePreprocessCreateRecipe(c, rawDesired.PreprocessCreateRecipe, rawNew.PreprocessCreateRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.CreateRecipe) && dcl.IsEmptyValueIndirect(rawDesired.CreateRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.CreateRecipe) && dcl.IsNotReturnedByServer(rawDesired.CreateRecipe) {
 		rawNew.CreateRecipe = rawDesired.CreateRecipe
 	} else {
 		rawNew.CreateRecipe = canonicalizeNewInstanceCreateRecipe(c, rawDesired.CreateRecipe, rawNew.CreateRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.DeleteRecipe) && dcl.IsEmptyValueIndirect(rawDesired.DeleteRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.DeleteRecipe) && dcl.IsNotReturnedByServer(rawDesired.DeleteRecipe) {
 		rawNew.DeleteRecipe = rawDesired.DeleteRecipe
 	} else {
 		rawNew.DeleteRecipe = canonicalizeNewInstanceDeleteRecipe(c, rawDesired.DeleteRecipe, rawNew.DeleteRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.UpdateRecipe) && dcl.IsEmptyValueIndirect(rawDesired.UpdateRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.UpdateRecipe) && dcl.IsNotReturnedByServer(rawDesired.UpdateRecipe) {
 		rawNew.UpdateRecipe = rawDesired.UpdateRecipe
 	} else {
 		rawNew.UpdateRecipe = canonicalizeNewInstanceUpdateRecipe(c, rawDesired.UpdateRecipe, rawNew.UpdateRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.PreprocessResetRecipe) && dcl.IsEmptyValueIndirect(rawDesired.PreprocessResetRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.PreprocessResetRecipe) && dcl.IsNotReturnedByServer(rawDesired.PreprocessResetRecipe) {
 		rawNew.PreprocessResetRecipe = rawDesired.PreprocessResetRecipe
 	} else {
 		rawNew.PreprocessResetRecipe = canonicalizeNewInstancePreprocessResetRecipe(c, rawDesired.PreprocessResetRecipe, rawNew.PreprocessResetRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ResetRecipe) && dcl.IsEmptyValueIndirect(rawDesired.ResetRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.ResetRecipe) && dcl.IsNotReturnedByServer(rawDesired.ResetRecipe) {
 		rawNew.ResetRecipe = rawDesired.ResetRecipe
 	} else {
 		rawNew.ResetRecipe = canonicalizeNewInstanceResetRecipe(c, rawDesired.ResetRecipe, rawNew.ResetRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.PreprocessRepairRecipe) && dcl.IsEmptyValueIndirect(rawDesired.PreprocessRepairRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.PreprocessRepairRecipe) && dcl.IsNotReturnedByServer(rawDesired.PreprocessRepairRecipe) {
 		rawNew.PreprocessRepairRecipe = rawDesired.PreprocessRepairRecipe
 	} else {
 		rawNew.PreprocessRepairRecipe = canonicalizeNewInstancePreprocessRepairRecipe(c, rawDesired.PreprocessRepairRecipe, rawNew.PreprocessRepairRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.RepairRecipe) && dcl.IsEmptyValueIndirect(rawDesired.RepairRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.RepairRecipe) && dcl.IsNotReturnedByServer(rawDesired.RepairRecipe) {
 		rawNew.RepairRecipe = rawDesired.RepairRecipe
 	} else {
 		rawNew.RepairRecipe = canonicalizeNewInstanceRepairRecipe(c, rawDesired.RepairRecipe, rawNew.RepairRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.PreprocessDeleteRecipe) && dcl.IsEmptyValueIndirect(rawDesired.PreprocessDeleteRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.PreprocessDeleteRecipe) && dcl.IsNotReturnedByServer(rawDesired.PreprocessDeleteRecipe) {
 		rawNew.PreprocessDeleteRecipe = rawDesired.PreprocessDeleteRecipe
 	} else {
 		rawNew.PreprocessDeleteRecipe = canonicalizeNewInstancePreprocessDeleteRecipe(c, rawDesired.PreprocessDeleteRecipe, rawNew.PreprocessDeleteRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.PreprocessUpdateRecipe) && dcl.IsEmptyValueIndirect(rawDesired.PreprocessUpdateRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.PreprocessUpdateRecipe) && dcl.IsNotReturnedByServer(rawDesired.PreprocessUpdateRecipe) {
 		rawNew.PreprocessUpdateRecipe = rawDesired.PreprocessUpdateRecipe
 	} else {
 		rawNew.PreprocessUpdateRecipe = canonicalizeNewInstancePreprocessUpdateRecipe(c, rawDesired.PreprocessUpdateRecipe, rawNew.PreprocessUpdateRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.PreprocessFreezeRecipe) && dcl.IsEmptyValueIndirect(rawDesired.PreprocessFreezeRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.PreprocessFreezeRecipe) && dcl.IsNotReturnedByServer(rawDesired.PreprocessFreezeRecipe) {
 		rawNew.PreprocessFreezeRecipe = rawDesired.PreprocessFreezeRecipe
 	} else {
 		rawNew.PreprocessFreezeRecipe = canonicalizeNewInstancePreprocessFreezeRecipe(c, rawDesired.PreprocessFreezeRecipe, rawNew.PreprocessFreezeRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.FreezeRecipe) && dcl.IsEmptyValueIndirect(rawDesired.FreezeRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.FreezeRecipe) && dcl.IsNotReturnedByServer(rawDesired.FreezeRecipe) {
 		rawNew.FreezeRecipe = rawDesired.FreezeRecipe
 	} else {
 		rawNew.FreezeRecipe = canonicalizeNewInstanceFreezeRecipe(c, rawDesired.FreezeRecipe, rawNew.FreezeRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.PreprocessUnfreezeRecipe) && dcl.IsEmptyValueIndirect(rawDesired.PreprocessUnfreezeRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.PreprocessUnfreezeRecipe) && dcl.IsNotReturnedByServer(rawDesired.PreprocessUnfreezeRecipe) {
 		rawNew.PreprocessUnfreezeRecipe = rawDesired.PreprocessUnfreezeRecipe
 	} else {
 		rawNew.PreprocessUnfreezeRecipe = canonicalizeNewInstancePreprocessUnfreezeRecipe(c, rawDesired.PreprocessUnfreezeRecipe, rawNew.PreprocessUnfreezeRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.UnfreezeRecipe) && dcl.IsEmptyValueIndirect(rawDesired.UnfreezeRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.UnfreezeRecipe) && dcl.IsNotReturnedByServer(rawDesired.UnfreezeRecipe) {
 		rawNew.UnfreezeRecipe = rawDesired.UnfreezeRecipe
 	} else {
 		rawNew.UnfreezeRecipe = canonicalizeNewInstanceUnfreezeRecipe(c, rawDesired.UnfreezeRecipe, rawNew.UnfreezeRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.PreprocessReportInstanceHealthRecipe) && dcl.IsEmptyValueIndirect(rawDesired.PreprocessReportInstanceHealthRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.PreprocessReportInstanceHealthRecipe) && dcl.IsNotReturnedByServer(rawDesired.PreprocessReportInstanceHealthRecipe) {
 		rawNew.PreprocessReportInstanceHealthRecipe = rawDesired.PreprocessReportInstanceHealthRecipe
 	} else {
 		rawNew.PreprocessReportInstanceHealthRecipe = canonicalizeNewInstancePreprocessReportInstanceHealthRecipe(c, rawDesired.PreprocessReportInstanceHealthRecipe, rawNew.PreprocessReportInstanceHealthRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ReportInstanceHealthRecipe) && dcl.IsEmptyValueIndirect(rawDesired.ReportInstanceHealthRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.ReportInstanceHealthRecipe) && dcl.IsNotReturnedByServer(rawDesired.ReportInstanceHealthRecipe) {
 		rawNew.ReportInstanceHealthRecipe = rawDesired.ReportInstanceHealthRecipe
 	} else {
 		rawNew.ReportInstanceHealthRecipe = canonicalizeNewInstanceReportInstanceHealthRecipe(c, rawDesired.ReportInstanceHealthRecipe, rawNew.ReportInstanceHealthRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.PreprocessGetRecipe) && dcl.IsEmptyValueIndirect(rawDesired.PreprocessGetRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.PreprocessGetRecipe) && dcl.IsNotReturnedByServer(rawDesired.PreprocessGetRecipe) {
 		rawNew.PreprocessGetRecipe = rawDesired.PreprocessGetRecipe
 	} else {
 		rawNew.PreprocessGetRecipe = canonicalizeNewInstancePreprocessGetRecipe(c, rawDesired.PreprocessGetRecipe, rawNew.PreprocessGetRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.NotifyKeyAvailableRecipe) && dcl.IsEmptyValueIndirect(rawDesired.NotifyKeyAvailableRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.NotifyKeyAvailableRecipe) && dcl.IsNotReturnedByServer(rawDesired.NotifyKeyAvailableRecipe) {
 		rawNew.NotifyKeyAvailableRecipe = rawDesired.NotifyKeyAvailableRecipe
 	} else {
 		rawNew.NotifyKeyAvailableRecipe = canonicalizeNewInstanceNotifyKeyAvailableRecipe(c, rawDesired.NotifyKeyAvailableRecipe, rawNew.NotifyKeyAvailableRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.NotifyKeyUnavailableRecipe) && dcl.IsEmptyValueIndirect(rawDesired.NotifyKeyUnavailableRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.NotifyKeyUnavailableRecipe) && dcl.IsNotReturnedByServer(rawDesired.NotifyKeyUnavailableRecipe) {
 		rawNew.NotifyKeyUnavailableRecipe = rawDesired.NotifyKeyUnavailableRecipe
 	} else {
 		rawNew.NotifyKeyUnavailableRecipe = canonicalizeNewInstanceNotifyKeyUnavailableRecipe(c, rawDesired.NotifyKeyUnavailableRecipe, rawNew.NotifyKeyUnavailableRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ReadonlyRecipe) && dcl.IsEmptyValueIndirect(rawDesired.ReadonlyRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.ReadonlyRecipe) && dcl.IsNotReturnedByServer(rawDesired.ReadonlyRecipe) {
 		rawNew.ReadonlyRecipe = rawDesired.ReadonlyRecipe
 	} else {
 		rawNew.ReadonlyRecipe = canonicalizeNewInstanceReadonlyRecipe(c, rawDesired.ReadonlyRecipe, rawNew.ReadonlyRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ReconcileRecipe) && dcl.IsEmptyValueIndirect(rawDesired.ReconcileRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.ReconcileRecipe) && dcl.IsNotReturnedByServer(rawDesired.ReconcileRecipe) {
 		rawNew.ReconcileRecipe = rawDesired.ReconcileRecipe
 	} else {
 		rawNew.ReconcileRecipe = canonicalizeNewInstanceReconcileRecipe(c, rawDesired.ReconcileRecipe, rawNew.ReconcileRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.PreprocessPassthroughRecipe) && dcl.IsEmptyValueIndirect(rawDesired.PreprocessPassthroughRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.PreprocessPassthroughRecipe) && dcl.IsNotReturnedByServer(rawDesired.PreprocessPassthroughRecipe) {
 		rawNew.PreprocessPassthroughRecipe = rawDesired.PreprocessPassthroughRecipe
 	} else {
 		rawNew.PreprocessPassthroughRecipe = canonicalizeNewInstancePreprocessPassthroughRecipe(c, rawDesired.PreprocessPassthroughRecipe, rawNew.PreprocessPassthroughRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.PreprocessReconcileRecipe) && dcl.IsEmptyValueIndirect(rawDesired.PreprocessReconcileRecipe) {
+	if dcl.IsNotReturnedByServer(rawNew.PreprocessReconcileRecipe) && dcl.IsNotReturnedByServer(rawDesired.PreprocessReconcileRecipe) {
 		rawNew.PreprocessReconcileRecipe = rawDesired.PreprocessReconcileRecipe
 	} else {
 		rawNew.PreprocessReconcileRecipe = canonicalizeNewInstancePreprocessReconcileRecipe(c, rawDesired.PreprocessReconcileRecipe, rawNew.PreprocessReconcileRecipe)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.EnableCallHistory) && dcl.IsEmptyValueIndirect(rawDesired.EnableCallHistory) {
+	if dcl.IsNotReturnedByServer(rawNew.EnableCallHistory) && dcl.IsNotReturnedByServer(rawDesired.EnableCallHistory) {
 		rawNew.EnableCallHistory = rawDesired.EnableCallHistory
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.EnableCallHistory, rawNew.EnableCallHistory) {
@@ -2837,13 +2837,13 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.History) && dcl.IsEmptyValueIndirect(rawDesired.History) {
+	if dcl.IsNotReturnedByServer(rawNew.History) && dcl.IsNotReturnedByServer(rawDesired.History) {
 		rawNew.History = rawDesired.History
 	} else {
 		rawNew.History = canonicalizeNewInstanceHistorySlice(c, rawDesired.History, rawNew.History)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.PublicResourceViewOverride) && dcl.IsEmptyValueIndirect(rawDesired.PublicResourceViewOverride) {
+	if dcl.IsNotReturnedByServer(rawNew.PublicResourceViewOverride) && dcl.IsNotReturnedByServer(rawDesired.PublicResourceViewOverride) {
 		rawNew.PublicResourceViewOverride = rawDesired.PublicResourceViewOverride
 	} else {
 		if dcl.StringCanonicalize(rawDesired.PublicResourceViewOverride, rawNew.PublicResourceViewOverride) {
@@ -2851,7 +2851,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ExtraInfo) && dcl.IsEmptyValueIndirect(rawDesired.ExtraInfo) {
+	if dcl.IsNotReturnedByServer(rawNew.ExtraInfo) && dcl.IsNotReturnedByServer(rawDesired.ExtraInfo) {
 		rawNew.ExtraInfo = rawDesired.ExtraInfo
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ExtraInfo, rawNew.ExtraInfo) {
@@ -2859,7 +2859,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Uid) && dcl.IsEmptyValueIndirect(rawDesired.Uid) {
+	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
 		rawNew.Uid = rawDesired.Uid
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
@@ -2867,7 +2867,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
+	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
 		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
@@ -2911,8 +2911,17 @@ func canonicalizeInstanceSku(des, initial *InstanceSku, opts ...dcl.ApplyOption)
 }
 
 func canonicalizeNewInstanceSku(c *Client, des, nw *InstanceSku) *InstanceSku {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceSku while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -2995,8 +3004,17 @@ func canonicalizeInstanceReferences(des, initial *InstanceReferences, opts ...dc
 }
 
 func canonicalizeNewInstanceReferences(c *Client, des, nw *InstanceReferences) *InstanceReferences {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReferences while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -3082,8 +3100,17 @@ func canonicalizeInstanceReferencesDetails(des, initial *InstanceReferencesDetai
 }
 
 func canonicalizeNewInstanceReferencesDetails(c *Client, des, nw *InstanceReferencesDetails) *InstanceReferencesDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReferencesDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -3198,8 +3225,17 @@ func canonicalizeInstancePreprocessCreateRecipe(des, initial *InstancePreprocess
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipe(c *Client, des, nw *InstancePreprocessCreateRecipe) *InstancePreprocessCreateRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessCreateRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstancePreprocessCreateRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -3344,8 +3380,17 @@ func canonicalizeInstancePreprocessCreateRecipeSteps(des, initial *InstancePrepr
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeSteps(c *Client, des, nw *InstancePreprocessCreateRecipeSteps) *InstancePreprocessCreateRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessCreateRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstancePreprocessCreateRecipeStepsStatus(c, des.Status, nw.Status)
@@ -3450,8 +3495,17 @@ func canonicalizeInstancePreprocessCreateRecipeStepsStatus(des, initial *Instanc
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsStatus(c *Client, des, nw *InstancePreprocessCreateRecipeStepsStatus) *InstancePreprocessCreateRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessCreateRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -3534,8 +3588,17 @@ func canonicalizeInstancePreprocessCreateRecipeStepsStatusDetails(des, initial *
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessCreateRecipeStepsStatusDetails) *InstancePreprocessCreateRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessCreateRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -3625,8 +3688,17 @@ func canonicalizeInstancePreprocessCreateRecipeStepsQuotaRequestDeltas(des, init
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessCreateRecipeStepsQuotaRequestDeltas) *InstancePreprocessCreateRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessCreateRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -3711,8 +3783,17 @@ func canonicalizeInstancePreprocessCreateRecipeStepsPreprocessUpdate(des, initia
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessCreateRecipeStepsPreprocessUpdate) *InstancePreprocessCreateRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessCreateRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -3802,8 +3883,17 @@ func canonicalizeInstancePreprocessCreateRecipeStepsRequestedTenantProject(des, 
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessCreateRecipeStepsRequestedTenantProject) *InstancePreprocessCreateRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessCreateRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -3895,8 +3985,17 @@ func canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfo(des, initial
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessCreateRecipeStepsPermissionsInfo) *InstancePreprocessCreateRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessCreateRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -3986,8 +4085,17 @@ func canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName(de
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -4070,8 +4178,17 @@ func canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermission
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -4141,8 +4258,17 @@ func canonicalizeInstanceGoogleprotobufstruct(des, initial *InstanceGoogleprotob
 }
 
 func canonicalizeNewInstanceGoogleprotobufstruct(c *Client, des, nw *InstanceGoogleprotobufstruct) *InstanceGoogleprotobufstruct {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceGoogleprotobufstruct while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -4211,8 +4337,17 @@ func canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate(des, 
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate) *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -4297,8 +4432,17 @@ func canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNot
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -4386,8 +4530,17 @@ func canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNot
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -4502,8 +4655,17 @@ func canonicalizeInstanceCreateRecipe(des, initial *InstanceCreateRecipe, opts .
 }
 
 func canonicalizeNewInstanceCreateRecipe(c *Client, des, nw *InstanceCreateRecipe) *InstanceCreateRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceCreateRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstanceCreateRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -4648,8 +4810,17 @@ func canonicalizeInstanceCreateRecipeSteps(des, initial *InstanceCreateRecipeSte
 }
 
 func canonicalizeNewInstanceCreateRecipeSteps(c *Client, des, nw *InstanceCreateRecipeSteps) *InstanceCreateRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceCreateRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstanceCreateRecipeStepsStatus(c, des.Status, nw.Status)
@@ -4754,8 +4925,17 @@ func canonicalizeInstanceCreateRecipeStepsStatus(des, initial *InstanceCreateRec
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsStatus(c *Client, des, nw *InstanceCreateRecipeStepsStatus) *InstanceCreateRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceCreateRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -4838,8 +5018,17 @@ func canonicalizeInstanceCreateRecipeStepsStatusDetails(des, initial *InstanceCr
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsStatusDetails(c *Client, des, nw *InstanceCreateRecipeStepsStatusDetails) *InstanceCreateRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceCreateRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -4929,8 +5118,17 @@ func canonicalizeInstanceCreateRecipeStepsQuotaRequestDeltas(des, initial *Insta
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceCreateRecipeStepsQuotaRequestDeltas) *InstanceCreateRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceCreateRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -5015,8 +5213,17 @@ func canonicalizeInstanceCreateRecipeStepsPreprocessUpdate(des, initial *Instanc
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceCreateRecipeStepsPreprocessUpdate) *InstanceCreateRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceCreateRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -5106,8 +5313,17 @@ func canonicalizeInstanceCreateRecipeStepsRequestedTenantProject(des, initial *I
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceCreateRecipeStepsRequestedTenantProject) *InstanceCreateRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceCreateRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -5199,8 +5415,17 @@ func canonicalizeInstanceCreateRecipeStepsPermissionsInfo(des, initial *Instance
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceCreateRecipeStepsPermissionsInfo) *InstanceCreateRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceCreateRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstanceCreateRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -5290,8 +5515,17 @@ func canonicalizeInstanceCreateRecipeStepsPermissionsInfoPolicyName(des, initial
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceCreateRecipeStepsPermissionsInfoPolicyName) *InstanceCreateRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceCreateRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -5374,8 +5608,17 @@ func canonicalizeInstanceCreateRecipeStepsPermissionsInfoIamPermissions(des, ini
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceCreateRecipeStepsPermissionsInfoIamPermissions) *InstanceCreateRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceCreateRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -5448,8 +5691,17 @@ func canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdate(des, initial *I
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceCreateRecipeStepsKeyNotificationsUpdate) *InstanceCreateRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceCreateRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -5534,8 +5786,17 @@ func canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotifications
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -5623,8 +5884,17 @@ func canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotifications
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -5739,8 +6009,17 @@ func canonicalizeInstanceDeleteRecipe(des, initial *InstanceDeleteRecipe, opts .
 }
 
 func canonicalizeNewInstanceDeleteRecipe(c *Client, des, nw *InstanceDeleteRecipe) *InstanceDeleteRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceDeleteRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstanceDeleteRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -5885,8 +6164,17 @@ func canonicalizeInstanceDeleteRecipeSteps(des, initial *InstanceDeleteRecipeSte
 }
 
 func canonicalizeNewInstanceDeleteRecipeSteps(c *Client, des, nw *InstanceDeleteRecipeSteps) *InstanceDeleteRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceDeleteRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstanceDeleteRecipeStepsStatus(c, des.Status, nw.Status)
@@ -5991,8 +6279,17 @@ func canonicalizeInstanceDeleteRecipeStepsStatus(des, initial *InstanceDeleteRec
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsStatus(c *Client, des, nw *InstanceDeleteRecipeStepsStatus) *InstanceDeleteRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceDeleteRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -6075,8 +6372,17 @@ func canonicalizeInstanceDeleteRecipeStepsStatusDetails(des, initial *InstanceDe
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsStatusDetails(c *Client, des, nw *InstanceDeleteRecipeStepsStatusDetails) *InstanceDeleteRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceDeleteRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -6166,8 +6472,17 @@ func canonicalizeInstanceDeleteRecipeStepsQuotaRequestDeltas(des, initial *Insta
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceDeleteRecipeStepsQuotaRequestDeltas) *InstanceDeleteRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceDeleteRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -6252,8 +6567,17 @@ func canonicalizeInstanceDeleteRecipeStepsPreprocessUpdate(des, initial *Instanc
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceDeleteRecipeStepsPreprocessUpdate) *InstanceDeleteRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceDeleteRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -6343,8 +6667,17 @@ func canonicalizeInstanceDeleteRecipeStepsRequestedTenantProject(des, initial *I
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceDeleteRecipeStepsRequestedTenantProject) *InstanceDeleteRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceDeleteRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -6436,8 +6769,17 @@ func canonicalizeInstanceDeleteRecipeStepsPermissionsInfo(des, initial *Instance
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceDeleteRecipeStepsPermissionsInfo) *InstanceDeleteRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceDeleteRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstanceDeleteRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -6527,8 +6869,17 @@ func canonicalizeInstanceDeleteRecipeStepsPermissionsInfoPolicyName(des, initial
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceDeleteRecipeStepsPermissionsInfoPolicyName) *InstanceDeleteRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceDeleteRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -6611,8 +6962,17 @@ func canonicalizeInstanceDeleteRecipeStepsPermissionsInfoIamPermissions(des, ini
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceDeleteRecipeStepsPermissionsInfoIamPermissions) *InstanceDeleteRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceDeleteRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -6685,8 +7045,17 @@ func canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdate(des, initial *I
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceDeleteRecipeStepsKeyNotificationsUpdate) *InstanceDeleteRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceDeleteRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -6771,8 +7140,17 @@ func canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotifications
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -6860,8 +7238,17 @@ func canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotifications
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -6976,8 +7363,17 @@ func canonicalizeInstanceUpdateRecipe(des, initial *InstanceUpdateRecipe, opts .
 }
 
 func canonicalizeNewInstanceUpdateRecipe(c *Client, des, nw *InstanceUpdateRecipe) *InstanceUpdateRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUpdateRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstanceUpdateRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -7122,8 +7518,17 @@ func canonicalizeInstanceUpdateRecipeSteps(des, initial *InstanceUpdateRecipeSte
 }
 
 func canonicalizeNewInstanceUpdateRecipeSteps(c *Client, des, nw *InstanceUpdateRecipeSteps) *InstanceUpdateRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUpdateRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstanceUpdateRecipeStepsStatus(c, des.Status, nw.Status)
@@ -7228,8 +7633,17 @@ func canonicalizeInstanceUpdateRecipeStepsStatus(des, initial *InstanceUpdateRec
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsStatus(c *Client, des, nw *InstanceUpdateRecipeStepsStatus) *InstanceUpdateRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUpdateRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -7312,8 +7726,17 @@ func canonicalizeInstanceUpdateRecipeStepsStatusDetails(des, initial *InstanceUp
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsStatusDetails(c *Client, des, nw *InstanceUpdateRecipeStepsStatusDetails) *InstanceUpdateRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUpdateRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -7403,8 +7826,17 @@ func canonicalizeInstanceUpdateRecipeStepsQuotaRequestDeltas(des, initial *Insta
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceUpdateRecipeStepsQuotaRequestDeltas) *InstanceUpdateRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUpdateRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -7489,8 +7921,17 @@ func canonicalizeInstanceUpdateRecipeStepsPreprocessUpdate(des, initial *Instanc
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceUpdateRecipeStepsPreprocessUpdate) *InstanceUpdateRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUpdateRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -7580,8 +8021,17 @@ func canonicalizeInstanceUpdateRecipeStepsRequestedTenantProject(des, initial *I
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceUpdateRecipeStepsRequestedTenantProject) *InstanceUpdateRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUpdateRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -7673,8 +8123,17 @@ func canonicalizeInstanceUpdateRecipeStepsPermissionsInfo(des, initial *Instance
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceUpdateRecipeStepsPermissionsInfo) *InstanceUpdateRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUpdateRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstanceUpdateRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -7764,8 +8223,17 @@ func canonicalizeInstanceUpdateRecipeStepsPermissionsInfoPolicyName(des, initial
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceUpdateRecipeStepsPermissionsInfoPolicyName) *InstanceUpdateRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUpdateRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -7848,8 +8316,17 @@ func canonicalizeInstanceUpdateRecipeStepsPermissionsInfoIamPermissions(des, ini
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceUpdateRecipeStepsPermissionsInfoIamPermissions) *InstanceUpdateRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUpdateRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -7922,8 +8399,17 @@ func canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdate(des, initial *I
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceUpdateRecipeStepsKeyNotificationsUpdate) *InstanceUpdateRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUpdateRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -8008,8 +8494,17 @@ func canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotifications
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -8097,8 +8592,17 @@ func canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotifications
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -8213,8 +8717,17 @@ func canonicalizeInstancePreprocessResetRecipe(des, initial *InstancePreprocessR
 }
 
 func canonicalizeNewInstancePreprocessResetRecipe(c *Client, des, nw *InstancePreprocessResetRecipe) *InstancePreprocessResetRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessResetRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstancePreprocessResetRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -8359,8 +8872,17 @@ func canonicalizeInstancePreprocessResetRecipeSteps(des, initial *InstancePrepro
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeSteps(c *Client, des, nw *InstancePreprocessResetRecipeSteps) *InstancePreprocessResetRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessResetRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstancePreprocessResetRecipeStepsStatus(c, des.Status, nw.Status)
@@ -8465,8 +8987,17 @@ func canonicalizeInstancePreprocessResetRecipeStepsStatus(des, initial *Instance
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsStatus(c *Client, des, nw *InstancePreprocessResetRecipeStepsStatus) *InstancePreprocessResetRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessResetRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -8549,8 +9080,17 @@ func canonicalizeInstancePreprocessResetRecipeStepsStatusDetails(des, initial *I
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessResetRecipeStepsStatusDetails) *InstancePreprocessResetRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessResetRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -8640,8 +9180,17 @@ func canonicalizeInstancePreprocessResetRecipeStepsQuotaRequestDeltas(des, initi
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessResetRecipeStepsQuotaRequestDeltas) *InstancePreprocessResetRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessResetRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -8726,8 +9275,17 @@ func canonicalizeInstancePreprocessResetRecipeStepsPreprocessUpdate(des, initial
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessResetRecipeStepsPreprocessUpdate) *InstancePreprocessResetRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessResetRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -8817,8 +9375,17 @@ func canonicalizeInstancePreprocessResetRecipeStepsRequestedTenantProject(des, i
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessResetRecipeStepsRequestedTenantProject) *InstancePreprocessResetRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessResetRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -8910,8 +9477,17 @@ func canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfo(des, initial 
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessResetRecipeStepsPermissionsInfo) *InstancePreprocessResetRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessResetRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -9001,8 +9577,17 @@ func canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName(des
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -9085,8 +9670,17 @@ func canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -9159,8 +9753,17 @@ func canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdate(des, i
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessResetRecipeStepsKeyNotificationsUpdate) *InstancePreprocessResetRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessResetRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -9245,8 +9848,17 @@ func canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNoti
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -9334,8 +9946,17 @@ func canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNoti
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -9450,8 +10071,17 @@ func canonicalizeInstanceResetRecipe(des, initial *InstanceResetRecipe, opts ...
 }
 
 func canonicalizeNewInstanceResetRecipe(c *Client, des, nw *InstanceResetRecipe) *InstanceResetRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceResetRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstanceResetRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -9596,8 +10226,17 @@ func canonicalizeInstanceResetRecipeSteps(des, initial *InstanceResetRecipeSteps
 }
 
 func canonicalizeNewInstanceResetRecipeSteps(c *Client, des, nw *InstanceResetRecipeSteps) *InstanceResetRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceResetRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstanceResetRecipeStepsStatus(c, des.Status, nw.Status)
@@ -9702,8 +10341,17 @@ func canonicalizeInstanceResetRecipeStepsStatus(des, initial *InstanceResetRecip
 }
 
 func canonicalizeNewInstanceResetRecipeStepsStatus(c *Client, des, nw *InstanceResetRecipeStepsStatus) *InstanceResetRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceResetRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -9786,8 +10434,17 @@ func canonicalizeInstanceResetRecipeStepsStatusDetails(des, initial *InstanceRes
 }
 
 func canonicalizeNewInstanceResetRecipeStepsStatusDetails(c *Client, des, nw *InstanceResetRecipeStepsStatusDetails) *InstanceResetRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceResetRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -9877,8 +10534,17 @@ func canonicalizeInstanceResetRecipeStepsQuotaRequestDeltas(des, initial *Instan
 }
 
 func canonicalizeNewInstanceResetRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceResetRecipeStepsQuotaRequestDeltas) *InstanceResetRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceResetRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -9963,8 +10629,17 @@ func canonicalizeInstanceResetRecipeStepsPreprocessUpdate(des, initial *Instance
 }
 
 func canonicalizeNewInstanceResetRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceResetRecipeStepsPreprocessUpdate) *InstanceResetRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceResetRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -10054,8 +10729,17 @@ func canonicalizeInstanceResetRecipeStepsRequestedTenantProject(des, initial *In
 }
 
 func canonicalizeNewInstanceResetRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceResetRecipeStepsRequestedTenantProject) *InstanceResetRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceResetRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -10147,8 +10831,17 @@ func canonicalizeInstanceResetRecipeStepsPermissionsInfo(des, initial *InstanceR
 }
 
 func canonicalizeNewInstanceResetRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceResetRecipeStepsPermissionsInfo) *InstanceResetRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceResetRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstanceResetRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -10238,8 +10931,17 @@ func canonicalizeInstanceResetRecipeStepsPermissionsInfoPolicyName(des, initial 
 }
 
 func canonicalizeNewInstanceResetRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceResetRecipeStepsPermissionsInfoPolicyName) *InstanceResetRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceResetRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -10322,8 +11024,17 @@ func canonicalizeInstanceResetRecipeStepsPermissionsInfoIamPermissions(des, init
 }
 
 func canonicalizeNewInstanceResetRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceResetRecipeStepsPermissionsInfoIamPermissions) *InstanceResetRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceResetRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -10396,8 +11107,17 @@ func canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdate(des, initial *In
 }
 
 func canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceResetRecipeStepsKeyNotificationsUpdate) *InstanceResetRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceResetRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -10482,8 +11202,17 @@ func canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsI
 }
 
 func canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -10571,8 +11300,17 @@ func canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsI
 }
 
 func canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -10687,8 +11425,17 @@ func canonicalizeInstancePreprocessRepairRecipe(des, initial *InstancePreprocess
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipe(c *Client, des, nw *InstancePreprocessRepairRecipe) *InstancePreprocessRepairRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessRepairRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstancePreprocessRepairRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -10833,8 +11580,17 @@ func canonicalizeInstancePreprocessRepairRecipeSteps(des, initial *InstancePrepr
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeSteps(c *Client, des, nw *InstancePreprocessRepairRecipeSteps) *InstancePreprocessRepairRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessRepairRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstancePreprocessRepairRecipeStepsStatus(c, des.Status, nw.Status)
@@ -10939,8 +11695,17 @@ func canonicalizeInstancePreprocessRepairRecipeStepsStatus(des, initial *Instanc
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsStatus(c *Client, des, nw *InstancePreprocessRepairRecipeStepsStatus) *InstancePreprocessRepairRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessRepairRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -11023,8 +11788,17 @@ func canonicalizeInstancePreprocessRepairRecipeStepsStatusDetails(des, initial *
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessRepairRecipeStepsStatusDetails) *InstancePreprocessRepairRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessRepairRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -11114,8 +11888,17 @@ func canonicalizeInstancePreprocessRepairRecipeStepsQuotaRequestDeltas(des, init
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessRepairRecipeStepsQuotaRequestDeltas) *InstancePreprocessRepairRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessRepairRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -11200,8 +11983,17 @@ func canonicalizeInstancePreprocessRepairRecipeStepsPreprocessUpdate(des, initia
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessRepairRecipeStepsPreprocessUpdate) *InstancePreprocessRepairRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessRepairRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -11291,8 +12083,17 @@ func canonicalizeInstancePreprocessRepairRecipeStepsRequestedTenantProject(des, 
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessRepairRecipeStepsRequestedTenantProject) *InstancePreprocessRepairRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessRepairRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -11384,8 +12185,17 @@ func canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfo(des, initial
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessRepairRecipeStepsPermissionsInfo) *InstancePreprocessRepairRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessRepairRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -11475,8 +12285,17 @@ func canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName(de
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -11559,8 +12378,17 @@ func canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermission
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -11633,8 +12461,17 @@ func canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate(des, 
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate) *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -11719,8 +12556,17 @@ func canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNot
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -11808,8 +12654,17 @@ func canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNot
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -11924,8 +12779,17 @@ func canonicalizeInstanceRepairRecipe(des, initial *InstanceRepairRecipe, opts .
 }
 
 func canonicalizeNewInstanceRepairRecipe(c *Client, des, nw *InstanceRepairRecipe) *InstanceRepairRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceRepairRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstanceRepairRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -12070,8 +12934,17 @@ func canonicalizeInstanceRepairRecipeSteps(des, initial *InstanceRepairRecipeSte
 }
 
 func canonicalizeNewInstanceRepairRecipeSteps(c *Client, des, nw *InstanceRepairRecipeSteps) *InstanceRepairRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceRepairRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstanceRepairRecipeStepsStatus(c, des.Status, nw.Status)
@@ -12176,8 +13049,17 @@ func canonicalizeInstanceRepairRecipeStepsStatus(des, initial *InstanceRepairRec
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsStatus(c *Client, des, nw *InstanceRepairRecipeStepsStatus) *InstanceRepairRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceRepairRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -12260,8 +13142,17 @@ func canonicalizeInstanceRepairRecipeStepsStatusDetails(des, initial *InstanceRe
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsStatusDetails(c *Client, des, nw *InstanceRepairRecipeStepsStatusDetails) *InstanceRepairRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceRepairRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -12351,8 +13242,17 @@ func canonicalizeInstanceRepairRecipeStepsQuotaRequestDeltas(des, initial *Insta
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceRepairRecipeStepsQuotaRequestDeltas) *InstanceRepairRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceRepairRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -12437,8 +13337,17 @@ func canonicalizeInstanceRepairRecipeStepsPreprocessUpdate(des, initial *Instanc
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceRepairRecipeStepsPreprocessUpdate) *InstanceRepairRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceRepairRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -12528,8 +13437,17 @@ func canonicalizeInstanceRepairRecipeStepsRequestedTenantProject(des, initial *I
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceRepairRecipeStepsRequestedTenantProject) *InstanceRepairRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceRepairRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -12621,8 +13539,17 @@ func canonicalizeInstanceRepairRecipeStepsPermissionsInfo(des, initial *Instance
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceRepairRecipeStepsPermissionsInfo) *InstanceRepairRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceRepairRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstanceRepairRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -12712,8 +13639,17 @@ func canonicalizeInstanceRepairRecipeStepsPermissionsInfoPolicyName(des, initial
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceRepairRecipeStepsPermissionsInfoPolicyName) *InstanceRepairRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceRepairRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -12796,8 +13732,17 @@ func canonicalizeInstanceRepairRecipeStepsPermissionsInfoIamPermissions(des, ini
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceRepairRecipeStepsPermissionsInfoIamPermissions) *InstanceRepairRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceRepairRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -12870,8 +13815,17 @@ func canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdate(des, initial *I
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceRepairRecipeStepsKeyNotificationsUpdate) *InstanceRepairRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceRepairRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -12956,8 +13910,17 @@ func canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotifications
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -13045,8 +14008,17 @@ func canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotifications
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -13161,8 +14133,17 @@ func canonicalizeInstancePreprocessDeleteRecipe(des, initial *InstancePreprocess
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipe(c *Client, des, nw *InstancePreprocessDeleteRecipe) *InstancePreprocessDeleteRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessDeleteRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstancePreprocessDeleteRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -13307,8 +14288,17 @@ func canonicalizeInstancePreprocessDeleteRecipeSteps(des, initial *InstancePrepr
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeSteps(c *Client, des, nw *InstancePreprocessDeleteRecipeSteps) *InstancePreprocessDeleteRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessDeleteRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstancePreprocessDeleteRecipeStepsStatus(c, des.Status, nw.Status)
@@ -13413,8 +14403,17 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsStatus(des, initial *Instanc
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsStatus(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsStatus) *InstancePreprocessDeleteRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessDeleteRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -13497,8 +14496,17 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsStatusDetails(des, initial *
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsStatusDetails) *InstancePreprocessDeleteRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessDeleteRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -13588,8 +14596,17 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(des, init
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas) *InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -13674,8 +14691,17 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsPreprocessUpdate(des, initia
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsPreprocessUpdate) *InstancePreprocessDeleteRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessDeleteRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -13765,8 +14791,17 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsRequestedTenantProject(des, 
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsRequestedTenantProject) *InstancePreprocessDeleteRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessDeleteRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -13858,8 +14893,17 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfo(des, initial
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsPermissionsInfo) *InstancePreprocessDeleteRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessDeleteRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -13949,8 +14993,17 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName(de
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -14033,8 +15086,17 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermission
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -14107,8 +15169,17 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate(des, 
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate) *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -14193,8 +15264,17 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNot
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -14282,8 +15362,17 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNot
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -14398,8 +15487,17 @@ func canonicalizeInstancePreprocessUpdateRecipe(des, initial *InstancePreprocess
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipe(c *Client, des, nw *InstancePreprocessUpdateRecipe) *InstancePreprocessUpdateRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUpdateRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstancePreprocessUpdateRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -14544,8 +15642,17 @@ func canonicalizeInstancePreprocessUpdateRecipeSteps(des, initial *InstancePrepr
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeSteps(c *Client, des, nw *InstancePreprocessUpdateRecipeSteps) *InstancePreprocessUpdateRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUpdateRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstancePreprocessUpdateRecipeStepsStatus(c, des.Status, nw.Status)
@@ -14650,8 +15757,17 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsStatus(des, initial *Instanc
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsStatus(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsStatus) *InstancePreprocessUpdateRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUpdateRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -14734,8 +15850,17 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsStatusDetails(des, initial *
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsStatusDetails) *InstancePreprocessUpdateRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUpdateRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -14825,8 +15950,17 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(des, init
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas) *InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -14911,8 +16045,17 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsPreprocessUpdate(des, initia
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsPreprocessUpdate) *InstancePreprocessUpdateRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUpdateRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -15002,8 +16145,17 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsRequestedTenantProject(des, 
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsRequestedTenantProject) *InstancePreprocessUpdateRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUpdateRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -15095,8 +16247,17 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfo(des, initial
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsPermissionsInfo) *InstancePreprocessUpdateRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUpdateRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -15186,8 +16347,17 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName(de
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -15270,8 +16440,17 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermission
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -15344,8 +16523,17 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate(des, 
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate) *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -15430,8 +16618,17 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNot
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -15519,8 +16716,17 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNot
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -15635,8 +16841,17 @@ func canonicalizeInstancePreprocessFreezeRecipe(des, initial *InstancePreprocess
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipe(c *Client, des, nw *InstancePreprocessFreezeRecipe) *InstancePreprocessFreezeRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessFreezeRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstancePreprocessFreezeRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -15781,8 +16996,17 @@ func canonicalizeInstancePreprocessFreezeRecipeSteps(des, initial *InstancePrepr
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeSteps(c *Client, des, nw *InstancePreprocessFreezeRecipeSteps) *InstancePreprocessFreezeRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessFreezeRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstancePreprocessFreezeRecipeStepsStatus(c, des.Status, nw.Status)
@@ -15887,8 +17111,17 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsStatus(des, initial *Instanc
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsStatus(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsStatus) *InstancePreprocessFreezeRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessFreezeRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -15971,8 +17204,17 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsStatusDetails(des, initial *
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsStatusDetails) *InstancePreprocessFreezeRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessFreezeRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -16062,8 +17304,17 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(des, init
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas) *InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -16148,8 +17399,17 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsPreprocessUpdate(des, initia
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsPreprocessUpdate) *InstancePreprocessFreezeRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessFreezeRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -16239,8 +17499,17 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsRequestedTenantProject(des, 
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsRequestedTenantProject) *InstancePreprocessFreezeRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessFreezeRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -16332,8 +17601,17 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfo(des, initial
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsPermissionsInfo) *InstancePreprocessFreezeRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessFreezeRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -16423,8 +17701,17 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName(de
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -16507,8 +17794,17 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermission
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -16581,8 +17877,17 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate(des, 
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate) *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -16667,8 +17972,17 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNot
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -16756,8 +18070,17 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNot
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -16872,8 +18195,17 @@ func canonicalizeInstanceFreezeRecipe(des, initial *InstanceFreezeRecipe, opts .
 }
 
 func canonicalizeNewInstanceFreezeRecipe(c *Client, des, nw *InstanceFreezeRecipe) *InstanceFreezeRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceFreezeRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstanceFreezeRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -17018,8 +18350,17 @@ func canonicalizeInstanceFreezeRecipeSteps(des, initial *InstanceFreezeRecipeSte
 }
 
 func canonicalizeNewInstanceFreezeRecipeSteps(c *Client, des, nw *InstanceFreezeRecipeSteps) *InstanceFreezeRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceFreezeRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstanceFreezeRecipeStepsStatus(c, des.Status, nw.Status)
@@ -17124,8 +18465,17 @@ func canonicalizeInstanceFreezeRecipeStepsStatus(des, initial *InstanceFreezeRec
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsStatus(c *Client, des, nw *InstanceFreezeRecipeStepsStatus) *InstanceFreezeRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceFreezeRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -17208,8 +18558,17 @@ func canonicalizeInstanceFreezeRecipeStepsStatusDetails(des, initial *InstanceFr
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsStatusDetails(c *Client, des, nw *InstanceFreezeRecipeStepsStatusDetails) *InstanceFreezeRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceFreezeRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -17299,8 +18658,17 @@ func canonicalizeInstanceFreezeRecipeStepsQuotaRequestDeltas(des, initial *Insta
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceFreezeRecipeStepsQuotaRequestDeltas) *InstanceFreezeRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceFreezeRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -17385,8 +18753,17 @@ func canonicalizeInstanceFreezeRecipeStepsPreprocessUpdate(des, initial *Instanc
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceFreezeRecipeStepsPreprocessUpdate) *InstanceFreezeRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceFreezeRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -17476,8 +18853,17 @@ func canonicalizeInstanceFreezeRecipeStepsRequestedTenantProject(des, initial *I
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceFreezeRecipeStepsRequestedTenantProject) *InstanceFreezeRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceFreezeRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -17569,8 +18955,17 @@ func canonicalizeInstanceFreezeRecipeStepsPermissionsInfo(des, initial *Instance
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceFreezeRecipeStepsPermissionsInfo) *InstanceFreezeRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceFreezeRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstanceFreezeRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -17660,8 +19055,17 @@ func canonicalizeInstanceFreezeRecipeStepsPermissionsInfoPolicyName(des, initial
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceFreezeRecipeStepsPermissionsInfoPolicyName) *InstanceFreezeRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceFreezeRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -17744,8 +19148,17 @@ func canonicalizeInstanceFreezeRecipeStepsPermissionsInfoIamPermissions(des, ini
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceFreezeRecipeStepsPermissionsInfoIamPermissions) *InstanceFreezeRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceFreezeRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -17818,8 +19231,17 @@ func canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdate(des, initial *I
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceFreezeRecipeStepsKeyNotificationsUpdate) *InstanceFreezeRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceFreezeRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -17904,8 +19326,17 @@ func canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotifications
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -17993,8 +19424,17 @@ func canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotifications
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -18109,8 +19549,17 @@ func canonicalizeInstancePreprocessUnfreezeRecipe(des, initial *InstancePreproce
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipe(c *Client, des, nw *InstancePreprocessUnfreezeRecipe) *InstancePreprocessUnfreezeRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUnfreezeRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstancePreprocessUnfreezeRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -18255,8 +19704,17 @@ func canonicalizeInstancePreprocessUnfreezeRecipeSteps(des, initial *InstancePre
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeSteps(c *Client, des, nw *InstancePreprocessUnfreezeRecipeSteps) *InstancePreprocessUnfreezeRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUnfreezeRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstancePreprocessUnfreezeRecipeStepsStatus(c, des.Status, nw.Status)
@@ -18361,8 +19819,17 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsStatus(des, initial *Insta
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsStatus(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsStatus) *InstancePreprocessUnfreezeRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUnfreezeRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -18445,8 +19912,17 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsStatusDetails(des, initial
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsStatusDetails) *InstancePreprocessUnfreezeRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUnfreezeRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -18536,8 +20012,17 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(des, in
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas) *InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -18622,8 +20107,17 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsPreprocessUpdate(des, init
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate) *InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -18713,8 +20207,17 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject(des
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject) *InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -18806,8 +20309,17 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfo(des, initi
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsPermissionsInfo) *InstancePreprocessUnfreezeRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUnfreezeRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -18897,8 +20409,17 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName(
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -18981,8 +20502,17 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissi
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -19055,8 +20585,17 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate(des
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate) *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -19141,8 +20680,17 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyN
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -19230,8 +20778,17 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyN
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -19346,8 +20903,17 @@ func canonicalizeInstanceUnfreezeRecipe(des, initial *InstanceUnfreezeRecipe, op
 }
 
 func canonicalizeNewInstanceUnfreezeRecipe(c *Client, des, nw *InstanceUnfreezeRecipe) *InstanceUnfreezeRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUnfreezeRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstanceUnfreezeRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -19492,8 +21058,17 @@ func canonicalizeInstanceUnfreezeRecipeSteps(des, initial *InstanceUnfreezeRecip
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeSteps(c *Client, des, nw *InstanceUnfreezeRecipeSteps) *InstanceUnfreezeRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUnfreezeRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstanceUnfreezeRecipeStepsStatus(c, des.Status, nw.Status)
@@ -19598,8 +21173,17 @@ func canonicalizeInstanceUnfreezeRecipeStepsStatus(des, initial *InstanceUnfreez
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsStatus(c *Client, des, nw *InstanceUnfreezeRecipeStepsStatus) *InstanceUnfreezeRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUnfreezeRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -19682,8 +21266,17 @@ func canonicalizeInstanceUnfreezeRecipeStepsStatusDetails(des, initial *Instance
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsStatusDetails(c *Client, des, nw *InstanceUnfreezeRecipeStepsStatusDetails) *InstanceUnfreezeRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUnfreezeRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -19773,8 +21366,17 @@ func canonicalizeInstanceUnfreezeRecipeStepsQuotaRequestDeltas(des, initial *Ins
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceUnfreezeRecipeStepsQuotaRequestDeltas) *InstanceUnfreezeRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUnfreezeRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -19859,8 +21461,17 @@ func canonicalizeInstanceUnfreezeRecipeStepsPreprocessUpdate(des, initial *Insta
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceUnfreezeRecipeStepsPreprocessUpdate) *InstanceUnfreezeRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUnfreezeRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -19950,8 +21561,17 @@ func canonicalizeInstanceUnfreezeRecipeStepsRequestedTenantProject(des, initial 
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceUnfreezeRecipeStepsRequestedTenantProject) *InstanceUnfreezeRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUnfreezeRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -20043,8 +21663,17 @@ func canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfo(des, initial *Instan
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceUnfreezeRecipeStepsPermissionsInfo) *InstanceUnfreezeRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUnfreezeRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -20134,8 +21763,17 @@ func canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName(des, initi
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName) *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -20218,8 +21856,17 @@ func canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions(des, i
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions) *InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -20292,8 +21939,17 @@ func canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdate(des, initial 
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceUnfreezeRecipeStepsKeyNotificationsUpdate) *InstanceUnfreezeRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUnfreezeRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -20378,8 +22034,17 @@ func canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificatio
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -20467,8 +22132,17 @@ func canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificatio
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -20583,8 +22257,17 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipe(des, initial *Inst
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipe(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipe) *InstancePreprocessReportInstanceHealthRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReportInstanceHealthRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -20729,8 +22412,17 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeSteps(des, initial 
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeSteps(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeSteps) *InstancePreprocessReportInstanceHealthRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReportInstanceHealthRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsStatus(c, des.Status, nw.Status)
@@ -20835,8 +22527,17 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsStatus(des, in
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsStatus(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsStatus) *InstancePreprocessReportInstanceHealthRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReportInstanceHealthRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -20919,8 +22620,17 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails(
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails) *InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -21010,8 +22720,17 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDe
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas) *InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -21096,8 +22815,17 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpda
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate) *InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -21187,8 +22915,17 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenan
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject) *InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -21280,8 +23017,17 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInf
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo) *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -21371,8 +23117,17 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInf
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -21455,8 +23210,17 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInf
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -21529,8 +23293,17 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificatio
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate) *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -21615,8 +23388,17 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificatio
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -21704,8 +23486,17 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificatio
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -21820,8 +23611,17 @@ func canonicalizeInstanceReportInstanceHealthRecipe(des, initial *InstanceReport
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipe(c *Client, des, nw *InstanceReportInstanceHealthRecipe) *InstanceReportInstanceHealthRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReportInstanceHealthRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstanceReportInstanceHealthRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -21966,8 +23766,17 @@ func canonicalizeInstanceReportInstanceHealthRecipeSteps(des, initial *InstanceR
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeSteps(c *Client, des, nw *InstanceReportInstanceHealthRecipeSteps) *InstanceReportInstanceHealthRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReportInstanceHealthRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstanceReportInstanceHealthRecipeStepsStatus(c, des.Status, nw.Status)
@@ -22072,8 +23881,17 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsStatus(des, initial *Ins
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsStatus(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsStatus) *InstanceReportInstanceHealthRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReportInstanceHealthRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -22156,8 +23974,17 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsStatusDetails(des, initi
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsStatusDetails(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsStatusDetails) *InstanceReportInstanceHealthRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReportInstanceHealthRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -22247,8 +24074,17 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(des, 
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas) *InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -22333,8 +24169,17 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsPreprocessUpdate(des, in
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsPreprocessUpdate) *InstanceReportInstanceHealthRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReportInstanceHealthRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -22424,8 +24269,17 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsRequestedTenantProject(d
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsRequestedTenantProject) *InstanceReportInstanceHealthRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReportInstanceHealthRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -22517,8 +24371,17 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfo(des, ini
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsPermissionsInfo) *InstanceReportInstanceHealthRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReportInstanceHealthRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -22608,8 +24471,17 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNam
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName) *InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -22692,8 +24564,17 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermis
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) *InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -22766,8 +24647,17 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate(d
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate) *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -22852,8 +24742,17 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKe
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -22941,8 +24840,17 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKe
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -23057,8 +24965,17 @@ func canonicalizeInstancePreprocessGetRecipe(des, initial *InstancePreprocessGet
 }
 
 func canonicalizeNewInstancePreprocessGetRecipe(c *Client, des, nw *InstancePreprocessGetRecipe) *InstancePreprocessGetRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessGetRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstancePreprocessGetRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -23203,8 +25120,17 @@ func canonicalizeInstancePreprocessGetRecipeSteps(des, initial *InstancePreproce
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeSteps(c *Client, des, nw *InstancePreprocessGetRecipeSteps) *InstancePreprocessGetRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessGetRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstancePreprocessGetRecipeStepsStatus(c, des.Status, nw.Status)
@@ -23309,8 +25235,17 @@ func canonicalizeInstancePreprocessGetRecipeStepsStatus(des, initial *InstancePr
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsStatus(c *Client, des, nw *InstancePreprocessGetRecipeStepsStatus) *InstancePreprocessGetRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessGetRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -23393,8 +25328,17 @@ func canonicalizeInstancePreprocessGetRecipeStepsStatusDetails(des, initial *Ins
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessGetRecipeStepsStatusDetails) *InstancePreprocessGetRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessGetRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -23484,8 +25428,17 @@ func canonicalizeInstancePreprocessGetRecipeStepsQuotaRequestDeltas(des, initial
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessGetRecipeStepsQuotaRequestDeltas) *InstancePreprocessGetRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessGetRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -23570,8 +25523,17 @@ func canonicalizeInstancePreprocessGetRecipeStepsPreprocessUpdate(des, initial *
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessGetRecipeStepsPreprocessUpdate) *InstancePreprocessGetRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessGetRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -23661,8 +25623,17 @@ func canonicalizeInstancePreprocessGetRecipeStepsRequestedTenantProject(des, ini
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessGetRecipeStepsRequestedTenantProject) *InstancePreprocessGetRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessGetRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -23754,8 +25725,17 @@ func canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfo(des, initial *I
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessGetRecipeStepsPermissionsInfo) *InstancePreprocessGetRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessGetRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -23845,8 +25825,17 @@ func canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName(des, 
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -23929,8 +25918,17 @@ func canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions(d
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -24003,8 +26001,17 @@ func canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdate(des, ini
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessGetRecipeStepsKeyNotificationsUpdate) *InstancePreprocessGetRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessGetRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -24089,8 +26096,17 @@ func canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotifi
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -24178,8 +26194,17 @@ func canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotifi
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -24294,8 +26319,17 @@ func canonicalizeInstanceNotifyKeyAvailableRecipe(des, initial *InstanceNotifyKe
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipe(c *Client, des, nw *InstanceNotifyKeyAvailableRecipe) *InstanceNotifyKeyAvailableRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyAvailableRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -24440,8 +26474,17 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeSteps(des, initial *InstanceNot
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeSteps(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeSteps) *InstanceNotifyKeyAvailableRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyAvailableRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsStatus(c, des.Status, nw.Status)
@@ -24546,8 +26589,17 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsStatus(des, initial *Insta
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsStatus(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsStatus) *InstanceNotifyKeyAvailableRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyAvailableRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -24630,8 +26682,17 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsStatusDetails(des, initial
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsStatusDetails(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsStatusDetails) *InstanceNotifyKeyAvailableRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyAvailableRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -24721,8 +26782,17 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(des, in
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas) *InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -24807,8 +26877,17 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate(des, init
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate) *InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -24898,8 +26977,17 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject(des
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject) *InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -24991,8 +27079,17 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(des, initi
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo) *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -25082,8 +27179,17 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName(
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName) *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -25166,8 +27272,17 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissi
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions) *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -25240,8 +27355,17 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate(des
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate) *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -25326,8 +27450,17 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyN
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -25415,8 +27548,17 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyN
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -25531,8 +27673,17 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipe(des, initial *InstanceNotify
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipe(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipe) *InstanceNotifyKeyUnavailableRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyUnavailableRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -25677,8 +27828,17 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeSteps(des, initial *InstanceN
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeSteps(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeSteps) *InstanceNotifyKeyUnavailableRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyUnavailableRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsStatus(c, des.Status, nw.Status)
@@ -25783,8 +27943,17 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsStatus(des, initial *Ins
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsStatus(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsStatus) *InstanceNotifyKeyUnavailableRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyUnavailableRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -25867,8 +28036,17 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsStatusDetails(des, initi
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsStatusDetails(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsStatusDetails) *InstanceNotifyKeyUnavailableRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyUnavailableRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -25958,8 +28136,17 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(des, 
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas) *InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -26044,8 +28231,17 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate(des, in
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate) *InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -26135,8 +28331,17 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject(d
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject) *InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -26228,8 +28433,17 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(des, ini
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo) *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -26319,8 +28533,17 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNam
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName) *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -26403,8 +28626,17 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermis
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions) *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -26477,8 +28709,17 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate(d
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate) *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -26563,8 +28804,17 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKe
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -26652,8 +28902,17 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKe
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -26768,8 +29027,17 @@ func canonicalizeInstanceReadonlyRecipe(des, initial *InstanceReadonlyRecipe, op
 }
 
 func canonicalizeNewInstanceReadonlyRecipe(c *Client, des, nw *InstanceReadonlyRecipe) *InstanceReadonlyRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReadonlyRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstanceReadonlyRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -26914,8 +29182,17 @@ func canonicalizeInstanceReadonlyRecipeSteps(des, initial *InstanceReadonlyRecip
 }
 
 func canonicalizeNewInstanceReadonlyRecipeSteps(c *Client, des, nw *InstanceReadonlyRecipeSteps) *InstanceReadonlyRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReadonlyRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstanceReadonlyRecipeStepsStatus(c, des.Status, nw.Status)
@@ -27020,8 +29297,17 @@ func canonicalizeInstanceReadonlyRecipeStepsStatus(des, initial *InstanceReadonl
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsStatus(c *Client, des, nw *InstanceReadonlyRecipeStepsStatus) *InstanceReadonlyRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReadonlyRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -27104,8 +29390,17 @@ func canonicalizeInstanceReadonlyRecipeStepsStatusDetails(des, initial *Instance
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsStatusDetails(c *Client, des, nw *InstanceReadonlyRecipeStepsStatusDetails) *InstanceReadonlyRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReadonlyRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -27195,8 +29490,17 @@ func canonicalizeInstanceReadonlyRecipeStepsQuotaRequestDeltas(des, initial *Ins
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceReadonlyRecipeStepsQuotaRequestDeltas) *InstanceReadonlyRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReadonlyRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -27281,8 +29585,17 @@ func canonicalizeInstanceReadonlyRecipeStepsPreprocessUpdate(des, initial *Insta
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceReadonlyRecipeStepsPreprocessUpdate) *InstanceReadonlyRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReadonlyRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -27372,8 +29685,17 @@ func canonicalizeInstanceReadonlyRecipeStepsRequestedTenantProject(des, initial 
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceReadonlyRecipeStepsRequestedTenantProject) *InstanceReadonlyRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReadonlyRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -27465,8 +29787,17 @@ func canonicalizeInstanceReadonlyRecipeStepsPermissionsInfo(des, initial *Instan
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceReadonlyRecipeStepsPermissionsInfo) *InstanceReadonlyRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReadonlyRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstanceReadonlyRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -27556,8 +29887,17 @@ func canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoPolicyName(des, initi
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceReadonlyRecipeStepsPermissionsInfoPolicyName) *InstanceReadonlyRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReadonlyRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -27640,8 +29980,17 @@ func canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions(des, i
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions) *InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -27714,8 +30063,17 @@ func canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdate(des, initial 
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceReadonlyRecipeStepsKeyNotificationsUpdate) *InstanceReadonlyRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReadonlyRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -27800,8 +30158,17 @@ func canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificatio
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -27889,8 +30256,17 @@ func canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificatio
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -28005,8 +30381,17 @@ func canonicalizeInstanceReconcileRecipe(des, initial *InstanceReconcileRecipe, 
 }
 
 func canonicalizeNewInstanceReconcileRecipe(c *Client, des, nw *InstanceReconcileRecipe) *InstanceReconcileRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReconcileRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstanceReconcileRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -28151,8 +30536,17 @@ func canonicalizeInstanceReconcileRecipeSteps(des, initial *InstanceReconcileRec
 }
 
 func canonicalizeNewInstanceReconcileRecipeSteps(c *Client, des, nw *InstanceReconcileRecipeSteps) *InstanceReconcileRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReconcileRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstanceReconcileRecipeStepsStatus(c, des.Status, nw.Status)
@@ -28257,8 +30651,17 @@ func canonicalizeInstanceReconcileRecipeStepsStatus(des, initial *InstanceReconc
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsStatus(c *Client, des, nw *InstanceReconcileRecipeStepsStatus) *InstanceReconcileRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReconcileRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -28341,8 +30744,17 @@ func canonicalizeInstanceReconcileRecipeStepsStatusDetails(des, initial *Instanc
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsStatusDetails(c *Client, des, nw *InstanceReconcileRecipeStepsStatusDetails) *InstanceReconcileRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReconcileRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -28432,8 +30844,17 @@ func canonicalizeInstanceReconcileRecipeStepsQuotaRequestDeltas(des, initial *In
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceReconcileRecipeStepsQuotaRequestDeltas) *InstanceReconcileRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReconcileRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -28518,8 +30939,17 @@ func canonicalizeInstanceReconcileRecipeStepsPreprocessUpdate(des, initial *Inst
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceReconcileRecipeStepsPreprocessUpdate) *InstanceReconcileRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReconcileRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -28609,8 +31039,17 @@ func canonicalizeInstanceReconcileRecipeStepsRequestedTenantProject(des, initial
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceReconcileRecipeStepsRequestedTenantProject) *InstanceReconcileRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReconcileRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -28702,8 +31141,17 @@ func canonicalizeInstanceReconcileRecipeStepsPermissionsInfo(des, initial *Insta
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceReconcileRecipeStepsPermissionsInfo) *InstanceReconcileRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReconcileRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstanceReconcileRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -28793,8 +31241,17 @@ func canonicalizeInstanceReconcileRecipeStepsPermissionsInfoPolicyName(des, init
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceReconcileRecipeStepsPermissionsInfoPolicyName) *InstanceReconcileRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReconcileRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -28877,8 +31334,17 @@ func canonicalizeInstanceReconcileRecipeStepsPermissionsInfoIamPermissions(des, 
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceReconcileRecipeStepsPermissionsInfoIamPermissions) *InstanceReconcileRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReconcileRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -28951,8 +31417,17 @@ func canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdate(des, initial
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceReconcileRecipeStepsKeyNotificationsUpdate) *InstanceReconcileRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReconcileRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -29037,8 +31512,17 @@ func canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificati
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -29126,8 +31610,17 @@ func canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificati
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -29242,8 +31735,17 @@ func canonicalizeInstancePreprocessPassthroughRecipe(des, initial *InstancePrepr
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipe(c *Client, des, nw *InstancePreprocessPassthroughRecipe) *InstancePreprocessPassthroughRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessPassthroughRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstancePreprocessPassthroughRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -29388,8 +31890,17 @@ func canonicalizeInstancePreprocessPassthroughRecipeSteps(des, initial *Instance
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeSteps(c *Client, des, nw *InstancePreprocessPassthroughRecipeSteps) *InstancePreprocessPassthroughRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessPassthroughRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstancePreprocessPassthroughRecipeStepsStatus(c, des.Status, nw.Status)
@@ -29494,8 +32005,17 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsStatus(des, initial *In
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsStatus(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsStatus) *InstancePreprocessPassthroughRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessPassthroughRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -29578,8 +32098,17 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsStatusDetails(des, init
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsStatusDetails) *InstancePreprocessPassthroughRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessPassthroughRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -29669,8 +32198,17 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(des,
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas) *InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -29755,8 +32293,17 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsPreprocessUpdate(des, i
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsPreprocessUpdate) *InstancePreprocessPassthroughRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessPassthroughRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -29846,8 +32393,17 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsRequestedTenantProject(
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsRequestedTenantProject) *InstancePreprocessPassthroughRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessPassthroughRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -29939,8 +32495,17 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfo(des, in
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsPermissionsInfo) *InstancePreprocessPassthroughRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessPassthroughRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -30030,8 +32595,17 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNa
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -30114,8 +32688,17 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermi
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -30188,8 +32771,17 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate(
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate) *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -30274,8 +32866,17 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateK
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -30363,8 +32964,17 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateK
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -30479,8 +33089,17 @@ func canonicalizeInstancePreprocessReconcileRecipe(des, initial *InstancePreproc
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipe(c *Client, des, nw *InstancePreprocessReconcileRecipe) *InstancePreprocessReconcileRecipe {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReconcileRecipe while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Steps = canonicalizeNewInstancePreprocessReconcileRecipeStepsSlice(c, des.Steps, nw.Steps)
@@ -30625,8 +33244,17 @@ func canonicalizeInstancePreprocessReconcileRecipeSteps(des, initial *InstancePr
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeSteps(c *Client, des, nw *InstancePreprocessReconcileRecipeSteps) *InstancePreprocessReconcileRecipeSteps {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReconcileRecipeSteps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Status = canonicalizeNewInstancePreprocessReconcileRecipeStepsStatus(c, des.Status, nw.Status)
@@ -30731,8 +33359,17 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsStatus(des, initial *Inst
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsStatus(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsStatus) *InstancePreprocessReconcileRecipeStepsStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReconcileRecipeStepsStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -30815,8 +33452,17 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsStatusDetails(des, initia
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsStatusDetails) *InstancePreprocessReconcileRecipeStepsStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReconcileRecipeStepsStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -30906,8 +33552,17 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(des, i
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas) *InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MetricName, nw.MetricName) {
@@ -30992,8 +33647,17 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsPreprocessUpdate(des, ini
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsPreprocessUpdate) *InstancePreprocessReconcileRecipeStepsPreprocessUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReconcileRecipeStepsPreprocessUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LatencySloBucketName, nw.LatencySloBucketName) {
@@ -31083,8 +33747,17 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsRequestedTenantProject(de
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsRequestedTenantProject) *InstancePreprocessReconcileRecipeStepsRequestedTenantProject {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReconcileRecipeStepsRequestedTenantProject while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
@@ -31176,8 +33849,17 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfo(des, init
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsPermissionsInfo) *InstancePreprocessReconcileRecipeStepsPermissionsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReconcileRecipeStepsPermissionsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.PolicyName = canonicalizeNewInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName(c, des.PolicyName, nw.PolicyName)
@@ -31267,8 +33949,17 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -31351,8 +34042,17 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermiss
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Permission, nw.Permission) {
@@ -31425,8 +34125,17 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate(de
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate) *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.KeyNotificationsInfo = canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, des.KeyNotificationsInfo, nw.KeyNotificationsInfo)
@@ -31511,8 +34220,17 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKey
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
@@ -31600,8 +34318,17 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKey
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
@@ -31711,8 +34438,17 @@ func canonicalizeInstanceHistory(des, initial *InstanceHistory, opts ...dcl.Appl
 }
 
 func canonicalizeNewInstanceHistory(c *Client, des, nw *InstanceHistory) *InstanceHistory {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceHistory while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.OperationHandle, nw.OperationHandle) {

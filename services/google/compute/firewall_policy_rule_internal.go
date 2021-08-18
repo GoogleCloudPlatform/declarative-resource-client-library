@@ -393,7 +393,7 @@ func canonicalizeFirewallPolicyRuleDesiredState(rawDesired, rawInitial *Firewall
 
 func canonicalizeFirewallPolicyRuleNewState(c *Client, rawNew, rawDesired *FirewallPolicyRule) (*FirewallPolicyRule, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
+	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
@@ -401,18 +401,18 @@ func canonicalizeFirewallPolicyRuleNewState(c *Client, rawNew, rawDesired *Firew
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Priority) && dcl.IsEmptyValueIndirect(rawDesired.Priority) {
+	if dcl.IsNotReturnedByServer(rawNew.Priority) && dcl.IsNotReturnedByServer(rawDesired.Priority) {
 		rawNew.Priority = rawDesired.Priority
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Match) && dcl.IsEmptyValueIndirect(rawDesired.Match) {
+	if dcl.IsNotReturnedByServer(rawNew.Match) && dcl.IsNotReturnedByServer(rawDesired.Match) {
 		rawNew.Match = rawDesired.Match
 	} else {
 		rawNew.Match = canonicalizeNewFirewallPolicyRuleMatch(c, rawDesired.Match, rawNew.Match)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Action) && dcl.IsEmptyValueIndirect(rawDesired.Action) {
+	if dcl.IsNotReturnedByServer(rawNew.Action) && dcl.IsNotReturnedByServer(rawDesired.Action) {
 		rawNew.Action = rawDesired.Action
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Action, rawNew.Action) {
@@ -420,17 +420,17 @@ func canonicalizeFirewallPolicyRuleNewState(c *Client, rawNew, rawDesired *Firew
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Direction) && dcl.IsEmptyValueIndirect(rawDesired.Direction) {
+	if dcl.IsNotReturnedByServer(rawNew.Direction) && dcl.IsNotReturnedByServer(rawDesired.Direction) {
 		rawNew.Direction = rawDesired.Direction
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.TargetResources) && dcl.IsEmptyValueIndirect(rawDesired.TargetResources) {
+	if dcl.IsNotReturnedByServer(rawNew.TargetResources) && dcl.IsNotReturnedByServer(rawDesired.TargetResources) {
 		rawNew.TargetResources = rawDesired.TargetResources
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.EnableLogging) && dcl.IsEmptyValueIndirect(rawDesired.EnableLogging) {
+	if dcl.IsNotReturnedByServer(rawNew.EnableLogging) && dcl.IsNotReturnedByServer(rawDesired.EnableLogging) {
 		rawNew.EnableLogging = rawDesired.EnableLogging
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.EnableLogging, rawNew.EnableLogging) {
@@ -438,17 +438,17 @@ func canonicalizeFirewallPolicyRuleNewState(c *Client, rawNew, rawDesired *Firew
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.RuleTupleCount) && dcl.IsEmptyValueIndirect(rawDesired.RuleTupleCount) {
+	if dcl.IsNotReturnedByServer(rawNew.RuleTupleCount) && dcl.IsNotReturnedByServer(rawDesired.RuleTupleCount) {
 		rawNew.RuleTupleCount = rawDesired.RuleTupleCount
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.TargetServiceAccounts) && dcl.IsEmptyValueIndirect(rawDesired.TargetServiceAccounts) {
+	if dcl.IsNotReturnedByServer(rawNew.TargetServiceAccounts) && dcl.IsNotReturnedByServer(rawDesired.TargetServiceAccounts) {
 		rawNew.TargetServiceAccounts = rawDesired.TargetServiceAccounts
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Disabled) && dcl.IsEmptyValueIndirect(rawDesired.Disabled) {
+	if dcl.IsNotReturnedByServer(rawNew.Disabled) && dcl.IsNotReturnedByServer(rawDesired.Disabled) {
 		rawNew.Disabled = rawDesired.Disabled
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Disabled, rawNew.Disabled) {
@@ -456,7 +456,7 @@ func canonicalizeFirewallPolicyRuleNewState(c *Client, rawNew, rawDesired *Firew
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Kind) && dcl.IsEmptyValueIndirect(rawDesired.Kind) {
+	if dcl.IsNotReturnedByServer(rawNew.Kind) && dcl.IsNotReturnedByServer(rawDesired.Kind) {
 		rawNew.Kind = rawDesired.Kind
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Kind, rawNew.Kind) {
@@ -464,7 +464,7 @@ func canonicalizeFirewallPolicyRuleNewState(c *Client, rawNew, rawDesired *Firew
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.FirewallPolicy) && dcl.IsEmptyValueIndirect(rawDesired.FirewallPolicy) {
+	if dcl.IsNotReturnedByServer(rawNew.FirewallPolicy) && dcl.IsNotReturnedByServer(rawDesired.FirewallPolicy) {
 		rawNew.FirewallPolicy = rawDesired.FirewallPolicy
 	} else {
 		if dcl.NameToSelfLink(rawDesired.FirewallPolicy, rawNew.FirewallPolicy) {
@@ -509,8 +509,17 @@ func canonicalizeFirewallPolicyRuleMatch(des, initial *FirewallPolicyRuleMatch, 
 }
 
 func canonicalizeNewFirewallPolicyRuleMatch(c *Client, des, nw *FirewallPolicyRuleMatch) *FirewallPolicyRuleMatch {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for FirewallPolicyRuleMatch while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Layer4Configs = canonicalizeNewFirewallPolicyRuleMatchLayer4ConfigsSlice(c, des.Layer4Configs, nw.Layer4Configs)
@@ -590,8 +599,17 @@ func canonicalizeFirewallPolicyRuleMatchLayer4Configs(des, initial *FirewallPoli
 }
 
 func canonicalizeNewFirewallPolicyRuleMatchLayer4Configs(c *Client, des, nw *FirewallPolicyRuleMatchLayer4Configs) *FirewallPolicyRuleMatchLayer4Configs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for FirewallPolicyRuleMatchLayer4Configs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.IPProtocol, nw.IPProtocol) {

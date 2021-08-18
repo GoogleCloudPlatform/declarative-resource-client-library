@@ -541,7 +541,7 @@ func canonicalizeEndpointPolicyDesiredState(rawDesired, rawInitial *EndpointPoli
 
 func canonicalizeEndpointPolicyNewState(c *Client, rawNew, rawDesired *EndpointPolicy) (*EndpointPolicy, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
@@ -549,27 +549,27 @@ func canonicalizeEndpointPolicyNewState(c *Client, rawNew, rawDesired *EndpointP
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
+	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
 		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Type) && dcl.IsEmptyValueIndirect(rawDesired.Type) {
+	if dcl.IsNotReturnedByServer(rawNew.Type) && dcl.IsNotReturnedByServer(rawDesired.Type) {
 		rawNew.Type = rawDesired.Type
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.AuthorizationPolicy) && dcl.IsEmptyValueIndirect(rawDesired.AuthorizationPolicy) {
+	if dcl.IsNotReturnedByServer(rawNew.AuthorizationPolicy) && dcl.IsNotReturnedByServer(rawDesired.AuthorizationPolicy) {
 		rawNew.AuthorizationPolicy = rawDesired.AuthorizationPolicy
 	} else {
 		if dcl.NameToSelfLink(rawDesired.AuthorizationPolicy, rawNew.AuthorizationPolicy) {
@@ -577,19 +577,19 @@ func canonicalizeEndpointPolicyNewState(c *Client, rawNew, rawDesired *EndpointP
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.EndpointMatcher) && dcl.IsEmptyValueIndirect(rawDesired.EndpointMatcher) {
+	if dcl.IsNotReturnedByServer(rawNew.EndpointMatcher) && dcl.IsNotReturnedByServer(rawDesired.EndpointMatcher) {
 		rawNew.EndpointMatcher = rawDesired.EndpointMatcher
 	} else {
 		rawNew.EndpointMatcher = canonicalizeNewEndpointPolicyEndpointMatcher(c, rawDesired.EndpointMatcher, rawNew.EndpointMatcher)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.TrafficPortSelector) && dcl.IsEmptyValueIndirect(rawDesired.TrafficPortSelector) {
+	if dcl.IsNotReturnedByServer(rawNew.TrafficPortSelector) && dcl.IsNotReturnedByServer(rawDesired.TrafficPortSelector) {
 		rawNew.TrafficPortSelector = rawDesired.TrafficPortSelector
 	} else {
 		rawNew.TrafficPortSelector = canonicalizeNewEndpointPolicyTrafficPortSelector(c, rawDesired.TrafficPortSelector, rawNew.TrafficPortSelector)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
+	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
@@ -597,7 +597,7 @@ func canonicalizeEndpointPolicyNewState(c *Client, rawNew, rawDesired *EndpointP
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ServerTlsPolicy) && dcl.IsEmptyValueIndirect(rawDesired.ServerTlsPolicy) {
+	if dcl.IsNotReturnedByServer(rawNew.ServerTlsPolicy) && dcl.IsNotReturnedByServer(rawDesired.ServerTlsPolicy) {
 		rawNew.ServerTlsPolicy = rawDesired.ServerTlsPolicy
 	} else {
 		if dcl.NameToSelfLink(rawDesired.ServerTlsPolicy, rawNew.ServerTlsPolicy) {
@@ -605,7 +605,7 @@ func canonicalizeEndpointPolicyNewState(c *Client, rawNew, rawDesired *EndpointP
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ClientTlsPolicy) && dcl.IsEmptyValueIndirect(rawDesired.ClientTlsPolicy) {
+	if dcl.IsNotReturnedByServer(rawNew.ClientTlsPolicy) && dcl.IsNotReturnedByServer(rawDesired.ClientTlsPolicy) {
 		rawNew.ClientTlsPolicy = rawDesired.ClientTlsPolicy
 	} else {
 		if dcl.NameToSelfLink(rawDesired.ClientTlsPolicy, rawNew.ClientTlsPolicy) {
@@ -640,8 +640,17 @@ func canonicalizeEndpointPolicyEndpointMatcher(des, initial *EndpointPolicyEndpo
 }
 
 func canonicalizeNewEndpointPolicyEndpointMatcher(c *Client, des, nw *EndpointPolicyEndpointMatcher) *EndpointPolicyEndpointMatcher {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for EndpointPolicyEndpointMatcher while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.MetadataLabelMatcher = canonicalizeNewEndpointPolicyEndpointMatcherMetadataLabelMatcher(c, des.MetadataLabelMatcher, nw.MetadataLabelMatcher)
@@ -721,8 +730,17 @@ func canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcher(des, initial 
 }
 
 func canonicalizeNewEndpointPolicyEndpointMatcherMetadataLabelMatcher(c *Client, des, nw *EndpointPolicyEndpointMatcherMetadataLabelMatcher) *EndpointPolicyEndpointMatcherMetadataLabelMatcher {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for EndpointPolicyEndpointMatcherMetadataLabelMatcher while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.MetadataLabels = canonicalizeNewEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice(c, des.MetadataLabels, nw.MetadataLabels)
@@ -802,8 +820,17 @@ func canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels
 }
 
 func canonicalizeNewEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(c *Client, des, nw *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels) *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LabelName, nw.LabelName) {
@@ -883,8 +910,17 @@ func canonicalizeEndpointPolicyTrafficPortSelector(des, initial *EndpointPolicyT
 }
 
 func canonicalizeNewEndpointPolicyTrafficPortSelector(c *Client, des, nw *EndpointPolicyTrafficPortSelector) *EndpointPolicyTrafficPortSelector {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for EndpointPolicyTrafficPortSelector while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw

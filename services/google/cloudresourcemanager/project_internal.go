@@ -434,17 +434,17 @@ func canonicalizeProjectDesiredState(rawDesired, rawInitial *Project, opts ...dc
 
 func canonicalizeProjectNewState(c *Client, rawNew, rawDesired *Project) (*Project, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
+	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
 		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.LifecycleState) && dcl.IsEmptyValueIndirect(rawDesired.LifecycleState) {
+	if dcl.IsNotReturnedByServer(rawNew.LifecycleState) && dcl.IsNotReturnedByServer(rawDesired.LifecycleState) {
 		rawNew.LifecycleState = rawDesired.LifecycleState
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
+	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
@@ -452,13 +452,13 @@ func canonicalizeProjectNewState(c *Client, rawNew, rawDesired *Project) (*Proje
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Parent) && dcl.IsEmptyValueIndirect(rawDesired.Parent) {
+	if dcl.IsNotReturnedByServer(rawNew.Parent) && dcl.IsNotReturnedByServer(rawDesired.Parent) {
 		rawNew.Parent = rawDesired.Parent
 	} else {
 		rawNew.Parent = canonicalizeNewProjectParent(c, rawDesired.Parent, rawNew.Parent)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
@@ -466,7 +466,7 @@ func canonicalizeProjectNewState(c *Client, rawNew, rawDesired *Project) (*Proje
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ProjectNumber) && dcl.IsEmptyValueIndirect(rawDesired.ProjectNumber) {
+	if dcl.IsNotReturnedByServer(rawNew.ProjectNumber) && dcl.IsNotReturnedByServer(rawDesired.ProjectNumber) {
 		rawNew.ProjectNumber = rawDesired.ProjectNumber
 	} else {
 	}
@@ -503,8 +503,17 @@ func canonicalizeProjectParent(des, initial *ProjectParent, opts ...dcl.ApplyOpt
 }
 
 func canonicalizeNewProjectParent(c *Client, des, nw *ProjectParent) *ProjectParent {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ProjectParent while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Type, nw.Type) {

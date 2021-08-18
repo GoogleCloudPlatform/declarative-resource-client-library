@@ -439,7 +439,7 @@ func canonicalizeAttestorDesiredState(rawDesired, rawInitial *Attestor, opts ...
 
 func canonicalizeAttestorNewState(c *Client, rawNew, rawDesired *Attestor) (*Attestor, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
@@ -447,7 +447,7 @@ func canonicalizeAttestorNewState(c *Client, rawNew, rawDesired *Attestor) (*Att
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
+	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
@@ -455,13 +455,13 @@ func canonicalizeAttestorNewState(c *Client, rawNew, rawDesired *Attestor) (*Att
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.UserOwnedDrydockNote) && dcl.IsEmptyValueIndirect(rawDesired.UserOwnedDrydockNote) {
+	if dcl.IsNotReturnedByServer(rawNew.UserOwnedDrydockNote) && dcl.IsNotReturnedByServer(rawDesired.UserOwnedDrydockNote) {
 		rawNew.UserOwnedDrydockNote = rawDesired.UserOwnedDrydockNote
 	} else {
 		rawNew.UserOwnedDrydockNote = canonicalizeNewAttestorUserOwnedDrydockNote(c, rawDesired.UserOwnedDrydockNote, rawNew.UserOwnedDrydockNote)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
@@ -500,8 +500,17 @@ func canonicalizeAttestorUserOwnedDrydockNote(des, initial *AttestorUserOwnedDry
 }
 
 func canonicalizeNewAttestorUserOwnedDrydockNote(c *Client, des, nw *AttestorUserOwnedDrydockNote) *AttestorUserOwnedDrydockNote {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AttestorUserOwnedDrydockNote while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.NameToSelfLink(des.NoteReference, nw.NoteReference) {
@@ -593,8 +602,17 @@ func canonicalizeAttestorUserOwnedDrydockNotePublicKeys(des, initial *AttestorUs
 }
 
 func canonicalizeNewAttestorUserOwnedDrydockNotePublicKeys(c *Client, des, nw *AttestorUserOwnedDrydockNotePublicKeys) *AttestorUserOwnedDrydockNotePublicKeys {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AttestorUserOwnedDrydockNotePublicKeys while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Comment, nw.Comment) {
@@ -683,8 +701,17 @@ func canonicalizeAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(des, initia
 }
 
 func canonicalizeNewAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c *Client, des, nw *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.PublicKeyPem, nw.PublicKeyPem) {

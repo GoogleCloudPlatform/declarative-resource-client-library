@@ -22,10 +22,10 @@ type: instance
 updates:
 - resource: samples/update.instance.json
 variables:
-- name: org_id
-  type: org_id
 - name: df
   type: resource_name
+- name: org_id
+  type: org_id
 - name: datafusion_network
   type: resource_name
 - name: project

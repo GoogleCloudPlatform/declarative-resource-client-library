@@ -850,7 +850,7 @@ func canonicalizeOSPolicyAssignmentDesiredState(rawDesired, rawInitial *OSPolicy
 
 func canonicalizeOSPolicyAssignmentNewState(c *Client, rawNew, rawDesired *OSPolicyAssignment) (*OSPolicyAssignment, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
@@ -858,7 +858,7 @@ func canonicalizeOSPolicyAssignmentNewState(c *Client, rawNew, rawDesired *OSPol
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
+	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
@@ -866,25 +866,25 @@ func canonicalizeOSPolicyAssignmentNewState(c *Client, rawNew, rawDesired *OSPol
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.OSPolicies) && dcl.IsEmptyValueIndirect(rawDesired.OSPolicies) {
+	if dcl.IsNotReturnedByServer(rawNew.OSPolicies) && dcl.IsNotReturnedByServer(rawDesired.OSPolicies) {
 		rawNew.OSPolicies = rawDesired.OSPolicies
 	} else {
 		rawNew.OSPolicies = canonicalizeNewOSPolicyAssignmentOSPoliciesSlice(c, rawDesired.OSPolicies, rawNew.OSPolicies)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.InstanceFilter) && dcl.IsEmptyValueIndirect(rawDesired.InstanceFilter) {
+	if dcl.IsNotReturnedByServer(rawNew.InstanceFilter) && dcl.IsNotReturnedByServer(rawDesired.InstanceFilter) {
 		rawNew.InstanceFilter = rawDesired.InstanceFilter
 	} else {
 		rawNew.InstanceFilter = canonicalizeNewOSPolicyAssignmentInstanceFilter(c, rawDesired.InstanceFilter, rawNew.InstanceFilter)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Rollout) && dcl.IsEmptyValueIndirect(rawDesired.Rollout) {
+	if dcl.IsNotReturnedByServer(rawNew.Rollout) && dcl.IsNotReturnedByServer(rawDesired.Rollout) {
 		rawNew.Rollout = rawDesired.Rollout
 	} else {
 		rawNew.Rollout = canonicalizeNewOSPolicyAssignmentRollout(c, rawDesired.Rollout, rawNew.Rollout)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.RevisionId) && dcl.IsEmptyValueIndirect(rawDesired.RevisionId) {
+	if dcl.IsNotReturnedByServer(rawNew.RevisionId) && dcl.IsNotReturnedByServer(rawDesired.RevisionId) {
 		rawNew.RevisionId = rawDesired.RevisionId
 	} else {
 		if dcl.StringCanonicalize(rawDesired.RevisionId, rawNew.RevisionId) {
@@ -892,17 +892,17 @@ func canonicalizeOSPolicyAssignmentNewState(c *Client, rawNew, rawDesired *OSPol
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.RevisionCreateTime) && dcl.IsEmptyValueIndirect(rawDesired.RevisionCreateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.RevisionCreateTime) && dcl.IsNotReturnedByServer(rawDesired.RevisionCreateTime) {
 		rawNew.RevisionCreateTime = rawDesired.RevisionCreateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.RolloutState) && dcl.IsEmptyValueIndirect(rawDesired.RolloutState) {
+	if dcl.IsNotReturnedByServer(rawNew.RolloutState) && dcl.IsNotReturnedByServer(rawDesired.RolloutState) {
 		rawNew.RolloutState = rawDesired.RolloutState
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Baseline) && dcl.IsEmptyValueIndirect(rawDesired.Baseline) {
+	if dcl.IsNotReturnedByServer(rawNew.Baseline) && dcl.IsNotReturnedByServer(rawDesired.Baseline) {
 		rawNew.Baseline = rawDesired.Baseline
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Baseline, rawNew.Baseline) {
@@ -910,7 +910,7 @@ func canonicalizeOSPolicyAssignmentNewState(c *Client, rawNew, rawDesired *OSPol
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Deleted) && dcl.IsEmptyValueIndirect(rawDesired.Deleted) {
+	if dcl.IsNotReturnedByServer(rawNew.Deleted) && dcl.IsNotReturnedByServer(rawDesired.Deleted) {
 		rawNew.Deleted = rawDesired.Deleted
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Deleted, rawNew.Deleted) {
@@ -918,7 +918,7 @@ func canonicalizeOSPolicyAssignmentNewState(c *Client, rawNew, rawDesired *OSPol
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Reconciling) && dcl.IsEmptyValueIndirect(rawDesired.Reconciling) {
+	if dcl.IsNotReturnedByServer(rawNew.Reconciling) && dcl.IsNotReturnedByServer(rawDesired.Reconciling) {
 		rawNew.Reconciling = rawDesired.Reconciling
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Reconciling, rawNew.Reconciling) {
@@ -926,7 +926,7 @@ func canonicalizeOSPolicyAssignmentNewState(c *Client, rawNew, rawDesired *OSPol
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Uid) && dcl.IsEmptyValueIndirect(rawDesired.Uid) {
+	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
 		rawNew.Uid = rawDesired.Uid
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
@@ -985,8 +985,17 @@ func canonicalizeOSPolicyAssignmentOSPolicies(des, initial *OSPolicyAssignmentOS
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPolicies(c *Client, des, nw *OSPolicyAssignmentOSPolicies) *OSPolicyAssignmentOSPolicies {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPolicies while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Id, nw.Id) {
@@ -1071,8 +1080,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroups(des, initial *OSPoli
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroups(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroups) *OSPolicyAssignmentOSPoliciesResourceGroups {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPoliciesResourceGroups while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.OSFilter = canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsOSFilter(c, des.OSFilter, nw.OSFilter)
@@ -1153,8 +1171,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsOSFilter(des, initial
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsOSFilter(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsOSFilter) *OSPolicyAssignmentOSPoliciesResourceGroupsOSFilter {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPoliciesResourceGroupsOSFilter while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.OSShortName, nw.OSShortName) {
@@ -1238,8 +1265,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResources(des, initia
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResources(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResources) *OSPolicyAssignmentOSPoliciesResourceGroupsResources {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPoliciesResourceGroupsResources while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Id, nw.Id) {
@@ -1397,8 +1433,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(des, ini
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Apt = canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c, des.Apt, nw.Apt)
@@ -1479,8 +1524,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(des, 
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
@@ -1558,8 +1612,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(des, 
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Source = canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c, des.Source, nw.Source)
@@ -1644,8 +1707,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Remote = canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(c, des.Remote, nw.Remote)
@@ -1732,8 +1804,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Uri, nw.Uri) {
@@ -1823,8 +1904,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.NameToSelfLink(des.Bucket, nw.Bucket) {
@@ -1904,8 +1994,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(des, 
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
@@ -1982,8 +2081,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(de
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
@@ -2061,8 +2169,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(des, 
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Source = canonicalizeNewOSPolicyAssignmentFile(c, des.Source, nw.Source)
@@ -2177,8 +2294,17 @@ func canonicalizeOSPolicyAssignmentFile(des, initial *OSPolicyAssignmentFile, op
 }
 
 func canonicalizeNewOSPolicyAssignmentFile(c *Client, des, nw *OSPolicyAssignmentFile) *OSPolicyAssignmentFile {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentFile while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Remote = canonicalizeNewOSPolicyAssignmentFileRemote(c, des.Remote, nw.Remote)
@@ -2265,8 +2391,17 @@ func canonicalizeOSPolicyAssignmentFileRemote(des, initial *OSPolicyAssignmentFi
 }
 
 func canonicalizeNewOSPolicyAssignmentFileRemote(c *Client, des, nw *OSPolicyAssignmentFileRemote) *OSPolicyAssignmentFileRemote {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentFileRemote while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Uri, nw.Uri) {
@@ -2356,8 +2491,17 @@ func canonicalizeOSPolicyAssignmentFileGcs(des, initial *OSPolicyAssignmentFileG
 }
 
 func canonicalizeNewOSPolicyAssignmentFileGcs(c *Client, des, nw *OSPolicyAssignmentFileGcs) *OSPolicyAssignmentFileGcs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentFileGcs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.NameToSelfLink(des.Bucket, nw.Bucket) {
@@ -2437,8 +2581,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(de
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
@@ -2516,8 +2669,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(des, 
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Source = canonicalizeNewOSPolicyAssignmentFile(c, des.Source, nw.Source)
@@ -2631,8 +2793,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(d
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Apt = canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c, des.Apt, nw.Apt)
@@ -2730,8 +2901,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAp
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Uri, nw.Uri) {
@@ -2829,8 +3009,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYu
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Id, nw.Id) {
@@ -2928,8 +3117,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZy
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Id, nw.Id) {
@@ -3017,8 +3215,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGo
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
@@ -3095,8 +3302,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(des, in
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Validate = canonicalizeNewOSPolicyAssignmentExec(c, des.Validate, nw.Validate)
@@ -3203,8 +3419,17 @@ func canonicalizeOSPolicyAssignmentExec(des, initial *OSPolicyAssignmentExec, op
 }
 
 func canonicalizeNewOSPolicyAssignmentExec(c *Client, des, nw *OSPolicyAssignmentExec) *OSPolicyAssignmentExec {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentExec while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.File = canonicalizeNewOSPolicyAssignmentFile(c, des.File, nw.File)
@@ -3298,8 +3523,17 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(des, in
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.File = canonicalizeNewOSPolicyAssignmentFile(c, des.File, nw.File)
@@ -3398,8 +3632,17 @@ func canonicalizeOSPolicyAssignmentInstanceFilter(des, initial *OSPolicyAssignme
 }
 
 func canonicalizeNewOSPolicyAssignmentInstanceFilter(c *Client, des, nw *OSPolicyAssignmentInstanceFilter) *OSPolicyAssignmentInstanceFilter {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentInstanceFilter while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.BoolCanonicalize(des.All, nw.All) {
@@ -3478,8 +3721,17 @@ func canonicalizeOSPolicyAssignmentInstanceFilterInclusionLabels(des, initial *O
 }
 
 func canonicalizeNewOSPolicyAssignmentInstanceFilterInclusionLabels(c *Client, des, nw *OSPolicyAssignmentInstanceFilterInclusionLabels) *OSPolicyAssignmentInstanceFilterInclusionLabels {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentInstanceFilterInclusionLabels while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -3552,8 +3804,17 @@ func canonicalizeOSPolicyAssignmentInstanceFilterExclusionLabels(des, initial *O
 }
 
 func canonicalizeNewOSPolicyAssignmentInstanceFilterExclusionLabels(c *Client, des, nw *OSPolicyAssignmentInstanceFilterExclusionLabels) *OSPolicyAssignmentInstanceFilterExclusionLabels {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentInstanceFilterExclusionLabels while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -3627,8 +3888,17 @@ func canonicalizeOSPolicyAssignmentRollout(des, initial *OSPolicyAssignmentRollo
 }
 
 func canonicalizeNewOSPolicyAssignmentRollout(c *Client, des, nw *OSPolicyAssignmentRollout) *OSPolicyAssignmentRollout {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentRollout while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.DisruptionBudget = canonicalizeNewOSPolicyAssignmentRolloutDisruptionBudget(c, des.DisruptionBudget, nw.DisruptionBudget)
@@ -3731,8 +4001,17 @@ func canonicalizeOSPolicyAssignmentRolloutDisruptionBudget(des, initial *OSPolic
 }
 
 func canonicalizeNewOSPolicyAssignmentRolloutDisruptionBudget(c *Client, des, nw *OSPolicyAssignmentRolloutDisruptionBudget) *OSPolicyAssignmentRolloutDisruptionBudget {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentRolloutDisruptionBudget while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw

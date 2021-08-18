@@ -535,7 +535,7 @@ func canonicalizeBucketNewState(c *Client, rawNew, rawDesired *Bucket) (*Bucket,
 
 	rawNew.Project = rawDesired.Project
 
-	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
+	if dcl.IsNotReturnedByServer(rawNew.Location) && dcl.IsNotReturnedByServer(rawDesired.Location) {
 		rawNew.Location = rawDesired.Location
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Location, rawNew.Location) {
@@ -543,7 +543,7 @@ func canonicalizeBucketNewState(c *Client, rawNew, rawDesired *Bucket) (*Bucket,
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
@@ -551,36 +551,36 @@ func canonicalizeBucketNewState(c *Client, rawNew, rawDesired *Bucket) (*Bucket,
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Cors) && dcl.IsEmptyValueIndirect(rawDesired.Cors) {
+	if dcl.IsNotReturnedByServer(rawNew.Cors) && dcl.IsNotReturnedByServer(rawDesired.Cors) {
 		rawNew.Cors = rawDesired.Cors
 	} else {
 		rawNew.Cors = canonicalizeNewBucketCorsSlice(c, rawDesired.Cors, rawNew.Cors)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Lifecycle) && dcl.IsEmptyValueIndirect(rawDesired.Lifecycle) {
+	if dcl.IsNotReturnedByServer(rawNew.Lifecycle) && dcl.IsNotReturnedByServer(rawDesired.Lifecycle) {
 		rawNew.Lifecycle = rawDesired.Lifecycle
 	} else {
 		rawNew.Lifecycle = canonicalizeNewBucketLifecycle(c, rawDesired.Lifecycle, rawNew.Lifecycle)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Logging) && dcl.IsEmptyValueIndirect(rawDesired.Logging) {
+	if dcl.IsNotReturnedByServer(rawNew.Logging) && dcl.IsNotReturnedByServer(rawDesired.Logging) {
 		rawNew.Logging = rawDesired.Logging
 	} else {
 		rawNew.Logging = canonicalizeNewBucketLogging(c, rawDesired.Logging, rawNew.Logging)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.StorageClass) && dcl.IsEmptyValueIndirect(rawDesired.StorageClass) {
+	if dcl.IsNotReturnedByServer(rawNew.StorageClass) && dcl.IsNotReturnedByServer(rawDesired.StorageClass) {
 		rawNew.StorageClass = rawDesired.StorageClass
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Versioning) && dcl.IsEmptyValueIndirect(rawDesired.Versioning) {
+	if dcl.IsNotReturnedByServer(rawNew.Versioning) && dcl.IsNotReturnedByServer(rawDesired.Versioning) {
 		rawNew.Versioning = rawDesired.Versioning
 	} else {
 		rawNew.Versioning = canonicalizeNewBucketVersioning(c, rawDesired.Versioning, rawNew.Versioning)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Website) && dcl.IsEmptyValueIndirect(rawDesired.Website) {
+	if dcl.IsNotReturnedByServer(rawNew.Website) && dcl.IsNotReturnedByServer(rawDesired.Website) {
 		rawNew.Website = rawDesired.Website
 	} else {
 		rawNew.Website = canonicalizeNewBucketWebsite(c, rawDesired.Website, rawNew.Website)
@@ -628,8 +628,17 @@ func canonicalizeBucketCors(des, initial *BucketCors, opts ...dcl.ApplyOption) *
 }
 
 func canonicalizeNewBucketCors(c *Client, des, nw *BucketCors) *BucketCors {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for BucketCors while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -702,8 +711,17 @@ func canonicalizeBucketLifecycle(des, initial *BucketLifecycle, opts ...dcl.Appl
 }
 
 func canonicalizeNewBucketLifecycle(c *Client, des, nw *BucketLifecycle) *BucketLifecycle {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for BucketLifecycle while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Rule = canonicalizeNewBucketLifecycleRuleSlice(c, des.Rule, nw.Rule)
@@ -775,8 +793,17 @@ func canonicalizeBucketLifecycleRule(des, initial *BucketLifecycleRule, opts ...
 }
 
 func canonicalizeNewBucketLifecycleRule(c *Client, des, nw *BucketLifecycleRule) *BucketLifecycleRule {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for BucketLifecycleRule while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Action = canonicalizeNewBucketLifecycleRuleAction(c, des.Action, nw.Action)
@@ -857,8 +884,17 @@ func canonicalizeBucketLifecycleRuleAction(des, initial *BucketLifecycleRuleActi
 }
 
 func canonicalizeNewBucketLifecycleRuleAction(c *Client, des, nw *BucketLifecycleRuleAction) *BucketLifecycleRuleAction {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for BucketLifecycleRuleAction while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.StorageClass, nw.StorageClass) {
@@ -955,8 +991,17 @@ func canonicalizeBucketLifecycleRuleCondition(des, initial *BucketLifecycleRuleC
 }
 
 func canonicalizeNewBucketLifecycleRuleCondition(c *Client, des, nw *BucketLifecycleRuleCondition) *BucketLifecycleRuleCondition {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for BucketLifecycleRuleCondition while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -1034,8 +1079,17 @@ func canonicalizeBucketLogging(des, initial *BucketLogging, opts ...dcl.ApplyOpt
 }
 
 func canonicalizeNewBucketLogging(c *Client, des, nw *BucketLogging) *BucketLogging {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for BucketLogging while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.LogBucket, nw.LogBucket) {
@@ -1115,8 +1169,17 @@ func canonicalizeBucketVersioning(des, initial *BucketVersioning, opts ...dcl.Ap
 }
 
 func canonicalizeNewBucketVersioning(c *Client, des, nw *BucketVersioning) *BucketVersioning {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for BucketVersioning while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.BoolCanonicalize(des.Enabled, nw.Enabled) {
@@ -1198,8 +1261,17 @@ func canonicalizeBucketWebsite(des, initial *BucketWebsite, opts ...dcl.ApplyOpt
 }
 
 func canonicalizeNewBucketWebsite(c *Client, des, nw *BucketWebsite) *BucketWebsite {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for BucketWebsite while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MainPageSuffix, nw.MainPageSuffix) {

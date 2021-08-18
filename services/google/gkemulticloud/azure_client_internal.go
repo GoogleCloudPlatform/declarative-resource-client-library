@@ -391,7 +391,7 @@ func canonicalizeAzureClientDesiredState(rawDesired, rawInitial *AzureClient, op
 
 func canonicalizeAzureClientNewState(c *Client, rawNew, rawDesired *AzureClient) (*AzureClient, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
@@ -399,7 +399,7 @@ func canonicalizeAzureClientNewState(c *Client, rawNew, rawDesired *AzureClient)
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.TenantId) && dcl.IsEmptyValueIndirect(rawDesired.TenantId) {
+	if dcl.IsNotReturnedByServer(rawNew.TenantId) && dcl.IsNotReturnedByServer(rawDesired.TenantId) {
 		rawNew.TenantId = rawDesired.TenantId
 	} else {
 		if dcl.StringCanonicalize(rawDesired.TenantId, rawNew.TenantId) {
@@ -407,7 +407,7 @@ func canonicalizeAzureClientNewState(c *Client, rawNew, rawDesired *AzureClient)
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ApplicationId) && dcl.IsEmptyValueIndirect(rawDesired.ApplicationId) {
+	if dcl.IsNotReturnedByServer(rawNew.ApplicationId) && dcl.IsNotReturnedByServer(rawDesired.ApplicationId) {
 		rawNew.ApplicationId = rawDesired.ApplicationId
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ApplicationId, rawNew.ApplicationId) {
@@ -415,7 +415,7 @@ func canonicalizeAzureClientNewState(c *Client, rawNew, rawDesired *AzureClient)
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Certificate) && dcl.IsEmptyValueIndirect(rawDesired.Certificate) {
+	if dcl.IsNotReturnedByServer(rawNew.Certificate) && dcl.IsNotReturnedByServer(rawDesired.Certificate) {
 		rawNew.Certificate = rawDesired.Certificate
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Certificate, rawNew.Certificate) {
@@ -423,7 +423,7 @@ func canonicalizeAzureClientNewState(c *Client, rawNew, rawDesired *AzureClient)
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Uid) && dcl.IsEmptyValueIndirect(rawDesired.Uid) {
+	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
 		rawNew.Uid = rawDesired.Uid
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
@@ -431,7 +431,7 @@ func canonicalizeAzureClientNewState(c *Client, rawNew, rawDesired *AzureClient)
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}

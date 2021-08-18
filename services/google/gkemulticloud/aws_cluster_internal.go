@@ -526,7 +526,7 @@ func canonicalizeAwsClusterDesiredState(rawDesired, rawInitial *AwsCluster, opts
 
 func canonicalizeAwsClusterNewState(c *Client, rawNew, rawDesired *AwsCluster) (*AwsCluster, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
@@ -534,7 +534,7 @@ func canonicalizeAwsClusterNewState(c *Client, rawNew, rawDesired *AwsCluster) (
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
+	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
@@ -542,13 +542,13 @@ func canonicalizeAwsClusterNewState(c *Client, rawNew, rawDesired *AwsCluster) (
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Networking) && dcl.IsEmptyValueIndirect(rawDesired.Networking) {
+	if dcl.IsNotReturnedByServer(rawNew.Networking) && dcl.IsNotReturnedByServer(rawDesired.Networking) {
 		rawNew.Networking = rawDesired.Networking
 	} else {
 		rawNew.Networking = canonicalizeNewAwsClusterNetworking(c, rawDesired.Networking, rawNew.Networking)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.AwsRegion) && dcl.IsEmptyValueIndirect(rawDesired.AwsRegion) {
+	if dcl.IsNotReturnedByServer(rawNew.AwsRegion) && dcl.IsNotReturnedByServer(rawDesired.AwsRegion) {
 		rawNew.AwsRegion = rawDesired.AwsRegion
 	} else {
 		if dcl.StringCanonicalize(rawDesired.AwsRegion, rawNew.AwsRegion) {
@@ -556,24 +556,24 @@ func canonicalizeAwsClusterNewState(c *Client, rawNew, rawDesired *AwsCluster) (
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ControlPlane) && dcl.IsEmptyValueIndirect(rawDesired.ControlPlane) {
+	if dcl.IsNotReturnedByServer(rawNew.ControlPlane) && dcl.IsNotReturnedByServer(rawDesired.ControlPlane) {
 		rawNew.ControlPlane = rawDesired.ControlPlane
 	} else {
 		rawNew.ControlPlane = canonicalizeNewAwsClusterControlPlane(c, rawDesired.ControlPlane, rawNew.ControlPlane)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Authorization) && dcl.IsEmptyValueIndirect(rawDesired.Authorization) {
+	if dcl.IsNotReturnedByServer(rawNew.Authorization) && dcl.IsNotReturnedByServer(rawDesired.Authorization) {
 		rawNew.Authorization = rawDesired.Authorization
 	} else {
 		rawNew.Authorization = canonicalizeNewAwsClusterAuthorization(c, rawDesired.Authorization, rawNew.Authorization)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
+	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
 		rawNew.State = rawDesired.State
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Endpoint) && dcl.IsEmptyValueIndirect(rawDesired.Endpoint) {
+	if dcl.IsNotReturnedByServer(rawNew.Endpoint) && dcl.IsNotReturnedByServer(rawDesired.Endpoint) {
 		rawNew.Endpoint = rawDesired.Endpoint
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Endpoint, rawNew.Endpoint) {
@@ -581,7 +581,7 @@ func canonicalizeAwsClusterNewState(c *Client, rawNew, rawDesired *AwsCluster) (
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Uid) && dcl.IsEmptyValueIndirect(rawDesired.Uid) {
+	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
 		rawNew.Uid = rawDesired.Uid
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
@@ -589,7 +589,7 @@ func canonicalizeAwsClusterNewState(c *Client, rawNew, rawDesired *AwsCluster) (
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Reconciling) && dcl.IsEmptyValueIndirect(rawDesired.Reconciling) {
+	if dcl.IsNotReturnedByServer(rawNew.Reconciling) && dcl.IsNotReturnedByServer(rawDesired.Reconciling) {
 		rawNew.Reconciling = rawDesired.Reconciling
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Reconciling, rawNew.Reconciling) {
@@ -597,17 +597,17 @@ func canonicalizeAwsClusterNewState(c *Client, rawNew, rawDesired *AwsCluster) (
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
+	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
 		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
@@ -615,12 +615,12 @@ func canonicalizeAwsClusterNewState(c *Client, rawNew, rawDesired *AwsCluster) (
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Annotations) && dcl.IsEmptyValueIndirect(rawDesired.Annotations) {
+	if dcl.IsNotReturnedByServer(rawNew.Annotations) && dcl.IsNotReturnedByServer(rawDesired.Annotations) {
 		rawNew.Annotations = rawDesired.Annotations
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.WorkloadIdentityConfig) && dcl.IsEmptyValueIndirect(rawDesired.WorkloadIdentityConfig) {
+	if dcl.IsNotReturnedByServer(rawNew.WorkloadIdentityConfig) && dcl.IsNotReturnedByServer(rawDesired.WorkloadIdentityConfig) {
 		rawNew.WorkloadIdentityConfig = rawDesired.WorkloadIdentityConfig
 	} else {
 		rawNew.WorkloadIdentityConfig = canonicalizeNewAwsClusterWorkloadIdentityConfig(c, rawDesired.WorkloadIdentityConfig, rawNew.WorkloadIdentityConfig)
@@ -672,8 +672,17 @@ func canonicalizeAwsClusterNetworking(des, initial *AwsClusterNetworking, opts .
 }
 
 func canonicalizeNewAwsClusterNetworking(c *Client, des, nw *AwsClusterNetworking) *AwsClusterNetworking {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AwsClusterNetworking while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.VPCId, nw.VPCId) {
@@ -780,8 +789,17 @@ func canonicalizeAwsClusterControlPlane(des, initial *AwsClusterControlPlane, op
 }
 
 func canonicalizeNewAwsClusterControlPlane(c *Client, des, nw *AwsClusterControlPlane) *AwsClusterControlPlane {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AwsClusterControlPlane while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Version, nw.Version) {
@@ -869,8 +887,17 @@ func canonicalizeAwsClusterControlPlaneSshConfig(des, initial *AwsClusterControl
 }
 
 func canonicalizeNewAwsClusterControlPlaneSshConfig(c *Client, des, nw *AwsClusterControlPlaneSshConfig) *AwsClusterControlPlaneSshConfig {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AwsClusterControlPlaneSshConfig while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Ec2KeyPair, nw.Ec2KeyPair) {
@@ -962,8 +989,17 @@ func canonicalizeAwsClusterControlPlaneRootVolume(des, initial *AwsClusterContro
 }
 
 func canonicalizeNewAwsClusterControlPlaneRootVolume(c *Client, des, nw *AwsClusterControlPlaneRootVolume) *AwsClusterControlPlaneRootVolume {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AwsClusterControlPlaneRootVolume while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KmsKeyArn, nw.KmsKeyArn) {
@@ -1055,8 +1091,17 @@ func canonicalizeAwsClusterControlPlaneMainVolume(des, initial *AwsClusterContro
 }
 
 func canonicalizeNewAwsClusterControlPlaneMainVolume(c *Client, des, nw *AwsClusterControlPlaneMainVolume) *AwsClusterControlPlaneMainVolume {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AwsClusterControlPlaneMainVolume while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KmsKeyArn, nw.KmsKeyArn) {
@@ -1133,8 +1178,17 @@ func canonicalizeAwsClusterControlPlaneDatabaseEncryption(des, initial *AwsClust
 }
 
 func canonicalizeNewAwsClusterControlPlaneDatabaseEncryption(c *Client, des, nw *AwsClusterControlPlaneDatabaseEncryption) *AwsClusterControlPlaneDatabaseEncryption {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AwsClusterControlPlaneDatabaseEncryption while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KmsKeyArn, nw.KmsKeyArn) {
@@ -1216,8 +1270,17 @@ func canonicalizeAwsClusterControlPlaneAwsServicesAuthentication(des, initial *A
 }
 
 func canonicalizeNewAwsClusterControlPlaneAwsServicesAuthentication(c *Client, des, nw *AwsClusterControlPlaneAwsServicesAuthentication) *AwsClusterControlPlaneAwsServicesAuthentication {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AwsClusterControlPlaneAwsServicesAuthentication while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.RoleArn, nw.RoleArn) {
@@ -1297,8 +1360,17 @@ func canonicalizeAwsClusterAuthorization(des, initial *AwsClusterAuthorization, 
 }
 
 func canonicalizeNewAwsClusterAuthorization(c *Client, des, nw *AwsClusterAuthorization) *AwsClusterAuthorization {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AwsClusterAuthorization while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.AdminUsers = canonicalizeNewAwsClusterAuthorizationAdminUsersSlice(c, des.AdminUsers, nw.AdminUsers)
@@ -1373,8 +1445,17 @@ func canonicalizeAwsClusterAuthorizationAdminUsers(des, initial *AwsClusterAutho
 }
 
 func canonicalizeNewAwsClusterAuthorizationAdminUsers(c *Client, des, nw *AwsClusterAuthorizationAdminUsers) *AwsClusterAuthorizationAdminUsers {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AwsClusterAuthorizationAdminUsers while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Username, nw.Username) {
@@ -1461,8 +1542,17 @@ func canonicalizeAwsClusterWorkloadIdentityConfig(des, initial *AwsClusterWorklo
 }
 
 func canonicalizeNewAwsClusterWorkloadIdentityConfig(c *Client, des, nw *AwsClusterWorkloadIdentityConfig) *AwsClusterWorkloadIdentityConfig {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AwsClusterWorkloadIdentityConfig while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.IssuerUri, nw.IssuerUri) {

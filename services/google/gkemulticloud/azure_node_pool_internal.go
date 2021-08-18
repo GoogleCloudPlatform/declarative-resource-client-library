@@ -484,7 +484,7 @@ func canonicalizeAzureNodePoolDesiredState(rawDesired, rawInitial *AzureNodePool
 
 func canonicalizeAzureNodePoolNewState(c *Client, rawNew, rawDesired *AzureNodePool) (*AzureNodePool, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
@@ -492,7 +492,7 @@ func canonicalizeAzureNodePoolNewState(c *Client, rawNew, rawDesired *AzureNodeP
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Version) && dcl.IsEmptyValueIndirect(rawDesired.Version) {
+	if dcl.IsNotReturnedByServer(rawNew.Version) && dcl.IsNotReturnedByServer(rawDesired.Version) {
 		rawNew.Version = rawDesired.Version
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Version, rawNew.Version) {
@@ -500,13 +500,13 @@ func canonicalizeAzureNodePoolNewState(c *Client, rawNew, rawDesired *AzureNodeP
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Config) && dcl.IsEmptyValueIndirect(rawDesired.Config) {
+	if dcl.IsNotReturnedByServer(rawNew.Config) && dcl.IsNotReturnedByServer(rawDesired.Config) {
 		rawNew.Config = rawDesired.Config
 	} else {
 		rawNew.Config = canonicalizeNewAzureNodePoolConfig(c, rawDesired.Config, rawNew.Config)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.SubnetId) && dcl.IsEmptyValueIndirect(rawDesired.SubnetId) {
+	if dcl.IsNotReturnedByServer(rawNew.SubnetId) && dcl.IsNotReturnedByServer(rawDesired.SubnetId) {
 		rawNew.SubnetId = rawDesired.SubnetId
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SubnetId, rawNew.SubnetId) {
@@ -514,18 +514,18 @@ func canonicalizeAzureNodePoolNewState(c *Client, rawNew, rawDesired *AzureNodeP
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Autoscaling) && dcl.IsEmptyValueIndirect(rawDesired.Autoscaling) {
+	if dcl.IsNotReturnedByServer(rawNew.Autoscaling) && dcl.IsNotReturnedByServer(rawDesired.Autoscaling) {
 		rawNew.Autoscaling = rawDesired.Autoscaling
 	} else {
 		rawNew.Autoscaling = canonicalizeNewAzureNodePoolAutoscaling(c, rawDesired.Autoscaling, rawNew.Autoscaling)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
+	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
 		rawNew.State = rawDesired.State
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Uid) && dcl.IsEmptyValueIndirect(rawDesired.Uid) {
+	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
 		rawNew.Uid = rawDesired.Uid
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
@@ -533,7 +533,7 @@ func canonicalizeAzureNodePoolNewState(c *Client, rawNew, rawDesired *AzureNodeP
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Reconciling) && dcl.IsEmptyValueIndirect(rawDesired.Reconciling) {
+	if dcl.IsNotReturnedByServer(rawNew.Reconciling) && dcl.IsNotReturnedByServer(rawDesired.Reconciling) {
 		rawNew.Reconciling = rawDesired.Reconciling
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Reconciling, rawNew.Reconciling) {
@@ -541,17 +541,17 @@ func canonicalizeAzureNodePoolNewState(c *Client, rawNew, rawDesired *AzureNodeP
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
+	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
 		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
@@ -559,18 +559,18 @@ func canonicalizeAzureNodePoolNewState(c *Client, rawNew, rawDesired *AzureNodeP
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Annotations) && dcl.IsEmptyValueIndirect(rawDesired.Annotations) {
+	if dcl.IsNotReturnedByServer(rawNew.Annotations) && dcl.IsNotReturnedByServer(rawDesired.Annotations) {
 		rawNew.Annotations = rawDesired.Annotations
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.MaxPodsConstraint) && dcl.IsEmptyValueIndirect(rawDesired.MaxPodsConstraint) {
+	if dcl.IsNotReturnedByServer(rawNew.MaxPodsConstraint) && dcl.IsNotReturnedByServer(rawDesired.MaxPodsConstraint) {
 		rawNew.MaxPodsConstraint = rawDesired.MaxPodsConstraint
 	} else {
 		rawNew.MaxPodsConstraint = canonicalizeNewAzureNodePoolMaxPodsConstraint(c, rawDesired.MaxPodsConstraint, rawNew.MaxPodsConstraint)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.AzureAvailabilityZone) && dcl.IsEmptyValueIndirect(rawDesired.AzureAvailabilityZone) {
+	if dcl.IsNotReturnedByServer(rawNew.AzureAvailabilityZone) && dcl.IsNotReturnedByServer(rawDesired.AzureAvailabilityZone) {
 		rawNew.AzureAvailabilityZone = rawDesired.AzureAvailabilityZone
 	} else {
 		if dcl.StringCanonicalize(rawDesired.AzureAvailabilityZone, rawNew.AzureAvailabilityZone) {
@@ -618,8 +618,17 @@ func canonicalizeAzureNodePoolConfig(des, initial *AzureNodePoolConfig, opts ...
 }
 
 func canonicalizeNewAzureNodePoolConfig(c *Client, des, nw *AzureNodePoolConfig) *AzureNodePoolConfig {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AzureNodePoolConfig while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.VmSize, nw.VmSize) {
@@ -698,8 +707,17 @@ func canonicalizeAzureNodePoolConfigRootVolume(des, initial *AzureNodePoolConfig
 }
 
 func canonicalizeNewAzureNodePoolConfigRootVolume(c *Client, des, nw *AzureNodePoolConfigRootVolume) *AzureNodePoolConfigRootVolume {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AzureNodePoolConfigRootVolume while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -772,8 +790,17 @@ func canonicalizeAzureNodePoolConfigSshConfig(des, initial *AzureNodePoolConfigS
 }
 
 func canonicalizeNewAzureNodePoolConfigSshConfig(c *Client, des, nw *AzureNodePoolConfigSshConfig) *AzureNodePoolConfigSshConfig {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AzureNodePoolConfigSshConfig while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.AuthorizedKey, nw.AuthorizedKey) {
@@ -855,8 +882,17 @@ func canonicalizeAzureNodePoolAutoscaling(des, initial *AzureNodePoolAutoscaling
 }
 
 func canonicalizeNewAzureNodePoolAutoscaling(c *Client, des, nw *AzureNodePoolAutoscaling) *AzureNodePoolAutoscaling {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AzureNodePoolAutoscaling while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -929,8 +965,17 @@ func canonicalizeAzureNodePoolMaxPodsConstraint(des, initial *AzureNodePoolMaxPo
 }
 
 func canonicalizeNewAzureNodePoolMaxPodsConstraint(c *Client, des, nw *AzureNodePoolMaxPodsConstraint) *AzureNodePoolMaxPodsConstraint {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AzureNodePoolMaxPodsConstraint while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw

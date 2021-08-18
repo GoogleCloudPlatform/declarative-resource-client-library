@@ -892,7 +892,7 @@ func canonicalizeDashboardNewState(c *Client, rawNew, rawDesired *Dashboard) (*D
 
 	rawNew.Name = rawDesired.Name
 
-	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
+	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
@@ -900,25 +900,25 @@ func canonicalizeDashboardNewState(c *Client, rawNew, rawDesired *Dashboard) (*D
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.GridLayout) && dcl.IsEmptyValueIndirect(rawDesired.GridLayout) {
+	if dcl.IsNotReturnedByServer(rawNew.GridLayout) && dcl.IsNotReturnedByServer(rawDesired.GridLayout) {
 		rawNew.GridLayout = rawDesired.GridLayout
 	} else {
 		rawNew.GridLayout = canonicalizeNewDashboardGridLayout(c, rawDesired.GridLayout, rawNew.GridLayout)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.MosaicLayout) && dcl.IsEmptyValueIndirect(rawDesired.MosaicLayout) {
+	if dcl.IsNotReturnedByServer(rawNew.MosaicLayout) && dcl.IsNotReturnedByServer(rawDesired.MosaicLayout) {
 		rawNew.MosaicLayout = rawDesired.MosaicLayout
 	} else {
 		rawNew.MosaicLayout = canonicalizeNewDashboardMosaicLayout(c, rawDesired.MosaicLayout, rawNew.MosaicLayout)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.RowLayout) && dcl.IsEmptyValueIndirect(rawDesired.RowLayout) {
+	if dcl.IsNotReturnedByServer(rawNew.RowLayout) && dcl.IsNotReturnedByServer(rawDesired.RowLayout) {
 		rawNew.RowLayout = rawDesired.RowLayout
 	} else {
 		rawNew.RowLayout = canonicalizeNewDashboardRowLayout(c, rawDesired.RowLayout, rawNew.RowLayout)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ColumnLayout) && dcl.IsEmptyValueIndirect(rawDesired.ColumnLayout) {
+	if dcl.IsNotReturnedByServer(rawNew.ColumnLayout) && dcl.IsNotReturnedByServer(rawDesired.ColumnLayout) {
 		rawNew.ColumnLayout = rawDesired.ColumnLayout
 	} else {
 		rawNew.ColumnLayout = canonicalizeNewDashboardColumnLayout(c, rawDesired.ColumnLayout, rawNew.ColumnLayout)
@@ -926,7 +926,7 @@ func canonicalizeDashboardNewState(c *Client, rawNew, rawDesired *Dashboard) (*D
 
 	rawNew.Project = rawDesired.Project
 
-	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
+	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
 		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
@@ -966,8 +966,17 @@ func canonicalizeDashboardGridLayout(des, initial *DashboardGridLayout, opts ...
 }
 
 func canonicalizeNewDashboardGridLayout(c *Client, des, nw *DashboardGridLayout) *DashboardGridLayout {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardGridLayout while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -1045,8 +1054,17 @@ func canonicalizeDashboardMosaicLayout(des, initial *DashboardMosaicLayout, opts
 }
 
 func canonicalizeNewDashboardMosaicLayout(c *Client, des, nw *DashboardMosaicLayout) *DashboardMosaicLayout {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardMosaicLayout while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Tiles = canonicalizeNewDashboardMosaicLayoutTilesSlice(c, des.Tiles, nw.Tiles)
@@ -1137,8 +1155,17 @@ func canonicalizeDashboardMosaicLayoutTiles(des, initial *DashboardMosaicLayoutT
 }
 
 func canonicalizeNewDashboardMosaicLayoutTiles(c *Client, des, nw *DashboardMosaicLayoutTiles) *DashboardMosaicLayoutTiles {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardMosaicLayoutTiles while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Widget = canonicalizeNewDashboardWidget(c, des.Widget, nw.Widget)
@@ -1213,8 +1240,17 @@ func canonicalizeDashboardRowLayout(des, initial *DashboardRowLayout, opts ...dc
 }
 
 func canonicalizeNewDashboardRowLayout(c *Client, des, nw *DashboardRowLayout) *DashboardRowLayout {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardRowLayout while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Rows = canonicalizeNewDashboardRowLayoutRowsSlice(c, des.Rows, nw.Rows)
@@ -1294,8 +1330,17 @@ func canonicalizeDashboardRowLayoutRows(des, initial *DashboardRowLayoutRows, op
 }
 
 func canonicalizeNewDashboardRowLayoutRows(c *Client, des, nw *DashboardRowLayoutRows) *DashboardRowLayoutRows {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardRowLayoutRows while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -1368,8 +1413,17 @@ func canonicalizeDashboardColumnLayout(des, initial *DashboardColumnLayout, opts
 }
 
 func canonicalizeNewDashboardColumnLayout(c *Client, des, nw *DashboardColumnLayout) *DashboardColumnLayout {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardColumnLayout while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Columns = canonicalizeNewDashboardColumnLayoutColumnsSlice(c, des.Columns, nw.Columns)
@@ -1449,8 +1503,17 @@ func canonicalizeDashboardColumnLayoutColumns(des, initial *DashboardColumnLayou
 }
 
 func canonicalizeNewDashboardColumnLayoutColumns(c *Client, des, nw *DashboardColumnLayoutColumns) *DashboardColumnLayoutColumns {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardColumnLayoutColumns while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Widgets = canonicalizeNewDashboardWidgetSlice(c, des.Widgets, nw.Widgets)
@@ -1569,8 +1632,17 @@ func canonicalizeDashboardWidget(des, initial *DashboardWidget, opts ...dcl.Appl
 }
 
 func canonicalizeNewDashboardWidget(c *Client, des, nw *DashboardWidget) *DashboardWidget {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidget while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Title, nw.Title) {
@@ -1664,8 +1736,17 @@ func canonicalizeDashboardWidgetXyChart(des, initial *DashboardWidgetXyChart, op
 }
 
 func canonicalizeNewDashboardWidgetXyChart(c *Client, des, nw *DashboardWidgetXyChart) *DashboardWidgetXyChart {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetXyChart while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.DataSets = canonicalizeNewDashboardWidgetXyChartDataSetsSlice(c, des.DataSets, nw.DataSets)
@@ -1758,8 +1839,17 @@ func canonicalizeDashboardWidgetXyChartDataSets(des, initial *DashboardWidgetXyC
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSets(c *Client, des, nw *DashboardWidgetXyChartDataSets) *DashboardWidgetXyChartDataSets {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetXyChartDataSets while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.TimeSeriesQuery = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, des.TimeSeriesQuery, nw.TimeSeriesQuery)
@@ -1847,8 +1937,17 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQuery(des, initial *Das
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQuery(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQuery) *DashboardWidgetXyChartDataSetsTimeSeriesQuery {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetXyChartDataSetsTimeSeriesQuery while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.TimeSeriesFilter = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, des.TimeSeriesFilter, nw.TimeSeriesFilter)
@@ -1933,8 +2032,17 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(d
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Filter, nw.Filter) {
@@ -2029,8 +2137,17 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAg
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
@@ -2122,8 +2239,17 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSe
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
@@ -2210,8 +2336,17 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPi
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -2283,8 +2418,17 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Numerator = canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, des.Numerator, nw.Numerator)
@@ -2363,8 +2507,17 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Filter, nw.Filter) {
@@ -2457,8 +2610,17 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
@@ -2536,8 +2698,17 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Filter, nw.Filter) {
@@ -2630,8 +2801,17 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
@@ -2723,8 +2903,17 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
@@ -2811,8 +3000,17 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -2900,8 +3098,17 @@ func canonicalizeDashboardWidgetXyChartThresholds(des, initial *DashboardWidgetX
 }
 
 func canonicalizeNewDashboardWidgetXyChartThresholds(c *Client, des, nw *DashboardWidgetXyChartThresholds) *DashboardWidgetXyChartThresholds {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetXyChartThresholds while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Label, nw.Label) {
@@ -2983,8 +3190,17 @@ func canonicalizeDashboardWidgetXyChartXAxis(des, initial *DashboardWidgetXyChar
 }
 
 func canonicalizeNewDashboardWidgetXyChartXAxis(c *Client, des, nw *DashboardWidgetXyChartXAxis) *DashboardWidgetXyChartXAxis {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetXyChartXAxis while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Label, nw.Label) {
@@ -3066,8 +3282,17 @@ func canonicalizeDashboardWidgetXyChartYAxis(des, initial *DashboardWidgetXyChar
 }
 
 func canonicalizeNewDashboardWidgetXyChartYAxis(c *Client, des, nw *DashboardWidgetXyChartYAxis) *DashboardWidgetXyChartYAxis {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetXyChartYAxis while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Label, nw.Label) {
@@ -3144,8 +3369,17 @@ func canonicalizeDashboardWidgetXyChartChartOptions(des, initial *DashboardWidge
 }
 
 func canonicalizeNewDashboardWidgetXyChartChartOptions(c *Client, des, nw *DashboardWidgetXyChartChartOptions) *DashboardWidgetXyChartChartOptions {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetXyChartChartOptions while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -3221,8 +3455,17 @@ func canonicalizeDashboardWidgetScorecard(des, initial *DashboardWidgetScorecard
 }
 
 func canonicalizeNewDashboardWidgetScorecard(c *Client, des, nw *DashboardWidgetScorecard) *DashboardWidgetScorecard {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetScorecard while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.TimeSeriesQuery = canonicalizeNewDashboardWidgetScorecardTimeSeriesQuery(c, des.TimeSeriesQuery, nw.TimeSeriesQuery)
@@ -3307,8 +3550,17 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQuery(des, initial *Dashboard
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQuery(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQuery) *DashboardWidgetScorecardTimeSeriesQuery {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetScorecardTimeSeriesQuery while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.TimeSeriesFilter = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, des.TimeSeriesFilter, nw.TimeSeriesFilter)
@@ -3393,8 +3645,17 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(des, in
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Filter, nw.Filter) {
@@ -3489,8 +3750,17 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregat
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
@@ -3582,8 +3852,17 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondar
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
@@ -3670,8 +3949,17 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTime
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -3743,8 +4031,17 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(de
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Numerator = canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, des.Numerator, nw.Numerator)
@@ -3823,8 +4120,17 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Filter, nw.Filter) {
@@ -3917,8 +4223,17 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
@@ -3996,8 +4311,17 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Filter, nw.Filter) {
@@ -4090,8 +4414,17 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
@@ -4183,8 +4516,17 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSec
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
@@ -4271,8 +4613,17 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPic
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -4350,8 +4701,17 @@ func canonicalizeDashboardWidgetScorecardGaugeView(des, initial *DashboardWidget
 }
 
 func canonicalizeNewDashboardWidgetScorecardGaugeView(c *Client, des, nw *DashboardWidgetScorecardGaugeView) *DashboardWidgetScorecardGaugeView {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetScorecardGaugeView while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -4429,8 +4789,17 @@ func canonicalizeDashboardWidgetScorecardSparkChartView(des, initial *DashboardW
 }
 
 func canonicalizeNewDashboardWidgetScorecardSparkChartView(c *Client, des, nw *DashboardWidgetScorecardSparkChartView) *DashboardWidgetScorecardSparkChartView {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetScorecardSparkChartView while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MinAlignmentPeriod, nw.MinAlignmentPeriod) {
@@ -4522,8 +4891,17 @@ func canonicalizeDashboardWidgetScorecardThresholds(des, initial *DashboardWidge
 }
 
 func canonicalizeNewDashboardWidgetScorecardThresholds(c *Client, des, nw *DashboardWidgetScorecardThresholds) *DashboardWidgetScorecardThresholds {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetScorecardThresholds while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Label, nw.Label) {
@@ -4605,8 +4983,17 @@ func canonicalizeDashboardWidgetText(des, initial *DashboardWidgetText, opts ...
 }
 
 func canonicalizeNewDashboardWidgetText(c *Client, des, nw *DashboardWidgetText) *DashboardWidgetText {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetText while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Content, nw.Content) {
@@ -4676,8 +5063,17 @@ func canonicalizeDashboardWidgetBlank(des, initial *DashboardWidgetBlank, opts .
 }
 
 func canonicalizeNewDashboardWidgetBlank(c *Client, des, nw *DashboardWidgetBlank) *DashboardWidgetBlank {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardWidgetBlank while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw

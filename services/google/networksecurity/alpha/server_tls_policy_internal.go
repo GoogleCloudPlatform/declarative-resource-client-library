@@ -592,7 +592,7 @@ func canonicalizeServerTlsPolicyDesiredState(rawDesired, rawInitial *ServerTlsPo
 
 func canonicalizeServerTlsPolicyNewState(c *Client, rawNew, rawDesired *ServerTlsPolicy) (*ServerTlsPolicy, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
@@ -600,7 +600,7 @@ func canonicalizeServerTlsPolicyNewState(c *Client, rawNew, rawDesired *ServerTl
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
+	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
@@ -608,22 +608,22 @@ func canonicalizeServerTlsPolicyNewState(c *Client, rawNew, rawDesired *ServerTl
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
+	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
 		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.AllowOpen) && dcl.IsEmptyValueIndirect(rawDesired.AllowOpen) {
+	if dcl.IsNotReturnedByServer(rawNew.AllowOpen) && dcl.IsNotReturnedByServer(rawDesired.AllowOpen) {
 		rawNew.AllowOpen = rawDesired.AllowOpen
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.AllowOpen, rawNew.AllowOpen) {
@@ -631,13 +631,13 @@ func canonicalizeServerTlsPolicyNewState(c *Client, rawNew, rawDesired *ServerTl
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ServerCertificate) && dcl.IsEmptyValueIndirect(rawDesired.ServerCertificate) {
+	if dcl.IsNotReturnedByServer(rawNew.ServerCertificate) && dcl.IsNotReturnedByServer(rawDesired.ServerCertificate) {
 		rawNew.ServerCertificate = rawDesired.ServerCertificate
 	} else {
 		rawNew.ServerCertificate = canonicalizeNewServerTlsPolicyServerCertificate(c, rawDesired.ServerCertificate, rawNew.ServerCertificate)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.MtlsPolicy) && dcl.IsEmptyValueIndirect(rawDesired.MtlsPolicy) {
+	if dcl.IsNotReturnedByServer(rawNew.MtlsPolicy) && dcl.IsNotReturnedByServer(rawDesired.MtlsPolicy) {
 		rawNew.MtlsPolicy = rawDesired.MtlsPolicy
 	} else {
 		rawNew.MtlsPolicy = canonicalizeNewServerTlsPolicyMtlsPolicy(c, rawDesired.MtlsPolicy, rawNew.MtlsPolicy)
@@ -702,8 +702,17 @@ func canonicalizeServerTlsPolicyServerCertificate(des, initial *ServerTlsPolicyS
 }
 
 func canonicalizeNewServerTlsPolicyServerCertificate(c *Client, des, nw *ServerTlsPolicyServerCertificate) *ServerTlsPolicyServerCertificate {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ServerTlsPolicyServerCertificate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.LocalFilepath = canonicalizeNewServerTlsPolicyServerCertificateLocalFilepath(c, des.LocalFilepath, nw.LocalFilepath)
@@ -785,8 +794,17 @@ func canonicalizeServerTlsPolicyServerCertificateLocalFilepath(des, initial *Ser
 }
 
 func canonicalizeNewServerTlsPolicyServerCertificateLocalFilepath(c *Client, des, nw *ServerTlsPolicyServerCertificateLocalFilepath) *ServerTlsPolicyServerCertificateLocalFilepath {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ServerTlsPolicyServerCertificateLocalFilepath while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.CertificatePath, nw.CertificatePath) {
@@ -866,8 +884,17 @@ func canonicalizeServerTlsPolicyServerCertificateGrpcEndpoint(des, initial *Serv
 }
 
 func canonicalizeNewServerTlsPolicyServerCertificateGrpcEndpoint(c *Client, des, nw *ServerTlsPolicyServerCertificateGrpcEndpoint) *ServerTlsPolicyServerCertificateGrpcEndpoint {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ServerTlsPolicyServerCertificateGrpcEndpoint while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TargetUri, nw.TargetUri) {
@@ -944,8 +971,17 @@ func canonicalizeServerTlsPolicyServerCertificateCertificateProviderInstance(des
 }
 
 func canonicalizeNewServerTlsPolicyServerCertificateCertificateProviderInstance(c *Client, des, nw *ServerTlsPolicyServerCertificateCertificateProviderInstance) *ServerTlsPolicyServerCertificateCertificateProviderInstance {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ServerTlsPolicyServerCertificateCertificateProviderInstance while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.PluginInstance, nw.PluginInstance) {
@@ -1022,8 +1058,17 @@ func canonicalizeServerTlsPolicyMtlsPolicy(des, initial *ServerTlsPolicyMtlsPoli
 }
 
 func canonicalizeNewServerTlsPolicyMtlsPolicy(c *Client, des, nw *ServerTlsPolicyMtlsPolicy) *ServerTlsPolicyMtlsPolicy {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ServerTlsPolicyMtlsPolicy while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.ClientValidationCa = canonicalizeNewServerTlsPolicyMtlsPolicyClientValidationCaSlice(c, des.ClientValidationCa, nw.ClientValidationCa)
@@ -1130,8 +1175,17 @@ func canonicalizeServerTlsPolicyMtlsPolicyClientValidationCa(des, initial *Serve
 }
 
 func canonicalizeNewServerTlsPolicyMtlsPolicyClientValidationCa(c *Client, des, nw *ServerTlsPolicyMtlsPolicyClientValidationCa) *ServerTlsPolicyMtlsPolicyClientValidationCa {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ServerTlsPolicyMtlsPolicyClientValidationCa while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.CaCertPath, nw.CaCertPath) {
@@ -1210,8 +1264,17 @@ func canonicalizeServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(des, in
 }
 
 func canonicalizeNewServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c *Client, des, nw *ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint) *ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TargetUri, nw.TargetUri) {
@@ -1288,8 +1351,17 @@ func canonicalizeServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderI
 }
 
 func canonicalizeNewServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(c *Client, des, nw *ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance) *ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.PluginInstance, nw.PluginInstance) {

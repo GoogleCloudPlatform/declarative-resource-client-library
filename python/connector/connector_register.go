@@ -104,6 +104,8 @@ import (
 
 	storage_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/connector"
 
+	privateca_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca/connector"
+
 	tier2_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/tier2/alpha_connector"
 
 	statuspb "google.golang.org/genproto/googleapis/rpc/status"
@@ -202,6 +204,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	pubsub_connector.RegisterServers(grpcServer)
 
 	storage_connector.RegisterServers(grpcServer)
+
+	privateca_connector.RegisterServers(grpcServer)
 
 	tier2_alpha_connector.RegisterServers(grpcServer)
 

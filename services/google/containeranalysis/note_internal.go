@@ -787,7 +787,7 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 
 func canonicalizeNoteNewState(c *Client, rawNew, rawDesired *Note) (*Note, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
@@ -795,7 +795,7 @@ func canonicalizeNoteNewState(c *Client, rawNew, rawDesired *Note) (*Note, error
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ShortDescription) && dcl.IsEmptyValueIndirect(rawDesired.ShortDescription) {
+	if dcl.IsNotReturnedByServer(rawNew.ShortDescription) && dcl.IsNotReturnedByServer(rawDesired.ShortDescription) {
 		rawNew.ShortDescription = rawDesired.ShortDescription
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ShortDescription, rawNew.ShortDescription) {
@@ -803,7 +803,7 @@ func canonicalizeNoteNewState(c *Client, rawNew, rawDesired *Note) (*Note, error
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.LongDescription) && dcl.IsEmptyValueIndirect(rawDesired.LongDescription) {
+	if dcl.IsNotReturnedByServer(rawNew.LongDescription) && dcl.IsNotReturnedByServer(rawDesired.LongDescription) {
 		rawNew.LongDescription = rawDesired.LongDescription
 	} else {
 		if dcl.StringCanonicalize(rawDesired.LongDescription, rawNew.LongDescription) {
@@ -811,69 +811,69 @@ func canonicalizeNoteNewState(c *Client, rawNew, rawDesired *Note) (*Note, error
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.RelatedUrl) && dcl.IsEmptyValueIndirect(rawDesired.RelatedUrl) {
+	if dcl.IsNotReturnedByServer(rawNew.RelatedUrl) && dcl.IsNotReturnedByServer(rawDesired.RelatedUrl) {
 		rawNew.RelatedUrl = rawDesired.RelatedUrl
 	} else {
 		rawNew.RelatedUrl = canonicalizeNewNoteRelatedUrlSlice(c, rawDesired.RelatedUrl, rawNew.RelatedUrl)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ExpirationTime) && dcl.IsEmptyValueIndirect(rawDesired.ExpirationTime) {
+	if dcl.IsNotReturnedByServer(rawNew.ExpirationTime) && dcl.IsNotReturnedByServer(rawDesired.ExpirationTime) {
 		rawNew.ExpirationTime = rawDesired.ExpirationTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.RelatedNoteNames) && dcl.IsEmptyValueIndirect(rawDesired.RelatedNoteNames) {
+	if dcl.IsNotReturnedByServer(rawNew.RelatedNoteNames) && dcl.IsNotReturnedByServer(rawDesired.RelatedNoteNames) {
 		rawNew.RelatedNoteNames = rawDesired.RelatedNoteNames
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Vulnerability) && dcl.IsEmptyValueIndirect(rawDesired.Vulnerability) {
+	if dcl.IsNotReturnedByServer(rawNew.Vulnerability) && dcl.IsNotReturnedByServer(rawDesired.Vulnerability) {
 		rawNew.Vulnerability = rawDesired.Vulnerability
 	} else {
 		rawNew.Vulnerability = canonicalizeNewNoteVulnerability(c, rawDesired.Vulnerability, rawNew.Vulnerability)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Build) && dcl.IsEmptyValueIndirect(rawDesired.Build) {
+	if dcl.IsNotReturnedByServer(rawNew.Build) && dcl.IsNotReturnedByServer(rawDesired.Build) {
 		rawNew.Build = rawDesired.Build
 	} else {
 		rawNew.Build = canonicalizeNewNoteBuild(c, rawDesired.Build, rawNew.Build)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Image) && dcl.IsEmptyValueIndirect(rawDesired.Image) {
+	if dcl.IsNotReturnedByServer(rawNew.Image) && dcl.IsNotReturnedByServer(rawDesired.Image) {
 		rawNew.Image = rawDesired.Image
 	} else {
 		rawNew.Image = canonicalizeNewNoteImage(c, rawDesired.Image, rawNew.Image)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Package) && dcl.IsEmptyValueIndirect(rawDesired.Package) {
+	if dcl.IsNotReturnedByServer(rawNew.Package) && dcl.IsNotReturnedByServer(rawDesired.Package) {
 		rawNew.Package = rawDesired.Package
 	} else {
 		rawNew.Package = canonicalizeNewNotePackage(c, rawDesired.Package, rawNew.Package)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Discovery) && dcl.IsEmptyValueIndirect(rawDesired.Discovery) {
+	if dcl.IsNotReturnedByServer(rawNew.Discovery) && dcl.IsNotReturnedByServer(rawDesired.Discovery) {
 		rawNew.Discovery = rawDesired.Discovery
 	} else {
 		rawNew.Discovery = canonicalizeNewNoteDiscovery(c, rawDesired.Discovery, rawNew.Discovery)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Deployment) && dcl.IsEmptyValueIndirect(rawDesired.Deployment) {
+	if dcl.IsNotReturnedByServer(rawNew.Deployment) && dcl.IsNotReturnedByServer(rawDesired.Deployment) {
 		rawNew.Deployment = rawDesired.Deployment
 	} else {
 		rawNew.Deployment = canonicalizeNewNoteDeployment(c, rawDesired.Deployment, rawNew.Deployment)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Attestation) && dcl.IsEmptyValueIndirect(rawDesired.Attestation) {
+	if dcl.IsNotReturnedByServer(rawNew.Attestation) && dcl.IsNotReturnedByServer(rawDesired.Attestation) {
 		rawNew.Attestation = rawDesired.Attestation
 	} else {
 		rawNew.Attestation = canonicalizeNewNoteAttestation(c, rawDesired.Attestation, rawNew.Attestation)
@@ -913,8 +913,17 @@ func canonicalizeNoteRelatedUrl(des, initial *NoteRelatedUrl, opts ...dcl.ApplyO
 }
 
 func canonicalizeNewNoteRelatedUrl(c *Client, des, nw *NoteRelatedUrl) *NoteRelatedUrl {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteRelatedUrl while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Url, nw.Url) {
@@ -1015,8 +1024,17 @@ func canonicalizeNoteVulnerability(des, initial *NoteVulnerability, opts ...dcl.
 }
 
 func canonicalizeNewNoteVulnerability(c *Client, des, nw *NoteVulnerability) *NoteVulnerability {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteVulnerability while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Details = canonicalizeNewNoteVulnerabilityDetailsSlice(c, des.Details, nw.Details)
@@ -1136,8 +1154,17 @@ func canonicalizeNoteVulnerabilityDetails(des, initial *NoteVulnerabilityDetails
 }
 
 func canonicalizeNewNoteVulnerabilityDetails(c *Client, des, nw *NoteVulnerabilityDetails) *NoteVulnerabilityDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteVulnerabilityDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.SeverityName, nw.SeverityName) {
@@ -1258,8 +1285,17 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(des, initial *Note
 }
 
 func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionStart(c *Client, des, nw *NoteVulnerabilityDetailsAffectedVersionStart) *NoteVulnerabilityDetailsAffectedVersionStart {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteVulnerabilityDetailsAffectedVersionStart while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
@@ -1362,8 +1398,17 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(des, initial *NoteVu
 }
 
 func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionEnd(c *Client, des, nw *NoteVulnerabilityDetailsAffectedVersionEnd) *NoteVulnerabilityDetailsAffectedVersionEnd {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteVulnerabilityDetailsAffectedVersionEnd while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
@@ -1466,8 +1511,17 @@ func canonicalizeNoteVulnerabilityDetailsFixedVersion(des, initial *NoteVulnerab
 }
 
 func canonicalizeNewNoteVulnerabilityDetailsFixedVersion(c *Client, des, nw *NoteVulnerabilityDetailsFixedVersion) *NoteVulnerabilityDetailsFixedVersion {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteVulnerabilityDetailsFixedVersion while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
@@ -1600,8 +1654,17 @@ func canonicalizeNoteVulnerabilityCvssV3(des, initial *NoteVulnerabilityCvssV3, 
 }
 
 func canonicalizeNewNoteVulnerabilityCvssV3(c *Client, des, nw *NoteVulnerabilityCvssV3) *NoteVulnerabilityCvssV3 {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteVulnerabilityCvssV3 while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -1689,8 +1752,17 @@ func canonicalizeNoteVulnerabilityWindowsDetails(des, initial *NoteVulnerability
 }
 
 func canonicalizeNewNoteVulnerabilityWindowsDetails(c *Client, des, nw *NoteVulnerabilityWindowsDetails) *NoteVulnerabilityWindowsDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteVulnerabilityWindowsDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.CpeUri, nw.CpeUri) {
@@ -1779,8 +1851,17 @@ func canonicalizeNoteVulnerabilityWindowsDetailsFixingKbs(des, initial *NoteVuln
 }
 
 func canonicalizeNewNoteVulnerabilityWindowsDetailsFixingKbs(c *Client, des, nw *NoteVulnerabilityWindowsDetailsFixingKbs) *NoteVulnerabilityWindowsDetailsFixingKbs {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteVulnerabilityWindowsDetailsFixingKbs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
@@ -1860,8 +1941,17 @@ func canonicalizeNoteBuild(des, initial *NoteBuild, opts ...dcl.ApplyOption) *No
 }
 
 func canonicalizeNewNoteBuild(c *Client, des, nw *NoteBuild) *NoteBuild {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteBuild while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.BuilderVersion, nw.BuilderVersion) {
@@ -1939,8 +2029,17 @@ func canonicalizeNoteImage(des, initial *NoteImage, opts ...dcl.ApplyOption) *No
 }
 
 func canonicalizeNewNoteImage(c *Client, des, nw *NoteImage) *NoteImage {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteImage while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.ResourceUrl, nw.ResourceUrl) {
@@ -2023,8 +2122,17 @@ func canonicalizeNoteImageFingerprint(des, initial *NoteImageFingerprint, opts .
 }
 
 func canonicalizeNewNoteImageFingerprint(c *Client, des, nw *NoteImageFingerprint) *NoteImageFingerprint {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteImageFingerprint while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.V1Name, nw.V1Name) {
@@ -2109,8 +2217,17 @@ func canonicalizeNotePackage(des, initial *NotePackage, opts ...dcl.ApplyOption)
 }
 
 func canonicalizeNewNotePackage(c *Client, des, nw *NotePackage) *NotePackage {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NotePackage while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
@@ -2209,8 +2326,17 @@ func canonicalizeNotePackageDistribution(des, initial *NotePackageDistribution, 
 }
 
 func canonicalizeNewNotePackageDistribution(c *Client, des, nw *NotePackageDistribution) *NotePackageDistribution {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NotePackageDistribution while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.CpeUri, nw.CpeUri) {
@@ -2317,8 +2443,17 @@ func canonicalizeNotePackageDistributionLatestVersion(des, initial *NotePackageD
 }
 
 func canonicalizeNewNotePackageDistributionLatestVersion(c *Client, des, nw *NotePackageDistributionLatestVersion) *NotePackageDistributionLatestVersion {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NotePackageDistributionLatestVersion while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
@@ -2401,8 +2536,17 @@ func canonicalizeNoteDiscovery(des, initial *NoteDiscovery, opts ...dcl.ApplyOpt
 }
 
 func canonicalizeNewNoteDiscovery(c *Client, des, nw *NoteDiscovery) *NoteDiscovery {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteDiscovery while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -2475,8 +2619,17 @@ func canonicalizeNoteDeployment(des, initial *NoteDeployment, opts ...dcl.ApplyO
 }
 
 func canonicalizeNewNoteDeployment(c *Client, des, nw *NoteDeployment) *NoteDeployment {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteDeployment while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -2545,8 +2698,17 @@ func canonicalizeNoteAttestation(des, initial *NoteAttestation, opts ...dcl.Appl
 }
 
 func canonicalizeNewNoteAttestation(c *Client, des, nw *NoteAttestation) *NoteAttestation {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteAttestation while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.Hint = canonicalizeNewNoteAttestationHint(c, des.Hint, nw.Hint)
@@ -2621,8 +2783,17 @@ func canonicalizeNoteAttestationHint(des, initial *NoteAttestationHint, opts ...
 }
 
 func canonicalizeNewNoteAttestationHint(c *Client, des, nw *NoteAttestationHint) *NoteAttestationHint {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteAttestationHint while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.HumanReadableName, nw.HumanReadableName) {

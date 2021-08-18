@@ -466,7 +466,7 @@ func canonicalizeTopicNewState(c *Client, rawNew, rawDesired *Topic) (*Topic, er
 
 	rawNew.Name = rawDesired.Name
 
-	if dcl.IsEmptyValueIndirect(rawNew.KmsKeyName) && dcl.IsEmptyValueIndirect(rawDesired.KmsKeyName) {
+	if dcl.IsNotReturnedByServer(rawNew.KmsKeyName) && dcl.IsNotReturnedByServer(rawDesired.KmsKeyName) {
 		rawNew.KmsKeyName = rawDesired.KmsKeyName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.KmsKeyName, rawNew.KmsKeyName) {
@@ -474,12 +474,12 @@ func canonicalizeTopicNewState(c *Client, rawNew, rawDesired *Topic) (*Topic, er
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
+	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
 		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.MessageStoragePolicy) && dcl.IsEmptyValueIndirect(rawDesired.MessageStoragePolicy) {
+	if dcl.IsNotReturnedByServer(rawNew.MessageStoragePolicy) && dcl.IsNotReturnedByServer(rawDesired.MessageStoragePolicy) {
 		rawNew.MessageStoragePolicy = rawDesired.MessageStoragePolicy
 	} else {
 		rawNew.MessageStoragePolicy = canonicalizeNewTopicMessageStoragePolicy(c, rawDesired.MessageStoragePolicy, rawNew.MessageStoragePolicy)
@@ -514,8 +514,17 @@ func canonicalizeTopicMessageStoragePolicy(des, initial *TopicMessageStoragePoli
 }
 
 func canonicalizeNewTopicMessageStoragePolicy(c *Client, des, nw *TopicMessageStoragePolicy) *TopicMessageStoragePolicy {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for TopicMessageStoragePolicy while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw

@@ -553,7 +553,7 @@ func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyO
 
 func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
@@ -561,7 +561,7 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
+	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
@@ -569,25 +569,25 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.PubsubTarget) && dcl.IsEmptyValueIndirect(rawDesired.PubsubTarget) {
+	if dcl.IsNotReturnedByServer(rawNew.PubsubTarget) && dcl.IsNotReturnedByServer(rawDesired.PubsubTarget) {
 		rawNew.PubsubTarget = rawDesired.PubsubTarget
 	} else {
 		rawNew.PubsubTarget = canonicalizeNewJobPubsubTarget(c, rawDesired.PubsubTarget, rawNew.PubsubTarget)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.AppEngineHttpTarget) && dcl.IsEmptyValueIndirect(rawDesired.AppEngineHttpTarget) {
+	if dcl.IsNotReturnedByServer(rawNew.AppEngineHttpTarget) && dcl.IsNotReturnedByServer(rawDesired.AppEngineHttpTarget) {
 		rawNew.AppEngineHttpTarget = rawDesired.AppEngineHttpTarget
 	} else {
 		rawNew.AppEngineHttpTarget = canonicalizeNewJobAppEngineHttpTarget(c, rawDesired.AppEngineHttpTarget, rawNew.AppEngineHttpTarget)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.HttpTarget) && dcl.IsEmptyValueIndirect(rawDesired.HttpTarget) {
+	if dcl.IsNotReturnedByServer(rawNew.HttpTarget) && dcl.IsNotReturnedByServer(rawDesired.HttpTarget) {
 		rawNew.HttpTarget = rawDesired.HttpTarget
 	} else {
 		rawNew.HttpTarget = canonicalizeNewJobHttpTarget(c, rawDesired.HttpTarget, rawNew.HttpTarget)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Schedule) && dcl.IsEmptyValueIndirect(rawDesired.Schedule) {
+	if dcl.IsNotReturnedByServer(rawNew.Schedule) && dcl.IsNotReturnedByServer(rawDesired.Schedule) {
 		rawNew.Schedule = rawDesired.Schedule
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Schedule, rawNew.Schedule) {
@@ -595,7 +595,7 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.TimeZone) && dcl.IsEmptyValueIndirect(rawDesired.TimeZone) {
+	if dcl.IsNotReturnedByServer(rawNew.TimeZone) && dcl.IsNotReturnedByServer(rawDesired.TimeZone) {
 		rawNew.TimeZone = rawDesired.TimeZone
 	} else {
 		if dcl.StringCanonicalize(rawDesired.TimeZone, rawNew.TimeZone) {
@@ -603,39 +603,39 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.UserUpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UserUpdateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.UserUpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UserUpdateTime) {
 		rawNew.UserUpdateTime = rawDesired.UserUpdateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
+	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
 		rawNew.State = rawDesired.State
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Status) && dcl.IsEmptyValueIndirect(rawDesired.Status) {
+	if dcl.IsNotReturnedByServer(rawNew.Status) && dcl.IsNotReturnedByServer(rawDesired.Status) {
 		rawNew.Status = rawDesired.Status
 	} else {
 		rawNew.Status = canonicalizeNewJobStatus(c, rawDesired.Status, rawNew.Status)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.ScheduleTime) && dcl.IsEmptyValueIndirect(rawDesired.ScheduleTime) {
+	if dcl.IsNotReturnedByServer(rawNew.ScheduleTime) && dcl.IsNotReturnedByServer(rawDesired.ScheduleTime) {
 		rawNew.ScheduleTime = rawDesired.ScheduleTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.LastAttemptTime) && dcl.IsEmptyValueIndirect(rawDesired.LastAttemptTime) {
+	if dcl.IsNotReturnedByServer(rawNew.LastAttemptTime) && dcl.IsNotReturnedByServer(rawDesired.LastAttemptTime) {
 		rawNew.LastAttemptTime = rawDesired.LastAttemptTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.RetryConfig) && dcl.IsEmptyValueIndirect(rawDesired.RetryConfig) {
+	if dcl.IsNotReturnedByServer(rawNew.RetryConfig) && dcl.IsNotReturnedByServer(rawDesired.RetryConfig) {
 		rawNew.RetryConfig = rawDesired.RetryConfig
 	} else {
 		rawNew.RetryConfig = canonicalizeNewJobRetryConfig(c, rawDesired.RetryConfig, rawNew.RetryConfig)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.AttemptDeadline) && dcl.IsEmptyValueIndirect(rawDesired.AttemptDeadline) {
+	if dcl.IsNotReturnedByServer(rawNew.AttemptDeadline) && dcl.IsNotReturnedByServer(rawDesired.AttemptDeadline) {
 		rawNew.AttemptDeadline = rawDesired.AttemptDeadline
 	} else {
 		if dcl.StringCanonicalize(rawDesired.AttemptDeadline, rawNew.AttemptDeadline) {
@@ -684,8 +684,17 @@ func canonicalizeJobPubsubTarget(des, initial *JobPubsubTarget, opts ...dcl.Appl
 }
 
 func canonicalizeNewJobPubsubTarget(c *Client, des, nw *JobPubsubTarget) *JobPubsubTarget {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for JobPubsubTarget while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.NameToSelfLink(des.TopicName, nw.TopicName) {
@@ -781,8 +790,17 @@ func canonicalizeJobAppEngineHttpTarget(des, initial *JobAppEngineHttpTarget, op
 }
 
 func canonicalizeNewJobAppEngineHttpTarget(c *Client, des, nw *JobAppEngineHttpTarget) *JobAppEngineHttpTarget {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for JobAppEngineHttpTarget while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	nw.AppEngineRouting = canonicalizeNewJobAppEngineHttpTargetAppEngineRouting(c, des.AppEngineRouting, nw.AppEngineRouting)
@@ -873,8 +891,17 @@ func canonicalizeJobAppEngineHttpTargetAppEngineRouting(des, initial *JobAppEngi
 }
 
 func canonicalizeNewJobAppEngineHttpTargetAppEngineRouting(c *Client, des, nw *JobAppEngineHttpTargetAppEngineRouting) *JobAppEngineHttpTargetAppEngineRouting {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for JobAppEngineHttpTargetAppEngineRouting while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Service, nw.Service) {
@@ -977,8 +1004,17 @@ func canonicalizeJobHttpTarget(des, initial *JobHttpTarget, opts ...dcl.ApplyOpt
 }
 
 func canonicalizeNewJobHttpTarget(c *Client, des, nw *JobHttpTarget) *JobHttpTarget {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for JobHttpTarget while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Uri, nw.Uri) {
@@ -1065,8 +1101,17 @@ func canonicalizeJobHttpTargetOAuthToken(des, initial *JobHttpTargetOAuthToken, 
 }
 
 func canonicalizeNewJobHttpTargetOAuthToken(c *Client, des, nw *JobHttpTargetOAuthToken) *JobHttpTargetOAuthToken {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for JobHttpTargetOAuthToken while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.NameToSelfLink(des.ServiceAccountEmail, nw.ServiceAccountEmail) {
@@ -1151,8 +1196,17 @@ func canonicalizeJobHttpTargetOidcToken(des, initial *JobHttpTargetOidcToken, op
 }
 
 func canonicalizeNewJobHttpTargetOidcToken(c *Client, des, nw *JobHttpTargetOidcToken) *JobHttpTargetOidcToken {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for JobHttpTargetOidcToken while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.NameToSelfLink(des.ServiceAccountEmail, nw.ServiceAccountEmail) {
@@ -1242,8 +1296,17 @@ func canonicalizeJobStatus(des, initial *JobStatus, opts ...dcl.ApplyOption) *Jo
 }
 
 func canonicalizeNewJobStatus(c *Client, des, nw *JobStatus) *JobStatus {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for JobStatus while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
@@ -1326,8 +1389,17 @@ func canonicalizeJobStatusDetails(des, initial *JobStatusDetails, opts ...dcl.Ap
 }
 
 func canonicalizeNewJobStatusDetails(c *Client, des, nw *JobStatusDetails) *JobStatusDetails {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for JobStatusDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.TypeUrl, nw.TypeUrl) {
@@ -1427,8 +1499,17 @@ func canonicalizeJobRetryConfig(des, initial *JobRetryConfig, opts ...dcl.ApplyO
 }
 
 func canonicalizeNewJobRetryConfig(c *Client, des, nw *JobRetryConfig) *JobRetryConfig {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for JobRetryConfig while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.MaxRetryDuration, nw.MaxRetryDuration) {

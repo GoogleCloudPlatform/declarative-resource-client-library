@@ -473,7 +473,7 @@ func canonicalizeBackupNewState(c *Client, rawNew, rawDesired *Backup) (*Backup,
 
 	rawNew.Name = rawDesired.Name
 
-	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
+	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
@@ -481,32 +481,32 @@ func canonicalizeBackupNewState(c *Client, rawNew, rawDesired *Backup) (*Backup,
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
+	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
 		rawNew.State = rawDesired.State
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
+	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
 		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.CapacityGb) && dcl.IsEmptyValueIndirect(rawDesired.CapacityGb) {
+	if dcl.IsNotReturnedByServer(rawNew.CapacityGb) && dcl.IsNotReturnedByServer(rawDesired.CapacityGb) {
 		rawNew.CapacityGb = rawDesired.CapacityGb
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.StorageBytes) && dcl.IsEmptyValueIndirect(rawDesired.StorageBytes) {
+	if dcl.IsNotReturnedByServer(rawNew.StorageBytes) && dcl.IsNotReturnedByServer(rawDesired.StorageBytes) {
 		rawNew.StorageBytes = rawDesired.StorageBytes
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.SourceInstance) && dcl.IsEmptyValueIndirect(rawDesired.SourceInstance) {
+	if dcl.IsNotReturnedByServer(rawNew.SourceInstance) && dcl.IsNotReturnedByServer(rawDesired.SourceInstance) {
 		rawNew.SourceInstance = rawDesired.SourceInstance
 	} else {
 		if dcl.NameToSelfLink(rawDesired.SourceInstance, rawNew.SourceInstance) {
@@ -514,7 +514,7 @@ func canonicalizeBackupNewState(c *Client, rawNew, rawDesired *Backup) (*Backup,
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.SourceFileShare) && dcl.IsEmptyValueIndirect(rawDesired.SourceFileShare) {
+	if dcl.IsNotReturnedByServer(rawNew.SourceFileShare) && dcl.IsNotReturnedByServer(rawDesired.SourceFileShare) {
 		rawNew.SourceFileShare = rawDesired.SourceFileShare
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SourceFileShare, rawNew.SourceFileShare) {
@@ -522,12 +522,12 @@ func canonicalizeBackupNewState(c *Client, rawNew, rawDesired *Backup) (*Backup,
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.SourceInstanceTier) && dcl.IsEmptyValueIndirect(rawDesired.SourceInstanceTier) {
+	if dcl.IsNotReturnedByServer(rawNew.SourceInstanceTier) && dcl.IsNotReturnedByServer(rawDesired.SourceInstanceTier) {
 		rawNew.SourceInstanceTier = rawDesired.SourceInstanceTier
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.DownloadBytes) && dcl.IsEmptyValueIndirect(rawDesired.DownloadBytes) {
+	if dcl.IsNotReturnedByServer(rawNew.DownloadBytes) && dcl.IsNotReturnedByServer(rawDesired.DownloadBytes) {
 		rawNew.DownloadBytes = rawDesired.DownloadBytes
 	} else {
 	}

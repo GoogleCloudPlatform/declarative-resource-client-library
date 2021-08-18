@@ -290,7 +290,7 @@ func canonicalizeBrandDesiredState(rawDesired, rawInitial *Brand, opts ...dcl.Ap
 
 func canonicalizeBrandNewState(c *Client, rawNew, rawDesired *Brand) (*Brand, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.ApplicationTitle) && dcl.IsEmptyValueIndirect(rawDesired.ApplicationTitle) {
+	if dcl.IsNotReturnedByServer(rawNew.ApplicationTitle) && dcl.IsNotReturnedByServer(rawDesired.ApplicationTitle) {
 		rawNew.ApplicationTitle = rawDesired.ApplicationTitle
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ApplicationTitle, rawNew.ApplicationTitle) {
@@ -298,12 +298,12 @@ func canonicalizeBrandNewState(c *Client, rawNew, rawDesired *Brand) (*Brand, er
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.OrgInternalOnly) && dcl.IsEmptyValueIndirect(rawDesired.OrgInternalOnly) {
+	if dcl.IsNotReturnedByServer(rawNew.OrgInternalOnly) && dcl.IsNotReturnedByServer(rawDesired.OrgInternalOnly) {
 		rawNew.OrgInternalOnly = rawDesired.OrgInternalOnly
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.OrgInternalOnly, rawNew.OrgInternalOnly) {
@@ -311,7 +311,7 @@ func canonicalizeBrandNewState(c *Client, rawNew, rawDesired *Brand) (*Brand, er
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.SupportEmail) && dcl.IsEmptyValueIndirect(rawDesired.SupportEmail) {
+	if dcl.IsNotReturnedByServer(rawNew.SupportEmail) && dcl.IsNotReturnedByServer(rawDesired.SupportEmail) {
 		rawNew.SupportEmail = rawDesired.SupportEmail
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SupportEmail, rawNew.SupportEmail) {

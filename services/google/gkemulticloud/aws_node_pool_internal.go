@@ -491,7 +491,7 @@ func canonicalizeAwsNodePoolDesiredState(rawDesired, rawInitial *AwsNodePool, op
 
 func canonicalizeAwsNodePoolNewState(c *Client, rawNew, rawDesired *AwsNodePool) (*AwsNodePool, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
@@ -499,7 +499,7 @@ func canonicalizeAwsNodePoolNewState(c *Client, rawNew, rawDesired *AwsNodePool)
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Version) && dcl.IsEmptyValueIndirect(rawDesired.Version) {
+	if dcl.IsNotReturnedByServer(rawNew.Version) && dcl.IsNotReturnedByServer(rawDesired.Version) {
 		rawNew.Version = rawDesired.Version
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Version, rawNew.Version) {
@@ -507,19 +507,19 @@ func canonicalizeAwsNodePoolNewState(c *Client, rawNew, rawDesired *AwsNodePool)
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Config) && dcl.IsEmptyValueIndirect(rawDesired.Config) {
+	if dcl.IsNotReturnedByServer(rawNew.Config) && dcl.IsNotReturnedByServer(rawDesired.Config) {
 		rawNew.Config = rawDesired.Config
 	} else {
 		rawNew.Config = canonicalizeNewAwsNodePoolConfig(c, rawDesired.Config, rawNew.Config)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Autoscaling) && dcl.IsEmptyValueIndirect(rawDesired.Autoscaling) {
+	if dcl.IsNotReturnedByServer(rawNew.Autoscaling) && dcl.IsNotReturnedByServer(rawDesired.Autoscaling) {
 		rawNew.Autoscaling = rawDesired.Autoscaling
 	} else {
 		rawNew.Autoscaling = canonicalizeNewAwsNodePoolAutoscaling(c, rawDesired.Autoscaling, rawNew.Autoscaling)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.SubnetId) && dcl.IsEmptyValueIndirect(rawDesired.SubnetId) {
+	if dcl.IsNotReturnedByServer(rawNew.SubnetId) && dcl.IsNotReturnedByServer(rawDesired.SubnetId) {
 		rawNew.SubnetId = rawDesired.SubnetId
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SubnetId, rawNew.SubnetId) {
@@ -527,12 +527,12 @@ func canonicalizeAwsNodePoolNewState(c *Client, rawNew, rawDesired *AwsNodePool)
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
+	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
 		rawNew.State = rawDesired.State
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Uid) && dcl.IsEmptyValueIndirect(rawDesired.Uid) {
+	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
 		rawNew.Uid = rawDesired.Uid
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
@@ -540,7 +540,7 @@ func canonicalizeAwsNodePoolNewState(c *Client, rawNew, rawDesired *AwsNodePool)
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Reconciling) && dcl.IsEmptyValueIndirect(rawDesired.Reconciling) {
+	if dcl.IsNotReturnedByServer(rawNew.Reconciling) && dcl.IsNotReturnedByServer(rawDesired.Reconciling) {
 		rawNew.Reconciling = rawDesired.Reconciling
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Reconciling, rawNew.Reconciling) {
@@ -548,17 +548,17 @@ func canonicalizeAwsNodePoolNewState(c *Client, rawNew, rawDesired *AwsNodePool)
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
+	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
+	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
 		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
@@ -566,12 +566,12 @@ func canonicalizeAwsNodePoolNewState(c *Client, rawNew, rawDesired *AwsNodePool)
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Annotations) && dcl.IsEmptyValueIndirect(rawDesired.Annotations) {
+	if dcl.IsNotReturnedByServer(rawNew.Annotations) && dcl.IsNotReturnedByServer(rawDesired.Annotations) {
 		rawNew.Annotations = rawDesired.Annotations
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.MaxPodsConstraint) && dcl.IsEmptyValueIndirect(rawDesired.MaxPodsConstraint) {
+	if dcl.IsNotReturnedByServer(rawNew.MaxPodsConstraint) && dcl.IsNotReturnedByServer(rawDesired.MaxPodsConstraint) {
 		rawNew.MaxPodsConstraint = rawDesired.MaxPodsConstraint
 	} else {
 		rawNew.MaxPodsConstraint = canonicalizeNewAwsNodePoolMaxPodsConstraint(c, rawDesired.MaxPodsConstraint, rawNew.MaxPodsConstraint)
@@ -637,8 +637,17 @@ func canonicalizeAwsNodePoolConfig(des, initial *AwsNodePoolConfig, opts ...dcl.
 }
 
 func canonicalizeNewAwsNodePoolConfig(c *Client, des, nw *AwsNodePoolConfig) *AwsNodePoolConfig {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AwsNodePoolConfig while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.InstanceType, nw.InstanceType) {
@@ -736,8 +745,17 @@ func canonicalizeAwsNodePoolConfigRootVolume(des, initial *AwsNodePoolConfigRoot
 }
 
 func canonicalizeNewAwsNodePoolConfigRootVolume(c *Client, des, nw *AwsNodePoolConfigRootVolume) *AwsNodePoolConfigRootVolume {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AwsNodePoolConfigRootVolume while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.KmsKeyArn, nw.KmsKeyArn) {
@@ -824,8 +842,17 @@ func canonicalizeAwsNodePoolConfigTaints(des, initial *AwsNodePoolConfigTaints, 
 }
 
 func canonicalizeNewAwsNodePoolConfigTaints(c *Client, des, nw *AwsNodePoolConfigTaints) *AwsNodePoolConfigTaints {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AwsNodePoolConfigTaints while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Key, nw.Key) {
@@ -905,8 +932,17 @@ func canonicalizeAwsNodePoolConfigSshConfig(des, initial *AwsNodePoolConfigSshCo
 }
 
 func canonicalizeNewAwsNodePoolConfigSshConfig(c *Client, des, nw *AwsNodePoolConfigSshConfig) *AwsNodePoolConfigSshConfig {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AwsNodePoolConfigSshConfig while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	if dcl.StringCanonicalize(des.Ec2KeyPair, nw.Ec2KeyPair) {
@@ -988,8 +1024,17 @@ func canonicalizeAwsNodePoolAutoscaling(des, initial *AwsNodePoolAutoscaling, op
 }
 
 func canonicalizeNewAwsNodePoolAutoscaling(c *Client, des, nw *AwsNodePoolAutoscaling) *AwsNodePoolAutoscaling {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AwsNodePoolAutoscaling while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
@@ -1062,8 +1107,17 @@ func canonicalizeAwsNodePoolMaxPodsConstraint(des, initial *AwsNodePoolMaxPodsCo
 }
 
 func canonicalizeNewAwsNodePoolMaxPodsConstraint(c *Client, des, nw *AwsNodePoolMaxPodsConstraint) *AwsNodePoolMaxPodsConstraint {
-	if des == nil || nw == nil {
+
+	if des == nil {
 		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for AwsNodePoolMaxPodsConstraint while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
 	}
 
 	return nw
