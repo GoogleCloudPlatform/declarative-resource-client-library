@@ -3105,23 +3105,11 @@ func unmarshalMapInstanceGroupManager(m map[string]interface{}, c *Client) (*Ins
 // expandInstanceGroupManager expands InstanceGroupManager into a JSON request object.
 func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
-		m["id"] = v
-	}
-	if v := f.CreationTimestamp; !dcl.IsEmptyValueIndirect(v) {
-		m["creationTimestamp"] = v
-	}
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
-	}
-	if v := f.Zone; !dcl.IsEmptyValueIndirect(v) {
-		m["zone"] = v
-	}
-	if v := f.Region; !dcl.IsEmptyValueIndirect(v) {
-		m["region"] = v
 	}
 	if v, err := expandInstanceGroupManagerDistributionPolicy(c, f.DistributionPolicy); err != nil {
 		return nil, fmt.Errorf("error expanding DistributionPolicy into distributionPolicy: %w", err)
@@ -3136,31 +3124,12 @@ func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]
 	} else {
 		m["versions"] = v
 	}
-	if v := f.InstanceGroup; !dcl.IsEmptyValueIndirect(v) {
-		m["instanceGroup"] = v
-	}
 	m["targetPools"] = f.TargetPools
 	if v := f.BaseInstanceName; !dcl.IsEmptyValueIndirect(v) {
 		m["baseInstanceName"] = v
 	}
-	if v := f.Fingerprint; !dcl.IsEmptyValueIndirect(v) {
-		m["fingerprint"] = v
-	}
-	if v, err := expandInstanceGroupManagerCurrentActions(c, f.CurrentActions); err != nil {
-		return nil, fmt.Errorf("error expanding CurrentActions into currentActions: %w", err)
-	} else if v != nil {
-		m["currentActions"] = v
-	}
-	if v, err := expandInstanceGroupManagerStatus(c, f.Status); err != nil {
-		return nil, fmt.Errorf("error expanding Status into status: %w", err)
-	} else if v != nil {
-		m["status"] = v
-	}
 	if v := f.TargetSize; !dcl.IsEmptyValueIndirect(v) {
 		m["targetSize"] = v
-	}
-	if v := f.SelfLink; !dcl.IsEmptyValueIndirect(v) {
-		m["selfLink"] = v
 	}
 	if v, err := expandInstanceGroupManagerAutoHealingPoliciesSlice(c, f.AutoHealingPolicies); err != nil {
 		return nil, fmt.Errorf("error expanding AutoHealingPolicies into autoHealingPolicies: %w", err)
@@ -3696,9 +3665,6 @@ func expandInstanceGroupManagerFixedOrPercent(c *Client, f *InstanceGroupManager
 	if v := f.Percent; v != nil {
 		m["percent"] = v
 	}
-	if v := f.Calculated; !dcl.IsEmptyValueIndirect(v) {
-		m["calculated"] = v
-	}
 
 	return m, nil
 }
@@ -3812,33 +3778,6 @@ func expandInstanceGroupManagerCurrentActions(c *Client, f *InstanceGroupManager
 	}
 
 	m := make(map[string]interface{})
-	if v := f.None; !dcl.IsEmptyValueIndirect(v) {
-		m["none"] = v
-	}
-	if v := f.Creating; !dcl.IsEmptyValueIndirect(v) {
-		m["creating"] = v
-	}
-	if v := f.CreatingWithoutRetries; !dcl.IsEmptyValueIndirect(v) {
-		m["creatingWithoutRetries"] = v
-	}
-	if v := f.Verifying; !dcl.IsEmptyValueIndirect(v) {
-		m["verifying"] = v
-	}
-	if v := f.Recreating; !dcl.IsEmptyValueIndirect(v) {
-		m["recreating"] = v
-	}
-	if v := f.Deleting; !dcl.IsEmptyValueIndirect(v) {
-		m["deleting"] = v
-	}
-	if v := f.Abandoning; !dcl.IsEmptyValueIndirect(v) {
-		m["abandoning"] = v
-	}
-	if v := f.Restarting; !dcl.IsEmptyValueIndirect(v) {
-		m["restarting"] = v
-	}
-	if v := f.Refreshing; !dcl.IsEmptyValueIndirect(v) {
-		m["refreshing"] = v
-	}
 
 	return m, nil
 }
@@ -3958,22 +3897,6 @@ func expandInstanceGroupManagerStatus(c *Client, f *InstanceGroupManagerStatus) 
 	}
 
 	m := make(map[string]interface{})
-	if v := f.IsStable; !dcl.IsEmptyValueIndirect(v) {
-		m["isStable"] = v
-	}
-	if v, err := expandInstanceGroupManagerStatusVersionTarget(c, f.VersionTarget); err != nil {
-		return nil, fmt.Errorf("error expanding VersionTarget into versionTarget: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["versionTarget"] = v
-	}
-	if v, err := expandInstanceGroupManagerStatusStateful(c, f.Stateful); err != nil {
-		return nil, fmt.Errorf("error expanding Stateful into stateful: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["stateful"] = v
-	}
-	if v := f.Autoscaler; !dcl.IsEmptyValueIndirect(v) {
-		m["autoscaler"] = v
-	}
 
 	return m, nil
 }
@@ -4088,9 +4011,6 @@ func expandInstanceGroupManagerStatusVersionTarget(c *Client, f *InstanceGroupMa
 	}
 
 	m := make(map[string]interface{})
-	if v := f.IsReached; !dcl.IsEmptyValueIndirect(v) {
-		m["isReached"] = v
-	}
 
 	return m, nil
 }
@@ -4202,17 +4122,6 @@ func expandInstanceGroupManagerStatusStateful(c *Client, f *InstanceGroupManager
 	}
 
 	m := make(map[string]interface{})
-	if v := f.HasStatefulConfig; !dcl.IsEmptyValueIndirect(v) {
-		m["hasStatefulConfig"] = v
-	}
-	if v, err := expandInstanceGroupManagerStatusStatefulPerInstanceConfigs(c, f.PerInstanceConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding PerInstanceConfigs into perInstanceConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["perInstanceConfigs"] = v
-	}
-	if v := f.IsStateful; !dcl.IsEmptyValueIndirect(v) {
-		m["isStateful"] = v
-	}
 
 	return m, nil
 }

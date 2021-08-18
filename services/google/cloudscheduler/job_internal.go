@@ -2126,23 +2126,6 @@ func expandJob(c *Client, f *Job) (map[string]interface{}, error) {
 	if v := f.TimeZone; !dcl.IsEmptyValueIndirect(v) {
 		m["timeZone"] = v
 	}
-	if v := f.UserUpdateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["userUpdateTime"] = v
-	}
-	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
-		m["state"] = v
-	}
-	if v, err := expandJobStatus(c, f.Status); err != nil {
-		return nil, fmt.Errorf("error expanding Status into status: %w", err)
-	} else if v != nil {
-		m["status"] = v
-	}
-	if v := f.ScheduleTime; !dcl.IsEmptyValueIndirect(v) {
-		m["scheduleTime"] = v
-	}
-	if v := f.LastAttemptTime; !dcl.IsEmptyValueIndirect(v) {
-		m["lastAttemptTime"] = v
-	}
 	if v, err := expandJobRetryConfig(c, f.RetryConfig); err != nil {
 		return nil, fmt.Errorf("error expanding RetryConfig into retryConfig: %w", err)
 	} else if v != nil {
@@ -2548,9 +2531,6 @@ func expandJobAppEngineHttpTargetAppEngineRouting(c *Client, f *JobAppEngineHttp
 	}
 	if v := f.Instance; !dcl.IsEmptyValueIndirect(v) {
 		m["instance"] = v
-	}
-	if v := f.Host; !dcl.IsEmptyValueIndirect(v) {
-		m["host"] = v
 	}
 
 	return m, nil

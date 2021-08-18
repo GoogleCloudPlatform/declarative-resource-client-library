@@ -1576,24 +1576,6 @@ func expandAwsNodePool(c *Client, f *AwsNodePool) (map[string]interface{}, error
 	if v := f.SubnetId; !dcl.IsEmptyValueIndirect(v) {
 		m["subnetId"] = v
 	}
-	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
-		m["state"] = v
-	}
-	if v := f.Uid; !dcl.IsEmptyValueIndirect(v) {
-		m["uid"] = v
-	}
-	if v := f.Reconciling; !dcl.IsEmptyValueIndirect(v) {
-		m["reconciling"] = v
-	}
-	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["createTime"] = v
-	}
-	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["updateTime"] = v
-	}
-	if v := f.Etag; !dcl.IsEmptyValueIndirect(v) {
-		m["etag"] = v
-	}
 	if v := f.Annotations; !dcl.IsEmptyValueIndirect(v) {
 		m["annotations"] = v
 	}

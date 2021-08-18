@@ -1131,15 +1131,6 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
 	}
-	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
-		m["state"] = v
-	}
-	if v := f.StatusMessage; !dcl.IsEmptyValueIndirect(v) {
-		m["statusMessage"] = v
-	}
-	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["createTime"] = v
-	}
 	if v := f.Tier; !dcl.IsEmptyValueIndirect(v) {
 		m["tier"] = v
 	}
@@ -1558,9 +1549,6 @@ func expandInstanceNetworks(c *Client, f *InstanceNetworks) (map[string]interfac
 	}
 	if v := f.ReservedIPRange; !dcl.IsEmptyValueIndirect(v) {
 		m["reservedIpRange"] = v
-	}
-	if v := f.IPAddresses; v != nil {
-		m["ipAddresses"] = v
 	}
 
 	return m, nil

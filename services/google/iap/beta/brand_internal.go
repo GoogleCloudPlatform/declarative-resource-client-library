@@ -430,9 +430,6 @@ func expandBrand(c *Client, f *Brand) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.OrgInternalOnly; !dcl.IsEmptyValueIndirect(v) {
-		m["orgInternalOnly"] = v
-	}
 	if v := f.SupportEmail; !dcl.IsEmptyValueIndirect(v) {
 		m["supportEmail"] = v
 	}

@@ -1153,29 +1153,10 @@ func expandFeature(c *Client, f *Feature) (map[string]interface{}, error) {
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
 	}
-	if v, err := expandFeatureResourceState(c, f.ResourceState); err != nil {
-		return nil, fmt.Errorf("error expanding ResourceState into resourceState: %w", err)
-	} else if v != nil {
-		m["resourceState"] = v
-	}
 	if v, err := expandFeatureSpec(c, f.Spec); err != nil {
 		return nil, fmt.Errorf("error expanding Spec into spec: %w", err)
 	} else if v != nil {
 		m["spec"] = v
-	}
-	if v, err := expandFeatureState(c, f.State); err != nil {
-		return nil, fmt.Errorf("error expanding State into state: %w", err)
-	} else if v != nil {
-		m["state"] = v
-	}
-	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["createTime"] = v
-	}
-	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["updateTime"] = v
-	}
-	if v := f.DeleteTime; !dcl.IsEmptyValueIndirect(v) {
-		m["deleteTime"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
@@ -1306,12 +1287,6 @@ func expandFeatureResourceState(c *Client, f *FeatureResourceState) (map[string]
 	}
 
 	m := make(map[string]interface{})
-	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
-		m["state"] = v
-	}
-	if v := f.HasResources; !dcl.IsEmptyValueIndirect(v) {
-		m["hasResources"] = v
-	}
 
 	return m, nil
 }
@@ -1654,11 +1629,6 @@ func expandFeatureState(c *Client, f *FeatureState) (map[string]interface{}, err
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandFeatureStateState(c, f.State); err != nil {
-		return nil, fmt.Errorf("error expanding State into state: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["state"] = v
-	}
 
 	return m, nil
 }
@@ -1770,15 +1740,6 @@ func expandFeatureStateState(c *Client, f *FeatureStateState) (map[string]interf
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Code; !dcl.IsEmptyValueIndirect(v) {
-		m["code"] = v
-	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
-		m["description"] = v
-	}
-	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["updateTime"] = v
-	}
 
 	return m, nil
 }

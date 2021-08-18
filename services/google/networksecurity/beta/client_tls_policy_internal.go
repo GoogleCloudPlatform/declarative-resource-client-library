@@ -1468,12 +1468,6 @@ func expandClientTlsPolicy(c *Client, f *ClientTlsPolicy) (map[string]interface{
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
 	}
-	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["createTime"] = v
-	}
-	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["updateTime"] = v
-	}
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
 	}

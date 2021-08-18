@@ -3608,24 +3608,6 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
 	}
-	if v, err := expandClusterStatus(c, f.Status); err != nil {
-		return nil, fmt.Errorf("error expanding Status into status: %w", err)
-	} else if v != nil {
-		m["status"] = v
-	}
-	if v, err := expandClusterStatusHistorySlice(c, f.StatusHistory); err != nil {
-		return nil, fmt.Errorf("error expanding StatusHistory into statusHistory: %w", err)
-	} else {
-		m["statusHistory"] = v
-	}
-	if v := f.ClusterUuid; !dcl.IsEmptyValueIndirect(v) {
-		m["clusterUuid"] = v
-	}
-	if v, err := expandClusterMetrics(c, f.Metrics); err != nil {
-		return nil, fmt.Errorf("error expanding Metrics into metrics: %w", err)
-	} else if v != nil {
-		m["metrics"] = v
-	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
 	} else if v != nil {
@@ -4330,9 +4312,6 @@ func expandClusterInstanceGroupConfig(c *Client, f *ClusterInstanceGroupConfig) 
 	if v := f.NumInstances; !dcl.IsEmptyValueIndirect(v) {
 		m["numInstances"] = v
 	}
-	if v := f.InstanceNames; v != nil {
-		m["instanceNames"] = v
-	}
 	if v := f.Image; !dcl.IsEmptyValueIndirect(v) {
 		m["imageUri"] = v
 	}
@@ -4344,16 +4323,8 @@ func expandClusterInstanceGroupConfig(c *Client, f *ClusterInstanceGroupConfig) 
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["diskConfig"] = v
 	}
-	if v := f.IsPreemptible; !dcl.IsEmptyValueIndirect(v) {
-		m["isPreemptible"] = v
-	}
 	if v := f.Preemptibility; !dcl.IsEmptyValueIndirect(v) {
 		m["preemptibility"] = v
-	}
-	if v, err := expandClusterInstanceGroupConfigManagedGroupConfig(c, f.ManagedGroupConfig); err != nil {
-		return nil, fmt.Errorf("error expanding ManagedGroupConfig into managedGroupConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["managedGroupConfig"] = v
 	}
 	if v, err := expandClusterInstanceGroupConfigAcceleratorsSlice(c, f.Accelerators); err != nil {
 		return nil, fmt.Errorf("error expanding Accelerators into accelerators: %w", err)
@@ -4605,12 +4576,6 @@ func expandClusterInstanceGroupConfigManagedGroupConfig(c *Client, f *ClusterIns
 	}
 
 	m := make(map[string]interface{})
-	if v := f.InstanceTemplateName; !dcl.IsEmptyValueIndirect(v) {
-		m["instanceTemplateName"] = v
-	}
-	if v := f.InstanceGroupManagerName; !dcl.IsEmptyValueIndirect(v) {
-		m["instanceGroupManagerName"] = v
-	}
 
 	return m, nil
 }
@@ -5604,9 +5569,6 @@ func expandClusterClusterConfigLifecycleConfig(c *Client, f *ClusterClusterConfi
 	if v := f.AutoDeleteTtl; !dcl.IsEmptyValueIndirect(v) {
 		m["autoDeleteTtl"] = v
 	}
-	if v := f.IdleStartTime; !dcl.IsEmptyValueIndirect(v) {
-		m["idleStartTime"] = v
-	}
 
 	return m, nil
 }
@@ -5721,9 +5683,6 @@ func expandClusterClusterConfigEndpointConfig(c *Client, f *ClusterClusterConfig
 	}
 
 	m := make(map[string]interface{})
-	if v := f.HttpPorts; !dcl.IsEmptyValueIndirect(v) {
-		m["httpPorts"] = v
-	}
 	if v := f.EnableHttpPortAccess; !dcl.IsEmptyValueIndirect(v) {
 		m["enableHttpPortAccess"] = v
 	}
@@ -5839,18 +5798,6 @@ func expandClusterStatus(c *Client, f *ClusterStatus) (map[string]interface{}, e
 	}
 
 	m := make(map[string]interface{})
-	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
-		m["state"] = v
-	}
-	if v := f.Detail; !dcl.IsEmptyValueIndirect(v) {
-		m["detail"] = v
-	}
-	if v := f.StateStartTime; !dcl.IsEmptyValueIndirect(v) {
-		m["stateStartTime"] = v
-	}
-	if v := f.Substate; !dcl.IsEmptyValueIndirect(v) {
-		m["substate"] = v
-	}
 
 	return m, nil
 }
@@ -5965,18 +5912,6 @@ func expandClusterStatusHistory(c *Client, f *ClusterStatusHistory) (map[string]
 	}
 
 	m := make(map[string]interface{})
-	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
-		m["state"] = v
-	}
-	if v := f.Detail; !dcl.IsEmptyValueIndirect(v) {
-		m["detail"] = v
-	}
-	if v := f.StateStartTime; !dcl.IsEmptyValueIndirect(v) {
-		m["stateStartTime"] = v
-	}
-	if v := f.Substate; !dcl.IsEmptyValueIndirect(v) {
-		m["substate"] = v
-	}
 
 	return m, nil
 }

@@ -905,31 +905,16 @@ func expandServiceAccount(c *Client, f *ServiceAccount) (map[string]interface{},
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Project; !dcl.IsEmptyValueIndirect(v) {
-		m["projectId"] = v
-	}
-	if v := f.UniqueId; !dcl.IsEmptyValueIndirect(v) {
-		m["uniqueId"] = v
-	}
-	if v := f.Email; !dcl.IsEmptyValueIndirect(v) {
-		m["email"] = v
-	}
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		m["displayName"] = v
 	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
 	}
-	if v := f.OAuth2ClientId; !dcl.IsEmptyValueIndirect(v) {
-		m["oauth2ClientId"] = v
-	}
 	if v, err := expandServiceAccountActasResources(c, f.ActasResources); err != nil {
 		return nil, fmt.Errorf("error expanding ActasResources into actasResources: %w", err)
 	} else if v != nil {
 		m["actasResources"] = v
-	}
-	if v := f.Disabled; !dcl.IsEmptyValueIndirect(v) {
-		m["disabled"] = v
 	}
 
 	return m, nil

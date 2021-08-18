@@ -47707,33 +47707,6 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	if v := f.ReservedIPRange; !dcl.IsEmptyValueIndirect(v) {
 		m["reservedIpRange"] = v
 	}
-	if v := f.Host; !dcl.IsEmptyValueIndirect(v) {
-		m["host"] = v
-	}
-	if v := f.Port; !dcl.IsEmptyValueIndirect(v) {
-		m["port"] = v
-	}
-	if v := f.CurrentZone; !dcl.IsEmptyValueIndirect(v) {
-		m["currentZone"] = v
-	}
-	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["createTime"] = v
-	}
-	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
-		m["state"] = v
-	}
-	if v := f.StatusMessage; !dcl.IsEmptyValueIndirect(v) {
-		m["statusMessage"] = v
-	}
-	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["updateTime"] = v
-	}
-	if v := f.MutateUserId; !dcl.IsEmptyValueIndirect(v) {
-		m["mutateUserId"] = v
-	}
-	if v := f.ReadUserId; !dcl.IsEmptyValueIndirect(v) {
-		m["readUserId"] = v
-	}
 	if v, err := expandInstanceReferencesSlice(c, f.References); err != nil {
 		return nil, fmt.Errorf("error expanding References into references: %w", err)
 	} else {
@@ -47865,14 +47838,8 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	if v := f.PublicResourceViewOverride; !dcl.IsEmptyValueIndirect(v) {
 		m["publicResourceViewOverride"] = v
 	}
-	if v := f.ExtraInfo; !dcl.IsEmptyValueIndirect(v) {
-		m["extraInfo"] = v
-	}
 	if v := f.Uid; !dcl.IsEmptyValueIndirect(v) {
 		m["uid"] = v
-	}
-	if v := f.Etag; !dcl.IsEmptyValueIndirect(v) {
-		m["etag"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
@@ -48160,9 +48127,6 @@ func expandInstanceReferences(c *Client, f *InstanceReferences) (map[string]inte
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
-		m["name"] = v
-	}
 	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
 		m["type"] = v
 	}
@@ -48173,9 +48137,6 @@ func expandInstanceReferences(c *Client, f *InstanceReferences) (map[string]inte
 		return nil, fmt.Errorf("error expanding Details into details: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["details"] = v
-	}
-	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["createTime"] = v
 	}
 
 	return m, nil

@@ -1508,20 +1508,11 @@ func unmarshalMapPacketMirroring(m map[string]interface{}, c *Client) (*PacketMi
 // expandPacketMirroring expands PacketMirroring into a JSON request object.
 func expandPacketMirroring(c *Client, f *PacketMirroring) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
-		m["id"] = v
-	}
-	if v := f.SelfLink; !dcl.IsEmptyValueIndirect(v) {
-		m["selfLink"] = v
-	}
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
-	}
-	if v := f.Region; !dcl.IsEmptyValueIndirect(v) {
-		m["region"] = v
 	}
 	if v, err := expandPacketMirroringNetwork(c, f.Network); err != nil {
 		return nil, fmt.Errorf("error expanding Network into network: %w", err)
@@ -1684,9 +1675,6 @@ func expandPacketMirroringNetwork(c *Client, f *PacketMirroringNetwork) (map[str
 	if v := f.Url; !dcl.IsEmptyValueIndirect(v) {
 		m["url"] = v
 	}
-	if v := f.CanonicalUrl; !dcl.IsEmptyValueIndirect(v) {
-		m["canonicalUrl"] = v
-	}
 
 	return m, nil
 }
@@ -1801,9 +1789,6 @@ func expandPacketMirroringCollectorIlb(c *Client, f *PacketMirroringCollectorIlb
 	m := make(map[string]interface{})
 	if v := f.Url; !dcl.IsEmptyValueIndirect(v) {
 		m["url"] = v
-	}
-	if v := f.CanonicalUrl; !dcl.IsEmptyValueIndirect(v) {
-		m["canonicalUrl"] = v
 	}
 
 	return m, nil
@@ -2046,9 +2031,6 @@ func expandPacketMirroringMirroredResourcesSubnetworks(c *Client, f *PacketMirro
 	if v := f.Url; !dcl.IsEmptyValueIndirect(v) {
 		m["url"] = v
 	}
-	if v := f.CanonicalUrl; !dcl.IsEmptyValueIndirect(v) {
-		m["canonicalUrl"] = v
-	}
 
 	return m, nil
 }
@@ -2163,9 +2145,6 @@ func expandPacketMirroringMirroredResourcesInstances(c *Client, f *PacketMirrori
 	m := make(map[string]interface{})
 	if v := f.Url; !dcl.IsEmptyValueIndirect(v) {
 		m["url"] = v
-	}
-	if v := f.CanonicalUrl; !dcl.IsEmptyValueIndirect(v) {
-		m["canonicalUrl"] = v
 	}
 
 	return m, nil

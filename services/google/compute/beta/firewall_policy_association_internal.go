@@ -416,9 +416,6 @@ func expandFirewallPolicyAssociation(c *Client, f *FirewallPolicyAssociation) (m
 	if v := f.FirewallPolicy; !dcl.IsEmptyValueIndirect(v) {
 		m["firewallPolicyId"] = v
 	}
-	if v := f.ShortName; !dcl.IsEmptyValueIndirect(v) {
-		m["shortName"] = v
-	}
 
 	return m, nil
 }

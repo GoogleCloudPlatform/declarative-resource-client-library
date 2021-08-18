@@ -867,18 +867,10 @@ func expandPolicy(c *Client, f *Policy) (map[string]interface{}, error) {
 	if v := f.GlobalPolicyEvaluationMode; !dcl.IsEmptyValueIndirect(v) {
 		m["globalPolicyEvaluationMode"] = v
 	}
-	if v, err := dcl.DeriveField("projects/%s/policy", f.SelfLink, f.Project); err != nil {
-		return nil, fmt.Errorf("error expanding SelfLink into name: %w", err)
-	} else if v != nil {
-		m["name"] = v
-	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
 	} else if v != nil {
 		m["project"] = v
-	}
-	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["updateTime"] = v
 	}
 
 	return m, nil

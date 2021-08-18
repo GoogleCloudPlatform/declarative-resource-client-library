@@ -1235,12 +1235,6 @@ func expandEndpointPolicy(c *Client, f *EndpointPolicy) (map[string]interface{},
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["createTime"] = v
-	}
-	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["updateTime"] = v
-	}
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
 	}

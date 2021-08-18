@@ -710,9 +710,6 @@ func expandProject(c *Client, f *Project) (map[string]interface{}, error) {
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
 	}
-	if v := f.LifecycleState; !dcl.IsEmptyValueIndirect(v) {
-		m["lifecycleState"] = v
-	}
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -723,9 +720,6 @@ func expandProject(c *Client, f *Project) (map[string]interface{}, error) {
 	}
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["projectId"] = v
-	}
-	if v := f.ProjectNumber; !dcl.IsEmptyValueIndirect(v) {
-		m["projectNumber"] = v
 	}
 
 	return m, nil

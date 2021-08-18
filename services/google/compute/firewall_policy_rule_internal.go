@@ -900,15 +900,9 @@ func expandFirewallPolicyRule(c *Client, f *FirewallPolicyRule) (map[string]inte
 	if v := f.EnableLogging; !dcl.IsEmptyValueIndirect(v) {
 		m["enableLogging"] = v
 	}
-	if v := f.RuleTupleCount; !dcl.IsEmptyValueIndirect(v) {
-		m["ruleTupleCount"] = v
-	}
 	m["targetServiceAccounts"] = f.TargetServiceAccounts
 	if v := f.Disabled; !dcl.IsEmptyValueIndirect(v) {
 		m["disabled"] = v
-	}
-	if v := f.Kind; !dcl.IsEmptyValueIndirect(v) {
-		m["kind"] = v
 	}
 	if v := f.FirewallPolicy; !dcl.IsEmptyValueIndirect(v) {
 		m["firewallPolicy"] = v

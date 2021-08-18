@@ -2176,34 +2176,8 @@ func expandAwsCluster(c *Client, f *AwsCluster) (map[string]interface{}, error) 
 	} else if v != nil {
 		m["authorization"] = v
 	}
-	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
-		m["state"] = v
-	}
-	if v := f.Endpoint; !dcl.IsEmptyValueIndirect(v) {
-		m["endpoint"] = v
-	}
-	if v := f.Uid; !dcl.IsEmptyValueIndirect(v) {
-		m["uid"] = v
-	}
-	if v := f.Reconciling; !dcl.IsEmptyValueIndirect(v) {
-		m["reconciling"] = v
-	}
-	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["createTime"] = v
-	}
-	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["updateTime"] = v
-	}
-	if v := f.Etag; !dcl.IsEmptyValueIndirect(v) {
-		m["etag"] = v
-	}
 	if v := f.Annotations; !dcl.IsEmptyValueIndirect(v) {
 		m["annotations"] = v
-	}
-	if v, err := expandAwsClusterWorkloadIdentityConfig(c, f.WorkloadIdentityConfig); err != nil {
-		return nil, fmt.Errorf("error expanding WorkloadIdentityConfig into workloadIdentityConfig: %w", err)
-	} else if v != nil {
-		m["workloadIdentityConfig"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)

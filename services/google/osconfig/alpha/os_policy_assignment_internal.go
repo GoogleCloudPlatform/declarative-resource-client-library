@@ -5289,27 +5289,6 @@ func expandOSPolicyAssignment(c *Client, f *OSPolicyAssignment) (map[string]inte
 	} else if v != nil {
 		m["rollout"] = v
 	}
-	if v := f.RevisionId; !dcl.IsEmptyValueIndirect(v) {
-		m["revisionId"] = v
-	}
-	if v := f.RevisionCreateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["revisionCreateTime"] = v
-	}
-	if v := f.RolloutState; !dcl.IsEmptyValueIndirect(v) {
-		m["rolloutState"] = v
-	}
-	if v := f.Baseline; !dcl.IsEmptyValueIndirect(v) {
-		m["baseline"] = v
-	}
-	if v := f.Deleted; !dcl.IsEmptyValueIndirect(v) {
-		m["deleted"] = v
-	}
-	if v := f.Reconciling; !dcl.IsEmptyValueIndirect(v) {
-		m["reconciling"] = v
-	}
-	if v := f.Uid; !dcl.IsEmptyValueIndirect(v) {
-		m["uid"] = v
-	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
 	} else if v != nil {

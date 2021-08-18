@@ -941,9 +941,6 @@ func unmarshalMapRoute(m map[string]interface{}, c *Client) (*Route, error) {
 // expandRoute expands Route into a JSON request object.
 func expandRoute(c *Client, f *Route) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
-		m["id"] = v
-	}
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -968,30 +965,16 @@ func expandRoute(c *Client, f *Route) (map[string]interface{}, error) {
 	if v := f.NextHopIP; !dcl.IsEmptyValueIndirect(v) {
 		m["nextHopIp"] = v
 	}
-	if v := f.NextHopNetwork; !dcl.IsEmptyValueIndirect(v) {
-		m["nextHopNetwork"] = v
-	}
 	if v, err := dcl.DeriveField("projects/%s/global/gateways/%s", f.NextHopGateway, f.Project, f.NextHopGateway); err != nil {
 		return nil, fmt.Errorf("error expanding NextHopGateway into nextHopGateway: %w", err)
 	} else if v != nil {
 		m["nextHopGateway"] = v
 	}
-	if v := f.NextHopPeering; !dcl.IsEmptyValueIndirect(v) {
-		m["nextHopPeering"] = v
-	}
 	if v := f.NextHopIlb; !dcl.IsEmptyValueIndirect(v) {
 		m["nextHopIlb"] = v
 	}
-	if v, err := expandRouteWarningSlice(c, f.Warning); err != nil {
-		return nil, fmt.Errorf("error expanding Warning into warnings: %w", err)
-	} else {
-		m["warnings"] = v
-	}
 	if v := f.NextHopVpnTunnel; !dcl.IsEmptyValueIndirect(v) {
 		m["nextHopVpnTunnel"] = v
-	}
-	if v := f.SelfLink; !dcl.IsEmptyValueIndirect(v) {
-		m["selfLink"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
@@ -1128,17 +1111,6 @@ func expandRouteWarning(c *Client, f *RouteWarning) (map[string]interface{}, err
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Code; !dcl.IsEmptyValueIndirect(v) {
-		m["code"] = v
-	}
-	if v := f.Message; !dcl.IsEmptyValueIndirect(v) {
-		m["message"] = v
-	}
-	if v, err := dcl.ListOfKeyValuesFromMapInStruct(f.Data, "items", "key", "value"); err != nil {
-		return nil, fmt.Errorf("error expanding Data into data: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["data"] = v
-	}
 
 	return m, nil
 }

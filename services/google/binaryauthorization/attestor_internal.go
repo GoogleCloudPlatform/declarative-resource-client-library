@@ -985,9 +985,6 @@ func expandAttestor(c *Client, f *Attestor) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["userOwnedGrafeasNote"] = v
 	}
-	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["updateTime"] = v
-	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
 	} else if v != nil {
@@ -1114,9 +1111,6 @@ func expandAttestorUserOwnedDrydockNote(c *Client, f *AttestorUserOwnedDrydockNo
 		return nil, fmt.Errorf("error expanding PublicKeys into publicKeys: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["publicKeys"] = v
-	}
-	if v := f.DelegationServiceAccountEmail; !dcl.IsEmptyValueIndirect(v) {
-		m["delegationServiceAccountEmail"] = v
 	}
 
 	return m, nil

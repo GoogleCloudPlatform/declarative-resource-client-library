@@ -504,9 +504,6 @@ func expandIdentityAwareProxyClient(c *Client, f *IdentityAwareProxyClient) (map
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Secret; !dcl.IsEmptyValueIndirect(v) {
-		m["secret"] = v
-	}
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		m["displayName"] = v
 	}

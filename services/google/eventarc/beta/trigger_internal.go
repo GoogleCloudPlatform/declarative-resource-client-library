@@ -1384,15 +1384,6 @@ func expandTrigger(c *Client, f *Trigger) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Uid; !dcl.IsEmptyValueIndirect(v) {
-		m["uid"] = v
-	}
-	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["createTime"] = v
-	}
-	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["updateTime"] = v
-	}
 	if v, err := expandTriggerMatchingCriteriaSlice(c, f.MatchingCriteria); err != nil {
 		return nil, fmt.Errorf("error expanding MatchingCriteria into eventFilters: %w", err)
 	} else {
@@ -1413,9 +1404,6 @@ func expandTrigger(c *Client, f *Trigger) (map[string]interface{}, error) {
 	}
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
-	}
-	if v := f.Etag; !dcl.IsEmptyValueIndirect(v) {
-		m["etag"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
@@ -2026,9 +2014,6 @@ func expandTriggerTransportPubsub(c *Client, f *TriggerTransportPubsub) (map[str
 	m := make(map[string]interface{})
 	if v := f.Topic; !dcl.IsEmptyValueIndirect(v) {
 		m["topic"] = v
-	}
-	if v := f.Subscription; !dcl.IsEmptyValueIndirect(v) {
-		m["subscription"] = v
 	}
 
 	return m, nil

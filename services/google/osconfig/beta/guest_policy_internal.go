@@ -4897,12 +4897,6 @@ func expandGuestPolicy(c *Client, f *GuestPolicy) (map[string]interface{}, error
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
 	}
-	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["createTime"] = v
-	}
-	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["updateTime"] = v
-	}
 	if v, err := expandGuestPolicyAssignment(c, f.Assignment); err != nil {
 		return nil, fmt.Errorf("error expanding Assignment into assignment: %w", err)
 	} else if v != nil {

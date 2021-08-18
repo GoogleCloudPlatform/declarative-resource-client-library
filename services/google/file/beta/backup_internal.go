@@ -714,32 +714,14 @@ func expandBackup(c *Client, f *Backup) (map[string]interface{}, error) {
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
 	}
-	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
-		m["state"] = v
-	}
-	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["createTime"] = v
-	}
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
-	}
-	if v := f.CapacityGb; !dcl.IsEmptyValueIndirect(v) {
-		m["capacityGb"] = v
-	}
-	if v := f.StorageBytes; !dcl.IsEmptyValueIndirect(v) {
-		m["storageBytes"] = v
 	}
 	if v := f.SourceInstance; !dcl.IsEmptyValueIndirect(v) {
 		m["sourceInstance"] = v
 	}
 	if v := f.SourceFileShare; !dcl.IsEmptyValueIndirect(v) {
 		m["sourceFileShare"] = v
-	}
-	if v := f.SourceInstanceTier; !dcl.IsEmptyValueIndirect(v) {
-		m["sourceInstanceTier"] = v
-	}
-	if v := f.DownloadBytes; !dcl.IsEmptyValueIndirect(v) {
-		m["downloadBytes"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)

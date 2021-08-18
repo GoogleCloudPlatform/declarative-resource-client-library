@@ -1921,28 +1921,8 @@ func expandMembership(c *Client, f *Membership) (map[string]interface{}, error) 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
 	}
-	if v, err := expandMembershipState(c, f.State); err != nil {
-		return nil, fmt.Errorf("error expanding State into state: %w", err)
-	} else if v != nil {
-		m["state"] = v
-	}
-	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["createTime"] = v
-	}
-	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["updateTime"] = v
-	}
-	if v := f.DeleteTime; !dcl.IsEmptyValueIndirect(v) {
-		m["deleteTime"] = v
-	}
 	if v := f.ExternalId; !dcl.IsEmptyValueIndirect(v) {
 		m["externalId"] = v
-	}
-	if v := f.LastConnectionTime; !dcl.IsEmptyValueIndirect(v) {
-		m["lastConnectionTime"] = v
-	}
-	if v := f.UniqueId; !dcl.IsEmptyValueIndirect(v) {
-		m["uniqueId"] = v
 	}
 	if v, err := expandMembershipAuthority(c, f.Authority); err != nil {
 		return nil, fmt.Errorf("error expanding Authority into authority: %w", err)
@@ -2090,11 +2070,6 @@ func expandMembershipEndpoint(c *Client, f *MembershipEndpoint) (map[string]inte
 		return nil, fmt.Errorf("error expanding GkeCluster into gkeCluster: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["gkeCluster"] = v
-	}
-	if v, err := expandMembershipEndpointKubernetesMetadata(c, f.KubernetesMetadata); err != nil {
-		return nil, fmt.Errorf("error expanding KubernetesMetadata into kubernetesMetadata: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["kubernetesMetadata"] = v
 	}
 	if v, err := expandMembershipEndpointKubernetesResource(c, f.KubernetesResource); err != nil {
 		return nil, fmt.Errorf("error expanding KubernetesResource into kubernetesResource: %w", err)
@@ -2330,24 +2305,6 @@ func expandMembershipEndpointKubernetesMetadata(c *Client, f *MembershipEndpoint
 	}
 
 	m := make(map[string]interface{})
-	if v := f.KubernetesApiServerVersion; !dcl.IsEmptyValueIndirect(v) {
-		m["kubernetesApiServerVersion"] = v
-	}
-	if v := f.NodeProviderId; !dcl.IsEmptyValueIndirect(v) {
-		m["nodeProviderId"] = v
-	}
-	if v := f.NodeCount; !dcl.IsEmptyValueIndirect(v) {
-		m["nodeCount"] = v
-	}
-	if v := f.VcpuCount; !dcl.IsEmptyValueIndirect(v) {
-		m["vcpuCount"] = v
-	}
-	if v := f.MemoryMb; !dcl.IsEmptyValueIndirect(v) {
-		m["memoryMb"] = v
-	}
-	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["updateTime"] = v
-	}
 
 	return m, nil
 }
@@ -2466,16 +2423,6 @@ func expandMembershipEndpointKubernetesResource(c *Client, f *MembershipEndpoint
 	m := make(map[string]interface{})
 	if v := f.MembershipCrManifest; !dcl.IsEmptyValueIndirect(v) {
 		m["membershipCrManifest"] = v
-	}
-	if v, err := expandMembershipEndpointKubernetesResourceMembershipResourcesSlice(c, f.MembershipResources); err != nil {
-		return nil, fmt.Errorf("error expanding MembershipResources into membershipResources: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["membershipResources"] = v
-	}
-	if v, err := expandMembershipEndpointKubernetesResourceConnectResourcesSlice(c, f.ConnectResources); err != nil {
-		return nil, fmt.Errorf("error expanding ConnectResources into connectResources: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["connectResources"] = v
 	}
 	if v, err := expandMembershipEndpointKubernetesResourceResourceOptions(c, f.ResourceOptions); err != nil {
 		return nil, fmt.Errorf("error expanding ResourceOptions into resourceOptions: %w", err)
@@ -2950,9 +2897,6 @@ func expandMembershipState(c *Client, f *MembershipState) (map[string]interface{
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Code; !dcl.IsEmptyValueIndirect(v) {
-		m["code"] = v
-	}
 
 	return m, nil
 }
@@ -3066,12 +3010,6 @@ func expandMembershipAuthority(c *Client, f *MembershipAuthority) (map[string]in
 	m := make(map[string]interface{})
 	if v := f.Issuer; !dcl.IsEmptyValueIndirect(v) {
 		m["issuer"] = v
-	}
-	if v := f.WorkloadIdentityPool; !dcl.IsEmptyValueIndirect(v) {
-		m["workloadIdentityPool"] = v
-	}
-	if v := f.IdentityProvider; !dcl.IsEmptyValueIndirect(v) {
-		m["identityProvider"] = v
 	}
 
 	return m, nil

@@ -1235,21 +1235,6 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	if v := f.Options; !dcl.IsEmptyValueIndirect(v) {
 		m["options"] = v
 	}
-	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["createTime"] = v
-	}
-	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["updateTime"] = v
-	}
-	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
-		m["state"] = v
-	}
-	if v := f.StateMessage; !dcl.IsEmptyValueIndirect(v) {
-		m["stateMessage"] = v
-	}
-	if v := f.ServiceEndpoint; !dcl.IsEmptyValueIndirect(v) {
-		m["serviceEndpoint"] = v
-	}
 	if v := f.Zone; !dcl.IsEmptyValueIndirect(v) {
 		m["zone"] = v
 	}
@@ -1258,23 +1243,6 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		m["displayName"] = v
-	}
-	if v, err := expandInstanceAvailableVersionSlice(c, f.AvailableVersion); err != nil {
-		return nil, fmt.Errorf("error expanding AvailableVersion into availableVersion: %w", err)
-	} else {
-		m["availableVersion"] = v
-	}
-	if v := f.ApiEndpoint; !dcl.IsEmptyValueIndirect(v) {
-		m["apiEndpoint"] = v
-	}
-	if v := f.GcsBucket; !dcl.IsEmptyValueIndirect(v) {
-		m["gcsBucket"] = v
-	}
-	if v := f.P4ServiceAccount; !dcl.IsEmptyValueIndirect(v) {
-		m["p4ServiceAccount"] = v
-	}
-	if v := f.TenantProjectId; !dcl.IsEmptyValueIndirect(v) {
-		m["tenantProjectId"] = v
 	}
 	if v := f.DataprocServiceAccount; !dcl.IsEmptyValueIndirect(v) {
 		m["dataprocServiceAccount"] = v
@@ -1541,15 +1509,6 @@ func expandInstanceAvailableVersion(c *Client, f *InstanceAvailableVersion) (map
 	}
 
 	m := make(map[string]interface{})
-	if v := f.VersionNumber; !dcl.IsEmptyValueIndirect(v) {
-		m["versionNumber"] = v
-	}
-	if v := f.DefaultVersion; !dcl.IsEmptyValueIndirect(v) {
-		m["defaultVersion"] = v
-	}
-	if v := f.AvailableFeatures; v != nil {
-		m["availableFeatures"] = v
-	}
 
 	return m, nil
 }

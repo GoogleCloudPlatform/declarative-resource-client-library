@@ -1096,16 +1096,8 @@ func expandWorkload(c *Client, f *Workload) (map[string]interface{}, error) {
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		m["displayName"] = v
 	}
-	if v, err := expandWorkloadResourcesSlice(c, f.Resources); err != nil {
-		return nil, fmt.Errorf("error expanding Resources into resources: %w", err)
-	} else {
-		m["resources"] = v
-	}
 	if v := f.ComplianceRegime; !dcl.IsEmptyValueIndirect(v) {
 		m["complianceRegime"] = v
-	}
-	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["createTime"] = v
 	}
 	if v := f.BillingAccount; !dcl.IsEmptyValueIndirect(v) {
 		m["billingAccount"] = v

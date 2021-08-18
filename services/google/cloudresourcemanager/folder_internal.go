@@ -599,29 +599,11 @@ func unmarshalMapFolder(m map[string]interface{}, c *Client) (*Folder, error) {
 // expandFolder expands Folder into a JSON request object.
 func expandFolder(c *Client, f *Folder) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
-		m["name"] = v
-	}
 	if v := f.Parent; !dcl.IsEmptyValueIndirect(v) {
 		m["parent"] = v
 	}
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		m["displayName"] = v
-	}
-	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
-		m["state"] = v
-	}
-	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["createTime"] = v
-	}
-	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["updateTime"] = v
-	}
-	if v := f.DeleteTime; !dcl.IsEmptyValueIndirect(v) {
-		m["deleteTime"] = v
-	}
-	if v := f.Etag; !dcl.IsEmptyValueIndirect(v) {
-		m["etag"] = v
 	}
 
 	return m, nil

@@ -576,15 +576,6 @@ func expandAzureClient(c *Client, f *AzureClient) (map[string]interface{}, error
 	if v := f.ApplicationId; !dcl.IsEmptyValueIndirect(v) {
 		m["applicationId"] = v
 	}
-	if v := f.Certificate; !dcl.IsEmptyValueIndirect(v) {
-		m["certificate"] = v
-	}
-	if v := f.Uid; !dcl.IsEmptyValueIndirect(v) {
-		m["uid"] = v
-	}
-	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["createTime"] = v
-	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
 	} else if v != nil {

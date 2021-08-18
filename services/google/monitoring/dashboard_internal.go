@@ -6798,9 +6798,6 @@ func expandDashboard(c *Client, f *Dashboard) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["project"] = v
 	}
-	if v := f.Etag; !dcl.IsEmptyValueIndirect(v) {
-		m["etag"] = v
-	}
 
 	return m, nil
 }

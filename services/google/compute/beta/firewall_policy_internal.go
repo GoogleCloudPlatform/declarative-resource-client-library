@@ -562,26 +562,8 @@ func expandFirewallPolicy(c *Client, f *FirewallPolicy) (map[string]interface{},
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
-		m["id"] = v
-	}
-	if v := f.CreationTimestamp; !dcl.IsEmptyValueIndirect(v) {
-		m["creationTimestamp"] = v
-	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
-	}
-	if v := f.Fingerprint; !dcl.IsEmptyValueIndirect(v) {
-		m["fingerprint"] = v
-	}
-	if v := f.SelfLink; !dcl.IsEmptyValueIndirect(v) {
-		m["selfLink"] = v
-	}
-	if v := f.SelfLinkWithId; !dcl.IsEmptyValueIndirect(v) {
-		m["selfLinkWithId"] = v
-	}
-	if v := f.RuleTupleCount; !dcl.IsEmptyValueIndirect(v) {
-		m["ruleTupleCount"] = v
 	}
 	if v := f.ShortName; !dcl.IsEmptyValueIndirect(v) {
 		m["shortName"] = v

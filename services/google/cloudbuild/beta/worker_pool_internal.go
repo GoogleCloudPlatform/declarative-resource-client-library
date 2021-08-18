@@ -901,18 +901,6 @@ func expandWorkerPool(c *Client, f *WorkerPool) (map[string]interface{}, error) 
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
-		m["state"] = v
-	}
-	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["createTime"] = v
-	}
-	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["updateTime"] = v
-	}
-	if v := f.DeleteTime; !dcl.IsEmptyValueIndirect(v) {
-		m["deleteTime"] = v
-	}
 	if v, err := expandWorkerPoolWorkerConfig(c, f.WorkerConfig); err != nil {
 		return nil, fmt.Errorf("error expanding WorkerConfig into workerConfig: %w", err)
 	} else if v != nil {

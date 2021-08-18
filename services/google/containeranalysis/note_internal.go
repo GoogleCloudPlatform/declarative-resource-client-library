@@ -3822,12 +3822,6 @@ func expandNote(c *Client, f *Note) (map[string]interface{}, error) {
 	if v := f.ExpirationTime; !dcl.IsEmptyValueIndirect(v) {
 		m["expirationTime"] = v
 	}
-	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["createTime"] = v
-	}
-	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
-		m["updateTime"] = v
-	}
 	m["relatedNoteNames"] = f.RelatedNoteNames
 	if v, err := expandNoteVulnerability(c, f.Vulnerability); err != nil {
 		return nil, fmt.Errorf("error expanding Vulnerability into vulnerability: %w", err)
@@ -5445,9 +5439,6 @@ func expandNoteImageFingerprint(c *Client, f *NoteImageFingerprint) (map[string]
 	}
 	if v := f.V2Blob; v != nil {
 		m["v2Blob"] = v
-	}
-	if v := f.V2Name; !dcl.IsEmptyValueIndirect(v) {
-		m["v2Name"] = v
 	}
 
 	return m, nil
