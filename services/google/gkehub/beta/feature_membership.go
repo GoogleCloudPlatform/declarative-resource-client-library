@@ -403,13 +403,14 @@ type FeatureMembershipList struct {
 }
 
 func (c *Client) DeleteFeatureMembership(ctx context.Context, r *FeatureMembership) error {
+	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
 		return fmt.Errorf("FeatureMembership resource is nil")
 	}
-	c.Config.Logger.Info("Deleting FeatureMembership...")
+	c.Config.Logger.InfoWithContext(ctx, "Deleting FeatureMembership...")
 	deleteOp := deleteFeatureMembershipOperation{}
 	return deleteOp.do(ctx, r, c)
 }
@@ -444,6 +445,7 @@ func (c *Client) DeleteAllFeatureMembership(ctx context.Context, project, locati
 }
 
 func (c *Client) ApplyFeatureMembership(ctx context.Context, rawDesired *FeatureMembership, opts ...dcl.ApplyOption) (*FeatureMembership, error) {
+	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *FeatureMembership
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyFeatureMembershipHelper(c, ctx, rawDesired, opts...)
@@ -462,8 +464,8 @@ func (c *Client) ApplyFeatureMembership(ctx context.Context, rawDesired *Feature
 }
 
 func applyFeatureMembershipHelper(c *Client, ctx context.Context, rawDesired *FeatureMembership, opts ...dcl.ApplyOption) (*FeatureMembership, error) {
-	c.Config.Logger.Info("Beginning ApplyFeatureMembership...")
-	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyFeatureMembership...")
+	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
 
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -535,20 +537,20 @@ func applyFeatureMembershipHelper(c *Client, ctx context.Context, rawDesired *Fe
 			ops = append(ops, d.UpdateOp)
 		}
 	}
-	c.Config.Logger.Infof("Created plan: %#v", ops)
+	c.Config.Logger.InfoWithContextf(ctx, "Created plan: %#v", ops)
 
 	// 2.5 Request Actuation
 	for _, op := range ops {
-		c.Config.Logger.Infof("Performing operation %T %+v", op, op)
+		c.Config.Logger.InfoWithContextf(ctx, "Performing operation %T %+v", op, op)
 		if err := op.do(ctx, desired, c); err != nil {
-			c.Config.Logger.Infof("Failed operation %T %+v: %v", op, op, err)
+			c.Config.Logger.InfoWithContextf(ctx, "Failed operation %T %+v: %v", op, op, err)
 			return nil, err
 		}
-		c.Config.Logger.Infof("Finished operation %T %+v", op, op)
+		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
-	c.Config.Logger.Info("Retrieving raw new state...")
+	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetFeatureMembership(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
@@ -560,7 +562,7 @@ func applyFeatureMembershipHelper(c *Client, ctx context.Context, rawDesired *Fe
 		if o, ok := lastOp.(*createFeatureMembershipOperation); ok {
 			if r, hasR := o.FirstResponse(); hasR {
 
-				c.Config.Logger.Info("Retrieving raw new state from operation...")
+				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
 				fullResp, err := unmarshalMapFeatureMembership(r, c)
 				if err != nil {
@@ -575,36 +577,36 @@ func applyFeatureMembershipHelper(c *Client, ctx context.Context, rawDesired *Fe
 		}
 	}
 
-	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeFeatureMembershipNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
 
-	c.Config.Logger.Infof("Created canonical new state: %v", newState)
+	c.Config.Logger.InfoWithContextf(ctx, "Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
 	newDesired, err := canonicalizeFeatureMembershipDesiredState(rawDesired, newState)
 	if err != nil {
 		return nil, err
 	}
-	c.Config.Logger.Infof("Diffing using canonicalized desired state: %v", newDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Diffing using canonicalized desired state: %v", newDesired)
 	newDiffs, err := diffFeatureMembership(c, newDesired, newState)
 	if err != nil {
 		return nil, err
 	}
 
 	if len(newDiffs) == 0 {
-		c.Config.Logger.Info("No diffs found. Apply was successful.")
+		c.Config.Logger.InfoWithContext(ctx, "No diffs found. Apply was successful.")
 	} else {
-		c.Config.Logger.Infof("Found diffs: %v", newDiffs)
+		c.Config.Logger.InfoWithContextf(ctx, "Found diffs: %v", newDiffs)
 		diffMessages := make([]string, len(newDiffs))
 		for i, d := range newDiffs {
 			diffMessages[i] = fmt.Sprintf("%v", d)
 		}
 		return newState, dcl.DiffAfterApplyError{Diffs: diffMessages}
 	}
-	c.Config.Logger.Info("Done Apply.")
+	c.Config.Logger.InfoWithContext(ctx, "Done Apply.")
 	return newState, nil
 }

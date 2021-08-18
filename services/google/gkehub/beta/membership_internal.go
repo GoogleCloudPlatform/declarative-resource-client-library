@@ -224,7 +224,7 @@ func (op *updateMembershipUpdateMembershipOperation) do(ctx context.Context, r *
 		return err
 	}
 
-	c.Config.Logger.Infof("Created update: %#v", req)
+	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
 	body, err := marshalUpdateMembershipUpdateMembershipRequest(c, req)
 	if err != nil {
 		return err
@@ -328,10 +328,10 @@ func (op *deleteMembershipOperation) do(ctx context.Context, r *Membership, c *C
 	r, err := c.GetMembership(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
-			c.Config.Logger.Infof("Membership not found, returning. Original error: %v", err)
+			c.Config.Logger.InfoWithContextf(ctx, "Membership not found, returning. Original error: %v", err)
 			return nil
 		}
-		c.Config.Logger.Warningf("GetMembership checking for existence. error: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "GetMembership checking for existence. error: %v", err)
 		return err
 	}
 
@@ -385,7 +385,7 @@ func (op *createMembershipOperation) FirstResponse() (map[string]interface{}, bo
 }
 
 func (op *createMembershipOperation) do(ctx context.Context, r *Membership, c *Client) error {
-	c.Config.Logger.Infof("Attempting to create %v", r)
+	c.Config.Logger.InfoWithContextf(ctx, "Attempting to create %v", r)
 	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
@@ -408,11 +408,11 @@ func (op *createMembershipOperation) do(ctx context.Context, r *Membership, c *C
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
-	c.Config.Logger.Infof("Successfully waited for operation")
+	c.Config.Logger.InfoWithContextf(ctx, "Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetMembership(ctx, r); err != nil {
-		c.Config.Logger.Warningf("get returned error: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "get returned error: %v", err)
 		return err
 	}
 
@@ -439,12 +439,12 @@ func (c *Client) getMembershipRaw(ctx context.Context, r *Membership) ([]byte, e
 }
 
 func (c *Client) membershipDiffsForRawDesired(ctx context.Context, rawDesired *Membership, opts ...dcl.ApplyOption) (initial, desired *Membership, diffs []*dcl.FieldDiff, err error) {
-	c.Config.Logger.Info("Fetching initial state...")
+	c.Config.Logger.InfoWithContext(ctx, "Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *Membership
 	if sh := dcl.FetchStateHint(opts); sh != nil {
 		if r, ok := sh.(*Membership); !ok {
-			c.Config.Logger.Warningf("Initial state hint was of the wrong type; expected Membership, got %T", sh)
+			c.Config.Logger.WarningWithContextf(ctx, "Initial state hint was of the wrong type; expected Membership, got %T", sh)
 		} else {
 			fetchState = r
 		}
@@ -457,30 +457,30 @@ func (c *Client) membershipDiffsForRawDesired(ctx context.Context, rawDesired *M
 	rawInitial, err := c.GetMembership(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
-			c.Config.Logger.Warningf("Failed to retrieve whether a Membership resource already exists: %s", err)
+			c.Config.Logger.WarningWithContextf(ctx, "Failed to retrieve whether a Membership resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Membership resource: %v", err)
 		}
-		c.Config.Logger.Info("Found that Membership resource did not exist.")
+		c.Config.Logger.InfoWithContext(ctx, "Found that Membership resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeMembershipDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-	c.Config.Logger.Infof("Found initial state for Membership: %v", rawInitial)
-	c.Config.Logger.Infof("Initial desired state for Membership: %v", rawDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Membership: %v", rawInitial)
+	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Membership: %v", rawDesired)
 
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeMembershipInitialState(rawInitial, rawDesired)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized initial state for Membership: %v", initial)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized initial state for Membership: %v", initial)
 
 	// 1.4: Canonicalize raw desired state into desired state.
 	desired, err = canonicalizeMembershipDesiredState(rawDesired, rawInitial, opts...)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized desired state for Membership: %v", desired)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized desired state for Membership: %v", desired)
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffMembership(c, desired, initial, opts...)

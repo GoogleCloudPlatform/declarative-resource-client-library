@@ -133,7 +133,7 @@ func (op *createBrandOperation) FirstResponse() (map[string]interface{}, bool) {
 }
 
 func (op *createBrandOperation) do(ctx context.Context, r *Brand, c *Client) error {
-	c.Config.Logger.Infof("Attempting to create %v", r)
+	c.Config.Logger.InfoWithContextf(ctx, "Attempting to create %v", r)
 	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
@@ -162,7 +162,7 @@ func (op *createBrandOperation) do(ctx context.Context, r *Brand, c *Client) err
 	r.Name = &name
 
 	if _, err := c.GetBrand(ctx, r); err != nil {
-		c.Config.Logger.Warningf("get returned error: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "get returned error: %v", err)
 		return err
 	}
 
@@ -189,12 +189,12 @@ func (c *Client) getBrandRaw(ctx context.Context, r *Brand) ([]byte, error) {
 }
 
 func (c *Client) brandDiffsForRawDesired(ctx context.Context, rawDesired *Brand, opts ...dcl.ApplyOption) (initial, desired *Brand, diffs []*dcl.FieldDiff, err error) {
-	c.Config.Logger.Info("Fetching initial state...")
+	c.Config.Logger.InfoWithContext(ctx, "Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *Brand
 	if sh := dcl.FetchStateHint(opts); sh != nil {
 		if r, ok := sh.(*Brand); !ok {
-			c.Config.Logger.Warningf("Initial state hint was of the wrong type; expected Brand, got %T", sh)
+			c.Config.Logger.WarningWithContextf(ctx, "Initial state hint was of the wrong type; expected Brand, got %T", sh)
 		} else {
 			fetchState = r
 		}
@@ -213,30 +213,30 @@ func (c *Client) brandDiffsForRawDesired(ctx context.Context, rawDesired *Brand,
 	rawInitial, err := c.GetBrand(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
-			c.Config.Logger.Warningf("Failed to retrieve whether a Brand resource already exists: %s", err)
+			c.Config.Logger.WarningWithContextf(ctx, "Failed to retrieve whether a Brand resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Brand resource: %v", err)
 		}
-		c.Config.Logger.Info("Found that Brand resource did not exist.")
+		c.Config.Logger.InfoWithContext(ctx, "Found that Brand resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeBrandDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-	c.Config.Logger.Infof("Found initial state for Brand: %v", rawInitial)
-	c.Config.Logger.Infof("Initial desired state for Brand: %v", rawDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Brand: %v", rawInitial)
+	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Brand: %v", rawDesired)
 
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeBrandInitialState(rawInitial, rawDesired)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized initial state for Brand: %v", initial)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized initial state for Brand: %v", initial)
 
 	// 1.4: Canonicalize raw desired state into desired state.
 	desired, err = canonicalizeBrandDesiredState(rawDesired, rawInitial, opts...)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized desired state for Brand: %v", desired)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized desired state for Brand: %v", desired)
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffBrand(c, desired, initial, opts...)

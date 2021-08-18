@@ -235,7 +235,7 @@ func (op *updateBucketUpdateOperation) do(ctx context.Context, r *Bucket, c *Cli
 		return err
 	}
 
-	c.Config.Logger.Infof("Created update: %#v", req)
+	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
 	body, err := marshalUpdateBucketUpdateRequest(c, req)
 	if err != nil {
 		return err
@@ -328,10 +328,10 @@ func (op *deleteBucketOperation) do(ctx context.Context, r *Bucket, c *Client) e
 	r, err := c.GetBucket(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
-			c.Config.Logger.Infof("Bucket not found, returning. Original error: %v", err)
+			c.Config.Logger.InfoWithContextf(ctx, "Bucket not found, returning. Original error: %v", err)
 			return nil
 		}
-		c.Config.Logger.Warningf("GetBucket checking for existence. error: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "GetBucket checking for existence. error: %v", err)
 		return err
 	}
 
@@ -376,7 +376,7 @@ func (op *createBucketOperation) FirstResponse() (map[string]interface{}, bool) 
 }
 
 func (op *createBucketOperation) do(ctx context.Context, r *Bucket, c *Client) error {
-	c.Config.Logger.Infof("Attempting to create %v", r)
+	c.Config.Logger.InfoWithContextf(ctx, "Attempting to create %v", r)
 	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
@@ -398,7 +398,7 @@ func (op *createBucketOperation) do(ctx context.Context, r *Bucket, c *Client) e
 	op.response = o
 
 	if _, err := c.GetBucket(ctx, r); err != nil {
-		c.Config.Logger.Warningf("get returned error: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "get returned error: %v", err)
 		return err
 	}
 
@@ -425,12 +425,12 @@ func (c *Client) getBucketRaw(ctx context.Context, r *Bucket) ([]byte, error) {
 }
 
 func (c *Client) bucketDiffsForRawDesired(ctx context.Context, rawDesired *Bucket, opts ...dcl.ApplyOption) (initial, desired *Bucket, diffs []*dcl.FieldDiff, err error) {
-	c.Config.Logger.Info("Fetching initial state...")
+	c.Config.Logger.InfoWithContext(ctx, "Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *Bucket
 	if sh := dcl.FetchStateHint(opts); sh != nil {
 		if r, ok := sh.(*Bucket); !ok {
-			c.Config.Logger.Warningf("Initial state hint was of the wrong type; expected Bucket, got %T", sh)
+			c.Config.Logger.WarningWithContextf(ctx, "Initial state hint was of the wrong type; expected Bucket, got %T", sh)
 		} else {
 			fetchState = r
 		}
@@ -443,30 +443,30 @@ func (c *Client) bucketDiffsForRawDesired(ctx context.Context, rawDesired *Bucke
 	rawInitial, err := c.GetBucket(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
-			c.Config.Logger.Warningf("Failed to retrieve whether a Bucket resource already exists: %s", err)
+			c.Config.Logger.WarningWithContextf(ctx, "Failed to retrieve whether a Bucket resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Bucket resource: %v", err)
 		}
-		c.Config.Logger.Info("Found that Bucket resource did not exist.")
+		c.Config.Logger.InfoWithContext(ctx, "Found that Bucket resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeBucketDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-	c.Config.Logger.Infof("Found initial state for Bucket: %v", rawInitial)
-	c.Config.Logger.Infof("Initial desired state for Bucket: %v", rawDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Bucket: %v", rawInitial)
+	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Bucket: %v", rawDesired)
 
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeBucketInitialState(rawInitial, rawDesired)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized initial state for Bucket: %v", initial)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized initial state for Bucket: %v", initial)
 
 	// 1.4: Canonicalize raw desired state into desired state.
 	desired, err = canonicalizeBucketDesiredState(rawDesired, rawInitial, opts...)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized desired state for Bucket: %v", desired)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized desired state for Bucket: %v", desired)
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffBucket(c, desired, initial, opts...)

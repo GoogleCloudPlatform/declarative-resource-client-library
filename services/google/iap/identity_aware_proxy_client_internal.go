@@ -167,10 +167,10 @@ func (op *deleteIdentityAwareProxyClientOperation) do(ctx context.Context, r *Id
 	r, err := c.GetIdentityAwareProxyClient(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
-			c.Config.Logger.Infof("IdentityAwareProxyClient not found, returning. Original error: %v", err)
+			c.Config.Logger.InfoWithContextf(ctx, "IdentityAwareProxyClient not found, returning. Original error: %v", err)
 			return nil
 		}
-		c.Config.Logger.Warningf("GetIdentityAwareProxyClient checking for existence. error: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "GetIdentityAwareProxyClient checking for existence. error: %v", err)
 		return err
 	}
 
@@ -215,7 +215,7 @@ func (op *createIdentityAwareProxyClientOperation) FirstResponse() (map[string]i
 }
 
 func (op *createIdentityAwareProxyClientOperation) do(ctx context.Context, r *IdentityAwareProxyClient, c *Client) error {
-	c.Config.Logger.Infof("Attempting to create %v", r)
+	c.Config.Logger.InfoWithContextf(ctx, "Attempting to create %v", r)
 	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
@@ -244,7 +244,7 @@ func (op *createIdentityAwareProxyClientOperation) do(ctx context.Context, r *Id
 	r.Name = &name
 
 	if _, err := c.GetIdentityAwareProxyClient(ctx, r); err != nil {
-		c.Config.Logger.Warningf("get returned error: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "get returned error: %v", err)
 		return err
 	}
 
@@ -271,12 +271,12 @@ func (c *Client) getIdentityAwareProxyClientRaw(ctx context.Context, r *Identity
 }
 
 func (c *Client) identityAwareProxyClientDiffsForRawDesired(ctx context.Context, rawDesired *IdentityAwareProxyClient, opts ...dcl.ApplyOption) (initial, desired *IdentityAwareProxyClient, diffs []*dcl.FieldDiff, err error) {
-	c.Config.Logger.Info("Fetching initial state...")
+	c.Config.Logger.InfoWithContext(ctx, "Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *IdentityAwareProxyClient
 	if sh := dcl.FetchStateHint(opts); sh != nil {
 		if r, ok := sh.(*IdentityAwareProxyClient); !ok {
-			c.Config.Logger.Warningf("Initial state hint was of the wrong type; expected IdentityAwareProxyClient, got %T", sh)
+			c.Config.Logger.WarningWithContextf(ctx, "Initial state hint was of the wrong type; expected IdentityAwareProxyClient, got %T", sh)
 		} else {
 			fetchState = r
 		}
@@ -295,30 +295,30 @@ func (c *Client) identityAwareProxyClientDiffsForRawDesired(ctx context.Context,
 	rawInitial, err := c.GetIdentityAwareProxyClient(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
-			c.Config.Logger.Warningf("Failed to retrieve whether a IdentityAwareProxyClient resource already exists: %s", err)
+			c.Config.Logger.WarningWithContextf(ctx, "Failed to retrieve whether a IdentityAwareProxyClient resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve IdentityAwareProxyClient resource: %v", err)
 		}
-		c.Config.Logger.Info("Found that IdentityAwareProxyClient resource did not exist.")
+		c.Config.Logger.InfoWithContext(ctx, "Found that IdentityAwareProxyClient resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeIdentityAwareProxyClientDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-	c.Config.Logger.Infof("Found initial state for IdentityAwareProxyClient: %v", rawInitial)
-	c.Config.Logger.Infof("Initial desired state for IdentityAwareProxyClient: %v", rawDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for IdentityAwareProxyClient: %v", rawInitial)
+	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for IdentityAwareProxyClient: %v", rawDesired)
 
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeIdentityAwareProxyClientInitialState(rawInitial, rawDesired)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized initial state for IdentityAwareProxyClient: %v", initial)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized initial state for IdentityAwareProxyClient: %v", initial)
 
 	// 1.4: Canonicalize raw desired state into desired state.
 	desired, err = canonicalizeIdentityAwareProxyClientDesiredState(rawDesired, rawInitial, opts...)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized desired state for IdentityAwareProxyClient: %v", desired)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized desired state for IdentityAwareProxyClient: %v", desired)
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffIdentityAwareProxyClient(c, desired, initial, opts...)

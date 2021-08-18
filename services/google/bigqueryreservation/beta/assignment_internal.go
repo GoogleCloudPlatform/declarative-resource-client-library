@@ -176,10 +176,10 @@ func (op *deleteAssignmentOperation) do(ctx context.Context, r *Assignment, c *C
 	r, err := c.GetAssignment(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
-			c.Config.Logger.Infof("Assignment not found, returning. Original error: %v", err)
+			c.Config.Logger.InfoWithContextf(ctx, "Assignment not found, returning. Original error: %v", err)
 			return nil
 		}
-		c.Config.Logger.Warningf("GetAssignment checking for existence. error: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "GetAssignment checking for existence. error: %v", err)
 		return err
 	}
 
@@ -224,7 +224,7 @@ func (op *createAssignmentOperation) FirstResponse() (map[string]interface{}, bo
 }
 
 func (op *createAssignmentOperation) do(ctx context.Context, r *Assignment, c *Client) error {
-	c.Config.Logger.Infof("Attempting to create %v", r)
+	c.Config.Logger.InfoWithContextf(ctx, "Attempting to create %v", r)
 	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
@@ -253,7 +253,7 @@ func (op *createAssignmentOperation) do(ctx context.Context, r *Assignment, c *C
 	r.Name = &name
 
 	if _, err := c.GetAssignment(ctx, r); err != nil {
-		c.Config.Logger.Warningf("get returned error: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "get returned error: %v", err)
 		return err
 	}
 
@@ -284,12 +284,12 @@ func (c *Client) getAssignmentRaw(ctx context.Context, r *Assignment) ([]byte, e
 }
 
 func (c *Client) assignmentDiffsForRawDesired(ctx context.Context, rawDesired *Assignment, opts ...dcl.ApplyOption) (initial, desired *Assignment, diffs []*dcl.FieldDiff, err error) {
-	c.Config.Logger.Info("Fetching initial state...")
+	c.Config.Logger.InfoWithContext(ctx, "Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *Assignment
 	if sh := dcl.FetchStateHint(opts); sh != nil {
 		if r, ok := sh.(*Assignment); !ok {
-			c.Config.Logger.Warningf("Initial state hint was of the wrong type; expected Assignment, got %T", sh)
+			c.Config.Logger.WarningWithContextf(ctx, "Initial state hint was of the wrong type; expected Assignment, got %T", sh)
 		} else {
 			fetchState = r
 		}
@@ -308,30 +308,30 @@ func (c *Client) assignmentDiffsForRawDesired(ctx context.Context, rawDesired *A
 	rawInitial, err := c.GetAssignment(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
-			c.Config.Logger.Warningf("Failed to retrieve whether a Assignment resource already exists: %s", err)
+			c.Config.Logger.WarningWithContextf(ctx, "Failed to retrieve whether a Assignment resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Assignment resource: %v", err)
 		}
-		c.Config.Logger.Info("Found that Assignment resource did not exist.")
+		c.Config.Logger.InfoWithContext(ctx, "Found that Assignment resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeAssignmentDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-	c.Config.Logger.Infof("Found initial state for Assignment: %v", rawInitial)
-	c.Config.Logger.Infof("Initial desired state for Assignment: %v", rawDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Assignment: %v", rawInitial)
+	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Assignment: %v", rawDesired)
 
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeAssignmentInitialState(rawInitial, rawDesired)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized initial state for Assignment: %v", initial)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized initial state for Assignment: %v", initial)
 
 	// 1.4: Canonicalize raw desired state into desired state.
 	desired, err = canonicalizeAssignmentDesiredState(rawDesired, rawInitial, opts...)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized desired state for Assignment: %v", desired)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized desired state for Assignment: %v", desired)
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffAssignment(c, desired, initial, opts...)

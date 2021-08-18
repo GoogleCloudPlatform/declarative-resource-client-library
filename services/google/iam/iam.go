@@ -103,6 +103,7 @@ func (m *Member) Encode() (map[string]interface{}, error) {
 
 // GetPolicy returns the policy for the given resource.
 func (c *Client) GetPolicy(ctx context.Context, r ResourceWithPolicy) (*Policy, error) {
+	ctx = context.WithValue(ctx, dcl.APIRequestIDKey, dcl.CreateAPIRequestID())
 	u, v, body, err := r.GetPolicy(c.Config.BasePath)
 	if err != nil {
 		return nil, err
@@ -126,6 +127,7 @@ func (c *Client) GetPolicy(ctx context.Context, r ResourceWithPolicy) (*Policy, 
 
 // SetPolicy sets the policy for the given resource.
 func (c *Client) SetPolicy(ctx context.Context, p *Policy) (*Policy, error) {
+	ctx = context.WithValue(ctx, dcl.APIRequestIDKey, dcl.CreateAPIRequestID())
 	currentPolicy, err := c.GetPolicy(ctx, p.Resource)
 	if err != nil {
 		return nil, err
@@ -166,6 +168,7 @@ func (c *Client) SetPolicy(ctx context.Context, p *Policy) (*Policy, error) {
 
 // SetBinding sets one binding, authoritatively on the role, for the given resource.
 func (c *Client) SetBinding(ctx context.Context, b *Binding) (*Policy, error) {
+	ctx = context.WithValue(ctx, dcl.APIRequestIDKey, dcl.CreateAPIRequestID())
 	p, err := c.GetPolicy(ctx, b.Resource)
 	if err != nil {
 		return nil, err
@@ -186,6 +189,7 @@ func (c *Client) SetBinding(ctx context.Context, b *Binding) (*Policy, error) {
 
 // GetBinding returns the binding for the given role, or nil if there is no such binding.
 func (c *Client) GetBinding(ctx context.Context, r ResourceWithPolicy, role string) (*Binding, error) {
+	ctx = context.WithValue(ctx, dcl.APIRequestIDKey, dcl.CreateAPIRequestID())
 	p, err := c.GetPolicy(ctx, r)
 	if err != nil {
 		return nil, err
@@ -200,6 +204,7 @@ func (c *Client) GetBinding(ctx context.Context, r ResourceWithPolicy, role stri
 
 // SetMember adds a member to the binding for its role if not already present.
 func (c *Client) SetMember(ctx context.Context, m *Member) (*Policy, error) {
+	ctx = context.WithValue(ctx, dcl.APIRequestIDKey, dcl.CreateAPIRequestID())
 	b, err := c.GetBinding(ctx, m.Resource, dcl.ValueOrEmptyString(m.Role))
 	if err != nil {
 		return nil, err
@@ -224,6 +229,7 @@ func (c *Client) SetMember(ctx context.Context, m *Member) (*Policy, error) {
 // GetMember returns a Member struct if the role/member pair exists on the resource's policy,
 // or nil if they do not.
 func (c *Client) GetMember(ctx context.Context, r ResourceWithPolicy, role, member string) (*Member, error) {
+	ctx = context.WithValue(ctx, dcl.APIRequestIDKey, dcl.CreateAPIRequestID())
 	b, err := c.GetBinding(ctx, r, role)
 	if err != nil {
 		return nil, err
@@ -251,6 +257,7 @@ func (c *Client) GetMember(ctx context.Context, r ResourceWithPolicy, role, memb
 // ApplyBinding is a convenience method to create a binding if it does not exist.  It supports BlockAcquire and BlockCreation but
 // ignores other lifecycle parameters as they are not relevant to IAM bindings.
 func (c *Client) ApplyBinding(ctx context.Context, binding *Binding, opts ...dcl.ApplyOption) (*Binding, error) {
+	ctx = context.WithValue(ctx, dcl.APIRequestIDKey, dcl.CreateAPIRequestID())
 	lp := dcl.FetchLifecycleParams(opts)
 	exists, err := c.GetBinding(ctx, binding.Resource, dcl.ValueOrEmptyString(binding.Role))
 	if exists != nil && dcl.HasLifecycleParam(lp, dcl.BlockAcquire) {
@@ -271,6 +278,7 @@ func (c *Client) ApplyBinding(ctx context.Context, binding *Binding, opts ...dcl
 
 // DeleteBinding deletes a binding from its specified resource.
 func (c *Client) DeleteBinding(ctx context.Context, binding *Binding) error {
+	ctx = context.WithValue(ctx, dcl.APIRequestIDKey, dcl.CreateAPIRequestID())
 	policy, err := c.GetPolicy(ctx, binding.Resource)
 	if err != nil {
 		return err
@@ -289,6 +297,7 @@ func (c *Client) DeleteBinding(ctx context.Context, binding *Binding) error {
 // ApplyMember is a convenience method to create a member if it does not exist.  It supports BlockAcquire and BlockCreation but
 // ignores other lifecycle parameters as they are not relevant to IAM members.
 func (c *Client) ApplyMember(ctx context.Context, member *Member, opts ...dcl.ApplyOption) (*Member, error) {
+	ctx = context.WithValue(ctx, dcl.APIRequestIDKey, dcl.CreateAPIRequestID())
 	lp := dcl.FetchLifecycleParams(opts)
 	role := dcl.ValueOrEmptyString(member.Role)
 	memberString := dcl.ValueOrEmptyString(member.Member)
@@ -325,6 +334,7 @@ func (c *Client) ApplyMember(ctx context.Context, member *Member, opts ...dcl.Ap
 
 // DeleteMember deletes a member from its specified binding.
 func (c *Client) DeleteMember(ctx context.Context, member *Member) error {
+	ctx = context.WithValue(ctx, dcl.APIRequestIDKey, dcl.CreateAPIRequestID())
 	binding, err := c.GetBinding(ctx, member.Resource, dcl.ValueOrEmptyString(member.Role))
 	if err != nil {
 		return err

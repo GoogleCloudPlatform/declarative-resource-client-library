@@ -191,12 +191,12 @@ func (c *Client) getFirewallPolicyAssociationRaw(ctx context.Context, r *Firewal
 }
 
 func (c *Client) firewallPolicyAssociationDiffsForRawDesired(ctx context.Context, rawDesired *FirewallPolicyAssociation, opts ...dcl.ApplyOption) (initial, desired *FirewallPolicyAssociation, diffs []*dcl.FieldDiff, err error) {
-	c.Config.Logger.Info("Fetching initial state...")
+	c.Config.Logger.InfoWithContext(ctx, "Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *FirewallPolicyAssociation
 	if sh := dcl.FetchStateHint(opts); sh != nil {
 		if r, ok := sh.(*FirewallPolicyAssociation); !ok {
-			c.Config.Logger.Warningf("Initial state hint was of the wrong type; expected FirewallPolicyAssociation, got %T", sh)
+			c.Config.Logger.WarningWithContextf(ctx, "Initial state hint was of the wrong type; expected FirewallPolicyAssociation, got %T", sh)
 		} else {
 			fetchState = r
 		}
@@ -209,30 +209,30 @@ func (c *Client) firewallPolicyAssociationDiffsForRawDesired(ctx context.Context
 	rawInitial, err := c.GetFirewallPolicyAssociation(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFoundOrCode(err, 400) {
-			c.Config.Logger.Warningf("Failed to retrieve whether a FirewallPolicyAssociation resource already exists: %s", err)
+			c.Config.Logger.WarningWithContextf(ctx, "Failed to retrieve whether a FirewallPolicyAssociation resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve FirewallPolicyAssociation resource: %v", err)
 		}
-		c.Config.Logger.Info("Found that FirewallPolicyAssociation resource did not exist.")
+		c.Config.Logger.InfoWithContext(ctx, "Found that FirewallPolicyAssociation resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeFirewallPolicyAssociationDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-	c.Config.Logger.Infof("Found initial state for FirewallPolicyAssociation: %v", rawInitial)
-	c.Config.Logger.Infof("Initial desired state for FirewallPolicyAssociation: %v", rawDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for FirewallPolicyAssociation: %v", rawInitial)
+	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for FirewallPolicyAssociation: %v", rawDesired)
 
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeFirewallPolicyAssociationInitialState(rawInitial, rawDesired)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized initial state for FirewallPolicyAssociation: %v", initial)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized initial state for FirewallPolicyAssociation: %v", initial)
 
 	// 1.4: Canonicalize raw desired state into desired state.
 	desired, err = canonicalizeFirewallPolicyAssociationDesiredState(rawDesired, rawInitial, opts...)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized desired state for FirewallPolicyAssociation: %v", desired)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized desired state for FirewallPolicyAssociation: %v", desired)
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffFirewallPolicyAssociation(c, desired, initial, opts...)

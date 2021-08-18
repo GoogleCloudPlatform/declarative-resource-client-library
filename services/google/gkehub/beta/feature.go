@@ -397,6 +397,7 @@ func (l *FeatureList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListFeature(ctx context.Context, r *Feature) (*FeatureList, error) {
+	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -421,6 +422,7 @@ func (c *Client) ListFeatureWithMaxResults(ctx context.Context, r *Feature, page
 }
 
 func (c *Client) GetFeature(ctx context.Context, r *Feature) (*Feature, error) {
+	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -442,25 +444,26 @@ func (c *Client) GetFeature(ctx context.Context, r *Feature) (*Feature, error) {
 	result.Location = r.Location
 	result.Name = r.Name
 
-	c.Config.Logger.Infof("Retrieved raw result state: %v", result)
-	c.Config.Logger.Infof("Canonicalizing with specified state: %v", r)
+	c.Config.Logger.InfoWithContextf(ctx, "Retrieved raw result state: %v", result)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalizing with specified state: %v", r)
 	result, err = canonicalizeFeatureNewState(c, result, r)
 	if err != nil {
 		return nil, err
 	}
-	c.Config.Logger.Infof("Created result state: %v", result)
+	c.Config.Logger.InfoWithContextf(ctx, "Created result state: %v", result)
 
 	return result, nil
 }
 
 func (c *Client) DeleteFeature(ctx context.Context, r *Feature) error {
+	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
 		return fmt.Errorf("Feature resource is nil")
 	}
-	c.Config.Logger.Info("Deleting Feature...")
+	c.Config.Logger.InfoWithContext(ctx, "Deleting Feature...")
 	deleteOp := deleteFeatureOperation{}
 	return deleteOp.do(ctx, r, c)
 }
@@ -494,6 +497,7 @@ func (c *Client) DeleteAllFeature(ctx context.Context, project, location string,
 }
 
 func (c *Client) ApplyFeature(ctx context.Context, rawDesired *Feature, opts ...dcl.ApplyOption) (*Feature, error) {
+	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *Feature
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyFeatureHelper(c, ctx, rawDesired, opts...)
@@ -512,8 +516,8 @@ func (c *Client) ApplyFeature(ctx context.Context, rawDesired *Feature, opts ...
 }
 
 func applyFeatureHelper(c *Client, ctx context.Context, rawDesired *Feature, opts ...dcl.ApplyOption) (*Feature, error) {
-	c.Config.Logger.Info("Beginning ApplyFeature...")
-	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyFeature...")
+	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
 
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -585,20 +589,20 @@ func applyFeatureHelper(c *Client, ctx context.Context, rawDesired *Feature, opt
 			ops = append(ops, d.UpdateOp)
 		}
 	}
-	c.Config.Logger.Infof("Created plan: %#v", ops)
+	c.Config.Logger.InfoWithContextf(ctx, "Created plan: %#v", ops)
 
 	// 2.5 Request Actuation
 	for _, op := range ops {
-		c.Config.Logger.Infof("Performing operation %T %+v", op, op)
+		c.Config.Logger.InfoWithContextf(ctx, "Performing operation %T %+v", op, op)
 		if err := op.do(ctx, desired, c); err != nil {
-			c.Config.Logger.Infof("Failed operation %T %+v: %v", op, op, err)
+			c.Config.Logger.InfoWithContextf(ctx, "Failed operation %T %+v: %v", op, op, err)
 			return nil, err
 		}
-		c.Config.Logger.Infof("Finished operation %T %+v", op, op)
+		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
-	c.Config.Logger.Info("Retrieving raw new state...")
+	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetFeature(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
@@ -610,7 +614,7 @@ func applyFeatureHelper(c *Client, ctx context.Context, rawDesired *Feature, opt
 		if o, ok := lastOp.(*createFeatureOperation); ok {
 			if r, hasR := o.FirstResponse(); hasR {
 
-				c.Config.Logger.Info("Retrieving raw new state from operation...")
+				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
 				fullResp, err := unmarshalMapFeature(r, c)
 				if err != nil {
@@ -625,36 +629,36 @@ func applyFeatureHelper(c *Client, ctx context.Context, rawDesired *Feature, opt
 		}
 	}
 
-	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeFeatureNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
 
-	c.Config.Logger.Infof("Created canonical new state: %v", newState)
+	c.Config.Logger.InfoWithContextf(ctx, "Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
 	newDesired, err := canonicalizeFeatureDesiredState(rawDesired, newState)
 	if err != nil {
 		return nil, err
 	}
-	c.Config.Logger.Infof("Diffing using canonicalized desired state: %v", newDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Diffing using canonicalized desired state: %v", newDesired)
 	newDiffs, err := diffFeature(c, newDesired, newState)
 	if err != nil {
 		return nil, err
 	}
 
 	if len(newDiffs) == 0 {
-		c.Config.Logger.Info("No diffs found. Apply was successful.")
+		c.Config.Logger.InfoWithContext(ctx, "No diffs found. Apply was successful.")
 	} else {
-		c.Config.Logger.Infof("Found diffs: %v", newDiffs)
+		c.Config.Logger.InfoWithContextf(ctx, "Found diffs: %v", newDiffs)
 		diffMessages := make([]string, len(newDiffs))
 		for i, d := range newDiffs {
 			diffMessages[i] = fmt.Sprintf("%v", d)
 		}
 		return newState, dcl.DiffAfterApplyError{Diffs: diffMessages}
 	}
-	c.Config.Logger.Info("Done Apply.")
+	c.Config.Logger.InfoWithContext(ctx, "Done Apply.")
 	return newState, nil
 }

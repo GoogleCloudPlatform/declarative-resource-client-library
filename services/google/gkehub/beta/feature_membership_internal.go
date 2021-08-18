@@ -201,12 +201,12 @@ func (op *createFeatureMembershipOperation) FirstResponse() (map[string]interfac
 }
 
 func (c *Client) featureMembershipDiffsForRawDesired(ctx context.Context, rawDesired *FeatureMembership, opts ...dcl.ApplyOption) (initial, desired *FeatureMembership, diffs []*dcl.FieldDiff, err error) {
-	c.Config.Logger.Info("Fetching initial state...")
+	c.Config.Logger.InfoWithContext(ctx, "Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *FeatureMembership
 	if sh := dcl.FetchStateHint(opts); sh != nil {
 		if r, ok := sh.(*FeatureMembership); !ok {
-			c.Config.Logger.Warningf("Initial state hint was of the wrong type; expected FeatureMembership, got %T", sh)
+			c.Config.Logger.WarningWithContextf(ctx, "Initial state hint was of the wrong type; expected FeatureMembership, got %T", sh)
 		} else {
 			fetchState = r
 		}
@@ -219,30 +219,30 @@ func (c *Client) featureMembershipDiffsForRawDesired(ctx context.Context, rawDes
 	rawInitial, err := c.GetFeatureMembership(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
-			c.Config.Logger.Warningf("Failed to retrieve whether a FeatureMembership resource already exists: %s", err)
+			c.Config.Logger.WarningWithContextf(ctx, "Failed to retrieve whether a FeatureMembership resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve FeatureMembership resource: %v", err)
 		}
-		c.Config.Logger.Info("Found that FeatureMembership resource did not exist.")
+		c.Config.Logger.InfoWithContext(ctx, "Found that FeatureMembership resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeFeatureMembershipDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-	c.Config.Logger.Infof("Found initial state for FeatureMembership: %v", rawInitial)
-	c.Config.Logger.Infof("Initial desired state for FeatureMembership: %v", rawDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for FeatureMembership: %v", rawInitial)
+	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for FeatureMembership: %v", rawDesired)
 
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeFeatureMembershipInitialState(rawInitial, rawDesired)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized initial state for FeatureMembership: %v", initial)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized initial state for FeatureMembership: %v", initial)
 
 	// 1.4: Canonicalize raw desired state into desired state.
 	desired, err = canonicalizeFeatureMembershipDesiredState(rawDesired, rawInitial, opts...)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized desired state for FeatureMembership: %v", desired)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized desired state for FeatureMembership: %v", desired)
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffFeatureMembership(c, desired, initial, opts...)

@@ -157,7 +157,7 @@ func (op *updateAttestorUpdateAttestorOperation) do(ctx context.Context, r *Atte
 		return err
 	}
 
-	c.Config.Logger.Infof("Created update: %#v", req)
+	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
 	body, err := marshalUpdateAttestorUpdateAttestorRequest(c, req)
 	if err != nil {
 		return err
@@ -250,10 +250,10 @@ func (op *deleteAttestorOperation) do(ctx context.Context, r *Attestor, c *Clien
 	r, err := c.GetAttestor(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
-			c.Config.Logger.Infof("Attestor not found, returning. Original error: %v", err)
+			c.Config.Logger.InfoWithContextf(ctx, "Attestor not found, returning. Original error: %v", err)
 			return nil
 		}
-		c.Config.Logger.Warningf("GetAttestor checking for existence. error: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "GetAttestor checking for existence. error: %v", err)
 		return err
 	}
 
@@ -298,7 +298,7 @@ func (op *createAttestorOperation) FirstResponse() (map[string]interface{}, bool
 }
 
 func (op *createAttestorOperation) do(ctx context.Context, r *Attestor, c *Client) error {
-	c.Config.Logger.Infof("Attempting to create %v", r)
+	c.Config.Logger.InfoWithContextf(ctx, "Attempting to create %v", r)
 	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
@@ -320,7 +320,7 @@ func (op *createAttestorOperation) do(ctx context.Context, r *Attestor, c *Clien
 	op.response = o
 
 	if _, err := c.GetAttestor(ctx, r); err != nil {
-		c.Config.Logger.Warningf("get returned error: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "get returned error: %v", err)
 		return err
 	}
 
@@ -347,12 +347,12 @@ func (c *Client) getAttestorRaw(ctx context.Context, r *Attestor) ([]byte, error
 }
 
 func (c *Client) attestorDiffsForRawDesired(ctx context.Context, rawDesired *Attestor, opts ...dcl.ApplyOption) (initial, desired *Attestor, diffs []*dcl.FieldDiff, err error) {
-	c.Config.Logger.Info("Fetching initial state...")
+	c.Config.Logger.InfoWithContext(ctx, "Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *Attestor
 	if sh := dcl.FetchStateHint(opts); sh != nil {
 		if r, ok := sh.(*Attestor); !ok {
-			c.Config.Logger.Warningf("Initial state hint was of the wrong type; expected Attestor, got %T", sh)
+			c.Config.Logger.WarningWithContextf(ctx, "Initial state hint was of the wrong type; expected Attestor, got %T", sh)
 		} else {
 			fetchState = r
 		}
@@ -365,30 +365,30 @@ func (c *Client) attestorDiffsForRawDesired(ctx context.Context, rawDesired *Att
 	rawInitial, err := c.GetAttestor(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
-			c.Config.Logger.Warningf("Failed to retrieve whether a Attestor resource already exists: %s", err)
+			c.Config.Logger.WarningWithContextf(ctx, "Failed to retrieve whether a Attestor resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Attestor resource: %v", err)
 		}
-		c.Config.Logger.Info("Found that Attestor resource did not exist.")
+		c.Config.Logger.InfoWithContext(ctx, "Found that Attestor resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeAttestorDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-	c.Config.Logger.Infof("Found initial state for Attestor: %v", rawInitial)
-	c.Config.Logger.Infof("Initial desired state for Attestor: %v", rawDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Attestor: %v", rawInitial)
+	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Attestor: %v", rawDesired)
 
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeAttestorInitialState(rawInitial, rawDesired)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized initial state for Attestor: %v", initial)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized initial state for Attestor: %v", initial)
 
 	// 1.4: Canonicalize raw desired state into desired state.
 	desired, err = canonicalizeAttestorDesiredState(rawDesired, rawInitial, opts...)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized desired state for Attestor: %v", desired)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized desired state for Attestor: %v", desired)
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffAttestor(c, desired, initial, opts...)

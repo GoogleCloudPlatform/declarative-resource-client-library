@@ -174,7 +174,7 @@ func (op *updateServiceAccountPatchServiceAccountOperation) do(ctx context.Conte
 		return err
 	}
 
-	c.Config.Logger.Infof("Created update: %#v", req)
+	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
 	body, err := marshalUpdateServiceAccountPatchServiceAccountRequest(c, req)
 	if err != nil {
 		return err
@@ -277,10 +277,10 @@ func (op *deleteServiceAccountOperation) do(ctx context.Context, r *ServiceAccou
 	r, err := c.GetServiceAccount(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
-			c.Config.Logger.Infof("ServiceAccount not found, returning. Original error: %v", err)
+			c.Config.Logger.InfoWithContextf(ctx, "ServiceAccount not found, returning. Original error: %v", err)
 			return nil
 		}
-		c.Config.Logger.Warningf("GetServiceAccount checking for existence. error: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "GetServiceAccount checking for existence. error: %v", err)
 		return err
 	}
 
@@ -325,7 +325,7 @@ func (op *createServiceAccountOperation) FirstResponse() (map[string]interface{}
 }
 
 func (op *createServiceAccountOperation) do(ctx context.Context, r *ServiceAccount, c *Client) error {
-	c.Config.Logger.Infof("Attempting to create %v", r)
+	c.Config.Logger.InfoWithContextf(ctx, "Attempting to create %v", r)
 	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
@@ -347,7 +347,7 @@ func (op *createServiceAccountOperation) do(ctx context.Context, r *ServiceAccou
 	op.response = o
 
 	if _, err := c.GetServiceAccount(ctx, r); err != nil {
-		c.Config.Logger.Warningf("get returned error: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "get returned error: %v", err)
 		return err
 	}
 
@@ -374,12 +374,12 @@ func (c *Client) getServiceAccountRaw(ctx context.Context, r *ServiceAccount) ([
 }
 
 func (c *Client) serviceAccountDiffsForRawDesired(ctx context.Context, rawDesired *ServiceAccount, opts ...dcl.ApplyOption) (initial, desired *ServiceAccount, diffs []*dcl.FieldDiff, err error) {
-	c.Config.Logger.Info("Fetching initial state...")
+	c.Config.Logger.InfoWithContext(ctx, "Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *ServiceAccount
 	if sh := dcl.FetchStateHint(opts); sh != nil {
 		if r, ok := sh.(*ServiceAccount); !ok {
-			c.Config.Logger.Warningf("Initial state hint was of the wrong type; expected ServiceAccount, got %T", sh)
+			c.Config.Logger.WarningWithContextf(ctx, "Initial state hint was of the wrong type; expected ServiceAccount, got %T", sh)
 		} else {
 			fetchState = r
 		}
@@ -392,30 +392,30 @@ func (c *Client) serviceAccountDiffsForRawDesired(ctx context.Context, rawDesire
 	rawInitial, err := c.GetServiceAccount(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
-			c.Config.Logger.Warningf("Failed to retrieve whether a ServiceAccount resource already exists: %s", err)
+			c.Config.Logger.WarningWithContextf(ctx, "Failed to retrieve whether a ServiceAccount resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve ServiceAccount resource: %v", err)
 		}
-		c.Config.Logger.Info("Found that ServiceAccount resource did not exist.")
+		c.Config.Logger.InfoWithContext(ctx, "Found that ServiceAccount resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeServiceAccountDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-	c.Config.Logger.Infof("Found initial state for ServiceAccount: %v", rawInitial)
-	c.Config.Logger.Infof("Initial desired state for ServiceAccount: %v", rawDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for ServiceAccount: %v", rawInitial)
+	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for ServiceAccount: %v", rawDesired)
 
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeServiceAccountInitialState(rawInitial, rawDesired)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized initial state for ServiceAccount: %v", initial)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized initial state for ServiceAccount: %v", initial)
 
 	// 1.4: Canonicalize raw desired state into desired state.
 	desired, err = canonicalizeServiceAccountDesiredState(rawDesired, rawInitial, opts...)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized desired state for ServiceAccount: %v", desired)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized desired state for ServiceAccount: %v", desired)
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffServiceAccount(c, desired, initial, opts...)

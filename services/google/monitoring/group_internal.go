@@ -143,7 +143,7 @@ func (op *updateGroupUpdateOperation) do(ctx context.Context, r *Group, c *Clien
 		return err
 	}
 
-	c.Config.Logger.Infof("Created update: %#v", req)
+	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
 	body, err := marshalUpdateGroupUpdateRequest(c, req)
 	if err != nil {
 		return err
@@ -236,10 +236,10 @@ func (op *deleteGroupOperation) do(ctx context.Context, r *Group, c *Client) err
 	r, err := c.GetGroup(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
-			c.Config.Logger.Infof("Group not found, returning. Original error: %v", err)
+			c.Config.Logger.InfoWithContextf(ctx, "Group not found, returning. Original error: %v", err)
 			return nil
 		}
-		c.Config.Logger.Warningf("GetGroup checking for existence. error: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "GetGroup checking for existence. error: %v", err)
 		return err
 	}
 
@@ -284,7 +284,7 @@ func (op *createGroupOperation) FirstResponse() (map[string]interface{}, bool) {
 }
 
 func (op *createGroupOperation) do(ctx context.Context, r *Group, c *Client) error {
-	c.Config.Logger.Infof("Attempting to create %v", r)
+	c.Config.Logger.InfoWithContextf(ctx, "Attempting to create %v", r)
 	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
@@ -313,7 +313,7 @@ func (op *createGroupOperation) do(ctx context.Context, r *Group, c *Client) err
 	r.Name = &name
 
 	if _, err := c.GetGroup(ctx, r); err != nil {
-		c.Config.Logger.Warningf("get returned error: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "get returned error: %v", err)
 		return err
 	}
 
@@ -340,12 +340,12 @@ func (c *Client) getGroupRaw(ctx context.Context, r *Group) ([]byte, error) {
 }
 
 func (c *Client) groupDiffsForRawDesired(ctx context.Context, rawDesired *Group, opts ...dcl.ApplyOption) (initial, desired *Group, diffs []*dcl.FieldDiff, err error) {
-	c.Config.Logger.Info("Fetching initial state...")
+	c.Config.Logger.InfoWithContext(ctx, "Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *Group
 	if sh := dcl.FetchStateHint(opts); sh != nil {
 		if r, ok := sh.(*Group); !ok {
-			c.Config.Logger.Warningf("Initial state hint was of the wrong type; expected Group, got %T", sh)
+			c.Config.Logger.WarningWithContextf(ctx, "Initial state hint was of the wrong type; expected Group, got %T", sh)
 		} else {
 			fetchState = r
 		}
@@ -364,30 +364,30 @@ func (c *Client) groupDiffsForRawDesired(ctx context.Context, rawDesired *Group,
 	rawInitial, err := c.GetGroup(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
-			c.Config.Logger.Warningf("Failed to retrieve whether a Group resource already exists: %s", err)
+			c.Config.Logger.WarningWithContextf(ctx, "Failed to retrieve whether a Group resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Group resource: %v", err)
 		}
-		c.Config.Logger.Info("Found that Group resource did not exist.")
+		c.Config.Logger.InfoWithContext(ctx, "Found that Group resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeGroupDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-	c.Config.Logger.Infof("Found initial state for Group: %v", rawInitial)
-	c.Config.Logger.Infof("Initial desired state for Group: %v", rawDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Group: %v", rawInitial)
+	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Group: %v", rawDesired)
 
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeGroupInitialState(rawInitial, rawDesired)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized initial state for Group: %v", initial)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized initial state for Group: %v", initial)
 
 	// 1.4: Canonicalize raw desired state into desired state.
 	desired, err = canonicalizeGroupDesiredState(rawDesired, rawInitial, opts...)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized desired state for Group: %v", desired)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized desired state for Group: %v", desired)
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffGroup(c, desired, initial, opts...)

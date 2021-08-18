@@ -143,14 +143,15 @@ components:
               description: 'HTTP request headers. This map contains the header field
                 names and values. Headers can be set when the job is created. Cloud
                 Scheduler sets some headers to default values: * `User-Agent`: By
-                default, this header is `"AppEngine-Google; (+http://code.google.com/appengine)"`.
-                This header can be modified, but Cloud Scheduler will append `"AppEngine-Google;
-                (+http://code.google.com/appengine)"` to the modified `User-Agent`.
-                * `X-CloudScheduler`: This header will be set to true. The headers
-                below are output only. They cannot be set or overridden: * `X-Google-*`:
-                For Google internal use only. * `X-AppEngine-*`: For Google internal
-                use only. In addition, some App Engine headers, which contain job-specific
-                information, are also be sent to the job handler.'
+                default, this header is `"App Engine-Google; (+http://code.google.com/appengine)"`.
+                This header can be modified, but Cloud Scheduler will append `"App
+                Engine-Google; (+http://code.google.com/appengine)"` to the modified
+                `User-Agent`. * `X-CloudScheduler`: This header will be set to true.
+                The headers below are output only. They cannot be set or overridden:
+                * `X-Google-*`: For Google internal use only. * `X-App Engine-*`:
+                For Google internal use only. In addition, some App Engine headers,
+                which contain job-specific information, are also be sent to the job
+                handler.'
             httpMethod:
               type: string
               x-dcl-go-name: HttpMethod
@@ -218,7 +219,7 @@ components:
                 ignored or replaced is below: - Host: This will be computed by Cloud
                 Scheduler and derived from uri. * `Content-Length`: This will be computed
                 by Cloud Scheduler. * `User-Agent`: This will be set to `"Google-Cloud-Scheduler"`.
-                * `X-Google-*`: Google internal use only. * `X-AppEngine-*`: Google
+                * `X-Google-*`: Google internal use only. * `X-appengine-*`: Google
                 internal use only. The total size of headers must be less than 80KB.'
             httpMethod:
               type: string
@@ -352,7 +353,7 @@ components:
               x-dcl-go-name: TopicName
               description: Required. The name of the Cloud Pub/Sub topic to which
                 messages will be published when a job is delivered. The topic name
-                must be in the same format as required by PubSub's [PublishRequest.name](https://cloud.google.com/pubsub/docs/reference/rpc/google.pubsub.v1#publishrequest),
+                must be in the same format as required by Pub/Sub's [PublishRequest.name](https://cloud.google.com/pubsub/docs/reference/rpc/google.pubsub.v1#publishrequest),
                 for example `projects/PROJECT_ID/topics/TOPIC_ID`. The topic must
                 be in the same project as the Cloud Scheduler job.
               x-dcl-references:

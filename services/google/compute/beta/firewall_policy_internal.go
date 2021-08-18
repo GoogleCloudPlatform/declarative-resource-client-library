@@ -101,7 +101,7 @@ func newUpdateFirewallPolicyPatchRequest(ctx context.Context, f *FirewallPolicy,
 		[]string{"fingerprint"},
 	)
 	if err != nil {
-		c.Config.Logger.Warningf("Failed to fetch from JSON Path: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "Failed to fetch from JSON Path: %v", err)
 	} else {
 		req["fingerprint"] = rawFingerprint.(string)
 	}
@@ -234,12 +234,12 @@ func (c *Client) getFirewallPolicyRaw(ctx context.Context, r *FirewallPolicy) ([
 }
 
 func (c *Client) firewallPolicyDiffsForRawDesired(ctx context.Context, rawDesired *FirewallPolicy, opts ...dcl.ApplyOption) (initial, desired *FirewallPolicy, diffs []*dcl.FieldDiff, err error) {
-	c.Config.Logger.Info("Fetching initial state...")
+	c.Config.Logger.InfoWithContext(ctx, "Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *FirewallPolicy
 	if sh := dcl.FetchStateHint(opts); sh != nil {
 		if r, ok := sh.(*FirewallPolicy); !ok {
-			c.Config.Logger.Warningf("Initial state hint was of the wrong type; expected FirewallPolicy, got %T", sh)
+			c.Config.Logger.WarningWithContextf(ctx, "Initial state hint was of the wrong type; expected FirewallPolicy, got %T", sh)
 		} else {
 			fetchState = r
 		}
@@ -258,30 +258,30 @@ func (c *Client) firewallPolicyDiffsForRawDesired(ctx context.Context, rawDesire
 	rawInitial, err := c.GetFirewallPolicy(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
-			c.Config.Logger.Warningf("Failed to retrieve whether a FirewallPolicy resource already exists: %s", err)
+			c.Config.Logger.WarningWithContextf(ctx, "Failed to retrieve whether a FirewallPolicy resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve FirewallPolicy resource: %v", err)
 		}
-		c.Config.Logger.Info("Found that FirewallPolicy resource did not exist.")
+		c.Config.Logger.InfoWithContext(ctx, "Found that FirewallPolicy resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeFirewallPolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-	c.Config.Logger.Infof("Found initial state for FirewallPolicy: %v", rawInitial)
-	c.Config.Logger.Infof("Initial desired state for FirewallPolicy: %v", rawDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for FirewallPolicy: %v", rawInitial)
+	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for FirewallPolicy: %v", rawDesired)
 
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeFirewallPolicyInitialState(rawInitial, rawDesired)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized initial state for FirewallPolicy: %v", initial)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized initial state for FirewallPolicy: %v", initial)
 
 	// 1.4: Canonicalize raw desired state into desired state.
 	desired, err = canonicalizeFirewallPolicyDesiredState(rawDesired, rawInitial, opts...)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized desired state for FirewallPolicy: %v", desired)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized desired state for FirewallPolicy: %v", desired)
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffFirewallPolicy(c, desired, initial, opts...)

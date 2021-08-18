@@ -268,7 +268,7 @@ func (op *updateServerTlsPolicyUpdateServerTlsPolicyOperation) do(ctx context.Co
 		return err
 	}
 
-	c.Config.Logger.Infof("Created update: %#v", req)
+	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
 	body, err := marshalUpdateServerTlsPolicyUpdateServerTlsPolicyRequest(c, req)
 	if err != nil {
 		return err
@@ -372,10 +372,10 @@ func (op *deleteServerTlsPolicyOperation) do(ctx context.Context, r *ServerTlsPo
 	r, err := c.GetServerTlsPolicy(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
-			c.Config.Logger.Infof("ServerTlsPolicy not found, returning. Original error: %v", err)
+			c.Config.Logger.InfoWithContextf(ctx, "ServerTlsPolicy not found, returning. Original error: %v", err)
 			return nil
 		}
-		c.Config.Logger.Warningf("GetServerTlsPolicy checking for existence. error: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "GetServerTlsPolicy checking for existence. error: %v", err)
 		return err
 	}
 
@@ -429,7 +429,7 @@ func (op *createServerTlsPolicyOperation) FirstResponse() (map[string]interface{
 }
 
 func (op *createServerTlsPolicyOperation) do(ctx context.Context, r *ServerTlsPolicy, c *Client) error {
-	c.Config.Logger.Infof("Attempting to create %v", r)
+	c.Config.Logger.InfoWithContextf(ctx, "Attempting to create %v", r)
 	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
@@ -452,11 +452,11 @@ func (op *createServerTlsPolicyOperation) do(ctx context.Context, r *ServerTlsPo
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
-	c.Config.Logger.Infof("Successfully waited for operation")
+	c.Config.Logger.InfoWithContextf(ctx, "Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
 	if _, err := c.GetServerTlsPolicy(ctx, r); err != nil {
-		c.Config.Logger.Warningf("get returned error: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "get returned error: %v", err)
 		return err
 	}
 
@@ -483,12 +483,12 @@ func (c *Client) getServerTlsPolicyRaw(ctx context.Context, r *ServerTlsPolicy) 
 }
 
 func (c *Client) serverTlsPolicyDiffsForRawDesired(ctx context.Context, rawDesired *ServerTlsPolicy, opts ...dcl.ApplyOption) (initial, desired *ServerTlsPolicy, diffs []*dcl.FieldDiff, err error) {
-	c.Config.Logger.Info("Fetching initial state...")
+	c.Config.Logger.InfoWithContext(ctx, "Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *ServerTlsPolicy
 	if sh := dcl.FetchStateHint(opts); sh != nil {
 		if r, ok := sh.(*ServerTlsPolicy); !ok {
-			c.Config.Logger.Warningf("Initial state hint was of the wrong type; expected ServerTlsPolicy, got %T", sh)
+			c.Config.Logger.WarningWithContextf(ctx, "Initial state hint was of the wrong type; expected ServerTlsPolicy, got %T", sh)
 		} else {
 			fetchState = r
 		}
@@ -501,30 +501,30 @@ func (c *Client) serverTlsPolicyDiffsForRawDesired(ctx context.Context, rawDesir
 	rawInitial, err := c.GetServerTlsPolicy(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
-			c.Config.Logger.Warningf("Failed to retrieve whether a ServerTlsPolicy resource already exists: %s", err)
+			c.Config.Logger.WarningWithContextf(ctx, "Failed to retrieve whether a ServerTlsPolicy resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve ServerTlsPolicy resource: %v", err)
 		}
-		c.Config.Logger.Info("Found that ServerTlsPolicy resource did not exist.")
+		c.Config.Logger.InfoWithContext(ctx, "Found that ServerTlsPolicy resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeServerTlsPolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-	c.Config.Logger.Infof("Found initial state for ServerTlsPolicy: %v", rawInitial)
-	c.Config.Logger.Infof("Initial desired state for ServerTlsPolicy: %v", rawDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for ServerTlsPolicy: %v", rawInitial)
+	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for ServerTlsPolicy: %v", rawDesired)
 
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeServerTlsPolicyInitialState(rawInitial, rawDesired)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized initial state for ServerTlsPolicy: %v", initial)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized initial state for ServerTlsPolicy: %v", initial)
 
 	// 1.4: Canonicalize raw desired state into desired state.
 	desired, err = canonicalizeServerTlsPolicyDesiredState(rawDesired, rawInitial, opts...)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized desired state for ServerTlsPolicy: %v", desired)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized desired state for ServerTlsPolicy: %v", desired)
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffServerTlsPolicy(c, desired, initial, opts...)

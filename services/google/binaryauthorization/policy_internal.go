@@ -167,7 +167,7 @@ func (op *updatePolicyUpdatePolicyOperation) do(ctx context.Context, r *Policy, 
 		return err
 	}
 
-	c.Config.Logger.Infof("Created update: %#v", req)
+	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
 	body, err := marshalUpdatePolicyUpdatePolicyRequest(c, req)
 	if err != nil {
 		return err
@@ -211,12 +211,12 @@ func (c *Client) getPolicyRaw(ctx context.Context, r *Policy) ([]byte, error) {
 }
 
 func (c *Client) policyDiffsForRawDesired(ctx context.Context, rawDesired *Policy, opts ...dcl.ApplyOption) (initial, desired *Policy, diffs []*dcl.FieldDiff, err error) {
-	c.Config.Logger.Info("Fetching initial state...")
+	c.Config.Logger.InfoWithContext(ctx, "Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *Policy
 	if sh := dcl.FetchStateHint(opts); sh != nil {
 		if r, ok := sh.(*Policy); !ok {
-			c.Config.Logger.Warningf("Initial state hint was of the wrong type; expected Policy, got %T", sh)
+			c.Config.Logger.WarningWithContextf(ctx, "Initial state hint was of the wrong type; expected Policy, got %T", sh)
 		} else {
 			fetchState = r
 		}
@@ -229,30 +229,30 @@ func (c *Client) policyDiffsForRawDesired(ctx context.Context, rawDesired *Polic
 	rawInitial, err := c.GetPolicy(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
-			c.Config.Logger.Warningf("Failed to retrieve whether a Policy resource already exists: %s", err)
+			c.Config.Logger.WarningWithContextf(ctx, "Failed to retrieve whether a Policy resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve Policy resource: %v", err)
 		}
-		c.Config.Logger.Info("Found that Policy resource did not exist.")
+		c.Config.Logger.InfoWithContext(ctx, "Found that Policy resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizePolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-	c.Config.Logger.Infof("Found initial state for Policy: %v", rawInitial)
-	c.Config.Logger.Infof("Initial desired state for Policy: %v", rawDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Policy: %v", rawInitial)
+	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Policy: %v", rawDesired)
 
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizePolicyInitialState(rawInitial, rawDesired)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized initial state for Policy: %v", initial)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized initial state for Policy: %v", initial)
 
 	// 1.4: Canonicalize raw desired state into desired state.
 	desired, err = canonicalizePolicyDesiredState(rawDesired, rawInitial, opts...)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized desired state for Policy: %v", desired)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized desired state for Policy: %v", desired)
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffPolicy(c, desired, initial, opts...)

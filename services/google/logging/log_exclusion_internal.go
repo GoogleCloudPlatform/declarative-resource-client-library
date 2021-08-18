@@ -140,7 +140,7 @@ func (op *updateLogExclusionUpdateExclusionOperation) do(ctx context.Context, r 
 		return err
 	}
 
-	c.Config.Logger.Infof("Created update: %#v", req)
+	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
 	body, err := marshalUpdateLogExclusionUpdateExclusionRequest(c, req)
 	if err != nil {
 		return err
@@ -233,10 +233,10 @@ func (op *deleteLogExclusionOperation) do(ctx context.Context, r *LogExclusion, 
 	r, err := c.GetLogExclusion(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
-			c.Config.Logger.Infof("LogExclusion not found, returning. Original error: %v", err)
+			c.Config.Logger.InfoWithContextf(ctx, "LogExclusion not found, returning. Original error: %v", err)
 			return nil
 		}
-		c.Config.Logger.Warningf("GetLogExclusion checking for existence. error: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "GetLogExclusion checking for existence. error: %v", err)
 		return err
 	}
 
@@ -281,7 +281,7 @@ func (op *createLogExclusionOperation) FirstResponse() (map[string]interface{}, 
 }
 
 func (op *createLogExclusionOperation) do(ctx context.Context, r *LogExclusion, c *Client) error {
-	c.Config.Logger.Infof("Attempting to create %v", r)
+	c.Config.Logger.InfoWithContextf(ctx, "Attempting to create %v", r)
 	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
 		return err
@@ -303,7 +303,7 @@ func (op *createLogExclusionOperation) do(ctx context.Context, r *LogExclusion, 
 	op.response = o
 
 	if _, err := c.GetLogExclusion(ctx, r); err != nil {
-		c.Config.Logger.Warningf("get returned error: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "get returned error: %v", err)
 		return err
 	}
 
@@ -330,12 +330,12 @@ func (c *Client) getLogExclusionRaw(ctx context.Context, r *LogExclusion) ([]byt
 }
 
 func (c *Client) logExclusionDiffsForRawDesired(ctx context.Context, rawDesired *LogExclusion, opts ...dcl.ApplyOption) (initial, desired *LogExclusion, diffs []*dcl.FieldDiff, err error) {
-	c.Config.Logger.Info("Fetching initial state...")
+	c.Config.Logger.InfoWithContext(ctx, "Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *LogExclusion
 	if sh := dcl.FetchStateHint(opts); sh != nil {
 		if r, ok := sh.(*LogExclusion); !ok {
-			c.Config.Logger.Warningf("Initial state hint was of the wrong type; expected LogExclusion, got %T", sh)
+			c.Config.Logger.WarningWithContextf(ctx, "Initial state hint was of the wrong type; expected LogExclusion, got %T", sh)
 		} else {
 			fetchState = r
 		}
@@ -348,30 +348,30 @@ func (c *Client) logExclusionDiffsForRawDesired(ctx context.Context, rawDesired 
 	rawInitial, err := c.GetLogExclusion(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
-			c.Config.Logger.Warningf("Failed to retrieve whether a LogExclusion resource already exists: %s", err)
+			c.Config.Logger.WarningWithContextf(ctx, "Failed to retrieve whether a LogExclusion resource already exists: %s", err)
 			return nil, nil, nil, fmt.Errorf("failed to retrieve LogExclusion resource: %v", err)
 		}
-		c.Config.Logger.Info("Found that LogExclusion resource did not exist.")
+		c.Config.Logger.InfoWithContext(ctx, "Found that LogExclusion resource did not exist.")
 		// Perform canonicalization to pick up defaults.
 		desired, err = canonicalizeLogExclusionDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-	c.Config.Logger.Infof("Found initial state for LogExclusion: %v", rawInitial)
-	c.Config.Logger.Infof("Initial desired state for LogExclusion: %v", rawDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for LogExclusion: %v", rawInitial)
+	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for LogExclusion: %v", rawDesired)
 
 	// 1.3: Canonicalize raw initial state into initial state.
 	initial, err = canonicalizeLogExclusionInitialState(rawInitial, rawDesired)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized initial state for LogExclusion: %v", initial)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized initial state for LogExclusion: %v", initial)
 
 	// 1.4: Canonicalize raw desired state into desired state.
 	desired, err = canonicalizeLogExclusionDesiredState(rawDesired, rawInitial, opts...)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.Infof("Canonicalized desired state for LogExclusion: %v", desired)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized desired state for LogExclusion: %v", desired)
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffLogExclusion(c, desired, initial, opts...)

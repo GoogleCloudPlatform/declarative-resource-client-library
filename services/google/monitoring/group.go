@@ -94,6 +94,7 @@ func (l *GroupList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListGroup(ctx context.Context, r *Group) (*GroupList, error) {
+	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -118,6 +119,7 @@ func (c *Client) ListGroupWithMaxResults(ctx context.Context, r *Group, pageSize
 }
 
 func (c *Client) GetGroup(ctx context.Context, r *Group) (*Group, error) {
+	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -138,25 +140,26 @@ func (c *Client) GetGroup(ctx context.Context, r *Group) (*Group, error) {
 	result.Project = r.Project
 	result.Name = r.Name
 
-	c.Config.Logger.Infof("Retrieved raw result state: %v", result)
-	c.Config.Logger.Infof("Canonicalizing with specified state: %v", r)
+	c.Config.Logger.InfoWithContextf(ctx, "Retrieved raw result state: %v", result)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalizing with specified state: %v", r)
 	result, err = canonicalizeGroupNewState(c, result, r)
 	if err != nil {
 		return nil, err
 	}
-	c.Config.Logger.Infof("Created result state: %v", result)
+	c.Config.Logger.InfoWithContextf(ctx, "Created result state: %v", result)
 
 	return result, nil
 }
 
 func (c *Client) DeleteGroup(ctx context.Context, r *Group) error {
+	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
 		return fmt.Errorf("Group resource is nil")
 	}
-	c.Config.Logger.Info("Deleting Group...")
+	c.Config.Logger.InfoWithContext(ctx, "Deleting Group...")
 	deleteOp := deleteGroupOperation{}
 	return deleteOp.do(ctx, r, c)
 }
@@ -189,6 +192,7 @@ func (c *Client) DeleteAllGroup(ctx context.Context, project string, filter func
 }
 
 func (c *Client) ApplyGroup(ctx context.Context, rawDesired *Group, opts ...dcl.ApplyOption) (*Group, error) {
+	ctx = dcl.ContextWithRequestID(ctx)
 	var resultNewState *Group
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyGroupHelper(c, ctx, rawDesired, opts...)
@@ -207,8 +211,8 @@ func (c *Client) ApplyGroup(ctx context.Context, rawDesired *Group, opts ...dcl.
 }
 
 func applyGroupHelper(c *Client, ctx context.Context, rawDesired *Group, opts ...dcl.ApplyOption) (*Group, error) {
-	c.Config.Logger.Info("Beginning ApplyGroup...")
-	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+	c.Config.Logger.InfoWithContext(ctx, "Beginning ApplyGroup...")
+	c.Config.Logger.InfoWithContextf(ctx, "User specified desired state: %v", rawDesired)
 
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -280,20 +284,20 @@ func applyGroupHelper(c *Client, ctx context.Context, rawDesired *Group, opts ..
 			ops = append(ops, d.UpdateOp)
 		}
 	}
-	c.Config.Logger.Infof("Created plan: %#v", ops)
+	c.Config.Logger.InfoWithContextf(ctx, "Created plan: %#v", ops)
 
 	// 2.5 Request Actuation
 	for _, op := range ops {
-		c.Config.Logger.Infof("Performing operation %T %+v", op, op)
+		c.Config.Logger.InfoWithContextf(ctx, "Performing operation %T %+v", op, op)
 		if err := op.do(ctx, desired, c); err != nil {
-			c.Config.Logger.Infof("Failed operation %T %+v: %v", op, op, err)
+			c.Config.Logger.InfoWithContextf(ctx, "Failed operation %T %+v: %v", op, op, err)
 			return nil, err
 		}
-		c.Config.Logger.Infof("Finished operation %T %+v", op, op)
+		c.Config.Logger.InfoWithContextf(ctx, "Finished operation %T %+v", op, op)
 	}
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
-	c.Config.Logger.Info("Retrieving raw new state...")
+	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
 	rawNew, err := c.GetGroup(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
@@ -305,7 +309,7 @@ func applyGroupHelper(c *Client, ctx context.Context, rawDesired *Group, opts ..
 		if o, ok := lastOp.(*createGroupOperation); ok {
 			if r, hasR := o.FirstResponse(); hasR {
 
-				c.Config.Logger.Info("Retrieving raw new state from operation...")
+				c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state from operation...")
 
 				fullResp, err := unmarshalMapGroup(r, c)
 				if err != nil {
@@ -320,36 +324,36 @@ func applyGroupHelper(c *Client, ctx context.Context, rawDesired *Group, opts ..
 		}
 	}
 
-	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalizing with raw desired state: %v", rawDesired)
 	// 3.2b Canonicalization of raw new state using raw desired state
 	newState, err := canonicalizeGroupNewState(c, rawNew, rawDesired)
 	if err != nil {
 		return nil, err
 	}
 
-	c.Config.Logger.Infof("Created canonical new state: %v", newState)
+	c.Config.Logger.InfoWithContextf(ctx, "Created canonical new state: %v", newState)
 	// 3.3 Comparison of the new state and raw desired state.
 	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
 	newDesired, err := canonicalizeGroupDesiredState(rawDesired, newState)
 	if err != nil {
 		return nil, err
 	}
-	c.Config.Logger.Infof("Diffing using canonicalized desired state: %v", newDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Diffing using canonicalized desired state: %v", newDesired)
 	newDiffs, err := diffGroup(c, newDesired, newState)
 	if err != nil {
 		return nil, err
 	}
 
 	if len(newDiffs) == 0 {
-		c.Config.Logger.Info("No diffs found. Apply was successful.")
+		c.Config.Logger.InfoWithContext(ctx, "No diffs found. Apply was successful.")
 	} else {
-		c.Config.Logger.Infof("Found diffs: %v", newDiffs)
+		c.Config.Logger.InfoWithContextf(ctx, "Found diffs: %v", newDiffs)
 		diffMessages := make([]string, len(newDiffs))
 		for i, d := range newDiffs {
 			diffMessages[i] = fmt.Sprintf("%v", d)
 		}
 		return newState, dcl.DiffAfterApplyError{Diffs: diffMessages}
 	}
-	c.Config.Logger.Info("Done Apply.")
+	c.Config.Logger.InfoWithContext(ctx, "Done Apply.")
 	return newState, nil
 }
