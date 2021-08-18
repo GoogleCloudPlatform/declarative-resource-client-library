@@ -151,8 +151,8 @@ components:
         name:
           type: string
           x-dcl-go-name: Name
-          description: The resource name for this CertificateTemplate in the format
-            `projects/*/locations/*/certificateTemplates/*`.
+          description: Output only. The resource name for this CertificateTemplate
+            in the format `projects/*/locations/*/certificateTemplates/*`.
           x-kubernetes-immutable: true
         passthroughExtensions:
           type: object

@@ -20,10 +20,10 @@ type: network_endpoint_group
 variables:
 - name: function
   type: resource_name
-- name: project
-  type: project
 - name: region
   type: region
+- name: project
+  type: project
 - name: group
   type: resource_name
 versions:
