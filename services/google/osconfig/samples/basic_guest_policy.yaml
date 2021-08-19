@@ -22,9 +22,9 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: policy
-  type: resource_name
 - name: package
+  type: resource_name
+- name: policy
   type: resource_name
 versions:
 - beta

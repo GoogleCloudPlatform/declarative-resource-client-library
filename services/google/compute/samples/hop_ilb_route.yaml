@@ -28,10 +28,10 @@ variables:
   type: project
 - name: hc
   type: resource_name
-- name: service
-  type: resource_name
 - name: region
   type: region
+- name: service
+  type: resource_name
 - name: range
   type: resource_name
 - name: compute_subnetwork

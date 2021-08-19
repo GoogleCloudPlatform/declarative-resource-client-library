@@ -18,16 +18,16 @@ name: basic_subnetwork
 resource: samples/basic.subnetwork.json
 type: subnetwork
 variables:
-- name: compute_network1
-  type: resource_name
 - name: project
   type: project
-- name: region
-  type: region
+- name: compute_network1
+  type: resource_name
 - name: range
   type: resource_name
 - name: compute_subnetwork
   type: resource_name
+- name: region
+  type: region
 versions:
 - ga
 - beta
