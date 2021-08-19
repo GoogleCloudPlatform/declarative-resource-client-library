@@ -16,20 +16,20 @@ name: basic_aws_cluster
 resource: samples/basic.aws_cluster.json
 type: aws_cluster
 variables:
-- name: cluster
-  type: resource_name
-- name: aws_vpc
-  type: aws_vpc
-- name: project
-  type: project
-- name: aws_database_encryption_key
-  type: aws_database_encryption_key
+- name: aws_volume_encryption_key
+  type: aws_volume_encryption_key
 - name: test_service_account
   type: test_service_account
 - name: aws_subnet
   type: aws_subnet
+- name: cluster
+  type: resource_name
+- name: project
+  type: project
 - name: aws_security_group
   type: aws_security_group
-- name: aws_volume_encryption_key
-  type: aws_volume_encryption_key
+- name: aws_database_encryption_key
+  type: aws_database_encryption_key
+- name: aws_vpc
+  type: aws_vpc
 versions: []

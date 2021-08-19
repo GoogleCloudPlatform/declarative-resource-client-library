@@ -20,10 +20,10 @@ type: network_peering
 updates:
 - resource: samples/update.network_peering.json
 variables:
-- name: compute_network1
-  type: resource_name
 - name: project
   type: project
+- name: compute_network1
+  type: resource_name
 - name: peering
   type: resource_name
 versions: []
