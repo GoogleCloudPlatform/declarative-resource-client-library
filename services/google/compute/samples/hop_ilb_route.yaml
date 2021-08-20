@@ -24,9 +24,9 @@ type: route
 variables:
 - name: project
   type: project
-- name: compute_network1
-  type: resource_name
 - name: hc
+  type: resource_name
+- name: compute_network1
   type: resource_name
 - name: region
   type: region
