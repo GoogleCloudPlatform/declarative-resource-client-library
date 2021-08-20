@@ -26,17 +26,17 @@ type: packet_mirroring
 updates:
 - resource: samples/update.packet_mirroring.json
 variables:
-- name: zone
-  type: zone
-- name: instance1
+- name: compute_network1
   type: resource_name
 - name: project
   type: project
-- name: service
+- name: instance1
   type: resource_name
+- name: zone
+  type: zone
 - name: region
   type: region
-- name: compute_network1
+- name: service
   type: resource_name
 - name: rule1
   type: resource_name
