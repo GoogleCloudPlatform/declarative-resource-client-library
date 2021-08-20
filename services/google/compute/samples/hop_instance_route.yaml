@@ -20,20 +20,20 @@ name: hop_instance_route
 resource: samples/hop_instance.route.json
 type: route
 variables:
-- name: project
-  type: project
 - name: compute_network1
   type: resource_name
-- name: instance1
-  type: resource_name
+- name: project
+  type: project
 - name: zone
   type: zone
+- name: instance1
+  type: resource_name
+- name: region
+  type: region
 - name: range
   type: resource_name
 - name: compute_subnetwork
   type: resource_name
-- name: region
-  type: region
 - name: name
   type: resource_name
 versions:

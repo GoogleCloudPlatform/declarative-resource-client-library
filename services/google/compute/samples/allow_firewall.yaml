@@ -18,9 +18,9 @@ type: firewall
 updates:
 - resource: samples/update_allow.firewall.json
 variables:
-- name: project
-  type: project
 - name: firewall
   type: resource_name
+- name: project
+  type: project
 versions:
 - ga
