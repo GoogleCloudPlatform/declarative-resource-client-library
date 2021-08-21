@@ -16,14 +16,14 @@ name: complex_cluster
 resource: samples/complex.cluster.json
 type: cluster
 variables:
+- name: cluster_name
+  type: resource_name
 - name: region
   type: region
 - name: project
   type: project
 - name: zone
   type: zone
-- name: cluster_name
-  type: resource_name
 versions:
 - ga
 - beta
