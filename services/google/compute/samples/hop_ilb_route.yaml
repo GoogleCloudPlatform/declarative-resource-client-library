@@ -22,11 +22,11 @@ name: hop_ilb_route
 resource: samples/next_hop_ilb.route.json
 type: route
 variables:
-- name: compute_network1
+- name: hc
   type: resource_name
 - name: project
   type: project
-- name: hc
+- name: compute_network1
   type: resource_name
 - name: region
   type: region
