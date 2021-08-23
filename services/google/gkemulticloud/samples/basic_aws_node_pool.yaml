@@ -18,22 +18,22 @@ name: basic_aws_node_pool
 resource: samples/basic.aws_node_pool.json
 type: aws_node_pool
 variables:
-- name: test_service_account
-  type: test_service_account
+- name: aws_vpc
+  type: aws_vpc
 - name: aws_subnet
   type: aws_subnet
 - name: aws_volume_encryption_key
   type: aws_volume_encryption_key
 - name: aws_database_encryption_key
   type: aws_database_encryption_key
-- name: cluster
-  type: resource_name
 - name: project
   type: project
-- name: aws_vpc
-  type: aws_vpc
+- name: test_service_account
+  type: test_service_account
 - name: aws_security_group
   type: aws_security_group
+- name: cluster
+  type: resource_name
 - name: pool
   type: resource_name
 versions: []
