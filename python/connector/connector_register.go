@@ -32,6 +32,8 @@ import (
 
 	cloudresourcemanager_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudresourcemanager/connector"
 
+	cloudresourcemanager_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudresourcemanager/beta_connector"
+
 	cloudscheduler_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudscheduler/connector"
 
 	cloudscheduler_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudscheduler/beta_connector"
@@ -100,11 +102,17 @@ import (
 
 	osconfig_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/beta_connector"
 
+	pubsub_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub/beta_connector"
+
+	storage_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/beta_connector"
+
 	pubsub_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub/connector"
 
 	storage_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/connector"
 
 	privateca_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca/connector"
+
+	privateca_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca/beta_connector"
 
 	tier2_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/tier2/alpha_connector"
 
@@ -132,6 +140,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	cloudbuild_beta_connector.RegisterServers(grpcServer)
 
 	cloudresourcemanager_connector.RegisterServers(grpcServer)
+
+	cloudresourcemanager_beta_connector.RegisterServers(grpcServer)
 
 	cloudscheduler_connector.RegisterServers(grpcServer)
 
@@ -201,11 +211,17 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	osconfig_beta_connector.RegisterServers(grpcServer)
 
+	pubsub_beta_connector.RegisterServers(grpcServer)
+
+	storage_beta_connector.RegisterServers(grpcServer)
+
 	pubsub_connector.RegisterServers(grpcServer)
 
 	storage_connector.RegisterServers(grpcServer)
 
 	privateca_connector.RegisterServers(grpcServer)
+
+	privateca_beta_connector.RegisterServers(grpcServer)
 
 	tier2_alpha_connector.RegisterServers(grpcServer)
 
