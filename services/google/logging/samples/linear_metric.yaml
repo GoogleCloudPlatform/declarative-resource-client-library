@@ -18,9 +18,9 @@ type: log_metric
 updates:
 - resource: samples/update_linear.log_metric.json
 variables:
-- name: project
-  type: project
 - name: metric
   type: resource_name
+- name: project
+  type: project
 versions:
 - ga

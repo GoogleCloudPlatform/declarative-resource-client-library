@@ -20,13 +20,13 @@ type: instance_group_manager
 updates:
 - resource: samples/update_fixed.instance_group_manager.json
 variables:
-- name: template1
-  type: resource_name
 - name: project
   type: project
-- name: manager
+- name: template1
   type: resource_name
 - name: region
   type: region
+- name: manager
+  type: resource_name
 versions:
 - ga
