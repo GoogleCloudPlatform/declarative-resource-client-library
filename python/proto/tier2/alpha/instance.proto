@@ -729,6 +729,7 @@ message Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName {
@@ -742,6 +743,13 @@ message Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissio
 }
 
 message Tier2AlphaInstanceGoogleprotobufstruct {
+}
+
+message Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate {
@@ -825,6 +833,7 @@ message Tier2AlphaInstanceCreateRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyName {
@@ -835,6 +844,13 @@ message Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyName {
 
 message Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdate {
@@ -918,6 +934,7 @@ message Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyName {
@@ -928,6 +945,13 @@ message Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyName {
 
 message Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdate {
@@ -1011,6 +1035,7 @@ message Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyName {
@@ -1021,6 +1046,13 @@ message Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyName {
 
 message Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdate {
@@ -1104,6 +1136,7 @@ message Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName {
@@ -1114,6 +1147,13 @@ message Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName {
 
 message Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdate {
@@ -1197,6 +1237,7 @@ message Tier2AlphaInstanceResetRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstanceResetRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyName {
@@ -1207,6 +1248,13 @@ message Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyName {
 
 message Tier2AlphaInstanceResetRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstanceResetRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdate {
@@ -1290,6 +1338,7 @@ message Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName {
@@ -1300,6 +1349,13 @@ message Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName {
 
 message Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate {
@@ -1383,6 +1439,7 @@ message Tier2AlphaInstanceRepairRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyName {
@@ -1393,6 +1450,13 @@ message Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyName {
 
 message Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdate {
@@ -1476,6 +1540,7 @@ message Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName {
@@ -1486,6 +1551,13 @@ message Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName {
 
 message Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate {
@@ -1569,6 +1641,7 @@ message Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName {
@@ -1579,6 +1652,13 @@ message Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName {
 
 message Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate {
@@ -1662,6 +1742,7 @@ message Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName {
@@ -1672,6 +1753,13 @@ message Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName {
 
 message Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate {
@@ -1755,6 +1843,7 @@ message Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyName {
@@ -1765,6 +1854,13 @@ message Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyName {
 
 message Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdate {
@@ -1848,6 +1944,7 @@ message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName {
@@ -1858,6 +1955,13 @@ message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName
 
 message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate {
@@ -1941,6 +2045,7 @@ message Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName {
@@ -1951,6 +2056,13 @@ message Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName {
 
 message Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdate {
@@ -2034,6 +2146,7 @@ message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsIn
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName {
@@ -2044,6 +2157,13 @@ message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsIn
 
 message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate {
@@ -2127,6 +2247,7 @@ message Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName {
@@ -2137,6 +2258,13 @@ message Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNa
 
 message Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate {
@@ -2220,6 +2348,7 @@ message Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName {
@@ -2230,6 +2359,13 @@ message Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName {
 
 message Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdate {
@@ -2313,6 +2449,7 @@ message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName {
@@ -2323,6 +2460,13 @@ message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName
 
 message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate {
@@ -2406,6 +2550,7 @@ message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName {
@@ -2416,6 +2561,13 @@ message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNa
 
 message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate {
@@ -2499,6 +2651,7 @@ message Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyName {
@@ -2509,6 +2662,13 @@ message Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyName {
 
 message Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdate {
@@ -2592,6 +2752,7 @@ message Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyName {
@@ -2602,6 +2763,13 @@ message Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyName {
 
 message Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdate {
@@ -2685,6 +2853,7 @@ message Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName {
@@ -2695,6 +2864,13 @@ message Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyN
 
 message Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate {
@@ -2778,6 +2954,7 @@ message Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfo {
   string resource_path = 3;
   Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
   Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum policy_name_mode = 5;
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoResource resource = 6;
 }
 
 message Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName {
@@ -2788,6 +2965,13 @@ message Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNam
 
 message Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
+}
+
+message Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoResource {
+  string name = 1;
+  string type = 2;
+  string service = 3;
+  map<string, string> labels = 4;
 }
 
 message Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate {

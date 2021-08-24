@@ -21,15 +21,15 @@ type: backend_service
 updates:
 - resource: samples/update_global.backend_service.json
 variables:
-- name: s_check
-  type: resource_name
-- name: project
-  type: project
 - name: region
   type: region
 - name: zone
   type: zone
 - name: group
+  type: resource_name
+- name: project
+  type: project
+- name: s_check
   type: resource_name
 - name: service
   type: resource_name

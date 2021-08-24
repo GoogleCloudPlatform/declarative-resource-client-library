@@ -1058,6 +1058,7 @@ func ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfo(p *alph
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions(r))
@@ -1095,6 +1096,19 @@ func ProtoToTier2AlphaInstanceGoogleprotobufstruct(p *alphapb.Tier2AlphaInstance
 		return nil
 	}
 	obj := &alpha.InstanceGoogleprotobufstruct{}
+	return obj
+}
+
+// ProtoToInstancePreprocessCreateRecipeStepsPermissionsInfoResource converts a InstancePreprocessCreateRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoResource) *alpha.InstancePreprocessCreateRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessCreateRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
+	}
 	return obj
 }
 
@@ -1265,6 +1279,7 @@ func ProtoToTier2AlphaInstanceCreateRecipeStepsPermissionsInfo(p *alphapb.Tier2A
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstanceCreateRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceCreateRecipeStepsPermissionsInfoIamPermissions(r))
@@ -1292,6 +1307,19 @@ func ProtoToTier2AlphaInstanceCreateRecipeStepsPermissionsInfoIamPermissions(p *
 	}
 	obj := &alpha.InstanceCreateRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstanceCreateRecipeStepsPermissionsInfoResource converts a InstanceCreateRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstanceCreateRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoResource) *alpha.InstanceCreateRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceCreateRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -1463,6 +1491,7 @@ func ProtoToTier2AlphaInstanceDeleteRecipeStepsPermissionsInfo(p *alphapb.Tier2A
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstanceDeleteRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceDeleteRecipeStepsPermissionsInfoIamPermissions(r))
@@ -1490,6 +1519,19 @@ func ProtoToTier2AlphaInstanceDeleteRecipeStepsPermissionsInfoIamPermissions(p *
 	}
 	obj := &alpha.InstanceDeleteRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstanceDeleteRecipeStepsPermissionsInfoResource converts a InstanceDeleteRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstanceDeleteRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoResource) *alpha.InstanceDeleteRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceDeleteRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -1661,6 +1703,7 @@ func ProtoToTier2AlphaInstanceUpdateRecipeStepsPermissionsInfo(p *alphapb.Tier2A
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstanceUpdateRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceUpdateRecipeStepsPermissionsInfoIamPermissions(r))
@@ -1688,6 +1731,19 @@ func ProtoToTier2AlphaInstanceUpdateRecipeStepsPermissionsInfoIamPermissions(p *
 	}
 	obj := &alpha.InstanceUpdateRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstanceUpdateRecipeStepsPermissionsInfoResource converts a InstanceUpdateRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstanceUpdateRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoResource) *alpha.InstanceUpdateRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceUpdateRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -1859,6 +1915,7 @@ func ProtoToTier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfo(p *alpha
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions(r))
@@ -1886,6 +1943,19 @@ func ProtoToTier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoIamPermis
 	}
 	obj := &alpha.InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessResetRecipeStepsPermissionsInfoResource converts a InstancePreprocessResetRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoResource) *alpha.InstancePreprocessResetRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessResetRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -2057,6 +2127,7 @@ func ProtoToTier2AlphaInstanceResetRecipeStepsPermissionsInfo(p *alphapb.Tier2Al
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstanceResetRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceResetRecipeStepsPermissionsInfoIamPermissions(r))
@@ -2084,6 +2155,19 @@ func ProtoToTier2AlphaInstanceResetRecipeStepsPermissionsInfoIamPermissions(p *a
 	}
 	obj := &alpha.InstanceResetRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstanceResetRecipeStepsPermissionsInfoResource converts a InstanceResetRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstanceResetRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstanceResetRecipeStepsPermissionsInfoResource) *alpha.InstanceResetRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceResetRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -2255,6 +2339,7 @@ func ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfo(p *alph
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions(r))
@@ -2282,6 +2367,19 @@ func ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermi
 	}
 	obj := &alpha.InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessRepairRecipeStepsPermissionsInfoResource converts a InstancePreprocessRepairRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoResource) *alpha.InstancePreprocessRepairRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessRepairRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -2453,6 +2551,7 @@ func ProtoToTier2AlphaInstanceRepairRecipeStepsPermissionsInfo(p *alphapb.Tier2A
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstanceRepairRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceRepairRecipeStepsPermissionsInfoIamPermissions(r))
@@ -2480,6 +2579,19 @@ func ProtoToTier2AlphaInstanceRepairRecipeStepsPermissionsInfoIamPermissions(p *
 	}
 	obj := &alpha.InstanceRepairRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstanceRepairRecipeStepsPermissionsInfoResource converts a InstanceRepairRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstanceRepairRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoResource) *alpha.InstanceRepairRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceRepairRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -2651,6 +2763,7 @@ func ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfo(p *alph
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions(r))
@@ -2678,6 +2791,19 @@ func ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermi
 	}
 	obj := &alpha.InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessDeleteRecipeStepsPermissionsInfoResource converts a InstancePreprocessDeleteRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoResource) *alpha.InstancePreprocessDeleteRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessDeleteRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -2849,6 +2975,7 @@ func ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfo(p *alph
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions(r))
@@ -2876,6 +3003,19 @@ func ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermi
 	}
 	obj := &alpha.InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessUpdateRecipeStepsPermissionsInfoResource converts a InstancePreprocessUpdateRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoResource) *alpha.InstancePreprocessUpdateRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessUpdateRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -3047,6 +3187,7 @@ func ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfo(p *alph
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions(r))
@@ -3074,6 +3215,19 @@ func ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermi
 	}
 	obj := &alpha.InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessFreezeRecipeStepsPermissionsInfoResource converts a InstancePreprocessFreezeRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoResource) *alpha.InstancePreprocessFreezeRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessFreezeRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -3245,6 +3399,7 @@ func ProtoToTier2AlphaInstanceFreezeRecipeStepsPermissionsInfo(p *alphapb.Tier2A
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstanceFreezeRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceFreezeRecipeStepsPermissionsInfoIamPermissions(r))
@@ -3272,6 +3427,19 @@ func ProtoToTier2AlphaInstanceFreezeRecipeStepsPermissionsInfoIamPermissions(p *
 	}
 	obj := &alpha.InstanceFreezeRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstanceFreezeRecipeStepsPermissionsInfoResource converts a InstanceFreezeRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstanceFreezeRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoResource) *alpha.InstanceFreezeRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceFreezeRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -3443,6 +3611,7 @@ func ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfo(p *al
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions(r))
@@ -3470,6 +3639,19 @@ func ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPer
 	}
 	obj := &alpha.InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource converts a InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource) *alpha.InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -3641,6 +3823,7 @@ func ProtoToTier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfo(p *alphapb.Tier
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions(r))
@@ -3668,6 +3851,19 @@ func ProtoToTier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions(p
 	}
 	obj := &alpha.InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstanceUnfreezeRecipeStepsPermissionsInfoResource converts a InstanceUnfreezeRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoResource) *alpha.InstanceUnfreezeRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceUnfreezeRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -3839,6 +4035,7 @@ func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissio
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(r))
@@ -3866,6 +4063,19 @@ func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissio
 	}
 	obj := &alpha.InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource converts a InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource) *alpha.InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -4037,6 +4247,7 @@ func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfo(p *
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(r))
@@ -4064,6 +4275,19 @@ func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamP
 	}
 	obj := &alpha.InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource converts a InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource) *alpha.InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -4235,6 +4459,7 @@ func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfo(p *alphapb
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions(r))
@@ -4262,6 +4487,19 @@ func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissi
 	}
 	obj := &alpha.InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessGetRecipeStepsPermissionsInfoResource converts a InstancePreprocessGetRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoResource) *alpha.InstancePreprocessGetRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessGetRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -4433,6 +4671,7 @@ func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(p *al
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions(r))
@@ -4460,6 +4699,19 @@ func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPer
 	}
 	obj := &alpha.InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource converts a InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource) *alpha.InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -4631,6 +4883,7 @@ func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(p *
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions(r))
@@ -4658,6 +4911,19 @@ func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamP
 	}
 	obj := &alpha.InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource converts a InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource) *alpha.InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -4829,6 +5095,7 @@ func ProtoToTier2AlphaInstanceReadonlyRecipeStepsPermissionsInfo(p *alphapb.Tier
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions(r))
@@ -4856,6 +5123,19 @@ func ProtoToTier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions(p
 	}
 	obj := &alpha.InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstanceReadonlyRecipeStepsPermissionsInfoResource converts a InstanceReadonlyRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoResource) *alpha.InstanceReadonlyRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReadonlyRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -5027,6 +5307,7 @@ func ProtoToTier2AlphaInstanceReconcileRecipeStepsPermissionsInfo(p *alphapb.Tie
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstanceReconcileRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceReconcileRecipeStepsPermissionsInfoIamPermissions(r))
@@ -5054,6 +5335,19 @@ func ProtoToTier2AlphaInstanceReconcileRecipeStepsPermissionsInfoIamPermissions(
 	}
 	obj := &alpha.InstanceReconcileRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstanceReconcileRecipeStepsPermissionsInfoResource converts a InstanceReconcileRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstanceReconcileRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoResource) *alpha.InstanceReconcileRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReconcileRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -5225,6 +5519,7 @@ func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfo(p 
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions(r))
@@ -5252,6 +5547,19 @@ func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoIam
 	}
 	obj := &alpha.InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource converts a InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource) *alpha.InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -5423,6 +5731,7 @@ func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfo(p *a
 		ResourcePath:   dcl.StringOrNil(p.ResourcePath),
 		ApiAttrs:       ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 		PolicyNameMode: ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(p.GetPolicyNameMode()),
+		Resource:       ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoResource(p.GetResource()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions(r))
@@ -5450,6 +5759,19 @@ func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPe
 	}
 	obj := &alpha.InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReconcileRecipeStepsPermissionsInfoResource converts a InstancePreprocessReconcileRecipeStepsPermissionsInfoResource resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoResource(p *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoResource) *alpha.InstancePreprocessReconcileRecipeStepsPermissionsInfoResource {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReconcileRecipeStepsPermissionsInfoResource{
+		Name:    dcl.StringOrNil(p.Name),
+		Type:    dcl.StringOrNil(p.Type),
+		Service: dcl.StringOrNil(p.Service),
 	}
 	return obj
 }
@@ -6530,6 +6852,7 @@ func Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoToProto(o *alph
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -6567,6 +6890,23 @@ func Tier2AlphaInstanceGoogleprotobufstructToProto(o *alpha.InstanceGoogleprotob
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceGoogleprotobufstruct{}
+	return p
+}
+
+// InstancePreprocessCreateRecipeStepsPermissionsInfoResourceToProto converts a InstancePreprocessCreateRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstancePreprocessCreateRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
+	}
 	return p
 }
 
@@ -6737,6 +7077,7 @@ func Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoToProto(o *alpha.Instance
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -6764,6 +7105,23 @@ func Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoIamPermissionsToProto(o *
 	}
 	p := &alphapb.Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstanceCreateRecipeStepsPermissionsInfoResourceToProto converts a InstanceCreateRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstanceCreateRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -6935,6 +7293,7 @@ func Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoToProto(o *alpha.Instance
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -6962,6 +7321,23 @@ func Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoIamPermissionsToProto(o *
 	}
 	p := &alphapb.Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstanceDeleteRecipeStepsPermissionsInfoResourceToProto converts a InstanceDeleteRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstanceDeleteRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -7133,6 +7509,7 @@ func Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoToProto(o *alpha.Instance
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -7160,6 +7537,23 @@ func Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoIamPermissionsToProto(o *
 	}
 	p := &alphapb.Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstanceUpdateRecipeStepsPermissionsInfoResourceToProto converts a InstanceUpdateRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstanceUpdateRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -7331,6 +7725,7 @@ func Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoToProto(o *alpha
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -7358,6 +7753,23 @@ func Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissionsTo
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstancePreprocessResetRecipeStepsPermissionsInfoResourceToProto converts a InstancePreprocessResetRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstancePreprocessResetRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -7529,6 +7941,7 @@ func Tier2AlphaInstanceResetRecipeStepsPermissionsInfoToProto(o *alpha.InstanceR
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstanceResetRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceResetRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -7556,6 +7969,23 @@ func Tier2AlphaInstanceResetRecipeStepsPermissionsInfoIamPermissionsToProto(o *a
 	}
 	p := &alphapb.Tier2AlphaInstanceResetRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstanceResetRecipeStepsPermissionsInfoResourceToProto converts a InstanceResetRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstanceResetRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstanceResetRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstanceResetRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceResetRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -7727,6 +8157,7 @@ func Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoToProto(o *alph
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -7754,6 +8185,23 @@ func Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissionsT
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstancePreprocessRepairRecipeStepsPermissionsInfoResourceToProto converts a InstancePreprocessRepairRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstancePreprocessRepairRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -7925,6 +8373,7 @@ func Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoToProto(o *alpha.Instance
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -7952,6 +8401,23 @@ func Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoIamPermissionsToProto(o *
 	}
 	p := &alphapb.Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstanceRepairRecipeStepsPermissionsInfoResourceToProto converts a InstanceRepairRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstanceRepairRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -8123,6 +8589,7 @@ func Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoToProto(o *alph
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -8150,6 +8617,23 @@ func Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissionsT
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstancePreprocessDeleteRecipeStepsPermissionsInfoResourceToProto converts a InstancePreprocessDeleteRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstancePreprocessDeleteRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -8321,6 +8805,7 @@ func Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoToProto(o *alph
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -8348,6 +8833,23 @@ func Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissionsT
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstancePreprocessUpdateRecipeStepsPermissionsInfoResourceToProto converts a InstancePreprocessUpdateRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstancePreprocessUpdateRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -8519,6 +9021,7 @@ func Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoToProto(o *alph
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -8546,6 +9049,23 @@ func Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissionsT
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstancePreprocessFreezeRecipeStepsPermissionsInfoResourceToProto converts a InstancePreprocessFreezeRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstancePreprocessFreezeRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -8717,6 +9237,7 @@ func Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoToProto(o *alpha.Instance
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -8744,6 +9265,23 @@ func Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoIamPermissionsToProto(o *
 	}
 	p := &alphapb.Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstanceFreezeRecipeStepsPermissionsInfoResourceToProto converts a InstanceFreezeRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstanceFreezeRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -8915,6 +9453,7 @@ func Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoToProto(o *al
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -8942,6 +9481,23 @@ func Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermission
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResourceToProto converts a InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -9113,6 +9669,7 @@ func Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoToProto(o *alpha.Instan
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -9140,6 +9697,23 @@ func Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissionsToProto(o
 	}
 	p := &alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstanceUnfreezeRecipeStepsPermissionsInfoResourceToProto converts a InstanceUnfreezeRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstanceUnfreezeRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -9311,6 +9885,7 @@ func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoT
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -9338,6 +9913,23 @@ func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoI
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResourceToProto converts a InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -9509,6 +10101,7 @@ func Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoToProto(o *
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -9536,6 +10129,23 @@ func Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissi
 	}
 	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstanceReportInstanceHealthRecipeStepsPermissionsInfoResourceToProto converts a InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -9707,6 +10317,7 @@ func Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoToProto(o *alpha.I
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -9734,6 +10345,23 @@ func Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissionsToPr
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstancePreprocessGetRecipeStepsPermissionsInfoResourceToProto converts a InstancePreprocessGetRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstancePreprocessGetRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -9905,6 +10533,7 @@ func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoToProto(o *al
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -9932,6 +10561,23 @@ func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermission
 	}
 	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResourceToProto converts a InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -10103,6 +10749,7 @@ func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoToProto(o *
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -10130,6 +10777,23 @@ func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissi
 	}
 	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResourceToProto converts a InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -10301,6 +10965,7 @@ func Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoToProto(o *alpha.Instan
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -10328,6 +10993,23 @@ func Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoIamPermissionsToProto(o
 	}
 	p := &alphapb.Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstanceReadonlyRecipeStepsPermissionsInfoResourceToProto converts a InstanceReadonlyRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstanceReadonlyRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -10499,6 +11181,7 @@ func Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoToProto(o *alpha.Insta
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -10526,6 +11209,23 @@ func Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoIamPermissionsToProto(
 	}
 	p := &alphapb.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstanceReconcileRecipeStepsPermissionsInfoResourceToProto converts a InstanceReconcileRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstanceReconcileRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -10697,6 +11397,7 @@ func Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoToProto(o 
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -10724,6 +11425,23 @@ func Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermiss
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstancePreprocessPassthroughRecipeStepsPermissionsInfoResourceToProto converts a InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }
@@ -10895,6 +11613,7 @@ func Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoToProto(o *a
 		ResourcePath:   dcl.ValueOrEmptyString(o.ResourcePath),
 		ApiAttrs:       Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 		PolicyNameMode: Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumToProto(o.PolicyNameMode),
+		Resource:       Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoResourceToProto(o.Resource),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -10922,6 +11641,23 @@ func Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissio
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions{
 		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstancePreprocessReconcileRecipeStepsPermissionsInfoResourceToProto converts a InstancePreprocessReconcileRecipeStepsPermissionsInfoResource resource to its proto representation.
+func Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoResourceToProto(o *alpha.InstancePreprocessReconcileRecipeStepsPermissionsInfoResource) *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoResource {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoResource{
+		Name:    dcl.ValueOrEmptyString(o.Name),
+		Type:    dcl.ValueOrEmptyString(o.Type),
+		Service: dcl.ValueOrEmptyString(o.Service),
+	}
+	p.Labels = make(map[string]string)
+	for k, r := range o.Labels {
+		p.Labels[k] = r
 	}
 	return p
 }

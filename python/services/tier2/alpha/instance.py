@@ -1784,12 +1784,14 @@ class InstancePreprocessCreateRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -1831,6 +1833,16 @@ class InstancePreprocessCreateRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstancePreprocessCreateRecipeStepsPermissionsInfoResource.to_proto(
+            resource.resource
+        ):
+            res.resource.CopyFrom(
+                InstancePreprocessCreateRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -1849,6 +1861,9 @@ class InstancePreprocessCreateRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstancePreprocessCreateRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -1996,6 +2011,68 @@ class InstanceGoogleprotobufstructArray(object):
     @classmethod
     def from_proto(self, resources):
         return [InstanceGoogleprotobufstruct.from_proto(i) for i in resources]
+
+
+class InstancePreprocessCreateRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_pb2.Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoResource()
+        )
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstancePreprocessCreateRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstancePreprocessCreateRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstancePreprocessCreateRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstancePreprocessCreateRecipeStepsPermissionsInfoResource.from_proto(i)
+            for i in resources
+        ]
 
 
 class InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate(object):
@@ -2728,12 +2805,14 @@ class InstanceCreateRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -2773,6 +2852,14 @@ class InstanceCreateRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstanceCreateRecipeStepsPermissionsInfoResource.to_proto(resource.resource):
+            res.resource.CopyFrom(
+                InstanceCreateRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -2791,6 +2878,9 @@ class InstanceCreateRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstanceCreateRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -2901,6 +2991,66 @@ class InstanceCreateRecipeStepsPermissionsInfoIamPermissionsArray(object):
     def from_proto(self, resources):
         return [
             InstanceCreateRecipeStepsPermissionsInfoIamPermissions.from_proto(i)
+            for i in resources
+        ]
+
+
+class InstanceCreateRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = instance_pb2.Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoResource()
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstanceCreateRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstanceCreateRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstanceCreateRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstanceCreateRecipeStepsPermissionsInfoResource.from_proto(i)
             for i in resources
         ]
 
@@ -3629,12 +3779,14 @@ class InstanceDeleteRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -3674,6 +3826,14 @@ class InstanceDeleteRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstanceDeleteRecipeStepsPermissionsInfoResource.to_proto(resource.resource):
+            res.resource.CopyFrom(
+                InstanceDeleteRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -3692,6 +3852,9 @@ class InstanceDeleteRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstanceDeleteRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -3802,6 +3965,66 @@ class InstanceDeleteRecipeStepsPermissionsInfoIamPermissionsArray(object):
     def from_proto(self, resources):
         return [
             InstanceDeleteRecipeStepsPermissionsInfoIamPermissions.from_proto(i)
+            for i in resources
+        ]
+
+
+class InstanceDeleteRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = instance_pb2.Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoResource()
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstanceDeleteRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstanceDeleteRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstanceDeleteRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstanceDeleteRecipeStepsPermissionsInfoResource.from_proto(i)
             for i in resources
         ]
 
@@ -4530,12 +4753,14 @@ class InstanceUpdateRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -4575,6 +4800,14 @@ class InstanceUpdateRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstanceUpdateRecipeStepsPermissionsInfoResource.to_proto(resource.resource):
+            res.resource.CopyFrom(
+                InstanceUpdateRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -4593,6 +4826,9 @@ class InstanceUpdateRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstanceUpdateRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -4703,6 +4939,66 @@ class InstanceUpdateRecipeStepsPermissionsInfoIamPermissionsArray(object):
     def from_proto(self, resources):
         return [
             InstanceUpdateRecipeStepsPermissionsInfoIamPermissions.from_proto(i)
+            for i in resources
+        ]
+
+
+class InstanceUpdateRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = instance_pb2.Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoResource()
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstanceUpdateRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstanceUpdateRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstanceUpdateRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstanceUpdateRecipeStepsPermissionsInfoResource.from_proto(i)
             for i in resources
         ]
 
@@ -5459,12 +5755,14 @@ class InstancePreprocessResetRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -5504,6 +5802,16 @@ class InstancePreprocessResetRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstancePreprocessResetRecipeStepsPermissionsInfoResource.to_proto(
+            resource.resource
+        ):
+            res.resource.CopyFrom(
+                InstancePreprocessResetRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -5522,6 +5830,9 @@ class InstancePreprocessResetRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstancePreprocessResetRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -5638,6 +5949,68 @@ class InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissionsArray(objec
             InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions.from_proto(
                 i
             )
+            for i in resources
+        ]
+
+
+class InstancePreprocessResetRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_pb2.Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoResource()
+        )
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstancePreprocessResetRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstancePreprocessResetRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstancePreprocessResetRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstancePreprocessResetRecipeStepsPermissionsInfoResource.from_proto(i)
             for i in resources
         ]
 
@@ -6370,12 +6743,14 @@ class InstanceResetRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -6415,6 +6790,14 @@ class InstanceResetRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstanceResetRecipeStepsPermissionsInfoResource.to_proto(resource.resource):
+            res.resource.CopyFrom(
+                InstanceResetRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -6433,6 +6816,9 @@ class InstanceResetRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstanceResetRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -6541,6 +6927,66 @@ class InstanceResetRecipeStepsPermissionsInfoIamPermissionsArray(object):
     def from_proto(self, resources):
         return [
             InstanceResetRecipeStepsPermissionsInfoIamPermissions.from_proto(i)
+            for i in resources
+        ]
+
+
+class InstanceResetRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = instance_pb2.Tier2AlphaInstanceResetRecipeStepsPermissionsInfoResource()
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstanceResetRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstanceResetRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstanceResetRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstanceResetRecipeStepsPermissionsInfoResource.from_proto(i)
             for i in resources
         ]
 
@@ -7301,12 +7747,14 @@ class InstancePreprocessRepairRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -7348,6 +7796,16 @@ class InstancePreprocessRepairRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstancePreprocessRepairRecipeStepsPermissionsInfoResource.to_proto(
+            resource.resource
+        ):
+            res.resource.CopyFrom(
+                InstancePreprocessRepairRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -7366,6 +7824,9 @@ class InstancePreprocessRepairRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstancePreprocessRepairRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -7482,6 +7943,68 @@ class InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissionsArray(obje
             InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions.from_proto(
                 i
             )
+            for i in resources
+        ]
+
+
+class InstancePreprocessRepairRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_pb2.Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoResource()
+        )
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstancePreprocessRepairRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstancePreprocessRepairRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstancePreprocessRepairRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstancePreprocessRepairRecipeStepsPermissionsInfoResource.from_proto(i)
             for i in resources
         ]
 
@@ -8216,12 +8739,14 @@ class InstanceRepairRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -8261,6 +8786,14 @@ class InstanceRepairRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstanceRepairRecipeStepsPermissionsInfoResource.to_proto(resource.resource):
+            res.resource.CopyFrom(
+                InstanceRepairRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -8279,6 +8812,9 @@ class InstanceRepairRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstanceRepairRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -8389,6 +8925,66 @@ class InstanceRepairRecipeStepsPermissionsInfoIamPermissionsArray(object):
     def from_proto(self, resources):
         return [
             InstanceRepairRecipeStepsPermissionsInfoIamPermissions.from_proto(i)
+            for i in resources
+        ]
+
+
+class InstanceRepairRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = instance_pb2.Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoResource()
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstanceRepairRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstanceRepairRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstanceRepairRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstanceRepairRecipeStepsPermissionsInfoResource.from_proto(i)
             for i in resources
         ]
 
@@ -9149,12 +9745,14 @@ class InstancePreprocessDeleteRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -9196,6 +9794,16 @@ class InstancePreprocessDeleteRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstancePreprocessDeleteRecipeStepsPermissionsInfoResource.to_proto(
+            resource.resource
+        ):
+            res.resource.CopyFrom(
+                InstancePreprocessDeleteRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -9214,6 +9822,9 @@ class InstancePreprocessDeleteRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstancePreprocessDeleteRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -9330,6 +9941,68 @@ class InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissionsArray(obje
             InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions.from_proto(
                 i
             )
+            for i in resources
+        ]
+
+
+class InstancePreprocessDeleteRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_pb2.Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoResource()
+        )
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstancePreprocessDeleteRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstancePreprocessDeleteRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstancePreprocessDeleteRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstancePreprocessDeleteRecipeStepsPermissionsInfoResource.from_proto(i)
             for i in resources
         ]
 
@@ -10096,12 +10769,14 @@ class InstancePreprocessUpdateRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -10143,6 +10818,16 @@ class InstancePreprocessUpdateRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstancePreprocessUpdateRecipeStepsPermissionsInfoResource.to_proto(
+            resource.resource
+        ):
+            res.resource.CopyFrom(
+                InstancePreprocessUpdateRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -10161,6 +10846,9 @@ class InstancePreprocessUpdateRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstancePreprocessUpdateRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -10277,6 +10965,68 @@ class InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissionsArray(obje
             InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions.from_proto(
                 i
             )
+            for i in resources
+        ]
+
+
+class InstancePreprocessUpdateRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_pb2.Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoResource()
+        )
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstancePreprocessUpdateRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstancePreprocessUpdateRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstancePreprocessUpdateRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstancePreprocessUpdateRecipeStepsPermissionsInfoResource.from_proto(i)
             for i in resources
         ]
 
@@ -11043,12 +11793,14 @@ class InstancePreprocessFreezeRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -11090,6 +11842,16 @@ class InstancePreprocessFreezeRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstancePreprocessFreezeRecipeStepsPermissionsInfoResource.to_proto(
+            resource.resource
+        ):
+            res.resource.CopyFrom(
+                InstancePreprocessFreezeRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -11108,6 +11870,9 @@ class InstancePreprocessFreezeRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstancePreprocessFreezeRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -11224,6 +11989,68 @@ class InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissionsArray(obje
             InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions.from_proto(
                 i
             )
+            for i in resources
+        ]
+
+
+class InstancePreprocessFreezeRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_pb2.Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoResource()
+        )
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstancePreprocessFreezeRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstancePreprocessFreezeRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstancePreprocessFreezeRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstancePreprocessFreezeRecipeStepsPermissionsInfoResource.from_proto(i)
             for i in resources
         ]
 
@@ -11958,12 +12785,14 @@ class InstanceFreezeRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -12003,6 +12832,14 @@ class InstanceFreezeRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstanceFreezeRecipeStepsPermissionsInfoResource.to_proto(resource.resource):
+            res.resource.CopyFrom(
+                InstanceFreezeRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -12021,6 +12858,9 @@ class InstanceFreezeRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstanceFreezeRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -12131,6 +12971,66 @@ class InstanceFreezeRecipeStepsPermissionsInfoIamPermissionsArray(object):
     def from_proto(self, resources):
         return [
             InstanceFreezeRecipeStepsPermissionsInfoIamPermissions.from_proto(i)
+            for i in resources
+        ]
+
+
+class InstanceFreezeRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = instance_pb2.Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoResource()
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstanceFreezeRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstanceFreezeRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstanceFreezeRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstanceFreezeRecipeStepsPermissionsInfoResource.from_proto(i)
             for i in resources
         ]
 
@@ -12893,12 +13793,14 @@ class InstancePreprocessUnfreezeRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -12940,6 +13842,16 @@ class InstancePreprocessUnfreezeRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource.to_proto(
+            resource.resource
+        ):
+            res.resource.CopyFrom(
+                InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -12958,6 +13870,9 @@ class InstancePreprocessUnfreezeRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -13076,6 +13991,68 @@ class InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissionsArray(ob
             InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions.from_proto(
                 i
             )
+            for i in resources
+        ]
+
+
+class InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_pb2.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource()
+        )
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource.from_proto(i)
             for i in resources
         ]
 
@@ -13813,12 +14790,14 @@ class InstanceUnfreezeRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -13858,6 +14837,16 @@ class InstanceUnfreezeRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstanceUnfreezeRecipeStepsPermissionsInfoResource.to_proto(
+            resource.resource
+        ):
+            res.resource.CopyFrom(
+                InstanceUnfreezeRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -13876,6 +14865,9 @@ class InstanceUnfreezeRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstanceUnfreezeRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -13988,6 +14980,68 @@ class InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissionsArray(object):
     def from_proto(self, resources):
         return [
             InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions.from_proto(i)
+            for i in resources
+        ]
+
+
+class InstanceUnfreezeRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_pb2.Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoResource()
+        )
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstanceUnfreezeRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstanceUnfreezeRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstanceUnfreezeRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstanceUnfreezeRecipeStepsPermissionsInfoResource.from_proto(i)
             for i in resources
         ]
 
@@ -14793,12 +15847,14 @@ class InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -14840,6 +15896,16 @@ class InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource.to_proto(
+            resource.resource
+        ):
+            res.resource.CopyFrom(
+                InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -14858,6 +15924,9 @@ class InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -14988,6 +16057,74 @@ class InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermiss
     def from_proto(self, resources):
         return [
             InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_pb2.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource()
+        )
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResourceArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource.from_proto(
                 i
             )
             for i in resources
@@ -15769,12 +16906,14 @@ class InstanceReportInstanceHealthRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -15816,6 +16955,16 @@ class InstanceReportInstanceHealthRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource.to_proto(
+            resource.resource
+        ):
+            res.resource.CopyFrom(
+                InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -15834,6 +16983,9 @@ class InstanceReportInstanceHealthRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -15954,6 +17106,68 @@ class InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsArray(
             InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions.from_proto(
                 i
             )
+            for i in resources
+        ]
+
+
+class InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_pb2.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource()
+        )
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstanceReportInstanceHealthRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource.from_proto(i)
             for i in resources
         ]
 
@@ -16711,12 +17925,14 @@ class InstancePreprocessGetRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -16756,6 +17972,16 @@ class InstancePreprocessGetRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstancePreprocessGetRecipeStepsPermissionsInfoResource.to_proto(
+            resource.resource
+        ):
+            res.resource.CopyFrom(
+                InstancePreprocessGetRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -16774,6 +18000,9 @@ class InstancePreprocessGetRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstancePreprocessGetRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -16888,6 +18117,68 @@ class InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissionsArray(object)
     def from_proto(self, resources):
         return [
             InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions.from_proto(i)
+            for i in resources
+        ]
+
+
+class InstancePreprocessGetRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_pb2.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoResource()
+        )
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstancePreprocessGetRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstancePreprocessGetRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstancePreprocessGetRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstancePreprocessGetRecipeStepsPermissionsInfoResource.from_proto(i)
             for i in resources
         ]
 
@@ -17656,12 +18947,14 @@ class InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -17703,6 +18996,16 @@ class InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource.to_proto(
+            resource.resource
+        ):
+            res.resource.CopyFrom(
+                InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -17721,6 +19024,9 @@ class InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -17839,6 +19145,68 @@ class InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissionsArray(ob
             InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions.from_proto(
                 i
             )
+            for i in resources
+        ]
+
+
+class InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_pb2.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource()
+        )
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource.from_proto(i)
             for i in resources
         ]
 
@@ -18612,12 +19980,14 @@ class InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -18659,6 +20029,16 @@ class InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource.to_proto(
+            resource.resource
+        ):
+            res.resource.CopyFrom(
+                InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -18677,6 +20057,9 @@ class InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -18797,6 +20180,68 @@ class InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissionsArray(
             InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions.from_proto(
                 i
             )
+            for i in resources
+        ]
+
+
+class InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_pb2.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource()
+        )
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource.from_proto(i)
             for i in resources
         ]
 
@@ -19534,12 +20979,14 @@ class InstanceReadonlyRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -19579,6 +21026,16 @@ class InstanceReadonlyRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstanceReadonlyRecipeStepsPermissionsInfoResource.to_proto(
+            resource.resource
+        ):
+            res.resource.CopyFrom(
+                InstanceReadonlyRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -19597,6 +21054,9 @@ class InstanceReadonlyRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstanceReadonlyRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -19709,6 +21169,68 @@ class InstanceReadonlyRecipeStepsPermissionsInfoIamPermissionsArray(object):
     def from_proto(self, resources):
         return [
             InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions.from_proto(i)
+            for i in resources
+        ]
+
+
+class InstanceReadonlyRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_pb2.Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoResource()
+        )
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstanceReadonlyRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstanceReadonlyRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstanceReadonlyRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstanceReadonlyRecipeStepsPermissionsInfoResource.from_proto(i)
             for i in resources
         ]
 
@@ -20452,12 +21974,14 @@ class InstanceReconcileRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -20497,6 +22021,16 @@ class InstanceReconcileRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstanceReconcileRecipeStepsPermissionsInfoResource.to_proto(
+            resource.resource
+        ):
+            res.resource.CopyFrom(
+                InstanceReconcileRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -20515,6 +22049,9 @@ class InstanceReconcileRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstanceReconcileRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -20627,6 +22164,68 @@ class InstanceReconcileRecipeStepsPermissionsInfoIamPermissionsArray(object):
     def from_proto(self, resources):
         return [
             InstanceReconcileRecipeStepsPermissionsInfoIamPermissions.from_proto(i)
+            for i in resources
+        ]
+
+
+class InstanceReconcileRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_pb2.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoResource()
+        )
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstanceReconcileRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstanceReconcileRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstanceReconcileRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstanceReconcileRecipeStepsPermissionsInfoResource.from_proto(i)
             for i in resources
         ]
 
@@ -21399,12 +22998,14 @@ class InstancePreprocessPassthroughRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -21446,6 +23047,16 @@ class InstancePreprocessPassthroughRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource.to_proto(
+            resource.resource
+        ):
+            res.resource.CopyFrom(
+                InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -21464,6 +23075,9 @@ class InstancePreprocessPassthroughRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -21586,6 +23200,70 @@ class InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissionsArray
     def from_proto(self, resources):
         return [
             InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_pb2.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource()
+        )
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstancePreprocessPassthroughRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource.from_proto(
                 i
             )
             for i in resources
@@ -22359,12 +24037,14 @@ class InstancePreprocessReconcileRecipeStepsPermissionsInfo(object):
         resource_path: str = None,
         api_attrs: dict = None,
         policy_name_mode: str = None,
+        resource: dict = None,
     ):
         self.policy_name = policy_name
         self.iam_permissions = iam_permissions
         self.resource_path = resource_path
         self.api_attrs = api_attrs
         self.policy_name_mode = policy_name_mode
+        self.resource = resource
 
     @classmethod
     def to_proto(self, resource):
@@ -22406,6 +24086,16 @@ class InstancePreprocessReconcileRecipeStepsPermissionsInfo(object):
             res.policy_name_mode = InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum.to_proto(
                 resource.policy_name_mode
             )
+        if InstancePreprocessReconcileRecipeStepsPermissionsInfoResource.to_proto(
+            resource.resource
+        ):
+            res.resource.CopyFrom(
+                InstancePreprocessReconcileRecipeStepsPermissionsInfoResource.to_proto(
+                    resource.resource
+                )
+            )
+        else:
+            res.ClearField("resource")
         return res
 
     @classmethod
@@ -22424,6 +24114,9 @@ class InstancePreprocessReconcileRecipeStepsPermissionsInfo(object):
             api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
             policy_name_mode=InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum.from_proto(
                 resource.policy_name_mode
+            ),
+            resource=InstancePreprocessReconcileRecipeStepsPermissionsInfoResource.from_proto(
+                resource.resource
             ),
         )
 
@@ -22544,6 +24237,68 @@ class InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissionsArray(o
             InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions.from_proto(
                 i
             )
+            for i in resources
+        ]
+
+
+class InstancePreprocessReconcileRecipeStepsPermissionsInfoResource(object):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        service: str = None,
+        labels: dict = None,
+    ):
+        self.name = name
+        self.type = type
+        self.service = service
+        self.labels = labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_pb2.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoResource()
+        )
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.type):
+            res.type = Primitive.to_proto(resource.type)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstancePreprocessReconcileRecipeStepsPermissionsInfoResource(
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            service=Primitive.from_proto(resource.service),
+            labels=Primitive.from_proto(resource.labels),
+        )
+
+
+class InstancePreprocessReconcileRecipeStepsPermissionsInfoResourceArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstancePreprocessReconcileRecipeStepsPermissionsInfoResource.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstancePreprocessReconcileRecipeStepsPermissionsInfoResource.from_proto(i)
             for i in resources
         ]
 

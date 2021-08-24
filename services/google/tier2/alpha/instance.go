@@ -2602,6 +2602,7 @@ type InstancePreprocessCreateRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                               `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                                         `json:"apiAttrs"`
 	PolicyNameMode *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstancePreprocessCreateRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstancePreprocessCreateRecipeStepsPermissionsInfo InstancePreprocessCreateRecipeStepsPermissionsInfo
@@ -2628,6 +2629,8 @@ func (r *InstancePreprocessCreateRecipeStepsPermissionsInfo) UnmarshalJSON(data 
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -2788,6 +2791,61 @@ func (r *InstanceGoogleprotobufstruct) String() string {
 }
 
 func (r *InstanceGoogleprotobufstruct) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstancePreprocessCreateRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstancePreprocessCreateRecipeStepsPermissionsInfoResource InstancePreprocessCreateRecipeStepsPermissionsInfoResource
+
+func (r *InstancePreprocessCreateRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessCreateRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessCreateRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstancePreprocessCreateRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstancePreprocessCreateRecipeStepsPermissionsInfoResource *InstancePreprocessCreateRecipeStepsPermissionsInfoResource = &InstancePreprocessCreateRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstancePreprocessCreateRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstancePreprocessCreateRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstancePreprocessCreateRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -3366,6 +3424,7 @@ type InstanceCreateRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                     `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                               `json:"apiAttrs"`
 	PolicyNameMode *InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstanceCreateRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstanceCreateRecipeStepsPermissionsInfo InstanceCreateRecipeStepsPermissionsInfo
@@ -3392,6 +3451,8 @@ func (r *InstanceCreateRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) er
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -3509,6 +3570,61 @@ func (r *InstanceCreateRecipeStepsPermissionsInfoIamPermissions) String() string
 }
 
 func (r *InstanceCreateRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstanceCreateRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstanceCreateRecipeStepsPermissionsInfoResource InstanceCreateRecipeStepsPermissionsInfoResource
+
+func (r *InstanceCreateRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceCreateRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceCreateRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstanceCreateRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstanceCreateRecipeStepsPermissionsInfoResource *InstanceCreateRecipeStepsPermissionsInfoResource = &InstanceCreateRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstanceCreateRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstanceCreateRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstanceCreateRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -4087,6 +4203,7 @@ type InstanceDeleteRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                     `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                               `json:"apiAttrs"`
 	PolicyNameMode *InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstanceDeleteRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstanceDeleteRecipeStepsPermissionsInfo InstanceDeleteRecipeStepsPermissionsInfo
@@ -4113,6 +4230,8 @@ func (r *InstanceDeleteRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) er
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -4230,6 +4349,61 @@ func (r *InstanceDeleteRecipeStepsPermissionsInfoIamPermissions) String() string
 }
 
 func (r *InstanceDeleteRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstanceDeleteRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstanceDeleteRecipeStepsPermissionsInfoResource InstanceDeleteRecipeStepsPermissionsInfoResource
+
+func (r *InstanceDeleteRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceDeleteRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceDeleteRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstanceDeleteRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstanceDeleteRecipeStepsPermissionsInfoResource *InstanceDeleteRecipeStepsPermissionsInfoResource = &InstanceDeleteRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstanceDeleteRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstanceDeleteRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstanceDeleteRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -4808,6 +4982,7 @@ type InstanceUpdateRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                     `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                               `json:"apiAttrs"`
 	PolicyNameMode *InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstanceUpdateRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstanceUpdateRecipeStepsPermissionsInfo InstanceUpdateRecipeStepsPermissionsInfo
@@ -4834,6 +5009,8 @@ func (r *InstanceUpdateRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) er
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -4951,6 +5128,61 @@ func (r *InstanceUpdateRecipeStepsPermissionsInfoIamPermissions) String() string
 }
 
 func (r *InstanceUpdateRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstanceUpdateRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstanceUpdateRecipeStepsPermissionsInfoResource InstanceUpdateRecipeStepsPermissionsInfoResource
+
+func (r *InstanceUpdateRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUpdateRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUpdateRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstanceUpdateRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstanceUpdateRecipeStepsPermissionsInfoResource *InstanceUpdateRecipeStepsPermissionsInfoResource = &InstanceUpdateRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstanceUpdateRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstanceUpdateRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstanceUpdateRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -5529,6 +5761,7 @@ type InstancePreprocessResetRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                              `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                                        `json:"apiAttrs"`
 	PolicyNameMode *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstancePreprocessResetRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstancePreprocessResetRecipeStepsPermissionsInfo InstancePreprocessResetRecipeStepsPermissionsInfo
@@ -5555,6 +5788,8 @@ func (r *InstancePreprocessResetRecipeStepsPermissionsInfo) UnmarshalJSON(data [
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -5672,6 +5907,61 @@ func (r *InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions) String
 }
 
 func (r *InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstancePreprocessResetRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstancePreprocessResetRecipeStepsPermissionsInfoResource InstancePreprocessResetRecipeStepsPermissionsInfoResource
+
+func (r *InstancePreprocessResetRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessResetRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessResetRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstancePreprocessResetRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstancePreprocessResetRecipeStepsPermissionsInfoResource *InstancePreprocessResetRecipeStepsPermissionsInfoResource = &InstancePreprocessResetRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstancePreprocessResetRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstancePreprocessResetRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstancePreprocessResetRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -6250,6 +6540,7 @@ type InstanceResetRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                    `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                              `json:"apiAttrs"`
 	PolicyNameMode *InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstanceResetRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstanceResetRecipeStepsPermissionsInfo InstanceResetRecipeStepsPermissionsInfo
@@ -6276,6 +6567,8 @@ func (r *InstanceResetRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) err
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -6393,6 +6686,61 @@ func (r *InstanceResetRecipeStepsPermissionsInfoIamPermissions) String() string 
 }
 
 func (r *InstanceResetRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstanceResetRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstanceResetRecipeStepsPermissionsInfoResource InstanceResetRecipeStepsPermissionsInfoResource
+
+func (r *InstanceResetRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceResetRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceResetRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstanceResetRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstanceResetRecipeStepsPermissionsInfoResource *InstanceResetRecipeStepsPermissionsInfoResource = &InstanceResetRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstanceResetRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstanceResetRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstanceResetRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -6971,6 +7319,7 @@ type InstancePreprocessRepairRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                               `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                                         `json:"apiAttrs"`
 	PolicyNameMode *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstancePreprocessRepairRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstancePreprocessRepairRecipeStepsPermissionsInfo InstancePreprocessRepairRecipeStepsPermissionsInfo
@@ -6997,6 +7346,8 @@ func (r *InstancePreprocessRepairRecipeStepsPermissionsInfo) UnmarshalJSON(data 
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -7114,6 +7465,61 @@ func (r *InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions) Strin
 }
 
 func (r *InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstancePreprocessRepairRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstancePreprocessRepairRecipeStepsPermissionsInfoResource InstancePreprocessRepairRecipeStepsPermissionsInfoResource
+
+func (r *InstancePreprocessRepairRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessRepairRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessRepairRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstancePreprocessRepairRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstancePreprocessRepairRecipeStepsPermissionsInfoResource *InstancePreprocessRepairRecipeStepsPermissionsInfoResource = &InstancePreprocessRepairRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstancePreprocessRepairRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstancePreprocessRepairRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstancePreprocessRepairRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -7692,6 +8098,7 @@ type InstanceRepairRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                     `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                               `json:"apiAttrs"`
 	PolicyNameMode *InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstanceRepairRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstanceRepairRecipeStepsPermissionsInfo InstanceRepairRecipeStepsPermissionsInfo
@@ -7718,6 +8125,8 @@ func (r *InstanceRepairRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) er
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -7835,6 +8244,61 @@ func (r *InstanceRepairRecipeStepsPermissionsInfoIamPermissions) String() string
 }
 
 func (r *InstanceRepairRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstanceRepairRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstanceRepairRecipeStepsPermissionsInfoResource InstanceRepairRecipeStepsPermissionsInfoResource
+
+func (r *InstanceRepairRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceRepairRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceRepairRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstanceRepairRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstanceRepairRecipeStepsPermissionsInfoResource *InstanceRepairRecipeStepsPermissionsInfoResource = &InstanceRepairRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstanceRepairRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstanceRepairRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstanceRepairRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -8413,6 +8877,7 @@ type InstancePreprocessDeleteRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                               `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                                         `json:"apiAttrs"`
 	PolicyNameMode *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstancePreprocessDeleteRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstancePreprocessDeleteRecipeStepsPermissionsInfo InstancePreprocessDeleteRecipeStepsPermissionsInfo
@@ -8439,6 +8904,8 @@ func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfo) UnmarshalJSON(data 
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -8556,6 +9023,61 @@ func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions) Strin
 }
 
 func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstancePreprocessDeleteRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstancePreprocessDeleteRecipeStepsPermissionsInfoResource InstancePreprocessDeleteRecipeStepsPermissionsInfoResource
+
+func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessDeleteRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessDeleteRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstancePreprocessDeleteRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstancePreprocessDeleteRecipeStepsPermissionsInfoResource *InstancePreprocessDeleteRecipeStepsPermissionsInfoResource = &InstancePreprocessDeleteRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -9134,6 +9656,7 @@ type InstancePreprocessUpdateRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                               `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                                         `json:"apiAttrs"`
 	PolicyNameMode *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstancePreprocessUpdateRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstancePreprocessUpdateRecipeStepsPermissionsInfo InstancePreprocessUpdateRecipeStepsPermissionsInfo
@@ -9160,6 +9683,8 @@ func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfo) UnmarshalJSON(data 
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -9277,6 +9802,61 @@ func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions) Strin
 }
 
 func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstancePreprocessUpdateRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstancePreprocessUpdateRecipeStepsPermissionsInfoResource InstancePreprocessUpdateRecipeStepsPermissionsInfoResource
+
+func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUpdateRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUpdateRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstancePreprocessUpdateRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstancePreprocessUpdateRecipeStepsPermissionsInfoResource *InstancePreprocessUpdateRecipeStepsPermissionsInfoResource = &InstancePreprocessUpdateRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -9855,6 +10435,7 @@ type InstancePreprocessFreezeRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                               `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                                         `json:"apiAttrs"`
 	PolicyNameMode *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstancePreprocessFreezeRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstancePreprocessFreezeRecipeStepsPermissionsInfo InstancePreprocessFreezeRecipeStepsPermissionsInfo
@@ -9881,6 +10462,8 @@ func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfo) UnmarshalJSON(data 
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -9998,6 +10581,61 @@ func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions) Strin
 }
 
 func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstancePreprocessFreezeRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstancePreprocessFreezeRecipeStepsPermissionsInfoResource InstancePreprocessFreezeRecipeStepsPermissionsInfoResource
+
+func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessFreezeRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessFreezeRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstancePreprocessFreezeRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstancePreprocessFreezeRecipeStepsPermissionsInfoResource *InstancePreprocessFreezeRecipeStepsPermissionsInfoResource = &InstancePreprocessFreezeRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -10576,6 +11214,7 @@ type InstanceFreezeRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                     `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                               `json:"apiAttrs"`
 	PolicyNameMode *InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstanceFreezeRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstanceFreezeRecipeStepsPermissionsInfo InstanceFreezeRecipeStepsPermissionsInfo
@@ -10602,6 +11241,8 @@ func (r *InstanceFreezeRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) er
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -10719,6 +11360,61 @@ func (r *InstanceFreezeRecipeStepsPermissionsInfoIamPermissions) String() string
 }
 
 func (r *InstanceFreezeRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstanceFreezeRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstanceFreezeRecipeStepsPermissionsInfoResource InstanceFreezeRecipeStepsPermissionsInfoResource
+
+func (r *InstanceFreezeRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceFreezeRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceFreezeRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstanceFreezeRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstanceFreezeRecipeStepsPermissionsInfoResource *InstanceFreezeRecipeStepsPermissionsInfoResource = &InstanceFreezeRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstanceFreezeRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstanceFreezeRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstanceFreezeRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -11297,6 +11993,7 @@ type InstancePreprocessUnfreezeRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                                 `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                                           `json:"apiAttrs"`
 	PolicyNameMode *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstancePreprocessUnfreezeRecipeStepsPermissionsInfo InstancePreprocessUnfreezeRecipeStepsPermissionsInfo
@@ -11323,6 +12020,8 @@ func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfo) UnmarshalJSON(dat
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -11440,6 +12139,61 @@ func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions) Str
 }
 
 func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource
+
+func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource = &InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -12018,6 +12772,7 @@ type InstanceUnfreezeRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                       `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                                 `json:"apiAttrs"`
 	PolicyNameMode *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstanceUnfreezeRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstanceUnfreezeRecipeStepsPermissionsInfo InstanceUnfreezeRecipeStepsPermissionsInfo
@@ -12044,6 +12799,8 @@ func (r *InstanceUnfreezeRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) 
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -12161,6 +12918,61 @@ func (r *InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions) String() stri
 }
 
 func (r *InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstanceUnfreezeRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstanceUnfreezeRecipeStepsPermissionsInfoResource InstanceUnfreezeRecipeStepsPermissionsInfoResource
+
+func (r *InstanceUnfreezeRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUnfreezeRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUnfreezeRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstanceUnfreezeRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstanceUnfreezeRecipeStepsPermissionsInfoResource *InstanceUnfreezeRecipeStepsPermissionsInfoResource = &InstanceUnfreezeRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstanceUnfreezeRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstanceUnfreezeRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstanceUnfreezeRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -12739,6 +13551,7 @@ type InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                                             `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                                                       `json:"apiAttrs"`
 	PolicyNameMode *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo
@@ -12765,6 +13578,8 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo) Unmar
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -12882,6 +13697,61 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPerm
 }
 
 func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource
+
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource = &InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -13460,6 +14330,7 @@ type InstanceReportInstanceHealthRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                                   `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                                             `json:"apiAttrs"`
 	PolicyNameMode *InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstanceReportInstanceHealthRecipeStepsPermissionsInfo InstanceReportInstanceHealthRecipeStepsPermissionsInfo
@@ -13486,6 +14357,8 @@ func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfo) UnmarshalJSON(d
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -13603,6 +14476,61 @@ func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) S
 }
 
 func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource
+
+func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource *InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource = &InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -14181,6 +15109,7 @@ type InstancePreprocessGetRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                            `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                                      `json:"apiAttrs"`
 	PolicyNameMode *InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstancePreprocessGetRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstancePreprocessGetRecipeStepsPermissionsInfo InstancePreprocessGetRecipeStepsPermissionsInfo
@@ -14207,6 +15136,8 @@ func (r *InstancePreprocessGetRecipeStepsPermissionsInfo) UnmarshalJSON(data []b
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -14324,6 +15255,61 @@ func (r *InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions) String()
 }
 
 func (r *InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstancePreprocessGetRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstancePreprocessGetRecipeStepsPermissionsInfoResource InstancePreprocessGetRecipeStepsPermissionsInfoResource
+
+func (r *InstancePreprocessGetRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessGetRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessGetRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstancePreprocessGetRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstancePreprocessGetRecipeStepsPermissionsInfoResource *InstancePreprocessGetRecipeStepsPermissionsInfoResource = &InstancePreprocessGetRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstancePreprocessGetRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstancePreprocessGetRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstancePreprocessGetRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -14902,6 +15888,7 @@ type InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                                 `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                                           `json:"apiAttrs"`
 	PolicyNameMode *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo
@@ -14928,6 +15915,8 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo) UnmarshalJSON(dat
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -15045,6 +16034,61 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions) Str
 }
 
 func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource
+
+func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource = &InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -15623,6 +16667,7 @@ type InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                                   `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                                             `json:"apiAttrs"`
 	PolicyNameMode *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo
@@ -15649,6 +16694,8 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo) UnmarshalJSON(d
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -15766,6 +16813,61 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions) S
 }
 
 func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource
+
+func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource = &InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -16344,6 +17446,7 @@ type InstanceReadonlyRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                       `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                                 `json:"apiAttrs"`
 	PolicyNameMode *InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstanceReadonlyRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstanceReadonlyRecipeStepsPermissionsInfo InstanceReadonlyRecipeStepsPermissionsInfo
@@ -16370,6 +17473,8 @@ func (r *InstanceReadonlyRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) 
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -16487,6 +17592,61 @@ func (r *InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions) String() stri
 }
 
 func (r *InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstanceReadonlyRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstanceReadonlyRecipeStepsPermissionsInfoResource InstanceReadonlyRecipeStepsPermissionsInfoResource
+
+func (r *InstanceReadonlyRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReadonlyRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReadonlyRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstanceReadonlyRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstanceReadonlyRecipeStepsPermissionsInfoResource *InstanceReadonlyRecipeStepsPermissionsInfoResource = &InstanceReadonlyRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstanceReadonlyRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstanceReadonlyRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstanceReadonlyRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -17065,6 +18225,7 @@ type InstanceReconcileRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                        `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                                  `json:"apiAttrs"`
 	PolicyNameMode *InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstanceReconcileRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstanceReconcileRecipeStepsPermissionsInfo InstanceReconcileRecipeStepsPermissionsInfo
@@ -17091,6 +18252,8 @@ func (r *InstanceReconcileRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte)
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -17208,6 +18371,61 @@ func (r *InstanceReconcileRecipeStepsPermissionsInfoIamPermissions) String() str
 }
 
 func (r *InstanceReconcileRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstanceReconcileRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstanceReconcileRecipeStepsPermissionsInfoResource InstanceReconcileRecipeStepsPermissionsInfoResource
+
+func (r *InstanceReconcileRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReconcileRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReconcileRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstanceReconcileRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstanceReconcileRecipeStepsPermissionsInfoResource *InstanceReconcileRecipeStepsPermissionsInfoResource = &InstanceReconcileRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstanceReconcileRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstanceReconcileRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstanceReconcileRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -17786,6 +19004,7 @@ type InstancePreprocessPassthroughRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                                    `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                                              `json:"apiAttrs"`
 	PolicyNameMode *InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstancePreprocessPassthroughRecipeStepsPermissionsInfo InstancePreprocessPassthroughRecipeStepsPermissionsInfo
@@ -17812,6 +19031,8 @@ func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfo) UnmarshalJSON(
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -17929,6 +19150,61 @@ func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions) 
 }
 
 func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource
+
+func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource *InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource = &InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -18507,6 +19783,7 @@ type InstancePreprocessReconcileRecipeStepsPermissionsInfo struct {
 	ResourcePath   *string                                                                  `json:"resourcePath"`
 	ApiAttrs       *InstanceGoogleprotobufstruct                                            `json:"apiAttrs"`
 	PolicyNameMode *InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum `json:"policyNameMode"`
+	Resource       *InstancePreprocessReconcileRecipeStepsPermissionsInfoResource           `json:"resource"`
 }
 
 type jsonInstancePreprocessReconcileRecipeStepsPermissionsInfo InstancePreprocessReconcileRecipeStepsPermissionsInfo
@@ -18533,6 +19810,8 @@ func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfo) UnmarshalJSON(da
 		r.ApiAttrs = res.ApiAttrs
 
 		r.PolicyNameMode = res.PolicyNameMode
+
+		r.Resource = res.Resource
 
 	}
 	return nil
@@ -18650,6 +19929,61 @@ func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions) St
 }
 
 func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstancePreprocessReconcileRecipeStepsPermissionsInfoResource struct {
+	empty   bool              `json:"-"`
+	Name    *string           `json:"name"`
+	Type    *string           `json:"type"`
+	Service *string           `json:"service"`
+	Labels  map[string]string `json:"labels"`
+}
+
+type jsonInstancePreprocessReconcileRecipeStepsPermissionsInfoResource InstancePreprocessReconcileRecipeStepsPermissionsInfoResource
+
+func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfoResource) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReconcileRecipeStepsPermissionsInfoResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReconcileRecipeStepsPermissionsInfoResource
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.Service = res.Service
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstancePreprocessReconcileRecipeStepsPermissionsInfoResource is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstancePreprocessReconcileRecipeStepsPermissionsInfoResource *InstancePreprocessReconcileRecipeStepsPermissionsInfoResource = &InstancePreprocessReconcileRecipeStepsPermissionsInfoResource{empty: true}
+
+func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfoResource) Empty() bool {
+	return r.empty
+}
+
+func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfoResource) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfoResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

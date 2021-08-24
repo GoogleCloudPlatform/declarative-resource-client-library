@@ -21,10 +21,10 @@ type: log_exclusion
 updates:
 - resource: samples/update_project.log_exclusion.json
 variables:
-- name: log
-  type: resource_name
 - name: org_id
   type: org_id
+- name: log
+  type: resource_name
 - name: test_service_account
   type: test_service_account
 - name: log_exclusion_name

@@ -20,12 +20,12 @@ type: job
 updates:
 - resource: samples/update.job.json
 variables:
-- name: region
-  type: region
 - name: project
   type: project
 - name: cluster_name
   type: resource_name
+- name: region
+  type: region
 versions:
 - ga
 - beta

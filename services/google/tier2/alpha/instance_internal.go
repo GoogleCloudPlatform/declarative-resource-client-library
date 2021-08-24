@@ -226,6 +226,11 @@ func (r *InstancePreprocessCreateRecipeStepsPermissionsInfo) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName) validate() error {
@@ -235,6 +240,9 @@ func (r *InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions) valid
 	return nil
 }
 func (r *InstanceGoogleprotobufstruct) validate() error {
+	return nil
+}
+func (r *InstancePreprocessCreateRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -303,12 +311,20 @@ func (r *InstanceCreateRecipeStepsPermissionsInfo) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstanceCreateRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstanceCreateRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstanceCreateRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstanceCreateRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -377,12 +393,20 @@ func (r *InstanceDeleteRecipeStepsPermissionsInfo) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstanceDeleteRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstanceDeleteRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstanceDeleteRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -451,12 +475,20 @@ func (r *InstanceUpdateRecipeStepsPermissionsInfo) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstanceUpdateRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstanceUpdateRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstanceUpdateRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -525,12 +557,20 @@ func (r *InstancePreprocessResetRecipeStepsPermissionsInfo) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstancePreprocessResetRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -599,12 +639,20 @@ func (r *InstanceResetRecipeStepsPermissionsInfo) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstanceResetRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstanceResetRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstanceResetRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstanceResetRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -673,12 +721,20 @@ func (r *InstancePreprocessRepairRecipeStepsPermissionsInfo) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstancePreprocessRepairRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -747,12 +803,20 @@ func (r *InstanceRepairRecipeStepsPermissionsInfo) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstanceRepairRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstanceRepairRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstanceRepairRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstanceRepairRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -821,12 +885,20 @@ func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfo) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -895,12 +967,20 @@ func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfo) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -969,12 +1049,20 @@ func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfo) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -1043,12 +1131,20 @@ func (r *InstanceFreezeRecipeStepsPermissionsInfo) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstanceFreezeRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstanceFreezeRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstanceFreezeRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -1117,12 +1213,20 @@ func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfo) validate() error 
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -1191,12 +1295,20 @@ func (r *InstanceUnfreezeRecipeStepsPermissionsInfo) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstanceUnfreezeRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -1265,12 +1377,20 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo) valid
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -1339,12 +1459,20 @@ func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfo) validate() erro
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -1413,12 +1541,20 @@ func (r *InstancePreprocessGetRecipeStepsPermissionsInfo) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstancePreprocessGetRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -1487,12 +1623,20 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo) validate() error 
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -1561,12 +1705,20 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo) validate() erro
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -1635,12 +1787,20 @@ func (r *InstanceReadonlyRecipeStepsPermissionsInfo) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstanceReadonlyRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstanceReadonlyRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -1709,12 +1869,20 @@ func (r *InstanceReconcileRecipeStepsPermissionsInfo) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstanceReconcileRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstanceReconcileRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstanceReconcileRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -1783,12 +1951,20 @@ func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfo) validate() err
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -1857,12 +2033,20 @@ func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfo) validate() error
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Resource) {
+		if err := r.Resource.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName) validate() error {
 	return nil
 }
 func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions) validate() error {
+	return nil
+}
+func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfoResource) validate() error {
 	return nil
 }
 func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate) validate() error {
@@ -3980,6 +4164,7 @@ func canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfo(des, initial
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -4004,6 +4189,7 @@ func canonicalizeNewInstancePreprocessCreateRecipeStepsPermissionsInfo(c *Client
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstancePreprocessCreateRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -4312,6 +4498,114 @@ func canonicalizeNewInstanceGoogleprotobufstructSlice(c *Client, des, nw []Insta
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceGoogleprotobufstruct(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoResource(des, initial *InstancePreprocessCreateRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstancePreprocessCreateRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstancePreprocessCreateRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstancePreprocessCreateRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessCreateRecipeStepsPermissionsInfoResource) *InstancePreprocessCreateRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessCreateRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstancePreprocessCreateRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstancePreprocessCreateRecipeStepsPermissionsInfoResource) []InstancePreprocessCreateRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstancePreprocessCreateRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstancePreprocessCreateRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstancePreprocessCreateRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstancePreprocessCreateRecipeStepsPermissionsInfoResource) []InstancePreprocessCreateRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstancePreprocessCreateRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstancePreprocessCreateRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -5410,6 +5704,7 @@ func canonicalizeInstanceCreateRecipeStepsPermissionsInfo(des, initial *Instance
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstanceCreateRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -5434,6 +5729,7 @@ func canonicalizeNewInstanceCreateRecipeStepsPermissionsInfo(c *Client, des, nw 
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstanceCreateRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -5666,6 +5962,114 @@ func canonicalizeNewInstanceCreateRecipeStepsPermissionsInfoIamPermissionsSlice(
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceCreateRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceCreateRecipeStepsPermissionsInfoResource(des, initial *InstanceCreateRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstanceCreateRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceCreateRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstanceCreateRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceCreateRecipeStepsPermissionsInfoResource) *InstanceCreateRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceCreateRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceCreateRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstanceCreateRecipeStepsPermissionsInfoResource) []InstanceCreateRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceCreateRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceCreateRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceCreateRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstanceCreateRecipeStepsPermissionsInfoResource) []InstanceCreateRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceCreateRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceCreateRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -6764,6 +7168,7 @@ func canonicalizeInstanceDeleteRecipeStepsPermissionsInfo(des, initial *Instance
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstanceDeleteRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -6788,6 +7193,7 @@ func canonicalizeNewInstanceDeleteRecipeStepsPermissionsInfo(c *Client, des, nw 
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstanceDeleteRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -7020,6 +7426,114 @@ func canonicalizeNewInstanceDeleteRecipeStepsPermissionsInfoIamPermissionsSlice(
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceDeleteRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceDeleteRecipeStepsPermissionsInfoResource(des, initial *InstanceDeleteRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstanceDeleteRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceDeleteRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstanceDeleteRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceDeleteRecipeStepsPermissionsInfoResource) *InstanceDeleteRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceDeleteRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceDeleteRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstanceDeleteRecipeStepsPermissionsInfoResource) []InstanceDeleteRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceDeleteRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceDeleteRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceDeleteRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstanceDeleteRecipeStepsPermissionsInfoResource) []InstanceDeleteRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceDeleteRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceDeleteRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -8118,6 +8632,7 @@ func canonicalizeInstanceUpdateRecipeStepsPermissionsInfo(des, initial *Instance
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstanceUpdateRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -8142,6 +8657,7 @@ func canonicalizeNewInstanceUpdateRecipeStepsPermissionsInfo(c *Client, des, nw 
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstanceUpdateRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -8374,6 +8890,114 @@ func canonicalizeNewInstanceUpdateRecipeStepsPermissionsInfoIamPermissionsSlice(
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceUpdateRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceUpdateRecipeStepsPermissionsInfoResource(des, initial *InstanceUpdateRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstanceUpdateRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceUpdateRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstanceUpdateRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceUpdateRecipeStepsPermissionsInfoResource) *InstanceUpdateRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUpdateRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceUpdateRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstanceUpdateRecipeStepsPermissionsInfoResource) []InstanceUpdateRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceUpdateRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceUpdateRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceUpdateRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstanceUpdateRecipeStepsPermissionsInfoResource) []InstanceUpdateRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceUpdateRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceUpdateRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -9472,6 +10096,7 @@ func canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfo(des, initial 
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -9496,6 +10121,7 @@ func canonicalizeNewInstancePreprocessResetRecipeStepsPermissionsInfo(c *Client,
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstancePreprocessResetRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -9728,6 +10354,114 @@ func canonicalizeNewInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissi
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoResource(des, initial *InstancePreprocessResetRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstancePreprocessResetRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstancePreprocessResetRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstancePreprocessResetRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessResetRecipeStepsPermissionsInfoResource) *InstancePreprocessResetRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessResetRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstancePreprocessResetRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstancePreprocessResetRecipeStepsPermissionsInfoResource) []InstancePreprocessResetRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstancePreprocessResetRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstancePreprocessResetRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstancePreprocessResetRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstancePreprocessResetRecipeStepsPermissionsInfoResource) []InstancePreprocessResetRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstancePreprocessResetRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstancePreprocessResetRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -10826,6 +11560,7 @@ func canonicalizeInstanceResetRecipeStepsPermissionsInfo(des, initial *InstanceR
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstanceResetRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -10850,6 +11585,7 @@ func canonicalizeNewInstanceResetRecipeStepsPermissionsInfo(c *Client, des, nw *
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstanceResetRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -11082,6 +11818,114 @@ func canonicalizeNewInstanceResetRecipeStepsPermissionsInfoIamPermissionsSlice(c
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceResetRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceResetRecipeStepsPermissionsInfoResource(des, initial *InstanceResetRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstanceResetRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceResetRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstanceResetRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceResetRecipeStepsPermissionsInfoResource) *InstanceResetRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceResetRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceResetRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstanceResetRecipeStepsPermissionsInfoResource) []InstanceResetRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceResetRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceResetRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceResetRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstanceResetRecipeStepsPermissionsInfoResource) []InstanceResetRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceResetRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceResetRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -12180,6 +13024,7 @@ func canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfo(des, initial
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -12204,6 +13049,7 @@ func canonicalizeNewInstancePreprocessRepairRecipeStepsPermissionsInfo(c *Client
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstancePreprocessRepairRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -12436,6 +13282,114 @@ func canonicalizeNewInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermiss
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoResource(des, initial *InstancePreprocessRepairRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstancePreprocessRepairRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstancePreprocessRepairRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstancePreprocessRepairRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessRepairRecipeStepsPermissionsInfoResource) *InstancePreprocessRepairRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessRepairRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstancePreprocessRepairRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstancePreprocessRepairRecipeStepsPermissionsInfoResource) []InstancePreprocessRepairRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstancePreprocessRepairRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstancePreprocessRepairRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstancePreprocessRepairRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstancePreprocessRepairRecipeStepsPermissionsInfoResource) []InstancePreprocessRepairRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstancePreprocessRepairRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstancePreprocessRepairRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -13534,6 +14488,7 @@ func canonicalizeInstanceRepairRecipeStepsPermissionsInfo(des, initial *Instance
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstanceRepairRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -13558,6 +14513,7 @@ func canonicalizeNewInstanceRepairRecipeStepsPermissionsInfo(c *Client, des, nw 
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstanceRepairRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -13790,6 +14746,114 @@ func canonicalizeNewInstanceRepairRecipeStepsPermissionsInfoIamPermissionsSlice(
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceRepairRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceRepairRecipeStepsPermissionsInfoResource(des, initial *InstanceRepairRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstanceRepairRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceRepairRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstanceRepairRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceRepairRecipeStepsPermissionsInfoResource) *InstanceRepairRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceRepairRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceRepairRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstanceRepairRecipeStepsPermissionsInfoResource) []InstanceRepairRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceRepairRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceRepairRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceRepairRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstanceRepairRecipeStepsPermissionsInfoResource) []InstanceRepairRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceRepairRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceRepairRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -14888,6 +15952,7 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfo(des, initial
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -14912,6 +15977,7 @@ func canonicalizeNewInstancePreprocessDeleteRecipeStepsPermissionsInfo(c *Client
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstancePreprocessDeleteRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -15144,6 +16210,114 @@ func canonicalizeNewInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermiss
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoResource(des, initial *InstancePreprocessDeleteRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstancePreprocessDeleteRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstancePreprocessDeleteRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstancePreprocessDeleteRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsPermissionsInfoResource) *InstancePreprocessDeleteRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessDeleteRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstancePreprocessDeleteRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstancePreprocessDeleteRecipeStepsPermissionsInfoResource) []InstancePreprocessDeleteRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstancePreprocessDeleteRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstancePreprocessDeleteRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstancePreprocessDeleteRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstancePreprocessDeleteRecipeStepsPermissionsInfoResource) []InstancePreprocessDeleteRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstancePreprocessDeleteRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstancePreprocessDeleteRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -16242,6 +17416,7 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfo(des, initial
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -16266,6 +17441,7 @@ func canonicalizeNewInstancePreprocessUpdateRecipeStepsPermissionsInfo(c *Client
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstancePreprocessUpdateRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -16498,6 +17674,114 @@ func canonicalizeNewInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermiss
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoResource(des, initial *InstancePreprocessUpdateRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstancePreprocessUpdateRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstancePreprocessUpdateRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstancePreprocessUpdateRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsPermissionsInfoResource) *InstancePreprocessUpdateRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUpdateRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstancePreprocessUpdateRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstancePreprocessUpdateRecipeStepsPermissionsInfoResource) []InstancePreprocessUpdateRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstancePreprocessUpdateRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstancePreprocessUpdateRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstancePreprocessUpdateRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstancePreprocessUpdateRecipeStepsPermissionsInfoResource) []InstancePreprocessUpdateRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstancePreprocessUpdateRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstancePreprocessUpdateRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -17596,6 +18880,7 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfo(des, initial
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -17620,6 +18905,7 @@ func canonicalizeNewInstancePreprocessFreezeRecipeStepsPermissionsInfo(c *Client
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstancePreprocessFreezeRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -17852,6 +19138,114 @@ func canonicalizeNewInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermiss
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoResource(des, initial *InstancePreprocessFreezeRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstancePreprocessFreezeRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstancePreprocessFreezeRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstancePreprocessFreezeRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsPermissionsInfoResource) *InstancePreprocessFreezeRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessFreezeRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstancePreprocessFreezeRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstancePreprocessFreezeRecipeStepsPermissionsInfoResource) []InstancePreprocessFreezeRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstancePreprocessFreezeRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstancePreprocessFreezeRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstancePreprocessFreezeRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstancePreprocessFreezeRecipeStepsPermissionsInfoResource) []InstancePreprocessFreezeRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstancePreprocessFreezeRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstancePreprocessFreezeRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -18950,6 +20344,7 @@ func canonicalizeInstanceFreezeRecipeStepsPermissionsInfo(des, initial *Instance
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstanceFreezeRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -18974,6 +20369,7 @@ func canonicalizeNewInstanceFreezeRecipeStepsPermissionsInfo(c *Client, des, nw 
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstanceFreezeRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -19206,6 +20602,114 @@ func canonicalizeNewInstanceFreezeRecipeStepsPermissionsInfoIamPermissionsSlice(
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceFreezeRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceFreezeRecipeStepsPermissionsInfoResource(des, initial *InstanceFreezeRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstanceFreezeRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceFreezeRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstanceFreezeRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceFreezeRecipeStepsPermissionsInfoResource) *InstanceFreezeRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceFreezeRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceFreezeRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstanceFreezeRecipeStepsPermissionsInfoResource) []InstanceFreezeRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceFreezeRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceFreezeRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceFreezeRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstanceFreezeRecipeStepsPermissionsInfoResource) []InstanceFreezeRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceFreezeRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceFreezeRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -20304,6 +21808,7 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfo(des, initi
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -20328,6 +21833,7 @@ func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPermissionsInfo(c *Clie
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -20560,6 +22066,114 @@ func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermi
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(des, initial *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource) *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource) []InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource) []InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -21658,6 +23272,7 @@ func canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfo(des, initial *Instan
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -21682,6 +23297,7 @@ func canonicalizeNewInstanceUnfreezeRecipeStepsPermissionsInfo(c *Client, des, n
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstanceUnfreezeRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -21914,6 +23530,114 @@ func canonicalizeNewInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissionsSlic
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoResource(des, initial *InstanceUnfreezeRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstanceUnfreezeRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceUnfreezeRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstanceUnfreezeRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceUnfreezeRecipeStepsPermissionsInfoResource) *InstanceUnfreezeRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceUnfreezeRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceUnfreezeRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstanceUnfreezeRecipeStepsPermissionsInfoResource) []InstanceUnfreezeRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceUnfreezeRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceUnfreezeRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceUnfreezeRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstanceUnfreezeRecipeStepsPermissionsInfoResource) []InstanceUnfreezeRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceUnfreezeRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceUnfreezeRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -23012,6 +24736,7 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInf
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -23036,6 +24761,7 @@ func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPermissions
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -23268,6 +24994,114 @@ func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPermissions
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource(des, initial *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource) *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource) []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource) []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -24366,6 +26200,7 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfo(des, ini
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -24390,6 +26225,7 @@ func canonicalizeNewInstanceReportInstanceHealthRecipeStepsPermissionsInfo(c *Cl
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -24622,6 +26458,114 @@ func canonicalizeNewInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPer
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(des, initial *InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource) *InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceReportInstanceHealthRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource) []InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceReportInstanceHealthRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource) []InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -25720,6 +27664,7 @@ func canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfo(des, initial *I
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -25744,6 +27689,7 @@ func canonicalizeNewInstancePreprocessGetRecipeStepsPermissionsInfo(c *Client, d
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstancePreprocessGetRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -25976,6 +27922,114 @@ func canonicalizeNewInstancePreprocessGetRecipeStepsPermissionsInfoIamPermission
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoResource(des, initial *InstancePreprocessGetRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstancePreprocessGetRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstancePreprocessGetRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstancePreprocessGetRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessGetRecipeStepsPermissionsInfoResource) *InstancePreprocessGetRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessGetRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstancePreprocessGetRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstancePreprocessGetRecipeStepsPermissionsInfoResource) []InstancePreprocessGetRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstancePreprocessGetRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstancePreprocessGetRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstancePreprocessGetRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstancePreprocessGetRecipeStepsPermissionsInfoResource) []InstancePreprocessGetRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstancePreprocessGetRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstancePreprocessGetRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -27074,6 +29128,7 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(des, initi
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -27098,6 +29153,7 @@ func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(c *Clie
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -27330,6 +29386,114 @@ func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermi
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(des, initial *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource) *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource) []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource) []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -28428,6 +30592,7 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(des, ini
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -28452,6 +30617,7 @@ func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(c *Cl
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -28684,6 +30850,114 @@ func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPer
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(des, initial *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource) *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource) []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource) []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -29782,6 +32056,7 @@ func canonicalizeInstanceReadonlyRecipeStepsPermissionsInfo(des, initial *Instan
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -29806,6 +32081,7 @@ func canonicalizeNewInstanceReadonlyRecipeStepsPermissionsInfo(c *Client, des, n
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstanceReadonlyRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -30038,6 +32314,114 @@ func canonicalizeNewInstanceReadonlyRecipeStepsPermissionsInfoIamPermissionsSlic
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoResource(des, initial *InstanceReadonlyRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstanceReadonlyRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceReadonlyRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstanceReadonlyRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceReadonlyRecipeStepsPermissionsInfoResource) *InstanceReadonlyRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReadonlyRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceReadonlyRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstanceReadonlyRecipeStepsPermissionsInfoResource) []InstanceReadonlyRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceReadonlyRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceReadonlyRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceReadonlyRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstanceReadonlyRecipeStepsPermissionsInfoResource) []InstanceReadonlyRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceReadonlyRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceReadonlyRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -31136,6 +33520,7 @@ func canonicalizeInstanceReconcileRecipeStepsPermissionsInfo(des, initial *Insta
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstanceReconcileRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -31160,6 +33545,7 @@ func canonicalizeNewInstanceReconcileRecipeStepsPermissionsInfo(c *Client, des, 
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstanceReconcileRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -31392,6 +33778,114 @@ func canonicalizeNewInstanceReconcileRecipeStepsPermissionsInfoIamPermissionsSli
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceReconcileRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceReconcileRecipeStepsPermissionsInfoResource(des, initial *InstanceReconcileRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstanceReconcileRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceReconcileRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstanceReconcileRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceReconcileRecipeStepsPermissionsInfoResource) *InstanceReconcileRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceReconcileRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceReconcileRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstanceReconcileRecipeStepsPermissionsInfoResource) []InstanceReconcileRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceReconcileRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceReconcileRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceReconcileRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstanceReconcileRecipeStepsPermissionsInfoResource) []InstanceReconcileRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceReconcileRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceReconcileRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -32490,6 +34984,7 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfo(des, in
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -32514,6 +35009,7 @@ func canonicalizeNewInstancePreprocessPassthroughRecipeStepsPermissionsInfo(c *C
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -32746,6 +35242,114 @@ func canonicalizeNewInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPe
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource(des, initial *InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource) *InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstancePreprocessPassthroughRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource) []InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstancePreprocessPassthroughRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource) []InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -33844,6 +36448,7 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfo(des, init
 	} else {
 		cDes.PolicyNameMode = des.PolicyNameMode
 	}
+	cDes.Resource = canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
 }
@@ -33868,6 +36473,7 @@ func canonicalizeNewInstancePreprocessReconcileRecipeStepsPermissionsInfo(c *Cli
 		nw.ResourcePath = des.ResourcePath
 	}
 	nw.ApiAttrs = canonicalizeNewInstanceGoogleprotobufstruct(c, des.ApiAttrs, nw.ApiAttrs)
+	nw.Resource = canonicalizeNewInstancePreprocessReconcileRecipeStepsPermissionsInfoResource(c, des.Resource, nw.Resource)
 
 	return nw
 }
@@ -34100,6 +36706,114 @@ func canonicalizeNewInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPerm
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoResource(des, initial *InstancePreprocessReconcileRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) *InstancePreprocessReconcileRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstancePreprocessReconcileRecipeStepsPermissionsInfoResource{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
+		cDes.Type = initial.Type
+	} else {
+		cDes.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstancePreprocessReconcileRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsPermissionsInfoResource) *InstancePreprocessReconcileRecipeStepsPermissionsInfoResource {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstancePreprocessReconcileRecipeStepsPermissionsInfoResource while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Type, nw.Type) {
+		nw.Type = des.Type
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstancePreprocessReconcileRecipeStepsPermissionsInfoResourceSet(c *Client, des, nw []InstancePreprocessReconcileRecipeStepsPermissionsInfoResource) []InstancePreprocessReconcileRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstancePreprocessReconcileRecipeStepsPermissionsInfoResource
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstancePreprocessReconcileRecipeStepsPermissionsInfoResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstancePreprocessReconcileRecipeStepsPermissionsInfoResourceSlice(c *Client, des, nw []InstancePreprocessReconcileRecipeStepsPermissionsInfoResource) []InstancePreprocessReconcileRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstancePreprocessReconcileRecipeStepsPermissionsInfoResource
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstancePreprocessReconcileRecipeStepsPermissionsInfoResource(c, &d, &n))
 	}
 
 	return items
@@ -35473,6 +38187,13 @@ func compareInstancePreprocessCreateRecipeStepsPermissionsInfoNewStyle(d, a inte
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstancePreprocessCreateRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -35551,6 +38272,56 @@ func compareInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissionsNewS
 func compareInstanceGoogleprotobufstructNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
+	return diffs, nil
+}
+
+func compareInstancePreprocessCreateRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessCreateRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessCreateRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsPermissionsInfoResource or *InstancePreprocessCreateRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessCreateRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessCreateRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -36143,6 +38914,13 @@ func compareInstanceCreateRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstanceCreateRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -36210,6 +38988,56 @@ func compareInstanceCreateRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a 
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceCreateRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceCreateRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceCreateRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsPermissionsInfoResource or *InstanceCreateRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceCreateRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceCreateRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36807,6 +39635,13 @@ func compareInstanceDeleteRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstanceDeleteRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -36874,6 +39709,56 @@ func compareInstanceDeleteRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a 
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceDeleteRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceDeleteRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceDeleteRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsPermissionsInfoResource or *InstanceDeleteRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceDeleteRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceDeleteRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37471,6 +40356,13 @@ func compareInstanceUpdateRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstanceUpdateRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -37538,6 +40430,56 @@ func compareInstanceUpdateRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a 
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceUpdateRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUpdateRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUpdateRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsPermissionsInfoResource or *InstanceUpdateRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUpdateRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUpdateRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38135,6 +41077,13 @@ func compareInstancePreprocessResetRecipeStepsPermissionsInfoNewStyle(d, a inter
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstancePreprocessResetRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -38202,6 +41151,56 @@ func compareInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissionsNewSt
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstancePreprocessResetRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessResetRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessResetRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsPermissionsInfoResource or *InstancePreprocessResetRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessResetRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessResetRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38799,6 +41798,13 @@ func compareInstanceResetRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstanceResetRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -38866,6 +41872,56 @@ func compareInstanceResetRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a i
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceResetRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceResetRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceResetRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsPermissionsInfoResource or *InstanceResetRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceResetRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceResetRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39463,6 +42519,13 @@ func compareInstancePreprocessRepairRecipeStepsPermissionsInfoNewStyle(d, a inte
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstancePreprocessRepairRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -39530,6 +42593,56 @@ func compareInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissionsNewS
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstancePreprocessRepairRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessRepairRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessRepairRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsPermissionsInfoResource or *InstancePreprocessRepairRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessRepairRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessRepairRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40127,6 +43240,13 @@ func compareInstanceRepairRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstanceRepairRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -40194,6 +43314,56 @@ func compareInstanceRepairRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a 
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceRepairRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceRepairRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceRepairRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsPermissionsInfoResource or *InstanceRepairRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceRepairRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceRepairRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40791,6 +43961,13 @@ func compareInstancePreprocessDeleteRecipeStepsPermissionsInfoNewStyle(d, a inte
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstancePreprocessDeleteRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -40858,6 +44035,56 @@ func compareInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissionsNewS
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstancePreprocessDeleteRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessDeleteRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessDeleteRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsPermissionsInfoResource or *InstancePreprocessDeleteRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessDeleteRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessDeleteRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41455,6 +44682,13 @@ func compareInstancePreprocessUpdateRecipeStepsPermissionsInfoNewStyle(d, a inte
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstancePreprocessUpdateRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -41522,6 +44756,56 @@ func compareInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissionsNewS
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstancePreprocessUpdateRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUpdateRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUpdateRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsPermissionsInfoResource or *InstancePreprocessUpdateRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUpdateRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUpdateRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42119,6 +45403,13 @@ func compareInstancePreprocessFreezeRecipeStepsPermissionsInfoNewStyle(d, a inte
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstancePreprocessFreezeRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -42186,6 +45477,56 @@ func compareInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissionsNewS
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstancePreprocessFreezeRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessFreezeRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessFreezeRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsPermissionsInfoResource or *InstancePreprocessFreezeRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessFreezeRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessFreezeRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42783,6 +46124,13 @@ func compareInstanceFreezeRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstanceFreezeRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -42850,6 +46198,56 @@ func compareInstanceFreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a 
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceFreezeRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceFreezeRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceFreezeRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsPermissionsInfoResource or *InstanceFreezeRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceFreezeRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceFreezeRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43447,6 +46845,13 @@ func compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoNewStyle(d, a in
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -43514,6 +46919,56 @@ func compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissionsNe
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource or *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44111,6 +47566,13 @@ func compareInstanceUnfreezeRecipeStepsPermissionsInfoNewStyle(d, a interface{},
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstanceUnfreezeRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -44178,6 +47640,56 @@ func compareInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, 
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceUnfreezeRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUnfreezeRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUnfreezeRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsPermissionsInfoResource or *InstanceUnfreezeRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUnfreezeRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUnfreezeRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44775,6 +48287,13 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoNewS
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -44842,6 +48361,56 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamP
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource or *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -45439,6 +49008,13 @@ func compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoNewStyle(d, a 
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -45506,6 +49082,56 @@ func compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource or *InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -46103,6 +49729,13 @@ func compareInstancePreprocessGetRecipeStepsPermissionsInfoNewStyle(d, a interfa
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstancePreprocessGetRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -46170,6 +49803,56 @@ func compareInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissionsNewStyl
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstancePreprocessGetRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessGetRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessGetRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessGetRecipeStepsPermissionsInfoResource or *InstancePreprocessGetRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessGetRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessGetRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessGetRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -46767,6 +50450,13 @@ func compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoNewStyle(d, a in
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -46834,6 +50524,56 @@ func compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissionsNe
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource or *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -47431,6 +51171,13 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoNewStyle(d, a 
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -47498,6 +51245,56 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource or *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -48095,6 +51892,13 @@ func compareInstanceReadonlyRecipeStepsPermissionsInfoNewStyle(d, a interface{},
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstanceReadonlyRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -48162,6 +51966,56 @@ func compareInstanceReadonlyRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, 
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceReadonlyRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceReadonlyRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceReadonlyRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsPermissionsInfoResource or *InstanceReadonlyRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceReadonlyRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceReadonlyRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -48759,6 +52613,13 @@ func compareInstanceReconcileRecipeStepsPermissionsInfoNewStyle(d, a interface{}
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstanceReconcileRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -48826,6 +52687,56 @@ func compareInstanceReconcileRecipeStepsPermissionsInfoIamPermissionsNewStyle(d,
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceReconcileRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceReconcileRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceReconcileRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReconcileRecipeStepsPermissionsInfoResource or *InstanceReconcileRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceReconcileRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceReconcileRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReconcileRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -49423,6 +53334,13 @@ func compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoNewStyle(d, a
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -49490,6 +53408,56 @@ func compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermission
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource or *InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -50087,6 +54055,13 @@ func compareInstancePreprocessReconcileRecipeStepsPermissionsInfoNewStyle(d, a i
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsPermissionsInfoResourceNewStyle, EmptyObject: EmptyInstancePreprocessReconcileRecipeStepsPermissionsInfoResource, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -50154,6 +54129,56 @@ func compareInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissionsN
 	}
 
 	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstancePreprocessReconcileRecipeStepsPermissionsInfoResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessReconcileRecipeStepsPermissionsInfoResource)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessReconcileRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessReconcileRecipeStepsPermissionsInfoResource or *InstancePreprocessReconcileRecipeStepsPermissionsInfoResource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessReconcileRecipeStepsPermissionsInfoResource)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessReconcileRecipeStepsPermissionsInfoResource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessReconcileRecipeStepsPermissionsInfoResource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -52066,6 +56091,11 @@ func expandInstancePreprocessCreateRecipeStepsPermissionsInfo(c *Client, f *Inst
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstancePreprocessCreateRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -52088,6 +56118,7 @@ func flattenInstancePreprocessCreateRecipeStepsPermissionsInfo(c *Client, i inte
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstancePreprocessCreateRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -52434,6 +56465,132 @@ func flattenInstanceGoogleprotobufstruct(c *Client, i interface{}) *InstanceGoog
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyInstanceGoogleprotobufstruct
 	}
+
+	return r
+}
+
+// expandInstancePreprocessCreateRecipeStepsPermissionsInfoResourceMap expands the contents of InstancePreprocessCreateRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessCreateRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstancePreprocessCreateRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstancePreprocessCreateRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstancePreprocessCreateRecipeStepsPermissionsInfoResourceSlice expands the contents of InstancePreprocessCreateRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessCreateRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstancePreprocessCreateRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstancePreprocessCreateRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstancePreprocessCreateRecipeStepsPermissionsInfoResourceMap flattens the contents of InstancePreprocessCreateRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessCreateRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstancePreprocessCreateRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessCreateRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessCreateRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstancePreprocessCreateRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessCreateRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessCreateRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstancePreprocessCreateRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessCreateRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstancePreprocessCreateRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessCreateRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessCreateRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstancePreprocessCreateRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessCreateRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstancePreprocessCreateRecipeStepsPermissionsInfoResource expands an instance of InstancePreprocessCreateRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessCreateRecipeStepsPermissionsInfoResource(c *Client, f *InstancePreprocessCreateRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstancePreprocessCreateRecipeStepsPermissionsInfoResource flattens an instance of InstancePreprocessCreateRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessCreateRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstancePreprocessCreateRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstancePreprocessCreateRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessCreateRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -53848,6 +58005,11 @@ func expandInstanceCreateRecipeStepsPermissionsInfo(c *Client, f *InstanceCreate
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstanceCreateRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -53870,6 +58032,7 @@ func flattenInstanceCreateRecipeStepsPermissionsInfo(c *Client, i interface{}) *
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstanceCreateRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -54106,6 +58269,132 @@ func flattenInstanceCreateRecipeStepsPermissionsInfoIamPermissions(c *Client, i 
 		return EmptyInstanceCreateRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstanceCreateRecipeStepsPermissionsInfoResourceMap expands the contents of InstanceCreateRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceCreateRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstanceCreateRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceCreateRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceCreateRecipeStepsPermissionsInfoResourceSlice expands the contents of InstanceCreateRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceCreateRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstanceCreateRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceCreateRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceCreateRecipeStepsPermissionsInfoResourceMap flattens the contents of InstanceCreateRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceCreateRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstanceCreateRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceCreateRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceCreateRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstanceCreateRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstanceCreateRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceCreateRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstanceCreateRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceCreateRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstanceCreateRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceCreateRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceCreateRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstanceCreateRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceCreateRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceCreateRecipeStepsPermissionsInfoResource expands an instance of InstanceCreateRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceCreateRecipeStepsPermissionsInfoResource(c *Client, f *InstanceCreateRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceCreateRecipeStepsPermissionsInfoResource flattens an instance of InstanceCreateRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceCreateRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstanceCreateRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceCreateRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceCreateRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -55520,6 +59809,11 @@ func expandInstanceDeleteRecipeStepsPermissionsInfo(c *Client, f *InstanceDelete
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstanceDeleteRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -55542,6 +59836,7 @@ func flattenInstanceDeleteRecipeStepsPermissionsInfo(c *Client, i interface{}) *
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstanceDeleteRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -55778,6 +60073,132 @@ func flattenInstanceDeleteRecipeStepsPermissionsInfoIamPermissions(c *Client, i 
 		return EmptyInstanceDeleteRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstanceDeleteRecipeStepsPermissionsInfoResourceMap expands the contents of InstanceDeleteRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceDeleteRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstanceDeleteRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceDeleteRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceDeleteRecipeStepsPermissionsInfoResourceSlice expands the contents of InstanceDeleteRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceDeleteRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstanceDeleteRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceDeleteRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceDeleteRecipeStepsPermissionsInfoResourceMap flattens the contents of InstanceDeleteRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceDeleteRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstanceDeleteRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceDeleteRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceDeleteRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstanceDeleteRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstanceDeleteRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceDeleteRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstanceDeleteRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceDeleteRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstanceDeleteRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceDeleteRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceDeleteRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstanceDeleteRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceDeleteRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceDeleteRecipeStepsPermissionsInfoResource expands an instance of InstanceDeleteRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceDeleteRecipeStepsPermissionsInfoResource(c *Client, f *InstanceDeleteRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceDeleteRecipeStepsPermissionsInfoResource flattens an instance of InstanceDeleteRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceDeleteRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstanceDeleteRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceDeleteRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceDeleteRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -57192,6 +61613,11 @@ func expandInstanceUpdateRecipeStepsPermissionsInfo(c *Client, f *InstanceUpdate
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstanceUpdateRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -57214,6 +61640,7 @@ func flattenInstanceUpdateRecipeStepsPermissionsInfo(c *Client, i interface{}) *
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstanceUpdateRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -57450,6 +61877,132 @@ func flattenInstanceUpdateRecipeStepsPermissionsInfoIamPermissions(c *Client, i 
 		return EmptyInstanceUpdateRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstanceUpdateRecipeStepsPermissionsInfoResourceMap expands the contents of InstanceUpdateRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceUpdateRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstanceUpdateRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceUpdateRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceUpdateRecipeStepsPermissionsInfoResourceSlice expands the contents of InstanceUpdateRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceUpdateRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstanceUpdateRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceUpdateRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceUpdateRecipeStepsPermissionsInfoResourceMap flattens the contents of InstanceUpdateRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceUpdateRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstanceUpdateRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceUpdateRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceUpdateRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstanceUpdateRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstanceUpdateRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceUpdateRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstanceUpdateRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceUpdateRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstanceUpdateRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceUpdateRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceUpdateRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstanceUpdateRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceUpdateRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceUpdateRecipeStepsPermissionsInfoResource expands an instance of InstanceUpdateRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceUpdateRecipeStepsPermissionsInfoResource(c *Client, f *InstanceUpdateRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceUpdateRecipeStepsPermissionsInfoResource flattens an instance of InstanceUpdateRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceUpdateRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstanceUpdateRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceUpdateRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUpdateRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -58864,6 +63417,11 @@ func expandInstancePreprocessResetRecipeStepsPermissionsInfo(c *Client, f *Insta
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstancePreprocessResetRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -58886,6 +63444,7 @@ func flattenInstancePreprocessResetRecipeStepsPermissionsInfo(c *Client, i inter
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstancePreprocessResetRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -59122,6 +63681,132 @@ func flattenInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions(c *C
 		return EmptyInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstancePreprocessResetRecipeStepsPermissionsInfoResourceMap expands the contents of InstancePreprocessResetRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessResetRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstancePreprocessResetRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstancePreprocessResetRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstancePreprocessResetRecipeStepsPermissionsInfoResourceSlice expands the contents of InstancePreprocessResetRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessResetRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstancePreprocessResetRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstancePreprocessResetRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstancePreprocessResetRecipeStepsPermissionsInfoResourceMap flattens the contents of InstancePreprocessResetRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessResetRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstancePreprocessResetRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessResetRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessResetRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstancePreprocessResetRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessResetRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessResetRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstancePreprocessResetRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessResetRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstancePreprocessResetRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessResetRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessResetRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstancePreprocessResetRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessResetRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstancePreprocessResetRecipeStepsPermissionsInfoResource expands an instance of InstancePreprocessResetRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessResetRecipeStepsPermissionsInfoResource(c *Client, f *InstancePreprocessResetRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstancePreprocessResetRecipeStepsPermissionsInfoResource flattens an instance of InstancePreprocessResetRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessResetRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstancePreprocessResetRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstancePreprocessResetRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessResetRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -60536,6 +65221,11 @@ func expandInstanceResetRecipeStepsPermissionsInfo(c *Client, f *InstanceResetRe
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstanceResetRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -60558,6 +65248,7 @@ func flattenInstanceResetRecipeStepsPermissionsInfo(c *Client, i interface{}) *I
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstanceResetRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -60794,6 +65485,132 @@ func flattenInstanceResetRecipeStepsPermissionsInfoIamPermissions(c *Client, i i
 		return EmptyInstanceResetRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstanceResetRecipeStepsPermissionsInfoResourceMap expands the contents of InstanceResetRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceResetRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstanceResetRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceResetRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceResetRecipeStepsPermissionsInfoResourceSlice expands the contents of InstanceResetRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceResetRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstanceResetRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceResetRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceResetRecipeStepsPermissionsInfoResourceMap flattens the contents of InstanceResetRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceResetRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstanceResetRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceResetRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceResetRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstanceResetRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstanceResetRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceResetRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstanceResetRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceResetRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstanceResetRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceResetRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceResetRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstanceResetRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceResetRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceResetRecipeStepsPermissionsInfoResource expands an instance of InstanceResetRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceResetRecipeStepsPermissionsInfoResource(c *Client, f *InstanceResetRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceResetRecipeStepsPermissionsInfoResource flattens an instance of InstanceResetRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceResetRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstanceResetRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceResetRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceResetRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -62208,6 +67025,11 @@ func expandInstancePreprocessRepairRecipeStepsPermissionsInfo(c *Client, f *Inst
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstancePreprocessRepairRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -62230,6 +67052,7 @@ func flattenInstancePreprocessRepairRecipeStepsPermissionsInfo(c *Client, i inte
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstancePreprocessRepairRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -62466,6 +67289,132 @@ func flattenInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions(c *
 		return EmptyInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstancePreprocessRepairRecipeStepsPermissionsInfoResourceMap expands the contents of InstancePreprocessRepairRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessRepairRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstancePreprocessRepairRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstancePreprocessRepairRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstancePreprocessRepairRecipeStepsPermissionsInfoResourceSlice expands the contents of InstancePreprocessRepairRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessRepairRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstancePreprocessRepairRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstancePreprocessRepairRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstancePreprocessRepairRecipeStepsPermissionsInfoResourceMap flattens the contents of InstancePreprocessRepairRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessRepairRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstancePreprocessRepairRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessRepairRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessRepairRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstancePreprocessRepairRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessRepairRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessRepairRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstancePreprocessRepairRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessRepairRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstancePreprocessRepairRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessRepairRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessRepairRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstancePreprocessRepairRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessRepairRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstancePreprocessRepairRecipeStepsPermissionsInfoResource expands an instance of InstancePreprocessRepairRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessRepairRecipeStepsPermissionsInfoResource(c *Client, f *InstancePreprocessRepairRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstancePreprocessRepairRecipeStepsPermissionsInfoResource flattens an instance of InstancePreprocessRepairRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessRepairRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstancePreprocessRepairRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstancePreprocessRepairRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessRepairRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -63880,6 +68829,11 @@ func expandInstanceRepairRecipeStepsPermissionsInfo(c *Client, f *InstanceRepair
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstanceRepairRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -63902,6 +68856,7 @@ func flattenInstanceRepairRecipeStepsPermissionsInfo(c *Client, i interface{}) *
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstanceRepairRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -64138,6 +69093,132 @@ func flattenInstanceRepairRecipeStepsPermissionsInfoIamPermissions(c *Client, i 
 		return EmptyInstanceRepairRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstanceRepairRecipeStepsPermissionsInfoResourceMap expands the contents of InstanceRepairRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceRepairRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstanceRepairRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceRepairRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceRepairRecipeStepsPermissionsInfoResourceSlice expands the contents of InstanceRepairRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceRepairRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstanceRepairRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceRepairRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceRepairRecipeStepsPermissionsInfoResourceMap flattens the contents of InstanceRepairRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceRepairRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstanceRepairRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceRepairRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceRepairRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstanceRepairRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstanceRepairRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceRepairRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstanceRepairRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceRepairRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstanceRepairRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceRepairRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceRepairRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstanceRepairRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceRepairRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceRepairRecipeStepsPermissionsInfoResource expands an instance of InstanceRepairRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceRepairRecipeStepsPermissionsInfoResource(c *Client, f *InstanceRepairRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceRepairRecipeStepsPermissionsInfoResource flattens an instance of InstanceRepairRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceRepairRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstanceRepairRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceRepairRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceRepairRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -65552,6 +70633,11 @@ func expandInstancePreprocessDeleteRecipeStepsPermissionsInfo(c *Client, f *Inst
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstancePreprocessDeleteRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -65574,6 +70660,7 @@ func flattenInstancePreprocessDeleteRecipeStepsPermissionsInfo(c *Client, i inte
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -65810,6 +70897,132 @@ func flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions(c *
 		return EmptyInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstancePreprocessDeleteRecipeStepsPermissionsInfoResourceMap expands the contents of InstancePreprocessDeleteRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessDeleteRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstancePreprocessDeleteRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstancePreprocessDeleteRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstancePreprocessDeleteRecipeStepsPermissionsInfoResourceSlice expands the contents of InstancePreprocessDeleteRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessDeleteRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstancePreprocessDeleteRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstancePreprocessDeleteRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoResourceMap flattens the contents of InstancePreprocessDeleteRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstancePreprocessDeleteRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessDeleteRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessDeleteRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstancePreprocessDeleteRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstancePreprocessDeleteRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstancePreprocessDeleteRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessDeleteRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessDeleteRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstancePreprocessDeleteRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstancePreprocessDeleteRecipeStepsPermissionsInfoResource expands an instance of InstancePreprocessDeleteRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessDeleteRecipeStepsPermissionsInfoResource(c *Client, f *InstancePreprocessDeleteRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoResource flattens an instance of InstancePreprocessDeleteRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstancePreprocessDeleteRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstancePreprocessDeleteRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessDeleteRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -67224,6 +72437,11 @@ func expandInstancePreprocessUpdateRecipeStepsPermissionsInfo(c *Client, f *Inst
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstancePreprocessUpdateRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -67246,6 +72464,7 @@ func flattenInstancePreprocessUpdateRecipeStepsPermissionsInfo(c *Client, i inte
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -67482,6 +72701,132 @@ func flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions(c *
 		return EmptyInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstancePreprocessUpdateRecipeStepsPermissionsInfoResourceMap expands the contents of InstancePreprocessUpdateRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessUpdateRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstancePreprocessUpdateRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstancePreprocessUpdateRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstancePreprocessUpdateRecipeStepsPermissionsInfoResourceSlice expands the contents of InstancePreprocessUpdateRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessUpdateRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstancePreprocessUpdateRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstancePreprocessUpdateRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoResourceMap flattens the contents of InstancePreprocessUpdateRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstancePreprocessUpdateRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessUpdateRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessUpdateRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstancePreprocessUpdateRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstancePreprocessUpdateRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstancePreprocessUpdateRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessUpdateRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessUpdateRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstancePreprocessUpdateRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstancePreprocessUpdateRecipeStepsPermissionsInfoResource expands an instance of InstancePreprocessUpdateRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessUpdateRecipeStepsPermissionsInfoResource(c *Client, f *InstancePreprocessUpdateRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoResource flattens an instance of InstancePreprocessUpdateRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstancePreprocessUpdateRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstancePreprocessUpdateRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUpdateRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -68896,6 +74241,11 @@ func expandInstancePreprocessFreezeRecipeStepsPermissionsInfo(c *Client, f *Inst
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstancePreprocessFreezeRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -68918,6 +74268,7 @@ func flattenInstancePreprocessFreezeRecipeStepsPermissionsInfo(c *Client, i inte
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -69154,6 +74505,132 @@ func flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions(c *
 		return EmptyInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstancePreprocessFreezeRecipeStepsPermissionsInfoResourceMap expands the contents of InstancePreprocessFreezeRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessFreezeRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstancePreprocessFreezeRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstancePreprocessFreezeRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstancePreprocessFreezeRecipeStepsPermissionsInfoResourceSlice expands the contents of InstancePreprocessFreezeRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessFreezeRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstancePreprocessFreezeRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstancePreprocessFreezeRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoResourceMap flattens the contents of InstancePreprocessFreezeRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstancePreprocessFreezeRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessFreezeRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessFreezeRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstancePreprocessFreezeRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstancePreprocessFreezeRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstancePreprocessFreezeRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessFreezeRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessFreezeRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstancePreprocessFreezeRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstancePreprocessFreezeRecipeStepsPermissionsInfoResource expands an instance of InstancePreprocessFreezeRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessFreezeRecipeStepsPermissionsInfoResource(c *Client, f *InstancePreprocessFreezeRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoResource flattens an instance of InstancePreprocessFreezeRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstancePreprocessFreezeRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstancePreprocessFreezeRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessFreezeRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -70568,6 +76045,11 @@ func expandInstanceFreezeRecipeStepsPermissionsInfo(c *Client, f *InstanceFreeze
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstanceFreezeRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -70590,6 +76072,7 @@ func flattenInstanceFreezeRecipeStepsPermissionsInfo(c *Client, i interface{}) *
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstanceFreezeRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -70826,6 +76309,132 @@ func flattenInstanceFreezeRecipeStepsPermissionsInfoIamPermissions(c *Client, i 
 		return EmptyInstanceFreezeRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstanceFreezeRecipeStepsPermissionsInfoResourceMap expands the contents of InstanceFreezeRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceFreezeRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstanceFreezeRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceFreezeRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceFreezeRecipeStepsPermissionsInfoResourceSlice expands the contents of InstanceFreezeRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceFreezeRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstanceFreezeRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceFreezeRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceFreezeRecipeStepsPermissionsInfoResourceMap flattens the contents of InstanceFreezeRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceFreezeRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstanceFreezeRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceFreezeRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceFreezeRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstanceFreezeRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstanceFreezeRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceFreezeRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstanceFreezeRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceFreezeRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstanceFreezeRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceFreezeRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceFreezeRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstanceFreezeRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceFreezeRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceFreezeRecipeStepsPermissionsInfoResource expands an instance of InstanceFreezeRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceFreezeRecipeStepsPermissionsInfoResource(c *Client, f *InstanceFreezeRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceFreezeRecipeStepsPermissionsInfoResource flattens an instance of InstanceFreezeRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceFreezeRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstanceFreezeRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceFreezeRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceFreezeRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -72240,6 +77849,11 @@ func expandInstancePreprocessUnfreezeRecipeStepsPermissionsInfo(c *Client, f *In
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -72262,6 +77876,7 @@ func flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfo(c *Client, i in
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -72498,6 +78113,132 @@ func flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions(c
 		return EmptyInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResourceMap expands the contents of InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResourceSlice expands the contents of InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResourceMap flattens the contents of InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource expands an instance of InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(c *Client, f *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource flattens an instance of InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -73912,6 +79653,11 @@ func expandInstanceUnfreezeRecipeStepsPermissionsInfo(c *Client, f *InstanceUnfr
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstanceUnfreezeRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -73934,6 +79680,7 @@ func flattenInstanceUnfreezeRecipeStepsPermissionsInfo(c *Client, i interface{})
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstanceUnfreezeRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -74170,6 +79917,132 @@ func flattenInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions(c *Client, 
 		return EmptyInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstanceUnfreezeRecipeStepsPermissionsInfoResourceMap expands the contents of InstanceUnfreezeRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceUnfreezeRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstanceUnfreezeRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceUnfreezeRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceUnfreezeRecipeStepsPermissionsInfoResourceSlice expands the contents of InstanceUnfreezeRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceUnfreezeRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstanceUnfreezeRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceUnfreezeRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceUnfreezeRecipeStepsPermissionsInfoResourceMap flattens the contents of InstanceUnfreezeRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceUnfreezeRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstanceUnfreezeRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceUnfreezeRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceUnfreezeRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstanceUnfreezeRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstanceUnfreezeRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceUnfreezeRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstanceUnfreezeRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceUnfreezeRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstanceUnfreezeRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceUnfreezeRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceUnfreezeRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstanceUnfreezeRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceUnfreezeRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceUnfreezeRecipeStepsPermissionsInfoResource expands an instance of InstanceUnfreezeRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceUnfreezeRecipeStepsPermissionsInfoResource(c *Client, f *InstanceUnfreezeRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceUnfreezeRecipeStepsPermissionsInfoResource flattens an instance of InstanceUnfreezeRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceUnfreezeRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstanceUnfreezeRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceUnfreezeRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUnfreezeRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -75584,6 +81457,11 @@ func expandInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo(c *C
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -75606,6 +81484,7 @@ func flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo(c *
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -75842,6 +81721,132 @@ func flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamP
 		return EmptyInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResourceMap expands the contents of InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResourceSlice expands the contents of InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResourceMap flattens the contents of InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource expands an instance of InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource(c *Client, f *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource flattens an instance of InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -77256,6 +83261,11 @@ func expandInstanceReportInstanceHealthRecipeStepsPermissionsInfo(c *Client, f *
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -77278,6 +83288,7 @@ func flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfo(c *Client, i 
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -77514,6 +83525,132 @@ func flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions
 		return EmptyInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstanceReportInstanceHealthRecipeStepsPermissionsInfoResourceMap expands the contents of InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceReportInstanceHealthRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceReportInstanceHealthRecipeStepsPermissionsInfoResourceSlice expands the contents of InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceReportInstanceHealthRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoResourceMap flattens the contents of InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource expands an instance of InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(c *Client, f *InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource flattens an instance of InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -78928,6 +85065,11 @@ func expandInstancePreprocessGetRecipeStepsPermissionsInfo(c *Client, f *Instanc
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstancePreprocessGetRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -78950,6 +85092,7 @@ func flattenInstancePreprocessGetRecipeStepsPermissionsInfo(c *Client, i interfa
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstancePreprocessGetRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -79186,6 +85329,132 @@ func flattenInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions(c *Cli
 		return EmptyInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstancePreprocessGetRecipeStepsPermissionsInfoResourceMap expands the contents of InstancePreprocessGetRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessGetRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstancePreprocessGetRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstancePreprocessGetRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstancePreprocessGetRecipeStepsPermissionsInfoResourceSlice expands the contents of InstancePreprocessGetRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessGetRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstancePreprocessGetRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstancePreprocessGetRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstancePreprocessGetRecipeStepsPermissionsInfoResourceMap flattens the contents of InstancePreprocessGetRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessGetRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstancePreprocessGetRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessGetRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessGetRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstancePreprocessGetRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessGetRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessGetRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstancePreprocessGetRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessGetRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstancePreprocessGetRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessGetRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessGetRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstancePreprocessGetRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessGetRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstancePreprocessGetRecipeStepsPermissionsInfoResource expands an instance of InstancePreprocessGetRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessGetRecipeStepsPermissionsInfoResource(c *Client, f *InstancePreprocessGetRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstancePreprocessGetRecipeStepsPermissionsInfoResource flattens an instance of InstancePreprocessGetRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessGetRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstancePreprocessGetRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstancePreprocessGetRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessGetRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -80600,6 +86869,11 @@ func expandInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(c *Client, f *In
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -80622,6 +86896,7 @@ func flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(c *Client, i in
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -80858,6 +87133,132 @@ func flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions(c
 		return EmptyInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResourceMap expands the contents of InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResourceSlice expands the contents of InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResourceMap flattens the contents of InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource expands an instance of InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(c *Client, f *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource flattens an instance of InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -82272,6 +88673,11 @@ func expandInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(c *Client, f *
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -82294,6 +88700,7 @@ func flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(c *Client, i 
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -82530,6 +88937,132 @@ func flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions
 		return EmptyInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResourceMap expands the contents of InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResourceSlice expands the contents of InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResourceMap flattens the contents of InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource expands an instance of InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(c *Client, f *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource flattens an instance of InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -83944,6 +90477,11 @@ func expandInstanceReadonlyRecipeStepsPermissionsInfo(c *Client, f *InstanceRead
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstanceReadonlyRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -83966,6 +90504,7 @@ func flattenInstanceReadonlyRecipeStepsPermissionsInfo(c *Client, i interface{})
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstanceReadonlyRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -84202,6 +90741,132 @@ func flattenInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions(c *Client, 
 		return EmptyInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstanceReadonlyRecipeStepsPermissionsInfoResourceMap expands the contents of InstanceReadonlyRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceReadonlyRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstanceReadonlyRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceReadonlyRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceReadonlyRecipeStepsPermissionsInfoResourceSlice expands the contents of InstanceReadonlyRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceReadonlyRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstanceReadonlyRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceReadonlyRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceReadonlyRecipeStepsPermissionsInfoResourceMap flattens the contents of InstanceReadonlyRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceReadonlyRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstanceReadonlyRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceReadonlyRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceReadonlyRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstanceReadonlyRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstanceReadonlyRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceReadonlyRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstanceReadonlyRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceReadonlyRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstanceReadonlyRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceReadonlyRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceReadonlyRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstanceReadonlyRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceReadonlyRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceReadonlyRecipeStepsPermissionsInfoResource expands an instance of InstanceReadonlyRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceReadonlyRecipeStepsPermissionsInfoResource(c *Client, f *InstanceReadonlyRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceReadonlyRecipeStepsPermissionsInfoResource flattens an instance of InstanceReadonlyRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceReadonlyRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstanceReadonlyRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceReadonlyRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReadonlyRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -85616,6 +92281,11 @@ func expandInstanceReconcileRecipeStepsPermissionsInfo(c *Client, f *InstanceRec
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstanceReconcileRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -85638,6 +92308,7 @@ func flattenInstanceReconcileRecipeStepsPermissionsInfo(c *Client, i interface{}
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstanceReconcileRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -85874,6 +92545,132 @@ func flattenInstanceReconcileRecipeStepsPermissionsInfoIamPermissions(c *Client,
 		return EmptyInstanceReconcileRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstanceReconcileRecipeStepsPermissionsInfoResourceMap expands the contents of InstanceReconcileRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceReconcileRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstanceReconcileRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceReconcileRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceReconcileRecipeStepsPermissionsInfoResourceSlice expands the contents of InstanceReconcileRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceReconcileRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstanceReconcileRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceReconcileRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceReconcileRecipeStepsPermissionsInfoResourceMap flattens the contents of InstanceReconcileRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceReconcileRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstanceReconcileRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceReconcileRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceReconcileRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstanceReconcileRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstanceReconcileRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceReconcileRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstanceReconcileRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceReconcileRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstanceReconcileRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceReconcileRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceReconcileRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstanceReconcileRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceReconcileRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceReconcileRecipeStepsPermissionsInfoResource expands an instance of InstanceReconcileRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstanceReconcileRecipeStepsPermissionsInfoResource(c *Client, f *InstanceReconcileRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceReconcileRecipeStepsPermissionsInfoResource flattens an instance of InstanceReconcileRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstanceReconcileRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstanceReconcileRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceReconcileRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReconcileRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -87288,6 +94085,11 @@ func expandInstancePreprocessPassthroughRecipeStepsPermissionsInfo(c *Client, f 
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -87310,6 +94112,7 @@ func flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfo(c *Client, i
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -87546,6 +94349,132 @@ func flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermission
 		return EmptyInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstancePreprocessPassthroughRecipeStepsPermissionsInfoResourceMap expands the contents of InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessPassthroughRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstancePreprocessPassthroughRecipeStepsPermissionsInfoResourceSlice expands the contents of InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessPassthroughRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoResourceMap flattens the contents of InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource expands an instance of InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource(c *Client, f *InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource flattens an instance of InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
@@ -88960,6 +95889,11 @@ func expandInstancePreprocessReconcileRecipeStepsPermissionsInfo(c *Client, f *I
 	if v := f.PolicyNameMode; !dcl.IsEmptyValueIndirect(v) {
 		m["policyNameMode"] = v
 	}
+	if v, err := expandInstancePreprocessReconcileRecipeStepsPermissionsInfoResource(c, f.Resource); err != nil {
+		return nil, fmt.Errorf("error expanding Resource into resource: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["resource"] = v
+	}
 
 	return m, nil
 }
@@ -88982,6 +95916,7 @@ func flattenInstancePreprocessReconcileRecipeStepsPermissionsInfo(c *Client, i i
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
 	r.ApiAttrs = flattenInstanceGoogleprotobufstruct(c, m["apiAttrs"])
 	r.PolicyNameMode = flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum(m["policyNameMode"])
+	r.Resource = flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoResource(c, m["resource"])
 
 	return r
 }
@@ -89218,6 +96153,132 @@ func flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions(
 		return EmptyInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions
 	}
 	r.Permission = dcl.FlattenString(m["permission"])
+
+	return r
+}
+
+// expandInstancePreprocessReconcileRecipeStepsPermissionsInfoResourceMap expands the contents of InstancePreprocessReconcileRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessReconcileRecipeStepsPermissionsInfoResourceMap(c *Client, f map[string]InstancePreprocessReconcileRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstancePreprocessReconcileRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstancePreprocessReconcileRecipeStepsPermissionsInfoResourceSlice expands the contents of InstancePreprocessReconcileRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessReconcileRecipeStepsPermissionsInfoResourceSlice(c *Client, f []InstancePreprocessReconcileRecipeStepsPermissionsInfoResource) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstancePreprocessReconcileRecipeStepsPermissionsInfoResource(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoResourceMap flattens the contents of InstancePreprocessReconcileRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoResourceMap(c *Client, i interface{}) map[string]InstancePreprocessReconcileRecipeStepsPermissionsInfoResource {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessReconcileRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessReconcileRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make(map[string]InstancePreprocessReconcileRecipeStepsPermissionsInfoResource)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoResourceSlice flattens the contents of InstancePreprocessReconcileRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoResourceSlice(c *Client, i interface{}) []InstancePreprocessReconcileRecipeStepsPermissionsInfoResource {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstancePreprocessReconcileRecipeStepsPermissionsInfoResource{}
+	}
+
+	if len(a) == 0 {
+		return []InstancePreprocessReconcileRecipeStepsPermissionsInfoResource{}
+	}
+
+	items := make([]InstancePreprocessReconcileRecipeStepsPermissionsInfoResource, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoResource(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstancePreprocessReconcileRecipeStepsPermissionsInfoResource expands an instance of InstancePreprocessReconcileRecipeStepsPermissionsInfoResource into a JSON
+// request object.
+func expandInstancePreprocessReconcileRecipeStepsPermissionsInfoResource(c *Client, f *InstancePreprocessReconcileRecipeStepsPermissionsInfoResource) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		m["type"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoResource flattens an instance of InstancePreprocessReconcileRecipeStepsPermissionsInfoResource from a JSON
+// response object.
+func flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoResource(c *Client, i interface{}) *InstancePreprocessReconcileRecipeStepsPermissionsInfoResource {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstancePreprocessReconcileRecipeStepsPermissionsInfoResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReconcileRecipeStepsPermissionsInfoResource
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Type = dcl.FlattenString(m["type"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
 }
