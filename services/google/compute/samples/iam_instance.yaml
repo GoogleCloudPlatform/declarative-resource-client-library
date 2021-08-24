@@ -22,11 +22,11 @@ type: iam.binding
 variables:
 - name: project
   type: project
-- name: compute_network1
-  type: resource_name
 - name: zone
   type: zone
 - name: instance1
+  type: resource_name
+- name: compute_network1
   type: resource_name
 - name: region
   type: region

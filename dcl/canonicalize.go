@@ -677,7 +677,7 @@ func IsNotReturnedByServer(i interface{}) bool {
 	if hasEmptyStructField(i) {
 		return true
 	}
-	if iv.Type().Kind() == reflect.Struct {
+	if rt.Kind() == reflect.Struct {
 		for f := 0; f < iv.NumField(); f++ {
 			field := iv.Field(f)
 			// Unexported fields should be ignored.
