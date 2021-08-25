@@ -26,10 +26,10 @@ updates:
 - resource: samples/update_1.endpoint_policy.json
 - resource: samples/update_2.endpoint_policy.json
 variables:
-- name: project
-  type: project
 - name: client1
   type: resource_name
+- name: project
+  type: project
 - name: server1
   type: resource_name
 - name: auth2

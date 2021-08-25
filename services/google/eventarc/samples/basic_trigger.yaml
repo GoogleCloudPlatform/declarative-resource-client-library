@@ -21,12 +21,12 @@ type: trigger
 updates:
 - resource: samples/update.trigger.json
 variables:
+- name: region
+  type: region
 - name: project
   type: project
 - name: name
   type: resource_name
-- name: region
-  type: region
 - name: secondname
   type: resource_name
 - name: service_account
