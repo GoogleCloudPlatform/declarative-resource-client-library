@@ -18,11 +18,11 @@ type: ca_pool
 updates:
 - resource: samples/update_enterprise.ca_pool.json
 variables:
-- name: region
-  type: region
 - name: pool
   type: resource_name
 - name: project
   type: project
+- name: region
+  type: region
 versions:
 - ga

@@ -18,10 +18,10 @@ type: firewall_policy
 updates:
 - resource: samples/update_organization.firewall_policy.json
 variables:
-- name: org_id
-  type: org_id
 - name: policy
   type: resource_name
+- name: org_id
+  type: org_id
 versions:
 - ga
 - beta
