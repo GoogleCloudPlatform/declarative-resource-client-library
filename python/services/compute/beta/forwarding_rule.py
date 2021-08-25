@@ -52,7 +52,6 @@ class ForwardingRule(object):
         self.all_ports = all_ports
         self.allow_global_access = allow_global_access
         self.backend_service = backend_service
-        self.creation_timestamp = creation_timestamp
         self.description = description
         self.ip_address = ip_address
         self.ip_protocol = ip_protocol
@@ -66,7 +65,6 @@ class ForwardingRule(object):
         self.port_range = port_range
         self.ports = ports
         self.region = region
-        self.self_link = self_link
         self.service_label = service_label
         self.service_name = service_name
         self.subnetwork = subnetwork
@@ -90,11 +88,6 @@ class ForwardingRule(object):
 
         if Primitive.to_proto(self.backend_service):
             request.resource.backend_service = Primitive.to_proto(self.backend_service)
-
-        if Primitive.to_proto(self.creation_timestamp):
-            request.resource.creation_timestamp = Primitive.to_proto(
-                self.creation_timestamp
-            )
 
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
@@ -144,9 +137,6 @@ class ForwardingRule(object):
             request.resource.ports.extend(Primitive.to_proto(self.ports))
         if Primitive.to_proto(self.region):
             request.resource.region = Primitive.to_proto(self.region)
-
-        if Primitive.to_proto(self.self_link):
-            request.resource.self_link = Primitive.to_proto(self.self_link)
 
         if Primitive.to_proto(self.service_label):
             request.resource.service_label = Primitive.to_proto(self.service_label)
@@ -219,11 +209,6 @@ class ForwardingRule(object):
         if Primitive.to_proto(self.backend_service):
             request.resource.backend_service = Primitive.to_proto(self.backend_service)
 
-        if Primitive.to_proto(self.creation_timestamp):
-            request.resource.creation_timestamp = Primitive.to_proto(
-                self.creation_timestamp
-            )
-
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
@@ -272,9 +257,6 @@ class ForwardingRule(object):
             request.resource.ports.extend(Primitive.to_proto(self.ports))
         if Primitive.to_proto(self.region):
             request.resource.region = Primitive.to_proto(self.region)
-
-        if Primitive.to_proto(self.self_link):
-            request.resource.self_link = Primitive.to_proto(self.self_link)
 
         if Primitive.to_proto(self.service_label):
             request.resource.service_label = Primitive.to_proto(self.service_label)
@@ -313,11 +295,6 @@ class ForwardingRule(object):
         if Primitive.to_proto(self.backend_service):
             request.resource.backend_service = Primitive.to_proto(self.backend_service)
 
-        if Primitive.to_proto(self.creation_timestamp):
-            request.resource.creation_timestamp = Primitive.to_proto(
-                self.creation_timestamp
-            )
-
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
@@ -367,9 +344,6 @@ class ForwardingRule(object):
         if Primitive.to_proto(self.region):
             request.resource.region = Primitive.to_proto(self.region)
 
-        if Primitive.to_proto(self.self_link):
-            request.resource.self_link = Primitive.to_proto(self.self_link)
-
         if Primitive.to_proto(self.service_label):
             request.resource.service_label = Primitive.to_proto(self.service_label)
 
@@ -398,8 +372,6 @@ class ForwardingRule(object):
             resource.allow_global_access = Primitive.to_proto(self.allow_global_access)
         if Primitive.to_proto(self.backend_service):
             resource.backend_service = Primitive.to_proto(self.backend_service)
-        if Primitive.to_proto(self.creation_timestamp):
-            resource.creation_timestamp = Primitive.to_proto(self.creation_timestamp)
         if Primitive.to_proto(self.description):
             resource.description = Primitive.to_proto(self.description)
         if Primitive.to_proto(self.ip_address):
@@ -436,8 +408,6 @@ class ForwardingRule(object):
             resource.ports.extend(Primitive.to_proto(self.ports))
         if Primitive.to_proto(self.region):
             resource.region = Primitive.to_proto(self.region)
-        if Primitive.to_proto(self.self_link):
-            resource.self_link = Primitive.to_proto(self.self_link)
         if Primitive.to_proto(self.service_label):
             resource.service_label = Primitive.to_proto(self.service_label)
         if Primitive.to_proto(self.service_name):

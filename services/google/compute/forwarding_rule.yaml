@@ -88,6 +88,7 @@ components:
             Otherwise only allows access from clients in the same region as the internal
             load balancer.
           x-kubernetes-immutable: true
+          x-dcl-server-default: true
         backendService:
           type: string
           x-dcl-go-name: BackendService
@@ -98,6 +99,7 @@ components:
         creationTimestamp:
           type: string
           x-dcl-go-name: CreationTimestamp
+          readOnly: true
           description: '[Output Only] Creation timestamp in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt)
             text format.'
           x-kubernetes-immutable: true
@@ -122,6 +124,7 @@ components:
             determine the type of IP address that you can use. For detailed information,
             refer to [IP address specifications](/load-balancing/docs/forwarding-rule-concepts#ip_address_specifications).'
           x-kubernetes-immutable: true
+          x-dcl-server-default: true
         ipProtocol:
           type: string
           x-dcl-go-name: IPProtocol
@@ -137,6 +140,7 @@ components:
             TCP/UDP Load Balancing, the load balancing scheme is `EXTERNAL`, and one
             of `TCP` or `UDP` is valid.
           x-kubernetes-immutable: true
+          x-dcl-server-default: true
           enum:
           - TCP
           - UDP
@@ -166,6 +170,7 @@ components:
             a `PacketMirroring` rule applies to them. This can only be set to true
             for load balancers that have their `loadBalancingScheme` set to `INTERNAL`.
           x-kubernetes-immutable: true
+          x-dcl-server-default: true
         loadBalancingScheme:
           type: string
           x-dcl-go-name: LoadBalancingScheme
@@ -187,6 +192,7 @@ components:
 
             For more information about forwarding rules, refer to [Forwarding rule concepts](/load-balancing/docs/forwarding-rule-concepts). Possible values: INVALID, INTERNAL, INTERNAL_MANAGED, INTERNAL_SELF_MANAGED, EXTERNAL
           x-kubernetes-immutable: true
+          x-dcl-server-default: true
           enum:
           - INVALID
           - INTERNAL
@@ -292,6 +298,7 @@ components:
             is not specified, it is assumed to be `PREMIUM`. If `IPAddress` is specified,
             this value must be equal to the networkTier of the Address.'
           x-kubernetes-immutable: true
+          x-dcl-server-default: true
           enum:
           - PREMIUM
           - STANDARD
@@ -348,6 +355,7 @@ components:
         selfLink:
           type: string
           x-dcl-go-name: SelfLink
+          readOnly: true
           description: '[Output Only] Server-defined URL for the resource.'
           x-kubernetes-immutable: true
         serviceLabel:

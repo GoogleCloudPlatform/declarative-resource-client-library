@@ -382,17 +382,12 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	} else {
 		canonicalDesired.BackendService = rawDesired.BackendService
 	}
-	if dcl.StringCanonicalize(rawDesired.CreationTimestamp, rawInitial.CreationTimestamp) {
-		canonicalDesired.CreationTimestamp = rawInitial.CreationTimestamp
-	} else {
-		canonicalDesired.CreationTimestamp = rawDesired.CreationTimestamp
-	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		canonicalDesired.Description = rawInitial.Description
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.StringCanonicalize(rawDesired.IPAddress, rawInitial.IPAddress) {
+	if canonicalizeIPAddressToReference(rawDesired.IPAddress, rawInitial.IPAddress) {
 		canonicalDesired.IPAddress = rawInitial.IPAddress
 	} else {
 		canonicalDesired.IPAddress = rawDesired.IPAddress
@@ -427,7 +422,7 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.StringCanonicalize(rawDesired.Network, rawInitial.Network) {
+	if dcl.PartialSelfLinkToSelfLink(rawDesired.Network, rawInitial.Network) {
 		canonicalDesired.Network = rawInitial.Network
 	} else {
 		canonicalDesired.Network = rawDesired.Network
@@ -437,7 +432,7 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	} else {
 		canonicalDesired.NetworkTier = rawDesired.NetworkTier
 	}
-	if dcl.StringCanonicalize(rawDesired.PortRange, rawInitial.PortRange) {
+	if canonicalizePortRange(rawDesired.PortRange, rawInitial.PortRange) {
 		canonicalDesired.PortRange = rawInitial.PortRange
 	} else {
 		canonicalDesired.PortRange = rawDesired.PortRange
@@ -452,11 +447,6 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	} else {
 		canonicalDesired.Region = rawDesired.Region
 	}
-	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		canonicalDesired.SelfLink = rawInitial.SelfLink
-	} else {
-		canonicalDesired.SelfLink = rawDesired.SelfLink
-	}
 	if dcl.StringCanonicalize(rawDesired.ServiceLabel, rawInitial.ServiceLabel) {
 		canonicalDesired.ServiceLabel = rawInitial.ServiceLabel
 	} else {
@@ -467,7 +457,7 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	} else {
 		canonicalDesired.ServiceName = rawDesired.ServiceName
 	}
-	if dcl.StringCanonicalize(rawDesired.Subnetwork, rawInitial.Subnetwork) {
+	if dcl.PartialSelfLinkToSelfLink(rawDesired.Subnetwork, rawInitial.Subnetwork) {
 		canonicalDesired.Subnetwork = rawInitial.Subnetwork
 	} else {
 		canonicalDesired.Subnetwork = rawDesired.Subnetwork
@@ -536,7 +526,7 @@ func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *Forwardin
 	if dcl.IsNotReturnedByServer(rawNew.IPAddress) && dcl.IsNotReturnedByServer(rawDesired.IPAddress) {
 		rawNew.IPAddress = rawDesired.IPAddress
 	} else {
-		if dcl.StringCanonicalize(rawDesired.IPAddress, rawNew.IPAddress) {
+		if canonicalizeIPAddressToReference(rawDesired.IPAddress, rawNew.IPAddress) {
 			rawNew.IPAddress = rawDesired.IPAddress
 		}
 	}
@@ -581,7 +571,7 @@ func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *Forwardin
 	if dcl.IsNotReturnedByServer(rawNew.Network) && dcl.IsNotReturnedByServer(rawDesired.Network) {
 		rawNew.Network = rawDesired.Network
 	} else {
-		if dcl.StringCanonicalize(rawDesired.Network, rawNew.Network) {
+		if dcl.PartialSelfLinkToSelfLink(rawDesired.Network, rawNew.Network) {
 			rawNew.Network = rawDesired.Network
 		}
 	}
@@ -594,7 +584,7 @@ func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *Forwardin
 	if dcl.IsNotReturnedByServer(rawNew.PortRange) && dcl.IsNotReturnedByServer(rawDesired.PortRange) {
 		rawNew.PortRange = rawDesired.PortRange
 	} else {
-		if dcl.StringCanonicalize(rawDesired.PortRange, rawNew.PortRange) {
+		if canonicalizePortRange(rawDesired.PortRange, rawNew.PortRange) {
 			rawNew.PortRange = rawDesired.PortRange
 		}
 	}
@@ -639,7 +629,7 @@ func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *Forwardin
 	if dcl.IsNotReturnedByServer(rawNew.Subnetwork) && dcl.IsNotReturnedByServer(rawDesired.Subnetwork) {
 		rawNew.Subnetwork = rawDesired.Subnetwork
 	} else {
-		if dcl.StringCanonicalize(rawDesired.Subnetwork, rawNew.Subnetwork) {
+		if dcl.PartialSelfLinkToSelfLink(rawDesired.Subnetwork, rawNew.Subnetwork) {
 			rawNew.Subnetwork = rawDesired.Subnetwork
 		}
 	}
@@ -886,7 +876,7 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -900,7 +890,7 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPAddress")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{CustomDiff: canonicalizeIPAddressToReference, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -963,7 +953,7 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PortRange, actual.PortRange, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PortRange")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PortRange, actual.PortRange, dcl.Info{CustomDiff: canonicalizePortRange, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PortRange")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -984,7 +974,7 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1172,9 +1162,6 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	if v := f.BackendService; !dcl.IsEmptyValueIndirect(v) {
 		m["backendService"] = v
 	}
-	if v := f.CreationTimestamp; !dcl.IsEmptyValueIndirect(v) {
-		m["creationTimestamp"] = v
-	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
 	}
@@ -1201,7 +1188,9 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v := f.Network; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := dcl.DeriveField("global/networks/%s", f.Network, f.Network); err != nil {
+		return nil, fmt.Errorf("error expanding Network into network: %w", err)
+	} else if v != nil {
 		m["network"] = v
 	}
 	if v := f.NetworkTier; !dcl.IsEmptyValueIndirect(v) {
@@ -1214,16 +1203,15 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	if v := f.Region; !dcl.IsEmptyValueIndirect(v) {
 		m["region"] = v
 	}
-	if v := f.SelfLink; !dcl.IsEmptyValueIndirect(v) {
-		m["selfLink"] = v
-	}
 	if v := f.ServiceLabel; !dcl.IsEmptyValueIndirect(v) {
 		m["serviceLabel"] = v
 	}
 	if v := f.ServiceName; !dcl.IsEmptyValueIndirect(v) {
 		m["serviceName"] = v
 	}
-	if v := f.Subnetwork; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := dcl.DeriveField("projects/%s/regions/%s/subnetworks/%s", f.Subnetwork, f.Project, f.Location, f.Subnetwork); err != nil {
+		return nil, fmt.Errorf("error expanding Subnetwork into subnetwork: %w", err)
+	} else if v != nil {
 		m["subnetwork"] = v
 	}
 	if v := f.Target; !dcl.IsEmptyValueIndirect(v) {

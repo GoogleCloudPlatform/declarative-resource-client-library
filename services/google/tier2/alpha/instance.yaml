@@ -1141,6 +1141,80 @@ components:
           type: boolean
           x-dcl-go-name: EnableCallHistory
           description: Enables call history for recipe steps.
+        encryptionKeys:
+          type: array
+          x-dcl-go-name: EncryptionKeys
+          readOnly: true
+          description: Output only. [Output only] List of KMS keys used by Tier2 to
+            encrypt this resource.
+          x-kubernetes-immutable: true
+          x-dcl-send-empty: true
+          x-dcl-list-type: list
+          items:
+            type: object
+            x-dcl-go-type: InstanceEncryptionKeys
+            properties:
+              delegate:
+                type: string
+                x-dcl-go-name: Delegate
+                description: The MDB user or P4SA this key has been delegated to.
+              grant:
+                type: string
+                x-dcl-go-name: Grant
+                description: The KMS grant delegated to MDB users or P4SAs.
+              keyOrVersion:
+                type: string
+                x-dcl-go-name: KeyOrVersion
+                description: 'Name of the key or version of the form: `projects/{project_id}/locations/{location_id}/keyRings/{keyring_id}/cryptoKeys/{key_id}`'
+              keyState:
+                type: object
+                x-dcl-go-name: KeyState
+                x-dcl-go-type: InstanceEncryptionKeysKeyState
+                description: State of the key known to the Tier2 CLH.
+                properties:
+                  availability:
+                    type: object
+                    x-dcl-go-name: Availability
+                    x-dcl-go-type: InstanceEncryptionKeysKeyStateAvailability
+                    description: The latest KeyAvailability CCFE received
+                    properties:
+                      keyVersionState:
+                        type: string
+                        x-dcl-go-name: KeyVersionState
+                        x-dcl-go-type: InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum
+                        description: 'If set, this will be the latest key version
+                          state from KMS. Possible values: CRYPTO_KEY_VERSION_STATE_UNSPECIFIED,
+                          PENDING_GENERATION, ENABLED, DISABLED, DESTROYED, DESTROY_SCHEDULED,
+                          PENDING_IMPORT, IMPORT_FAILED'
+                        enum:
+                        - CRYPTO_KEY_VERSION_STATE_UNSPECIFIED
+                        - PENDING_GENERATION
+                        - ENABLED
+                        - DISABLED
+                        - DESTROYED
+                        - DESTROY_SCHEDULED
+                        - PENDING_IMPORT
+                        - IMPORT_FAILED
+                      permissionDenied:
+                        type: boolean
+                        x-dcl-go-name: PermissionDenied
+                        description: If true, CCFE received "Permission denied" when
+                          attempting to verify the key or version with KMS. This signals
+                          either a configuration error that prevents CCFE from accessing
+                          the key or the case of the grant no longer being usable.
+                      unknownFailure:
+                        type: boolean
+                        x-dcl-go-name: UnknownFailure
+                        description: If true, CCFE was unable to verify this key and
+                          the user should treat this as the key version state being
+                          something other than ENABLED, but it is unclear what the
+                          exact state is.
+                  keyStateVersion:
+                    type: integer
+                    format: int64
+                    x-dcl-go-name: KeyStateVersion
+                    description: Generation number of the latest key state CCFE received.
+                      Updated whenever the key's state changes for any reason.
         etag:
           type: string
           x-dcl-go-name: Etag
@@ -11147,15 +11221,18 @@ components:
           x-dcl-go-type: InstanceStateEnum
           readOnly: true
           description: '[Output only] The current state of the instance. Possible
-            values: STATUS_UNSPECIFIED, CREATING, READY, UPDATING, DELETING, REPAIRING'
+            values: CRYPTO_KEY_VERSION_STATE_UNSPECIFIED, PENDING_GENERATION, ENABLED,
+            DISABLED, DESTROYED, DESTROY_SCHEDULED, PENDING_IMPORT, IMPORT_FAILED'
           x-kubernetes-immutable: true
           enum:
-          - STATUS_UNSPECIFIED
-          - CREATING
-          - READY
-          - UPDATING
-          - DELETING
-          - REPAIRING
+          - CRYPTO_KEY_VERSION_STATE_UNSPECIFIED
+          - PENDING_GENERATION
+          - ENABLED
+          - DISABLED
+          - DESTROYED
+          - DESTROY_SCHEDULED
+          - PENDING_IMPORT
+          - IMPORT_FAILED
         statusMessage:
           type: string
           x-dcl-go-name: StatusMessage

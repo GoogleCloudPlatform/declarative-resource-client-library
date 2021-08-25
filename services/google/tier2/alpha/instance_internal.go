@@ -174,6 +174,25 @@ func (r *InstanceReferences) validate() error {
 func (r *InstanceReferencesDetails) validate() error {
 	return nil
 }
+func (r *InstanceEncryptionKeys) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.KeyState) {
+		if err := r.KeyState.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *InstanceEncryptionKeysKeyState) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.Availability) {
+		if err := r.Availability.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *InstanceEncryptionKeysKeyStateAvailability) validate() error {
+	return nil
+}
 func (r *InstancePreprocessCreateRecipe) validate() error {
 	return nil
 }
@@ -2875,6 +2894,12 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 		rawNew.References = canonicalizeNewInstanceReferencesSlice(c, rawDesired.References, rawNew.References)
 	}
 
+	if dcl.IsNotReturnedByServer(rawNew.EncryptionKeys) && dcl.IsNotReturnedByServer(rawDesired.EncryptionKeys) {
+		rawNew.EncryptionKeys = rawDesired.EncryptionKeys
+	} else {
+		rawNew.EncryptionKeys = canonicalizeNewInstanceEncryptionKeysSlice(c, rawDesired.EncryptionKeys, rawNew.EncryptionKeys)
+	}
+
 	if dcl.IsNotReturnedByServer(rawNew.PreprocessCreateRecipe) && dcl.IsNotReturnedByServer(rawDesired.PreprocessCreateRecipe) {
 		rawNew.PreprocessCreateRecipe = rawDesired.PreprocessCreateRecipe
 	} else {
@@ -3345,6 +3370,297 @@ func canonicalizeNewInstanceReferencesDetailsSlice(c *Client, des, nw []Instance
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceReferencesDetails(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceEncryptionKeys(des, initial *InstanceEncryptionKeys, opts ...dcl.ApplyOption) *InstanceEncryptionKeys {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceEncryptionKeys{}
+
+	if dcl.StringCanonicalize(des.KeyOrVersion, initial.KeyOrVersion) || dcl.IsZeroValue(des.KeyOrVersion) {
+		cDes.KeyOrVersion = initial.KeyOrVersion
+	} else {
+		cDes.KeyOrVersion = des.KeyOrVersion
+	}
+	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
+		cDes.Grant = initial.Grant
+	} else {
+		cDes.Grant = des.Grant
+	}
+	if dcl.StringCanonicalize(des.Delegate, initial.Delegate) || dcl.IsZeroValue(des.Delegate) {
+		cDes.Delegate = initial.Delegate
+	} else {
+		cDes.Delegate = des.Delegate
+	}
+	cDes.KeyState = canonicalizeInstanceEncryptionKeysKeyState(des.KeyState, initial.KeyState, opts...)
+
+	return cDes
+}
+
+func canonicalizeNewInstanceEncryptionKeys(c *Client, des, nw *InstanceEncryptionKeys) *InstanceEncryptionKeys {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceEncryptionKeys while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.KeyOrVersion, nw.KeyOrVersion) {
+		nw.KeyOrVersion = des.KeyOrVersion
+	}
+	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
+		nw.Grant = des.Grant
+	}
+	if dcl.StringCanonicalize(des.Delegate, nw.Delegate) {
+		nw.Delegate = des.Delegate
+	}
+	nw.KeyState = canonicalizeNewInstanceEncryptionKeysKeyState(c, des.KeyState, nw.KeyState)
+
+	return nw
+}
+
+func canonicalizeNewInstanceEncryptionKeysSet(c *Client, des, nw []InstanceEncryptionKeys) []InstanceEncryptionKeys {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceEncryptionKeys
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceEncryptionKeysNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceEncryptionKeysSlice(c *Client, des, nw []InstanceEncryptionKeys) []InstanceEncryptionKeys {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceEncryptionKeys
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceEncryptionKeys(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceEncryptionKeysKeyState(des, initial *InstanceEncryptionKeysKeyState, opts ...dcl.ApplyOption) *InstanceEncryptionKeysKeyState {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceEncryptionKeysKeyState{}
+
+	if dcl.IsZeroValue(des.KeyStateVersion) {
+		des.KeyStateVersion = initial.KeyStateVersion
+	} else {
+		cDes.KeyStateVersion = des.KeyStateVersion
+	}
+	cDes.Availability = canonicalizeInstanceEncryptionKeysKeyStateAvailability(des.Availability, initial.Availability, opts...)
+
+	return cDes
+}
+
+func canonicalizeNewInstanceEncryptionKeysKeyState(c *Client, des, nw *InstanceEncryptionKeysKeyState) *InstanceEncryptionKeysKeyState {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceEncryptionKeysKeyState while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	nw.Availability = canonicalizeNewInstanceEncryptionKeysKeyStateAvailability(c, des.Availability, nw.Availability)
+
+	return nw
+}
+
+func canonicalizeNewInstanceEncryptionKeysKeyStateSet(c *Client, des, nw []InstanceEncryptionKeysKeyState) []InstanceEncryptionKeysKeyState {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceEncryptionKeysKeyState
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceEncryptionKeysKeyStateNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceEncryptionKeysKeyStateSlice(c *Client, des, nw []InstanceEncryptionKeysKeyState) []InstanceEncryptionKeysKeyState {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceEncryptionKeysKeyState
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceEncryptionKeysKeyState(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceEncryptionKeysKeyStateAvailability(des, initial *InstanceEncryptionKeysKeyStateAvailability, opts ...dcl.ApplyOption) *InstanceEncryptionKeysKeyStateAvailability {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceEncryptionKeysKeyStateAvailability{}
+
+	if dcl.BoolCanonicalize(des.PermissionDenied, initial.PermissionDenied) || dcl.IsZeroValue(des.PermissionDenied) {
+		cDes.PermissionDenied = initial.PermissionDenied
+	} else {
+		cDes.PermissionDenied = des.PermissionDenied
+	}
+	if dcl.BoolCanonicalize(des.UnknownFailure, initial.UnknownFailure) || dcl.IsZeroValue(des.UnknownFailure) {
+		cDes.UnknownFailure = initial.UnknownFailure
+	} else {
+		cDes.UnknownFailure = des.UnknownFailure
+	}
+	if dcl.IsZeroValue(des.KeyVersionState) {
+		des.KeyVersionState = initial.KeyVersionState
+	} else {
+		cDes.KeyVersionState = des.KeyVersionState
+	}
+
+	return cDes
+}
+
+func canonicalizeNewInstanceEncryptionKeysKeyStateAvailability(c *Client, des, nw *InstanceEncryptionKeysKeyStateAvailability) *InstanceEncryptionKeysKeyStateAvailability {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceEncryptionKeysKeyStateAvailability while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.BoolCanonicalize(des.PermissionDenied, nw.PermissionDenied) {
+		nw.PermissionDenied = des.PermissionDenied
+	}
+	if dcl.BoolCanonicalize(des.UnknownFailure, nw.UnknownFailure) {
+		nw.UnknownFailure = des.UnknownFailure
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceEncryptionKeysKeyStateAvailabilitySet(c *Client, des, nw []InstanceEncryptionKeysKeyStateAvailability) []InstanceEncryptionKeysKeyStateAvailability {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceEncryptionKeysKeyStateAvailability
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceEncryptionKeysKeyStateAvailabilityNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceEncryptionKeysKeyStateAvailabilitySlice(c *Client, des, nw []InstanceEncryptionKeysKeyStateAvailability) []InstanceEncryptionKeysKeyStateAvailability {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceEncryptionKeysKeyStateAvailability
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceEncryptionKeysKeyStateAvailability(c, &d, &n))
 	}
 
 	return items
@@ -37365,6 +37681,13 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.EncryptionKeys, actual.EncryptionKeys, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceEncryptionKeysNewStyle, EmptyObject: EmptyInstanceEncryptionKeys, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EncryptionKeys")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.PreprocessCreateRecipe, actual.PreprocessCreateRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeNewStyle, EmptyObject: EmptyInstancePreprocessCreateRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessCreateRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -37705,6 +38028,135 @@ func compareInstanceReferencesDetailsNewStyle(d, a interface{}, fn dcl.FieldName
 	}
 
 	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceEncryptionKeysNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceEncryptionKeys)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceEncryptionKeys)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceEncryptionKeys or *InstanceEncryptionKeys", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceEncryptionKeys)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceEncryptionKeys)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceEncryptionKeys", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyOrVersion, actual.KeyOrVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyState, actual.KeyState, dcl.Info{ObjectFunction: compareInstanceEncryptionKeysKeyStateNewStyle, EmptyObject: EmptyInstanceEncryptionKeysKeyState, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyState")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceEncryptionKeysKeyStateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceEncryptionKeysKeyState)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceEncryptionKeysKeyState)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceEncryptionKeysKeyState or *InstanceEncryptionKeysKeyState", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceEncryptionKeysKeyState)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceEncryptionKeysKeyState)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceEncryptionKeysKeyState", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyStateVersion, actual.KeyStateVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyStateVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Availability, actual.Availability, dcl.Info{ObjectFunction: compareInstanceEncryptionKeysKeyStateAvailabilityNewStyle, EmptyObject: EmptyInstanceEncryptionKeysKeyStateAvailability, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Availability")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceEncryptionKeysKeyStateAvailabilityNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceEncryptionKeysKeyStateAvailability)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceEncryptionKeysKeyStateAvailability)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceEncryptionKeysKeyStateAvailability or *InstanceEncryptionKeysKeyStateAvailability", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceEncryptionKeysKeyStateAvailability)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceEncryptionKeysKeyStateAvailability)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceEncryptionKeysKeyStateAvailability", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PermissionDenied, actual.PermissionDenied, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionDenied")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UnknownFailure, actual.UnknownFailure, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UnknownFailure")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyVersionState, actual.KeyVersionState, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyVersionState")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -54646,6 +55098,7 @@ func flattenInstance(c *Client, i interface{}) *Instance {
 	res.MutateUserId = dcl.FlattenInteger(m["mutateUserId"])
 	res.ReadUserId = dcl.FlattenInteger(m["readUserId"])
 	res.References = flattenInstanceReferencesSlice(c, m["references"])
+	res.EncryptionKeys = flattenInstanceEncryptionKeysSlice(c, m["encryptionKeys"])
 	res.PreprocessCreateRecipe = flattenInstancePreprocessCreateRecipe(c, m["preprocessCreateRecipe"])
 	res.CreateRecipe = flattenInstanceCreateRecipe(c, m["createRecipe"])
 	res.DeleteRecipe = flattenInstanceDeleteRecipe(c, m["deleteRecipe"])
@@ -55039,6 +55492,376 @@ func flattenInstanceReferencesDetails(c *Client, i interface{}) *InstanceReferen
 	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
+
+	return r
+}
+
+// expandInstanceEncryptionKeysMap expands the contents of InstanceEncryptionKeys into a JSON
+// request object.
+func expandInstanceEncryptionKeysMap(c *Client, f map[string]InstanceEncryptionKeys) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceEncryptionKeys(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceEncryptionKeysSlice expands the contents of InstanceEncryptionKeys into a JSON
+// request object.
+func expandInstanceEncryptionKeysSlice(c *Client, f []InstanceEncryptionKeys) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceEncryptionKeys(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceEncryptionKeysMap flattens the contents of InstanceEncryptionKeys from a JSON
+// response object.
+func flattenInstanceEncryptionKeysMap(c *Client, i interface{}) map[string]InstanceEncryptionKeys {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceEncryptionKeys{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceEncryptionKeys{}
+	}
+
+	items := make(map[string]InstanceEncryptionKeys)
+	for k, item := range a {
+		items[k] = *flattenInstanceEncryptionKeys(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceEncryptionKeysSlice flattens the contents of InstanceEncryptionKeys from a JSON
+// response object.
+func flattenInstanceEncryptionKeysSlice(c *Client, i interface{}) []InstanceEncryptionKeys {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceEncryptionKeys{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceEncryptionKeys{}
+	}
+
+	items := make([]InstanceEncryptionKeys, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceEncryptionKeys(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceEncryptionKeys expands an instance of InstanceEncryptionKeys into a JSON
+// request object.
+func expandInstanceEncryptionKeys(c *Client, f *InstanceEncryptionKeys) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.KeyOrVersion; !dcl.IsEmptyValueIndirect(v) {
+		m["keyOrVersion"] = v
+	}
+	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
+		m["grant"] = v
+	}
+	if v := f.Delegate; !dcl.IsEmptyValueIndirect(v) {
+		m["delegate"] = v
+	}
+	if v, err := expandInstanceEncryptionKeysKeyState(c, f.KeyState); err != nil {
+		return nil, fmt.Errorf("error expanding KeyState into keyState: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["keyState"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceEncryptionKeys flattens an instance of InstanceEncryptionKeys from a JSON
+// response object.
+func flattenInstanceEncryptionKeys(c *Client, i interface{}) *InstanceEncryptionKeys {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceEncryptionKeys{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceEncryptionKeys
+	}
+	r.KeyOrVersion = dcl.FlattenString(m["keyOrVersion"])
+	r.Grant = dcl.FlattenString(m["grant"])
+	r.Delegate = dcl.FlattenString(m["delegate"])
+	r.KeyState = flattenInstanceEncryptionKeysKeyState(c, m["keyState"])
+
+	return r
+}
+
+// expandInstanceEncryptionKeysKeyStateMap expands the contents of InstanceEncryptionKeysKeyState into a JSON
+// request object.
+func expandInstanceEncryptionKeysKeyStateMap(c *Client, f map[string]InstanceEncryptionKeysKeyState) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceEncryptionKeysKeyState(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceEncryptionKeysKeyStateSlice expands the contents of InstanceEncryptionKeysKeyState into a JSON
+// request object.
+func expandInstanceEncryptionKeysKeyStateSlice(c *Client, f []InstanceEncryptionKeysKeyState) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceEncryptionKeysKeyState(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceEncryptionKeysKeyStateMap flattens the contents of InstanceEncryptionKeysKeyState from a JSON
+// response object.
+func flattenInstanceEncryptionKeysKeyStateMap(c *Client, i interface{}) map[string]InstanceEncryptionKeysKeyState {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceEncryptionKeysKeyState{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceEncryptionKeysKeyState{}
+	}
+
+	items := make(map[string]InstanceEncryptionKeysKeyState)
+	for k, item := range a {
+		items[k] = *flattenInstanceEncryptionKeysKeyState(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceEncryptionKeysKeyStateSlice flattens the contents of InstanceEncryptionKeysKeyState from a JSON
+// response object.
+func flattenInstanceEncryptionKeysKeyStateSlice(c *Client, i interface{}) []InstanceEncryptionKeysKeyState {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceEncryptionKeysKeyState{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceEncryptionKeysKeyState{}
+	}
+
+	items := make([]InstanceEncryptionKeysKeyState, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceEncryptionKeysKeyState(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceEncryptionKeysKeyState expands an instance of InstanceEncryptionKeysKeyState into a JSON
+// request object.
+func expandInstanceEncryptionKeysKeyState(c *Client, f *InstanceEncryptionKeysKeyState) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.KeyStateVersion; !dcl.IsEmptyValueIndirect(v) {
+		m["keyStateVersion"] = v
+	}
+	if v, err := expandInstanceEncryptionKeysKeyStateAvailability(c, f.Availability); err != nil {
+		return nil, fmt.Errorf("error expanding Availability into availability: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["availability"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceEncryptionKeysKeyState flattens an instance of InstanceEncryptionKeysKeyState from a JSON
+// response object.
+func flattenInstanceEncryptionKeysKeyState(c *Client, i interface{}) *InstanceEncryptionKeysKeyState {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceEncryptionKeysKeyState{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceEncryptionKeysKeyState
+	}
+	r.KeyStateVersion = dcl.FlattenInteger(m["keyStateVersion"])
+	r.Availability = flattenInstanceEncryptionKeysKeyStateAvailability(c, m["availability"])
+
+	return r
+}
+
+// expandInstanceEncryptionKeysKeyStateAvailabilityMap expands the contents of InstanceEncryptionKeysKeyStateAvailability into a JSON
+// request object.
+func expandInstanceEncryptionKeysKeyStateAvailabilityMap(c *Client, f map[string]InstanceEncryptionKeysKeyStateAvailability) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceEncryptionKeysKeyStateAvailability(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceEncryptionKeysKeyStateAvailabilitySlice expands the contents of InstanceEncryptionKeysKeyStateAvailability into a JSON
+// request object.
+func expandInstanceEncryptionKeysKeyStateAvailabilitySlice(c *Client, f []InstanceEncryptionKeysKeyStateAvailability) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceEncryptionKeysKeyStateAvailability(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceEncryptionKeysKeyStateAvailabilityMap flattens the contents of InstanceEncryptionKeysKeyStateAvailability from a JSON
+// response object.
+func flattenInstanceEncryptionKeysKeyStateAvailabilityMap(c *Client, i interface{}) map[string]InstanceEncryptionKeysKeyStateAvailability {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceEncryptionKeysKeyStateAvailability{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceEncryptionKeysKeyStateAvailability{}
+	}
+
+	items := make(map[string]InstanceEncryptionKeysKeyStateAvailability)
+	for k, item := range a {
+		items[k] = *flattenInstanceEncryptionKeysKeyStateAvailability(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceEncryptionKeysKeyStateAvailabilitySlice flattens the contents of InstanceEncryptionKeysKeyStateAvailability from a JSON
+// response object.
+func flattenInstanceEncryptionKeysKeyStateAvailabilitySlice(c *Client, i interface{}) []InstanceEncryptionKeysKeyStateAvailability {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceEncryptionKeysKeyStateAvailability{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceEncryptionKeysKeyStateAvailability{}
+	}
+
+	items := make([]InstanceEncryptionKeysKeyStateAvailability, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceEncryptionKeysKeyStateAvailability(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandInstanceEncryptionKeysKeyStateAvailability expands an instance of InstanceEncryptionKeysKeyStateAvailability into a JSON
+// request object.
+func expandInstanceEncryptionKeysKeyStateAvailability(c *Client, f *InstanceEncryptionKeysKeyStateAvailability) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.PermissionDenied; !dcl.IsEmptyValueIndirect(v) {
+		m["permissionDenied"] = v
+	}
+	if v := f.UnknownFailure; !dcl.IsEmptyValueIndirect(v) {
+		m["unknownFailure"] = v
+	}
+	if v := f.KeyVersionState; !dcl.IsEmptyValueIndirect(v) {
+		m["keyVersionState"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceEncryptionKeysKeyStateAvailability flattens an instance of InstanceEncryptionKeysKeyStateAvailability from a JSON
+// response object.
+func flattenInstanceEncryptionKeysKeyStateAvailability(c *Client, i interface{}) *InstanceEncryptionKeysKeyStateAvailability {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceEncryptionKeysKeyStateAvailability{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceEncryptionKeysKeyStateAvailability
+	}
+	r.PermissionDenied = dcl.FlattenBool(m["permissionDenied"])
+	r.UnknownFailure = dcl.FlattenBool(m["unknownFailure"])
+	r.KeyVersionState = flattenInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum(m["keyVersionState"])
 
 	return r
 }
@@ -96934,6 +97757,57 @@ func flattenInstanceStateEnum(i interface{}) *InstanceStateEnum {
 	}
 
 	return InstanceStateEnumRef(s)
+}
+
+// flattenInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnumMap flattens the contents of InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum from a JSON
+// response object.
+func flattenInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnumMap(c *Client, i interface{}) map[string]InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum{}
+	}
+
+	items := make(map[string]InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnumSlice flattens the contents of InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum from a JSON
+// response object.
+func flattenInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnumSlice(c *Client, i interface{}) []InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum{}
+	}
+
+	items := make([]InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum with the same value as that string.
+func flattenInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum(i interface{}) *InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum {
+	s, ok := i.(string)
+	if !ok {
+		return InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnumRef("")
+	}
+
+	return InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnumRef(s)
 }
 
 // flattenInstancePreprocessCreateRecipeStepsActionEnumMap flattens the contents of InstancePreprocessCreateRecipeStepsActionEnum from a JSON

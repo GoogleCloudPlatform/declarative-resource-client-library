@@ -43,6 +43,7 @@ type Instance struct {
 	MutateUserId                         *int64                                        `json:"mutateUserId"`
 	ReadUserId                           *int64                                        `json:"readUserId"`
 	References                           []InstanceReferences                          `json:"references"`
+	EncryptionKeys                       []InstanceEncryptionKeys                      `json:"encryptionKeys"`
 	PreprocessCreateRecipe               *InstancePreprocessCreateRecipe               `json:"preprocessCreateRecipe"`
 	CreateRecipe                         *InstanceCreateRecipe                         `json:"createRecipe"`
 	DeleteRecipe                         *InstanceDeleteRecipe                         `json:"deleteRecipe"`
@@ -149,13 +150,40 @@ func InstanceStateEnumRef(s string) *InstanceStateEnum {
 }
 
 func (v InstanceStateEnum) Validate() error {
-	for _, s := range []string{"STATUS_UNSPECIFIED", "CREATING", "READY", "UPDATING", "DELETING", "REPAIRING"} {
+	for _, s := range []string{"CRYPTO_KEY_VERSION_STATE_UNSPECIFIED", "PENDING_GENERATION", "ENABLED", "DISABLED", "DESTROYED", "DESTROY_SCHEDULED", "PENDING_IMPORT", "IMPORT_FAILED"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "InstanceStateEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum.
+type InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum string
+
+// InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnumRef returns a *InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnumRef(s string) *InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum(s)
+	return &v
+}
+
+func (v InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum) Validate() error {
+	for _, s := range []string{"CRYPTO_KEY_VERSION_STATE_UNSPECIFIED", "PENDING_GENERATION", "ENABLED", "DISABLED", "DESTROYED", "DESTROY_SCHEDULED", "PENDING_IMPORT", "IMPORT_FAILED"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -2174,6 +2202,162 @@ func (r *InstanceReferencesDetails) String() string {
 }
 
 func (r *InstanceReferencesDetails) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstanceEncryptionKeys struct {
+	empty        bool                            `json:"-"`
+	KeyOrVersion *string                         `json:"keyOrVersion"`
+	Grant        *string                         `json:"grant"`
+	Delegate     *string                         `json:"delegate"`
+	KeyState     *InstanceEncryptionKeysKeyState `json:"keyState"`
+}
+
+type jsonInstanceEncryptionKeys InstanceEncryptionKeys
+
+func (r *InstanceEncryptionKeys) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceEncryptionKeys
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceEncryptionKeys
+	} else {
+
+		r.KeyOrVersion = res.KeyOrVersion
+
+		r.Grant = res.Grant
+
+		r.Delegate = res.Delegate
+
+		r.KeyState = res.KeyState
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstanceEncryptionKeys is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstanceEncryptionKeys *InstanceEncryptionKeys = &InstanceEncryptionKeys{empty: true}
+
+func (r *InstanceEncryptionKeys) Empty() bool {
+	return r.empty
+}
+
+func (r *InstanceEncryptionKeys) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstanceEncryptionKeys) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstanceEncryptionKeysKeyState struct {
+	empty           bool                                        `json:"-"`
+	KeyStateVersion *int64                                      `json:"keyStateVersion"`
+	Availability    *InstanceEncryptionKeysKeyStateAvailability `json:"availability"`
+}
+
+type jsonInstanceEncryptionKeysKeyState InstanceEncryptionKeysKeyState
+
+func (r *InstanceEncryptionKeysKeyState) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceEncryptionKeysKeyState
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceEncryptionKeysKeyState
+	} else {
+
+		r.KeyStateVersion = res.KeyStateVersion
+
+		r.Availability = res.Availability
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstanceEncryptionKeysKeyState is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstanceEncryptionKeysKeyState *InstanceEncryptionKeysKeyState = &InstanceEncryptionKeysKeyState{empty: true}
+
+func (r *InstanceEncryptionKeysKeyState) Empty() bool {
+	return r.empty
+}
+
+func (r *InstanceEncryptionKeysKeyState) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstanceEncryptionKeysKeyState) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstanceEncryptionKeysKeyStateAvailability struct {
+	empty            bool                                                           `json:"-"`
+	PermissionDenied *bool                                                          `json:"permissionDenied"`
+	UnknownFailure   *bool                                                          `json:"unknownFailure"`
+	KeyVersionState  *InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum `json:"keyVersionState"`
+}
+
+type jsonInstanceEncryptionKeysKeyStateAvailability InstanceEncryptionKeysKeyStateAvailability
+
+func (r *InstanceEncryptionKeysKeyStateAvailability) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceEncryptionKeysKeyStateAvailability
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceEncryptionKeysKeyStateAvailability
+	} else {
+
+		r.PermissionDenied = res.PermissionDenied
+
+		r.UnknownFailure = res.UnknownFailure
+
+		r.KeyVersionState = res.KeyVersionState
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstanceEncryptionKeysKeyStateAvailability is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyInstanceEncryptionKeysKeyStateAvailability *InstanceEncryptionKeysKeyStateAvailability = &InstanceEncryptionKeysKeyStateAvailability{empty: true}
+
+func (r *InstanceEncryptionKeysKeyStateAvailability) Empty() bool {
+	return r.empty
+}
+
+func (r *InstanceEncryptionKeysKeyStateAvailability) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstanceEncryptionKeysKeyStateAvailability) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -20238,6 +20422,7 @@ func (r *Instance) ID() (string, error) {
 		"mutateUserId":                         dcl.ValueOrEmptyString(nr.MutateUserId),
 		"readUserId":                           dcl.ValueOrEmptyString(nr.ReadUserId),
 		"references":                           dcl.ValueOrEmptyString(nr.References),
+		"encryptionKeys":                       dcl.ValueOrEmptyString(nr.EncryptionKeys),
 		"preprocessCreateRecipe":               dcl.ValueOrEmptyString(nr.PreprocessCreateRecipe),
 		"createRecipe":                         dcl.ValueOrEmptyString(nr.CreateRecipe),
 		"deleteRecipe":                         dcl.ValueOrEmptyString(nr.DeleteRecipe),

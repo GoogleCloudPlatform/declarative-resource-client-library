@@ -34,12 +34,26 @@ enum Tier2AlphaInstanceSkuSizeEnum {
 
 enum Tier2AlphaInstanceStateEnum {
   Tier2AlphaInstanceStateEnumNO_VALUE_DO_NOT_USE = 0;
-  Tier2AlphaInstanceStateEnumSTATUS_UNSPECIFIED = 1;
-  Tier2AlphaInstanceStateEnumCREATING = 2;
-  Tier2AlphaInstanceStateEnumREADY = 3;
-  Tier2AlphaInstanceStateEnumUPDATING = 4;
-  Tier2AlphaInstanceStateEnumDELETING = 5;
-  Tier2AlphaInstanceStateEnumREPAIRING = 6;
+  Tier2AlphaInstanceStateEnumCRYPTO_KEY_VERSION_STATE_UNSPECIFIED = 1;
+  Tier2AlphaInstanceStateEnumPENDING_GENERATION = 2;
+  Tier2AlphaInstanceStateEnumENABLED = 3;
+  Tier2AlphaInstanceStateEnumDISABLED = 4;
+  Tier2AlphaInstanceStateEnumDESTROYED = 5;
+  Tier2AlphaInstanceStateEnumDESTROY_SCHEDULED = 6;
+  Tier2AlphaInstanceStateEnumPENDING_IMPORT = 7;
+  Tier2AlphaInstanceStateEnumIMPORT_FAILED = 8;
+}
+
+enum Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum {
+  Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnumCRYPTO_KEY_VERSION_STATE_UNSPECIFIED = 1;
+  Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnumPENDING_GENERATION = 2;
+  Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnumENABLED = 3;
+  Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnumDISABLED = 4;
+  Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnumDESTROYED = 5;
+  Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnumDESTROY_SCHEDULED = 6;
+  Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnumPENDING_IMPORT = 7;
+  Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnumIMPORT_FAILED = 8;
 }
 
 enum Tier2AlphaInstancePreprocessCreateRecipeStepsActionEnum {
@@ -636,37 +650,38 @@ message Tier2AlphaInstance {
   int64 mutate_user_id = 16;
   int64 read_user_id = 17;
   repeated Tier2AlphaInstanceReferences references = 18;
-  Tier2AlphaInstancePreprocessCreateRecipe preprocess_create_recipe = 19;
-  Tier2AlphaInstanceCreateRecipe create_recipe = 20;
-  Tier2AlphaInstanceDeleteRecipe delete_recipe = 21;
-  Tier2AlphaInstanceUpdateRecipe update_recipe = 22;
-  Tier2AlphaInstancePreprocessResetRecipe preprocess_reset_recipe = 23;
-  Tier2AlphaInstanceResetRecipe reset_recipe = 24;
-  Tier2AlphaInstancePreprocessRepairRecipe preprocess_repair_recipe = 25;
-  Tier2AlphaInstanceRepairRecipe repair_recipe = 26;
-  Tier2AlphaInstancePreprocessDeleteRecipe preprocess_delete_recipe = 27;
-  Tier2AlphaInstancePreprocessUpdateRecipe preprocess_update_recipe = 28;
-  Tier2AlphaInstancePreprocessFreezeRecipe preprocess_freeze_recipe = 29;
-  Tier2AlphaInstanceFreezeRecipe freeze_recipe = 30;
-  Tier2AlphaInstancePreprocessUnfreezeRecipe preprocess_unfreeze_recipe = 31;
-  Tier2AlphaInstanceUnfreezeRecipe unfreeze_recipe = 32;
-  Tier2AlphaInstancePreprocessReportInstanceHealthRecipe preprocess_report_instance_health_recipe = 33;
-  Tier2AlphaInstanceReportInstanceHealthRecipe report_instance_health_recipe = 34;
-  Tier2AlphaInstancePreprocessGetRecipe preprocess_get_recipe = 35;
-  Tier2AlphaInstanceNotifyKeyAvailableRecipe notify_key_available_recipe = 36;
-  Tier2AlphaInstanceNotifyKeyUnavailableRecipe notify_key_unavailable_recipe = 37;
-  Tier2AlphaInstanceReadonlyRecipe readonly_recipe = 38;
-  Tier2AlphaInstanceReconcileRecipe reconcile_recipe = 39;
-  Tier2AlphaInstancePreprocessPassthroughRecipe preprocess_passthrough_recipe = 40;
-  Tier2AlphaInstancePreprocessReconcileRecipe preprocess_reconcile_recipe = 41;
-  bool enable_call_history = 42;
-  repeated Tier2AlphaInstanceHistory history = 43;
-  string public_resource_view_override = 44;
-  string extra_info = 45;
-  string uid = 46;
-  string etag = 47;
-  string project = 48;
-  string location = 49;
+  repeated Tier2AlphaInstanceEncryptionKeys encryption_keys = 19;
+  Tier2AlphaInstancePreprocessCreateRecipe preprocess_create_recipe = 20;
+  Tier2AlphaInstanceCreateRecipe create_recipe = 21;
+  Tier2AlphaInstanceDeleteRecipe delete_recipe = 22;
+  Tier2AlphaInstanceUpdateRecipe update_recipe = 23;
+  Tier2AlphaInstancePreprocessResetRecipe preprocess_reset_recipe = 24;
+  Tier2AlphaInstanceResetRecipe reset_recipe = 25;
+  Tier2AlphaInstancePreprocessRepairRecipe preprocess_repair_recipe = 26;
+  Tier2AlphaInstanceRepairRecipe repair_recipe = 27;
+  Tier2AlphaInstancePreprocessDeleteRecipe preprocess_delete_recipe = 28;
+  Tier2AlphaInstancePreprocessUpdateRecipe preprocess_update_recipe = 29;
+  Tier2AlphaInstancePreprocessFreezeRecipe preprocess_freeze_recipe = 30;
+  Tier2AlphaInstanceFreezeRecipe freeze_recipe = 31;
+  Tier2AlphaInstancePreprocessUnfreezeRecipe preprocess_unfreeze_recipe = 32;
+  Tier2AlphaInstanceUnfreezeRecipe unfreeze_recipe = 33;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipe preprocess_report_instance_health_recipe = 34;
+  Tier2AlphaInstanceReportInstanceHealthRecipe report_instance_health_recipe = 35;
+  Tier2AlphaInstancePreprocessGetRecipe preprocess_get_recipe = 36;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipe notify_key_available_recipe = 37;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipe notify_key_unavailable_recipe = 38;
+  Tier2AlphaInstanceReadonlyRecipe readonly_recipe = 39;
+  Tier2AlphaInstanceReconcileRecipe reconcile_recipe = 40;
+  Tier2AlphaInstancePreprocessPassthroughRecipe preprocess_passthrough_recipe = 41;
+  Tier2AlphaInstancePreprocessReconcileRecipe preprocess_reconcile_recipe = 42;
+  bool enable_call_history = 43;
+  repeated Tier2AlphaInstanceHistory history = 44;
+  string public_resource_view_override = 45;
+  string extra_info = 46;
+  string uid = 47;
+  string etag = 48;
+  string project = 49;
+  string location = 50;
 }
 
 message Tier2AlphaInstanceSku {
@@ -685,6 +700,24 @@ message Tier2AlphaInstanceReferences {
 message Tier2AlphaInstanceReferencesDetails {
   string type_url = 1;
   string value = 2;
+}
+
+message Tier2AlphaInstanceEncryptionKeys {
+  string key_or_version = 1;
+  string grant = 2;
+  string delegate = 3;
+  Tier2AlphaInstanceEncryptionKeysKeyState key_state = 4;
+}
+
+message Tier2AlphaInstanceEncryptionKeysKeyState {
+  int64 key_state_version = 1;
+  Tier2AlphaInstanceEncryptionKeysKeyStateAvailability availability = 2;
+}
+
+message Tier2AlphaInstanceEncryptionKeysKeyStateAvailability {
+  bool permission_denied = 1;
+  bool unknown_failure = 2;
+  Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum key_version_state = 3;
 }
 
 message Tier2AlphaInstancePreprocessCreateRecipe {

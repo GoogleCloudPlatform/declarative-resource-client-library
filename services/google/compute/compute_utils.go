@@ -17,6 +17,9 @@ package compute
 import (
 	"bytes"
 	"context"
+	"fmt"
+	"net"
+	"strings"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
@@ -92,6 +95,53 @@ func equalReservationCPUPlatform(o, n *string) bool {
 		return true
 	}
 
+	return *o == *n
+}
+
+func canonicalizeIPAddressToReference(o, n interface{}) bool {
+	oVal, _ := o.(*string)
+	nVal, _ := n.(*string)
+	if oVal == nil && nVal == nil {
+		return true
+	}
+	if oVal == nil || nVal == nil {
+		return false
+	}
+	if isIPV4Address(*oVal) && !isIPV4Address(*nVal) {
+		return true
+	}
+	if isIPV4Address(*nVal) && !isIPV4Address(*oVal) {
+		return true
+	}
+	return dcl.NameToSelfLink(oVal, nVal)
+}
+
+func isIPV4Address(addr string) bool {
+	return net.ParseIP(addr) != nil
+}
+
+func canonicalizePortRange(o, n interface{}) bool {
+	oVal, _ := o.(*string)
+	nVal, _ := n.(*string)
+	return equalPortRanges(oVal, nVal)
+}
+
+func equalPortRanges(o, n *string) bool {
+	if o == nil && n == nil {
+		return true
+	}
+	if o == nil || n == nil {
+		return false
+	}
+	if strings.Contains(*o, "-") && !strings.Contains(*n, "-") {
+		// If one of them contains a dash but not the other, ensure that the one with a dash is 'n'.
+		swap := n
+		n = o
+		o = swap
+	}
+	if !strings.Contains(*o, "-") && strings.Contains(*n, "-") {
+		o = dcl.String(fmt.Sprintf("%s-%s", *o, *o))
+	}
 	return *o == *n
 }
 

@@ -61,6 +61,18 @@ func ProtoToTier2AlphaInstanceStateEnum(e alphapb.Tier2AlphaInstanceStateEnum) *
 	return nil
 }
 
+// ProtoToInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum converts a InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum enum from its proto representation.
+func ProtoToTier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum(e alphapb.Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum) *alpha.InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum_name[int32(e)]; ok {
+		e := alpha.InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum(n[len("Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToInstancePreprocessCreateRecipeStepsActionEnum converts a InstancePreprocessCreateRecipeStepsActionEnum enum from its proto representation.
 func ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsActionEnum(e alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsActionEnum) *alpha.InstancePreprocessCreateRecipeStepsActionEnum {
 	if e == 0 {
@@ -926,6 +938,45 @@ func ProtoToTier2AlphaInstanceReferencesDetails(p *alphapb.Tier2AlphaInstanceRef
 	obj := &alpha.InstanceReferencesDetails{
 		TypeUrl: dcl.StringOrNil(p.TypeUrl),
 		Value:   dcl.StringOrNil(p.Value),
+	}
+	return obj
+}
+
+// ProtoToInstanceEncryptionKeys converts a InstanceEncryptionKeys resource from its proto representation.
+func ProtoToTier2AlphaInstanceEncryptionKeys(p *alphapb.Tier2AlphaInstanceEncryptionKeys) *alpha.InstanceEncryptionKeys {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceEncryptionKeys{
+		KeyOrVersion: dcl.StringOrNil(p.KeyOrVersion),
+		Grant:        dcl.StringOrNil(p.Grant),
+		Delegate:     dcl.StringOrNil(p.Delegate),
+		KeyState:     ProtoToTier2AlphaInstanceEncryptionKeysKeyState(p.GetKeyState()),
+	}
+	return obj
+}
+
+// ProtoToInstanceEncryptionKeysKeyState converts a InstanceEncryptionKeysKeyState resource from its proto representation.
+func ProtoToTier2AlphaInstanceEncryptionKeysKeyState(p *alphapb.Tier2AlphaInstanceEncryptionKeysKeyState) *alpha.InstanceEncryptionKeysKeyState {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceEncryptionKeysKeyState{
+		KeyStateVersion: dcl.Int64OrNil(p.KeyStateVersion),
+		Availability:    ProtoToTier2AlphaInstanceEncryptionKeysKeyStateAvailability(p.GetAvailability()),
+	}
+	return obj
+}
+
+// ProtoToInstanceEncryptionKeysKeyStateAvailability converts a InstanceEncryptionKeysKeyStateAvailability resource from its proto representation.
+func ProtoToTier2AlphaInstanceEncryptionKeysKeyStateAvailability(p *alphapb.Tier2AlphaInstanceEncryptionKeysKeyStateAvailability) *alpha.InstanceEncryptionKeysKeyStateAvailability {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceEncryptionKeysKeyStateAvailability{
+		PermissionDenied: dcl.Bool(p.PermissionDenied),
+		UnknownFailure:   dcl.Bool(p.UnknownFailure),
+		KeyVersionState:  ProtoToTier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum(p.GetKeyVersionState()),
 	}
 	return obj
 }
@@ -5885,6 +5936,9 @@ func ProtoToInstance(p *alphapb.Tier2AlphaInstance) *alpha.Instance {
 	for _, r := range p.GetReferences() {
 		obj.References = append(obj.References, *ProtoToTier2AlphaInstanceReferences(r))
 	}
+	for _, r := range p.GetEncryptionKeys() {
+		obj.EncryptionKeys = append(obj.EncryptionKeys, *ProtoToTier2AlphaInstanceEncryptionKeys(r))
+	}
 	for _, r := range p.GetHistory() {
 		obj.History = append(obj.History, *ProtoToTier2AlphaInstanceHistory(r))
 	}
@@ -5922,6 +5976,17 @@ func Tier2AlphaInstanceStateEnumToProto(e *alpha.InstanceStateEnum) alphapb.Tier
 		return alphapb.Tier2AlphaInstanceStateEnum(v)
 	}
 	return alphapb.Tier2AlphaInstanceStateEnum(0)
+}
+
+// InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnumToProto converts a InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum enum to its proto representation.
+func Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnumToProto(e *alpha.InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum) alphapb.Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum_value["InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum(v)
+	}
+	return alphapb.Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum(0)
 }
 
 // InstancePreprocessCreateRecipeStepsActionEnumToProto converts a InstancePreprocessCreateRecipeStepsActionEnum enum to its proto representation.
@@ -6720,6 +6785,45 @@ func Tier2AlphaInstanceReferencesDetailsToProto(o *alpha.InstanceReferencesDetai
 	p := &alphapb.Tier2AlphaInstanceReferencesDetails{
 		TypeUrl: dcl.ValueOrEmptyString(o.TypeUrl),
 		Value:   dcl.ValueOrEmptyString(o.Value),
+	}
+	return p
+}
+
+// InstanceEncryptionKeysToProto converts a InstanceEncryptionKeys resource to its proto representation.
+func Tier2AlphaInstanceEncryptionKeysToProto(o *alpha.InstanceEncryptionKeys) *alphapb.Tier2AlphaInstanceEncryptionKeys {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceEncryptionKeys{
+		KeyOrVersion: dcl.ValueOrEmptyString(o.KeyOrVersion),
+		Grant:        dcl.ValueOrEmptyString(o.Grant),
+		Delegate:     dcl.ValueOrEmptyString(o.Delegate),
+		KeyState:     Tier2AlphaInstanceEncryptionKeysKeyStateToProto(o.KeyState),
+	}
+	return p
+}
+
+// InstanceEncryptionKeysKeyStateToProto converts a InstanceEncryptionKeysKeyState resource to its proto representation.
+func Tier2AlphaInstanceEncryptionKeysKeyStateToProto(o *alpha.InstanceEncryptionKeysKeyState) *alphapb.Tier2AlphaInstanceEncryptionKeysKeyState {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceEncryptionKeysKeyState{
+		KeyStateVersion: dcl.ValueOrEmptyInt64(o.KeyStateVersion),
+		Availability:    Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityToProto(o.Availability),
+	}
+	return p
+}
+
+// InstanceEncryptionKeysKeyStateAvailabilityToProto converts a InstanceEncryptionKeysKeyStateAvailability resource to its proto representation.
+func Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityToProto(o *alpha.InstanceEncryptionKeysKeyStateAvailability) *alphapb.Tier2AlphaInstanceEncryptionKeysKeyStateAvailability {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceEncryptionKeysKeyStateAvailability{
+		PermissionDenied: dcl.ValueOrEmptyBool(o.PermissionDenied),
+		UnknownFailure:   dcl.ValueOrEmptyBool(o.UnknownFailure),
+		KeyVersionState:  Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnumToProto(o.KeyVersionState),
 	}
 	return p
 }
@@ -11770,6 +11874,9 @@ func InstanceToProto(resource *alpha.Instance) *alphapb.Tier2AlphaInstance {
 	}
 	for _, r := range resource.References {
 		p.References = append(p.References, Tier2AlphaInstanceReferencesToProto(&r))
+	}
+	for _, r := range resource.EncryptionKeys {
+		p.EncryptionKeys = append(p.EncryptionKeys, Tier2AlphaInstanceEncryptionKeysToProto(&r))
 	}
 	for _, r := range resource.History {
 		p.History = append(p.History, Tier2AlphaInstanceHistoryToProto(&r))

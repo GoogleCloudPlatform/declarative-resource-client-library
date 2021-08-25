@@ -39,6 +39,7 @@ class Instance(object):
         mutate_user_id: int = None,
         read_user_id: int = None,
         references: list = None,
+        encryption_keys: list = None,
         preprocess_create_recipe: dict = None,
         create_recipe: dict = None,
         delete_recipe: dict = None,
@@ -358,6 +359,9 @@ class Instance(object):
         self.mutate_user_id = Primitive.from_proto(response.mutate_user_id)
         self.read_user_id = Primitive.from_proto(response.read_user_id)
         self.references = InstanceReferencesArray.from_proto(response.references)
+        self.encryption_keys = InstanceEncryptionKeysArray.from_proto(
+            response.encryption_keys
+        )
         self.preprocess_create_recipe = InstancePreprocessCreateRecipe.from_proto(
             response.preprocess_create_recipe
         )
@@ -1212,6 +1216,171 @@ class InstanceReferencesDetailsArray(object):
     @classmethod
     def from_proto(self, resources):
         return [InstanceReferencesDetails.from_proto(i) for i in resources]
+
+
+class InstanceEncryptionKeys(object):
+    def __init__(
+        self,
+        key_or_version: str = None,
+        grant: str = None,
+        delegate: str = None,
+        key_state: dict = None,
+    ):
+        self.key_or_version = key_or_version
+        self.grant = grant
+        self.delegate = delegate
+        self.key_state = key_state
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = instance_pb2.Tier2AlphaInstanceEncryptionKeys()
+        if Primitive.to_proto(resource.key_or_version):
+            res.key_or_version = Primitive.to_proto(resource.key_or_version)
+        if Primitive.to_proto(resource.grant):
+            res.grant = Primitive.to_proto(resource.grant)
+        if Primitive.to_proto(resource.delegate):
+            res.delegate = Primitive.to_proto(resource.delegate)
+        if InstanceEncryptionKeysKeyState.to_proto(resource.key_state):
+            res.key_state.CopyFrom(
+                InstanceEncryptionKeysKeyState.to_proto(resource.key_state)
+            )
+        else:
+            res.ClearField("key_state")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstanceEncryptionKeys(
+            key_or_version=Primitive.from_proto(resource.key_or_version),
+            grant=Primitive.from_proto(resource.grant),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_state=InstanceEncryptionKeysKeyState.from_proto(resource.key_state),
+        )
+
+
+class InstanceEncryptionKeysArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [InstanceEncryptionKeys.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [InstanceEncryptionKeys.from_proto(i) for i in resources]
+
+
+class InstanceEncryptionKeysKeyState(object):
+    def __init__(self, key_state_version: int = None, availability: dict = None):
+        self.key_state_version = key_state_version
+        self.availability = availability
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = instance_pb2.Tier2AlphaInstanceEncryptionKeysKeyState()
+        if Primitive.to_proto(resource.key_state_version):
+            res.key_state_version = Primitive.to_proto(resource.key_state_version)
+        if InstanceEncryptionKeysKeyStateAvailability.to_proto(resource.availability):
+            res.availability.CopyFrom(
+                InstanceEncryptionKeysKeyStateAvailability.to_proto(
+                    resource.availability
+                )
+            )
+        else:
+            res.ClearField("availability")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstanceEncryptionKeysKeyState(
+            key_state_version=Primitive.from_proto(resource.key_state_version),
+            availability=InstanceEncryptionKeysKeyStateAvailability.from_proto(
+                resource.availability
+            ),
+        )
+
+
+class InstanceEncryptionKeysKeyStateArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [InstanceEncryptionKeysKeyState.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [InstanceEncryptionKeysKeyState.from_proto(i) for i in resources]
+
+
+class InstanceEncryptionKeysKeyStateAvailability(object):
+    def __init__(
+        self,
+        permission_denied: bool = None,
+        unknown_failure: bool = None,
+        key_version_state: str = None,
+    ):
+        self.permission_denied = permission_denied
+        self.unknown_failure = unknown_failure
+        self.key_version_state = key_version_state
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = instance_pb2.Tier2AlphaInstanceEncryptionKeysKeyStateAvailability()
+        if Primitive.to_proto(resource.permission_denied):
+            res.permission_denied = Primitive.to_proto(resource.permission_denied)
+        if Primitive.to_proto(resource.unknown_failure):
+            res.unknown_failure = Primitive.to_proto(resource.unknown_failure)
+        if InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum.to_proto(
+            resource.key_version_state
+        ):
+            res.key_version_state = InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum.to_proto(
+                resource.key_version_state
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstanceEncryptionKeysKeyStateAvailability(
+            permission_denied=Primitive.from_proto(resource.permission_denied),
+            unknown_failure=Primitive.from_proto(resource.unknown_failure),
+            key_version_state=InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum.from_proto(
+                resource.key_version_state
+            ),
+        )
+
+
+class InstanceEncryptionKeysKeyStateAvailabilityArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstanceEncryptionKeysKeyStateAvailability.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstanceEncryptionKeysKeyStateAvailability.from_proto(i) for i in resources
+        ]
 
 
 class InstancePreprocessCreateRecipe(object):
@@ -24617,6 +24786,29 @@ class InstanceStateEnum(object):
             return resource
         return instance_pb2.Tier2AlphaInstanceStateEnum.Name(resource)[
             len("Tier2AlphaInstanceStateEnum") :
+        ]
+
+
+class InstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum.Value(
+            "Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_pb2.Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum.Name(
+            resource
+        )[
+            len(
+                "Tier2AlphaInstanceEncryptionKeysKeyStateAvailabilityKeyVersionStateEnum"
+            ) :
         ]
 
 
