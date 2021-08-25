@@ -230,7 +230,7 @@ func InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s s
 }
 
 func (v InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -311,7 +311,7 @@ func InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *In
 }
 
 func (v InstanceCreateRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -392,7 +392,7 @@ func InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *In
 }
 
 func (v InstanceDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -473,7 +473,7 @@ func InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *In
 }
 
 func (v InstanceUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -554,7 +554,7 @@ func InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s st
 }
 
 func (v InstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -635,7 +635,7 @@ func InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *Ins
 }
 
 func (v InstanceResetRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -716,7 +716,7 @@ func InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s s
 }
 
 func (v InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -797,7 +797,7 @@ func InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *In
 }
 
 func (v InstanceRepairRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -878,7 +878,7 @@ func InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s s
 }
 
 func (v InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -959,7 +959,7 @@ func InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s s
 }
 
 func (v InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -1040,7 +1040,7 @@ func InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s s
 }
 
 func (v InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -1121,7 +1121,7 @@ func InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *In
 }
 
 func (v InstanceFreezeRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -1202,7 +1202,7 @@ func InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s
 }
 
 func (v InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -1283,7 +1283,7 @@ func InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *
 }
 
 func (v InstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -1364,7 +1364,7 @@ func InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameM
 }
 
 func (v InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -1445,7 +1445,7 @@ func InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnumRef
 }
 
 func (v InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -1526,7 +1526,7 @@ func InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s stri
 }
 
 func (v InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -1607,7 +1607,7 @@ func InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s
 }
 
 func (v InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -1688,7 +1688,7 @@ func InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnumRef
 }
 
 func (v InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -1769,7 +1769,7 @@ func InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) *
 }
 
 func (v InstanceReadonlyRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -1850,7 +1850,7 @@ func InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumRef(s string) 
 }
 
 func (v InstanceReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -1931,7 +1931,7 @@ func InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnumRe
 }
 
 func (v InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -2012,7 +2012,7 @@ func InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnumRef(
 }
 
 func (v InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameModeEnum) Validate() error {
-	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "FROM_RESOURCE_PATH"} {
+	for _, s := range []string{"UNSPECIFIED", "FROM_POLICY_NAME", "COLLECTION_POLICY", "RESOURCE_POLICY"} {
 		if string(v) == s {
 			return nil
 		}
