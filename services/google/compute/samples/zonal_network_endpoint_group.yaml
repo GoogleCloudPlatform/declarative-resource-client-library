@@ -21,21 +21,21 @@ name: zonal_network_endpoint_group
 resource: samples/zonal.network_endpoint.json
 type: network_endpoint
 variables:
+- name: project
+  type: project
+- name: compute_network1
+  type: resource_name
 - name: region
   type: region
 - name: zone
   type: zone
 - name: group
   type: resource_name
-- name: project
-  type: project
 - name: instance1
   type: resource_name
-- name: compute_network1
+- name: compute_subnetwork
   type: resource_name
 - name: range
-  type: resource_name
-- name: compute_subnetwork
   type: resource_name
 versions:
 - ga

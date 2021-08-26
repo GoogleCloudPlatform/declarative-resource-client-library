@@ -28,11 +28,11 @@ type: firewall_policy_rule
 updates:
 - resource: samples/update_minimal.firewall_policy_rule.json
 variables:
-- name: id
+- name: folder
   type: resource_name
 - name: org_id
   type: org_id
-- name: folder
+- name: id
   type: resource_name
 - name: test_service_account
   type: test_service_account
