@@ -102,13 +102,13 @@ import (
 
 	osconfig_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/beta_connector"
 
-	pubsub_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub/beta_connector"
-
-	storage_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/beta_connector"
-
 	pubsub_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub/connector"
 
+	pubsub_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub/beta_connector"
+
 	storage_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/connector"
+
+	storage_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/beta_connector"
 
 	privateca_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca/connector"
 
@@ -211,13 +211,13 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	osconfig_beta_connector.RegisterServers(grpcServer)
 
-	pubsub_beta_connector.RegisterServers(grpcServer)
-
-	storage_beta_connector.RegisterServers(grpcServer)
-
 	pubsub_connector.RegisterServers(grpcServer)
 
+	pubsub_beta_connector.RegisterServers(grpcServer)
+
 	storage_connector.RegisterServers(grpcServer)
+
+	storage_beta_connector.RegisterServers(grpcServer)
 
 	privateca_connector.RegisterServers(grpcServer)
 
