@@ -21,10 +21,10 @@ type: object_access_control
 updates:
 - resource: samples/update.object_access_control.json
 variables:
-- name: project
-  type: project
 - name: bucket
   type: resource_name
+- name: project
+  type: project
 - name: object
   type: resource_name
 - name: content

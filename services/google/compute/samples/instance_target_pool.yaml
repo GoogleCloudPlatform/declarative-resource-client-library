@@ -23,13 +23,13 @@ updates:
 - resource: samples/instance.target_pool.json
 - resource: samples/first.target_pool.json
 variables:
-- name: project
-  type: project
-- name: compute_network1
-  type: resource_name
 - name: zone
   type: zone
 - name: instance1
+  type: resource_name
+- name: project
+  type: project
+- name: compute_network1
   type: resource_name
 - name: range
   type: resource_name
