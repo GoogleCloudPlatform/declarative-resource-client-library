@@ -13,3 +13,25 @@
 // limitations under the License.
 // Package bigqueryreservation defines types and methods for working with bigqueryreservation GCP resources.
 package bigqueryreservation
+
+import (
+	"context"
+	"fmt"
+	"time"
+
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+)
+
+// If possible, wait for the end time of the capacity commitment resource before returning. Otherwise return an error.
+func (r *CapacityCommitment) waitForEndTime(ctx context.Context, _ *Client) error {
+	et, err := time.Parse("2006-01-02T15:04:05.000000Z", dcl.ValueOrEmptyString(r.CommitmentEndTime))
+	if err != nil {
+		return err
+	}
+	deadline, ok := ctx.Deadline()
+	if ok && et.After(deadline) {
+		return fmt.Errorf("cannot delete capacity commitment ending at %v before deadline %v", et, deadline)
+	}
+	time.Sleep(time.Until(et))
+	return nil
+}

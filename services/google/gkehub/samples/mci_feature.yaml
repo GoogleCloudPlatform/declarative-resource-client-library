@@ -35,11 +35,11 @@ variables:
   type: org_id
 - name: billing_account
   type: billing_account
-- name: cluster2
+- name: cluster1
   type: resource_name
 - name: zone
   type: zone
-- name: cluster1
+- name: cluster2
   type: resource_name
 - name: membership2
   type: resource_name
