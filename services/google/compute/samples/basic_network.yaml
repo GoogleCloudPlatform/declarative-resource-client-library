@@ -18,7 +18,7 @@ type: network
 updates:
 - resource: samples/update.network.json
 variables:
-- name: compute_network1
+- name: compute_network
   type: resource_name
 - name: project
   type: project

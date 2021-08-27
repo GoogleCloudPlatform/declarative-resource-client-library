@@ -53,10 +53,10 @@ func ProtoToNetwork(p *betapb.ComputeBetaNetwork) *beta.Network {
 	obj := &beta.Network{
 		Description:           dcl.StringOrNil(p.Description),
 		GatewayIPv4:           dcl.StringOrNil(p.GatewayIpv4),
-		IPv4Range:             dcl.StringOrNil(p.Ipv4Range),
 		Name:                  dcl.StringOrNil(p.Name),
 		AutoCreateSubnetworks: dcl.Bool(p.AutoCreateSubnetworks),
 		RoutingConfig:         ProtoToComputeBetaNetworkRoutingConfig(p.GetRoutingConfig()),
+		Mtu:                   dcl.Int64OrNil(p.Mtu),
 		Project:               dcl.StringOrNil(p.Project),
 		SelfLink:              dcl.StringOrNil(p.SelfLink),
 	}
@@ -90,10 +90,10 @@ func NetworkToProto(resource *beta.Network) *betapb.ComputeBetaNetwork {
 	p := &betapb.ComputeBetaNetwork{
 		Description:           dcl.ValueOrEmptyString(resource.Description),
 		GatewayIpv4:           dcl.ValueOrEmptyString(resource.GatewayIPv4),
-		Ipv4Range:             dcl.ValueOrEmptyString(resource.IPv4Range),
 		Name:                  dcl.ValueOrEmptyString(resource.Name),
 		AutoCreateSubnetworks: dcl.ValueOrEmptyBool(resource.AutoCreateSubnetworks),
 		RoutingConfig:         ComputeBetaNetworkRoutingConfigToProto(resource.RoutingConfig),
+		Mtu:                   dcl.ValueOrEmptyInt64(resource.Mtu),
 		Project:               dcl.ValueOrEmptyString(resource.Project),
 		SelfLink:              dcl.ValueOrEmptyString(resource.SelfLink),
 	}
@@ -139,7 +139,7 @@ func (s *NetworkServer) ListComputeBetaNetwork(ctx context.Context, request *bet
 		return nil, err
 	}
 
-	resources, err := cl.ListNetwork(ctx, request.Project)
+	resources, err := cl.ListNetwork(ctx, ProtoToNetwork(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

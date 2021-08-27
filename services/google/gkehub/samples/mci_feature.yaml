@@ -29,10 +29,10 @@ type: feature
 updates:
 - resource: samples/update_mci.feature.json
 variables:
-- name: org_id
-  type: org_id
 - name: id
   type: resource_name
+- name: org_id
+  type: org_id
 - name: billing_account
   type: billing_account
 - name: cluster1

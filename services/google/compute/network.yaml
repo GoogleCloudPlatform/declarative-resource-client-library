@@ -85,17 +85,12 @@ components:
           description: 'The gateway address for default routing out of the network.
             This value is selected by GCP. '
           x-kubernetes-immutable: true
-        ipv4Range:
-          type: string
-          x-dcl-go-name: IPv4Range
-          readOnly: true
-          description: 'If this field is specified, a deprecated legacy network is
-            created. You will no longer be able to create a legacy network on Feb
-            1, 2020. See the [legacy network docs](https://cloud.google.com/vpc/docs/legacy)
-            for more details.  The range of internal addresses that are legal on this
-            legacy network. This range is a CIDR specification, for example: `192.168.0.0/16`.
-            The resource must be recreated to modify this field. '
-          x-kubernetes-immutable: true
+        mtu:
+          type: integer
+          format: int64
+          x-dcl-go-name: Mtu
+          description: Maximum Transmission Unit in bytes. The minimum value for this
+            field is 1460 and the maximum value is 1500 bytes.
         name:
           type: string
           x-dcl-go-name: Name

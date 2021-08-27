@@ -27,10 +27,10 @@ enum ComputeBetaNetworkRoutingConfigRoutingModeEnum {
 message ComputeBetaNetwork {
   string description = 1;
   string gateway_ipv4 = 2;
-  string ipv4_range = 3;
-  string name = 4;
-  bool auto_create_subnetworks = 5;
-  ComputeBetaNetworkRoutingConfig routing_config = 6;
+  string name = 3;
+  bool auto_create_subnetworks = 4;
+  ComputeBetaNetworkRoutingConfig routing_config = 5;
+  int64 mtu = 6;
   string project = 7;
   string self_link = 8;
 }
@@ -52,7 +52,7 @@ message DeleteComputeBetaNetworkRequest {
 
 message ListComputeBetaNetworkRequest {
   string service_account_file = 1;
-  string Project = 2;
+	ComputeBetaNetwork resource = 2;
 }
 
 message ListComputeBetaNetworkResponse {

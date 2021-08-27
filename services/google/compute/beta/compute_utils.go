@@ -145,6 +145,62 @@ func equalPortRanges(o, n *string) bool {
 	return *o == *n
 }
 
+// Custom update method for network which updates mtu field before updating other fields.
+func (op *updateNetworkUpdateOperation) do(ctx context.Context, r *Network, c *Client) error {
+	_, err := c.GetNetwork(ctx, r)
+	if err != nil {
+		return err
+	}
+
+	u, err := r.updateURL(c.Config.BasePath, "update")
+	if err != nil {
+		return err
+	}
+
+	req, err := newUpdateNetworkUpdateRequest(ctx, r, c)
+	if err != nil {
+		return err
+	}
+
+	if mtu, ok := req["mtu"]; ok {
+		// Update mtu field first.
+		if err := performNetworkUpdate(ctx, r, c, u, map[string]interface{}{"mtu": mtu}); err != nil {
+			return err
+		}
+		delete(req, "mtu")
+	}
+
+	if err := performNetworkUpdate(ctx, r, c, u, req); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// Send the given update request to the given url on the given network with the given client in the given context and wait for the resulting operation.
+func performNetworkUpdate(ctx context.Context, r *Network, c *Client, u string, req map[string]interface{}) error {
+	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
+	body, err := marshalUpdateNetworkUpdateRequest(c, req)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	var o operations.ComputeOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
+	}
+	err = o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.basePath(), "GET")
+
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // Custom methods for firewall policy and firewall policy rule and association which wait on a compute global organization operation.
 
 func (op *createFirewallPolicyOperation) do(ctx context.Context, r *FirewallPolicy, c *Client) error {

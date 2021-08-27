@@ -23,10 +23,10 @@ class Network(object):
         self,
         description: str = None,
         gateway_ipv4: str = None,
-        ipv4_range: str = None,
         name: str = None,
         auto_create_subnetworks: bool = None,
         routing_config: dict = None,
+        mtu: int = None,
         project: str = None,
         self_link: str = None,
         service_account_file: str = "",
@@ -37,6 +37,7 @@ class Network(object):
         self.name = name
         self.auto_create_subnetworks = auto_create_subnetworks
         self.routing_config = routing_config
+        self.mtu = mtu
         self.project = project
         self.service_account_file = service_account_file
 
@@ -60,6 +61,9 @@ class Network(object):
             )
         else:
             request.resource.ClearField("routing_config")
+        if Primitive.to_proto(self.mtu):
+            request.resource.mtu = Primitive.to_proto(self.mtu)
+
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -68,12 +72,12 @@ class Network(object):
         response = stub.ApplyComputeBetaNetwork(request)
         self.description = Primitive.from_proto(response.description)
         self.gateway_ipv4 = Primitive.from_proto(response.gateway_ipv4)
-        self.ipv4_range = Primitive.from_proto(response.ipv4_range)
         self.name = Primitive.from_proto(response.name)
         self.auto_create_subnetworks = Primitive.from_proto(
             response.auto_create_subnetworks
         )
         self.routing_config = NetworkRoutingConfig.from_proto(response.routing_config)
+        self.mtu = Primitive.from_proto(response.mtu)
         self.project = Primitive.from_proto(response.project)
         self.self_link = Primitive.from_proto(response.self_link)
 
@@ -98,17 +102,40 @@ class Network(object):
             )
         else:
             request.resource.ClearField("routing_config")
+        if Primitive.to_proto(self.mtu):
+            request.resource.mtu = Primitive.to_proto(self.mtu)
+
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
         response = stub.DeleteComputeBetaNetwork(request)
 
-    @classmethod
-    def list(self, project, service_account_file=""):
+    def list(self):
         stub = network_pb2_grpc.ComputeBetaNetworkServiceStub(channel.Channel())
         request = network_pb2.ListComputeBetaNetworkRequest()
-        request.service_account_file = service_account_file
-        request.Project = project
+        request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.description):
+            request.resource.description = Primitive.to_proto(self.description)
+
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
+        if Primitive.to_proto(self.auto_create_subnetworks):
+            request.resource.auto_create_subnetworks = Primitive.to_proto(
+                self.auto_create_subnetworks
+            )
+
+        if NetworkRoutingConfig.to_proto(self.routing_config):
+            request.resource.routing_config.CopyFrom(
+                NetworkRoutingConfig.to_proto(self.routing_config)
+            )
+        else:
+            request.resource.ClearField("routing_config")
+        if Primitive.to_proto(self.mtu):
+            request.resource.mtu = Primitive.to_proto(self.mtu)
+
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
 
         return stub.ListComputeBetaNetwork(request).items
 
@@ -128,6 +155,8 @@ class Network(object):
             )
         else:
             resource.ClearField("routing_config")
+        if Primitive.to_proto(self.mtu):
+            resource.mtu = Primitive.to_proto(self.mtu)
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         return resource

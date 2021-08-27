@@ -27,10 +27,10 @@ enum ComputeNetworkRoutingConfigRoutingModeEnum {
 message ComputeNetwork {
   string description = 1;
   string gateway_ipv4 = 2;
-  string ipv4_range = 3;
-  string name = 4;
-  bool auto_create_subnetworks = 5;
-  ComputeNetworkRoutingConfig routing_config = 6;
+  string name = 3;
+  bool auto_create_subnetworks = 4;
+  ComputeNetworkRoutingConfig routing_config = 5;
+  int64 mtu = 6;
   string project = 7;
   string self_link = 8;
 }
@@ -52,7 +52,7 @@ message DeleteComputeNetworkRequest {
 
 message ListComputeNetworkRequest {
   string service_account_file = 1;
-  string Project = 2;
+	ComputeNetwork resource = 2;
 }
 
 message ListComputeNetworkResponse {

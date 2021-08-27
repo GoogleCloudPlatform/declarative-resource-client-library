@@ -61,7 +61,6 @@ components:
     CertificateTemplate:
       title: CertificateTemplate
       x-dcl-id: projects/{{project}}/locations/{{location}}/certificateTemplates/{{name}}
-      x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
       x-dcl-labels: labels
       type: object
@@ -295,7 +294,6 @@ components:
                     of subordinate CA certificates that are allowed. If this value
                     is less than 0, the request will fail. If this value is missing,
                     the max path length will be omitted from the CA certificate.
-                  x-dcl-mutable-unreadable: true
             keyUsage:
               type: object
               x-dcl-go-name: KeyUsage

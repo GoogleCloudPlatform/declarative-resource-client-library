@@ -53,10 +53,10 @@ func ProtoToNetwork(p *computepb.ComputeNetwork) *compute.Network {
 	obj := &compute.Network{
 		Description:           dcl.StringOrNil(p.Description),
 		GatewayIPv4:           dcl.StringOrNil(p.GatewayIpv4),
-		IPv4Range:             dcl.StringOrNil(p.Ipv4Range),
 		Name:                  dcl.StringOrNil(p.Name),
 		AutoCreateSubnetworks: dcl.Bool(p.AutoCreateSubnetworks),
 		RoutingConfig:         ProtoToComputeNetworkRoutingConfig(p.GetRoutingConfig()),
+		Mtu:                   dcl.Int64OrNil(p.Mtu),
 		Project:               dcl.StringOrNil(p.Project),
 		SelfLink:              dcl.StringOrNil(p.SelfLink),
 	}
@@ -90,10 +90,10 @@ func NetworkToProto(resource *compute.Network) *computepb.ComputeNetwork {
 	p := &computepb.ComputeNetwork{
 		Description:           dcl.ValueOrEmptyString(resource.Description),
 		GatewayIpv4:           dcl.ValueOrEmptyString(resource.GatewayIPv4),
-		Ipv4Range:             dcl.ValueOrEmptyString(resource.IPv4Range),
 		Name:                  dcl.ValueOrEmptyString(resource.Name),
 		AutoCreateSubnetworks: dcl.ValueOrEmptyBool(resource.AutoCreateSubnetworks),
 		RoutingConfig:         ComputeNetworkRoutingConfigToProto(resource.RoutingConfig),
+		Mtu:                   dcl.ValueOrEmptyInt64(resource.Mtu),
 		Project:               dcl.ValueOrEmptyString(resource.Project),
 		SelfLink:              dcl.ValueOrEmptyString(resource.SelfLink),
 	}
@@ -139,7 +139,7 @@ func (s *NetworkServer) ListComputeNetwork(ctx context.Context, request *compute
 		return nil, err
 	}
 
-	resources, err := cl.ListNetwork(ctx, request.Project)
+	resources, err := cl.ListNetwork(ctx, ProtoToNetwork(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}
