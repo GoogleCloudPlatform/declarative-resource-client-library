@@ -19,9 +19,9 @@ updates:
 - resource: samples/update_1.dashboard.json
 - resource: samples/update_2.dashboard.json
 variables:
-- name: dashboard
-  type: resource_name
 - name: project
   type: project
+- name: dashboard
+  type: resource_name
 versions:
 - ga

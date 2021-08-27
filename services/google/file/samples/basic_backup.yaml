@@ -20,12 +20,12 @@ type: backup
 updates:
 - resource: samples/update.backup.json
 variables:
+- name: zone
+  type: zone
 - name: instance_name
   type: resource_name
 - name: project
   type: project
-- name: zone
-  type: zone
 - name: region
   type: region
 - name: backup
