@@ -179,6 +179,11 @@ func (c *Client) GetAssignment(ctx context.Context, r *Assignment) (*Assignment,
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// This is *purposefully* supressing errors.
+	// This function is used with url-normalized values + not URL normalized values.
+	// URL Normalized values will throw unintentional errors, since those values are not of the proper parent form.
+	extractAssignmentFields(r)
+
 	b, err := c.getAssignmentRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {

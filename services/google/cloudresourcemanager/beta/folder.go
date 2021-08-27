@@ -155,6 +155,11 @@ func (c *Client) GetFolder(ctx context.Context, r *Folder) (*Folder, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// This is *purposefully* supressing errors.
+	// This function is used with url-normalized values + not URL normalized values.
+	// URL Normalized values will throw unintentional errors, since those values are not of the proper parent form.
+	extractFolderFields(r)
+
 	b, err := c.getFolderRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {

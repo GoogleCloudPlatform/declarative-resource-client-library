@@ -125,6 +125,11 @@ func (c *Client) GetReservation(ctx context.Context, r *Reservation) (*Reservati
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// This is *purposefully* supressing errors.
+	// This function is used with url-normalized values + not URL normalized values.
+	// URL Normalized values will throw unintentional errors, since those values are not of the proper parent form.
+	extractReservationFields(r)
+
 	b, err := c.getReservationRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {

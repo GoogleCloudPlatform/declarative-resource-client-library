@@ -34,10 +34,10 @@ variables:
   type: resource_name
 - name: zone
   type: zone
-- name: service
-  type: resource_name
 - name: region
   type: region
+- name: service
+  type: resource_name
 - name: rule2
   type: resource_name
 - name: range

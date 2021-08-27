@@ -306,6 +306,11 @@ func (c *Client) GetAttestor(ctx context.Context, r *Attestor) (*Attestor, error
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// This is *purposefully* supressing errors.
+	// This function is used with url-normalized values + not URL normalized values.
+	// URL Normalized values will throw unintentional errors, since those values are not of the proper parent form.
+	extractAttestorFields(r)
+
 	b, err := c.getAttestorRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {

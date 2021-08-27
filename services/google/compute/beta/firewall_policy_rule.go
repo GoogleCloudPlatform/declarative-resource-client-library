@@ -265,6 +265,11 @@ func (c *Client) GetFirewallPolicyRule(ctx context.Context, r *FirewallPolicyRul
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// This is *purposefully* supressing errors.
+	// This function is used with url-normalized values + not URL normalized values.
+	// URL Normalized values will throw unintentional errors, since those values are not of the proper parent form.
+	extractFirewallPolicyRuleFields(r)
+
 	b, err := c.getFirewallPolicyRuleRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFoundOrCode(err, 400) {

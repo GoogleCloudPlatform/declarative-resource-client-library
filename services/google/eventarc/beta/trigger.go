@@ -382,6 +382,11 @@ func (c *Client) GetTrigger(ctx context.Context, r *Trigger) (*Trigger, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// This is *purposefully* supressing errors.
+	// This function is used with url-normalized values + not URL normalized values.
+	// URL Normalized values will throw unintentional errors, since those values are not of the proper parent form.
+	extractTriggerFields(r)
+
 	b, err := c.getTriggerRaw(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
