@@ -20,11 +20,11 @@ updates:
 - resource: samples/update_fixed.os_policy_assignment.json
 - resource: samples/percent.os_policy_assignment.json
 variables:
+- name: project
+  type: project
 - name: zone
   type: zone
 - name: assignment
   type: resource_name
-- name: project
-  type: project
 versions:
 - alpha

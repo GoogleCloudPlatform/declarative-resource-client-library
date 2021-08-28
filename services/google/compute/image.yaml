@@ -146,7 +146,6 @@ components:
             Applicable only for bootable images. Read [Enabling guest operating system
             features](/compute/docs/images/create-delete-deprecate-private-images#guest-os-features)
             to see a list of available options.
-          x-kubernetes-immutable: true
           x-dcl-server-default: true
           x-dcl-send-empty: true
           x-dcl-list-type: set

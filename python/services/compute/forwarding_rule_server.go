@@ -116,7 +116,6 @@ func ProtoToForwardingRule(p *computepb.ComputeForwardingRule) *compute.Forwardi
 	obj := &compute.ForwardingRule{
 		AllPorts:             dcl.Bool(p.AllPorts),
 		AllowGlobalAccess:    dcl.Bool(p.AllowGlobalAccess),
-		LabelFingerprint:     dcl.StringOrNil(p.LabelFingerprint),
 		BackendService:       dcl.StringOrNil(p.BackendService),
 		CreationTimestamp:    dcl.StringOrNil(p.CreationTimestamp),
 		Description:          dcl.StringOrNil(p.Description),
@@ -233,7 +232,6 @@ func ForwardingRuleToProto(resource *compute.ForwardingRule) *computepb.ComputeF
 	p := &computepb.ComputeForwardingRule{
 		AllPorts:             dcl.ValueOrEmptyBool(resource.AllPorts),
 		AllowGlobalAccess:    dcl.ValueOrEmptyBool(resource.AllowGlobalAccess),
-		LabelFingerprint:     dcl.ValueOrEmptyString(resource.LabelFingerprint),
 		BackendService:       dcl.ValueOrEmptyString(resource.BackendService),
 		CreationTimestamp:    dcl.ValueOrEmptyString(resource.CreationTimestamp),
 		Description:          dcl.ValueOrEmptyString(resource.Description),

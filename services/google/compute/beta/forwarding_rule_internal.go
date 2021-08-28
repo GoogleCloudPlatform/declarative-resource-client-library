@@ -28,33 +28,15 @@ import (
 
 func (r *ForwardingRule) validate() error {
 
-	if err := dcl.Required(r, "name"); err != nil {
-		return err
-	}
-	if err := dcl.Required(r, "target"); err != nil {
-		return err
-	}
 	if err := dcl.Required(r, "project"); err != nil {
 		return err
 	}
 	return nil
 }
 func (r *ForwardingRuleMetadataFilter) validate() error {
-	if err := dcl.Required(r, "filterMatchCriteria"); err != nil {
-		return err
-	}
-	if err := dcl.Required(r, "filterLabel"); err != nil {
-		return err
-	}
 	return nil
 }
 func (r *ForwardingRuleMetadataFilterFilterLabel) validate() error {
-	if err := dcl.Required(r, "name"); err != nil {
-		return err
-	}
-	if err := dcl.Required(r, "value"); err != nil {
-		return err
-	}
 	return nil
 }
 func (r *ForwardingRule) basePath() string {
@@ -122,250 +104,6 @@ func (r *ForwardingRule) deleteURL(userBasePath string) (string, error) {
 // API such as Create, Update, or Delete.
 type forwardingRuleApiOperation interface {
 	do(context.Context, *ForwardingRule, *Client) error
-}
-
-// newUpdateForwardingRuleSetLabelsRequest creates a request for an
-// ForwardingRule resource's setLabels update type by filling in the update
-// fields based on the intended state of the resource.
-func newUpdateForwardingRuleSetLabelsRequest(ctx context.Context, f *ForwardingRule, c *Client) (map[string]interface{}, error) {
-	req := map[string]interface{}{}
-
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
-		req["labels"] = v
-	}
-	b, err := c.getForwardingRuleRaw(ctx, f)
-	if err != nil {
-		return nil, err
-	}
-	var m map[string]interface{}
-	if err := json.Unmarshal(b, &m); err != nil {
-		return nil, err
-	}
-	rawLabelFingerprint, err := dcl.GetMapEntry(
-		m,
-		[]string{"labelFingerprint"},
-	)
-	if err != nil {
-		c.Config.Logger.WarningWithContextf(ctx, "Failed to fetch from JSON Path: %v", err)
-	} else {
-		req["labelFingerprint"] = rawLabelFingerprint.(string)
-	}
-	return req, nil
-}
-
-// marshalUpdateForwardingRuleSetLabelsRequest converts the update into
-// the final JSON request body.
-func marshalUpdateForwardingRuleSetLabelsRequest(c *Client, m map[string]interface{}) ([]byte, error) {
-
-	return json.Marshal(m)
-}
-
-type updateForwardingRuleSetLabelsOperation struct {
-	// If the update operation has the REQUIRES_APPLY_OPTIONS trait, this will be populated.
-	// Usually it will be nil - this is to prevent us from accidentally depending on apply
-	// options, which should usually be unnecessary.
-	ApplyOptions []dcl.ApplyOption
-	FieldDiffs   []*dcl.FieldDiff
-}
-
-// do creates a request and sends it to the appropriate URL. In most operations,
-// do will transcribe a subset of the resource into a request object and send a
-// PUT request to a single URL.
-
-func (op *updateForwardingRuleSetLabelsOperation) do(ctx context.Context, r *ForwardingRule, c *Client) error {
-	_, err := c.GetForwardingRule(ctx, r)
-	if err != nil {
-		return err
-	}
-
-	u, err := r.updateURL(c.Config.BasePath, "setLabels")
-	if err != nil {
-		return err
-	}
-
-	req, err := newUpdateForwardingRuleSetLabelsRequest(ctx, r, c)
-	if err != nil {
-		return err
-	}
-
-	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
-	body, err := marshalUpdateForwardingRuleSetLabelsRequest(c, req)
-	if err != nil {
-		return err
-	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.RetryProvider)
-	if err != nil {
-		return err
-	}
-
-	var o operations.ComputeOperation
-	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
-		return err
-	}
-	err = o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.basePath(), "GET")
-
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// newUpdateForwardingRuleSetTargetRequest creates a request for an
-// ForwardingRule resource's setTarget update type by filling in the update
-// fields based on the intended state of the resource.
-func newUpdateForwardingRuleSetTargetRequest(ctx context.Context, f *ForwardingRule, c *Client) (map[string]interface{}, error) {
-	req := map[string]interface{}{}
-
-	if v := f.Target; !dcl.IsEmptyValueIndirect(v) {
-		req["target"] = v
-	}
-	b, err := c.getForwardingRuleRaw(ctx, f)
-	if err != nil {
-		return nil, err
-	}
-	var m map[string]interface{}
-	if err := json.Unmarshal(b, &m); err != nil {
-		return nil, err
-	}
-	rawLabelFingerprint, err := dcl.GetMapEntry(
-		m,
-		[]string{"labelFingerprint"},
-	)
-	if err != nil {
-		c.Config.Logger.WarningWithContextf(ctx, "Failed to fetch from JSON Path: %v", err)
-	} else {
-		req["labelFingerprint"] = rawLabelFingerprint.(string)
-	}
-	return req, nil
-}
-
-// marshalUpdateForwardingRuleSetTargetRequest converts the update into
-// the final JSON request body.
-func marshalUpdateForwardingRuleSetTargetRequest(c *Client, m map[string]interface{}) ([]byte, error) {
-
-	return json.Marshal(m)
-}
-
-type updateForwardingRuleSetTargetOperation struct {
-	// If the update operation has the REQUIRES_APPLY_OPTIONS trait, this will be populated.
-	// Usually it will be nil - this is to prevent us from accidentally depending on apply
-	// options, which should usually be unnecessary.
-	ApplyOptions []dcl.ApplyOption
-	FieldDiffs   []*dcl.FieldDiff
-}
-
-// do creates a request and sends it to the appropriate URL. In most operations,
-// do will transcribe a subset of the resource into a request object and send a
-// PUT request to a single URL.
-
-func (op *updateForwardingRuleSetTargetOperation) do(ctx context.Context, r *ForwardingRule, c *Client) error {
-	_, err := c.GetForwardingRule(ctx, r)
-	if err != nil {
-		return err
-	}
-
-	u, err := r.updateURL(c.Config.BasePath, "setTarget")
-	if err != nil {
-		return err
-	}
-
-	req, err := newUpdateForwardingRuleSetTargetRequest(ctx, r, c)
-	if err != nil {
-		return err
-	}
-
-	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
-	body, err := marshalUpdateForwardingRuleSetTargetRequest(c, req)
-	if err != nil {
-		return err
-	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(body), c.Config.RetryProvider)
-	if err != nil {
-		return err
-	}
-
-	var o operations.ComputeOperation
-	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
-		return err
-	}
-	err = o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.basePath(), "GET")
-
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// newUpdateForwardingRuleUpdateRequest creates a request for an
-// ForwardingRule resource's update update type by filling in the update
-// fields based on the intended state of the resource.
-func newUpdateForwardingRuleUpdateRequest(ctx context.Context, f *ForwardingRule, c *Client) (map[string]interface{}, error) {
-	req := map[string]interface{}{}
-
-	if v := f.AllowGlobalAccess; !dcl.IsEmptyValueIndirect(v) {
-		req["allowGlobalAccess"] = v
-	}
-	return req, nil
-}
-
-// marshalUpdateForwardingRuleUpdateRequest converts the update into
-// the final JSON request body.
-func marshalUpdateForwardingRuleUpdateRequest(c *Client, m map[string]interface{}) ([]byte, error) {
-
-	return json.Marshal(m)
-}
-
-type updateForwardingRuleUpdateOperation struct {
-	// If the update operation has the REQUIRES_APPLY_OPTIONS trait, this will be populated.
-	// Usually it will be nil - this is to prevent us from accidentally depending on apply
-	// options, which should usually be unnecessary.
-	ApplyOptions []dcl.ApplyOption
-	FieldDiffs   []*dcl.FieldDiff
-}
-
-// do creates a request and sends it to the appropriate URL. In most operations,
-// do will transcribe a subset of the resource into a request object and send a
-// PUT request to a single URL.
-
-func (op *updateForwardingRuleUpdateOperation) do(ctx context.Context, r *ForwardingRule, c *Client) error {
-	_, err := c.GetForwardingRule(ctx, r)
-	if err != nil {
-		return err
-	}
-
-	u, err := r.updateURL(c.Config.BasePath, "update")
-	if err != nil {
-		return err
-	}
-
-	req, err := newUpdateForwardingRuleUpdateRequest(ctx, r, c)
-	if err != nil {
-		return err
-	}
-
-	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
-	body, err := marshalUpdateForwardingRuleUpdateRequest(c, req)
-	if err != nil {
-		return err
-	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
-	if err != nil {
-		return err
-	}
-
-	var o operations.ComputeOperation
-	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
-		return err
-	}
-	err = o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.basePath(), "GET")
-
-	if err != nil {
-		return err
-	}
-
-	return nil
 }
 
 func (c *Client) listForwardingRuleRaw(ctx context.Context, r *ForwardingRule, pageToken string, pageSize int32) ([]byte, error) {
@@ -629,11 +367,6 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 		return rawDesired, nil
 	}
 	canonicalDesired := &ForwardingRule{}
-	if dcl.IsZeroValue(rawDesired.Labels) {
-		canonicalDesired.Labels = rawInitial.Labels
-	} else {
-		canonicalDesired.Labels = rawDesired.Labels
-	}
 	if dcl.BoolCanonicalize(rawDesired.AllPorts, rawInitial.AllPorts) {
 		canonicalDesired.AllPorts = rawInitial.AllPorts
 	} else {
@@ -719,6 +452,11 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	} else {
 		canonicalDesired.ServiceLabel = rawDesired.ServiceLabel
 	}
+	if dcl.StringCanonicalize(rawDesired.ServiceName, rawInitial.ServiceName) {
+		canonicalDesired.ServiceName = rawInitial.ServiceName
+	} else {
+		canonicalDesired.ServiceName = rawDesired.ServiceName
+	}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Subnetwork, rawInitial.Subnetwork) {
 		canonicalDesired.Subnetwork = rawInitial.Subnetwork
 	} else {
@@ -745,11 +483,6 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 
 func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *ForwardingRule) (*ForwardingRule, error) {
 
-	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
-	} else {
-	}
-
 	if dcl.IsNotReturnedByServer(rawNew.AllPorts) && dcl.IsNotReturnedByServer(rawDesired.AllPorts) {
 		rawNew.AllPorts = rawDesired.AllPorts
 	} else {
@@ -763,14 +496,6 @@ func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *Forwardin
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.AllowGlobalAccess, rawNew.AllowGlobalAccess) {
 			rawNew.AllowGlobalAccess = rawDesired.AllowGlobalAccess
-		}
-	}
-
-	if dcl.IsNotReturnedByServer(rawNew.LabelFingerprint) && dcl.IsNotReturnedByServer(rawDesired.LabelFingerprint) {
-		rawNew.LabelFingerprint = rawDesired.LabelFingerprint
-	} else {
-		if dcl.StringCanonicalize(rawDesired.LabelFingerprint, rawNew.LabelFingerprint) {
-			rawNew.LabelFingerprint = rawDesired.LabelFingerprint
 		}
 	}
 
@@ -1130,13 +855,6 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateForwardingRuleSetLabelsOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.AllPorts, actual.AllPorts, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllPorts")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -1144,14 +862,7 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowGlobalAccess, actual.AllowGlobalAccess, dcl.Info{OperationSelector: dcl.TriggersOperation("updateForwardingRuleUpdateOperation")}, fn.AddNest("AllowGlobalAccess")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.LabelFingerprint, actual.LabelFingerprint, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LabelFingerprint")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowGlobalAccess, actual.AllowGlobalAccess, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowGlobalAccess")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1249,7 +960,7 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Ports, actual.Ports, dcl.Info{Type: "Set", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Ports")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Ports, actual.Ports, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Ports")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1277,7 +988,7 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceName, actual.ServiceName, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceName, actual.ServiceName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1291,7 +1002,7 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Target, actual.Target, dcl.Info{OperationSelector: dcl.TriggersOperation("updateForwardingRuleSetTargetOperation")}, fn.AddNest("Target")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Target, actual.Target, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Target")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1391,7 +1102,6 @@ func compareForwardingRuleMetadataFilterFilterLabelNewStyle(d, a interface{}, fn
 // short-form so they can be substituted in.
 func (r *ForwardingRule) urlNormalized() *ForwardingRule {
 	normalized := dcl.Copy(*r).(ForwardingRule)
-	normalized.LabelFingerprint = dcl.SelfLinkToName(r.LabelFingerprint)
 	normalized.BackendService = dcl.SelfLinkToName(r.BackendService)
 	normalized.CreationTimestamp = dcl.SelfLinkToName(r.CreationTimestamp)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
@@ -1411,47 +1121,6 @@ func (r *ForwardingRule) urlNormalized() *ForwardingRule {
 }
 
 func (r *ForwardingRule) updateURL(userBasePath, updateName string) (string, error) {
-	nr := r.urlNormalized()
-	if updateName == "setLabels" {
-		fields := map[string]interface{}{
-			"project":  dcl.ValueOrEmptyString(nr.Project),
-			"location": dcl.ValueOrEmptyString(nr.Location),
-			"name":     dcl.ValueOrEmptyString(nr.Name),
-		}
-		if dcl.IsRegion(nr.Location) {
-			return dcl.URL("projects/{{project}}/regions/{{location}}/forwardingRules/{{name}}/setLabels", nr.basePath(), userBasePath, fields), nil
-		}
-
-		return dcl.URL("projects/{{project}}/global/forwardingRules/{{name}}/setLabels", nr.basePath(), userBasePath, fields), nil
-
-	}
-	if updateName == "setTarget" {
-		fields := map[string]interface{}{
-			"project":  dcl.ValueOrEmptyString(nr.Project),
-			"location": dcl.ValueOrEmptyString(nr.Location),
-			"name":     dcl.ValueOrEmptyString(nr.Name),
-		}
-		if dcl.IsRegion(nr.Location) {
-			return dcl.URL("projects/{{project}}/regions/{{location}}/forwardingRules/{{name}}/setTarget", nr.basePath(), userBasePath, fields), nil
-		}
-
-		return dcl.URL("projects/{{project}}/global/forwardingRules/setTarget", nr.basePath(), userBasePath, fields), nil
-
-	}
-	if updateName == "update" {
-		fields := map[string]interface{}{
-			"project":  dcl.ValueOrEmptyString(nr.Project),
-			"location": dcl.ValueOrEmptyString(nr.Location),
-			"name":     dcl.ValueOrEmptyString(nr.Name),
-		}
-		if dcl.IsRegion(nr.Location) {
-			return dcl.URL("projects/{{project}}/regions/{{location}}/forwardingRules/{{name}}", nr.basePath(), userBasePath, fields), nil
-		}
-
-		return dcl.URL("projects/{{project}}/global/forwardingRules/{{name}}", nr.basePath(), userBasePath, fields), nil
-
-	}
-
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -1484,9 +1153,6 @@ func unmarshalMapForwardingRule(m map[string]interface{}, c *Client) (*Forwardin
 // expandForwardingRule expands ForwardingRule into a JSON request object.
 func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
-		m["labels"] = v
-	}
 	if v := f.AllPorts; !dcl.IsEmptyValueIndirect(v) {
 		m["allPorts"] = v
 	}
@@ -1540,6 +1206,9 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	if v := f.ServiceLabel; !dcl.IsEmptyValueIndirect(v) {
 		m["serviceLabel"] = v
 	}
+	if v := f.ServiceName; !dcl.IsEmptyValueIndirect(v) {
+		m["serviceName"] = v
+	}
 	if v, err := dcl.DeriveField("projects/%s/regions/%s/subnetworks/%s", f.Subnetwork, f.Project, f.Location, f.Subnetwork); err != nil {
 		return nil, fmt.Errorf("error expanding Subnetwork into subnetwork: %w", err)
 	} else if v != nil {
@@ -1572,10 +1241,8 @@ func flattenForwardingRule(c *Client, i interface{}) *ForwardingRule {
 	}
 
 	res := &ForwardingRule{}
-	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	res.AllPorts = dcl.FlattenBool(m["allPorts"])
 	res.AllowGlobalAccess = dcl.FlattenBool(m["allowGlobalAccess"])
-	res.LabelFingerprint = dcl.FlattenString(m["labelFingerprint"])
 	res.BackendService = dcl.FlattenString(m["backendService"])
 	res.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
 	res.Description = dcl.FlattenString(m["description"])
@@ -2177,15 +1844,6 @@ func convertFieldDiffsToForwardingRuleDiffs(config *dcl.Config, fds []*dcl.Field
 
 func convertOpNameToForwardingRuleApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (forwardingRuleApiOperation, error) {
 	switch opName {
-
-	case "updateForwardingRuleSetLabelsOperation":
-		return &updateForwardingRuleSetLabelsOperation{FieldDiffs: fieldDiffs}, nil
-
-	case "updateForwardingRuleSetTargetOperation":
-		return &updateForwardingRuleSetTargetOperation{FieldDiffs: fieldDiffs}, nil
-
-	case "updateForwardingRuleUpdateOperation":
-		return &updateForwardingRuleUpdateOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", opName)

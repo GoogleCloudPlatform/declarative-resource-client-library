@@ -25,10 +25,8 @@ import (
 )
 
 type ForwardingRule struct {
-	Labels               map[string]string                      `json:"labels"`
 	AllPorts             *bool                                  `json:"allPorts"`
 	AllowGlobalAccess    *bool                                  `json:"allowGlobalAccess"`
-	LabelFingerprint     *string                                `json:"labelFingerprint"`
 	BackendService       *string                                `json:"backendService"`
 	CreationTimestamp    *string                                `json:"creationTimestamp"`
 	Description          *string                                `json:"description"`
@@ -72,7 +70,7 @@ func ForwardingRuleIPProtocolEnumRef(s string) *ForwardingRuleIPProtocolEnum {
 }
 
 func (v ForwardingRuleIPProtocolEnum) Validate() error {
-	for _, s := range []string{"TCP", "UDP", "ESP", "AH", "SCTP", "ICMP", "L3_DEFAULT"} {
+	for _, s := range []string{"TCP", "UDP", "ESP", "AH", "SCTP", "ICMP"} {
 		if string(v) == s {
 			return nil
 		}
@@ -306,10 +304,8 @@ func (r *ForwardingRule) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"labels":               dcl.ValueOrEmptyString(nr.Labels),
 		"allPorts":             dcl.ValueOrEmptyString(nr.AllPorts),
 		"allowGlobalAccess":    dcl.ValueOrEmptyString(nr.AllowGlobalAccess),
-		"labelFingerprint":     dcl.ValueOrEmptyString(nr.LabelFingerprint),
 		"backendService":       dcl.ValueOrEmptyString(nr.BackendService),
 		"creationTimestamp":    dcl.ValueOrEmptyString(nr.CreationTimestamp),
 		"description":          dcl.ValueOrEmptyString(nr.Description),
@@ -565,10 +561,6 @@ func applyForwardingRuleHelper(c *Client, ctx context.Context, rawDesired *Forwa
 		for _, d := range diffs {
 			ops = append(ops, d.UpdateOp)
 		}
-	}
-	ops, err = forwardingRuleSetLabelsPostCreate(ops)
-	if err != nil {
-		return nil, err
 	}
 	c.Config.Logger.InfoWithContextf(ctx, "Created plan: %#v", ops)
 

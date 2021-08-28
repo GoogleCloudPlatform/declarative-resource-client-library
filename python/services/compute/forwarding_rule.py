@@ -21,10 +21,8 @@ from typing import List
 class ForwardingRule(object):
     def __init__(
         self,
-        labels: dict = None,
         all_ports: bool = None,
         allow_global_access: bool = None,
-        label_fingerprint: str = None,
         backend_service: str = None,
         creation_timestamp: str = None,
         description: str = None,
@@ -51,7 +49,6 @@ class ForwardingRule(object):
     ):
 
         channel.initialize()
-        self.labels = labels
         self.all_ports = all_ports
         self.allow_global_access = allow_global_access
         self.backend_service = backend_service
@@ -69,6 +66,7 @@ class ForwardingRule(object):
         self.ports = ports
         self.region = region
         self.service_label = service_label
+        self.service_name = service_name
         self.subnetwork = subnetwork
         self.target = target
         self.project = project
@@ -80,9 +78,6 @@ class ForwardingRule(object):
             channel.Channel()
         )
         request = forwarding_rule_pb2.ApplyComputeForwardingRuleRequest()
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
-
         if Primitive.to_proto(self.all_ports):
             request.resource.all_ports = Primitive.to_proto(self.all_ports)
 
@@ -146,6 +141,9 @@ class ForwardingRule(object):
         if Primitive.to_proto(self.service_label):
             request.resource.service_label = Primitive.to_proto(self.service_label)
 
+        if Primitive.to_proto(self.service_name):
+            request.resource.service_name = Primitive.to_proto(self.service_name)
+
         if Primitive.to_proto(self.subnetwork):
             request.resource.subnetwork = Primitive.to_proto(self.subnetwork)
 
@@ -161,10 +159,8 @@ class ForwardingRule(object):
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyComputeForwardingRule(request)
-        self.labels = Primitive.from_proto(response.labels)
         self.all_ports = Primitive.from_proto(response.all_ports)
         self.allow_global_access = Primitive.from_proto(response.allow_global_access)
-        self.label_fingerprint = Primitive.from_proto(response.label_fingerprint)
         self.backend_service = Primitive.from_proto(response.backend_service)
         self.creation_timestamp = Primitive.from_proto(response.creation_timestamp)
         self.description = Primitive.from_proto(response.description)
@@ -202,9 +198,6 @@ class ForwardingRule(object):
         )
         request = forwarding_rule_pb2.DeleteComputeForwardingRuleRequest()
         request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
-
         if Primitive.to_proto(self.all_ports):
             request.resource.all_ports = Primitive.to_proto(self.all_ports)
 
@@ -267,6 +260,9 @@ class ForwardingRule(object):
 
         if Primitive.to_proto(self.service_label):
             request.resource.service_label = Primitive.to_proto(self.service_label)
+
+        if Primitive.to_proto(self.service_name):
+            request.resource.service_name = Primitive.to_proto(self.service_name)
 
         if Primitive.to_proto(self.subnetwork):
             request.resource.subnetwork = Primitive.to_proto(self.subnetwork)
@@ -288,9 +284,6 @@ class ForwardingRule(object):
         )
         request = forwarding_rule_pb2.ListComputeForwardingRuleRequest()
         request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
-
         if Primitive.to_proto(self.all_ports):
             request.resource.all_ports = Primitive.to_proto(self.all_ports)
 
@@ -354,6 +347,9 @@ class ForwardingRule(object):
         if Primitive.to_proto(self.service_label):
             request.resource.service_label = Primitive.to_proto(self.service_label)
 
+        if Primitive.to_proto(self.service_name):
+            request.resource.service_name = Primitive.to_proto(self.service_name)
+
         if Primitive.to_proto(self.subnetwork):
             request.resource.subnetwork = Primitive.to_proto(self.subnetwork)
 
@@ -370,8 +366,6 @@ class ForwardingRule(object):
 
     def to_proto(self):
         resource = forwarding_rule_pb2.ComputeForwardingRule()
-        if Primitive.to_proto(self.labels):
-            resource.labels = Primitive.to_proto(self.labels)
         if Primitive.to_proto(self.all_ports):
             resource.all_ports = Primitive.to_proto(self.all_ports)
         if Primitive.to_proto(self.allow_global_access):
@@ -416,6 +410,8 @@ class ForwardingRule(object):
             resource.region = Primitive.to_proto(self.region)
         if Primitive.to_proto(self.service_label):
             resource.service_label = Primitive.to_proto(self.service_label)
+        if Primitive.to_proto(self.service_name):
+            resource.service_name = Primitive.to_proto(self.service_name)
         if Primitive.to_proto(self.subnetwork):
             resource.subnetwork = Primitive.to_proto(self.subnetwork)
         if Primitive.to_proto(self.target):
