@@ -18,11 +18,11 @@ type: disk
 updates:
 - resource: samples/update_zonal.disk.json
 variables:
-- name: project
-  type: project
 - name: zone
   type: zone
 - name: disk
   type: resource_name
+- name: project
+  type: project
 versions:
 - ga

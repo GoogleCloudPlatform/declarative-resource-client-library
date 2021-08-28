@@ -18,9 +18,9 @@ type: bucket
 updates:
 - resource: samples/update.bucket.json
 variables:
-- name: project
-  type: project
 - name: bucket
   type: resource_name
+- name: project
+  type: project
 versions:
 - ga
