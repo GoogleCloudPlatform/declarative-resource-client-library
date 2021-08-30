@@ -220,23 +220,6 @@ func newUpdateForwardingRuleSetTargetRequest(ctx context.Context, f *ForwardingR
 	if v := f.Target; !dcl.IsEmptyValueIndirect(v) {
 		req["target"] = v
 	}
-	b, err := c.getForwardingRuleRaw(ctx, f)
-	if err != nil {
-		return nil, err
-	}
-	var m map[string]interface{}
-	if err := json.Unmarshal(b, &m); err != nil {
-		return nil, err
-	}
-	rawLabelFingerprint, err := dcl.GetMapEntry(
-		m,
-		[]string{"labelFingerprint"},
-	)
-	if err != nil {
-		c.Config.Logger.WarningWithContextf(ctx, "Failed to fetch from JSON Path: %v", err)
-	} else {
-		req["labelFingerprint"] = rawLabelFingerprint.(string)
-	}
 	return req, nil
 }
 
@@ -1435,7 +1418,7 @@ func (r *ForwardingRule) updateURL(userBasePath, updateName string) (string, err
 			return dcl.URL("projects/{{project}}/regions/{{location}}/forwardingRules/{{name}}/setTarget", nr.basePath(), userBasePath, fields), nil
 		}
 
-		return dcl.URL("projects/{{project}}/global/forwardingRules/setTarget", nr.basePath(), userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/global/forwardingRules/{{name}}/setTarget", nr.basePath(), userBasePath, fields), nil
 
 	}
 	if updateName == "update" {

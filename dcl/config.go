@@ -84,7 +84,7 @@ func NewConfig(o ...ConfigOption) *Config {
 	c := &Config{
 		codeRetryability: map[int]Retryability{
 			400: Retryability{true, regexp.MustCompile("The resource '[-/a-zA-Z0-9]*' is not ready")},
-			403: Retryability{false, nil},
+			403: Retryability{true, regexp.MustCompile(".*API request rate quota.*")},
 			404: Retryability{false, nil},
 			409: Retryability{false, nil},
 			429: Retryability{true, regexp.MustCompile(".*")},
