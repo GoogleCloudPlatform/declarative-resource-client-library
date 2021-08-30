@@ -468,6 +468,7 @@ components:
               x-dcl-go-name: Tags
               description: The Compute Engine tags to add to all instances (see [Tagging
                 instances](https://cloud.google.com/compute/docs/label-or-tag-resources#tags)).
+              x-kubernetes-immutable: true
               x-dcl-send-empty: true
               x-dcl-list-type: set
               items:

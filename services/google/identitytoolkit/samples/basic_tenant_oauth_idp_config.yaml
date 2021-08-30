@@ -22,9 +22,9 @@ updates:
 variables:
 - name: project
   type: project
-- name: oauthidpconfig
-  type: resource_name
 - name: client
+  type: resource_name
+- name: oauthidpconfig
   type: resource_name
 versions:
 - ga

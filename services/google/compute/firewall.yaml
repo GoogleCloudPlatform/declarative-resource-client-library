@@ -165,6 +165,7 @@ components:
             only to traffic that has destination IP address in these ranges. These
             ranges must be expressed in [CIDR](https://wikipedia.org/wiki/Classless_Inter-Domain_Routing)
             format. Only IPv4 is supported.
+          x-kubernetes-immutable: true
           x-dcl-server-default: true
           x-dcl-send-empty: true
           x-dcl-list-type: set

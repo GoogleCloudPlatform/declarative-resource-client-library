@@ -26,6 +26,7 @@ enum ComputeForwardingRuleIPProtocolEnum {
   ComputeForwardingRuleIPProtocolEnumAH = 4;
   ComputeForwardingRuleIPProtocolEnumSCTP = 5;
   ComputeForwardingRuleIPProtocolEnumICMP = 6;
+  ComputeForwardingRuleIPProtocolEnumL3_DEFAULT = 7;
 }
 
 enum ComputeForwardingRuleIPVersionEnum {
@@ -58,30 +59,32 @@ enum ComputeForwardingRuleNetworkTierEnum {
 }
 
 message ComputeForwardingRule {
-  bool all_ports = 1;
-  bool allow_global_access = 2;
-  string backend_service = 3;
-  string creation_timestamp = 4;
-  string description = 5;
-  string ip_address = 6;
-  ComputeForwardingRuleIPProtocolEnum ip_protocol = 7;
-  ComputeForwardingRuleIPVersionEnum ip_version = 8;
-  bool is_mirroring_collector = 9;
-  ComputeForwardingRuleLoadBalancingSchemeEnum load_balancing_scheme = 10;
-  repeated ComputeForwardingRuleMetadataFilter metadata_filter = 11;
-  string name = 12;
-  string network = 13;
-  ComputeForwardingRuleNetworkTierEnum network_tier = 14;
-  string port_range = 15;
-  repeated string ports = 16;
-  string region = 17;
-  string self_link = 18;
-  string service_label = 19;
-  string service_name = 20;
-  string subnetwork = 21;
-  string target = 22;
-  string project = 23;
-  string location = 24;
+  map<string, string> labels = 1;
+  bool all_ports = 2;
+  bool allow_global_access = 3;
+  string label_fingerprint = 4;
+  string backend_service = 5;
+  string creation_timestamp = 6;
+  string description = 7;
+  string ip_address = 8;
+  ComputeForwardingRuleIPProtocolEnum ip_protocol = 9;
+  ComputeForwardingRuleIPVersionEnum ip_version = 10;
+  bool is_mirroring_collector = 11;
+  ComputeForwardingRuleLoadBalancingSchemeEnum load_balancing_scheme = 12;
+  repeated ComputeForwardingRuleMetadataFilter metadata_filter = 13;
+  string name = 14;
+  string network = 15;
+  ComputeForwardingRuleNetworkTierEnum network_tier = 16;
+  string port_range = 17;
+  repeated string ports = 18;
+  string region = 19;
+  string self_link = 20;
+  string service_label = 21;
+  string service_name = 22;
+  string subnetwork = 23;
+  string target = 24;
+  string project = 25;
+  string location = 26;
 }
 
 message ComputeForwardingRuleMetadataFilter {

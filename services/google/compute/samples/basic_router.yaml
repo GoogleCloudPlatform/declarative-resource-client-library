@@ -20,13 +20,13 @@ type: router
 updates:
 - resource: samples/update.router.json
 variables:
-- name: compute_network
-  type: resource_name
 - name: project
   type: project
-- name: region
-  type: region
+- name: compute_network
+  type: resource_name
 - name: router
   type: resource_name
+- name: region
+  type: region
 versions:
 - ga

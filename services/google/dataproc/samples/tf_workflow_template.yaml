@@ -23,11 +23,11 @@ variables:
   type: project
 - name: dataproc_network
   type: resource_name
+- name: dataproc_subnetwork
+  type: resource_name
 - name: region
   type: region
 - name: range
-  type: resource_name
-- name: dataproc_subnetwork
   type: resource_name
 - name: template_name
   type: resource_name

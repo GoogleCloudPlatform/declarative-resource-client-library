@@ -75,6 +75,19 @@ func WrapTargetPoolHealthCheck(m map[string]interface{}) map[string]interface{} 
 	}
 }
 
+// forwardingRuleSetLabelsPostCreate adds a 'setLabels' operation after
+// a create operation, because creation cannot set labels due to a
+// long-standing bug in the API for most compute networking resources.
+// createPubsubConfigs adds a patch to apply PubsubConfigs after create (if applicable).
+func forwardingRuleSetLabelsPostCreate(inOps []forwardingRuleApiOperation) ([]forwardingRuleApiOperation, error) {
+	for _, op := range inOps {
+		if _, ok := op.(*createForwardingRuleOperation); ok {
+			return append(inOps, &updateForwardingRuleSetLabelsOperation{FieldDiffs: []*dcl.FieldDiff{{FieldName: "labels"}}}), nil
+		}
+	}
+	return inOps, nil
+}
+
 func canonicalizeReservationCPUPlatform(o, n interface{}) bool {
 	oVal, _ := o.(*string)
 	nVal, _ := n.(*string)

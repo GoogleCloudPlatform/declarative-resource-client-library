@@ -20,8 +20,8 @@ variables:
   type: azure_database_encryption_key_version
 - name: azure_subscription
   type: azure_subscription
-- name: cluster
-  type: resource_name
 - name: project
   type: project
+- name: cluster
+  type: resource_name
 versions: []
