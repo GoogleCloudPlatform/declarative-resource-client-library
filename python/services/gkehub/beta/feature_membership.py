@@ -23,20 +23,20 @@ from typing import List
 class FeatureMembership(object):
     def __init__(
         self,
-        membership: str = None,
-        feature: str = None,
-        location: str = None,
-        project: str = None,
         configmanagement: dict = None,
+        project: str = None,
+        location: str = None,
+        feature: str = None,
+        membership: str = None,
         service_account_file: str = "",
     ):
 
         channel.initialize()
-        self.membership = membership
-        self.feature = feature
-        self.location = location
-        self.project = project
         self.configmanagement = configmanagement
+        self.project = project
+        self.location = location
+        self.feature = feature
+        self.membership = membership
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -44,34 +44,34 @@ class FeatureMembership(object):
             channel.Channel()
         )
         request = feature_membership_pb2.ApplyGkehubBetaFeatureMembershipRequest()
-        if Primitive.to_proto(self.membership):
-            request.resource.membership = Primitive.to_proto(self.membership)
-
-        if Primitive.to_proto(self.feature):
-            request.resource.feature = Primitive.to_proto(self.feature)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
         if FeatureMembershipConfigmanagement.to_proto(self.configmanagement):
             request.resource.configmanagement.CopyFrom(
                 FeatureMembershipConfigmanagement.to_proto(self.configmanagement)
             )
         else:
             request.resource.ClearField("configmanagement")
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
+
+        if Primitive.to_proto(self.feature):
+            request.resource.feature = Primitive.to_proto(self.feature)
+
+        if Primitive.to_proto(self.membership):
+            request.resource.membership = Primitive.to_proto(self.membership)
+
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyGkehubBetaFeatureMembership(request)
-        self.membership = Primitive.from_proto(response.membership)
-        self.feature = Primitive.from_proto(response.feature)
-        self.location = Primitive.from_proto(response.location)
-        self.project = Primitive.from_proto(response.project)
         self.configmanagement = FeatureMembershipConfigmanagement.from_proto(
             response.configmanagement
         )
+        self.project = Primitive.from_proto(response.project)
+        self.location = Primitive.from_proto(response.location)
+        self.feature = Primitive.from_proto(response.feature)
+        self.membership = Primitive.from_proto(response.membership)
 
     def delete(self):
         stub = feature_membership_pb2_grpc.GkehubBetaFeatureMembershipServiceStub(
@@ -79,24 +79,24 @@ class FeatureMembership(object):
         )
         request = feature_membership_pb2.DeleteGkehubBetaFeatureMembershipRequest()
         request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.membership):
-            request.resource.membership = Primitive.to_proto(self.membership)
-
-        if Primitive.to_proto(self.feature):
-            request.resource.feature = Primitive.to_proto(self.feature)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
         if FeatureMembershipConfigmanagement.to_proto(self.configmanagement):
             request.resource.configmanagement.CopyFrom(
                 FeatureMembershipConfigmanagement.to_proto(self.configmanagement)
             )
         else:
             request.resource.ClearField("configmanagement")
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
+
+        if Primitive.to_proto(self.feature):
+            request.resource.feature = Primitive.to_proto(self.feature)
+
+        if Primitive.to_proto(self.membership):
+            request.resource.membership = Primitive.to_proto(self.membership)
+
         response = stub.DeleteGkehubBetaFeatureMembership(request)
 
     def list(self):
@@ -105,43 +105,42 @@ class FeatureMembership(object):
         )
         request = feature_membership_pb2.ListGkehubBetaFeatureMembershipRequest()
         request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.membership):
-            request.resource.membership = Primitive.to_proto(self.membership)
-
-        if Primitive.to_proto(self.feature):
-            request.resource.feature = Primitive.to_proto(self.feature)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
         if FeatureMembershipConfigmanagement.to_proto(self.configmanagement):
             request.resource.configmanagement.CopyFrom(
                 FeatureMembershipConfigmanagement.to_proto(self.configmanagement)
             )
         else:
             request.resource.ClearField("configmanagement")
+        if Primitive.to_proto(self.project):
+            request.resource.project = Primitive.to_proto(self.project)
+
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
+
+        if Primitive.to_proto(self.feature):
+            request.resource.feature = Primitive.to_proto(self.feature)
+
+        if Primitive.to_proto(self.membership):
+            request.resource.membership = Primitive.to_proto(self.membership)
 
         return stub.ListGkehubBetaFeatureMembership(request).items
 
     def to_proto(self):
         resource = feature_membership_pb2.GkehubBetaFeatureMembership()
-        if Primitive.to_proto(self.membership):
-            resource.membership = Primitive.to_proto(self.membership)
-        if Primitive.to_proto(self.feature):
-            resource.feature = Primitive.to_proto(self.feature)
-        if Primitive.to_proto(self.location):
-            resource.location = Primitive.to_proto(self.location)
-        if Primitive.to_proto(self.project):
-            resource.project = Primitive.to_proto(self.project)
         if FeatureMembershipConfigmanagement.to_proto(self.configmanagement):
             resource.configmanagement.CopyFrom(
                 FeatureMembershipConfigmanagement.to_proto(self.configmanagement)
             )
         else:
             resource.ClearField("configmanagement")
+        if Primitive.to_proto(self.project):
+            resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        if Primitive.to_proto(self.feature):
+            resource.feature = Primitive.to_proto(self.feature)
+        if Primitive.to_proto(self.membership):
+            resource.membership = Primitive.to_proto(self.membership)
         return resource
 
 
@@ -298,6 +297,7 @@ class FeatureMembershipConfigmanagementConfigSyncGit(object):
         sync_rev: str = None,
         secret_type: str = None,
         https_proxy: str = None,
+        gcp_service_account_email: str = None,
     ):
         self.sync_repo = sync_repo
         self.sync_branch = sync_branch
@@ -306,6 +306,7 @@ class FeatureMembershipConfigmanagementConfigSyncGit(object):
         self.sync_rev = sync_rev
         self.secret_type = secret_type
         self.https_proxy = https_proxy
+        self.gcp_service_account_email = gcp_service_account_email
 
     @classmethod
     def to_proto(self, resource):
@@ -329,6 +330,10 @@ class FeatureMembershipConfigmanagementConfigSyncGit(object):
             res.secret_type = Primitive.to_proto(resource.secret_type)
         if Primitive.to_proto(resource.https_proxy):
             res.https_proxy = Primitive.to_proto(resource.https_proxy)
+        if Primitive.to_proto(resource.gcp_service_account_email):
+            res.gcp_service_account_email = Primitive.to_proto(
+                resource.gcp_service_account_email
+            )
         return res
 
     @classmethod
@@ -344,6 +349,9 @@ class FeatureMembershipConfigmanagementConfigSyncGit(object):
             sync_rev=Primitive.from_proto(resource.sync_rev),
             secret_type=Primitive.from_proto(resource.secret_type),
             https_proxy=Primitive.from_proto(resource.https_proxy),
+            gcp_service_account_email=Primitive.from_proto(
+                resource.gcp_service_account_email
+            ),
         )
 
 

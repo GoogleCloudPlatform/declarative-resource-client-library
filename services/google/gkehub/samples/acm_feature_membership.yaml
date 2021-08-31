@@ -15,6 +15,8 @@ dependencies:
 - samples/acm.feature.json
 - samples/first.membership.json
 - samples/first.container.cluster.json
+- samples/first.iam.service_account.json
+- samples/second.iam.service_account.json
 - samples/anthosconfigmanagement.serviceusage.service.json
 - samples/gkehub.serviceusage.service.json
 - samples/container.serviceusage.service.json
@@ -27,18 +29,23 @@ type: feature_membership
 updates:
 - dependencies:
   - samples/update_acm.feature.json
-  resource: samples/update_acm.feature_membership.json
+  resource: samples/update_1_acm.feature_membership.json
+- resource: samples/update_2_acm.feature_membership.json
 variables:
-- name: id
-  type: resource_name
 - name: org_id
   type: org_id
+- name: id
+  type: resource_name
+- name: id2
+  type: resource_name
+- name: id1
+  type: resource_name
 - name: billing_account
   type: billing_account
-- name: cluster1
-  type: resource_name
 - name: zone
   type: zone
+- name: cluster1
+  type: resource_name
 - name: membership1
   type: resource_name
 versions:

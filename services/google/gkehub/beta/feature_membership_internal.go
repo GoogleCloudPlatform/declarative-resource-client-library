@@ -24,13 +24,19 @@ import (
 
 func (r *FeatureMembership) validate() error {
 
-	if err := dcl.RequiredParameter(r.Membership, "Membership"); err != nil {
+	if err := dcl.Required(r, "configmanagement"); err != nil {
+		return err
+	}
+	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
+		return err
+	}
+	if err := dcl.RequiredParameter(r.Location, "Location"); err != nil {
 		return err
 	}
 	if err := dcl.RequiredParameter(r.Feature, "Feature"); err != nil {
 		return err
 	}
-	if err := dcl.RequiredParameter(r.Location, "Location"); err != nil {
+	if err := dcl.RequiredParameter(r.Membership, "Membership"); err != nil {
 		return err
 	}
 	if !dcl.IsEmptyValueIndirect(r.Configmanagement) {
@@ -271,46 +277,46 @@ func canonicalizeFeatureMembershipDesiredState(rawDesired, rawInitial *FeatureMe
 		return rawDesired, nil
 	}
 	canonicalDesired := &FeatureMembership{}
-	if dcl.NameToSelfLink(rawDesired.Membership, rawInitial.Membership) {
-		canonicalDesired.Membership = rawInitial.Membership
+	canonicalDesired.Configmanagement = canonicalizeFeatureMembershipConfigmanagement(rawDesired.Configmanagement, rawInitial.Configmanagement, opts...)
+	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
+		canonicalDesired.Project = rawInitial.Project
 	} else {
-		canonicalDesired.Membership = rawDesired.Membership
-	}
-	if dcl.NameToSelfLink(rawDesired.Feature, rawInitial.Feature) {
-		canonicalDesired.Feature = rawInitial.Feature
-	} else {
-		canonicalDesired.Feature = rawDesired.Feature
+		canonicalDesired.Project = rawDesired.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
 		canonicalDesired.Location = rawInitial.Location
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
-	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
-		canonicalDesired.Project = rawInitial.Project
+	if dcl.NameToSelfLink(rawDesired.Feature, rawInitial.Feature) {
+		canonicalDesired.Feature = rawInitial.Feature
 	} else {
-		canonicalDesired.Project = rawDesired.Project
+		canonicalDesired.Feature = rawDesired.Feature
 	}
-	canonicalDesired.Configmanagement = canonicalizeFeatureMembershipConfigmanagement(rawDesired.Configmanagement, rawInitial.Configmanagement, opts...)
+	if dcl.NameToSelfLink(rawDesired.Membership, rawInitial.Membership) {
+		canonicalDesired.Membership = rawInitial.Membership
+	} else {
+		canonicalDesired.Membership = rawDesired.Membership
+	}
 
 	return canonicalDesired, nil
 }
 
 func canonicalizeFeatureMembershipNewState(c *Client, rawNew, rawDesired *FeatureMembership) (*FeatureMembership, error) {
 
-	rawNew.Membership = rawDesired.Membership
-
-	rawNew.Feature = rawDesired.Feature
-
-	rawNew.Location = rawDesired.Location
-
-	rawNew.Project = rawDesired.Project
-
 	if dcl.IsNotReturnedByServer(rawNew.Configmanagement) && dcl.IsNotReturnedByServer(rawDesired.Configmanagement) {
 		rawNew.Configmanagement = rawDesired.Configmanagement
 	} else {
 		rawNew.Configmanagement = canonicalizeNewFeatureMembershipConfigmanagement(c, rawDesired.Configmanagement, rawNew.Configmanagement)
 	}
+
+	rawNew.Project = rawDesired.Project
+
+	rawNew.Location = rawDesired.Location
+
+	rawNew.Feature = rawDesired.Feature
+
+	rawNew.Membership = rawDesired.Membership
 
 	return rawNew, nil
 }
@@ -548,6 +554,11 @@ func canonicalizeFeatureMembershipConfigmanagementConfigSyncGit(des, initial *Fe
 	} else {
 		cDes.HttpsProxy = des.HttpsProxy
 	}
+	if dcl.NameToSelfLink(des.GcpServiceAccountEmail, initial.GcpServiceAccountEmail) || dcl.IsZeroValue(des.GcpServiceAccountEmail) {
+		cDes.GcpServiceAccountEmail = initial.GcpServiceAccountEmail
+	} else {
+		cDes.GcpServiceAccountEmail = des.GcpServiceAccountEmail
+	}
 
 	return cDes
 }
@@ -586,6 +597,9 @@ func canonicalizeNewFeatureMembershipConfigmanagementConfigSyncGit(c *Client, de
 	}
 	if dcl.StringCanonicalize(des.HttpsProxy, nw.HttpsProxy) {
 		nw.HttpsProxy = des.HttpsProxy
+	}
+	if dcl.NameToSelfLink(des.GcpServiceAccountEmail, nw.GcpServiceAccountEmail) {
+		nw.GcpServiceAccountEmail = des.GcpServiceAccountEmail
 	}
 
 	return nw
@@ -963,21 +977,7 @@ func diffFeatureMembership(c *Client, desired, actual *FeatureMembership, opts .
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Membership, actual.Membership, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Membership")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Feature, actual.Feature, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Feature")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Configmanagement, actual.Configmanagement, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementNewStyle, EmptyObject: EmptyFeatureMembershipConfigmanagement, OperationSelector: dcl.TriggersOperation("updateFeatureMembershipUpdateFeatureMembershipOperation")}, fn.AddNest("Configmanagement")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -991,7 +991,21 @@ func diffFeatureMembership(c *Client, desired, actual *FeatureMembership, opts .
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Configmanagement, actual.Configmanagement, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementNewStyle, EmptyObject: EmptyFeatureMembershipConfigmanagement, OperationSelector: dcl.TriggersOperation("updateFeatureMembershipUpdateFeatureMembershipOperation")}, fn.AddNest("Configmanagement")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Feature, actual.Feature, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Feature")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Membership, actual.Membership, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Membership")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1161,6 +1175,13 @@ func compareFeatureMembershipConfigmanagementConfigSyncGitNewStyle(d, a interfac
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.GcpServiceAccountEmail, actual.GcpServiceAccountEmail, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GcpServiceAccountEmail")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -1305,10 +1326,10 @@ func compareFeatureMembershipConfigmanagementHierarchyControllerNewStyle(d, a in
 // short-form so they can be substituted in.
 func (r *FeatureMembership) urlNormalized() *FeatureMembership {
 	normalized := dcl.Copy(*r).(FeatureMembership)
-	normalized.Membership = dcl.SelfLinkToName(r.Membership)
-	normalized.Feature = dcl.SelfLinkToName(r.Feature)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.Feature = dcl.SelfLinkToName(r.Feature)
+	normalized.Membership = dcl.SelfLinkToName(r.Membership)
 	return &normalized
 }
 
@@ -1356,15 +1377,15 @@ func unmarshalMapFeatureMembership(m map[string]interface{}, c *Client) (*Featur
 // expandFeatureMembership expands FeatureMembership into a JSON request object.
 func expandFeatureMembership(c *Client, f *FeatureMembership) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.EmptyValue(); err != nil {
-		return nil, fmt.Errorf("error expanding Membership into membership: %w", err)
-	} else if v != nil {
-		m["membership"] = v
+	if v, err := expandFeatureMembershipConfigmanagement(c, f.Configmanagement); err != nil {
+		return nil, fmt.Errorf("error expanding Configmanagement into configmanagement: %w", err)
+	} else {
+		m["configmanagement"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
-		return nil, fmt.Errorf("error expanding Feature into feature: %w", err)
+		return nil, fmt.Errorf("error expanding Project into project: %w", err)
 	} else if v != nil {
-		m["feature"] = v
+		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
@@ -1372,14 +1393,14 @@ func expandFeatureMembership(c *Client, f *FeatureMembership) (map[string]interf
 		m["location"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
-		return nil, fmt.Errorf("error expanding Project into project: %w", err)
+		return nil, fmt.Errorf("error expanding Feature into feature: %w", err)
 	} else if v != nil {
-		m["project"] = v
+		m["feature"] = v
 	}
-	if v, err := expandFeatureMembershipConfigmanagement(c, f.Configmanagement); err != nil {
-		return nil, fmt.Errorf("error expanding Configmanagement into configmanagement: %w", err)
+	if v, err := dcl.EmptyValue(); err != nil {
+		return nil, fmt.Errorf("error expanding Membership into membership: %w", err)
 	} else if v != nil {
-		m["configmanagement"] = v
+		m["membership"] = v
 	}
 
 	return m, nil
@@ -1397,11 +1418,11 @@ func flattenFeatureMembership(c *Client, i interface{}) *FeatureMembership {
 	}
 
 	res := &FeatureMembership{}
-	res.Membership = dcl.FlattenString(m["membership"])
-	res.Feature = dcl.FlattenString(m["feature"])
-	res.Location = dcl.FlattenString(m["location"])
-	res.Project = dcl.FlattenString(m["project"])
 	res.Configmanagement = flattenFeatureMembershipConfigmanagement(c, m["configmanagement"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.Location = dcl.FlattenString(m["location"])
+	res.Feature = dcl.FlattenString(m["feature"])
+	res.Membership = dcl.FlattenString(m["membership"])
 
 	return res
 }
@@ -1490,7 +1511,7 @@ func flattenFeatureMembershipConfigmanagementSlice(c *Client, i interface{}) []F
 // expandFeatureMembershipConfigmanagement expands an instance of FeatureMembershipConfigmanagement into a JSON
 // request object.
 func expandFeatureMembershipConfigmanagement(c *Client, f *FeatureMembershipConfigmanagement) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
@@ -1774,6 +1795,9 @@ func expandFeatureMembershipConfigmanagementConfigSyncGit(c *Client, f *FeatureM
 	if v := f.HttpsProxy; !dcl.IsEmptyValueIndirect(v) {
 		m["httpsProxy"] = v
 	}
+	if v := f.GcpServiceAccountEmail; !dcl.IsEmptyValueIndirect(v) {
+		m["gcpServiceAccountEmail"] = v
+	}
 
 	return m, nil
 }
@@ -1798,6 +1822,7 @@ func flattenFeatureMembershipConfigmanagementConfigSyncGit(c *Client, i interfac
 	r.SyncRev = dcl.FlattenString(m["syncRev"])
 	r.SecretType = dcl.FlattenString(m["secretType"])
 	r.HttpsProxy = dcl.FlattenString(m["httpsProxy"])
+	r.GcpServiceAccountEmail = dcl.FlattenString(m["gcpServiceAccountEmail"])
 
 	return r
 }

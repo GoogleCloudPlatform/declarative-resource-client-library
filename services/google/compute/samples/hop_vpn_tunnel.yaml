@@ -26,12 +26,12 @@ name: hop_vpn_tunnel
 resource: samples/hop_vpn_tunnel.route.json
 type: route
 variables:
-- name: region
-  type: region
 - name: address
   type: resource_name
 - name: project
   type: project
+- name: region
+  type: region
 - name: compute_network
   type: resource_name
 - name: gateway

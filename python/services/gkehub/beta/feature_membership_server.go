@@ -58,13 +58,14 @@ func ProtoToGkehubBetaFeatureMembershipConfigmanagementConfigSyncGit(p *betapb.G
 		return nil
 	}
 	obj := &beta.FeatureMembershipConfigmanagementConfigSyncGit{
-		SyncRepo:     dcl.StringOrNil(p.SyncRepo),
-		SyncBranch:   dcl.StringOrNil(p.SyncBranch),
-		PolicyDir:    dcl.StringOrNil(p.PolicyDir),
-		SyncWaitSecs: dcl.StringOrNil(p.SyncWaitSecs),
-		SyncRev:      dcl.StringOrNil(p.SyncRev),
-		SecretType:   dcl.StringOrNil(p.SecretType),
-		HttpsProxy:   dcl.StringOrNil(p.HttpsProxy),
+		SyncRepo:               dcl.StringOrNil(p.SyncRepo),
+		SyncBranch:             dcl.StringOrNil(p.SyncBranch),
+		PolicyDir:              dcl.StringOrNil(p.PolicyDir),
+		SyncWaitSecs:           dcl.StringOrNil(p.SyncWaitSecs),
+		SyncRev:                dcl.StringOrNil(p.SyncRev),
+		SecretType:             dcl.StringOrNil(p.SecretType),
+		HttpsProxy:             dcl.StringOrNil(p.HttpsProxy),
+		GcpServiceAccountEmail: dcl.StringOrNil(p.GcpServiceAccountEmail),
 	}
 	return obj
 }
@@ -114,11 +115,11 @@ func ProtoToGkehubBetaFeatureMembershipConfigmanagementHierarchyController(p *be
 // ProtoToFeatureMembership converts a FeatureMembership resource from its proto representation.
 func ProtoToFeatureMembership(p *betapb.GkehubBetaFeatureMembership) *beta.FeatureMembership {
 	obj := &beta.FeatureMembership{
-		Membership:       dcl.StringOrNil(p.Membership),
-		Feature:          dcl.StringOrNil(p.Feature),
-		Location:         dcl.StringOrNil(p.Location),
-		Project:          dcl.StringOrNil(p.Project),
 		Configmanagement: ProtoToGkehubBetaFeatureMembershipConfigmanagement(p.GetConfigmanagement()),
+		Project:          dcl.StringOrNil(p.Project),
+		Location:         dcl.StringOrNil(p.Location),
+		Feature:          dcl.StringOrNil(p.Feature),
+		Membership:       dcl.StringOrNil(p.Membership),
 	}
 	return obj
 }
@@ -156,13 +157,14 @@ func GkehubBetaFeatureMembershipConfigmanagementConfigSyncGitToProto(o *beta.Fea
 		return nil
 	}
 	p := &betapb.GkehubBetaFeatureMembershipConfigmanagementConfigSyncGit{
-		SyncRepo:     dcl.ValueOrEmptyString(o.SyncRepo),
-		SyncBranch:   dcl.ValueOrEmptyString(o.SyncBranch),
-		PolicyDir:    dcl.ValueOrEmptyString(o.PolicyDir),
-		SyncWaitSecs: dcl.ValueOrEmptyString(o.SyncWaitSecs),
-		SyncRev:      dcl.ValueOrEmptyString(o.SyncRev),
-		SecretType:   dcl.ValueOrEmptyString(o.SecretType),
-		HttpsProxy:   dcl.ValueOrEmptyString(o.HttpsProxy),
+		SyncRepo:               dcl.ValueOrEmptyString(o.SyncRepo),
+		SyncBranch:             dcl.ValueOrEmptyString(o.SyncBranch),
+		PolicyDir:              dcl.ValueOrEmptyString(o.PolicyDir),
+		SyncWaitSecs:           dcl.ValueOrEmptyString(o.SyncWaitSecs),
+		SyncRev:                dcl.ValueOrEmptyString(o.SyncRev),
+		SecretType:             dcl.ValueOrEmptyString(o.SecretType),
+		HttpsProxy:             dcl.ValueOrEmptyString(o.HttpsProxy),
+		GcpServiceAccountEmail: dcl.ValueOrEmptyString(o.GcpServiceAccountEmail),
 	}
 	return p
 }
@@ -212,11 +214,11 @@ func GkehubBetaFeatureMembershipConfigmanagementHierarchyControllerToProto(o *be
 // FeatureMembershipToProto converts a FeatureMembership resource to its proto representation.
 func FeatureMembershipToProto(resource *beta.FeatureMembership) *betapb.GkehubBetaFeatureMembership {
 	p := &betapb.GkehubBetaFeatureMembership{
-		Membership:       dcl.ValueOrEmptyString(resource.Membership),
-		Feature:          dcl.ValueOrEmptyString(resource.Feature),
-		Location:         dcl.ValueOrEmptyString(resource.Location),
-		Project:          dcl.ValueOrEmptyString(resource.Project),
 		Configmanagement: GkehubBetaFeatureMembershipConfigmanagementToProto(resource.Configmanagement),
+		Project:          dcl.ValueOrEmptyString(resource.Project),
+		Location:         dcl.ValueOrEmptyString(resource.Location),
+		Feature:          dcl.ValueOrEmptyString(resource.Feature),
+		Membership:       dcl.ValueOrEmptyString(resource.Membership),
 	}
 
 	return p

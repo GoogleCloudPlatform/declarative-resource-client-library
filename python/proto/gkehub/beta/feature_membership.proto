@@ -19,11 +19,11 @@ import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
 message GkehubBetaFeatureMembership {
-  string membership = 1;
-  string feature = 2;
+  GkehubBetaFeatureMembershipConfigmanagement configmanagement = 1;
+  string project = 2;
   string location = 3;
-  string project = 4;
-  GkehubBetaFeatureMembershipConfigmanagement configmanagement = 5;
+  string feature = 4;
+  string membership = 5;
 }
 
 message GkehubBetaFeatureMembershipConfigmanagement {
@@ -47,6 +47,7 @@ message GkehubBetaFeatureMembershipConfigmanagementConfigSyncGit {
   string sync_rev = 5;
   string secret_type = 6;
   string https_proxy = 7;
+  string gcp_service_account_email = 8;
 }
 
 message GkehubBetaFeatureMembershipConfigmanagementPolicyController {

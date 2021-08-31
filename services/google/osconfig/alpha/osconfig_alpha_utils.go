@@ -22,18 +22,18 @@ import (
 
 // Returns true if m and n represent the same floating point value of seconds.
 func canonicalizeOSPolicyAssignmentRolloutMinWaitDuration(m, n interface{}) bool {
-	if m == nil && n == nil {
+	mStr := dcl.ValueOrEmptyString(m)
+	nStr := dcl.ValueOrEmptyString(n)
+	if mStr == "" && nStr == "" {
 		return true
 	}
-	if m == nil || n == nil {
+	if mStr == "" || nStr == "" {
 		return false
 	}
-	mStr := dcl.ValueOrEmptyString(m)
 	mFloat, err := strconv.ParseFloat(mStr[:len(mStr)-1], 64)
 	if err != nil {
 		return false
 	}
-	nStr := dcl.ValueOrEmptyString(n)
 	nFloat, err := strconv.ParseFloat(nStr[:len(nStr)-1], 64)
 	if err != nil {
 		return false

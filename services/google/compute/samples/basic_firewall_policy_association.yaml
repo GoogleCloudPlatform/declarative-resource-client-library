@@ -21,10 +21,10 @@ name: basic_firewall_policy_association
 resource: samples/folder.firewall_policy_association.json
 type: firewall_policy_association
 variables:
-- name: folder
-  type: resource_name
 - name: org_id
   type: org_id
+- name: folder
+  type: resource_name
 - name: test_service_account
   type: test_service_account
 - name: policy

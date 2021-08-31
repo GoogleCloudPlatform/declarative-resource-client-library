@@ -24,11 +24,11 @@ import (
 )
 
 type FeatureMembership struct {
-	Membership       *string                            `json:"membership"`
-	Feature          *string                            `json:"feature"`
-	Location         *string                            `json:"location"`
-	Project          *string                            `json:"project"`
 	Configmanagement *FeatureMembershipConfigmanagement `json:"configmanagement"`
+	Project          *string                            `json:"project"`
+	Location         *string                            `json:"location"`
+	Feature          *string                            `json:"feature"`
+	Membership       *string                            `json:"membership"`
 }
 
 func (r *FeatureMembership) String() string {
@@ -143,14 +143,15 @@ func (r *FeatureMembershipConfigmanagementConfigSync) HashCode() string {
 }
 
 type FeatureMembershipConfigmanagementConfigSyncGit struct {
-	empty        bool    `json:"-"`
-	SyncRepo     *string `json:"syncRepo"`
-	SyncBranch   *string `json:"syncBranch"`
-	PolicyDir    *string `json:"policyDir"`
-	SyncWaitSecs *string `json:"syncWaitSecs"`
-	SyncRev      *string `json:"syncRev"`
-	SecretType   *string `json:"secretType"`
-	HttpsProxy   *string `json:"httpsProxy"`
+	empty                  bool    `json:"-"`
+	SyncRepo               *string `json:"syncRepo"`
+	SyncBranch             *string `json:"syncBranch"`
+	PolicyDir              *string `json:"policyDir"`
+	SyncWaitSecs           *string `json:"syncWaitSecs"`
+	SyncRev                *string `json:"syncRev"`
+	SecretType             *string `json:"secretType"`
+	HttpsProxy             *string `json:"httpsProxy"`
+	GcpServiceAccountEmail *string `json:"gcpServiceAccountEmail"`
 }
 
 type jsonFeatureMembershipConfigmanagementConfigSyncGit FeatureMembershipConfigmanagementConfigSyncGit
@@ -181,6 +182,8 @@ func (r *FeatureMembershipConfigmanagementConfigSyncGit) UnmarshalJSON(data []by
 		r.SecretType = res.SecretType
 
 		r.HttpsProxy = res.HttpsProxy
+
+		r.GcpServiceAccountEmail = res.GcpServiceAccountEmail
 
 	}
 	return nil
@@ -381,11 +384,11 @@ func (r *FeatureMembership) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"membership":       dcl.ValueOrEmptyString(nr.Membership),
-		"feature":          dcl.ValueOrEmptyString(nr.Feature),
-		"location":         dcl.ValueOrEmptyString(nr.Location),
-		"project":          dcl.ValueOrEmptyString(nr.Project),
 		"configmanagement": dcl.ValueOrEmptyString(nr.Configmanagement),
+		"project":          dcl.ValueOrEmptyString(nr.Project),
+		"location":         dcl.ValueOrEmptyString(nr.Location),
+		"feature":          dcl.ValueOrEmptyString(nr.Feature),
+		"membership":       dcl.ValueOrEmptyString(nr.Membership),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/features/{{feature}}", params), nil
 }

@@ -73,15 +73,18 @@ components:
       x-dcl-parent-container: project
       type: object
       required:
-      - membership
-      - feature
+      - configmanagement
+      - project
       - location
+      - feature
+      - membership
       properties:
         configmanagement:
           type: object
           x-dcl-go-name: Configmanagement
           x-dcl-go-type: FeatureMembershipConfigmanagement
           description: Config Management-specific spec.
+          x-dcl-send-empty: true
           properties:
             binauthz:
               type: object
@@ -104,6 +107,14 @@ components:
                   x-dcl-go-name: Git
                   x-dcl-go-type: FeatureMembershipConfigmanagementConfigSyncGit
                   properties:
+                    gcpServiceAccountEmail:
+                      type: string
+                      x-dcl-go-name: GcpServiceAccountEmail
+                      description: The GCP Service Account Email used for auth when
+                        secretType is gcpServiceAccount.
+                      x-dcl-references:
+                      - resource: Iam/ServiceAccount
+                        field: email
                     httpsProxy:
                       type: string
                       x-dcl-go-name: HttpsProxy
