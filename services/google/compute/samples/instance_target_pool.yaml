@@ -27,15 +27,15 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: instance1
-  type: resource_name
 - name: zone
   type: zone
+- name: instance1
+  type: resource_name
+- name: compute_subnetwork
+  type: resource_name
 - name: region
   type: region
 - name: range
-  type: resource_name
-- name: compute_subnetwork
   type: resource_name
 - name: pool1
   type: resource_name

@@ -16,11 +16,11 @@ name: basic_instance
 resource: samples/basic.instance.json
 type: instance
 variables:
+- name: name
+  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
-- name: name
-  type: resource_name
 versions:
 - alpha
