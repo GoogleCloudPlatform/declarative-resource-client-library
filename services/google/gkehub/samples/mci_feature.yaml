@@ -41,9 +41,9 @@ variables:
   type: zone
 - name: cluster2
   type: resource_name
-- name: membership2
-  type: resource_name
 - name: membership1
+  type: resource_name
+- name: membership2
   type: resource_name
 versions:
 - beta
