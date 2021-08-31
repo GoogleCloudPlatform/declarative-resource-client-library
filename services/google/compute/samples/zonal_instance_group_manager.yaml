@@ -20,15 +20,19 @@ name: zonal_instance_group_manager
 resource: samples/zonal.instance_group_manager.json
 type: instance_group_manager
 updates:
-- resource: samples/update_zonal.instance_group_manager.json
+- dependencies:
+  - samples/https.health_check.json
+  - samples/first.instance_template.json
+  - samples/second.instance_template.json
+  resource: samples/update_zonal.instance_group_manager.json
 variables:
-- name: s_check
-  type: resource_name
 - name: project
   type: project
-- name: template1
-  type: resource_name
 - name: template2
+  type: resource_name
+- name: s_check
+  type: resource_name
+- name: template1
   type: resource_name
 - name: zone
   type: zone

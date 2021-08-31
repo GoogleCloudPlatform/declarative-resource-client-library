@@ -16,7 +16,8 @@ name: basic_client_tls_policy
 resource: samples/basic.client_tls_policy.json
 type: client_tls_policy
 updates:
-- resource: samples/update.client_tls_policy.json
+- dependencies: []
+  resource: samples/update.client_tls_policy.json
 variables:
 - name: policy
   type: resource_name

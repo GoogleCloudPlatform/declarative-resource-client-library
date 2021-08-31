@@ -16,7 +16,8 @@ name: allow_firewall
 resource: samples/allow.firewall.json
 type: firewall
 updates:
-- resource: samples/update_allow.firewall.json
+- dependencies: []
+  resource: samples/update_allow.firewall.json
 variables:
 - name: project
   type: project

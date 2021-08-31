@@ -16,7 +16,8 @@ name: zonal_disk
 resource: samples/zonal.disk.json
 type: disk
 updates:
-- resource: samples/update_zonal.disk.json
+- dependencies: []
+  resource: samples/update_zonal.disk.json
 variables:
 - name: disk
   type: resource_name

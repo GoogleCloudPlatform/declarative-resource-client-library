@@ -20,13 +20,21 @@ name: instance_target_pool
 resource: samples/first.target_pool.json
 type: target_pool
 updates:
-- resource: samples/instance.target_pool.json
-- resource: samples/first.target_pool.json
+- dependencies:
+  - samples/basic.instance.json
+  - samples/basic.subnetwork.json
+  - samples/basic.network.json
+  resource: samples/instance.target_pool.json
+- dependencies:
+  - samples/basic.instance.json
+  - samples/basic.subnetwork.json
+  - samples/basic.network.json
+  resource: samples/first.target_pool.json
 variables:
-- name: project
-  type: project
 - name: compute_network
   type: resource_name
+- name: project
+  type: project
 - name: instance1
   type: resource_name
 - name: zone

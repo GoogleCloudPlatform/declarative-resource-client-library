@@ -18,7 +18,9 @@ name: kcc_cluster
 resource: samples/kcc.cluster.json
 type: cluster
 updates:
-- resource: samples/kccupdate.cluster.json
+- dependencies:
+  - samples/basic.autoscaling_policy.json
+  resource: samples/kccupdate.cluster.json
 variables:
 - name: region
   type: region

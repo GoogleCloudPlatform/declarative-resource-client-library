@@ -16,7 +16,8 @@ name: regional_network
 resource: samples/regional.network.json
 type: network
 updates:
-- resource: samples/global.network.json
+- dependencies: []
+  resource: samples/global.network.json
 variables:
 - name: compute_network
   type: resource_name

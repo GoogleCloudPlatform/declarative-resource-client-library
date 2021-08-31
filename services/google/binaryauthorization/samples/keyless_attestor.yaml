@@ -19,7 +19,9 @@ name: keyless_attestor
 resource: samples/keyless.attestor.json
 type: attestor
 updates:
-- resource: samples/update.attestor.json
+- dependencies:
+  - samples/basic.containeranalysis.note.json
+  resource: samples/update.attestor.json
 variables:
 - name: note
   type: resource_name

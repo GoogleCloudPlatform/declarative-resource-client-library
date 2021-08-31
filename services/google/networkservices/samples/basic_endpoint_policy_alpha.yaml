@@ -25,13 +25,31 @@ name: basic_endpoint_policy_alpha
 resource: samples/basic.endpoint_policy.json
 type: endpoint_policy
 updates:
-- resource: samples/update_1.endpoint_policy.json
-- resource: samples/update_2.endpoint_policy.json
+- dependencies:
+  - samples/first.http_filter.json
+  - samples/first.networksecurity.authorization_policy.json
+  - samples/first.networksecurity.client_tls_policy.json
+  - samples/first.networksecurity.server_tls_policy.json
+  - samples/second.http_filter.json
+  - samples/second.networksecurity.authorization_policy.json
+  - samples/second.networksecurity.client_tls_policy.json
+  - samples/second.networksecurity.server_tls_policy.json
+  resource: samples/update_1.endpoint_policy.json
+- dependencies:
+  - samples/first.http_filter.json
+  - samples/first.networksecurity.authorization_policy.json
+  - samples/first.networksecurity.client_tls_policy.json
+  - samples/first.networksecurity.server_tls_policy.json
+  - samples/second.http_filter.json
+  - samples/second.networksecurity.authorization_policy.json
+  - samples/second.networksecurity.client_tls_policy.json
+  - samples/second.networksecurity.server_tls_policy.json
+  resource: samples/update_2.endpoint_policy.json
 variables:
-- name: server1
-  type: resource_name
 - name: project
   type: project
+- name: server1
+  type: resource_name
 - name: filter2
   type: resource_name
 - name: auth2

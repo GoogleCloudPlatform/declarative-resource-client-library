@@ -19,12 +19,15 @@ name: regional_autoscaler
 resource: samples/regional.autoscaler.json
 type: autoscaler
 updates:
-- resource: samples/update_regional.autoscaler.json
+- dependencies:
+  - samples/fixed.instance_group_manager.json
+  - samples/first.instance_template.json
+  resource: samples/update_regional.autoscaler.json
 variables:
-- name: template1
-  type: resource_name
 - name: project
   type: project
+- name: template1
+  type: resource_name
 - name: manager
   type: resource_name
 - name: region

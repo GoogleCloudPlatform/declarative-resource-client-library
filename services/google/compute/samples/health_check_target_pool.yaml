@@ -18,7 +18,9 @@ name: health_check_target_pool
 resource: samples/first.target_pool.json
 type: target_pool
 updates:
-- resource: samples/health_check.target_pool.json
+- dependencies:
+  - samples/basic.http_health_check.json
+  resource: samples/health_check.target_pool.json
 variables:
 - name: project
   type: project

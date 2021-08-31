@@ -1,5 +1,5 @@
 {
-  "name": "{{ref:basic.tenant_oauth_idp_config.json:name}}",
+  "name": "oidc.{{oauthidpconfig}}",
   "project": "{{ref:basic.tenant.json:project}}",
   "tenant": "{{ref:basic.tenant.json:name}}",
   "clientId": "{{client}}",

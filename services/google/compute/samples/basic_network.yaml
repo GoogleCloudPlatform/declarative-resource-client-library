@@ -16,7 +16,8 @@ name: basic_network
 resource: samples/basic.network.json
 type: network
 updates:
-- resource: samples/update.network.json
+- dependencies: []
+  resource: samples/update.network.json
 variables:
 - name: compute_network
   type: resource_name

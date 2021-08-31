@@ -18,7 +18,9 @@ name: basic_backup
 resource: samples/basic.backup.json
 type: backup
 updates:
-- resource: samples/update.backup.json
+- dependencies:
+  - samples/basic.instance.json
+  resource: samples/update.backup.json
 variables:
 - name: project
   type: project

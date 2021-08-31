@@ -1,5 +1,5 @@
 {
-  "name": "{{ref:basic.oauth_idp_config.json:name}}",
+  "name": "oidc.{{oauthidpconfig}}",
   "project": "{{project}}",
   "clientId": "{{client}}",
   "issuer": "issuer",

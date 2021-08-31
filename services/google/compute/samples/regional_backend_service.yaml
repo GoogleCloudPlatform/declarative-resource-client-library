@@ -16,13 +16,14 @@ name: regional_backend_service
 resource: samples/regional.backend_service.json
 type: backend_service
 updates:
-- resource: samples/update_regional.backend_service.json
+- dependencies: []
+  resource: samples/update_regional.backend_service.json
 variables:
-- name: region
-  type: region
 - name: service
   type: resource_name
 - name: project
   type: project
+- name: region
+  type: region
 versions:
 - ga

@@ -1,5 +1,5 @@
 {
-  "name": "{{ref:basic.note.json:name}}",
+  "name": "{{note}}",
   "project": "{{project}}",
   "shortDescription": "An updated basic note",
   "longDescription": "This note has been updated from the basic note.",

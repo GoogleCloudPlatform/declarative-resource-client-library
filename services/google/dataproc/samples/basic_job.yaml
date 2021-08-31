@@ -18,7 +18,9 @@ name: basic_job
 resource: samples/basic.job.json
 type: job
 updates:
-- resource: samples/update.job.json
+- dependencies:
+  - samples/basic.cluster.json
+  resource: samples/update.job.json
 variables:
 - name: region
   type: region

@@ -19,7 +19,10 @@ name: global_backend_service
 resource: samples/global.backend_service.json
 type: backend_service
 updates:
-- resource: samples/update_global.backend_service.json
+- dependencies:
+  - samples/https.health_check.json
+  - samples/zonal.network_endpoint_group.json
+  resource: samples/update_global.backend_service.json
 variables:
 - name: s_check
   type: resource_name

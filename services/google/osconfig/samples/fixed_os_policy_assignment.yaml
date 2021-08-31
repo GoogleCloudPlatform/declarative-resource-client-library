@@ -17,14 +17,16 @@ name: fixed_os_policy_assignment
 resource: samples/fixed.os_policy_assignment.json
 type: os_policy_assignment
 updates:
-- resource: samples/update_fixed.os_policy_assignment.json
-- resource: samples/percent.os_policy_assignment.json
+- dependencies: []
+  resource: samples/update_fixed.os_policy_assignment.json
+- dependencies: []
+  resource: samples/percent.os_policy_assignment.json
 variables:
+- name: assignment
+  type: resource_name
 - name: project
   type: project
 - name: zone
   type: zone
-- name: assignment
-  type: resource_name
 versions:
 - alpha

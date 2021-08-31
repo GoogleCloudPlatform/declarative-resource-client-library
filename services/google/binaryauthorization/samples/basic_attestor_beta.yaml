@@ -18,13 +18,15 @@ name: basic_attestor_beta
 resource: samples/basic.attestor.json
 type: attestor
 updates:
-- resource: samples/update.attestor.json
+- dependencies:
+  - samples/basic.containeranalysis.note.json
+  resource: samples/update.attestor.json
 variables:
+- name: note
+  type: resource_name
 - name: project
   type: project
 - name: package
-  type: resource_name
-- name: note
   type: resource_name
 - name: attestor
   type: resource_name

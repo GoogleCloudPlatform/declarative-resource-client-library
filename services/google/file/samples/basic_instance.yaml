@@ -16,14 +16,15 @@ name: basic_instance
 resource: samples/basic.instance.json
 type: instance
 updates:
-- resource: samples/update.instance.json
+- dependencies: []
+  resource: samples/update.instance.json
 variables:
+- name: zone
+  type: zone
 - name: instance_name
   type: resource_name
 - name: project
   type: project
-- name: zone
-  type: zone
 versions:
 - ga
 - beta

@@ -20,16 +20,20 @@ name: basic_instance
 resource: samples/basic.instance.json
 type: instance
 updates:
-- resource: samples/update.instance.json
+- dependencies:
+  - samples/basic.cloudbilling.project_billing_info.json
+  - samples/basic.cloudresourcemanager.project.json
+  - samples/basic.compute.network.json
+  resource: samples/update.instance.json
 variables:
-- name: df
-  type: resource_name
-- name: org_id
-  type: org_id
 - name: datafusion_network
   type: resource_name
 - name: project
   type: project
+- name: org_id
+  type: org_id
+- name: df
+  type: resource_name
 - name: billing_account
   type: billing_account
 - name: instance

@@ -27,7 +27,18 @@ name: mci_feature
 resource: samples/mci.feature.json
 type: feature
 updates:
-- resource: samples/update_mci.feature.json
+- dependencies:
+  - samples/first.membership.json
+  - samples/first.container.cluster.json
+  - samples/second.membership.json
+  - samples/second.container.cluster.json
+  - samples/multiclusteringress.serviceusage.service.json
+  - samples/multiclusterservicediscovery.serviceusage.service.json
+  - samples/gkehub.serviceusage.service.json
+  - samples/container.serviceusage.service.json
+  - samples/basic.cloudbilling.project_billing_info.json
+  - samples/basic.cloudresourcemanager.project.json
+  resource: samples/update_mci.feature.json
 variables:
 - name: id
   type: resource_name
@@ -35,12 +46,12 @@ variables:
   type: org_id
 - name: billing_account
   type: billing_account
+- name: cluster2
+  type: resource_name
 - name: cluster1
   type: resource_name
 - name: zone
   type: zone
-- name: cluster2
-  type: resource_name
 - name: membership1
   type: resource_name
 - name: membership2

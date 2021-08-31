@@ -18,7 +18,9 @@ name: tcp_uptime_check_config
 resource: samples/tcp.uptime_check_config.json
 type: uptime_check_config
 updates:
-- resource: samples/update_tcp.uptime_check_config.json
+- dependencies:
+  - samples/basic.group.json
+  resource: samples/update_tcp.uptime_check_config.json
 variables:
 - name: project
   type: project

@@ -18,7 +18,9 @@ name: basic_default_object_access_control
 resource: samples/basic.default_object_access_control.json
 type: default_object_access_control
 updates:
-- resource: samples/update.default_object_access_control.json
+- dependencies:
+  - samples/basic.bucket.json
+  resource: samples/update.default_object_access_control.json
 variables:
 - name: bucket
   type: resource_name

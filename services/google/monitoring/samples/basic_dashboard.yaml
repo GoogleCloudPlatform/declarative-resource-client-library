@@ -16,12 +16,14 @@ name: basic_dashboard
 resource: samples/basic.dashboard.json
 type: dashboard
 updates:
-- resource: samples/update_1.dashboard.json
-- resource: samples/update_2.dashboard.json
+- dependencies: []
+  resource: samples/update_1.dashboard.json
+- dependencies: []
+  resource: samples/update_2.dashboard.json
 variables:
-- name: dashboard
-  type: resource_name
 - name: project
   type: project
+- name: dashboard
+  type: resource_name
 versions:
 - ga

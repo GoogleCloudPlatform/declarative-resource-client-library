@@ -1,5 +1,5 @@
 {
- "name": "{{ref:basic.worker_pool.json:name}}",
+ "name": "{{resource_name}}",
  "location": "{{region}}",
  "project": "{{project}}",
   "networkConfig": {

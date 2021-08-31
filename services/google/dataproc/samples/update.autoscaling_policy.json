@@ -1,6 +1,6 @@
 {
-  "name": "{{ref:basic.autoscaling_policy.json:name}}",
-  "project": "{{ref:basic.autoscaling_policy.json:project}}",
+  "name": "{{name}}",
+  "project": "{{project}}",
   "location": "us-central1",
   "workerConfig": {
     "maxInstances": 9

@@ -19,7 +19,10 @@ name: cluster_policy
 resource: samples/cluster.policy.json
 type: policy
 updates:
-- resource: samples/namespace.policy.json
+- dependencies:
+  - samples/basic.attestor.json
+  - samples/basic.containeranalysis.note.json
+  resource: samples/namespace.policy.json
 variables:
 - name: project
   type: project

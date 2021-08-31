@@ -18,7 +18,9 @@ name: basic_network_peering
 resource: samples/basic.network_peering.json
 type: network_peering
 updates:
-- resource: samples/update.network_peering.json
+- dependencies:
+  - samples/basic.network.json
+  resource: samples/update.network_peering.json
 variables:
 - name: compute_network
   type: resource_name

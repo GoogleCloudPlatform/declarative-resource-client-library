@@ -19,7 +19,10 @@ name: project_exclusion
 resource: samples/project.log_exclusion.json
 type: log_exclusion
 updates:
-- resource: samples/update_project.log_exclusion.json
+- dependencies:
+  - samples/project_logging_admin.iam.member.json
+  - samples/project.cloudresourcemanager.project.json
+  resource: samples/update_project.log_exclusion.json
 variables:
 - name: log
   type: resource_name

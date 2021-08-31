@@ -19,13 +19,16 @@ name: namespace_policy
 resource: samples/namespace.policy.json
 type: policy
 updates:
-- resource: samples/service_account.policy.json
+- dependencies:
+  - samples/basic.attestor.json
+  - samples/basic.containeranalysis.note.json
+  resource: samples/service_account.policy.json
 variables:
+- name: note
+  type: resource_name
 - name: project
   type: project
 - name: package
-  type: resource_name
-- name: note
   type: resource_name
 - name: attestor
   type: resource_name

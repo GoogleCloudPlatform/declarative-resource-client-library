@@ -16,7 +16,8 @@ name: linear_metric
 resource: samples/linear.log_metric.json
 type: log_metric
 updates:
-- resource: samples/update_linear.log_metric.json
+- dependencies: []
+  resource: samples/update_linear.log_metric.json
 variables:
 - name: project
   type: project

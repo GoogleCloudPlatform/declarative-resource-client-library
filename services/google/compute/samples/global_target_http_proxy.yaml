@@ -21,7 +21,12 @@ name: global_target_http_proxy
 resource: samples/global.target_http_proxy.json
 type: target_http_proxy
 updates:
-- resource: samples/update_global.target_http_proxy.json
+- dependencies:
+  - samples/first_global.url_map.json
+  - samples/second_global.url_map.json
+  - samples/basic.backend_bucket.json
+  - samples/basic.storage.bucket.json
+  resource: samples/update_global.target_http_proxy.json
 variables:
 - name: bucket
   type: resource_name

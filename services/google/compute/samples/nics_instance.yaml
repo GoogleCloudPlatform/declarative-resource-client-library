@@ -19,7 +19,10 @@ name: nics_instance
 resource: samples/nics.instance.json
 type: instance
 updates:
-- resource: samples/update_nics.instance.json
+- dependencies:
+  - samples/basic.subnetwork.json
+  - samples/basic.network.json
+  resource: samples/update_nics.instance.json
 variables:
 - name: compute_network
   type: resource_name
@@ -31,10 +34,10 @@ variables:
   type: resource_name
 - name: compute_subnetwork
   type: resource_name
-- name: zone
-  type: zone
 - name: instance2
   type: resource_name
+- name: zone
+  type: zone
 versions:
 - ga
 - beta

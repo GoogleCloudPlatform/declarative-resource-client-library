@@ -1,5 +1,5 @@
 {
-  "name": "{{ref:basic.dashboard.json:name}}",
+  "name": "{{dashboard}}",
   "project": "{{project}}",
   "displayName": "Grid Layout Example",
   "gridLayout": {

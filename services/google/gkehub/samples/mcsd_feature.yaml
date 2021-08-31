@@ -21,12 +21,17 @@ name: mcsd_feature
 resource: samples/mcsd.feature.json
 type: feature
 updates:
-- resource: samples/update_mcsd.feature.json
+- dependencies:
+  - samples/gkehub.serviceusage.service.json
+  - samples/multiclusterservicediscovery.serviceusage.service.json
+  - samples/basic.cloudbilling.project_billing_info.json
+  - samples/basic.cloudresourcemanager.project.json
+  resource: samples/update_mcsd.feature.json
 variables:
-- name: org_id
-  type: org_id
 - name: id
   type: resource_name
+- name: org_id
+  type: org_id
 - name: billing_account
   type: billing_account
 versions:

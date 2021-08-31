@@ -16,7 +16,8 @@ name: basic_certificate_template
 resource: samples/basic.certificate_template.json
 type: certificate_template
 updates:
-- resource: samples/update.certificate_template.json
+- dependencies: []
+  resource: samples/update.certificate_template.json
 variables:
 - name: template
   type: resource_name

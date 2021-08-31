@@ -19,7 +19,10 @@ name: basic_trigger
 resource: samples/basic.trigger.json
 type: trigger
 updates:
-- resource: samples/update.trigger.json
+- dependencies:
+  - samples/basicservice.run.service.json
+  - samples/secondservice.run.service.json
+  resource: samples/update.trigger.json
 variables:
 - name: project
   type: project

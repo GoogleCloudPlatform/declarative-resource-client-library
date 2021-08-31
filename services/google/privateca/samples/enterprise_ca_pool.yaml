@@ -16,7 +16,8 @@ name: enterprise_ca_pool
 resource: samples/enterprise.ca_pool.json
 type: ca_pool
 updates:
-- resource: samples/update_enterprise.ca_pool.json
+- dependencies: []
+  resource: samples/update_enterprise.ca_pool.json
 variables:
 - name: pool
   type: resource_name
