@@ -34,6 +34,14 @@ func SelfLinkToNameExpander(v *string) (*string, error) {
 	return SelfLinkToName(v), nil
 }
 
+// FalseToNil returns nil if the pointed-to boolean is 'false' - otherwise returns the pass-in pointer.
+func FalseToNil(b *bool) (*bool, error) {
+	if b != nil && *b == false {
+		return nil, nil
+	}
+	return b, nil
+}
+
 // SelfLinkToNameArray returns a slice of the elements of a slice of strings after the last slash.
 func SelfLinkToNameArray(v []string) []string {
 	var a []string

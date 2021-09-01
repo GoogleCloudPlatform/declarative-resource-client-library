@@ -284,7 +284,9 @@ func (op *updateForwardingRuleSetTargetOperation) do(ctx context.Context, r *For
 func newUpdateForwardingRuleUpdateRequest(ctx context.Context, f *ForwardingRule, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	if v := f.AllowGlobalAccess; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := dcl.FalseToNil(f.AllowGlobalAccess); err != nil {
+		return nil, fmt.Errorf("error expanding AllowGlobalAccess into allowGlobalAccess: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["allowGlobalAccess"] = v
 	}
 	return req, nil
@@ -1467,10 +1469,14 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
 	}
-	if v := f.AllPorts; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := dcl.FalseToNil(f.AllPorts); err != nil {
+		return nil, fmt.Errorf("error expanding AllPorts into allPorts: %w", err)
+	} else if v != nil {
 		m["allPorts"] = v
 	}
-	if v := f.AllowGlobalAccess; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := dcl.FalseToNil(f.AllowGlobalAccess); err != nil {
+		return nil, fmt.Errorf("error expanding AllowGlobalAccess into allowGlobalAccess: %w", err)
+	} else if v != nil {
 		m["allowGlobalAccess"] = v
 	}
 	if v := f.BackendService; !dcl.IsEmptyValueIndirect(v) {
@@ -1488,7 +1494,9 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	if v := f.IPVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["ipVersion"] = v
 	}
-	if v := f.IsMirroringCollector; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := dcl.FalseToNil(f.IsMirroringCollector); err != nil {
+		return nil, fmt.Errorf("error expanding IsMirroringCollector into isMirroringCollector: %w", err)
+	} else if v != nil {
 		m["isMirroringCollector"] = v
 	}
 	if v := f.LoadBalancingScheme; !dcl.IsEmptyValueIndirect(v) {

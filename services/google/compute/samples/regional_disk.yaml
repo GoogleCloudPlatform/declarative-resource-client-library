@@ -19,11 +19,11 @@ updates:
 - dependencies: []
   resource: samples/update_regional.disk.json
 variables:
+- name: project
+  type: project
 - name: region
   type: region
 - name: disk
   type: resource_name
-- name: project
-  type: project
 versions:
 - ga
