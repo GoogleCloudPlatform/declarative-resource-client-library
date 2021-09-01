@@ -22,12 +22,12 @@ updates:
   - samples/basic.instance.json
   resource: samples/update.backup.json
 variables:
+- name: instance_name
+  type: resource_name
 - name: project
   type: project
 - name: zone
   type: zone
-- name: instance_name
-  type: resource_name
 - name: backup
   type: resource_name
 - name: region

@@ -31,9 +31,6 @@ func (r *ForwardingRule) validate() error {
 	if err := dcl.Required(r, "name"); err != nil {
 		return err
 	}
-	if err := dcl.Required(r, "target"); err != nil {
-		return err
-	}
 	if err := dcl.Required(r, "project"); err != nil {
 		return err
 	}
