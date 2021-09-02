@@ -191,6 +191,9 @@ func (r *InstanceEncryptionKeysKeyState) validate() error {
 	return nil
 }
 func (r *InstanceEncryptionKeysKeyStateAvailability) validate() error {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"PermissionDenied", "UnknownFailure", "KeyVersionState"}, r.PermissionDenied, r.UnknownFailure, r.KeyVersionState); err != nil {
+		return err
+	}
 	return nil
 }
 func (r *InstancePreprocessCreateRecipe) validate() error {
@@ -3572,6 +3575,36 @@ func canonicalizeInstanceEncryptionKeysKeyStateAvailability(des, initial *Instan
 	}
 	if des.empty {
 		return des
+	}
+
+	if des.PermissionDenied != nil || (initial != nil && initial.PermissionDenied != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.UnknownFailure, des.KeyVersionState) {
+			des.PermissionDenied = nil
+			if initial != nil {
+				initial.PermissionDenied = nil
+			}
+		}
+	}
+
+	if des.UnknownFailure != nil || (initial != nil && initial.UnknownFailure != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.PermissionDenied, des.KeyVersionState) {
+			des.UnknownFailure = nil
+			if initial != nil {
+				initial.UnknownFailure = nil
+			}
+		}
+	}
+
+	if des.KeyVersionState != nil || (initial != nil && initial.KeyVersionState != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.PermissionDenied, des.UnknownFailure) {
+			des.KeyVersionState = nil
+			if initial != nil {
+				initial.KeyVersionState = nil
+			}
+		}
 	}
 
 	if initial == nil {
