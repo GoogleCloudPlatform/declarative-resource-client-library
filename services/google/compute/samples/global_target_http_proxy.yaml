@@ -34,9 +34,9 @@ variables:
   type: project
 - name: backend
   type: resource_name
-- name: map2
-  type: resource_name
 - name: map1
+  type: resource_name
+- name: map2
   type: resource_name
 - name: proxy
   type: resource_name
