@@ -17,6 +17,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -70,7 +71,7 @@ func (op *KNativeOperation) operate(ctx context.Context) (*dcl.RetryDetails, err
 	u := fmt.Sprintf("https://%s-run.googleapis.com/%s", op.location, op.Metadata.SelfLink)
 	resp, err := dcl.SendRequest(ctx, op.config, "GET", u, &bytes.Buffer{}, nil)
 	if err != nil {
-		if dcl.IsRetryableRequestError(op.config, err, false) {
+		if dcl.IsRetryableRequestError(op.config, err, false, time.Now()) {
 			return nil, dcl.OperationNotDone{}
 		}
 		return nil, err

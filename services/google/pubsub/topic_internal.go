@@ -317,6 +317,7 @@ func (op *createTopicOperation) do(ctx context.Context, r *Topic, c *Client) err
 	// Poll for the Topic resource to be created. Topic resources are eventually consistent but do not support operations
 	// so we must repeatedly poll to check for their creation.
 	requiredSuccesses := 1
+	start := time.Now()
 	err = dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		u, err := r.getURL(c.Config.BasePath)
 		if err != nil {
@@ -326,7 +327,7 @@ func (op *createTopicOperation) do(ctx context.Context, r *Topic, c *Client) err
 		if err != nil {
 			// If the error is a transient server error (e.g., 500) or not found (i.e., the resource has not yet been created),
 			// continue retrying until the transient error is resolved, the resource is created, or we time out.
-			if dcl.IsRetryableRequestError(c.Config, err, true) {
+			if dcl.IsRetryableRequestError(c.Config, err, true, start) {
 				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
 			}
 			return nil, err

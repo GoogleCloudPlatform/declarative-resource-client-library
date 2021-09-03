@@ -17,9 +17,8 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"strings"
+	"time"
 
-	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -54,7 +53,7 @@ func (op *DatastoreOperation) operate(ctx context.Context) (*dcl.RetryDetails, e
 	u := dcl.URL(op.Name, "https://datastore.googleapis.com/v1/", op.config.BasePath, nil)
 	resp, err := dcl.SendRequest(ctx, op.config, "GET", u, &bytes.Buffer{}, nil)
 	if err != nil {
-		if IsDatastoreRetryableError(op.config, err) || dcl.IsRetryableRequestError(op.config, err, true) {
+		if dcl.IsRetryableRequestError(op.config, err, true, time.Now()) {
 			return nil, dcl.OperationNotDone{}
 		}
 		return nil, err
@@ -69,18 +68,6 @@ func (op *DatastoreOperation) operate(ctx context.Context) (*dcl.RetryDetails, e
 		return nil, fmt.Errorf("operation received error: %+v", op.Error)
 	}
 	return resp, nil
-}
-
-// IsDatastoreRetryableError checks for additional retryable errors that are
-// specific to Datastore.
-func IsDatastoreRetryableError(c *dcl.Config, err error) bool {
-	if gerr, ok := err.(*googleapi.Error); ok {
-		if gerr.Code == 409 && strings.Contains(gerr.Body, "too much contention") {
-			c.Logger.Infof("Error is retryable: too much contention - waiting for less activity")
-			return true
-		}
-	}
-	return false
 }
 
 // FirstResponse returns the first response that this operation receives with the resource.

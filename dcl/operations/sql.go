@@ -16,6 +16,7 @@ package operations
 import (
 	"bytes"
 	"context"
+	"time"
 
 	glog "github.com/golang/glog"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -43,7 +44,7 @@ func (op *SQLOperation) Wait(ctx context.Context, c *dcl.Config, _, _ string) er
 func (op *SQLOperation) operate(ctx context.Context) (*dcl.RetryDetails, error) {
 	resp, err := dcl.SendRequest(ctx, op.config, "GET", op.SelfLink, &bytes.Buffer{}, nil)
 	if err != nil {
-		if dcl.IsRetryableRequestError(op.config, err, true) {
+		if dcl.IsRetryableRequestError(op.config, err, true, time.Now()) {
 			return nil, dcl.OperationNotDone{}
 		}
 		return nil, err

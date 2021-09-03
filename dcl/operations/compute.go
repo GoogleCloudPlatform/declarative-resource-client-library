@@ -19,6 +19,7 @@ import (
 	"context"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -71,7 +72,7 @@ func (op *ComputeOperation) Wait(ctx context.Context, c *dcl.Config, _, _ string
 
 func (op *ComputeOperation) handleResponse(resp *dcl.RetryDetails, err error) (*dcl.RetryDetails, error) {
 	if err != nil {
-		if dcl.IsRetryableRequestError(op.config, err, false) {
+		if dcl.IsRetryableRequestError(op.config, err, false, time.Now()) {
 			return nil, dcl.OperationNotDone{}
 		}
 		return nil, err

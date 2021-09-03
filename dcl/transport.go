@@ -23,6 +23,7 @@ import (
 	"net/url"
 	"regexp"
 	"strings"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"google.golang.org/api/option"
@@ -114,6 +115,8 @@ func SendRequest(ctx context.Context, c *Config, verb, url string, body *bytes.B
 		return &RetryDetails{Request: req, Response: res}, nil
 	}
 
+	// The start time of request retries is used to determine if an HTTP error is still retryable.
+	start := time.Now()
 	err = Do(ctx, func(ctx context.Context) (*RetryDetails, error) {
 		// Reset req body before http call.
 		req.Body = ioutil.NopCloser(bytes.NewReader(bodyBytes))
@@ -125,7 +128,7 @@ func SendRequest(ctx context.Context, c *Config, verb, url string, body *bytes.B
 			// If this is an error, we will not be returning the
 			// body, so we should close it.
 			googleapi.CloseBody(res)
-			if IsRetryableRequestError(c, err, false) {
+			if IsRetryableRequestError(c, err, false, start) {
 				return nil, OperationNotDone{Err: err}
 			}
 			return nil, err
@@ -162,14 +165,15 @@ func ParseResponse(resp *http.Response, ptr interface{}) error {
 
 // IsRetryableRequestError returns true if an error is determined to be
 // a common retryable error based on heuristics about GCP API behaviours.
-func IsRetryableRequestError(c *Config, err error, retryNotFound bool) bool {
+// The start time is used to determine if errors with custom timeouts should be retried.
+func IsRetryableRequestError(c *Config, err error, retryNotFound bool, start time.Time) bool {
 	// Return transient errors that should be retried.
-	if IsRetryableHTTPError(err, c.codeRetryability) || (retryNotFound && IsNotFound(err)) {
+	if IsRetryableHTTPError(err, c.codeRetryability, start) || (retryNotFound && IsNotFound(err)) {
 		c.Logger.Infof("Error appears retryable: %s", err)
 		return true
 	}
 
-	if IsNonRetryableHTTPError(err, c.codeRetryability) {
+	if IsNonRetryableHTTPError(err, c.codeRetryability, start) {
 		c.Logger.Infof("Error appears not to be retryable: %s", err)
 		return false
 	}

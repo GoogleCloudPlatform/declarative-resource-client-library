@@ -19,6 +19,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -87,7 +88,9 @@ func (op *StandardGCPOperation) operate(ctx context.Context) (*dcl.RetryDetails,
 	u := dcl.URL(op.Name, op.basePath, op.config.BasePath, nil)
 	resp, err := dcl.SendRequest(ctx, op.config, op.verb, u, &bytes.Buffer{}, nil)
 	if err != nil {
-		if dcl.IsRetryableRequestError(op.config, err, false) {
+		// Since we don't know when this operation started, we will assume the
+		// context's timeout applies to all request errors.
+		if dcl.IsRetryableRequestError(op.config, err, false, time.Now()) {
 			return nil, dcl.OperationNotDone{}
 		}
 		return nil, err

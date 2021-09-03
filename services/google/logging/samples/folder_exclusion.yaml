@@ -19,10 +19,10 @@ name: folder_exclusion
 resource: samples/folder.log_exclusion.json
 type: log_exclusion
 variables:
-- name: org_id
-  type: org_id
 - name: folder
   type: resource_name
+- name: org_id
+  type: org_id
 - name: test_service_account
   type: test_service_account
 - name: log_exclusion_name

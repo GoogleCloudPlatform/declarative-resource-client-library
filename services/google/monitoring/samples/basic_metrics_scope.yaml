@@ -11,26 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-dependencies:
-- samples/basic.attestor.json
-- samples/basic.containeranalysis.note.json
-description: A service identity example for a binary authorization policy
-name: service_identity_policy
-resource: samples/service_identity.policy.json
-type: policy
-updates:
-- dependencies:
-  - samples/basic.attestor.json
-  - samples/basic.containeranalysis.note.json
-  resource: samples/cluster.policy.json
+description: A basic example of a monitoring metrics scope
+name: basic_metrics_scope
+resource: samples/basic.metrics_scope.json
+type: metrics_scope
 variables:
-- name: note
-  type: resource_name
 - name: project
   type: project
-- name: package
-  type: resource_name
-- name: attestor
-  type: resource_name
 versions:
 - ga

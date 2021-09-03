@@ -22,10 +22,10 @@ updates:
   - samples/basic.bucket.json
   resource: samples/update.default_object_access_control.json
 variables:
-- name: bucket
-  type: resource_name
 - name: project
   type: project
+- name: bucket
+  type: resource_name
 - name: project_number
   type: project_number
 versions:

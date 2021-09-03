@@ -17,6 +17,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -48,7 +49,7 @@ func (op *DNSOperation) operate(ctx context.Context) (*dcl.RetryDetails, error) 
 	u := fmt.Sprintf("https://dns.googleapis.com/dns/v1/projects/%s/managedZones/%s/changes/%s", op.Project, op.ManagedZone, op.ID)
 	resp, err := dcl.SendRequest(ctx, op.config, "GET", u, &bytes.Buffer{}, nil)
 	if err != nil {
-		if dcl.IsRetryableRequestError(op.config, err, false) {
+		if dcl.IsRetryableRequestError(op.config, err, false, time.Now()) {
 			return nil, dcl.OperationNotDone{}
 		}
 		return nil, err

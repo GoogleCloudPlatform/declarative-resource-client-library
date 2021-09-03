@@ -1055,7 +1055,13 @@ func (l *InstanceGroupManagerList) Next(ctx context.Context, c *Client) error {
 
 func (c *Client) ListInstanceGroupManager(ctx context.Context, r *InstanceGroupManager) (*InstanceGroupManagerList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
-	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.CustomRetryability{412: dcl.CustomRetryability{Retryable: false, Regex: ""}})))
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
+		412: dcl.Retryability{
+			Retryable: false,
+			Pattern:   "",
+			Timeout:   0,
+		},
+	})))
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -1081,7 +1087,13 @@ func (c *Client) ListInstanceGroupManagerWithMaxResults(ctx context.Context, r *
 
 func (c *Client) GetInstanceGroupManager(ctx context.Context, r *InstanceGroupManager) (*InstanceGroupManager, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
-	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.CustomRetryability{412: dcl.CustomRetryability{Retryable: false, Regex: ""}})))
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
+		412: dcl.Retryability{
+			Retryable: false,
+			Pattern:   "",
+			Timeout:   0,
+		},
+	})))
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -1121,7 +1133,13 @@ func (c *Client) GetInstanceGroupManager(ctx context.Context, r *InstanceGroupMa
 
 func (c *Client) DeleteInstanceGroupManager(ctx context.Context, r *InstanceGroupManager) error {
 	ctx = dcl.ContextWithRequestID(ctx)
-	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.CustomRetryability{412: dcl.CustomRetryability{Retryable: false, Regex: ""}})))
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
+		412: dcl.Retryability{
+			Retryable: false,
+			Pattern:   "",
+			Timeout:   0,
+		},
+	})))
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -1163,7 +1181,13 @@ func (c *Client) DeleteAllInstanceGroupManager(ctx context.Context, project, loc
 
 func (c *Client) ApplyInstanceGroupManager(ctx context.Context, rawDesired *InstanceGroupManager, opts ...dcl.ApplyOption) (*InstanceGroupManager, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
-	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.CustomRetryability{412: dcl.CustomRetryability{Retryable: false, Regex: ""}})))
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
+		412: dcl.Retryability{
+			Retryable: false,
+			Pattern:   "",
+			Timeout:   0,
+		},
+	})))
 	var resultNewState *InstanceGroupManager
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyInstanceGroupManagerHelper(c, ctx, rawDesired, opts...)

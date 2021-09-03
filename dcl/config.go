@@ -54,20 +54,14 @@ type Config struct {
 	userOverrideProject bool
 }
 
-// CustomRetryability holds the details for one error code to determine if it is
-// retryable. The regex field is uncompiled for use in the generator.
-// To be retryable, the boolean must be true and the regex must match.
-type CustomRetryability struct {
-	Retryable bool
-	Regex     string
-}
-
 // Retryability holds the details for one error code to determine if it is retyable.
 // The regex field is compiled for use in error handling.
 // To be retryable, the boolean must be true and the regex must match.
 type Retryability struct {
-	retryable bool
+	Retryable bool
+	Pattern   string
 	regex     *regexp.Regexp
+	Timeout   time.Duration
 }
 
 // UserAgent returns the user agent for the config, which will always include the
@@ -81,16 +75,30 @@ func (c *Config) UserAgent() string {
 
 // NewConfig creates a Config object.
 func NewConfig(o ...ConfigOption) *Config {
+	retryable := Retryability{
+		Retryable: true,
+		regex:     regexp.MustCompile(".*"),
+		Timeout:   defaultTimeout,
+	}
+	nonretryable := Retryability{Retryable: false}
 	c := &Config{
 		codeRetryability: map[int]Retryability{
-			400: Retryability{true, regexp.MustCompile("The resource '[-/a-zA-Z0-9]*' is not ready")},
-			403: Retryability{true, regexp.MustCompile(".*API request rate quota.*")},
-			404: Retryability{false, nil},
-			409: Retryability{false, nil},
-			429: Retryability{true, regexp.MustCompile(".*")},
-			500: Retryability{true, regexp.MustCompile(".*")},
-			502: Retryability{true, regexp.MustCompile(".*")},
-			503: Retryability{true, regexp.MustCompile(".*")},
+			400: Retryability{
+				Retryable: true,
+				regex:     regexp.MustCompile("The resource '[-/a-zA-Z0-9]*' is not ready"),
+				Timeout:   defaultTimeout,
+			},
+			403: Retryability{
+				Retryable: true,
+				regex:     regexp.MustCompile(".*API request rate quota.*"),
+				Timeout:   defaultTimeout,
+			},
+			404: nonretryable,
+			409: nonretryable,
+			429: retryable,
+			500: retryable,
+			502: retryable,
+			503: retryable,
 		},
 		contentType: "application/json",
 		queryParams: map[string]string{"alt": "json"},
@@ -251,16 +259,23 @@ func WithRetryProvider(r RetryProvider) ConfigOption {
 
 // WithCodeRetryability allows a user to add additional retryable or non-retryable error codes.
 // Each error code is mapped to a regexp which must match the error message to be retryable.
-func WithCodeRetryability(cr map[int]CustomRetryability) ConfigOption {
+func WithCodeRetryability(cr map[int]Retryability) ConfigOption {
 	return func(c *Config) {
 		for code, retryability := range cr {
+			// Non-retryable errors do not need a regex to check against.
 			var re *regexp.Regexp
 			if retryability.Retryable {
-				re = regexp.MustCompile(retryability.Regex)
+				re = regexp.MustCompile(retryability.Pattern)
+			}
+			// If timeout for this retryable error was not specified, assume default.
+			to := defaultTimeout
+			if retryability.Timeout > 0 {
+				to = retryability.Timeout
 			}
 			c.codeRetryability[code] = Retryability{
-				retryable: retryability.Retryable,
+				Retryable: retryability.Retryable,
 				regex:     re,
+				Timeout:   to,
 			}
 		}
 	}
