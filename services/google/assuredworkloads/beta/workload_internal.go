@@ -502,11 +502,7 @@ func canonicalizeWorkloadDesiredState(rawDesired, rawInitial *Workload, opts ...
 		canonicalDesired.ProvisionedResourcesParent = rawDesired.ProvisionedResourcesParent
 	}
 	canonicalDesired.KmsSettings = canonicalizeWorkloadKmsSettings(rawDesired.KmsSettings, rawInitial.KmsSettings, opts...)
-	if dcl.IsZeroValue(rawDesired.ResourceSettings) {
-		canonicalDesired.ResourceSettings = rawInitial.ResourceSettings
-	} else {
-		canonicalDesired.ResourceSettings = rawDesired.ResourceSettings
-	}
+	canonicalDesired.ResourceSettings = canonicalizeWorkloadResourceSettingsSlice(rawDesired.ResourceSettings, rawInitial.ResourceSettings, opts...)
 	if dcl.NameToSelfLink(rawDesired.Organization, rawInitial.Organization) {
 		canonicalDesired.Organization = rawInitial.Organization
 	} else {
@@ -604,6 +600,34 @@ func canonicalizeWorkloadResources(des, initial *WorkloadResources, opts ...dcl.
 	return cDes
 }
 
+func canonicalizeWorkloadResourcesSlice(des, initial []WorkloadResources, opts ...dcl.ApplyOption) []WorkloadResources {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkloadResources, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkloadResources(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkloadResources, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkloadResources(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewWorkloadResources(c *Client, des, nw *WorkloadResources) *WorkloadResources {
 
 	if des == nil {
@@ -690,6 +714,34 @@ func canonicalizeWorkloadKmsSettings(des, initial *WorkloadKmsSettings, opts ...
 	}
 
 	return cDes
+}
+
+func canonicalizeWorkloadKmsSettingsSlice(des, initial []WorkloadKmsSettings, opts ...dcl.ApplyOption) []WorkloadKmsSettings {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkloadKmsSettings, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkloadKmsSettings(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkloadKmsSettings, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkloadKmsSettings(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewWorkloadKmsSettings(c *Client, des, nw *WorkloadKmsSettings) *WorkloadKmsSettings {
@@ -782,6 +834,34 @@ func canonicalizeWorkloadResourceSettings(des, initial *WorkloadResourceSettings
 	}
 
 	return cDes
+}
+
+func canonicalizeWorkloadResourceSettingsSlice(des, initial []WorkloadResourceSettings, opts ...dcl.ApplyOption) []WorkloadResourceSettings {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkloadResourceSettings, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkloadResourceSettings(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkloadResourceSettings, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkloadResourceSettings(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewWorkloadResourceSettings(c *Client, des, nw *WorkloadResourceSettings) *WorkloadResourceSettings {

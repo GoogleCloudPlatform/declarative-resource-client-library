@@ -712,16 +712,8 @@ func canonicalizeWorkflowTemplateDesiredState(rawDesired, rawInitial *WorkflowTe
 		canonicalDesired.Labels = rawDesired.Labels
 	}
 	canonicalDesired.Placement = canonicalizeWorkflowTemplatePlacement(rawDesired.Placement, rawInitial.Placement, opts...)
-	if dcl.IsZeroValue(rawDesired.Jobs) {
-		canonicalDesired.Jobs = rawInitial.Jobs
-	} else {
-		canonicalDesired.Jobs = rawDesired.Jobs
-	}
-	if dcl.IsZeroValue(rawDesired.Parameters) {
-		canonicalDesired.Parameters = rawInitial.Parameters
-	} else {
-		canonicalDesired.Parameters = rawDesired.Parameters
-	}
+	canonicalDesired.Jobs = canonicalizeWorkflowTemplateJobsSlice(rawDesired.Jobs, rawInitial.Jobs, opts...)
+	canonicalDesired.Parameters = canonicalizeWorkflowTemplateParametersSlice(rawDesired.Parameters, rawInitial.Parameters, opts...)
 	if dcl.StringCanonicalize(rawDesired.DagTimeout, rawInitial.DagTimeout) {
 		canonicalDesired.DagTimeout = rawInitial.DagTimeout
 	} else {
@@ -818,6 +810,34 @@ func canonicalizeWorkflowTemplatePlacement(des, initial *WorkflowTemplatePlaceme
 	return cDes
 }
 
+func canonicalizeWorkflowTemplatePlacementSlice(des, initial []WorkflowTemplatePlacement, opts ...dcl.ApplyOption) []WorkflowTemplatePlacement {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplatePlacement, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplatePlacement(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplatePlacement, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplatePlacement(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewWorkflowTemplatePlacement(c *Client, des, nw *WorkflowTemplatePlacement) *WorkflowTemplatePlacement {
 
 	if des == nil {
@@ -908,6 +928,34 @@ func canonicalizeWorkflowTemplatePlacementManagedCluster(des, initial *WorkflowT
 	}
 
 	return cDes
+}
+
+func canonicalizeWorkflowTemplatePlacementManagedClusterSlice(des, initial []WorkflowTemplatePlacementManagedCluster, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementManagedCluster {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplatePlacementManagedCluster, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplatePlacementManagedCluster(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplatePlacementManagedCluster, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplatePlacementManagedCluster(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewWorkflowTemplatePlacementManagedCluster(c *Client, des, nw *WorkflowTemplatePlacementManagedCluster) *WorkflowTemplatePlacementManagedCluster {
@@ -1001,6 +1049,34 @@ func canonicalizeWorkflowTemplatePlacementClusterSelector(des, initial *Workflow
 	}
 
 	return cDes
+}
+
+func canonicalizeWorkflowTemplatePlacementClusterSelectorSlice(des, initial []WorkflowTemplatePlacementClusterSelector, opts ...dcl.ApplyOption) []WorkflowTemplatePlacementClusterSelector {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplatePlacementClusterSelector, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplatePlacementClusterSelector(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplatePlacementClusterSelector, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplatePlacementClusterSelector(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewWorkflowTemplatePlacementClusterSelector(c *Client, des, nw *WorkflowTemplatePlacementClusterSelector) *WorkflowTemplatePlacementClusterSelector {
@@ -1107,6 +1183,34 @@ func canonicalizeWorkflowTemplateJobs(des, initial *WorkflowTemplateJobs, opts .
 	}
 
 	return cDes
+}
+
+func canonicalizeWorkflowTemplateJobsSlice(des, initial []WorkflowTemplateJobs, opts ...dcl.ApplyOption) []WorkflowTemplateJobs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateJobs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateJobs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateJobs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateJobs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewWorkflowTemplateJobs(c *Client, des, nw *WorkflowTemplateJobs) *WorkflowTemplateJobs {
@@ -1236,6 +1340,34 @@ func canonicalizeWorkflowTemplateJobsHadoopJob(des, initial *WorkflowTemplateJob
 	return cDes
 }
 
+func canonicalizeWorkflowTemplateJobsHadoopJobSlice(des, initial []WorkflowTemplateJobsHadoopJob, opts ...dcl.ApplyOption) []WorkflowTemplateJobsHadoopJob {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateJobsHadoopJob, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateJobsHadoopJob(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateJobsHadoopJob, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateJobsHadoopJob(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewWorkflowTemplateJobsHadoopJob(c *Client, des, nw *WorkflowTemplateJobsHadoopJob) *WorkflowTemplateJobsHadoopJob {
 
 	if des == nil {
@@ -1325,6 +1457,34 @@ func canonicalizeWorkflowTemplateJobsHadoopJobLoggingConfig(des, initial *Workfl
 	}
 
 	return cDes
+}
+
+func canonicalizeWorkflowTemplateJobsHadoopJobLoggingConfigSlice(des, initial []WorkflowTemplateJobsHadoopJobLoggingConfig, opts ...dcl.ApplyOption) []WorkflowTemplateJobsHadoopJobLoggingConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateJobsHadoopJobLoggingConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateJobsHadoopJobLoggingConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateJobsHadoopJobLoggingConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateJobsHadoopJobLoggingConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewWorkflowTemplateJobsHadoopJobLoggingConfig(c *Client, des, nw *WorkflowTemplateJobsHadoopJobLoggingConfig) *WorkflowTemplateJobsHadoopJobLoggingConfig {
@@ -1441,6 +1601,34 @@ func canonicalizeWorkflowTemplateJobsSparkJob(des, initial *WorkflowTemplateJobs
 	return cDes
 }
 
+func canonicalizeWorkflowTemplateJobsSparkJobSlice(des, initial []WorkflowTemplateJobsSparkJob, opts ...dcl.ApplyOption) []WorkflowTemplateJobsSparkJob {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateJobsSparkJob, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateJobsSparkJob(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateJobsSparkJob, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateJobsSparkJob(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewWorkflowTemplateJobsSparkJob(c *Client, des, nw *WorkflowTemplateJobsSparkJob) *WorkflowTemplateJobsSparkJob {
 
 	if des == nil {
@@ -1530,6 +1718,34 @@ func canonicalizeWorkflowTemplateJobsSparkJobLoggingConfig(des, initial *Workflo
 	}
 
 	return cDes
+}
+
+func canonicalizeWorkflowTemplateJobsSparkJobLoggingConfigSlice(des, initial []WorkflowTemplateJobsSparkJobLoggingConfig, opts ...dcl.ApplyOption) []WorkflowTemplateJobsSparkJobLoggingConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateJobsSparkJobLoggingConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateJobsSparkJobLoggingConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateJobsSparkJobLoggingConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateJobsSparkJobLoggingConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewWorkflowTemplateJobsSparkJobLoggingConfig(c *Client, des, nw *WorkflowTemplateJobsSparkJobLoggingConfig) *WorkflowTemplateJobsSparkJobLoggingConfig {
@@ -1646,6 +1862,34 @@ func canonicalizeWorkflowTemplateJobsPysparkJob(des, initial *WorkflowTemplateJo
 	return cDes
 }
 
+func canonicalizeWorkflowTemplateJobsPysparkJobSlice(des, initial []WorkflowTemplateJobsPysparkJob, opts ...dcl.ApplyOption) []WorkflowTemplateJobsPysparkJob {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateJobsPysparkJob, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateJobsPysparkJob(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateJobsPysparkJob, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateJobsPysparkJob(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewWorkflowTemplateJobsPysparkJob(c *Client, des, nw *WorkflowTemplateJobsPysparkJob) *WorkflowTemplateJobsPysparkJob {
 
 	if des == nil {
@@ -1732,6 +1976,34 @@ func canonicalizeWorkflowTemplateJobsPysparkJobLoggingConfig(des, initial *Workf
 	}
 
 	return cDes
+}
+
+func canonicalizeWorkflowTemplateJobsPysparkJobLoggingConfigSlice(des, initial []WorkflowTemplateJobsPysparkJobLoggingConfig, opts ...dcl.ApplyOption) []WorkflowTemplateJobsPysparkJobLoggingConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateJobsPysparkJobLoggingConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateJobsPysparkJobLoggingConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateJobsPysparkJobLoggingConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateJobsPysparkJobLoggingConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewWorkflowTemplateJobsPysparkJobLoggingConfig(c *Client, des, nw *WorkflowTemplateJobsPysparkJobLoggingConfig) *WorkflowTemplateJobsPysparkJobLoggingConfig {
@@ -1838,6 +2110,34 @@ func canonicalizeWorkflowTemplateJobsHiveJob(des, initial *WorkflowTemplateJobsH
 	return cDes
 }
 
+func canonicalizeWorkflowTemplateJobsHiveJobSlice(des, initial []WorkflowTemplateJobsHiveJob, opts ...dcl.ApplyOption) []WorkflowTemplateJobsHiveJob {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateJobsHiveJob, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateJobsHiveJob(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateJobsHiveJob, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateJobsHiveJob(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewWorkflowTemplateJobsHiveJob(c *Client, des, nw *WorkflowTemplateJobsHiveJob) *WorkflowTemplateJobsHiveJob {
 
 	if des == nil {
@@ -1927,6 +2227,34 @@ func canonicalizeWorkflowTemplateJobsHiveJobQueryList(des, initial *WorkflowTemp
 	}
 
 	return cDes
+}
+
+func canonicalizeWorkflowTemplateJobsHiveJobQueryListSlice(des, initial []WorkflowTemplateJobsHiveJobQueryList, opts ...dcl.ApplyOption) []WorkflowTemplateJobsHiveJobQueryList {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateJobsHiveJobQueryList, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateJobsHiveJobQueryList(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateJobsHiveJobQueryList, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateJobsHiveJobQueryList(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewWorkflowTemplateJobsHiveJobQueryList(c *Client, des, nw *WorkflowTemplateJobsHiveJobQueryList) *WorkflowTemplateJobsHiveJobQueryList {
@@ -2034,6 +2362,34 @@ func canonicalizeWorkflowTemplateJobsPigJob(des, initial *WorkflowTemplateJobsPi
 	return cDes
 }
 
+func canonicalizeWorkflowTemplateJobsPigJobSlice(des, initial []WorkflowTemplateJobsPigJob, opts ...dcl.ApplyOption) []WorkflowTemplateJobsPigJob {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateJobsPigJob, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateJobsPigJob(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateJobsPigJob, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateJobsPigJob(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewWorkflowTemplateJobsPigJob(c *Client, des, nw *WorkflowTemplateJobsPigJob) *WorkflowTemplateJobsPigJob {
 
 	if des == nil {
@@ -2126,6 +2482,34 @@ func canonicalizeWorkflowTemplateJobsPigJobQueryList(des, initial *WorkflowTempl
 	return cDes
 }
 
+func canonicalizeWorkflowTemplateJobsPigJobQueryListSlice(des, initial []WorkflowTemplateJobsPigJobQueryList, opts ...dcl.ApplyOption) []WorkflowTemplateJobsPigJobQueryList {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateJobsPigJobQueryList, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateJobsPigJobQueryList(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateJobsPigJobQueryList, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateJobsPigJobQueryList(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewWorkflowTemplateJobsPigJobQueryList(c *Client, des, nw *WorkflowTemplateJobsPigJobQueryList) *WorkflowTemplateJobsPigJobQueryList {
 
 	if des == nil {
@@ -2207,6 +2591,34 @@ func canonicalizeWorkflowTemplateJobsPigJobLoggingConfig(des, initial *WorkflowT
 	}
 
 	return cDes
+}
+
+func canonicalizeWorkflowTemplateJobsPigJobLoggingConfigSlice(des, initial []WorkflowTemplateJobsPigJobLoggingConfig, opts ...dcl.ApplyOption) []WorkflowTemplateJobsPigJobLoggingConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateJobsPigJobLoggingConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateJobsPigJobLoggingConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateJobsPigJobLoggingConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateJobsPigJobLoggingConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewWorkflowTemplateJobsPigJobLoggingConfig(c *Client, des, nw *WorkflowTemplateJobsPigJobLoggingConfig) *WorkflowTemplateJobsPigJobLoggingConfig {
@@ -2313,6 +2725,34 @@ func canonicalizeWorkflowTemplateJobsSparkRJob(des, initial *WorkflowTemplateJob
 	return cDes
 }
 
+func canonicalizeWorkflowTemplateJobsSparkRJobSlice(des, initial []WorkflowTemplateJobsSparkRJob, opts ...dcl.ApplyOption) []WorkflowTemplateJobsSparkRJob {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateJobsSparkRJob, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateJobsSparkRJob(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateJobsSparkRJob, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateJobsSparkRJob(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewWorkflowTemplateJobsSparkRJob(c *Client, des, nw *WorkflowTemplateJobsSparkRJob) *WorkflowTemplateJobsSparkRJob {
 
 	if des == nil {
@@ -2399,6 +2839,34 @@ func canonicalizeWorkflowTemplateJobsSparkRJobLoggingConfig(des, initial *Workfl
 	}
 
 	return cDes
+}
+
+func canonicalizeWorkflowTemplateJobsSparkRJobLoggingConfigSlice(des, initial []WorkflowTemplateJobsSparkRJobLoggingConfig, opts ...dcl.ApplyOption) []WorkflowTemplateJobsSparkRJobLoggingConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateJobsSparkRJobLoggingConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateJobsSparkRJobLoggingConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateJobsSparkRJobLoggingConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateJobsSparkRJobLoggingConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewWorkflowTemplateJobsSparkRJobLoggingConfig(c *Client, des, nw *WorkflowTemplateJobsSparkRJobLoggingConfig) *WorkflowTemplateJobsSparkRJobLoggingConfig {
@@ -2501,6 +2969,34 @@ func canonicalizeWorkflowTemplateJobsSparkSqlJob(des, initial *WorkflowTemplateJ
 	return cDes
 }
 
+func canonicalizeWorkflowTemplateJobsSparkSqlJobSlice(des, initial []WorkflowTemplateJobsSparkSqlJob, opts ...dcl.ApplyOption) []WorkflowTemplateJobsSparkSqlJob {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateJobsSparkSqlJob, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateJobsSparkSqlJob(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateJobsSparkSqlJob, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateJobsSparkSqlJob(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewWorkflowTemplateJobsSparkSqlJob(c *Client, des, nw *WorkflowTemplateJobsSparkSqlJob) *WorkflowTemplateJobsSparkSqlJob {
 
 	if des == nil {
@@ -2590,6 +3086,34 @@ func canonicalizeWorkflowTemplateJobsSparkSqlJobQueryList(des, initial *Workflow
 	return cDes
 }
 
+func canonicalizeWorkflowTemplateJobsSparkSqlJobQueryListSlice(des, initial []WorkflowTemplateJobsSparkSqlJobQueryList, opts ...dcl.ApplyOption) []WorkflowTemplateJobsSparkSqlJobQueryList {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateJobsSparkSqlJobQueryList, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateJobsSparkSqlJobQueryList(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateJobsSparkSqlJobQueryList, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateJobsSparkSqlJobQueryList(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewWorkflowTemplateJobsSparkSqlJobQueryList(c *Client, des, nw *WorkflowTemplateJobsSparkSqlJobQueryList) *WorkflowTemplateJobsSparkSqlJobQueryList {
 
 	if des == nil {
@@ -2671,6 +3195,34 @@ func canonicalizeWorkflowTemplateJobsSparkSqlJobLoggingConfig(des, initial *Work
 	}
 
 	return cDes
+}
+
+func canonicalizeWorkflowTemplateJobsSparkSqlJobLoggingConfigSlice(des, initial []WorkflowTemplateJobsSparkSqlJobLoggingConfig, opts ...dcl.ApplyOption) []WorkflowTemplateJobsSparkSqlJobLoggingConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateJobsSparkSqlJobLoggingConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateJobsSparkSqlJobLoggingConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateJobsSparkSqlJobLoggingConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateJobsSparkSqlJobLoggingConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewWorkflowTemplateJobsSparkSqlJobLoggingConfig(c *Client, des, nw *WorkflowTemplateJobsSparkSqlJobLoggingConfig) *WorkflowTemplateJobsSparkSqlJobLoggingConfig {
@@ -2778,6 +3330,34 @@ func canonicalizeWorkflowTemplateJobsPrestoJob(des, initial *WorkflowTemplateJob
 	return cDes
 }
 
+func canonicalizeWorkflowTemplateJobsPrestoJobSlice(des, initial []WorkflowTemplateJobsPrestoJob, opts ...dcl.ApplyOption) []WorkflowTemplateJobsPrestoJob {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateJobsPrestoJob, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateJobsPrestoJob(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateJobsPrestoJob, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateJobsPrestoJob(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewWorkflowTemplateJobsPrestoJob(c *Client, des, nw *WorkflowTemplateJobsPrestoJob) *WorkflowTemplateJobsPrestoJob {
 
 	if des == nil {
@@ -2873,6 +3453,34 @@ func canonicalizeWorkflowTemplateJobsPrestoJobQueryList(des, initial *WorkflowTe
 	return cDes
 }
 
+func canonicalizeWorkflowTemplateJobsPrestoJobQueryListSlice(des, initial []WorkflowTemplateJobsPrestoJobQueryList, opts ...dcl.ApplyOption) []WorkflowTemplateJobsPrestoJobQueryList {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateJobsPrestoJobQueryList, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateJobsPrestoJobQueryList(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateJobsPrestoJobQueryList, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateJobsPrestoJobQueryList(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewWorkflowTemplateJobsPrestoJobQueryList(c *Client, des, nw *WorkflowTemplateJobsPrestoJobQueryList) *WorkflowTemplateJobsPrestoJobQueryList {
 
 	if des == nil {
@@ -2954,6 +3562,34 @@ func canonicalizeWorkflowTemplateJobsPrestoJobLoggingConfig(des, initial *Workfl
 	}
 
 	return cDes
+}
+
+func canonicalizeWorkflowTemplateJobsPrestoJobLoggingConfigSlice(des, initial []WorkflowTemplateJobsPrestoJobLoggingConfig, opts ...dcl.ApplyOption) []WorkflowTemplateJobsPrestoJobLoggingConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateJobsPrestoJobLoggingConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateJobsPrestoJobLoggingConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateJobsPrestoJobLoggingConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateJobsPrestoJobLoggingConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewWorkflowTemplateJobsPrestoJobLoggingConfig(c *Client, des, nw *WorkflowTemplateJobsPrestoJobLoggingConfig) *WorkflowTemplateJobsPrestoJobLoggingConfig {
@@ -3042,6 +3678,34 @@ func canonicalizeWorkflowTemplateJobsScheduling(des, initial *WorkflowTemplateJo
 	}
 
 	return cDes
+}
+
+func canonicalizeWorkflowTemplateJobsSchedulingSlice(des, initial []WorkflowTemplateJobsScheduling, opts ...dcl.ApplyOption) []WorkflowTemplateJobsScheduling {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateJobsScheduling, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateJobsScheduling(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateJobsScheduling, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateJobsScheduling(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewWorkflowTemplateJobsScheduling(c *Client, des, nw *WorkflowTemplateJobsScheduling) *WorkflowTemplateJobsScheduling {
@@ -3138,6 +3802,34 @@ func canonicalizeWorkflowTemplateParameters(des, initial *WorkflowTemplateParame
 	return cDes
 }
 
+func canonicalizeWorkflowTemplateParametersSlice(des, initial []WorkflowTemplateParameters, opts ...dcl.ApplyOption) []WorkflowTemplateParameters {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateParameters, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateParameters(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateParameters, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateParameters(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewWorkflowTemplateParameters(c *Client, des, nw *WorkflowTemplateParameters) *WorkflowTemplateParameters {
 
 	if des == nil {
@@ -3226,6 +3918,34 @@ func canonicalizeWorkflowTemplateParametersValidation(des, initial *WorkflowTemp
 	return cDes
 }
 
+func canonicalizeWorkflowTemplateParametersValidationSlice(des, initial []WorkflowTemplateParametersValidation, opts ...dcl.ApplyOption) []WorkflowTemplateParametersValidation {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateParametersValidation, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateParametersValidation(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateParametersValidation, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateParametersValidation(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewWorkflowTemplateParametersValidation(c *Client, des, nw *WorkflowTemplateParametersValidation) *WorkflowTemplateParametersValidation {
 
 	if des == nil {
@@ -3312,6 +4032,34 @@ func canonicalizeWorkflowTemplateParametersValidationRegex(des, initial *Workflo
 	return cDes
 }
 
+func canonicalizeWorkflowTemplateParametersValidationRegexSlice(des, initial []WorkflowTemplateParametersValidationRegex, opts ...dcl.ApplyOption) []WorkflowTemplateParametersValidationRegex {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateParametersValidationRegex, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateParametersValidationRegex(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateParametersValidationRegex, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateParametersValidationRegex(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewWorkflowTemplateParametersValidationRegex(c *Client, des, nw *WorkflowTemplateParametersValidationRegex) *WorkflowTemplateParametersValidationRegex {
 
 	if des == nil {
@@ -3393,6 +4141,34 @@ func canonicalizeWorkflowTemplateParametersValidationValues(des, initial *Workfl
 	}
 
 	return cDes
+}
+
+func canonicalizeWorkflowTemplateParametersValidationValuesSlice(des, initial []WorkflowTemplateParametersValidationValues, opts ...dcl.ApplyOption) []WorkflowTemplateParametersValidationValues {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateParametersValidationValues, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateParametersValidationValues(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateParametersValidationValues, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateParametersValidationValues(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewWorkflowTemplateParametersValidationValues(c *Client, des, nw *WorkflowTemplateParametersValidationValues) *WorkflowTemplateParametersValidationValues {

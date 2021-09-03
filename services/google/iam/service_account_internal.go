@@ -553,13 +553,37 @@ func canonicalizeServiceAccountActasResources(des, initial *ServiceAccountActasR
 
 	cDes := &ServiceAccountActasResources{}
 
-	if dcl.IsZeroValue(des.Resources) {
-		des.Resources = initial.Resources
-	} else {
-		cDes.Resources = des.Resources
-	}
+	cDes.Resources = canonicalizeServiceAccountActasResourcesResourcesSlice(des.Resources, initial.Resources, opts...)
 
 	return cDes
+}
+
+func canonicalizeServiceAccountActasResourcesSlice(des, initial []ServiceAccountActasResources, opts ...dcl.ApplyOption) []ServiceAccountActasResources {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ServiceAccountActasResources, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeServiceAccountActasResources(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ServiceAccountActasResources, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeServiceAccountActasResources(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewServiceAccountActasResources(c *Client, des, nw *ServiceAccountActasResources) *ServiceAccountActasResources {
@@ -645,6 +669,34 @@ func canonicalizeServiceAccountActasResourcesResources(des, initial *ServiceAcco
 	}
 
 	return cDes
+}
+
+func canonicalizeServiceAccountActasResourcesResourcesSlice(des, initial []ServiceAccountActasResourcesResources, opts ...dcl.ApplyOption) []ServiceAccountActasResourcesResources {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ServiceAccountActasResourcesResources, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeServiceAccountActasResourcesResources(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ServiceAccountActasResourcesResources, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeServiceAccountActasResourcesResources(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewServiceAccountActasResourcesResources(c *Client, des, nw *ServiceAccountActasResourcesResources) *ServiceAccountActasResourcesResources {

@@ -343,11 +343,7 @@ func canonicalizePolicyDesiredState(rawDesired, rawInitial *Policy, opts ...dcl.
 	}
 
 	canonicalDesired := &Policy{}
-	if dcl.IsZeroValue(rawDesired.AdmissionWhitelistPatterns) {
-		canonicalDesired.AdmissionWhitelistPatterns = rawInitial.AdmissionWhitelistPatterns
-	} else {
-		canonicalDesired.AdmissionWhitelistPatterns = rawDesired.AdmissionWhitelistPatterns
-	}
+	canonicalDesired.AdmissionWhitelistPatterns = canonicalizePolicyAdmissionWhitelistPatternsSlice(rawDesired.AdmissionWhitelistPatterns, rawInitial.AdmissionWhitelistPatterns, opts...)
 	if dcl.IsZeroValue(rawDesired.ClusterAdmissionRules) {
 		canonicalDesired.ClusterAdmissionRules = rawInitial.ClusterAdmissionRules
 	} else {
@@ -479,6 +475,34 @@ func canonicalizePolicyAdmissionWhitelistPatterns(des, initial *PolicyAdmissionW
 	return cDes
 }
 
+func canonicalizePolicyAdmissionWhitelistPatternsSlice(des, initial []PolicyAdmissionWhitelistPatterns, opts ...dcl.ApplyOption) []PolicyAdmissionWhitelistPatterns {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]PolicyAdmissionWhitelistPatterns, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizePolicyAdmissionWhitelistPatterns(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]PolicyAdmissionWhitelistPatterns, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizePolicyAdmissionWhitelistPatterns(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewPolicyAdmissionWhitelistPatterns(c *Client, des, nw *PolicyAdmissionWhitelistPatterns) *PolicyAdmissionWhitelistPatterns {
 
 	if des == nil {
@@ -574,6 +598,34 @@ func canonicalizePolicyAdmissionRule(des, initial *PolicyAdmissionRule, opts ...
 	}
 
 	return cDes
+}
+
+func canonicalizePolicyAdmissionRuleSlice(des, initial []PolicyAdmissionRule, opts ...dcl.ApplyOption) []PolicyAdmissionRule {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]PolicyAdmissionRule, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizePolicyAdmissionRule(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]PolicyAdmissionRule, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizePolicyAdmissionRule(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewPolicyAdmissionRule(c *Client, des, nw *PolicyAdmissionRule) *PolicyAdmissionRule {

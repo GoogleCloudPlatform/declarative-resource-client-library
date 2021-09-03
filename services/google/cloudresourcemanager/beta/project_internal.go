@@ -502,6 +502,34 @@ func canonicalizeProjectParent(des, initial *ProjectParent, opts ...dcl.ApplyOpt
 	return cDes
 }
 
+func canonicalizeProjectParentSlice(des, initial []ProjectParent, opts ...dcl.ApplyOption) []ProjectParent {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ProjectParent, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeProjectParent(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ProjectParent, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeProjectParent(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewProjectParent(c *Client, des, nw *ProjectParent) *ProjectParent {
 
 	if des == nil {

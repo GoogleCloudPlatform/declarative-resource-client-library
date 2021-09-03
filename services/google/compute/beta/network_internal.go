@@ -506,6 +506,34 @@ func canonicalizeNetworkRoutingConfig(des, initial *NetworkRoutingConfig, opts .
 	return cDes
 }
 
+func canonicalizeNetworkRoutingConfigSlice(des, initial []NetworkRoutingConfig, opts ...dcl.ApplyOption) []NetworkRoutingConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NetworkRoutingConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNetworkRoutingConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NetworkRoutingConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNetworkRoutingConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewNetworkRoutingConfig(c *Client, des, nw *NetworkRoutingConfig) *NetworkRoutingConfig {
 
 	if des == nil {

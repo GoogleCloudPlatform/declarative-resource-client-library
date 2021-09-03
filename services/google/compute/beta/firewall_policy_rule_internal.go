@@ -499,13 +499,37 @@ func canonicalizeFirewallPolicyRuleMatch(des, initial *FirewallPolicyRuleMatch, 
 	} else {
 		cDes.DestIPRanges = des.DestIPRanges
 	}
-	if dcl.IsZeroValue(des.Layer4Configs) {
-		des.Layer4Configs = initial.Layer4Configs
-	} else {
-		cDes.Layer4Configs = des.Layer4Configs
-	}
+	cDes.Layer4Configs = canonicalizeFirewallPolicyRuleMatchLayer4ConfigsSlice(des.Layer4Configs, initial.Layer4Configs, opts...)
 
 	return cDes
+}
+
+func canonicalizeFirewallPolicyRuleMatchSlice(des, initial []FirewallPolicyRuleMatch, opts ...dcl.ApplyOption) []FirewallPolicyRuleMatch {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]FirewallPolicyRuleMatch, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeFirewallPolicyRuleMatch(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]FirewallPolicyRuleMatch, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeFirewallPolicyRuleMatch(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewFirewallPolicyRuleMatch(c *Client, des, nw *FirewallPolicyRuleMatch) *FirewallPolicyRuleMatch {
@@ -596,6 +620,34 @@ func canonicalizeFirewallPolicyRuleMatchLayer4Configs(des, initial *FirewallPoli
 	}
 
 	return cDes
+}
+
+func canonicalizeFirewallPolicyRuleMatchLayer4ConfigsSlice(des, initial []FirewallPolicyRuleMatchLayer4Configs, opts ...dcl.ApplyOption) []FirewallPolicyRuleMatchLayer4Configs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]FirewallPolicyRuleMatchLayer4Configs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeFirewallPolicyRuleMatchLayer4Configs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]FirewallPolicyRuleMatchLayer4Configs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeFirewallPolicyRuleMatchLayer4Configs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewFirewallPolicyRuleMatchLayer4Configs(c *Client, des, nw *FirewallPolicyRuleMatchLayer4Configs) *FirewallPolicyRuleMatchLayer4Configs {

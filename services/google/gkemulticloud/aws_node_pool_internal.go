@@ -606,11 +606,7 @@ func canonicalizeAwsNodePoolConfig(des, initial *AwsNodePoolConfig, opts ...dcl.
 		cDes.InstanceType = des.InstanceType
 	}
 	cDes.RootVolume = canonicalizeAwsNodePoolConfigRootVolume(des.RootVolume, initial.RootVolume, opts...)
-	if dcl.IsZeroValue(des.Taints) {
-		des.Taints = initial.Taints
-	} else {
-		cDes.Taints = des.Taints
-	}
+	cDes.Taints = canonicalizeAwsNodePoolConfigTaintsSlice(des.Taints, initial.Taints, opts...)
 	if dcl.IsZeroValue(des.Labels) {
 		des.Labels = initial.Labels
 	} else {
@@ -634,6 +630,34 @@ func canonicalizeAwsNodePoolConfig(des, initial *AwsNodePoolConfig, opts ...dcl.
 	}
 
 	return cDes
+}
+
+func canonicalizeAwsNodePoolConfigSlice(des, initial []AwsNodePoolConfig, opts ...dcl.ApplyOption) []AwsNodePoolConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AwsNodePoolConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAwsNodePoolConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AwsNodePoolConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAwsNodePoolConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewAwsNodePoolConfig(c *Client, des, nw *AwsNodePoolConfig) *AwsNodePoolConfig {
@@ -744,6 +768,34 @@ func canonicalizeAwsNodePoolConfigRootVolume(des, initial *AwsNodePoolConfigRoot
 	return cDes
 }
 
+func canonicalizeAwsNodePoolConfigRootVolumeSlice(des, initial []AwsNodePoolConfigRootVolume, opts ...dcl.ApplyOption) []AwsNodePoolConfigRootVolume {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AwsNodePoolConfigRootVolume, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAwsNodePoolConfigRootVolume(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AwsNodePoolConfigRootVolume, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAwsNodePoolConfigRootVolume(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewAwsNodePoolConfigRootVolume(c *Client, des, nw *AwsNodePoolConfigRootVolume) *AwsNodePoolConfigRootVolume {
 
 	if des == nil {
@@ -841,6 +893,34 @@ func canonicalizeAwsNodePoolConfigTaints(des, initial *AwsNodePoolConfigTaints, 
 	return cDes
 }
 
+func canonicalizeAwsNodePoolConfigTaintsSlice(des, initial []AwsNodePoolConfigTaints, opts ...dcl.ApplyOption) []AwsNodePoolConfigTaints {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AwsNodePoolConfigTaints, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAwsNodePoolConfigTaints(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AwsNodePoolConfigTaints, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAwsNodePoolConfigTaints(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewAwsNodePoolConfigTaints(c *Client, des, nw *AwsNodePoolConfigTaints) *AwsNodePoolConfigTaints {
 
 	if des == nil {
@@ -929,6 +1009,34 @@ func canonicalizeAwsNodePoolConfigSshConfig(des, initial *AwsNodePoolConfigSshCo
 	}
 
 	return cDes
+}
+
+func canonicalizeAwsNodePoolConfigSshConfigSlice(des, initial []AwsNodePoolConfigSshConfig, opts ...dcl.ApplyOption) []AwsNodePoolConfigSshConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AwsNodePoolConfigSshConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAwsNodePoolConfigSshConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AwsNodePoolConfigSshConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAwsNodePoolConfigSshConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewAwsNodePoolConfigSshConfig(c *Client, des, nw *AwsNodePoolConfigSshConfig) *AwsNodePoolConfigSshConfig {
@@ -1023,6 +1131,34 @@ func canonicalizeAwsNodePoolAutoscaling(des, initial *AwsNodePoolAutoscaling, op
 	return cDes
 }
 
+func canonicalizeAwsNodePoolAutoscalingSlice(des, initial []AwsNodePoolAutoscaling, opts ...dcl.ApplyOption) []AwsNodePoolAutoscaling {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AwsNodePoolAutoscaling, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAwsNodePoolAutoscaling(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AwsNodePoolAutoscaling, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAwsNodePoolAutoscaling(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewAwsNodePoolAutoscaling(c *Client, des, nw *AwsNodePoolAutoscaling) *AwsNodePoolAutoscaling {
 
 	if des == nil {
@@ -1104,6 +1240,34 @@ func canonicalizeAwsNodePoolMaxPodsConstraint(des, initial *AwsNodePoolMaxPodsCo
 	}
 
 	return cDes
+}
+
+func canonicalizeAwsNodePoolMaxPodsConstraintSlice(des, initial []AwsNodePoolMaxPodsConstraint, opts ...dcl.ApplyOption) []AwsNodePoolMaxPodsConstraint {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AwsNodePoolMaxPodsConstraint, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAwsNodePoolMaxPodsConstraint(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AwsNodePoolMaxPodsConstraint, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAwsNodePoolMaxPodsConstraint(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewAwsNodePoolMaxPodsConstraint(c *Client, des, nw *AwsNodePoolMaxPodsConstraint) *AwsNodePoolMaxPodsConstraint {

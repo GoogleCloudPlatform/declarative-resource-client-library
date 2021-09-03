@@ -676,6 +676,34 @@ func canonicalizeServerTlsPolicyServerCertificate(des, initial *ServerTlsPolicyS
 	return cDes
 }
 
+func canonicalizeServerTlsPolicyServerCertificateSlice(des, initial []ServerTlsPolicyServerCertificate, opts ...dcl.ApplyOption) []ServerTlsPolicyServerCertificate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ServerTlsPolicyServerCertificate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeServerTlsPolicyServerCertificate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ServerTlsPolicyServerCertificate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeServerTlsPolicyServerCertificate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewServerTlsPolicyServerCertificate(c *Client, des, nw *ServerTlsPolicyServerCertificate) *ServerTlsPolicyServerCertificate {
 
 	if des == nil {
@@ -760,6 +788,34 @@ func canonicalizeServerTlsPolicyServerCertificateGrpcEndpoint(des, initial *Serv
 	}
 
 	return cDes
+}
+
+func canonicalizeServerTlsPolicyServerCertificateGrpcEndpointSlice(des, initial []ServerTlsPolicyServerCertificateGrpcEndpoint, opts ...dcl.ApplyOption) []ServerTlsPolicyServerCertificateGrpcEndpoint {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ServerTlsPolicyServerCertificateGrpcEndpoint, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeServerTlsPolicyServerCertificateGrpcEndpoint(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ServerTlsPolicyServerCertificateGrpcEndpoint, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeServerTlsPolicyServerCertificateGrpcEndpoint(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewServerTlsPolicyServerCertificateGrpcEndpoint(c *Client, des, nw *ServerTlsPolicyServerCertificateGrpcEndpoint) *ServerTlsPolicyServerCertificateGrpcEndpoint {
@@ -849,6 +905,34 @@ func canonicalizeServerTlsPolicyServerCertificateCertificateProviderInstance(des
 	return cDes
 }
 
+func canonicalizeServerTlsPolicyServerCertificateCertificateProviderInstanceSlice(des, initial []ServerTlsPolicyServerCertificateCertificateProviderInstance, opts ...dcl.ApplyOption) []ServerTlsPolicyServerCertificateCertificateProviderInstance {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ServerTlsPolicyServerCertificateCertificateProviderInstance, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeServerTlsPolicyServerCertificateCertificateProviderInstance(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ServerTlsPolicyServerCertificateCertificateProviderInstance, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeServerTlsPolicyServerCertificateCertificateProviderInstance(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewServerTlsPolicyServerCertificateCertificateProviderInstance(c *Client, des, nw *ServerTlsPolicyServerCertificateCertificateProviderInstance) *ServerTlsPolicyServerCertificateCertificateProviderInstance {
 
 	if des == nil {
@@ -927,13 +1011,37 @@ func canonicalizeServerTlsPolicyMtlsPolicy(des, initial *ServerTlsPolicyMtlsPoli
 
 	cDes := &ServerTlsPolicyMtlsPolicy{}
 
-	if dcl.IsZeroValue(des.ClientValidationCa) {
-		des.ClientValidationCa = initial.ClientValidationCa
-	} else {
-		cDes.ClientValidationCa = des.ClientValidationCa
-	}
+	cDes.ClientValidationCa = canonicalizeServerTlsPolicyMtlsPolicyClientValidationCaSlice(des.ClientValidationCa, initial.ClientValidationCa, opts...)
 
 	return cDes
+}
+
+func canonicalizeServerTlsPolicyMtlsPolicySlice(des, initial []ServerTlsPolicyMtlsPolicy, opts ...dcl.ApplyOption) []ServerTlsPolicyMtlsPolicy {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ServerTlsPolicyMtlsPolicy, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeServerTlsPolicyMtlsPolicy(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ServerTlsPolicyMtlsPolicy, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeServerTlsPolicyMtlsPolicy(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewServerTlsPolicyMtlsPolicy(c *Client, des, nw *ServerTlsPolicyMtlsPolicy) *ServerTlsPolicyMtlsPolicy {
@@ -1038,6 +1146,34 @@ func canonicalizeServerTlsPolicyMtlsPolicyClientValidationCa(des, initial *Serve
 	return cDes
 }
 
+func canonicalizeServerTlsPolicyMtlsPolicyClientValidationCaSlice(des, initial []ServerTlsPolicyMtlsPolicyClientValidationCa, opts ...dcl.ApplyOption) []ServerTlsPolicyMtlsPolicyClientValidationCa {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ServerTlsPolicyMtlsPolicyClientValidationCa, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeServerTlsPolicyMtlsPolicyClientValidationCa(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ServerTlsPolicyMtlsPolicyClientValidationCa, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeServerTlsPolicyMtlsPolicyClientValidationCa(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewServerTlsPolicyMtlsPolicyClientValidationCa(c *Client, des, nw *ServerTlsPolicyMtlsPolicyClientValidationCa) *ServerTlsPolicyMtlsPolicyClientValidationCa {
 
 	if des == nil {
@@ -1122,6 +1258,34 @@ func canonicalizeServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(des, in
 	}
 
 	return cDes
+}
+
+func canonicalizeServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointSlice(des, initial []ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint, opts ...dcl.ApplyOption) []ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c *Client, des, nw *ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint) *ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint {
@@ -1209,6 +1373,34 @@ func canonicalizeServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderI
 	}
 
 	return cDes
+}
+
+func canonicalizeServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstanceSlice(des, initial []ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance, opts ...dcl.ApplyOption) []ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(c *Client, des, nw *ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance) *ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance {

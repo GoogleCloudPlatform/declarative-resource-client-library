@@ -683,6 +683,34 @@ func canonicalizeJobPubsubTarget(des, initial *JobPubsubTarget, opts ...dcl.Appl
 	return cDes
 }
 
+func canonicalizeJobPubsubTargetSlice(des, initial []JobPubsubTarget, opts ...dcl.ApplyOption) []JobPubsubTarget {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]JobPubsubTarget, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeJobPubsubTarget(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]JobPubsubTarget, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeJobPubsubTarget(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewJobPubsubTarget(c *Client, des, nw *JobPubsubTarget) *JobPubsubTarget {
 
 	if des == nil {
@@ -789,6 +817,34 @@ func canonicalizeJobAppEngineHttpTarget(des, initial *JobAppEngineHttpTarget, op
 	return cDes
 }
 
+func canonicalizeJobAppEngineHttpTargetSlice(des, initial []JobAppEngineHttpTarget, opts ...dcl.ApplyOption) []JobAppEngineHttpTarget {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]JobAppEngineHttpTarget, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeJobAppEngineHttpTarget(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]JobAppEngineHttpTarget, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeJobAppEngineHttpTarget(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewJobAppEngineHttpTarget(c *Client, des, nw *JobAppEngineHttpTarget) *JobAppEngineHttpTarget {
 
 	if des == nil {
@@ -888,6 +944,34 @@ func canonicalizeJobAppEngineHttpTargetAppEngineRouting(des, initial *JobAppEngi
 	}
 
 	return cDes
+}
+
+func canonicalizeJobAppEngineHttpTargetAppEngineRoutingSlice(des, initial []JobAppEngineHttpTargetAppEngineRouting, opts ...dcl.ApplyOption) []JobAppEngineHttpTargetAppEngineRouting {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]JobAppEngineHttpTargetAppEngineRouting, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeJobAppEngineHttpTargetAppEngineRouting(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]JobAppEngineHttpTargetAppEngineRouting, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeJobAppEngineHttpTargetAppEngineRouting(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewJobAppEngineHttpTargetAppEngineRouting(c *Client, des, nw *JobAppEngineHttpTargetAppEngineRouting) *JobAppEngineHttpTargetAppEngineRouting {
@@ -1003,6 +1087,34 @@ func canonicalizeJobHttpTarget(des, initial *JobHttpTarget, opts ...dcl.ApplyOpt
 	return cDes
 }
 
+func canonicalizeJobHttpTargetSlice(des, initial []JobHttpTarget, opts ...dcl.ApplyOption) []JobHttpTarget {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]JobHttpTarget, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeJobHttpTarget(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]JobHttpTarget, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeJobHttpTarget(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewJobHttpTarget(c *Client, des, nw *JobHttpTarget) *JobHttpTarget {
 
 	if des == nil {
@@ -1100,6 +1212,34 @@ func canonicalizeJobHttpTargetOAuthToken(des, initial *JobHttpTargetOAuthToken, 
 	return cDes
 }
 
+func canonicalizeJobHttpTargetOAuthTokenSlice(des, initial []JobHttpTargetOAuthToken, opts ...dcl.ApplyOption) []JobHttpTargetOAuthToken {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]JobHttpTargetOAuthToken, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeJobHttpTargetOAuthToken(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]JobHttpTargetOAuthToken, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeJobHttpTargetOAuthToken(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewJobHttpTargetOAuthToken(c *Client, des, nw *JobHttpTargetOAuthToken) *JobHttpTargetOAuthToken {
 
 	if des == nil {
@@ -1195,6 +1335,34 @@ func canonicalizeJobHttpTargetOidcToken(des, initial *JobHttpTargetOidcToken, op
 	return cDes
 }
 
+func canonicalizeJobHttpTargetOidcTokenSlice(des, initial []JobHttpTargetOidcToken, opts ...dcl.ApplyOption) []JobHttpTargetOidcToken {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]JobHttpTargetOidcToken, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeJobHttpTargetOidcToken(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]JobHttpTargetOidcToken, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeJobHttpTargetOidcToken(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewJobHttpTargetOidcToken(c *Client, des, nw *JobHttpTargetOidcToken) *JobHttpTargetOidcToken {
 
 	if des == nil {
@@ -1286,13 +1454,37 @@ func canonicalizeJobStatus(des, initial *JobStatus, opts ...dcl.ApplyOption) *Jo
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeJobStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeJobStatusSlice(des, initial []JobStatus, opts ...dcl.ApplyOption) []JobStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]JobStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeJobStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]JobStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeJobStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewJobStatus(c *Client, des, nw *JobStatus) *JobStatus {
@@ -1386,6 +1578,34 @@ func canonicalizeJobStatusDetails(des, initial *JobStatusDetails, opts ...dcl.Ap
 	}
 
 	return cDes
+}
+
+func canonicalizeJobStatusDetailsSlice(des, initial []JobStatusDetails, opts ...dcl.ApplyOption) []JobStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]JobStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeJobStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]JobStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeJobStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewJobStatusDetails(c *Client, des, nw *JobStatusDetails) *JobStatusDetails {
@@ -1496,6 +1716,34 @@ func canonicalizeJobRetryConfig(des, initial *JobRetryConfig, opts ...dcl.ApplyO
 	}
 
 	return cDes
+}
+
+func canonicalizeJobRetryConfigSlice(des, initial []JobRetryConfig, opts ...dcl.ApplyOption) []JobRetryConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]JobRetryConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeJobRetryConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]JobRetryConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeJobRetryConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewJobRetryConfig(c *Client, des, nw *JobRetryConfig) *JobRetryConfig {

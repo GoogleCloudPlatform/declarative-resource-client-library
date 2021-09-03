@@ -554,6 +554,34 @@ func canonicalizeOAuthIdpConfigResponseType(des, initial *OAuthIdpConfigResponse
 	return cDes
 }
 
+func canonicalizeOAuthIdpConfigResponseTypeSlice(des, initial []OAuthIdpConfigResponseType, opts ...dcl.ApplyOption) []OAuthIdpConfigResponseType {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OAuthIdpConfigResponseType, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOAuthIdpConfigResponseType(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OAuthIdpConfigResponseType, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOAuthIdpConfigResponseType(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewOAuthIdpConfigResponseType(c *Client, des, nw *OAuthIdpConfigResponseType) *OAuthIdpConfigResponseType {
 
 	if des == nil {

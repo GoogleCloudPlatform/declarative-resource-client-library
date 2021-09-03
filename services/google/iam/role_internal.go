@@ -574,6 +574,34 @@ func canonicalizeRoleLocalizedValues(des, initial *RoleLocalizedValues, opts ...
 	return cDes
 }
 
+func canonicalizeRoleLocalizedValuesSlice(des, initial []RoleLocalizedValues, opts ...dcl.ApplyOption) []RoleLocalizedValues {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]RoleLocalizedValues, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeRoleLocalizedValues(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]RoleLocalizedValues, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeRoleLocalizedValues(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewRoleLocalizedValues(c *Client, des, nw *RoleLocalizedValues) *RoleLocalizedValues {
 
 	if des == nil {

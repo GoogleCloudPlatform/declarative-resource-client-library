@@ -429,16 +429,8 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
 	}
-	if dcl.IsZeroValue(rawDesired.FileShares) {
-		canonicalDesired.FileShares = rawInitial.FileShares
-	} else {
-		canonicalDesired.FileShares = rawDesired.FileShares
-	}
-	if dcl.IsZeroValue(rawDesired.Networks) {
-		canonicalDesired.Networks = rawInitial.Networks
-	} else {
-		canonicalDesired.Networks = rawDesired.Networks
-	}
+	canonicalDesired.FileShares = canonicalizeInstanceFileSharesSlice(rawDesired.FileShares, rawInitial.FileShares, opts...)
+	canonicalDesired.Networks = canonicalizeInstanceNetworksSlice(rawDesired.Networks, rawInitial.Networks, opts...)
 	if dcl.StringCanonicalize(rawDesired.Etag, rawInitial.Etag) {
 		canonicalDesired.Etag = rawInitial.Etag
 	} else {
@@ -554,13 +546,37 @@ func canonicalizeInstanceFileShares(des, initial *InstanceFileShares, opts ...dc
 	} else {
 		cDes.SourceBackup = des.SourceBackup
 	}
-	if dcl.IsZeroValue(des.NfsExportOptions) {
-		des.NfsExportOptions = initial.NfsExportOptions
-	} else {
-		cDes.NfsExportOptions = des.NfsExportOptions
-	}
+	cDes.NfsExportOptions = canonicalizeInstanceFileSharesNfsExportOptionsSlice(des.NfsExportOptions, initial.NfsExportOptions, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceFileSharesSlice(des, initial []InstanceFileShares, opts ...dcl.ApplyOption) []InstanceFileShares {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceFileShares, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceFileShares(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceFileShares, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceFileShares(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceFileShares(c *Client, des, nw *InstanceFileShares) *InstanceFileShares {
@@ -674,6 +690,34 @@ func canonicalizeInstanceFileSharesNfsExportOptions(des, initial *InstanceFileSh
 	return cDes
 }
 
+func canonicalizeInstanceFileSharesNfsExportOptionsSlice(des, initial []InstanceFileSharesNfsExportOptions, opts ...dcl.ApplyOption) []InstanceFileSharesNfsExportOptions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceFileSharesNfsExportOptions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceFileSharesNfsExportOptions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceFileSharesNfsExportOptions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceFileSharesNfsExportOptions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceFileSharesNfsExportOptions(c *Client, des, nw *InstanceFileSharesNfsExportOptions) *InstanceFileSharesNfsExportOptions {
 
 	if des == nil {
@@ -765,6 +809,34 @@ func canonicalizeInstanceNetworks(des, initial *InstanceNetworks, opts ...dcl.Ap
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceNetworksSlice(des, initial []InstanceNetworks, opts ...dcl.ApplyOption) []InstanceNetworks {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNetworks, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNetworks(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNetworks, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNetworks(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceNetworks(c *Client, des, nw *InstanceNetworks) *InstanceNetworks {

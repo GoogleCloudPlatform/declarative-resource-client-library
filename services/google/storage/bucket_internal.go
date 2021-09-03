@@ -513,11 +513,7 @@ func canonicalizeBucketDesiredState(rawDesired, rawInitial *Bucket, opts ...dcl.
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Cors) {
-		canonicalDesired.Cors = rawInitial.Cors
-	} else {
-		canonicalDesired.Cors = rawDesired.Cors
-	}
+	canonicalDesired.Cors = canonicalizeBucketCorsSlice(rawDesired.Cors, rawInitial.Cors, opts...)
 	canonicalDesired.Lifecycle = canonicalizeBucketLifecycle(rawDesired.Lifecycle, rawInitial.Lifecycle, opts...)
 	canonicalDesired.Logging = canonicalizeBucketLogging(rawDesired.Logging, rawInitial.Logging, opts...)
 	if dcl.IsZeroValue(rawDesired.StorageClass) {
@@ -627,6 +623,34 @@ func canonicalizeBucketCors(des, initial *BucketCors, opts ...dcl.ApplyOption) *
 	return cDes
 }
 
+func canonicalizeBucketCorsSlice(des, initial []BucketCors, opts ...dcl.ApplyOption) []BucketCors {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]BucketCors, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeBucketCors(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]BucketCors, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeBucketCors(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewBucketCors(c *Client, des, nw *BucketCors) *BucketCors {
 
 	if des == nil {
@@ -701,13 +725,37 @@ func canonicalizeBucketLifecycle(des, initial *BucketLifecycle, opts ...dcl.Appl
 
 	cDes := &BucketLifecycle{}
 
-	if dcl.IsZeroValue(des.Rule) {
-		des.Rule = initial.Rule
-	} else {
-		cDes.Rule = des.Rule
-	}
+	cDes.Rule = canonicalizeBucketLifecycleRuleSlice(des.Rule, initial.Rule, opts...)
 
 	return cDes
+}
+
+func canonicalizeBucketLifecycleSlice(des, initial []BucketLifecycle, opts ...dcl.ApplyOption) []BucketLifecycle {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]BucketLifecycle, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeBucketLifecycle(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]BucketLifecycle, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeBucketLifecycle(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewBucketLifecycle(c *Client, des, nw *BucketLifecycle) *BucketLifecycle {
@@ -790,6 +838,34 @@ func canonicalizeBucketLifecycleRule(des, initial *BucketLifecycleRule, opts ...
 	cDes.Condition = canonicalizeBucketLifecycleRuleCondition(des.Condition, initial.Condition, opts...)
 
 	return cDes
+}
+
+func canonicalizeBucketLifecycleRuleSlice(des, initial []BucketLifecycleRule, opts ...dcl.ApplyOption) []BucketLifecycleRule {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]BucketLifecycleRule, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeBucketLifecycleRule(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]BucketLifecycleRule, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeBucketLifecycleRule(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewBucketLifecycleRule(c *Client, des, nw *BucketLifecycleRule) *BucketLifecycleRule {
@@ -881,6 +957,34 @@ func canonicalizeBucketLifecycleRuleAction(des, initial *BucketLifecycleRuleActi
 	}
 
 	return cDes
+}
+
+func canonicalizeBucketLifecycleRuleActionSlice(des, initial []BucketLifecycleRuleAction, opts ...dcl.ApplyOption) []BucketLifecycleRuleAction {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]BucketLifecycleRuleAction, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeBucketLifecycleRuleAction(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]BucketLifecycleRuleAction, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeBucketLifecycleRuleAction(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewBucketLifecycleRuleAction(c *Client, des, nw *BucketLifecycleRuleAction) *BucketLifecycleRuleAction {
@@ -990,6 +1094,34 @@ func canonicalizeBucketLifecycleRuleCondition(des, initial *BucketLifecycleRuleC
 	return cDes
 }
 
+func canonicalizeBucketLifecycleRuleConditionSlice(des, initial []BucketLifecycleRuleCondition, opts ...dcl.ApplyOption) []BucketLifecycleRuleCondition {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]BucketLifecycleRuleCondition, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeBucketLifecycleRuleCondition(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]BucketLifecycleRuleCondition, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeBucketLifecycleRuleCondition(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewBucketLifecycleRuleCondition(c *Client, des, nw *BucketLifecycleRuleCondition) *BucketLifecycleRuleCondition {
 
 	if des == nil {
@@ -1076,6 +1208,34 @@ func canonicalizeBucketLogging(des, initial *BucketLogging, opts ...dcl.ApplyOpt
 	}
 
 	return cDes
+}
+
+func canonicalizeBucketLoggingSlice(des, initial []BucketLogging, opts ...dcl.ApplyOption) []BucketLogging {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]BucketLogging, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeBucketLogging(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]BucketLogging, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeBucketLogging(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewBucketLogging(c *Client, des, nw *BucketLogging) *BucketLogging {
@@ -1168,6 +1328,34 @@ func canonicalizeBucketVersioning(des, initial *BucketVersioning, opts ...dcl.Ap
 	return cDes
 }
 
+func canonicalizeBucketVersioningSlice(des, initial []BucketVersioning, opts ...dcl.ApplyOption) []BucketVersioning {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]BucketVersioning, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeBucketVersioning(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]BucketVersioning, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeBucketVersioning(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewBucketVersioning(c *Client, des, nw *BucketVersioning) *BucketVersioning {
 
 	if des == nil {
@@ -1258,6 +1446,34 @@ func canonicalizeBucketWebsite(des, initial *BucketWebsite, opts ...dcl.ApplyOpt
 	}
 
 	return cDes
+}
+
+func canonicalizeBucketWebsiteSlice(des, initial []BucketWebsite, opts ...dcl.ApplyOption) []BucketWebsite {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]BucketWebsite, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeBucketWebsite(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]BucketWebsite, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeBucketWebsite(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewBucketWebsite(c *Client, des, nw *BucketWebsite) *BucketWebsite {

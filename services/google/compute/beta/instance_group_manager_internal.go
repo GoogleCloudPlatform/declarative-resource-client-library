@@ -774,11 +774,7 @@ func canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial *Instan
 	} else {
 		canonicalDesired.InstanceTemplate = rawDesired.InstanceTemplate
 	}
-	if dcl.IsZeroValue(rawDesired.Versions) {
-		canonicalDesired.Versions = rawInitial.Versions
-	} else {
-		canonicalDesired.Versions = rawDesired.Versions
-	}
+	canonicalDesired.Versions = canonicalizeInstanceGroupManagerVersionsSlice(rawDesired.Versions, rawInitial.Versions, opts...)
 	if dcl.IsZeroValue(rawDesired.TargetPools) {
 		canonicalDesired.TargetPools = rawInitial.TargetPools
 	} else {
@@ -794,17 +790,9 @@ func canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial *Instan
 	} else {
 		canonicalDesired.TargetSize = rawDesired.TargetSize
 	}
-	if dcl.IsZeroValue(rawDesired.AutoHealingPolicies) {
-		canonicalDesired.AutoHealingPolicies = rawInitial.AutoHealingPolicies
-	} else {
-		canonicalDesired.AutoHealingPolicies = rawDesired.AutoHealingPolicies
-	}
+	canonicalDesired.AutoHealingPolicies = canonicalizeInstanceGroupManagerAutoHealingPoliciesSlice(rawDesired.AutoHealingPolicies, rawInitial.AutoHealingPolicies, opts...)
 	canonicalDesired.UpdatePolicy = canonicalizeInstanceGroupManagerUpdatePolicy(rawDesired.UpdatePolicy, rawInitial.UpdatePolicy, opts...)
-	if dcl.IsZeroValue(rawDesired.NamedPorts) {
-		canonicalDesired.NamedPorts = rawInitial.NamedPorts
-	} else {
-		canonicalDesired.NamedPorts = rawDesired.NamedPorts
-	}
+	canonicalDesired.NamedPorts = canonicalizeInstanceGroupManagerNamedPortsSlice(rawDesired.NamedPorts, rawInitial.NamedPorts, opts...)
 	canonicalDesired.StatefulPolicy = canonicalizeInstanceGroupManagerStatefulPolicy(rawDesired.StatefulPolicy, rawInitial.StatefulPolicy, opts...)
 	if dcl.NameToSelfLink(rawDesired.ServiceAccount, rawInitial.ServiceAccount) {
 		canonicalDesired.ServiceAccount = rawInitial.ServiceAccount
@@ -1009,11 +997,7 @@ func canonicalizeInstanceGroupManagerDistributionPolicy(des, initial *InstanceGr
 
 	cDes := &InstanceGroupManagerDistributionPolicy{}
 
-	if dcl.IsZeroValue(des.Zones) {
-		des.Zones = initial.Zones
-	} else {
-		cDes.Zones = des.Zones
-	}
+	cDes.Zones = canonicalizeInstanceGroupManagerDistributionPolicyZonesSlice(des.Zones, initial.Zones, opts...)
 	if dcl.IsZeroValue(des.TargetShape) {
 		des.TargetShape = initial.TargetShape
 	} else {
@@ -1021,6 +1005,34 @@ func canonicalizeInstanceGroupManagerDistributionPolicy(des, initial *InstanceGr
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceGroupManagerDistributionPolicySlice(des, initial []InstanceGroupManagerDistributionPolicy, opts ...dcl.ApplyOption) []InstanceGroupManagerDistributionPolicy {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceGroupManagerDistributionPolicy, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceGroupManagerDistributionPolicy(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceGroupManagerDistributionPolicy, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceGroupManagerDistributionPolicy(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceGroupManagerDistributionPolicy(c *Client, des, nw *InstanceGroupManagerDistributionPolicy) *InstanceGroupManagerDistributionPolicy {
@@ -1106,6 +1118,34 @@ func canonicalizeInstanceGroupManagerDistributionPolicyZones(des, initial *Insta
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceGroupManagerDistributionPolicyZonesSlice(des, initial []InstanceGroupManagerDistributionPolicyZones, opts ...dcl.ApplyOption) []InstanceGroupManagerDistributionPolicyZones {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceGroupManagerDistributionPolicyZones, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceGroupManagerDistributionPolicyZones(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceGroupManagerDistributionPolicyZones, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceGroupManagerDistributionPolicyZones(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceGroupManagerDistributionPolicyZones(c *Client, des, nw *InstanceGroupManagerDistributionPolicyZones) *InstanceGroupManagerDistributionPolicyZones {
@@ -1199,6 +1239,34 @@ func canonicalizeInstanceGroupManagerVersions(des, initial *InstanceGroupManager
 	cDes.TargetSize = canonicalizeInstanceGroupManagerFixedOrPercent(des.TargetSize, initial.TargetSize, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceGroupManagerVersionsSlice(des, initial []InstanceGroupManagerVersions, opts ...dcl.ApplyOption) []InstanceGroupManagerVersions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceGroupManagerVersions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceGroupManagerVersions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceGroupManagerVersions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceGroupManagerVersions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceGroupManagerVersions(c *Client, des, nw *InstanceGroupManagerVersions) *InstanceGroupManagerVersions {
@@ -1297,6 +1365,34 @@ func canonicalizeInstanceGroupManagerFixedOrPercent(des, initial *InstanceGroupM
 	return cDes
 }
 
+func canonicalizeInstanceGroupManagerFixedOrPercentSlice(des, initial []InstanceGroupManagerFixedOrPercent, opts ...dcl.ApplyOption) []InstanceGroupManagerFixedOrPercent {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceGroupManagerFixedOrPercent, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceGroupManagerFixedOrPercent(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceGroupManagerFixedOrPercent, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceGroupManagerFixedOrPercent(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceGroupManagerFixedOrPercent(c *Client, des, nw *InstanceGroupManagerFixedOrPercent) *InstanceGroupManagerFixedOrPercent {
 
 	if des == nil {
@@ -1374,6 +1470,34 @@ func canonicalizeInstanceGroupManagerCurrentActions(des, initial *InstanceGroupM
 	return cDes
 }
 
+func canonicalizeInstanceGroupManagerCurrentActionsSlice(des, initial []InstanceGroupManagerCurrentActions, opts ...dcl.ApplyOption) []InstanceGroupManagerCurrentActions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceGroupManagerCurrentActions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceGroupManagerCurrentActions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceGroupManagerCurrentActions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceGroupManagerCurrentActions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceGroupManagerCurrentActions(c *Client, des, nw *InstanceGroupManagerCurrentActions) *InstanceGroupManagerCurrentActions {
 
 	if des == nil {
@@ -1449,6 +1573,34 @@ func canonicalizeInstanceGroupManagerStatus(des, initial *InstanceGroupManagerSt
 	cDes := &InstanceGroupManagerStatus{}
 
 	return cDes
+}
+
+func canonicalizeInstanceGroupManagerStatusSlice(des, initial []InstanceGroupManagerStatus, opts ...dcl.ApplyOption) []InstanceGroupManagerStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceGroupManagerStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceGroupManagerStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceGroupManagerStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceGroupManagerStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceGroupManagerStatus(c *Client, des, nw *InstanceGroupManagerStatus) *InstanceGroupManagerStatus {
@@ -1537,6 +1689,34 @@ func canonicalizeInstanceGroupManagerStatusVersionTarget(des, initial *InstanceG
 	return cDes
 }
 
+func canonicalizeInstanceGroupManagerStatusVersionTargetSlice(des, initial []InstanceGroupManagerStatusVersionTarget, opts ...dcl.ApplyOption) []InstanceGroupManagerStatusVersionTarget {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceGroupManagerStatusVersionTarget, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceGroupManagerStatusVersionTarget(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceGroupManagerStatusVersionTarget, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceGroupManagerStatusVersionTarget(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceGroupManagerStatusVersionTarget(c *Client, des, nw *InstanceGroupManagerStatusVersionTarget) *InstanceGroupManagerStatusVersionTarget {
 
 	if des == nil {
@@ -1616,6 +1796,34 @@ func canonicalizeInstanceGroupManagerStatusStateful(des, initial *InstanceGroupM
 	cDes := &InstanceGroupManagerStatusStateful{}
 
 	return cDes
+}
+
+func canonicalizeInstanceGroupManagerStatusStatefulSlice(des, initial []InstanceGroupManagerStatusStateful, opts ...dcl.ApplyOption) []InstanceGroupManagerStatusStateful {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceGroupManagerStatusStateful, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceGroupManagerStatusStateful(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceGroupManagerStatusStateful, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceGroupManagerStatusStateful(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceGroupManagerStatusStateful(c *Client, des, nw *InstanceGroupManagerStatusStateful) *InstanceGroupManagerStatusStateful {
@@ -1709,6 +1917,34 @@ func canonicalizeInstanceGroupManagerStatusStatefulPerInstanceConfigs(des, initi
 	return cDes
 }
 
+func canonicalizeInstanceGroupManagerStatusStatefulPerInstanceConfigsSlice(des, initial []InstanceGroupManagerStatusStatefulPerInstanceConfigs, opts ...dcl.ApplyOption) []InstanceGroupManagerStatusStatefulPerInstanceConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceGroupManagerStatusStatefulPerInstanceConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceGroupManagerStatusStatefulPerInstanceConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceGroupManagerStatusStatefulPerInstanceConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceGroupManagerStatusStatefulPerInstanceConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceGroupManagerStatusStatefulPerInstanceConfigs(c *Client, des, nw *InstanceGroupManagerStatusStatefulPerInstanceConfigs) *InstanceGroupManagerStatusStatefulPerInstanceConfigs {
 
 	if des == nil {
@@ -1799,6 +2035,34 @@ func canonicalizeInstanceGroupManagerAutoHealingPolicies(des, initial *InstanceG
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceGroupManagerAutoHealingPoliciesSlice(des, initial []InstanceGroupManagerAutoHealingPolicies, opts ...dcl.ApplyOption) []InstanceGroupManagerAutoHealingPolicies {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceGroupManagerAutoHealingPolicies, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceGroupManagerAutoHealingPolicies(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceGroupManagerAutoHealingPolicies, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceGroupManagerAutoHealingPolicies(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceGroupManagerAutoHealingPolicies(c *Client, des, nw *InstanceGroupManagerAutoHealingPolicies) *InstanceGroupManagerAutoHealingPolicies {
@@ -1915,6 +2179,34 @@ func canonicalizeInstanceGroupManagerUpdatePolicy(des, initial *InstanceGroupMan
 	return cDes
 }
 
+func canonicalizeInstanceGroupManagerUpdatePolicySlice(des, initial []InstanceGroupManagerUpdatePolicy, opts ...dcl.ApplyOption) []InstanceGroupManagerUpdatePolicy {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceGroupManagerUpdatePolicy, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceGroupManagerUpdatePolicy(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceGroupManagerUpdatePolicy, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceGroupManagerUpdatePolicy(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceGroupManagerUpdatePolicy(c *Client, des, nw *InstanceGroupManagerUpdatePolicy) *InstanceGroupManagerUpdatePolicy {
 
 	if des == nil {
@@ -2006,6 +2298,34 @@ func canonicalizeInstanceGroupManagerNamedPorts(des, initial *InstanceGroupManag
 	return cDes
 }
 
+func canonicalizeInstanceGroupManagerNamedPortsSlice(des, initial []InstanceGroupManagerNamedPorts, opts ...dcl.ApplyOption) []InstanceGroupManagerNamedPorts {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceGroupManagerNamedPorts, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceGroupManagerNamedPorts(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceGroupManagerNamedPorts, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceGroupManagerNamedPorts(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceGroupManagerNamedPorts(c *Client, des, nw *InstanceGroupManagerNamedPorts) *InstanceGroupManagerNamedPorts {
 
 	if des == nil {
@@ -2087,6 +2407,34 @@ func canonicalizeInstanceGroupManagerStatefulPolicy(des, initial *InstanceGroupM
 	cDes.PreservedState = canonicalizeInstanceGroupManagerStatefulPolicyPreservedState(des.PreservedState, initial.PreservedState, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceGroupManagerStatefulPolicySlice(des, initial []InstanceGroupManagerStatefulPolicy, opts ...dcl.ApplyOption) []InstanceGroupManagerStatefulPolicy {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceGroupManagerStatefulPolicy, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceGroupManagerStatefulPolicy(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceGroupManagerStatefulPolicy, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceGroupManagerStatefulPolicy(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceGroupManagerStatefulPolicy(c *Client, des, nw *InstanceGroupManagerStatefulPolicy) *InstanceGroupManagerStatefulPolicy {
@@ -2174,6 +2522,34 @@ func canonicalizeInstanceGroupManagerStatefulPolicyPreservedState(des, initial *
 	return cDes
 }
 
+func canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateSlice(des, initial []InstanceGroupManagerStatefulPolicyPreservedState, opts ...dcl.ApplyOption) []InstanceGroupManagerStatefulPolicyPreservedState {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceGroupManagerStatefulPolicyPreservedState, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceGroupManagerStatefulPolicyPreservedState(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceGroupManagerStatefulPolicyPreservedState, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceGroupManagerStatefulPolicyPreservedState(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedState(c *Client, des, nw *InstanceGroupManagerStatefulPolicyPreservedState) *InstanceGroupManagerStatefulPolicyPreservedState {
 
 	if des == nil {
@@ -2255,6 +2631,34 @@ func canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateDisks(des, init
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateDisksSlice(des, initial []InstanceGroupManagerStatefulPolicyPreservedStateDisks, opts ...dcl.ApplyOption) []InstanceGroupManagerStatefulPolicyPreservedStateDisks {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceGroupManagerStatefulPolicyPreservedStateDisks, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateDisks(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceGroupManagerStatefulPolicyPreservedStateDisks, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateDisks(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedStateDisks(c *Client, des, nw *InstanceGroupManagerStatefulPolicyPreservedStateDisks) *InstanceGroupManagerStatefulPolicyPreservedStateDisks {

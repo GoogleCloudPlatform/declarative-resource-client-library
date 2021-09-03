@@ -569,6 +569,34 @@ func canonicalizeTenantOAuthIdpConfigResponseType(des, initial *TenantOAuthIdpCo
 	return cDes
 }
 
+func canonicalizeTenantOAuthIdpConfigResponseTypeSlice(des, initial []TenantOAuthIdpConfigResponseType, opts ...dcl.ApplyOption) []TenantOAuthIdpConfigResponseType {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]TenantOAuthIdpConfigResponseType, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeTenantOAuthIdpConfigResponseType(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]TenantOAuthIdpConfigResponseType, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeTenantOAuthIdpConfigResponseType(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewTenantOAuthIdpConfigResponseType(c *Client, des, nw *TenantOAuthIdpConfigResponseType) *TenantOAuthIdpConfigResponseType {
 
 	if des == nil {

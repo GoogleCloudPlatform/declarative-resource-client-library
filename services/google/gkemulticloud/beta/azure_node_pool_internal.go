@@ -617,6 +617,34 @@ func canonicalizeAzureNodePoolConfig(des, initial *AzureNodePoolConfig, opts ...
 	return cDes
 }
 
+func canonicalizeAzureNodePoolConfigSlice(des, initial []AzureNodePoolConfig, opts ...dcl.ApplyOption) []AzureNodePoolConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AzureNodePoolConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAzureNodePoolConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AzureNodePoolConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAzureNodePoolConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewAzureNodePoolConfig(c *Client, des, nw *AzureNodePoolConfig) *AzureNodePoolConfig {
 
 	if des == nil {
@@ -706,6 +734,34 @@ func canonicalizeAzureNodePoolConfigRootVolume(des, initial *AzureNodePoolConfig
 	return cDes
 }
 
+func canonicalizeAzureNodePoolConfigRootVolumeSlice(des, initial []AzureNodePoolConfigRootVolume, opts ...dcl.ApplyOption) []AzureNodePoolConfigRootVolume {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AzureNodePoolConfigRootVolume, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAzureNodePoolConfigRootVolume(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AzureNodePoolConfigRootVolume, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAzureNodePoolConfigRootVolume(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewAzureNodePoolConfigRootVolume(c *Client, des, nw *AzureNodePoolConfigRootVolume) *AzureNodePoolConfigRootVolume {
 
 	if des == nil {
@@ -787,6 +843,34 @@ func canonicalizeAzureNodePoolConfigSshConfig(des, initial *AzureNodePoolConfigS
 	}
 
 	return cDes
+}
+
+func canonicalizeAzureNodePoolConfigSshConfigSlice(des, initial []AzureNodePoolConfigSshConfig, opts ...dcl.ApplyOption) []AzureNodePoolConfigSshConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AzureNodePoolConfigSshConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAzureNodePoolConfigSshConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AzureNodePoolConfigSshConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAzureNodePoolConfigSshConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewAzureNodePoolConfigSshConfig(c *Client, des, nw *AzureNodePoolConfigSshConfig) *AzureNodePoolConfigSshConfig {
@@ -881,6 +965,34 @@ func canonicalizeAzureNodePoolAutoscaling(des, initial *AzureNodePoolAutoscaling
 	return cDes
 }
 
+func canonicalizeAzureNodePoolAutoscalingSlice(des, initial []AzureNodePoolAutoscaling, opts ...dcl.ApplyOption) []AzureNodePoolAutoscaling {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AzureNodePoolAutoscaling, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAzureNodePoolAutoscaling(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AzureNodePoolAutoscaling, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAzureNodePoolAutoscaling(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewAzureNodePoolAutoscaling(c *Client, des, nw *AzureNodePoolAutoscaling) *AzureNodePoolAutoscaling {
 
 	if des == nil {
@@ -962,6 +1074,34 @@ func canonicalizeAzureNodePoolMaxPodsConstraint(des, initial *AzureNodePoolMaxPo
 	}
 
 	return cDes
+}
+
+func canonicalizeAzureNodePoolMaxPodsConstraintSlice(des, initial []AzureNodePoolMaxPodsConstraint, opts ...dcl.ApplyOption) []AzureNodePoolMaxPodsConstraint {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AzureNodePoolMaxPodsConstraint, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAzureNodePoolMaxPodsConstraint(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AzureNodePoolMaxPodsConstraint, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAzureNodePoolMaxPodsConstraint(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewAzureNodePoolMaxPodsConstraint(c *Client, des, nw *AzureNodePoolMaxPodsConstraint) *AzureNodePoolMaxPodsConstraint {

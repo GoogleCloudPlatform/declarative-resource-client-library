@@ -661,11 +661,7 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	} else {
 		canonicalDesired.LoadBalancingScheme = rawDesired.LoadBalancingScheme
 	}
-	if dcl.IsZeroValue(rawDesired.MetadataFilter) {
-		canonicalDesired.MetadataFilter = rawInitial.MetadataFilter
-	} else {
-		canonicalDesired.MetadataFilter = rawDesired.MetadataFilter
-	}
+	canonicalDesired.MetadataFilter = canonicalizeForwardingRuleMetadataFilterSlice(rawDesired.MetadataFilter, rawInitial.MetadataFilter, opts...)
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
 	} else {
@@ -931,13 +927,37 @@ func canonicalizeForwardingRuleMetadataFilter(des, initial *ForwardingRuleMetada
 	} else {
 		cDes.FilterMatchCriteria = des.FilterMatchCriteria
 	}
-	if dcl.IsZeroValue(des.FilterLabel) {
-		des.FilterLabel = initial.FilterLabel
-	} else {
-		cDes.FilterLabel = des.FilterLabel
-	}
+	cDes.FilterLabel = canonicalizeForwardingRuleMetadataFilterFilterLabelSlice(des.FilterLabel, initial.FilterLabel, opts...)
 
 	return cDes
+}
+
+func canonicalizeForwardingRuleMetadataFilterSlice(des, initial []ForwardingRuleMetadataFilter, opts ...dcl.ApplyOption) []ForwardingRuleMetadataFilter {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ForwardingRuleMetadataFilter, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeForwardingRuleMetadataFilter(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ForwardingRuleMetadataFilter, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeForwardingRuleMetadataFilter(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewForwardingRuleMetadataFilter(c *Client, des, nw *ForwardingRuleMetadataFilter) *ForwardingRuleMetadataFilter {
@@ -1028,6 +1048,34 @@ func canonicalizeForwardingRuleMetadataFilterFilterLabel(des, initial *Forwardin
 	}
 
 	return cDes
+}
+
+func canonicalizeForwardingRuleMetadataFilterFilterLabelSlice(des, initial []ForwardingRuleMetadataFilterFilterLabel, opts ...dcl.ApplyOption) []ForwardingRuleMetadataFilterFilterLabel {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ForwardingRuleMetadataFilterFilterLabel, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeForwardingRuleMetadataFilterFilterLabel(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ForwardingRuleMetadataFilterFilterLabel, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeForwardingRuleMetadataFilterFilterLabel(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewForwardingRuleMetadataFilterFilterLabel(c *Client, des, nw *ForwardingRuleMetadataFilterFilterLabel) *ForwardingRuleMetadataFilterFilterLabel {

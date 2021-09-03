@@ -640,6 +640,34 @@ func canonicalizePacketMirroringNetwork(des, initial *PacketMirroringNetwork, op
 	return cDes
 }
 
+func canonicalizePacketMirroringNetworkSlice(des, initial []PacketMirroringNetwork, opts ...dcl.ApplyOption) []PacketMirroringNetwork {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]PacketMirroringNetwork, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizePacketMirroringNetwork(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]PacketMirroringNetwork, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizePacketMirroringNetwork(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewPacketMirroringNetwork(c *Client, des, nw *PacketMirroringNetwork) *PacketMirroringNetwork {
 
 	if des == nil {
@@ -730,6 +758,34 @@ func canonicalizePacketMirroringCollectorIlb(des, initial *PacketMirroringCollec
 	return cDes
 }
 
+func canonicalizePacketMirroringCollectorIlbSlice(des, initial []PacketMirroringCollectorIlb, opts ...dcl.ApplyOption) []PacketMirroringCollectorIlb {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]PacketMirroringCollectorIlb, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizePacketMirroringCollectorIlb(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]PacketMirroringCollectorIlb, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizePacketMirroringCollectorIlb(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewPacketMirroringCollectorIlb(c *Client, des, nw *PacketMirroringCollectorIlb) *PacketMirroringCollectorIlb {
 
 	if des == nil {
@@ -811,16 +867,8 @@ func canonicalizePacketMirroringMirroredResources(des, initial *PacketMirroringM
 
 	cDes := &PacketMirroringMirroredResources{}
 
-	if dcl.IsZeroValue(des.Subnetworks) {
-		des.Subnetworks = initial.Subnetworks
-	} else {
-		cDes.Subnetworks = des.Subnetworks
-	}
-	if dcl.IsZeroValue(des.Instances) {
-		des.Instances = initial.Instances
-	} else {
-		cDes.Instances = des.Instances
-	}
+	cDes.Subnetworks = canonicalizePacketMirroringMirroredResourcesSubnetworksSlice(des.Subnetworks, initial.Subnetworks, opts...)
+	cDes.Instances = canonicalizePacketMirroringMirroredResourcesInstancesSlice(des.Instances, initial.Instances, opts...)
 	if dcl.IsZeroValue(des.Tags) {
 		des.Tags = initial.Tags
 	} else {
@@ -828,6 +876,34 @@ func canonicalizePacketMirroringMirroredResources(des, initial *PacketMirroringM
 	}
 
 	return cDes
+}
+
+func canonicalizePacketMirroringMirroredResourcesSlice(des, initial []PacketMirroringMirroredResources, opts ...dcl.ApplyOption) []PacketMirroringMirroredResources {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]PacketMirroringMirroredResources, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizePacketMirroringMirroredResources(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]PacketMirroringMirroredResources, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizePacketMirroringMirroredResources(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewPacketMirroringMirroredResources(c *Client, des, nw *PacketMirroringMirroredResources) *PacketMirroringMirroredResources {
@@ -914,6 +990,34 @@ func canonicalizePacketMirroringMirroredResourcesSubnetworks(des, initial *Packe
 	}
 
 	return cDes
+}
+
+func canonicalizePacketMirroringMirroredResourcesSubnetworksSlice(des, initial []PacketMirroringMirroredResourcesSubnetworks, opts ...dcl.ApplyOption) []PacketMirroringMirroredResourcesSubnetworks {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]PacketMirroringMirroredResourcesSubnetworks, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizePacketMirroringMirroredResourcesSubnetworks(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]PacketMirroringMirroredResourcesSubnetworks, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizePacketMirroringMirroredResourcesSubnetworks(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewPacketMirroringMirroredResourcesSubnetworks(c *Client, des, nw *PacketMirroringMirroredResourcesSubnetworks) *PacketMirroringMirroredResourcesSubnetworks {
@@ -1004,6 +1108,34 @@ func canonicalizePacketMirroringMirroredResourcesInstances(des, initial *PacketM
 	}
 
 	return cDes
+}
+
+func canonicalizePacketMirroringMirroredResourcesInstancesSlice(des, initial []PacketMirroringMirroredResourcesInstances, opts ...dcl.ApplyOption) []PacketMirroringMirroredResourcesInstances {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]PacketMirroringMirroredResourcesInstances, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizePacketMirroringMirroredResourcesInstances(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]PacketMirroringMirroredResourcesInstances, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizePacketMirroringMirroredResourcesInstances(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewPacketMirroringMirroredResourcesInstances(c *Client, des, nw *PacketMirroringMirroredResourcesInstances) *PacketMirroringMirroredResourcesInstances {
@@ -1104,6 +1236,34 @@ func canonicalizePacketMirroringFilter(des, initial *PacketMirroringFilter, opts
 	}
 
 	return cDes
+}
+
+func canonicalizePacketMirroringFilterSlice(des, initial []PacketMirroringFilter, opts ...dcl.ApplyOption) []PacketMirroringFilter {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]PacketMirroringFilter, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizePacketMirroringFilter(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]PacketMirroringFilter, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizePacketMirroringFilter(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewPacketMirroringFilter(c *Client, des, nw *PacketMirroringFilter) *PacketMirroringFilter {

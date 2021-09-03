@@ -671,6 +671,34 @@ func canonicalizeAwsClusterNetworking(des, initial *AwsClusterNetworking, opts .
 	return cDes
 }
 
+func canonicalizeAwsClusterNetworkingSlice(des, initial []AwsClusterNetworking, opts ...dcl.ApplyOption) []AwsClusterNetworking {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AwsClusterNetworking, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAwsClusterNetworking(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AwsClusterNetworking, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAwsClusterNetworking(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewAwsClusterNetworking(c *Client, des, nw *AwsClusterNetworking) *AwsClusterNetworking {
 
 	if des == nil {
@@ -788,6 +816,34 @@ func canonicalizeAwsClusterControlPlane(des, initial *AwsClusterControlPlane, op
 	return cDes
 }
 
+func canonicalizeAwsClusterControlPlaneSlice(des, initial []AwsClusterControlPlane, opts ...dcl.ApplyOption) []AwsClusterControlPlane {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AwsClusterControlPlane, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAwsClusterControlPlane(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AwsClusterControlPlane, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAwsClusterControlPlane(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewAwsClusterControlPlane(c *Client, des, nw *AwsClusterControlPlane) *AwsClusterControlPlane {
 
 	if des == nil {
@@ -884,6 +940,34 @@ func canonicalizeAwsClusterControlPlaneSshConfig(des, initial *AwsClusterControl
 	}
 
 	return cDes
+}
+
+func canonicalizeAwsClusterControlPlaneSshConfigSlice(des, initial []AwsClusterControlPlaneSshConfig, opts ...dcl.ApplyOption) []AwsClusterControlPlaneSshConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AwsClusterControlPlaneSshConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAwsClusterControlPlaneSshConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AwsClusterControlPlaneSshConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAwsClusterControlPlaneSshConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewAwsClusterControlPlaneSshConfig(c *Client, des, nw *AwsClusterControlPlaneSshConfig) *AwsClusterControlPlaneSshConfig {
@@ -988,6 +1072,34 @@ func canonicalizeAwsClusterControlPlaneRootVolume(des, initial *AwsClusterContro
 	return cDes
 }
 
+func canonicalizeAwsClusterControlPlaneRootVolumeSlice(des, initial []AwsClusterControlPlaneRootVolume, opts ...dcl.ApplyOption) []AwsClusterControlPlaneRootVolume {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AwsClusterControlPlaneRootVolume, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAwsClusterControlPlaneRootVolume(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AwsClusterControlPlaneRootVolume, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAwsClusterControlPlaneRootVolume(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewAwsClusterControlPlaneRootVolume(c *Client, des, nw *AwsClusterControlPlaneRootVolume) *AwsClusterControlPlaneRootVolume {
 
 	if des == nil {
@@ -1090,6 +1202,34 @@ func canonicalizeAwsClusterControlPlaneMainVolume(des, initial *AwsClusterContro
 	return cDes
 }
 
+func canonicalizeAwsClusterControlPlaneMainVolumeSlice(des, initial []AwsClusterControlPlaneMainVolume, opts ...dcl.ApplyOption) []AwsClusterControlPlaneMainVolume {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AwsClusterControlPlaneMainVolume, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAwsClusterControlPlaneMainVolume(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AwsClusterControlPlaneMainVolume, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAwsClusterControlPlaneMainVolume(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewAwsClusterControlPlaneMainVolume(c *Client, des, nw *AwsClusterControlPlaneMainVolume) *AwsClusterControlPlaneMainVolume {
 
 	if des == nil {
@@ -1175,6 +1315,34 @@ func canonicalizeAwsClusterControlPlaneDatabaseEncryption(des, initial *AwsClust
 	}
 
 	return cDes
+}
+
+func canonicalizeAwsClusterControlPlaneDatabaseEncryptionSlice(des, initial []AwsClusterControlPlaneDatabaseEncryption, opts ...dcl.ApplyOption) []AwsClusterControlPlaneDatabaseEncryption {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AwsClusterControlPlaneDatabaseEncryption, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAwsClusterControlPlaneDatabaseEncryption(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AwsClusterControlPlaneDatabaseEncryption, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAwsClusterControlPlaneDatabaseEncryption(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewAwsClusterControlPlaneDatabaseEncryption(c *Client, des, nw *AwsClusterControlPlaneDatabaseEncryption) *AwsClusterControlPlaneDatabaseEncryption {
@@ -1269,6 +1437,34 @@ func canonicalizeAwsClusterControlPlaneAwsServicesAuthentication(des, initial *A
 	return cDes
 }
 
+func canonicalizeAwsClusterControlPlaneAwsServicesAuthenticationSlice(des, initial []AwsClusterControlPlaneAwsServicesAuthentication, opts ...dcl.ApplyOption) []AwsClusterControlPlaneAwsServicesAuthentication {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AwsClusterControlPlaneAwsServicesAuthentication, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAwsClusterControlPlaneAwsServicesAuthentication(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AwsClusterControlPlaneAwsServicesAuthentication, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAwsClusterControlPlaneAwsServicesAuthentication(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewAwsClusterControlPlaneAwsServicesAuthentication(c *Client, des, nw *AwsClusterControlPlaneAwsServicesAuthentication) *AwsClusterControlPlaneAwsServicesAuthentication {
 
 	if des == nil {
@@ -1350,13 +1546,37 @@ func canonicalizeAwsClusterAuthorization(des, initial *AwsClusterAuthorization, 
 
 	cDes := &AwsClusterAuthorization{}
 
-	if dcl.IsZeroValue(des.AdminUsers) {
-		des.AdminUsers = initial.AdminUsers
-	} else {
-		cDes.AdminUsers = des.AdminUsers
-	}
+	cDes.AdminUsers = canonicalizeAwsClusterAuthorizationAdminUsersSlice(des.AdminUsers, initial.AdminUsers, opts...)
 
 	return cDes
+}
+
+func canonicalizeAwsClusterAuthorizationSlice(des, initial []AwsClusterAuthorization, opts ...dcl.ApplyOption) []AwsClusterAuthorization {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AwsClusterAuthorization, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAwsClusterAuthorization(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AwsClusterAuthorization, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAwsClusterAuthorization(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewAwsClusterAuthorization(c *Client, des, nw *AwsClusterAuthorization) *AwsClusterAuthorization {
@@ -1442,6 +1662,34 @@ func canonicalizeAwsClusterAuthorizationAdminUsers(des, initial *AwsClusterAutho
 	}
 
 	return cDes
+}
+
+func canonicalizeAwsClusterAuthorizationAdminUsersSlice(des, initial []AwsClusterAuthorizationAdminUsers, opts ...dcl.ApplyOption) []AwsClusterAuthorizationAdminUsers {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AwsClusterAuthorizationAdminUsers, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAwsClusterAuthorizationAdminUsers(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AwsClusterAuthorizationAdminUsers, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAwsClusterAuthorizationAdminUsers(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewAwsClusterAuthorizationAdminUsers(c *Client, des, nw *AwsClusterAuthorizationAdminUsers) *AwsClusterAuthorizationAdminUsers {
@@ -1539,6 +1787,34 @@ func canonicalizeAwsClusterWorkloadIdentityConfig(des, initial *AwsClusterWorklo
 	}
 
 	return cDes
+}
+
+func canonicalizeAwsClusterWorkloadIdentityConfigSlice(des, initial []AwsClusterWorkloadIdentityConfig, opts ...dcl.ApplyOption) []AwsClusterWorkloadIdentityConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AwsClusterWorkloadIdentityConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAwsClusterWorkloadIdentityConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AwsClusterWorkloadIdentityConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAwsClusterWorkloadIdentityConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewAwsClusterWorkloadIdentityConfig(c *Client, des, nw *AwsClusterWorkloadIdentityConfig) *AwsClusterWorkloadIdentityConfig {

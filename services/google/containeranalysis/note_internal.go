@@ -754,11 +754,7 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 	} else {
 		canonicalDesired.LongDescription = rawDesired.LongDescription
 	}
-	if dcl.IsZeroValue(rawDesired.RelatedUrl) {
-		canonicalDesired.RelatedUrl = rawInitial.RelatedUrl
-	} else {
-		canonicalDesired.RelatedUrl = rawDesired.RelatedUrl
-	}
+	canonicalDesired.RelatedUrl = canonicalizeNoteRelatedUrlSlice(rawDesired.RelatedUrl, rawInitial.RelatedUrl, opts...)
 	if dcl.IsZeroValue(rawDesired.ExpirationTime) {
 		canonicalDesired.ExpirationTime = rawInitial.ExpirationTime
 	} else {
@@ -912,6 +908,34 @@ func canonicalizeNoteRelatedUrl(des, initial *NoteRelatedUrl, opts ...dcl.ApplyO
 	return cDes
 }
 
+func canonicalizeNoteRelatedUrlSlice(des, initial []NoteRelatedUrl, opts ...dcl.ApplyOption) []NoteRelatedUrl {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteRelatedUrl, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteRelatedUrl(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteRelatedUrl, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteRelatedUrl(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewNoteRelatedUrl(c *Client, des, nw *NoteRelatedUrl) *NoteRelatedUrl {
 
 	if des == nil {
@@ -1003,17 +1027,9 @@ func canonicalizeNoteVulnerability(des, initial *NoteVulnerability, opts ...dcl.
 	} else {
 		cDes.Severity = des.Severity
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeNoteVulnerabilityDetailsSlice(des.Details, initial.Details, opts...)
 	cDes.CvssV3 = canonicalizeNoteVulnerabilityCvssV3(des.CvssV3, initial.CvssV3, opts...)
-	if dcl.IsZeroValue(des.WindowsDetails) {
-		des.WindowsDetails = initial.WindowsDetails
-	} else {
-		cDes.WindowsDetails = des.WindowsDetails
-	}
+	cDes.WindowsDetails = canonicalizeNoteVulnerabilityWindowsDetailsSlice(des.WindowsDetails, initial.WindowsDetails, opts...)
 	if dcl.IsZeroValue(des.SourceUpdateTime) {
 		des.SourceUpdateTime = initial.SourceUpdateTime
 	} else {
@@ -1021,6 +1037,34 @@ func canonicalizeNoteVulnerability(des, initial *NoteVulnerability, opts ...dcl.
 	}
 
 	return cDes
+}
+
+func canonicalizeNoteVulnerabilitySlice(des, initial []NoteVulnerability, opts ...dcl.ApplyOption) []NoteVulnerability {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteVulnerability, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteVulnerability(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteVulnerability, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteVulnerability(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewNoteVulnerability(c *Client, des, nw *NoteVulnerability) *NoteVulnerability {
@@ -1151,6 +1195,34 @@ func canonicalizeNoteVulnerabilityDetails(des, initial *NoteVulnerabilityDetails
 	}
 
 	return cDes
+}
+
+func canonicalizeNoteVulnerabilityDetailsSlice(des, initial []NoteVulnerabilityDetails, opts ...dcl.ApplyOption) []NoteVulnerabilityDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteVulnerabilityDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteVulnerabilityDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteVulnerabilityDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteVulnerabilityDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewNoteVulnerabilityDetails(c *Client, des, nw *NoteVulnerabilityDetails) *NoteVulnerabilityDetails {
@@ -1284,6 +1356,34 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(des, initial *Note
 	return cDes
 }
 
+func canonicalizeNoteVulnerabilityDetailsAffectedVersionStartSlice(des, initial []NoteVulnerabilityDetailsAffectedVersionStart, opts ...dcl.ApplyOption) []NoteVulnerabilityDetailsAffectedVersionStart {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteVulnerabilityDetailsAffectedVersionStart, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteVulnerabilityDetailsAffectedVersionStart, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionStart(c *Client, des, nw *NoteVulnerabilityDetailsAffectedVersionStart) *NoteVulnerabilityDetailsAffectedVersionStart {
 
 	if des == nil {
@@ -1397,6 +1497,34 @@ func canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(des, initial *NoteVu
 	return cDes
 }
 
+func canonicalizeNoteVulnerabilityDetailsAffectedVersionEndSlice(des, initial []NoteVulnerabilityDetailsAffectedVersionEnd, opts ...dcl.ApplyOption) []NoteVulnerabilityDetailsAffectedVersionEnd {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteVulnerabilityDetailsAffectedVersionEnd, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteVulnerabilityDetailsAffectedVersionEnd, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionEnd(c *Client, des, nw *NoteVulnerabilityDetailsAffectedVersionEnd) *NoteVulnerabilityDetailsAffectedVersionEnd {
 
 	if des == nil {
@@ -1508,6 +1636,34 @@ func canonicalizeNoteVulnerabilityDetailsFixedVersion(des, initial *NoteVulnerab
 	}
 
 	return cDes
+}
+
+func canonicalizeNoteVulnerabilityDetailsFixedVersionSlice(des, initial []NoteVulnerabilityDetailsFixedVersion, opts ...dcl.ApplyOption) []NoteVulnerabilityDetailsFixedVersion {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteVulnerabilityDetailsFixedVersion, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteVulnerabilityDetailsFixedVersion(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteVulnerabilityDetailsFixedVersion, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteVulnerabilityDetailsFixedVersion(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewNoteVulnerabilityDetailsFixedVersion(c *Client, des, nw *NoteVulnerabilityDetailsFixedVersion) *NoteVulnerabilityDetailsFixedVersion {
@@ -1653,6 +1809,34 @@ func canonicalizeNoteVulnerabilityCvssV3(des, initial *NoteVulnerabilityCvssV3, 
 	return cDes
 }
 
+func canonicalizeNoteVulnerabilityCvssV3Slice(des, initial []NoteVulnerabilityCvssV3, opts ...dcl.ApplyOption) []NoteVulnerabilityCvssV3 {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteVulnerabilityCvssV3, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteVulnerabilityCvssV3(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteVulnerabilityCvssV3, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteVulnerabilityCvssV3(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewNoteVulnerabilityCvssV3(c *Client, des, nw *NoteVulnerabilityCvssV3) *NoteVulnerabilityCvssV3 {
 
 	if des == nil {
@@ -1742,13 +1926,37 @@ func canonicalizeNoteVulnerabilityWindowsDetails(des, initial *NoteVulnerability
 	} else {
 		cDes.Description = des.Description
 	}
-	if dcl.IsZeroValue(des.FixingKbs) {
-		des.FixingKbs = initial.FixingKbs
-	} else {
-		cDes.FixingKbs = des.FixingKbs
-	}
+	cDes.FixingKbs = canonicalizeNoteVulnerabilityWindowsDetailsFixingKbsSlice(des.FixingKbs, initial.FixingKbs, opts...)
 
 	return cDes
+}
+
+func canonicalizeNoteVulnerabilityWindowsDetailsSlice(des, initial []NoteVulnerabilityWindowsDetails, opts ...dcl.ApplyOption) []NoteVulnerabilityWindowsDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteVulnerabilityWindowsDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteVulnerabilityWindowsDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteVulnerabilityWindowsDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteVulnerabilityWindowsDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewNoteVulnerabilityWindowsDetails(c *Client, des, nw *NoteVulnerabilityWindowsDetails) *NoteVulnerabilityWindowsDetails {
@@ -1850,6 +2058,34 @@ func canonicalizeNoteVulnerabilityWindowsDetailsFixingKbs(des, initial *NoteVuln
 	return cDes
 }
 
+func canonicalizeNoteVulnerabilityWindowsDetailsFixingKbsSlice(des, initial []NoteVulnerabilityWindowsDetailsFixingKbs, opts ...dcl.ApplyOption) []NoteVulnerabilityWindowsDetailsFixingKbs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteVulnerabilityWindowsDetailsFixingKbs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteVulnerabilityWindowsDetailsFixingKbs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteVulnerabilityWindowsDetailsFixingKbs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteVulnerabilityWindowsDetailsFixingKbs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewNoteVulnerabilityWindowsDetailsFixingKbs(c *Client, des, nw *NoteVulnerabilityWindowsDetailsFixingKbs) *NoteVulnerabilityWindowsDetailsFixingKbs {
 
 	if des == nil {
@@ -1940,6 +2176,34 @@ func canonicalizeNoteBuild(des, initial *NoteBuild, opts ...dcl.ApplyOption) *No
 	return cDes
 }
 
+func canonicalizeNoteBuildSlice(des, initial []NoteBuild, opts ...dcl.ApplyOption) []NoteBuild {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteBuild, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteBuild(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteBuild, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteBuild(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewNoteBuild(c *Client, des, nw *NoteBuild) *NoteBuild {
 
 	if des == nil {
@@ -2026,6 +2290,34 @@ func canonicalizeNoteImage(des, initial *NoteImage, opts ...dcl.ApplyOption) *No
 	cDes.Fingerprint = canonicalizeNoteImageFingerprint(des.Fingerprint, initial.Fingerprint, opts...)
 
 	return cDes
+}
+
+func canonicalizeNoteImageSlice(des, initial []NoteImage, opts ...dcl.ApplyOption) []NoteImage {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteImage, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteImage(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteImage, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteImage(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewNoteImage(c *Client, des, nw *NoteImage) *NoteImage {
@@ -2121,6 +2413,34 @@ func canonicalizeNoteImageFingerprint(des, initial *NoteImageFingerprint, opts .
 	return cDes
 }
 
+func canonicalizeNoteImageFingerprintSlice(des, initial []NoteImageFingerprint, opts ...dcl.ApplyOption) []NoteImageFingerprint {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteImageFingerprint, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteImageFingerprint(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteImageFingerprint, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteImageFingerprint(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewNoteImageFingerprint(c *Client, des, nw *NoteImageFingerprint) *NoteImageFingerprint {
 
 	if des == nil {
@@ -2207,13 +2527,37 @@ func canonicalizeNotePackage(des, initial *NotePackage, opts ...dcl.ApplyOption)
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.IsZeroValue(des.Distribution) {
-		des.Distribution = initial.Distribution
-	} else {
-		cDes.Distribution = des.Distribution
-	}
+	cDes.Distribution = canonicalizeNotePackageDistributionSlice(des.Distribution, initial.Distribution, opts...)
 
 	return cDes
+}
+
+func canonicalizeNotePackageSlice(des, initial []NotePackage, opts ...dcl.ApplyOption) []NotePackage {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NotePackage, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNotePackage(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NotePackage, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNotePackage(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewNotePackage(c *Client, des, nw *NotePackage) *NotePackage {
@@ -2323,6 +2667,34 @@ func canonicalizeNotePackageDistribution(des, initial *NotePackageDistribution, 
 	}
 
 	return cDes
+}
+
+func canonicalizeNotePackageDistributionSlice(des, initial []NotePackageDistribution, opts ...dcl.ApplyOption) []NotePackageDistribution {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NotePackageDistribution, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNotePackageDistribution(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NotePackageDistribution, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNotePackageDistribution(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewNotePackageDistribution(c *Client, des, nw *NotePackageDistribution) *NotePackageDistribution {
@@ -2442,6 +2814,34 @@ func canonicalizeNotePackageDistributionLatestVersion(des, initial *NotePackageD
 	return cDes
 }
 
+func canonicalizeNotePackageDistributionLatestVersionSlice(des, initial []NotePackageDistributionLatestVersion, opts ...dcl.ApplyOption) []NotePackageDistributionLatestVersion {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NotePackageDistributionLatestVersion, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNotePackageDistributionLatestVersion(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NotePackageDistributionLatestVersion, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNotePackageDistributionLatestVersion(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewNotePackageDistributionLatestVersion(c *Client, des, nw *NotePackageDistributionLatestVersion) *NotePackageDistributionLatestVersion {
 
 	if des == nil {
@@ -2535,6 +2935,34 @@ func canonicalizeNoteDiscovery(des, initial *NoteDiscovery, opts ...dcl.ApplyOpt
 	return cDes
 }
 
+func canonicalizeNoteDiscoverySlice(des, initial []NoteDiscovery, opts ...dcl.ApplyOption) []NoteDiscovery {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteDiscovery, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteDiscovery(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteDiscovery, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteDiscovery(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewNoteDiscovery(c *Client, des, nw *NoteDiscovery) *NoteDiscovery {
 
 	if des == nil {
@@ -2618,6 +3046,34 @@ func canonicalizeNoteDeployment(des, initial *NoteDeployment, opts ...dcl.ApplyO
 	return cDes
 }
 
+func canonicalizeNoteDeploymentSlice(des, initial []NoteDeployment, opts ...dcl.ApplyOption) []NoteDeployment {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteDeployment, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteDeployment(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteDeployment, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteDeployment(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewNoteDeployment(c *Client, des, nw *NoteDeployment) *NoteDeployment {
 
 	if des == nil {
@@ -2695,6 +3151,34 @@ func canonicalizeNoteAttestation(des, initial *NoteAttestation, opts ...dcl.Appl
 	cDes.Hint = canonicalizeNoteAttestationHint(des.Hint, initial.Hint, opts...)
 
 	return cDes
+}
+
+func canonicalizeNoteAttestationSlice(des, initial []NoteAttestation, opts ...dcl.ApplyOption) []NoteAttestation {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteAttestation, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteAttestation(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteAttestation, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteAttestation(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewNoteAttestation(c *Client, des, nw *NoteAttestation) *NoteAttestation {
@@ -2780,6 +3264,34 @@ func canonicalizeNoteAttestationHint(des, initial *NoteAttestationHint, opts ...
 	}
 
 	return cDes
+}
+
+func canonicalizeNoteAttestationHintSlice(des, initial []NoteAttestationHint, opts ...dcl.ApplyOption) []NoteAttestationHint {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteAttestationHint, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteAttestationHint(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteAttestationHint, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteAttestationHint(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewNoteAttestationHint(c *Client, des, nw *NoteAttestationHint) *NoteAttestationHint {

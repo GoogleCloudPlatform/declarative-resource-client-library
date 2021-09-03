@@ -348,6 +348,34 @@ func canonicalizeFeatureMembershipConfigmanagement(des, initial *FeatureMembersh
 	return cDes
 }
 
+func canonicalizeFeatureMembershipConfigmanagementSlice(des, initial []FeatureMembershipConfigmanagement, opts ...dcl.ApplyOption) []FeatureMembershipConfigmanagement {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]FeatureMembershipConfigmanagement, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeFeatureMembershipConfigmanagement(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]FeatureMembershipConfigmanagement, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeFeatureMembershipConfigmanagement(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewFeatureMembershipConfigmanagement(c *Client, des, nw *FeatureMembershipConfigmanagement) *FeatureMembershipConfigmanagement {
 
 	if des == nil {
@@ -438,6 +466,34 @@ func canonicalizeFeatureMembershipConfigmanagementConfigSync(des, initial *Featu
 	}
 
 	return cDes
+}
+
+func canonicalizeFeatureMembershipConfigmanagementConfigSyncSlice(des, initial []FeatureMembershipConfigmanagementConfigSync, opts ...dcl.ApplyOption) []FeatureMembershipConfigmanagementConfigSync {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]FeatureMembershipConfigmanagementConfigSync, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeFeatureMembershipConfigmanagementConfigSync(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]FeatureMembershipConfigmanagementConfigSync, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeFeatureMembershipConfigmanagementConfigSync(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewFeatureMembershipConfigmanagementConfigSync(c *Client, des, nw *FeatureMembershipConfigmanagementConfigSync) *FeatureMembershipConfigmanagementConfigSync {
@@ -561,6 +617,34 @@ func canonicalizeFeatureMembershipConfigmanagementConfigSyncGit(des, initial *Fe
 	}
 
 	return cDes
+}
+
+func canonicalizeFeatureMembershipConfigmanagementConfigSyncGitSlice(des, initial []FeatureMembershipConfigmanagementConfigSyncGit, opts ...dcl.ApplyOption) []FeatureMembershipConfigmanagementConfigSyncGit {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]FeatureMembershipConfigmanagementConfigSyncGit, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeFeatureMembershipConfigmanagementConfigSyncGit(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]FeatureMembershipConfigmanagementConfigSyncGit, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeFeatureMembershipConfigmanagementConfigSyncGit(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewFeatureMembershipConfigmanagementConfigSyncGit(c *Client, des, nw *FeatureMembershipConfigmanagementConfigSyncGit) *FeatureMembershipConfigmanagementConfigSyncGit {
@@ -696,6 +780,34 @@ func canonicalizeFeatureMembershipConfigmanagementPolicyController(des, initial 
 	return cDes
 }
 
+func canonicalizeFeatureMembershipConfigmanagementPolicyControllerSlice(des, initial []FeatureMembershipConfigmanagementPolicyController, opts ...dcl.ApplyOption) []FeatureMembershipConfigmanagementPolicyController {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]FeatureMembershipConfigmanagementPolicyController, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeFeatureMembershipConfigmanagementPolicyController(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]FeatureMembershipConfigmanagementPolicyController, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeFeatureMembershipConfigmanagementPolicyController(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewFeatureMembershipConfigmanagementPolicyController(c *Client, des, nw *FeatureMembershipConfigmanagementPolicyController) *FeatureMembershipConfigmanagementPolicyController {
 
 	if des == nil {
@@ -795,6 +907,34 @@ func canonicalizeFeatureMembershipConfigmanagementBinauthz(des, initial *Feature
 	return cDes
 }
 
+func canonicalizeFeatureMembershipConfigmanagementBinauthzSlice(des, initial []FeatureMembershipConfigmanagementBinauthz, opts ...dcl.ApplyOption) []FeatureMembershipConfigmanagementBinauthz {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]FeatureMembershipConfigmanagementBinauthz, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeFeatureMembershipConfigmanagementBinauthz(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]FeatureMembershipConfigmanagementBinauthz, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeFeatureMembershipConfigmanagementBinauthz(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewFeatureMembershipConfigmanagementBinauthz(c *Client, des, nw *FeatureMembershipConfigmanagementBinauthz) *FeatureMembershipConfigmanagementBinauthz {
 
 	if des == nil {
@@ -890,6 +1030,34 @@ func canonicalizeFeatureMembershipConfigmanagementHierarchyController(des, initi
 	}
 
 	return cDes
+}
+
+func canonicalizeFeatureMembershipConfigmanagementHierarchyControllerSlice(des, initial []FeatureMembershipConfigmanagementHierarchyController, opts ...dcl.ApplyOption) []FeatureMembershipConfigmanagementHierarchyController {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]FeatureMembershipConfigmanagementHierarchyController, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeFeatureMembershipConfigmanagementHierarchyController(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]FeatureMembershipConfigmanagementHierarchyController, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeFeatureMembershipConfigmanagementHierarchyController(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewFeatureMembershipConfigmanagementHierarchyController(c *Client, des, nw *FeatureMembershipConfigmanagementHierarchyController) *FeatureMembershipConfigmanagementHierarchyController {

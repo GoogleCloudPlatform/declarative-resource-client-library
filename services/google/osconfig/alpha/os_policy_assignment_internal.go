@@ -827,11 +827,7 @@ func canonicalizeOSPolicyAssignmentDesiredState(rawDesired, rawInitial *OSPolicy
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.OSPolicies) {
-		canonicalDesired.OSPolicies = rawInitial.OSPolicies
-	} else {
-		canonicalDesired.OSPolicies = rawDesired.OSPolicies
-	}
+	canonicalDesired.OSPolicies = canonicalizeOSPolicyAssignmentOSPoliciesSlice(rawDesired.OSPolicies, rawInitial.OSPolicies, opts...)
 	canonicalDesired.InstanceFilter = canonicalizeOSPolicyAssignmentInstanceFilter(rawDesired.InstanceFilter, rawInitial.InstanceFilter, opts...)
 	canonicalDesired.Rollout = canonicalizeOSPolicyAssignmentRollout(rawDesired.Rollout, rawInitial.Rollout, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
@@ -970,11 +966,7 @@ func canonicalizeOSPolicyAssignmentOSPolicies(des, initial *OSPolicyAssignmentOS
 	} else {
 		cDes.Mode = des.Mode
 	}
-	if dcl.IsZeroValue(des.ResourceGroups) {
-		des.ResourceGroups = initial.ResourceGroups
-	} else {
-		cDes.ResourceGroups = des.ResourceGroups
-	}
+	cDes.ResourceGroups = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsSlice(des.ResourceGroups, initial.ResourceGroups, opts...)
 	if dcl.BoolCanonicalize(des.AllowNoResourceGroupMatch, initial.AllowNoResourceGroupMatch) || dcl.IsZeroValue(des.AllowNoResourceGroupMatch) {
 		cDes.AllowNoResourceGroupMatch = initial.AllowNoResourceGroupMatch
 	} else {
@@ -982,6 +974,34 @@ func canonicalizeOSPolicyAssignmentOSPolicies(des, initial *OSPolicyAssignmentOS
 	}
 
 	return cDes
+}
+
+func canonicalizeOSPolicyAssignmentOSPoliciesSlice(des, initial []OSPolicyAssignmentOSPolicies, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPolicies {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPolicies, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPolicies(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPolicies, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPolicies(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPolicies(c *Client, des, nw *OSPolicyAssignmentOSPolicies) *OSPolicyAssignmentOSPolicies {
@@ -1070,13 +1090,37 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroups(des, initial *OSPoli
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroups{}
 
 	cDes.OSFilter = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsOSFilter(des.OSFilter, initial.OSFilter, opts...)
-	if dcl.IsZeroValue(des.Resources) {
-		des.Resources = initial.Resources
-	} else {
-		cDes.Resources = des.Resources
-	}
+	cDes.Resources = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesSlice(des.Resources, initial.Resources, opts...)
 
 	return cDes
+}
+
+func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroups, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroups {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPoliciesResourceGroups, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroups(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPoliciesResourceGroups, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroups(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroups(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroups) *OSPolicyAssignmentOSPoliciesResourceGroups {
@@ -1168,6 +1212,34 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsOSFilter(des, initial
 	}
 
 	return cDes
+}
+
+func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsOSFilterSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsOSFilter, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsOSFilter {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsOSFilter, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsOSFilter(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsOSFilter, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsOSFilter(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsOSFilter(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsOSFilter) *OSPolicyAssignmentOSPoliciesResourceGroupsOSFilter {
@@ -1262,6 +1334,34 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResources(des, initia
 	cDes.File = canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(des.File, initial.File, opts...)
 
 	return cDes
+}
+
+func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResources, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResources {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResources, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResources(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResources, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResources(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResources(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResources) *OSPolicyAssignmentOSPoliciesResourceGroupsResources {
@@ -1432,6 +1532,34 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(des, ini
 	return cDes
 }
 
+func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg {
 
 	if des == nil {
@@ -1523,6 +1651,34 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(des, 
 	return cDes
 }
 
+func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt {
 
 	if des == nil {
@@ -1609,6 +1765,34 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(des, 
 	}
 
 	return cDes
+}
+
+func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb {
@@ -1706,6 +1890,34 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource
 	return cDes
 }
 
+func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource {
 
 	if des == nil {
@@ -1801,6 +2013,34 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource
 	}
 
 	return cDes
+}
+
+func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote {
@@ -1903,6 +2143,34 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource
 	return cDes
 }
 
+func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs {
 
 	if des == nil {
@@ -1993,6 +2261,34 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(des, 
 	return cDes
 }
 
+func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum {
 
 	if des == nil {
@@ -2078,6 +2374,34 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(de
 	}
 
 	return cDes
+}
+
+func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper {
@@ -2166,6 +2490,34 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(des, 
 	}
 
 	return cDes
+}
+
+func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm {
@@ -2293,6 +2645,34 @@ func canonicalizeOSPolicyAssignmentFile(des, initial *OSPolicyAssignmentFile, op
 	return cDes
 }
 
+func canonicalizeOSPolicyAssignmentFileSlice(des, initial []OSPolicyAssignmentFile, opts ...dcl.ApplyOption) []OSPolicyAssignmentFile {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentFile, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentFile(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentFile, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentFile(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewOSPolicyAssignmentFile(c *Client, des, nw *OSPolicyAssignmentFile) *OSPolicyAssignmentFile {
 
 	if des == nil {
@@ -2388,6 +2768,34 @@ func canonicalizeOSPolicyAssignmentFileRemote(des, initial *OSPolicyAssignmentFi
 	}
 
 	return cDes
+}
+
+func canonicalizeOSPolicyAssignmentFileRemoteSlice(des, initial []OSPolicyAssignmentFileRemote, opts ...dcl.ApplyOption) []OSPolicyAssignmentFileRemote {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentFileRemote, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentFileRemote(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentFileRemote, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentFileRemote(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewOSPolicyAssignmentFileRemote(c *Client, des, nw *OSPolicyAssignmentFileRemote) *OSPolicyAssignmentFileRemote {
@@ -2490,6 +2898,34 @@ func canonicalizeOSPolicyAssignmentFileGcs(des, initial *OSPolicyAssignmentFileG
 	return cDes
 }
 
+func canonicalizeOSPolicyAssignmentFileGcsSlice(des, initial []OSPolicyAssignmentFileGcs, opts ...dcl.ApplyOption) []OSPolicyAssignmentFileGcs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentFileGcs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentFileGcs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentFileGcs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentFileGcs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewOSPolicyAssignmentFileGcs(c *Client, des, nw *OSPolicyAssignmentFileGcs) *OSPolicyAssignmentFileGcs {
 
 	if des == nil {
@@ -2580,6 +3016,34 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(de
 	return cDes
 }
 
+func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget {
 
 	if des == nil {
@@ -2666,6 +3130,34 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(des, 
 	}
 
 	return cDes
+}
+
+func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi {
@@ -2792,6 +3284,34 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(d
 	return cDes
 }
 
+func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositorySlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository {
 
 	if des == nil {
@@ -2898,6 +3418,34 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAp
 	}
 
 	return cDes
+}
+
+func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt {
@@ -3008,6 +3556,34 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYu
 	return cDes
 }
 
+func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum {
 
 	if des == nil {
@@ -3116,6 +3692,34 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZy
 	return cDes
 }
 
+func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper {
 
 	if des == nil {
@@ -3214,6 +3818,34 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGo
 	return cDes
 }
 
+func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo {
 
 	if des == nil {
@@ -3299,6 +3931,34 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(des, in
 	cDes.Enforce = canonicalizeOSPolicyAssignmentExec(des.Enforce, initial.Enforce, opts...)
 
 	return cDes
+}
+
+func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec {
@@ -3418,6 +4078,34 @@ func canonicalizeOSPolicyAssignmentExec(des, initial *OSPolicyAssignmentExec, op
 	return cDes
 }
 
+func canonicalizeOSPolicyAssignmentExecSlice(des, initial []OSPolicyAssignmentExec, opts ...dcl.ApplyOption) []OSPolicyAssignmentExec {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentExec, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentExec(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentExec, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentExec(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewOSPolicyAssignmentExec(c *Client, des, nw *OSPolicyAssignmentExec) *OSPolicyAssignmentExec {
 
 	if des == nil {
@@ -3522,6 +4210,34 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(des, in
 	return cDes
 }
 
+func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileSlice(des, initial []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile, opts ...dcl.ApplyOption) []OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c *Client, des, nw *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile {
 
 	if des == nil {
@@ -3617,18 +4333,38 @@ func canonicalizeOSPolicyAssignmentInstanceFilter(des, initial *OSPolicyAssignme
 	} else {
 		cDes.OSShortNames = des.OSShortNames
 	}
-	if dcl.IsZeroValue(des.InclusionLabels) {
-		des.InclusionLabels = initial.InclusionLabels
-	} else {
-		cDes.InclusionLabels = des.InclusionLabels
-	}
-	if dcl.IsZeroValue(des.ExclusionLabels) {
-		des.ExclusionLabels = initial.ExclusionLabels
-	} else {
-		cDes.ExclusionLabels = des.ExclusionLabels
-	}
+	cDes.InclusionLabels = canonicalizeOSPolicyAssignmentInstanceFilterInclusionLabelsSlice(des.InclusionLabels, initial.InclusionLabels, opts...)
+	cDes.ExclusionLabels = canonicalizeOSPolicyAssignmentInstanceFilterExclusionLabelsSlice(des.ExclusionLabels, initial.ExclusionLabels, opts...)
 
 	return cDes
+}
+
+func canonicalizeOSPolicyAssignmentInstanceFilterSlice(des, initial []OSPolicyAssignmentInstanceFilter, opts ...dcl.ApplyOption) []OSPolicyAssignmentInstanceFilter {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentInstanceFilter, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentInstanceFilter(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentInstanceFilter, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentInstanceFilter(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewOSPolicyAssignmentInstanceFilter(c *Client, des, nw *OSPolicyAssignmentInstanceFilter) *OSPolicyAssignmentInstanceFilter {
@@ -3720,6 +4456,34 @@ func canonicalizeOSPolicyAssignmentInstanceFilterInclusionLabels(des, initial *O
 	return cDes
 }
 
+func canonicalizeOSPolicyAssignmentInstanceFilterInclusionLabelsSlice(des, initial []OSPolicyAssignmentInstanceFilterInclusionLabels, opts ...dcl.ApplyOption) []OSPolicyAssignmentInstanceFilterInclusionLabels {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentInstanceFilterInclusionLabels, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentInstanceFilterInclusionLabels(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentInstanceFilterInclusionLabels, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentInstanceFilterInclusionLabels(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewOSPolicyAssignmentInstanceFilterInclusionLabels(c *Client, des, nw *OSPolicyAssignmentInstanceFilterInclusionLabels) *OSPolicyAssignmentInstanceFilterInclusionLabels {
 
 	if des == nil {
@@ -3801,6 +4565,34 @@ func canonicalizeOSPolicyAssignmentInstanceFilterExclusionLabels(des, initial *O
 	}
 
 	return cDes
+}
+
+func canonicalizeOSPolicyAssignmentInstanceFilterExclusionLabelsSlice(des, initial []OSPolicyAssignmentInstanceFilterExclusionLabels, opts ...dcl.ApplyOption) []OSPolicyAssignmentInstanceFilterExclusionLabels {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentInstanceFilterExclusionLabels, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentInstanceFilterExclusionLabels(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentInstanceFilterExclusionLabels, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentInstanceFilterExclusionLabels(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewOSPolicyAssignmentInstanceFilterExclusionLabels(c *Client, des, nw *OSPolicyAssignmentInstanceFilterExclusionLabels) *OSPolicyAssignmentInstanceFilterExclusionLabels {
@@ -3885,6 +4677,34 @@ func canonicalizeOSPolicyAssignmentRollout(des, initial *OSPolicyAssignmentRollo
 	}
 
 	return cDes
+}
+
+func canonicalizeOSPolicyAssignmentRolloutSlice(des, initial []OSPolicyAssignmentRollout, opts ...dcl.ApplyOption) []OSPolicyAssignmentRollout {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentRollout, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentRollout(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentRollout, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentRollout(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewOSPolicyAssignmentRollout(c *Client, des, nw *OSPolicyAssignmentRollout) *OSPolicyAssignmentRollout {
@@ -3998,6 +4818,34 @@ func canonicalizeOSPolicyAssignmentRolloutDisruptionBudget(des, initial *OSPolic
 	}
 
 	return cDes
+}
+
+func canonicalizeOSPolicyAssignmentRolloutDisruptionBudgetSlice(des, initial []OSPolicyAssignmentRolloutDisruptionBudget, opts ...dcl.ApplyOption) []OSPolicyAssignmentRolloutDisruptionBudget {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]OSPolicyAssignmentRolloutDisruptionBudget, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeOSPolicyAssignmentRolloutDisruptionBudget(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]OSPolicyAssignmentRolloutDisruptionBudget, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeOSPolicyAssignmentRolloutDisruptionBudget(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewOSPolicyAssignmentRolloutDisruptionBudget(c *Client, des, nw *OSPolicyAssignmentRolloutDisruptionBudget) *OSPolicyAssignmentRolloutDisruptionBudget {

@@ -639,6 +639,34 @@ func canonicalizeEndpointPolicyEndpointMatcher(des, initial *EndpointPolicyEndpo
 	return cDes
 }
 
+func canonicalizeEndpointPolicyEndpointMatcherSlice(des, initial []EndpointPolicyEndpointMatcher, opts ...dcl.ApplyOption) []EndpointPolicyEndpointMatcher {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]EndpointPolicyEndpointMatcher, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeEndpointPolicyEndpointMatcher(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]EndpointPolicyEndpointMatcher, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeEndpointPolicyEndpointMatcher(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewEndpointPolicyEndpointMatcher(c *Client, des, nw *EndpointPolicyEndpointMatcher) *EndpointPolicyEndpointMatcher {
 
 	if des == nil {
@@ -720,13 +748,37 @@ func canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcher(des, initial 
 	} else {
 		cDes.MetadataLabelMatchCriteria = des.MetadataLabelMatchCriteria
 	}
-	if dcl.IsZeroValue(des.MetadataLabels) {
-		des.MetadataLabels = initial.MetadataLabels
-	} else {
-		cDes.MetadataLabels = des.MetadataLabels
-	}
+	cDes.MetadataLabels = canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice(des.MetadataLabels, initial.MetadataLabels, opts...)
 
 	return cDes
+}
+
+func canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcherSlice(des, initial []EndpointPolicyEndpointMatcherMetadataLabelMatcher, opts ...dcl.ApplyOption) []EndpointPolicyEndpointMatcherMetadataLabelMatcher {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]EndpointPolicyEndpointMatcherMetadataLabelMatcher, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcher(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]EndpointPolicyEndpointMatcherMetadataLabelMatcher, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcher(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewEndpointPolicyEndpointMatcherMetadataLabelMatcher(c *Client, des, nw *EndpointPolicyEndpointMatcherMetadataLabelMatcher) *EndpointPolicyEndpointMatcherMetadataLabelMatcher {
@@ -819,6 +871,34 @@ func canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels
 	return cDes
 }
 
+func canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice(des, initial []EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels, opts ...dcl.ApplyOption) []EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(c *Client, des, nw *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels) *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels {
 
 	if des == nil {
@@ -907,6 +987,34 @@ func canonicalizeEndpointPolicyTrafficPortSelector(des, initial *EndpointPolicyT
 	}
 
 	return cDes
+}
+
+func canonicalizeEndpointPolicyTrafficPortSelectorSlice(des, initial []EndpointPolicyTrafficPortSelector, opts ...dcl.ApplyOption) []EndpointPolicyTrafficPortSelector {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]EndpointPolicyTrafficPortSelector, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeEndpointPolicyTrafficPortSelector(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]EndpointPolicyTrafficPortSelector, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeEndpointPolicyTrafficPortSelector(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewEndpointPolicyTrafficPortSelector(c *Client, des, nw *EndpointPolicyTrafficPortSelector) *EndpointPolicyTrafficPortSelector {

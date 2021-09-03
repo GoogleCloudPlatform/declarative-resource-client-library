@@ -751,11 +751,7 @@ func canonicalizeClusterClusterConfig(des, initial *ClusterClusterConfig, opts .
 	cDes.WorkerConfig = canonicalizeClusterInstanceGroupConfig(des.WorkerConfig, initial.WorkerConfig, opts...)
 	cDes.SecondaryWorkerConfig = canonicalizeClusterInstanceGroupConfig(des.SecondaryWorkerConfig, initial.SecondaryWorkerConfig, opts...)
 	cDes.SoftwareConfig = canonicalizeClusterClusterConfigSoftwareConfig(des.SoftwareConfig, initial.SoftwareConfig, opts...)
-	if dcl.IsZeroValue(des.InitializationActions) {
-		des.InitializationActions = initial.InitializationActions
-	} else {
-		cDes.InitializationActions = des.InitializationActions
-	}
+	cDes.InitializationActions = canonicalizeClusterClusterConfigInitializationActionsSlice(des.InitializationActions, initial.InitializationActions, opts...)
 	cDes.EncryptionConfig = canonicalizeClusterClusterConfigEncryptionConfig(des.EncryptionConfig, initial.EncryptionConfig, opts...)
 	cDes.AutoscalingConfig = canonicalizeClusterClusterConfigAutoscalingConfig(des.AutoscalingConfig, initial.AutoscalingConfig, opts...)
 	cDes.SecurityConfig = canonicalizeClusterClusterConfigSecurityConfig(des.SecurityConfig, initial.SecurityConfig, opts...)
@@ -765,6 +761,34 @@ func canonicalizeClusterClusterConfig(des, initial *ClusterClusterConfig, opts .
 	cDes.MetastoreConfig = canonicalizeClusterClusterConfigMetastoreConfig(des.MetastoreConfig, initial.MetastoreConfig, opts...)
 
 	return cDes
+}
+
+func canonicalizeClusterClusterConfigSlice(des, initial []ClusterClusterConfig, opts ...dcl.ApplyOption) []ClusterClusterConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterClusterConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterClusterConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterClusterConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterClusterConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewClusterClusterConfig(c *Client, des, nw *ClusterClusterConfig) *ClusterClusterConfig {
@@ -912,6 +936,34 @@ func canonicalizeClusterClusterConfigGceClusterConfig(des, initial *ClusterClust
 	return cDes
 }
 
+func canonicalizeClusterClusterConfigGceClusterConfigSlice(des, initial []ClusterClusterConfigGceClusterConfig, opts ...dcl.ApplyOption) []ClusterClusterConfigGceClusterConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterClusterConfigGceClusterConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterClusterConfigGceClusterConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterClusterConfigGceClusterConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterClusterConfigGceClusterConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewClusterClusterConfigGceClusterConfig(c *Client, des, nw *ClusterClusterConfigGceClusterConfig) *ClusterClusterConfigGceClusterConfig {
 
 	if des == nil {
@@ -1023,6 +1075,34 @@ func canonicalizeClusterClusterConfigGceClusterConfigReservationAffinity(des, in
 	return cDes
 }
 
+func canonicalizeClusterClusterConfigGceClusterConfigReservationAffinitySlice(des, initial []ClusterClusterConfigGceClusterConfigReservationAffinity, opts ...dcl.ApplyOption) []ClusterClusterConfigGceClusterConfigReservationAffinity {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterClusterConfigGceClusterConfigReservationAffinity, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterClusterConfigGceClusterConfigReservationAffinity(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterClusterConfigGceClusterConfigReservationAffinity, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterClusterConfigGceClusterConfigReservationAffinity(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewClusterClusterConfigGceClusterConfigReservationAffinity(c *Client, des, nw *ClusterClusterConfigGceClusterConfigReservationAffinity) *ClusterClusterConfigGceClusterConfigReservationAffinity {
 
 	if des == nil {
@@ -1108,6 +1188,34 @@ func canonicalizeClusterClusterConfigGceClusterConfigNodeGroupAffinity(des, init
 	}
 
 	return cDes
+}
+
+func canonicalizeClusterClusterConfigGceClusterConfigNodeGroupAffinitySlice(des, initial []ClusterClusterConfigGceClusterConfigNodeGroupAffinity, opts ...dcl.ApplyOption) []ClusterClusterConfigGceClusterConfigNodeGroupAffinity {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterClusterConfigGceClusterConfigNodeGroupAffinity, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterClusterConfigGceClusterConfigNodeGroupAffinity(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterClusterConfigGceClusterConfigNodeGroupAffinity, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterClusterConfigGceClusterConfigNodeGroupAffinity(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewClusterClusterConfigGceClusterConfigNodeGroupAffinity(c *Client, des, nw *ClusterClusterConfigGceClusterConfigNodeGroupAffinity) *ClusterClusterConfigGceClusterConfigNodeGroupAffinity {
@@ -1209,11 +1317,7 @@ func canonicalizeClusterInstanceGroupConfig(des, initial *ClusterInstanceGroupCo
 	} else {
 		cDes.Preemptibility = des.Preemptibility
 	}
-	if dcl.IsZeroValue(des.Accelerators) {
-		des.Accelerators = initial.Accelerators
-	} else {
-		cDes.Accelerators = des.Accelerators
-	}
+	cDes.Accelerators = canonicalizeClusterInstanceGroupConfigAcceleratorsSlice(des.Accelerators, initial.Accelerators, opts...)
 	if dcl.StringCanonicalize(des.MinCpuPlatform, initial.MinCpuPlatform) || dcl.IsZeroValue(des.MinCpuPlatform) {
 		cDes.MinCpuPlatform = initial.MinCpuPlatform
 	} else {
@@ -1221,6 +1325,34 @@ func canonicalizeClusterInstanceGroupConfig(des, initial *ClusterInstanceGroupCo
 	}
 
 	return cDes
+}
+
+func canonicalizeClusterInstanceGroupConfigSlice(des, initial []ClusterInstanceGroupConfig, opts ...dcl.ApplyOption) []ClusterInstanceGroupConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterInstanceGroupConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterInstanceGroupConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterInstanceGroupConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterInstanceGroupConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewClusterInstanceGroupConfig(c *Client, des, nw *ClusterInstanceGroupConfig) *ClusterInstanceGroupConfig {
@@ -1332,6 +1464,34 @@ func canonicalizeClusterInstanceGroupConfigDiskConfig(des, initial *ClusterInsta
 	return cDes
 }
 
+func canonicalizeClusterInstanceGroupConfigDiskConfigSlice(des, initial []ClusterInstanceGroupConfigDiskConfig, opts ...dcl.ApplyOption) []ClusterInstanceGroupConfigDiskConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterInstanceGroupConfigDiskConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterInstanceGroupConfigDiskConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterInstanceGroupConfigDiskConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterInstanceGroupConfigDiskConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewClusterInstanceGroupConfigDiskConfig(c *Client, des, nw *ClusterInstanceGroupConfigDiskConfig) *ClusterInstanceGroupConfigDiskConfig {
 
 	if des == nil {
@@ -1411,6 +1571,34 @@ func canonicalizeClusterInstanceGroupConfigManagedGroupConfig(des, initial *Clus
 	cDes := &ClusterInstanceGroupConfigManagedGroupConfig{}
 
 	return cDes
+}
+
+func canonicalizeClusterInstanceGroupConfigManagedGroupConfigSlice(des, initial []ClusterInstanceGroupConfigManagedGroupConfig, opts ...dcl.ApplyOption) []ClusterInstanceGroupConfigManagedGroupConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterInstanceGroupConfigManagedGroupConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterInstanceGroupConfigManagedGroupConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterInstanceGroupConfigManagedGroupConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterInstanceGroupConfigManagedGroupConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewClusterInstanceGroupConfigManagedGroupConfig(c *Client, des, nw *ClusterInstanceGroupConfigManagedGroupConfig) *ClusterInstanceGroupConfigManagedGroupConfig {
@@ -1506,6 +1694,34 @@ func canonicalizeClusterInstanceGroupConfigAccelerators(des, initial *ClusterIns
 	}
 
 	return cDes
+}
+
+func canonicalizeClusterInstanceGroupConfigAcceleratorsSlice(des, initial []ClusterInstanceGroupConfigAccelerators, opts ...dcl.ApplyOption) []ClusterInstanceGroupConfigAccelerators {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterInstanceGroupConfigAccelerators, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterInstanceGroupConfigAccelerators(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterInstanceGroupConfigAccelerators, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterInstanceGroupConfigAccelerators(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewClusterInstanceGroupConfigAccelerators(c *Client, des, nw *ClusterInstanceGroupConfigAccelerators) *ClusterInstanceGroupConfigAccelerators {
@@ -1605,6 +1821,34 @@ func canonicalizeClusterClusterConfigSoftwareConfig(des, initial *ClusterCluster
 	return cDes
 }
 
+func canonicalizeClusterClusterConfigSoftwareConfigSlice(des, initial []ClusterClusterConfigSoftwareConfig, opts ...dcl.ApplyOption) []ClusterClusterConfigSoftwareConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterClusterConfigSoftwareConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterClusterConfigSoftwareConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterClusterConfigSoftwareConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterClusterConfigSoftwareConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewClusterClusterConfigSoftwareConfig(c *Client, des, nw *ClusterClusterConfigSoftwareConfig) *ClusterClusterConfigSoftwareConfig {
 
 	if des == nil {
@@ -1697,6 +1941,34 @@ func canonicalizeClusterClusterConfigInitializationActions(des, initial *Cluster
 	return cDes
 }
 
+func canonicalizeClusterClusterConfigInitializationActionsSlice(des, initial []ClusterClusterConfigInitializationActions, opts ...dcl.ApplyOption) []ClusterClusterConfigInitializationActions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterClusterConfigInitializationActions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterClusterConfigInitializationActions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterClusterConfigInitializationActions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterClusterConfigInitializationActions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewClusterClusterConfigInitializationActions(c *Client, des, nw *ClusterClusterConfigInitializationActions) *ClusterClusterConfigInitializationActions {
 
 	if des == nil {
@@ -1787,6 +2059,34 @@ func canonicalizeClusterClusterConfigEncryptionConfig(des, initial *ClusterClust
 	return cDes
 }
 
+func canonicalizeClusterClusterConfigEncryptionConfigSlice(des, initial []ClusterClusterConfigEncryptionConfig, opts ...dcl.ApplyOption) []ClusterClusterConfigEncryptionConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterClusterConfigEncryptionConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterClusterConfigEncryptionConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterClusterConfigEncryptionConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterClusterConfigEncryptionConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewClusterClusterConfigEncryptionConfig(c *Client, des, nw *ClusterClusterConfigEncryptionConfig) *ClusterClusterConfigEncryptionConfig {
 
 	if des == nil {
@@ -1874,6 +2174,34 @@ func canonicalizeClusterClusterConfigAutoscalingConfig(des, initial *ClusterClus
 	return cDes
 }
 
+func canonicalizeClusterClusterConfigAutoscalingConfigSlice(des, initial []ClusterClusterConfigAutoscalingConfig, opts ...dcl.ApplyOption) []ClusterClusterConfigAutoscalingConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterClusterConfigAutoscalingConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterClusterConfigAutoscalingConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterClusterConfigAutoscalingConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterClusterConfigAutoscalingConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewClusterClusterConfigAutoscalingConfig(c *Client, des, nw *ClusterClusterConfigAutoscalingConfig) *ClusterClusterConfigAutoscalingConfig {
 
 	if des == nil {
@@ -1955,6 +2283,34 @@ func canonicalizeClusterClusterConfigSecurityConfig(des, initial *ClusterCluster
 	cDes.KerberosConfig = canonicalizeClusterClusterConfigSecurityConfigKerberosConfig(des.KerberosConfig, initial.KerberosConfig, opts...)
 
 	return cDes
+}
+
+func canonicalizeClusterClusterConfigSecurityConfigSlice(des, initial []ClusterClusterConfigSecurityConfig, opts ...dcl.ApplyOption) []ClusterClusterConfigSecurityConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterClusterConfigSecurityConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterClusterConfigSecurityConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterClusterConfigSecurityConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterClusterConfigSecurityConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewClusterClusterConfigSecurityConfig(c *Client, des, nw *ClusterClusterConfigSecurityConfig) *ClusterClusterConfigSecurityConfig {
@@ -2112,6 +2468,34 @@ func canonicalizeClusterClusterConfigSecurityConfigKerberosConfig(des, initial *
 	return cDes
 }
 
+func canonicalizeClusterClusterConfigSecurityConfigKerberosConfigSlice(des, initial []ClusterClusterConfigSecurityConfigKerberosConfig, opts ...dcl.ApplyOption) []ClusterClusterConfigSecurityConfigKerberosConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterClusterConfigSecurityConfigKerberosConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterClusterConfigSecurityConfigKerberosConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterClusterConfigSecurityConfigKerberosConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterClusterConfigSecurityConfigKerberosConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewClusterClusterConfigSecurityConfigKerberosConfig(c *Client, des, nw *ClusterClusterConfigSecurityConfigKerberosConfig) *ClusterClusterConfigSecurityConfigKerberosConfig {
 
 	if des == nil {
@@ -2248,6 +2632,34 @@ func canonicalizeClusterClusterConfigLifecycleConfig(des, initial *ClusterCluste
 	return cDes
 }
 
+func canonicalizeClusterClusterConfigLifecycleConfigSlice(des, initial []ClusterClusterConfigLifecycleConfig, opts ...dcl.ApplyOption) []ClusterClusterConfigLifecycleConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterClusterConfigLifecycleConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterClusterConfigLifecycleConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterClusterConfigLifecycleConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterClusterConfigLifecycleConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewClusterClusterConfigLifecycleConfig(c *Client, des, nw *ClusterClusterConfigLifecycleConfig) *ClusterClusterConfigLifecycleConfig {
 
 	if des == nil {
@@ -2338,6 +2750,34 @@ func canonicalizeClusterClusterConfigEndpointConfig(des, initial *ClusterCluster
 	return cDes
 }
 
+func canonicalizeClusterClusterConfigEndpointConfigSlice(des, initial []ClusterClusterConfigEndpointConfig, opts ...dcl.ApplyOption) []ClusterClusterConfigEndpointConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterClusterConfigEndpointConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterClusterConfigEndpointConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterClusterConfigEndpointConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterClusterConfigEndpointConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewClusterClusterConfigEndpointConfig(c *Client, des, nw *ClusterClusterConfigEndpointConfig) *ClusterClusterConfigEndpointConfig {
 
 	if des == nil {
@@ -2419,6 +2859,34 @@ func canonicalizeClusterClusterConfigGkeClusterConfig(des, initial *ClusterClust
 	cDes.NamespacedGkeDeploymentTarget = canonicalizeClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(des.NamespacedGkeDeploymentTarget, initial.NamespacedGkeDeploymentTarget, opts...)
 
 	return cDes
+}
+
+func canonicalizeClusterClusterConfigGkeClusterConfigSlice(des, initial []ClusterClusterConfigGkeClusterConfig, opts ...dcl.ApplyOption) []ClusterClusterConfigGkeClusterConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterClusterConfigGkeClusterConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterClusterConfigGkeClusterConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterClusterConfigGkeClusterConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterClusterConfigGkeClusterConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewClusterClusterConfigGkeClusterConfig(c *Client, des, nw *ClusterClusterConfigGkeClusterConfig) *ClusterClusterConfigGkeClusterConfig {
@@ -2511,6 +2979,34 @@ func canonicalizeClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarg
 	return cDes
 }
 
+func canonicalizeClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetSlice(des, initial []ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget, opts ...dcl.ApplyOption) []ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(c *Client, des, nw *ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget) *ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
 
 	if des == nil {
@@ -2601,6 +3097,34 @@ func canonicalizeClusterClusterConfigMetastoreConfig(des, initial *ClusterCluste
 	return cDes
 }
 
+func canonicalizeClusterClusterConfigMetastoreConfigSlice(des, initial []ClusterClusterConfigMetastoreConfig, opts ...dcl.ApplyOption) []ClusterClusterConfigMetastoreConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterClusterConfigMetastoreConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterClusterConfigMetastoreConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterClusterConfigMetastoreConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterClusterConfigMetastoreConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewClusterClusterConfigMetastoreConfig(c *Client, des, nw *ClusterClusterConfigMetastoreConfig) *ClusterClusterConfigMetastoreConfig {
 
 	if des == nil {
@@ -2682,6 +3206,34 @@ func canonicalizeClusterStatus(des, initial *ClusterStatus, opts ...dcl.ApplyOpt
 	return cDes
 }
 
+func canonicalizeClusterStatusSlice(des, initial []ClusterStatus, opts ...dcl.ApplyOption) []ClusterStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewClusterStatus(c *Client, des, nw *ClusterStatus) *ClusterStatus {
 
 	if des == nil {
@@ -2761,6 +3313,34 @@ func canonicalizeClusterStatusHistory(des, initial *ClusterStatusHistory, opts .
 	cDes := &ClusterStatusHistory{}
 
 	return cDes
+}
+
+func canonicalizeClusterStatusHistorySlice(des, initial []ClusterStatusHistory, opts ...dcl.ApplyOption) []ClusterStatusHistory {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterStatusHistory, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterStatusHistory(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterStatusHistory, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterStatusHistory(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewClusterStatusHistory(c *Client, des, nw *ClusterStatusHistory) *ClusterStatusHistory {
@@ -2853,6 +3433,34 @@ func canonicalizeClusterMetrics(des, initial *ClusterMetrics, opts ...dcl.ApplyO
 	}
 
 	return cDes
+}
+
+func canonicalizeClusterMetricsSlice(des, initial []ClusterMetrics, opts ...dcl.ApplyOption) []ClusterMetrics {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterMetrics, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterMetrics(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterMetrics, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterMetrics(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewClusterMetrics(c *Client, des, nw *ClusterMetrics) *ClusterMetrics {

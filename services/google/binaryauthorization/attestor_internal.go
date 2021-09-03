@@ -490,13 +490,37 @@ func canonicalizeAttestorUserOwnedDrydockNote(des, initial *AttestorUserOwnedDry
 	} else {
 		cDes.NoteReference = des.NoteReference
 	}
-	if dcl.IsZeroValue(des.PublicKeys) {
-		des.PublicKeys = initial.PublicKeys
-	} else {
-		cDes.PublicKeys = des.PublicKeys
-	}
+	cDes.PublicKeys = canonicalizeAttestorUserOwnedDrydockNotePublicKeysSlice(des.PublicKeys, initial.PublicKeys, opts...)
 
 	return cDes
+}
+
+func canonicalizeAttestorUserOwnedDrydockNoteSlice(des, initial []AttestorUserOwnedDrydockNote, opts ...dcl.ApplyOption) []AttestorUserOwnedDrydockNote {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AttestorUserOwnedDrydockNote, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAttestorUserOwnedDrydockNote(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AttestorUserOwnedDrydockNote, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAttestorUserOwnedDrydockNote(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewAttestorUserOwnedDrydockNote(c *Client, des, nw *AttestorUserOwnedDrydockNote) *AttestorUserOwnedDrydockNote {
@@ -601,6 +625,34 @@ func canonicalizeAttestorUserOwnedDrydockNotePublicKeys(des, initial *AttestorUs
 	return cDes
 }
 
+func canonicalizeAttestorUserOwnedDrydockNotePublicKeysSlice(des, initial []AttestorUserOwnedDrydockNotePublicKeys, opts ...dcl.ApplyOption) []AttestorUserOwnedDrydockNotePublicKeys {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AttestorUserOwnedDrydockNotePublicKeys, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAttestorUserOwnedDrydockNotePublicKeys(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AttestorUserOwnedDrydockNotePublicKeys, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAttestorUserOwnedDrydockNotePublicKeys(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewAttestorUserOwnedDrydockNotePublicKeys(c *Client, des, nw *AttestorUserOwnedDrydockNotePublicKeys) *AttestorUserOwnedDrydockNotePublicKeys {
 
 	if des == nil {
@@ -698,6 +750,34 @@ func canonicalizeAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(des, initia
 	}
 
 	return cDes
+}
+
+func canonicalizeAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySlice(des, initial []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey, opts ...dcl.ApplyOption) []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c *Client, des, nw *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {

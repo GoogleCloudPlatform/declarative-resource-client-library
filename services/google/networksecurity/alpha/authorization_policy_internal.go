@@ -513,11 +513,7 @@ func canonicalizeAuthorizationPolicyDesiredState(rawDesired, rawInitial *Authori
 	} else {
 		canonicalDesired.Action = rawDesired.Action
 	}
-	if dcl.IsZeroValue(rawDesired.Rules) {
-		canonicalDesired.Rules = rawInitial.Rules
-	} else {
-		canonicalDesired.Rules = rawDesired.Rules
-	}
+	canonicalDesired.Rules = canonicalizeAuthorizationPolicyRulesSlice(rawDesired.Rules, rawInitial.Rules, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		canonicalDesired.Project = rawInitial.Project
 	} else {
@@ -597,18 +593,38 @@ func canonicalizeAuthorizationPolicyRules(des, initial *AuthorizationPolicyRules
 
 	cDes := &AuthorizationPolicyRules{}
 
-	if dcl.IsZeroValue(des.Sources) {
-		des.Sources = initial.Sources
-	} else {
-		cDes.Sources = des.Sources
-	}
-	if dcl.IsZeroValue(des.Destinations) {
-		des.Destinations = initial.Destinations
-	} else {
-		cDes.Destinations = des.Destinations
-	}
+	cDes.Sources = canonicalizeAuthorizationPolicyRulesSourcesSlice(des.Sources, initial.Sources, opts...)
+	cDes.Destinations = canonicalizeAuthorizationPolicyRulesDestinationsSlice(des.Destinations, initial.Destinations, opts...)
 
 	return cDes
+}
+
+func canonicalizeAuthorizationPolicyRulesSlice(des, initial []AuthorizationPolicyRules, opts ...dcl.ApplyOption) []AuthorizationPolicyRules {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AuthorizationPolicyRules, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAuthorizationPolicyRules(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AuthorizationPolicyRules, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAuthorizationPolicyRules(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewAuthorizationPolicyRules(c *Client, des, nw *AuthorizationPolicyRules) *AuthorizationPolicyRules {
@@ -700,6 +716,34 @@ func canonicalizeAuthorizationPolicyRulesSources(des, initial *AuthorizationPoli
 	}
 
 	return cDes
+}
+
+func canonicalizeAuthorizationPolicyRulesSourcesSlice(des, initial []AuthorizationPolicyRulesSources, opts ...dcl.ApplyOption) []AuthorizationPolicyRulesSources {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AuthorizationPolicyRulesSources, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAuthorizationPolicyRulesSources(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AuthorizationPolicyRulesSources, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAuthorizationPolicyRulesSources(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewAuthorizationPolicyRulesSources(c *Client, des, nw *AuthorizationPolicyRulesSources) *AuthorizationPolicyRulesSources {
@@ -796,6 +840,34 @@ func canonicalizeAuthorizationPolicyRulesDestinations(des, initial *Authorizatio
 	return cDes
 }
 
+func canonicalizeAuthorizationPolicyRulesDestinationsSlice(des, initial []AuthorizationPolicyRulesDestinations, opts ...dcl.ApplyOption) []AuthorizationPolicyRulesDestinations {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AuthorizationPolicyRulesDestinations, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAuthorizationPolicyRulesDestinations(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AuthorizationPolicyRulesDestinations, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAuthorizationPolicyRulesDestinations(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewAuthorizationPolicyRulesDestinations(c *Client, des, nw *AuthorizationPolicyRulesDestinations) *AuthorizationPolicyRulesDestinations {
 
 	if des == nil {
@@ -884,6 +956,34 @@ func canonicalizeAuthorizationPolicyRulesDestinationsHttpHeaderMatch(des, initia
 	}
 
 	return cDes
+}
+
+func canonicalizeAuthorizationPolicyRulesDestinationsHttpHeaderMatchSlice(des, initial []AuthorizationPolicyRulesDestinationsHttpHeaderMatch, opts ...dcl.ApplyOption) []AuthorizationPolicyRulesDestinationsHttpHeaderMatch {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AuthorizationPolicyRulesDestinationsHttpHeaderMatch, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAuthorizationPolicyRulesDestinationsHttpHeaderMatch(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AuthorizationPolicyRulesDestinationsHttpHeaderMatch, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAuthorizationPolicyRulesDestinationsHttpHeaderMatch(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c *Client, des, nw *AuthorizationPolicyRulesDestinationsHttpHeaderMatch) *AuthorizationPolicyRulesDestinationsHttpHeaderMatch {

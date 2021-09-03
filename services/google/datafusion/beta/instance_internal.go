@@ -734,6 +734,34 @@ func canonicalizeInstanceNetworkConfig(des, initial *InstanceNetworkConfig, opts
 	return cDes
 }
 
+func canonicalizeInstanceNetworkConfigSlice(des, initial []InstanceNetworkConfig, opts ...dcl.ApplyOption) []InstanceNetworkConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNetworkConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNetworkConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNetworkConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNetworkConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceNetworkConfig(c *Client, des, nw *InstanceNetworkConfig) *InstanceNetworkConfig {
 
 	if des == nil {
@@ -816,6 +844,34 @@ func canonicalizeInstanceAvailableVersion(des, initial *InstanceAvailableVersion
 	cDes := &InstanceAvailableVersion{}
 
 	return cDes
+}
+
+func canonicalizeInstanceAvailableVersionSlice(des, initial []InstanceAvailableVersion, opts ...dcl.ApplyOption) []InstanceAvailableVersion {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceAvailableVersion, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceAvailableVersion(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceAvailableVersion, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceAvailableVersion(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceAvailableVersion(c *Client, des, nw *InstanceAvailableVersion) *InstanceAvailableVersion {

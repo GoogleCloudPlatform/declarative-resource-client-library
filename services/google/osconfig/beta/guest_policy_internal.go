@@ -666,21 +666,9 @@ func canonicalizeGuestPolicyDesiredState(rawDesired, rawInitial *GuestPolicy, op
 		canonicalDesired.Description = rawDesired.Description
 	}
 	canonicalDesired.Assignment = canonicalizeGuestPolicyAssignment(rawDesired.Assignment, rawInitial.Assignment, opts...)
-	if dcl.IsZeroValue(rawDesired.Packages) {
-		canonicalDesired.Packages = rawInitial.Packages
-	} else {
-		canonicalDesired.Packages = rawDesired.Packages
-	}
-	if dcl.IsZeroValue(rawDesired.PackageRepositories) {
-		canonicalDesired.PackageRepositories = rawInitial.PackageRepositories
-	} else {
-		canonicalDesired.PackageRepositories = rawDesired.PackageRepositories
-	}
-	if dcl.IsZeroValue(rawDesired.Recipes) {
-		canonicalDesired.Recipes = rawInitial.Recipes
-	} else {
-		canonicalDesired.Recipes = rawDesired.Recipes
-	}
+	canonicalDesired.Packages = canonicalizeGuestPolicyPackagesSlice(rawDesired.Packages, rawInitial.Packages, opts...)
+	canonicalDesired.PackageRepositories = canonicalizeGuestPolicyPackageRepositoriesSlice(rawDesired.PackageRepositories, rawInitial.PackageRepositories, opts...)
+	canonicalDesired.Recipes = canonicalizeGuestPolicyRecipesSlice(rawDesired.Recipes, rawInitial.Recipes, opts...)
 	if dcl.StringCanonicalize(rawDesired.Etag, rawInitial.Etag) {
 		canonicalDesired.Etag = rawInitial.Etag
 	} else {
@@ -774,11 +762,7 @@ func canonicalizeGuestPolicyAssignment(des, initial *GuestPolicyAssignment, opts
 
 	cDes := &GuestPolicyAssignment{}
 
-	if dcl.IsZeroValue(des.GroupLabels) {
-		des.GroupLabels = initial.GroupLabels
-	} else {
-		cDes.GroupLabels = des.GroupLabels
-	}
+	cDes.GroupLabels = canonicalizeGuestPolicyAssignmentGroupLabelsSlice(des.GroupLabels, initial.GroupLabels, opts...)
 	if dcl.IsZeroValue(des.Zones) {
 		des.Zones = initial.Zones
 	} else {
@@ -794,13 +778,37 @@ func canonicalizeGuestPolicyAssignment(des, initial *GuestPolicyAssignment, opts
 	} else {
 		cDes.InstanceNamePrefixes = des.InstanceNamePrefixes
 	}
-	if dcl.IsZeroValue(des.OSTypes) {
-		des.OSTypes = initial.OSTypes
-	} else {
-		cDes.OSTypes = des.OSTypes
-	}
+	cDes.OSTypes = canonicalizeGuestPolicyAssignmentOSTypesSlice(des.OSTypes, initial.OSTypes, opts...)
 
 	return cDes
+}
+
+func canonicalizeGuestPolicyAssignmentSlice(des, initial []GuestPolicyAssignment, opts ...dcl.ApplyOption) []GuestPolicyAssignment {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyAssignment, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyAssignment(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyAssignment, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyAssignment(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewGuestPolicyAssignment(c *Client, des, nw *GuestPolicyAssignment) *GuestPolicyAssignment {
@@ -887,6 +895,34 @@ func canonicalizeGuestPolicyAssignmentGroupLabels(des, initial *GuestPolicyAssig
 	}
 
 	return cDes
+}
+
+func canonicalizeGuestPolicyAssignmentGroupLabelsSlice(des, initial []GuestPolicyAssignmentGroupLabels, opts ...dcl.ApplyOption) []GuestPolicyAssignmentGroupLabels {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyAssignmentGroupLabels, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyAssignmentGroupLabels(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyAssignmentGroupLabels, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyAssignmentGroupLabels(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewGuestPolicyAssignmentGroupLabels(c *Client, des, nw *GuestPolicyAssignmentGroupLabels) *GuestPolicyAssignmentGroupLabels {
@@ -980,6 +1016,34 @@ func canonicalizeGuestPolicyAssignmentOSTypes(des, initial *GuestPolicyAssignmen
 	}
 
 	return cDes
+}
+
+func canonicalizeGuestPolicyAssignmentOSTypesSlice(des, initial []GuestPolicyAssignmentOSTypes, opts ...dcl.ApplyOption) []GuestPolicyAssignmentOSTypes {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyAssignmentOSTypes, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyAssignmentOSTypes(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyAssignmentOSTypes, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyAssignmentOSTypes(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewGuestPolicyAssignmentOSTypes(c *Client, des, nw *GuestPolicyAssignmentOSTypes) *GuestPolicyAssignmentOSTypes {
@@ -1083,6 +1147,34 @@ func canonicalizeGuestPolicyPackages(des, initial *GuestPolicyPackages, opts ...
 	}
 
 	return cDes
+}
+
+func canonicalizeGuestPolicyPackagesSlice(des, initial []GuestPolicyPackages, opts ...dcl.ApplyOption) []GuestPolicyPackages {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyPackages, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyPackages(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyPackages, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyPackages(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewGuestPolicyPackages(c *Client, des, nw *GuestPolicyPackages) *GuestPolicyPackages {
@@ -1211,6 +1303,34 @@ func canonicalizeGuestPolicyPackageRepositories(des, initial *GuestPolicyPackage
 	return cDes
 }
 
+func canonicalizeGuestPolicyPackageRepositoriesSlice(des, initial []GuestPolicyPackageRepositories, opts ...dcl.ApplyOption) []GuestPolicyPackageRepositories {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyPackageRepositories, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyPackageRepositories(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyPackageRepositories, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyPackageRepositories(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewGuestPolicyPackageRepositories(c *Client, des, nw *GuestPolicyPackageRepositories) *GuestPolicyPackageRepositories {
 
 	if des == nil {
@@ -1317,6 +1437,34 @@ func canonicalizeGuestPolicyPackageRepositoriesApt(des, initial *GuestPolicyPack
 	}
 
 	return cDes
+}
+
+func canonicalizeGuestPolicyPackageRepositoriesAptSlice(des, initial []GuestPolicyPackageRepositoriesApt, opts ...dcl.ApplyOption) []GuestPolicyPackageRepositoriesApt {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyPackageRepositoriesApt, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyPackageRepositoriesApt(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyPackageRepositoriesApt, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyPackageRepositoriesApt(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewGuestPolicyPackageRepositoriesApt(c *Client, des, nw *GuestPolicyPackageRepositoriesApt) *GuestPolicyPackageRepositoriesApt {
@@ -1427,6 +1575,34 @@ func canonicalizeGuestPolicyPackageRepositoriesYum(des, initial *GuestPolicyPack
 	return cDes
 }
 
+func canonicalizeGuestPolicyPackageRepositoriesYumSlice(des, initial []GuestPolicyPackageRepositoriesYum, opts ...dcl.ApplyOption) []GuestPolicyPackageRepositoriesYum {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyPackageRepositoriesYum, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyPackageRepositoriesYum(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyPackageRepositoriesYum, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyPackageRepositoriesYum(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewGuestPolicyPackageRepositoriesYum(c *Client, des, nw *GuestPolicyPackageRepositoriesYum) *GuestPolicyPackageRepositoriesYum {
 
 	if des == nil {
@@ -1535,6 +1711,34 @@ func canonicalizeGuestPolicyPackageRepositoriesZypper(des, initial *GuestPolicyP
 	return cDes
 }
 
+func canonicalizeGuestPolicyPackageRepositoriesZypperSlice(des, initial []GuestPolicyPackageRepositoriesZypper, opts ...dcl.ApplyOption) []GuestPolicyPackageRepositoriesZypper {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyPackageRepositoriesZypper, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyPackageRepositoriesZypper(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyPackageRepositoriesZypper, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyPackageRepositoriesZypper(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewGuestPolicyPackageRepositoriesZypper(c *Client, des, nw *GuestPolicyPackageRepositoriesZypper) *GuestPolicyPackageRepositoriesZypper {
 
 	if des == nil {
@@ -1631,6 +1835,34 @@ func canonicalizeGuestPolicyPackageRepositoriesGoo(des, initial *GuestPolicyPack
 	}
 
 	return cDes
+}
+
+func canonicalizeGuestPolicyPackageRepositoriesGooSlice(des, initial []GuestPolicyPackageRepositoriesGoo, opts ...dcl.ApplyOption) []GuestPolicyPackageRepositoriesGoo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyPackageRepositoriesGoo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyPackageRepositoriesGoo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyPackageRepositoriesGoo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyPackageRepositoriesGoo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewGuestPolicyPackageRepositoriesGoo(c *Client, des, nw *GuestPolicyPackageRepositoriesGoo) *GuestPolicyPackageRepositoriesGoo {
@@ -1744,21 +1976,9 @@ func canonicalizeGuestPolicyRecipes(des, initial *GuestPolicyRecipes, opts ...dc
 	} else {
 		cDes.Version = des.Version
 	}
-	if dcl.IsZeroValue(des.Artifacts) {
-		des.Artifacts = initial.Artifacts
-	} else {
-		cDes.Artifacts = des.Artifacts
-	}
-	if dcl.IsZeroValue(des.InstallSteps) {
-		des.InstallSteps = initial.InstallSteps
-	} else {
-		cDes.InstallSteps = des.InstallSteps
-	}
-	if dcl.IsZeroValue(des.UpdateSteps) {
-		des.UpdateSteps = initial.UpdateSteps
-	} else {
-		cDes.UpdateSteps = des.UpdateSteps
-	}
+	cDes.Artifacts = canonicalizeGuestPolicyRecipesArtifactsSlice(des.Artifacts, initial.Artifacts, opts...)
+	cDes.InstallSteps = canonicalizeGuestPolicyRecipesInstallStepsSlice(des.InstallSteps, initial.InstallSteps, opts...)
+	cDes.UpdateSteps = canonicalizeGuestPolicyRecipesUpdateStepsSlice(des.UpdateSteps, initial.UpdateSteps, opts...)
 	if dcl.IsZeroValue(des.DesiredState) {
 		des.DesiredState = initial.DesiredState
 	} else {
@@ -1766,6 +1986,34 @@ func canonicalizeGuestPolicyRecipes(des, initial *GuestPolicyRecipes, opts ...dc
 	}
 
 	return cDes
+}
+
+func canonicalizeGuestPolicyRecipesSlice(des, initial []GuestPolicyRecipes, opts ...dcl.ApplyOption) []GuestPolicyRecipes {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyRecipes, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyRecipes(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyRecipes, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyRecipes(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewGuestPolicyRecipes(c *Client, des, nw *GuestPolicyRecipes) *GuestPolicyRecipes {
@@ -1868,6 +2116,34 @@ func canonicalizeGuestPolicyRecipesArtifacts(des, initial *GuestPolicyRecipesArt
 	return cDes
 }
 
+func canonicalizeGuestPolicyRecipesArtifactsSlice(des, initial []GuestPolicyRecipesArtifacts, opts ...dcl.ApplyOption) []GuestPolicyRecipesArtifacts {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyRecipesArtifacts, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyRecipesArtifacts(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyRecipesArtifacts, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyRecipesArtifacts(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewGuestPolicyRecipesArtifacts(c *Client, des, nw *GuestPolicyRecipesArtifacts) *GuestPolicyRecipesArtifacts {
 
 	if des == nil {
@@ -1963,6 +2239,34 @@ func canonicalizeGuestPolicyRecipesArtifactsRemote(des, initial *GuestPolicyReci
 	}
 
 	return cDes
+}
+
+func canonicalizeGuestPolicyRecipesArtifactsRemoteSlice(des, initial []GuestPolicyRecipesArtifactsRemote, opts ...dcl.ApplyOption) []GuestPolicyRecipesArtifactsRemote {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyRecipesArtifactsRemote, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyRecipesArtifactsRemote(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyRecipesArtifactsRemote, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyRecipesArtifactsRemote(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewGuestPolicyRecipesArtifactsRemote(c *Client, des, nw *GuestPolicyRecipesArtifactsRemote) *GuestPolicyRecipesArtifactsRemote {
@@ -2065,6 +2369,34 @@ func canonicalizeGuestPolicyRecipesArtifactsGcs(des, initial *GuestPolicyRecipes
 	return cDes
 }
 
+func canonicalizeGuestPolicyRecipesArtifactsGcsSlice(des, initial []GuestPolicyRecipesArtifactsGcs, opts ...dcl.ApplyOption) []GuestPolicyRecipesArtifactsGcs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyRecipesArtifactsGcs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyRecipesArtifactsGcs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyRecipesArtifactsGcs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyRecipesArtifactsGcs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewGuestPolicyRecipesArtifactsGcs(c *Client, des, nw *GuestPolicyRecipesArtifactsGcs) *GuestPolicyRecipesArtifactsGcs {
 
 	if des == nil {
@@ -2155,6 +2487,34 @@ func canonicalizeGuestPolicyRecipesInstallSteps(des, initial *GuestPolicyRecipes
 	cDes.ScriptRun = canonicalizeGuestPolicyRecipesInstallStepsScriptRun(des.ScriptRun, initial.ScriptRun, opts...)
 
 	return cDes
+}
+
+func canonicalizeGuestPolicyRecipesInstallStepsSlice(des, initial []GuestPolicyRecipesInstallSteps, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyRecipesInstallSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyRecipesInstallSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyRecipesInstallSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyRecipesInstallSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewGuestPolicyRecipesInstallSteps(c *Client, des, nw *GuestPolicyRecipesInstallSteps) *GuestPolicyRecipesInstallSteps {
@@ -2263,6 +2623,34 @@ func canonicalizeGuestPolicyRecipesInstallStepsFileCopy(des, initial *GuestPolic
 	return cDes
 }
 
+func canonicalizeGuestPolicyRecipesInstallStepsFileCopySlice(des, initial []GuestPolicyRecipesInstallStepsFileCopy, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallStepsFileCopy {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyRecipesInstallStepsFileCopy, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyRecipesInstallStepsFileCopy(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyRecipesInstallStepsFileCopy, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyRecipesInstallStepsFileCopy(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewGuestPolicyRecipesInstallStepsFileCopy(c *Client, des, nw *GuestPolicyRecipesInstallStepsFileCopy) *GuestPolicyRecipesInstallStepsFileCopy {
 
 	if des == nil {
@@ -2369,6 +2757,34 @@ func canonicalizeGuestPolicyRecipesInstallStepsArchiveExtraction(des, initial *G
 	return cDes
 }
 
+func canonicalizeGuestPolicyRecipesInstallStepsArchiveExtractionSlice(des, initial []GuestPolicyRecipesInstallStepsArchiveExtraction, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallStepsArchiveExtraction {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyRecipesInstallStepsArchiveExtraction, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyRecipesInstallStepsArchiveExtraction(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyRecipesInstallStepsArchiveExtraction, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyRecipesInstallStepsArchiveExtraction(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewGuestPolicyRecipesInstallStepsArchiveExtraction(c *Client, des, nw *GuestPolicyRecipesInstallStepsArchiveExtraction) *GuestPolicyRecipesInstallStepsArchiveExtraction {
 
 	if des == nil {
@@ -2469,6 +2885,34 @@ func canonicalizeGuestPolicyRecipesInstallStepsMsiInstallation(des, initial *Gue
 	return cDes
 }
 
+func canonicalizeGuestPolicyRecipesInstallStepsMsiInstallationSlice(des, initial []GuestPolicyRecipesInstallStepsMsiInstallation, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallStepsMsiInstallation {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyRecipesInstallStepsMsiInstallation, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyRecipesInstallStepsMsiInstallation(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyRecipesInstallStepsMsiInstallation, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyRecipesInstallStepsMsiInstallation(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewGuestPolicyRecipesInstallStepsMsiInstallation(c *Client, des, nw *GuestPolicyRecipesInstallStepsMsiInstallation) *GuestPolicyRecipesInstallStepsMsiInstallation {
 
 	if des == nil {
@@ -2556,6 +3000,34 @@ func canonicalizeGuestPolicyRecipesInstallStepsDpkgInstallation(des, initial *Gu
 	return cDes
 }
 
+func canonicalizeGuestPolicyRecipesInstallStepsDpkgInstallationSlice(des, initial []GuestPolicyRecipesInstallStepsDpkgInstallation, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallStepsDpkgInstallation {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyRecipesInstallStepsDpkgInstallation, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyRecipesInstallStepsDpkgInstallation(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyRecipesInstallStepsDpkgInstallation, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyRecipesInstallStepsDpkgInstallation(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewGuestPolicyRecipesInstallStepsDpkgInstallation(c *Client, des, nw *GuestPolicyRecipesInstallStepsDpkgInstallation) *GuestPolicyRecipesInstallStepsDpkgInstallation {
 
 	if des == nil {
@@ -2641,6 +3113,34 @@ func canonicalizeGuestPolicyRecipesInstallStepsRpmInstallation(des, initial *Gue
 	}
 
 	return cDes
+}
+
+func canonicalizeGuestPolicyRecipesInstallStepsRpmInstallationSlice(des, initial []GuestPolicyRecipesInstallStepsRpmInstallation, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallStepsRpmInstallation {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyRecipesInstallStepsRpmInstallation, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyRecipesInstallStepsRpmInstallation(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyRecipesInstallStepsRpmInstallation, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyRecipesInstallStepsRpmInstallation(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewGuestPolicyRecipesInstallStepsRpmInstallation(c *Client, des, nw *GuestPolicyRecipesInstallStepsRpmInstallation) *GuestPolicyRecipesInstallStepsRpmInstallation {
@@ -2745,6 +3245,34 @@ func canonicalizeGuestPolicyRecipesInstallStepsFileExec(des, initial *GuestPolic
 	return cDes
 }
 
+func canonicalizeGuestPolicyRecipesInstallStepsFileExecSlice(des, initial []GuestPolicyRecipesInstallStepsFileExec, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallStepsFileExec {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyRecipesInstallStepsFileExec, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyRecipesInstallStepsFileExec(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyRecipesInstallStepsFileExec, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyRecipesInstallStepsFileExec(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewGuestPolicyRecipesInstallStepsFileExec(c *Client, des, nw *GuestPolicyRecipesInstallStepsFileExec) *GuestPolicyRecipesInstallStepsFileExec {
 
 	if des == nil {
@@ -2845,6 +3373,34 @@ func canonicalizeGuestPolicyRecipesInstallStepsScriptRun(des, initial *GuestPoli
 	return cDes
 }
 
+func canonicalizeGuestPolicyRecipesInstallStepsScriptRunSlice(des, initial []GuestPolicyRecipesInstallStepsScriptRun, opts ...dcl.ApplyOption) []GuestPolicyRecipesInstallStepsScriptRun {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyRecipesInstallStepsScriptRun, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyRecipesInstallStepsScriptRun(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyRecipesInstallStepsScriptRun, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyRecipesInstallStepsScriptRun(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewGuestPolicyRecipesInstallStepsScriptRun(c *Client, des, nw *GuestPolicyRecipesInstallStepsScriptRun) *GuestPolicyRecipesInstallStepsScriptRun {
 
 	if des == nil {
@@ -2932,6 +3488,34 @@ func canonicalizeGuestPolicyRecipesUpdateSteps(des, initial *GuestPolicyRecipesU
 	cDes.ScriptRun = canonicalizeGuestPolicyRecipesUpdateStepsScriptRun(des.ScriptRun, initial.ScriptRun, opts...)
 
 	return cDes
+}
+
+func canonicalizeGuestPolicyRecipesUpdateStepsSlice(des, initial []GuestPolicyRecipesUpdateSteps, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyRecipesUpdateSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyRecipesUpdateSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyRecipesUpdateSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyRecipesUpdateSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewGuestPolicyRecipesUpdateSteps(c *Client, des, nw *GuestPolicyRecipesUpdateSteps) *GuestPolicyRecipesUpdateSteps {
@@ -3040,6 +3624,34 @@ func canonicalizeGuestPolicyRecipesUpdateStepsFileCopy(des, initial *GuestPolicy
 	return cDes
 }
 
+func canonicalizeGuestPolicyRecipesUpdateStepsFileCopySlice(des, initial []GuestPolicyRecipesUpdateStepsFileCopy, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateStepsFileCopy {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyRecipesUpdateStepsFileCopy, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyRecipesUpdateStepsFileCopy(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyRecipesUpdateStepsFileCopy, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyRecipesUpdateStepsFileCopy(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewGuestPolicyRecipesUpdateStepsFileCopy(c *Client, des, nw *GuestPolicyRecipesUpdateStepsFileCopy) *GuestPolicyRecipesUpdateStepsFileCopy {
 
 	if des == nil {
@@ -3146,6 +3758,34 @@ func canonicalizeGuestPolicyRecipesUpdateStepsArchiveExtraction(des, initial *Gu
 	return cDes
 }
 
+func canonicalizeGuestPolicyRecipesUpdateStepsArchiveExtractionSlice(des, initial []GuestPolicyRecipesUpdateStepsArchiveExtraction, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateStepsArchiveExtraction {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyRecipesUpdateStepsArchiveExtraction, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyRecipesUpdateStepsArchiveExtraction(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyRecipesUpdateStepsArchiveExtraction, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyRecipesUpdateStepsArchiveExtraction(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewGuestPolicyRecipesUpdateStepsArchiveExtraction(c *Client, des, nw *GuestPolicyRecipesUpdateStepsArchiveExtraction) *GuestPolicyRecipesUpdateStepsArchiveExtraction {
 
 	if des == nil {
@@ -3246,6 +3886,34 @@ func canonicalizeGuestPolicyRecipesUpdateStepsMsiInstallation(des, initial *Gues
 	return cDes
 }
 
+func canonicalizeGuestPolicyRecipesUpdateStepsMsiInstallationSlice(des, initial []GuestPolicyRecipesUpdateStepsMsiInstallation, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateStepsMsiInstallation {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyRecipesUpdateStepsMsiInstallation, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyRecipesUpdateStepsMsiInstallation(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyRecipesUpdateStepsMsiInstallation, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyRecipesUpdateStepsMsiInstallation(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewGuestPolicyRecipesUpdateStepsMsiInstallation(c *Client, des, nw *GuestPolicyRecipesUpdateStepsMsiInstallation) *GuestPolicyRecipesUpdateStepsMsiInstallation {
 
 	if des == nil {
@@ -3333,6 +4001,34 @@ func canonicalizeGuestPolicyRecipesUpdateStepsDpkgInstallation(des, initial *Gue
 	return cDes
 }
 
+func canonicalizeGuestPolicyRecipesUpdateStepsDpkgInstallationSlice(des, initial []GuestPolicyRecipesUpdateStepsDpkgInstallation, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateStepsDpkgInstallation {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyRecipesUpdateStepsDpkgInstallation, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyRecipesUpdateStepsDpkgInstallation(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyRecipesUpdateStepsDpkgInstallation, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyRecipesUpdateStepsDpkgInstallation(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewGuestPolicyRecipesUpdateStepsDpkgInstallation(c *Client, des, nw *GuestPolicyRecipesUpdateStepsDpkgInstallation) *GuestPolicyRecipesUpdateStepsDpkgInstallation {
 
 	if des == nil {
@@ -3418,6 +4114,34 @@ func canonicalizeGuestPolicyRecipesUpdateStepsRpmInstallation(des, initial *Gues
 	}
 
 	return cDes
+}
+
+func canonicalizeGuestPolicyRecipesUpdateStepsRpmInstallationSlice(des, initial []GuestPolicyRecipesUpdateStepsRpmInstallation, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateStepsRpmInstallation {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyRecipesUpdateStepsRpmInstallation, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyRecipesUpdateStepsRpmInstallation(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyRecipesUpdateStepsRpmInstallation, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyRecipesUpdateStepsRpmInstallation(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewGuestPolicyRecipesUpdateStepsRpmInstallation(c *Client, des, nw *GuestPolicyRecipesUpdateStepsRpmInstallation) *GuestPolicyRecipesUpdateStepsRpmInstallation {
@@ -3522,6 +4246,34 @@ func canonicalizeGuestPolicyRecipesUpdateStepsFileExec(des, initial *GuestPolicy
 	return cDes
 }
 
+func canonicalizeGuestPolicyRecipesUpdateStepsFileExecSlice(des, initial []GuestPolicyRecipesUpdateStepsFileExec, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateStepsFileExec {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyRecipesUpdateStepsFileExec, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyRecipesUpdateStepsFileExec(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyRecipesUpdateStepsFileExec, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyRecipesUpdateStepsFileExec(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewGuestPolicyRecipesUpdateStepsFileExec(c *Client, des, nw *GuestPolicyRecipesUpdateStepsFileExec) *GuestPolicyRecipesUpdateStepsFileExec {
 
 	if des == nil {
@@ -3620,6 +4372,34 @@ func canonicalizeGuestPolicyRecipesUpdateStepsScriptRun(des, initial *GuestPolic
 	}
 
 	return cDes
+}
+
+func canonicalizeGuestPolicyRecipesUpdateStepsScriptRunSlice(des, initial []GuestPolicyRecipesUpdateStepsScriptRun, opts ...dcl.ApplyOption) []GuestPolicyRecipesUpdateStepsScriptRun {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GuestPolicyRecipesUpdateStepsScriptRun, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGuestPolicyRecipesUpdateStepsScriptRun(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GuestPolicyRecipesUpdateStepsScriptRun, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGuestPolicyRecipesUpdateStepsScriptRun(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewGuestPolicyRecipesUpdateStepsScriptRun(c *Client, des, nw *GuestPolicyRecipesUpdateStepsScriptRun) *GuestPolicyRecipesUpdateStepsScriptRun {

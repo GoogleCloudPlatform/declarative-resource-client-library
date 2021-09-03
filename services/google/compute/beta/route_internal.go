@@ -644,6 +644,34 @@ func canonicalizeRouteWarning(des, initial *RouteWarning, opts ...dcl.ApplyOptio
 	return cDes
 }
 
+func canonicalizeRouteWarningSlice(des, initial []RouteWarning, opts ...dcl.ApplyOption) []RouteWarning {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]RouteWarning, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeRouteWarning(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]RouteWarning, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeRouteWarning(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewRouteWarning(c *Client, des, nw *RouteWarning) *RouteWarning {
 
 	if des == nil {

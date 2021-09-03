@@ -661,6 +661,34 @@ func canonicalizeMembershipEndpoint(des, initial *MembershipEndpoint, opts ...dc
 	return cDes
 }
 
+func canonicalizeMembershipEndpointSlice(des, initial []MembershipEndpoint, opts ...dcl.ApplyOption) []MembershipEndpoint {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]MembershipEndpoint, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeMembershipEndpoint(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]MembershipEndpoint, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeMembershipEndpoint(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewMembershipEndpoint(c *Client, des, nw *MembershipEndpoint) *MembershipEndpoint {
 
 	if des == nil {
@@ -748,6 +776,34 @@ func canonicalizeMembershipEndpointGkeCluster(des, initial *MembershipEndpointGk
 	return cDes
 }
 
+func canonicalizeMembershipEndpointGkeClusterSlice(des, initial []MembershipEndpointGkeCluster, opts ...dcl.ApplyOption) []MembershipEndpointGkeCluster {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]MembershipEndpointGkeCluster, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeMembershipEndpointGkeCluster(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]MembershipEndpointGkeCluster, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeMembershipEndpointGkeCluster(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewMembershipEndpointGkeCluster(c *Client, des, nw *MembershipEndpointGkeCluster) *MembershipEndpointGkeCluster {
 
 	if des == nil {
@@ -827,6 +883,34 @@ func canonicalizeMembershipEndpointKubernetesMetadata(des, initial *MembershipEn
 	cDes := &MembershipEndpointKubernetesMetadata{}
 
 	return cDes
+}
+
+func canonicalizeMembershipEndpointKubernetesMetadataSlice(des, initial []MembershipEndpointKubernetesMetadata, opts ...dcl.ApplyOption) []MembershipEndpointKubernetesMetadata {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]MembershipEndpointKubernetesMetadata, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeMembershipEndpointKubernetesMetadata(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]MembershipEndpointKubernetesMetadata, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeMembershipEndpointKubernetesMetadata(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewMembershipEndpointKubernetesMetadata(c *Client, des, nw *MembershipEndpointKubernetesMetadata) *MembershipEndpointKubernetesMetadata {
@@ -920,6 +1004,34 @@ func canonicalizeMembershipEndpointKubernetesResource(des, initial *MembershipEn
 	return cDes
 }
 
+func canonicalizeMembershipEndpointKubernetesResourceSlice(des, initial []MembershipEndpointKubernetesResource, opts ...dcl.ApplyOption) []MembershipEndpointKubernetesResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]MembershipEndpointKubernetesResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeMembershipEndpointKubernetesResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]MembershipEndpointKubernetesResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeMembershipEndpointKubernetesResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewMembershipEndpointKubernetesResource(c *Client, des, nw *MembershipEndpointKubernetesResource) *MembershipEndpointKubernetesResource {
 
 	if des == nil {
@@ -1011,6 +1123,34 @@ func canonicalizeMembershipEndpointKubernetesResourceMembershipResources(des, in
 	}
 
 	return cDes
+}
+
+func canonicalizeMembershipEndpointKubernetesResourceMembershipResourcesSlice(des, initial []MembershipEndpointKubernetesResourceMembershipResources, opts ...dcl.ApplyOption) []MembershipEndpointKubernetesResourceMembershipResources {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]MembershipEndpointKubernetesResourceMembershipResources, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeMembershipEndpointKubernetesResourceMembershipResources(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]MembershipEndpointKubernetesResourceMembershipResources, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeMembershipEndpointKubernetesResourceMembershipResources(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewMembershipEndpointKubernetesResourceMembershipResources(c *Client, des, nw *MembershipEndpointKubernetesResourceMembershipResources) *MembershipEndpointKubernetesResourceMembershipResources {
@@ -1108,6 +1248,34 @@ func canonicalizeMembershipEndpointKubernetesResourceConnectResources(des, initi
 	return cDes
 }
 
+func canonicalizeMembershipEndpointKubernetesResourceConnectResourcesSlice(des, initial []MembershipEndpointKubernetesResourceConnectResources, opts ...dcl.ApplyOption) []MembershipEndpointKubernetesResourceConnectResources {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]MembershipEndpointKubernetesResourceConnectResources, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeMembershipEndpointKubernetesResourceConnectResources(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]MembershipEndpointKubernetesResourceConnectResources, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeMembershipEndpointKubernetesResourceConnectResources(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewMembershipEndpointKubernetesResourceConnectResources(c *Client, des, nw *MembershipEndpointKubernetesResourceConnectResources) *MembershipEndpointKubernetesResourceConnectResources {
 
 	if des == nil {
@@ -1203,6 +1371,34 @@ func canonicalizeMembershipEndpointKubernetesResourceResourceOptions(des, initia
 	return cDes
 }
 
+func canonicalizeMembershipEndpointKubernetesResourceResourceOptionsSlice(des, initial []MembershipEndpointKubernetesResourceResourceOptions, opts ...dcl.ApplyOption) []MembershipEndpointKubernetesResourceResourceOptions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]MembershipEndpointKubernetesResourceResourceOptions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeMembershipEndpointKubernetesResourceResourceOptions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]MembershipEndpointKubernetesResourceResourceOptions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeMembershipEndpointKubernetesResourceResourceOptions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewMembershipEndpointKubernetesResourceResourceOptions(c *Client, des, nw *MembershipEndpointKubernetesResourceResourceOptions) *MembershipEndpointKubernetesResourceResourceOptions {
 
 	if des == nil {
@@ -1287,6 +1483,34 @@ func canonicalizeMembershipState(des, initial *MembershipState, opts ...dcl.Appl
 	return cDes
 }
 
+func canonicalizeMembershipStateSlice(des, initial []MembershipState, opts ...dcl.ApplyOption) []MembershipState {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]MembershipState, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeMembershipState(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]MembershipState, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeMembershipState(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewMembershipState(c *Client, des, nw *MembershipState) *MembershipState {
 
 	if des == nil {
@@ -1368,6 +1592,34 @@ func canonicalizeMembershipAuthority(des, initial *MembershipAuthority, opts ...
 	}
 
 	return cDes
+}
+
+func canonicalizeMembershipAuthoritySlice(des, initial []MembershipAuthority, opts ...dcl.ApplyOption) []MembershipAuthority {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]MembershipAuthority, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeMembershipAuthority(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]MembershipAuthority, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeMembershipAuthority(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewMembershipAuthority(c *Client, des, nw *MembershipAuthority) *MembershipAuthority {

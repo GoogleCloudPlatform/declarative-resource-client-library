@@ -2714,11 +2714,7 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	} else {
 		canonicalDesired.ReservedIPRange = rawDesired.ReservedIPRange
 	}
-	if dcl.IsZeroValue(rawDesired.References) {
-		canonicalDesired.References = rawInitial.References
-	} else {
-		canonicalDesired.References = rawDesired.References
-	}
+	canonicalDesired.References = canonicalizeInstanceReferencesSlice(rawDesired.References, rawInitial.References, opts...)
 	canonicalDesired.PreprocessCreateRecipe = canonicalizeInstancePreprocessCreateRecipe(rawDesired.PreprocessCreateRecipe, rawInitial.PreprocessCreateRecipe, opts...)
 	canonicalDesired.CreateRecipe = canonicalizeInstanceCreateRecipe(rawDesired.CreateRecipe, rawInitial.CreateRecipe, opts...)
 	canonicalDesired.DeleteRecipe = canonicalizeInstanceDeleteRecipe(rawDesired.DeleteRecipe, rawInitial.DeleteRecipe, opts...)
@@ -2747,11 +2743,7 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	} else {
 		canonicalDesired.EnableCallHistory = rawDesired.EnableCallHistory
 	}
-	if dcl.IsZeroValue(rawDesired.History) {
-		canonicalDesired.History = rawInitial.History
-	} else {
-		canonicalDesired.History = rawDesired.History
-	}
+	canonicalDesired.History = canonicalizeInstanceHistorySlice(rawDesired.History, rawInitial.History, opts...)
 	if dcl.StringCanonicalize(rawDesired.PublicResourceViewOverride, rawInitial.PublicResourceViewOverride) {
 		canonicalDesired.PublicResourceViewOverride = rawInitial.PublicResourceViewOverride
 	} else {
@@ -3122,6 +3114,34 @@ func canonicalizeInstanceSku(des, initial *InstanceSku, opts ...dcl.ApplyOption)
 	return cDes
 }
 
+func canonicalizeInstanceSkuSlice(des, initial []InstanceSku, opts ...dcl.ApplyOption) []InstanceSku {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceSku, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceSku(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceSku, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceSku(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceSku(c *Client, des, nw *InstanceSku) *InstanceSku {
 
 	if des == nil {
@@ -3206,13 +3226,37 @@ func canonicalizeInstanceReferences(des, initial *InstanceReferences, opts ...dc
 	} else {
 		cDes.SourceResource = des.SourceResource
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstanceReferencesDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceReferencesSlice(des, initial []InstanceReferences, opts ...dcl.ApplyOption) []InstanceReferences {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReferences, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReferences(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReferences, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReferences(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReferences(c *Client, des, nw *InstanceReferences) *InstanceReferences {
@@ -3309,6 +3353,34 @@ func canonicalizeInstanceReferencesDetails(des, initial *InstanceReferencesDetai
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceReferencesDetailsSlice(des, initial []InstanceReferencesDetails, opts ...dcl.ApplyOption) []InstanceReferencesDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReferencesDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReferencesDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReferencesDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReferencesDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReferencesDetails(c *Client, des, nw *InstanceReferencesDetails) *InstanceReferencesDetails {
@@ -3412,6 +3484,34 @@ func canonicalizeInstanceEncryptionKeys(des, initial *InstanceEncryptionKeys, op
 	return cDes
 }
 
+func canonicalizeInstanceEncryptionKeysSlice(des, initial []InstanceEncryptionKeys, opts ...dcl.ApplyOption) []InstanceEncryptionKeys {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceEncryptionKeys, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceEncryptionKeys(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceEncryptionKeys, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceEncryptionKeys(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceEncryptionKeys(c *Client, des, nw *InstanceEncryptionKeys) *InstanceEncryptionKeys {
 
 	if des == nil {
@@ -3505,6 +3605,34 @@ func canonicalizeInstanceEncryptionKeysKeyState(des, initial *InstanceEncryption
 	cDes.Availability = canonicalizeInstanceEncryptionKeysKeyStateAvailability(des.Availability, initial.Availability, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceEncryptionKeysKeyStateSlice(des, initial []InstanceEncryptionKeysKeyState, opts ...dcl.ApplyOption) []InstanceEncryptionKeysKeyState {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceEncryptionKeysKeyState, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceEncryptionKeysKeyState(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceEncryptionKeysKeyState, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceEncryptionKeysKeyState(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceEncryptionKeysKeyState(c *Client, des, nw *InstanceEncryptionKeysKeyState) *InstanceEncryptionKeysKeyState {
@@ -3632,6 +3760,34 @@ func canonicalizeInstanceEncryptionKeysKeyStateAvailability(des, initial *Instan
 	return cDes
 }
 
+func canonicalizeInstanceEncryptionKeysKeyStateAvailabilitySlice(des, initial []InstanceEncryptionKeysKeyStateAvailability, opts ...dcl.ApplyOption) []InstanceEncryptionKeysKeyStateAvailability {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceEncryptionKeysKeyStateAvailability, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceEncryptionKeysKeyStateAvailability(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceEncryptionKeysKeyStateAvailability, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceEncryptionKeysKeyStateAvailability(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceEncryptionKeysKeyStateAvailability(c *Client, des, nw *InstanceEncryptionKeysKeyStateAvailability) *InstanceEncryptionKeysKeyStateAvailability {
 
 	if des == nil {
@@ -3713,11 +3869,7 @@ func canonicalizeInstancePreprocessCreateRecipe(des, initial *InstancePreprocess
 
 	cDes := &InstancePreprocessCreateRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstancePreprocessCreateRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -3755,6 +3907,34 @@ func canonicalizeInstancePreprocessCreateRecipe(des, initial *InstancePreprocess
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessCreateRecipeSlice(des, initial []InstancePreprocessCreateRecipe, opts ...dcl.ApplyOption) []InstancePreprocessCreateRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessCreateRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessCreateRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessCreateRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessCreateRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipe(c *Client, des, nw *InstancePreprocessCreateRecipe) *InstancePreprocessCreateRecipe {
@@ -3880,11 +4060,7 @@ func canonicalizeInstancePreprocessCreateRecipeSteps(des, initial *InstancePrepr
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstancePreprocessCreateRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstancePreprocessCreateRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -3892,11 +4068,7 @@ func canonicalizeInstancePreprocessCreateRecipeSteps(des, initial *InstancePrepr
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstancePreprocessCreateRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -3910,6 +4082,34 @@ func canonicalizeInstancePreprocessCreateRecipeSteps(des, initial *InstancePrepr
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessCreateRecipeStepsSlice(des, initial []InstancePreprocessCreateRecipeSteps, opts ...dcl.ApplyOption) []InstancePreprocessCreateRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessCreateRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessCreateRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessCreateRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessCreateRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeSteps(c *Client, des, nw *InstancePreprocessCreateRecipeSteps) *InstancePreprocessCreateRecipeSteps {
@@ -4018,13 +4218,37 @@ func canonicalizeInstancePreprocessCreateRecipeStepsStatus(des, initial *Instanc
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstancePreprocessCreateRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessCreateRecipeStepsStatusSlice(des, initial []InstancePreprocessCreateRecipeStepsStatus, opts ...dcl.ApplyOption) []InstancePreprocessCreateRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessCreateRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessCreateRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessCreateRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessCreateRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsStatus(c *Client, des, nw *InstancePreprocessCreateRecipeStepsStatus) *InstancePreprocessCreateRecipeStepsStatus {
@@ -4118,6 +4342,34 @@ func canonicalizeInstancePreprocessCreateRecipeStepsStatusDetails(des, initial *
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessCreateRecipeStepsStatusDetailsSlice(des, initial []InstancePreprocessCreateRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstancePreprocessCreateRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessCreateRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessCreateRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessCreateRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessCreateRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessCreateRecipeStepsStatusDetails) *InstancePreprocessCreateRecipeStepsStatusDetails {
@@ -4220,6 +4472,34 @@ func canonicalizeInstancePreprocessCreateRecipeStepsQuotaRequestDeltas(des, init
 	return cDes
 }
 
+func canonicalizeInstancePreprocessCreateRecipeStepsQuotaRequestDeltasSlice(des, initial []InstancePreprocessCreateRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstancePreprocessCreateRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessCreateRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessCreateRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessCreateRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessCreateRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessCreateRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessCreateRecipeStepsQuotaRequestDeltas) *InstancePreprocessCreateRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -4313,6 +4593,34 @@ func canonicalizeInstancePreprocessCreateRecipeStepsPreprocessUpdate(des, initia
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessCreateRecipeStepsPreprocessUpdateSlice(des, initial []InstancePreprocessCreateRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstancePreprocessCreateRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessCreateRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessCreateRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessCreateRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessCreateRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessCreateRecipeStepsPreprocessUpdate) *InstancePreprocessCreateRecipeStepsPreprocessUpdate {
@@ -4415,6 +4723,34 @@ func canonicalizeInstancePreprocessCreateRecipeStepsRequestedTenantProject(des, 
 	return cDes
 }
 
+func canonicalizeInstancePreprocessCreateRecipeStepsRequestedTenantProjectSlice(des, initial []InstancePreprocessCreateRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstancePreprocessCreateRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessCreateRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessCreateRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessCreateRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessCreateRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessCreateRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessCreateRecipeStepsRequestedTenantProject) *InstancePreprocessCreateRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -4497,11 +4833,7 @@ func canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfo(des, initial
 	cDes := &InstancePreprocessCreateRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -4516,6 +4848,34 @@ func canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfo(des, initial
 	cDes.Resource = canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoSlice(des, initial []InstancePreprocessCreateRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstancePreprocessCreateRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessCreateRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessCreateRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessCreateRecipeStepsPermissionsInfo) *InstancePreprocessCreateRecipeStepsPermissionsInfo {
@@ -4619,6 +4979,34 @@ func canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName(de
 	return cDes
 }
 
+func canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -4712,6 +5100,34 @@ func canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermission
 	return cDes
 }
 
+func canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions {
 
 	if des == nil {
@@ -4790,6 +5206,34 @@ func canonicalizeInstanceGoogleprotobufstruct(des, initial *InstanceGoogleprotob
 	cDes := &InstanceGoogleprotobufstruct{}
 
 	return cDes
+}
+
+func canonicalizeInstanceGoogleprotobufstructSlice(des, initial []InstanceGoogleprotobufstruct, opts ...dcl.ApplyOption) []InstanceGoogleprotobufstruct {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceGoogleprotobufstruct, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceGoogleprotobufstruct(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceGoogleprotobufstruct, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceGoogleprotobufstruct(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceGoogleprotobufstruct(c *Client, des, nw *InstanceGoogleprotobufstruct) *InstanceGoogleprotobufstruct {
@@ -4890,6 +5334,34 @@ func canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoResource(des,
 	return cDes
 }
 
+func canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoResourceSlice(des, initial []InstancePreprocessCreateRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstancePreprocessCreateRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessCreateRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessCreateRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessCreateRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessCreateRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessCreateRecipeStepsPermissionsInfoResource) *InstancePreprocessCreateRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -4979,6 +5451,34 @@ func canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate(des, 
 	return cDes
 }
 
+func canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate) *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -5065,13 +5565,37 @@ func canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNot
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -5172,6 +5696,34 @@ func canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNot
 	return cDes
 }
 
+func canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -5253,11 +5805,7 @@ func canonicalizeInstanceCreateRecipe(des, initial *InstanceCreateRecipe, opts .
 
 	cDes := &InstanceCreateRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstanceCreateRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -5295,6 +5843,34 @@ func canonicalizeInstanceCreateRecipe(des, initial *InstanceCreateRecipe, opts .
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceCreateRecipeSlice(des, initial []InstanceCreateRecipe, opts ...dcl.ApplyOption) []InstanceCreateRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceCreateRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceCreateRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceCreateRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceCreateRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceCreateRecipe(c *Client, des, nw *InstanceCreateRecipe) *InstanceCreateRecipe {
@@ -5420,11 +5996,7 @@ func canonicalizeInstanceCreateRecipeSteps(des, initial *InstanceCreateRecipeSte
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstanceCreateRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstanceCreateRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -5432,11 +6004,7 @@ func canonicalizeInstanceCreateRecipeSteps(des, initial *InstanceCreateRecipeSte
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstanceCreateRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstanceCreateRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -5450,6 +6018,34 @@ func canonicalizeInstanceCreateRecipeSteps(des, initial *InstanceCreateRecipeSte
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceCreateRecipeStepsSlice(des, initial []InstanceCreateRecipeSteps, opts ...dcl.ApplyOption) []InstanceCreateRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceCreateRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceCreateRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceCreateRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceCreateRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceCreateRecipeSteps(c *Client, des, nw *InstanceCreateRecipeSteps) *InstanceCreateRecipeSteps {
@@ -5558,13 +6154,37 @@ func canonicalizeInstanceCreateRecipeStepsStatus(des, initial *InstanceCreateRec
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstanceCreateRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceCreateRecipeStepsStatusSlice(des, initial []InstanceCreateRecipeStepsStatus, opts ...dcl.ApplyOption) []InstanceCreateRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceCreateRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceCreateRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceCreateRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceCreateRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsStatus(c *Client, des, nw *InstanceCreateRecipeStepsStatus) *InstanceCreateRecipeStepsStatus {
@@ -5658,6 +6278,34 @@ func canonicalizeInstanceCreateRecipeStepsStatusDetails(des, initial *InstanceCr
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceCreateRecipeStepsStatusDetailsSlice(des, initial []InstanceCreateRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstanceCreateRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceCreateRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceCreateRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceCreateRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceCreateRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsStatusDetails(c *Client, des, nw *InstanceCreateRecipeStepsStatusDetails) *InstanceCreateRecipeStepsStatusDetails {
@@ -5760,6 +6408,34 @@ func canonicalizeInstanceCreateRecipeStepsQuotaRequestDeltas(des, initial *Insta
 	return cDes
 }
 
+func canonicalizeInstanceCreateRecipeStepsQuotaRequestDeltasSlice(des, initial []InstanceCreateRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstanceCreateRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceCreateRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceCreateRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceCreateRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceCreateRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceCreateRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceCreateRecipeStepsQuotaRequestDeltas) *InstanceCreateRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -5853,6 +6529,34 @@ func canonicalizeInstanceCreateRecipeStepsPreprocessUpdate(des, initial *Instanc
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceCreateRecipeStepsPreprocessUpdateSlice(des, initial []InstanceCreateRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstanceCreateRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceCreateRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceCreateRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceCreateRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceCreateRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceCreateRecipeStepsPreprocessUpdate) *InstanceCreateRecipeStepsPreprocessUpdate {
@@ -5955,6 +6659,34 @@ func canonicalizeInstanceCreateRecipeStepsRequestedTenantProject(des, initial *I
 	return cDes
 }
 
+func canonicalizeInstanceCreateRecipeStepsRequestedTenantProjectSlice(des, initial []InstanceCreateRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstanceCreateRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceCreateRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceCreateRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceCreateRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceCreateRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceCreateRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceCreateRecipeStepsRequestedTenantProject) *InstanceCreateRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -6037,11 +6769,7 @@ func canonicalizeInstanceCreateRecipeStepsPermissionsInfo(des, initial *Instance
 	cDes := &InstanceCreateRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstanceCreateRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstanceCreateRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -6056,6 +6784,34 @@ func canonicalizeInstanceCreateRecipeStepsPermissionsInfo(des, initial *Instance
 	cDes.Resource = canonicalizeInstanceCreateRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceCreateRecipeStepsPermissionsInfoSlice(des, initial []InstanceCreateRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstanceCreateRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceCreateRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceCreateRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceCreateRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceCreateRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceCreateRecipeStepsPermissionsInfo) *InstanceCreateRecipeStepsPermissionsInfo {
@@ -6159,6 +6915,34 @@ func canonicalizeInstanceCreateRecipeStepsPermissionsInfoPolicyName(des, initial
 	return cDes
 }
 
+func canonicalizeInstanceCreateRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstanceCreateRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstanceCreateRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceCreateRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceCreateRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceCreateRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceCreateRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceCreateRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceCreateRecipeStepsPermissionsInfoPolicyName) *InstanceCreateRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -6250,6 +7034,34 @@ func canonicalizeInstanceCreateRecipeStepsPermissionsInfoIamPermissions(des, ini
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceCreateRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstanceCreateRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstanceCreateRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceCreateRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceCreateRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceCreateRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceCreateRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceCreateRecipeStepsPermissionsInfoIamPermissions) *InstanceCreateRecipeStepsPermissionsInfoIamPermissions {
@@ -6354,6 +7166,34 @@ func canonicalizeInstanceCreateRecipeStepsPermissionsInfoResource(des, initial *
 	return cDes
 }
 
+func canonicalizeInstanceCreateRecipeStepsPermissionsInfoResourceSlice(des, initial []InstanceCreateRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstanceCreateRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceCreateRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceCreateRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceCreateRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceCreateRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceCreateRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceCreateRecipeStepsPermissionsInfoResource) *InstanceCreateRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -6443,6 +7283,34 @@ func canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdate(des, initial *I
 	return cDes
 }
 
+func canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstanceCreateRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstanceCreateRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceCreateRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceCreateRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceCreateRecipeStepsKeyNotificationsUpdate) *InstanceCreateRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -6529,13 +7397,37 @@ func canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotifications
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -6636,6 +7528,34 @@ func canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotifications
 	return cDes
 }
 
+func canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -6717,11 +7637,7 @@ func canonicalizeInstanceDeleteRecipe(des, initial *InstanceDeleteRecipe, opts .
 
 	cDes := &InstanceDeleteRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstanceDeleteRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -6759,6 +7675,34 @@ func canonicalizeInstanceDeleteRecipe(des, initial *InstanceDeleteRecipe, opts .
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceDeleteRecipeSlice(des, initial []InstanceDeleteRecipe, opts ...dcl.ApplyOption) []InstanceDeleteRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceDeleteRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceDeleteRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceDeleteRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceDeleteRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceDeleteRecipe(c *Client, des, nw *InstanceDeleteRecipe) *InstanceDeleteRecipe {
@@ -6884,11 +7828,7 @@ func canonicalizeInstanceDeleteRecipeSteps(des, initial *InstanceDeleteRecipeSte
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstanceDeleteRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstanceDeleteRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -6896,11 +7836,7 @@ func canonicalizeInstanceDeleteRecipeSteps(des, initial *InstanceDeleteRecipeSte
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstanceDeleteRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstanceDeleteRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -6914,6 +7850,34 @@ func canonicalizeInstanceDeleteRecipeSteps(des, initial *InstanceDeleteRecipeSte
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceDeleteRecipeStepsSlice(des, initial []InstanceDeleteRecipeSteps, opts ...dcl.ApplyOption) []InstanceDeleteRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceDeleteRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceDeleteRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceDeleteRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceDeleteRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceDeleteRecipeSteps(c *Client, des, nw *InstanceDeleteRecipeSteps) *InstanceDeleteRecipeSteps {
@@ -7022,13 +7986,37 @@ func canonicalizeInstanceDeleteRecipeStepsStatus(des, initial *InstanceDeleteRec
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstanceDeleteRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceDeleteRecipeStepsStatusSlice(des, initial []InstanceDeleteRecipeStepsStatus, opts ...dcl.ApplyOption) []InstanceDeleteRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceDeleteRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceDeleteRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceDeleteRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceDeleteRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsStatus(c *Client, des, nw *InstanceDeleteRecipeStepsStatus) *InstanceDeleteRecipeStepsStatus {
@@ -7122,6 +8110,34 @@ func canonicalizeInstanceDeleteRecipeStepsStatusDetails(des, initial *InstanceDe
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceDeleteRecipeStepsStatusDetailsSlice(des, initial []InstanceDeleteRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstanceDeleteRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceDeleteRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceDeleteRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceDeleteRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceDeleteRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsStatusDetails(c *Client, des, nw *InstanceDeleteRecipeStepsStatusDetails) *InstanceDeleteRecipeStepsStatusDetails {
@@ -7224,6 +8240,34 @@ func canonicalizeInstanceDeleteRecipeStepsQuotaRequestDeltas(des, initial *Insta
 	return cDes
 }
 
+func canonicalizeInstanceDeleteRecipeStepsQuotaRequestDeltasSlice(des, initial []InstanceDeleteRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstanceDeleteRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceDeleteRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceDeleteRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceDeleteRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceDeleteRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceDeleteRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceDeleteRecipeStepsQuotaRequestDeltas) *InstanceDeleteRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -7317,6 +8361,34 @@ func canonicalizeInstanceDeleteRecipeStepsPreprocessUpdate(des, initial *Instanc
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceDeleteRecipeStepsPreprocessUpdateSlice(des, initial []InstanceDeleteRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstanceDeleteRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceDeleteRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceDeleteRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceDeleteRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceDeleteRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceDeleteRecipeStepsPreprocessUpdate) *InstanceDeleteRecipeStepsPreprocessUpdate {
@@ -7419,6 +8491,34 @@ func canonicalizeInstanceDeleteRecipeStepsRequestedTenantProject(des, initial *I
 	return cDes
 }
 
+func canonicalizeInstanceDeleteRecipeStepsRequestedTenantProjectSlice(des, initial []InstanceDeleteRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstanceDeleteRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceDeleteRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceDeleteRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceDeleteRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceDeleteRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceDeleteRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceDeleteRecipeStepsRequestedTenantProject) *InstanceDeleteRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -7501,11 +8601,7 @@ func canonicalizeInstanceDeleteRecipeStepsPermissionsInfo(des, initial *Instance
 	cDes := &InstanceDeleteRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstanceDeleteRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstanceDeleteRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -7520,6 +8616,34 @@ func canonicalizeInstanceDeleteRecipeStepsPermissionsInfo(des, initial *Instance
 	cDes.Resource = canonicalizeInstanceDeleteRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceDeleteRecipeStepsPermissionsInfoSlice(des, initial []InstanceDeleteRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstanceDeleteRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceDeleteRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceDeleteRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceDeleteRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceDeleteRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceDeleteRecipeStepsPermissionsInfo) *InstanceDeleteRecipeStepsPermissionsInfo {
@@ -7623,6 +8747,34 @@ func canonicalizeInstanceDeleteRecipeStepsPermissionsInfoPolicyName(des, initial
 	return cDes
 }
 
+func canonicalizeInstanceDeleteRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstanceDeleteRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstanceDeleteRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceDeleteRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceDeleteRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceDeleteRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceDeleteRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceDeleteRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceDeleteRecipeStepsPermissionsInfoPolicyName) *InstanceDeleteRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -7714,6 +8866,34 @@ func canonicalizeInstanceDeleteRecipeStepsPermissionsInfoIamPermissions(des, ini
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceDeleteRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstanceDeleteRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstanceDeleteRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceDeleteRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceDeleteRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceDeleteRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceDeleteRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceDeleteRecipeStepsPermissionsInfoIamPermissions) *InstanceDeleteRecipeStepsPermissionsInfoIamPermissions {
@@ -7818,6 +8998,34 @@ func canonicalizeInstanceDeleteRecipeStepsPermissionsInfoResource(des, initial *
 	return cDes
 }
 
+func canonicalizeInstanceDeleteRecipeStepsPermissionsInfoResourceSlice(des, initial []InstanceDeleteRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstanceDeleteRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceDeleteRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceDeleteRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceDeleteRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceDeleteRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceDeleteRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceDeleteRecipeStepsPermissionsInfoResource) *InstanceDeleteRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -7907,6 +9115,34 @@ func canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdate(des, initial *I
 	return cDes
 }
 
+func canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstanceDeleteRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstanceDeleteRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceDeleteRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceDeleteRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceDeleteRecipeStepsKeyNotificationsUpdate) *InstanceDeleteRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -7993,13 +9229,37 @@ func canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotifications
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -8100,6 +9360,34 @@ func canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotifications
 	return cDes
 }
 
+func canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -8181,11 +9469,7 @@ func canonicalizeInstanceUpdateRecipe(des, initial *InstanceUpdateRecipe, opts .
 
 	cDes := &InstanceUpdateRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstanceUpdateRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -8223,6 +9507,34 @@ func canonicalizeInstanceUpdateRecipe(des, initial *InstanceUpdateRecipe, opts .
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceUpdateRecipeSlice(des, initial []InstanceUpdateRecipe, opts ...dcl.ApplyOption) []InstanceUpdateRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUpdateRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUpdateRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUpdateRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUpdateRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceUpdateRecipe(c *Client, des, nw *InstanceUpdateRecipe) *InstanceUpdateRecipe {
@@ -8348,11 +9660,7 @@ func canonicalizeInstanceUpdateRecipeSteps(des, initial *InstanceUpdateRecipeSte
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstanceUpdateRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstanceUpdateRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -8360,11 +9668,7 @@ func canonicalizeInstanceUpdateRecipeSteps(des, initial *InstanceUpdateRecipeSte
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstanceUpdateRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstanceUpdateRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -8378,6 +9682,34 @@ func canonicalizeInstanceUpdateRecipeSteps(des, initial *InstanceUpdateRecipeSte
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceUpdateRecipeStepsSlice(des, initial []InstanceUpdateRecipeSteps, opts ...dcl.ApplyOption) []InstanceUpdateRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUpdateRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUpdateRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUpdateRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUpdateRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceUpdateRecipeSteps(c *Client, des, nw *InstanceUpdateRecipeSteps) *InstanceUpdateRecipeSteps {
@@ -8486,13 +9818,37 @@ func canonicalizeInstanceUpdateRecipeStepsStatus(des, initial *InstanceUpdateRec
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstanceUpdateRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceUpdateRecipeStepsStatusSlice(des, initial []InstanceUpdateRecipeStepsStatus, opts ...dcl.ApplyOption) []InstanceUpdateRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUpdateRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUpdateRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUpdateRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUpdateRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsStatus(c *Client, des, nw *InstanceUpdateRecipeStepsStatus) *InstanceUpdateRecipeStepsStatus {
@@ -8586,6 +9942,34 @@ func canonicalizeInstanceUpdateRecipeStepsStatusDetails(des, initial *InstanceUp
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceUpdateRecipeStepsStatusDetailsSlice(des, initial []InstanceUpdateRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstanceUpdateRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUpdateRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUpdateRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUpdateRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUpdateRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsStatusDetails(c *Client, des, nw *InstanceUpdateRecipeStepsStatusDetails) *InstanceUpdateRecipeStepsStatusDetails {
@@ -8688,6 +10072,34 @@ func canonicalizeInstanceUpdateRecipeStepsQuotaRequestDeltas(des, initial *Insta
 	return cDes
 }
 
+func canonicalizeInstanceUpdateRecipeStepsQuotaRequestDeltasSlice(des, initial []InstanceUpdateRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstanceUpdateRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUpdateRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUpdateRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUpdateRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUpdateRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceUpdateRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceUpdateRecipeStepsQuotaRequestDeltas) *InstanceUpdateRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -8781,6 +10193,34 @@ func canonicalizeInstanceUpdateRecipeStepsPreprocessUpdate(des, initial *Instanc
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceUpdateRecipeStepsPreprocessUpdateSlice(des, initial []InstanceUpdateRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstanceUpdateRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUpdateRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUpdateRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUpdateRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUpdateRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceUpdateRecipeStepsPreprocessUpdate) *InstanceUpdateRecipeStepsPreprocessUpdate {
@@ -8883,6 +10323,34 @@ func canonicalizeInstanceUpdateRecipeStepsRequestedTenantProject(des, initial *I
 	return cDes
 }
 
+func canonicalizeInstanceUpdateRecipeStepsRequestedTenantProjectSlice(des, initial []InstanceUpdateRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstanceUpdateRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUpdateRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUpdateRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUpdateRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUpdateRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceUpdateRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceUpdateRecipeStepsRequestedTenantProject) *InstanceUpdateRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -8965,11 +10433,7 @@ func canonicalizeInstanceUpdateRecipeStepsPermissionsInfo(des, initial *Instance
 	cDes := &InstanceUpdateRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstanceUpdateRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstanceUpdateRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -8984,6 +10448,34 @@ func canonicalizeInstanceUpdateRecipeStepsPermissionsInfo(des, initial *Instance
 	cDes.Resource = canonicalizeInstanceUpdateRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceUpdateRecipeStepsPermissionsInfoSlice(des, initial []InstanceUpdateRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstanceUpdateRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUpdateRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUpdateRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUpdateRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUpdateRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceUpdateRecipeStepsPermissionsInfo) *InstanceUpdateRecipeStepsPermissionsInfo {
@@ -9087,6 +10579,34 @@ func canonicalizeInstanceUpdateRecipeStepsPermissionsInfoPolicyName(des, initial
 	return cDes
 }
 
+func canonicalizeInstanceUpdateRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstanceUpdateRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstanceUpdateRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUpdateRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUpdateRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUpdateRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUpdateRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceUpdateRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceUpdateRecipeStepsPermissionsInfoPolicyName) *InstanceUpdateRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -9178,6 +10698,34 @@ func canonicalizeInstanceUpdateRecipeStepsPermissionsInfoIamPermissions(des, ini
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceUpdateRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstanceUpdateRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstanceUpdateRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUpdateRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUpdateRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUpdateRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUpdateRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceUpdateRecipeStepsPermissionsInfoIamPermissions) *InstanceUpdateRecipeStepsPermissionsInfoIamPermissions {
@@ -9282,6 +10830,34 @@ func canonicalizeInstanceUpdateRecipeStepsPermissionsInfoResource(des, initial *
 	return cDes
 }
 
+func canonicalizeInstanceUpdateRecipeStepsPermissionsInfoResourceSlice(des, initial []InstanceUpdateRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstanceUpdateRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUpdateRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUpdateRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUpdateRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUpdateRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceUpdateRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceUpdateRecipeStepsPermissionsInfoResource) *InstanceUpdateRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -9371,6 +10947,34 @@ func canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdate(des, initial *I
 	return cDes
 }
 
+func canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstanceUpdateRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstanceUpdateRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUpdateRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUpdateRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceUpdateRecipeStepsKeyNotificationsUpdate) *InstanceUpdateRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -9457,13 +11061,37 @@ func canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotifications
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -9564,6 +11192,34 @@ func canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotifications
 	return cDes
 }
 
+func canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -9645,11 +11301,7 @@ func canonicalizeInstancePreprocessResetRecipe(des, initial *InstancePreprocessR
 
 	cDes := &InstancePreprocessResetRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstancePreprocessResetRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -9687,6 +11339,34 @@ func canonicalizeInstancePreprocessResetRecipe(des, initial *InstancePreprocessR
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessResetRecipeSlice(des, initial []InstancePreprocessResetRecipe, opts ...dcl.ApplyOption) []InstancePreprocessResetRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessResetRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessResetRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessResetRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessResetRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessResetRecipe(c *Client, des, nw *InstancePreprocessResetRecipe) *InstancePreprocessResetRecipe {
@@ -9812,11 +11492,7 @@ func canonicalizeInstancePreprocessResetRecipeSteps(des, initial *InstancePrepro
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstancePreprocessResetRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstancePreprocessResetRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -9824,11 +11500,7 @@ func canonicalizeInstancePreprocessResetRecipeSteps(des, initial *InstancePrepro
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstancePreprocessResetRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -9842,6 +11514,34 @@ func canonicalizeInstancePreprocessResetRecipeSteps(des, initial *InstancePrepro
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessResetRecipeStepsSlice(des, initial []InstancePreprocessResetRecipeSteps, opts ...dcl.ApplyOption) []InstancePreprocessResetRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessResetRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessResetRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessResetRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessResetRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeSteps(c *Client, des, nw *InstancePreprocessResetRecipeSteps) *InstancePreprocessResetRecipeSteps {
@@ -9950,13 +11650,37 @@ func canonicalizeInstancePreprocessResetRecipeStepsStatus(des, initial *Instance
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstancePreprocessResetRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessResetRecipeStepsStatusSlice(des, initial []InstancePreprocessResetRecipeStepsStatus, opts ...dcl.ApplyOption) []InstancePreprocessResetRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessResetRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessResetRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessResetRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessResetRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsStatus(c *Client, des, nw *InstancePreprocessResetRecipeStepsStatus) *InstancePreprocessResetRecipeStepsStatus {
@@ -10050,6 +11774,34 @@ func canonicalizeInstancePreprocessResetRecipeStepsStatusDetails(des, initial *I
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessResetRecipeStepsStatusDetailsSlice(des, initial []InstancePreprocessResetRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstancePreprocessResetRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessResetRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessResetRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessResetRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessResetRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessResetRecipeStepsStatusDetails) *InstancePreprocessResetRecipeStepsStatusDetails {
@@ -10152,6 +11904,34 @@ func canonicalizeInstancePreprocessResetRecipeStepsQuotaRequestDeltas(des, initi
 	return cDes
 }
 
+func canonicalizeInstancePreprocessResetRecipeStepsQuotaRequestDeltasSlice(des, initial []InstancePreprocessResetRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstancePreprocessResetRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessResetRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessResetRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessResetRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessResetRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessResetRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessResetRecipeStepsQuotaRequestDeltas) *InstancePreprocessResetRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -10245,6 +12025,34 @@ func canonicalizeInstancePreprocessResetRecipeStepsPreprocessUpdate(des, initial
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessResetRecipeStepsPreprocessUpdateSlice(des, initial []InstancePreprocessResetRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstancePreprocessResetRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessResetRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessResetRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessResetRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessResetRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessResetRecipeStepsPreprocessUpdate) *InstancePreprocessResetRecipeStepsPreprocessUpdate {
@@ -10347,6 +12155,34 @@ func canonicalizeInstancePreprocessResetRecipeStepsRequestedTenantProject(des, i
 	return cDes
 }
 
+func canonicalizeInstancePreprocessResetRecipeStepsRequestedTenantProjectSlice(des, initial []InstancePreprocessResetRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstancePreprocessResetRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessResetRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessResetRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessResetRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessResetRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessResetRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessResetRecipeStepsRequestedTenantProject) *InstancePreprocessResetRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -10429,11 +12265,7 @@ func canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfo(des, initial 
 	cDes := &InstancePreprocessResetRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -10448,6 +12280,34 @@ func canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfo(des, initial 
 	cDes.Resource = canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoSlice(des, initial []InstancePreprocessResetRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstancePreprocessResetRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessResetRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessResetRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessResetRecipeStepsPermissionsInfo) *InstancePreprocessResetRecipeStepsPermissionsInfo {
@@ -10551,6 +12411,34 @@ func canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName(des
 	return cDes
 }
 
+func canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -10642,6 +12530,34 @@ func canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions {
@@ -10746,6 +12662,34 @@ func canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoResource(des, 
 	return cDes
 }
 
+func canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoResourceSlice(des, initial []InstancePreprocessResetRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstancePreprocessResetRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessResetRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessResetRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessResetRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessResetRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessResetRecipeStepsPermissionsInfoResource) *InstancePreprocessResetRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -10835,6 +12779,34 @@ func canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdate(des, i
 	return cDes
 }
 
+func canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstancePreprocessResetRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstancePreprocessResetRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessResetRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessResetRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessResetRecipeStepsKeyNotificationsUpdate) *InstancePreprocessResetRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -10921,13 +12893,37 @@ func canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNoti
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -11028,6 +13024,34 @@ func canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNoti
 	return cDes
 }
 
+func canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -11109,11 +13133,7 @@ func canonicalizeInstanceResetRecipe(des, initial *InstanceResetRecipe, opts ...
 
 	cDes := &InstanceResetRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstanceResetRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -11151,6 +13171,34 @@ func canonicalizeInstanceResetRecipe(des, initial *InstanceResetRecipe, opts ...
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceResetRecipeSlice(des, initial []InstanceResetRecipe, opts ...dcl.ApplyOption) []InstanceResetRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceResetRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceResetRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceResetRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceResetRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceResetRecipe(c *Client, des, nw *InstanceResetRecipe) *InstanceResetRecipe {
@@ -11276,11 +13324,7 @@ func canonicalizeInstanceResetRecipeSteps(des, initial *InstanceResetRecipeSteps
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstanceResetRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstanceResetRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -11288,11 +13332,7 @@ func canonicalizeInstanceResetRecipeSteps(des, initial *InstanceResetRecipeSteps
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstanceResetRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstanceResetRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -11306,6 +13346,34 @@ func canonicalizeInstanceResetRecipeSteps(des, initial *InstanceResetRecipeSteps
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceResetRecipeStepsSlice(des, initial []InstanceResetRecipeSteps, opts ...dcl.ApplyOption) []InstanceResetRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceResetRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceResetRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceResetRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceResetRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceResetRecipeSteps(c *Client, des, nw *InstanceResetRecipeSteps) *InstanceResetRecipeSteps {
@@ -11414,13 +13482,37 @@ func canonicalizeInstanceResetRecipeStepsStatus(des, initial *InstanceResetRecip
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstanceResetRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceResetRecipeStepsStatusSlice(des, initial []InstanceResetRecipeStepsStatus, opts ...dcl.ApplyOption) []InstanceResetRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceResetRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceResetRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceResetRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceResetRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceResetRecipeStepsStatus(c *Client, des, nw *InstanceResetRecipeStepsStatus) *InstanceResetRecipeStepsStatus {
@@ -11514,6 +13606,34 @@ func canonicalizeInstanceResetRecipeStepsStatusDetails(des, initial *InstanceRes
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceResetRecipeStepsStatusDetailsSlice(des, initial []InstanceResetRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstanceResetRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceResetRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceResetRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceResetRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceResetRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceResetRecipeStepsStatusDetails(c *Client, des, nw *InstanceResetRecipeStepsStatusDetails) *InstanceResetRecipeStepsStatusDetails {
@@ -11616,6 +13736,34 @@ func canonicalizeInstanceResetRecipeStepsQuotaRequestDeltas(des, initial *Instan
 	return cDes
 }
 
+func canonicalizeInstanceResetRecipeStepsQuotaRequestDeltasSlice(des, initial []InstanceResetRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstanceResetRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceResetRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceResetRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceResetRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceResetRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceResetRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceResetRecipeStepsQuotaRequestDeltas) *InstanceResetRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -11709,6 +13857,34 @@ func canonicalizeInstanceResetRecipeStepsPreprocessUpdate(des, initial *Instance
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceResetRecipeStepsPreprocessUpdateSlice(des, initial []InstanceResetRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstanceResetRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceResetRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceResetRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceResetRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceResetRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceResetRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceResetRecipeStepsPreprocessUpdate) *InstanceResetRecipeStepsPreprocessUpdate {
@@ -11811,6 +13987,34 @@ func canonicalizeInstanceResetRecipeStepsRequestedTenantProject(des, initial *In
 	return cDes
 }
 
+func canonicalizeInstanceResetRecipeStepsRequestedTenantProjectSlice(des, initial []InstanceResetRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstanceResetRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceResetRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceResetRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceResetRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceResetRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceResetRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceResetRecipeStepsRequestedTenantProject) *InstanceResetRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -11893,11 +14097,7 @@ func canonicalizeInstanceResetRecipeStepsPermissionsInfo(des, initial *InstanceR
 	cDes := &InstanceResetRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstanceResetRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstanceResetRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -11912,6 +14112,34 @@ func canonicalizeInstanceResetRecipeStepsPermissionsInfo(des, initial *InstanceR
 	cDes.Resource = canonicalizeInstanceResetRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceResetRecipeStepsPermissionsInfoSlice(des, initial []InstanceResetRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstanceResetRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceResetRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceResetRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceResetRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceResetRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceResetRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceResetRecipeStepsPermissionsInfo) *InstanceResetRecipeStepsPermissionsInfo {
@@ -12015,6 +14243,34 @@ func canonicalizeInstanceResetRecipeStepsPermissionsInfoPolicyName(des, initial 
 	return cDes
 }
 
+func canonicalizeInstanceResetRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstanceResetRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstanceResetRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceResetRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceResetRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceResetRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceResetRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceResetRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceResetRecipeStepsPermissionsInfoPolicyName) *InstanceResetRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -12106,6 +14362,34 @@ func canonicalizeInstanceResetRecipeStepsPermissionsInfoIamPermissions(des, init
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceResetRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstanceResetRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstanceResetRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceResetRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceResetRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceResetRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceResetRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceResetRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceResetRecipeStepsPermissionsInfoIamPermissions) *InstanceResetRecipeStepsPermissionsInfoIamPermissions {
@@ -12210,6 +14494,34 @@ func canonicalizeInstanceResetRecipeStepsPermissionsInfoResource(des, initial *I
 	return cDes
 }
 
+func canonicalizeInstanceResetRecipeStepsPermissionsInfoResourceSlice(des, initial []InstanceResetRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstanceResetRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceResetRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceResetRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceResetRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceResetRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceResetRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceResetRecipeStepsPermissionsInfoResource) *InstanceResetRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -12299,6 +14611,34 @@ func canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdate(des, initial *In
 	return cDes
 }
 
+func canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstanceResetRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstanceResetRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceResetRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceResetRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceResetRecipeStepsKeyNotificationsUpdate) *InstanceResetRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -12385,13 +14725,37 @@ func canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsI
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -12492,6 +14856,34 @@ func canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsI
 	return cDes
 }
 
+func canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -12573,11 +14965,7 @@ func canonicalizeInstancePreprocessRepairRecipe(des, initial *InstancePreprocess
 
 	cDes := &InstancePreprocessRepairRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstancePreprocessRepairRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -12615,6 +15003,34 @@ func canonicalizeInstancePreprocessRepairRecipe(des, initial *InstancePreprocess
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessRepairRecipeSlice(des, initial []InstancePreprocessRepairRecipe, opts ...dcl.ApplyOption) []InstancePreprocessRepairRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessRepairRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessRepairRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessRepairRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessRepairRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipe(c *Client, des, nw *InstancePreprocessRepairRecipe) *InstancePreprocessRepairRecipe {
@@ -12740,11 +15156,7 @@ func canonicalizeInstancePreprocessRepairRecipeSteps(des, initial *InstancePrepr
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstancePreprocessRepairRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstancePreprocessRepairRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -12752,11 +15164,7 @@ func canonicalizeInstancePreprocessRepairRecipeSteps(des, initial *InstancePrepr
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstancePreprocessRepairRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -12770,6 +15178,34 @@ func canonicalizeInstancePreprocessRepairRecipeSteps(des, initial *InstancePrepr
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessRepairRecipeStepsSlice(des, initial []InstancePreprocessRepairRecipeSteps, opts ...dcl.ApplyOption) []InstancePreprocessRepairRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessRepairRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessRepairRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessRepairRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessRepairRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeSteps(c *Client, des, nw *InstancePreprocessRepairRecipeSteps) *InstancePreprocessRepairRecipeSteps {
@@ -12878,13 +15314,37 @@ func canonicalizeInstancePreprocessRepairRecipeStepsStatus(des, initial *Instanc
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstancePreprocessRepairRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessRepairRecipeStepsStatusSlice(des, initial []InstancePreprocessRepairRecipeStepsStatus, opts ...dcl.ApplyOption) []InstancePreprocessRepairRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessRepairRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessRepairRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessRepairRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessRepairRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsStatus(c *Client, des, nw *InstancePreprocessRepairRecipeStepsStatus) *InstancePreprocessRepairRecipeStepsStatus {
@@ -12978,6 +15438,34 @@ func canonicalizeInstancePreprocessRepairRecipeStepsStatusDetails(des, initial *
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessRepairRecipeStepsStatusDetailsSlice(des, initial []InstancePreprocessRepairRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstancePreprocessRepairRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessRepairRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessRepairRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessRepairRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessRepairRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessRepairRecipeStepsStatusDetails) *InstancePreprocessRepairRecipeStepsStatusDetails {
@@ -13080,6 +15568,34 @@ func canonicalizeInstancePreprocessRepairRecipeStepsQuotaRequestDeltas(des, init
 	return cDes
 }
 
+func canonicalizeInstancePreprocessRepairRecipeStepsQuotaRequestDeltasSlice(des, initial []InstancePreprocessRepairRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstancePreprocessRepairRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessRepairRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessRepairRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessRepairRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessRepairRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessRepairRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessRepairRecipeStepsQuotaRequestDeltas) *InstancePreprocessRepairRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -13173,6 +15689,34 @@ func canonicalizeInstancePreprocessRepairRecipeStepsPreprocessUpdate(des, initia
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessRepairRecipeStepsPreprocessUpdateSlice(des, initial []InstancePreprocessRepairRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstancePreprocessRepairRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessRepairRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessRepairRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessRepairRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessRepairRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessRepairRecipeStepsPreprocessUpdate) *InstancePreprocessRepairRecipeStepsPreprocessUpdate {
@@ -13275,6 +15819,34 @@ func canonicalizeInstancePreprocessRepairRecipeStepsRequestedTenantProject(des, 
 	return cDes
 }
 
+func canonicalizeInstancePreprocessRepairRecipeStepsRequestedTenantProjectSlice(des, initial []InstancePreprocessRepairRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstancePreprocessRepairRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessRepairRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessRepairRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessRepairRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessRepairRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessRepairRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessRepairRecipeStepsRequestedTenantProject) *InstancePreprocessRepairRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -13357,11 +15929,7 @@ func canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfo(des, initial
 	cDes := &InstancePreprocessRepairRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -13376,6 +15944,34 @@ func canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfo(des, initial
 	cDes.Resource = canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoSlice(des, initial []InstancePreprocessRepairRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstancePreprocessRepairRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessRepairRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessRepairRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessRepairRecipeStepsPermissionsInfo) *InstancePreprocessRepairRecipeStepsPermissionsInfo {
@@ -13479,6 +16075,34 @@ func canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName(de
 	return cDes
 }
 
+func canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -13570,6 +16194,34 @@ func canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermission
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions {
@@ -13674,6 +16326,34 @@ func canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoResource(des,
 	return cDes
 }
 
+func canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoResourceSlice(des, initial []InstancePreprocessRepairRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstancePreprocessRepairRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessRepairRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessRepairRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessRepairRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessRepairRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessRepairRecipeStepsPermissionsInfoResource) *InstancePreprocessRepairRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -13763,6 +16443,34 @@ func canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate(des, 
 	return cDes
 }
 
+func canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate) *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -13849,13 +16557,37 @@ func canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNot
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -13956,6 +16688,34 @@ func canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNot
 	return cDes
 }
 
+func canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -14037,11 +16797,7 @@ func canonicalizeInstanceRepairRecipe(des, initial *InstanceRepairRecipe, opts .
 
 	cDes := &InstanceRepairRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstanceRepairRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -14079,6 +16835,34 @@ func canonicalizeInstanceRepairRecipe(des, initial *InstanceRepairRecipe, opts .
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceRepairRecipeSlice(des, initial []InstanceRepairRecipe, opts ...dcl.ApplyOption) []InstanceRepairRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceRepairRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceRepairRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceRepairRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceRepairRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceRepairRecipe(c *Client, des, nw *InstanceRepairRecipe) *InstanceRepairRecipe {
@@ -14204,11 +16988,7 @@ func canonicalizeInstanceRepairRecipeSteps(des, initial *InstanceRepairRecipeSte
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstanceRepairRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstanceRepairRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -14216,11 +16996,7 @@ func canonicalizeInstanceRepairRecipeSteps(des, initial *InstanceRepairRecipeSte
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstanceRepairRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstanceRepairRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -14234,6 +17010,34 @@ func canonicalizeInstanceRepairRecipeSteps(des, initial *InstanceRepairRecipeSte
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceRepairRecipeStepsSlice(des, initial []InstanceRepairRecipeSteps, opts ...dcl.ApplyOption) []InstanceRepairRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceRepairRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceRepairRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceRepairRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceRepairRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceRepairRecipeSteps(c *Client, des, nw *InstanceRepairRecipeSteps) *InstanceRepairRecipeSteps {
@@ -14342,13 +17146,37 @@ func canonicalizeInstanceRepairRecipeStepsStatus(des, initial *InstanceRepairRec
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstanceRepairRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceRepairRecipeStepsStatusSlice(des, initial []InstanceRepairRecipeStepsStatus, opts ...dcl.ApplyOption) []InstanceRepairRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceRepairRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceRepairRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceRepairRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceRepairRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsStatus(c *Client, des, nw *InstanceRepairRecipeStepsStatus) *InstanceRepairRecipeStepsStatus {
@@ -14442,6 +17270,34 @@ func canonicalizeInstanceRepairRecipeStepsStatusDetails(des, initial *InstanceRe
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceRepairRecipeStepsStatusDetailsSlice(des, initial []InstanceRepairRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstanceRepairRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceRepairRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceRepairRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceRepairRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceRepairRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsStatusDetails(c *Client, des, nw *InstanceRepairRecipeStepsStatusDetails) *InstanceRepairRecipeStepsStatusDetails {
@@ -14544,6 +17400,34 @@ func canonicalizeInstanceRepairRecipeStepsQuotaRequestDeltas(des, initial *Insta
 	return cDes
 }
 
+func canonicalizeInstanceRepairRecipeStepsQuotaRequestDeltasSlice(des, initial []InstanceRepairRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstanceRepairRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceRepairRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceRepairRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceRepairRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceRepairRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceRepairRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceRepairRecipeStepsQuotaRequestDeltas) *InstanceRepairRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -14637,6 +17521,34 @@ func canonicalizeInstanceRepairRecipeStepsPreprocessUpdate(des, initial *Instanc
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceRepairRecipeStepsPreprocessUpdateSlice(des, initial []InstanceRepairRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstanceRepairRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceRepairRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceRepairRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceRepairRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceRepairRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceRepairRecipeStepsPreprocessUpdate) *InstanceRepairRecipeStepsPreprocessUpdate {
@@ -14739,6 +17651,34 @@ func canonicalizeInstanceRepairRecipeStepsRequestedTenantProject(des, initial *I
 	return cDes
 }
 
+func canonicalizeInstanceRepairRecipeStepsRequestedTenantProjectSlice(des, initial []InstanceRepairRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstanceRepairRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceRepairRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceRepairRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceRepairRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceRepairRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceRepairRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceRepairRecipeStepsRequestedTenantProject) *InstanceRepairRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -14821,11 +17761,7 @@ func canonicalizeInstanceRepairRecipeStepsPermissionsInfo(des, initial *Instance
 	cDes := &InstanceRepairRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstanceRepairRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstanceRepairRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -14840,6 +17776,34 @@ func canonicalizeInstanceRepairRecipeStepsPermissionsInfo(des, initial *Instance
 	cDes.Resource = canonicalizeInstanceRepairRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceRepairRecipeStepsPermissionsInfoSlice(des, initial []InstanceRepairRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstanceRepairRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceRepairRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceRepairRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceRepairRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceRepairRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceRepairRecipeStepsPermissionsInfo) *InstanceRepairRecipeStepsPermissionsInfo {
@@ -14943,6 +17907,34 @@ func canonicalizeInstanceRepairRecipeStepsPermissionsInfoPolicyName(des, initial
 	return cDes
 }
 
+func canonicalizeInstanceRepairRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstanceRepairRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstanceRepairRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceRepairRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceRepairRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceRepairRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceRepairRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceRepairRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceRepairRecipeStepsPermissionsInfoPolicyName) *InstanceRepairRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -15034,6 +18026,34 @@ func canonicalizeInstanceRepairRecipeStepsPermissionsInfoIamPermissions(des, ini
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceRepairRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstanceRepairRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstanceRepairRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceRepairRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceRepairRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceRepairRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceRepairRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceRepairRecipeStepsPermissionsInfoIamPermissions) *InstanceRepairRecipeStepsPermissionsInfoIamPermissions {
@@ -15138,6 +18158,34 @@ func canonicalizeInstanceRepairRecipeStepsPermissionsInfoResource(des, initial *
 	return cDes
 }
 
+func canonicalizeInstanceRepairRecipeStepsPermissionsInfoResourceSlice(des, initial []InstanceRepairRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstanceRepairRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceRepairRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceRepairRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceRepairRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceRepairRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceRepairRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceRepairRecipeStepsPermissionsInfoResource) *InstanceRepairRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -15227,6 +18275,34 @@ func canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdate(des, initial *I
 	return cDes
 }
 
+func canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstanceRepairRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstanceRepairRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceRepairRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceRepairRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceRepairRecipeStepsKeyNotificationsUpdate) *InstanceRepairRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -15313,13 +18389,37 @@ func canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotifications
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -15420,6 +18520,34 @@ func canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotifications
 	return cDes
 }
 
+func canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -15501,11 +18629,7 @@ func canonicalizeInstancePreprocessDeleteRecipe(des, initial *InstancePreprocess
 
 	cDes := &InstancePreprocessDeleteRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstancePreprocessDeleteRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -15543,6 +18667,34 @@ func canonicalizeInstancePreprocessDeleteRecipe(des, initial *InstancePreprocess
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessDeleteRecipeSlice(des, initial []InstancePreprocessDeleteRecipe, opts ...dcl.ApplyOption) []InstancePreprocessDeleteRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessDeleteRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessDeleteRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessDeleteRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessDeleteRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipe(c *Client, des, nw *InstancePreprocessDeleteRecipe) *InstancePreprocessDeleteRecipe {
@@ -15668,11 +18820,7 @@ func canonicalizeInstancePreprocessDeleteRecipeSteps(des, initial *InstancePrepr
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstancePreprocessDeleteRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstancePreprocessDeleteRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -15680,11 +18828,7 @@ func canonicalizeInstancePreprocessDeleteRecipeSteps(des, initial *InstancePrepr
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstancePreprocessDeleteRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -15698,6 +18842,34 @@ func canonicalizeInstancePreprocessDeleteRecipeSteps(des, initial *InstancePrepr
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessDeleteRecipeStepsSlice(des, initial []InstancePreprocessDeleteRecipeSteps, opts ...dcl.ApplyOption) []InstancePreprocessDeleteRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessDeleteRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessDeleteRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessDeleteRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessDeleteRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeSteps(c *Client, des, nw *InstancePreprocessDeleteRecipeSteps) *InstancePreprocessDeleteRecipeSteps {
@@ -15806,13 +18978,37 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsStatus(des, initial *Instanc
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstancePreprocessDeleteRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessDeleteRecipeStepsStatusSlice(des, initial []InstancePreprocessDeleteRecipeStepsStatus, opts ...dcl.ApplyOption) []InstancePreprocessDeleteRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessDeleteRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessDeleteRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessDeleteRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessDeleteRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsStatus(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsStatus) *InstancePreprocessDeleteRecipeStepsStatus {
@@ -15906,6 +19102,34 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsStatusDetails(des, initial *
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessDeleteRecipeStepsStatusDetailsSlice(des, initial []InstancePreprocessDeleteRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstancePreprocessDeleteRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessDeleteRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessDeleteRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessDeleteRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessDeleteRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsStatusDetails) *InstancePreprocessDeleteRecipeStepsStatusDetails {
@@ -16008,6 +19232,34 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(des, init
 	return cDes
 }
 
+func canonicalizeInstancePreprocessDeleteRecipeStepsQuotaRequestDeltasSlice(des, initial []InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas) *InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -16101,6 +19353,34 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsPreprocessUpdate(des, initia
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessDeleteRecipeStepsPreprocessUpdateSlice(des, initial []InstancePreprocessDeleteRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstancePreprocessDeleteRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessDeleteRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessDeleteRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessDeleteRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessDeleteRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsPreprocessUpdate) *InstancePreprocessDeleteRecipeStepsPreprocessUpdate {
@@ -16203,6 +19483,34 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsRequestedTenantProject(des, 
 	return cDes
 }
 
+func canonicalizeInstancePreprocessDeleteRecipeStepsRequestedTenantProjectSlice(des, initial []InstancePreprocessDeleteRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstancePreprocessDeleteRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessDeleteRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessDeleteRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessDeleteRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessDeleteRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsRequestedTenantProject) *InstancePreprocessDeleteRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -16285,11 +19593,7 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfo(des, initial
 	cDes := &InstancePreprocessDeleteRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -16304,6 +19608,34 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfo(des, initial
 	cDes.Resource = canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoSlice(des, initial []InstancePreprocessDeleteRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstancePreprocessDeleteRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessDeleteRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessDeleteRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsPermissionsInfo) *InstancePreprocessDeleteRecipeStepsPermissionsInfo {
@@ -16407,6 +19739,34 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName(de
 	return cDes
 }
 
+func canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -16498,6 +19858,34 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermission
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions {
@@ -16602,6 +19990,34 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoResource(des,
 	return cDes
 }
 
+func canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoResourceSlice(des, initial []InstancePreprocessDeleteRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstancePreprocessDeleteRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessDeleteRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessDeleteRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessDeleteRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsPermissionsInfoResource) *InstancePreprocessDeleteRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -16691,6 +20107,34 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate(des, 
 	return cDes
 }
 
+func canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate) *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -16777,13 +20221,37 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNot
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -16884,6 +20352,34 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNot
 	return cDes
 }
 
+func canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -16965,11 +20461,7 @@ func canonicalizeInstancePreprocessUpdateRecipe(des, initial *InstancePreprocess
 
 	cDes := &InstancePreprocessUpdateRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstancePreprocessUpdateRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -17007,6 +20499,34 @@ func canonicalizeInstancePreprocessUpdateRecipe(des, initial *InstancePreprocess
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessUpdateRecipeSlice(des, initial []InstancePreprocessUpdateRecipe, opts ...dcl.ApplyOption) []InstancePreprocessUpdateRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUpdateRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUpdateRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUpdateRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUpdateRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipe(c *Client, des, nw *InstancePreprocessUpdateRecipe) *InstancePreprocessUpdateRecipe {
@@ -17132,11 +20652,7 @@ func canonicalizeInstancePreprocessUpdateRecipeSteps(des, initial *InstancePrepr
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstancePreprocessUpdateRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstancePreprocessUpdateRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -17144,11 +20660,7 @@ func canonicalizeInstancePreprocessUpdateRecipeSteps(des, initial *InstancePrepr
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstancePreprocessUpdateRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -17162,6 +20674,34 @@ func canonicalizeInstancePreprocessUpdateRecipeSteps(des, initial *InstancePrepr
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessUpdateRecipeStepsSlice(des, initial []InstancePreprocessUpdateRecipeSteps, opts ...dcl.ApplyOption) []InstancePreprocessUpdateRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUpdateRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUpdateRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUpdateRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUpdateRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeSteps(c *Client, des, nw *InstancePreprocessUpdateRecipeSteps) *InstancePreprocessUpdateRecipeSteps {
@@ -17270,13 +20810,37 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsStatus(des, initial *Instanc
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstancePreprocessUpdateRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessUpdateRecipeStepsStatusSlice(des, initial []InstancePreprocessUpdateRecipeStepsStatus, opts ...dcl.ApplyOption) []InstancePreprocessUpdateRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUpdateRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUpdateRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUpdateRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUpdateRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsStatus(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsStatus) *InstancePreprocessUpdateRecipeStepsStatus {
@@ -17370,6 +20934,34 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsStatusDetails(des, initial *
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessUpdateRecipeStepsStatusDetailsSlice(des, initial []InstancePreprocessUpdateRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstancePreprocessUpdateRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUpdateRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUpdateRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUpdateRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUpdateRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsStatusDetails) *InstancePreprocessUpdateRecipeStepsStatusDetails {
@@ -17472,6 +21064,34 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(des, init
 	return cDes
 }
 
+func canonicalizeInstancePreprocessUpdateRecipeStepsQuotaRequestDeltasSlice(des, initial []InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas) *InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -17565,6 +21185,34 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsPreprocessUpdate(des, initia
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessUpdateRecipeStepsPreprocessUpdateSlice(des, initial []InstancePreprocessUpdateRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstancePreprocessUpdateRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUpdateRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUpdateRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUpdateRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUpdateRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsPreprocessUpdate) *InstancePreprocessUpdateRecipeStepsPreprocessUpdate {
@@ -17667,6 +21315,34 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsRequestedTenantProject(des, 
 	return cDes
 }
 
+func canonicalizeInstancePreprocessUpdateRecipeStepsRequestedTenantProjectSlice(des, initial []InstancePreprocessUpdateRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstancePreprocessUpdateRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUpdateRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUpdateRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUpdateRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUpdateRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsRequestedTenantProject) *InstancePreprocessUpdateRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -17749,11 +21425,7 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfo(des, initial
 	cDes := &InstancePreprocessUpdateRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -17768,6 +21440,34 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfo(des, initial
 	cDes.Resource = canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoSlice(des, initial []InstancePreprocessUpdateRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstancePreprocessUpdateRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUpdateRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUpdateRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsPermissionsInfo) *InstancePreprocessUpdateRecipeStepsPermissionsInfo {
@@ -17871,6 +21571,34 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName(de
 	return cDes
 }
 
+func canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -17962,6 +21690,34 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermission
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions {
@@ -18066,6 +21822,34 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoResource(des,
 	return cDes
 }
 
+func canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoResourceSlice(des, initial []InstancePreprocessUpdateRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstancePreprocessUpdateRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUpdateRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUpdateRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUpdateRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsPermissionsInfoResource) *InstancePreprocessUpdateRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -18155,6 +21939,34 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate(des, 
 	return cDes
 }
 
+func canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate) *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -18241,13 +22053,37 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNot
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -18348,6 +22184,34 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNot
 	return cDes
 }
 
+func canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -18429,11 +22293,7 @@ func canonicalizeInstancePreprocessFreezeRecipe(des, initial *InstancePreprocess
 
 	cDes := &InstancePreprocessFreezeRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstancePreprocessFreezeRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -18471,6 +22331,34 @@ func canonicalizeInstancePreprocessFreezeRecipe(des, initial *InstancePreprocess
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessFreezeRecipeSlice(des, initial []InstancePreprocessFreezeRecipe, opts ...dcl.ApplyOption) []InstancePreprocessFreezeRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessFreezeRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessFreezeRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessFreezeRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessFreezeRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipe(c *Client, des, nw *InstancePreprocessFreezeRecipe) *InstancePreprocessFreezeRecipe {
@@ -18596,11 +22484,7 @@ func canonicalizeInstancePreprocessFreezeRecipeSteps(des, initial *InstancePrepr
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstancePreprocessFreezeRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstancePreprocessFreezeRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -18608,11 +22492,7 @@ func canonicalizeInstancePreprocessFreezeRecipeSteps(des, initial *InstancePrepr
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstancePreprocessFreezeRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -18626,6 +22506,34 @@ func canonicalizeInstancePreprocessFreezeRecipeSteps(des, initial *InstancePrepr
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessFreezeRecipeStepsSlice(des, initial []InstancePreprocessFreezeRecipeSteps, opts ...dcl.ApplyOption) []InstancePreprocessFreezeRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessFreezeRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessFreezeRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessFreezeRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessFreezeRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeSteps(c *Client, des, nw *InstancePreprocessFreezeRecipeSteps) *InstancePreprocessFreezeRecipeSteps {
@@ -18734,13 +22642,37 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsStatus(des, initial *Instanc
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstancePreprocessFreezeRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessFreezeRecipeStepsStatusSlice(des, initial []InstancePreprocessFreezeRecipeStepsStatus, opts ...dcl.ApplyOption) []InstancePreprocessFreezeRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessFreezeRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessFreezeRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessFreezeRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessFreezeRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsStatus(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsStatus) *InstancePreprocessFreezeRecipeStepsStatus {
@@ -18834,6 +22766,34 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsStatusDetails(des, initial *
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessFreezeRecipeStepsStatusDetailsSlice(des, initial []InstancePreprocessFreezeRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstancePreprocessFreezeRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessFreezeRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessFreezeRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessFreezeRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessFreezeRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsStatusDetails) *InstancePreprocessFreezeRecipeStepsStatusDetails {
@@ -18936,6 +22896,34 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(des, init
 	return cDes
 }
 
+func canonicalizeInstancePreprocessFreezeRecipeStepsQuotaRequestDeltasSlice(des, initial []InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas) *InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -19029,6 +23017,34 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsPreprocessUpdate(des, initia
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessFreezeRecipeStepsPreprocessUpdateSlice(des, initial []InstancePreprocessFreezeRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstancePreprocessFreezeRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessFreezeRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessFreezeRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessFreezeRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessFreezeRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsPreprocessUpdate) *InstancePreprocessFreezeRecipeStepsPreprocessUpdate {
@@ -19131,6 +23147,34 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsRequestedTenantProject(des, 
 	return cDes
 }
 
+func canonicalizeInstancePreprocessFreezeRecipeStepsRequestedTenantProjectSlice(des, initial []InstancePreprocessFreezeRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstancePreprocessFreezeRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessFreezeRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessFreezeRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessFreezeRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessFreezeRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsRequestedTenantProject) *InstancePreprocessFreezeRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -19213,11 +23257,7 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfo(des, initial
 	cDes := &InstancePreprocessFreezeRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -19232,6 +23272,34 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfo(des, initial
 	cDes.Resource = canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoSlice(des, initial []InstancePreprocessFreezeRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstancePreprocessFreezeRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessFreezeRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessFreezeRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsPermissionsInfo) *InstancePreprocessFreezeRecipeStepsPermissionsInfo {
@@ -19335,6 +23403,34 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName(de
 	return cDes
 }
 
+func canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -19426,6 +23522,34 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermission
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions {
@@ -19530,6 +23654,34 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoResource(des,
 	return cDes
 }
 
+func canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoResourceSlice(des, initial []InstancePreprocessFreezeRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstancePreprocessFreezeRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessFreezeRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessFreezeRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessFreezeRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsPermissionsInfoResource) *InstancePreprocessFreezeRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -19619,6 +23771,34 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate(des, 
 	return cDes
 }
 
+func canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate) *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -19705,13 +23885,37 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNot
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -19812,6 +24016,34 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNot
 	return cDes
 }
 
+func canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -19893,11 +24125,7 @@ func canonicalizeInstanceFreezeRecipe(des, initial *InstanceFreezeRecipe, opts .
 
 	cDes := &InstanceFreezeRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstanceFreezeRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -19935,6 +24163,34 @@ func canonicalizeInstanceFreezeRecipe(des, initial *InstanceFreezeRecipe, opts .
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceFreezeRecipeSlice(des, initial []InstanceFreezeRecipe, opts ...dcl.ApplyOption) []InstanceFreezeRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceFreezeRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceFreezeRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceFreezeRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceFreezeRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceFreezeRecipe(c *Client, des, nw *InstanceFreezeRecipe) *InstanceFreezeRecipe {
@@ -20060,11 +24316,7 @@ func canonicalizeInstanceFreezeRecipeSteps(des, initial *InstanceFreezeRecipeSte
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstanceFreezeRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstanceFreezeRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -20072,11 +24324,7 @@ func canonicalizeInstanceFreezeRecipeSteps(des, initial *InstanceFreezeRecipeSte
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstanceFreezeRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstanceFreezeRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -20090,6 +24338,34 @@ func canonicalizeInstanceFreezeRecipeSteps(des, initial *InstanceFreezeRecipeSte
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceFreezeRecipeStepsSlice(des, initial []InstanceFreezeRecipeSteps, opts ...dcl.ApplyOption) []InstanceFreezeRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceFreezeRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceFreezeRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceFreezeRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceFreezeRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceFreezeRecipeSteps(c *Client, des, nw *InstanceFreezeRecipeSteps) *InstanceFreezeRecipeSteps {
@@ -20198,13 +24474,37 @@ func canonicalizeInstanceFreezeRecipeStepsStatus(des, initial *InstanceFreezeRec
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstanceFreezeRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceFreezeRecipeStepsStatusSlice(des, initial []InstanceFreezeRecipeStepsStatus, opts ...dcl.ApplyOption) []InstanceFreezeRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceFreezeRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceFreezeRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceFreezeRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceFreezeRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsStatus(c *Client, des, nw *InstanceFreezeRecipeStepsStatus) *InstanceFreezeRecipeStepsStatus {
@@ -20298,6 +24598,34 @@ func canonicalizeInstanceFreezeRecipeStepsStatusDetails(des, initial *InstanceFr
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceFreezeRecipeStepsStatusDetailsSlice(des, initial []InstanceFreezeRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstanceFreezeRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceFreezeRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceFreezeRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceFreezeRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceFreezeRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsStatusDetails(c *Client, des, nw *InstanceFreezeRecipeStepsStatusDetails) *InstanceFreezeRecipeStepsStatusDetails {
@@ -20400,6 +24728,34 @@ func canonicalizeInstanceFreezeRecipeStepsQuotaRequestDeltas(des, initial *Insta
 	return cDes
 }
 
+func canonicalizeInstanceFreezeRecipeStepsQuotaRequestDeltasSlice(des, initial []InstanceFreezeRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstanceFreezeRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceFreezeRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceFreezeRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceFreezeRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceFreezeRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceFreezeRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceFreezeRecipeStepsQuotaRequestDeltas) *InstanceFreezeRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -20493,6 +24849,34 @@ func canonicalizeInstanceFreezeRecipeStepsPreprocessUpdate(des, initial *Instanc
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceFreezeRecipeStepsPreprocessUpdateSlice(des, initial []InstanceFreezeRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstanceFreezeRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceFreezeRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceFreezeRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceFreezeRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceFreezeRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceFreezeRecipeStepsPreprocessUpdate) *InstanceFreezeRecipeStepsPreprocessUpdate {
@@ -20595,6 +24979,34 @@ func canonicalizeInstanceFreezeRecipeStepsRequestedTenantProject(des, initial *I
 	return cDes
 }
 
+func canonicalizeInstanceFreezeRecipeStepsRequestedTenantProjectSlice(des, initial []InstanceFreezeRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstanceFreezeRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceFreezeRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceFreezeRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceFreezeRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceFreezeRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceFreezeRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceFreezeRecipeStepsRequestedTenantProject) *InstanceFreezeRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -20677,11 +25089,7 @@ func canonicalizeInstanceFreezeRecipeStepsPermissionsInfo(des, initial *Instance
 	cDes := &InstanceFreezeRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstanceFreezeRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstanceFreezeRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -20696,6 +25104,34 @@ func canonicalizeInstanceFreezeRecipeStepsPermissionsInfo(des, initial *Instance
 	cDes.Resource = canonicalizeInstanceFreezeRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceFreezeRecipeStepsPermissionsInfoSlice(des, initial []InstanceFreezeRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstanceFreezeRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceFreezeRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceFreezeRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceFreezeRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceFreezeRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceFreezeRecipeStepsPermissionsInfo) *InstanceFreezeRecipeStepsPermissionsInfo {
@@ -20799,6 +25235,34 @@ func canonicalizeInstanceFreezeRecipeStepsPermissionsInfoPolicyName(des, initial
 	return cDes
 }
 
+func canonicalizeInstanceFreezeRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstanceFreezeRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstanceFreezeRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceFreezeRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceFreezeRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceFreezeRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceFreezeRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceFreezeRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceFreezeRecipeStepsPermissionsInfoPolicyName) *InstanceFreezeRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -20890,6 +25354,34 @@ func canonicalizeInstanceFreezeRecipeStepsPermissionsInfoIamPermissions(des, ini
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceFreezeRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstanceFreezeRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstanceFreezeRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceFreezeRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceFreezeRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceFreezeRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceFreezeRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceFreezeRecipeStepsPermissionsInfoIamPermissions) *InstanceFreezeRecipeStepsPermissionsInfoIamPermissions {
@@ -20994,6 +25486,34 @@ func canonicalizeInstanceFreezeRecipeStepsPermissionsInfoResource(des, initial *
 	return cDes
 }
 
+func canonicalizeInstanceFreezeRecipeStepsPermissionsInfoResourceSlice(des, initial []InstanceFreezeRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstanceFreezeRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceFreezeRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceFreezeRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceFreezeRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceFreezeRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceFreezeRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceFreezeRecipeStepsPermissionsInfoResource) *InstanceFreezeRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -21083,6 +25603,34 @@ func canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdate(des, initial *I
 	return cDes
 }
 
+func canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstanceFreezeRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstanceFreezeRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceFreezeRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceFreezeRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceFreezeRecipeStepsKeyNotificationsUpdate) *InstanceFreezeRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -21169,13 +25717,37 @@ func canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotifications
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -21276,6 +25848,34 @@ func canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotifications
 	return cDes
 }
 
+func canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -21357,11 +25957,7 @@ func canonicalizeInstancePreprocessUnfreezeRecipe(des, initial *InstancePreproce
 
 	cDes := &InstancePreprocessUnfreezeRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstancePreprocessUnfreezeRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -21399,6 +25995,34 @@ func canonicalizeInstancePreprocessUnfreezeRecipe(des, initial *InstancePreproce
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessUnfreezeRecipeSlice(des, initial []InstancePreprocessUnfreezeRecipe, opts ...dcl.ApplyOption) []InstancePreprocessUnfreezeRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUnfreezeRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUnfreezeRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUnfreezeRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUnfreezeRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipe(c *Client, des, nw *InstancePreprocessUnfreezeRecipe) *InstancePreprocessUnfreezeRecipe {
@@ -21524,11 +26148,7 @@ func canonicalizeInstancePreprocessUnfreezeRecipeSteps(des, initial *InstancePre
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstancePreprocessUnfreezeRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -21536,11 +26156,7 @@ func canonicalizeInstancePreprocessUnfreezeRecipeSteps(des, initial *InstancePre
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -21554,6 +26170,34 @@ func canonicalizeInstancePreprocessUnfreezeRecipeSteps(des, initial *InstancePre
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessUnfreezeRecipeStepsSlice(des, initial []InstancePreprocessUnfreezeRecipeSteps, opts ...dcl.ApplyOption) []InstancePreprocessUnfreezeRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUnfreezeRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUnfreezeRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUnfreezeRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUnfreezeRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeSteps(c *Client, des, nw *InstancePreprocessUnfreezeRecipeSteps) *InstancePreprocessUnfreezeRecipeSteps {
@@ -21662,13 +26306,37 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsStatus(des, initial *Insta
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstancePreprocessUnfreezeRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessUnfreezeRecipeStepsStatusSlice(des, initial []InstancePreprocessUnfreezeRecipeStepsStatus, opts ...dcl.ApplyOption) []InstancePreprocessUnfreezeRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUnfreezeRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUnfreezeRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsStatus(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsStatus) *InstancePreprocessUnfreezeRecipeStepsStatus {
@@ -21762,6 +26430,34 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsStatusDetails(des, initial
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessUnfreezeRecipeStepsStatusDetailsSlice(des, initial []InstancePreprocessUnfreezeRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstancePreprocessUnfreezeRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUnfreezeRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUnfreezeRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsStatusDetails) *InstancePreprocessUnfreezeRecipeStepsStatusDetails {
@@ -21864,6 +26560,34 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(des, in
 	return cDes
 }
 
+func canonicalizeInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltasSlice(des, initial []InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas) *InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -21957,6 +26681,34 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsPreprocessUpdate(des, init
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessUnfreezeRecipeStepsPreprocessUpdateSlice(des, initial []InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate) *InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate {
@@ -22059,6 +26811,34 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject(des
 	return cDes
 }
 
+func canonicalizeInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectSlice(des, initial []InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject) *InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -22141,11 +26921,7 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfo(des, initi
 	cDes := &InstancePreprocessUnfreezeRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -22160,6 +26936,34 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfo(des, initi
 	cDes.Resource = canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoSlice(des, initial []InstancePreprocessUnfreezeRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstancePreprocessUnfreezeRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUnfreezeRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUnfreezeRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsPermissionsInfo) *InstancePreprocessUnfreezeRecipeStepsPermissionsInfo {
@@ -22263,6 +27067,34 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName(
 	return cDes
 }
 
+func canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -22354,6 +27186,34 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissi
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions {
@@ -22458,6 +27318,34 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(de
 	return cDes
 }
 
+func canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResourceSlice(des, initial []InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource) *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -22547,6 +27435,34 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate(des
 	return cDes
 }
 
+func canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate) *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -22633,13 +27549,37 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyN
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -22740,6 +27680,34 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyN
 	return cDes
 }
 
+func canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -22821,11 +27789,7 @@ func canonicalizeInstanceUnfreezeRecipe(des, initial *InstanceUnfreezeRecipe, op
 
 	cDes := &InstanceUnfreezeRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstanceUnfreezeRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -22863,6 +27827,34 @@ func canonicalizeInstanceUnfreezeRecipe(des, initial *InstanceUnfreezeRecipe, op
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceUnfreezeRecipeSlice(des, initial []InstanceUnfreezeRecipe, opts ...dcl.ApplyOption) []InstanceUnfreezeRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUnfreezeRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUnfreezeRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUnfreezeRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUnfreezeRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceUnfreezeRecipe(c *Client, des, nw *InstanceUnfreezeRecipe) *InstanceUnfreezeRecipe {
@@ -22988,11 +27980,7 @@ func canonicalizeInstanceUnfreezeRecipeSteps(des, initial *InstanceUnfreezeRecip
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstanceUnfreezeRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstanceUnfreezeRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -23000,11 +27988,7 @@ func canonicalizeInstanceUnfreezeRecipeSteps(des, initial *InstanceUnfreezeRecip
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstanceUnfreezeRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -23018,6 +28002,34 @@ func canonicalizeInstanceUnfreezeRecipeSteps(des, initial *InstanceUnfreezeRecip
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceUnfreezeRecipeStepsSlice(des, initial []InstanceUnfreezeRecipeSteps, opts ...dcl.ApplyOption) []InstanceUnfreezeRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUnfreezeRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUnfreezeRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUnfreezeRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUnfreezeRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeSteps(c *Client, des, nw *InstanceUnfreezeRecipeSteps) *InstanceUnfreezeRecipeSteps {
@@ -23126,13 +28138,37 @@ func canonicalizeInstanceUnfreezeRecipeStepsStatus(des, initial *InstanceUnfreez
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstanceUnfreezeRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceUnfreezeRecipeStepsStatusSlice(des, initial []InstanceUnfreezeRecipeStepsStatus, opts ...dcl.ApplyOption) []InstanceUnfreezeRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUnfreezeRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUnfreezeRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUnfreezeRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUnfreezeRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsStatus(c *Client, des, nw *InstanceUnfreezeRecipeStepsStatus) *InstanceUnfreezeRecipeStepsStatus {
@@ -23226,6 +28262,34 @@ func canonicalizeInstanceUnfreezeRecipeStepsStatusDetails(des, initial *Instance
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceUnfreezeRecipeStepsStatusDetailsSlice(des, initial []InstanceUnfreezeRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstanceUnfreezeRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUnfreezeRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUnfreezeRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUnfreezeRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUnfreezeRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsStatusDetails(c *Client, des, nw *InstanceUnfreezeRecipeStepsStatusDetails) *InstanceUnfreezeRecipeStepsStatusDetails {
@@ -23328,6 +28392,34 @@ func canonicalizeInstanceUnfreezeRecipeStepsQuotaRequestDeltas(des, initial *Ins
 	return cDes
 }
 
+func canonicalizeInstanceUnfreezeRecipeStepsQuotaRequestDeltasSlice(des, initial []InstanceUnfreezeRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstanceUnfreezeRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUnfreezeRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUnfreezeRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUnfreezeRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUnfreezeRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceUnfreezeRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceUnfreezeRecipeStepsQuotaRequestDeltas) *InstanceUnfreezeRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -23421,6 +28513,34 @@ func canonicalizeInstanceUnfreezeRecipeStepsPreprocessUpdate(des, initial *Insta
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceUnfreezeRecipeStepsPreprocessUpdateSlice(des, initial []InstanceUnfreezeRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstanceUnfreezeRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUnfreezeRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUnfreezeRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUnfreezeRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUnfreezeRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceUnfreezeRecipeStepsPreprocessUpdate) *InstanceUnfreezeRecipeStepsPreprocessUpdate {
@@ -23523,6 +28643,34 @@ func canonicalizeInstanceUnfreezeRecipeStepsRequestedTenantProject(des, initial 
 	return cDes
 }
 
+func canonicalizeInstanceUnfreezeRecipeStepsRequestedTenantProjectSlice(des, initial []InstanceUnfreezeRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstanceUnfreezeRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUnfreezeRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUnfreezeRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUnfreezeRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUnfreezeRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceUnfreezeRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceUnfreezeRecipeStepsRequestedTenantProject) *InstanceUnfreezeRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -23605,11 +28753,7 @@ func canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfo(des, initial *Instan
 	cDes := &InstanceUnfreezeRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -23624,6 +28768,34 @@ func canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfo(des, initial *Instan
 	cDes.Resource = canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoSlice(des, initial []InstanceUnfreezeRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstanceUnfreezeRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUnfreezeRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUnfreezeRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceUnfreezeRecipeStepsPermissionsInfo) *InstanceUnfreezeRecipeStepsPermissionsInfo {
@@ -23727,6 +28899,34 @@ func canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName(des, initi
 	return cDes
 }
 
+func canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName) *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -23818,6 +29018,34 @@ func canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions(des, i
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions) *InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions {
@@ -23922,6 +29150,34 @@ func canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoResource(des, initial
 	return cDes
 }
 
+func canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoResourceSlice(des, initial []InstanceUnfreezeRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstanceUnfreezeRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUnfreezeRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUnfreezeRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUnfreezeRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceUnfreezeRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceUnfreezeRecipeStepsPermissionsInfoResource) *InstanceUnfreezeRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -24011,6 +29267,34 @@ func canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdate(des, initial 
 	return cDes
 }
 
+func canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstanceUnfreezeRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstanceUnfreezeRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUnfreezeRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUnfreezeRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceUnfreezeRecipeStepsKeyNotificationsUpdate) *InstanceUnfreezeRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -24097,13 +29381,37 @@ func canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificatio
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -24204,6 +29512,34 @@ func canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificatio
 	return cDes
 }
 
+func canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -24285,11 +29621,7 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipe(des, initial *Inst
 
 	cDes := &InstancePreprocessReportInstanceHealthRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -24327,6 +29659,34 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipe(des, initial *Inst
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessReportInstanceHealthRecipeSlice(des, initial []InstancePreprocessReportInstanceHealthRecipe, opts ...dcl.ApplyOption) []InstancePreprocessReportInstanceHealthRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReportInstanceHealthRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReportInstanceHealthRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReportInstanceHealthRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReportInstanceHealthRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipe(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipe) *InstancePreprocessReportInstanceHealthRecipe {
@@ -24452,11 +29812,7 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeSteps(des, initial 
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -24464,11 +29820,7 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeSteps(des, initial 
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -24482,6 +29834,34 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeSteps(des, initial 
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsSlice(des, initial []InstancePreprocessReportInstanceHealthRecipeSteps, opts ...dcl.ApplyOption) []InstancePreprocessReportInstanceHealthRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReportInstanceHealthRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReportInstanceHealthRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeSteps(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeSteps) *InstancePreprocessReportInstanceHealthRecipeSteps {
@@ -24590,13 +29970,37 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsStatus(des, in
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsStatusSlice(des, initial []InstancePreprocessReportInstanceHealthRecipeStepsStatus, opts ...dcl.ApplyOption) []InstancePreprocessReportInstanceHealthRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReportInstanceHealthRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReportInstanceHealthRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsStatus(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsStatus) *InstancePreprocessReportInstanceHealthRecipeStepsStatus {
@@ -24690,6 +30094,34 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails(
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsStatusDetailsSlice(des, initial []InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails) *InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails {
@@ -24792,6 +30224,34 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDe
 	return cDes
 }
 
+func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltasSlice(des, initial []InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas) *InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -24885,6 +30345,34 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpda
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdateSlice(des, initial []InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate) *InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate {
@@ -24987,6 +30475,34 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenan
 	return cDes
 }
 
+func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectSlice(des, initial []InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject) *InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -25069,11 +30585,7 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInf
 	cDes := &InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -25088,6 +30600,34 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInf
 	cDes.Resource = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoSlice(des, initial []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo) *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo {
@@ -25191,6 +30731,34 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInf
 	return cDes
 }
 
+func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -25282,6 +30850,34 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInf
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions {
@@ -25386,6 +30982,34 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInf
 	return cDes
 }
 
+func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResourceSlice(des, initial []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource) *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -25475,6 +31099,34 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificatio
 	return cDes
 }
 
+func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate) *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -25561,13 +31213,37 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificatio
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -25668,6 +31344,34 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificatio
 	return cDes
 }
 
+func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -25749,11 +31453,7 @@ func canonicalizeInstanceReportInstanceHealthRecipe(des, initial *InstanceReport
 
 	cDes := &InstanceReportInstanceHealthRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstanceReportInstanceHealthRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -25791,6 +31491,34 @@ func canonicalizeInstanceReportInstanceHealthRecipe(des, initial *InstanceReport
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceReportInstanceHealthRecipeSlice(des, initial []InstanceReportInstanceHealthRecipe, opts ...dcl.ApplyOption) []InstanceReportInstanceHealthRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReportInstanceHealthRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReportInstanceHealthRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReportInstanceHealthRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReportInstanceHealthRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipe(c *Client, des, nw *InstanceReportInstanceHealthRecipe) *InstanceReportInstanceHealthRecipe {
@@ -25916,11 +31644,7 @@ func canonicalizeInstanceReportInstanceHealthRecipeSteps(des, initial *InstanceR
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstanceReportInstanceHealthRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -25928,11 +31652,7 @@ func canonicalizeInstanceReportInstanceHealthRecipeSteps(des, initial *InstanceR
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstanceReportInstanceHealthRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -25946,6 +31666,34 @@ func canonicalizeInstanceReportInstanceHealthRecipeSteps(des, initial *InstanceR
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceReportInstanceHealthRecipeStepsSlice(des, initial []InstanceReportInstanceHealthRecipeSteps, opts ...dcl.ApplyOption) []InstanceReportInstanceHealthRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReportInstanceHealthRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReportInstanceHealthRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReportInstanceHealthRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReportInstanceHealthRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeSteps(c *Client, des, nw *InstanceReportInstanceHealthRecipeSteps) *InstanceReportInstanceHealthRecipeSteps {
@@ -26054,13 +31802,37 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsStatus(des, initial *Ins
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstanceReportInstanceHealthRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceReportInstanceHealthRecipeStepsStatusSlice(des, initial []InstanceReportInstanceHealthRecipeStepsStatus, opts ...dcl.ApplyOption) []InstanceReportInstanceHealthRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReportInstanceHealthRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReportInstanceHealthRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReportInstanceHealthRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReportInstanceHealthRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsStatus(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsStatus) *InstanceReportInstanceHealthRecipeStepsStatus {
@@ -26154,6 +31926,34 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsStatusDetails(des, initi
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceReportInstanceHealthRecipeStepsStatusDetailsSlice(des, initial []InstanceReportInstanceHealthRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstanceReportInstanceHealthRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReportInstanceHealthRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReportInstanceHealthRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReportInstanceHealthRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReportInstanceHealthRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsStatusDetails(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsStatusDetails) *InstanceReportInstanceHealthRecipeStepsStatusDetails {
@@ -26256,6 +32056,34 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(des, 
 	return cDes
 }
 
+func canonicalizeInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltasSlice(des, initial []InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas) *InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -26349,6 +32177,34 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsPreprocessUpdate(des, in
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceReportInstanceHealthRecipeStepsPreprocessUpdateSlice(des, initial []InstanceReportInstanceHealthRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstanceReportInstanceHealthRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReportInstanceHealthRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReportInstanceHealthRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReportInstanceHealthRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReportInstanceHealthRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsPreprocessUpdate) *InstanceReportInstanceHealthRecipeStepsPreprocessUpdate {
@@ -26451,6 +32307,34 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsRequestedTenantProject(d
 	return cDes
 }
 
+func canonicalizeInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectSlice(des, initial []InstanceReportInstanceHealthRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstanceReportInstanceHealthRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReportInstanceHealthRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReportInstanceHealthRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReportInstanceHealthRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReportInstanceHealthRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsRequestedTenantProject) *InstanceReportInstanceHealthRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -26533,11 +32417,7 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfo(des, ini
 	cDes := &InstanceReportInstanceHealthRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -26552,6 +32432,34 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfo(des, ini
 	cDes.Resource = canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoSlice(des, initial []InstanceReportInstanceHealthRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstanceReportInstanceHealthRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReportInstanceHealthRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReportInstanceHealthRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsPermissionsInfo) *InstanceReportInstanceHealthRecipeStepsPermissionsInfo {
@@ -26655,6 +32563,34 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNam
 	return cDes
 }
 
+func canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName) *InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -26746,6 +32682,34 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermis
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) *InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions {
@@ -26850,6 +32814,34 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(
 	return cDes
 }
 
+func canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoResourceSlice(des, initial []InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource) *InstanceReportInstanceHealthRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -26939,6 +32931,34 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate(d
 	return cDes
 }
 
+func canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate) *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -27025,13 +33045,37 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKe
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -27132,6 +33176,34 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKe
 	return cDes
 }
 
+func canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -27213,11 +33285,7 @@ func canonicalizeInstancePreprocessGetRecipe(des, initial *InstancePreprocessGet
 
 	cDes := &InstancePreprocessGetRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstancePreprocessGetRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -27255,6 +33323,34 @@ func canonicalizeInstancePreprocessGetRecipe(des, initial *InstancePreprocessGet
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessGetRecipeSlice(des, initial []InstancePreprocessGetRecipe, opts ...dcl.ApplyOption) []InstancePreprocessGetRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessGetRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessGetRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessGetRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessGetRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessGetRecipe(c *Client, des, nw *InstancePreprocessGetRecipe) *InstancePreprocessGetRecipe {
@@ -27380,11 +33476,7 @@ func canonicalizeInstancePreprocessGetRecipeSteps(des, initial *InstancePreproce
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstancePreprocessGetRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstancePreprocessGetRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -27392,11 +33484,7 @@ func canonicalizeInstancePreprocessGetRecipeSteps(des, initial *InstancePreproce
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstancePreprocessGetRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -27410,6 +33498,34 @@ func canonicalizeInstancePreprocessGetRecipeSteps(des, initial *InstancePreproce
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessGetRecipeStepsSlice(des, initial []InstancePreprocessGetRecipeSteps, opts ...dcl.ApplyOption) []InstancePreprocessGetRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessGetRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessGetRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessGetRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessGetRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeSteps(c *Client, des, nw *InstancePreprocessGetRecipeSteps) *InstancePreprocessGetRecipeSteps {
@@ -27518,13 +33634,37 @@ func canonicalizeInstancePreprocessGetRecipeStepsStatus(des, initial *InstancePr
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstancePreprocessGetRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessGetRecipeStepsStatusSlice(des, initial []InstancePreprocessGetRecipeStepsStatus, opts ...dcl.ApplyOption) []InstancePreprocessGetRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessGetRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessGetRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessGetRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessGetRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsStatus(c *Client, des, nw *InstancePreprocessGetRecipeStepsStatus) *InstancePreprocessGetRecipeStepsStatus {
@@ -27618,6 +33758,34 @@ func canonicalizeInstancePreprocessGetRecipeStepsStatusDetails(des, initial *Ins
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessGetRecipeStepsStatusDetailsSlice(des, initial []InstancePreprocessGetRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstancePreprocessGetRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessGetRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessGetRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessGetRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessGetRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessGetRecipeStepsStatusDetails) *InstancePreprocessGetRecipeStepsStatusDetails {
@@ -27720,6 +33888,34 @@ func canonicalizeInstancePreprocessGetRecipeStepsQuotaRequestDeltas(des, initial
 	return cDes
 }
 
+func canonicalizeInstancePreprocessGetRecipeStepsQuotaRequestDeltasSlice(des, initial []InstancePreprocessGetRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstancePreprocessGetRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessGetRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessGetRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessGetRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessGetRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessGetRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessGetRecipeStepsQuotaRequestDeltas) *InstancePreprocessGetRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -27813,6 +34009,34 @@ func canonicalizeInstancePreprocessGetRecipeStepsPreprocessUpdate(des, initial *
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessGetRecipeStepsPreprocessUpdateSlice(des, initial []InstancePreprocessGetRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstancePreprocessGetRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessGetRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessGetRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessGetRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessGetRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessGetRecipeStepsPreprocessUpdate) *InstancePreprocessGetRecipeStepsPreprocessUpdate {
@@ -27915,6 +34139,34 @@ func canonicalizeInstancePreprocessGetRecipeStepsRequestedTenantProject(des, ini
 	return cDes
 }
 
+func canonicalizeInstancePreprocessGetRecipeStepsRequestedTenantProjectSlice(des, initial []InstancePreprocessGetRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstancePreprocessGetRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessGetRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessGetRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessGetRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessGetRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessGetRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessGetRecipeStepsRequestedTenantProject) *InstancePreprocessGetRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -27997,11 +34249,7 @@ func canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfo(des, initial *I
 	cDes := &InstancePreprocessGetRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -28016,6 +34264,34 @@ func canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfo(des, initial *I
 	cDes.Resource = canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoSlice(des, initial []InstancePreprocessGetRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstancePreprocessGetRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessGetRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessGetRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessGetRecipeStepsPermissionsInfo) *InstancePreprocessGetRecipeStepsPermissionsInfo {
@@ -28119,6 +34395,34 @@ func canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName(des, 
 	return cDes
 }
 
+func canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -28210,6 +34514,34 @@ func canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions(d
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions {
@@ -28314,6 +34646,34 @@ func canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoResource(des, in
 	return cDes
 }
 
+func canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoResourceSlice(des, initial []InstancePreprocessGetRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstancePreprocessGetRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessGetRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessGetRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessGetRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessGetRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessGetRecipeStepsPermissionsInfoResource) *InstancePreprocessGetRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -28403,6 +34763,34 @@ func canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdate(des, ini
 	return cDes
 }
 
+func canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstancePreprocessGetRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstancePreprocessGetRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessGetRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessGetRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessGetRecipeStepsKeyNotificationsUpdate) *InstancePreprocessGetRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -28489,13 +34877,37 @@ func canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotifi
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -28596,6 +35008,34 @@ func canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotifi
 	return cDes
 }
 
+func canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -28677,11 +35117,7 @@ func canonicalizeInstanceNotifyKeyAvailableRecipe(des, initial *InstanceNotifyKe
 
 	cDes := &InstanceNotifyKeyAvailableRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstanceNotifyKeyAvailableRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -28719,6 +35155,34 @@ func canonicalizeInstanceNotifyKeyAvailableRecipe(des, initial *InstanceNotifyKe
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceNotifyKeyAvailableRecipeSlice(des, initial []InstanceNotifyKeyAvailableRecipe, opts ...dcl.ApplyOption) []InstanceNotifyKeyAvailableRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyAvailableRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyAvailableRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyAvailableRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyAvailableRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipe(c *Client, des, nw *InstanceNotifyKeyAvailableRecipe) *InstanceNotifyKeyAvailableRecipe {
@@ -28844,11 +35308,7 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeSteps(des, initial *InstanceNot
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -28856,11 +35316,7 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeSteps(des, initial *InstanceNot
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -28874,6 +35330,34 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeSteps(des, initial *InstanceNot
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceNotifyKeyAvailableRecipeStepsSlice(des, initial []InstanceNotifyKeyAvailableRecipeSteps, opts ...dcl.ApplyOption) []InstanceNotifyKeyAvailableRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyAvailableRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyAvailableRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyAvailableRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyAvailableRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeSteps(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeSteps) *InstanceNotifyKeyAvailableRecipeSteps {
@@ -28982,13 +35466,37 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsStatus(des, initial *Insta
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstanceNotifyKeyAvailableRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceNotifyKeyAvailableRecipeStepsStatusSlice(des, initial []InstanceNotifyKeyAvailableRecipeStepsStatus, opts ...dcl.ApplyOption) []InstanceNotifyKeyAvailableRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyAvailableRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyAvailableRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsStatus(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsStatus) *InstanceNotifyKeyAvailableRecipeStepsStatus {
@@ -29082,6 +35590,34 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsStatusDetails(des, initial
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceNotifyKeyAvailableRecipeStepsStatusDetailsSlice(des, initial []InstanceNotifyKeyAvailableRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstanceNotifyKeyAvailableRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyAvailableRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyAvailableRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsStatusDetails(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsStatusDetails) *InstanceNotifyKeyAvailableRecipeStepsStatusDetails {
@@ -29184,6 +35720,34 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(des, in
 	return cDes
 }
 
+func canonicalizeInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltasSlice(des, initial []InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas) *InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -29277,6 +35841,34 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate(des, init
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdateSlice(des, initial []InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate) *InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate {
@@ -29379,6 +35971,34 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject(des
 	return cDes
 }
 
+func canonicalizeInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectSlice(des, initial []InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject) *InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -29461,11 +36081,7 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(des, initi
 	cDes := &InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -29480,6 +36096,34 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(des, initi
 	cDes.Resource = canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoSlice(des, initial []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo) *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo {
@@ -29583,6 +36227,34 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName(
 	return cDes
 }
 
+func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName) *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -29674,6 +36346,34 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissi
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions) *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions {
@@ -29778,6 +36478,34 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(de
 	return cDes
 }
 
+func canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResourceSlice(des, initial []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource) *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -29867,6 +36595,34 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate(des
 	return cDes
 }
 
+func canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate) *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -29953,13 +36709,37 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyN
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -30060,6 +36840,34 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyN
 	return cDes
 }
 
+func canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -30141,11 +36949,7 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipe(des, initial *InstanceNotify
 
 	cDes := &InstanceNotifyKeyUnavailableRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -30183,6 +36987,34 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipe(des, initial *InstanceNotify
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceNotifyKeyUnavailableRecipeSlice(des, initial []InstanceNotifyKeyUnavailableRecipe, opts ...dcl.ApplyOption) []InstanceNotifyKeyUnavailableRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyUnavailableRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyUnavailableRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyUnavailableRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyUnavailableRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipe(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipe) *InstanceNotifyKeyUnavailableRecipe {
@@ -30308,11 +37140,7 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeSteps(des, initial *InstanceN
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -30320,11 +37148,7 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeSteps(des, initial *InstanceN
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -30338,6 +37162,34 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeSteps(des, initial *InstanceN
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsSlice(des, initial []InstanceNotifyKeyUnavailableRecipeSteps, opts ...dcl.ApplyOption) []InstanceNotifyKeyUnavailableRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyUnavailableRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyUnavailableRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyUnavailableRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyUnavailableRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeSteps(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeSteps) *InstanceNotifyKeyUnavailableRecipeSteps {
@@ -30446,13 +37298,37 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsStatus(des, initial *Ins
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsStatusSlice(des, initial []InstanceNotifyKeyUnavailableRecipeStepsStatus, opts ...dcl.ApplyOption) []InstanceNotifyKeyUnavailableRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyUnavailableRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyUnavailableRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsStatus(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsStatus) *InstanceNotifyKeyUnavailableRecipeStepsStatus {
@@ -30546,6 +37422,34 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsStatusDetails(des, initi
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsStatusDetailsSlice(des, initial []InstanceNotifyKeyUnavailableRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstanceNotifyKeyUnavailableRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyUnavailableRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyUnavailableRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsStatusDetails(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsStatusDetails) *InstanceNotifyKeyUnavailableRecipeStepsStatusDetails {
@@ -30648,6 +37552,34 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(des, 
 	return cDes
 }
 
+func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltasSlice(des, initial []InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas) *InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -30741,6 +37673,34 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate(des, in
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdateSlice(des, initial []InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate) *InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate {
@@ -30843,6 +37803,34 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject(d
 	return cDes
 }
 
+func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectSlice(des, initial []InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject) *InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -30925,11 +37913,7 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(des, ini
 	cDes := &InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -30944,6 +37928,34 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(des, ini
 	cDes.Resource = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoSlice(des, initial []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo) *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo {
@@ -31047,6 +38059,34 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNam
 	return cDes
 }
 
+func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName) *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -31138,6 +38178,34 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermis
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions) *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions {
@@ -31242,6 +38310,34 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(
 	return cDes
 }
 
+func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResourceSlice(des, initial []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource) *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -31331,6 +38427,34 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate(d
 	return cDes
 }
 
+func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate) *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -31417,13 +38541,37 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKe
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -31524,6 +38672,34 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKe
 	return cDes
 }
 
+func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -31605,11 +38781,7 @@ func canonicalizeInstanceReadonlyRecipe(des, initial *InstanceReadonlyRecipe, op
 
 	cDes := &InstanceReadonlyRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstanceReadonlyRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -31647,6 +38819,34 @@ func canonicalizeInstanceReadonlyRecipe(des, initial *InstanceReadonlyRecipe, op
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceReadonlyRecipeSlice(des, initial []InstanceReadonlyRecipe, opts ...dcl.ApplyOption) []InstanceReadonlyRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReadonlyRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReadonlyRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReadonlyRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReadonlyRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReadonlyRecipe(c *Client, des, nw *InstanceReadonlyRecipe) *InstanceReadonlyRecipe {
@@ -31772,11 +38972,7 @@ func canonicalizeInstanceReadonlyRecipeSteps(des, initial *InstanceReadonlyRecip
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstanceReadonlyRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstanceReadonlyRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -31784,11 +38980,7 @@ func canonicalizeInstanceReadonlyRecipeSteps(des, initial *InstanceReadonlyRecip
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstanceReadonlyRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -31802,6 +38994,34 @@ func canonicalizeInstanceReadonlyRecipeSteps(des, initial *InstanceReadonlyRecip
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceReadonlyRecipeStepsSlice(des, initial []InstanceReadonlyRecipeSteps, opts ...dcl.ApplyOption) []InstanceReadonlyRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReadonlyRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReadonlyRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReadonlyRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReadonlyRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReadonlyRecipeSteps(c *Client, des, nw *InstanceReadonlyRecipeSteps) *InstanceReadonlyRecipeSteps {
@@ -31910,13 +39130,37 @@ func canonicalizeInstanceReadonlyRecipeStepsStatus(des, initial *InstanceReadonl
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstanceReadonlyRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceReadonlyRecipeStepsStatusSlice(des, initial []InstanceReadonlyRecipeStepsStatus, opts ...dcl.ApplyOption) []InstanceReadonlyRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReadonlyRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReadonlyRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReadonlyRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReadonlyRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsStatus(c *Client, des, nw *InstanceReadonlyRecipeStepsStatus) *InstanceReadonlyRecipeStepsStatus {
@@ -32010,6 +39254,34 @@ func canonicalizeInstanceReadonlyRecipeStepsStatusDetails(des, initial *Instance
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceReadonlyRecipeStepsStatusDetailsSlice(des, initial []InstanceReadonlyRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstanceReadonlyRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReadonlyRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReadonlyRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReadonlyRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReadonlyRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsStatusDetails(c *Client, des, nw *InstanceReadonlyRecipeStepsStatusDetails) *InstanceReadonlyRecipeStepsStatusDetails {
@@ -32112,6 +39384,34 @@ func canonicalizeInstanceReadonlyRecipeStepsQuotaRequestDeltas(des, initial *Ins
 	return cDes
 }
 
+func canonicalizeInstanceReadonlyRecipeStepsQuotaRequestDeltasSlice(des, initial []InstanceReadonlyRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstanceReadonlyRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReadonlyRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReadonlyRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReadonlyRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReadonlyRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceReadonlyRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceReadonlyRecipeStepsQuotaRequestDeltas) *InstanceReadonlyRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -32205,6 +39505,34 @@ func canonicalizeInstanceReadonlyRecipeStepsPreprocessUpdate(des, initial *Insta
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceReadonlyRecipeStepsPreprocessUpdateSlice(des, initial []InstanceReadonlyRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstanceReadonlyRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReadonlyRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReadonlyRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReadonlyRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReadonlyRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceReadonlyRecipeStepsPreprocessUpdate) *InstanceReadonlyRecipeStepsPreprocessUpdate {
@@ -32307,6 +39635,34 @@ func canonicalizeInstanceReadonlyRecipeStepsRequestedTenantProject(des, initial 
 	return cDes
 }
 
+func canonicalizeInstanceReadonlyRecipeStepsRequestedTenantProjectSlice(des, initial []InstanceReadonlyRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstanceReadonlyRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReadonlyRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReadonlyRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReadonlyRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReadonlyRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceReadonlyRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceReadonlyRecipeStepsRequestedTenantProject) *InstanceReadonlyRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -32389,11 +39745,7 @@ func canonicalizeInstanceReadonlyRecipeStepsPermissionsInfo(des, initial *Instan
 	cDes := &InstanceReadonlyRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -32408,6 +39760,34 @@ func canonicalizeInstanceReadonlyRecipeStepsPermissionsInfo(des, initial *Instan
 	cDes.Resource = canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoSlice(des, initial []InstanceReadonlyRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstanceReadonlyRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReadonlyRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReadonlyRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReadonlyRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReadonlyRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceReadonlyRecipeStepsPermissionsInfo) *InstanceReadonlyRecipeStepsPermissionsInfo {
@@ -32511,6 +39891,34 @@ func canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoPolicyName(des, initi
 	return cDes
 }
 
+func canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstanceReadonlyRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstanceReadonlyRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReadonlyRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReadonlyRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceReadonlyRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceReadonlyRecipeStepsPermissionsInfoPolicyName) *InstanceReadonlyRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -32602,6 +40010,34 @@ func canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions(des, i
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions) *InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions {
@@ -32706,6 +40142,34 @@ func canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoResource(des, initial
 	return cDes
 }
 
+func canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoResourceSlice(des, initial []InstanceReadonlyRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstanceReadonlyRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReadonlyRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReadonlyRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReadonlyRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceReadonlyRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceReadonlyRecipeStepsPermissionsInfoResource) *InstanceReadonlyRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -32795,6 +40259,34 @@ func canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdate(des, initial 
 	return cDes
 }
 
+func canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstanceReadonlyRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstanceReadonlyRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReadonlyRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReadonlyRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceReadonlyRecipeStepsKeyNotificationsUpdate) *InstanceReadonlyRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -32881,13 +40373,37 @@ func canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificatio
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -32988,6 +40504,34 @@ func canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificatio
 	return cDes
 }
 
+func canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -33069,11 +40613,7 @@ func canonicalizeInstanceReconcileRecipe(des, initial *InstanceReconcileRecipe, 
 
 	cDes := &InstanceReconcileRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstanceReconcileRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -33111,6 +40651,34 @@ func canonicalizeInstanceReconcileRecipe(des, initial *InstanceReconcileRecipe, 
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceReconcileRecipeSlice(des, initial []InstanceReconcileRecipe, opts ...dcl.ApplyOption) []InstanceReconcileRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReconcileRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReconcileRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReconcileRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReconcileRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReconcileRecipe(c *Client, des, nw *InstanceReconcileRecipe) *InstanceReconcileRecipe {
@@ -33236,11 +40804,7 @@ func canonicalizeInstanceReconcileRecipeSteps(des, initial *InstanceReconcileRec
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstanceReconcileRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstanceReconcileRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -33248,11 +40812,7 @@ func canonicalizeInstanceReconcileRecipeSteps(des, initial *InstanceReconcileRec
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstanceReconcileRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstanceReconcileRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -33266,6 +40826,34 @@ func canonicalizeInstanceReconcileRecipeSteps(des, initial *InstanceReconcileRec
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceReconcileRecipeStepsSlice(des, initial []InstanceReconcileRecipeSteps, opts ...dcl.ApplyOption) []InstanceReconcileRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReconcileRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReconcileRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReconcileRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReconcileRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReconcileRecipeSteps(c *Client, des, nw *InstanceReconcileRecipeSteps) *InstanceReconcileRecipeSteps {
@@ -33374,13 +40962,37 @@ func canonicalizeInstanceReconcileRecipeStepsStatus(des, initial *InstanceReconc
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstanceReconcileRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceReconcileRecipeStepsStatusSlice(des, initial []InstanceReconcileRecipeStepsStatus, opts ...dcl.ApplyOption) []InstanceReconcileRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReconcileRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReconcileRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReconcileRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReconcileRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsStatus(c *Client, des, nw *InstanceReconcileRecipeStepsStatus) *InstanceReconcileRecipeStepsStatus {
@@ -33474,6 +41086,34 @@ func canonicalizeInstanceReconcileRecipeStepsStatusDetails(des, initial *Instanc
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceReconcileRecipeStepsStatusDetailsSlice(des, initial []InstanceReconcileRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstanceReconcileRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReconcileRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReconcileRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReconcileRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReconcileRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsStatusDetails(c *Client, des, nw *InstanceReconcileRecipeStepsStatusDetails) *InstanceReconcileRecipeStepsStatusDetails {
@@ -33576,6 +41216,34 @@ func canonicalizeInstanceReconcileRecipeStepsQuotaRequestDeltas(des, initial *In
 	return cDes
 }
 
+func canonicalizeInstanceReconcileRecipeStepsQuotaRequestDeltasSlice(des, initial []InstanceReconcileRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstanceReconcileRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReconcileRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReconcileRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReconcileRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReconcileRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceReconcileRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstanceReconcileRecipeStepsQuotaRequestDeltas) *InstanceReconcileRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -33669,6 +41337,34 @@ func canonicalizeInstanceReconcileRecipeStepsPreprocessUpdate(des, initial *Inst
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceReconcileRecipeStepsPreprocessUpdateSlice(des, initial []InstanceReconcileRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstanceReconcileRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReconcileRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReconcileRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReconcileRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReconcileRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsPreprocessUpdate(c *Client, des, nw *InstanceReconcileRecipeStepsPreprocessUpdate) *InstanceReconcileRecipeStepsPreprocessUpdate {
@@ -33771,6 +41467,34 @@ func canonicalizeInstanceReconcileRecipeStepsRequestedTenantProject(des, initial
 	return cDes
 }
 
+func canonicalizeInstanceReconcileRecipeStepsRequestedTenantProjectSlice(des, initial []InstanceReconcileRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstanceReconcileRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReconcileRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReconcileRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReconcileRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReconcileRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceReconcileRecipeStepsRequestedTenantProject(c *Client, des, nw *InstanceReconcileRecipeStepsRequestedTenantProject) *InstanceReconcileRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -33853,11 +41577,7 @@ func canonicalizeInstanceReconcileRecipeStepsPermissionsInfo(des, initial *Insta
 	cDes := &InstanceReconcileRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstanceReconcileRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstanceReconcileRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -33872,6 +41592,34 @@ func canonicalizeInstanceReconcileRecipeStepsPermissionsInfo(des, initial *Insta
 	cDes.Resource = canonicalizeInstanceReconcileRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceReconcileRecipeStepsPermissionsInfoSlice(des, initial []InstanceReconcileRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstanceReconcileRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReconcileRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReconcileRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReconcileRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReconcileRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsPermissionsInfo(c *Client, des, nw *InstanceReconcileRecipeStepsPermissionsInfo) *InstanceReconcileRecipeStepsPermissionsInfo {
@@ -33975,6 +41723,34 @@ func canonicalizeInstanceReconcileRecipeStepsPermissionsInfoPolicyName(des, init
 	return cDes
 }
 
+func canonicalizeInstanceReconcileRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstanceReconcileRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstanceReconcileRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReconcileRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReconcileRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReconcileRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReconcileRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceReconcileRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstanceReconcileRecipeStepsPermissionsInfoPolicyName) *InstanceReconcileRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -34066,6 +41842,34 @@ func canonicalizeInstanceReconcileRecipeStepsPermissionsInfoIamPermissions(des, 
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceReconcileRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstanceReconcileRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstanceReconcileRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReconcileRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReconcileRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReconcileRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReconcileRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstanceReconcileRecipeStepsPermissionsInfoIamPermissions) *InstanceReconcileRecipeStepsPermissionsInfoIamPermissions {
@@ -34170,6 +41974,34 @@ func canonicalizeInstanceReconcileRecipeStepsPermissionsInfoResource(des, initia
 	return cDes
 }
 
+func canonicalizeInstanceReconcileRecipeStepsPermissionsInfoResourceSlice(des, initial []InstanceReconcileRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstanceReconcileRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReconcileRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReconcileRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReconcileRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReconcileRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceReconcileRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstanceReconcileRecipeStepsPermissionsInfoResource) *InstanceReconcileRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -34259,6 +42091,34 @@ func canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdate(des, initial
 	return cDes
 }
 
+func canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstanceReconcileRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstanceReconcileRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReconcileRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReconcileRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstanceReconcileRecipeStepsKeyNotificationsUpdate) *InstanceReconcileRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -34345,13 +42205,37 @@ func canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificati
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -34452,6 +42336,34 @@ func canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificati
 	return cDes
 }
 
+func canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -34533,11 +42445,7 @@ func canonicalizeInstancePreprocessPassthroughRecipe(des, initial *InstancePrepr
 
 	cDes := &InstancePreprocessPassthroughRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstancePreprocessPassthroughRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -34575,6 +42483,34 @@ func canonicalizeInstancePreprocessPassthroughRecipe(des, initial *InstancePrepr
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessPassthroughRecipeSlice(des, initial []InstancePreprocessPassthroughRecipe, opts ...dcl.ApplyOption) []InstancePreprocessPassthroughRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessPassthroughRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessPassthroughRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessPassthroughRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessPassthroughRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipe(c *Client, des, nw *InstancePreprocessPassthroughRecipe) *InstancePreprocessPassthroughRecipe {
@@ -34700,11 +42636,7 @@ func canonicalizeInstancePreprocessPassthroughRecipeSteps(des, initial *Instance
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstancePreprocessPassthroughRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -34712,11 +42644,7 @@ func canonicalizeInstancePreprocessPassthroughRecipeSteps(des, initial *Instance
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstancePreprocessPassthroughRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -34730,6 +42658,34 @@ func canonicalizeInstancePreprocessPassthroughRecipeSteps(des, initial *Instance
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessPassthroughRecipeStepsSlice(des, initial []InstancePreprocessPassthroughRecipeSteps, opts ...dcl.ApplyOption) []InstancePreprocessPassthroughRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessPassthroughRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessPassthroughRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessPassthroughRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessPassthroughRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeSteps(c *Client, des, nw *InstancePreprocessPassthroughRecipeSteps) *InstancePreprocessPassthroughRecipeSteps {
@@ -34838,13 +42794,37 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsStatus(des, initial *In
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstancePreprocessPassthroughRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessPassthroughRecipeStepsStatusSlice(des, initial []InstancePreprocessPassthroughRecipeStepsStatus, opts ...dcl.ApplyOption) []InstancePreprocessPassthroughRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessPassthroughRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessPassthroughRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessPassthroughRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessPassthroughRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsStatus(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsStatus) *InstancePreprocessPassthroughRecipeStepsStatus {
@@ -34938,6 +42918,34 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsStatusDetails(des, init
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessPassthroughRecipeStepsStatusDetailsSlice(des, initial []InstancePreprocessPassthroughRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstancePreprocessPassthroughRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessPassthroughRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessPassthroughRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessPassthroughRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessPassthroughRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsStatusDetails) *InstancePreprocessPassthroughRecipeStepsStatusDetails {
@@ -35040,6 +43048,34 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(des,
 	return cDes
 }
 
+func canonicalizeInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltasSlice(des, initial []InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas) *InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -35133,6 +43169,34 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsPreprocessUpdate(des, i
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessPassthroughRecipeStepsPreprocessUpdateSlice(des, initial []InstancePreprocessPassthroughRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstancePreprocessPassthroughRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessPassthroughRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessPassthroughRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessPassthroughRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessPassthroughRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsPreprocessUpdate) *InstancePreprocessPassthroughRecipeStepsPreprocessUpdate {
@@ -35235,6 +43299,34 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsRequestedTenantProject(
 	return cDes
 }
 
+func canonicalizeInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectSlice(des, initial []InstancePreprocessPassthroughRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstancePreprocessPassthroughRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessPassthroughRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessPassthroughRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessPassthroughRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessPassthroughRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsRequestedTenantProject) *InstancePreprocessPassthroughRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -35317,11 +43409,7 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfo(des, in
 	cDes := &InstancePreprocessPassthroughRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -35336,6 +43424,34 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfo(des, in
 	cDes.Resource = canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoSlice(des, initial []InstancePreprocessPassthroughRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstancePreprocessPassthroughRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessPassthroughRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessPassthroughRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsPermissionsInfo) *InstancePreprocessPassthroughRecipeStepsPermissionsInfo {
@@ -35439,6 +43555,34 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNa
 	return cDes
 }
 
+func canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -35530,6 +43674,34 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermi
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions {
@@ -35634,6 +43806,34 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource
 	return cDes
 }
 
+func canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoResourceSlice(des, initial []InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource) *InstancePreprocessPassthroughRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -35723,6 +43923,34 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate(
 	return cDes
 }
 
+func canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate) *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -35809,13 +44037,37 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateK
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -35916,6 +44168,34 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateK
 	return cDes
 }
 
+func canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 
 	if des == nil {
@@ -35997,11 +44277,7 @@ func canonicalizeInstancePreprocessReconcileRecipe(des, initial *InstancePreproc
 
 	cDes := &InstancePreprocessReconcileRecipe{}
 
-	if dcl.IsZeroValue(des.Steps) {
-		des.Steps = initial.Steps
-	} else {
-		cDes.Steps = des.Steps
-	}
+	cDes.Steps = canonicalizeInstancePreprocessReconcileRecipeStepsSlice(des.Steps, initial.Steps, opts...)
 	if dcl.BoolCanonicalize(des.HonorCancelRequest, initial.HonorCancelRequest) || dcl.IsZeroValue(des.HonorCancelRequest) {
 		cDes.HonorCancelRequest = initial.HonorCancelRequest
 	} else {
@@ -36039,6 +44315,34 @@ func canonicalizeInstancePreprocessReconcileRecipe(des, initial *InstancePreproc
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessReconcileRecipeSlice(des, initial []InstancePreprocessReconcileRecipe, opts ...dcl.ApplyOption) []InstancePreprocessReconcileRecipe {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReconcileRecipe, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReconcileRecipe(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReconcileRecipe, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReconcileRecipe(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipe(c *Client, des, nw *InstancePreprocessReconcileRecipe) *InstancePreprocessReconcileRecipe {
@@ -36164,11 +44468,7 @@ func canonicalizeInstancePreprocessReconcileRecipeSteps(des, initial *InstancePr
 	} else {
 		cDes.UpdatedRepeatOperationDelaySec = des.UpdatedRepeatOperationDelaySec
 	}
-	if dcl.IsZeroValue(des.QuotaRequestDeltas) {
-		des.QuotaRequestDeltas = initial.QuotaRequestDeltas
-	} else {
-		cDes.QuotaRequestDeltas = des.QuotaRequestDeltas
-	}
+	cDes.QuotaRequestDeltas = canonicalizeInstancePreprocessReconcileRecipeStepsQuotaRequestDeltasSlice(des.QuotaRequestDeltas, initial.QuotaRequestDeltas, opts...)
 	cDes.PreprocessUpdate = canonicalizeInstancePreprocessReconcileRecipeStepsPreprocessUpdate(des.PreprocessUpdate, initial.PreprocessUpdate, opts...)
 	if dcl.StringCanonicalize(des.PublicOperationMetadata, initial.PublicOperationMetadata) || dcl.IsZeroValue(des.PublicOperationMetadata) {
 		cDes.PublicOperationMetadata = initial.PublicOperationMetadata
@@ -36176,11 +44476,7 @@ func canonicalizeInstancePreprocessReconcileRecipeSteps(des, initial *InstancePr
 		cDes.PublicOperationMetadata = des.PublicOperationMetadata
 	}
 	cDes.RequestedTenantProject = canonicalizeInstancePreprocessReconcileRecipeStepsRequestedTenantProject(des.RequestedTenantProject, initial.RequestedTenantProject, opts...)
-	if dcl.IsZeroValue(des.PermissionsInfo) {
-		des.PermissionsInfo = initial.PermissionsInfo
-	} else {
-		cDes.PermissionsInfo = des.PermissionsInfo
-	}
+	cDes.PermissionsInfo = canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoSlice(des.PermissionsInfo, initial.PermissionsInfo, opts...)
 	cDes.KeyNotificationsUpdate = canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate(des.KeyNotificationsUpdate, initial.KeyNotificationsUpdate, opts...)
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
@@ -36194,6 +44490,34 @@ func canonicalizeInstancePreprocessReconcileRecipeSteps(des, initial *InstancePr
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessReconcileRecipeStepsSlice(des, initial []InstancePreprocessReconcileRecipeSteps, opts ...dcl.ApplyOption) []InstancePreprocessReconcileRecipeSteps {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReconcileRecipeSteps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReconcileRecipeSteps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReconcileRecipeSteps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReconcileRecipeSteps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeSteps(c *Client, des, nw *InstancePreprocessReconcileRecipeSteps) *InstancePreprocessReconcileRecipeSteps {
@@ -36302,13 +44626,37 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsStatus(des, initial *Inst
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeInstancePreprocessReconcileRecipeStepsStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessReconcileRecipeStepsStatusSlice(des, initial []InstancePreprocessReconcileRecipeStepsStatus, opts ...dcl.ApplyOption) []InstancePreprocessReconcileRecipeStepsStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReconcileRecipeStepsStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReconcileRecipeStepsStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReconcileRecipeStepsStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReconcileRecipeStepsStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsStatus(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsStatus) *InstancePreprocessReconcileRecipeStepsStatus {
@@ -36402,6 +44750,34 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsStatusDetails(des, initia
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessReconcileRecipeStepsStatusDetailsSlice(des, initial []InstancePreprocessReconcileRecipeStepsStatusDetails, opts ...dcl.ApplyOption) []InstancePreprocessReconcileRecipeStepsStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReconcileRecipeStepsStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReconcileRecipeStepsStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReconcileRecipeStepsStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReconcileRecipeStepsStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsStatusDetails(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsStatusDetails) *InstancePreprocessReconcileRecipeStepsStatusDetails {
@@ -36504,6 +44880,34 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(des, i
 	return cDes
 }
 
+func canonicalizeInstancePreprocessReconcileRecipeStepsQuotaRequestDeltasSlice(des, initial []InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas, opts ...dcl.ApplyOption) []InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas) *InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas {
 
 	if des == nil {
@@ -36597,6 +45001,34 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsPreprocessUpdate(des, ini
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessReconcileRecipeStepsPreprocessUpdateSlice(des, initial []InstancePreprocessReconcileRecipeStepsPreprocessUpdate, opts ...dcl.ApplyOption) []InstancePreprocessReconcileRecipeStepsPreprocessUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReconcileRecipeStepsPreprocessUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReconcileRecipeStepsPreprocessUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReconcileRecipeStepsPreprocessUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReconcileRecipeStepsPreprocessUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsPreprocessUpdate(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsPreprocessUpdate) *InstancePreprocessReconcileRecipeStepsPreprocessUpdate {
@@ -36699,6 +45131,34 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsRequestedTenantProject(de
 	return cDes
 }
 
+func canonicalizeInstancePreprocessReconcileRecipeStepsRequestedTenantProjectSlice(des, initial []InstancePreprocessReconcileRecipeStepsRequestedTenantProject, opts ...dcl.ApplyOption) []InstancePreprocessReconcileRecipeStepsRequestedTenantProject {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReconcileRecipeStepsRequestedTenantProject, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReconcileRecipeStepsRequestedTenantProject(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReconcileRecipeStepsRequestedTenantProject, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReconcileRecipeStepsRequestedTenantProject(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsRequestedTenantProject(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsRequestedTenantProject) *InstancePreprocessReconcileRecipeStepsRequestedTenantProject {
 
 	if des == nil {
@@ -36781,11 +45241,7 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfo(des, init
 	cDes := &InstancePreprocessReconcileRecipeStepsPermissionsInfo{}
 
 	cDes.PolicyName = canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName(des.PolicyName, initial.PolicyName, opts...)
-	if dcl.IsZeroValue(des.IamPermissions) {
-		des.IamPermissions = initial.IamPermissions
-	} else {
-		cDes.IamPermissions = des.IamPermissions
-	}
+	cDes.IamPermissions = canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissionsSlice(des.IamPermissions, initial.IamPermissions, opts...)
 	if dcl.StringCanonicalize(des.ResourcePath, initial.ResourcePath) || dcl.IsZeroValue(des.ResourcePath) {
 		cDes.ResourcePath = initial.ResourcePath
 	} else {
@@ -36800,6 +45256,34 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfo(des, init
 	cDes.Resource = canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoResource(des.Resource, initial.Resource, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoSlice(des, initial []InstancePreprocessReconcileRecipeStepsPermissionsInfo, opts ...dcl.ApplyOption) []InstancePreprocessReconcileRecipeStepsPermissionsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReconcileRecipeStepsPermissionsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReconcileRecipeStepsPermissionsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsPermissionsInfo(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsPermissionsInfo) *InstancePreprocessReconcileRecipeStepsPermissionsInfo {
@@ -36903,6 +45387,34 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName
 	return cDes
 }
 
+func canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameSlice(des, initial []InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName, opts ...dcl.ApplyOption) []InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName) *InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName {
 
 	if des == nil {
@@ -36994,6 +45506,34 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermiss
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissionsSlice(des, initial []InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions, opts ...dcl.ApplyOption) []InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions) *InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions {
@@ -37098,6 +45638,34 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoResource(d
 	return cDes
 }
 
+func canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoResourceSlice(des, initial []InstancePreprocessReconcileRecipeStepsPermissionsInfoResource, opts ...dcl.ApplyOption) []InstancePreprocessReconcileRecipeStepsPermissionsInfoResource {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReconcileRecipeStepsPermissionsInfoResource, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoResource(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReconcileRecipeStepsPermissionsInfoResource, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReconcileRecipeStepsPermissionsInfoResource(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsPermissionsInfoResource(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsPermissionsInfoResource) *InstancePreprocessReconcileRecipeStepsPermissionsInfoResource {
 
 	if des == nil {
@@ -37187,6 +45755,34 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate(de
 	return cDes
 }
 
+func canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateSlice(des, initial []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate, opts ...dcl.ApplyOption) []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate) *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate {
 
 	if des == nil {
@@ -37273,13 +45869,37 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKey
 	} else {
 		cDes.Delegate = des.Delegate
 	}
-	if dcl.IsZeroValue(des.KeyNotificationConfigs) {
-		des.KeyNotificationConfigs = initial.KeyNotificationConfigs
-	} else {
-		cDes.KeyNotificationConfigs = des.KeyNotificationConfigs
-	}
+	cDes.KeyNotificationConfigs = canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des.KeyNotificationConfigs, initial.KeyNotificationConfigs, opts...)
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoSlice(des, initial []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, opts ...dcl.ApplyOption) []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
@@ -37378,6 +45998,34 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKey
 	}
 
 	return cDes
+}
+
+func canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(des, initial []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, opts ...dcl.ApplyOption) []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -37498,6 +46146,34 @@ func canonicalizeInstanceHistory(des, initial *InstanceHistory, opts ...dcl.Appl
 	}
 
 	return cDes
+}
+
+func canonicalizeInstanceHistorySlice(des, initial []InstanceHistory, opts ...dcl.ApplyOption) []InstanceHistory {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceHistory, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceHistory(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceHistory, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceHistory(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewInstanceHistory(c *Client, des, nw *InstanceHistory) *InstanceHistory {

@@ -563,6 +563,34 @@ func canonicalizeTenantMfaConfig(des, initial *TenantMfaConfig, opts ...dcl.Appl
 	return cDes
 }
 
+func canonicalizeTenantMfaConfigSlice(des, initial []TenantMfaConfig, opts ...dcl.ApplyOption) []TenantMfaConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]TenantMfaConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeTenantMfaConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]TenantMfaConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeTenantMfaConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewTenantMfaConfig(c *Client, des, nw *TenantMfaConfig) *TenantMfaConfig {
 
 	if des == nil {

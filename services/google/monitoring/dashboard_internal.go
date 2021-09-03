@@ -965,6 +965,34 @@ func canonicalizeDashboardGridLayout(des, initial *DashboardGridLayout, opts ...
 	return cDes
 }
 
+func canonicalizeDashboardGridLayoutSlice(des, initial []DashboardGridLayout, opts ...dcl.ApplyOption) []DashboardGridLayout {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardGridLayout, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardGridLayout(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardGridLayout, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardGridLayout(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardGridLayout(c *Client, des, nw *DashboardGridLayout) *DashboardGridLayout {
 
 	if des == nil {
@@ -1044,13 +1072,37 @@ func canonicalizeDashboardMosaicLayout(des, initial *DashboardMosaicLayout, opts
 	} else {
 		cDes.Columns = des.Columns
 	}
-	if dcl.IsZeroValue(des.Tiles) {
-		des.Tiles = initial.Tiles
-	} else {
-		cDes.Tiles = des.Tiles
-	}
+	cDes.Tiles = canonicalizeDashboardMosaicLayoutTilesSlice(des.Tiles, initial.Tiles, opts...)
 
 	return cDes
+}
+
+func canonicalizeDashboardMosaicLayoutSlice(des, initial []DashboardMosaicLayout, opts ...dcl.ApplyOption) []DashboardMosaicLayout {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardMosaicLayout, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardMosaicLayout(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardMosaicLayout, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardMosaicLayout(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewDashboardMosaicLayout(c *Client, des, nw *DashboardMosaicLayout) *DashboardMosaicLayout {
@@ -1154,6 +1206,34 @@ func canonicalizeDashboardMosaicLayoutTiles(des, initial *DashboardMosaicLayoutT
 	return cDes
 }
 
+func canonicalizeDashboardMosaicLayoutTilesSlice(des, initial []DashboardMosaicLayoutTiles, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTiles {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardMosaicLayoutTiles, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardMosaicLayoutTiles(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardMosaicLayoutTiles, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardMosaicLayoutTiles(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardMosaicLayoutTiles(c *Client, des, nw *DashboardMosaicLayoutTiles) *DashboardMosaicLayoutTiles {
 
 	if des == nil {
@@ -1230,13 +1310,37 @@ func canonicalizeDashboardRowLayout(des, initial *DashboardRowLayout, opts ...dc
 
 	cDes := &DashboardRowLayout{}
 
-	if dcl.IsZeroValue(des.Rows) {
-		des.Rows = initial.Rows
-	} else {
-		cDes.Rows = des.Rows
-	}
+	cDes.Rows = canonicalizeDashboardRowLayoutRowsSlice(des.Rows, initial.Rows, opts...)
 
 	return cDes
+}
+
+func canonicalizeDashboardRowLayoutSlice(des, initial []DashboardRowLayout, opts ...dcl.ApplyOption) []DashboardRowLayout {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardRowLayout, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardRowLayout(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardRowLayout, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardRowLayout(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewDashboardRowLayout(c *Client, des, nw *DashboardRowLayout) *DashboardRowLayout {
@@ -1329,6 +1433,34 @@ func canonicalizeDashboardRowLayoutRows(des, initial *DashboardRowLayoutRows, op
 	return cDes
 }
 
+func canonicalizeDashboardRowLayoutRowsSlice(des, initial []DashboardRowLayoutRows, opts ...dcl.ApplyOption) []DashboardRowLayoutRows {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardRowLayoutRows, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardRowLayoutRows(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardRowLayoutRows, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardRowLayoutRows(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardRowLayoutRows(c *Client, des, nw *DashboardRowLayoutRows) *DashboardRowLayoutRows {
 
 	if des == nil {
@@ -1403,13 +1535,37 @@ func canonicalizeDashboardColumnLayout(des, initial *DashboardColumnLayout, opts
 
 	cDes := &DashboardColumnLayout{}
 
-	if dcl.IsZeroValue(des.Columns) {
-		des.Columns = initial.Columns
-	} else {
-		cDes.Columns = des.Columns
-	}
+	cDes.Columns = canonicalizeDashboardColumnLayoutColumnsSlice(des.Columns, initial.Columns, opts...)
 
 	return cDes
+}
+
+func canonicalizeDashboardColumnLayoutSlice(des, initial []DashboardColumnLayout, opts ...dcl.ApplyOption) []DashboardColumnLayout {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardColumnLayout, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardColumnLayout(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardColumnLayout, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardColumnLayout(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewDashboardColumnLayout(c *Client, des, nw *DashboardColumnLayout) *DashboardColumnLayout {
@@ -1493,13 +1649,37 @@ func canonicalizeDashboardColumnLayoutColumns(des, initial *DashboardColumnLayou
 	} else {
 		cDes.Weight = des.Weight
 	}
-	if dcl.IsZeroValue(des.Widgets) {
-		des.Widgets = initial.Widgets
-	} else {
-		cDes.Widgets = des.Widgets
-	}
+	cDes.Widgets = canonicalizeDashboardWidgetSlice(des.Widgets, initial.Widgets, opts...)
 
 	return cDes
+}
+
+func canonicalizeDashboardColumnLayoutColumnsSlice(des, initial []DashboardColumnLayoutColumns, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumns {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardColumnLayoutColumns, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardColumnLayoutColumns(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardColumnLayoutColumns, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardColumnLayoutColumns(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewDashboardColumnLayoutColumns(c *Client, des, nw *DashboardColumnLayoutColumns) *DashboardColumnLayoutColumns {
@@ -1631,6 +1811,34 @@ func canonicalizeDashboardWidget(des, initial *DashboardWidget, opts ...dcl.Appl
 	return cDes
 }
 
+func canonicalizeDashboardWidgetSlice(des, initial []DashboardWidget, opts ...dcl.ApplyOption) []DashboardWidget {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidget, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidget(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidget, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidget(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidget(c *Client, des, nw *DashboardWidget) *DashboardWidget {
 
 	if des == nil {
@@ -1713,26 +1921,46 @@ func canonicalizeDashboardWidgetXyChart(des, initial *DashboardWidgetXyChart, op
 
 	cDes := &DashboardWidgetXyChart{}
 
-	if dcl.IsZeroValue(des.DataSets) {
-		des.DataSets = initial.DataSets
-	} else {
-		cDes.DataSets = des.DataSets
-	}
+	cDes.DataSets = canonicalizeDashboardWidgetXyChartDataSetsSlice(des.DataSets, initial.DataSets, opts...)
 	if dcl.StringCanonicalize(des.TimeshiftDuration, initial.TimeshiftDuration) || dcl.IsZeroValue(des.TimeshiftDuration) {
 		cDes.TimeshiftDuration = initial.TimeshiftDuration
 	} else {
 		cDes.TimeshiftDuration = des.TimeshiftDuration
 	}
-	if dcl.IsZeroValue(des.Thresholds) {
-		des.Thresholds = initial.Thresholds
-	} else {
-		cDes.Thresholds = des.Thresholds
-	}
+	cDes.Thresholds = canonicalizeDashboardWidgetXyChartThresholdsSlice(des.Thresholds, initial.Thresholds, opts...)
 	cDes.XAxis = canonicalizeDashboardWidgetXyChartXAxis(des.XAxis, initial.XAxis, opts...)
 	cDes.YAxis = canonicalizeDashboardWidgetXyChartYAxis(des.YAxis, initial.YAxis, opts...)
 	cDes.ChartOptions = canonicalizeDashboardWidgetXyChartChartOptions(des.ChartOptions, initial.ChartOptions, opts...)
 
 	return cDes
+}
+
+func canonicalizeDashboardWidgetXyChartSlice(des, initial []DashboardWidgetXyChart, opts ...dcl.ApplyOption) []DashboardWidgetXyChart {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetXyChart, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetXyChart(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetXyChart, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetXyChart(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewDashboardWidgetXyChart(c *Client, des, nw *DashboardWidgetXyChart) *DashboardWidgetXyChart {
@@ -1838,6 +2066,34 @@ func canonicalizeDashboardWidgetXyChartDataSets(des, initial *DashboardWidgetXyC
 	return cDes
 }
 
+func canonicalizeDashboardWidgetXyChartDataSetsSlice(des, initial []DashboardWidgetXyChartDataSets, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSets {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetXyChartDataSets, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetXyChartDataSets(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetXyChartDataSets, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetXyChartDataSets(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetXyChartDataSets(c *Client, des, nw *DashboardWidgetXyChartDataSets) *DashboardWidgetXyChartDataSets {
 
 	if des == nil {
@@ -1936,6 +2192,34 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQuery(des, initial *Das
 	return cDes
 }
 
+func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQuerySlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQuery, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQuery {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQuery, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQuery(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQuery, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQuery(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQuery(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQuery) *DashboardWidgetXyChartDataSetsTimeSeriesQuery {
 
 	if des == nil {
@@ -2029,6 +2313,34 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(d
 	cDes.PickTimeSeriesFilter = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(des.PickTimeSeriesFilter, initial.PickTimeSeriesFilter, opts...)
 
 	return cDes
+}
+
+func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
@@ -2136,6 +2448,34 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAg
 	return cDes
 }
 
+func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
 
 	if des == nil {
@@ -2238,6 +2578,34 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSe
 	return cDes
 }
 
+func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 
 	if des == nil {
@@ -2335,6 +2703,34 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPi
 	return cDes
 }
 
+func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 
 	if des == nil {
@@ -2415,6 +2811,34 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	cDes.PickTimeSeriesFilter = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(des.PickTimeSeriesFilter, initial.PickTimeSeriesFilter, opts...)
 
 	return cDes
+}
+
+func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
@@ -2504,6 +2928,34 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	cDes.Aggregation = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(des.Aggregation, initial.Aggregation, opts...)
 
 	return cDes
+}
+
+func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
@@ -2609,6 +3061,34 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	return cDes
 }
 
+func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 
 	if des == nil {
@@ -2695,6 +3175,34 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	cDes.Aggregation = canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(des.Aggregation, initial.Aggregation, opts...)
 
 	return cDes
+}
+
+func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
@@ -2800,6 +3308,34 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	return cDes
 }
 
+func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 
 	if des == nil {
@@ -2902,6 +3438,34 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	return cDes
 }
 
+func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 
 	if des == nil {
@@ -2997,6 +3561,34 @@ func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 	}
 
 	return cDes
+}
+
+func canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(des, initial []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c *Client, des, nw *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
@@ -3097,6 +3689,34 @@ func canonicalizeDashboardWidgetXyChartThresholds(des, initial *DashboardWidgetX
 	return cDes
 }
 
+func canonicalizeDashboardWidgetXyChartThresholdsSlice(des, initial []DashboardWidgetXyChartThresholds, opts ...dcl.ApplyOption) []DashboardWidgetXyChartThresholds {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetXyChartThresholds, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetXyChartThresholds(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetXyChartThresholds, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetXyChartThresholds(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetXyChartThresholds(c *Client, des, nw *DashboardWidgetXyChartThresholds) *DashboardWidgetXyChartThresholds {
 
 	if des == nil {
@@ -3187,6 +3807,34 @@ func canonicalizeDashboardWidgetXyChartXAxis(des, initial *DashboardWidgetXyChar
 	}
 
 	return cDes
+}
+
+func canonicalizeDashboardWidgetXyChartXAxisSlice(des, initial []DashboardWidgetXyChartXAxis, opts ...dcl.ApplyOption) []DashboardWidgetXyChartXAxis {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetXyChartXAxis, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetXyChartXAxis(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetXyChartXAxis, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetXyChartXAxis(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewDashboardWidgetXyChartXAxis(c *Client, des, nw *DashboardWidgetXyChartXAxis) *DashboardWidgetXyChartXAxis {
@@ -3281,6 +3929,34 @@ func canonicalizeDashboardWidgetXyChartYAxis(des, initial *DashboardWidgetXyChar
 	return cDes
 }
 
+func canonicalizeDashboardWidgetXyChartYAxisSlice(des, initial []DashboardWidgetXyChartYAxis, opts ...dcl.ApplyOption) []DashboardWidgetXyChartYAxis {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetXyChartYAxis, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetXyChartYAxis(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetXyChartYAxis, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetXyChartYAxis(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetXyChartYAxis(c *Client, des, nw *DashboardWidgetXyChartYAxis) *DashboardWidgetXyChartYAxis {
 
 	if des == nil {
@@ -3368,6 +4044,34 @@ func canonicalizeDashboardWidgetXyChartChartOptions(des, initial *DashboardWidge
 	return cDes
 }
 
+func canonicalizeDashboardWidgetXyChartChartOptionsSlice(des, initial []DashboardWidgetXyChartChartOptions, opts ...dcl.ApplyOption) []DashboardWidgetXyChartChartOptions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetXyChartChartOptions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetXyChartChartOptions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetXyChartChartOptions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetXyChartChartOptions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetXyChartChartOptions(c *Client, des, nw *DashboardWidgetXyChartChartOptions) *DashboardWidgetXyChartChartOptions {
 
 	if des == nil {
@@ -3445,13 +4149,37 @@ func canonicalizeDashboardWidgetScorecard(des, initial *DashboardWidgetScorecard
 	cDes.TimeSeriesQuery = canonicalizeDashboardWidgetScorecardTimeSeriesQuery(des.TimeSeriesQuery, initial.TimeSeriesQuery, opts...)
 	cDes.GaugeView = canonicalizeDashboardWidgetScorecardGaugeView(des.GaugeView, initial.GaugeView, opts...)
 	cDes.SparkChartView = canonicalizeDashboardWidgetScorecardSparkChartView(des.SparkChartView, initial.SparkChartView, opts...)
-	if dcl.IsZeroValue(des.Thresholds) {
-		des.Thresholds = initial.Thresholds
-	} else {
-		cDes.Thresholds = des.Thresholds
-	}
+	cDes.Thresholds = canonicalizeDashboardWidgetScorecardThresholdsSlice(des.Thresholds, initial.Thresholds, opts...)
 
 	return cDes
+}
+
+func canonicalizeDashboardWidgetScorecardSlice(des, initial []DashboardWidgetScorecard, opts ...dcl.ApplyOption) []DashboardWidgetScorecard {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetScorecard, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetScorecard(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetScorecard, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetScorecard(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewDashboardWidgetScorecard(c *Client, des, nw *DashboardWidgetScorecard) *DashboardWidgetScorecard {
@@ -3549,6 +4277,34 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQuery(des, initial *Dashboard
 	return cDes
 }
 
+func canonicalizeDashboardWidgetScorecardTimeSeriesQuerySlice(des, initial []DashboardWidgetScorecardTimeSeriesQuery, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQuery {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetScorecardTimeSeriesQuery, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetScorecardTimeSeriesQuery(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetScorecardTimeSeriesQuery, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetScorecardTimeSeriesQuery(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQuery(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQuery) *DashboardWidgetScorecardTimeSeriesQuery {
 
 	if des == nil {
@@ -3642,6 +4398,34 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(des, in
 	cDes.PickTimeSeriesFilter = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(des.PickTimeSeriesFilter, initial.PickTimeSeriesFilter, opts...)
 
 	return cDes
+}
+
+func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter {
@@ -3749,6 +4533,34 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregat
 	return cDes
 }
 
+func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
 
 	if des == nil {
@@ -3851,6 +4663,34 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondar
 	return cDes
 }
 
+func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 
 	if des == nil {
@@ -3948,6 +4788,34 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTime
 	return cDes
 }
 
+func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 
 	if des == nil {
@@ -4028,6 +4896,34 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(de
 	cDes.PickTimeSeriesFilter = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(des.PickTimeSeriesFilter, initial.PickTimeSeriesFilter, opts...)
 
 	return cDes
+}
+
+func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio {
@@ -4117,6 +5013,34 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 	cDes.Aggregation = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(des.Aggregation, initial.Aggregation, opts...)
 
 	return cDes
+}
+
+func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
@@ -4222,6 +5146,34 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 	return cDes
 }
 
+func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 
 	if des == nil {
@@ -4308,6 +5260,34 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 	cDes.Aggregation = canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(des.Aggregation, initial.Aggregation, opts...)
 
 	return cDes
+}
+
+func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
@@ -4413,6 +5393,34 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 	return cDes
 }
 
+func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 
 	if des == nil {
@@ -4515,6 +5523,34 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSec
 	return cDes
 }
 
+func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 
 	if des == nil {
@@ -4612,6 +5648,34 @@ func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPic
 	return cDes
 }
 
+func canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterSlice(des, initial []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, opts ...dcl.ApplyOption) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c *Client, des, nw *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
 
 	if des == nil {
@@ -4700,6 +5764,34 @@ func canonicalizeDashboardWidgetScorecardGaugeView(des, initial *DashboardWidget
 	return cDes
 }
 
+func canonicalizeDashboardWidgetScorecardGaugeViewSlice(des, initial []DashboardWidgetScorecardGaugeView, opts ...dcl.ApplyOption) []DashboardWidgetScorecardGaugeView {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetScorecardGaugeView, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetScorecardGaugeView(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetScorecardGaugeView, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetScorecardGaugeView(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetScorecardGaugeView(c *Client, des, nw *DashboardWidgetScorecardGaugeView) *DashboardWidgetScorecardGaugeView {
 
 	if des == nil {
@@ -4786,6 +5878,34 @@ func canonicalizeDashboardWidgetScorecardSparkChartView(des, initial *DashboardW
 	}
 
 	return cDes
+}
+
+func canonicalizeDashboardWidgetScorecardSparkChartViewSlice(des, initial []DashboardWidgetScorecardSparkChartView, opts ...dcl.ApplyOption) []DashboardWidgetScorecardSparkChartView {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetScorecardSparkChartView, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetScorecardSparkChartView(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetScorecardSparkChartView, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetScorecardSparkChartView(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewDashboardWidgetScorecardSparkChartView(c *Client, des, nw *DashboardWidgetScorecardSparkChartView) *DashboardWidgetScorecardSparkChartView {
@@ -4890,6 +6010,34 @@ func canonicalizeDashboardWidgetScorecardThresholds(des, initial *DashboardWidge
 	return cDes
 }
 
+func canonicalizeDashboardWidgetScorecardThresholdsSlice(des, initial []DashboardWidgetScorecardThresholds, opts ...dcl.ApplyOption) []DashboardWidgetScorecardThresholds {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetScorecardThresholds, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetScorecardThresholds(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetScorecardThresholds, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetScorecardThresholds(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetScorecardThresholds(c *Client, des, nw *DashboardWidgetScorecardThresholds) *DashboardWidgetScorecardThresholds {
 
 	if des == nil {
@@ -4982,6 +6130,34 @@ func canonicalizeDashboardWidgetText(des, initial *DashboardWidgetText, opts ...
 	return cDes
 }
 
+func canonicalizeDashboardWidgetTextSlice(des, initial []DashboardWidgetText, opts ...dcl.ApplyOption) []DashboardWidgetText {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetText, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetText(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetText, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetText(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewDashboardWidgetText(c *Client, des, nw *DashboardWidgetText) *DashboardWidgetText {
 
 	if des == nil {
@@ -5060,6 +6236,34 @@ func canonicalizeDashboardWidgetBlank(des, initial *DashboardWidgetBlank, opts .
 	cDes := &DashboardWidgetBlank{}
 
 	return cDes
+}
+
+func canonicalizeDashboardWidgetBlankSlice(des, initial []DashboardWidgetBlank, opts ...dcl.ApplyOption) []DashboardWidgetBlank {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardWidgetBlank, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardWidgetBlank(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardWidgetBlank, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardWidgetBlank(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewDashboardWidgetBlank(c *Client, des, nw *DashboardWidgetBlank) *DashboardWidgetBlank {

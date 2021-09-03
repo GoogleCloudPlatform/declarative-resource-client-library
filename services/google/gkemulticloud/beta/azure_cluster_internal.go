@@ -681,6 +681,34 @@ func canonicalizeAzureClusterNetworking(des, initial *AzureClusterNetworking, op
 	return cDes
 }
 
+func canonicalizeAzureClusterNetworkingSlice(des, initial []AzureClusterNetworking, opts ...dcl.ApplyOption) []AzureClusterNetworking {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AzureClusterNetworking, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAzureClusterNetworking(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AzureClusterNetworking, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAzureClusterNetworking(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewAzureClusterNetworking(c *Client, des, nw *AzureClusterNetworking) *AzureClusterNetworking {
 
 	if des == nil {
@@ -787,6 +815,34 @@ func canonicalizeAzureClusterControlPlane(des, initial *AzureClusterControlPlane
 	return cDes
 }
 
+func canonicalizeAzureClusterControlPlaneSlice(des, initial []AzureClusterControlPlane, opts ...dcl.ApplyOption) []AzureClusterControlPlane {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AzureClusterControlPlane, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAzureClusterControlPlane(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AzureClusterControlPlane, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAzureClusterControlPlane(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewAzureClusterControlPlane(c *Client, des, nw *AzureClusterControlPlane) *AzureClusterControlPlane {
 
 	if des == nil {
@@ -884,6 +940,34 @@ func canonicalizeAzureClusterControlPlaneSshConfig(des, initial *AzureClusterCon
 	return cDes
 }
 
+func canonicalizeAzureClusterControlPlaneSshConfigSlice(des, initial []AzureClusterControlPlaneSshConfig, opts ...dcl.ApplyOption) []AzureClusterControlPlaneSshConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AzureClusterControlPlaneSshConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAzureClusterControlPlaneSshConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AzureClusterControlPlaneSshConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAzureClusterControlPlaneSshConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewAzureClusterControlPlaneSshConfig(c *Client, des, nw *AzureClusterControlPlaneSshConfig) *AzureClusterControlPlaneSshConfig {
 
 	if des == nil {
@@ -971,6 +1055,34 @@ func canonicalizeAzureClusterControlPlaneRootVolume(des, initial *AzureClusterCo
 	return cDes
 }
 
+func canonicalizeAzureClusterControlPlaneRootVolumeSlice(des, initial []AzureClusterControlPlaneRootVolume, opts ...dcl.ApplyOption) []AzureClusterControlPlaneRootVolume {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AzureClusterControlPlaneRootVolume, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAzureClusterControlPlaneRootVolume(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AzureClusterControlPlaneRootVolume, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAzureClusterControlPlaneRootVolume(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewAzureClusterControlPlaneRootVolume(c *Client, des, nw *AzureClusterControlPlaneRootVolume) *AzureClusterControlPlaneRootVolume {
 
 	if des == nil {
@@ -1052,6 +1164,34 @@ func canonicalizeAzureClusterControlPlaneMainVolume(des, initial *AzureClusterCo
 	}
 
 	return cDes
+}
+
+func canonicalizeAzureClusterControlPlaneMainVolumeSlice(des, initial []AzureClusterControlPlaneMainVolume, opts ...dcl.ApplyOption) []AzureClusterControlPlaneMainVolume {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AzureClusterControlPlaneMainVolume, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAzureClusterControlPlaneMainVolume(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AzureClusterControlPlaneMainVolume, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAzureClusterControlPlaneMainVolume(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewAzureClusterControlPlaneMainVolume(c *Client, des, nw *AzureClusterControlPlaneMainVolume) *AzureClusterControlPlaneMainVolume {
@@ -1142,6 +1282,34 @@ func canonicalizeAzureClusterControlPlaneDatabaseEncryption(des, initial *AzureC
 	return cDes
 }
 
+func canonicalizeAzureClusterControlPlaneDatabaseEncryptionSlice(des, initial []AzureClusterControlPlaneDatabaseEncryption, opts ...dcl.ApplyOption) []AzureClusterControlPlaneDatabaseEncryption {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AzureClusterControlPlaneDatabaseEncryption, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAzureClusterControlPlaneDatabaseEncryption(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AzureClusterControlPlaneDatabaseEncryption, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAzureClusterControlPlaneDatabaseEncryption(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewAzureClusterControlPlaneDatabaseEncryption(c *Client, des, nw *AzureClusterControlPlaneDatabaseEncryption) *AzureClusterControlPlaneDatabaseEncryption {
 
 	if des == nil {
@@ -1223,13 +1391,37 @@ func canonicalizeAzureClusterAuthorization(des, initial *AzureClusterAuthorizati
 
 	cDes := &AzureClusterAuthorization{}
 
-	if dcl.IsZeroValue(des.AdminUsers) {
-		des.AdminUsers = initial.AdminUsers
-	} else {
-		cDes.AdminUsers = des.AdminUsers
-	}
+	cDes.AdminUsers = canonicalizeAzureClusterAuthorizationAdminUsersSlice(des.AdminUsers, initial.AdminUsers, opts...)
 
 	return cDes
+}
+
+func canonicalizeAzureClusterAuthorizationSlice(des, initial []AzureClusterAuthorization, opts ...dcl.ApplyOption) []AzureClusterAuthorization {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AzureClusterAuthorization, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAzureClusterAuthorization(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AzureClusterAuthorization, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAzureClusterAuthorization(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewAzureClusterAuthorization(c *Client, des, nw *AzureClusterAuthorization) *AzureClusterAuthorization {
@@ -1315,6 +1507,34 @@ func canonicalizeAzureClusterAuthorizationAdminUsers(des, initial *AzureClusterA
 	}
 
 	return cDes
+}
+
+func canonicalizeAzureClusterAuthorizationAdminUsersSlice(des, initial []AzureClusterAuthorizationAdminUsers, opts ...dcl.ApplyOption) []AzureClusterAuthorizationAdminUsers {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AzureClusterAuthorizationAdminUsers, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAzureClusterAuthorizationAdminUsers(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AzureClusterAuthorizationAdminUsers, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAzureClusterAuthorizationAdminUsers(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewAzureClusterAuthorizationAdminUsers(c *Client, des, nw *AzureClusterAuthorizationAdminUsers) *AzureClusterAuthorizationAdminUsers {
@@ -1412,6 +1632,34 @@ func canonicalizeAzureClusterWorkloadIdentityConfig(des, initial *AzureClusterWo
 	}
 
 	return cDes
+}
+
+func canonicalizeAzureClusterWorkloadIdentityConfigSlice(des, initial []AzureClusterWorkloadIdentityConfig, opts ...dcl.ApplyOption) []AzureClusterWorkloadIdentityConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]AzureClusterWorkloadIdentityConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeAzureClusterWorkloadIdentityConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]AzureClusterWorkloadIdentityConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeAzureClusterWorkloadIdentityConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewAzureClusterWorkloadIdentityConfig(c *Client, des, nw *AzureClusterWorkloadIdentityConfig) *AzureClusterWorkloadIdentityConfig {

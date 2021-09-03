@@ -553,13 +553,37 @@ func canonicalizeCapacityCommitmentFailureStatus(des, initial *CapacityCommitmen
 	} else {
 		cDes.Message = des.Message
 	}
-	if dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	} else {
-		cDes.Details = des.Details
-	}
+	cDes.Details = canonicalizeCapacityCommitmentFailureStatusDetailsSlice(des.Details, initial.Details, opts...)
 
 	return cDes
+}
+
+func canonicalizeCapacityCommitmentFailureStatusSlice(des, initial []CapacityCommitmentFailureStatus, opts ...dcl.ApplyOption) []CapacityCommitmentFailureStatus {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]CapacityCommitmentFailureStatus, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeCapacityCommitmentFailureStatus(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]CapacityCommitmentFailureStatus, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeCapacityCommitmentFailureStatus(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewCapacityCommitmentFailureStatus(c *Client, des, nw *CapacityCommitmentFailureStatus) *CapacityCommitmentFailureStatus {
@@ -653,6 +677,34 @@ func canonicalizeCapacityCommitmentFailureStatusDetails(des, initial *CapacityCo
 	}
 
 	return cDes
+}
+
+func canonicalizeCapacityCommitmentFailureStatusDetailsSlice(des, initial []CapacityCommitmentFailureStatusDetails, opts ...dcl.ApplyOption) []CapacityCommitmentFailureStatusDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]CapacityCommitmentFailureStatusDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeCapacityCommitmentFailureStatusDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]CapacityCommitmentFailureStatusDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeCapacityCommitmentFailureStatusDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewCapacityCommitmentFailureStatusDetails(c *Client, des, nw *CapacityCommitmentFailureStatusDetails) *CapacityCommitmentFailureStatusDetails {

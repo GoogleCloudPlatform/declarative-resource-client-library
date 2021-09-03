@@ -514,6 +514,34 @@ func canonicalizeTopicMessageStoragePolicy(des, initial *TopicMessageStoragePoli
 	return cDes
 }
 
+func canonicalizeTopicMessageStoragePolicySlice(des, initial []TopicMessageStoragePolicy, opts ...dcl.ApplyOption) []TopicMessageStoragePolicy {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]TopicMessageStoragePolicy, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeTopicMessageStoragePolicy(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]TopicMessageStoragePolicy, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeTopicMessageStoragePolicy(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewTopicMessageStoragePolicy(c *Client, des, nw *TopicMessageStoragePolicy) *TopicMessageStoragePolicy {
 
 	if des == nil {

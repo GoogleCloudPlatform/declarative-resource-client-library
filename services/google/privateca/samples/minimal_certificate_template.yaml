@@ -16,11 +16,11 @@ name: minimal_certificate_template
 resource: samples/minimal.certificate_template.json
 type: certificate_template
 variables:
+- name: project
+  type: project
 - name: region
   type: region
 - name: template
   type: resource_name
-- name: project
-  type: project
 versions:
 - ga

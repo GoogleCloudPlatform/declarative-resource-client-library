@@ -487,6 +487,34 @@ func canonicalizeFeatureResourceState(des, initial *FeatureResourceState, opts .
 	return cDes
 }
 
+func canonicalizeFeatureResourceStateSlice(des, initial []FeatureResourceState, opts ...dcl.ApplyOption) []FeatureResourceState {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]FeatureResourceState, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeFeatureResourceState(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]FeatureResourceState, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeFeatureResourceState(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewFeatureResourceState(c *Client, des, nw *FeatureResourceState) *FeatureResourceState {
 
 	if des == nil {
@@ -568,6 +596,34 @@ func canonicalizeFeatureSpec(des, initial *FeatureSpec, opts ...dcl.ApplyOption)
 	cDes.Multiclusteringress = canonicalizeFeatureSpecMulticlusteringress(des.Multiclusteringress, initial.Multiclusteringress, opts...)
 
 	return cDes
+}
+
+func canonicalizeFeatureSpecSlice(des, initial []FeatureSpec, opts ...dcl.ApplyOption) []FeatureSpec {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]FeatureSpec, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeFeatureSpec(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]FeatureSpec, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeFeatureSpec(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewFeatureSpec(c *Client, des, nw *FeatureSpec) *FeatureSpec {
@@ -655,6 +711,34 @@ func canonicalizeFeatureSpecMulticlusteringress(des, initial *FeatureSpecMulticl
 	return cDes
 }
 
+func canonicalizeFeatureSpecMulticlusteringressSlice(des, initial []FeatureSpecMulticlusteringress, opts ...dcl.ApplyOption) []FeatureSpecMulticlusteringress {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]FeatureSpecMulticlusteringress, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeFeatureSpecMulticlusteringress(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]FeatureSpecMulticlusteringress, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeFeatureSpecMulticlusteringress(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewFeatureSpecMulticlusteringress(c *Client, des, nw *FeatureSpecMulticlusteringress) *FeatureSpecMulticlusteringress {
 
 	if des == nil {
@@ -736,6 +820,34 @@ func canonicalizeFeatureState(des, initial *FeatureState, opts ...dcl.ApplyOptio
 	return cDes
 }
 
+func canonicalizeFeatureStateSlice(des, initial []FeatureState, opts ...dcl.ApplyOption) []FeatureState {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]FeatureState, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeFeatureState(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]FeatureState, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeFeatureState(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewFeatureState(c *Client, des, nw *FeatureState) *FeatureState {
 
 	if des == nil {
@@ -813,6 +925,34 @@ func canonicalizeFeatureStateState(des, initial *FeatureStateState, opts ...dcl.
 	cDes := &FeatureStateState{}
 
 	return cDes
+}
+
+func canonicalizeFeatureStateStateSlice(des, initial []FeatureStateState, opts ...dcl.ApplyOption) []FeatureStateState {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]FeatureStateState, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeFeatureStateState(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]FeatureStateState, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeFeatureStateState(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewFeatureStateState(c *Client, des, nw *FeatureStateState) *FeatureStateState {

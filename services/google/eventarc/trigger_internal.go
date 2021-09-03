@@ -522,11 +522,7 @@ func canonicalizeTriggerDesiredState(rawDesired, rawInitial *Trigger, opts ...dc
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.MatchingCriteria) {
-		canonicalDesired.MatchingCriteria = rawInitial.MatchingCriteria
-	} else {
-		canonicalDesired.MatchingCriteria = rawDesired.MatchingCriteria
-	}
+	canonicalDesired.MatchingCriteria = canonicalizeTriggerMatchingCriteriaSlice(rawDesired.MatchingCriteria, rawInitial.MatchingCriteria, opts...)
 	if dcl.NameToSelfLink(rawDesired.ServiceAccount, rawInitial.ServiceAccount) {
 		canonicalDesired.ServiceAccount = rawInitial.ServiceAccount
 	} else {
@@ -655,6 +651,34 @@ func canonicalizeTriggerMatchingCriteria(des, initial *TriggerMatchingCriteria, 
 	return cDes
 }
 
+func canonicalizeTriggerMatchingCriteriaSlice(des, initial []TriggerMatchingCriteria, opts ...dcl.ApplyOption) []TriggerMatchingCriteria {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]TriggerMatchingCriteria, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeTriggerMatchingCriteria(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]TriggerMatchingCriteria, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeTriggerMatchingCriteria(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewTriggerMatchingCriteria(c *Client, des, nw *TriggerMatchingCriteria) *TriggerMatchingCriteria {
 
 	if des == nil {
@@ -744,6 +768,34 @@ func canonicalizeTriggerDestination(des, initial *TriggerDestination, opts ...dc
 	}
 
 	return cDes
+}
+
+func canonicalizeTriggerDestinationSlice(des, initial []TriggerDestination, opts ...dcl.ApplyOption) []TriggerDestination {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]TriggerDestination, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeTriggerDestination(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]TriggerDestination, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeTriggerDestination(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewTriggerDestination(c *Client, des, nw *TriggerDestination) *TriggerDestination {
@@ -844,6 +896,34 @@ func canonicalizeTriggerDestinationCloudRunService(des, initial *TriggerDestinat
 	return cDes
 }
 
+func canonicalizeTriggerDestinationCloudRunServiceSlice(des, initial []TriggerDestinationCloudRunService, opts ...dcl.ApplyOption) []TriggerDestinationCloudRunService {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]TriggerDestinationCloudRunService, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeTriggerDestinationCloudRunService(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]TriggerDestinationCloudRunService, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeTriggerDestinationCloudRunService(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewTriggerDestinationCloudRunService(c *Client, des, nw *TriggerDestinationCloudRunService) *TriggerDestinationCloudRunService {
 
 	if des == nil {
@@ -933,6 +1013,34 @@ func canonicalizeTriggerTransport(des, initial *TriggerTransport, opts ...dcl.Ap
 	return cDes
 }
 
+func canonicalizeTriggerTransportSlice(des, initial []TriggerTransport, opts ...dcl.ApplyOption) []TriggerTransport {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]TriggerTransport, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeTriggerTransport(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]TriggerTransport, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeTriggerTransport(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewTriggerTransport(c *Client, des, nw *TriggerTransport) *TriggerTransport {
 
 	if des == nil {
@@ -1016,6 +1124,34 @@ func canonicalizeTriggerTransportPubsub(des, initial *TriggerTransportPubsub, op
 	}
 
 	return cDes
+}
+
+func canonicalizeTriggerTransportPubsubSlice(des, initial []TriggerTransportPubsub, opts ...dcl.ApplyOption) []TriggerTransportPubsub {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]TriggerTransportPubsub, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeTriggerTransportPubsub(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]TriggerTransportPubsub, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeTriggerTransportPubsub(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewTriggerTransportPubsub(c *Client, des, nw *TriggerTransportPubsub) *TriggerTransportPubsub {

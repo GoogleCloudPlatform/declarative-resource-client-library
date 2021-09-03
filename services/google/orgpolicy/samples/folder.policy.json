@@ -1,0 +1,12 @@
+{
+  "name": "folders/{{ref:basic.cloudresourcemanager.folder.json:name}}/policies/gcp.resourceLocations",
+  "parent": "folders/{{ref:basic.cloudresourcemanager.folder.json:name}}",
+  "spec": {
+    "rules": [
+      {
+        "denyAll": true
+      }
+    ],
+    "inheritFromParent": true
+  }
+}

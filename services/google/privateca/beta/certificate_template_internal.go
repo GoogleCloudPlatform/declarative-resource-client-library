@@ -664,23 +664,43 @@ func canonicalizeCertificateTemplatePredefinedValues(des, initial *CertificateTe
 
 	cDes.KeyUsage = canonicalizeCertificateTemplatePredefinedValuesKeyUsage(des.KeyUsage, initial.KeyUsage, opts...)
 	cDes.CaOptions = canonicalizeCertificateTemplatePredefinedValuesCaOptions(des.CaOptions, initial.CaOptions, opts...)
-	if dcl.IsZeroValue(des.PolicyIds) {
-		des.PolicyIds = initial.PolicyIds
-	} else {
-		cDes.PolicyIds = des.PolicyIds
-	}
+	cDes.PolicyIds = canonicalizeCertificateTemplatePredefinedValuesPolicyIdsSlice(des.PolicyIds, initial.PolicyIds, opts...)
 	if dcl.IsZeroValue(des.AiaOcspServers) {
 		des.AiaOcspServers = initial.AiaOcspServers
 	} else {
 		cDes.AiaOcspServers = des.AiaOcspServers
 	}
-	if dcl.IsZeroValue(des.AdditionalExtensions) {
-		des.AdditionalExtensions = initial.AdditionalExtensions
-	} else {
-		cDes.AdditionalExtensions = des.AdditionalExtensions
-	}
+	cDes.AdditionalExtensions = canonicalizeCertificateTemplatePredefinedValuesAdditionalExtensionsSlice(des.AdditionalExtensions, initial.AdditionalExtensions, opts...)
 
 	return cDes
+}
+
+func canonicalizeCertificateTemplatePredefinedValuesSlice(des, initial []CertificateTemplatePredefinedValues, opts ...dcl.ApplyOption) []CertificateTemplatePredefinedValues {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]CertificateTemplatePredefinedValues, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeCertificateTemplatePredefinedValues(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]CertificateTemplatePredefinedValues, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeCertificateTemplatePredefinedValues(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewCertificateTemplatePredefinedValues(c *Client, des, nw *CertificateTemplatePredefinedValues) *CertificateTemplatePredefinedValues {
@@ -764,13 +784,37 @@ func canonicalizeCertificateTemplatePredefinedValuesKeyUsage(des, initial *Certi
 
 	cDes.BaseKeyUsage = canonicalizeCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(des.BaseKeyUsage, initial.BaseKeyUsage, opts...)
 	cDes.ExtendedKeyUsage = canonicalizeCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(des.ExtendedKeyUsage, initial.ExtendedKeyUsage, opts...)
-	if dcl.IsZeroValue(des.UnknownExtendedKeyUsages) {
-		des.UnknownExtendedKeyUsages = initial.UnknownExtendedKeyUsages
-	} else {
-		cDes.UnknownExtendedKeyUsages = des.UnknownExtendedKeyUsages
-	}
+	cDes.UnknownExtendedKeyUsages = canonicalizeCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesSlice(des.UnknownExtendedKeyUsages, initial.UnknownExtendedKeyUsages, opts...)
 
 	return cDes
+}
+
+func canonicalizeCertificateTemplatePredefinedValuesKeyUsageSlice(des, initial []CertificateTemplatePredefinedValuesKeyUsage, opts ...dcl.ApplyOption) []CertificateTemplatePredefinedValuesKeyUsage {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]CertificateTemplatePredefinedValuesKeyUsage, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeCertificateTemplatePredefinedValuesKeyUsage(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]CertificateTemplatePredefinedValuesKeyUsage, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeCertificateTemplatePredefinedValuesKeyUsage(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewCertificateTemplatePredefinedValuesKeyUsage(c *Client, des, nw *CertificateTemplatePredefinedValuesKeyUsage) *CertificateTemplatePredefinedValuesKeyUsage {
@@ -898,6 +942,34 @@ func canonicalizeCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(des, in
 	}
 
 	return cDes
+}
+
+func canonicalizeCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageSlice(des, initial []CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage, opts ...dcl.ApplyOption) []CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(c *Client, des, nw *CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage) *CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage {
@@ -1036,6 +1108,34 @@ func canonicalizeCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(des
 	return cDes
 }
 
+func canonicalizeCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageSlice(des, initial []CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage, opts ...dcl.ApplyOption) []CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(c *Client, des, nw *CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage) *CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage {
 
 	if des == nil {
@@ -1138,6 +1238,34 @@ func canonicalizeCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUs
 	return cDes
 }
 
+func canonicalizeCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesSlice(des, initial []CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages, opts ...dcl.ApplyOption) []CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages(c *Client, des, nw *CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages) *CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages {
 
 	if des == nil {
@@ -1224,6 +1352,34 @@ func canonicalizeCertificateTemplatePredefinedValuesCaOptions(des, initial *Cert
 	}
 
 	return cDes
+}
+
+func canonicalizeCertificateTemplatePredefinedValuesCaOptionsSlice(des, initial []CertificateTemplatePredefinedValuesCaOptions, opts ...dcl.ApplyOption) []CertificateTemplatePredefinedValuesCaOptions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]CertificateTemplatePredefinedValuesCaOptions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeCertificateTemplatePredefinedValuesCaOptions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]CertificateTemplatePredefinedValuesCaOptions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeCertificateTemplatePredefinedValuesCaOptions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewCertificateTemplatePredefinedValuesCaOptions(c *Client, des, nw *CertificateTemplatePredefinedValuesCaOptions) *CertificateTemplatePredefinedValuesCaOptions {
@@ -1313,6 +1469,34 @@ func canonicalizeCertificateTemplatePredefinedValuesPolicyIds(des, initial *Cert
 	return cDes
 }
 
+func canonicalizeCertificateTemplatePredefinedValuesPolicyIdsSlice(des, initial []CertificateTemplatePredefinedValuesPolicyIds, opts ...dcl.ApplyOption) []CertificateTemplatePredefinedValuesPolicyIds {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]CertificateTemplatePredefinedValuesPolicyIds, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeCertificateTemplatePredefinedValuesPolicyIds(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]CertificateTemplatePredefinedValuesPolicyIds, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeCertificateTemplatePredefinedValuesPolicyIds(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewCertificateTemplatePredefinedValuesPolicyIds(c *Client, des, nw *CertificateTemplatePredefinedValuesPolicyIds) *CertificateTemplatePredefinedValuesPolicyIds {
 
 	if des == nil {
@@ -1400,6 +1584,34 @@ func canonicalizeCertificateTemplatePredefinedValuesAdditionalExtensions(des, in
 	}
 
 	return cDes
+}
+
+func canonicalizeCertificateTemplatePredefinedValuesAdditionalExtensionsSlice(des, initial []CertificateTemplatePredefinedValuesAdditionalExtensions, opts ...dcl.ApplyOption) []CertificateTemplatePredefinedValuesAdditionalExtensions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]CertificateTemplatePredefinedValuesAdditionalExtensions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeCertificateTemplatePredefinedValuesAdditionalExtensions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]CertificateTemplatePredefinedValuesAdditionalExtensions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeCertificateTemplatePredefinedValuesAdditionalExtensions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewCertificateTemplatePredefinedValuesAdditionalExtensions(c *Client, des, nw *CertificateTemplatePredefinedValuesAdditionalExtensions) *CertificateTemplatePredefinedValuesAdditionalExtensions {
@@ -1493,6 +1705,34 @@ func canonicalizeCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId
 	return cDes
 }
 
+func canonicalizeCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdSlice(des, initial []CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId, opts ...dcl.ApplyOption) []CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(c *Client, des, nw *CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId) *CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId {
 
 	if des == nil {
@@ -1580,6 +1820,34 @@ func canonicalizeCertificateTemplateIdentityConstraints(des, initial *Certificat
 	}
 
 	return cDes
+}
+
+func canonicalizeCertificateTemplateIdentityConstraintsSlice(des, initial []CertificateTemplateIdentityConstraints, opts ...dcl.ApplyOption) []CertificateTemplateIdentityConstraints {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]CertificateTemplateIdentityConstraints, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeCertificateTemplateIdentityConstraints(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]CertificateTemplateIdentityConstraints, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeCertificateTemplateIdentityConstraints(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewCertificateTemplateIdentityConstraints(c *Client, des, nw *CertificateTemplateIdentityConstraints) *CertificateTemplateIdentityConstraints {
@@ -1688,6 +1956,34 @@ func canonicalizeCertificateTemplateIdentityConstraintsCelExpression(des, initia
 	return cDes
 }
 
+func canonicalizeCertificateTemplateIdentityConstraintsCelExpressionSlice(des, initial []CertificateTemplateIdentityConstraintsCelExpression, opts ...dcl.ApplyOption) []CertificateTemplateIdentityConstraintsCelExpression {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]CertificateTemplateIdentityConstraintsCelExpression, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeCertificateTemplateIdentityConstraintsCelExpression(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]CertificateTemplateIdentityConstraintsCelExpression, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeCertificateTemplateIdentityConstraintsCelExpression(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewCertificateTemplateIdentityConstraintsCelExpression(c *Client, des, nw *CertificateTemplateIdentityConstraintsCelExpression) *CertificateTemplateIdentityConstraintsCelExpression {
 
 	if des == nil {
@@ -1780,13 +2076,37 @@ func canonicalizeCertificateTemplatePassthroughExtensions(des, initial *Certific
 	} else {
 		cDes.KnownExtensions = des.KnownExtensions
 	}
-	if dcl.IsZeroValue(des.AdditionalExtensions) {
-		des.AdditionalExtensions = initial.AdditionalExtensions
-	} else {
-		cDes.AdditionalExtensions = des.AdditionalExtensions
-	}
+	cDes.AdditionalExtensions = canonicalizeCertificateTemplatePassthroughExtensionsAdditionalExtensionsSlice(des.AdditionalExtensions, initial.AdditionalExtensions, opts...)
 
 	return cDes
+}
+
+func canonicalizeCertificateTemplatePassthroughExtensionsSlice(des, initial []CertificateTemplatePassthroughExtensions, opts ...dcl.ApplyOption) []CertificateTemplatePassthroughExtensions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]CertificateTemplatePassthroughExtensions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeCertificateTemplatePassthroughExtensions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]CertificateTemplatePassthroughExtensions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeCertificateTemplatePassthroughExtensions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewCertificateTemplatePassthroughExtensions(c *Client, des, nw *CertificateTemplatePassthroughExtensions) *CertificateTemplatePassthroughExtensions {
@@ -1872,6 +2192,34 @@ func canonicalizeCertificateTemplatePassthroughExtensionsAdditionalExtensions(de
 	}
 
 	return cDes
+}
+
+func canonicalizeCertificateTemplatePassthroughExtensionsAdditionalExtensionsSlice(des, initial []CertificateTemplatePassthroughExtensionsAdditionalExtensions, opts ...dcl.ApplyOption) []CertificateTemplatePassthroughExtensionsAdditionalExtensions {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]CertificateTemplatePassthroughExtensionsAdditionalExtensions, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeCertificateTemplatePassthroughExtensionsAdditionalExtensions(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]CertificateTemplatePassthroughExtensionsAdditionalExtensions, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeCertificateTemplatePassthroughExtensionsAdditionalExtensions(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewCertificateTemplatePassthroughExtensionsAdditionalExtensions(c *Client, des, nw *CertificateTemplatePassthroughExtensionsAdditionalExtensions) *CertificateTemplatePassthroughExtensionsAdditionalExtensions {

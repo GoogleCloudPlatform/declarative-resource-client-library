@@ -553,6 +553,34 @@ func canonicalizeWorkerPoolWorkerConfig(des, initial *WorkerPoolWorkerConfig, op
 	return cDes
 }
 
+func canonicalizeWorkerPoolWorkerConfigSlice(des, initial []WorkerPoolWorkerConfig, opts ...dcl.ApplyOption) []WorkerPoolWorkerConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkerPoolWorkerConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkerPoolWorkerConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkerPoolWorkerConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkerPoolWorkerConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
 func canonicalizeNewWorkerPoolWorkerConfig(c *Client, des, nw *WorkerPoolWorkerConfig) *WorkerPoolWorkerConfig {
 
 	if des == nil {
@@ -641,6 +669,34 @@ func canonicalizeWorkerPoolNetworkConfig(des, initial *WorkerPoolNetworkConfig, 
 	}
 
 	return cDes
+}
+
+func canonicalizeWorkerPoolNetworkConfigSlice(des, initial []WorkerPoolNetworkConfig, opts ...dcl.ApplyOption) []WorkerPoolNetworkConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkerPoolNetworkConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkerPoolNetworkConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkerPoolNetworkConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkerPoolNetworkConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
 }
 
 func canonicalizeNewWorkerPoolNetworkConfig(c *Client, des, nw *WorkerPoolNetworkConfig) *WorkerPoolNetworkConfig {
