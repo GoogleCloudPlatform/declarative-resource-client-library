@@ -28,14 +28,14 @@ updates:
 variables:
 - name: project
   type: project
-- name: template1
-  type: resource_name
 - name: s_check
   type: resource_name
-- name: instance_group_manager
+- name: template1
   type: resource_name
 - name: zone
   type: zone
+- name: instance_group_manager
+  type: resource_name
 - name: autoscaler
   type: resource_name
 versions:

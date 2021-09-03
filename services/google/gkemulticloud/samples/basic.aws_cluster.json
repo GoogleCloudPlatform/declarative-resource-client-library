@@ -9,34 +9,34 @@
     "serviceAddressCidrBlocks": ["10.1.0.0/16"],
     "serviceLoadBalancerSubnetIds": ["{{aws_subnet}}"]
   },
-  "awsRegion": "us-west-2",
+  "awsRegion": "{{aws_region}}",
   "controlPlane": {
     "version": "1.19.10-gke.1000",
     "instanceType": "t3.medium",
     "sshConfig": {
-      "ec2KeyPair": "mmv2-1p-dev-ssh"
+      "ec2KeyPair": "{{byo_multicloud_prefix}}-1p-dev-ssh"
     },
     "subnetIds": ["{{aws_subnet}}"],
     "securityGroupIds": ["{{aws_security_group}}"],
-    "iamInstanceProfile": "mmv2-1p-dev-controlplane",
+    "iamInstanceProfile": "{{byo_multicloud_prefix}}-1p-dev-controlplane",
     "rootVolume": {
       "sizeGib": 10,
-      "kmsKeyArn": "arn:aws:kms:us-west-2:507099386010:key/{{aws_volume_encryption_key}}",
+      "kmsKeyArn": "arn:aws:kms:{{aws_region}}:{{aws_account_id}}:key/{{aws_volume_encryption_key}}",
       "volumeType": "GP3",
       "iops": 3000
     },
     "mainVolume": {
       "sizeGib": 10,
-      "kmsKeyArn": "arn:aws:kms:us-west-2:507099386010:key/{{aws_volume_encryption_key}}",
+      "kmsKeyArn": "arn:aws:kms:{{aws_region}}:{{aws_account_id}}:key/{{aws_volume_encryption_key}}",
       "volumeType": "GP3",
       "iops": 3000
     },
     "databaseEncryption": {
-      "kmsKeyArn": "arn:aws:kms:us-west-2:507099386010:key/{{aws_database_encryption_key}}"
+      "kmsKeyArn": "arn:aws:kms:{{aws_region}}:{{aws_account_id}}:key/{{aws_database_encryption_key}}"
     },
     "awsServicesAuthentication": {
-      "roleArn": "arn:aws:iam::507099386010:role/mmv2-1p-dev-oneplatform",
-      "roleSessionName": "mmv2-1p-dev-session"
+      "roleArn": "arn:aws:iam::{{aws_account_id}}:role/{{byo_multicloud_prefix}}-1p-dev-oneplatform",
+      "roleSessionName": "{{byo_multicloud_prefix}}-1p-dev-session"
     },
     "tags": {
       "owner": "{{test_service_account}}",

@@ -16,12 +16,15 @@ name: basic_azure_cluster
 resource: samples/basic.azure_cluster.json
 type: azure_cluster
 variables:
+- name: cluster
+  type: resource_name
 - name: project
   type: project
 - name: azure_subscription
   type: azure_subscription
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
 - name: azure_database_encryption_key_version
   type: azure_database_encryption_key_version
-- name: cluster
-  type: resource_name
-versions: []
+versions:
+- alpha

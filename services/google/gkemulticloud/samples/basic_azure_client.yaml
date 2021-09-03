@@ -24,4 +24,5 @@ variables:
   type: azure_ad_tenant
 - name: azure_application
   type: azure_application
-versions: []
+versions:
+- alpha

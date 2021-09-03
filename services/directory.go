@@ -42,8 +42,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices"
 	gameservices_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices/beta"
 	gkehub_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/beta"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkemulticloud"
-	gkemulticloud_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkemulticloud/beta"
+	gkemulticloud_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkemulticloud/alpha"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam"
 	iam_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iap"
@@ -173,16 +172,6 @@ func Services() *Directory {
 	d.AddResource("ga", "file", "Instance", file.YAML_instance)
 	d.AddResource("ga", "gameservices", dcl.TitleToSnakeCase("Realm"), gameservices.YAML_realm)
 	d.AddResource("ga", "gameservices", "Realm", gameservices.YAML_realm)
-	d.AddResource("ga", "gkemulticloud", dcl.TitleToSnakeCase("AwsCluster"), gkemulticloud.YAML_aws_cluster)
-	d.AddResource("ga", "gkemulticloud", "AwsCluster", gkemulticloud.YAML_aws_cluster)
-	d.AddResource("ga", "gkemulticloud", dcl.TitleToSnakeCase("AwsNodePool"), gkemulticloud.YAML_aws_node_pool)
-	d.AddResource("ga", "gkemulticloud", "AwsNodePool", gkemulticloud.YAML_aws_node_pool)
-	d.AddResource("ga", "gkemulticloud", dcl.TitleToSnakeCase("AzureClient"), gkemulticloud.YAML_azure_client)
-	d.AddResource("ga", "gkemulticloud", "AzureClient", gkemulticloud.YAML_azure_client)
-	d.AddResource("ga", "gkemulticloud", dcl.TitleToSnakeCase("AzureCluster"), gkemulticloud.YAML_azure_cluster)
-	d.AddResource("ga", "gkemulticloud", "AzureCluster", gkemulticloud.YAML_azure_cluster)
-	d.AddResource("ga", "gkemulticloud", dcl.TitleToSnakeCase("AzureNodePool"), gkemulticloud.YAML_azure_node_pool)
-	d.AddResource("ga", "gkemulticloud", "AzureNodePool", gkemulticloud.YAML_azure_node_pool)
 	d.AddResource("ga", "iam", dcl.TitleToSnakeCase("Role"), iam.YAML_role)
 	d.AddResource("ga", "iam", "Role", iam.YAML_role)
 	d.AddResource("ga", "iam", dcl.TitleToSnakeCase("ServiceAccount"), iam.YAML_service_account)
@@ -271,16 +260,6 @@ func Services() *Directory {
 	d.AddResource("beta", "gkehub", "FeatureMembership", gkehub_beta.YAML_feature_membership)
 	d.AddResource("beta", "gkehub", dcl.TitleToSnakeCase("Membership"), gkehub_beta.YAML_membership)
 	d.AddResource("beta", "gkehub", "Membership", gkehub_beta.YAML_membership)
-	d.AddResource("beta", "gkemulticloud", dcl.TitleToSnakeCase("AwsCluster"), gkemulticloud_beta.YAML_aws_cluster)
-	d.AddResource("beta", "gkemulticloud", "AwsCluster", gkemulticloud_beta.YAML_aws_cluster)
-	d.AddResource("beta", "gkemulticloud", dcl.TitleToSnakeCase("AwsNodePool"), gkemulticloud_beta.YAML_aws_node_pool)
-	d.AddResource("beta", "gkemulticloud", "AwsNodePool", gkemulticloud_beta.YAML_aws_node_pool)
-	d.AddResource("beta", "gkemulticloud", dcl.TitleToSnakeCase("AzureClient"), gkemulticloud_beta.YAML_azure_client)
-	d.AddResource("beta", "gkemulticloud", "AzureClient", gkemulticloud_beta.YAML_azure_client)
-	d.AddResource("beta", "gkemulticloud", dcl.TitleToSnakeCase("AzureCluster"), gkemulticloud_beta.YAML_azure_cluster)
-	d.AddResource("beta", "gkemulticloud", "AzureCluster", gkemulticloud_beta.YAML_azure_cluster)
-	d.AddResource("beta", "gkemulticloud", dcl.TitleToSnakeCase("AzureNodePool"), gkemulticloud_beta.YAML_azure_node_pool)
-	d.AddResource("beta", "gkemulticloud", "AzureNodePool", gkemulticloud_beta.YAML_azure_node_pool)
 	d.AddResource("beta", "iam", dcl.TitleToSnakeCase("Role"), iam_beta.YAML_role)
 	d.AddResource("beta", "iam", "Role", iam_beta.YAML_role)
 	d.AddResource("beta", "iam", dcl.TitleToSnakeCase("ServiceAccount"), iam_beta.YAML_service_account)
@@ -319,6 +298,16 @@ func Services() *Directory {
 	d.AddResource("beta", "storage", "Bucket", storage_beta.YAML_bucket)
 	d.AddResource("beta", "privateca", dcl.TitleToSnakeCase("CertificateTemplate"), privateca_beta.YAML_certificate_template)
 	d.AddResource("beta", "privateca", "CertificateTemplate", privateca_beta.YAML_certificate_template)
+	d.AddResource("alpha", "gkemulticloud", dcl.TitleToSnakeCase("AwsCluster"), gkemulticloud_alpha.YAML_aws_cluster)
+	d.AddResource("alpha", "gkemulticloud", "AwsCluster", gkemulticloud_alpha.YAML_aws_cluster)
+	d.AddResource("alpha", "gkemulticloud", dcl.TitleToSnakeCase("AwsNodePool"), gkemulticloud_alpha.YAML_aws_node_pool)
+	d.AddResource("alpha", "gkemulticloud", "AwsNodePool", gkemulticloud_alpha.YAML_aws_node_pool)
+	d.AddResource("alpha", "gkemulticloud", dcl.TitleToSnakeCase("AzureClient"), gkemulticloud_alpha.YAML_azure_client)
+	d.AddResource("alpha", "gkemulticloud", "AzureClient", gkemulticloud_alpha.YAML_azure_client)
+	d.AddResource("alpha", "gkemulticloud", dcl.TitleToSnakeCase("AzureCluster"), gkemulticloud_alpha.YAML_azure_cluster)
+	d.AddResource("alpha", "gkemulticloud", "AzureCluster", gkemulticloud_alpha.YAML_azure_cluster)
+	d.AddResource("alpha", "gkemulticloud", dcl.TitleToSnakeCase("AzureNodePool"), gkemulticloud_alpha.YAML_azure_node_pool)
+	d.AddResource("alpha", "gkemulticloud", "AzureNodePool", gkemulticloud_alpha.YAML_azure_node_pool)
 	d.AddResource("alpha", "networksecurity", dcl.TitleToSnakeCase("AuthorizationPolicy"), networksecurity_alpha.YAML_authorization_policy)
 	d.AddResource("alpha", "networksecurity", "AuthorizationPolicy", networksecurity_alpha.YAML_authorization_policy)
 	d.AddResource("alpha", "networksecurity", dcl.TitleToSnakeCase("ClientTlsPolicy"), networksecurity_alpha.YAML_client_tls_policy)

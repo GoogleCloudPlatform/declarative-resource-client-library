@@ -16,7 +16,7 @@
     "instanceType": "t3.medium",
     "rootVolume": {
       "sizeGib": 10,
-      "kmsKeyArn": "arn:aws:kms:us-west-2:507099386010:key/{{aws_volume_encryption_key}}",
+      "kmsKeyArn": "arn:aws:kms:{{aws_region}}:{{aws_account_id}}:key/{{aws_volume_encryption_key}}",
       "volumeType": "GP3",
       "iops": 3000
     },
@@ -33,9 +33,9 @@
     "tags": {
       "tag-one": "value-one"
     },
-    "iamInstanceProfile": "mmv2-1p-dev-nodepool",
+    "iamInstanceProfile": "{{byo_multicloud_prefix}}-1p-dev-nodepool",
     "sshConfig": {
-      "ec2KeyPair": "mmv2-1p-dev-ssh"
+      "ec2KeyPair": "{{byo_multicloud_prefix}}-1p-dev-ssh"
     },
     "securityGroupIds": ["{{aws_security_group}}"]
   },

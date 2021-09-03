@@ -66,9 +66,7 @@ import (
 
 	gkehub_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/beta_connector"
 
-	gkemulticloud_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkemulticloud/connector"
-
-	gkemulticloud_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkemulticloud/beta_connector"
+	gkemulticloud_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkemulticloud/alpha_connector"
 
 	iam_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam/connector"
 
@@ -179,9 +177,7 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	gkehub_beta_connector.RegisterServers(grpcServer)
 
-	gkemulticloud_connector.RegisterServers(grpcServer)
-
-	gkemulticloud_beta_connector.RegisterServers(grpcServer)
+	gkemulticloud_alpha_connector.RegisterServers(grpcServer)
 
 	iam_connector.RegisterServers(grpcServer)
 
