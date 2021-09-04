@@ -22,8 +22,8 @@ import (
 func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterMonitoringBetaDashboardServiceServer(s, &DashboardServer{})
 	sdkgrpc.RegisterMonitoringBetaGroupServiceServer(s, &GroupServer{})
-	sdkgrpc.RegisterMonitoringBetaAlertPolicyServiceServer(s, &AlertPolicyServer{})
 	sdkgrpc.RegisterMonitoringBetaMetricDescriptorServiceServer(s, &MetricDescriptorServer{})
+	sdkgrpc.RegisterMonitoringBetaAlertPolicyServiceServer(s, &AlertPolicyServer{})
 	sdkgrpc.RegisterMonitoringBetaMetricsScopeServiceServer(s, &MetricsScopeServer{})
 	sdkgrpc.RegisterMonitoringBetaMonitoredProjectServiceServer(s, &MonitoredProjectServer{})
 	sdkgrpc.RegisterMonitoringBetaNotificationChannelServiceServer(s, &NotificationChannelServer{})

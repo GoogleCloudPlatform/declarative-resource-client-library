@@ -277,7 +277,7 @@ func (s *MetricDescriptorServer) ListMonitoringMetricDescriptor(ctx context.Cont
 		return nil, err
 	}
 
-	resources, err := cl.ListMetricDescriptor(ctx, request.Project)
+	resources, err := cl.ListMetricDescriptor(ctx, ProtoToMetricDescriptor(request.GetResource()))
 	if err != nil {
 		return nil, err
 	}

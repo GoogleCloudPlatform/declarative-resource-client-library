@@ -104,7 +104,7 @@ message DeleteMonitoringMetricDescriptorRequest {
 
 message ListMonitoringMetricDescriptorRequest {
   string service_account_file = 1;
-  string Project = 2;
+	MonitoringMetricDescriptor resource = 2;
 }
 
 message ListMonitoringMetricDescriptorResponse {

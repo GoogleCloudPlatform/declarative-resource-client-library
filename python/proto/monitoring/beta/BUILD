@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="monitoring/beta", resources=["dashboard","group"])
+proto_package(name="monitoring/beta", resources=["dashboard","group","metric_descriptor"])

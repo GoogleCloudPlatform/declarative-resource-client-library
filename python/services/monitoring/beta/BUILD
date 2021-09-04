@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="monitoring/beta", resources=["dashboard","group"])
+connector(name="monitoring/beta", resources=["dashboard","group","metric_descriptor"])

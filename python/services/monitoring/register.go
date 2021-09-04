@@ -22,8 +22,8 @@ import (
 func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterMonitoringDashboardServiceServer(s, &DashboardServer{})
 	sdkgrpc.RegisterMonitoringGroupServiceServer(s, &GroupServer{})
-	sdkgrpc.RegisterMonitoringAlertPolicyServiceServer(s, &AlertPolicyServer{})
 	sdkgrpc.RegisterMonitoringMetricDescriptorServiceServer(s, &MetricDescriptorServer{})
+	sdkgrpc.RegisterMonitoringAlertPolicyServiceServer(s, &AlertPolicyServer{})
 	sdkgrpc.RegisterMonitoringMetricsScopeServiceServer(s, &MetricsScopeServer{})
 	sdkgrpc.RegisterMonitoringMonitoredProjectServiceServer(s, &MonitoredProjectServer{})
 	sdkgrpc.RegisterMonitoringNotificationChannelServiceServer(s, &NotificationChannelServer{})

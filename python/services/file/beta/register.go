@@ -20,6 +20,6 @@ import (
 
 // RegisterServers registers each resource with the gRPC server.
 func RegisterServers(s *grpc.Server) {
-	sdkgrpc.RegisterFileBetaBackupServiceServer(s, &BackupServer{})
 	sdkgrpc.RegisterFileBetaInstanceServiceServer(s, &InstanceServer{})
+	sdkgrpc.RegisterFileBetaBackupServiceServer(s, &BackupServer{})
 }

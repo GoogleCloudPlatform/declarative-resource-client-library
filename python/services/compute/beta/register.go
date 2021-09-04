@@ -40,6 +40,7 @@ func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterComputeBetaImageServiceServer(s, &ImageServer{})
 	sdkgrpc.RegisterComputeBetaInstanceServiceServer(s, &InstanceServer{})
 	sdkgrpc.RegisterComputeBetaInstanceTemplateServiceServer(s, &InstanceTemplateServer{})
+	sdkgrpc.RegisterComputeBetaInterconnectServiceServer(s, &InterconnectServer{})
 	sdkgrpc.RegisterComputeBetaManagedSslCertificateServiceServer(s, &ManagedSslCertificateServer{})
 	sdkgrpc.RegisterComputeBetaNetworkEndpointServiceServer(s, &NetworkEndpointServer{})
 	sdkgrpc.RegisterComputeBetaNetworkEndpointGroupServiceServer(s, &NetworkEndpointGroupServer{})

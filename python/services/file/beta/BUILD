@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="file/beta", resources=["backup","instance"])
+connector(name="file/beta", resources=["instance","backup"])
