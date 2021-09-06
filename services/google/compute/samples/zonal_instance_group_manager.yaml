@@ -26,13 +26,13 @@ updates:
   - samples/second.instance_template.json
   resource: samples/update_zonal.instance_group_manager.json
 variables:
-- name: s_check
-  type: resource_name
 - name: project
   type: project
 - name: template1
   type: resource_name
 - name: template2
+  type: resource_name
+- name: s_check
   type: resource_name
 - name: zone
   type: zone
