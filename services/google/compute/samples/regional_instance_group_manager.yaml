@@ -32,8 +32,12 @@ updates:
   - samples/http.health_check.json
   resource: samples/update_regional.instance_group_manager.json
 variables:
+- name: check
+  type: resource_name
 - name: project
   type: project
+- name: template1
+  type: resource_name
 - name: template2
   type: resource_name
 - name: pool1
@@ -44,13 +48,9 @@ variables:
   type: resource_name
 - name: s_check
   type: resource_name
-- name: check
-  type: resource_name
-- name: template1
+- name: instance_group_manager
   type: resource_name
 - name: zone
   type: zone
-- name: instance_group_manager
-  type: resource_name
 versions:
 - ga
