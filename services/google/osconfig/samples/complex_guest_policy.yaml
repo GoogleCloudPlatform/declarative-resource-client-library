@@ -18,13 +18,13 @@ name: complex_guest_policy
 resource: samples/complex.guest_policy.json
 type: guest_policy
 variables:
+- name: policy_inst
+  type: resource_name
 - name: project
   type: project
-- name: policy_inst
+- name: policy
   type: resource_name
 - name: zone
   type: zone
-- name: policy
-  type: resource_name
 versions:
 - beta

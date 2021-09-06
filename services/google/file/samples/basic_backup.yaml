@@ -28,10 +28,10 @@ variables:
   type: project
 - name: zone
   type: zone
-- name: region
-  type: region
 - name: backup
   type: resource_name
+- name: region
+  type: region
 versions:
 - ga
 - beta

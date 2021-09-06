@@ -21,12 +21,12 @@ type: trigger
 variables:
 - name: project
   type: project
+- name: topic
+  type: resource_name
 - name: name
   type: resource_name
 - name: region
   type: region
-- name: topic
-  type: resource_name
 - name: service_account
   type: service_account
 versions:
