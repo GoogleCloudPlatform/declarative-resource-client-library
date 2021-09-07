@@ -535,9 +535,9 @@ func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt) HashCode() s
 }
 
 type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb struct {
-	empty    bool                                                             `json:"-"`
-	Source   *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource `json:"source"`
-	PullDeps *bool                                                            `json:"pullDeps"`
+	empty    bool                    `json:"-"`
+	Source   *OSPolicyAssignmentFile `json:"source"`
+	PullDeps *bool                   `json:"pullDeps"`
 }
 
 type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb
@@ -577,303 +577,6 @@ func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb) String() str
 }
 
 func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource struct {
-	empty         bool                                                                   `json:"-"`
-	Remote        *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote `json:"remote"`
-	Gcs           *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs    `json:"gcs"`
-	LocalPath     *string                                                                `json:"localPath"`
-	AllowInsecure *bool                                                                  `json:"allowInsecure"`
-}
-
-type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource) UnmarshalJSON(data []byte) error {
-	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource
-	} else {
-
-		r.Remote = res.Remote
-
-		r.Gcs = res.Gcs
-
-		r.LocalPath = res.LocalPath
-
-		r.AllowInsecure = res.AllowInsecure
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource{empty: true}
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource) Empty() bool {
-	return r.empty
-}
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote struct {
-	empty          bool    `json:"-"`
-	Uri            *string `json:"uri"`
-	Sha256Checksum *string `json:"sha256Checksum"`
-}
-
-type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote) UnmarshalJSON(data []byte) error {
-	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote
-	} else {
-
-		r.Uri = res.Uri
-
-		r.Sha256Checksum = res.Sha256Checksum
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote{empty: true}
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote) Empty() bool {
-	return r.empty
-}
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs struct {
-	empty      bool    `json:"-"`
-	Bucket     *string `json:"bucket"`
-	Object     *string `json:"object"`
-	Generation *int64  `json:"generation"`
-}
-
-type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs) UnmarshalJSON(data []byte) error {
-	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs
-	} else {
-
-		r.Bucket = res.Bucket
-
-		r.Object = res.Object
-
-		r.Generation = res.Generation
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs{empty: true}
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs) Empty() bool {
-	return r.empty
-}
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum struct {
-	empty bool    `json:"-"`
-	Name  *string `json:"name"`
-}
-
-type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) UnmarshalJSON(data []byte) error {
-	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum
-	} else {
-
-		r.Name = res.Name
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum{empty: true}
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) Empty() bool {
-	return r.empty
-}
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper struct {
-	empty bool    `json:"-"`
-	Name  *string `json:"name"`
-}
-
-type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) UnmarshalJSON(data []byte) error {
-	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper
-	} else {
-
-		r.Name = res.Name
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper{empty: true}
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) Empty() bool {
-	return r.empty
-}
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm struct {
-	empty    bool                    `json:"-"`
-	Source   *OSPolicyAssignmentFile `json:"source"`
-	PullDeps *bool                   `json:"pullDeps"`
-}
-
-type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) UnmarshalJSON(data []byte) error {
-	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm
-	} else {
-
-		r.Source = res.Source
-
-		r.PullDeps = res.PullDeps
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm{empty: true}
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) Empty() bool {
-	return r.empty
-}
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -1030,6 +733,147 @@ func (r *OSPolicyAssignmentFileGcs) String() string {
 }
 
 func (r *OSPolicyAssignmentFileGcs) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum struct {
+	empty bool    `json:"-"`
+	Name  *string `json:"name"`
+}
+
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum
+
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum
+	} else {
+
+		r.Name = res.Name
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum{empty: true}
+
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) Empty() bool {
+	return r.empty
+}
+
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper struct {
+	empty bool    `json:"-"`
+	Name  *string `json:"name"`
+}
+
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper
+
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper
+	} else {
+
+		r.Name = res.Name
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper{empty: true}
+
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) Empty() bool {
+	return r.empty
+}
+
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm struct {
+	empty    bool                    `json:"-"`
+	Source   *OSPolicyAssignmentFile `json:"source"`
+	PullDeps *bool                   `json:"pullDeps"`
+}
+
+type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm
+
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm
+	} else {
+
+		r.Source = res.Source
+
+		r.PullDeps = res.PullDeps
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm = &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm{empty: true}
+
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) Empty() bool {
+	return r.empty
+}
+
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

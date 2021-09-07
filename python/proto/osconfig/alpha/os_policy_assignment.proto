@@ -124,37 +124,6 @@ message OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt {
 }
 
 message OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb {
-  OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource source = 1;
-  bool pull_deps = 2;
-}
-
-message OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource {
-  OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote remote = 1;
-  OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs gcs = 2;
-  string local_path = 3;
-  bool allow_insecure = 4;
-}
-
-message OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote {
-  string uri = 1;
-  string sha256_checksum = 2;
-}
-
-message OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs {
-  string bucket = 1;
-  string object = 2;
-  int64 generation = 3;
-}
-
-message OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum {
-  string name = 1;
-}
-
-message OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper {
-  string name = 1;
-}
-
-message OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm {
   OsconfigAlphaOSPolicyAssignmentFile source = 1;
   bool pull_deps = 2;
 }
@@ -175,6 +144,19 @@ message OsconfigAlphaOSPolicyAssignmentFileGcs {
   string bucket = 1;
   string object = 2;
   int64 generation = 3;
+}
+
+message OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum {
+  string name = 1;
+}
+
+message OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper {
+  string name = 1;
+}
+
+message OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm {
+  OsconfigAlphaOSPolicyAssignmentFile source = 1;
+  bool pull_deps = 2;
 }
 
 message OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget {

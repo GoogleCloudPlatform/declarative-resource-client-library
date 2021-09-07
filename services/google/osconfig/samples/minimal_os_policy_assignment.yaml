@@ -11,22 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-dependencies:
-- samples/service_account.policy.json
-- samples/basic.attestor.json
-- samples/basic.containeranalysis.note.json
-description: A service account example for a binary authorization policy with iam
-  binding
-name: iam_policy
-resource: samples/default.iam.binding.json
-type: iam.binding
+description: A minimal example of an osconfig os policy assignment
+name: minimal_os_policy_assignment
+resource: samples/minimal.os_policy_assignment.json
+type: os_policy_assignment
 variables:
-- name: package
-  type: resource_name
-- name: note
+- name: zone
+  type: zone
+- name: assignment
   type: resource_name
 - name: project
   type: project
-- name: attestor
-  type: resource_name
-versions: []
+versions:
+- alpha

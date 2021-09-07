@@ -190,79 +190,6 @@ func ProtoToOsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgD
 		return nil
 	}
 	obj := &alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb{
-		Source:   ProtoToOsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(p.GetSource()),
-		PullDeps: dcl.Bool(p.PullDeps),
-	}
-	return obj
-}
-
-// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource resource from its proto representation.
-func ProtoToOsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(p *alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource) *alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource{
-		Remote:        ProtoToOsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(p.GetRemote()),
-		Gcs:           ProtoToOsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(p.GetGcs()),
-		LocalPath:     dcl.StringOrNil(p.LocalPath),
-		AllowInsecure: dcl.Bool(p.AllowInsecure),
-	}
-	return obj
-}
-
-// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote resource from its proto representation.
-func ProtoToOsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(p *alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote) *alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote{
-		Uri:            dcl.StringOrNil(p.Uri),
-		Sha256Checksum: dcl.StringOrNil(p.Sha256Checksum),
-	}
-	return obj
-}
-
-// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs resource from its proto representation.
-func ProtoToOsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(p *alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs) *alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs{
-		Bucket:     dcl.StringOrNil(p.Bucket),
-		Object:     dcl.StringOrNil(p.Object),
-		Generation: dcl.Int64OrNil(p.Generation),
-	}
-	return obj
-}
-
-// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum resource from its proto representation.
-func ProtoToOsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(p *alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) *alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum{
-		Name: dcl.StringOrNil(p.Name),
-	}
-	return obj
-}
-
-// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper resource from its proto representation.
-func ProtoToOsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(p *alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) *alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper{
-		Name: dcl.StringOrNil(p.Name),
-	}
-	return obj
-}
-
-// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm resource from its proto representation.
-func ProtoToOsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(p *alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) *alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm{
 		Source:   ProtoToOsconfigAlphaOSPolicyAssignmentFile(p.GetSource()),
 		PullDeps: dcl.Bool(p.PullDeps),
 	}
@@ -304,6 +231,40 @@ func ProtoToOsconfigAlphaOSPolicyAssignmentFileGcs(p *alphapb.OsconfigAlphaOSPol
 		Bucket:     dcl.StringOrNil(p.Bucket),
 		Object:     dcl.StringOrNil(p.Object),
 		Generation: dcl.Int64OrNil(p.Generation),
+	}
+	return obj
+}
+
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum resource from its proto representation.
+func ProtoToOsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(p *alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) *alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum{
+		Name: dcl.StringOrNil(p.Name),
+	}
+	return obj
+}
+
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper resource from its proto representation.
+func ProtoToOsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(p *alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) *alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper{
+		Name: dcl.StringOrNil(p.Name),
+	}
+	return obj
+}
+
+// ProtoToOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm resource from its proto representation.
+func ProtoToOsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(p *alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) *alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm{
+		Source:   ProtoToOsconfigAlphaOSPolicyAssignmentFile(p.GetSource()),
+		PullDeps: dcl.Bool(p.PullDeps),
 	}
 	return obj
 }
@@ -695,79 +656,6 @@ func OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebToPro
 		return nil
 	}
 	p := &alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb{
-		Source:   OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceToProto(o.Source),
-		PullDeps: dcl.ValueOrEmptyBool(o.PullDeps),
-	}
-	return p
-}
-
-// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource resource to its proto representation.
-func OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceToProto(o *alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource) *alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource{
-		Remote:        OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteToProto(o.Remote),
-		Gcs:           OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsToProto(o.Gcs),
-		LocalPath:     dcl.ValueOrEmptyString(o.LocalPath),
-		AllowInsecure: dcl.ValueOrEmptyBool(o.AllowInsecure),
-	}
-	return p
-}
-
-// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote resource to its proto representation.
-func OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteToProto(o *alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote) *alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote{
-		Uri:            dcl.ValueOrEmptyString(o.Uri),
-		Sha256Checksum: dcl.ValueOrEmptyString(o.Sha256Checksum),
-	}
-	return p
-}
-
-// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs resource to its proto representation.
-func OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsToProto(o *alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs) *alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs{
-		Bucket:     dcl.ValueOrEmptyString(o.Bucket),
-		Object:     dcl.ValueOrEmptyString(o.Object),
-		Generation: dcl.ValueOrEmptyInt64(o.Generation),
-	}
-	return p
-}
-
-// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum resource to its proto representation.
-func OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumToProto(o *alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) *alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum{
-		Name: dcl.ValueOrEmptyString(o.Name),
-	}
-	return p
-}
-
-// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper resource to its proto representation.
-func OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperToProto(o *alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) *alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper{
-		Name: dcl.ValueOrEmptyString(o.Name),
-	}
-	return p
-}
-
-// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm resource to its proto representation.
-func OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmToProto(o *alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) *alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm{
 		Source:   OsconfigAlphaOSPolicyAssignmentFileToProto(o.Source),
 		PullDeps: dcl.ValueOrEmptyBool(o.PullDeps),
 	}
@@ -809,6 +697,40 @@ func OsconfigAlphaOSPolicyAssignmentFileGcsToProto(o *alpha.OSPolicyAssignmentFi
 		Bucket:     dcl.ValueOrEmptyString(o.Bucket),
 		Object:     dcl.ValueOrEmptyString(o.Object),
 		Generation: dcl.ValueOrEmptyInt64(o.Generation),
+	}
+	return p
+}
+
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum resource to its proto representation.
+func OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumToProto(o *alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum) *alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum{
+		Name: dcl.ValueOrEmptyString(o.Name),
+	}
+	return p
+}
+
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper resource to its proto representation.
+func OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperToProto(o *alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) *alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper{
+		Name: dcl.ValueOrEmptyString(o.Name),
+	}
+	return p
+}
+
+// OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm resource to its proto representation.
+func OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmToProto(o *alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm) *alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm{
+		Source:   OsconfigAlphaOSPolicyAssignmentFileToProto(o.Source),
+		PullDeps: dcl.ValueOrEmptyBool(o.PullDeps),
 	}
 	return p
 }
