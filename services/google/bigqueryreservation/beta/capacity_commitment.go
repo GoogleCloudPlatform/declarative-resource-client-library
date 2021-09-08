@@ -287,6 +287,13 @@ func (l *CapacityCommitmentList) Next(ctx context.Context, c *Client) error {
 
 func (c *Client) ListCapacityCommitment(ctx context.Context, r *CapacityCommitment) (*CapacityCommitmentList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
+		429: dcl.Retryability{
+			Retryable: false,
+			Pattern:   "",
+			Timeout:   0,
+		},
+	})))
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -312,6 +319,13 @@ func (c *Client) ListCapacityCommitmentWithMaxResults(ctx context.Context, r *Ca
 
 func (c *Client) GetCapacityCommitment(ctx context.Context, r *CapacityCommitment) (*CapacityCommitment, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
+		429: dcl.Retryability{
+			Retryable: false,
+			Pattern:   "",
+			Timeout:   0,
+		},
+	})))
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -351,6 +365,13 @@ func (c *Client) GetCapacityCommitment(ctx context.Context, r *CapacityCommitmen
 
 func (c *Client) DeleteCapacityCommitment(ctx context.Context, r *CapacityCommitment) error {
 	ctx = dcl.ContextWithRequestID(ctx)
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
+		429: dcl.Retryability{
+			Retryable: false,
+			Pattern:   "",
+			Timeout:   0,
+		},
+	})))
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -392,6 +413,13 @@ func (c *Client) DeleteAllCapacityCommitment(ctx context.Context, project, locat
 
 func (c *Client) ApplyCapacityCommitment(ctx context.Context, rawDesired *CapacityCommitment, opts ...dcl.ApplyOption) (*CapacityCommitment, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
+		429: dcl.Retryability{
+			Retryable: false,
+			Pattern:   "",
+			Timeout:   0,
+		},
+	})))
 	var resultNewState *CapacityCommitment
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyCapacityCommitmentHelper(c, ctx, rawDesired, opts...)

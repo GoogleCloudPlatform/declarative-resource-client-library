@@ -34,25 +34,25 @@ updates:
   - samples/basic.network.json
   resource: samples/update.packet_mirroring.json
 variables:
-- name: service
-  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
+- name: service
+  type: resource_name
 - name: compute_network
   type: resource_name
 - name: zone
   type: zone
 - name: instance1
   type: resource_name
-- name: rule1
-  type: resource_name
-- name: rule2
+- name: range
   type: resource_name
 - name: compute_subnetwork
   type: resource_name
-- name: range
+- name: rule1
+  type: resource_name
+- name: rule2
   type: resource_name
 - name: instance2
   type: resource_name
