@@ -28,10 +28,10 @@ updates:
   - samples/basic.storage.bucket.json
   resource: samples/update_global.target_http_proxy.json
 variables:
-- name: project
-  type: project
 - name: bucket
   type: resource_name
+- name: project
+  type: project
 - name: backend
   type: resource_name
 - name: map2

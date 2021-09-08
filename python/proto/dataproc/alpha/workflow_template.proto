@@ -1,0 +1,240 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+syntax = "proto3";
+
+package dcl;
+
+import "proto/connector/sdk.proto";
+import "proto/empty.proto";
+import "cloud/graphite/mmv2/services/google/dataproc/alpha/cluster.proto";
+
+message DataprocAlphaWorkflowTemplate {
+  string name = 1;
+  int64 version = 2;
+  string create_time = 3;
+  string update_time = 4;
+  map<string, string> labels = 5;
+  DataprocAlphaWorkflowTemplatePlacement placement = 6;
+  repeated DataprocAlphaWorkflowTemplateJobs jobs = 7;
+  repeated DataprocAlphaWorkflowTemplateParameters parameters = 8;
+  string dag_timeout = 9;
+  string project = 10;
+  string location = 11;
+}
+
+message DataprocAlphaWorkflowTemplatePlacement {
+  DataprocAlphaWorkflowTemplatePlacementManagedCluster managed_cluster = 1;
+  DataprocAlphaWorkflowTemplatePlacementClusterSelector cluster_selector = 2;
+}
+
+message DataprocAlphaWorkflowTemplatePlacementManagedCluster {
+  string cluster_name = 1;
+  DataprocAlphaClusterClusterConfig config = 2;
+  map<string, string> labels = 3;
+}
+
+message DataprocAlphaWorkflowTemplatePlacementClusterSelector {
+  string zone = 1;
+  map<string, string> cluster_labels = 2;
+}
+
+message DataprocAlphaWorkflowTemplateJobs {
+  string step_id = 1;
+  DataprocAlphaWorkflowTemplateJobsHadoopJob hadoop_job = 2;
+  DataprocAlphaWorkflowTemplateJobsSparkJob spark_job = 3;
+  DataprocAlphaWorkflowTemplateJobsPysparkJob pyspark_job = 4;
+  DataprocAlphaWorkflowTemplateJobsHiveJob hive_job = 5;
+  DataprocAlphaWorkflowTemplateJobsPigJob pig_job = 6;
+  DataprocAlphaWorkflowTemplateJobsSparkRJob spark_r_job = 7;
+  DataprocAlphaWorkflowTemplateJobsSparkSqlJob spark_sql_job = 8;
+  DataprocAlphaWorkflowTemplateJobsPrestoJob presto_job = 9;
+  map<string, string> labels = 10;
+  DataprocAlphaWorkflowTemplateJobsScheduling scheduling = 11;
+  repeated string prerequisite_step_ids = 12;
+}
+
+message DataprocAlphaWorkflowTemplateJobsHadoopJob {
+  string main_jar_file_uri = 1;
+  string main_class = 2;
+  repeated string args = 3;
+  repeated string jar_file_uris = 4;
+  repeated string file_uris = 5;
+  repeated string archive_uris = 6;
+  map<string, string> properties = 7;
+  DataprocAlphaWorkflowTemplateJobsHadoopJobLoggingConfig logging_config = 8;
+}
+
+message DataprocAlphaWorkflowTemplateJobsHadoopJobLoggingConfig {
+  map<string, string> driver_log_levels = 1;
+}
+
+message DataprocAlphaWorkflowTemplateJobsSparkJob {
+  string main_jar_file_uri = 1;
+  string main_class = 2;
+  repeated string args = 3;
+  repeated string jar_file_uris = 4;
+  repeated string file_uris = 5;
+  repeated string archive_uris = 6;
+  map<string, string> properties = 7;
+  DataprocAlphaWorkflowTemplateJobsSparkJobLoggingConfig logging_config = 8;
+}
+
+message DataprocAlphaWorkflowTemplateJobsSparkJobLoggingConfig {
+  map<string, string> driver_log_levels = 1;
+}
+
+message DataprocAlphaWorkflowTemplateJobsPysparkJob {
+  string main_python_file_uri = 1;
+  repeated string args = 2;
+  repeated string python_file_uris = 3;
+  repeated string jar_file_uris = 4;
+  repeated string file_uris = 5;
+  repeated string archive_uris = 6;
+  map<string, string> properties = 7;
+  DataprocAlphaWorkflowTemplateJobsPysparkJobLoggingConfig logging_config = 8;
+}
+
+message DataprocAlphaWorkflowTemplateJobsPysparkJobLoggingConfig {
+  map<string, string> driver_log_levels = 1;
+}
+
+message DataprocAlphaWorkflowTemplateJobsHiveJob {
+  string query_file_uri = 1;
+  DataprocAlphaWorkflowTemplateJobsHiveJobQueryList query_list = 2;
+  bool continue_on_failure = 3;
+  map<string, string> script_variables = 4;
+  map<string, string> properties = 5;
+  repeated string jar_file_uris = 6;
+}
+
+message DataprocAlphaWorkflowTemplateJobsHiveJobQueryList {
+  repeated string queries = 1;
+}
+
+message DataprocAlphaWorkflowTemplateJobsPigJob {
+  string query_file_uri = 1;
+  DataprocAlphaWorkflowTemplateJobsPigJobQueryList query_list = 2;
+  bool continue_on_failure = 3;
+  map<string, string> script_variables = 4;
+  map<string, string> properties = 5;
+  repeated string jar_file_uris = 6;
+  DataprocAlphaWorkflowTemplateJobsPigJobLoggingConfig logging_config = 7;
+}
+
+message DataprocAlphaWorkflowTemplateJobsPigJobQueryList {
+  repeated string queries = 1;
+}
+
+message DataprocAlphaWorkflowTemplateJobsPigJobLoggingConfig {
+  map<string, string> driver_log_levels = 1;
+}
+
+message DataprocAlphaWorkflowTemplateJobsSparkRJob {
+  string main_r_file_uri = 1;
+  repeated string args = 2;
+  repeated string file_uris = 3;
+  repeated string archive_uris = 4;
+  map<string, string> properties = 5;
+  DataprocAlphaWorkflowTemplateJobsSparkRJobLoggingConfig logging_config = 6;
+}
+
+message DataprocAlphaWorkflowTemplateJobsSparkRJobLoggingConfig {
+  map<string, string> driver_log_levels = 1;
+}
+
+message DataprocAlphaWorkflowTemplateJobsSparkSqlJob {
+  string query_file_uri = 1;
+  DataprocAlphaWorkflowTemplateJobsSparkSqlJobQueryList query_list = 2;
+  map<string, string> script_variables = 3;
+  map<string, string> properties = 4;
+  repeated string jar_file_uris = 5;
+  DataprocAlphaWorkflowTemplateJobsSparkSqlJobLoggingConfig logging_config = 6;
+}
+
+message DataprocAlphaWorkflowTemplateJobsSparkSqlJobQueryList {
+  repeated string queries = 1;
+}
+
+message DataprocAlphaWorkflowTemplateJobsSparkSqlJobLoggingConfig {
+  map<string, string> driver_log_levels = 1;
+}
+
+message DataprocAlphaWorkflowTemplateJobsPrestoJob {
+  string query_file_uri = 1;
+  DataprocAlphaWorkflowTemplateJobsPrestoJobQueryList query_list = 2;
+  bool continue_on_failure = 3;
+  string output_format = 4;
+  repeated string client_tags = 5;
+  map<string, string> properties = 6;
+  DataprocAlphaWorkflowTemplateJobsPrestoJobLoggingConfig logging_config = 7;
+}
+
+message DataprocAlphaWorkflowTemplateJobsPrestoJobQueryList {
+  repeated string queries = 1;
+}
+
+message DataprocAlphaWorkflowTemplateJobsPrestoJobLoggingConfig {
+  map<string, string> driver_log_levels = 1;
+}
+
+message DataprocAlphaWorkflowTemplateJobsScheduling {
+  int64 max_failures_per_hour = 1;
+  int64 max_failures_total = 2;
+}
+
+message DataprocAlphaWorkflowTemplateParameters {
+  string name = 1;
+  repeated string fields = 2;
+  string description = 3;
+  DataprocAlphaWorkflowTemplateParametersValidation validation = 4;
+}
+
+message DataprocAlphaWorkflowTemplateParametersValidation {
+  DataprocAlphaWorkflowTemplateParametersValidationRegex regex = 1;
+  DataprocAlphaWorkflowTemplateParametersValidationValues values = 2;
+}
+
+message DataprocAlphaWorkflowTemplateParametersValidationRegex {
+  repeated string regexes = 1;
+}
+
+message DataprocAlphaWorkflowTemplateParametersValidationValues {
+  repeated string values = 1;
+}
+
+message ApplyDataprocAlphaWorkflowTemplateRequest {
+  DataprocAlphaWorkflowTemplate resource = 1;
+  repeated LifecycleDirective lifecycle_directives = 2;
+  string service_account_file = 3;
+}
+
+message DeleteDataprocAlphaWorkflowTemplateRequest {
+  string service_account_file = 1;
+  DataprocAlphaWorkflowTemplate resource = 2;
+}
+
+message ListDataprocAlphaWorkflowTemplateRequest {
+  string service_account_file = 1;
+	DataprocAlphaWorkflowTemplate resource = 2;
+}
+
+message ListDataprocAlphaWorkflowTemplateResponse {
+  repeated DataprocAlphaWorkflowTemplate items = 1;
+}
+
+service DataprocAlphaWorkflowTemplateService {
+  rpc ApplyDataprocAlphaWorkflowTemplate(ApplyDataprocAlphaWorkflowTemplateRequest) returns (DataprocAlphaWorkflowTemplate);
+  rpc DeleteDataprocAlphaWorkflowTemplate(DeleteDataprocAlphaWorkflowTemplateRequest) returns (google.protobuf.Empty);
+  rpc ListDataprocAlphaWorkflowTemplate(ListDataprocAlphaWorkflowTemplateRequest) returns (ListDataprocAlphaWorkflowTemplateResponse);
+}

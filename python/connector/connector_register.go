@@ -18,6 +18,8 @@ import (
 
 	assuredworkloads_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads/connector"
 
+	assuredworkloads_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads/alpha_connector"
+
 	assuredworkloads_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads/beta_connector"
 
 	bigqueryreservation_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryreservation/connector"
@@ -29,6 +31,8 @@ import (
 	binaryauthorization_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/binaryauthorization/beta_connector"
 
 	cloudbuild_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/beta_connector"
+
+	cloudbuild_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/alpha_connector"
 
 	cloudresourcemanager_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudresourcemanager/connector"
 
@@ -42,6 +46,8 @@ import (
 
 	compute_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute/beta_connector"
 
+	compute_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute/alpha_connector"
+
 	containeranalysis_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeranalysis/connector"
 
 	containeranalysis_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeranalysis/beta_connector"
@@ -50,9 +56,13 @@ import (
 
 	dataproc_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataproc/connector"
 
+	dataproc_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataproc/alpha_connector"
+
 	dataproc_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataproc/beta_connector"
 
 	eventarc_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc/connector"
+
+	eventarc_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc/alpha_connector"
 
 	eventarc_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc/beta_connector"
 
@@ -65,6 +75,8 @@ import (
 	gameservices_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices/beta_connector"
 
 	gkehub_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/beta_connector"
+
+	gkehub_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/alpha_connector"
 
 	gkemulticloud_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkemulticloud/alpha_connector"
 
@@ -114,6 +126,8 @@ import (
 
 	privateca_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca/connector"
 
+	privateca_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca/alpha_connector"
+
 	privateca_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca/beta_connector"
 
 	tier2_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/tier2/alpha_connector"
@@ -129,6 +143,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	assuredworkloads_connector.RegisterServers(grpcServer)
 
+	assuredworkloads_alpha_connector.RegisterServers(grpcServer)
+
 	assuredworkloads_beta_connector.RegisterServers(grpcServer)
 
 	bigqueryreservation_connector.RegisterServers(grpcServer)
@@ -140,6 +156,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	binaryauthorization_beta_connector.RegisterServers(grpcServer)
 
 	cloudbuild_beta_connector.RegisterServers(grpcServer)
+
+	cloudbuild_alpha_connector.RegisterServers(grpcServer)
 
 	cloudresourcemanager_connector.RegisterServers(grpcServer)
 
@@ -153,6 +171,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	compute_beta_connector.RegisterServers(grpcServer)
 
+	compute_alpha_connector.RegisterServers(grpcServer)
+
 	containeranalysis_connector.RegisterServers(grpcServer)
 
 	containeranalysis_beta_connector.RegisterServers(grpcServer)
@@ -161,9 +181,13 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	dataproc_connector.RegisterServers(grpcServer)
 
+	dataproc_alpha_connector.RegisterServers(grpcServer)
+
 	dataproc_beta_connector.RegisterServers(grpcServer)
 
 	eventarc_connector.RegisterServers(grpcServer)
+
+	eventarc_alpha_connector.RegisterServers(grpcServer)
 
 	eventarc_beta_connector.RegisterServers(grpcServer)
 
@@ -176,6 +200,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	gameservices_beta_connector.RegisterServers(grpcServer)
 
 	gkehub_beta_connector.RegisterServers(grpcServer)
+
+	gkehub_alpha_connector.RegisterServers(grpcServer)
 
 	gkemulticloud_alpha_connector.RegisterServers(grpcServer)
 
@@ -224,6 +250,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	storage_beta_connector.RegisterServers(grpcServer)
 
 	privateca_connector.RegisterServers(grpcServer)
+
+	privateca_alpha_connector.RegisterServers(grpcServer)
 
 	privateca_beta_connector.RegisterServers(grpcServer)
 

@@ -18,29 +18,35 @@ import (
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads"
+	assuredworkloads_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads/alpha"
 	assuredworkloads_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryreservation"
 	bigqueryreservation_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryreservation/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/binaryauthorization"
 	binaryauthorization_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/binaryauthorization/beta"
+	cloudbuild_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/alpha"
 	cloudbuild_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudresourcemanager"
 	cloudresourcemanager_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudresourcemanager/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudscheduler"
 	cloudscheduler_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudscheduler/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute"
+	compute_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute/alpha"
 	compute_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeranalysis"
 	containeranalysis_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeranalysis/beta"
 	datafusion_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/datafusion/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataproc"
+	dataproc_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataproc/alpha"
 	dataproc_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataproc/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc"
+	eventarc_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc/alpha"
 	eventarc_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/file"
 	file_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/file/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices"
 	gameservices_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices/beta"
+	gkehub_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/alpha"
 	gkehub_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/beta"
 	gkemulticloud_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkemulticloud/alpha"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam"
@@ -62,6 +68,7 @@ import (
 	osconfig_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/alpha"
 	osconfig_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca"
+	privateca_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca/alpha"
 	privateca_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub"
 	pubsub_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub/beta"
@@ -202,6 +209,66 @@ func Services() *Directory {
 	d.AddResource("ga", "storage", "Bucket", storage.YAML_bucket)
 	d.AddResource("ga", "privateca", dcl.TitleToSnakeCase("CertificateTemplate"), privateca.YAML_certificate_template)
 	d.AddResource("ga", "privateca", "CertificateTemplate", privateca.YAML_certificate_template)
+	d.AddResource("alpha", "assuredworkloads", dcl.TitleToSnakeCase("Workload"), assuredworkloads_alpha.YAML_workload)
+	d.AddResource("alpha", "assuredworkloads", "Workload", assuredworkloads_alpha.YAML_workload)
+	d.AddResource("alpha", "cloudbuild", dcl.TitleToSnakeCase("WorkerPool"), cloudbuild_alpha.YAML_worker_pool)
+	d.AddResource("alpha", "cloudbuild", "WorkerPool", cloudbuild_alpha.YAML_worker_pool)
+	d.AddResource("alpha", "compute", dcl.TitleToSnakeCase("FirewallPolicy"), compute_alpha.YAML_firewall_policy)
+	d.AddResource("alpha", "compute", "FirewallPolicy", compute_alpha.YAML_firewall_policy)
+	d.AddResource("alpha", "compute", dcl.TitleToSnakeCase("FirewallPolicyAssociation"), compute_alpha.YAML_firewall_policy_association)
+	d.AddResource("alpha", "compute", "FirewallPolicyAssociation", compute_alpha.YAML_firewall_policy_association)
+	d.AddResource("alpha", "compute", dcl.TitleToSnakeCase("FirewallPolicyRule"), compute_alpha.YAML_firewall_policy_rule)
+	d.AddResource("alpha", "compute", "FirewallPolicyRule", compute_alpha.YAML_firewall_policy_rule)
+	d.AddResource("alpha", "compute", dcl.TitleToSnakeCase("ForwardingRule"), compute_alpha.YAML_forwarding_rule)
+	d.AddResource("alpha", "compute", "ForwardingRule", compute_alpha.YAML_forwarding_rule)
+	d.AddResource("alpha", "compute", dcl.TitleToSnakeCase("InstanceGroupManager"), compute_alpha.YAML_instance_group_manager)
+	d.AddResource("alpha", "compute", "InstanceGroupManager", compute_alpha.YAML_instance_group_manager)
+	d.AddResource("alpha", "compute", dcl.TitleToSnakeCase("Network"), compute_alpha.YAML_network)
+	d.AddResource("alpha", "compute", "Network", compute_alpha.YAML_network)
+	d.AddResource("alpha", "compute", dcl.TitleToSnakeCase("PacketMirroring"), compute_alpha.YAML_packet_mirroring)
+	d.AddResource("alpha", "compute", "PacketMirroring", compute_alpha.YAML_packet_mirroring)
+	d.AddResource("alpha", "compute", dcl.TitleToSnakeCase("Route"), compute_alpha.YAML_route)
+	d.AddResource("alpha", "compute", "Route", compute_alpha.YAML_route)
+	d.AddResource("alpha", "dataproc", dcl.TitleToSnakeCase("AutoscalingPolicy"), dataproc_alpha.YAML_autoscaling_policy)
+	d.AddResource("alpha", "dataproc", "AutoscalingPolicy", dataproc_alpha.YAML_autoscaling_policy)
+	d.AddResource("alpha", "dataproc", dcl.TitleToSnakeCase("Cluster"), dataproc_alpha.YAML_cluster)
+	d.AddResource("alpha", "dataproc", "Cluster", dataproc_alpha.YAML_cluster)
+	d.AddResource("alpha", "dataproc", dcl.TitleToSnakeCase("WorkflowTemplate"), dataproc_alpha.YAML_workflow_template)
+	d.AddResource("alpha", "dataproc", "WorkflowTemplate", dataproc_alpha.YAML_workflow_template)
+	d.AddResource("alpha", "eventarc", dcl.TitleToSnakeCase("Trigger"), eventarc_alpha.YAML_trigger)
+	d.AddResource("alpha", "eventarc", "Trigger", eventarc_alpha.YAML_trigger)
+	d.AddResource("alpha", "gkehub", dcl.TitleToSnakeCase("Feature"), gkehub_alpha.YAML_feature)
+	d.AddResource("alpha", "gkehub", "Feature", gkehub_alpha.YAML_feature)
+	d.AddResource("alpha", "gkehub", dcl.TitleToSnakeCase("FeatureMembership"), gkehub_alpha.YAML_feature_membership)
+	d.AddResource("alpha", "gkehub", "FeatureMembership", gkehub_alpha.YAML_feature_membership)
+	d.AddResource("alpha", "gkehub", dcl.TitleToSnakeCase("Membership"), gkehub_alpha.YAML_membership)
+	d.AddResource("alpha", "gkehub", "Membership", gkehub_alpha.YAML_membership)
+	d.AddResource("alpha", "gkemulticloud", dcl.TitleToSnakeCase("AwsCluster"), gkemulticloud_alpha.YAML_aws_cluster)
+	d.AddResource("alpha", "gkemulticloud", "AwsCluster", gkemulticloud_alpha.YAML_aws_cluster)
+	d.AddResource("alpha", "gkemulticloud", dcl.TitleToSnakeCase("AwsNodePool"), gkemulticloud_alpha.YAML_aws_node_pool)
+	d.AddResource("alpha", "gkemulticloud", "AwsNodePool", gkemulticloud_alpha.YAML_aws_node_pool)
+	d.AddResource("alpha", "gkemulticloud", dcl.TitleToSnakeCase("AzureClient"), gkemulticloud_alpha.YAML_azure_client)
+	d.AddResource("alpha", "gkemulticloud", "AzureClient", gkemulticloud_alpha.YAML_azure_client)
+	d.AddResource("alpha", "gkemulticloud", dcl.TitleToSnakeCase("AzureCluster"), gkemulticloud_alpha.YAML_azure_cluster)
+	d.AddResource("alpha", "gkemulticloud", "AzureCluster", gkemulticloud_alpha.YAML_azure_cluster)
+	d.AddResource("alpha", "gkemulticloud", dcl.TitleToSnakeCase("AzureNodePool"), gkemulticloud_alpha.YAML_azure_node_pool)
+	d.AddResource("alpha", "gkemulticloud", "AzureNodePool", gkemulticloud_alpha.YAML_azure_node_pool)
+	d.AddResource("alpha", "networksecurity", dcl.TitleToSnakeCase("AuthorizationPolicy"), networksecurity_alpha.YAML_authorization_policy)
+	d.AddResource("alpha", "networksecurity", "AuthorizationPolicy", networksecurity_alpha.YAML_authorization_policy)
+	d.AddResource("alpha", "networksecurity", dcl.TitleToSnakeCase("ClientTlsPolicy"), networksecurity_alpha.YAML_client_tls_policy)
+	d.AddResource("alpha", "networksecurity", "ClientTlsPolicy", networksecurity_alpha.YAML_client_tls_policy)
+	d.AddResource("alpha", "networksecurity", dcl.TitleToSnakeCase("ServerTlsPolicy"), networksecurity_alpha.YAML_server_tls_policy)
+	d.AddResource("alpha", "networksecurity", "ServerTlsPolicy", networksecurity_alpha.YAML_server_tls_policy)
+	d.AddResource("alpha", "networkservices", dcl.TitleToSnakeCase("EndpointPolicy"), networkservices_alpha.YAML_endpoint_policy)
+	d.AddResource("alpha", "networkservices", "EndpointPolicy", networkservices_alpha.YAML_endpoint_policy)
+	d.AddResource("alpha", "osconfig", dcl.TitleToSnakeCase("GuestPolicy"), osconfig_alpha.YAML_guest_policy)
+	d.AddResource("alpha", "osconfig", "GuestPolicy", osconfig_alpha.YAML_guest_policy)
+	d.AddResource("alpha", "osconfig", dcl.TitleToSnakeCase("OSPolicyAssignment"), osconfig_alpha.YAML_os_policy_assignment)
+	d.AddResource("alpha", "osconfig", "OSPolicyAssignment", osconfig_alpha.YAML_os_policy_assignment)
+	d.AddResource("alpha", "privateca", dcl.TitleToSnakeCase("CertificateTemplate"), privateca_alpha.YAML_certificate_template)
+	d.AddResource("alpha", "privateca", "CertificateTemplate", privateca_alpha.YAML_certificate_template)
+	d.AddResource("alpha", "tier2", dcl.TitleToSnakeCase("Instance"), tier2_alpha.YAML_instance)
+	d.AddResource("alpha", "tier2", "Instance", tier2_alpha.YAML_instance)
 	d.AddResource("beta", "assuredworkloads", dcl.TitleToSnakeCase("Workload"), assuredworkloads_beta.YAML_workload)
 	d.AddResource("beta", "assuredworkloads", "Workload", assuredworkloads_beta.YAML_workload)
 	d.AddResource("beta", "bigqueryreservation", dcl.TitleToSnakeCase("Assignment"), bigqueryreservation_beta.YAML_assignment)
@@ -302,29 +369,5 @@ func Services() *Directory {
 	d.AddResource("beta", "storage", "Bucket", storage_beta.YAML_bucket)
 	d.AddResource("beta", "privateca", dcl.TitleToSnakeCase("CertificateTemplate"), privateca_beta.YAML_certificate_template)
 	d.AddResource("beta", "privateca", "CertificateTemplate", privateca_beta.YAML_certificate_template)
-	d.AddResource("alpha", "gkemulticloud", dcl.TitleToSnakeCase("AwsCluster"), gkemulticloud_alpha.YAML_aws_cluster)
-	d.AddResource("alpha", "gkemulticloud", "AwsCluster", gkemulticloud_alpha.YAML_aws_cluster)
-	d.AddResource("alpha", "gkemulticloud", dcl.TitleToSnakeCase("AwsNodePool"), gkemulticloud_alpha.YAML_aws_node_pool)
-	d.AddResource("alpha", "gkemulticloud", "AwsNodePool", gkemulticloud_alpha.YAML_aws_node_pool)
-	d.AddResource("alpha", "gkemulticloud", dcl.TitleToSnakeCase("AzureClient"), gkemulticloud_alpha.YAML_azure_client)
-	d.AddResource("alpha", "gkemulticloud", "AzureClient", gkemulticloud_alpha.YAML_azure_client)
-	d.AddResource("alpha", "gkemulticloud", dcl.TitleToSnakeCase("AzureCluster"), gkemulticloud_alpha.YAML_azure_cluster)
-	d.AddResource("alpha", "gkemulticloud", "AzureCluster", gkemulticloud_alpha.YAML_azure_cluster)
-	d.AddResource("alpha", "gkemulticloud", dcl.TitleToSnakeCase("AzureNodePool"), gkemulticloud_alpha.YAML_azure_node_pool)
-	d.AddResource("alpha", "gkemulticloud", "AzureNodePool", gkemulticloud_alpha.YAML_azure_node_pool)
-	d.AddResource("alpha", "networksecurity", dcl.TitleToSnakeCase("AuthorizationPolicy"), networksecurity_alpha.YAML_authorization_policy)
-	d.AddResource("alpha", "networksecurity", "AuthorizationPolicy", networksecurity_alpha.YAML_authorization_policy)
-	d.AddResource("alpha", "networksecurity", dcl.TitleToSnakeCase("ClientTlsPolicy"), networksecurity_alpha.YAML_client_tls_policy)
-	d.AddResource("alpha", "networksecurity", "ClientTlsPolicy", networksecurity_alpha.YAML_client_tls_policy)
-	d.AddResource("alpha", "networksecurity", dcl.TitleToSnakeCase("ServerTlsPolicy"), networksecurity_alpha.YAML_server_tls_policy)
-	d.AddResource("alpha", "networksecurity", "ServerTlsPolicy", networksecurity_alpha.YAML_server_tls_policy)
-	d.AddResource("alpha", "networkservices", dcl.TitleToSnakeCase("EndpointPolicy"), networkservices_alpha.YAML_endpoint_policy)
-	d.AddResource("alpha", "networkservices", "EndpointPolicy", networkservices_alpha.YAML_endpoint_policy)
-	d.AddResource("alpha", "osconfig", dcl.TitleToSnakeCase("GuestPolicy"), osconfig_alpha.YAML_guest_policy)
-	d.AddResource("alpha", "osconfig", "GuestPolicy", osconfig_alpha.YAML_guest_policy)
-	d.AddResource("alpha", "osconfig", dcl.TitleToSnakeCase("OSPolicyAssignment"), osconfig_alpha.YAML_os_policy_assignment)
-	d.AddResource("alpha", "osconfig", "OSPolicyAssignment", osconfig_alpha.YAML_os_policy_assignment)
-	d.AddResource("alpha", "tier2", dcl.TitleToSnakeCase("Instance"), tier2_alpha.YAML_instance)
-	d.AddResource("alpha", "tier2", "Instance", tier2_alpha.YAML_instance)
 	return d
 }

@@ -1,0 +1,96 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+syntax = "proto3";
+
+package dcl;
+
+import "proto/connector/sdk.proto";
+import "proto/empty.proto";
+
+message GkehubAlphaFeatureMembership {
+  GkehubAlphaFeatureMembershipConfigmanagement configmanagement = 1;
+  string project = 2;
+  string location = 3;
+  string feature = 4;
+  string membership = 5;
+}
+
+message GkehubAlphaFeatureMembershipConfigmanagement {
+  GkehubAlphaFeatureMembershipConfigmanagementConfigSync config_sync = 1;
+  GkehubAlphaFeatureMembershipConfigmanagementPolicyController policy_controller = 2;
+  GkehubAlphaFeatureMembershipConfigmanagementBinauthz binauthz = 3;
+  GkehubAlphaFeatureMembershipConfigmanagementHierarchyController hierarchy_controller = 4;
+  string version = 5;
+}
+
+message GkehubAlphaFeatureMembershipConfigmanagementConfigSync {
+  GkehubAlphaFeatureMembershipConfigmanagementConfigSyncGit git = 1;
+  string source_format = 2;
+}
+
+message GkehubAlphaFeatureMembershipConfigmanagementConfigSyncGit {
+  string sync_repo = 1;
+  string sync_branch = 2;
+  string policy_dir = 3;
+  string sync_wait_secs = 4;
+  string sync_rev = 5;
+  string secret_type = 6;
+  string https_proxy = 7;
+  string gcp_service_account_email = 8;
+}
+
+message GkehubAlphaFeatureMembershipConfigmanagementPolicyController {
+  bool enabled = 1;
+  repeated string exemptable_namespaces = 2;
+  bool referential_rules_enabled = 3;
+  bool log_denies_enabled = 4;
+  bool template_library_installed = 5;
+  string audit_interval_seconds = 6;
+}
+
+message GkehubAlphaFeatureMembershipConfigmanagementBinauthz {
+  bool enabled = 1;
+}
+
+message GkehubAlphaFeatureMembershipConfigmanagementHierarchyController {
+  bool enabled = 1;
+  bool enable_pod_tree_labels = 2;
+  bool enable_hierarchical_resource_quota = 3;
+}
+
+message ApplyGkehubAlphaFeatureMembershipRequest {
+  GkehubAlphaFeatureMembership resource = 1;
+  repeated LifecycleDirective lifecycle_directives = 2;
+  string service_account_file = 3;
+}
+
+message DeleteGkehubAlphaFeatureMembershipRequest {
+  string service_account_file = 1;
+  GkehubAlphaFeatureMembership resource = 2;
+}
+
+message ListGkehubAlphaFeatureMembershipRequest {
+  string service_account_file = 1;
+	GkehubAlphaFeatureMembership resource = 2;
+}
+
+message ListGkehubAlphaFeatureMembershipResponse {
+  repeated GkehubAlphaFeatureMembership items = 1;
+}
+
+service GkehubAlphaFeatureMembershipService {
+  rpc ApplyGkehubAlphaFeatureMembership(ApplyGkehubAlphaFeatureMembershipRequest) returns (GkehubAlphaFeatureMembership);
+  rpc DeleteGkehubAlphaFeatureMembership(DeleteGkehubAlphaFeatureMembershipRequest) returns (google.protobuf.Empty);
+  rpc ListGkehubAlphaFeatureMembership(ListGkehubAlphaFeatureMembershipRequest) returns (ListGkehubAlphaFeatureMembershipResponse);
+}
