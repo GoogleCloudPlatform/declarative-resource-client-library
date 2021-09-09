@@ -37,24 +37,12 @@ func ProtoToCloudresourcemanagerProjectLifecycleStateEnum(e cloudresourcemanager
 	return nil
 }
 
-// ProtoToProjectParent converts a ProjectParent resource from its proto representation.
-func ProtoToCloudresourcemanagerProjectParent(p *cloudresourcemanagerpb.CloudresourcemanagerProjectParent) *cloudresourcemanager.ProjectParent {
-	if p == nil {
-		return nil
-	}
-	obj := &cloudresourcemanager.ProjectParent{
-		Type: dcl.StringOrNil(p.Type),
-		Id:   dcl.StringOrNil(p.Id),
-	}
-	return obj
-}
-
 // ProtoToProject converts a Project resource from its proto representation.
 func ProtoToProject(p *cloudresourcemanagerpb.CloudresourcemanagerProject) *cloudresourcemanager.Project {
 	obj := &cloudresourcemanager.Project{
 		LifecycleState: ProtoToCloudresourcemanagerProjectLifecycleStateEnum(p.GetLifecycleState()),
 		DisplayName:    dcl.StringOrNil(p.DisplayName),
-		Parent:         ProtoToCloudresourcemanagerProjectParent(p.GetParent()),
+		Parent:         dcl.StringOrNil(p.Parent),
 		Name:           dcl.StringOrNil(p.Name),
 		ProjectNumber:  dcl.Int64OrNil(p.ProjectNumber),
 	}
@@ -72,24 +60,12 @@ func CloudresourcemanagerProjectLifecycleStateEnumToProto(e *cloudresourcemanage
 	return cloudresourcemanagerpb.CloudresourcemanagerProjectLifecycleStateEnum(0)
 }
 
-// ProjectParentToProto converts a ProjectParent resource to its proto representation.
-func CloudresourcemanagerProjectParentToProto(o *cloudresourcemanager.ProjectParent) *cloudresourcemanagerpb.CloudresourcemanagerProjectParent {
-	if o == nil {
-		return nil
-	}
-	p := &cloudresourcemanagerpb.CloudresourcemanagerProjectParent{
-		Type: dcl.ValueOrEmptyString(o.Type),
-		Id:   dcl.ValueOrEmptyString(o.Id),
-	}
-	return p
-}
-
 // ProjectToProto converts a Project resource to its proto representation.
 func ProjectToProto(resource *cloudresourcemanager.Project) *cloudresourcemanagerpb.CloudresourcemanagerProject {
 	p := &cloudresourcemanagerpb.CloudresourcemanagerProject{
 		LifecycleState: CloudresourcemanagerProjectLifecycleStateEnumToProto(resource.LifecycleState),
 		DisplayName:    dcl.ValueOrEmptyString(resource.DisplayName),
-		Parent:         CloudresourcemanagerProjectParentToProto(resource.Parent),
+		Parent:         dcl.ValueOrEmptyString(resource.Parent),
 		Name:           dcl.ValueOrEmptyString(resource.Name),
 		ProjectNumber:  dcl.ValueOrEmptyInt64(resource.ProjectNumber),
 	}

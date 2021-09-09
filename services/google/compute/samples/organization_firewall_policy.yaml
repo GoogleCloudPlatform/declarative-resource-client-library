@@ -15,6 +15,9 @@ description: An example for a compute firewall policy for an organization
 name: organization_firewall_policy
 resource: samples/organization.firewall_policy.json
 type: firewall_policy
+updates:
+- dependencies: []
+  resource: samples/update_organization.firewall_policy.json
 variables:
 - name: policy
   type: resource_name

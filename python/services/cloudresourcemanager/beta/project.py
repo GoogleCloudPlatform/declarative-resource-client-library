@@ -28,7 +28,7 @@ class Project(object):
         labels: dict = None,
         lifecycle_state: str = None,
         displayName: str = None,
-        parent: dict = None,
+        parent: str = None,
         name: str = None,
         project_number: int = None,
         service_account_file: str = "",
@@ -52,10 +52,9 @@ class Project(object):
         if Primitive.to_proto(self.displayName):
             request.resource.displayName = Primitive.to_proto(self.displayName)
 
-        if ProjectParent.to_proto(self.parent):
-            request.resource.parent.CopyFrom(ProjectParent.to_proto(self.parent))
-        else:
-            request.resource.ClearField("parent")
+        if Primitive.to_proto(self.parent):
+            request.resource.parent = Primitive.to_proto(self.parent)
+
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
@@ -67,7 +66,7 @@ class Project(object):
             response.lifecycle_state
         )
         self.displayName = Primitive.from_proto(response.displayName)
-        self.parent = ProjectParent.from_proto(response.parent)
+        self.parent = Primitive.from_proto(response.parent)
         self.name = Primitive.from_proto(response.name)
         self.project_number = Primitive.from_proto(response.project_number)
 
@@ -83,10 +82,9 @@ class Project(object):
         if Primitive.to_proto(self.displayName):
             request.resource.displayName = Primitive.to_proto(self.displayName)
 
-        if ProjectParent.to_proto(self.parent):
-            request.resource.parent.CopyFrom(ProjectParent.to_proto(self.parent))
-        else:
-            request.resource.ClearField("parent")
+        if Primitive.to_proto(self.parent):
+            request.resource.parent = Primitive.to_proto(self.parent)
+
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
@@ -104,10 +102,9 @@ class Project(object):
         if Primitive.to_proto(self.displayName):
             request.resource.displayName = Primitive.to_proto(self.displayName)
 
-        if ProjectParent.to_proto(self.parent):
-            request.resource.parent.CopyFrom(ProjectParent.to_proto(self.parent))
-        else:
-            request.resource.ClearField("parent")
+        if Primitive.to_proto(self.parent):
+            request.resource.parent = Primitive.to_proto(self.parent)
+
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
@@ -119,53 +116,11 @@ class Project(object):
             resource.labels = Primitive.to_proto(self.labels)
         if Primitive.to_proto(self.displayName):
             resource.displayName = Primitive.to_proto(self.displayName)
-        if ProjectParent.to_proto(self.parent):
-            resource.parent.CopyFrom(ProjectParent.to_proto(self.parent))
-        else:
-            resource.ClearField("parent")
+        if Primitive.to_proto(self.parent):
+            resource.parent = Primitive.to_proto(self.parent)
         if Primitive.to_proto(self.name):
             resource.name = Primitive.to_proto(self.name)
         return resource
-
-
-class ProjectParent(object):
-    def __init__(self, type: str = None, id: str = None):
-        self.type = type
-        self.id = id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = project_pb2.CloudresourcemanagerBetaProjectParent()
-        if Primitive.to_proto(resource.type):
-            res.type = Primitive.to_proto(resource.type)
-        if Primitive.to_proto(resource.id):
-            res.id = Primitive.to_proto(resource.id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return ProjectParent(
-            type=Primitive.from_proto(resource.type),
-            id=Primitive.from_proto(resource.id),
-        )
-
-
-class ProjectParentArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [ProjectParent.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [ProjectParent.from_proto(i) for i in resources]
 
 
 class ProjectLifecycleStateEnum(object):

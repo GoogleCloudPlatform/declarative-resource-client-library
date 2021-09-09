@@ -37,24 +37,12 @@ func ProtoToCloudresourcemanagerBetaProjectLifecycleStateEnum(e betapb.Cloudreso
 	return nil
 }
 
-// ProtoToProjectParent converts a ProjectParent resource from its proto representation.
-func ProtoToCloudresourcemanagerBetaProjectParent(p *betapb.CloudresourcemanagerBetaProjectParent) *beta.ProjectParent {
-	if p == nil {
-		return nil
-	}
-	obj := &beta.ProjectParent{
-		Type: dcl.StringOrNil(p.Type),
-		Id:   dcl.StringOrNil(p.Id),
-	}
-	return obj
-}
-
 // ProtoToProject converts a Project resource from its proto representation.
 func ProtoToProject(p *betapb.CloudresourcemanagerBetaProject) *beta.Project {
 	obj := &beta.Project{
 		LifecycleState: ProtoToCloudresourcemanagerBetaProjectLifecycleStateEnum(p.GetLifecycleState()),
 		DisplayName:    dcl.StringOrNil(p.DisplayName),
-		Parent:         ProtoToCloudresourcemanagerBetaProjectParent(p.GetParent()),
+		Parent:         dcl.StringOrNil(p.Parent),
 		Name:           dcl.StringOrNil(p.Name),
 		ProjectNumber:  dcl.Int64OrNil(p.ProjectNumber),
 	}
@@ -72,24 +60,12 @@ func CloudresourcemanagerBetaProjectLifecycleStateEnumToProto(e *beta.ProjectLif
 	return betapb.CloudresourcemanagerBetaProjectLifecycleStateEnum(0)
 }
 
-// ProjectParentToProto converts a ProjectParent resource to its proto representation.
-func CloudresourcemanagerBetaProjectParentToProto(o *beta.ProjectParent) *betapb.CloudresourcemanagerBetaProjectParent {
-	if o == nil {
-		return nil
-	}
-	p := &betapb.CloudresourcemanagerBetaProjectParent{
-		Type: dcl.ValueOrEmptyString(o.Type),
-		Id:   dcl.ValueOrEmptyString(o.Id),
-	}
-	return p
-}
-
 // ProjectToProto converts a Project resource to its proto representation.
 func ProjectToProto(resource *beta.Project) *betapb.CloudresourcemanagerBetaProject {
 	p := &betapb.CloudresourcemanagerBetaProject{
 		LifecycleState: CloudresourcemanagerBetaProjectLifecycleStateEnumToProto(resource.LifecycleState),
 		DisplayName:    dcl.ValueOrEmptyString(resource.DisplayName),
-		Parent:         CloudresourcemanagerBetaProjectParentToProto(resource.Parent),
+		Parent:         dcl.ValueOrEmptyString(resource.Parent),
 		Name:           dcl.ValueOrEmptyString(resource.Name),
 		ProjectNumber:  dcl.ValueOrEmptyInt64(resource.ProjectNumber),
 	}

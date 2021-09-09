@@ -27,14 +27,6 @@ import (
 
 func (r *Project) validate() error {
 
-	if !dcl.IsEmptyValueIndirect(r.Parent) {
-		if err := r.Parent.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *ProjectParent) validate() error {
 	return nil
 }
 func (r *Project) basePath() string {
@@ -407,7 +399,6 @@ func canonicalizeProjectDesiredState(rawDesired, rawInitial *Project, opts ...dc
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
-		rawDesired.Parent = canonicalizeProjectParent(rawDesired.Parent, nil, opts...)
 
 		return rawDesired, nil
 	}
@@ -422,7 +413,11 @@ func canonicalizeProjectDesiredState(rawDesired, rawInitial *Project, opts ...dc
 	} else {
 		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
-	canonicalDesired.Parent = canonicalizeProjectParent(rawDesired.Parent, rawInitial.Parent, opts...)
+	if dcl.StringCanonicalize(rawDesired.Parent, rawInitial.Parent) {
+		canonicalDesired.Parent = rawInitial.Parent
+	} else {
+		canonicalDesired.Parent = rawDesired.Parent
+	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
 	} else {
@@ -455,7 +450,9 @@ func canonicalizeProjectNewState(c *Client, rawNew, rawDesired *Project) (*Proje
 	if dcl.IsNotReturnedByServer(rawNew.Parent) && dcl.IsNotReturnedByServer(rawDesired.Parent) {
 		rawNew.Parent = rawDesired.Parent
 	} else {
-		rawNew.Parent = canonicalizeNewProjectParent(c, rawDesired.Parent, rawNew.Parent)
+		if dcl.StringCanonicalize(rawDesired.Parent, rawNew.Parent) {
+			rawNew.Parent = rawDesired.Parent
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
@@ -472,129 +469,6 @@ func canonicalizeProjectNewState(c *Client, rawNew, rawDesired *Project) (*Proje
 	}
 
 	return rawNew, nil
-}
-
-func canonicalizeProjectParent(des, initial *ProjectParent, opts ...dcl.ApplyOption) *ProjectParent {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	cDes := &ProjectParent{}
-
-	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		cDes.Type = initial.Type
-	} else {
-		cDes.Type = des.Type
-	}
-	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
-		cDes.Id = initial.Id
-	} else {
-		cDes.Id = des.Id
-	}
-
-	return cDes
-}
-
-func canonicalizeProjectParentSlice(des, initial []ProjectParent, opts ...dcl.ApplyOption) []ProjectParent {
-	if des == nil {
-		return initial
-	}
-
-	if len(des) != len(initial) {
-
-		items := make([]ProjectParent, 0, len(des))
-		for _, d := range des {
-			cd := canonicalizeProjectParent(&d, nil, opts...)
-			if cd != nil {
-				items = append(items, *cd)
-			}
-		}
-		return items
-	}
-
-	items := make([]ProjectParent, 0, len(des))
-	for i, d := range des {
-		cd := canonicalizeProjectParent(&d, &initial[i], opts...)
-		if cd != nil {
-			items = append(items, *cd)
-		}
-	}
-	return items
-
-}
-
-func canonicalizeNewProjectParent(c *Client, des, nw *ProjectParent) *ProjectParent {
-
-	if des == nil {
-		return nw
-	}
-
-	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
-			c.Config.Logger.Info("Found explicitly empty value for ProjectParent while comparing non-nil desired to nil actual.  Returning desired object.")
-			return des
-		}
-		return nil
-	}
-
-	if dcl.StringCanonicalize(des.Type, nw.Type) {
-		nw.Type = des.Type
-	}
-	if dcl.StringCanonicalize(des.Id, nw.Id) {
-		nw.Id = des.Id
-	}
-
-	return nw
-}
-
-func canonicalizeNewProjectParentSet(c *Client, des, nw []ProjectParent) []ProjectParent {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []ProjectParent
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareProjectParentNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewProjectParentSlice(c *Client, des, nw []ProjectParent) []ProjectParent {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []ProjectParent
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewProjectParent(c, &d, &n))
-	}
-
-	return items
 }
 
 // The differ returns a list of diffs, along with a list of operations that should be taken
@@ -633,7 +507,7 @@ func diffProject(c *Client, desired, actual *Project, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.Info{ObjectFunction: compareProjectParentNewStyle, EmptyObject: EmptyProjectParent, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Parent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Parent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -656,41 +530,6 @@ func diffProject(c *Client, desired, actual *Project, opts ...dcl.ApplyOption) (
 
 	return newDiffs, nil
 }
-func compareProjectParentNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*ProjectParent)
-	if !ok {
-		desiredNotPointer, ok := d.(ProjectParent)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a ProjectParent or *ProjectParent", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*ProjectParent)
-	if !ok {
-		actualNotPointer, ok := a.(ProjectParent)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a ProjectParent", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
 
 // urlNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
@@ -698,6 +537,7 @@ func compareProjectParentNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fi
 func (r *Project) urlNormalized() *Project {
 	normalized := dcl.Copy(*r).(Project)
 	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.Parent = dcl.SelfLinkToName(r.Parent)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	return &normalized
 }
@@ -750,7 +590,7 @@ func expandProject(c *Client, f *Project) (map[string]interface{}, error) {
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v, err := expandProjectParent(c, f.Parent); err != nil {
+	if v, err := expandProjectParent(f, f.Parent); err != nil {
 		return nil, fmt.Errorf("error expanding Parent into parent: %w", err)
 	} else if v != nil {
 		m["parent"] = v
@@ -782,124 +622,6 @@ func flattenProject(c *Client, i interface{}) *Project {
 	res.ProjectNumber = dcl.FlattenInteger(m["projectNumber"])
 
 	return res
-}
-
-// expandProjectParentMap expands the contents of ProjectParent into a JSON
-// request object.
-func expandProjectParentMap(c *Client, f map[string]ProjectParent) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandProjectParent(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandProjectParentSlice expands the contents of ProjectParent into a JSON
-// request object.
-func expandProjectParentSlice(c *Client, f []ProjectParent) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandProjectParent(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenProjectParentMap flattens the contents of ProjectParent from a JSON
-// response object.
-func flattenProjectParentMap(c *Client, i interface{}) map[string]ProjectParent {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]ProjectParent{}
-	}
-
-	if len(a) == 0 {
-		return map[string]ProjectParent{}
-	}
-
-	items := make(map[string]ProjectParent)
-	for k, item := range a {
-		items[k] = *flattenProjectParent(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenProjectParentSlice flattens the contents of ProjectParent from a JSON
-// response object.
-func flattenProjectParentSlice(c *Client, i interface{}) []ProjectParent {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []ProjectParent{}
-	}
-
-	if len(a) == 0 {
-		return []ProjectParent{}
-	}
-
-	items := make([]ProjectParent, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenProjectParent(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandProjectParent expands an instance of ProjectParent into a JSON
-// request object.
-func expandProjectParent(c *Client, f *ProjectParent) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
-		m["type"] = v
-	}
-	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
-		m["id"] = v
-	}
-
-	return m, nil
-}
-
-// flattenProjectParent flattens an instance of ProjectParent from a JSON
-// response object.
-func flattenProjectParent(c *Client, i interface{}) *ProjectParent {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &ProjectParent{}
-
-	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyProjectParent
-	}
-	r.Type = dcl.FlattenString(m["type"])
-	r.Id = dcl.FlattenString(m["id"])
-
-	return r
 }
 
 // flattenProjectLifecycleStateEnumMap flattens the contents of ProjectLifecycleStateEnum from a JSON

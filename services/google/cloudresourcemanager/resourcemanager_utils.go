@@ -18,6 +18,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
@@ -122,4 +123,38 @@ func (op *updateFolderMoveFolderOperation) do(ctx context.Context, r *Folder, c 
 	}
 
 	return nil
+}
+
+// expandProjectParent expands an instance of ProjectParent into a JSON
+// request object.
+func expandProjectParent(f *Project, fval *string) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(fval) {
+		return nil, nil
+	}
+
+	s := strings.Split(*fval, "/")
+	m := make(map[string]interface{})
+	if len(s) < 2 || dcl.IsEmptyValueIndirect(s[0]) || dcl.IsEmptyValueIndirect(s[1]) || !strings.HasSuffix(s[0], "s") {
+		return m, fmt.Errorf("invalid parent argument. got value = %s. should be of the form organizations/org_id or folders/folder_id", *fval)
+	}
+
+	m["type"] = s[0][:len(s[0])-1]
+	m["id"] = s[1]
+
+	return m, nil
+}
+
+// flattenProjectParent flattens an instance of ProjectParent from a JSON
+// response object.
+func flattenProjectParent(c *Client, i interface{}) *string {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+	if dcl.IsEmptyValueIndirect(i) {
+		return nil
+	}
+	// Ading s(plural) to change type to type(s). Example: organization/org_id to organizations/ord_id
+	parent := fmt.Sprintf("%ss/%s", m["type"], m["id"])
+	return &parent
 }

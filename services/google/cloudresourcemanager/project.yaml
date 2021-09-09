@@ -84,30 +84,14 @@ components:
             creation.'
           x-kubernetes-immutable: true
         parent:
-          type: object
+          type: string
           x-dcl-go-name: Parent
-          x-dcl-go-type: ProjectParent
-          description: 'An optional reference to a parent Resource. Supported parent
-            types include "organization" and "folder". Once set, the parent cannot
-            be cleared. The `parent` can be set on creation or using the `UpdateProject`
-            method; the end user must have the `resourcemanager.projects.create` permission
-            on the parent. Read-write. '
+          description: 'An optional reference to a parent Resource. Supported values
+            include organizations/<org_id> and folders/<folder_id>. Once set, the
+            parent cannot be cleared. The `parent` can be set on creation or using
+            the `UpdateProject` method; the end user must have the `resourcemanager.projects.create`
+            permission on the parent. Read-write. '
           x-kubernetes-immutable: true
-          properties:
-            id:
-              type: string
-              x-dcl-go-name: Id
-              description: |-
-                Required field for the type-specific id. This should correspond to the id
-                used in the type-specific API's.
-              x-kubernetes-immutable: true
-            type:
-              type: string
-              x-dcl-go-name: Type
-              description: |-
-                Required field representing the resource type this id is for.
-                At present, the valid types are: "organization", "folder", and "project".
-              x-kubernetes-immutable: true
         projectNumber:
           type: integer
           format: int64

@@ -30,14 +30,9 @@ message CloudresourcemanagerProject {
   map<string, string> labels = 1;
   CloudresourcemanagerProjectLifecycleStateEnum lifecycle_state = 2;
   string displayName = 3;
-  CloudresourcemanagerProjectParent parent = 4;
+  string parent = 4;
   string name = 5;
   int64 project_number = 6;
-}
-
-message CloudresourcemanagerProjectParent {
-  string type = 1;
-  string id = 2;
 }
 
 message ApplyCloudresourcemanagerProjectRequest {

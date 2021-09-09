@@ -52,6 +52,10 @@ import (
 
 	containeranalysis_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeranalysis/beta_connector"
 
+	containeraws_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeraws/alpha_connector"
+
+	containerazure_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containerazure/alpha_connector"
+
 	datafusion_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/datafusion/beta_connector"
 
 	dataproc_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataproc/connector"
@@ -77,8 +81,6 @@ import (
 	gkehub_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/beta_connector"
 
 	gkehub_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/alpha_connector"
-
-	gkemulticloud_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkemulticloud/alpha_connector"
 
 	iam_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam/connector"
 
@@ -130,8 +132,6 @@ import (
 
 	privateca_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca/beta_connector"
 
-	tier2_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/tier2/alpha_connector"
-
 	statuspb "google.golang.org/genproto/googleapis/rpc/status"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -177,6 +177,10 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	containeranalysis_beta_connector.RegisterServers(grpcServer)
 
+	containeraws_alpha_connector.RegisterServers(grpcServer)
+
+	containerazure_alpha_connector.RegisterServers(grpcServer)
+
 	datafusion_beta_connector.RegisterServers(grpcServer)
 
 	dataproc_connector.RegisterServers(grpcServer)
@@ -202,8 +206,6 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	gkehub_beta_connector.RegisterServers(grpcServer)
 
 	gkehub_alpha_connector.RegisterServers(grpcServer)
-
-	gkemulticloud_alpha_connector.RegisterServers(grpcServer)
 
 	iam_connector.RegisterServers(grpcServer)
 
@@ -254,8 +256,6 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	privateca_alpha_connector.RegisterServers(grpcServer)
 
 	privateca_beta_connector.RegisterServers(grpcServer)
-
-	tier2_alpha_connector.RegisterServers(grpcServer)
 
 	return &connectorpb.InitializeResponse{
 		Status: &statuspb.Status{

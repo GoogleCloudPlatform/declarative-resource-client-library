@@ -16,8 +16,6 @@ package beta
 import (
 	"bytes"
 	"context"
-	"crypto/sha256"
-	"encoding/json"
 	"fmt"
 	"time"
 
@@ -29,7 +27,7 @@ type Project struct {
 	Labels         map[string]string          `json:"labels"`
 	LifecycleState *ProjectLifecycleStateEnum `json:"lifecycleState"`
 	DisplayName    *string                    `json:"displayname"`
-	Parent         *ProjectParent             `json:"parent"`
+	Parent         *string                    `json:"parent"`
 	Name           *string                    `json:"name"`
 	ProjectNumber  *int64                     `json:"projectNumber"`
 }
@@ -63,55 +61,6 @@ func (v ProjectLifecycleStateEnum) Validate() error {
 		Value: string(v),
 		Valid: []string{},
 	}
-}
-
-type ProjectParent struct {
-	empty bool    `json:"-"`
-	Type  *string `json:"type"`
-	Id    *string `json:"id"`
-}
-
-type jsonProjectParent ProjectParent
-
-func (r *ProjectParent) UnmarshalJSON(data []byte) error {
-	var res jsonProjectParent
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyProjectParent
-	} else {
-
-		r.Type = res.Type
-
-		r.Id = res.Id
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this ProjectParent is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyProjectParent *ProjectParent = &ProjectParent{empty: true}
-
-func (r *ProjectParent) Empty() bool {
-	return r.empty
-}
-
-func (r *ProjectParent) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *ProjectParent) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
 }
 
 // Describe returns a simple description of this resource to ensure that automated tools

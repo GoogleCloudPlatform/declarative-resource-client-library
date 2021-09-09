@@ -30,14 +30,9 @@ message CloudresourcemanagerBetaProject {
   map<string, string> labels = 1;
   CloudresourcemanagerBetaProjectLifecycleStateEnum lifecycle_state = 2;
   string displayName = 3;
-  CloudresourcemanagerBetaProjectParent parent = 4;
+  string parent = 4;
   string name = 5;
   int64 project_number = 6;
-}
-
-message CloudresourcemanagerBetaProjectParent {
-  string type = 1;
-  string id = 2;
 }
 
 message ApplyCloudresourcemanagerBetaProjectRequest {

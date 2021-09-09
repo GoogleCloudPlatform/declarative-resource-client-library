@@ -1,7 +1,4 @@
 {
   "name": "{{brand}}",
-  "parent": {
-    "type": "organization",
-    "id": "{{org_id}}"
-  }
+  "parent": "organizations/{{org_id}}"
 }
