@@ -16,11 +16,11 @@ name: global_address
 resource: samples/global.address.json
 type: address
 variables:
+- name: region
+  type: region
 - name: address
   type: resource_name
 - name: project
   type: project
-- name: region
-  type: region
 versions:
 - ga
