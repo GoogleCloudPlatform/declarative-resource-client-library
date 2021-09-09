@@ -19,6 +19,8 @@ updates:
 - dependencies: []
   resource: samples/update.workload.json
 variables:
+- name: display
+  type: resource_name
 - name: ring
   type: resource_name
 - name: org_id
@@ -27,7 +29,5 @@ variables:
   type: region
 - name: billing_account
   type: billing_account
-- name: display
-  type: resource_name
 versions:
 - beta
