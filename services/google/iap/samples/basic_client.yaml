@@ -19,12 +19,12 @@ name: basic_client
 resource: samples/basic.identity_aware_proxy_client.json
 type: identity_aware_proxy_client
 variables:
+- name: project
+  type: project
 - name: application
   type: resource_name
 - name: test_service_account
   type: test_service_account
-- name: project
-  type: project
 - name: brand
   type: resource_name
 - name: org_id
