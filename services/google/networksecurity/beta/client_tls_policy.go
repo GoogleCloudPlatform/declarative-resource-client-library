@@ -540,7 +540,6 @@ func applyClientTlsPolicyHelper(c *Client, ctx context.Context, rawDesired *Clie
 
 	// 2.3: Lifecycle Directive Check
 	var create bool
-	var recreate bool
 	lp := dcl.FetchLifecycleParams(opts)
 	if initial == nil {
 		if dcl.HasLifecycleParam(lp, dcl.BlockCreation) {
@@ -554,12 +553,9 @@ func applyClientTlsPolicyHelper(c *Client, ctx context.Context, rawDesired *Clie
 	} else {
 		for _, d := range diffs {
 			if d.RequiresRecreate {
-				if dcl.HasLifecycleParam(lp, dcl.BlockDestruction) || dcl.HasLifecycleParam(lp, dcl.BlockCreation) {
-					return nil, dcl.ApplyInfeasibleError{
-						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
-					}
+				return nil, dcl.ApplyInfeasibleError{
+					Message: fmt.Sprintf("infeasible update: (%v) would require recreation", d),
 				}
-				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {
 				return nil, dcl.ApplyInfeasibleError{Message: fmt.Sprintf("Modification blocked, diff (%v) unresolvable.", d)}
@@ -571,14 +567,6 @@ func applyClientTlsPolicyHelper(c *Client, ctx context.Context, rawDesired *Clie
 	var ops []clientTlsPolicyApiOperation
 	if create {
 		ops = append(ops, &createClientTlsPolicyOperation{})
-	} else if recreate {
-		ops = append(ops, &deleteClientTlsPolicyOperation{})
-		ops = append(ops, &createClientTlsPolicyOperation{})
-		// We should re-canonicalize based on a nil existing resource.
-		desired, err = canonicalizeClientTlsPolicyDesiredState(rawDesired, nil)
-		if err != nil {
-			return nil, err
-		}
 	} else {
 		for _, d := range diffs {
 			ops = append(ops, d.UpdateOp)
@@ -657,6 +645,7 @@ func applyClientTlsPolicyHelper(c *Client, ctx context.Context, rawDesired *Clie
 	c.Config.Logger.InfoWithContext(ctx, "Done Apply.")
 	return newState, nil
 }
+
 func (r *ClientTlsPolicy) GetPolicy(basePath string) (string, string, *bytes.Buffer, error) {
 	u := r.getPolicyURL(basePath)
 	body := &bytes.Buffer{}

@@ -22,4 +22,6 @@ import (
 func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterIamRoleServiceServer(s, &RoleServer{})
 	sdkgrpc.RegisterIamServiceAccountServiceServer(s, &ServiceAccountServer{})
+	sdkgrpc.RegisterIamWorkloadIdentityPoolServiceServer(s, &WorkloadIdentityPoolServer{})
+	sdkgrpc.RegisterIamWorkloadIdentityPoolProviderServiceServer(s, &WorkloadIdentityPoolProviderServer{})
 }

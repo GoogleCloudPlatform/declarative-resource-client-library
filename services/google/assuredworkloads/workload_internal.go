@@ -363,7 +363,7 @@ func (op *createWorkloadOperation) do(ctx context.Context, r *Workload, c *Clien
 	// Include Name in URL substitution for initial GET request.
 	name, ok := op.response["name"].(string)
 	if !ok {
-		return fmt.Errorf("expected name to be a string, was %T", name)
+		return fmt.Errorf("expected name to be a string in %v", op.response)
 	}
 	r.Name = &name
 

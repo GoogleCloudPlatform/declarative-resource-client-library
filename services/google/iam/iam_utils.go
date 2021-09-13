@@ -14,8 +14,14 @@
 package iam
 
 import (
+	"bytes"
+	"context"
+	"io/ioutil"
 	"regexp"
+	"strings"
+	"time"
 
+	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -45,4 +51,73 @@ func EncodeRoleCreateRequest(m map[string]interface{}) map[string]interface{} {
 // EncodeServiceAccountCreateRequest properly encodes the create request for an iam service account.
 func EncodeServiceAccountCreateRequest(m map[string]interface{}) map[string]interface{} {
 	return EncodeIAMCreateRequest(m, "serviceAccount", "accountId")
+}
+
+func (c *Client) GetWorkloadIdentityPool(ctx context.Context, r *WorkloadIdentityPool) (*WorkloadIdentityPool, error) {
+	ctx = dcl.ContextWithRequestID(ctx)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
+	b, err := c.getWorkloadIdentityPoolRaw(ctx, r)
+	if err != nil {
+		if dcl.IsNotFound(err) {
+			return nil, &googleapi.Error{
+				Code:    404,
+				Message: err.Error(),
+			}
+		}
+		return nil, err
+	}
+	result, err := unmarshalWorkloadIdentityPool(b, c)
+	if err != nil {
+		return nil, err
+	}
+	result.Project = r.Project
+	result.Location = r.Location
+	result.Name = r.Name
+
+	c.Config.Logger.InfoWithContextf(ctx, "Retrieved raw result state: %v", result)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalizing with specified state: %v", r)
+	result, err = canonicalizeWorkloadIdentityPoolNewState(c, result, r)
+	if err != nil {
+		return nil, err
+	}
+	c.Config.Logger.InfoWithContextf(ctx, "Created result state: %v", result)
+
+	return result, nil
+}
+
+func (c *Client) getWorkloadIdentityPoolRaw(ctx context.Context, r *WorkloadIdentityPool) ([]byte, error) {
+
+	u, err := r.getURL(c.Config.BasePath)
+	if err != nil {
+		return nil, err
+	}
+	var resp *dcl.RetryDetails
+	// Retry until project is ready.
+	ctt, cancel := context.WithTimeout(ctx, 120*time.Second)
+	defer cancel()
+	err = dcl.Do(ctt, func(ctt context.Context) (*dcl.RetryDetails, error) {
+		var err error
+		resp, err = dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
+		if err != nil {
+			if gerr, ok := err.(*googleapi.Error); ok {
+				if gerr.Code == 403 && strings.HasPrefix(gerr.Message, "Permission 'iam.workloadIdentityPools.get' denied on resource") {
+					return &dcl.RetryDetails{}, dcl.OperationNotDone{}
+				}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Response.Body.Close()
+	b, err := ioutil.ReadAll(resp.Response.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	return b, nil
 }

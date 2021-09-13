@@ -270,7 +270,6 @@ func applyProjectHelper(c *Client, ctx context.Context, rawDesired *Project, opt
 
 	// 2.3: Lifecycle Directive Check
 	var create bool
-	var recreate bool
 	lp := dcl.FetchLifecycleParams(opts)
 	if initial == nil {
 		if dcl.HasLifecycleParam(lp, dcl.BlockCreation) {
@@ -284,12 +283,9 @@ func applyProjectHelper(c *Client, ctx context.Context, rawDesired *Project, opt
 	} else {
 		for _, d := range diffs {
 			if d.RequiresRecreate {
-				if dcl.HasLifecycleParam(lp, dcl.BlockDestruction) || dcl.HasLifecycleParam(lp, dcl.BlockCreation) {
-					return nil, dcl.ApplyInfeasibleError{
-						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
-					}
+				return nil, dcl.ApplyInfeasibleError{
+					Message: fmt.Sprintf("infeasible update: (%v) would require recreation", d),
 				}
-				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {
 				return nil, dcl.ApplyInfeasibleError{Message: fmt.Sprintf("Modification blocked, diff (%v) unresolvable.", d)}
@@ -301,14 +297,6 @@ func applyProjectHelper(c *Client, ctx context.Context, rawDesired *Project, opt
 	var ops []projectApiOperation
 	if create {
 		ops = append(ops, &createProjectOperation{})
-	} else if recreate {
-		ops = append(ops, &deleteProjectOperation{})
-		ops = append(ops, &createProjectOperation{})
-		// We should re-canonicalize based on a nil existing resource.
-		desired, err = canonicalizeProjectDesiredState(rawDesired, nil)
-		if err != nil {
-			return nil, err
-		}
 	} else {
 		for _, d := range diffs {
 			ops = append(ops, d.UpdateOp)
@@ -387,6 +375,7 @@ func applyProjectHelper(c *Client, ctx context.Context, rawDesired *Project, opt
 	c.Config.Logger.InfoWithContext(ctx, "Done Apply.")
 	return newState, nil
 }
+
 func (r *Project) GetPolicy(basePath string) (string, string, *bytes.Buffer, error) {
 	u := r.getPolicyURL(basePath)
 	body := &bytes.Buffer{}

@@ -542,7 +542,6 @@ func applyAzureNodePoolHelper(c *Client, ctx context.Context, rawDesired *AzureN
 
 	// 2.3: Lifecycle Directive Check
 	var create bool
-	var recreate bool
 	lp := dcl.FetchLifecycleParams(opts)
 	if initial == nil {
 		if dcl.HasLifecycleParam(lp, dcl.BlockCreation) {
@@ -556,12 +555,9 @@ func applyAzureNodePoolHelper(c *Client, ctx context.Context, rawDesired *AzureN
 	} else {
 		for _, d := range diffs {
 			if d.RequiresRecreate {
-				if dcl.HasLifecycleParam(lp, dcl.BlockDestruction) || dcl.HasLifecycleParam(lp, dcl.BlockCreation) {
-					return nil, dcl.ApplyInfeasibleError{
-						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
-					}
+				return nil, dcl.ApplyInfeasibleError{
+					Message: fmt.Sprintf("infeasible update: (%v) would require recreation", d),
 				}
-				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {
 				return nil, dcl.ApplyInfeasibleError{Message: fmt.Sprintf("Modification blocked, diff (%v) unresolvable.", d)}
@@ -573,14 +569,6 @@ func applyAzureNodePoolHelper(c *Client, ctx context.Context, rawDesired *AzureN
 	var ops []azureNodePoolApiOperation
 	if create {
 		ops = append(ops, &createAzureNodePoolOperation{})
-	} else if recreate {
-		ops = append(ops, &deleteAzureNodePoolOperation{})
-		ops = append(ops, &createAzureNodePoolOperation{})
-		// We should re-canonicalize based on a nil existing resource.
-		desired, err = canonicalizeAzureNodePoolDesiredState(rawDesired, nil)
-		if err != nil {
-			return nil, err
-		}
 	} else {
 		for _, d := range diffs {
 			ops = append(ops, d.UpdateOp)

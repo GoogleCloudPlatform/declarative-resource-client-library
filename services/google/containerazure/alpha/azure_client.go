@@ -251,7 +251,6 @@ func applyAzureClientHelper(c *Client, ctx context.Context, rawDesired *AzureCli
 
 	// 2.3: Lifecycle Directive Check
 	var create bool
-	var recreate bool
 	lp := dcl.FetchLifecycleParams(opts)
 	if initial == nil {
 		if dcl.HasLifecycleParam(lp, dcl.BlockCreation) {
@@ -265,12 +264,9 @@ func applyAzureClientHelper(c *Client, ctx context.Context, rawDesired *AzureCli
 	} else {
 		for _, d := range diffs {
 			if d.RequiresRecreate {
-				if dcl.HasLifecycleParam(lp, dcl.BlockDestruction) || dcl.HasLifecycleParam(lp, dcl.BlockCreation) {
-					return nil, dcl.ApplyInfeasibleError{
-						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
-					}
+				return nil, dcl.ApplyInfeasibleError{
+					Message: fmt.Sprintf("infeasible update: (%v) would require recreation", d),
 				}
-				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {
 				return nil, dcl.ApplyInfeasibleError{Message: fmt.Sprintf("Modification blocked, diff (%v) unresolvable.", d)}
@@ -282,14 +278,6 @@ func applyAzureClientHelper(c *Client, ctx context.Context, rawDesired *AzureCli
 	var ops []azureClientApiOperation
 	if create {
 		ops = append(ops, &createAzureClientOperation{})
-	} else if recreate {
-		ops = append(ops, &deleteAzureClientOperation{})
-		ops = append(ops, &createAzureClientOperation{})
-		// We should re-canonicalize based on a nil existing resource.
-		desired, err = canonicalizeAzureClientDesiredState(rawDesired, nil)
-		if err != nil {
-			return nil, err
-		}
 	} else {
 		for _, d := range diffs {
 			ops = append(ops, d.UpdateOp)

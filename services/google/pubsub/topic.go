@@ -291,7 +291,6 @@ func applyTopicHelper(c *Client, ctx context.Context, rawDesired *Topic, opts ..
 
 	// 2.3: Lifecycle Directive Check
 	var create bool
-	var recreate bool
 	lp := dcl.FetchLifecycleParams(opts)
 	if initial == nil {
 		if dcl.HasLifecycleParam(lp, dcl.BlockCreation) {
@@ -305,12 +304,9 @@ func applyTopicHelper(c *Client, ctx context.Context, rawDesired *Topic, opts ..
 	} else {
 		for _, d := range diffs {
 			if d.RequiresRecreate {
-				if dcl.HasLifecycleParam(lp, dcl.BlockDestruction) || dcl.HasLifecycleParam(lp, dcl.BlockCreation) {
-					return nil, dcl.ApplyInfeasibleError{
-						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
-					}
+				return nil, dcl.ApplyInfeasibleError{
+					Message: fmt.Sprintf("infeasible update: (%v) would require recreation", d),
 				}
-				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {
 				return nil, dcl.ApplyInfeasibleError{Message: fmt.Sprintf("Modification blocked, diff (%v) unresolvable.", d)}
@@ -322,14 +318,6 @@ func applyTopicHelper(c *Client, ctx context.Context, rawDesired *Topic, opts ..
 	var ops []topicApiOperation
 	if create {
 		ops = append(ops, &createTopicOperation{})
-	} else if recreate {
-		ops = append(ops, &deleteTopicOperation{})
-		ops = append(ops, &createTopicOperation{})
-		// We should re-canonicalize based on a nil existing resource.
-		desired, err = canonicalizeTopicDesiredState(rawDesired, nil)
-		if err != nil {
-			return nil, err
-		}
 	} else {
 		for _, d := range diffs {
 			ops = append(ops, d.UpdateOp)

@@ -315,7 +315,6 @@ func applyBackupHelper(c *Client, ctx context.Context, rawDesired *Backup, opts 
 
 	// 2.3: Lifecycle Directive Check
 	var create bool
-	var recreate bool
 	lp := dcl.FetchLifecycleParams(opts)
 	if initial == nil {
 		if dcl.HasLifecycleParam(lp, dcl.BlockCreation) {
@@ -329,12 +328,9 @@ func applyBackupHelper(c *Client, ctx context.Context, rawDesired *Backup, opts 
 	} else {
 		for _, d := range diffs {
 			if d.RequiresRecreate {
-				if dcl.HasLifecycleParam(lp, dcl.BlockDestruction) || dcl.HasLifecycleParam(lp, dcl.BlockCreation) {
-					return nil, dcl.ApplyInfeasibleError{
-						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
-					}
+				return nil, dcl.ApplyInfeasibleError{
+					Message: fmt.Sprintf("infeasible update: (%v) would require recreation", d),
 				}
-				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {
 				return nil, dcl.ApplyInfeasibleError{Message: fmt.Sprintf("Modification blocked, diff (%v) unresolvable.", d)}
@@ -346,14 +342,6 @@ func applyBackupHelper(c *Client, ctx context.Context, rawDesired *Backup, opts 
 	var ops []backupApiOperation
 	if create {
 		ops = append(ops, &createBackupOperation{})
-	} else if recreate {
-		ops = append(ops, &deleteBackupOperation{})
-		ops = append(ops, &createBackupOperation{})
-		// We should re-canonicalize based on a nil existing resource.
-		desired, err = canonicalizeBackupDesiredState(rawDesired, nil)
-		if err != nil {
-			return nil, err
-		}
 	} else {
 		for _, d := range diffs {
 			ops = append(ops, d.UpdateOp)

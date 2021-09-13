@@ -414,6 +414,7 @@ func applyPolicyHelper(c *Client, ctx context.Context, rawDesired *Policy, opts 
 	c.Config.Logger.InfoWithContext(ctx, "Done Apply.")
 	return newState, nil
 }
+
 func (r *Policy) GetPolicy(basePath string) (string, string, *bytes.Buffer, error) {
 	u := r.getPolicyURL(basePath)
 	body := &bytes.Buffer{}

@@ -249,7 +249,6 @@ func applyReservationHelper(c *Client, ctx context.Context, rawDesired *Reservat
 
 	// 2.3: Lifecycle Directive Check
 	var create bool
-	var recreate bool
 	lp := dcl.FetchLifecycleParams(opts)
 	if initial == nil {
 		if dcl.HasLifecycleParam(lp, dcl.BlockCreation) {
@@ -263,12 +262,9 @@ func applyReservationHelper(c *Client, ctx context.Context, rawDesired *Reservat
 	} else {
 		for _, d := range diffs {
 			if d.RequiresRecreate {
-				if dcl.HasLifecycleParam(lp, dcl.BlockDestruction) || dcl.HasLifecycleParam(lp, dcl.BlockCreation) {
-					return nil, dcl.ApplyInfeasibleError{
-						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
-					}
+				return nil, dcl.ApplyInfeasibleError{
+					Message: fmt.Sprintf("infeasible update: (%v) would require recreation", d),
 				}
-				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {
 				return nil, dcl.ApplyInfeasibleError{Message: fmt.Sprintf("Modification blocked, diff (%v) unresolvable.", d)}
@@ -280,14 +276,6 @@ func applyReservationHelper(c *Client, ctx context.Context, rawDesired *Reservat
 	var ops []reservationApiOperation
 	if create {
 		ops = append(ops, &createReservationOperation{})
-	} else if recreate {
-		ops = append(ops, &deleteReservationOperation{})
-		ops = append(ops, &createReservationOperation{})
-		// We should re-canonicalize based on a nil existing resource.
-		desired, err = canonicalizeReservationDesiredState(rawDesired, nil)
-		if err != nil {
-			return nil, err
-		}
 	} else {
 		for _, d := range diffs {
 			ops = append(ops, d.UpdateOp)

@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="iam/beta", resources=["role","service_account"])
+connector(name="iam/beta", resources=["role","service_account","workload_identity_pool","workload_identity_pool_provider"])

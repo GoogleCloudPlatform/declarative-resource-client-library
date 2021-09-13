@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="iam", resources=["role","service_account"])
+proto_package(name="iam", resources=["role","service_account","workload_identity_pool","workload_identity_pool_provider"])
