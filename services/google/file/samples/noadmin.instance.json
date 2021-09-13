@@ -15,9 +15,7 @@
         {
           "ipRanges": ["172.217.14.238"],
           "accessMode": "READ_ONLY",
-          "squashMode": "ROOT_SQUASH",
-          "anonUid": 65534,
-          "anonGid": 65534
+          "squashMode": "NO_ROOT_SQUASH"
         }
       ]
     }
@@ -25,7 +23,8 @@
   "networks": [
     {
       "network": "default",
-      "modes": ["MODE_IPV4"]
+      "modes": ["MODE_IPV4"],
+      "reservedIPRange": "10.{{random_int}}.{{random_int}}.0/29"
     }
   ]
 }

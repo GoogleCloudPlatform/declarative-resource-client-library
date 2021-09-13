@@ -43,7 +43,6 @@ class Instance(object):
         self.labels = labels
         self.file_shares = file_shares
         self.networks = networks
-        self.etag = etag
         self.project = project
         self.location = location
         self.service_account_file = service_account_file
@@ -71,9 +70,6 @@ class Instance(object):
             request.resource.networks.extend(
                 InstanceNetworksArray.to_proto(self.networks)
             )
-        if Primitive.to_proto(self.etag):
-            request.resource.etag = Primitive.to_proto(self.etag)
-
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -120,9 +116,6 @@ class Instance(object):
             request.resource.networks.extend(
                 InstanceNetworksArray.to_proto(self.networks)
             )
-        if Primitive.to_proto(self.etag):
-            request.resource.etag = Primitive.to_proto(self.etag)
-
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -155,9 +148,6 @@ class Instance(object):
             request.resource.networks.extend(
                 InstanceNetworksArray.to_proto(self.networks)
             )
-        if Primitive.to_proto(self.etag):
-            request.resource.etag = Primitive.to_proto(self.etag)
-
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -182,8 +172,6 @@ class Instance(object):
             )
         if InstanceNetworksArray.to_proto(self.networks):
             resource.networks.extend(InstanceNetworksArray.to_proto(self.networks))
-        if Primitive.to_proto(self.etag):
-            resource.etag = Primitive.to_proto(self.etag)
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.location):

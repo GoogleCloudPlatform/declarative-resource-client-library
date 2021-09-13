@@ -31,6 +31,12 @@ func (r *Backup) validate() error {
 	if err := dcl.RequiredParameter(r.Name, "Name"); err != nil {
 		return err
 	}
+	if err := dcl.Required(r, "sourceInstance"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "sourceFileShare"); err != nil {
+		return err
+	}
 	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
 		return err
 	}

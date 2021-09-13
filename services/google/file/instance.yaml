@@ -83,6 +83,7 @@ components:
         etag:
           type: string
           x-dcl-go-name: Etag
+          readOnly: true
           description: Server-specified ETag for the instance resource to prevent
             simultaneous updates from overwriting each other.
           x-kubernetes-immutable: true
@@ -127,6 +128,7 @@ components:
                         on the exported directory, or READ_WRITE, for allowing both
                         read and write requests. The default is READ_WRITE. Possible
                         values: ACCESS_MODE_UNSPECIFIED, READ_ONLY, READ_WRITE'
+                      x-dcl-server-default: true
                       enum:
                       - ACCESS_MODE_UNSPECIFIED
                       - READ_ONLY
@@ -170,6 +172,7 @@ components:
                         on the exported directory, or ROOT_SQUASH, for not allowing
                         root access. The default is NO_ROOT_SQUASH. Possible values:
                         SQUASH_MODE_UNSPECIFIED, NO_ROOT_SQUASH, ROOT_SQUASH'
+                      x-dcl-server-default: true
                       enum:
                       - SQUASH_MODE_UNSPECIFIED
                       - NO_ROOT_SQUASH
@@ -229,6 +232,7 @@ components:
                 description: Internet protocol versions for which the instance has
                   IP addresses assigned. For this version, only MODE_IPV4 is supported.
                 x-kubernetes-immutable: true
+                x-dcl-server-default: true
                 x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
@@ -255,6 +259,7 @@ components:
                   can't overlap with either existing subnets or assigned IP address
                   ranges for other Cloud Filestore instances in the selected VPC network.
                 x-kubernetes-immutable: true
+                x-dcl-server-default: true
         project:
           type: string
           x-dcl-go-name: Project

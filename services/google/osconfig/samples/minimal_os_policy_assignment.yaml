@@ -16,11 +16,11 @@ name: minimal_os_policy_assignment
 resource: samples/minimal.os_policy_assignment.json
 type: os_policy_assignment
 variables:
-- name: project
-  type: project
 - name: zone
   type: zone
 - name: assignment
   type: resource_name
+- name: project
+  type: project
 versions:
 - alpha

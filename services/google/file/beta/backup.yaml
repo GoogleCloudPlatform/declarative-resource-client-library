@@ -66,6 +66,8 @@ components:
       type: object
       required:
       - name
+      - sourceInstance
+      - sourceFileShare
       - project
       - location
       properties:

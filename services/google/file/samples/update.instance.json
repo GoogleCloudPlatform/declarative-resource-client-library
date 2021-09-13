@@ -13,11 +13,11 @@
       "name": "my_share",
       "nfsExportOptions": [
         {
-          "ipRanges": ["172.217.14.238"],
-          "accessMode": "READ_ONLY",
+          "ipRanges": ["172.217.14.239"],
+          "accessMode": "READ_WRITE",
           "squashMode": "ROOT_SQUASH",
-          "anonUid": 65534,
-          "anonGid": 65534
+          "anonUid": 65533,
+          "anonGid": 65533
         }
       ]
     }
@@ -25,7 +25,8 @@
   "networks": [
     {
       "network": "default",
-      "modes": ["MODE_IPV4"]
+      "modes": ["MODE_IPV4"],
+      "reservedIPRange": "10.{{random_int}}.{{random_int}}.0/29"
     }
   ]
 }

@@ -117,6 +117,23 @@ func newUpdateInstanceUpdateInstanceRequest(ctx context.Context, f *Instance, c 
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["fileShares"] = v
 	}
+	b, err := c.getInstanceRaw(ctx, f)
+	if err != nil {
+		return nil, err
+	}
+	var m map[string]interface{}
+	if err := json.Unmarshal(b, &m); err != nil {
+		return nil, err
+	}
+	rawEtag, err := dcl.GetMapEntry(
+		m,
+		[]string{"etag"},
+	)
+	if err != nil {
+		c.Config.Logger.WarningWithContextf(ctx, "Failed to fetch from JSON Path: %v", err)
+	} else {
+		req["etag"] = rawEtag.(string)
+	}
 	return req, nil
 }
 
@@ -431,11 +448,6 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	}
 	canonicalDesired.FileShares = canonicalizeInstanceFileSharesSlice(rawDesired.FileShares, rawInitial.FileShares, opts...)
 	canonicalDesired.Networks = canonicalizeInstanceNetworksSlice(rawDesired.Networks, rawInitial.Networks, opts...)
-	if dcl.StringCanonicalize(rawDesired.Etag, rawInitial.Etag) {
-		canonicalDesired.Etag = rawInitial.Etag
-	} else {
-		canonicalDesired.Etag = rawDesired.Etag
-	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		canonicalDesired.Project = rawInitial.Project
 	} else {
@@ -984,7 +996,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1034,21 +1046,21 @@ func compareInstanceFileSharesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CapacityGb, actual.CapacityGb, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CapacityGb")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CapacityGb, actual.CapacityGb, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("CapacityGb")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SourceBackup, actual.SourceBackup, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceBackup")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceBackup, actual.SourceBackup, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SourceBackup")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NfsExportOptions, actual.NfsExportOptions, dcl.Info{ObjectFunction: compareInstanceFileSharesNfsExportOptionsNewStyle, EmptyObject: EmptyInstanceFileSharesNfsExportOptions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NfsExportOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NfsExportOptions, actual.NfsExportOptions, dcl.Info{ObjectFunction: compareInstanceFileSharesNfsExportOptionsNewStyle, EmptyObject: EmptyInstanceFileSharesNfsExportOptions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("NfsExportOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1245,9 +1257,6 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 		return nil, fmt.Errorf("error expanding Networks into networks: %w", err)
 	} else {
 		m["networks"] = v
-	}
-	if v := f.Etag; !dcl.IsEmptyValueIndirect(v) {
-		m["etag"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
