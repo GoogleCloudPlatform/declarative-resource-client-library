@@ -47,15 +47,15 @@ type ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum string
 // ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumRef returns a *ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumRef(s string) *ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(s)
 	return &v
 }
 
 func (v ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"PRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED", "INHERIT_FROM_SUBNETWORK", "OUTBOUND", "BIDIRECTIONAL"} {
 		if string(v) == s {
 			return nil
@@ -74,15 +74,15 @@ type ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTy
 // ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumRef returns a *ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumRef(s string) *ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum(s)
 	return &v
 }
 
 func (v ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"TYPE_UNSPECIFIED", "NO_RESERVATION", "ANY_RESERVATION", "SPECIFIC_RESERVATION"} {
 		if string(v) == s {
 			return nil
@@ -101,15 +101,15 @@ type ClusterInstanceGroupConfigPreemptibilityEnum string
 // ClusterInstanceGroupConfigPreemptibilityEnumRef returns a *ClusterInstanceGroupConfigPreemptibilityEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func ClusterInstanceGroupConfigPreemptibilityEnumRef(s string) *ClusterInstanceGroupConfigPreemptibilityEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := ClusterInstanceGroupConfigPreemptibilityEnum(s)
 	return &v
 }
 
 func (v ClusterInstanceGroupConfigPreemptibilityEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"PREEMPTIBILITY_UNSPECIFIED", "NON_PREEMPTIBLE", "PREEMPTIBLE"} {
 		if string(v) == s {
 			return nil
@@ -128,15 +128,15 @@ type ClusterClusterConfigSoftwareConfigOptionalComponentsEnum string
 // ClusterClusterConfigSoftwareConfigOptionalComponentsEnumRef returns a *ClusterClusterConfigSoftwareConfigOptionalComponentsEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func ClusterClusterConfigSoftwareConfigOptionalComponentsEnumRef(s string) *ClusterClusterConfigSoftwareConfigOptionalComponentsEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := ClusterClusterConfigSoftwareConfigOptionalComponentsEnum(s)
 	return &v
 }
 
 func (v ClusterClusterConfigSoftwareConfigOptionalComponentsEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"COMPONENT_UNSPECIFIED", "ANACONDA", "DOCKER", "DRUID", "FLINK", "HBASE", "HIVE_WEBHCAT", "JUPYTER", "KERBEROS", "PRESTO", "RANGER", "SOLR", "ZEPPELIN", "ZOOKEEPER"} {
 		if string(v) == s {
 			return nil
@@ -155,15 +155,15 @@ type ClusterStatusStateEnum string
 // ClusterStatusStateEnumRef returns a *ClusterStatusStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func ClusterStatusStateEnumRef(s string) *ClusterStatusStateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := ClusterStatusStateEnum(s)
 	return &v
 }
 
 func (v ClusterStatusStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"UNKNOWN", "CREATING", "RUNNING", "ERROR", "DELETING", "UPDATING", "STOPPING", "STOPPED", "STARTING"} {
 		if string(v) == s {
 			return nil
@@ -182,15 +182,15 @@ type ClusterStatusSubstateEnum string
 // ClusterStatusSubstateEnumRef returns a *ClusterStatusSubstateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func ClusterStatusSubstateEnumRef(s string) *ClusterStatusSubstateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := ClusterStatusSubstateEnum(s)
 	return &v
 }
 
 func (v ClusterStatusSubstateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"UNSPECIFIED", "UNHEALTHY", "STALE_STATUS"} {
 		if string(v) == s {
 			return nil
@@ -209,15 +209,15 @@ type ClusterStatusHistoryStateEnum string
 // ClusterStatusHistoryStateEnumRef returns a *ClusterStatusHistoryStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func ClusterStatusHistoryStateEnumRef(s string) *ClusterStatusHistoryStateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := ClusterStatusHistoryStateEnum(s)
 	return &v
 }
 
 func (v ClusterStatusHistoryStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"UNKNOWN", "CREATING", "RUNNING", "ERROR", "DELETING", "UPDATING", "STOPPING", "STOPPED", "STARTING"} {
 		if string(v) == s {
 			return nil
@@ -236,15 +236,15 @@ type ClusterStatusHistorySubstateEnum string
 // ClusterStatusHistorySubstateEnumRef returns a *ClusterStatusHistorySubstateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func ClusterStatusHistorySubstateEnumRef(s string) *ClusterStatusHistorySubstateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := ClusterStatusHistorySubstateEnum(s)
 	return &v
 }
 
 func (v ClusterStatusHistorySubstateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"UNSPECIFIED", "UNHEALTHY", "STALE_STATUS"} {
 		if string(v) == s {
 			return nil

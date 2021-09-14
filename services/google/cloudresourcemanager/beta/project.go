@@ -42,15 +42,15 @@ type ProjectLifecycleStateEnum string
 // ProjectLifecycleStateEnumRef returns a *ProjectLifecycleStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func ProjectLifecycleStateEnumRef(s string) *ProjectLifecycleStateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := ProjectLifecycleStateEnum(s)
 	return &v
 }
 
 func (v ProjectLifecycleStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"LIFECYCLE_STATE_UNSPECIFIED", "ACTIVE", "DELETE_REQUESTED", "DELETE_IN_PROGRESS"} {
 		if string(v) == s {
 			return nil

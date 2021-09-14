@@ -46,15 +46,15 @@ type TenantMfaConfigStateEnum string
 // TenantMfaConfigStateEnumRef returns a *TenantMfaConfigStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func TenantMfaConfigStateEnumRef(s string) *TenantMfaConfigStateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := TenantMfaConfigStateEnum(s)
 	return &v
 }
 
 func (v TenantMfaConfigStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"STATE_UNSPECIFIED", "DISABLED", "ENABLED", "MANDATORY"} {
 		if string(v) == s {
 			return nil
@@ -73,15 +73,15 @@ type TenantMfaConfigEnabledProvidersEnum string
 // TenantMfaConfigEnabledProvidersEnumRef returns a *TenantMfaConfigEnabledProvidersEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func TenantMfaConfigEnabledProvidersEnumRef(s string) *TenantMfaConfigEnabledProvidersEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := TenantMfaConfigEnabledProvidersEnum(s)
 	return &v
 }
 
 func (v TenantMfaConfigEnabledProvidersEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"PROVIDER_UNSPECIFIED", "PHONE_SMS"} {
 		if string(v) == s {
 			return nil

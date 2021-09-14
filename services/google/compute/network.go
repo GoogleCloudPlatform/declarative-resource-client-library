@@ -45,15 +45,15 @@ type NetworkRoutingConfigRoutingModeEnum string
 // NetworkRoutingConfigRoutingModeEnumRef returns a *NetworkRoutingConfigRoutingModeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func NetworkRoutingConfigRoutingModeEnumRef(s string) *NetworkRoutingConfigRoutingModeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := NetworkRoutingConfigRoutingModeEnum(s)
 	return &v
 }
 
 func (v NetworkRoutingConfigRoutingModeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"REGIONAL", "GLOBAL"} {
 		if string(v) == s {
 			return nil

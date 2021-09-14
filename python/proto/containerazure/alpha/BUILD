@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="containerazure/alpha", resources=["azure_client","azure_cluster","azure_node_pool"])
+proto_package(name="containerazure/alpha", resources=["azure_client","cluster","node_pool"])

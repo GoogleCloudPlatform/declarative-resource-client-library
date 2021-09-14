@@ -44,15 +44,15 @@ type FolderStateEnum string
 // FolderStateEnumRef returns a *FolderStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func FolderStateEnumRef(s string) *FolderStateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := FolderStateEnum(s)
 	return &v
 }
 
 func (v FolderStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"LIFECYCLE_STATE_UNSPECIFIED", "ACTIVE", "DELETE_REQUESTED"} {
 		if string(v) == s {
 			return nil

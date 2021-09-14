@@ -62,15 +62,15 @@ type InstanceTypeEnum string
 // InstanceTypeEnumRef returns a *InstanceTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func InstanceTypeEnumRef(s string) *InstanceTypeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := InstanceTypeEnum(s)
 	return &v
 }
 
 func (v InstanceTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"TYPE_UNSPECIFIED", "BASIC", "ENTERPRISE", "DEVELOPER"} {
 		if string(v) == s {
 			return nil
@@ -89,15 +89,15 @@ type InstanceStateEnum string
 // InstanceStateEnumRef returns a *InstanceStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func InstanceStateEnumRef(s string) *InstanceStateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := InstanceStateEnum(s)
 	return &v
 }
 
 func (v InstanceStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"STATE_UNSPECIFIED", "ENABLED", "DISABLED", "UNKNOWN"} {
 		if string(v) == s {
 			return nil

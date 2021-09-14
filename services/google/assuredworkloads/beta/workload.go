@@ -49,15 +49,15 @@ type WorkloadResourcesResourceTypeEnum string
 // WorkloadResourcesResourceTypeEnumRef returns a *WorkloadResourcesResourceTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func WorkloadResourcesResourceTypeEnumRef(s string) *WorkloadResourcesResourceTypeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := WorkloadResourcesResourceTypeEnum(s)
 	return &v
 }
 
 func (v WorkloadResourcesResourceTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"RESOURCE_TYPE_UNSPECIFIED", "CONSUMER_PROJECT", "ENCRYPTION_KEYS_PROJECT", "KEYRING", "CONSUMER_FOLDER"} {
 		if string(v) == s {
 			return nil
@@ -76,15 +76,15 @@ type WorkloadComplianceRegimeEnum string
 // WorkloadComplianceRegimeEnumRef returns a *WorkloadComplianceRegimeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func WorkloadComplianceRegimeEnumRef(s string) *WorkloadComplianceRegimeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := WorkloadComplianceRegimeEnum(s)
 	return &v
 }
 
 func (v WorkloadComplianceRegimeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"COMPLIANCE_REGIME_UNSPECIFIED", "IL4", "CJIS", "FEDRAMP_HIGH", "FEDRAMP_MODERATE", "US_REGIONAL_ACCESS"} {
 		if string(v) == s {
 			return nil
@@ -103,15 +103,15 @@ type WorkloadResourceSettingsResourceTypeEnum string
 // WorkloadResourceSettingsResourceTypeEnumRef returns a *WorkloadResourceSettingsResourceTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func WorkloadResourceSettingsResourceTypeEnumRef(s string) *WorkloadResourceSettingsResourceTypeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := WorkloadResourceSettingsResourceTypeEnum(s)
 	return &v
 }
 
 func (v WorkloadResourceSettingsResourceTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"RESOURCE_TYPE_UNSPECIFIED", "CONSUMER_PROJECT", "ENCRYPTION_KEYS_PROJECT", "KEYRING", "CONSUMER_FOLDER"} {
 		if string(v) == s {
 			return nil

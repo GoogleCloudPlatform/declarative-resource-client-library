@@ -46,15 +46,15 @@ type WorkerPoolStateEnum string
 // WorkerPoolStateEnumRef returns a *WorkerPoolStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func WorkerPoolStateEnumRef(s string) *WorkerPoolStateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := WorkerPoolStateEnum(s)
 	return &v
 }
 
 func (v WorkerPoolStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"STATE_UNSPECIFIED", "PENDING", "APPROVED", "REJECTED", "CANCELLED"} {
 		if string(v) == s {
 			return nil

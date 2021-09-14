@@ -52,15 +52,15 @@ type MembershipStateCodeEnum string
 // MembershipStateCodeEnumRef returns a *MembershipStateCodeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func MembershipStateCodeEnumRef(s string) *MembershipStateCodeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := MembershipStateCodeEnum(s)
 	return &v
 }
 
 func (v MembershipStateCodeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"CODE_UNSPECIFIED", "CREATING", "READY", "DELETING", "UPDATING", "SERVICE_UPDATING"} {
 		if string(v) == s {
 			return nil
@@ -79,15 +79,15 @@ type MembershipInfrastructureTypeEnum string
 // MembershipInfrastructureTypeEnumRef returns a *MembershipInfrastructureTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func MembershipInfrastructureTypeEnumRef(s string) *MembershipInfrastructureTypeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := MembershipInfrastructureTypeEnum(s)
 	return &v
 }
 
 func (v MembershipInfrastructureTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"INFRASTRUCTURE_TYPE_UNSPECIFIED", "ON_PREM", "MULTI_CLOUD"} {
 		if string(v) == s {
 			return nil

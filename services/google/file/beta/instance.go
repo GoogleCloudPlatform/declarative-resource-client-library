@@ -49,15 +49,15 @@ type InstanceStateEnum string
 // InstanceStateEnumRef returns a *InstanceStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func InstanceStateEnumRef(s string) *InstanceStateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := InstanceStateEnum(s)
 	return &v
 }
 
 func (v InstanceStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"STATE_UNSPECIFIED", "CREATING", "READY", "REPAIRING", "DELETING", "ERROR"} {
 		if string(v) == s {
 			return nil
@@ -76,15 +76,15 @@ type InstanceTierEnum string
 // InstanceTierEnumRef returns a *InstanceTierEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func InstanceTierEnumRef(s string) *InstanceTierEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := InstanceTierEnum(s)
 	return &v
 }
 
 func (v InstanceTierEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"TIER_UNSPECIFIED", "STANDARD", "PREMIUM", "BASIC_HDD", "BASIC_SSD", "HIGH_SCALE_SSD"} {
 		if string(v) == s {
 			return nil
@@ -103,15 +103,15 @@ type InstanceFileSharesNfsExportOptionsAccessModeEnum string
 // InstanceFileSharesNfsExportOptionsAccessModeEnumRef returns a *InstanceFileSharesNfsExportOptionsAccessModeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func InstanceFileSharesNfsExportOptionsAccessModeEnumRef(s string) *InstanceFileSharesNfsExportOptionsAccessModeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := InstanceFileSharesNfsExportOptionsAccessModeEnum(s)
 	return &v
 }
 
 func (v InstanceFileSharesNfsExportOptionsAccessModeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ACCESS_MODE_UNSPECIFIED", "READ_ONLY", "READ_WRITE"} {
 		if string(v) == s {
 			return nil
@@ -130,15 +130,15 @@ type InstanceFileSharesNfsExportOptionsSquashModeEnum string
 // InstanceFileSharesNfsExportOptionsSquashModeEnumRef returns a *InstanceFileSharesNfsExportOptionsSquashModeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func InstanceFileSharesNfsExportOptionsSquashModeEnumRef(s string) *InstanceFileSharesNfsExportOptionsSquashModeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := InstanceFileSharesNfsExportOptionsSquashModeEnum(s)
 	return &v
 }
 
 func (v InstanceFileSharesNfsExportOptionsSquashModeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"SQUASH_MODE_UNSPECIFIED", "NO_ROOT_SQUASH", "ROOT_SQUASH"} {
 		if string(v) == s {
 			return nil
@@ -157,15 +157,15 @@ type InstanceNetworksModesEnum string
 // InstanceNetworksModesEnumRef returns a *InstanceNetworksModesEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func InstanceNetworksModesEnumRef(s string) *InstanceNetworksModesEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := InstanceNetworksModesEnum(s)
 	return &v
 }
 
 func (v InstanceNetworksModesEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ADDRESS_MODE_UNSPECIFIED", "MODE_IPV4"} {
 		if string(v) == s {
 			return nil

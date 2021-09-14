@@ -62,15 +62,15 @@ type InstanceGroupManagerDistributionPolicyTargetShapeEnum string
 // InstanceGroupManagerDistributionPolicyTargetShapeEnumRef returns a *InstanceGroupManagerDistributionPolicyTargetShapeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func InstanceGroupManagerDistributionPolicyTargetShapeEnumRef(s string) *InstanceGroupManagerDistributionPolicyTargetShapeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := InstanceGroupManagerDistributionPolicyTargetShapeEnum(s)
 	return &v
 }
 
 func (v InstanceGroupManagerDistributionPolicyTargetShapeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"TARGET_SHAPE_UNSPECIFIED", "ANY", "BALANCED", "ANY_SINGLE_ZONE"} {
 		if string(v) == s {
 			return nil
@@ -89,15 +89,15 @@ type InstanceGroupManagerUpdatePolicyTypeEnum string
 // InstanceGroupManagerUpdatePolicyTypeEnumRef returns a *InstanceGroupManagerUpdatePolicyTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func InstanceGroupManagerUpdatePolicyTypeEnumRef(s string) *InstanceGroupManagerUpdatePolicyTypeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := InstanceGroupManagerUpdatePolicyTypeEnum(s)
 	return &v
 }
 
 func (v InstanceGroupManagerUpdatePolicyTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"OPPORTUNISTIC", "PROACTIVE"} {
 		if string(v) == s {
 			return nil
@@ -116,15 +116,15 @@ type InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum string
 // InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumRef returns a *InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumRef(s string) *InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum(s)
 	return &v
 }
 
 func (v InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"NONE", "PROACTIVE"} {
 		if string(v) == s {
 			return nil
@@ -143,15 +143,15 @@ type InstanceGroupManagerUpdatePolicyMinimalActionEnum string
 // InstanceGroupManagerUpdatePolicyMinimalActionEnumRef returns a *InstanceGroupManagerUpdatePolicyMinimalActionEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func InstanceGroupManagerUpdatePolicyMinimalActionEnumRef(s string) *InstanceGroupManagerUpdatePolicyMinimalActionEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := InstanceGroupManagerUpdatePolicyMinimalActionEnum(s)
 	return &v
 }
 
 func (v InstanceGroupManagerUpdatePolicyMinimalActionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"REPLACE", "RESTART", "REFRESH", "NONE"} {
 		if string(v) == s {
 			return nil
@@ -170,15 +170,15 @@ type InstanceGroupManagerUpdatePolicyReplacementMethodEnum string
 // InstanceGroupManagerUpdatePolicyReplacementMethodEnumRef returns a *InstanceGroupManagerUpdatePolicyReplacementMethodEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func InstanceGroupManagerUpdatePolicyReplacementMethodEnumRef(s string) *InstanceGroupManagerUpdatePolicyReplacementMethodEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := InstanceGroupManagerUpdatePolicyReplacementMethodEnum(s)
 	return &v
 }
 
 func (v InstanceGroupManagerUpdatePolicyReplacementMethodEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"SUBSTITUTE", "RECREATE"} {
 		if string(v) == s {
 			return nil
@@ -197,15 +197,15 @@ type InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum string
 // InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumRef returns a *InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumRef(s string) *InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum(s)
 	return &v
 }
 
 func (v InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"REPLACE", "RESTART", "REFRESH", "NONE"} {
 		if string(v) == s {
 			return nil
@@ -224,15 +224,15 @@ type InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum string
 // InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumRef returns a *InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumRef(s string) *InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum(s)
 	return &v
 }
 
 func (v InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"NEVER", "ON_PERMANENT_INSTANCE_DELETION"} {
 		if string(v) == s {
 			return nil
@@ -251,15 +251,15 @@ type InstanceGroupManagerFailoverActionEnum string
 // InstanceGroupManagerFailoverActionEnumRef returns a *InstanceGroupManagerFailoverActionEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func InstanceGroupManagerFailoverActionEnumRef(s string) *InstanceGroupManagerFailoverActionEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := InstanceGroupManagerFailoverActionEnum(s)
 	return &v
 }
 
 func (v InstanceGroupManagerFailoverActionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"UNKNOWN", "NO_FAILOVER"} {
 		if string(v) == s {
 			return nil

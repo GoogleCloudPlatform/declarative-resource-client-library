@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="containeraws/alpha", resources=["aws_cluster","aws_node_pool"])
+proto_package(name="containeraws/alpha", resources=["cluster","node_pool"])

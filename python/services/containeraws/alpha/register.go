@@ -20,6 +20,6 @@ import (
 
 // RegisterServers registers each resource with the gRPC server.
 func RegisterServers(s *grpc.Server) {
-	sdkgrpc.RegisterContainerawsAlphaAwsClusterServiceServer(s, &AwsClusterServer{})
-	sdkgrpc.RegisterContainerawsAlphaAwsNodePoolServiceServer(s, &AwsNodePoolServer{})
+	sdkgrpc.RegisterContainerawsAlphaClusterServiceServer(s, &ClusterServer{})
+	sdkgrpc.RegisterContainerawsAlphaNodePoolServiceServer(s, &NodePoolServer{})
 }

@@ -47,15 +47,15 @@ type CapacityCommitmentPlanEnum string
 // CapacityCommitmentPlanEnumRef returns a *CapacityCommitmentPlanEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func CapacityCommitmentPlanEnumRef(s string) *CapacityCommitmentPlanEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := CapacityCommitmentPlanEnum(s)
 	return &v
 }
 
 func (v CapacityCommitmentPlanEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"COMMITMENT_PLAN_UNSPECIFIED", "FLEX", "TRIAL", "MONTHLY", "ANNUAL"} {
 		if string(v) == s {
 			return nil
@@ -74,15 +74,15 @@ type CapacityCommitmentStateEnum string
 // CapacityCommitmentStateEnumRef returns a *CapacityCommitmentStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func CapacityCommitmentStateEnumRef(s string) *CapacityCommitmentStateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := CapacityCommitmentStateEnum(s)
 	return &v
 }
 
 func (v CapacityCommitmentStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"STATE_UNSPECIFIED", "PENDING", "ACTIVE", "FAILED"} {
 		if string(v) == s {
 			return nil
@@ -101,15 +101,15 @@ type CapacityCommitmentRenewalPlanEnum string
 // CapacityCommitmentRenewalPlanEnumRef returns a *CapacityCommitmentRenewalPlanEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func CapacityCommitmentRenewalPlanEnumRef(s string) *CapacityCommitmentRenewalPlanEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := CapacityCommitmentRenewalPlanEnum(s)
 	return &v
 }
 
 func (v CapacityCommitmentRenewalPlanEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"COMMITMENT_PLAN_UNSPECIFIED", "FLEX", "TRIAL", "MONTHLY", "ANNUAL"} {
 		if string(v) == s {
 			return nil

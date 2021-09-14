@@ -54,15 +54,15 @@ type RouteWarningCodeEnum string
 // RouteWarningCodeEnumRef returns a *RouteWarningCodeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func RouteWarningCodeEnumRef(s string) *RouteWarningCodeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := RouteWarningCodeEnum(s)
 	return &v
 }
 
 func (v RouteWarningCodeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"BAD_REQUEST", "FORBIDDEN", "NOT_FOUND", "CONFLICT", "GONE", "PRECONDITION_FAILED", "INTERNAL_ERROR", "SERVICE_UNAVAILABLE"} {
 		if string(v) == s {
 			return nil

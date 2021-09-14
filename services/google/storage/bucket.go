@@ -47,15 +47,15 @@ type BucketLifecycleRuleActionTypeEnum string
 // BucketLifecycleRuleActionTypeEnumRef returns a *BucketLifecycleRuleActionTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func BucketLifecycleRuleActionTypeEnumRef(s string) *BucketLifecycleRuleActionTypeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := BucketLifecycleRuleActionTypeEnum(s)
 	return &v
 }
 
 func (v BucketLifecycleRuleActionTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"Delete", "SetStorageClass"} {
 		if string(v) == s {
 			return nil
@@ -74,15 +74,15 @@ type BucketLifecycleRuleConditionWithStateEnum string
 // BucketLifecycleRuleConditionWithStateEnumRef returns a *BucketLifecycleRuleConditionWithStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func BucketLifecycleRuleConditionWithStateEnumRef(s string) *BucketLifecycleRuleConditionWithStateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := BucketLifecycleRuleConditionWithStateEnum(s)
 	return &v
 }
 
 func (v BucketLifecycleRuleConditionWithStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"LIVE", "ARCHIVED", "ANY"} {
 		if string(v) == s {
 			return nil
@@ -101,15 +101,15 @@ type BucketStorageClassEnum string
 // BucketStorageClassEnumRef returns a *BucketStorageClassEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func BucketStorageClassEnumRef(s string) *BucketStorageClassEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := BucketStorageClassEnum(s)
 	return &v
 }
 
 func (v BucketStorageClassEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"MULTI_REGIONAL", "REGIONAL", "STANDARD", "NEARLINE", "COLDLINE", "ARCHIVE", "DURABLE_REDUCED_AVAILABILITY"} {
 		if string(v) == s {
 			return nil

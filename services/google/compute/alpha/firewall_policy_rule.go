@@ -49,15 +49,15 @@ type FirewallPolicyRuleDirectionEnum string
 // FirewallPolicyRuleDirectionEnumRef returns a *FirewallPolicyRuleDirectionEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func FirewallPolicyRuleDirectionEnumRef(s string) *FirewallPolicyRuleDirectionEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := FirewallPolicyRuleDirectionEnum(s)
 	return &v
 }
 
 func (v FirewallPolicyRuleDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"INGRESS", "EGRESS"} {
 		if string(v) == s {
 			return nil

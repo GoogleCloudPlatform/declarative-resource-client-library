@@ -51,15 +51,15 @@ type OSPolicyAssignmentOSPoliciesModeEnum string
 // OSPolicyAssignmentOSPoliciesModeEnumRef returns a *OSPolicyAssignmentOSPoliciesModeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func OSPolicyAssignmentOSPoliciesModeEnumRef(s string) *OSPolicyAssignmentOSPoliciesModeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := OSPolicyAssignmentOSPoliciesModeEnum(s)
 	return &v
 }
 
 func (v OSPolicyAssignmentOSPoliciesModeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"MODE_UNSPECIFIED", "VALIDATION", "ENFORCEMENT"} {
 		if string(v) == s {
 			return nil
@@ -78,15 +78,15 @@ type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum stri
 // OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnumRef returns a *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnumRef(s string) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum(s)
 	return &v
 }
 
 func (v OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"DESIRED_STATE_UNSPECIFIED", "INSTALLED", "REMOVED"} {
 		if string(v) == s {
 			return nil
@@ -105,15 +105,15 @@ type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveType
 // OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumRef returns a *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumRef(s string) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum(s)
 	return &v
 }
 
 func (v OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ARCHIVE_TYPE_UNSPECIFIED", "DEB", "DEB_SRC"} {
 		if string(v) == s {
 			return nil
@@ -132,15 +132,15 @@ type OSPolicyAssignmentExecInterpreterEnum string
 // OSPolicyAssignmentExecInterpreterEnumRef returns a *OSPolicyAssignmentExecInterpreterEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func OSPolicyAssignmentExecInterpreterEnumRef(s string) *OSPolicyAssignmentExecInterpreterEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := OSPolicyAssignmentExecInterpreterEnum(s)
 	return &v
 }
 
 func (v OSPolicyAssignmentExecInterpreterEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"INTERPRETER_UNSPECIFIED", "NONE", "SHELL", "POWERSHELL"} {
 		if string(v) == s {
 			return nil
@@ -159,15 +159,15 @@ type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum string
 // OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnumRef returns a *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnumRef(s string) *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum(s)
 	return &v
 }
 
 func (v OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"OS_POLICY_COMPLIANCE_STATE_UNSPECIFIED", "COMPLIANT", "NON_COMPLIANT", "UNKNOWN", "NO_OS_POLICIES_APPLICABLE"} {
 		if string(v) == s {
 			return nil
@@ -186,15 +186,15 @@ type OSPolicyAssignmentRolloutStateEnum string
 // OSPolicyAssignmentRolloutStateEnumRef returns a *OSPolicyAssignmentRolloutStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func OSPolicyAssignmentRolloutStateEnumRef(s string) *OSPolicyAssignmentRolloutStateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := OSPolicyAssignmentRolloutStateEnum(s)
 	return &v
 }
 
 func (v OSPolicyAssignmentRolloutStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ROLLOUT_STATE_UNSPECIFIED", "IN_PROGRESS", "CANCELLING", "CANCELLED", "SUCCEEDED"} {
 		if string(v) == s {
 			return nil

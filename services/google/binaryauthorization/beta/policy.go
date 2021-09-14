@@ -49,15 +49,15 @@ type PolicyAdmissionRuleEvaluationModeEnum string
 // PolicyAdmissionRuleEvaluationModeEnumRef returns a *PolicyAdmissionRuleEvaluationModeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func PolicyAdmissionRuleEvaluationModeEnumRef(s string) *PolicyAdmissionRuleEvaluationModeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := PolicyAdmissionRuleEvaluationModeEnum(s)
 	return &v
 }
 
 func (v PolicyAdmissionRuleEvaluationModeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ALWAYS_ALLOW", "ALWAYS_DENY", "REQUIRE_ATTESTATION"} {
 		if string(v) == s {
 			return nil
@@ -76,15 +76,15 @@ type PolicyAdmissionRuleEnforcementModeEnum string
 // PolicyAdmissionRuleEnforcementModeEnumRef returns a *PolicyAdmissionRuleEnforcementModeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func PolicyAdmissionRuleEnforcementModeEnumRef(s string) *PolicyAdmissionRuleEnforcementModeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := PolicyAdmissionRuleEnforcementModeEnum(s)
 	return &v
 }
 
 func (v PolicyAdmissionRuleEnforcementModeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ENFORCEMENT_MODE_UNSPECIFIED", "ENFORCED_BLOCK_AND_AUDIT_LOG", "DRYRUN_AUDIT_LOG_ONLY"} {
 		if string(v) == s {
 			return nil
@@ -103,15 +103,15 @@ type PolicyGlobalPolicyEvaluationModeEnum string
 // PolicyGlobalPolicyEvaluationModeEnumRef returns a *PolicyGlobalPolicyEvaluationModeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func PolicyGlobalPolicyEvaluationModeEnumRef(s string) *PolicyGlobalPolicyEvaluationModeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := PolicyGlobalPolicyEvaluationModeEnum(s)
 	return &v
 }
 
 func (v PolicyGlobalPolicyEvaluationModeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED", "ENABLE", "DISABLE"} {
 		if string(v) == s {
 			return nil

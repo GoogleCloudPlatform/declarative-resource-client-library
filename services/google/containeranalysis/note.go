@@ -53,15 +53,15 @@ type NoteVulnerabilitySeverityEnum string
 // NoteVulnerabilitySeverityEnumRef returns a *NoteVulnerabilitySeverityEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func NoteVulnerabilitySeverityEnumRef(s string) *NoteVulnerabilitySeverityEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := NoteVulnerabilitySeverityEnum(s)
 	return &v
 }
 
 func (v NoteVulnerabilitySeverityEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"SEVERITY_UNSPECIFIED", "MINIMAL", "LOW", "MEDIUM", "HIGH", "CRITICAL"} {
 		if string(v) == s {
 			return nil
@@ -80,15 +80,15 @@ type NoteVulnerabilityDetailsAffectedVersionStartKindEnum string
 // NoteVulnerabilityDetailsAffectedVersionStartKindEnumRef returns a *NoteVulnerabilityDetailsAffectedVersionStartKindEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func NoteVulnerabilityDetailsAffectedVersionStartKindEnumRef(s string) *NoteVulnerabilityDetailsAffectedVersionStartKindEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := NoteVulnerabilityDetailsAffectedVersionStartKindEnum(s)
 	return &v
 }
 
 func (v NoteVulnerabilityDetailsAffectedVersionStartKindEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"NOTE_KIND_UNSPECIFIED", "VULNERABILITY", "BUILD", "IMAGE", "PACKAGE", "DEPLOYMENT", "DISCOVERY", "ATTESTATION", "UPGRADE"} {
 		if string(v) == s {
 			return nil
@@ -107,15 +107,15 @@ type NoteVulnerabilityDetailsAffectedVersionEndKindEnum string
 // NoteVulnerabilityDetailsAffectedVersionEndKindEnumRef returns a *NoteVulnerabilityDetailsAffectedVersionEndKindEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func NoteVulnerabilityDetailsAffectedVersionEndKindEnumRef(s string) *NoteVulnerabilityDetailsAffectedVersionEndKindEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := NoteVulnerabilityDetailsAffectedVersionEndKindEnum(s)
 	return &v
 }
 
 func (v NoteVulnerabilityDetailsAffectedVersionEndKindEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"NOTE_KIND_UNSPECIFIED", "VULNERABILITY", "BUILD", "IMAGE", "PACKAGE", "DEPLOYMENT", "DISCOVERY", "ATTESTATION", "UPGRADE"} {
 		if string(v) == s {
 			return nil
@@ -134,15 +134,15 @@ type NoteVulnerabilityDetailsFixedVersionKindEnum string
 // NoteVulnerabilityDetailsFixedVersionKindEnumRef returns a *NoteVulnerabilityDetailsFixedVersionKindEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func NoteVulnerabilityDetailsFixedVersionKindEnumRef(s string) *NoteVulnerabilityDetailsFixedVersionKindEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := NoteVulnerabilityDetailsFixedVersionKindEnum(s)
 	return &v
 }
 
 func (v NoteVulnerabilityDetailsFixedVersionKindEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"NOTE_KIND_UNSPECIFIED", "VULNERABILITY", "BUILD", "IMAGE", "PACKAGE", "DEPLOYMENT", "DISCOVERY", "ATTESTATION", "UPGRADE"} {
 		if string(v) == s {
 			return nil
@@ -161,15 +161,15 @@ type NoteVulnerabilityCvssV3AttackVectorEnum string
 // NoteVulnerabilityCvssV3AttackVectorEnumRef returns a *NoteVulnerabilityCvssV3AttackVectorEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func NoteVulnerabilityCvssV3AttackVectorEnumRef(s string) *NoteVulnerabilityCvssV3AttackVectorEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := NoteVulnerabilityCvssV3AttackVectorEnum(s)
 	return &v
 }
 
 func (v NoteVulnerabilityCvssV3AttackVectorEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ATTACK_VECTOR_UNSPECIFIED", "ATTACK_VECTOR_NETWORK", "ATTACK_VECTOR_ADJACENT", "ATTACK_VECTOR_LOCAL", "ATTACK_VECTOR_PHYSICAL"} {
 		if string(v) == s {
 			return nil
@@ -188,15 +188,15 @@ type NoteVulnerabilityCvssV3AttackComplexityEnum string
 // NoteVulnerabilityCvssV3AttackComplexityEnumRef returns a *NoteVulnerabilityCvssV3AttackComplexityEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func NoteVulnerabilityCvssV3AttackComplexityEnumRef(s string) *NoteVulnerabilityCvssV3AttackComplexityEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := NoteVulnerabilityCvssV3AttackComplexityEnum(s)
 	return &v
 }
 
 func (v NoteVulnerabilityCvssV3AttackComplexityEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ATTACK_COMPLEXITY_UNSPECIFIED", "ATTACK_COMPLEXITY_LOW", "ATTACK_COMPLEXITY_HIGH"} {
 		if string(v) == s {
 			return nil
@@ -215,15 +215,15 @@ type NoteVulnerabilityCvssV3PrivilegesRequiredEnum string
 // NoteVulnerabilityCvssV3PrivilegesRequiredEnumRef returns a *NoteVulnerabilityCvssV3PrivilegesRequiredEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func NoteVulnerabilityCvssV3PrivilegesRequiredEnumRef(s string) *NoteVulnerabilityCvssV3PrivilegesRequiredEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := NoteVulnerabilityCvssV3PrivilegesRequiredEnum(s)
 	return &v
 }
 
 func (v NoteVulnerabilityCvssV3PrivilegesRequiredEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"PRIVILEGES_REQUIRED_UNSPECIFIED", "PRIVILEGES_REQUIRED_NONE", "PRIVILEGES_REQUIRED_LOW", "PRIVILEGES_REQUIRED_HIGH"} {
 		if string(v) == s {
 			return nil
@@ -242,15 +242,15 @@ type NoteVulnerabilityCvssV3UserInteractionEnum string
 // NoteVulnerabilityCvssV3UserInteractionEnumRef returns a *NoteVulnerabilityCvssV3UserInteractionEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func NoteVulnerabilityCvssV3UserInteractionEnumRef(s string) *NoteVulnerabilityCvssV3UserInteractionEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := NoteVulnerabilityCvssV3UserInteractionEnum(s)
 	return &v
 }
 
 func (v NoteVulnerabilityCvssV3UserInteractionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"USER_INTERACTION_UNSPECIFIED", "USER_INTERACTION_NONE", "USER_INTERACTION_REQUIRED"} {
 		if string(v) == s {
 			return nil
@@ -269,15 +269,15 @@ type NoteVulnerabilityCvssV3ScopeEnum string
 // NoteVulnerabilityCvssV3ScopeEnumRef returns a *NoteVulnerabilityCvssV3ScopeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func NoteVulnerabilityCvssV3ScopeEnumRef(s string) *NoteVulnerabilityCvssV3ScopeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := NoteVulnerabilityCvssV3ScopeEnum(s)
 	return &v
 }
 
 func (v NoteVulnerabilityCvssV3ScopeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"SCOPE_UNSPECIFIED", "SCOPE_UNCHANGED", "SCOPE_CHANGED"} {
 		if string(v) == s {
 			return nil
@@ -296,15 +296,15 @@ type NoteVulnerabilityCvssV3ConfidentialityImpactEnum string
 // NoteVulnerabilityCvssV3ConfidentialityImpactEnumRef returns a *NoteVulnerabilityCvssV3ConfidentialityImpactEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func NoteVulnerabilityCvssV3ConfidentialityImpactEnumRef(s string) *NoteVulnerabilityCvssV3ConfidentialityImpactEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := NoteVulnerabilityCvssV3ConfidentialityImpactEnum(s)
 	return &v
 }
 
 func (v NoteVulnerabilityCvssV3ConfidentialityImpactEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"IMPACT_UNSPECIFIED", "IMPACT_HIGH", "IMPACT_LOW", "IMPACT_NONE"} {
 		if string(v) == s {
 			return nil
@@ -323,15 +323,15 @@ type NoteVulnerabilityCvssV3IntegrityImpactEnum string
 // NoteVulnerabilityCvssV3IntegrityImpactEnumRef returns a *NoteVulnerabilityCvssV3IntegrityImpactEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func NoteVulnerabilityCvssV3IntegrityImpactEnumRef(s string) *NoteVulnerabilityCvssV3IntegrityImpactEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := NoteVulnerabilityCvssV3IntegrityImpactEnum(s)
 	return &v
 }
 
 func (v NoteVulnerabilityCvssV3IntegrityImpactEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"IMPACT_UNSPECIFIED", "IMPACT_HIGH", "IMPACT_LOW", "IMPACT_NONE"} {
 		if string(v) == s {
 			return nil
@@ -350,15 +350,15 @@ type NoteVulnerabilityCvssV3AvailabilityImpactEnum string
 // NoteVulnerabilityCvssV3AvailabilityImpactEnumRef returns a *NoteVulnerabilityCvssV3AvailabilityImpactEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func NoteVulnerabilityCvssV3AvailabilityImpactEnumRef(s string) *NoteVulnerabilityCvssV3AvailabilityImpactEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := NoteVulnerabilityCvssV3AvailabilityImpactEnum(s)
 	return &v
 }
 
 func (v NoteVulnerabilityCvssV3AvailabilityImpactEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"IMPACT_UNSPECIFIED", "IMPACT_HIGH", "IMPACT_LOW", "IMPACT_NONE"} {
 		if string(v) == s {
 			return nil
@@ -377,15 +377,15 @@ type NotePackageDistributionArchitectureEnum string
 // NotePackageDistributionArchitectureEnumRef returns a *NotePackageDistributionArchitectureEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func NotePackageDistributionArchitectureEnumRef(s string) *NotePackageDistributionArchitectureEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := NotePackageDistributionArchitectureEnum(s)
 	return &v
 }
 
 func (v NotePackageDistributionArchitectureEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ARCHITECTURE_UNSPECIFIED", "X86", "X64"} {
 		if string(v) == s {
 			return nil
@@ -404,15 +404,15 @@ type NotePackageDistributionLatestVersionKindEnum string
 // NotePackageDistributionLatestVersionKindEnumRef returns a *NotePackageDistributionLatestVersionKindEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func NotePackageDistributionLatestVersionKindEnumRef(s string) *NotePackageDistributionLatestVersionKindEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := NotePackageDistributionLatestVersionKindEnum(s)
 	return &v
 }
 
 func (v NotePackageDistributionLatestVersionKindEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"NOTE_KIND_UNSPECIFIED", "VULNERABILITY", "BUILD", "IMAGE", "PACKAGE", "DEPLOYMENT", "DISCOVERY", "ATTESTATION", "UPGRADE"} {
 		if string(v) == s {
 			return nil
@@ -431,15 +431,15 @@ type NoteDiscoveryAnalysisKindEnum string
 // NoteDiscoveryAnalysisKindEnumRef returns a *NoteDiscoveryAnalysisKindEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func NoteDiscoveryAnalysisKindEnumRef(s string) *NoteDiscoveryAnalysisKindEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := NoteDiscoveryAnalysisKindEnum(s)
 	return &v
 }
 
 func (v NoteDiscoveryAnalysisKindEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"NOTE_KIND_UNSPECIFIED", "VULNERABILITY", "BUILD", "IMAGE", "PACKAGE", "DEPLOYMENT", "DISCOVERY", "ATTESTATION", "UPGRADE"} {
 		if string(v) == s {
 			return nil

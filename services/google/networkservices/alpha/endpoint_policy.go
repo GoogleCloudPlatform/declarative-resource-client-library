@@ -50,15 +50,15 @@ type EndpointPolicyTypeEnum string
 // EndpointPolicyTypeEnumRef returns a *EndpointPolicyTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func EndpointPolicyTypeEnumRef(s string) *EndpointPolicyTypeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := EndpointPolicyTypeEnum(s)
 	return &v
 }
 
 func (v EndpointPolicyTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ENDPOINT_CONFIG_SELECTOR_TYPE_UNSPECIFIED", "SIDECAR_PROXY", "GRPC_SERVER"} {
 		if string(v) == s {
 			return nil
@@ -77,15 +77,15 @@ type EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteria
 // EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnumRef returns a *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnumRef(s string) *EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum(s)
 	return &v
 }
 
 func (v EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED", "MATCH_ANY", "MATCH_ALL"} {
 		if string(v) == s {
 			return nil

@@ -48,15 +48,15 @@ type BackupStateEnum string
 // BackupStateEnumRef returns a *BackupStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func BackupStateEnumRef(s string) *BackupStateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := BackupStateEnum(s)
 	return &v
 }
 
 func (v BackupStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"STATE_UNSPECIFIED", "CREATING", "READY", "REPAIRING", "DELETING", "ERROR", "RESTORING"} {
 		if string(v) == s {
 			return nil
@@ -75,15 +75,15 @@ type BackupSourceInstanceTierEnum string
 // BackupSourceInstanceTierEnumRef returns a *BackupSourceInstanceTierEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func BackupSourceInstanceTierEnumRef(s string) *BackupSourceInstanceTierEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := BackupSourceInstanceTierEnum(s)
 	return &v
 }
 
 func (v BackupSourceInstanceTierEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"TIER_UNSPECIFIED", "STANDARD", "PREMIUM", "BASIC_HDD", "BASIC_SSD", "HIGH_SCALE_SSD"} {
 		if string(v) == s {
 			return nil

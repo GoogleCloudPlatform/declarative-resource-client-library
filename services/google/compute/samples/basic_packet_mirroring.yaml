@@ -46,13 +46,13 @@ variables:
   type: resource_name
 - name: zone
   type: zone
-- name: rule1
-  type: resource_name
-- name: rule2
-  type: resource_name
 - name: range
   type: resource_name
 - name: compute_subnetwork
+  type: resource_name
+- name: rule1
+  type: resource_name
+- name: rule2
   type: resource_name
 - name: instance2
   type: resource_name

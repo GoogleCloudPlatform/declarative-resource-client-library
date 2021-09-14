@@ -50,15 +50,15 @@ type PacketMirroringFilterDirectionEnum string
 // PacketMirroringFilterDirectionEnumRef returns a *PacketMirroringFilterDirectionEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func PacketMirroringFilterDirectionEnumRef(s string) *PacketMirroringFilterDirectionEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := PacketMirroringFilterDirectionEnum(s)
 	return &v
 }
 
 func (v PacketMirroringFilterDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"INGRESS", "EGRESS"} {
 		if string(v) == s {
 			return nil
@@ -77,15 +77,15 @@ type PacketMirroringEnableEnum string
 // PacketMirroringEnableEnumRef returns a *PacketMirroringEnableEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func PacketMirroringEnableEnumRef(s string) *PacketMirroringEnableEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := PacketMirroringEnableEnum(s)
 	return &v
 }
 
 func (v PacketMirroringEnableEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"TRUE", "FALSE"} {
 		if string(v) == s {
 			return nil

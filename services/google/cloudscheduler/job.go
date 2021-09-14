@@ -53,15 +53,15 @@ type JobAppEngineHttpTargetHttpMethodEnum string
 // JobAppEngineHttpTargetHttpMethodEnumRef returns a *JobAppEngineHttpTargetHttpMethodEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func JobAppEngineHttpTargetHttpMethodEnumRef(s string) *JobAppEngineHttpTargetHttpMethodEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := JobAppEngineHttpTargetHttpMethodEnum(s)
 	return &v
 }
 
 func (v JobAppEngineHttpTargetHttpMethodEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"HTTP_METHOD_UNSPECIFIED", "POST", "GET", "HEAD", "PUT", "DELETE", "PATCH", "OPTIONS"} {
 		if string(v) == s {
 			return nil
@@ -80,15 +80,15 @@ type JobHttpTargetHttpMethodEnum string
 // JobHttpTargetHttpMethodEnumRef returns a *JobHttpTargetHttpMethodEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func JobHttpTargetHttpMethodEnumRef(s string) *JobHttpTargetHttpMethodEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := JobHttpTargetHttpMethodEnum(s)
 	return &v
 }
 
 func (v JobHttpTargetHttpMethodEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"HTTP_METHOD_UNSPECIFIED", "POST", "GET", "HEAD", "PUT", "DELETE", "PATCH", "OPTIONS"} {
 		if string(v) == s {
 			return nil
@@ -107,15 +107,15 @@ type JobStateEnum string
 // JobStateEnumRef returns a *JobStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func JobStateEnumRef(s string) *JobStateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := JobStateEnum(s)
 	return &v
 }
 
 func (v JobStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"STATE_UNSPECIFIED", "ENABLED", "PAUSED", "DISABLED", "UPDATE_FAILED"} {
 		if string(v) == s {
 			return nil

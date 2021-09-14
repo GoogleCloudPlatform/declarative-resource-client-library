@@ -22,12 +22,12 @@ updates:
   - samples/basic.cluster.json
   resource: samples/update.job.json
 variables:
-- name: project
-  type: project
 - name: cluster_name
   type: resource_name
 - name: region
   type: region
+- name: project
+  type: project
 versions:
 - ga
 - beta

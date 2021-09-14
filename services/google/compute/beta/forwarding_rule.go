@@ -63,15 +63,15 @@ type ForwardingRuleIPProtocolEnum string
 // ForwardingRuleIPProtocolEnumRef returns a *ForwardingRuleIPProtocolEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func ForwardingRuleIPProtocolEnumRef(s string) *ForwardingRuleIPProtocolEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := ForwardingRuleIPProtocolEnum(s)
 	return &v
 }
 
 func (v ForwardingRuleIPProtocolEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"TCP", "UDP", "ESP", "AH", "SCTP", "ICMP", "L3_DEFAULT"} {
 		if string(v) == s {
 			return nil
@@ -90,15 +90,15 @@ type ForwardingRuleIPVersionEnum string
 // ForwardingRuleIPVersionEnumRef returns a *ForwardingRuleIPVersionEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func ForwardingRuleIPVersionEnumRef(s string) *ForwardingRuleIPVersionEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := ForwardingRuleIPVersionEnum(s)
 	return &v
 }
 
 func (v ForwardingRuleIPVersionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"UNSPECIFIED_VERSION", "IPV4", "IPV6"} {
 		if string(v) == s {
 			return nil
@@ -117,15 +117,15 @@ type ForwardingRuleLoadBalancingSchemeEnum string
 // ForwardingRuleLoadBalancingSchemeEnumRef returns a *ForwardingRuleLoadBalancingSchemeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func ForwardingRuleLoadBalancingSchemeEnumRef(s string) *ForwardingRuleLoadBalancingSchemeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := ForwardingRuleLoadBalancingSchemeEnum(s)
 	return &v
 }
 
 func (v ForwardingRuleLoadBalancingSchemeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"INVALID", "INTERNAL", "INTERNAL_MANAGED", "INTERNAL_SELF_MANAGED", "EXTERNAL"} {
 		if string(v) == s {
 			return nil
@@ -144,15 +144,15 @@ type ForwardingRuleMetadataFilterFilterMatchCriteriaEnum string
 // ForwardingRuleMetadataFilterFilterMatchCriteriaEnumRef returns a *ForwardingRuleMetadataFilterFilterMatchCriteriaEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func ForwardingRuleMetadataFilterFilterMatchCriteriaEnumRef(s string) *ForwardingRuleMetadataFilterFilterMatchCriteriaEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := ForwardingRuleMetadataFilterFilterMatchCriteriaEnum(s)
 	return &v
 }
 
 func (v ForwardingRuleMetadataFilterFilterMatchCriteriaEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"NOT_SET", "MATCH_ALL", "MATCH_ANY"} {
 		if string(v) == s {
 			return nil
@@ -171,15 +171,15 @@ type ForwardingRuleNetworkTierEnum string
 // ForwardingRuleNetworkTierEnumRef returns a *ForwardingRuleNetworkTierEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func ForwardingRuleNetworkTierEnumRef(s string) *ForwardingRuleNetworkTierEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := ForwardingRuleNetworkTierEnum(s)
 	return &v
 }
 
 func (v ForwardingRuleNetworkTierEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"PREMIUM", "STANDARD"} {
 		if string(v) == s {
 			return nil

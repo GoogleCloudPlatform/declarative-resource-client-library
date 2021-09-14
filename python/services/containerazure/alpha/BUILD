@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="containerazure/alpha", resources=["azure_client","azure_cluster","azure_node_pool"])
+connector(name="containerazure/alpha", resources=["azure_client","cluster","node_pool"])

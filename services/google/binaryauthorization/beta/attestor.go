@@ -42,15 +42,15 @@ type AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum s
 // AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumRef returns a *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumRef(s string) *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(s)
 	return &v
 }
 
 func (v AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"SIGNATURE_ALGORITHM_UNSPECIFIED", "RSA_PSS_2048_SHA256", "RSA_PSS_3072_SHA256", "RSA_PSS_4096_SHA256", "RSA_PSS_4096_SHA512", "RSA_SIGN_PKCS1_2048_SHA256", "RSA_SIGN_PKCS1_3072_SHA256", "RSA_SIGN_PKCS1_4096_SHA256", "RSA_SIGN_PKCS1_4096_SHA512", "ECDSA_P256_SHA256", "EC_SIGN_P256_SHA256", "ECDSA_P384_SHA384", "EC_SIGN_P384_SHA384", "ECDSA_P521_SHA512", "EC_SIGN_P521_SHA512"} {
 		if string(v) == s {
 			return nil

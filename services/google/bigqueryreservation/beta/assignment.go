@@ -42,15 +42,15 @@ type AssignmentJobTypeEnum string
 // AssignmentJobTypeEnumRef returns a *AssignmentJobTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func AssignmentJobTypeEnumRef(s string) *AssignmentJobTypeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := AssignmentJobTypeEnum(s)
 	return &v
 }
 
 func (v AssignmentJobTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"JOB_TYPE_UNSPECIFIED", "PIPELINE", "QUERY"} {
 		if string(v) == s {
 			return nil
@@ -69,15 +69,15 @@ type AssignmentStateEnum string
 // AssignmentStateEnumRef returns a *AssignmentStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func AssignmentStateEnumRef(s string) *AssignmentStateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := AssignmentStateEnum(s)
 	return &v
 }
 
 func (v AssignmentStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"STATE_UNSPECIFIED", "PENDING", "ACTIVE"} {
 		if string(v) == s {
 			return nil

@@ -47,15 +47,15 @@ type AuthorizationPolicyActionEnum string
 // AuthorizationPolicyActionEnumRef returns a *AuthorizationPolicyActionEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func AuthorizationPolicyActionEnumRef(s string) *AuthorizationPolicyActionEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := AuthorizationPolicyActionEnum(s)
 	return &v
 }
 
 func (v AuthorizationPolicyActionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ACTION_UNSPECIFIED", "ALLOW", "DENY"} {
 		if string(v) == s {
 			return nil

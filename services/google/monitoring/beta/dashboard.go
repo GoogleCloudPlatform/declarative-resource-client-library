@@ -45,15 +45,15 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPer
 // DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
 		if string(v) == s {
 			return nil
@@ -72,15 +72,15 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCro
 // DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
 		if string(v) == s {
 			return nil
@@ -99,15 +99,15 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggre
 // DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
 		if string(v) == s {
 			return nil
@@ -126,15 +126,15 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggre
 // DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
 		if string(v) == s {
 			return nil
@@ -153,15 +153,15 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeries
 // DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"METHOD_UNSPECIFIED", "METHOD_MEAN", "METHOD_MAX", "METHOD_MIN", "METHOD_SUM", "METHOD_LATEST"} {
 		if string(v) == s {
 			return nil
@@ -180,15 +180,15 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeries
 // DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"DIRECTION_UNSPECIFIED", "TOP", "BOTTOM"} {
 		if string(v) == s {
 			return nil
@@ -207,15 +207,15 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
 // DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
 		if string(v) == s {
 			return nil
@@ -234,15 +234,15 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
 // DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
 		if string(v) == s {
 			return nil
@@ -261,15 +261,15 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominat
 // DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
 		if string(v) == s {
 			return nil
@@ -288,15 +288,15 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominat
 // DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
 		if string(v) == s {
 			return nil
@@ -315,15 +315,15 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondary
 // DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
 		if string(v) == s {
 			return nil
@@ -342,15 +342,15 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondary
 // DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
 		if string(v) == s {
 			return nil
@@ -369,15 +369,15 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeS
 // DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"METHOD_UNSPECIFIED", "METHOD_MEAN", "METHOD_MAX", "METHOD_MIN", "METHOD_SUM", "METHOD_LATEST"} {
 		if string(v) == s {
 			return nil
@@ -396,15 +396,15 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeS
 // DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"DIRECTION_UNSPECIFIED", "TOP", "BOTTOM"} {
 		if string(v) == s {
 			return nil
@@ -423,15 +423,15 @@ type DashboardWidgetXyChartDataSetsPlotTypeEnum string
 // DashboardWidgetXyChartDataSetsPlotTypeEnumRef returns a *DashboardWidgetXyChartDataSetsPlotTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetXyChartDataSetsPlotTypeEnumRef(s string) *DashboardWidgetXyChartDataSetsPlotTypeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetXyChartDataSetsPlotTypeEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetXyChartDataSetsPlotTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"PLOT_TYPE_UNSPECIFIED", "LINE", "STACKED_AREA", "STACKED_BAR", "HEATMAP"} {
 		if string(v) == s {
 			return nil
@@ -450,15 +450,15 @@ type DashboardWidgetXyChartThresholdsColorEnum string
 // DashboardWidgetXyChartThresholdsColorEnumRef returns a *DashboardWidgetXyChartThresholdsColorEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetXyChartThresholdsColorEnumRef(s string) *DashboardWidgetXyChartThresholdsColorEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetXyChartThresholdsColorEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetXyChartThresholdsColorEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"COLOR_UNSPECIFIED", "GREY", "BLUE", "GREEN", "YELLOW", "ORANGE", "RED"} {
 		if string(v) == s {
 			return nil
@@ -477,15 +477,15 @@ type DashboardWidgetXyChartThresholdsDirectionEnum string
 // DashboardWidgetXyChartThresholdsDirectionEnumRef returns a *DashboardWidgetXyChartThresholdsDirectionEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetXyChartThresholdsDirectionEnumRef(s string) *DashboardWidgetXyChartThresholdsDirectionEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetXyChartThresholdsDirectionEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetXyChartThresholdsDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"DIRECTION_UNSPECIFIED", "ABOVE", "BELOW"} {
 		if string(v) == s {
 			return nil
@@ -504,15 +504,15 @@ type DashboardWidgetXyChartXAxisScaleEnum string
 // DashboardWidgetXyChartXAxisScaleEnumRef returns a *DashboardWidgetXyChartXAxisScaleEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetXyChartXAxisScaleEnumRef(s string) *DashboardWidgetXyChartXAxisScaleEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetXyChartXAxisScaleEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetXyChartXAxisScaleEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"SCALE_UNSPECIFIED", "LINEAR", "LOG10"} {
 		if string(v) == s {
 			return nil
@@ -531,15 +531,15 @@ type DashboardWidgetXyChartYAxisScaleEnum string
 // DashboardWidgetXyChartYAxisScaleEnumRef returns a *DashboardWidgetXyChartYAxisScaleEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetXyChartYAxisScaleEnumRef(s string) *DashboardWidgetXyChartYAxisScaleEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetXyChartYAxisScaleEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetXyChartYAxisScaleEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"SCALE_UNSPECIFIED", "LINEAR", "LOG10"} {
 		if string(v) == s {
 			return nil
@@ -558,15 +558,15 @@ type DashboardWidgetXyChartChartOptionsModeEnum string
 // DashboardWidgetXyChartChartOptionsModeEnumRef returns a *DashboardWidgetXyChartChartOptionsModeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetXyChartChartOptionsModeEnumRef(s string) *DashboardWidgetXyChartChartOptionsModeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetXyChartChartOptionsModeEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetXyChartChartOptionsModeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"MODE_UNSPECIFIED", "COLOR", "X_RAY", "STATS"} {
 		if string(v) == s {
 			return nil
@@ -585,15 +585,15 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeries
 // DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
 		if string(v) == s {
 			return nil
@@ -612,15 +612,15 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeri
 // DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
 		if string(v) == s {
 			return nil
@@ -639,15 +639,15 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
 // DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
 		if string(v) == s {
 			return nil
@@ -666,15 +666,15 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
 // DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
 		if string(v) == s {
 			return nil
@@ -693,15 +693,15 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
 // DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"METHOD_UNSPECIFIED", "METHOD_MEAN", "METHOD_MAX", "METHOD_MIN", "METHOD_SUM", "METHOD_LATEST"} {
 		if string(v) == s {
 			return nil
@@ -720,15 +720,15 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
 // DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"DIRECTION_UNSPECIFIED", "TOP", "BOTTOM"} {
 		if string(v) == s {
 			return nil
@@ -747,15 +747,15 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggreg
 // DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
 		if string(v) == s {
 			return nil
@@ -774,15 +774,15 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggreg
 // DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
 		if string(v) == s {
 			return nil
@@ -801,15 +801,15 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggr
 // DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
 		if string(v) == s {
 			return nil
@@ -828,15 +828,15 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggr
 // DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
 		if string(v) == s {
 			return nil
@@ -855,15 +855,15 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggreg
 // DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
 		if string(v) == s {
 			return nil
@@ -882,15 +882,15 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggreg
 // DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
 		if string(v) == s {
 			return nil
@@ -909,15 +909,15 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesF
 // DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"METHOD_UNSPECIFIED", "METHOD_MEAN", "METHOD_MAX", "METHOD_MIN", "METHOD_SUM", "METHOD_LATEST"} {
 		if string(v) == s {
 			return nil
@@ -936,15 +936,15 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesF
 // DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"DIRECTION_UNSPECIFIED", "TOP", "BOTTOM"} {
 		if string(v) == s {
 			return nil
@@ -963,15 +963,15 @@ type DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum string
 // DashboardWidgetScorecardSparkChartViewSparkChartTypeEnumRef returns a *DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetScorecardSparkChartViewSparkChartTypeEnumRef(s string) *DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"SPARK_CHART_TYPE_UNSPECIFIED", "SPARK_LINE", "SPARK_BAR"} {
 		if string(v) == s {
 			return nil
@@ -990,15 +990,15 @@ type DashboardWidgetScorecardThresholdsColorEnum string
 // DashboardWidgetScorecardThresholdsColorEnumRef returns a *DashboardWidgetScorecardThresholdsColorEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetScorecardThresholdsColorEnumRef(s string) *DashboardWidgetScorecardThresholdsColorEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetScorecardThresholdsColorEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetScorecardThresholdsColorEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"COLOR_UNSPECIFIED", "GREY", "BLUE", "GREEN", "YELLOW", "ORANGE", "RED"} {
 		if string(v) == s {
 			return nil
@@ -1017,15 +1017,15 @@ type DashboardWidgetScorecardThresholdsDirectionEnum string
 // DashboardWidgetScorecardThresholdsDirectionEnumRef returns a *DashboardWidgetScorecardThresholdsDirectionEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetScorecardThresholdsDirectionEnumRef(s string) *DashboardWidgetScorecardThresholdsDirectionEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetScorecardThresholdsDirectionEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetScorecardThresholdsDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"DIRECTION_UNSPECIFIED", "ABOVE", "BELOW"} {
 		if string(v) == s {
 			return nil
@@ -1044,15 +1044,15 @@ type DashboardWidgetTextFormatEnum string
 // DashboardWidgetTextFormatEnumRef returns a *DashboardWidgetTextFormatEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func DashboardWidgetTextFormatEnumRef(s string) *DashboardWidgetTextFormatEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := DashboardWidgetTextFormatEnum(s)
 	return &v
 }
 
 func (v DashboardWidgetTextFormatEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"FORMAT_UNSPECIFIED", "MARKDOWN", "RAW"} {
 		if string(v) == s {
 			return nil

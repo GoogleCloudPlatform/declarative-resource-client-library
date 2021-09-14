@@ -47,15 +47,15 @@ type FeatureResourceStateStateEnum string
 // FeatureResourceStateStateEnumRef returns a *FeatureResourceStateStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func FeatureResourceStateStateEnumRef(s string) *FeatureResourceStateStateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := FeatureResourceStateStateEnum(s)
 	return &v
 }
 
 func (v FeatureResourceStateStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"STATE_UNSPECIFIED", "ENABLING", "ACTIVE", "DISABLING", "UPDATING", "SERVICE_UPDATING"} {
 		if string(v) == s {
 			return nil
@@ -74,15 +74,15 @@ type FeatureStateStateCodeEnum string
 // FeatureStateStateCodeEnumRef returns a *FeatureStateStateCodeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func FeatureStateStateCodeEnumRef(s string) *FeatureStateStateCodeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := FeatureStateStateCodeEnum(s)
 	return &v
 }
 
 func (v FeatureStateStateCodeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"CODE_UNSPECIFIED", "OK", "WARNING", "ERROR"} {
 		if string(v) == s {
 			return nil
@@ -101,15 +101,15 @@ type FeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnum string
 // FeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnumRef returns a *FeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func FeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnumRef(s string) *FeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := FeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnum(s)
 	return &v
 }
 
 func (v FeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"LEVEL_UNSPECIFIED", "ERROR", "WARNING", "INFO"} {
 		if string(v) == s {
 			return nil

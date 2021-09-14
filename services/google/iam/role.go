@@ -50,15 +50,15 @@ type RoleStageEnum string
 // RoleStageEnumRef returns a *RoleStageEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func RoleStageEnumRef(s string) *RoleStageEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := RoleStageEnum(s)
 	return &v
 }
 
 func (v RoleStageEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ALPHA", "BETA", "GA", "DEPRECATED", "DISABLED", "EAP"} {
 		if string(v) == s {
 			return nil

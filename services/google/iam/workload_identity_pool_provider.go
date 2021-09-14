@@ -49,15 +49,15 @@ type WorkloadIdentityPoolProviderStateEnum string
 // WorkloadIdentityPoolProviderStateEnumRef returns a *WorkloadIdentityPoolProviderStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func WorkloadIdentityPoolProviderStateEnumRef(s string) *WorkloadIdentityPoolProviderStateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := WorkloadIdentityPoolProviderStateEnum(s)
 	return &v
 }
 
 func (v WorkloadIdentityPoolProviderStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"STATE_UNSPECIFIED", "ACTIVE", "DELETED"} {
 		if string(v) == s {
 			return nil

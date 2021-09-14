@@ -49,15 +49,15 @@ type MetricDescriptorLabelsValueTypeEnum string
 // MetricDescriptorLabelsValueTypeEnumRef returns a *MetricDescriptorLabelsValueTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func MetricDescriptorLabelsValueTypeEnumRef(s string) *MetricDescriptorLabelsValueTypeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := MetricDescriptorLabelsValueTypeEnum(s)
 	return &v
 }
 
 func (v MetricDescriptorLabelsValueTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"STRING", "BOOL", "INT64"} {
 		if string(v) == s {
 			return nil
@@ -76,15 +76,15 @@ type MetricDescriptorMetricKindEnum string
 // MetricDescriptorMetricKindEnumRef returns a *MetricDescriptorMetricKindEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func MetricDescriptorMetricKindEnumRef(s string) *MetricDescriptorMetricKindEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := MetricDescriptorMetricKindEnum(s)
 	return &v
 }
 
 func (v MetricDescriptorMetricKindEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"METRIC_KIND_UNSPECIFIED", "GAUGE", "DELTA", "CUMULATIVE"} {
 		if string(v) == s {
 			return nil
@@ -103,15 +103,15 @@ type MetricDescriptorValueTypeEnum string
 // MetricDescriptorValueTypeEnumRef returns a *MetricDescriptorValueTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func MetricDescriptorValueTypeEnumRef(s string) *MetricDescriptorValueTypeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := MetricDescriptorValueTypeEnum(s)
 	return &v
 }
 
 func (v MetricDescriptorValueTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"STRING", "BOOL", "INT64"} {
 		if string(v) == s {
 			return nil
@@ -130,15 +130,15 @@ type MetricDescriptorMetadataLaunchStageEnum string
 // MetricDescriptorMetadataLaunchStageEnumRef returns a *MetricDescriptorMetadataLaunchStageEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func MetricDescriptorMetadataLaunchStageEnumRef(s string) *MetricDescriptorMetadataLaunchStageEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := MetricDescriptorMetadataLaunchStageEnum(s)
 	return &v
 }
 
 func (v MetricDescriptorMetadataLaunchStageEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"LAUNCH_STAGE_UNSPECIFIED", "UNIMPLEMENTED", "PRELAUNCH", "EARLY_ACCESS", "ALPHA", "BETA", "GA", "DEPRECATED"} {
 		if string(v) == s {
 			return nil
@@ -157,15 +157,15 @@ type MetricDescriptorLaunchStageEnum string
 // MetricDescriptorLaunchStageEnumRef returns a *MetricDescriptorLaunchStageEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func MetricDescriptorLaunchStageEnumRef(s string) *MetricDescriptorLaunchStageEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := MetricDescriptorLaunchStageEnum(s)
 	return &v
 }
 
 func (v MetricDescriptorLaunchStageEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"LAUNCH_STAGE_UNSPECIFIED", "UNIMPLEMENTED", "PRELAUNCH", "EARLY_ACCESS", "ALPHA", "BETA", "GA", "DEPRECATED"} {
 		if string(v) == s {
 			return nil

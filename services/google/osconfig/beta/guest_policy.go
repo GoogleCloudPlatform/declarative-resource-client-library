@@ -47,15 +47,15 @@ type GuestPolicyPackagesDesiredStateEnum string
 // GuestPolicyPackagesDesiredStateEnumRef returns a *GuestPolicyPackagesDesiredStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func GuestPolicyPackagesDesiredStateEnumRef(s string) *GuestPolicyPackagesDesiredStateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := GuestPolicyPackagesDesiredStateEnum(s)
 	return &v
 }
 
 func (v GuestPolicyPackagesDesiredStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"DESIRED_STATE_UNSPECIFIED", "INSTALLED", "REMOVED"} {
 		if string(v) == s {
 			return nil
@@ -74,15 +74,15 @@ type GuestPolicyPackagesManagerEnum string
 // GuestPolicyPackagesManagerEnumRef returns a *GuestPolicyPackagesManagerEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func GuestPolicyPackagesManagerEnumRef(s string) *GuestPolicyPackagesManagerEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := GuestPolicyPackagesManagerEnum(s)
 	return &v
 }
 
 func (v GuestPolicyPackagesManagerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"MANAGER_UNSPECIFIED", "ANY", "APT", "YUM", "ZYPPER", "GOO"} {
 		if string(v) == s {
 			return nil
@@ -101,15 +101,15 @@ type GuestPolicyPackageRepositoriesAptArchiveTypeEnum string
 // GuestPolicyPackageRepositoriesAptArchiveTypeEnumRef returns a *GuestPolicyPackageRepositoriesAptArchiveTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func GuestPolicyPackageRepositoriesAptArchiveTypeEnumRef(s string) *GuestPolicyPackageRepositoriesAptArchiveTypeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := GuestPolicyPackageRepositoriesAptArchiveTypeEnum(s)
 	return &v
 }
 
 func (v GuestPolicyPackageRepositoriesAptArchiveTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"ARCHIVE_TYPE_UNSPECIFIED", "DEB", "DEB_SRC"} {
 		if string(v) == s {
 			return nil
@@ -128,15 +128,15 @@ type GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum string
 // GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnumRef returns a *GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnumRef(s string) *GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum(s)
 	return &v
 }
 
 func (v GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"TYPE_UNSPECIFIED", "VALIDATION", "DESIRED_STATE_CHECK", "DESIRED_STATE_ENFORCEMENT", "DESIRED_STATE_CHECK_POST_ENFORCEMENT"} {
 		if string(v) == s {
 			return nil
@@ -155,15 +155,15 @@ type GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum string
 // GuestPolicyRecipesInstallStepsScriptRunInterpreterEnumRef returns a *GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func GuestPolicyRecipesInstallStepsScriptRunInterpreterEnumRef(s string) *GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum(s)
 	return &v
 }
 
 func (v GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"INTERPRETER_UNSPECIFIED", "NONE", "SHELL", "POWERSHELL"} {
 		if string(v) == s {
 			return nil
@@ -182,15 +182,15 @@ type GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum string
 // GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnumRef returns a *GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnumRef(s string) *GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum(s)
 	return &v
 }
 
 func (v GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"TYPE_UNSPECIFIED", "VALIDATION", "DESIRED_STATE_CHECK", "DESIRED_STATE_ENFORCEMENT", "DESIRED_STATE_CHECK_POST_ENFORCEMENT"} {
 		if string(v) == s {
 			return nil
@@ -209,15 +209,15 @@ type GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum string
 // GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnumRef returns a *GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnumRef(s string) *GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum(s)
 	return &v
 }
 
 func (v GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"INTERPRETER_UNSPECIFIED", "NONE", "SHELL", "POWERSHELL"} {
 		if string(v) == s {
 			return nil
@@ -236,15 +236,15 @@ type GuestPolicyRecipesDesiredStateEnum string
 // GuestPolicyRecipesDesiredStateEnumRef returns a *GuestPolicyRecipesDesiredStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func GuestPolicyRecipesDesiredStateEnumRef(s string) *GuestPolicyRecipesDesiredStateEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := GuestPolicyRecipesDesiredStateEnum(s)
 	return &v
 }
 
 func (v GuestPolicyRecipesDesiredStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"DESIRED_STATE_UNSPECIFIED", "INSTALLED", "REMOVED"} {
 		if string(v) == s {
 			return nil

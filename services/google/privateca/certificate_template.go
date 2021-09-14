@@ -47,15 +47,15 @@ type CertificateTemplatePassthroughExtensionsKnownExtensionsEnum string
 // CertificateTemplatePassthroughExtensionsKnownExtensionsEnumRef returns a *CertificateTemplatePassthroughExtensionsKnownExtensionsEnum with the value of string s
 // If the empty string is provided, nil is returned.
 func CertificateTemplatePassthroughExtensionsKnownExtensionsEnumRef(s string) *CertificateTemplatePassthroughExtensionsKnownExtensionsEnum {
-	if s == "" {
-		return nil
-	}
-
 	v := CertificateTemplatePassthroughExtensionsKnownExtensionsEnum(s)
 	return &v
 }
 
 func (v CertificateTemplatePassthroughExtensionsKnownExtensionsEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
 	for _, s := range []string{"KNOWN_CERTIFICATE_EXTENSION_UNSPECIFIED", "BASE_KEY_USAGE", "EXTENDED_KEY_USAGE", "CA_OPTIONS", "POLICY_IDS", "AIA_OCSP_SERVERS"} {
 		if string(v) == s {
 			return nil

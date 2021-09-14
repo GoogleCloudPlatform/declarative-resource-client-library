@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="containeraws/alpha", resources=["aws_cluster","aws_node_pool"])
+connector(name="containeraws/alpha", resources=["cluster","node_pool"])
