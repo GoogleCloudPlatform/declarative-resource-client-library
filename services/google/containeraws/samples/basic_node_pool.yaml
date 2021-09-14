@@ -20,26 +20,26 @@ type: node_pool
 variables:
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
-- name: cluster
-  type: resource_name
 - name: aws_subnet
   type: aws_subnet
-- name: project
-  type: project
-- name: test_service_account
-  type: test_service_account
 - name: aws_account_id
   type: aws_account_id
-- name: aws_security_group
-  type: aws_security_group
 - name: aws_region
   type: aws_region
 - name: aws_volume_encryption_key
   type: aws_volume_encryption_key
 - name: aws_vpc
   type: aws_vpc
+- name: cluster
+  type: resource_name
 - name: aws_database_encryption_key
   type: aws_database_encryption_key
+- name: test_service_account
+  type: test_service_account
+- name: aws_security_group
+  type: aws_security_group
+- name: project
+  type: project
 - name: pool
   type: resource_name
 versions:
