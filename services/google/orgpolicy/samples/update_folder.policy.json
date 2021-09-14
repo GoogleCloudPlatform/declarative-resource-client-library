@@ -15,7 +15,7 @@
         }
       },
       {
-        "allowAll": true
+        "allowAll": "TRUE"
       }
     ],
     "inheritFromParent": false

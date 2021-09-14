@@ -24,3 +24,4 @@ variables:
   type: org_id
 versions:
 - ga
+- beta

@@ -25,6 +25,42 @@ import (
 // Server implements the gRPC interface for Policy.
 type PolicyServer struct{}
 
+// ProtoToPolicySpecRulesAllowAllEnum converts a PolicySpecRulesAllowAllEnum enum from its proto representation.
+func ProtoToOrgpolicyPolicySpecRulesAllowAllEnum(e orgpolicypb.OrgpolicyPolicySpecRulesAllowAllEnum) *orgpolicy.PolicySpecRulesAllowAllEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := orgpolicypb.OrgpolicyPolicySpecRulesAllowAllEnum_name[int32(e)]; ok {
+		e := orgpolicy.PolicySpecRulesAllowAllEnum(n[len("OrgpolicyPolicySpecRulesAllowAllEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToPolicySpecRulesDenyAllEnum converts a PolicySpecRulesDenyAllEnum enum from its proto representation.
+func ProtoToOrgpolicyPolicySpecRulesDenyAllEnum(e orgpolicypb.OrgpolicyPolicySpecRulesDenyAllEnum) *orgpolicy.PolicySpecRulesDenyAllEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := orgpolicypb.OrgpolicyPolicySpecRulesDenyAllEnum_name[int32(e)]; ok {
+		e := orgpolicy.PolicySpecRulesDenyAllEnum(n[len("OrgpolicyPolicySpecRulesDenyAllEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToPolicySpecRulesEnforceEnum converts a PolicySpecRulesEnforceEnum enum from its proto representation.
+func ProtoToOrgpolicyPolicySpecRulesEnforceEnum(e orgpolicypb.OrgpolicyPolicySpecRulesEnforceEnum) *orgpolicy.PolicySpecRulesEnforceEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := orgpolicypb.OrgpolicyPolicySpecRulesEnforceEnum_name[int32(e)]; ok {
+		e := orgpolicy.PolicySpecRulesEnforceEnum(n[len("OrgpolicyPolicySpecRulesEnforceEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToPolicySpec converts a PolicySpec resource from its proto representation.
 func ProtoToOrgpolicyPolicySpec(p *orgpolicypb.OrgpolicyPolicySpec) *orgpolicy.PolicySpec {
 	if p == nil {
@@ -49,9 +85,9 @@ func ProtoToOrgpolicyPolicySpecRules(p *orgpolicypb.OrgpolicyPolicySpecRules) *o
 	}
 	obj := &orgpolicy.PolicySpecRules{
 		Values:    ProtoToOrgpolicyPolicySpecRulesValues(p.GetValues()),
-		AllowAll:  dcl.Bool(p.AllowAll),
-		DenyAll:   dcl.Bool(p.DenyAll),
-		Enforce:   dcl.Bool(p.Enforce),
+		AllowAll:  ProtoToOrgpolicyPolicySpecRulesAllowAllEnum(p.GetAllowAll()),
+		DenyAll:   ProtoToOrgpolicyPolicySpecRulesDenyAllEnum(p.GetDenyAll()),
+		Enforce:   ProtoToOrgpolicyPolicySpecRulesEnforceEnum(p.GetEnforce()),
 		Condition: ProtoToOrgpolicyPolicySpecRulesCondition(p.GetCondition()),
 	}
 	return obj
@@ -96,6 +132,39 @@ func ProtoToPolicy(p *orgpolicypb.OrgpolicyPolicy) *orgpolicy.Policy {
 	return obj
 }
 
+// PolicySpecRulesAllowAllEnumToProto converts a PolicySpecRulesAllowAllEnum enum to its proto representation.
+func OrgpolicyPolicySpecRulesAllowAllEnumToProto(e *orgpolicy.PolicySpecRulesAllowAllEnum) orgpolicypb.OrgpolicyPolicySpecRulesAllowAllEnum {
+	if e == nil {
+		return orgpolicypb.OrgpolicyPolicySpecRulesAllowAllEnum(0)
+	}
+	if v, ok := orgpolicypb.OrgpolicyPolicySpecRulesAllowAllEnum_value["PolicySpecRulesAllowAllEnum"+string(*e)]; ok {
+		return orgpolicypb.OrgpolicyPolicySpecRulesAllowAllEnum(v)
+	}
+	return orgpolicypb.OrgpolicyPolicySpecRulesAllowAllEnum(0)
+}
+
+// PolicySpecRulesDenyAllEnumToProto converts a PolicySpecRulesDenyAllEnum enum to its proto representation.
+func OrgpolicyPolicySpecRulesDenyAllEnumToProto(e *orgpolicy.PolicySpecRulesDenyAllEnum) orgpolicypb.OrgpolicyPolicySpecRulesDenyAllEnum {
+	if e == nil {
+		return orgpolicypb.OrgpolicyPolicySpecRulesDenyAllEnum(0)
+	}
+	if v, ok := orgpolicypb.OrgpolicyPolicySpecRulesDenyAllEnum_value["PolicySpecRulesDenyAllEnum"+string(*e)]; ok {
+		return orgpolicypb.OrgpolicyPolicySpecRulesDenyAllEnum(v)
+	}
+	return orgpolicypb.OrgpolicyPolicySpecRulesDenyAllEnum(0)
+}
+
+// PolicySpecRulesEnforceEnumToProto converts a PolicySpecRulesEnforceEnum enum to its proto representation.
+func OrgpolicyPolicySpecRulesEnforceEnumToProto(e *orgpolicy.PolicySpecRulesEnforceEnum) orgpolicypb.OrgpolicyPolicySpecRulesEnforceEnum {
+	if e == nil {
+		return orgpolicypb.OrgpolicyPolicySpecRulesEnforceEnum(0)
+	}
+	if v, ok := orgpolicypb.OrgpolicyPolicySpecRulesEnforceEnum_value["PolicySpecRulesEnforceEnum"+string(*e)]; ok {
+		return orgpolicypb.OrgpolicyPolicySpecRulesEnforceEnum(v)
+	}
+	return orgpolicypb.OrgpolicyPolicySpecRulesEnforceEnum(0)
+}
+
 // PolicySpecToProto converts a PolicySpec resource to its proto representation.
 func OrgpolicyPolicySpecToProto(o *orgpolicy.PolicySpec) *orgpolicypb.OrgpolicyPolicySpec {
 	if o == nil {
@@ -120,9 +189,9 @@ func OrgpolicyPolicySpecRulesToProto(o *orgpolicy.PolicySpecRules) *orgpolicypb.
 	}
 	p := &orgpolicypb.OrgpolicyPolicySpecRules{
 		Values:    OrgpolicyPolicySpecRulesValuesToProto(o.Values),
-		AllowAll:  dcl.ValueOrEmptyBool(o.AllowAll),
-		DenyAll:   dcl.ValueOrEmptyBool(o.DenyAll),
-		Enforce:   dcl.ValueOrEmptyBool(o.Enforce),
+		AllowAll:  OrgpolicyPolicySpecRulesAllowAllEnumToProto(o.AllowAll),
+		DenyAll:   OrgpolicyPolicySpecRulesDenyAllEnumToProto(o.DenyAll),
+		Enforce:   OrgpolicyPolicySpecRulesEnforceEnumToProto(o.Enforce),
 		Condition: OrgpolicyPolicySpecRulesConditionToProto(o.Condition),
 	}
 	return p

@@ -70,9 +70,9 @@ import (
 
 	eventarc_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc/beta_connector"
 
-	file_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/file/connector"
+	filestore_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/filestore/connector"
 
-	file_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/file/beta_connector"
+	filestore_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/filestore/beta_connector"
 
 	gameservices_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices/connector"
 
@@ -195,9 +195,9 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	eventarc_beta_connector.RegisterServers(grpcServer)
 
-	file_connector.RegisterServers(grpcServer)
+	filestore_connector.RegisterServers(grpcServer)
 
-	file_beta_connector.RegisterServers(grpcServer)
+	filestore_beta_connector.RegisterServers(grpcServer)
 
 	gameservices_connector.RegisterServers(grpcServer)
 

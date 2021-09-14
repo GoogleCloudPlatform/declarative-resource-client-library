@@ -346,6 +346,32 @@ func (op *createServiceAccountOperation) do(ctx context.Context, r *ServiceAccou
 	}
 	op.response = o
 
+	// Poll for the ServiceAccount resource to be created. ServiceAccount resources are eventually consistent but do not support operations
+	// so we must repeatedly poll to check for their creation.
+	requiredSuccesses := 1
+	start := time.Now()
+	err = dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		u, err := r.getURL(c.Config.BasePath)
+		if err != nil {
+			return nil, err
+		}
+		getResp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, nil)
+		if err != nil {
+			// If the error is a transient server error (e.g., 500) or not found (i.e., the resource has not yet been created),
+			// continue retrying until the transient error is resolved, the resource is created, or we time out.
+			if dcl.IsRetryableRequestError(c.Config, err, true, start) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		getResp.Response.Body.Close()
+		requiredSuccesses--
+		if requiredSuccesses > 0 {
+			return &dcl.RetryDetails{}, dcl.OperationNotDone{}
+		}
+		return getResp, nil
+	}, c.Config.RetryProvider)
+
 	if _, err := c.GetServiceAccount(ctx, r); err != nil {
 		c.Config.Logger.WarningWithContextf(ctx, "get returned error: %v", err)
 		return err

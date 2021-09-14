@@ -44,8 +44,8 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc"
 	eventarc_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc/alpha"
 	eventarc_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc/beta"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/file"
-	file_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/file/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/filestore"
+	filestore_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/filestore/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices"
 	gameservices_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices/beta"
 	gkehub_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/alpha"
@@ -175,8 +175,8 @@ func Services() *Directory {
 	d.AddResource("ga", "dataproc", "WorkflowTemplate", dataproc.YAML_workflow_template)
 	d.AddResource("ga", "eventarc", dcl.TitleToSnakeCase("Trigger"), eventarc.YAML_trigger)
 	d.AddResource("ga", "eventarc", "Trigger", eventarc.YAML_trigger)
-	d.AddResource("ga", "file", dcl.TitleToSnakeCase("Instance"), file.YAML_instance)
-	d.AddResource("ga", "file", "Instance", file.YAML_instance)
+	d.AddResource("ga", "filestore", dcl.TitleToSnakeCase("Instance"), filestore.YAML_instance)
+	d.AddResource("ga", "filestore", "Instance", filestore.YAML_instance)
 	d.AddResource("ga", "gameservices", dcl.TitleToSnakeCase("Realm"), gameservices.YAML_realm)
 	d.AddResource("ga", "gameservices", "Realm", gameservices.YAML_realm)
 	d.AddResource("ga", "iam", dcl.TitleToSnakeCase("Role"), iam.YAML_role)
@@ -319,10 +319,10 @@ func Services() *Directory {
 	d.AddResource("beta", "dataproc", "WorkflowTemplate", dataproc_beta.YAML_workflow_template)
 	d.AddResource("beta", "eventarc", dcl.TitleToSnakeCase("Trigger"), eventarc_beta.YAML_trigger)
 	d.AddResource("beta", "eventarc", "Trigger", eventarc_beta.YAML_trigger)
-	d.AddResource("beta", "file", dcl.TitleToSnakeCase("Instance"), file_beta.YAML_instance)
-	d.AddResource("beta", "file", "Instance", file_beta.YAML_instance)
-	d.AddResource("beta", "file", dcl.TitleToSnakeCase("Backup"), file_beta.YAML_backup)
-	d.AddResource("beta", "file", "Backup", file_beta.YAML_backup)
+	d.AddResource("beta", "filestore", dcl.TitleToSnakeCase("Instance"), filestore_beta.YAML_instance)
+	d.AddResource("beta", "filestore", "Instance", filestore_beta.YAML_instance)
+	d.AddResource("beta", "filestore", dcl.TitleToSnakeCase("Backup"), filestore_beta.YAML_backup)
+	d.AddResource("beta", "filestore", "Backup", filestore_beta.YAML_backup)
 	d.AddResource("beta", "gameservices", dcl.TitleToSnakeCase("Realm"), gameservices_beta.YAML_realm)
 	d.AddResource("beta", "gameservices", "Realm", gameservices_beta.YAML_realm)
 	d.AddResource("beta", "gkehub", dcl.TitleToSnakeCase("Feature"), gkehub_beta.YAML_feature)

@@ -16,7 +16,7 @@
         }
       },
       {
-        "denyAll": true
+        "denyAll": "TRUE"
       }
     ]
   }

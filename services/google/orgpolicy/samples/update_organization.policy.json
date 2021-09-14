@@ -4,7 +4,7 @@
   "spec": {
     "rules": [
       {
-          "enforce": true
+          "enforce": "TRUE"
       }
     ],
     "reset": false

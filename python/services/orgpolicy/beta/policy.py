@@ -161,9 +161,9 @@ class PolicySpecRules(object):
     def __init__(
         self,
         values: dict = None,
-        allow_all: bool = None,
-        deny_all: bool = None,
-        enforce: bool = None,
+        allow_all: str = None,
+        deny_all: str = None,
+        enforce: str = None,
         condition: dict = None,
     ):
         self.values = values
@@ -182,12 +182,12 @@ class PolicySpecRules(object):
             res.values.CopyFrom(PolicySpecRulesValues.to_proto(resource.values))
         else:
             res.ClearField("values")
-        if Primitive.to_proto(resource.allow_all):
-            res.allow_all = Primitive.to_proto(resource.allow_all)
-        if Primitive.to_proto(resource.deny_all):
-            res.deny_all = Primitive.to_proto(resource.deny_all)
-        if Primitive.to_proto(resource.enforce):
-            res.enforce = Primitive.to_proto(resource.enforce)
+        if PolicySpecRulesAllowAllEnum.to_proto(resource.allow_all):
+            res.allow_all = PolicySpecRulesAllowAllEnum.to_proto(resource.allow_all)
+        if PolicySpecRulesDenyAllEnum.to_proto(resource.deny_all):
+            res.deny_all = PolicySpecRulesDenyAllEnum.to_proto(resource.deny_all)
+        if PolicySpecRulesEnforceEnum.to_proto(resource.enforce):
+            res.enforce = PolicySpecRulesEnforceEnum.to_proto(resource.enforce)
         if PolicySpecRulesCondition.to_proto(resource.condition):
             res.condition.CopyFrom(
                 PolicySpecRulesCondition.to_proto(resource.condition)
@@ -203,9 +203,9 @@ class PolicySpecRules(object):
 
         return PolicySpecRules(
             values=PolicySpecRulesValues.from_proto(resource.values),
-            allow_all=Primitive.from_proto(resource.allow_all),
-            deny_all=Primitive.from_proto(resource.deny_all),
-            enforce=Primitive.from_proto(resource.enforce),
+            allow_all=PolicySpecRulesAllowAllEnum.from_proto(resource.allow_all),
+            deny_all=PolicySpecRulesDenyAllEnum.from_proto(resource.deny_all),
+            enforce=PolicySpecRulesEnforceEnum.from_proto(resource.enforce),
             condition=PolicySpecRulesCondition.from_proto(resource.condition),
         )
 
@@ -314,6 +314,60 @@ class PolicySpecRulesConditionArray(object):
     @classmethod
     def from_proto(self, resources):
         return [PolicySpecRulesCondition.from_proto(i) for i in resources]
+
+
+class PolicySpecRulesAllowAllEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return policy_pb2.OrgpolicyBetaPolicySpecRulesAllowAllEnum.Value(
+            "OrgpolicyBetaPolicySpecRulesAllowAllEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return policy_pb2.OrgpolicyBetaPolicySpecRulesAllowAllEnum.Name(resource)[
+            len("OrgpolicyBetaPolicySpecRulesAllowAllEnum") :
+        ]
+
+
+class PolicySpecRulesDenyAllEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return policy_pb2.OrgpolicyBetaPolicySpecRulesDenyAllEnum.Value(
+            "OrgpolicyBetaPolicySpecRulesDenyAllEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return policy_pb2.OrgpolicyBetaPolicySpecRulesDenyAllEnum.Name(resource)[
+            len("OrgpolicyBetaPolicySpecRulesDenyAllEnum") :
+        ]
+
+
+class PolicySpecRulesEnforceEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return policy_pb2.OrgpolicyBetaPolicySpecRulesEnforceEnum.Value(
+            "OrgpolicyBetaPolicySpecRulesEnforceEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return policy_pb2.OrgpolicyBetaPolicySpecRulesEnforceEnum.Name(resource)[
+            len("OrgpolicyBetaPolicySpecRulesEnforceEnum") :
+        ]
 
 
 class Primitive(object):
