@@ -28,21 +28,21 @@ type: route
 variables:
 - name: project
   type: project
+- name: compute_network
+  type: resource_name
 - name: region
   type: region
 - name: address
-  type: resource_name
-- name: compute_network
   type: resource_name
 - name: gateway
   type: resource_name
 - name: router
   type: resource_name
+- name: udp_forwarding_rule_1
+  type: resource_name
 - name: forwarding_rule
   type: resource_name
 - name: udp_forwarding_rule_2
-  type: resource_name
-- name: udp_forwarding_rule_1
   type: resource_name
 - name: tunnel
   type: resource_name

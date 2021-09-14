@@ -26,10 +26,10 @@ updates:
   - samples/first.instance_template.json
   resource: samples/update_zonal.autoscaler.json
 variables:
-- name: project
-  type: project
 - name: s_check
   type: resource_name
+- name: project
+  type: project
 - name: template1
   type: resource_name
 - name: instance_group_manager

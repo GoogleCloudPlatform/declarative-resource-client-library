@@ -22,10 +22,10 @@ updates:
   - samples/basic.cloudresourcemanager.project.json
   resource: samples/update_project.workload_identity_pool.json
 variables:
-- name: org_id
-  type: org_id
 - name: id
   type: resource_name
+- name: org_id
+  type: org_id
 - name: pool
   type: resource_name
 versions:
