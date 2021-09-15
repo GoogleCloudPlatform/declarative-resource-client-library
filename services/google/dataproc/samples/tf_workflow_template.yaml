@@ -19,10 +19,10 @@ name: tf_workflow_template
 resource: samples/tf.workflow_template.json
 type: workflow_template
 variables:
-- name: project
-  type: project
 - name: dataproc_network
   type: resource_name
+- name: project
+  type: project
 - name: range
   type: resource_name
 - name: dataproc_subnetwork

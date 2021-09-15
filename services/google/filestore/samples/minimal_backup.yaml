@@ -26,10 +26,10 @@ variables:
   type: random_int
 - name: instance_name
   type: resource_name
-- name: region
-  type: region
 - name: backup
   type: resource_name
+- name: region
+  type: region
 versions:
 - ga
 - beta

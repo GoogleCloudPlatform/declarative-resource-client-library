@@ -19,9 +19,9 @@ updates:
 - dependencies: []
   resource: samples/update.server_tls_policy.json
 variables:
-- name: project
-  type: project
 - name: policy
   type: resource_name
+- name: project
+  type: project
 versions:
 - alpha
