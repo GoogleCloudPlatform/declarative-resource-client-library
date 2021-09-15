@@ -53,10 +53,10 @@ variables:
   type: resource_name
 - name: id2
   type: resource_name
-- name: zone
-  type: zone
 - name: cluster1
   type: resource_name
+- name: zone
+  type: zone
 - name: membership1
   type: resource_name
 versions:

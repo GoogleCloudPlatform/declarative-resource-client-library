@@ -18,8 +18,8 @@ name: basic_node_pool
 resource: samples/basic.node_pool.json
 type: node_pool
 variables:
-- name: aws_subnet
-  type: aws_subnet
+- name: project
+  type: project
 - name: test_service_account
   type: test_service_account
 - name: byo_multicloud_prefix
@@ -30,16 +30,16 @@ variables:
   type: aws_region
 - name: aws_account_id
   type: aws_account_id
+- name: aws_volume_encryption_key
+  type: aws_volume_encryption_key
+- name: aws_database_encryption_key
+  type: aws_database_encryption_key
 - name: aws_security_group
   type: aws_security_group
 - name: cluster
   type: resource_name
-- name: aws_database_encryption_key
-  type: aws_database_encryption_key
-- name: aws_volume_encryption_key
-  type: aws_volume_encryption_key
-- name: project
-  type: project
+- name: aws_subnet
+  type: aws_subnet
 - name: pool
   type: resource_name
 versions:
