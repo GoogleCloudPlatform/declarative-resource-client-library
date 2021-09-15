@@ -46,23 +46,23 @@ updates:
   - samples/second.networksecurity.server_tls_policy.json
   resource: samples/update_2.endpoint_policy.json
 variables:
-- name: server1
+- name: server2
   type: resource_name
 - name: project
   type: project
-- name: filter2
-  type: resource_name
-- name: auth2
-  type: resource_name
-- name: client2
-  type: resource_name
-- name: server2
-  type: resource_name
 - name: filter1
   type: resource_name
 - name: auth1
   type: resource_name
 - name: client1
+  type: resource_name
+- name: server1
+  type: resource_name
+- name: filter2
+  type: resource_name
+- name: auth2
+  type: resource_name
+- name: client2
   type: resource_name
 - name: selector
   type: resource_name
