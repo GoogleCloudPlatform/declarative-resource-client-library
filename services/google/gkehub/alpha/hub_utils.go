@@ -55,38 +55,42 @@ func flattenHubReferenceLink(config interface{}) *string {
 
 // Feature has custom url methods because it uses v1beta endpoints instead of v1beta1.
 func (r *Feature) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
-		"name":     dcl.ValueOrEmptyString(r.Name),
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
 	return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{name}}", "https://gkehub.googleapis.com/v1beta/", userBasePath, params), nil
 }
 
 func (r *Feature) listURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
 	}
 	return dcl.URL("projects/{{project}}/locations/{{location}}/features", "https://gkehub.googleapis.com/v1beta/", userBasePath, params), nil
 
 }
 
 func (r *Feature) createURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":     dcl.ValueOrEmptyString(r.Name),
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
 	}
 	return dcl.URL("projects/{{project}}/locations/{{location}}/features?featureId={{name}}", "https://gkehub.googleapis.com/v1beta/", userBasePath, params), nil
 
 }
 
 func (r *Feature) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":     dcl.ValueOrEmptyString(r.Name),
-		"project":  dcl.ValueOrEmptyString(r.Project),
-		"location": dcl.ValueOrEmptyString(r.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
 	}
 	return dcl.URL("projects/{{project}}/locations/{{location}}/features/{{name}}", "https://gkehub.googleapis.com/v1beta/", userBasePath, params), nil
 }

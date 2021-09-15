@@ -16,9 +16,9 @@ name: basic_hmac_key
 resource: samples/basic.hmac_key.json
 type: hmac_key
 variables:
-- name: project
-  type: project
 - name: test_service_account
   type: test_service_account
+- name: project
+  type: project
 versions:
 - ga
