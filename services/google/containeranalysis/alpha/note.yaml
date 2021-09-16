@@ -1,0 +1,355 @@
+# Copyright 2021 Google LLC. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+info:
+  title: ContainerAnalysis/Note
+  description: DCL Specification for the ContainerAnalysis Note resource
+  x-dcl-has-iam: false
+paths:
+  get:
+    description: The function used to get information about a Note
+    parameters:
+    - name: Note
+      required: true
+      description: A full instance of a Note
+  apply:
+    description: The function used to apply information about a Note
+    parameters:
+    - name: Note
+      required: true
+      description: A full instance of a Note
+  delete:
+    description: The function used to delete a Note
+    parameters:
+    - name: Note
+      required: true
+      description: A full instance of a Note
+  deleteAll:
+    description: The function used to delete all Note
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+  list:
+    description: The function used to list information about many Note
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+components:
+  schemas:
+    Note:
+      title: Note
+      x-dcl-id: projects/{{project}}/notes/{{name}}
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - name
+      - project
+      properties:
+        attestation:
+          type: object
+          x-dcl-go-name: Attestation
+          x-dcl-go-type: NoteAttestation
+          description: A note describing an attestation role.
+          x-dcl-conflicts:
+          - image
+          - package
+          - deployment
+          - discovery
+          properties:
+            hint:
+              type: object
+              x-dcl-go-name: Hint
+              x-dcl-go-type: NoteAttestationHint
+              description: Hint hints at the purpose of the attestation authority.
+              required:
+              - humanReadableName
+              properties:
+                humanReadableName:
+                  type: string
+                  x-dcl-go-name: HumanReadableName
+                  description: Required. The human readable name of this attestation
+                    authority, for example "qa".
+        createTime:
+          type: string
+          format: date-time
+          x-dcl-go-name: CreateTime
+          readOnly: true
+          description: Output only. The time this note was created. This field can
+            be used as a filter in list requests.
+          x-kubernetes-immutable: true
+        deployment:
+          type: object
+          x-dcl-go-name: Deployment
+          x-dcl-go-type: NoteDeployment
+          description: A note describing something that can be deployed.
+          x-dcl-conflicts:
+          - image
+          - package
+          - discovery
+          - attestation
+          required:
+          - resourceUri
+          properties:
+            resourceUri:
+              type: array
+              x-dcl-go-name: ResourceUri
+              description: Required. Resource URI for the artifact being deployed.
+              x-dcl-send-empty: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+        discovery:
+          type: object
+          x-dcl-go-name: Discovery
+          x-dcl-go-type: NoteDiscovery
+          description: A note describing the initial analysis of a resource.
+          x-dcl-conflicts:
+          - image
+          - package
+          - deployment
+          - attestation
+          required:
+          - analysisKind
+          properties:
+            analysisKind:
+              type: string
+              x-dcl-go-name: AnalysisKind
+              x-dcl-go-type: NoteDiscoveryAnalysisKindEnum
+              description: 'The kind of analysis that is handled by this discovery.
+                Possible values: NOTE_KIND_UNSPECIFIED, VULNERABILITY, BUILD, IMAGE,
+                PACKAGE, DEPLOYMENT, DISCOVERY, ATTESTATION, UPGRADE'
+              enum:
+              - NOTE_KIND_UNSPECIFIED
+              - VULNERABILITY
+              - BUILD
+              - IMAGE
+              - PACKAGE
+              - DEPLOYMENT
+              - DISCOVERY
+              - ATTESTATION
+              - UPGRADE
+        expirationTime:
+          type: string
+          format: date-time
+          x-dcl-go-name: ExpirationTime
+          description: Time of expiration for this note. Empty if note does not expire.
+        image:
+          type: object
+          x-dcl-go-name: Image
+          x-dcl-go-type: NoteImage
+          description: A note describing a base image.
+          x-dcl-conflicts:
+          - package
+          - deployment
+          - discovery
+          - attestation
+          required:
+          - resourceUrl
+          - fingerprint
+          properties:
+            fingerprint:
+              type: object
+              x-dcl-go-name: Fingerprint
+              x-dcl-go-type: NoteImageFingerprint
+              description: Required. Immutable. The fingerprint of the base image.
+              required:
+              - v1Name
+              - v2Blob
+              properties:
+                v1Name:
+                  type: string
+                  x-dcl-go-name: V1Name
+                  description: Required. The layer ID of the final layer in the Docker
+                    image's v1 representation.
+                v2Blob:
+                  type: array
+                  x-dcl-go-name: V2Blob
+                  description: Required. The ordered list of v2 blobs that represent
+                    a given image.
+                  x-dcl-send-empty: true
+                  x-dcl-list-type: list
+                  items:
+                    type: string
+                    x-dcl-go-type: string
+                v2Name:
+                  type: string
+                  x-dcl-go-name: V2Name
+                  readOnly: true
+                  description: 'Output only. The name of the image''s v2 blobs computed
+                    via: ) Only the name of the final blob is kept.'
+            resourceUrl:
+              type: string
+              x-dcl-go-name: ResourceUrl
+              description: Required. Immutable. The resource_url for the resource
+                representing the basis of associated occurrence images.
+        longDescription:
+          type: string
+          x-dcl-go-name: LongDescription
+          description: A detailed description of this note.
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: Required. Immutable. The name of the package.
+          x-kubernetes-immutable: true
+        package:
+          type: object
+          x-dcl-go-name: Package
+          x-dcl-go-type: NotePackage
+          description: Required for non-Windows OS. The package this Upgrade is for.
+          x-dcl-conflicts:
+          - image
+          - deployment
+          - discovery
+          - attestation
+          required:
+          - name
+          properties:
+            distribution:
+              type: array
+              x-dcl-go-name: Distribution
+              description: The various channels by which a package is distributed.
+              x-dcl-send-empty: true
+              x-dcl-list-type: list
+              items:
+                type: object
+                x-dcl-go-type: NotePackageDistribution
+                required:
+                - cpeUri
+                properties:
+                  architecture:
+                    type: string
+                    x-dcl-go-name: Architecture
+                    x-dcl-go-type: NotePackageDistributionArchitectureEnum
+                    description: 'The CPU architecture for which packages in this
+                      distribution channel were built Possible values: ARCHITECTURE_UNSPECIFIED,
+                      X86, X64'
+                    enum:
+                    - ARCHITECTURE_UNSPECIFIED
+                    - X86
+                    - X64
+                  cpeUri:
+                    type: string
+                    x-dcl-go-name: CpeUri
+                    description: The cpe_uri in [cpe format](https://cpe.mitre.org/specification/)
+                      denoting the package manager version distributing a package.
+                  description:
+                    type: string
+                    x-dcl-go-name: Description
+                    description: The distribution channel-specific description of
+                      this package.
+                  latestVersion:
+                    type: object
+                    x-dcl-go-name: LatestVersion
+                    x-dcl-go-type: NotePackageDistributionLatestVersion
+                    description: The latest available version of this package in this
+                      distribution channel.
+                    required:
+                    - kind
+                    properties:
+                      epoch:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: Epoch
+                        description: Used to correct mistakes in the version numbering
+                          scheme.
+                      fullName:
+                        type: string
+                        x-dcl-go-name: FullName
+                        description: Human readable version string. This string is
+                          of the form :- and is only set when kind is NORMAL.
+                      kind:
+                        type: string
+                        x-dcl-go-name: Kind
+                        x-dcl-go-type: NotePackageDistributionLatestVersionKindEnum
+                        description: 'Distinguish between sentinel MIN/MAX versions
+                          and normal versions. If kind is not NORMAL, then the other
+                          fields are ignored. Possible values: NOTE_KIND_UNSPECIFIED,
+                          VULNERABILITY, BUILD, IMAGE, PACKAGE, DEPLOYMENT, DISCOVERY,
+                          ATTESTATION, UPGRADE'
+                        enum:
+                        - NOTE_KIND_UNSPECIFIED
+                        - VULNERABILITY
+                        - BUILD
+                        - IMAGE
+                        - PACKAGE
+                        - DEPLOYMENT
+                        - DISCOVERY
+                        - ATTESTATION
+                        - UPGRADE
+                      name:
+                        type: string
+                        x-dcl-go-name: Name
+                        description: The main part of the version name.
+                      revision:
+                        type: string
+                        x-dcl-go-name: Revision
+                        description: The iteration of the package build from the above
+                          version.
+                  maintainer:
+                    type: string
+                    x-dcl-go-name: Maintainer
+                    description: A freeform string denoting the maintainer of this
+                      package.
+                  url:
+                    type: string
+                    x-dcl-go-name: Url
+                    description: The distribution channel-specific homepage for this
+                      package.
+            name:
+              type: string
+              x-dcl-go-name: Name
+              description: The name of the package.
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project for the resource
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        relatedUrl:
+          type: array
+          x-dcl-go-name: RelatedUrl
+          description: URLs associated with this note.
+          x-dcl-send-empty: true
+          x-dcl-list-type: list
+          items:
+            type: object
+            x-dcl-go-type: NoteRelatedUrl
+            properties:
+              label:
+                type: string
+                x-dcl-go-name: Label
+                description: Label to describe usage of the URL
+              url:
+                type: string
+                x-dcl-go-name: Url
+                description: Specific URL to associate with the note
+        shortDescription:
+          type: string
+          x-dcl-go-name: ShortDescription
+          description: A one sentence description of this note.
+        updateTime:
+          type: string
+          format: date-time
+          x-dcl-go-name: UpdateTime
+          readOnly: true
+          description: Output only. The time this note was last updated. This field
+            can be used as a filter in list requests.
+          x-kubernetes-immutable: true

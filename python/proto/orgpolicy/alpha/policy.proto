@@ -1,0 +1,97 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+syntax = "proto3";
+
+package dcl;
+
+import "proto/connector/sdk.proto";
+import "proto/empty.proto";
+
+enum OrgpolicyAlphaPolicySpecRulesAllowAllEnum {
+  OrgpolicyAlphaPolicySpecRulesAllowAllEnumNO_VALUE_DO_NOT_USE = 0;
+  OrgpolicyAlphaPolicySpecRulesAllowAllEnumTRUE = 1;
+  OrgpolicyAlphaPolicySpecRulesAllowAllEnumFALSE = 2;
+}
+
+enum OrgpolicyAlphaPolicySpecRulesDenyAllEnum {
+  OrgpolicyAlphaPolicySpecRulesDenyAllEnumNO_VALUE_DO_NOT_USE = 0;
+  OrgpolicyAlphaPolicySpecRulesDenyAllEnumTRUE = 1;
+  OrgpolicyAlphaPolicySpecRulesDenyAllEnumFALSE = 2;
+}
+
+enum OrgpolicyAlphaPolicySpecRulesEnforceEnum {
+  OrgpolicyAlphaPolicySpecRulesEnforceEnumNO_VALUE_DO_NOT_USE = 0;
+  OrgpolicyAlphaPolicySpecRulesEnforceEnumTRUE = 1;
+  OrgpolicyAlphaPolicySpecRulesEnforceEnumFALSE = 2;
+}
+
+message OrgpolicyAlphaPolicy {
+  string name = 1;
+  OrgpolicyAlphaPolicySpec spec = 2;
+  string parent = 3;
+}
+
+message OrgpolicyAlphaPolicySpec {
+  string etag = 1;
+  string update_time = 2;
+  repeated OrgpolicyAlphaPolicySpecRules rules = 3;
+  bool inherit_from_parent = 4;
+  bool reset = 5;
+}
+
+message OrgpolicyAlphaPolicySpecRules {
+  OrgpolicyAlphaPolicySpecRulesValues values = 1;
+  OrgpolicyAlphaPolicySpecRulesAllowAllEnum allow_all = 2;
+  OrgpolicyAlphaPolicySpecRulesDenyAllEnum deny_all = 3;
+  OrgpolicyAlphaPolicySpecRulesEnforceEnum enforce = 4;
+  OrgpolicyAlphaPolicySpecRulesCondition condition = 5;
+}
+
+message OrgpolicyAlphaPolicySpecRulesValues {
+  repeated string allowed_values = 1;
+  repeated string denied_values = 2;
+}
+
+message OrgpolicyAlphaPolicySpecRulesCondition {
+  string expression = 1;
+  string title = 2;
+  string description = 3;
+  string location = 4;
+}
+
+message ApplyOrgpolicyAlphaPolicyRequest {
+  OrgpolicyAlphaPolicy resource = 1;
+  repeated LifecycleDirective lifecycle_directives = 2;
+  string service_account_file = 3;
+}
+
+message DeleteOrgpolicyAlphaPolicyRequest {
+  string service_account_file = 1;
+  OrgpolicyAlphaPolicy resource = 2;
+}
+
+message ListOrgpolicyAlphaPolicyRequest {
+  string service_account_file = 1;
+	OrgpolicyAlphaPolicy resource = 2;
+}
+
+message ListOrgpolicyAlphaPolicyResponse {
+  repeated OrgpolicyAlphaPolicy items = 1;
+}
+
+service OrgpolicyAlphaPolicyService {
+  rpc ApplyOrgpolicyAlphaPolicy(ApplyOrgpolicyAlphaPolicyRequest) returns (OrgpolicyAlphaPolicy);
+  rpc DeleteOrgpolicyAlphaPolicy(DeleteOrgpolicyAlphaPolicyRequest) returns (google.protobuf.Empty);
+  rpc ListOrgpolicyAlphaPolicy(ListOrgpolicyAlphaPolicyRequest) returns (ListOrgpolicyAlphaPolicyResponse);
+}

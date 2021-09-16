@@ -1,0 +1,148 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+syntax = "proto3";
+
+package dcl;
+
+import "proto/connector/sdk.proto";
+import "proto/empty.proto";
+
+enum ContaineranalysisAlphaNotePackageDistributionArchitectureEnum {
+  ContaineranalysisAlphaNotePackageDistributionArchitectureEnumNO_VALUE_DO_NOT_USE = 0;
+  ContaineranalysisAlphaNotePackageDistributionArchitectureEnumARCHITECTURE_UNSPECIFIED = 1;
+  ContaineranalysisAlphaNotePackageDistributionArchitectureEnumX86 = 2;
+  ContaineranalysisAlphaNotePackageDistributionArchitectureEnumX64 = 3;
+}
+
+enum ContaineranalysisAlphaNotePackageDistributionLatestVersionKindEnum {
+  ContaineranalysisAlphaNotePackageDistributionLatestVersionKindEnumNO_VALUE_DO_NOT_USE = 0;
+  ContaineranalysisAlphaNotePackageDistributionLatestVersionKindEnumNOTE_KIND_UNSPECIFIED = 1;
+  ContaineranalysisAlphaNotePackageDistributionLatestVersionKindEnumVULNERABILITY = 2;
+  ContaineranalysisAlphaNotePackageDistributionLatestVersionKindEnumBUILD = 3;
+  ContaineranalysisAlphaNotePackageDistributionLatestVersionKindEnumIMAGE = 4;
+  ContaineranalysisAlphaNotePackageDistributionLatestVersionKindEnumPACKAGE = 5;
+  ContaineranalysisAlphaNotePackageDistributionLatestVersionKindEnumDEPLOYMENT = 6;
+  ContaineranalysisAlphaNotePackageDistributionLatestVersionKindEnumDISCOVERY = 7;
+  ContaineranalysisAlphaNotePackageDistributionLatestVersionKindEnumATTESTATION = 8;
+  ContaineranalysisAlphaNotePackageDistributionLatestVersionKindEnumUPGRADE = 9;
+}
+
+enum ContaineranalysisAlphaNoteDiscoveryAnalysisKindEnum {
+  ContaineranalysisAlphaNoteDiscoveryAnalysisKindEnumNO_VALUE_DO_NOT_USE = 0;
+  ContaineranalysisAlphaNoteDiscoveryAnalysisKindEnumNOTE_KIND_UNSPECIFIED = 1;
+  ContaineranalysisAlphaNoteDiscoveryAnalysisKindEnumVULNERABILITY = 2;
+  ContaineranalysisAlphaNoteDiscoveryAnalysisKindEnumBUILD = 3;
+  ContaineranalysisAlphaNoteDiscoveryAnalysisKindEnumIMAGE = 4;
+  ContaineranalysisAlphaNoteDiscoveryAnalysisKindEnumPACKAGE = 5;
+  ContaineranalysisAlphaNoteDiscoveryAnalysisKindEnumDEPLOYMENT = 6;
+  ContaineranalysisAlphaNoteDiscoveryAnalysisKindEnumDISCOVERY = 7;
+  ContaineranalysisAlphaNoteDiscoveryAnalysisKindEnumATTESTATION = 8;
+  ContaineranalysisAlphaNoteDiscoveryAnalysisKindEnumUPGRADE = 9;
+}
+
+message ContaineranalysisAlphaNote {
+  string name = 1;
+  string short_description = 2;
+  string long_description = 3;
+  repeated ContaineranalysisAlphaNoteRelatedUrl related_url = 4;
+  string expiration_time = 5;
+  string create_time = 6;
+  string update_time = 7;
+  ContaineranalysisAlphaNoteImage image = 8;
+  ContaineranalysisAlphaNotePackage package = 9;
+  ContaineranalysisAlphaNoteDiscovery discovery = 10;
+  ContaineranalysisAlphaNoteDeployment deployment = 11;
+  ContaineranalysisAlphaNoteAttestation attestation = 12;
+  string project = 13;
+}
+
+message ContaineranalysisAlphaNoteRelatedUrl {
+  string url = 1;
+  string label = 2;
+}
+
+message ContaineranalysisAlphaNoteImage {
+  string resource_url = 1;
+  ContaineranalysisAlphaNoteImageFingerprint fingerprint = 2;
+}
+
+message ContaineranalysisAlphaNoteImageFingerprint {
+  string v1_name = 1;
+  repeated string v2_blob = 2;
+  string v2_name = 3;
+}
+
+message ContaineranalysisAlphaNotePackage {
+  string name = 1;
+  repeated ContaineranalysisAlphaNotePackageDistribution distribution = 2;
+}
+
+message ContaineranalysisAlphaNotePackageDistribution {
+  string cpe_uri = 1;
+  ContaineranalysisAlphaNotePackageDistributionArchitectureEnum architecture = 2;
+  ContaineranalysisAlphaNotePackageDistributionLatestVersion latest_version = 3;
+  string maintainer = 4;
+  string url = 5;
+  string description = 6;
+}
+
+message ContaineranalysisAlphaNotePackageDistributionLatestVersion {
+  int64 epoch = 1;
+  string name = 2;
+  string revision = 3;
+  ContaineranalysisAlphaNotePackageDistributionLatestVersionKindEnum kind = 4;
+  string full_name = 5;
+}
+
+message ContaineranalysisAlphaNoteDiscovery {
+  ContaineranalysisAlphaNoteDiscoveryAnalysisKindEnum analysis_kind = 1;
+}
+
+message ContaineranalysisAlphaNoteDeployment {
+  repeated string resource_uri = 1;
+}
+
+message ContaineranalysisAlphaNoteAttestation {
+  ContaineranalysisAlphaNoteAttestationHint hint = 1;
+}
+
+message ContaineranalysisAlphaNoteAttestationHint {
+  string human_readable_name = 1;
+}
+
+message ApplyContaineranalysisAlphaNoteRequest {
+  ContaineranalysisAlphaNote resource = 1;
+  repeated LifecycleDirective lifecycle_directives = 2;
+  string service_account_file = 3;
+}
+
+message DeleteContaineranalysisAlphaNoteRequest {
+  string service_account_file = 1;
+  ContaineranalysisAlphaNote resource = 2;
+}
+
+message ListContaineranalysisAlphaNoteRequest {
+  string service_account_file = 1;
+	ContaineranalysisAlphaNote resource = 2;
+}
+
+message ListContaineranalysisAlphaNoteResponse {
+  repeated ContaineranalysisAlphaNote items = 1;
+}
+
+service ContaineranalysisAlphaNoteService {
+  rpc ApplyContaineranalysisAlphaNote(ApplyContaineranalysisAlphaNoteRequest) returns (ContaineranalysisAlphaNote);
+  rpc DeleteContaineranalysisAlphaNote(DeleteContaineranalysisAlphaNoteRequest) returns (google.protobuf.Empty);
+  rpc ListContaineranalysisAlphaNote(ListContaineranalysisAlphaNoteRequest) returns (ListContaineranalysisAlphaNoteResponse);
+}

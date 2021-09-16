@@ -229,15 +229,16 @@ func (op *createFeatureMembershipOperation) do(ctx context.Context, r *FeatureMe
 	}
 	u = strings.Replace(u, "v1beta1", "v1beta", 1)
 
-	membershipSpecs, err := getMembershipSpecs(ctx, r, c)
+	nr := r.urlNormalized()
+	membershipSpecs, err := getMembershipSpecs(ctx, nr, c)
 	if err != nil {
 		return err
 	}
-	m, err := expandFeatureMembership(c, r)
+	m, err := expandFeatureMembership(c, nr)
 	if err != nil {
 		return err
 	}
-	if err := dcl.PutMapEntry(membershipSpecs, []string{membershipSpecKey(r)}, m); err != nil {
+	if err := dcl.PutMapEntry(membershipSpecs, []string{membershipSpecKey(nr)}, m); err != nil {
 		return err
 	}
 	req := map[string]interface{}{

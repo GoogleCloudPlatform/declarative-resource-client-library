@@ -1,0 +1,90 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+syntax = "proto3";
+
+package dcl;
+
+import "proto/connector/sdk.proto";
+import "proto/empty.proto";
+
+enum BinaryauthorizationAlphaPolicyAdmissionRuleEvaluationModeEnum {
+  BinaryauthorizationAlphaPolicyAdmissionRuleEvaluationModeEnumNO_VALUE_DO_NOT_USE = 0;
+  BinaryauthorizationAlphaPolicyAdmissionRuleEvaluationModeEnumALWAYS_ALLOW = 1;
+  BinaryauthorizationAlphaPolicyAdmissionRuleEvaluationModeEnumALWAYS_DENY = 2;
+  BinaryauthorizationAlphaPolicyAdmissionRuleEvaluationModeEnumREQUIRE_ATTESTATION = 3;
+}
+
+enum BinaryauthorizationAlphaPolicyAdmissionRuleEnforcementModeEnum {
+  BinaryauthorizationAlphaPolicyAdmissionRuleEnforcementModeEnumNO_VALUE_DO_NOT_USE = 0;
+  BinaryauthorizationAlphaPolicyAdmissionRuleEnforcementModeEnumENFORCEMENT_MODE_UNSPECIFIED = 1;
+  BinaryauthorizationAlphaPolicyAdmissionRuleEnforcementModeEnumENFORCED_BLOCK_AND_AUDIT_LOG = 2;
+  BinaryauthorizationAlphaPolicyAdmissionRuleEnforcementModeEnumDRYRUN_AUDIT_LOG_ONLY = 3;
+}
+
+enum BinaryauthorizationAlphaPolicyGlobalPolicyEvaluationModeEnum {
+  BinaryauthorizationAlphaPolicyGlobalPolicyEvaluationModeEnumNO_VALUE_DO_NOT_USE = 0;
+  BinaryauthorizationAlphaPolicyGlobalPolicyEvaluationModeEnumGLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED = 1;
+  BinaryauthorizationAlphaPolicyGlobalPolicyEvaluationModeEnumENABLE = 2;
+  BinaryauthorizationAlphaPolicyGlobalPolicyEvaluationModeEnumDISABLE = 3;
+}
+
+message BinaryauthorizationAlphaPolicy {
+  repeated BinaryauthorizationAlphaPolicyAdmissionWhitelistPatterns admission_whitelist_patterns = 1;
+  map<string, BinaryauthorizationAlphaPolicyAdmissionRule> cluster_admission_rules = 2;
+  map<string, BinaryauthorizationAlphaPolicyAdmissionRule> kubernetes_namespace_admission_rules = 3;
+  map<string, BinaryauthorizationAlphaPolicyAdmissionRule> kubernetes_service_account_admission_rules = 4;
+  map<string, BinaryauthorizationAlphaPolicyAdmissionRule> istio_service_identity_admission_rules = 5;
+  BinaryauthorizationAlphaPolicyAdmissionRule default_admission_rule = 6;
+  string description = 7;
+  BinaryauthorizationAlphaPolicyGlobalPolicyEvaluationModeEnum global_policy_evaluation_mode = 8;
+  string self_link = 9;
+  string project = 10;
+  string update_time = 11;
+}
+
+message BinaryauthorizationAlphaPolicyAdmissionWhitelistPatterns {
+  string name_pattern = 1;
+}
+
+message BinaryauthorizationAlphaPolicyAdmissionRule {
+  BinaryauthorizationAlphaPolicyAdmissionRuleEvaluationModeEnum evaluation_mode = 1;
+  repeated string require_attestations_by = 2;
+  BinaryauthorizationAlphaPolicyAdmissionRuleEnforcementModeEnum enforcement_mode = 3;
+}
+
+message ApplyBinaryauthorizationAlphaPolicyRequest {
+  BinaryauthorizationAlphaPolicy resource = 1;
+  repeated LifecycleDirective lifecycle_directives = 2;
+  string service_account_file = 3;
+}
+
+message DeleteBinaryauthorizationAlphaPolicyRequest {
+  string service_account_file = 1;
+  BinaryauthorizationAlphaPolicy resource = 2;
+}
+
+message ListBinaryauthorizationAlphaPolicyRequest {
+  string service_account_file = 1;
+	BinaryauthorizationAlphaPolicy resource = 2;
+}
+
+message ListBinaryauthorizationAlphaPolicyResponse {
+  repeated BinaryauthorizationAlphaPolicy items = 1;
+}
+
+service BinaryauthorizationAlphaPolicyService {
+  rpc ApplyBinaryauthorizationAlphaPolicy(ApplyBinaryauthorizationAlphaPolicyRequest) returns (BinaryauthorizationAlphaPolicy);
+  rpc DeleteBinaryauthorizationAlphaPolicy(DeleteBinaryauthorizationAlphaPolicyRequest) returns (google.protobuf.Empty);
+  rpc ListBinaryauthorizationAlphaPolicy(ListBinaryauthorizationAlphaPolicyRequest) returns (ListBinaryauthorizationAlphaPolicyResponse);
+}

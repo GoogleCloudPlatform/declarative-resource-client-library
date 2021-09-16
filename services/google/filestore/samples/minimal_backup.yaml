@@ -18,18 +18,18 @@ name: minimal_backup
 resource: samples/minimal.backup.json
 type: backup
 variables:
-- name: zone
-  type: zone
 - name: random_int
   type: random_int
 - name: instance_name
   type: resource_name
 - name: project
   type: project
-- name: backup
-  type: resource_name
+- name: zone
+  type: zone
 - name: region
   type: region
+- name: backup
+  type: resource_name
 versions:
 - ga
 - beta
