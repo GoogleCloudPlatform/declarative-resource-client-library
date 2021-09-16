@@ -18,24 +18,6 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
-enum OrgpolicyPolicySpecRulesAllowAllEnum {
-  OrgpolicyPolicySpecRulesAllowAllEnumNO_VALUE_DO_NOT_USE = 0;
-  OrgpolicyPolicySpecRulesAllowAllEnumTRUE = 1;
-  OrgpolicyPolicySpecRulesAllowAllEnumFALSE = 2;
-}
-
-enum OrgpolicyPolicySpecRulesDenyAllEnum {
-  OrgpolicyPolicySpecRulesDenyAllEnumNO_VALUE_DO_NOT_USE = 0;
-  OrgpolicyPolicySpecRulesDenyAllEnumTRUE = 1;
-  OrgpolicyPolicySpecRulesDenyAllEnumFALSE = 2;
-}
-
-enum OrgpolicyPolicySpecRulesEnforceEnum {
-  OrgpolicyPolicySpecRulesEnforceEnumNO_VALUE_DO_NOT_USE = 0;
-  OrgpolicyPolicySpecRulesEnforceEnumTRUE = 1;
-  OrgpolicyPolicySpecRulesEnforceEnumFALSE = 2;
-}
-
 message OrgpolicyPolicy {
   string name = 1;
   OrgpolicyPolicySpec spec = 2;
@@ -52,9 +34,9 @@ message OrgpolicyPolicySpec {
 
 message OrgpolicyPolicySpecRules {
   OrgpolicyPolicySpecRulesValues values = 1;
-  OrgpolicyPolicySpecRulesAllowAllEnum allow_all = 2;
-  OrgpolicyPolicySpecRulesDenyAllEnum deny_all = 3;
-  OrgpolicyPolicySpecRulesEnforceEnum enforce = 4;
+  bool allow_all = 2;
+  bool deny_all = 3;
+  bool enforce = 4;
   OrgpolicyPolicySpecRulesCondition condition = 5;
 }
 

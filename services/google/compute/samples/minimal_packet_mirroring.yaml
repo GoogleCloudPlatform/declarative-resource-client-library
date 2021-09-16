@@ -20,12 +20,12 @@ name: minimal_packet_mirroring
 resource: samples/minimal.packet_mirroring.json
 type: packet_mirroring
 variables:
-- name: project
-  type: project
 - name: zone
   type: zone
 - name: instance1
   type: resource_name
+- name: project
+  type: project
 - name: service
   type: resource_name
 - name: region

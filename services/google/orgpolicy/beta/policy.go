@@ -34,87 +34,6 @@ func (r *Policy) String() string {
 	return dcl.SprintResource(r)
 }
 
-// The enum PolicySpecRulesAllowAllEnum.
-type PolicySpecRulesAllowAllEnum string
-
-// PolicySpecRulesAllowAllEnumRef returns a *PolicySpecRulesAllowAllEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func PolicySpecRulesAllowAllEnumRef(s string) *PolicySpecRulesAllowAllEnum {
-	v := PolicySpecRulesAllowAllEnum(s)
-	return &v
-}
-
-func (v PolicySpecRulesAllowAllEnum) Validate() error {
-	if string(v) == "" {
-		// Empty enum is okay.
-		return nil
-	}
-	for _, s := range []string{"TRUE", "FALSE"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "PolicySpecRulesAllowAllEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-// The enum PolicySpecRulesDenyAllEnum.
-type PolicySpecRulesDenyAllEnum string
-
-// PolicySpecRulesDenyAllEnumRef returns a *PolicySpecRulesDenyAllEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func PolicySpecRulesDenyAllEnumRef(s string) *PolicySpecRulesDenyAllEnum {
-	v := PolicySpecRulesDenyAllEnum(s)
-	return &v
-}
-
-func (v PolicySpecRulesDenyAllEnum) Validate() error {
-	if string(v) == "" {
-		// Empty enum is okay.
-		return nil
-	}
-	for _, s := range []string{"TRUE", "FALSE"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "PolicySpecRulesDenyAllEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-// The enum PolicySpecRulesEnforceEnum.
-type PolicySpecRulesEnforceEnum string
-
-// PolicySpecRulesEnforceEnumRef returns a *PolicySpecRulesEnforceEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func PolicySpecRulesEnforceEnumRef(s string) *PolicySpecRulesEnforceEnum {
-	v := PolicySpecRulesEnforceEnum(s)
-	return &v
-}
-
-func (v PolicySpecRulesEnforceEnum) Validate() error {
-	if string(v) == "" {
-		// Empty enum is okay.
-		return nil
-	}
-	for _, s := range []string{"TRUE", "FALSE"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "PolicySpecRulesEnforceEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
 type PolicySpec struct {
 	empty             bool              `json:"-"`
 	Etag              *string           `json:"etag"`
@@ -174,12 +93,12 @@ func (r *PolicySpec) HashCode() string {
 }
 
 type PolicySpecRules struct {
-	empty     bool                         `json:"-"`
-	Values    *PolicySpecRulesValues       `json:"values"`
-	AllowAll  *PolicySpecRulesAllowAllEnum `json:"allowAll"`
-	DenyAll   *PolicySpecRulesDenyAllEnum  `json:"denyAll"`
-	Enforce   *PolicySpecRulesEnforceEnum  `json:"enforce"`
-	Condition *PolicySpecRulesCondition    `json:"condition"`
+	empty     bool                      `json:"-"`
+	Values    *PolicySpecRulesValues    `json:"values"`
+	AllowAll  *bool                     `json:"allowAll"`
+	DenyAll   *bool                     `json:"denyAll"`
+	Enforce   *bool                     `json:"enforce"`
+	Condition *PolicySpecRulesCondition `json:"condition"`
 }
 
 type jsonPolicySpecRules PolicySpecRules

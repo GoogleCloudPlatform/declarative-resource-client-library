@@ -624,18 +624,18 @@ func canonicalizePolicySpecRules(des, initial *PolicySpecRules, opts ...dcl.Appl
 	cDes := &PolicySpecRules{}
 
 	cDes.Values = canonicalizePolicySpecRulesValues(des.Values, initial.Values, opts...)
-	if dcl.IsZeroValue(des.AllowAll) {
-		des.AllowAll = initial.AllowAll
+	if dcl.BoolCanonicalize(des.AllowAll, initial.AllowAll) || dcl.IsZeroValue(des.AllowAll) {
+		cDes.AllowAll = initial.AllowAll
 	} else {
 		cDes.AllowAll = des.AllowAll
 	}
-	if dcl.IsZeroValue(des.DenyAll) {
-		des.DenyAll = initial.DenyAll
+	if dcl.BoolCanonicalize(des.DenyAll, initial.DenyAll) || dcl.IsZeroValue(des.DenyAll) {
+		cDes.DenyAll = initial.DenyAll
 	} else {
 		cDes.DenyAll = des.DenyAll
 	}
-	if dcl.IsZeroValue(des.Enforce) {
-		des.Enforce = initial.Enforce
+	if dcl.BoolCanonicalize(des.Enforce, initial.Enforce) || dcl.IsZeroValue(des.Enforce) {
+		cDes.Enforce = initial.Enforce
 	} else {
 		cDes.Enforce = des.Enforce
 	}
@@ -687,6 +687,15 @@ func canonicalizeNewPolicySpecRules(c *Client, des, nw *PolicySpecRules) *Policy
 	}
 
 	nw.Values = canonicalizeNewPolicySpecRulesValues(c, des.Values, nw.Values)
+	if dcl.BoolCanonicalize(des.AllowAll, nw.AllowAll) {
+		nw.AllowAll = des.AllowAll
+	}
+	if dcl.BoolCanonicalize(des.DenyAll, nw.DenyAll) {
+		nw.DenyAll = des.DenyAll
+	}
+	if dcl.BoolCanonicalize(des.Enforce, nw.Enforce) {
+		nw.Enforce = des.Enforce
+	}
 	nw.Condition = canonicalizeNewPolicySpecRulesCondition(c, des.Condition, nw.Condition)
 
 	return nw
@@ -1112,21 +1121,21 @@ func comparePolicySpecRulesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowAll, actual.AllowAll, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("AllowAll")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowAll, actual.AllowAll, dcl.Info{OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("AllowAll")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DenyAll, actual.DenyAll, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("DenyAll")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DenyAll, actual.DenyAll, dcl.Info{OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("DenyAll")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Enforce, actual.Enforce, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("Enforce")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Enforce, actual.Enforce, dcl.Info{OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("Enforce")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1539,19 +1548,13 @@ func expandPolicySpecRules(c *Client, f *PolicySpecRules) (map[string]interface{
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["values"] = v
 	}
-	if v, err := expandPolicyRulesAllowAll(f, f.AllowAll); err != nil {
-		return nil, fmt.Errorf("error expanding AllowAll into allowAll: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowAll; !dcl.IsEmptyValueIndirect(v) {
 		m["allowAll"] = v
 	}
-	if v, err := expandPolicyRulesDenyAll(f, f.DenyAll); err != nil {
-		return nil, fmt.Errorf("error expanding DenyAll into denyAll: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DenyAll; !dcl.IsEmptyValueIndirect(v) {
 		m["denyAll"] = v
 	}
-	if v, err := expandPolicyRulesEnforce(f, f.Enforce); err != nil {
-		return nil, fmt.Errorf("error expanding Enforce into enforce: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Enforce; !dcl.IsEmptyValueIndirect(v) {
 		m["enforce"] = v
 	}
 	if v, err := expandPolicySpecRulesCondition(c, f.Condition); err != nil {
@@ -1577,9 +1580,9 @@ func flattenPolicySpecRules(c *Client, i interface{}) *PolicySpecRules {
 		return EmptyPolicySpecRules
 	}
 	r.Values = flattenPolicySpecRulesValues(c, m["values"])
-	r.AllowAll = flattenPolicyRulesAllowAll(m["allowAll"])
-	r.DenyAll = flattenPolicyRulesDenyAll(m["denyAll"])
-	r.Enforce = flattenPolicyRulesEnforce(m["enforce"])
+	r.AllowAll = dcl.FlattenBool(m["allowAll"])
+	r.DenyAll = dcl.FlattenBool(m["denyAll"])
+	r.Enforce = dcl.FlattenBool(m["enforce"])
 	r.Condition = flattenPolicySpecRulesCondition(c, m["condition"])
 
 	return r
@@ -1827,159 +1830,6 @@ func flattenPolicySpecRulesCondition(c *Client, i interface{}) *PolicySpecRulesC
 	r.Location = dcl.FlattenString(m["location"])
 
 	return r
-}
-
-// flattenPolicySpecRulesAllowAllEnumMap flattens the contents of PolicySpecRulesAllowAllEnum from a JSON
-// response object.
-func flattenPolicySpecRulesAllowAllEnumMap(c *Client, i interface{}) map[string]PolicySpecRulesAllowAllEnum {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]PolicySpecRulesAllowAllEnum{}
-	}
-
-	if len(a) == 0 {
-		return map[string]PolicySpecRulesAllowAllEnum{}
-	}
-
-	items := make(map[string]PolicySpecRulesAllowAllEnum)
-	for k, item := range a {
-		items[k] = *flattenPolicySpecRulesAllowAllEnum(item.(interface{}))
-	}
-
-	return items
-}
-
-// flattenPolicySpecRulesAllowAllEnumSlice flattens the contents of PolicySpecRulesAllowAllEnum from a JSON
-// response object.
-func flattenPolicySpecRulesAllowAllEnumSlice(c *Client, i interface{}) []PolicySpecRulesAllowAllEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []PolicySpecRulesAllowAllEnum{}
-	}
-
-	if len(a) == 0 {
-		return []PolicySpecRulesAllowAllEnum{}
-	}
-
-	items := make([]PolicySpecRulesAllowAllEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenPolicySpecRulesAllowAllEnum(item.(interface{})))
-	}
-
-	return items
-}
-
-// flattenPolicySpecRulesAllowAllEnum asserts that an interface is a string, and returns a
-// pointer to a *PolicySpecRulesAllowAllEnum with the same value as that string.
-func flattenPolicySpecRulesAllowAllEnum(i interface{}) *PolicySpecRulesAllowAllEnum {
-	s, ok := i.(string)
-	if !ok {
-		return PolicySpecRulesAllowAllEnumRef("")
-	}
-
-	return PolicySpecRulesAllowAllEnumRef(s)
-}
-
-// flattenPolicySpecRulesDenyAllEnumMap flattens the contents of PolicySpecRulesDenyAllEnum from a JSON
-// response object.
-func flattenPolicySpecRulesDenyAllEnumMap(c *Client, i interface{}) map[string]PolicySpecRulesDenyAllEnum {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]PolicySpecRulesDenyAllEnum{}
-	}
-
-	if len(a) == 0 {
-		return map[string]PolicySpecRulesDenyAllEnum{}
-	}
-
-	items := make(map[string]PolicySpecRulesDenyAllEnum)
-	for k, item := range a {
-		items[k] = *flattenPolicySpecRulesDenyAllEnum(item.(interface{}))
-	}
-
-	return items
-}
-
-// flattenPolicySpecRulesDenyAllEnumSlice flattens the contents of PolicySpecRulesDenyAllEnum from a JSON
-// response object.
-func flattenPolicySpecRulesDenyAllEnumSlice(c *Client, i interface{}) []PolicySpecRulesDenyAllEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []PolicySpecRulesDenyAllEnum{}
-	}
-
-	if len(a) == 0 {
-		return []PolicySpecRulesDenyAllEnum{}
-	}
-
-	items := make([]PolicySpecRulesDenyAllEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenPolicySpecRulesDenyAllEnum(item.(interface{})))
-	}
-
-	return items
-}
-
-// flattenPolicySpecRulesDenyAllEnum asserts that an interface is a string, and returns a
-// pointer to a *PolicySpecRulesDenyAllEnum with the same value as that string.
-func flattenPolicySpecRulesDenyAllEnum(i interface{}) *PolicySpecRulesDenyAllEnum {
-	s, ok := i.(string)
-	if !ok {
-		return PolicySpecRulesDenyAllEnumRef("")
-	}
-
-	return PolicySpecRulesDenyAllEnumRef(s)
-}
-
-// flattenPolicySpecRulesEnforceEnumMap flattens the contents of PolicySpecRulesEnforceEnum from a JSON
-// response object.
-func flattenPolicySpecRulesEnforceEnumMap(c *Client, i interface{}) map[string]PolicySpecRulesEnforceEnum {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]PolicySpecRulesEnforceEnum{}
-	}
-
-	if len(a) == 0 {
-		return map[string]PolicySpecRulesEnforceEnum{}
-	}
-
-	items := make(map[string]PolicySpecRulesEnforceEnum)
-	for k, item := range a {
-		items[k] = *flattenPolicySpecRulesEnforceEnum(item.(interface{}))
-	}
-
-	return items
-}
-
-// flattenPolicySpecRulesEnforceEnumSlice flattens the contents of PolicySpecRulesEnforceEnum from a JSON
-// response object.
-func flattenPolicySpecRulesEnforceEnumSlice(c *Client, i interface{}) []PolicySpecRulesEnforceEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []PolicySpecRulesEnforceEnum{}
-	}
-
-	if len(a) == 0 {
-		return []PolicySpecRulesEnforceEnum{}
-	}
-
-	items := make([]PolicySpecRulesEnforceEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenPolicySpecRulesEnforceEnum(item.(interface{})))
-	}
-
-	return items
-}
-
-// flattenPolicySpecRulesEnforceEnum asserts that an interface is a string, and returns a
-// pointer to a *PolicySpecRulesEnforceEnum with the same value as that string.
-func flattenPolicySpecRulesEnforceEnum(i interface{}) *PolicySpecRulesEnforceEnum {
-	s, ok := i.(string)
-	if !ok {
-		return PolicySpecRulesEnforceEnumRef("")
-	}
-
-	return PolicySpecRulesEnforceEnumRef(s)
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
