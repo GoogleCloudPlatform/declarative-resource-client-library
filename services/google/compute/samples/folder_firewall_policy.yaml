@@ -31,10 +31,10 @@ updates:
   - samples/update_folder.firewall_policy.json
   resource: samples/update_folder.firewall_policy_rule.json
 variables:
-- name: org_id
-  type: org_id
 - name: folder
   type: resource_name
+- name: org_id
+  type: org_id
 - name: id
   type: resource_name
 - name: billing_account
