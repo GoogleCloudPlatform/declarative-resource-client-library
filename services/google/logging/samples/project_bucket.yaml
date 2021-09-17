@@ -26,14 +26,14 @@ updates:
   - samples/project.cloudresourcemanager.project.json
   resource: samples/update_project.log_bucket.json
 variables:
-- name: org_id
-  type: org_id
 - name: log
   type: resource_name
-- name: test_service_account
-  type: test_service_account
+- name: org_id
+  type: org_id
 - name: billing_account
   type: billing_account
+- name: test_service_account
+  type: test_service_account
 - name: bucket
   type: resource_name
 versions:

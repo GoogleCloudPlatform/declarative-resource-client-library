@@ -848,7 +848,11 @@ func unmarshalTenantOAuthIdpConfig(b []byte, c *Client) (*TenantOAuthIdpConfig, 
 
 func unmarshalMapTenantOAuthIdpConfig(m map[string]interface{}, c *Client) (*TenantOAuthIdpConfig, error) {
 
-	return flattenTenantOAuthIdpConfig(c, m), nil
+	flattened := flattenTenantOAuthIdpConfig(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandTenantOAuthIdpConfig expands TenantOAuthIdpConfig into a JSON request object.

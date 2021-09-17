@@ -584,7 +584,11 @@ func unmarshalReservation(b []byte, c *Client) (*Reservation, error) {
 
 func unmarshalMapReservation(m map[string]interface{}, c *Client) (*Reservation, error) {
 
-	return flattenReservation(c, m), nil
+	flattened := flattenReservation(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandReservation expands Reservation into a JSON request object.

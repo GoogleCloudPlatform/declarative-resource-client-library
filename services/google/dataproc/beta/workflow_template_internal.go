@@ -5663,7 +5663,11 @@ func unmarshalWorkflowTemplate(b []byte, c *Client) (*WorkflowTemplate, error) {
 
 func unmarshalMapWorkflowTemplate(m map[string]interface{}, c *Client) (*WorkflowTemplate, error) {
 
-	return flattenWorkflowTemplate(c, m), nil
+	flattened := flattenWorkflowTemplate(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandWorkflowTemplate expands WorkflowTemplate into a JSON request object.

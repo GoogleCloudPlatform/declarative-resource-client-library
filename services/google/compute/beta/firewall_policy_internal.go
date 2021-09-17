@@ -553,7 +553,11 @@ func unmarshalFirewallPolicy(b []byte, c *Client) (*FirewallPolicy, error) {
 
 func unmarshalMapFirewallPolicy(m map[string]interface{}, c *Client) (*FirewallPolicy, error) {
 
-	return flattenFirewallPolicy(c, m), nil
+	flattened := flattenFirewallPolicy(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandFirewallPolicy expands FirewallPolicy into a JSON request object.

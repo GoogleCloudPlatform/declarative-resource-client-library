@@ -529,7 +529,11 @@ func unmarshalAssignment(b []byte, c *Client) (*Assignment, error) {
 
 func unmarshalMapAssignment(m map[string]interface{}, c *Client) (*Assignment, error) {
 
-	return flattenAssignment(c, m), nil
+	flattened := flattenAssignment(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandAssignment expands Assignment into a JSON request object.

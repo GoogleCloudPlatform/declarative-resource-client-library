@@ -2992,7 +2992,11 @@ func unmarshalCertificateTemplate(b []byte, c *Client) (*CertificateTemplate, er
 
 func unmarshalMapCertificateTemplate(m map[string]interface{}, c *Client) (*CertificateTemplate, error) {
 
-	return flattenCertificateTemplate(c, m), nil
+	flattened := flattenCertificateTemplate(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandCertificateTemplate expands CertificateTemplate into a JSON request object.

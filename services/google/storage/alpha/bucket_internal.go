@@ -1979,7 +1979,11 @@ func unmarshalBucket(b []byte, c *Client) (*Bucket, error) {
 
 func unmarshalMapBucket(m map[string]interface{}, c *Client) (*Bucket, error) {
 
-	return flattenBucket(c, m), nil
+	flattened := flattenBucket(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandBucket expands Bucket into a JSON request object.

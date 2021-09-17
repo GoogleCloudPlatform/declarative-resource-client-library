@@ -2486,7 +2486,11 @@ func unmarshalNote(b []byte, c *Client) (*Note, error) {
 
 func unmarshalMapNote(m map[string]interface{}, c *Client) (*Note, error) {
 
-	return flattenNote(c, m), nil
+	flattened := flattenNote(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandNote expands Note into a JSON request object.

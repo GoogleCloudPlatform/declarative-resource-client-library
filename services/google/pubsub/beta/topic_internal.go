@@ -731,7 +731,11 @@ func unmarshalTopic(b []byte, c *Client) (*Topic, error) {
 
 func unmarshalMapTopic(m map[string]interface{}, c *Client) (*Topic, error) {
 
-	return flattenTopic(c, m), nil
+	flattened := flattenTopic(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandTopic expands Topic into a JSON request object.

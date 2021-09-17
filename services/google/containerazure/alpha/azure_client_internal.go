@@ -559,7 +559,11 @@ func unmarshalAzureClient(b []byte, c *Client) (*AzureClient, error) {
 
 func unmarshalMapAzureClient(m map[string]interface{}, c *Client) (*AzureClient, error) {
 
-	return flattenAzureClient(c, m), nil
+	flattened := flattenAzureClient(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandAzureClient expands AzureClient into a JSON request object.

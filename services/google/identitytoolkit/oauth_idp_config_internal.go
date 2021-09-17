@@ -824,7 +824,11 @@ func unmarshalOAuthIdpConfig(b []byte, c *Client) (*OAuthIdpConfig, error) {
 
 func unmarshalMapOAuthIdpConfig(m map[string]interface{}, c *Client) (*OAuthIdpConfig, error) {
 
-	return flattenOAuthIdpConfig(c, m), nil
+	flattened := flattenOAuthIdpConfig(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandOAuthIdpConfig expands OAuthIdpConfig into a JSON request object.

@@ -260,7 +260,11 @@ func Diff(desired, actual interface{}, info Info, fn FieldName) ([]*FieldDiff, e
 		}
 
 		// Want empty value, but non-empty value currrently exists.
-		if IsEmptyValueIndirect(desired) && !IsEmptyValueIndirect(actual) {
+		// Only consider *explicitly* empty values, rather than "some combination
+		// of nils and falses" (as IEVI would do), because of the case comparing
+		// a non-explicitly empty struct with a struct containing only computed fields.
+		// See compute's `validate_test.go` for example.
+		if hasEmptyStructField(desired) && !IsEmptyValueIndirect(actual) {
 			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: desired, Actual: actual})
 			addOperationToDiffs(diffs, info)
 			return diffs, nil

@@ -1539,7 +1539,11 @@ func unmarshalFeatureMembership(b []byte, c *Client) (*FeatureMembership, error)
 
 func unmarshalMapFeatureMembership(m map[string]interface{}, c *Client) (*FeatureMembership, error) {
 
-	return flattenFeatureMembership(c, m), nil
+	flattened := flattenFeatureMembership(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandFeatureMembership expands FeatureMembership into a JSON request object.

@@ -640,7 +640,11 @@ func unmarshalRealm(b []byte, c *Client) (*Realm, error) {
 
 func unmarshalMapRealm(m map[string]interface{}, c *Client) (*Realm, error) {
 
-	return flattenRealm(c, m), nil
+	flattened := flattenRealm(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandRealm expands Realm into a JSON request object.

@@ -1716,7 +1716,11 @@ func unmarshalPacketMirroring(b []byte, c *Client) (*PacketMirroring, error) {
 
 func unmarshalMapPacketMirroring(m map[string]interface{}, c *Client) (*PacketMirroring, error) {
 
-	return flattenPacketMirroring(c, m), nil
+	flattened := flattenPacketMirroring(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandPacketMirroring expands PacketMirroring into a JSON request object.

@@ -105,9 +105,6 @@ type capacityCommitmentApiOperation interface {
 func newUpdateCapacityCommitmentUpdateCapacityCommitmentRequest(ctx context.Context, f *CapacityCommitment, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	if v := f.SlotCount; !dcl.IsEmptyValueIndirect(v) {
-		req["slotCount"] = v
-	}
 	if v := f.Plan; !dcl.IsEmptyValueIndirect(v) {
 		req["plan"] = v
 	}
@@ -796,7 +793,7 @@ func diffCapacityCommitment(c *Client, desired, actual *CapacityCommitment, opts
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SlotCount, actual.SlotCount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateCapacityCommitmentUpdateCapacityCommitmentOperation")}, fn.AddNest("SlotCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SlotCount, actual.SlotCount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SlotCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -989,7 +986,11 @@ func unmarshalCapacityCommitment(b []byte, c *Client) (*CapacityCommitment, erro
 
 func unmarshalMapCapacityCommitment(m map[string]interface{}, c *Client) (*CapacityCommitment, error) {
 
-	return flattenCapacityCommitment(c, m), nil
+	flattened := flattenCapacityCommitment(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandCapacityCommitment expands CapacityCommitment into a JSON request object.

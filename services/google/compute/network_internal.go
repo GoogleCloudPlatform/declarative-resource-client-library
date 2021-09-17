@@ -746,7 +746,11 @@ func unmarshalNetwork(b []byte, c *Client) (*Network, error) {
 
 func unmarshalMapNetwork(m map[string]interface{}, c *Client) (*Network, error) {
 
-	return flattenNetwork(c, m), nil
+	flattened := flattenNetwork(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandNetwork expands Network into a JSON request object.

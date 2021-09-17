@@ -578,7 +578,11 @@ func unmarshalProject(b []byte, c *Client) (*Project, error) {
 
 func unmarshalMapProject(m map[string]interface{}, c *Client) (*Project, error) {
 
-	return flattenProject(c, m), nil
+	flattened := flattenProject(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandProject expands Project into a JSON request object.

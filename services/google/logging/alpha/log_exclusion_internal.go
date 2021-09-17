@@ -595,7 +595,11 @@ func unmarshalLogExclusion(b []byte, c *Client) (*LogExclusion, error) {
 
 func unmarshalMapLogExclusion(m map[string]interface{}, c *Client) (*LogExclusion, error) {
 
-	return flattenLogExclusion(c, m), nil
+	flattened := flattenLogExclusion(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandLogExclusion expands LogExclusion into a JSON request object.

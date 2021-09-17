@@ -593,7 +593,11 @@ func unmarshalFolder(b []byte, c *Client) (*Folder, error) {
 
 func unmarshalMapFolder(m map[string]interface{}, c *Client) (*Folder, error) {
 
-	return flattenFolder(c, m), nil
+	flattened := flattenFolder(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandFolder expands Folder into a JSON request object.

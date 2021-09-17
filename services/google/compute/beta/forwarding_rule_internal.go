@@ -1508,7 +1508,11 @@ func unmarshalForwardingRule(b []byte, c *Client) (*ForwardingRule, error) {
 
 func unmarshalMapForwardingRule(m map[string]interface{}, c *Client) (*ForwardingRule, error) {
 
-	return flattenForwardingRule(c, m), nil
+	flattened := flattenForwardingRule(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandForwardingRule expands ForwardingRule into a JSON request object.

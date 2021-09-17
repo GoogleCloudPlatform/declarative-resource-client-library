@@ -8359,7 +8359,11 @@ func unmarshalDashboard(b []byte, c *Client) (*Dashboard, error) {
 
 func unmarshalMapDashboard(m map[string]interface{}, c *Client) (*Dashboard, error) {
 
-	return flattenDashboard(c, m), nil
+	flattened := flattenDashboard(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandDashboard expands Dashboard into a JSON request object.

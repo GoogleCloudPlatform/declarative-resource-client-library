@@ -1083,7 +1083,11 @@ func unmarshalWorkloadIdentityPoolProvider(b []byte, c *Client) (*WorkloadIdenti
 
 func unmarshalMapWorkloadIdentityPoolProvider(m map[string]interface{}, c *Client) (*WorkloadIdentityPoolProvider, error) {
 
-	return flattenWorkloadIdentityPoolProvider(c, m), nil
+	flattened := flattenWorkloadIdentityPoolProvider(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandWorkloadIdentityPoolProvider expands WorkloadIdentityPoolProvider into a JSON request object.

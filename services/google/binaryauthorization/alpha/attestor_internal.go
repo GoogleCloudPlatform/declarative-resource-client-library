@@ -1073,7 +1073,11 @@ func unmarshalAttestor(b []byte, c *Client) (*Attestor, error) {
 
 func unmarshalMapAttestor(m map[string]interface{}, c *Client) (*Attestor, error) {
 
-	return flattenAttestor(c, m), nil
+	flattened := flattenAttestor(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandAttestor expands Attestor into a JSON request object.

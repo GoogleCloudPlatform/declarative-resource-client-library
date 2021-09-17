@@ -2113,7 +2113,11 @@ func unmarshalFeature(b []byte, c *Client) (*Feature, error) {
 
 func unmarshalMapFeature(m map[string]interface{}, c *Client) (*Feature, error) {
 
-	return flattenFeature(c, m), nil
+	flattened := flattenFeature(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandFeature expands Feature into a JSON request object.

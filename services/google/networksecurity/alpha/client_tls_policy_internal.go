@@ -1889,7 +1889,11 @@ func unmarshalClientTlsPolicy(b []byte, c *Client) (*ClientTlsPolicy, error) {
 
 func unmarshalMapClientTlsPolicy(m map[string]interface{}, c *Client) (*ClientTlsPolicy, error) {
 
-	return flattenClientTlsPolicy(c, m), nil
+	flattened := flattenClientTlsPolicy(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandClientTlsPolicy expands ClientTlsPolicy into a JSON request object.

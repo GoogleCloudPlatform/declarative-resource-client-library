@@ -1368,7 +1368,11 @@ func unmarshalEndpointPolicy(b []byte, c *Client) (*EndpointPolicy, error) {
 
 func unmarshalMapEndpointPolicy(m map[string]interface{}, c *Client) (*EndpointPolicy, error) {
 
-	return flattenEndpointPolicy(c, m), nil
+	flattened := flattenEndpointPolicy(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandEndpointPolicy expands EndpointPolicy into a JSON request object.

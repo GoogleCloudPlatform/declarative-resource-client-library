@@ -416,7 +416,11 @@ func unmarshalBrand(b []byte, c *Client) (*Brand, error) {
 
 func unmarshalMapBrand(m map[string]interface{}, c *Client) (*Brand, error) {
 
-	return flattenBrand(c, m), nil
+	flattened := flattenBrand(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandBrand expands Brand into a JSON request object.

@@ -603,7 +603,11 @@ func unmarshalGroup(b []byte, c *Client) (*Group, error) {
 
 func unmarshalMapGroup(m map[string]interface{}, c *Client) (*Group, error) {
 
-	return flattenGroup(c, m), nil
+	flattened := flattenGroup(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandGroup expands Group into a JSON request object.

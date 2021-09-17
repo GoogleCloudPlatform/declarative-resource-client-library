@@ -1189,7 +1189,11 @@ func unmarshalWorkload(b []byte, c *Client) (*Workload, error) {
 
 func unmarshalMapWorkload(m map[string]interface{}, c *Client) (*Workload, error) {
 
-	return flattenWorkload(c, m), nil
+	flattened := flattenWorkload(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandWorkload expands Workload into a JSON request object.

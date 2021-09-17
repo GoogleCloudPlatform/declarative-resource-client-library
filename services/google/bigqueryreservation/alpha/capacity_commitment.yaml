@@ -200,6 +200,7 @@ components:
           format: int64
           x-dcl-go-name: SlotCount
           description: Number of slots in this commitment.
+          x-kubernetes-immutable: true
         state:
           type: string
           x-dcl-go-name: State

@@ -815,7 +815,11 @@ func unmarshalTenant(b []byte, c *Client) (*Tenant, error) {
 
 func unmarshalMapTenant(m map[string]interface{}, c *Client) (*Tenant, error) {
 
-	return flattenTenant(c, m), nil
+	flattened := flattenTenant(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandTenant expands Tenant into a JSON request object.

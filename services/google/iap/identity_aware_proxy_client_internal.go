@@ -493,7 +493,11 @@ func unmarshalIdentityAwareProxyClient(b []byte, c *Client) (*IdentityAwareProxy
 
 func unmarshalMapIdentityAwareProxyClient(m map[string]interface{}, c *Client) (*IdentityAwareProxyClient, error) {
 
-	return flattenIdentityAwareProxyClient(c, m), nil
+	flattened := flattenIdentityAwareProxyClient(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandIdentityAwareProxyClient expands IdentityAwareProxyClient into a JSON request object.

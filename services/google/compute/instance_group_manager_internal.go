@@ -3560,7 +3560,11 @@ func unmarshalInstanceGroupManager(b []byte, c *Client) (*InstanceGroupManager, 
 
 func unmarshalMapInstanceGroupManager(m map[string]interface{}, c *Client) (*InstanceGroupManager, error) {
 
-	return flattenInstanceGroupManager(c, m), nil
+	flattened := flattenInstanceGroupManager(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandInstanceGroupManager expands InstanceGroupManager into a JSON request object.

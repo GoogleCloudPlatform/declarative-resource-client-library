@@ -2420,7 +2420,11 @@ func unmarshalJob(b []byte, c *Client) (*Job, error) {
 
 func unmarshalMapJob(m map[string]interface{}, c *Client) (*Job, error) {
 
-	return flattenJob(c, m), nil
+	flattened := flattenJob(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandJob expands Job into a JSON request object.

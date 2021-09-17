@@ -1767,7 +1767,11 @@ func unmarshalNodePool(b []byte, c *Client) (*NodePool, error) {
 
 func unmarshalMapNodePool(m map[string]interface{}, c *Client) (*NodePool, error) {
 
-	return flattenNodePool(c, m), nil
+	flattened := flattenNodePool(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandNodePool expands NodePool into a JSON request object.

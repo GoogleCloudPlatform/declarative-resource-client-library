@@ -706,7 +706,11 @@ func unmarshalBackup(b []byte, c *Client) (*Backup, error) {
 
 func unmarshalMapBackup(m map[string]interface{}, c *Client) (*Backup, error) {
 
-	return flattenBackup(c, m), nil
+	flattened := flattenBackup(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandBackup expands Backup into a JSON request object.

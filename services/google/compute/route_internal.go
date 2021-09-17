@@ -972,7 +972,11 @@ func unmarshalMapRoute(m map[string]interface{}, c *Client) (*Route, error) {
 		)
 	}
 
-	return flattenRoute(c, m), nil
+	flattened := flattenRoute(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandRoute expands Route into a JSON request object.

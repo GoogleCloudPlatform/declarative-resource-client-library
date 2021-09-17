@@ -2232,7 +2232,11 @@ func unmarshalMembership(b []byte, c *Client) (*Membership, error) {
 
 func unmarshalMapMembership(m map[string]interface{}, c *Client) (*Membership, error) {
 
-	return flattenMembership(c, m), nil
+	flattened := flattenMembership(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandMembership expands Membership into a JSON request object.

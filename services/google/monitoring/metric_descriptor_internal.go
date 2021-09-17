@@ -980,7 +980,11 @@ func unmarshalMetricDescriptor(b []byte, c *Client) (*MetricDescriptor, error) {
 
 func unmarshalMapMetricDescriptor(m map[string]interface{}, c *Client) (*MetricDescriptor, error) {
 
-	return flattenMetricDescriptor(c, m), nil
+	flattened := flattenMetricDescriptor(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandMetricDescriptor expands MetricDescriptor into a JSON request object.

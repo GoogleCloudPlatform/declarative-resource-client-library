@@ -1272,7 +1272,11 @@ func unmarshalInstance(b []byte, c *Client) (*Instance, error) {
 
 func unmarshalMapInstance(m map[string]interface{}, c *Client) (*Instance, error) {
 
-	return flattenInstance(c, m), nil
+	flattened := flattenInstance(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandInstance expands Instance into a JSON request object.

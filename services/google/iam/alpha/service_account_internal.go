@@ -990,7 +990,11 @@ func unmarshalServiceAccount(b []byte, c *Client) (*ServiceAccount, error) {
 
 func unmarshalMapServiceAccount(m map[string]interface{}, c *Client) (*ServiceAccount, error) {
 
-	return flattenServiceAccount(c, m), nil
+	flattened := flattenServiceAccount(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandServiceAccount expands ServiceAccount into a JSON request object.

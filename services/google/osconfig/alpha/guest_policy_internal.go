@@ -5926,7 +5926,11 @@ func unmarshalGuestPolicy(b []byte, c *Client) (*GuestPolicy, error) {
 
 func unmarshalMapGuestPolicy(m map[string]interface{}, c *Client) (*GuestPolicy, error) {
 
-	return flattenGuestPolicy(c, m), nil
+	flattened := flattenGuestPolicy(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandGuestPolicy expands GuestPolicy into a JSON request object.

@@ -867,7 +867,11 @@ func unmarshalRole(b []byte, c *Client) (*Role, error) {
 
 func unmarshalMapRole(m map[string]interface{}, c *Client) (*Role, error) {
 
-	return flattenRole(c, m), nil
+	flattened := flattenRole(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandRole expands Role into a JSON request object.

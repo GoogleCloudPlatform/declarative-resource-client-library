@@ -1308,7 +1308,11 @@ func unmarshalAutoscalingPolicy(b []byte, c *Client) (*AutoscalingPolicy, error)
 
 func unmarshalMapAutoscalingPolicy(m map[string]interface{}, c *Client) (*AutoscalingPolicy, error) {
 
-	return flattenAutoscalingPolicy(c, m), nil
+	flattened := flattenAutoscalingPolicy(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandAutoscalingPolicy expands AutoscalingPolicy into a JSON request object.

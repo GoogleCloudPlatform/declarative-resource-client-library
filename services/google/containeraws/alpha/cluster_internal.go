@@ -2510,7 +2510,11 @@ func unmarshalCluster(b []byte, c *Client) (*Cluster, error) {
 
 func unmarshalMapCluster(m map[string]interface{}, c *Client) (*Cluster, error) {
 
-	return flattenCluster(c, m), nil
+	flattened := flattenCluster(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandCluster expands Cluster into a JSON request object.

@@ -1554,7 +1554,11 @@ func unmarshalTrigger(b []byte, c *Client) (*Trigger, error) {
 
 func unmarshalMapTrigger(m map[string]interface{}, c *Client) (*Trigger, error) {
 
-	return flattenTrigger(c, m), nil
+	flattened := flattenTrigger(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandTrigger expands Trigger into a JSON request object.

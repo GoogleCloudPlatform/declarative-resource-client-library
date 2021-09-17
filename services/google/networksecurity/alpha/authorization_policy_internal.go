@@ -1341,7 +1341,11 @@ func unmarshalAuthorizationPolicy(b []byte, c *Client) (*AuthorizationPolicy, er
 
 func unmarshalMapAuthorizationPolicy(m map[string]interface{}, c *Client) (*AuthorizationPolicy, error) {
 
-	return flattenAuthorizationPolicy(c, m), nil
+	flattened := flattenAuthorizationPolicy(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandAuthorizationPolicy expands AuthorizationPolicy into a JSON request object.

@@ -964,7 +964,11 @@ func unmarshalWorkerPool(b []byte, c *Client) (*WorkerPool, error) {
 
 func unmarshalMapWorkerPool(m map[string]interface{}, c *Client) (*WorkerPool, error) {
 
-	return flattenWorkerPool(c, m), nil
+	flattened := flattenWorkerPool(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandWorkerPool expands WorkerPool into a JSON request object.

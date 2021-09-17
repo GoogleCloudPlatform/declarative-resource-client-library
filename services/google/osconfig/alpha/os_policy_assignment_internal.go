@@ -5852,7 +5852,11 @@ func unmarshalOSPolicyAssignment(b []byte, c *Client) (*OSPolicyAssignment, erro
 
 func unmarshalMapOSPolicyAssignment(m map[string]interface{}, c *Client) (*OSPolicyAssignment, error) {
 
-	return flattenOSPolicyAssignment(c, m), nil
+	flattened := flattenOSPolicyAssignment(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandOSPolicyAssignment expands OSPolicyAssignment into a JSON request object.

@@ -26,10 +26,10 @@ variables:
   type: project
 - name: region
   type: region
-- name: zone
-  type: zone
 - name: instance1
   type: resource_name
+- name: zone
+  type: zone
 - name: rule1
   type: resource_name
 - name: mirroring
