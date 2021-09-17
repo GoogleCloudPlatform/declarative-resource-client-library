@@ -20,20 +20,20 @@ name: iam_instance
 resource: samples/instance.iam.binding.json
 type: iam.binding
 variables:
-- name: instance1
-  type: resource_name
 - name: project
   type: project
 - name: zone
   type: zone
+- name: instance1
+  type: resource_name
 - name: compute_network
   type: resource_name
+- name: region
+  type: region
 - name: range
   type: resource_name
 - name: compute_subnetwork
   type: resource_name
-- name: region
-  type: region
 versions:
 - ga
 - beta

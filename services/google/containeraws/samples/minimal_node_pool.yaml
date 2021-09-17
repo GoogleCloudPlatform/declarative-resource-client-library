@@ -18,6 +18,8 @@ name: minimal_node_pool
 resource: samples/minimal.node_pool.json
 type: node_pool
 variables:
+- name: project
+  type: project
 - name: aws_vpc
   type: aws_vpc
 - name: aws_region
@@ -34,8 +36,6 @@ variables:
   type: aws_subnet
 - name: test_service_account
   type: test_service_account
-- name: project
-  type: project
 - name: pool
   type: resource_name
 versions:
