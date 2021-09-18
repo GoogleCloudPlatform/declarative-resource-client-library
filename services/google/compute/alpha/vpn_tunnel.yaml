@@ -286,3 +286,4 @@ components:
           description: The interface ID of the VPN gateway with which this VPN tunnel
             is associated.
           x-kubernetes-immutable: true
+          x-dcl-send-empty: true

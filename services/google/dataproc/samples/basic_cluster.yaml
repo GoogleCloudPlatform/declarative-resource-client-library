@@ -16,6 +16,8 @@ name: basic_cluster
 resource: samples/basic.cluster.json
 type: cluster
 variables:
+- name: zone
+  type: zone
 - name: cluster_name
   type: resource_name
 - name: region

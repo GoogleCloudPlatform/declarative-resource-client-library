@@ -18,13 +18,13 @@ name: basic_object
 resource: samples/basic.object.json
 type: object
 variables:
-- name: bucket
-  type: resource_name
 - name: project
   type: project
-- name: object
+- name: bucket
   type: resource_name
 - name: content
+  type: resource_name
+- name: object
   type: resource_name
 versions:
 - ga

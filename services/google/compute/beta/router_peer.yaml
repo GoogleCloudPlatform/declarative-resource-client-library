@@ -41,7 +41,11 @@ paths:
       required: true
       schema:
         type: string
-    - name: region
+    - name: location
+      required: true
+      schema:
+        type: string
+    - name: router
       required: true
       schema:
         type: string
@@ -52,7 +56,11 @@ paths:
       required: true
       schema:
         type: string
-    - name: region
+    - name: location
+      required: true
+      schema:
+        type: string
+    - name: router
       required: true
       schema:
         type: string
@@ -60,11 +68,14 @@ components:
   schemas:
     RouterPeer:
       title: RouterPeer
-      x-dcl-id: projects/{{project}}/regions/{{region}}/routers/{{router}}
-      x-dcl-locations:
-      - region
+      x-dcl-id: projects/{{project}}/regions/{{location}}/routers/{{router}}
       x-dcl-parent-container: project
       type: object
+      required:
+      - name
+      - location
+      - project
+      - router
       properties:
         advertiseMode:
           type: string
@@ -107,13 +118,6 @@ components:
           description: The priority of routes advertised to this BGP peer. Where there
             is more than one matching route of maximum length, the routes with the
             lowest priority value win.
-        creationTimestamp:
-          type: string
-          format: date-time
-          x-dcl-go-name: CreationTimestamp
-          readOnly: true
-          description: Creation timestamp in RFC3339 text format.
-          x-kubernetes-immutable: true
         interfaceName:
           type: string
           x-dcl-go-name: InterfaceName
@@ -123,6 +127,11 @@ components:
           x-dcl-go-name: IPAddress
           description: IP address of the interface inside Google Cloud Platform. Only
             IPv4 is supported.
+        location:
+          type: string
+          x-dcl-go-name: Location
+          description: The location of the resource
+          x-kubernetes-immutable: true
         managementType:
           type: string
           x-dcl-go-name: ManagementType
@@ -147,18 +156,10 @@ components:
         project:
           type: string
           x-dcl-go-name: Project
-          description: The project id of the resource.
+          description: The project id of the resource
           x-kubernetes-immutable: true
           x-dcl-references:
           - resource: Cloudresourcemanager/Project
-            field: name
-            parent: true
-        region:
-          type: string
-          x-dcl-go-name: Region
-          description: Region where the router resides.
-          x-dcl-references:
-          - resource: Compute/Region
             field: name
             parent: true
         router:
@@ -171,3 +172,7 @@ components:
             characters must be a dash, lowercase letter, or digit, except the last
             character, which cannot be a dash. '
           x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Compute/Router
+            field: name
+            parent: true

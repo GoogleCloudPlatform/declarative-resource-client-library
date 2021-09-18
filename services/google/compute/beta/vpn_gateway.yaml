@@ -142,9 +142,9 @@ components:
           readOnly: true
           description: '[Output Only] Server-defined URL for the resource.'
           x-kubernetes-immutable: true
-        vpnInterface:
+        vpnInterfaces:
           type: array
-          x-dcl-go-name: VpnInterface
+          x-dcl-go-name: VpnInterfaces
           readOnly: true
           description: A list of interfaces on this VPN gateway.
           x-kubernetes-immutable: true
@@ -152,7 +152,7 @@ components:
           x-dcl-list-type: list
           items:
             type: object
-            x-dcl-go-type: VpnGatewayVpnInterface
+            x-dcl-go-type: VpnGatewayVpnInterfaces
             properties:
               id:
                 type: integer

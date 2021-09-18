@@ -1,0 +1,5 @@
+{
+  "name": "{{connectivity_network1}}",
+  "project": "{{project}}",
+  "autoCreateSubnetworks": false
+}

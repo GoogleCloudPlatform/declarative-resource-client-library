@@ -22,10 +22,10 @@ class WorkerPool(object):
     def __init__(
         self,
         name: str = None,
-        state: str = None,
         create_time: str = None,
         update_time: str = None,
         delete_time: str = None,
+        state: str = None,
         worker_config: dict = None,
         network_config: dict = None,
         project: str = None,
@@ -71,10 +71,10 @@ class WorkerPool(object):
 
         response = stub.ApplyCloudbuildBetaWorkerPool(request)
         self.name = Primitive.from_proto(response.name)
-        self.state = WorkerPoolStateEnum.from_proto(response.state)
         self.create_time = Primitive.from_proto(response.create_time)
         self.update_time = Primitive.from_proto(response.update_time)
         self.delete_time = Primitive.from_proto(response.delete_time)
+        self.state = WorkerPoolStateEnum.from_proto(response.state)
         self.worker_config = WorkerPoolWorkerConfig.from_proto(response.worker_config)
         self.network_config = WorkerPoolNetworkConfig.from_proto(
             response.network_config

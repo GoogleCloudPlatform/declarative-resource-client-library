@@ -92,7 +92,9 @@ components:
         name:
           type: string
           x-dcl-go-name: Name
-          description: User-defined name of the `WorkerPool`.
+          description: The resource name of the `WorkerPool`, with format `projects/{project}/locations/{location}/workerPools/{worker_pool}`.
+            The value of `{worker_pool}` is provided by `worker_pool_id` in `CreateWorkerPool`
+            request and the value of `{location}` is determined by the endpoint accessed.
           x-kubernetes-immutable: true
         networkConfig:
           type: object
@@ -153,8 +155,6 @@ components:
           x-dcl-go-name: WorkerConfig
           x-dcl-go-type: WorkerPoolWorkerConfig
           description: Configuration to be used for a creating workers in the `WorkerPool`.
-          x-kubernetes-immutable: true
-          x-dcl-server-default: true
           properties:
             diskSizeGb:
               type: integer

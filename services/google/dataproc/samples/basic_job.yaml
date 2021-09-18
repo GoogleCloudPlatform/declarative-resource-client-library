@@ -24,6 +24,8 @@ updates:
 variables:
 - name: project
   type: project
+- name: zone
+  type: zone
 - name: cluster_name
   type: resource_name
 - name: region

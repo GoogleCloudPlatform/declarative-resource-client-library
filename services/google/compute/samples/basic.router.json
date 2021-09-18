@@ -1,7 +1,7 @@
 {
   "name": "{{router}}",
   "project": "{{project}}",
-  "region": "{{region}}",
+  "location": "{{region}}",
   "network": "{{ref:basic.network.json:selfLink}}",
   "bgp": {
     "asn": 64514,

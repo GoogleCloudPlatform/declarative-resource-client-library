@@ -28,12 +28,12 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: region
-  type: region
 - name: range
   type: resource_name
 - name: compute_subnetwork
   type: resource_name
+- name: region
+  type: region
 - name: zone
   type: zone
 - name: instance2

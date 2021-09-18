@@ -1,0 +1,6 @@
+{
+  "name": "{{gateway1}}",
+  "project": "{{project}}",
+  "region": "{{region}}",
+  "network": "{{ref:first.compute.network.json:selfLink}}"
+}

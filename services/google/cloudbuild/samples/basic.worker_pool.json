@@ -1,13 +1,20 @@
 {
- "name": "{{resource_name}}",
- "location": "{{region}}",
- "project": "{{project}}",
-  "workerConfig": {
-    "machineType": "e2-standard-2",
-    "diskSizeGb": 100,
-    "noExternalIP": true
+  "name": "{{worker_pool}}",
+  "location": "{{region}}",
+  "project": "{{project}}",
+  "displayName": "sample-pool",
+  "annotations": {
+    "annotation-one": "value-one"
   },
-  "networkConfig": {
-    "peeredNetwork": "projects/{{project}}/global/networks/{{ref:basic.compute.network.json:name}}"
+  "privatePoolV1Config": {
+    "workerConfig": {
+      "machineType": "e2-standard-2",
+      "diskSizeGb": 100,
+      "noExternalIP": true
+    },
+    "networkConfig": {
+      "peeredNetwork": "projects/{{project}}/global/networks/{{ref:basic.compute.network.json:name}}",
+      "egressOption": "NO_PUBLIC_EGRESS"
+    }
   }
 }

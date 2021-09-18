@@ -1,5 +1,5 @@
 {
-  "name": "{{cloudbuild_network1}}",
+  "name": "{{cloudbuild_network}}",
   "project": "{{project}}",
   "autoCreateSubnetworks": false
 }

@@ -26,10 +26,10 @@ import (
 
 type WorkerPool struct {
 	Name          *string                  `json:"name"`
-	State         *WorkerPoolStateEnum     `json:"state"`
 	CreateTime    *string                  `json:"createTime"`
 	UpdateTime    *string                  `json:"updateTime"`
 	DeleteTime    *string                  `json:"deleteTime"`
+	State         *WorkerPoolStateEnum     `json:"state"`
 	WorkerConfig  *WorkerPoolWorkerConfig  `json:"workerConfig"`
 	NetworkConfig *WorkerPoolNetworkConfig `json:"networkConfig"`
 	Project       *string                  `json:"project"`
@@ -182,10 +182,10 @@ func (r *WorkerPool) ID() (string, error) {
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
 		"name":          dcl.ValueOrEmptyString(nr.Name),
-		"state":         dcl.ValueOrEmptyString(nr.State),
 		"createTime":    dcl.ValueOrEmptyString(nr.CreateTime),
 		"updateTime":    dcl.ValueOrEmptyString(nr.UpdateTime),
 		"deleteTime":    dcl.ValueOrEmptyString(nr.DeleteTime),
+		"state":         dcl.ValueOrEmptyString(nr.State),
 		"workerConfig":  dcl.ValueOrEmptyString(nr.WorkerConfig),
 		"networkConfig": dcl.ValueOrEmptyString(nr.NetworkConfig),
 		"project":       dcl.ValueOrEmptyString(nr.Project),

@@ -1,0 +1,14 @@
+{
+  "name": "{{spoke}}",
+  "project": "{{project}}",
+  "location": "{{region}}",
+  "labels": {
+    "label-one": "value-one"
+  },
+  "description": "A sample spoke with a linked routher appliance instance",
+  "hub": "projects/{{project}}/locations/global/hubs/{{ref:basic.hub.json:name}}",
+  "linkedRouterApplianceInstances": [{
+    "virtualMachine": "{{ref:router_appliance.compute.instance.json:selfLink}}",
+    "ipAddress": "10.0.0.2"
+  }]
+}

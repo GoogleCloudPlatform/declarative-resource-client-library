@@ -22,9 +22,9 @@ variables:
   type: byo_multicloud_prefix
 - name: azure_database_encryption_key_version
   type: azure_database_encryption_key_version
-- name: project
-  type: project
 - name: cluster
   type: resource_name
+- name: project
+  type: project
 versions:
 - alpha

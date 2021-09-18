@@ -1,0 +1,6 @@
+{
+  "name": "{{connectivity_router1}}",
+  "project": "{{project}}",
+  "location": "{{region}}",
+  "network": "{{ref:first.compute.network.json:selfLink}}"
+}

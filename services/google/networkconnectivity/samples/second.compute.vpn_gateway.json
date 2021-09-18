@@ -1,0 +1,6 @@
+{
+  "name": "{{gateway2}}",
+  "project": "{{project}}",
+  "region": "{{region}}",
+  "network": "{{ref:second.compute.network.json:selfLink}}"
+}

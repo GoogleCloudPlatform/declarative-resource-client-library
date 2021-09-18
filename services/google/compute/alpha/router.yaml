@@ -41,7 +41,7 @@ paths:
       required: true
       schema:
         type: string
-    - name: region
+    - name: location
       required: true
       schema:
         type: string
@@ -52,7 +52,7 @@ paths:
       required: true
       schema:
         type: string
-    - name: region
+    - name: location
       required: true
       schema:
         type: string
@@ -60,12 +60,15 @@ components:
   schemas:
     Router:
       title: Router
-      x-dcl-id: projects/{{project}}/regions/{{region}}/routers/{{name}}
+      x-dcl-id: projects/{{project}}/regions/{{location}}/routers/{{name}}
       x-dcl-locations:
       - region
-      x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
       type: object
+      required:
+      - name
+      - location
+      - project
       properties:
         bgp:
           type: object
@@ -127,95 +130,6 @@ components:
                 private ASN, either 16-bit or 32-bit. The value will be fixed for
                 this router resource. All VPN tunnels that link to this router will
                 have the same local ASN. '
-        bgpPeers:
-          type: array
-          x-dcl-go-name: BgpPeers
-          description: BGP information that must be configured into the routing stack
-            to establish BGP peering. This information must specify the peer ASN and
-            either the interface name, IP address, or peer IP address
-          x-dcl-send-empty: true
-          x-dcl-list-type: list
-          items:
-            type: object
-            x-dcl-go-type: RouterBgpPeers
-            properties:
-              advertiseMode:
-                type: string
-                x-dcl-go-name: AdvertiseMode
-                description: User-specified flag to indicate which mode to use for
-                  advertisement.
-              advertisedGroups:
-                type: array
-                x-dcl-go-name: AdvertisedGroups
-                description: User-specified list of prefix groups to advertise in
-                  custom mode
-                x-dcl-send-empty: true
-                x-dcl-list-type: list
-                items:
-                  type: string
-                  x-dcl-go-type: RouterBgpPeersAdvertisedGroupsEnum
-                  enum:
-                  - ALL_SUBNETS
-                  - ALL_VPC_SUBNETS
-                  - ALL_PEER_VPC_SUBNETS
-              advertisedIPRanges:
-                type: array
-                x-dcl-go-name: AdvertisedIPRanges
-                description: User-specified list of individual IP ranges to advertise
-                  in custom mode. This field can only be populated if advertiseMode
-                  is CUSTOM
-                x-dcl-send-empty: true
-                x-dcl-list-type: list
-                items:
-                  type: object
-                  x-dcl-go-type: RouterBgpPeersAdvertisedIPRanges
-                  properties:
-                    description:
-                      type: string
-                      x-dcl-go-name: Description
-                      description: User-specified description for the IP range.
-                    range:
-                      type: string
-                      x-dcl-go-name: Range
-                      description: The IP range to advertise. The value must be a
-                        CIDR-formatted string.
-              advertisedRoutePriority:
-                type: integer
-                format: int64
-                x-dcl-go-name: AdvertisedRoutePriority
-                description: The priority of routes advertised to this BGP peer. Where
-                  there is more than one matching route of maximum length, the routes
-                  with the lowest priority value win.
-              interfaceName:
-                type: string
-                x-dcl-go-name: InterfaceName
-                description: Name of the interface the BGP peer is associated with.
-              ipAddress:
-                type: string
-                x-dcl-go-name: IPAddress
-                description: IP address of the interface inside Google Cloud Platform.
-                  Only IPv4 is supported.
-              managementType:
-                type: string
-                x-dcl-go-name: ManagementType
-                readOnly: true
-                description: The resource that configures and manages this BGP peer
-              name:
-                type: string
-                x-dcl-go-name: Name
-                description: Name of this BGP peer
-              peerAsn:
-                type: integer
-                format: int64
-                x-dcl-go-name: PeerAsn
-                description: Peer BGP Autonomous System Number (ASN). Each BGP interface
-                  may use a different value.
-              peerIPAddress:
-                type: string
-                x-dcl-go-name: PeerIPAddress
-                description: IP address of the BGP interface outside Google Cloud
-                  Platform. Only IPv4 is supported.
-                x-dcl-mutable-unreadable: true
         creationTimestamp:
           type: string
           format: date-time
@@ -227,44 +141,11 @@ components:
           type: string
           x-dcl-go-name: Description
           description: 'An optional description of this resource. '
-        interfaces:
-          type: array
-          x-dcl-go-name: Interfaces
-          description: Router interfaces. Each interface requires either one linked
-            resource, (for example, linkedVpnTunnel), or IP address and IP address
-            range (for example, ipRange), or both.
-          x-dcl-send-empty: true
-          x-dcl-list-type: list
-          items:
-            type: object
-            x-dcl-go-type: RouterInterfaces
-            properties:
-              ipRange:
-                type: string
-                x-dcl-go-name: IPRange
-                description: IP address and range of the interface.
-              linkedVpnTunnel:
-                type: string
-                x-dcl-go-name: LinkedVpnTunnel
-                description: URI of the linked VPN tunnel, which must be in the same
-                  region as the router.
-                x-dcl-references:
-                - resource: Compute/VpnTunnel
-                  field: selfLink
-              managementType:
-                type: string
-                x-dcl-go-name: ManagementType
-                x-dcl-go-type: RouterInterfacesManagementTypeEnum
-                readOnly: true
-                description: 'The resource that configures and manages this interface.
-                  Possible values: MANAGED_BY_USER, MANAGED_BY_ATTACHMENT'
-                enum:
-                - MANAGED_BY_USER
-                - MANAGED_BY_ATTACHMENT
-              name:
-                type: string
-                x-dcl-go-name: Name
-                description: Name of this interface entry.
+        location:
+          type: string
+          x-dcl-go-name: Location
+          description: The location of the resource
+          x-kubernetes-immutable: true
         name:
           type: string
           x-dcl-go-name: Name
@@ -274,6 +155,7 @@ components:
             means the first character must be a lowercase letter, and all following
             characters must be a dash, lowercase letter, or digit, except the last
             character, which cannot be a dash. '
+          x-kubernetes-immutable: true
         nats:
           type: array
           x-dcl-go-name: Nats
@@ -424,7 +306,7 @@ components:
         project:
           type: string
           x-dcl-go-name: Project
-          description: The project id of the resource.
+          description: The project id of the resource
           x-kubernetes-immutable: true
           x-dcl-references:
           - resource: Cloudresourcemanager/Project
@@ -433,11 +315,9 @@ components:
         region:
           type: string
           x-dcl-go-name: Region
+          readOnly: true
           description: Region where the router resides.
-          x-dcl-references:
-          - resource: Compute/Region
-            field: name
-            parent: true
+          x-kubernetes-immutable: true
         selfLink:
           type: string
           x-dcl-go-name: SelfLink

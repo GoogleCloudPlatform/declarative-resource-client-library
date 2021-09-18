@@ -121,6 +121,23 @@ func newUpdateWorkerPoolUpdateWorkerPoolRequest(ctx context.Context, f *WorkerPo
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["workerConfig"] = v
 	}
+	b, err := c.getWorkerPoolRaw(ctx, f)
+	if err != nil {
+		return nil, err
+	}
+	var m map[string]interface{}
+	if err := json.Unmarshal(b, &m); err != nil {
+		return nil, err
+	}
+	rawEtag, err := dcl.GetMapEntry(
+		m,
+		[]string{"etag"},
+	)
+	if err != nil {
+		c.Config.Logger.WarningWithContextf(ctx, "Failed to fetch from JSON Path: %v", err)
+	} else {
+		req["etag"] = rawEtag.(string)
+	}
 	return req, nil
 }
 
@@ -481,11 +498,6 @@ func canonicalizeWorkerPoolNewState(c *Client, rawNew, rawDesired *WorkerPool) (
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		rawNew.State = rawDesired.State
-	} else {
-	}
-
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
@@ -498,6 +510,11 @@ func canonicalizeWorkerPoolNewState(c *Client, rawNew, rawDesired *WorkerPool) (
 
 	if dcl.IsNotReturnedByServer(rawNew.DeleteTime) && dcl.IsNotReturnedByServer(rawDesired.DeleteTime) {
 		rawNew.DeleteTime = rawDesired.DeleteTime
+	} else {
+	}
+
+	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
+		rawNew.State = rawDesired.State
 	} else {
 	}
 
@@ -785,13 +802,6 @@ func diffWorkerPool(c *Client, desired, actual *WorkerPool, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -813,7 +823,14 @@ func diffWorkerPool(c *Client, desired, actual *WorkerPool, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WorkerConfig, actual.WorkerConfig, dcl.Info{ObjectFunction: compareWorkerPoolWorkerConfigNewStyle, EmptyObject: EmptyWorkerPoolWorkerConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WorkerConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.WorkerConfig, actual.WorkerConfig, dcl.Info{ObjectFunction: compareWorkerPoolWorkerConfigNewStyle, EmptyObject: EmptyWorkerPoolWorkerConfig, OperationSelector: dcl.TriggersOperation("updateWorkerPoolUpdateWorkerPoolOperation")}, fn.AddNest("WorkerConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1016,10 +1033,10 @@ func flattenWorkerPool(c *Client, i interface{}) *WorkerPool {
 
 	res := &WorkerPool{}
 	res.Name = dcl.FlattenString(m["name"])
-	res.State = flattenWorkerPoolStateEnum(m["state"])
 	res.CreateTime = dcl.FlattenString(m["createTime"])
 	res.UpdateTime = dcl.FlattenString(m["updateTime"])
 	res.DeleteTime = dcl.FlattenString(m["deleteTime"])
+	res.State = flattenWorkerPoolStateEnum(m["state"])
 	res.WorkerConfig = flattenWorkerPoolWorkerConfig(c, m["workerConfig"])
 	res.NetworkConfig = flattenWorkerPoolNetworkConfig(c, m["networkConfig"])
 	res.Project = dcl.FlattenString(m["project"])

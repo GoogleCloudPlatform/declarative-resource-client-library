@@ -74,9 +74,9 @@ components:
         canIPForward:
           type: boolean
           x-dcl-go-name: CanIPForward
-          description: 'Allows this instance to send and receive packets with non-matching
+          description: Allows this instance to send and receive packets with non-matching
             destination or source IPs. This is required if you plan to use this instance
-            to forward routes. '
+            to forward routes.
           x-kubernetes-immutable: true
         cpuPlatform:
           type: string
@@ -102,8 +102,8 @@ components:
         disks:
           type: array
           x-dcl-go-name: Disks
-          description: 'An array of disks that are associated with the instances that
-            are created from this template. '
+          description: An array of disks that are associated with the instances that
+            are created from this template.
           x-kubernetes-immutable: true
           x-dcl-send-empty: true
           x-dcl-list-type: list
@@ -117,75 +117,75 @@ components:
                 description: 'Specifies whether the disk will be auto-deleted when
                   the instance is deleted (but not when the disk is detached from
                   the instance).  Tip: Disks should be set to autoDelete=true so that
-                  leftover disks are not left behind on machine deletion. '
+                  leftover disks are not left behind on machine deletion.'
                 x-kubernetes-immutable: true
               boot:
                 type: boolean
                 x-dcl-go-name: Boot
-                description: 'Indicates that this is a boot disk. The virtual machine
-                  will use the first partition of the disk for its root filesystem. '
+                description: Indicates that this is a boot disk. The virtual machine
+                  will use the first partition of the disk for its root filesystem.
                 x-kubernetes-immutable: true
               deviceName:
                 type: string
                 x-dcl-go-name: DeviceName
-                description: 'Specifies a unique device name of your choice that is
+                description: Specifies a unique device name of your choice that is
                   reflected into the /dev/disk/by-id/google-* tree of a Linux operating
                   system running within the instance. This name can be used to reference
-                  the device for mounting, resizing, and so on, from within the instance. '
+                  the device for mounting, resizing, and so on, from within the instance.
                 x-kubernetes-immutable: true
               diskEncryptionKey:
                 type: object
                 x-dcl-go-name: DiskEncryptionKey
                 x-dcl-go-type: InstanceDisksDiskEncryptionKey
-                description: 'Encrypts or decrypts a disk using a customer-supplied
-                  encryption key. '
+                description: Encrypts or decrypts a disk using a customer-supplied
+                  encryption key.
                 x-kubernetes-immutable: true
                 properties:
                   rawKey:
                     type: string
                     x-dcl-go-name: RawKey
-                    description: 'Specifies a 256-bit customer-supplied encryption
+                    description: Specifies a 256-bit customer-supplied encryption
                       key, encoded in RFC 4648 base64 to either encrypt or decrypt
-                      this resource. '
+                      this resource.
                     x-kubernetes-immutable: true
                   rsaEncryptedKey:
                     type: string
                     x-dcl-go-name: RsaEncryptedKey
-                    description: 'Specifies an RFC 4648 base64 encoded, RSA-wrapped
+                    description: Specifies an RFC 4648 base64 encoded, RSA-wrapped
                       2048-bit customer-supplied encryption key to either encrypt
-                      or decrypt this resource. '
+                      or decrypt this resource.
                     x-kubernetes-immutable: true
                   sha256:
                     type: string
                     x-dcl-go-name: Sha256
                     readOnly: true
-                    description: 'The RFC 4648 base64 encoded SHA-256 hash of the
-                      customer-supplied encryption key that protects this resource. '
+                    description: The RFC 4648 base64 encoded SHA-256 hash of the customer-supplied
+                      encryption key that protects this resource.
                     x-kubernetes-immutable: true
               index:
                 type: integer
                 format: int64
                 x-dcl-go-name: Index
-                description: 'Assigns a zero-based index to this disk, where 0 is
-                  reserved for the boot disk. For example, if you have many disks
-                  attached to an instance, each disk would have a unique index number.
-                  If not specified, the server will choose an appropriate value. '
+                description: Assigns a zero-based index to this disk, where 0 is reserved
+                  for the boot disk. For example, if you have many disks attached
+                  to an instance, each disk would have a unique index number. If not
+                  specified, the server will choose an appropriate value.
                 x-kubernetes-immutable: true
               initializeParams:
                 type: object
                 x-dcl-go-name: InitializeParams
                 x-dcl-go-type: InstanceDisksInitializeParams
-                description: 'Specifies the parameters for a new disk that will be
+                description: Specifies the parameters for a new disk that will be
                   created alongside the new instance. Use initialization parameters
-                  to create boot disks or local SSDs attached to the new instance. '
+                  to create boot disks or local SSDs attached to the new instance.
                 x-kubernetes-immutable: true
                 x-dcl-mutable-unreadable: true
                 properties:
                   diskName:
                     type: string
                     x-dcl-go-name: DiskName
-                    description: 'Specifies the disk name. If not specified, the default
-                      is to use the name of the instance. '
+                    description: Specifies the disk name. If not specified, the default
+                      is to use the name of the instance.
                     x-kubernetes-immutable: true
                   diskSizeGb:
                     type: integer
@@ -196,9 +196,9 @@ components:
                   diskType:
                     type: string
                     x-dcl-go-name: DiskType
-                    description: 'Reference to a disk type. Specifies the disk type
+                    description: Reference to a disk type. Specifies the disk type
                       to use to create the instance. If not specified, the default
-                      is pd-standard. '
+                      is pd-standard.
                     x-kubernetes-immutable: true
                     x-dcl-references:
                     - resource: Compute/DiskType
@@ -206,46 +206,45 @@ components:
                   sourceImage:
                     type: string
                     x-dcl-go-name: SourceImage
-                    description: 'The source image to create this disk. When creating
+                    description: The source image to create this disk. When creating
                       a new instance, one of initializeParams.sourceImage or disks.source
                       is required.  To create a disk with one of the public operating
-                      system images, specify the image by its family name. '
+                      system images, specify the image by its family name.
                     x-kubernetes-immutable: true
                   sourceImageEncryptionKey:
                     type: object
                     x-dcl-go-name: SourceImageEncryptionKey
                     x-dcl-go-type: InstanceDisksInitializeParamsSourceImageEncryptionKey
-                    description: 'The customer-supplied encryption key of the source
+                    description: The customer-supplied encryption key of the source
                       image. Required if the source image is protected by a customer-supplied
                       encryption key.  Instance templates do not store customer-supplied
                       encryption keys, so you cannot create disks for instances in
                       a managed instance group if the source images are encrypted
-                      with your own keys. '
+                      with your own keys.
                     x-kubernetes-immutable: true
                     properties:
                       rawKey:
                         type: string
                         x-dcl-go-name: RawKey
-                        description: 'Specifies a 256-bit customer-supplied encryption
+                        description: Specifies a 256-bit customer-supplied encryption
                           key, encoded in RFC 4648 base64 to either encrypt or decrypt
-                          this resource. '
+                          this resource.
                         x-kubernetes-immutable: true
                       sha256:
                         type: string
                         x-dcl-go-name: Sha256
                         readOnly: true
-                        description: 'The RFC 4648 base64 encoded SHA-256 hash of
-                          the customer-supplied encryption key that protects this
-                          resource. '
+                        description: The RFC 4648 base64 encoded SHA-256 hash of the
+                          customer-supplied encryption key that protects this resource.
                         x-kubernetes-immutable: true
               interface:
                 type: string
                 x-dcl-go-name: Interface
                 x-dcl-go-type: InstanceDisksInterfaceEnum
-                description: 'Specifies the disk interface to use for attaching this
+                description: Specifies the disk interface to use for attaching this
                   disk, which is either SCSI or NVME. The default is SCSI. Persistent
                   disks must always use SCSI and the request will fail if you attempt
-                  to attach a persistent disk in any other format than SCSI. '
+                  to attach a persistent disk in any other format than SCSI.
                 x-kubernetes-immutable: true
                 enum:
                 - SCSI
@@ -254,9 +253,9 @@ components:
                 type: string
                 x-dcl-go-name: Mode
                 x-dcl-go-type: InstanceDisksModeEnum
-                description: 'The mode in which to attach this disk, either READ_WRITE
+                description: The mode in which to attach this disk, either READ_WRITE
                   or READ_ONLY. If not specified, the default is to attach the disk
-                  in READ_WRITE mode. '
+                  in READ_WRITE mode.
                 x-kubernetes-immutable: true
                 enum:
                 - READ_WRITE
@@ -264,11 +263,11 @@ components:
               source:
                 type: string
                 x-dcl-go-name: Source
-                description: 'Reference to a disk. When creating a new instance, one
+                description: Reference to a disk. When creating a new instance, one
                   of initializeParams.sourceImage or disks.source is required.  If
                   desired, you can also attach existing non-root persistent disks
                   using this property. This field is only applicable for persistent
-                  disks. '
+                  disks.
                 x-kubernetes-immutable: true
                 x-dcl-references:
                 - resource: Compute/Disk
@@ -277,8 +276,8 @@ components:
                 type: string
                 x-dcl-go-name: Type
                 x-dcl-go-type: InstanceDisksTypeEnum
-                description: 'Specifies the type of the disk, either SCRATCH or PERSISTENT.
-                  If not specified, the default is PERSISTENT. '
+                description: Specifies the type of the disk, either SCRATCH or PERSISTENT.
+                  If not specified, the default is PERSISTENT.
                 x-kubernetes-immutable: true
                 enum:
                 - SCRATCH
@@ -287,8 +286,8 @@ components:
         guestAccelerators:
           type: array
           x-dcl-go-name: GuestAccelerators
-          description: 'List of the type and count of accelerator cards attached to
-            the instance '
+          description: List of the type and count of accelerator cards attached to
+            the instance
           x-kubernetes-immutable: true
           x-dcl-send-empty: true
           x-dcl-list-type: list
@@ -300,37 +299,36 @@ components:
                 type: integer
                 format: int64
                 x-dcl-go-name: AcceleratorCount
-                description: 'The number of the guest accelerator cards exposed to
-                  this instance. '
+                description: The number of the guest accelerator cards exposed to
+                  this instance.
                 x-kubernetes-immutable: true
               acceleratorType:
                 type: string
                 x-dcl-go-name: AcceleratorType
-                description: 'Full or partial URL of the accelerator type resource
-                  to expose to this instance. '
+                description: Full or partial URL of the accelerator type resource
+                  to expose to this instance.
                 x-kubernetes-immutable: true
         hostname:
           type: string
           x-dcl-go-name: Hostname
-          description: 'The hostname of the instance to be created. The specified
-            hostname must be RFC1035 compliant. If hostname is not specified, the
-            default hostname is [INSTANCE_NAME].c.[PROJECT_ID].internal when using
-            the global DNS, and [INSTANCE_NAME].[ZONE].c.[PROJECT_ID].internal when
-            using zonal DNS. '
+          description: The hostname of the instance to be created. The specified hostname
+            must be RFC1035 compliant. If hostname is not specified, the default hostname
+            is [INSTANCE_NAME].c.[PROJECT_ID].internal when using the global DNS,
+            and [INSTANCE_NAME].[ZONE].c.[PROJECT_ID].internal when using zonal DNS.
           x-kubernetes-immutable: true
         id:
           type: string
           x-dcl-go-name: Id
           readOnly: true
-          description: 'The unique identifier for the resource. This identifier is
-            defined by the server. '
+          description: The unique identifier for the resource. This identifier is
+            defined by the server.
           x-kubernetes-immutable: true
         labels:
           type: object
           additionalProperties:
             type: string
           x-dcl-go-name: Labels
-          description: 'Labels to apply to this instance.  A list of key->value pairs. '
+          description: Labels to apply to this instance.  A list of key->value pairs.
         machineType:
           type: string
           x-dcl-go-name: MachineType
@@ -344,33 +342,33 @@ components:
           additionalProperties:
             type: string
           x-dcl-go-name: Metadata
-          description: 'The metadata key/value pairs to assign to instances that are
+          description: The metadata key/value pairs to assign to instances that are
             created from this template. These pairs can consist of custom metadata
-            or predefined keys. '
+            or predefined keys.
         minCpuPlatform:
           type: string
           x-dcl-go-name: MinCpuPlatform
-          description: 'Specifies a minimum CPU platform for the VM instance. Applicable
-            values are the friendly names of CPU platforms '
+          description: Specifies a minimum CPU platform for the VM instance. Applicable
+            values are the friendly names of CPU platforms
           x-kubernetes-immutable: true
         name:
           type: string
           x-dcl-go-name: Name
-          description: 'The name of the resource, provided by the client when initially
+          description: The name of the resource, provided by the client when initially
             creating the resource. The resource name must be 1-63 characters long,
             and comply with RFC1035. Specifically, the name must be 1-63 characters
             long and match the regular expression `[a-z]([-a-z0-9]*[a-z0-9])?` which
             means the first character must be a lowercase letter, and all following
             characters must be a dash, lowercase letter, or digit, except the last
-            character, which cannot be a dash. '
+            character, which cannot be a dash.
           x-kubernetes-immutable: true
         networkInterfaces:
           type: array
           x-dcl-go-name: NetworkInterfaces
-          description: 'An array of configurations for this interface. This specifies
+          description: An array of configurations for this interface. This specifies
             how this interface is configured to interact with other network services,
             such as connecting to the internet. Only one network interface is supported
-            per instance. '
+            per instance.
           x-kubernetes-immutable: true
           x-dcl-send-empty: true
           x-dcl-list-type: list
@@ -381,52 +379,100 @@ components:
               accessConfigs:
                 type: array
                 x-dcl-go-name: AccessConfigs
-                description: 'An array of configurations for this interface. Currently,
+                description: An array of configurations for this interface. Currently,
                   only one access config, ONE_TO_ONE_NAT, is supported. If there are
                   no accessConfigs specified, then this instance will have no external
-                  internet access. '
+                  internet access.
                 x-kubernetes-immutable: true
                 x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: object
-                  x-dcl-go-type: InstanceNetworkInterfacesAccessConfigs
+                  x-dcl-go-type: InstanceAccessConfig
                   required:
                   - name
                   - type
                   properties:
+                    externalIPv6:
+                      type: string
+                      x-dcl-go-name: ExternalIPv6
+                      readOnly: true
+                      description: The first IPv6 address of the external IPv6 range
+                        associated with this instance, prefix length is stored in
+                        externalIpv6PrefixLength in ipv6AccessConfig. The field is
+                        output only, an IPv6 address from a subnetwork associated
+                        with the instance will be allocated dynamically.
+                      x-kubernetes-immutable: true
+                    externalIPv6PrefixLength:
+                      type: string
+                      x-dcl-go-name: ExternalIPv6PrefixLength
+                      readOnly: true
+                      description: The prefix length of the external IPv6 range.
+                      x-kubernetes-immutable: true
                     name:
                       type: string
                       x-dcl-go-name: Name
-                      description: 'The name of this access configuration. The default
+                      description: The name of this access configuration. The default
                         and recommended name is External NAT but you can use any arbitrary
                         string you would like. For example, My external IP or Network
-                        Access. '
+                        Access.
                       x-kubernetes-immutable: true
                     natIP:
                       type: string
                       x-dcl-go-name: NatIP
-                      description: 'Reference to an address. An external IP address
+                      description: Reference to an address. An external IP address
                         associated with this instance. Specify an unused static external
                         IP address available to the project or leave this field undefined
                         to use an IP from a shared ephemeral IP address pool. If you
                         specify a static external IP address, it must live in the
-                        same region as the zone of the instance. '
+                        same region as the zone of the instance.
+                      x-kubernetes-immutable: true
+                      x-dcl-references:
+                      - resource: Compute/Address
+                        field: selfLink
+                    networkTier:
+                      type: string
+                      x-dcl-go-name: NetworkTier
+                      x-dcl-go-type: InstanceAccessConfigNetworkTierEnum
+                      description: 'This signifies the networking tier used for configuring
+                        this access configuration and can only take the following
+                        values: PREMIUM, STANDARD. If an AccessConfig is specified
+                        without a valid external IP address, an ephemeral IP will
+                        be created with this networkTier. If an AccessConfig with
+                        a valid external IP address is specified, it must match that
+                        of the networkTier associated with the Address resource owning
+                        that IP.'
+                      x-kubernetes-immutable: true
+                      enum:
+                      - PREMIUM
+                      - STANDARD
+                    publicPtrDomainName:
+                      type: string
+                      x-dcl-go-name: PublicPtrDomainName
+                      description: The DNS domain name for the public PTR record.
+                        You can set this field only if the setPublicPtr field is enabled.
+                      x-kubernetes-immutable: true
+                    setPublicPtr:
+                      type: boolean
+                      x-dcl-go-name: SetPublicPtr
+                      description: Specifies whether a public DNS 'PTR' record should
+                        be created to map the external IP address of the instance
+                        to a DNS domain name.
                       x-kubernetes-immutable: true
                     type:
                       type: string
                       x-dcl-go-name: Type
-                      x-dcl-go-type: InstanceNetworkInterfacesAccessConfigsTypeEnum
-                      description: 'The type of configuration. The default and only
-                        option is ONE_TO_ONE_NAT. '
+                      x-dcl-go-type: InstanceAccessConfigTypeEnum
+                      description: The type of configuration. The default and only
+                        option is ONE_TO_ONE_NAT.
                       x-kubernetes-immutable: true
                       enum:
                       - ONE_TO_ONE_NAT
               aliasIPRanges:
                 type: array
                 x-dcl-go-name: AliasIPRanges
-                description: 'An array of alias IP ranges for this network interface.
-                  Can only be specified for network interfaces on subnet-mode networks. '
+                description: An array of alias IP ranges for this network interface.
+                  Can only be specified for network interfaces on subnet-mode networks.
                 x-kubernetes-immutable: true
                 x-dcl-send-empty: true
                 x-dcl-list-type: list
@@ -437,36 +483,51 @@ components:
                     ipCidrRange:
                       type: string
                       x-dcl-go-name: IPCidrRange
-                      description: 'The IP CIDR range represented by this alias IP
+                      description: The IP CIDR range represented by this alias IP
                         range. This IP CIDR range must belong to the specified subnetwork
                         and cannot contain IP addresses reserved by system or used
                         by other network interfaces. This range may be a single IP
                         address (e.g. 10.2.3.4), a netmask (e.g. /24) or a CIDR format
-                        string (e.g. 10.1.2.0/24). '
+                        string (e.g. 10.1.2.0/24).
                       x-kubernetes-immutable: true
                     subnetworkRangeName:
                       type: string
                       x-dcl-go-name: SubnetworkRangeName
-                      description: 'Optional subnetwork secondary range name specifying
+                      description: Optional subnetwork secondary range name specifying
                         the secondary range from which to allocate the IP CIDR range
                         for this alias IP range. If left unspecified, the primary
-                        range of the subnetwork will be used. '
+                        range of the subnetwork will be used.
                       x-kubernetes-immutable: true
+              ipv6AccessConfigs:
+                type: array
+                x-dcl-go-name: IPv6AccessConfigs
+                description: An array of IPv6 access configurations for this interface.
+                  Currently, only one IPv6 access config, DIRECT_IPV6, is supported.
+                  If there is no ipv6AccessConfig specified, then this instance will
+                  have no external IPv6 Internet access.
+                x-kubernetes-immutable: true
+                x-dcl-send-empty: true
+                x-dcl-list-type: list
+                items:
+                  type: object
+                  $ref: '#/components/schemas/AccessConfig'
+                  x-dcl-go-name: IPv6AccessConfigs
+                  x-dcl-go-type: InstanceAccessConfig
               name:
                 type: string
                 x-dcl-go-name: Name
                 readOnly: true
-                description: 'The name of the network interface, generated by the
-                  server. For network devices, these are eth0, eth1, etc '
+                description: The name of the network interface, generated by the server.
+                  For network devices, these are eth0, eth1, etc
                 x-kubernetes-immutable: true
               network:
                 type: string
                 x-dcl-go-name: Network
-                description: 'Specifies the title of an existing network.  When creating
+                description: Specifies the title of an existing network.  When creating
                   an instance, if neither the network nor the subnetwork is specified,
                   the default network global/networks/default is used; if the network
                   is not specified but the subnetwork is specified, the network is
-                  inferred. '
+                  inferred.
                 x-kubernetes-immutable: true
                 x-dcl-references:
                 - resource: Compute/Network
@@ -474,18 +535,17 @@ components:
               networkIP:
                 type: string
                 x-dcl-go-name: NetworkIP
-                description: 'An IPv4 internal network address to assign to the instance
+                description: An IPv4 internal network address to assign to the instance
                   for this network interface. If not specified by the user, an unused
-                  internal IP is assigned by the system. '
+                  internal IP is assigned by the system.
                 x-kubernetes-immutable: true
               subnetwork:
                 type: string
                 x-dcl-go-name: Subnetwork
-                description: 'Reference to a VPC network. If the network resource
-                  is in legacy mode, do not provide this property.  If the network
-                  is in auto subnet mode, providing the subnetwork is optional. If
-                  the network is in custom subnet mode, then this field should be
-                  specified. '
+                description: Reference to a VPC network. If the network resource is
+                  in legacy mode, do not provide this property.  If the network is
+                  in auto subnet mode, providing the subnetwork is optional. If the
+                  network is in custom subnet mode, then this field should be specified.
                 x-kubernetes-immutable: true
                 x-dcl-references:
                 - resource: Compute/Subnetwork
@@ -509,25 +569,25 @@ components:
             automaticRestart:
               type: boolean
               x-dcl-go-name: AutomaticRestart
-              description: 'Specifies whether the instance should be automatically
+              description: Specifies whether the instance should be automatically
                 restarted if it is terminated by Compute Engine (not terminated by
                 a user). You can only set the automatic restart option for standard
-                instances. Preemptible instances cannot be automatically restarted. '
+                instances. Preemptible instances cannot be automatically restarted.
               x-kubernetes-immutable: true
             onHostMaintenance:
               type: string
               x-dcl-go-name: OnHostMaintenance
-              description: 'Defines the maintenance behavior for this instance. For
+              description: Defines the maintenance behavior for this instance. For
                 standard instances, the default behavior is MIGRATE. For preemptible
                 instances, the default and only possible behavior is TERMINATE. For
-                more information, see Setting Instance Scheduling Options. '
+                more information, see Setting Instance Scheduling Options.
               x-kubernetes-immutable: true
             preemptible:
               type: boolean
               x-dcl-go-name: Preemptible
-              description: 'Defines whether the instance is preemptible. This can
-                only be set during instance creation, it cannot be set or changed
-                after the instance has been created. '
+              description: Defines whether the instance is preemptible. This can only
+                be set during instance creation, it cannot be set or changed after
+                the instance has been created.
               x-kubernetes-immutable: true
         selfLink:
           type: string
@@ -538,8 +598,8 @@ components:
         serviceAccounts:
           type: array
           x-dcl-go-name: ServiceAccounts
-          description: 'A list of service accounts, with their specified scopes, authorized
-            for this instance. Only one service account per VM instance is supported. '
+          description: A list of service accounts, with their specified scopes, authorized
+            for this instance. Only one service account per VM instance is supported.
           x-kubernetes-immutable: true
           x-dcl-send-empty: true
           x-dcl-list-type: list
@@ -555,8 +615,8 @@ components:
               scopes:
                 type: array
                 x-dcl-go-name: Scopes
-                description: 'The list of scopes to be made available for this service
-                  account. '
+                description: The list of scopes to be made available for this service
+                  account.
                 x-kubernetes-immutable: true
                 x-dcl-send-empty: true
                 x-dcl-list-type: list
@@ -588,7 +648,7 @@ components:
           description: 'The status of the instance. One of the following values: PROVISIONING,
             STAGING, RUNNING, STOPPING, SUSPENDING, SUSPENDED, and TERMINATED.  As
             a user, use RUNNING to keep a machine "on" and TERMINATED to turn a machine
-            off '
+            off'
           x-kubernetes-immutable: true
           enum:
           - PROVISIONING

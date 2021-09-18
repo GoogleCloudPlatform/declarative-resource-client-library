@@ -47,6 +47,7 @@ func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterComputeAlphaNetworkPeeringServiceServer(s, &NetworkPeeringServer{})
 	sdkgrpc.RegisterComputeAlphaReservationServiceServer(s, &ReservationServer{})
 	sdkgrpc.RegisterComputeAlphaRouterServiceServer(s, &RouterServer{})
+	sdkgrpc.RegisterComputeAlphaRouterInterfaceServiceServer(s, &RouterInterfaceServer{})
 	sdkgrpc.RegisterComputeAlphaRouterPeerServiceServer(s, &RouterPeerServer{})
 	sdkgrpc.RegisterComputeAlphaSnapshotServiceServer(s, &SnapshotServer{})
 	sdkgrpc.RegisterComputeAlphaSslCertificateServiceServer(s, &SslCertificateServer{})

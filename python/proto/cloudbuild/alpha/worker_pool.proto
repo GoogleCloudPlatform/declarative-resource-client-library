@@ -29,10 +29,10 @@ enum CloudbuildAlphaWorkerPoolStateEnum {
 
 message CloudbuildAlphaWorkerPool {
   string name = 1;
-  CloudbuildAlphaWorkerPoolStateEnum state = 2;
-  string create_time = 3;
-  string update_time = 4;
-  string delete_time = 5;
+  string create_time = 2;
+  string update_time = 3;
+  string delete_time = 4;
+  CloudbuildAlphaWorkerPoolStateEnum state = 5;
   CloudbuildAlphaWorkerPoolWorkerConfig worker_config = 6;
   CloudbuildAlphaWorkerPoolNetworkConfig network_config = 7;
   string project = 8;

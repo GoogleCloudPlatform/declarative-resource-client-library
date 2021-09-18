@@ -73,6 +73,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring"
 	monitoring_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring/alpha"
 	monitoring_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring/beta"
+	networkconnectivity_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkconnectivity/alpha"
 	networksecurity_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networksecurity/alpha"
 	networkservices_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkservices/alpha"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/orgpolicy"
@@ -416,6 +417,10 @@ func Services() *Directory {
 	d.AddResource("alpha", "monitoring", "Group", monitoring_alpha.YAML_group)
 	d.AddResource("alpha", "monitoring", dcl.TitleToSnakeCase("MetricDescriptor"), monitoring_alpha.YAML_metric_descriptor)
 	d.AddResource("alpha", "monitoring", "MetricDescriptor", monitoring_alpha.YAML_metric_descriptor)
+	d.AddResource("alpha", "networkconnectivity", dcl.TitleToSnakeCase("Hub"), networkconnectivity_alpha.YAML_hub)
+	d.AddResource("alpha", "networkconnectivity", "Hub", networkconnectivity_alpha.YAML_hub)
+	d.AddResource("alpha", "networkconnectivity", dcl.TitleToSnakeCase("Spoke"), networkconnectivity_alpha.YAML_spoke)
+	d.AddResource("alpha", "networkconnectivity", "Spoke", networkconnectivity_alpha.YAML_spoke)
 	d.AddResource("alpha", "networksecurity", dcl.TitleToSnakeCase("AuthorizationPolicy"), networksecurity_alpha.YAML_authorization_policy)
 	d.AddResource("alpha", "networksecurity", "AuthorizationPolicy", networksecurity_alpha.YAML_authorization_policy)
 	d.AddResource("alpha", "networksecurity", dcl.TitleToSnakeCase("ClientTlsPolicy"), networksecurity_alpha.YAML_client_tls_policy)

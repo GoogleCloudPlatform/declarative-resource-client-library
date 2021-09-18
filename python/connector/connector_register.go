@@ -128,6 +128,8 @@ import (
 
 	monitoring_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring/alpha_connector"
 
+	networkconnectivity_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkconnectivity/alpha_connector"
+
 	networksecurity_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networksecurity/alpha_connector"
 
 	networkservices_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkservices/alpha_connector"
@@ -278,6 +280,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	monitoring_beta_connector.RegisterServers(grpcServer)
 
 	monitoring_alpha_connector.RegisterServers(grpcServer)
+
+	networkconnectivity_alpha_connector.RegisterServers(grpcServer)
 
 	networksecurity_alpha_connector.RegisterServers(grpcServer)
 

@@ -4,5 +4,11 @@
   "project": "projects/{{project}}",
   "labels": {
    "my-cluster": "exists"
+  },
+  "config": {
+    "gceClusterConfig": {
+      "zone": "{{zone}}",
+      "tags": ["foo", "bar"]
+    }
   }
 }

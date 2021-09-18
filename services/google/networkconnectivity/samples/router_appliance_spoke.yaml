@@ -1,0 +1,49 @@
+# Copyright 2021 Google LLC. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+dependencies:
+- samples/basic.hub.json
+- samples/router_appliance.compute.instance.json
+- samples/first.compute.subnetwork.json
+- samples/first.compute.network.json
+description: A basic test of a networkconnectivity spoke with an linked router appliance
+  instance
+name: router_appliance_spoke
+resource: samples/router_appliance.spoke.json
+type: spoke
+updates:
+- dependencies:
+  - samples/basic.hub.json
+  - samples/router_appliance.compute.instance.json
+  - samples/first.compute.subnetwork.json
+  - samples/first.compute.network.json
+  resource: samples/update_router_appliance.spoke.json
+variables:
+- name: project
+  type: project
+- name: connectivity_network1
+  type: resource_name
+- name: hub
+  type: resource_name
+- name: connectivity_subnet1
+  type: resource_name
+- name: region
+  type: region
+- name: zone
+  type: zone
+- name: instance1
+  type: resource_name
+- name: spoke
+  type: resource_name
+versions:
+- alpha

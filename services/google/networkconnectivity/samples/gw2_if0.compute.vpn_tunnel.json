@@ -1,0 +1,11 @@
+{
+  "name": "{{connectivity_tunnel3}}",
+  "project": "{{project}}",
+  "region": "{{region}}",
+  "vpnGateway": "{{ref:second.compute.vpn_gateway.json:selfLink}}",
+  "vpnGatewayInterface": 0,
+  "peerGcpGateway": "{{ref:first.compute.vpn_gateway.json:selfLink}}",
+  "router": "{{ref:second.compute.router.json:selfLink}}",
+  "sharedSecret": "a secret"
+}
+

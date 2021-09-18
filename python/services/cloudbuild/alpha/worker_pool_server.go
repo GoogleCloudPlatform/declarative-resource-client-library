@@ -65,10 +65,10 @@ func ProtoToCloudbuildAlphaWorkerPoolNetworkConfig(p *alphapb.CloudbuildAlphaWor
 func ProtoToWorkerPool(p *alphapb.CloudbuildAlphaWorkerPool) *alpha.WorkerPool {
 	obj := &alpha.WorkerPool{
 		Name:          dcl.StringOrNil(p.Name),
-		State:         ProtoToCloudbuildAlphaWorkerPoolStateEnum(p.GetState()),
 		CreateTime:    dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:    dcl.StringOrNil(p.GetUpdateTime()),
 		DeleteTime:    dcl.StringOrNil(p.GetDeleteTime()),
+		State:         ProtoToCloudbuildAlphaWorkerPoolStateEnum(p.GetState()),
 		WorkerConfig:  ProtoToCloudbuildAlphaWorkerPoolWorkerConfig(p.GetWorkerConfig()),
 		NetworkConfig: ProtoToCloudbuildAlphaWorkerPoolNetworkConfig(p.GetNetworkConfig()),
 		Project:       dcl.StringOrNil(p.Project),
@@ -116,10 +116,10 @@ func CloudbuildAlphaWorkerPoolNetworkConfigToProto(o *alpha.WorkerPoolNetworkCon
 func WorkerPoolToProto(resource *alpha.WorkerPool) *alphapb.CloudbuildAlphaWorkerPool {
 	p := &alphapb.CloudbuildAlphaWorkerPool{
 		Name:          dcl.ValueOrEmptyString(resource.Name),
-		State:         CloudbuildAlphaWorkerPoolStateEnumToProto(resource.State),
 		CreateTime:    dcl.ValueOrEmptyString(resource.CreateTime),
 		UpdateTime:    dcl.ValueOrEmptyString(resource.UpdateTime),
 		DeleteTime:    dcl.ValueOrEmptyString(resource.DeleteTime),
+		State:         CloudbuildAlphaWorkerPoolStateEnumToProto(resource.State),
 		WorkerConfig:  CloudbuildAlphaWorkerPoolWorkerConfigToProto(resource.WorkerConfig),
 		NetworkConfig: CloudbuildAlphaWorkerPoolNetworkConfigToProto(resource.NetworkConfig),
 		Project:       dcl.ValueOrEmptyString(resource.Project),

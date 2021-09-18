@@ -65,10 +65,10 @@ func ProtoToCloudbuildBetaWorkerPoolNetworkConfig(p *betapb.CloudbuildBetaWorker
 func ProtoToWorkerPool(p *betapb.CloudbuildBetaWorkerPool) *beta.WorkerPool {
 	obj := &beta.WorkerPool{
 		Name:          dcl.StringOrNil(p.Name),
-		State:         ProtoToCloudbuildBetaWorkerPoolStateEnum(p.GetState()),
 		CreateTime:    dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:    dcl.StringOrNil(p.GetUpdateTime()),
 		DeleteTime:    dcl.StringOrNil(p.GetDeleteTime()),
+		State:         ProtoToCloudbuildBetaWorkerPoolStateEnum(p.GetState()),
 		WorkerConfig:  ProtoToCloudbuildBetaWorkerPoolWorkerConfig(p.GetWorkerConfig()),
 		NetworkConfig: ProtoToCloudbuildBetaWorkerPoolNetworkConfig(p.GetNetworkConfig()),
 		Project:       dcl.StringOrNil(p.Project),
@@ -116,10 +116,10 @@ func CloudbuildBetaWorkerPoolNetworkConfigToProto(o *beta.WorkerPoolNetworkConfi
 func WorkerPoolToProto(resource *beta.WorkerPool) *betapb.CloudbuildBetaWorkerPool {
 	p := &betapb.CloudbuildBetaWorkerPool{
 		Name:          dcl.ValueOrEmptyString(resource.Name),
-		State:         CloudbuildBetaWorkerPoolStateEnumToProto(resource.State),
 		CreateTime:    dcl.ValueOrEmptyString(resource.CreateTime),
 		UpdateTime:    dcl.ValueOrEmptyString(resource.UpdateTime),
 		DeleteTime:    dcl.ValueOrEmptyString(resource.DeleteTime),
+		State:         CloudbuildBetaWorkerPoolStateEnumToProto(resource.State),
 		WorkerConfig:  CloudbuildBetaWorkerPoolWorkerConfigToProto(resource.WorkerConfig),
 		NetworkConfig: CloudbuildBetaWorkerPoolNetworkConfigToProto(resource.NetworkConfig),
 		Project:       dcl.ValueOrEmptyString(resource.Project),

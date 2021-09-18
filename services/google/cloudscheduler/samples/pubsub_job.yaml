@@ -18,10 +18,10 @@ name: pubsub_job
 resource: samples/pubsub.job.json
 type: job
 variables:
-- name: project
-  type: project
 - name: topic
   type: resource_name
+- name: project
+  type: project
 - name: job
   type: resource_name
 - name: region

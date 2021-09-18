@@ -47,6 +47,7 @@ func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterComputeNetworkPeeringServiceServer(s, &NetworkPeeringServer{})
 	sdkgrpc.RegisterComputeReservationServiceServer(s, &ReservationServer{})
 	sdkgrpc.RegisterComputeRouterServiceServer(s, &RouterServer{})
+	sdkgrpc.RegisterComputeRouterInterfaceServiceServer(s, &RouterInterfaceServer{})
 	sdkgrpc.RegisterComputeRouterPeerServiceServer(s, &RouterPeerServer{})
 	sdkgrpc.RegisterComputeSnapshotServiceServer(s, &SnapshotServer{})
 	sdkgrpc.RegisterComputeSslCertificateServiceServer(s, &SslCertificateServer{})
