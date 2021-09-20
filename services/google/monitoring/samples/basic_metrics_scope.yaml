@@ -20,3 +20,4 @@ variables:
   type: project
 versions:
 - ga
+- beta

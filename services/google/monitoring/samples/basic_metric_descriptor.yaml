@@ -16,9 +16,10 @@ name: basic_metric_descriptor
 resource: samples/basic.metric_descriptor.json
 type: metric_descriptor
 variables:
-- name: project
-  type: project
 - name: suffix
   type: resource_name
+- name: project
+  type: project
 versions:
 - ga
+- beta
