@@ -135,7 +135,7 @@ func marshalUpdateServiceAccountPatchServiceAccountRequest(c *Client, m map[stri
 
 	dcl.MoveMapEntry(
 		m,
-		[]string{"project"},
+		[]string{"projectId"},
 		[]string{},
 	)
 	dcl.MoveMapEntry(
@@ -966,7 +966,7 @@ func (r *ServiceAccount) marshal(c *Client) ([]byte, error) {
 	}
 	dcl.MoveMapEntry(
 		m,
-		[]string{"project"},
+		[]string{"projectId"},
 		[]string{},
 	)
 	dcl.MoveMapEntry(

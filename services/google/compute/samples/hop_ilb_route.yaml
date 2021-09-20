@@ -22,18 +22,18 @@ name: hop_ilb_route
 resource: samples/next_hop_ilb.route.json
 type: route
 variables:
-- name: compute_network
-  type: resource_name
 - name: project
   type: project
 - name: hc
+  type: resource_name
+- name: compute_network
+  type: resource_name
+- name: range
   type: resource_name
 - name: compute_subnetwork
   type: resource_name
 - name: region
   type: region
-- name: range
-  type: resource_name
 - name: service
   type: resource_name
 - name: rule

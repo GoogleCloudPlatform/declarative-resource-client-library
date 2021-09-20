@@ -962,12 +962,12 @@ func unmarshalRoute(b []byte, c *Client) (*Route, error) {
 }
 
 func unmarshalMapRoute(m map[string]interface{}, c *Client) (*Route, error) {
-	if v, err := dcl.MapFromListOfKeyValues(m, []string{"warning", "data", "items"}, "key", "value"); err != nil {
+	if v, err := dcl.MapFromListOfKeyValues(m, []string{"warnings", "data", "items"}, "key", "value"); err != nil {
 		return nil, err
 	} else {
 		dcl.PutMapEntry(
 			m,
-			[]string{"warning", "data"},
+			[]string{"warnings", "data"},
 			v,
 		)
 	}
