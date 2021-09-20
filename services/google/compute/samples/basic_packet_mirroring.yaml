@@ -14,8 +14,8 @@
 dependencies:
 - samples/basic.instance.json
 - samples/nics.instance.json
-- samples/first_internal.forwarding_rule.json
-- samples/second_internal.forwarding_rule.json
+- samples/first_mirroring_internal.forwarding_rule.json
+- samples/second_mirroring_internal.forwarding_rule.json
 - samples/regional.backend_service.json
 - samples/basic.subnetwork.json
 - samples/basic.network.json
@@ -27,25 +27,25 @@ updates:
 - dependencies:
   - samples/basic.instance.json
   - samples/nics.instance.json
-  - samples/first_internal.forwarding_rule.json
-  - samples/second_internal.forwarding_rule.json
+  - samples/first_mirroring_internal.forwarding_rule.json
+  - samples/second_mirroring_internal.forwarding_rule.json
   - samples/regional.backend_service.json
   - samples/basic.subnetwork.json
   - samples/basic.network.json
   resource: samples/update.packet_mirroring.json
 variables:
-- name: compute_network
+- name: service
   type: resource_name
 - name: project
   type: project
+- name: region
+  type: region
+- name: compute_network
+  type: resource_name
 - name: zone
   type: zone
 - name: instance1
   type: resource_name
-- name: service
-  type: resource_name
-- name: region
-  type: region
 - name: rule1
   type: resource_name
 - name: rule2

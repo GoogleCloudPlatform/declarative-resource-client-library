@@ -258,7 +258,6 @@ components:
           x-dcl-go-type: InstanceGroupManagerDistributionPolicy
           description: Policy specifying the intended distribution of managed instances
             across zones in a regional managed instance group.
-          x-kubernetes-immutable: true
           properties:
             targetShape:
               type: string
@@ -449,7 +448,6 @@ components:
           x-dcl-go-type: InstanceGroupManagerStatus
           readOnly: true
           description: '[Output Only] The status of this managed instance group.'
-          x-kubernetes-immutable: true
           properties:
             autoscaler:
               type: string
@@ -476,7 +474,6 @@ components:
               readOnly: true
               description: '[Output Only] Stateful status of the given Instance Group
                 Manager.'
-              x-kubernetes-immutable: true
               properties:
                 hasStatefulConfig:
                   type: boolean
@@ -509,7 +506,6 @@ components:
                   readOnly: true
                   description: '[Output Only] Status of per-instance configs on the
                     instance.'
-                  x-kubernetes-immutable: true
                   properties:
                     allEffective:
                       type: boolean

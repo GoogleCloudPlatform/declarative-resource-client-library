@@ -260,7 +260,6 @@ components:
           x-dcl-go-name: Autoscaling
           x-dcl-go-type: ClusterAutoscaling
           description: Cluster-level autoscaling configuration.
-          x-kubernetes-immutable: true
           properties:
             autoprovisioningLocations:
               type: array
@@ -277,7 +276,6 @@ components:
               type: object
               x-dcl-go-name: AutoprovisioningNodePoolDefaults
               x-dcl-go-type: ClusterAutoscalingAutoprovisioningNodePoolDefaults
-              x-kubernetes-immutable: true
               properties:
                 bootDiskKmsKey:
                   type: string

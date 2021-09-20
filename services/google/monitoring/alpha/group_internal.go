@@ -102,7 +102,7 @@ func newUpdateGroupUpdateRequest(ctx context.Context, f *Group, c *Client) (map[
 	}
 	if v, err := dcl.DeriveField("projects/%s/groups/%s", f.ParentName, f.Project, f.ParentName); err != nil {
 		return nil, fmt.Errorf("error expanding ParentName into parentName: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		req["parentName"] = v
 	}
 	return req, nil

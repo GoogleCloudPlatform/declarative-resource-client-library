@@ -443,7 +443,7 @@ func newUpdateOSPolicyAssignmentUpdateOSPolicyAssignmentRequest(ctx context.Cont
 	}
 	if v, err := expandOSPolicyAssignmentOSPoliciesSlice(c, f.OSPolicies); err != nil {
 		return nil, fmt.Errorf("error expanding OSPolicies into osPolicies: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		req["osPolicies"] = v
 	}
 	if v, err := expandOSPolicyAssignmentInstanceFilter(c, f.InstanceFilter); err != nil {

@@ -375,12 +375,12 @@ func newUpdateWorkflowTemplateUpdateWorkflowTemplateRequest(ctx context.Context,
 	}
 	if v, err := expandWorkflowTemplateJobsSlice(c, f.Jobs); err != nil {
 		return nil, fmt.Errorf("error expanding Jobs into jobs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		req["jobs"] = v
 	}
 	if v, err := expandWorkflowTemplateParametersSlice(c, f.Parameters); err != nil {
 		return nil, fmt.Errorf("error expanding Parameters into parameters: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		req["parameters"] = v
 	}
 	if v := f.DagTimeout; !dcl.IsEmptyValueIndirect(v) {

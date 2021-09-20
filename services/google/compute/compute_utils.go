@@ -550,6 +550,14 @@ func machineTypeOperations() func(fd *dcl.FieldDiff) []string {
 	}
 }
 
+func flattenPacketMirroringRegion(region interface{}) *string {
+	regionString, ok := region.(string)
+	if !ok {
+		return nil
+	}
+	return dcl.SelfLinkToName(&regionString)
+}
+
 func targetPoolHealthCheck() func(fd *dcl.FieldDiff) []string {
 	return func(fd *dcl.FieldDiff) []string {
 		var ops []string

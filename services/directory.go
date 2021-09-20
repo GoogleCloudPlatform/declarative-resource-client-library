@@ -28,6 +28,9 @@ import (
 	binaryauthorization_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/binaryauthorization/beta"
 	cloudbuild_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/alpha"
 	cloudbuild_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudkms"
+	cloudkms_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudkms/alpha"
+	cloudkms_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudkms/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudresourcemanager"
 	cloudresourcemanager_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudresourcemanager/alpha"
 	cloudresourcemanager_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudresourcemanager/beta"
@@ -157,6 +160,10 @@ func Services() *Directory {
 	d.AddResource("ga", "binaryauthorization", "Attestor", binaryauthorization.YAML_attestor)
 	d.AddResource("ga", "binaryauthorization", dcl.TitleToSnakeCase("Policy"), binaryauthorization.YAML_policy)
 	d.AddResource("ga", "binaryauthorization", "Policy", binaryauthorization.YAML_policy)
+	d.AddResource("ga", "cloudkms", dcl.TitleToSnakeCase("CryptoKey"), cloudkms.YAML_crypto_key)
+	d.AddResource("ga", "cloudkms", "CryptoKey", cloudkms.YAML_crypto_key)
+	d.AddResource("ga", "cloudkms", dcl.TitleToSnakeCase("KeyRing"), cloudkms.YAML_key_ring)
+	d.AddResource("ga", "cloudkms", "KeyRing", cloudkms.YAML_key_ring)
 	d.AddResource("ga", "cloudresourcemanager", dcl.TitleToSnakeCase("Folder"), cloudresourcemanager.YAML_folder)
 	d.AddResource("ga", "cloudresourcemanager", "Folder", cloudresourcemanager.YAML_folder)
 	d.AddResource("ga", "cloudresourcemanager", dcl.TitleToSnakeCase("Project"), cloudresourcemanager.YAML_project)
@@ -179,6 +186,8 @@ func Services() *Directory {
 	d.AddResource("ga", "compute", "PacketMirroring", compute.YAML_packet_mirroring)
 	d.AddResource("ga", "compute", dcl.TitleToSnakeCase("Route"), compute.YAML_route)
 	d.AddResource("ga", "compute", "Route", compute.YAML_route)
+	d.AddResource("ga", "compute", dcl.TitleToSnakeCase("ServiceAttachment"), compute.YAML_service_attachment)
+	d.AddResource("ga", "compute", "ServiceAttachment", compute.YAML_service_attachment)
 	d.AddResource("ga", "containeranalysis", dcl.TitleToSnakeCase("Note"), containeranalysis.YAML_note)
 	d.AddResource("ga", "containeranalysis", "Note", containeranalysis.YAML_note)
 	d.AddResource("ga", "dataproc", dcl.TitleToSnakeCase("AutoscalingPolicy"), dataproc.YAML_autoscaling_policy)
@@ -245,6 +254,10 @@ func Services() *Directory {
 	d.AddResource("beta", "binaryauthorization", "Policy", binaryauthorization_beta.YAML_policy)
 	d.AddResource("beta", "cloudbuild", dcl.TitleToSnakeCase("WorkerPool"), cloudbuild_beta.YAML_worker_pool)
 	d.AddResource("beta", "cloudbuild", "WorkerPool", cloudbuild_beta.YAML_worker_pool)
+	d.AddResource("beta", "cloudkms", dcl.TitleToSnakeCase("CryptoKey"), cloudkms_beta.YAML_crypto_key)
+	d.AddResource("beta", "cloudkms", "CryptoKey", cloudkms_beta.YAML_crypto_key)
+	d.AddResource("beta", "cloudkms", dcl.TitleToSnakeCase("KeyRing"), cloudkms_beta.YAML_key_ring)
+	d.AddResource("beta", "cloudkms", "KeyRing", cloudkms_beta.YAML_key_ring)
 	d.AddResource("beta", "cloudresourcemanager", dcl.TitleToSnakeCase("Folder"), cloudresourcemanager_beta.YAML_folder)
 	d.AddResource("beta", "cloudresourcemanager", "Folder", cloudresourcemanager_beta.YAML_folder)
 	d.AddResource("beta", "cloudresourcemanager", dcl.TitleToSnakeCase("Project"), cloudresourcemanager_beta.YAML_project)
@@ -267,6 +280,8 @@ func Services() *Directory {
 	d.AddResource("beta", "compute", "PacketMirroring", compute_beta.YAML_packet_mirroring)
 	d.AddResource("beta", "compute", dcl.TitleToSnakeCase("Route"), compute_beta.YAML_route)
 	d.AddResource("beta", "compute", "Route", compute_beta.YAML_route)
+	d.AddResource("beta", "compute", dcl.TitleToSnakeCase("ServiceAttachment"), compute_beta.YAML_service_attachment)
+	d.AddResource("beta", "compute", "ServiceAttachment", compute_beta.YAML_service_attachment)
 	d.AddResource("beta", "containeranalysis", dcl.TitleToSnakeCase("Note"), containeranalysis_beta.YAML_note)
 	d.AddResource("beta", "containeranalysis", "Note", containeranalysis_beta.YAML_note)
 	d.AddResource("beta", "datafusion", dcl.TitleToSnakeCase("Instance"), datafusion_beta.YAML_instance)
@@ -343,6 +358,10 @@ func Services() *Directory {
 	d.AddResource("alpha", "binaryauthorization", "Policy", binaryauthorization_alpha.YAML_policy)
 	d.AddResource("alpha", "cloudbuild", dcl.TitleToSnakeCase("WorkerPool"), cloudbuild_alpha.YAML_worker_pool)
 	d.AddResource("alpha", "cloudbuild", "WorkerPool", cloudbuild_alpha.YAML_worker_pool)
+	d.AddResource("alpha", "cloudkms", dcl.TitleToSnakeCase("CryptoKey"), cloudkms_alpha.YAML_crypto_key)
+	d.AddResource("alpha", "cloudkms", "CryptoKey", cloudkms_alpha.YAML_crypto_key)
+	d.AddResource("alpha", "cloudkms", dcl.TitleToSnakeCase("KeyRing"), cloudkms_alpha.YAML_key_ring)
+	d.AddResource("alpha", "cloudkms", "KeyRing", cloudkms_alpha.YAML_key_ring)
 	d.AddResource("alpha", "cloudresourcemanager", dcl.TitleToSnakeCase("Folder"), cloudresourcemanager_alpha.YAML_folder)
 	d.AddResource("alpha", "cloudresourcemanager", "Folder", cloudresourcemanager_alpha.YAML_folder)
 	d.AddResource("alpha", "cloudresourcemanager", dcl.TitleToSnakeCase("Project"), cloudresourcemanager_alpha.YAML_project)
@@ -365,6 +384,8 @@ func Services() *Directory {
 	d.AddResource("alpha", "compute", "PacketMirroring", compute_alpha.YAML_packet_mirroring)
 	d.AddResource("alpha", "compute", dcl.TitleToSnakeCase("Route"), compute_alpha.YAML_route)
 	d.AddResource("alpha", "compute", "Route", compute_alpha.YAML_route)
+	d.AddResource("alpha", "compute", dcl.TitleToSnakeCase("ServiceAttachment"), compute_alpha.YAML_service_attachment)
+	d.AddResource("alpha", "compute", "ServiceAttachment", compute_alpha.YAML_service_attachment)
 	d.AddResource("alpha", "containeranalysis", dcl.TitleToSnakeCase("Note"), containeranalysis_alpha.YAML_note)
 	d.AddResource("alpha", "containeranalysis", "Note", containeranalysis_alpha.YAML_note)
 	d.AddResource("alpha", "containeraws", dcl.TitleToSnakeCase("Cluster"), containeraws_alpha.YAML_cluster)

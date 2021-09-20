@@ -13,7 +13,7 @@
 # limitations under the License.
 dependencies:
 - samples/folder.firewall_policy.json
-- samples/folder.cloudresourcemanager.folder.json
+- samples/basic.cloudresourcemanager.folder.json
 - samples/folder_compute.iam.member.json
 - samples/folder_firewall.iam.member.json
 description: An example for a compute firewall policy for an organization

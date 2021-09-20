@@ -242,7 +242,7 @@ func newUpdateInstanceGroupManagerPatchRequest(ctx context.Context, f *InstanceG
 	}
 	if v, err := expandInstanceGroupManagerVersionsSlice(c, f.Versions); err != nil {
 		return nil, fmt.Errorf("error expanding Versions into versions: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		req["versions"] = v
 	}
 	if v := f.TargetPools; v != nil {
@@ -261,7 +261,7 @@ func newUpdateInstanceGroupManagerPatchRequest(ctx context.Context, f *InstanceG
 	}
 	if v, err := expandInstanceGroupManagerAutoHealingPoliciesSlice(c, f.AutoHealingPolicies); err != nil {
 		return nil, fmt.Errorf("error expanding AutoHealingPolicies into autoHealingPolicies: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		req["autoHealingPolicies"] = v
 	}
 	if v, err := expandInstanceGroupManagerUpdatePolicy(c, f.UpdatePolicy); err != nil {

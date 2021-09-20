@@ -150,7 +150,7 @@ func newUpdateFeatureMembershipUpdateFeatureMembershipRequest(ctx context.Contex
 
 	if v, err := expandFeatureMembershipConfigmanagement(c, f.Configmanagement); err != nil {
 		return nil, fmt.Errorf("error expanding Configmanagement into configmanagement: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		req["configmanagement"] = v
 	}
 	return req, nil

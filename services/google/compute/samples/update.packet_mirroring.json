@@ -8,7 +8,7 @@
   },
   "priority": 1001,
   "collectorIlb": {
-    "url": "{{ref:second_internal.forwarding_rule.json:selfLink}}"
+    "url": "{{ref:second_mirroring_internal.forwarding_rule.json:selfLink}}"
   },
   "mirroredResources": {
     "subnetworks": [

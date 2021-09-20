@@ -157,7 +157,7 @@ func newUpdateTriggerUpdateTriggerRequest(ctx context.Context, f *Trigger, c *Cl
 	}
 	if v, err := expandTriggerMatchingCriteriaSlice(c, f.MatchingCriteria); err != nil {
 		return nil, fmt.Errorf("error expanding MatchingCriteria into eventFilters: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		req["eventFilters"] = v
 	}
 	if v := f.ServiceAccount; !dcl.IsEmptyValueIndirect(v) {

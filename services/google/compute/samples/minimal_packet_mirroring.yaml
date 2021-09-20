@@ -13,23 +13,23 @@
 # limitations under the License.
 dependencies:
 - samples/basic.instance.json
-- samples/first_internal.forwarding_rule.json
+- samples/first_mirroring_internal.forwarding_rule.json
 - samples/regional.backend_service.json
 description: A minimal example of a compute packet mirroring
 name: minimal_packet_mirroring
 resource: samples/minimal.packet_mirroring.json
 type: packet_mirroring
 variables:
+- name: region
+  type: region
 - name: service
   type: resource_name
 - name: project
   type: project
-- name: region
-  type: region
-- name: zone
-  type: zone
 - name: instance1
   type: resource_name
+- name: zone
+  type: zone
 - name: rule1
   type: resource_name
 - name: mirroring

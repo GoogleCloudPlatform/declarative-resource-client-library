@@ -1039,7 +1039,6 @@ components:
             service with the service_protocol set to HTTP, HTTPS, or HTTP2, and load_balancing_scheme
             set to INTERNAL_MANAGED. - A global backend service with the load_balancing_scheme
             set to INTERNAL_SELF_MANAGED.'
-          x-kubernetes-immutable: true
           properties:
             clientTlsPolicy:
               type: string

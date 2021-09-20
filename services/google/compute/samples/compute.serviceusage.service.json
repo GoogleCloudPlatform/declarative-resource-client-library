@@ -1,5 +1,5 @@
 {
   "name": "compute.googleapis.com",
-  "project": "{{ref:folder.cloudbilling.project_billing_info.json:name}}",
+  "project": "{{ref:first.cloudbilling.project_billing_info.json:name}}",
   "state": "ENABLED"
 }

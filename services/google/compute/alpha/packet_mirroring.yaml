@@ -173,7 +173,6 @@ components:
           description: PacketMirroring mirroredResourceInfos. MirroredResourceInfo
             specifies a set of mirrored VM instances, subnetworks and/or tags for
             which traffic from/to all VM instances will be mirrored.
-          x-kubernetes-immutable: true
           properties:
             instances:
               type: array

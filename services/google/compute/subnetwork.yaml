@@ -209,6 +209,10 @@ components:
           enum:
           - INTERNAL_HTTPS_LOAD_BALANCER
           - PRIVATE
+          - AGGREGATE
+          - PRIVATE_SERVICE_CONNECT
+          - CLOUD_EXTENSION
+          - PRIVATE_NAT
         region:
           type: string
           x-dcl-go-name: Region

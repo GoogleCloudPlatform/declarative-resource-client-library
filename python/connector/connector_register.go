@@ -38,6 +38,12 @@ import (
 
 	cloudbuild_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/beta_connector"
 
+	cloudkms_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudkms/connector"
+
+	cloudkms_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudkms/beta_connector"
+
+	cloudkms_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudkms/alpha_connector"
+
 	cloudresourcemanager_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudresourcemanager/connector"
 
 	cloudresourcemanager_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudresourcemanager/beta_connector"
@@ -190,6 +196,12 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	cloudbuild_alpha_connector.RegisterServers(grpcServer)
 
 	cloudbuild_beta_connector.RegisterServers(grpcServer)
+
+	cloudkms_connector.RegisterServers(grpcServer)
+
+	cloudkms_beta_connector.RegisterServers(grpcServer)
+
+	cloudkms_alpha_connector.RegisterServers(grpcServer)
 
 	cloudresourcemanager_connector.RegisterServers(grpcServer)
 

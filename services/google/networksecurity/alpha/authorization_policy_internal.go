@@ -168,7 +168,7 @@ func newUpdateAuthorizationPolicyUpdateAuthorizationPolicyRequest(ctx context.Co
 	}
 	if v, err := expandAuthorizationPolicyRulesSlice(c, f.Rules); err != nil {
 		return nil, fmt.Errorf("error expanding Rules into rules: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		req["rules"] = v
 	}
 	return req, nil

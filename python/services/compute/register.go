@@ -28,6 +28,7 @@ func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterComputeNetworkServiceServer(s, &NetworkServer{})
 	sdkgrpc.RegisterComputePacketMirroringServiceServer(s, &PacketMirroringServer{})
 	sdkgrpc.RegisterComputeRouteServiceServer(s, &RouteServer{})
+	sdkgrpc.RegisterComputeServiceAttachmentServiceServer(s, &ServiceAttachmentServer{})
 	sdkgrpc.RegisterComputeAddressServiceServer(s, &AddressServer{})
 	sdkgrpc.RegisterComputeAutoscalerServiceServer(s, &AutoscalerServer{})
 	sdkgrpc.RegisterComputeBackendBucketServiceServer(s, &BackendBucketServer{})

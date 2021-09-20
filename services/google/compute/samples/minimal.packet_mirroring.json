@@ -6,7 +6,7 @@
     "url": "projects/{{project}}/global/networks/default"
   },
   "collectorIlb": {
-    "url": "{{ref:first_internal.forwarding_rule.json:selfLink}}"
+    "url": "{{ref:first_mirroring_internal.forwarding_rule.json:selfLink}}"
   },
   "mirroredResources": {
     "instances": [

@@ -114,7 +114,7 @@ func newUpdateInstanceUpdateInstanceRequest(ctx context.Context, f *Instance, c 
 	}
 	if v, err := expandInstanceFileSharesSlice(c, f.FileShares); err != nil {
 		return nil, fmt.Errorf("error expanding FileShares into fileShares: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		req["fileShares"] = v
 	}
 	b, err := c.getInstanceRaw(ctx, f)

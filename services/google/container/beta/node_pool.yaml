@@ -154,7 +154,6 @@ components:
           x-dcl-go-name: Config
           x-dcl-go-type: NodePoolConfig
           description: The node configuration of the pool.
-          x-kubernetes-immutable: true
           properties:
             accelerators:
               type: array

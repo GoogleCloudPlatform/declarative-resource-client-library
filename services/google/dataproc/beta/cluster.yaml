@@ -251,7 +251,6 @@ components:
       x-dcl-go-type: ClusterClusterConfig
       description: Required. The cluster config. Note that Dataproc may set default
         values, and values may change when clusters are updated.
-      x-kubernetes-immutable: true
       properties:
         autoscalingConfig:
           type: object

@@ -19,9 +19,9 @@ dependencies:
 - samples/first_folder.network.json
 - samples/second_folder.network.json
 - samples/compute.serviceusage.service.json
-- samples/folder.cloudbilling.project_billing_info.json
-- samples/folder.cloudresourcemanager.folder.json
-- samples/folder.cloudresourcemanager.project.json
+- samples/first.cloudbilling.project_billing_info.json
+- samples/basic.cloudresourcemanager.folder.json
+- samples/first.cloudresourcemanager.project.json
 description: An example of a compute firewall policy for a folder
 name: folder_firewall_policy
 resource: samples/folder.firewall_policy_rule.json
@@ -35,7 +35,7 @@ variables:
   type: org_id
 - name: folder
   type: resource_name
-- name: id
+- name: id1
   type: resource_name
 - name: test_service_account
   type: test_service_account
@@ -43,9 +43,9 @@ variables:
   type: billing_account
 - name: policy
   type: resource_name
-- name: network_name
-  type: resource_name
 - name: association
+  type: resource_name
+- name: network_name
   type: resource_name
 versions:
 - ga

@@ -216,7 +216,7 @@ func newUpdateClientTlsPolicyUpdateClientTlsPolicyRequest(ctx context.Context, f
 	}
 	if v, err := expandClientTlsPolicyServerValidationCaSlice(c, f.ServerValidationCa); err != nil {
 		return nil, fmt.Errorf("error expanding ServerValidationCa into serverValidationCa: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		req["serverValidationCa"] = v
 	}
 	return req, nil

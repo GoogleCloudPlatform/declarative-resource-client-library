@@ -200,7 +200,7 @@ func newUpdateNoteUpdateNoteRequest(ctx context.Context, f *Note, c *Client) (ma
 	}
 	if v, err := expandNoteRelatedUrlSlice(c, f.RelatedUrl); err != nil {
 		return nil, fmt.Errorf("error expanding RelatedUrl into relatedUrl: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		req["relatedUrl"] = v
 	}
 	if v := f.ExpirationTime; !dcl.IsEmptyValueIndirect(v) {

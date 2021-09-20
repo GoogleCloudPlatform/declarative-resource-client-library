@@ -101,7 +101,7 @@ func newUpdatePolicyUpdatePolicyRequest(ctx context.Context, f *Policy, c *Clien
 
 	if v, err := expandPolicyAdmissionWhitelistPatternsSlice(c, f.AdmissionWhitelistPatterns); err != nil {
 		return nil, fmt.Errorf("error expanding AdmissionWhitelistPatterns into admissionWhitelistPatterns: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		req["admissionWhitelistPatterns"] = v
 	}
 	if v, err := expandPolicyAdmissionRuleMap(c, f.ClusterAdmissionRules); err != nil {

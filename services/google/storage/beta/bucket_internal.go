@@ -171,7 +171,7 @@ func newUpdateBucketUpdateRequest(ctx context.Context, f *Bucket, c *Client) (ma
 
 	if v, err := expandBucketCorsSlice(c, f.Cors); err != nil {
 		return nil, fmt.Errorf("error expanding Cors into cors: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		req["cors"] = v
 	}
 	if v, err := expandBucketLifecycle(c, f.Lifecycle); err != nil {
