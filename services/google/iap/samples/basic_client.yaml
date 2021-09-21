@@ -25,9 +25,9 @@ variables:
   type: test_service_account
 - name: project
   type: project
-- name: brand
-  type: resource_name
 - name: org_id
   type: org_id
+- name: brand
+  type: resource_name
 versions:
 - ga
