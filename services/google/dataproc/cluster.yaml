@@ -193,7 +193,6 @@ components:
           readOnly: true
           description: Output only. The previous cluster status.
           x-kubernetes-immutable: true
-          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -867,7 +866,6 @@ components:
             names from `cluster_name`, `num_instances`, and the instance group.
           x-kubernetes-immutable: true
           x-dcl-server-default: true
-          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

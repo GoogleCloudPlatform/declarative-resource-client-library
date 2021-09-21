@@ -85,7 +85,6 @@ components:
              compute.forwardingRules.insert and associated with a VPN
             gateway.
           x-kubernetes-immutable: true
-          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string
@@ -163,7 +162,6 @@ components:
             created using the <code>compute.vpntunnels.insert</code> method and
             associated with a VPN gateway.
           x-kubernetes-immutable: true
-          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

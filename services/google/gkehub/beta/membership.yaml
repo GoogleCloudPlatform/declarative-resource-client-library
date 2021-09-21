@@ -218,7 +218,6 @@ components:
                     or ListMemberships requests. To get the resource manifest after
                     the initial registration, the caller should make a UpdateMembership
                     call with an empty field mask.
-                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: object
@@ -257,7 +256,6 @@ components:
                     or ListMemberships requests. To get the resource manifest after
                     the initial registration, the caller should make a UpdateMembership
                     call with an empty field mask.
-                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: object

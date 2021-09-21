@@ -22,4 +22,5 @@ import (
 func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterPubsubTopicServiceServer(s, &TopicServer{})
 	sdkgrpc.RegisterPubsubSubscriptionServiceServer(s, &SubscriptionServer{})
+	sdkgrpc.RegisterPubsubSchemaServiceServer(s, &SchemaServer{})
 }

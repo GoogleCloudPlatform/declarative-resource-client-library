@@ -112,8 +112,6 @@ func newUpdateSpokeUpdateSpokeRequest(ctx context.Context, f *Spoke, c *Client) 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
-	req["name"] = fmt.Sprintf("{{spoke.name}}")
-
 	return req, nil
 }
 

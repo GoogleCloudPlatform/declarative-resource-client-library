@@ -198,7 +198,6 @@ components:
             associated with this metric type can only be associated with one of the
             monitored resource types listed here.
           x-kubernetes-immutable: true
-          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

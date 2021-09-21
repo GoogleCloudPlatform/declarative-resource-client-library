@@ -79,6 +79,17 @@ func SnakeToTitleCasePath(s, sep string) string {
 	return strings.Join(str, sep)
 }
 
+// TitleToCamelCasePath converts a resource path from title case to lower title case.
+// For example: FooBar.Baz.Qux -> fooBar.baz.qux
+func TitleToCamelCasePath(s string) string {
+	// Lowercase the first character and every character following a .
+	parts := strings.Split(s, ".")
+	for i, part := range parts {
+		parts[i] = strings.ToLower(part[:1]) + part[1:]
+	}
+	return strings.Join(parts, ".")
+}
+
 // ProtoCamelCase converts a snake case name to a upper camel case name using the
 // go protoc special rules: convert to camel case, except when
 // the character following the underscore is a digit; e.g.,

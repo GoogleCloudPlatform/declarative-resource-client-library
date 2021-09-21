@@ -84,7 +84,6 @@ components:
           readOnly: true
           description: Available versions that the instance can be upgraded to.
           x-kubernetes-immutable: true
-          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -97,7 +96,6 @@ components:
                 description: Represents a list of available feature names for a given
                   version.
                 x-kubernetes-immutable: true
-                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string

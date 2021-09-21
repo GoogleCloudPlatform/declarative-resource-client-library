@@ -313,7 +313,7 @@ func (op *createCryptoKeyOperation) do(ctx context.Context, r *CryptoKey, c *Cli
 	// Include Name in URL substitution for initial GET request.
 	name, ok := op.response["name"].(string)
 	if !ok {
-		return fmt.Errorf("expected name to be a string in %v", op.response)
+		return fmt.Errorf("expected name to be a string in %v, was %T", op.response, op.response["name"])
 	}
 	r.Name = &name
 

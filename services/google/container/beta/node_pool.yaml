@@ -122,7 +122,6 @@ components:
           readOnly: true
           description: Which conditions caused the current node pool state.
           x-kubernetes-immutable: true
-          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object

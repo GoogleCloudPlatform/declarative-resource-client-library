@@ -100,7 +100,6 @@ components:
             This can be because the original image had licenses attached (such as
             a Windows image).
           x-kubernetes-immutable: true
-          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: string

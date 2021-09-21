@@ -221,7 +221,6 @@ components:
             resources will be created when creating the workload. If any of the projects
             already exist, the workload creation will fail. Always read only.
           x-kubernetes-immutable: true
-          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object

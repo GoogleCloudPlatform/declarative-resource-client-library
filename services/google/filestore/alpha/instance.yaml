@@ -221,7 +221,6 @@ components:
                 description: Output only. IPv4 addresses in the format `{octet1}.{octet2}.{octet3}.{octet4}`
                   or IPv6 addresses in the format `{block1}:{block2}:{block3}:{block4}:{block5}:{block6}:{block7}:{block8}`.
                 x-kubernetes-immutable: true
-                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string

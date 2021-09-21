@@ -234,7 +234,6 @@ components:
             [Output Only] If potential misconfigurations are detected for this
             route, this field will be populated with warning messages.
           x-kubernetes-immutable: true
-          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object

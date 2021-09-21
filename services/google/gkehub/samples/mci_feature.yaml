@@ -40,10 +40,10 @@ updates:
   - samples/basic.cloudresourcemanager.project.json
   resource: samples/update_mci.feature.json
 variables:
-- name: org_id
-  type: org_id
 - name: id
   type: resource_name
+- name: org_id
+  type: org_id
 - name: billing_account
   type: billing_account
 - name: zone
@@ -52,9 +52,9 @@ variables:
   type: resource_name
 - name: cluster2
   type: resource_name
-- name: membership1
-  type: resource_name
 - name: membership2
+  type: resource_name
+- name: membership1
   type: resource_name
 versions:
 - beta

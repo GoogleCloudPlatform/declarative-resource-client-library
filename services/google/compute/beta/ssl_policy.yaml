@@ -87,7 +87,6 @@ components:
           readOnly: true
           description: '[Output Only] The list of features enabled in the SSL policy.'
           x-kubernetes-immutable: true
-          x-dcl-send-empty: true
           x-dcl-list-type: set
           items:
             type: string
@@ -166,7 +165,6 @@ components:
             [Output Only] If potential misconfigurations are detected for this
             SSL policy, this field will be populated with warning messages.
           x-kubernetes-immutable: true
-          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object

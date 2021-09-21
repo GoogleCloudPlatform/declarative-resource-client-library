@@ -204,7 +204,6 @@ components:
                   readOnly: true
                   description: Output only. Results of running Service Mesh analyzers.
                   x-kubernetes-immutable: true
-                  x-dcl-send-empty: true
                   x-dcl-list-type: list
                   items:
                     type: object
@@ -292,7 +291,6 @@ components:
                           cluster * MEMBERSHIP_ID/(NAMESPACE/)?RESOURCETYPE/NAME if
                           the cause is a resource in a cluster'
                         x-kubernetes-immutable: true
-                        x-dcl-send-empty: true
                         x-dcl-list-type: list
                         items:
                           type: string

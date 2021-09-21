@@ -96,8 +96,6 @@ func newUpdateHubUpdateHubRequest(ctx context.Context, f *Hub, c *Client) (map[s
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
-	req["name"] = fmt.Sprintf("{{hub.name}}")
-
 	return req, nil
 }
 

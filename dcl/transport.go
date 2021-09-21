@@ -195,11 +195,11 @@ func Nprintf(format string, params map[string]interface{}) string {
 		return "error: too many path separators."
 	}
 	for key, val := range params {
-		r := regexp.MustCompile(`{{\s?` + key + `\s?}}`)
+		r := regexp.MustCompile(`{{\s?` + regexp.QuoteMeta(key) + `\s?}}`)
 		path = r.ReplaceAllString(path, fmt.Sprintf("%v", val))
 	}
 	for key, val := range params {
-		r := regexp.MustCompile(`{{\s?` + key + `\s?}}`)
+		r := regexp.MustCompile(`{{\s?` + regexp.QuoteMeta(key) + `\s?}}`)
 		query = r.ReplaceAllString(query, url.QueryEscape(fmt.Sprintf("%v", val)))
 	}
 	if query != "" {
