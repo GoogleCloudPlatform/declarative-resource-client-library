@@ -42,47 +42,47 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: connectivity_network2
-  type: resource_name
 - name: connectivity_network1
+  type: resource_name
+- name: connectivity_network2
   type: resource_name
 - name: region
   type: region
-- name: gateway2
+- name: connectivity_router1
   type: resource_name
 - name: gateway1
   type: resource_name
-- name: connectivity_router1
+- name: gateway2
   type: resource_name
 - name: connectivity_subnet1
   type: resource_name
-- name: connectivity_router2
-  type: resource_name
 - name: connectivity_subnet2
   type: resource_name
-- name: connectivity_peer3
-  type: resource_name
-- name: connectivity_tunnel2
+- name: connectivity_router2
   type: resource_name
 - name: connectivity_tunnel3
+  type: resource_name
+- name: connectivity_tunnel1
+  type: resource_name
+- name: connectivity_tunnel2
   type: resource_name
 - name: connectivity_peer4
   type: resource_name
 - name: connectivity_tunnel4
   type: resource_name
-- name: connectivity_peer2
-  type: resource_name
-- name: connectivity_tunnel1
-  type: resource_name
 - name: connectivity_peer1
   type: resource_name
-- name: connectivity_interface1
+- name: connectivity_peer2
+  type: resource_name
+- name: connectivity_peer3
+  type: resource_name
+- name: connectivity_interface2
   type: resource_name
 - name: connectivity_interface3
   type: resource_name
-- name: connectivity_interface4
+- name: connectivity_interface1
   type: resource_name
-- name: connectivity_interface2
+- name: connectivity_interface4
   type: resource_name
 - name: spoke
   type: resource_name

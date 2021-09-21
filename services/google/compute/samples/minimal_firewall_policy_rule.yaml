@@ -37,16 +37,16 @@ updates:
   - samples/compute.serviceusage.service.json
   resource: samples/update_minimal.firewall_policy_rule.json
 variables:
-- name: folder
-  type: resource_name
 - name: org_id
   type: org_id
+- name: folder
+  type: resource_name
 - name: id1
   type: resource_name
-- name: billing_account
-  type: billing_account
 - name: test_service_account
   type: test_service_account
+- name: billing_account
+  type: billing_account
 - name: policy
   type: resource_name
 - name: association
