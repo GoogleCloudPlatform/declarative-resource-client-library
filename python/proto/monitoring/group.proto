@@ -40,7 +40,7 @@ message DeleteMonitoringGroupRequest {
 
 message ListMonitoringGroupRequest {
   string service_account_file = 1;
-	MonitoringGroup resource = 2;
+  string Project = 2;
 }
 
 message ListMonitoringGroupResponse {

@@ -171,56 +171,12 @@ class Note(object):
 
         response = stub.DeleteContaineranalysisAlphaNote(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, service_account_file=""):
         stub = note_pb2_grpc.ContaineranalysisAlphaNoteServiceStub(channel.Channel())
         request = note_pb2.ListContaineranalysisAlphaNoteRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
-        if Primitive.to_proto(self.short_description):
-            request.resource.short_description = Primitive.to_proto(
-                self.short_description
-            )
-
-        if Primitive.to_proto(self.long_description):
-            request.resource.long_description = Primitive.to_proto(
-                self.long_description
-            )
-
-        if NoteRelatedUrlArray.to_proto(self.related_url):
-            request.resource.related_url.extend(
-                NoteRelatedUrlArray.to_proto(self.related_url)
-            )
-        if Primitive.to_proto(self.expiration_time):
-            request.resource.expiration_time = Primitive.to_proto(self.expiration_time)
-
-        if NoteImage.to_proto(self.image):
-            request.resource.image.CopyFrom(NoteImage.to_proto(self.image))
-        else:
-            request.resource.ClearField("image")
-        if NotePackage.to_proto(self.package):
-            request.resource.package.CopyFrom(NotePackage.to_proto(self.package))
-        else:
-            request.resource.ClearField("package")
-        if NoteDiscovery.to_proto(self.discovery):
-            request.resource.discovery.CopyFrom(NoteDiscovery.to_proto(self.discovery))
-        else:
-            request.resource.ClearField("discovery")
-        if NoteDeployment.to_proto(self.deployment):
-            request.resource.deployment.CopyFrom(
-                NoteDeployment.to_proto(self.deployment)
-            )
-        else:
-            request.resource.ClearField("deployment")
-        if NoteAttestation.to_proto(self.attestation):
-            request.resource.attestation.CopyFrom(
-                NoteAttestation.to_proto(self.attestation)
-            )
-        else:
-            request.resource.ClearField("attestation")
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
+        request.service_account_file = service_account_file
+        request.Project = project
 
         return stub.ListContaineranalysisAlphaNote(request).items
 

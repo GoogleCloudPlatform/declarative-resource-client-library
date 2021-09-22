@@ -92,23 +92,14 @@ class FirewallPolicy(object):
 
         response = stub.DeleteComputeAlphaFirewallPolicy(request)
 
-    def list(self):
+    @classmethod
+    def list(self, parent, service_account_file=""):
         stub = firewall_policy_pb2_grpc.ComputeAlphaFirewallPolicyServiceStub(
             channel.Channel()
         )
         request = firewall_policy_pb2.ListComputeAlphaFirewallPolicyRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if Primitive.to_proto(self.short_name):
-            request.resource.short_name = Primitive.to_proto(self.short_name)
-
-        if Primitive.to_proto(self.parent):
-            request.resource.parent = Primitive.to_proto(self.parent)
+        request.service_account_file = service_account_file
+        request.Parent = parent
 
         return stub.ListComputeAlphaFirewallPolicy(request).items
 

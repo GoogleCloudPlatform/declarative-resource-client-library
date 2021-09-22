@@ -626,19 +626,24 @@ func (l *MembershipList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListMembership(ctx context.Context, r *Membership) (*MembershipList, error) {
+func (c *Client) ListMembership(ctx context.Context, project, location string) (*MembershipList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListMembershipWithMaxResults(ctx, r, MembershipMaxPage)
+	return c.ListMembershipWithMaxResults(ctx, project, location, MembershipMaxPage)
 
 }
 
-func (c *Client) ListMembershipWithMaxResults(ctx context.Context, r *Membership, pageSize int32) (*MembershipList, error) {
+func (c *Client) ListMembershipWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*MembershipList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Membership{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listMembership(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -705,11 +710,7 @@ func (c *Client) DeleteMembership(ctx context.Context, r *Membership) error {
 
 // DeleteAllMembership deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllMembership(ctx context.Context, project, location string, filter func(*Membership) bool) error {
-	r := &Membership{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListMembership(ctx, r)
+	listObj, err := c.ListMembership(ctx, project, location)
 	if err != nil {
 		return err
 	}

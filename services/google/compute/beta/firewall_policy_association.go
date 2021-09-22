@@ -89,19 +89,23 @@ func (l *FirewallPolicyAssociationList) Next(ctx context.Context, c *Client) err
 	return err
 }
 
-func (c *Client) ListFirewallPolicyAssociation(ctx context.Context, r *FirewallPolicyAssociation) (*FirewallPolicyAssociationList, error) {
+func (c *Client) ListFirewallPolicyAssociation(ctx context.Context, firewallPolicy string) (*FirewallPolicyAssociationList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListFirewallPolicyAssociationWithMaxResults(ctx, r, FirewallPolicyAssociationMaxPage)
+	return c.ListFirewallPolicyAssociationWithMaxResults(ctx, firewallPolicy, FirewallPolicyAssociationMaxPage)
 
 }
 
-func (c *Client) ListFirewallPolicyAssociationWithMaxResults(ctx context.Context, r *FirewallPolicyAssociation, pageSize int32) (*FirewallPolicyAssociationList, error) {
+func (c *Client) ListFirewallPolicyAssociationWithMaxResults(ctx context.Context, firewallPolicy string, pageSize int32) (*FirewallPolicyAssociationList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &FirewallPolicyAssociation{
+		FirewallPolicy: &firewallPolicy,
+	}
 	items, token, err := c.listFirewallPolicyAssociation(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -167,10 +171,7 @@ func (c *Client) DeleteFirewallPolicyAssociation(ctx context.Context, r *Firewal
 
 // DeleteAllFirewallPolicyAssociation deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllFirewallPolicyAssociation(ctx context.Context, firewallPolicy string, filter func(*FirewallPolicyAssociation) bool) error {
-	r := &FirewallPolicyAssociation{
-		FirewallPolicy: &firewallPolicy,
-	}
-	listObj, err := c.ListFirewallPolicyAssociation(ctx, r)
+	listObj, err := c.ListFirewallPolicyAssociation(ctx, firewallPolicy)
 	if err != nil {
 		return err
 	}

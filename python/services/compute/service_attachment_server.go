@@ -246,7 +246,7 @@ func (s *ServiceAttachmentServer) ListComputeServiceAttachment(ctx context.Conte
 		return nil, err
 	}
 
-	resources, err := cl.ListServiceAttachment(ctx, ProtoToServiceAttachment(request.GetResource()))
+	resources, err := cl.ListServiceAttachment(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

@@ -42,7 +42,8 @@ message DeleteBigqueryreservationAlphaReservationRequest {
 
 message ListBigqueryreservationAlphaReservationRequest {
   string service_account_file = 1;
-	BigqueryreservationAlphaReservation resource = 2;
+  string Project = 2;
+  string Location = 3;
 }
 
 message ListBigqueryreservationAlphaReservationResponse {

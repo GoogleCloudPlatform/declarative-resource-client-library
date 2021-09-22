@@ -90,24 +90,13 @@ class Project(object):
 
         response = stub.DeleteCloudresourcemanagerAlphaProject(request)
 
-    def list(self):
+    @classmethod
+    def list(self, service_account_file=""):
         stub = project_pb2_grpc.CloudresourcemanagerAlphaProjectServiceStub(
             channel.Channel()
         )
         request = project_pb2.ListCloudresourcemanagerAlphaProjectRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
-
-        if Primitive.to_proto(self.displayName):
-            request.resource.displayName = Primitive.to_proto(self.displayName)
-
-        if Primitive.to_proto(self.parent):
-            request.resource.parent = Primitive.to_proto(self.parent)
-
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
+        request.service_account_file = service_account_file
         return stub.ListCloudresourcemanagerAlphaProject(request).items
 
     def to_proto(self):

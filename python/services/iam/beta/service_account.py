@@ -98,27 +98,14 @@ class ServiceAccount(object):
             request.resource.ClearField("actas_resources")
         response = stub.DeleteIamBetaServiceAccount(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, service_account_file=""):
         stub = service_account_pb2_grpc.IamBetaServiceAccountServiceStub(
             channel.Channel()
         )
         request = service_account_pb2.ListIamBetaServiceAccountRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
-        if Primitive.to_proto(self.display_name):
-            request.resource.display_name = Primitive.to_proto(self.display_name)
-
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if ServiceAccountActasResources.to_proto(self.actas_resources):
-            request.resource.actas_resources.CopyFrom(
-                ServiceAccountActasResources.to_proto(self.actas_resources)
-            )
-        else:
-            request.resource.ClearField("actas_resources")
+        request.service_account_file = service_account_file
+        request.Project = project
 
         return stub.ListIamBetaServiceAccount(request).items
 

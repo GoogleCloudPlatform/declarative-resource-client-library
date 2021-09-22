@@ -185,19 +185,23 @@ func (l *RoleList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListRole(ctx context.Context, r *Role) (*RoleList, error) {
+func (c *Client) ListRole(ctx context.Context, parent string) (*RoleList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListRoleWithMaxResults(ctx, r, RoleMaxPage)
+	return c.ListRoleWithMaxResults(ctx, parent, RoleMaxPage)
 
 }
 
-func (c *Client) ListRoleWithMaxResults(ctx context.Context, r *Role, pageSize int32) (*RoleList, error) {
+func (c *Client) ListRoleWithMaxResults(ctx context.Context, parent string, pageSize int32) (*RoleList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Role{
+		Parent: &parent,
+	}
 	items, token, err := c.listRole(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -263,10 +267,7 @@ func (c *Client) DeleteRole(ctx context.Context, r *Role) error {
 
 // DeleteAllRole deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllRole(ctx context.Context, parent string, filter func(*Role) bool) error {
-	r := &Role{
-		Parent: &parent,
-	}
-	listObj, err := c.ListRole(ctx, r)
+	listObj, err := c.ListRole(ctx, parent)
 	if err != nil {
 		return err
 	}

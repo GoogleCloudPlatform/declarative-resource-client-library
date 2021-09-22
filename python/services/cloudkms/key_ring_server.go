@@ -83,7 +83,7 @@ func (s *KeyRingServer) ListCloudkmsKeyRing(ctx context.Context, request *cloudk
 		return nil, err
 	}
 
-	resources, err := cl.ListKeyRing(ctx, ProtoToKeyRing(request.GetResource()))
+	resources, err := cl.ListKeyRing(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

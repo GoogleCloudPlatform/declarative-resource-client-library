@@ -44,7 +44,7 @@ components:
   schemas:
     Project:
       title: Project
-      x-dcl-id: v1/projects/{{name}}
+      x-dcl-id: projects/{{name}}
       x-dcl-labels: labels
       type: object
       properties:

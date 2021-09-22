@@ -335,19 +335,24 @@ func (l *WorkloadList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListWorkload(ctx context.Context, r *Workload) (*WorkloadList, error) {
+func (c *Client) ListWorkload(ctx context.Context, organization, location string) (*WorkloadList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListWorkloadWithMaxResults(ctx, r, WorkloadMaxPage)
+	return c.ListWorkloadWithMaxResults(ctx, organization, location, WorkloadMaxPage)
 
 }
 
-func (c *Client) ListWorkloadWithMaxResults(ctx context.Context, r *Workload, pageSize int32) (*WorkloadList, error) {
+func (c *Client) ListWorkloadWithMaxResults(ctx context.Context, organization, location string, pageSize int32) (*WorkloadList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Workload{
+		Organization: &organization,
+		Location:     &location,
+	}
 	items, token, err := c.listWorkload(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -414,11 +419,7 @@ func (c *Client) DeleteWorkload(ctx context.Context, r *Workload) error {
 
 // DeleteAllWorkload deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllWorkload(ctx context.Context, organization, location string, filter func(*Workload) bool) error {
-	r := &Workload{
-		Organization: &organization,
-		Location:     &location,
-	}
-	listObj, err := c.ListWorkload(ctx, r)
+	listObj, err := c.ListWorkload(ctx, organization, location)
 	if err != nil {
 		return err
 	}

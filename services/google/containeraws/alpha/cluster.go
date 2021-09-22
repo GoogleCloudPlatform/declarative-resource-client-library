@@ -724,19 +724,24 @@ func (l *ClusterList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListCluster(ctx context.Context, r *Cluster) (*ClusterList, error) {
+func (c *Client) ListCluster(ctx context.Context, project, location string) (*ClusterList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListClusterWithMaxResults(ctx, r, ClusterMaxPage)
+	return c.ListClusterWithMaxResults(ctx, project, location, ClusterMaxPage)
 
 }
 
-func (c *Client) ListClusterWithMaxResults(ctx context.Context, r *Cluster, pageSize int32) (*ClusterList, error) {
+func (c *Client) ListClusterWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*ClusterList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Cluster{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listCluster(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -803,11 +808,7 @@ func (c *Client) DeleteCluster(ctx context.Context, r *Cluster) error {
 
 // DeleteAllCluster deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllCluster(ctx context.Context, project, location string, filter func(*Cluster) bool) error {
-	r := &Cluster{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListCluster(ctx, r)
+	listObj, err := c.ListCluster(ctx, project, location)
 	if err != nil {
 		return err
 	}

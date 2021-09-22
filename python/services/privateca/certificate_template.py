@@ -160,50 +160,16 @@ class CertificateTemplate(object):
 
         response = stub.DeletePrivatecaCertificateTemplate(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, service_account_file=""):
         stub = certificate_template_pb2_grpc.PrivatecaCertificateTemplateServiceStub(
             channel.Channel()
         )
         request = certificate_template_pb2.ListPrivatecaCertificateTemplateRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if CertificateTemplatePredefinedValues.to_proto(self.predefined_values):
-            request.resource.predefined_values.CopyFrom(
-                CertificateTemplatePredefinedValues.to_proto(self.predefined_values)
-            )
-        else:
-            request.resource.ClearField("predefined_values")
-        if CertificateTemplateIdentityConstraints.to_proto(self.identity_constraints):
-            request.resource.identity_constraints.CopyFrom(
-                CertificateTemplateIdentityConstraints.to_proto(
-                    self.identity_constraints
-                )
-            )
-        else:
-            request.resource.ClearField("identity_constraints")
-        if CertificateTemplatePassthroughExtensions.to_proto(
-            self.passthrough_extensions
-        ):
-            request.resource.passthrough_extensions.CopyFrom(
-                CertificateTemplatePassthroughExtensions.to_proto(
-                    self.passthrough_extensions
-                )
-            )
-        else:
-            request.resource.ClearField("passthrough_extensions")
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
+        request.Location = location
 
         return stub.ListPrivatecaCertificateTemplate(request).items
 

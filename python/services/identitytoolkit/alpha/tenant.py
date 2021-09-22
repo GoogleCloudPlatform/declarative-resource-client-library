@@ -149,47 +149,12 @@ class Tenant(object):
 
         response = stub.DeleteIdentitytoolkitAlphaTenant(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, service_account_file=""):
         stub = tenant_pb2_grpc.IdentitytoolkitAlphaTenantServiceStub(channel.Channel())
         request = tenant_pb2.ListIdentitytoolkitAlphaTenantRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
-        if Primitive.to_proto(self.display_name):
-            request.resource.display_name = Primitive.to_proto(self.display_name)
-
-        if Primitive.to_proto(self.allow_password_signup):
-            request.resource.allow_password_signup = Primitive.to_proto(
-                self.allow_password_signup
-            )
-
-        if Primitive.to_proto(self.enable_email_link_signin):
-            request.resource.enable_email_link_signin = Primitive.to_proto(
-                self.enable_email_link_signin
-            )
-
-        if Primitive.to_proto(self.disable_auth):
-            request.resource.disable_auth = Primitive.to_proto(self.disable_auth)
-
-        if Primitive.to_proto(self.enable_anonymous_user):
-            request.resource.enable_anonymous_user = Primitive.to_proto(
-                self.enable_anonymous_user
-            )
-
-        if TenantMfaConfig.to_proto(self.mfa_config):
-            request.resource.mfa_config.CopyFrom(
-                TenantMfaConfig.to_proto(self.mfa_config)
-            )
-        else:
-            request.resource.ClearField("mfa_config")
-        if Primitive.to_proto(self.test_phone_numbers):
-            request.resource.test_phone_numbers = Primitive.to_proto(
-                self.test_phone_numbers
-            )
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
+        request.service_account_file = service_account_file
+        request.Project = project
 
         return stub.ListIdentitytoolkitAlphaTenant(request).items
 

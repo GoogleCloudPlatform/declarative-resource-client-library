@@ -1597,19 +1597,24 @@ func (l *WorkflowTemplateList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListWorkflowTemplate(ctx context.Context, r *WorkflowTemplate) (*WorkflowTemplateList, error) {
+func (c *Client) ListWorkflowTemplate(ctx context.Context, project, location string) (*WorkflowTemplateList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListWorkflowTemplateWithMaxResults(ctx, r, WorkflowTemplateMaxPage)
+	return c.ListWorkflowTemplateWithMaxResults(ctx, project, location, WorkflowTemplateMaxPage)
 
 }
 
-func (c *Client) ListWorkflowTemplateWithMaxResults(ctx context.Context, r *WorkflowTemplate, pageSize int32) (*WorkflowTemplateList, error) {
+func (c *Client) ListWorkflowTemplateWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*WorkflowTemplateList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &WorkflowTemplate{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listWorkflowTemplate(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -1676,11 +1681,7 @@ func (c *Client) DeleteWorkflowTemplate(ctx context.Context, r *WorkflowTemplate
 
 // DeleteAllWorkflowTemplate deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllWorkflowTemplate(ctx context.Context, project, location string, filter func(*WorkflowTemplate) bool) error {
-	r := &WorkflowTemplate{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListWorkflowTemplate(ctx, r)
+	listObj, err := c.ListWorkflowTemplate(ctx, project, location)
 	if err != nil {
 		return err
 	}

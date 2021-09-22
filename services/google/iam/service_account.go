@@ -194,19 +194,23 @@ func (l *ServiceAccountList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListServiceAccount(ctx context.Context, r *ServiceAccount) (*ServiceAccountList, error) {
+func (c *Client) ListServiceAccount(ctx context.Context, project string) (*ServiceAccountList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListServiceAccountWithMaxResults(ctx, r, ServiceAccountMaxPage)
+	return c.ListServiceAccountWithMaxResults(ctx, project, ServiceAccountMaxPage)
 
 }
 
-func (c *Client) ListServiceAccountWithMaxResults(ctx context.Context, r *ServiceAccount, pageSize int32) (*ServiceAccountList, error) {
+func (c *Client) ListServiceAccountWithMaxResults(ctx context.Context, project string, pageSize int32) (*ServiceAccountList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &ServiceAccount{
+		Project: &project,
+	}
 	items, token, err := c.listServiceAccount(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -272,10 +276,7 @@ func (c *Client) DeleteServiceAccount(ctx context.Context, r *ServiceAccount) er
 
 // DeleteAllServiceAccount deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllServiceAccount(ctx context.Context, project string, filter func(*ServiceAccount) bool) error {
-	r := &ServiceAccount{
-		Project: &project,
-	}
-	listObj, err := c.ListServiceAccount(ctx, r)
+	listObj, err := c.ListServiceAccount(ctx, project)
 	if err != nil {
 		return err
 	}

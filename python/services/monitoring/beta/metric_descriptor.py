@@ -166,51 +166,14 @@ class MetricDescriptor(object):
 
         response = stub.DeleteMonitoringBetaMetricDescriptor(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, service_account_file=""):
         stub = metric_descriptor_pb2_grpc.MonitoringBetaMetricDescriptorServiceStub(
             channel.Channel()
         )
         request = metric_descriptor_pb2.ListMonitoringBetaMetricDescriptorRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.type):
-            request.resource.type = Primitive.to_proto(self.type)
-
-        if MetricDescriptorLabelsArray.to_proto(self.labels):
-            request.resource.labels.extend(
-                MetricDescriptorLabelsArray.to_proto(self.labels)
-            )
-        if MetricDescriptorMetricKindEnum.to_proto(self.metric_kind):
-            request.resource.metric_kind = MetricDescriptorMetricKindEnum.to_proto(
-                self.metric_kind
-            )
-
-        if MetricDescriptorValueTypeEnum.to_proto(self.value_type):
-            request.resource.value_type = MetricDescriptorValueTypeEnum.to_proto(
-                self.value_type
-            )
-
-        if Primitive.to_proto(self.unit):
-            request.resource.unit = Primitive.to_proto(self.unit)
-
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if Primitive.to_proto(self.display_name):
-            request.resource.display_name = Primitive.to_proto(self.display_name)
-
-        if MetricDescriptorMetadata.to_proto(self.metadata):
-            request.resource.metadata.CopyFrom(
-                MetricDescriptorMetadata.to_proto(self.metadata)
-            )
-        else:
-            request.resource.ClearField("metadata")
-        if MetricDescriptorLaunchStageEnum.to_proto(self.launch_stage):
-            request.resource.launch_stage = MetricDescriptorLaunchStageEnum.to_proto(
-                self.launch_stage
-            )
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
+        request.service_account_file = service_account_file
+        request.Project = project
 
         return stub.ListMonitoringBetaMetricDescriptor(request).items
 

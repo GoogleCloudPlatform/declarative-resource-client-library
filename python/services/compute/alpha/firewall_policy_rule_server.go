@@ -197,7 +197,7 @@ func (s *FirewallPolicyRuleServer) ListComputeAlphaFirewallPolicyRule(ctx contex
 		return nil, err
 	}
 
-	resources, err := cl.ListFirewallPolicyRule(ctx, ProtoToFirewallPolicyRule(request.GetResource()))
+	resources, err := cl.ListFirewallPolicyRule(ctx, request.FirewallPolicy)
 	if err != nil {
 		return nil, err
 	}

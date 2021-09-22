@@ -39,7 +39,7 @@ message DeleteIapAlphaBrandRequest {
 
 message ListIapAlphaBrandRequest {
   string service_account_file = 1;
-	IapAlphaBrand resource = 2;
+  string Project = 2;
 }
 
 message ListIapAlphaBrandResponse {

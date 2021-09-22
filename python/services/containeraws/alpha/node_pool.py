@@ -162,48 +162,18 @@ class NodePool(object):
 
         response = stub.DeleteContainerawsAlphaNodePool(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, cluster, service_account_file=""):
         stub = node_pool_pb2_grpc.ContainerawsAlphaNodePoolServiceStub(
             channel.Channel()
         )
         request = node_pool_pb2.ListContainerawsAlphaNodePoolRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.version):
-            request.resource.version = Primitive.to_proto(self.version)
+        request.Location = location
 
-        if NodePoolConfig.to_proto(self.config):
-            request.resource.config.CopyFrom(NodePoolConfig.to_proto(self.config))
-        else:
-            request.resource.ClearField("config")
-        if NodePoolAutoscaling.to_proto(self.autoscaling):
-            request.resource.autoscaling.CopyFrom(
-                NodePoolAutoscaling.to_proto(self.autoscaling)
-            )
-        else:
-            request.resource.ClearField("autoscaling")
-        if Primitive.to_proto(self.subnet_id):
-            request.resource.subnet_id = Primitive.to_proto(self.subnet_id)
-
-        if Primitive.to_proto(self.annotations):
-            request.resource.annotations = Primitive.to_proto(self.annotations)
-
-        if NodePoolMaxPodsConstraint.to_proto(self.max_pods_constraint):
-            request.resource.max_pods_constraint.CopyFrom(
-                NodePoolMaxPodsConstraint.to_proto(self.max_pods_constraint)
-            )
-        else:
-            request.resource.ClearField("max_pods_constraint")
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
-
-        if Primitive.to_proto(self.cluster):
-            request.resource.cluster = Primitive.to_proto(self.cluster)
+        request.Cluster = cluster
 
         return stub.ListContainerawsAlphaNodePool(request).items
 

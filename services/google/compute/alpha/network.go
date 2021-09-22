@@ -172,19 +172,23 @@ func (l *NetworkList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListNetwork(ctx context.Context, r *Network) (*NetworkList, error) {
+func (c *Client) ListNetwork(ctx context.Context, project string) (*NetworkList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListNetworkWithMaxResults(ctx, r, NetworkMaxPage)
+	return c.ListNetworkWithMaxResults(ctx, project, NetworkMaxPage)
 
 }
 
-func (c *Client) ListNetworkWithMaxResults(ctx context.Context, r *Network, pageSize int32) (*NetworkList, error) {
+func (c *Client) ListNetworkWithMaxResults(ctx context.Context, project string, pageSize int32) (*NetworkList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Network{
+		Project: &project,
+	}
 	items, token, err := c.listNetwork(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -253,10 +257,7 @@ func (c *Client) DeleteNetwork(ctx context.Context, r *Network) error {
 
 // DeleteAllNetwork deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllNetwork(ctx context.Context, project string, filter func(*Network) bool) error {
-	r := &Network{
-		Project: &project,
-	}
-	listObj, err := c.ListNetwork(ctx, r)
+	listObj, err := c.ListNetwork(ctx, project)
 	if err != nil {
 		return err
 	}

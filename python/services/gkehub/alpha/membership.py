@@ -151,44 +151,14 @@ class Membership(object):
 
         response = stub.DeleteGkehubAlphaMembership(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, service_account_file=""):
         stub = membership_pb2_grpc.GkehubAlphaMembershipServiceStub(channel.Channel())
         request = membership_pb2.ListGkehubAlphaMembershipRequest()
-        request.service_account_file = self.service_account_file
-        if MembershipEndpoint.to_proto(self.endpoint):
-            request.resource.endpoint.CopyFrom(
-                MembershipEndpoint.to_proto(self.endpoint)
-            )
-        else:
-            request.resource.ClearField("endpoint")
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
-
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if Primitive.to_proto(self.external_id):
-            request.resource.external_id = Primitive.to_proto(self.external_id)
-
-        if MembershipAuthority.to_proto(self.authority):
-            request.resource.authority.CopyFrom(
-                MembershipAuthority.to_proto(self.authority)
-            )
-        else:
-            request.resource.ClearField("authority")
-        if MembershipInfrastructureTypeEnum.to_proto(self.infrastructure_type):
-            request.resource.infrastructure_type = MembershipInfrastructureTypeEnum.to_proto(
-                self.infrastructure_type
-            )
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
+        request.Location = location
 
         return stub.ListGkehubAlphaMembership(request).items
 

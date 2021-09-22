@@ -179,7 +179,7 @@ func (s *WorkloadIdentityPoolProviderServer) ListIamBetaWorkloadIdentityPoolProv
 		return nil, err
 	}
 
-	resources, err := cl.ListWorkloadIdentityPoolProvider(ctx, ProtoToWorkloadIdentityPoolProvider(request.GetResource()))
+	resources, err := cl.ListWorkloadIdentityPoolProvider(ctx, request.Project, request.Location, request.WorkloadIdentityPool)
 	if err != nil {
 		return nil, err
 	}

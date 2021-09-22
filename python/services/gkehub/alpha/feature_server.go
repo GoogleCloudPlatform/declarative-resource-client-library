@@ -417,7 +417,7 @@ func (s *FeatureServer) ListGkehubAlphaFeature(ctx context.Context, request *alp
 		return nil, err
 	}
 
-	resources, err := cl.ListFeature(ctx, ProtoToFeature(request.GetResource()))
+	resources, err := cl.ListFeature(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

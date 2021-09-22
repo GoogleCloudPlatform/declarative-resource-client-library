@@ -353,19 +353,24 @@ func (l *EndpointPolicyList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListEndpointPolicy(ctx context.Context, r *EndpointPolicy) (*EndpointPolicyList, error) {
+func (c *Client) ListEndpointPolicy(ctx context.Context, project, location string) (*EndpointPolicyList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListEndpointPolicyWithMaxResults(ctx, r, EndpointPolicyMaxPage)
+	return c.ListEndpointPolicyWithMaxResults(ctx, project, location, EndpointPolicyMaxPage)
 
 }
 
-func (c *Client) ListEndpointPolicyWithMaxResults(ctx context.Context, r *EndpointPolicy, pageSize int32) (*EndpointPolicyList, error) {
+func (c *Client) ListEndpointPolicyWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*EndpointPolicyList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &EndpointPolicy{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listEndpointPolicy(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -432,11 +437,7 @@ func (c *Client) DeleteEndpointPolicy(ctx context.Context, r *EndpointPolicy) er
 
 // DeleteAllEndpointPolicy deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllEndpointPolicy(ctx context.Context, project, location string, filter func(*EndpointPolicy) bool) error {
-	r := &EndpointPolicy{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListEndpointPolicy(ctx, r)
+	listObj, err := c.ListEndpointPolicy(ctx, project, location)
 	if err != nil {
 		return err
 	}

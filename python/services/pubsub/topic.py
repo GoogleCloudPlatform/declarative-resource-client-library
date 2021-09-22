@@ -93,27 +93,12 @@ class Topic(object):
 
         response = stub.DeletePubsubTopic(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, service_account_file=""):
         stub = topic_pb2_grpc.PubsubTopicServiceStub(channel.Channel())
         request = topic_pb2.ListPubsubTopicRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
-        if Primitive.to_proto(self.kms_key_name):
-            request.resource.kms_key_name = Primitive.to_proto(self.kms_key_name)
-
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
-
-        if TopicMessageStoragePolicy.to_proto(self.message_storage_policy):
-            request.resource.message_storage_policy.CopyFrom(
-                TopicMessageStoragePolicy.to_proto(self.message_storage_policy)
-            )
-        else:
-            request.resource.ClearField("message_storage_policy")
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
+        request.service_account_file = service_account_file
+        request.Project = project
 
         return stub.ListPubsubTopic(request).items
 

@@ -147,39 +147,16 @@ class OSPolicyAssignment(object):
 
         response = stub.DeleteOsconfigAlphaOSPolicyAssignment(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, service_account_file=""):
         stub = os_policy_assignment_pb2_grpc.OsconfigAlphaOSPolicyAssignmentServiceStub(
             channel.Channel()
         )
         request = os_policy_assignment_pb2.ListOsconfigAlphaOSPolicyAssignmentRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if OSPolicyAssignmentOSPoliciesArray.to_proto(self.os_policies):
-            request.resource.os_policies.extend(
-                OSPolicyAssignmentOSPoliciesArray.to_proto(self.os_policies)
-            )
-        if OSPolicyAssignmentInstanceFilter.to_proto(self.instance_filter):
-            request.resource.instance_filter.CopyFrom(
-                OSPolicyAssignmentInstanceFilter.to_proto(self.instance_filter)
-            )
-        else:
-            request.resource.ClearField("instance_filter")
-        if OSPolicyAssignmentRollout.to_proto(self.rollout):
-            request.resource.rollout.CopyFrom(
-                OSPolicyAssignmentRollout.to_proto(self.rollout)
-            )
-        else:
-            request.resource.ClearField("rollout")
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
+        request.Location = location
 
         return stub.ListOsconfigAlphaOSPolicyAssignment(request).items
 

@@ -228,7 +228,7 @@ func (s *InstanceServer) ListDatafusionBetaInstance(ctx context.Context, request
 		return nil, err
 	}
 
-	resources, err := cl.ListInstance(ctx, ProtoToInstance(request.GetResource()))
+	resources, err := cl.ListInstance(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

@@ -43,7 +43,6 @@ message DeleteMonitoringAlphaMetricsScopeRequest {
 
 message ListMonitoringAlphaMetricsScopeRequest {
   string service_account_file = 1;
-	MonitoringAlphaMetricsScope resource = 2;
 }
 
 message ListMonitoringAlphaMetricsScopeResponse {

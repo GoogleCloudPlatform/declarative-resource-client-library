@@ -43,7 +43,7 @@ message DeletePubsubTopicRequest {
 
 message ListPubsubTopicRequest {
   string service_account_file = 1;
-	PubsubTopic resource = 2;
+  string Project = 2;
 }
 
 message ListPubsubTopicResponse {

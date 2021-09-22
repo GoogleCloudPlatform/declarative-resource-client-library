@@ -111,7 +111,7 @@ func (s *ProjectServer) ListCloudresourcemanagerAlphaProject(ctx context.Context
 		return nil, err
 	}
 
-	resources, err := cl.ListProject(ctx, ProtoToProject(request.GetResource()))
+	resources, err := cl.ListProject(ctx)
 	if err != nil {
 		return nil, err
 	}

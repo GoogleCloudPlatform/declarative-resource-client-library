@@ -121,19 +121,24 @@ func (l *WorkloadIdentityPoolList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListWorkloadIdentityPool(ctx context.Context, r *WorkloadIdentityPool) (*WorkloadIdentityPoolList, error) {
+func (c *Client) ListWorkloadIdentityPool(ctx context.Context, project, location string) (*WorkloadIdentityPoolList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListWorkloadIdentityPoolWithMaxResults(ctx, r, WorkloadIdentityPoolMaxPage)
+	return c.ListWorkloadIdentityPoolWithMaxResults(ctx, project, location, WorkloadIdentityPoolMaxPage)
 
 }
 
-func (c *Client) ListWorkloadIdentityPoolWithMaxResults(ctx context.Context, r *WorkloadIdentityPool, pageSize int32) (*WorkloadIdentityPoolList, error) {
+func (c *Client) ListWorkloadIdentityPoolWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*WorkloadIdentityPoolList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &WorkloadIdentityPool{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listWorkloadIdentityPool(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -161,11 +166,7 @@ func (c *Client) DeleteWorkloadIdentityPool(ctx context.Context, r *WorkloadIden
 
 // DeleteAllWorkloadIdentityPool deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllWorkloadIdentityPool(ctx context.Context, project, location string, filter func(*WorkloadIdentityPool) bool) error {
-	r := &WorkloadIdentityPool{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListWorkloadIdentityPool(ctx, r)
+	listObj, err := c.ListWorkloadIdentityPool(ctx, project, location)
 	if err != nil {
 		return err
 	}

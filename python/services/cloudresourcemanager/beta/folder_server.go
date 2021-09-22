@@ -117,7 +117,7 @@ func (s *FolderServer) ListCloudresourcemanagerBetaFolder(ctx context.Context, r
 		return nil, err
 	}
 
-	resources, err := cl.ListFolder(ctx, ProtoToFolder(request.GetResource()))
+	resources, err := cl.ListFolder(ctx, request.Parent)
 	if err != nil {
 		return nil, err
 	}

@@ -224,7 +224,7 @@ func (s *TriggerServer) ListEventarcAlphaTrigger(ctx context.Context, request *a
 		return nil, err
 	}
 
-	resources, err := cl.ListTrigger(ctx, ProtoToTrigger(request.GetResource()))
+	resources, err := cl.ListTrigger(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

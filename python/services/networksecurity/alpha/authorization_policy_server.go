@@ -245,7 +245,7 @@ func (s *AuthorizationPolicyServer) ListNetworksecurityAlphaAuthorizationPolicy(
 		return nil, err
 	}
 
-	resources, err := cl.ListAuthorizationPolicy(ctx, ProtoToAuthorizationPolicy(request.GetResource()))
+	resources, err := cl.ListAuthorizationPolicy(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

@@ -37,7 +37,7 @@ message DeleteMonitoringMonitoredProjectRequest {
 
 message ListMonitoringMonitoredProjectRequest {
   string service_account_file = 1;
-	MonitoringMonitoredProject resource = 2;
+  string MetricsScope = 2;
 }
 
 message ListMonitoringMonitoredProjectResponse {

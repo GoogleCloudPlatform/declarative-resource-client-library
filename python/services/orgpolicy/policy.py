@@ -69,19 +69,12 @@ class Policy(object):
 
         response = stub.DeleteOrgpolicyPolicy(request)
 
-    def list(self):
+    @classmethod
+    def list(self, parent, service_account_file=""):
         stub = policy_pb2_grpc.OrgpolicyPolicyServiceStub(channel.Channel())
         request = policy_pb2.ListOrgpolicyPolicyRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
-        if PolicySpec.to_proto(self.spec):
-            request.resource.spec.CopyFrom(PolicySpec.to_proto(self.spec))
-        else:
-            request.resource.ClearField("spec")
-        if Primitive.to_proto(self.parent):
-            request.resource.parent = Primitive.to_proto(self.parent)
+        request.service_account_file = service_account_file
+        request.Parent = parent
 
         return stub.ListOrgpolicyPolicy(request).items
 

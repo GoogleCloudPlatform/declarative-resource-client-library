@@ -170,53 +170,16 @@ class PacketMirroring(object):
 
         response = stub.DeleteComputeAlphaPacketMirroring(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, service_account_file=""):
         stub = packet_mirroring_pb2_grpc.ComputeAlphaPacketMirroringServiceStub(
             channel.Channel()
         )
         request = packet_mirroring_pb2.ListComputeAlphaPacketMirroringRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if PacketMirroringNetwork.to_proto(self.network):
-            request.resource.network.CopyFrom(
-                PacketMirroringNetwork.to_proto(self.network)
-            )
-        else:
-            request.resource.ClearField("network")
-        if Primitive.to_proto(self.priority):
-            request.resource.priority = Primitive.to_proto(self.priority)
-
-        if PacketMirroringCollectorIlb.to_proto(self.collector_ilb):
-            request.resource.collector_ilb.CopyFrom(
-                PacketMirroringCollectorIlb.to_proto(self.collector_ilb)
-            )
-        else:
-            request.resource.ClearField("collector_ilb")
-        if PacketMirroringMirroredResources.to_proto(self.mirrored_resources):
-            request.resource.mirrored_resources.CopyFrom(
-                PacketMirroringMirroredResources.to_proto(self.mirrored_resources)
-            )
-        else:
-            request.resource.ClearField("mirrored_resources")
-        if PacketMirroringFilter.to_proto(self.filter):
-            request.resource.filter.CopyFrom(
-                PacketMirroringFilter.to_proto(self.filter)
-            )
-        else:
-            request.resource.ClearField("filter")
-        if PacketMirroringEnableEnum.to_proto(self.enable):
-            request.resource.enable = PacketMirroringEnableEnum.to_proto(self.enable)
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
+        request.Location = location
 
         return stub.ListComputeAlphaPacketMirroring(request).items
 

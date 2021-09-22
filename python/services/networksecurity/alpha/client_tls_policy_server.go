@@ -264,7 +264,7 @@ func (s *ClientTlsPolicyServer) ListNetworksecurityAlphaClientTlsPolicy(ctx cont
 		return nil, err
 	}
 
-	resources, err := cl.ListClientTlsPolicy(ctx, ProtoToClientTlsPolicy(request.GetResource()))
+	resources, err := cl.ListClientTlsPolicy(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

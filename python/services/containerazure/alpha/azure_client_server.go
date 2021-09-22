@@ -94,7 +94,7 @@ func (s *AzureClientServer) ListContainerazureAlphaAzureClient(ctx context.Conte
 		return nil, err
 	}
 
-	resources, err := cl.ListAzureClient(ctx, ProtoToAzureClient(request.GetResource()))
+	resources, err := cl.ListAzureClient(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

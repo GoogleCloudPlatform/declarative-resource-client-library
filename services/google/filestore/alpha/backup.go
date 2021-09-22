@@ -161,19 +161,24 @@ func (l *BackupList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListBackup(ctx context.Context, r *Backup) (*BackupList, error) {
+func (c *Client) ListBackup(ctx context.Context, project, location string) (*BackupList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListBackupWithMaxResults(ctx, r, BackupMaxPage)
+	return c.ListBackupWithMaxResults(ctx, project, location, BackupMaxPage)
 
 }
 
-func (c *Client) ListBackupWithMaxResults(ctx context.Context, r *Backup, pageSize int32) (*BackupList, error) {
+func (c *Client) ListBackupWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*BackupList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Backup{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listBackup(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -240,11 +245,7 @@ func (c *Client) DeleteBackup(ctx context.Context, r *Backup) error {
 
 // DeleteAllBackup deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllBackup(ctx context.Context, project, location string, filter func(*Backup) bool) error {
-	r := &Backup{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListBackup(ctx, r)
+	listObj, err := c.ListBackup(ctx, project, location)
 	if err != nil {
 		return err
 	}

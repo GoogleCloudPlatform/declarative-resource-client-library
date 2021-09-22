@@ -52,7 +52,7 @@ message DeleteComputeAlphaNetworkRequest {
 
 message ListComputeAlphaNetworkRequest {
   string service_account_file = 1;
-	ComputeAlphaNetwork resource = 2;
+  string Project = 2;
 }
 
 message ListComputeAlphaNetworkResponse {

@@ -136,40 +136,14 @@ class Trigger(object):
 
         response = stub.DeleteEventarcBetaTrigger(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, service_account_file=""):
         stub = trigger_pb2_grpc.EventarcBetaTriggerServiceStub(channel.Channel())
         request = trigger_pb2.ListEventarcBetaTriggerRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if TriggerMatchingCriteriaArray.to_proto(self.matching_criteria):
-            request.resource.matching_criteria.extend(
-                TriggerMatchingCriteriaArray.to_proto(self.matching_criteria)
-            )
-        if Primitive.to_proto(self.service_account):
-            request.resource.service_account = Primitive.to_proto(self.service_account)
-
-        if TriggerDestination.to_proto(self.destination):
-            request.resource.destination.CopyFrom(
-                TriggerDestination.to_proto(self.destination)
-            )
-        else:
-            request.resource.ClearField("destination")
-        if TriggerTransport.to_proto(self.transport):
-            request.resource.transport.CopyFrom(
-                TriggerTransport.to_proto(self.transport)
-            )
-        else:
-            request.resource.ClearField("transport")
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
+        request.Location = location
 
         return stub.ListEventarcBetaTrigger(request).items
 

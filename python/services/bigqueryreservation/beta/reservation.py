@@ -110,31 +110,16 @@ class Reservation(object):
 
         response = stub.DeleteBigqueryreservationBetaReservation(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, service_account_file=""):
         stub = reservation_pb2_grpc.BigqueryreservationBetaReservationServiceStub(
             channel.Channel()
         )
         request = reservation_pb2.ListBigqueryreservationBetaReservationRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.slot_capacity):
-            request.resource.slot_capacity = Primitive.to_proto(self.slot_capacity)
-
-        if Primitive.to_proto(self.ignore_idle_slots):
-            request.resource.ignore_idle_slots = Primitive.to_proto(
-                self.ignore_idle_slots
-            )
-
-        if Primitive.to_proto(self.max_concurrency):
-            request.resource.max_concurrency = Primitive.to_proto(self.max_concurrency)
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
+        request.Location = location
 
         return stub.ListBigqueryreservationBetaReservation(request).items
 

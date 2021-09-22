@@ -142,41 +142,16 @@ class ServerTlsPolicy(object):
 
         response = stub.DeleteNetworksecurityAlphaServerTlsPolicy(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, service_account_file=""):
         stub = server_tls_policy_pb2_grpc.NetworksecurityAlphaServerTlsPolicyServiceStub(
             channel.Channel()
         )
         request = server_tls_policy_pb2.ListNetworksecurityAlphaServerTlsPolicyRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
-
-        if Primitive.to_proto(self.allow_open):
-            request.resource.allow_open = Primitive.to_proto(self.allow_open)
-
-        if ServerTlsPolicyServerCertificate.to_proto(self.server_certificate):
-            request.resource.server_certificate.CopyFrom(
-                ServerTlsPolicyServerCertificate.to_proto(self.server_certificate)
-            )
-        else:
-            request.resource.ClearField("server_certificate")
-        if ServerTlsPolicyMtlsPolicy.to_proto(self.mtls_policy):
-            request.resource.mtls_policy.CopyFrom(
-                ServerTlsPolicyMtlsPolicy.to_proto(self.mtls_policy)
-            )
-        else:
-            request.resource.ClearField("mtls_policy")
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
+        request.Location = location
 
         return stub.ListNetworksecurityAlphaServerTlsPolicy(request).items
 

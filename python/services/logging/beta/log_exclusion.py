@@ -93,26 +93,14 @@ class LogExclusion(object):
 
         response = stub.DeleteLoggingBetaLogExclusion(request)
 
-    def list(self):
+    @classmethod
+    def list(self, parent, service_account_file=""):
         stub = log_exclusion_pb2_grpc.LoggingBetaLogExclusionServiceStub(
             channel.Channel()
         )
         request = log_exclusion_pb2.ListLoggingBetaLogExclusionRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if Primitive.to_proto(self.filter):
-            request.resource.filter = Primitive.to_proto(self.filter)
-
-        if Primitive.to_proto(self.disabled):
-            request.resource.disabled = Primitive.to_proto(self.disabled)
-
-        if Primitive.to_proto(self.parent):
-            request.resource.parent = Primitive.to_proto(self.parent)
+        request.service_account_file = service_account_file
+        request.Parent = parent
 
         return stub.ListLoggingBetaLogExclusion(request).items
 

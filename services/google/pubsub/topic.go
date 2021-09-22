@@ -139,19 +139,23 @@ func (l *TopicList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListTopic(ctx context.Context, r *Topic) (*TopicList, error) {
+func (c *Client) ListTopic(ctx context.Context, project string) (*TopicList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListTopicWithMaxResults(ctx, r, TopicMaxPage)
+	return c.ListTopicWithMaxResults(ctx, project, TopicMaxPage)
 
 }
 
-func (c *Client) ListTopicWithMaxResults(ctx context.Context, r *Topic, pageSize int32) (*TopicList, error) {
+func (c *Client) ListTopicWithMaxResults(ctx context.Context, project string, pageSize int32) (*TopicList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Topic{
+		Project: &project,
+	}
 	items, token, err := c.listTopic(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -217,10 +221,7 @@ func (c *Client) DeleteTopic(ctx context.Context, r *Topic) error {
 
 // DeleteAllTopic deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllTopic(ctx context.Context, project string, filter func(*Topic) bool) error {
-	r := &Topic{
-		Project: &project,
-	}
-	listObj, err := c.ListTopic(ctx, r)
+	listObj, err := c.ListTopic(ctx, project)
 	if err != nil {
 		return err
 	}

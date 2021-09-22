@@ -347,7 +347,7 @@ func (s *NodePoolServer) ListContainerawsAlphaNodePool(ctx context.Context, requ
 		return nil, err
 	}
 
-	resources, err := cl.ListNodePool(ctx, ProtoToNodePool(request.GetResource()))
+	resources, err := cl.ListNodePool(ctx, request.Project, request.Location, request.Cluster)
 	if err != nil {
 		return nil, err
 	}

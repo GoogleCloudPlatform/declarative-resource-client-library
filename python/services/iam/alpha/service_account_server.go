@@ -142,7 +142,7 @@ func (s *ServiceAccountServer) ListIamAlphaServiceAccount(ctx context.Context, r
 		return nil, err
 	}
 
-	resources, err := cl.ListServiceAccount(ctx, ProtoToServiceAccount(request.GetResource()))
+	resources, err := cl.ListServiceAccount(ctx, request.Project)
 	if err != nil {
 		return nil, err
 	}

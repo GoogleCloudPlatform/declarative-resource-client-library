@@ -76,7 +76,6 @@ message DeleteBinaryauthorizationAlphaPolicyRequest {
 
 message ListBinaryauthorizationAlphaPolicyRequest {
   string service_account_file = 1;
-	BinaryauthorizationAlphaPolicy resource = 2;
 }
 
 message ListBinaryauthorizationAlphaPolicyResponse {

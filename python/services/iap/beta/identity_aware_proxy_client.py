@@ -90,25 +90,18 @@ class IdentityAwareProxyClient(object):
 
         response = stub.DeleteIapBetaIdentityAwareProxyClient(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, brand, service_account_file=""):
         stub = identity_aware_proxy_client_pb2_grpc.IapBetaIdentityAwareProxyClientServiceStub(
             channel.Channel()
         )
         request = (
             identity_aware_proxy_client_pb2.ListIapBetaIdentityAwareProxyClientRequest()
         )
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.display_name):
-            request.resource.display_name = Primitive.to_proto(self.display_name)
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.brand):
-            request.resource.brand = Primitive.to_proto(self.brand)
+        request.Brand = brand
 
         return stub.ListIapBetaIdentityAwareProxyClient(request).items
 

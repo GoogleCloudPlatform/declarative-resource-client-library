@@ -179,58 +179,20 @@ class WorkloadIdentityPoolProvider(object):
 
         response = stub.DeleteIamBetaWorkloadIdentityPoolProvider(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, workloadIdentityPool, service_account_file=""):
         stub = workload_identity_pool_provider_pb2_grpc.IamBetaWorkloadIdentityPoolProviderServiceStub(
             channel.Channel()
         )
         request = (
             workload_identity_pool_provider_pb2.ListIamBetaWorkloadIdentityPoolProviderRequest()
         )
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.display_name):
-            request.resource.display_name = Primitive.to_proto(self.display_name)
+        request.Location = location
 
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if Primitive.to_proto(self.disabled):
-            request.resource.disabled = Primitive.to_proto(self.disabled)
-
-        if Primitive.to_proto(self.attribute_mapping):
-            request.resource.attribute_mapping = Primitive.to_proto(
-                self.attribute_mapping
-            )
-
-        if Primitive.to_proto(self.attribute_condition):
-            request.resource.attribute_condition = Primitive.to_proto(
-                self.attribute_condition
-            )
-
-        if WorkloadIdentityPoolProviderAws.to_proto(self.aws):
-            request.resource.aws.CopyFrom(
-                WorkloadIdentityPoolProviderAws.to_proto(self.aws)
-            )
-        else:
-            request.resource.ClearField("aws")
-        if WorkloadIdentityPoolProviderOidc.to_proto(self.oidc):
-            request.resource.oidc.CopyFrom(
-                WorkloadIdentityPoolProviderOidc.to_proto(self.oidc)
-            )
-        else:
-            request.resource.ClearField("oidc")
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
-
-        if Primitive.to_proto(self.workload_identity_pool):
-            request.resource.workload_identity_pool = Primitive.to_proto(
-                self.workload_identity_pool
-            )
+        request.WorkloadIdentityPool = workloadIdentityPool
 
         return stub.ListIamBetaWorkloadIdentityPoolProvider(request).items
 

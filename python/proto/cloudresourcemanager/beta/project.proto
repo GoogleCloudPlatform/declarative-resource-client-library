@@ -48,7 +48,6 @@ message DeleteCloudresourcemanagerBetaProjectRequest {
 
 message ListCloudresourcemanagerBetaProjectRequest {
   string service_account_file = 1;
-	CloudresourcemanagerBetaProject resource = 2;
 }
 
 message ListCloudresourcemanagerBetaProjectResponse {

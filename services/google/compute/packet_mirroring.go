@@ -463,19 +463,24 @@ func (l *PacketMirroringList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListPacketMirroring(ctx context.Context, r *PacketMirroring) (*PacketMirroringList, error) {
+func (c *Client) ListPacketMirroring(ctx context.Context, project, location string) (*PacketMirroringList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListPacketMirroringWithMaxResults(ctx, r, PacketMirroringMaxPage)
+	return c.ListPacketMirroringWithMaxResults(ctx, project, location, PacketMirroringMaxPage)
 
 }
 
-func (c *Client) ListPacketMirroringWithMaxResults(ctx context.Context, r *PacketMirroring, pageSize int32) (*PacketMirroringList, error) {
+func (c *Client) ListPacketMirroringWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*PacketMirroringList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &PacketMirroring{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listPacketMirroring(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -542,11 +547,7 @@ func (c *Client) DeletePacketMirroring(ctx context.Context, r *PacketMirroring) 
 
 // DeleteAllPacketMirroring deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllPacketMirroring(ctx context.Context, project, location string, filter func(*PacketMirroring) bool) error {
-	r := &PacketMirroring{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListPacketMirroring(ctx, r)
+	listObj, err := c.ListPacketMirroring(ctx, project, location)
 	if err != nil {
 		return err
 	}

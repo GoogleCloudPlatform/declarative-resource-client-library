@@ -124,35 +124,14 @@ class Instance(object):
 
         response = stub.DeleteFilestoreInstance(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, service_account_file=""):
         stub = instance_pb2_grpc.FilestoreInstanceServiceStub(channel.Channel())
         request = instance_pb2.ListFilestoreInstanceRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if InstanceTierEnum.to_proto(self.tier):
-            request.resource.tier = InstanceTierEnum.to_proto(self.tier)
-
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
-
-        if InstanceFileSharesArray.to_proto(self.file_shares):
-            request.resource.file_shares.extend(
-                InstanceFileSharesArray.to_proto(self.file_shares)
-            )
-        if InstanceNetworksArray.to_proto(self.networks):
-            request.resource.networks.extend(
-                InstanceNetworksArray.to_proto(self.networks)
-            )
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
+        request.Location = location
 
         return stub.ListFilestoreInstance(request).items
 

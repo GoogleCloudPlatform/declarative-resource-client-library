@@ -41,7 +41,7 @@ message DeleteLoggingAlphaLogExclusionRequest {
 
 message ListLoggingAlphaLogExclusionRequest {
   string service_account_file = 1;
-	LoggingAlphaLogExclusion resource = 2;
+  string Parent = 2;
 }
 
 message ListLoggingAlphaLogExclusionResponse {

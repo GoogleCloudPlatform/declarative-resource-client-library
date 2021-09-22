@@ -319,19 +319,24 @@ func (l *ServiceAttachmentList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListServiceAttachment(ctx context.Context, r *ServiceAttachment) (*ServiceAttachmentList, error) {
+func (c *Client) ListServiceAttachment(ctx context.Context, project, location string) (*ServiceAttachmentList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListServiceAttachmentWithMaxResults(ctx, r, ServiceAttachmentMaxPage)
+	return c.ListServiceAttachmentWithMaxResults(ctx, project, location, ServiceAttachmentMaxPage)
 
 }
 
-func (c *Client) ListServiceAttachmentWithMaxResults(ctx context.Context, r *ServiceAttachment, pageSize int32) (*ServiceAttachmentList, error) {
+func (c *Client) ListServiceAttachmentWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*ServiceAttachmentList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &ServiceAttachment{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listServiceAttachment(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -398,11 +403,7 @@ func (c *Client) DeleteServiceAttachment(ctx context.Context, r *ServiceAttachme
 
 // DeleteAllServiceAttachment deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllServiceAttachment(ctx context.Context, project, location string, filter func(*ServiceAttachment) bool) error {
-	r := &ServiceAttachment{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListServiceAttachment(ctx, r)
+	listObj, err := c.ListServiceAttachment(ctx, project, location)
 	if err != nil {
 		return err
 	}

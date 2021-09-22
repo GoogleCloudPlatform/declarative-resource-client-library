@@ -63,7 +63,9 @@ message DeleteIamWorkloadIdentityPoolProviderRequest {
 
 message ListIamWorkloadIdentityPoolProviderRequest {
   string service_account_file = 1;
-	IamWorkloadIdentityPoolProvider resource = 2;
+  string Project = 2;
+  string Location = 3;
+  string WorkloadIdentityPool = 4;
 }
 
 message ListIamWorkloadIdentityPoolProviderResponse {

@@ -487,19 +487,24 @@ func (l *ServerTlsPolicyList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListServerTlsPolicy(ctx context.Context, r *ServerTlsPolicy) (*ServerTlsPolicyList, error) {
+func (c *Client) ListServerTlsPolicy(ctx context.Context, project, location string) (*ServerTlsPolicyList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListServerTlsPolicyWithMaxResults(ctx, r, ServerTlsPolicyMaxPage)
+	return c.ListServerTlsPolicyWithMaxResults(ctx, project, location, ServerTlsPolicyMaxPage)
 
 }
 
-func (c *Client) ListServerTlsPolicyWithMaxResults(ctx context.Context, r *ServerTlsPolicy, pageSize int32) (*ServerTlsPolicyList, error) {
+func (c *Client) ListServerTlsPolicyWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*ServerTlsPolicyList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &ServerTlsPolicy{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listServerTlsPolicy(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -566,11 +571,7 @@ func (c *Client) DeleteServerTlsPolicy(ctx context.Context, r *ServerTlsPolicy) 
 
 // DeleteAllServerTlsPolicy deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllServerTlsPolicy(ctx context.Context, project, location string, filter func(*ServerTlsPolicy) bool) error {
-	r := &ServerTlsPolicy{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListServerTlsPolicy(ctx, r)
+	listObj, err := c.ListServerTlsPolicy(ctx, project, location)
 	if err != nil {
 		return err
 	}

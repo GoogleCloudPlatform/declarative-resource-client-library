@@ -85,24 +85,16 @@ class FirewallPolicyAssociation(object):
 
         response = stub.DeleteComputeFirewallPolicyAssociation(request)
 
-    def list(self):
+    @classmethod
+    def list(self, firewallPolicy, service_account_file=""):
         stub = firewall_policy_association_pb2_grpc.ComputeFirewallPolicyAssociationServiceStub(
             channel.Channel()
         )
         request = (
             firewall_policy_association_pb2.ListComputeFirewallPolicyAssociationRequest()
         )
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
-        if Primitive.to_proto(self.attachment_target):
-            request.resource.attachment_target = Primitive.to_proto(
-                self.attachment_target
-            )
-
-        if Primitive.to_proto(self.firewall_policy):
-            request.resource.firewall_policy = Primitive.to_proto(self.firewall_policy)
+        request.service_account_file = service_account_file
+        request.FirewallPolicy = firewallPolicy
 
         return stub.ListComputeFirewallPolicyAssociation(request).items
 

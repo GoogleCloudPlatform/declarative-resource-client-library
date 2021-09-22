@@ -346,19 +346,23 @@ func (l *MetricDescriptorList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListMetricDescriptor(ctx context.Context, r *MetricDescriptor) (*MetricDescriptorList, error) {
+func (c *Client) ListMetricDescriptor(ctx context.Context, project string) (*MetricDescriptorList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListMetricDescriptorWithMaxResults(ctx, r, MetricDescriptorMaxPage)
+	return c.ListMetricDescriptorWithMaxResults(ctx, project, MetricDescriptorMaxPage)
 
 }
 
-func (c *Client) ListMetricDescriptorWithMaxResults(ctx context.Context, r *MetricDescriptor, pageSize int32) (*MetricDescriptorList, error) {
+func (c *Client) ListMetricDescriptorWithMaxResults(ctx context.Context, project string, pageSize int32) (*MetricDescriptorList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &MetricDescriptor{
+		Project: &project,
+	}
 	items, token, err := c.listMetricDescriptor(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -424,10 +428,7 @@ func (c *Client) DeleteMetricDescriptor(ctx context.Context, r *MetricDescriptor
 
 // DeleteAllMetricDescriptor deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllMetricDescriptor(ctx context.Context, project string, filter func(*MetricDescriptor) bool) error {
-	r := &MetricDescriptor{
-		Project: &project,
-	}
-	listObj, err := c.ListMetricDescriptor(ctx, r)
+	listObj, err := c.ListMetricDescriptor(ctx, project)
 	if err != nil {
 		return err
 	}

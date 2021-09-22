@@ -584,19 +584,23 @@ func (l *BucketList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListBucket(ctx context.Context, r *Bucket) (*BucketList, error) {
+func (c *Client) ListBucket(ctx context.Context, project string) (*BucketList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListBucketWithMaxResults(ctx, r, BucketMaxPage)
+	return c.ListBucketWithMaxResults(ctx, project, BucketMaxPage)
 
 }
 
-func (c *Client) ListBucketWithMaxResults(ctx context.Context, r *Bucket, pageSize int32) (*BucketList, error) {
+func (c *Client) ListBucketWithMaxResults(ctx context.Context, project string, pageSize int32) (*BucketList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Bucket{
+		Project: &project,
+	}
 	items, token, err := c.listBucket(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -662,10 +666,7 @@ func (c *Client) DeleteBucket(ctx context.Context, r *Bucket) error {
 
 // DeleteAllBucket deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllBucket(ctx context.Context, project string, filter func(*Bucket) bool) error {
-	r := &Bucket{
-		Project: &project,
-	}
-	listObj, err := c.ListBucket(ctx, r)
+	listObj, err := c.ListBucket(ctx, project)
 	if err != nil {
 		return err
 	}

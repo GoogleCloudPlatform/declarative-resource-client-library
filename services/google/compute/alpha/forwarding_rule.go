@@ -368,19 +368,24 @@ func (l *ForwardingRuleList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListForwardingRule(ctx context.Context, r *ForwardingRule) (*ForwardingRuleList, error) {
+func (c *Client) ListForwardingRule(ctx context.Context, project, location string) (*ForwardingRuleList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListForwardingRuleWithMaxResults(ctx, r, ForwardingRuleMaxPage)
+	return c.ListForwardingRuleWithMaxResults(ctx, project, location, ForwardingRuleMaxPage)
 
 }
 
-func (c *Client) ListForwardingRuleWithMaxResults(ctx context.Context, r *ForwardingRule, pageSize int32) (*ForwardingRuleList, error) {
+func (c *Client) ListForwardingRuleWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*ForwardingRuleList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &ForwardingRule{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listForwardingRule(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -447,11 +452,7 @@ func (c *Client) DeleteForwardingRule(ctx context.Context, r *ForwardingRule) er
 
 // DeleteAllForwardingRule deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllForwardingRule(ctx context.Context, project, location string, filter func(*ForwardingRule) bool) error {
-	r := &ForwardingRule{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListForwardingRule(ctx, r)
+	listObj, err := c.ListForwardingRule(ctx, project, location)
 	if err != nil {
 		return err
 	}

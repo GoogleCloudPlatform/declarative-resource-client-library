@@ -812,19 +812,24 @@ func (l *CertificateTemplateList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListCertificateTemplate(ctx context.Context, r *CertificateTemplate) (*CertificateTemplateList, error) {
+func (c *Client) ListCertificateTemplate(ctx context.Context, project, location string) (*CertificateTemplateList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListCertificateTemplateWithMaxResults(ctx, r, CertificateTemplateMaxPage)
+	return c.ListCertificateTemplateWithMaxResults(ctx, project, location, CertificateTemplateMaxPage)
 
 }
 
-func (c *Client) ListCertificateTemplateWithMaxResults(ctx context.Context, r *CertificateTemplate, pageSize int32) (*CertificateTemplateList, error) {
+func (c *Client) ListCertificateTemplateWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*CertificateTemplateList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &CertificateTemplate{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listCertificateTemplate(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -891,11 +896,7 @@ func (c *Client) DeleteCertificateTemplate(ctx context.Context, r *CertificateTe
 
 // DeleteAllCertificateTemplate deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllCertificateTemplate(ctx context.Context, project, location string, filter func(*CertificateTemplate) bool) error {
-	r := &CertificateTemplate{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListCertificateTemplate(ctx, r)
+	listObj, err := c.ListCertificateTemplate(ctx, project, location)
 	if err != nil {
 		return err
 	}

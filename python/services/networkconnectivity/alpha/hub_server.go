@@ -115,7 +115,7 @@ func (s *HubServer) ListNetworkconnectivityAlphaHub(ctx context.Context, request
 		return nil, err
 	}
 
-	resources, err := cl.ListHub(ctx, ProtoToHub(request.GetResource()))
+	resources, err := cl.ListHub(ctx, request.Project)
 	if err != nil {
 		return nil, err
 	}

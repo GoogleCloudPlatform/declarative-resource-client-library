@@ -94,7 +94,7 @@ func (s *ReservationServer) ListBigqueryreservationAlphaReservation(ctx context.
 		return nil, err
 	}
 
-	resources, err := cl.ListReservation(ctx, ProtoToReservation(request.GetResource()))
+	resources, err := cl.ListReservation(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

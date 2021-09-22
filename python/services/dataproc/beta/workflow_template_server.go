@@ -986,7 +986,7 @@ func (s *WorkflowTemplateServer) ListDataprocBetaWorkflowTemplate(ctx context.Co
 		return nil, err
 	}
 
-	resources, err := cl.ListWorkflowTemplate(ctx, ProtoToWorkflowTemplate(request.GetResource()))
+	resources, err := cl.ListWorkflowTemplate(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

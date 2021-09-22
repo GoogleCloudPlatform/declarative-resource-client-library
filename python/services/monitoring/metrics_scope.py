@@ -63,15 +63,13 @@ class MetricsScope(object):
 
         response = stub.DeleteMonitoringMetricsScope(request)
 
-    def list(self):
+    @classmethod
+    def list(self, service_account_file=""):
         stub = metrics_scope_pb2_grpc.MonitoringMetricsScopeServiceStub(
             channel.Channel()
         )
         request = metrics_scope_pb2.ListMonitoringMetricsScopeRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
+        request.service_account_file = service_account_file
         return stub.ListMonitoringMetricsScope(request).items
 
     def to_proto(self):

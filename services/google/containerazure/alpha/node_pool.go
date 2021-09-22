@@ -386,19 +386,25 @@ func (l *NodePoolList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListNodePool(ctx context.Context, r *NodePool) (*NodePoolList, error) {
+func (c *Client) ListNodePool(ctx context.Context, project, location, cluster string) (*NodePoolList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListNodePoolWithMaxResults(ctx, r, NodePoolMaxPage)
+	return c.ListNodePoolWithMaxResults(ctx, project, location, cluster, NodePoolMaxPage)
 
 }
 
-func (c *Client) ListNodePoolWithMaxResults(ctx context.Context, r *NodePool, pageSize int32) (*NodePoolList, error) {
+func (c *Client) ListNodePoolWithMaxResults(ctx context.Context, project, location, cluster string, pageSize int32) (*NodePoolList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &NodePool{
+		Project:  &project,
+		Location: &location,
+		Cluster:  &cluster,
+	}
 	items, token, err := c.listNodePool(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -466,12 +472,7 @@ func (c *Client) DeleteNodePool(ctx context.Context, r *NodePool) error {
 
 // DeleteAllNodePool deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllNodePool(ctx context.Context, project, location, cluster string, filter func(*NodePool) bool) error {
-	r := &NodePool{
-		Project:  &project,
-		Location: &location,
-		Cluster:  &cluster,
-	}
-	listObj, err := c.ListNodePool(ctx, r)
+	listObj, err := c.ListNodePool(ctx, project, location, cluster)
 	if err != nil {
 		return err
 	}

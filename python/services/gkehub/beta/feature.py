@@ -97,25 +97,14 @@ class Feature(object):
 
         response = stub.DeleteGkehubBetaFeature(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, service_account_file=""):
         stub = feature_pb2_grpc.GkehubBetaFeatureServiceStub(channel.Channel())
         request = feature_pb2.ListGkehubBetaFeatureRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
-
-        if FeatureSpec.to_proto(self.spec):
-            request.resource.spec.CopyFrom(FeatureSpec.to_proto(self.spec))
-        else:
-            request.resource.ClearField("spec")
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
+        request.Location = location
 
         return stub.ListGkehubBetaFeature(request).items
 

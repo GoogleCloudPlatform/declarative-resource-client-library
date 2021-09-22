@@ -93,19 +93,23 @@ func (l *GroupList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListGroup(ctx context.Context, r *Group) (*GroupList, error) {
+func (c *Client) ListGroup(ctx context.Context, project string) (*GroupList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListGroupWithMaxResults(ctx, r, GroupMaxPage)
+	return c.ListGroupWithMaxResults(ctx, project, GroupMaxPage)
 
 }
 
-func (c *Client) ListGroupWithMaxResults(ctx context.Context, r *Group, pageSize int32) (*GroupList, error) {
+func (c *Client) ListGroupWithMaxResults(ctx context.Context, project string, pageSize int32) (*GroupList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Group{
+		Project: &project,
+	}
 	items, token, err := c.listGroup(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -171,10 +175,7 @@ func (c *Client) DeleteGroup(ctx context.Context, r *Group) error {
 
 // DeleteAllGroup deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllGroup(ctx context.Context, project string, filter func(*Group) bool) error {
-	r := &Group{
-		Project: &project,
-	}
-	listObj, err := c.ListGroup(ctx, r)
+	listObj, err := c.ListGroup(ctx, project)
 	if err != nil {
 		return err
 	}

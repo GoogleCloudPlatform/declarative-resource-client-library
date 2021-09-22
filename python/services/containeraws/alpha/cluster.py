@@ -157,45 +157,14 @@ class Cluster(object):
 
         response = stub.DeleteContainerawsAlphaCluster(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, service_account_file=""):
         stub = cluster_pb2_grpc.ContainerawsAlphaClusterServiceStub(channel.Channel())
         request = cluster_pb2.ListContainerawsAlphaClusterRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if ClusterNetworking.to_proto(self.networking):
-            request.resource.networking.CopyFrom(
-                ClusterNetworking.to_proto(self.networking)
-            )
-        else:
-            request.resource.ClearField("networking")
-        if Primitive.to_proto(self.aws_region):
-            request.resource.aws_region = Primitive.to_proto(self.aws_region)
-
-        if ClusterControlPlane.to_proto(self.control_plane):
-            request.resource.control_plane.CopyFrom(
-                ClusterControlPlane.to_proto(self.control_plane)
-            )
-        else:
-            request.resource.ClearField("control_plane")
-        if ClusterAuthorization.to_proto(self.authorization):
-            request.resource.authorization.CopyFrom(
-                ClusterAuthorization.to_proto(self.authorization)
-            )
-        else:
-            request.resource.ClearField("authorization")
-        if Primitive.to_proto(self.annotations):
-            request.resource.annotations = Primitive.to_proto(self.annotations)
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
+        request.Location = location
 
         return stub.ListContainerawsAlphaCluster(request).items
 

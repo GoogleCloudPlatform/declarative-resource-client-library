@@ -62,7 +62,7 @@ message DeleteIamAlphaRoleRequest {
 
 message ListIamAlphaRoleRequest {
   string service_account_file = 1;
-	IamAlphaRole resource = 2;
+  string Parent = 2;
 }
 
 message ListIamAlphaRoleResponse {

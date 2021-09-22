@@ -161,49 +161,16 @@ class CryptoKey(object):
 
         response = stub.DeleteCloudkmsAlphaCryptoKey(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, keyRing, service_account_file=""):
         stub = crypto_key_pb2_grpc.CloudkmsAlphaCryptoKeyServiceStub(channel.Channel())
         request = crypto_key_pb2.ListCloudkmsAlphaCryptoKeyRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if CryptoKeyPurposeEnum.to_proto(self.purpose):
-            request.resource.purpose = CryptoKeyPurposeEnum.to_proto(self.purpose)
+        request.Location = location
 
-        if Primitive.to_proto(self.next_rotation_time):
-            request.resource.next_rotation_time = Primitive.to_proto(
-                self.next_rotation_time
-            )
-
-        if Primitive.to_proto(self.rotation_period):
-            request.resource.rotation_period = Primitive.to_proto(self.rotation_period)
-
-        if CryptoKeyVersionTemplate.to_proto(self.version_template):
-            request.resource.version_template.CopyFrom(
-                CryptoKeyVersionTemplate.to_proto(self.version_template)
-            )
-        else:
-            request.resource.ClearField("version_template")
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
-
-        if Primitive.to_proto(self.import_only):
-            request.resource.import_only = Primitive.to_proto(self.import_only)
-
-        if Primitive.to_proto(self.destroy_scheduled_duration):
-            request.resource.destroy_scheduled_duration = Primitive.to_proto(
-                self.destroy_scheduled_duration
-            )
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
-
-        if Primitive.to_proto(self.key_ring):
-            request.resource.key_ring = Primitive.to_proto(self.key_ring)
+        request.KeyRing = keyRing
 
         return stub.ListCloudkmsAlphaCryptoKey(request).items
 

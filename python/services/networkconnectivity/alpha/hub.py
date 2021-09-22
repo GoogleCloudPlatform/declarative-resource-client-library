@@ -86,21 +86,12 @@ class Hub(object):
 
         response = stub.DeleteNetworkconnectivityAlphaHub(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, service_account_file=""):
         stub = hub_pb2_grpc.NetworkconnectivityAlphaHubServiceStub(channel.Channel())
         request = hub_pb2.ListNetworkconnectivityAlphaHubRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
-
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
+        request.service_account_file = service_account_file
+        request.Project = project
 
         return stub.ListNetworkconnectivityAlphaHub(request).items
 

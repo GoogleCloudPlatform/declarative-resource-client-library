@@ -276,19 +276,23 @@ func (l *AttestorList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListAttestor(ctx context.Context, r *Attestor) (*AttestorList, error) {
+func (c *Client) ListAttestor(ctx context.Context, project string) (*AttestorList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListAttestorWithMaxResults(ctx, r, AttestorMaxPage)
+	return c.ListAttestorWithMaxResults(ctx, project, AttestorMaxPage)
 
 }
 
-func (c *Client) ListAttestorWithMaxResults(ctx context.Context, r *Attestor, pageSize int32) (*AttestorList, error) {
+func (c *Client) ListAttestorWithMaxResults(ctx context.Context, project string, pageSize int32) (*AttestorList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Attestor{
+		Project: &project,
+	}
 	items, token, err := c.listAttestor(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -354,10 +358,7 @@ func (c *Client) DeleteAttestor(ctx context.Context, r *Attestor) error {
 
 // DeleteAllAttestor deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllAttestor(ctx context.Context, project string, filter func(*Attestor) bool) error {
-	r := &Attestor{
-		Project: &project,
-	}
-	listObj, err := c.ListAttestor(ctx, r)
+	listObj, err := c.ListAttestor(ctx, project)
 	if err != nil {
 		return err
 	}

@@ -86,7 +86,9 @@ message DeleteContainerazureAlphaNodePoolRequest {
 
 message ListContainerazureAlphaNodePoolRequest {
   string service_account_file = 1;
-	ContainerazureAlphaNodePool resource = 2;
+  string Project = 2;
+  string Location = 3;
+  string Cluster = 4;
 }
 
 message ListContainerazureAlphaNodePoolResponse {

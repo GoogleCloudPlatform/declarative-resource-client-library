@@ -89,19 +89,24 @@ func (l *KeyRingList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListKeyRing(ctx context.Context, r *KeyRing) (*KeyRingList, error) {
+func (c *Client) ListKeyRing(ctx context.Context, project, location string) (*KeyRingList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListKeyRingWithMaxResults(ctx, r, KeyRingMaxPage)
+	return c.ListKeyRingWithMaxResults(ctx, project, location, KeyRingMaxPage)
 
 }
 
-func (c *Client) ListKeyRingWithMaxResults(ctx context.Context, r *KeyRing, pageSize int32) (*KeyRingList, error) {
+func (c *Client) ListKeyRingWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*KeyRingList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &KeyRing{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listKeyRing(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err

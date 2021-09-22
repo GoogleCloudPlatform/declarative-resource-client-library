@@ -416,7 +416,7 @@ func (s *CryptoKeyServer) ListCloudkmsCryptoKey(ctx context.Context, request *cl
 		return nil, err
 	}
 
-	resources, err := cl.ListCryptoKey(ctx, ProtoToCryptoKey(request.GetResource()))
+	resources, err := cl.ListCryptoKey(ctx, request.Project, request.Location, request.KeyRing)
 	if err != nil {
 		return nil, err
 	}

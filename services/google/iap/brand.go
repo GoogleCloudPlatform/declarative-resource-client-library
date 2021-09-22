@@ -91,19 +91,23 @@ func (l *BrandList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListBrand(ctx context.Context, r *Brand) (*BrandList, error) {
+func (c *Client) ListBrand(ctx context.Context, project string) (*BrandList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListBrandWithMaxResults(ctx, r, BrandMaxPage)
+	return c.ListBrandWithMaxResults(ctx, project, BrandMaxPage)
 
 }
 
-func (c *Client) ListBrandWithMaxResults(ctx context.Context, r *Brand, pageSize int32) (*BrandList, error) {
+func (c *Client) ListBrandWithMaxResults(ctx context.Context, project string, pageSize int32) (*BrandList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Brand{
+		Project: &project,
+	}
 	items, token, err := c.listBrand(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err

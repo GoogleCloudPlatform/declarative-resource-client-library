@@ -43,7 +43,6 @@ message DeleteMonitoringBetaMetricsScopeRequest {
 
 message ListMonitoringBetaMetricsScopeRequest {
   string service_account_file = 1;
-	MonitoringBetaMetricsScope resource = 2;
 }
 
 message ListMonitoringBetaMetricsScopeResponse {

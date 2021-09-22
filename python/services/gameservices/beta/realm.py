@@ -96,27 +96,14 @@ class Realm(object):
 
         response = stub.DeleteGameservicesBetaRealm(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, service_account_file=""):
         stub = realm_pb2_grpc.GameservicesBetaRealmServiceStub(channel.Channel())
         request = realm_pb2.ListGameservicesBetaRealmRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
-
-        if Primitive.to_proto(self.time_zone):
-            request.resource.time_zone = Primitive.to_proto(self.time_zone)
-
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
+        request.Location = location
 
         return stub.ListGameservicesBetaRealm(request).items
 

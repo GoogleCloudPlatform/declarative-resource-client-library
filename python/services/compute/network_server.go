@@ -139,7 +139,7 @@ func (s *NetworkServer) ListComputeNetwork(ctx context.Context, request *compute
 		return nil, err
 	}
 
-	resources, err := cl.ListNetwork(ctx, ProtoToNetwork(request.GetResource()))
+	resources, err := cl.ListNetwork(ctx, request.Project)
 	if err != nil {
 		return nil, err
 	}

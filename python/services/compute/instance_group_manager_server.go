@@ -660,7 +660,7 @@ func (s *InstanceGroupManagerServer) ListComputeInstanceGroupManager(ctx context
 		return nil, err
 	}
 
-	resources, err := cl.ListInstanceGroupManager(ctx, ProtoToInstanceGroupManager(request.GetResource()))
+	resources, err := cl.ListInstanceGroupManager(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

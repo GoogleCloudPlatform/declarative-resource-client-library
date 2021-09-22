@@ -38,7 +38,7 @@ message DeleteComputeAlphaFirewallPolicyAssociationRequest {
 
 message ListComputeAlphaFirewallPolicyAssociationRequest {
   string service_account_file = 1;
-	ComputeAlphaFirewallPolicyAssociation resource = 2;
+  string FirewallPolicy = 2;
 }
 
 message ListComputeAlphaFirewallPolicyAssociationResponse {

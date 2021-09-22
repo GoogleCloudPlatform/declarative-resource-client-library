@@ -196,7 +196,7 @@ func (s *AutoscalingPolicyServer) ListDataprocAlphaAutoscalingPolicy(ctx context
 		return nil, err
 	}
 
-	resources, err := cl.ListAutoscalingPolicy(ctx, ProtoToAutoscalingPolicy(request.GetResource()))
+	resources, err := cl.ListAutoscalingPolicy(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

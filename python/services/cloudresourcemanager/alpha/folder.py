@@ -78,17 +78,14 @@ class Folder(object):
 
         response = stub.DeleteCloudresourcemanagerAlphaFolder(request)
 
-    def list(self):
+    @classmethod
+    def list(self, parent, service_account_file=""):
         stub = folder_pb2_grpc.CloudresourcemanagerAlphaFolderServiceStub(
             channel.Channel()
         )
         request = folder_pb2.ListCloudresourcemanagerAlphaFolderRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.parent):
-            request.resource.parent = Primitive.to_proto(self.parent)
-
-        if Primitive.to_proto(self.display_name):
-            request.resource.display_name = Primitive.to_proto(self.display_name)
+        request.service_account_file = service_account_file
+        request.Parent = parent
 
         return stub.ListCloudresourcemanagerAlphaFolder(request).items
 

@@ -63,7 +63,7 @@ message DeleteComputeBetaFirewallPolicyRuleRequest {
 
 message ListComputeBetaFirewallPolicyRuleRequest {
   string service_account_file = 1;
-	ComputeBetaFirewallPolicyRule resource = 2;
+  string FirewallPolicy = 2;
 }
 
 message ListComputeBetaFirewallPolicyRuleResponse {

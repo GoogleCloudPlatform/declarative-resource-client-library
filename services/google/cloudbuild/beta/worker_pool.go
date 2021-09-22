@@ -226,19 +226,24 @@ func (l *WorkerPoolList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListWorkerPool(ctx context.Context, r *WorkerPool) (*WorkerPoolList, error) {
+func (c *Client) ListWorkerPool(ctx context.Context, project, location string) (*WorkerPoolList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListWorkerPoolWithMaxResults(ctx, r, WorkerPoolMaxPage)
+	return c.ListWorkerPoolWithMaxResults(ctx, project, location, WorkerPoolMaxPage)
 
 }
 
-func (c *Client) ListWorkerPoolWithMaxResults(ctx context.Context, r *WorkerPool, pageSize int32) (*WorkerPoolList, error) {
+func (c *Client) ListWorkerPoolWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*WorkerPoolList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &WorkerPool{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listWorkerPool(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -305,11 +310,7 @@ func (c *Client) DeleteWorkerPool(ctx context.Context, r *WorkerPool) error {
 
 // DeleteAllWorkerPool deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllWorkerPool(ctx context.Context, project, location string, filter func(*WorkerPool) bool) error {
-	r := &WorkerPool{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListWorkerPool(ctx, r)
+	listObj, err := c.ListWorkerPool(ctx, project, location)
 	if err != nil {
 		return err
 	}

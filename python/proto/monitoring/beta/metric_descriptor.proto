@@ -104,7 +104,7 @@ message DeleteMonitoringBetaMetricDescriptorRequest {
 
 message ListMonitoringBetaMetricDescriptorRequest {
   string service_account_file = 1;
-	MonitoringBetaMetricDescriptor resource = 2;
+  string Project = 2;
 }
 
 message ListMonitoringBetaMetricDescriptorResponse {

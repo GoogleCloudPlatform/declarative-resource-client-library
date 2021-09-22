@@ -65,7 +65,8 @@ message DeleteDataprocBetaAutoscalingPolicyRequest {
 
 message ListDataprocBetaAutoscalingPolicyRequest {
   string service_account_file = 1;
-	DataprocBetaAutoscalingPolicy resource = 2;
+  string Project = 2;
+  string Location = 3;
 }
 
 message ListDataprocBetaAutoscalingPolicyResponse {

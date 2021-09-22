@@ -410,19 +410,24 @@ func (l *InstanceList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListInstance(ctx context.Context, r *Instance) (*InstanceList, error) {
+func (c *Client) ListInstance(ctx context.Context, project, location string) (*InstanceList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListInstanceWithMaxResults(ctx, r, InstanceMaxPage)
+	return c.ListInstanceWithMaxResults(ctx, project, location, InstanceMaxPage)
 
 }
 
-func (c *Client) ListInstanceWithMaxResults(ctx context.Context, r *Instance, pageSize int32) (*InstanceList, error) {
+func (c *Client) ListInstanceWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*InstanceList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Instance{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listInstance(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -489,11 +494,7 @@ func (c *Client) DeleteInstance(ctx context.Context, r *Instance) error {
 
 // DeleteAllInstance deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllInstance(ctx context.Context, project, location string, filter func(*Instance) bool) error {
-	r := &Instance{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListInstance(ctx, r)
+	listObj, err := c.ListInstance(ctx, project, location)
 	if err != nil {
 		return err
 	}

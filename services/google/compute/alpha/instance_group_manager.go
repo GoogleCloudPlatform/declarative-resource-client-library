@@ -1120,7 +1120,7 @@ func (l *InstanceGroupManagerList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListInstanceGroupManager(ctx context.Context, r *InstanceGroupManager) (*InstanceGroupManagerList, error) {
+func (c *Client) ListInstanceGroupManager(ctx context.Context, project, location string) (*InstanceGroupManagerList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
 		412: dcl.Retryability{
@@ -1132,14 +1132,19 @@ func (c *Client) ListInstanceGroupManager(ctx context.Context, r *InstanceGroupM
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListInstanceGroupManagerWithMaxResults(ctx, r, InstanceGroupManagerMaxPage)
+	return c.ListInstanceGroupManagerWithMaxResults(ctx, project, location, InstanceGroupManagerMaxPage)
 
 }
 
-func (c *Client) ListInstanceGroupManagerWithMaxResults(ctx context.Context, r *InstanceGroupManager, pageSize int32) (*InstanceGroupManagerList, error) {
+func (c *Client) ListInstanceGroupManagerWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*InstanceGroupManagerList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &InstanceGroupManager{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listInstanceGroupManager(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -1220,11 +1225,7 @@ func (c *Client) DeleteInstanceGroupManager(ctx context.Context, r *InstanceGrou
 
 // DeleteAllInstanceGroupManager deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllInstanceGroupManager(ctx context.Context, project, location string, filter func(*InstanceGroupManager) bool) error {
-	r := &InstanceGroupManager{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListInstanceGroupManager(ctx, r)
+	listObj, err := c.ListInstanceGroupManager(ctx, project, location)
 	if err != nil {
 		return err
 	}

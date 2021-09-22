@@ -39,7 +39,8 @@ message DeleteIapBetaIdentityAwareProxyClientRequest {
 
 message ListIapBetaIdentityAwareProxyClientRequest {
   string service_account_file = 1;
-	IapBetaIdentityAwareProxyClient resource = 2;
+  string Project = 2;
+  string Brand = 3;
 }
 
 message ListIapBetaIdentityAwareProxyClientResponse {

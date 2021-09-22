@@ -49,7 +49,7 @@ message DeleteCloudresourcemanagerFolderRequest {
 
 message ListCloudresourcemanagerFolderRequest {
   string service_account_file = 1;
-	CloudresourcemanagerFolder resource = 2;
+  string Parent = 2;
 }
 
 message ListCloudresourcemanagerFolderResponse {

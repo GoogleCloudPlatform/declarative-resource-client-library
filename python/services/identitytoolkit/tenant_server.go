@@ -168,7 +168,7 @@ func (s *TenantServer) ListIdentitytoolkitTenant(ctx context.Context, request *i
 		return nil, err
 	}
 
-	resources, err := cl.ListTenant(ctx, ProtoToTenant(request.GetResource()))
+	resources, err := cl.ListTenant(ctx, request.Project)
 	if err != nil {
 		return nil, err
 	}

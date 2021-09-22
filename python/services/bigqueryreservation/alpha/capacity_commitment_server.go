@@ -221,7 +221,7 @@ func (s *CapacityCommitmentServer) ListBigqueryreservationAlphaCapacityCommitmen
 		return nil, err
 	}
 
-	resources, err := cl.ListCapacityCommitment(ctx, ProtoToCapacityCommitment(request.GetResource()))
+	resources, err := cl.ListCapacityCommitment(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

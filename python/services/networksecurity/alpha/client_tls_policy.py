@@ -144,41 +144,16 @@ class ClientTlsPolicy(object):
 
         response = stub.DeleteNetworksecurityAlphaClientTlsPolicy(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, service_account_file=""):
         stub = client_tls_policy_pb2_grpc.NetworksecurityAlphaClientTlsPolicyServiceStub(
             channel.Channel()
         )
         request = client_tls_policy_pb2.ListNetworksecurityAlphaClientTlsPolicyRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
-
-        if Primitive.to_proto(self.sni):
-            request.resource.sni = Primitive.to_proto(self.sni)
-
-        if ClientTlsPolicyClientCertificate.to_proto(self.client_certificate):
-            request.resource.client_certificate.CopyFrom(
-                ClientTlsPolicyClientCertificate.to_proto(self.client_certificate)
-            )
-        else:
-            request.resource.ClearField("client_certificate")
-        if ClientTlsPolicyServerValidationCaArray.to_proto(self.server_validation_ca):
-            request.resource.server_validation_ca.extend(
-                ClientTlsPolicyServerValidationCaArray.to_proto(
-                    self.server_validation_ca
-                )
-            )
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
+        request.Location = location
 
         return stub.ListNetworksecurityAlphaClientTlsPolicy(request).items
 

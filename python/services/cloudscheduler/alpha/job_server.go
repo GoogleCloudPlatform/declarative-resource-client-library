@@ -433,7 +433,7 @@ func (s *JobServer) ListCloudschedulerAlphaJob(ctx context.Context, request *alp
 		return nil, err
 	}
 
-	resources, err := cl.ListJob(ctx, ProtoToJob(request.GetResource()))
+	resources, err := cl.ListJob(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

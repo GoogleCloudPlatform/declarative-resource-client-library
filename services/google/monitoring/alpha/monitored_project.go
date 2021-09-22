@@ -86,7 +86,7 @@ func (l *MonitoredProjectList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListMonitoredProject(ctx context.Context, r *MonitoredProject) (*MonitoredProjectList, error) {
+func (c *Client) ListMonitoredProject(ctx context.Context, metricsScope string) (*MonitoredProjectList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
 		403: dcl.Retryability{
@@ -98,14 +98,18 @@ func (c *Client) ListMonitoredProject(ctx context.Context, r *MonitoredProject) 
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListMonitoredProjectWithMaxResults(ctx, r, MonitoredProjectMaxPage)
+	return c.ListMonitoredProjectWithMaxResults(ctx, metricsScope, MonitoredProjectMaxPage)
 
 }
 
-func (c *Client) ListMonitoredProjectWithMaxResults(ctx context.Context, r *MonitoredProject, pageSize int32) (*MonitoredProjectList, error) {
+func (c *Client) ListMonitoredProjectWithMaxResults(ctx context.Context, metricsScope string, pageSize int32) (*MonitoredProjectList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &MonitoredProject{
+		MetricsScope: &metricsScope,
+	}
 	items, token, err := c.listMonitoredProject(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -140,10 +144,7 @@ func (c *Client) DeleteMonitoredProject(ctx context.Context, r *MonitoredProject
 
 // DeleteAllMonitoredProject deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllMonitoredProject(ctx context.Context, metricsScope string, filter func(*MonitoredProject) bool) error {
-	r := &MonitoredProject{
-		MetricsScope: &metricsScope,
-	}
-	listObj, err := c.ListMonitoredProject(ctx, r)
+	listObj, err := c.ListMonitoredProject(ctx, metricsScope)
 	if err != nil {
 		return err
 	}

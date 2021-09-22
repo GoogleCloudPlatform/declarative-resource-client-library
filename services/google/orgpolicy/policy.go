@@ -309,7 +309,7 @@ func (l *PolicyList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListPolicy(ctx context.Context, r *Policy) (*PolicyList, error) {
+func (c *Client) ListPolicy(ctx context.Context, parent string) (*PolicyList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
 		403: dcl.Retryability{
@@ -321,14 +321,18 @@ func (c *Client) ListPolicy(ctx context.Context, r *Policy) (*PolicyList, error)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListPolicyWithMaxResults(ctx, r, PolicyMaxPage)
+	return c.ListPolicyWithMaxResults(ctx, parent, PolicyMaxPage)
 
 }
 
-func (c *Client) ListPolicyWithMaxResults(ctx context.Context, r *Policy, pageSize int32) (*PolicyList, error) {
+func (c *Client) ListPolicyWithMaxResults(ctx context.Context, parent string, pageSize int32) (*PolicyList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Policy{
+		Parent: &parent,
+	}
 	items, token, err := c.listPolicy(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -408,10 +412,7 @@ func (c *Client) DeletePolicy(ctx context.Context, r *Policy) error {
 
 // DeleteAllPolicy deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllPolicy(ctx context.Context, parent string, filter func(*Policy) bool) error {
-	r := &Policy{
-		Parent: &parent,
-	}
-	listObj, err := c.ListPolicy(ctx, r)
+	listObj, err := c.ListPolicy(ctx, parent)
 	if err != nil {
 		return err
 	}

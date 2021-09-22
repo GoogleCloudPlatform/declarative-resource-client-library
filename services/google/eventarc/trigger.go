@@ -352,19 +352,24 @@ func (l *TriggerList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListTrigger(ctx context.Context, r *Trigger) (*TriggerList, error) {
+func (c *Client) ListTrigger(ctx context.Context, project, location string) (*TriggerList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListTriggerWithMaxResults(ctx, r, TriggerMaxPage)
+	return c.ListTriggerWithMaxResults(ctx, project, location, TriggerMaxPage)
 
 }
 
-func (c *Client) ListTriggerWithMaxResults(ctx context.Context, r *Trigger, pageSize int32) (*TriggerList, error) {
+func (c *Client) ListTriggerWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*TriggerList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Trigger{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listTrigger(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -431,11 +436,7 @@ func (c *Client) DeleteTrigger(ctx context.Context, r *Trigger) error {
 
 // DeleteAllTrigger deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllTrigger(ctx context.Context, project, location string, filter func(*Trigger) bool) error {
-	r := &Trigger{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListTrigger(ctx, r)
+	listObj, err := c.ListTrigger(ctx, project, location)
 	if err != nil {
 		return err
 	}

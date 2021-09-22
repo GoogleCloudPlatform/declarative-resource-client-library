@@ -48,7 +48,7 @@ message DeleteIdentitytoolkitAlphaOAuthIdpConfigRequest {
 
 message ListIdentitytoolkitAlphaOAuthIdpConfigRequest {
   string service_account_file = 1;
-	IdentitytoolkitAlphaOAuthIdpConfig resource = 2;
+  string Project = 2;
 }
 
 message ListIdentitytoolkitAlphaOAuthIdpConfigResponse {

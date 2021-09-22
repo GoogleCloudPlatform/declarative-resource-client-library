@@ -86,7 +86,7 @@ func (r *Project) ID() (string, error) {
 		"name":           dcl.ValueOrEmptyString(nr.Name),
 		"projectNumber":  dcl.ValueOrEmptyString(nr.ProjectNumber),
 	}
-	return dcl.Nprintf("v1/projects/{{name}}", params), nil
+	return dcl.Nprintf("projects/{{name}}", params), nil
 }
 
 const ProjectMaxPage = -1
@@ -121,19 +121,21 @@ func (l *ProjectList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListProject(ctx context.Context, r *Project) (*ProjectList, error) {
+func (c *Client) ListProject(ctx context.Context) (*ProjectList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListProjectWithMaxResults(ctx, r, ProjectMaxPage)
+	return c.ListProjectWithMaxResults(ctx, ProjectMaxPage)
 
 }
 
-func (c *Client) ListProjectWithMaxResults(ctx context.Context, r *Project, pageSize int32) (*ProjectList, error) {
+func (c *Client) ListProjectWithMaxResults(ctx context.Context, pageSize int32) (*ProjectList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Project{}
 	items, token, err := c.listProject(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -198,8 +200,7 @@ func (c *Client) DeleteProject(ctx context.Context, r *Project) error {
 
 // DeleteAllProject deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllProject(ctx context.Context, filter func(*Project) bool) error {
-	r := &Project{}
-	listObj, err := c.ListProject(ctx, r)
+	listObj, err := c.ListProject(ctx)
 	if err != nil {
 		return err
 	}

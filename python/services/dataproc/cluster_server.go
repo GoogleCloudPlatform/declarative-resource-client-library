@@ -866,7 +866,7 @@ func (s *ClusterServer) ListDataprocCluster(ctx context.Context, request *datapr
 		return nil, err
 	}
 
-	resources, err := cl.ListCluster(ctx, ProtoToCluster(request.GetResource()))
+	resources, err := cl.ListCluster(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

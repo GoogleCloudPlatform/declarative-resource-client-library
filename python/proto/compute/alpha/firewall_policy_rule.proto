@@ -63,7 +63,7 @@ message DeleteComputeAlphaFirewallPolicyRuleRequest {
 
 message ListComputeAlphaFirewallPolicyRuleRequest {
   string service_account_file = 1;
-	ComputeAlphaFirewallPolicyRule resource = 2;
+  string FirewallPolicy = 2;
 }
 
 message ListComputeAlphaFirewallPolicyRuleResponse {

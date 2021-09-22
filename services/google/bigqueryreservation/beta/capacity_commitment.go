@@ -285,7 +285,7 @@ func (l *CapacityCommitmentList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListCapacityCommitment(ctx context.Context, r *CapacityCommitment) (*CapacityCommitmentList, error) {
+func (c *Client) ListCapacityCommitment(ctx context.Context, project, location string) (*CapacityCommitmentList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
 		429: dcl.Retryability{
@@ -297,14 +297,19 @@ func (c *Client) ListCapacityCommitment(ctx context.Context, r *CapacityCommitme
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListCapacityCommitmentWithMaxResults(ctx, r, CapacityCommitmentMaxPage)
+	return c.ListCapacityCommitmentWithMaxResults(ctx, project, location, CapacityCommitmentMaxPage)
 
 }
 
-func (c *Client) ListCapacityCommitmentWithMaxResults(ctx context.Context, r *CapacityCommitment, pageSize int32) (*CapacityCommitmentList, error) {
+func (c *Client) ListCapacityCommitmentWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*CapacityCommitmentList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &CapacityCommitment{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listCapacityCommitment(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -385,11 +390,7 @@ func (c *Client) DeleteCapacityCommitment(ctx context.Context, r *CapacityCommit
 
 // DeleteAllCapacityCommitment deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllCapacityCommitment(ctx context.Context, project, location string, filter func(*CapacityCommitment) bool) error {
-	r := &CapacityCommitment{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListCapacityCommitment(ctx, r)
+	listObj, err := c.ListCapacityCommitment(ctx, project, location)
 	if err != nil {
 		return err
 	}

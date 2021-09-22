@@ -156,48 +156,14 @@ class FirewallPolicyRule(object):
 
         response = stub.DeleteComputeAlphaFirewallPolicyRule(request)
 
-    def list(self):
+    @classmethod
+    def list(self, firewallPolicy, service_account_file=""):
         stub = firewall_policy_rule_pb2_grpc.ComputeAlphaFirewallPolicyRuleServiceStub(
             channel.Channel()
         )
         request = firewall_policy_rule_pb2.ListComputeAlphaFirewallPolicyRuleRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if Primitive.to_proto(self.priority):
-            request.resource.priority = Primitive.to_proto(self.priority)
-
-        if FirewallPolicyRuleMatch.to_proto(self.match):
-            request.resource.match.CopyFrom(
-                FirewallPolicyRuleMatch.to_proto(self.match)
-            )
-        else:
-            request.resource.ClearField("match")
-        if Primitive.to_proto(self.action):
-            request.resource.action = Primitive.to_proto(self.action)
-
-        if FirewallPolicyRuleDirectionEnum.to_proto(self.direction):
-            request.resource.direction = FirewallPolicyRuleDirectionEnum.to_proto(
-                self.direction
-            )
-
-        if Primitive.to_proto(self.target_resources):
-            request.resource.target_resources.extend(
-                Primitive.to_proto(self.target_resources)
-            )
-        if Primitive.to_proto(self.enable_logging):
-            request.resource.enable_logging = Primitive.to_proto(self.enable_logging)
-
-        if Primitive.to_proto(self.target_service_accounts):
-            request.resource.target_service_accounts.extend(
-                Primitive.to_proto(self.target_service_accounts)
-            )
-        if Primitive.to_proto(self.disabled):
-            request.resource.disabled = Primitive.to_proto(self.disabled)
-
-        if Primitive.to_proto(self.firewall_policy):
-            request.resource.firewall_policy = Primitive.to_proto(self.firewall_policy)
+        request.service_account_file = service_account_file
+        request.FirewallPolicy = firewallPolicy
 
         return stub.ListComputeAlphaFirewallPolicyRule(request).items
 

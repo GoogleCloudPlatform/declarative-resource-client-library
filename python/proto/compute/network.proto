@@ -52,7 +52,7 @@ message DeleteComputeNetworkRequest {
 
 message ListComputeNetworkRequest {
   string service_account_file = 1;
-	ComputeNetwork resource = 2;
+  string Project = 2;
 }
 
 message ListComputeNetworkResponse {

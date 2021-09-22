@@ -1720,19 +1720,24 @@ func (l *OSPolicyAssignmentList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListOSPolicyAssignment(ctx context.Context, r *OSPolicyAssignment) (*OSPolicyAssignmentList, error) {
+func (c *Client) ListOSPolicyAssignment(ctx context.Context, project, location string) (*OSPolicyAssignmentList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListOSPolicyAssignmentWithMaxResults(ctx, r, OSPolicyAssignmentMaxPage)
+	return c.ListOSPolicyAssignmentWithMaxResults(ctx, project, location, OSPolicyAssignmentMaxPage)
 
 }
 
-func (c *Client) ListOSPolicyAssignmentWithMaxResults(ctx context.Context, r *OSPolicyAssignment, pageSize int32) (*OSPolicyAssignmentList, error) {
+func (c *Client) ListOSPolicyAssignmentWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*OSPolicyAssignmentList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &OSPolicyAssignment{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listOSPolicyAssignment(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -1799,11 +1804,7 @@ func (c *Client) DeleteOSPolicyAssignment(ctx context.Context, r *OSPolicyAssign
 
 // DeleteAllOSPolicyAssignment deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllOSPolicyAssignment(ctx context.Context, project, location string, filter func(*OSPolicyAssignment) bool) error {
-	r := &OSPolicyAssignment{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListOSPolicyAssignment(ctx, r)
+	listObj, err := c.ListOSPolicyAssignment(ctx, project, location)
 	if err != nil {
 		return err
 	}

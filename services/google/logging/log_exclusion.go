@@ -95,19 +95,23 @@ func (l *LogExclusionList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListLogExclusion(ctx context.Context, r *LogExclusion) (*LogExclusionList, error) {
+func (c *Client) ListLogExclusion(ctx context.Context, parent string) (*LogExclusionList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListLogExclusionWithMaxResults(ctx, r, LogExclusionMaxPage)
+	return c.ListLogExclusionWithMaxResults(ctx, parent, LogExclusionMaxPage)
 
 }
 
-func (c *Client) ListLogExclusionWithMaxResults(ctx context.Context, r *LogExclusion, pageSize int32) (*LogExclusionList, error) {
+func (c *Client) ListLogExclusionWithMaxResults(ctx context.Context, parent string, pageSize int32) (*LogExclusionList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &LogExclusion{
+		Parent: &parent,
+	}
 	items, token, err := c.listLogExclusion(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -173,10 +177,7 @@ func (c *Client) DeleteLogExclusion(ctx context.Context, r *LogExclusion) error 
 
 // DeleteAllLogExclusion deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllLogExclusion(ctx context.Context, parent string, filter func(*LogExclusion) bool) error {
-	r := &LogExclusion{
-		Parent: &parent,
-	}
-	listObj, err := c.ListLogExclusion(ctx, r)
+	listObj, err := c.ListLogExclusion(ctx, parent)
 	if err != nil {
 		return err
 	}

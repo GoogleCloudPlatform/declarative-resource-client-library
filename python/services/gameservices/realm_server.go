@@ -92,7 +92,7 @@ func (s *RealmServer) ListGameservicesRealm(ctx context.Context, request *gamese
 		return nil, err
 	}
 
-	resources, err := cl.ListRealm(ctx, ProtoToRealm(request.GetResource()))
+	resources, err := cl.ListRealm(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

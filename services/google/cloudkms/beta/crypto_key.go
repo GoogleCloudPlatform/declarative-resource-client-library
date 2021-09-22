@@ -582,19 +582,25 @@ func (l *CryptoKeyList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListCryptoKey(ctx context.Context, r *CryptoKey) (*CryptoKeyList, error) {
+func (c *Client) ListCryptoKey(ctx context.Context, project, location, keyRing string) (*CryptoKeyList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListCryptoKeyWithMaxResults(ctx, r, CryptoKeyMaxPage)
+	return c.ListCryptoKeyWithMaxResults(ctx, project, location, keyRing, CryptoKeyMaxPage)
 
 }
 
-func (c *Client) ListCryptoKeyWithMaxResults(ctx context.Context, r *CryptoKey, pageSize int32) (*CryptoKeyList, error) {
+func (c *Client) ListCryptoKeyWithMaxResults(ctx context.Context, project, location, keyRing string, pageSize int32) (*CryptoKeyList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &CryptoKey{
+		Project:  &project,
+		Location: &location,
+		KeyRing:  &keyRing,
+	}
 	items, token, err := c.listCryptoKey(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err

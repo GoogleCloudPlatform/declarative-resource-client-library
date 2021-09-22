@@ -153,45 +153,16 @@ class Spoke(object):
 
         response = stub.DeleteNetworkconnectivityAlphaSpoke(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, service_account_file=""):
         stub = spoke_pb2_grpc.NetworkconnectivityAlphaSpokeServiceStub(
             channel.Channel()
         )
         request = spoke_pb2.ListNetworkconnectivityAlphaSpokeRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
-
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if Primitive.to_proto(self.hub):
-            request.resource.hub = Primitive.to_proto(self.hub)
-
-        if Primitive.to_proto(self.linked_vpn_tunnels):
-            request.resource.linked_vpn_tunnels.extend(
-                Primitive.to_proto(self.linked_vpn_tunnels)
-            )
-        if Primitive.to_proto(self.linked_interconnect_attachments):
-            request.resource.linked_interconnect_attachments.extend(
-                Primitive.to_proto(self.linked_interconnect_attachments)
-            )
-        if SpokeLinkedRouterApplianceInstancesArray.to_proto(
-            self.linked_router_appliance_instances
-        ):
-            request.resource.linked_router_appliance_instances.extend(
-                SpokeLinkedRouterApplianceInstancesArray.to_proto(
-                    self.linked_router_appliance_instances
-                )
-            )
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
+        request.Location = location
 
         return stub.ListNetworkconnectivityAlphaSpoke(request).items
 

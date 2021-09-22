@@ -246,7 +246,7 @@ func (s *EndpointPolicyServer) ListNetworkservicesAlphaEndpointPolicy(ctx contex
 		return nil, err
 	}
 
-	resources, err := cl.ListEndpointPolicy(ctx, ProtoToEndpointPolicy(request.GetResource()))
+	resources, err := cl.ListEndpointPolicy(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

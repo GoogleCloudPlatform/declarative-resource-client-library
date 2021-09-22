@@ -52,7 +52,7 @@ message DeleteComputeBetaNetworkRequest {
 
 message ListComputeBetaNetworkRequest {
   string service_account_file = 1;
-	ComputeBetaNetwork resource = 2;
+  string Project = 2;
 }
 
 message ListComputeBetaNetworkResponse {

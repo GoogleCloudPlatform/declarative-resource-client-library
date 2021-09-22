@@ -204,19 +204,23 @@ func (l *TenantList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListTenant(ctx context.Context, r *Tenant) (*TenantList, error) {
+func (c *Client) ListTenant(ctx context.Context, project string) (*TenantList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListTenantWithMaxResults(ctx, r, TenantMaxPage)
+	return c.ListTenantWithMaxResults(ctx, project, TenantMaxPage)
 
 }
 
-func (c *Client) ListTenantWithMaxResults(ctx context.Context, r *Tenant, pageSize int32) (*TenantList, error) {
+func (c *Client) ListTenantWithMaxResults(ctx context.Context, project string, pageSize int32) (*TenantList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Tenant{
+		Project: &project,
+	}
 	items, token, err := c.listTenant(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -282,10 +286,7 @@ func (c *Client) DeleteTenant(ctx context.Context, r *Tenant) error {
 
 // DeleteAllTenant deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllTenant(ctx context.Context, project string, filter func(*Tenant) bool) error {
-	r := &Tenant{
-		Project: &project,
-	}
-	listObj, err := c.ListTenant(ctx, r)
+	listObj, err := c.ListTenant(ctx, project)
 	if err != nil {
 		return err
 	}

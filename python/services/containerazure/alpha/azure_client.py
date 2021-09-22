@@ -97,26 +97,16 @@ class AzureClient(object):
 
         response = stub.DeleteContainerazureAlphaAzureClient(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, service_account_file=""):
         stub = azure_client_pb2_grpc.ContainerazureAlphaAzureClientServiceStub(
             channel.Channel()
         )
         request = azure_client_pb2.ListContainerazureAlphaAzureClientRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.tenant_id):
-            request.resource.tenant_id = Primitive.to_proto(self.tenant_id)
-
-        if Primitive.to_proto(self.application_id):
-            request.resource.application_id = Primitive.to_proto(self.application_id)
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
+        request.Location = location
 
         return stub.ListContainerazureAlphaAzureClient(request).items
 

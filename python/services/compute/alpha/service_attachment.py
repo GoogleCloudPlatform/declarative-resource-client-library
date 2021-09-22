@@ -182,52 +182,16 @@ class ServiceAttachment(object):
 
         response = stub.DeleteComputeAlphaServiceAttachment(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, service_account_file=""):
         stub = service_attachment_pb2_grpc.ComputeAlphaServiceAttachmentServiceStub(
             channel.Channel()
         )
         request = service_attachment_pb2.ListComputeAlphaServiceAttachmentRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if Primitive.to_proto(self.target_service):
-            request.resource.target_service = Primitive.to_proto(self.target_service)
-
-        if ServiceAttachmentConnectionPreferenceEnum.to_proto(
-            self.connection_preference
-        ):
-            request.resource.connection_preference = ServiceAttachmentConnectionPreferenceEnum.to_proto(
-                self.connection_preference
-            )
-
-        if Primitive.to_proto(self.nat_subnets):
-            request.resource.nat_subnets.extend(Primitive.to_proto(self.nat_subnets))
-        if Primitive.to_proto(self.enable_proxy_protocol):
-            request.resource.enable_proxy_protocol = Primitive.to_proto(
-                self.enable_proxy_protocol
-            )
-
-        if Primitive.to_proto(self.consumer_reject_lists):
-            request.resource.consumer_reject_lists.extend(
-                Primitive.to_proto(self.consumer_reject_lists)
-            )
-        if ServiceAttachmentConsumerAcceptListsArray.to_proto(
-            self.consumer_accept_lists
-        ):
-            request.resource.consumer_accept_lists.extend(
-                ServiceAttachmentConsumerAcceptListsArray.to_proto(
-                    self.consumer_accept_lists
-                )
-            )
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
+        request.Location = location
 
         return stub.ListComputeAlphaServiceAttachment(request).items
 

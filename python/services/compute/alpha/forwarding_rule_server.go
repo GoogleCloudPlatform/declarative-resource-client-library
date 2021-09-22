@@ -303,7 +303,7 @@ func (s *ForwardingRuleServer) ListComputeAlphaForwardingRule(ctx context.Contex
 		return nil, err
 	}
 
-	resources, err := cl.ListForwardingRule(ctx, ProtoToForwardingRule(request.GetResource()))
+	resources, err := cl.ListForwardingRule(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

@@ -97,26 +97,18 @@ class Assignment(object):
 
         response = stub.DeleteBigqueryreservationBetaAssignment(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, reservation, service_account_file=""):
         stub = assignment_pb2_grpc.BigqueryreservationBetaAssignmentServiceStub(
             channel.Channel()
         )
         request = assignment_pb2.ListBigqueryreservationBetaAssignmentRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.assignee):
-            request.resource.assignee = Primitive.to_proto(self.assignee)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if AssignmentJobTypeEnum.to_proto(self.job_type):
-            request.resource.job_type = AssignmentJobTypeEnum.to_proto(self.job_type)
+        request.Location = location
 
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
-
-        if Primitive.to_proto(self.reservation):
-            request.resource.reservation = Primitive.to_proto(self.reservation)
+        request.Reservation = reservation
 
         return stub.ListBigqueryreservationBetaAssignment(request).items
 

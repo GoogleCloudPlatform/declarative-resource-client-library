@@ -132,42 +132,16 @@ class AutoscalingPolicy(object):
 
         response = stub.DeleteDataprocBetaAutoscalingPolicy(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, service_account_file=""):
         stub = autoscaling_policy_pb2_grpc.DataprocBetaAutoscalingPolicyServiceStub(
             channel.Channel()
         )
         request = autoscaling_policy_pb2.ListDataprocBetaAutoscalingPolicyRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if AutoscalingPolicyBasicAlgorithm.to_proto(self.basic_algorithm):
-            request.resource.basic_algorithm.CopyFrom(
-                AutoscalingPolicyBasicAlgorithm.to_proto(self.basic_algorithm)
-            )
-        else:
-            request.resource.ClearField("basic_algorithm")
-        if AutoscalingPolicyWorkerConfig.to_proto(self.worker_config):
-            request.resource.worker_config.CopyFrom(
-                AutoscalingPolicyWorkerConfig.to_proto(self.worker_config)
-            )
-        else:
-            request.resource.ClearField("worker_config")
-        if AutoscalingPolicySecondaryWorkerConfig.to_proto(
-            self.secondary_worker_config
-        ):
-            request.resource.secondary_worker_config.CopyFrom(
-                AutoscalingPolicySecondaryWorkerConfig.to_proto(
-                    self.secondary_worker_config
-                )
-            )
-        else:
-            request.resource.ClearField("secondary_worker_config")
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
+        request.Location = location
 
         return stub.ListDataprocBetaAutoscalingPolicy(request).items
 

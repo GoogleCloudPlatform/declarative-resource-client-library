@@ -396,19 +396,24 @@ func (l *FeatureList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListFeature(ctx context.Context, r *Feature) (*FeatureList, error) {
+func (c *Client) ListFeature(ctx context.Context, project, location string) (*FeatureList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListFeatureWithMaxResults(ctx, r, FeatureMaxPage)
+	return c.ListFeatureWithMaxResults(ctx, project, location, FeatureMaxPage)
 
 }
 
-func (c *Client) ListFeatureWithMaxResults(ctx context.Context, r *Feature, pageSize int32) (*FeatureList, error) {
+func (c *Client) ListFeatureWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*FeatureList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Feature{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listFeature(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -475,11 +480,7 @@ func (c *Client) DeleteFeature(ctx context.Context, r *Feature) error {
 
 // DeleteAllFeature deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllFeature(ctx context.Context, project, location string, filter func(*Feature) bool) error {
-	r := &Feature{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListFeature(ctx, r)
+	listObj, err := c.ListFeature(ctx, project, location)
 	if err != nil {
 		return err
 	}

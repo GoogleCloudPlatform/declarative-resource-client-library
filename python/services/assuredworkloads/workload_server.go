@@ -249,7 +249,7 @@ func (s *WorkloadServer) ListAssuredworkloadsWorkload(ctx context.Context, reque
 		return nil, err
 	}
 
-	resources, err := cl.ListWorkload(ctx, ProtoToWorkload(request.GetResource()))
+	resources, err := cl.ListWorkload(ctx, request.Organization, request.Location)
 	if err != nil {
 		return nil, err
 	}

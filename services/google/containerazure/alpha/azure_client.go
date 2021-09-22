@@ -97,19 +97,24 @@ func (l *AzureClientList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListAzureClient(ctx context.Context, r *AzureClient) (*AzureClientList, error) {
+func (c *Client) ListAzureClient(ctx context.Context, project, location string) (*AzureClientList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListAzureClientWithMaxResults(ctx, r, AzureClientMaxPage)
+	return c.ListAzureClientWithMaxResults(ctx, project, location, AzureClientMaxPage)
 
 }
 
-func (c *Client) ListAzureClientWithMaxResults(ctx context.Context, r *AzureClient, pageSize int32) (*AzureClientList, error) {
+func (c *Client) ListAzureClientWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*AzureClientList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &AzureClient{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listAzureClient(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -176,11 +181,7 @@ func (c *Client) DeleteAzureClient(ctx context.Context, r *AzureClient) error {
 
 // DeleteAllAzureClient deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllAzureClient(ctx context.Context, project, location string, filter func(*AzureClient) bool) error {
-	r := &AzureClient{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListAzureClient(ctx, r)
+	listObj, err := c.ListAzureClient(ctx, project, location)
 	if err != nil {
 		return err
 	}

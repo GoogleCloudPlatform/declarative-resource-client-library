@@ -124,19 +124,23 @@ func (l *HubList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListHub(ctx context.Context, r *Hub) (*HubList, error) {
+func (c *Client) ListHub(ctx context.Context, project string) (*HubList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListHubWithMaxResults(ctx, r, HubMaxPage)
+	return c.ListHubWithMaxResults(ctx, project, HubMaxPage)
 
 }
 
-func (c *Client) ListHubWithMaxResults(ctx context.Context, r *Hub, pageSize int32) (*HubList, error) {
+func (c *Client) ListHubWithMaxResults(ctx context.Context, project string, pageSize int32) (*HubList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Hub{
+		Project: &project,
+	}
 	items, token, err := c.listHub(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -202,10 +206,7 @@ func (c *Client) DeleteHub(ctx context.Context, r *Hub) error {
 
 // DeleteAllHub deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllHub(ctx context.Context, project string, filter func(*Hub) bool) error {
-	r := &Hub{
-		Project: &project,
-	}
-	listObj, err := c.ListHub(ctx, r)
+	listObj, err := c.ListHub(ctx, project)
 	if err != nil {
 		return err
 	}

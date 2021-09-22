@@ -99,29 +99,18 @@ class FeatureMembership(object):
 
         response = stub.DeleteGkehubBetaFeatureMembership(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, feature, service_account_file=""):
         stub = feature_membership_pb2_grpc.GkehubBetaFeatureMembershipServiceStub(
             channel.Channel()
         )
         request = feature_membership_pb2.ListGkehubBetaFeatureMembershipRequest()
-        request.service_account_file = self.service_account_file
-        if FeatureMembershipConfigmanagement.to_proto(self.configmanagement):
-            request.resource.configmanagement.CopyFrom(
-                FeatureMembershipConfigmanagement.to_proto(self.configmanagement)
-            )
-        else:
-            request.resource.ClearField("configmanagement")
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
+        request.Location = location
 
-        if Primitive.to_proto(self.feature):
-            request.resource.feature = Primitive.to_proto(self.feature)
-
-        if Primitive.to_proto(self.membership):
-            request.resource.membership = Primitive.to_proto(self.membership)
+        request.Feature = feature
 
         return stub.ListGkehubBetaFeatureMembership(request).items
 

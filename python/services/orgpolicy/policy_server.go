@@ -206,7 +206,7 @@ func (s *PolicyServer) ListOrgpolicyPolicy(ctx context.Context, request *orgpoli
 		return nil, err
 	}
 
-	resources, err := cl.ListPolicy(ctx, ProtoToPolicy(request.GetResource()))
+	resources, err := cl.ListPolicy(ctx, request.Parent)
 	if err != nil {
 		return nil, err
 	}

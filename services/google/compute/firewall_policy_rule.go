@@ -235,19 +235,23 @@ func (l *FirewallPolicyRuleList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListFirewallPolicyRule(ctx context.Context, r *FirewallPolicyRule) (*FirewallPolicyRuleList, error) {
+func (c *Client) ListFirewallPolicyRule(ctx context.Context, firewallPolicy string) (*FirewallPolicyRuleList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListFirewallPolicyRuleWithMaxResults(ctx, r, FirewallPolicyRuleMaxPage)
+	return c.ListFirewallPolicyRuleWithMaxResults(ctx, firewallPolicy, FirewallPolicyRuleMaxPage)
 
 }
 
-func (c *Client) ListFirewallPolicyRuleWithMaxResults(ctx context.Context, r *FirewallPolicyRule, pageSize int32) (*FirewallPolicyRuleList, error) {
+func (c *Client) ListFirewallPolicyRuleWithMaxResults(ctx context.Context, firewallPolicy string, pageSize int32) (*FirewallPolicyRuleList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &FirewallPolicyRule{
+		FirewallPolicy: &firewallPolicy,
+	}
 	items, token, err := c.listFirewallPolicyRule(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -313,10 +317,7 @@ func (c *Client) DeleteFirewallPolicyRule(ctx context.Context, r *FirewallPolicy
 
 // DeleteAllFirewallPolicyRule deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllFirewallPolicyRule(ctx context.Context, firewallPolicy string, filter func(*FirewallPolicyRule) bool) error {
-	r := &FirewallPolicyRule{
-		FirewallPolicy: &firewallPolicy,
-	}
-	listObj, err := c.ListFirewallPolicyRule(ctx, r)
+	listObj, err := c.ListFirewallPolicyRule(ctx, firewallPolicy)
 	if err != nil {
 		return err
 	}

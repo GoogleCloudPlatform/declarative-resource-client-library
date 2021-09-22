@@ -679,19 +679,24 @@ func (l *JobList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListJob(ctx context.Context, r *Job) (*JobList, error) {
+func (c *Client) ListJob(ctx context.Context, project, location string) (*JobList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListJobWithMaxResults(ctx, r, JobMaxPage)
+	return c.ListJobWithMaxResults(ctx, project, location, JobMaxPage)
 
 }
 
-func (c *Client) ListJobWithMaxResults(ctx context.Context, r *Job, pageSize int32) (*JobList, error) {
+func (c *Client) ListJobWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*JobList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Job{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listJob(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -758,11 +763,7 @@ func (c *Client) DeleteJob(ctx context.Context, r *Job) error {
 
 // DeleteAllJob deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllJob(ctx context.Context, project, location string, filter func(*Job) bool) error {
-	r := &Job{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListJob(ctx, r)
+	listObj, err := c.ListJob(ctx, project, location)
 	if err != nil {
 		return err
 	}

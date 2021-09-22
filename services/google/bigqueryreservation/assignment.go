@@ -149,19 +149,25 @@ func (l *AssignmentList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListAssignment(ctx context.Context, r *Assignment) (*AssignmentList, error) {
+func (c *Client) ListAssignment(ctx context.Context, project, location, reservation string) (*AssignmentList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListAssignmentWithMaxResults(ctx, r, AssignmentMaxPage)
+	return c.ListAssignmentWithMaxResults(ctx, project, location, reservation, AssignmentMaxPage)
 
 }
 
-func (c *Client) ListAssignmentWithMaxResults(ctx context.Context, r *Assignment, pageSize int32) (*AssignmentList, error) {
+func (c *Client) ListAssignmentWithMaxResults(ctx context.Context, project, location, reservation string, pageSize int32) (*AssignmentList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Assignment{
+		Project:     &project,
+		Location:    &location,
+		Reservation: &reservation,
+	}
 	items, token, err := c.listAssignment(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -230,12 +236,7 @@ func (c *Client) DeleteAssignment(ctx context.Context, r *Assignment) error {
 
 // DeleteAllAssignment deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllAssignment(ctx context.Context, project, location, reservation string, filter func(*Assignment) bool) error {
-	r := &Assignment{
-		Project:     &project,
-		Location:    &location,
-		Reservation: &reservation,
-	}
-	listObj, err := c.ListAssignment(ctx, r)
+	listObj, err := c.ListAssignment(ctx, project, location, reservation)
 	if err != nil {
 		return err
 	}

@@ -2192,7 +2192,7 @@ func (s *DashboardServer) ListMonitoringBetaDashboard(ctx context.Context, reque
 		return nil, err
 	}
 
-	resources, err := cl.ListDashboard(ctx, ProtoToDashboard(request.GetResource()))
+	resources, err := cl.ListDashboard(ctx, request.Project)
 	if err != nil {
 		return nil, err
 	}

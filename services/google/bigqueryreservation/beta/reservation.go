@@ -97,19 +97,24 @@ func (l *ReservationList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListReservation(ctx context.Context, r *Reservation) (*ReservationList, error) {
+func (c *Client) ListReservation(ctx context.Context, project, location string) (*ReservationList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListReservationWithMaxResults(ctx, r, ReservationMaxPage)
+	return c.ListReservationWithMaxResults(ctx, project, location, ReservationMaxPage)
 
 }
 
-func (c *Client) ListReservationWithMaxResults(ctx context.Context, r *Reservation, pageSize int32) (*ReservationList, error) {
+func (c *Client) ListReservationWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*ReservationList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Reservation{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listReservation(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -176,11 +181,7 @@ func (c *Client) DeleteReservation(ctx context.Context, r *Reservation) error {
 
 // DeleteAllReservation deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllReservation(ctx context.Context, project, location string, filter func(*Reservation) bool) error {
-	r := &Reservation{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListReservation(ctx, r)
+	listObj, err := c.ListReservation(ctx, project, location)
 	if err != nil {
 		return err
 	}

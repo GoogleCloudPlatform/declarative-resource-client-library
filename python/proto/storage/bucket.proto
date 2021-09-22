@@ -110,7 +110,7 @@ message DeleteStorageBucketRequest {
 
 message ListStorageBucketRequest {
   string service_account_file = 1;
-	StorageBucket resource = 2;
+  string Project = 2;
 }
 
 message ListStorageBucketResponse {

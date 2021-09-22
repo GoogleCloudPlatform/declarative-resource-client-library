@@ -138,7 +138,7 @@ func (s *AssignmentServer) ListBigqueryreservationBetaAssignment(ctx context.Con
 		return nil, err
 	}
 
-	resources, err := cl.ListAssignment(ctx, ProtoToAssignment(request.GetResource()))
+	resources, err := cl.ListAssignment(ctx, request.Project, request.Location, request.Reservation)
 	if err != nil {
 		return nil, err
 	}

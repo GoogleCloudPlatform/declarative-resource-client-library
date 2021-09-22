@@ -306,19 +306,24 @@ func (l *AutoscalingPolicyList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListAutoscalingPolicy(ctx context.Context, r *AutoscalingPolicy) (*AutoscalingPolicyList, error) {
+func (c *Client) ListAutoscalingPolicy(ctx context.Context, project, location string) (*AutoscalingPolicyList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListAutoscalingPolicyWithMaxResults(ctx, r, AutoscalingPolicyMaxPage)
+	return c.ListAutoscalingPolicyWithMaxResults(ctx, project, location, AutoscalingPolicyMaxPage)
 
 }
 
-func (c *Client) ListAutoscalingPolicyWithMaxResults(ctx context.Context, r *AutoscalingPolicy, pageSize int32) (*AutoscalingPolicyList, error) {
+func (c *Client) ListAutoscalingPolicyWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*AutoscalingPolicyList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &AutoscalingPolicy{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listAutoscalingPolicy(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -385,11 +390,7 @@ func (c *Client) DeleteAutoscalingPolicy(ctx context.Context, r *AutoscalingPoli
 
 // DeleteAllAutoscalingPolicy deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllAutoscalingPolicy(ctx context.Context, project, location string, filter func(*AutoscalingPolicy) bool) error {
-	r := &AutoscalingPolicy{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListAutoscalingPolicy(ctx, r)
+	listObj, err := c.ListAutoscalingPolicy(ctx, project, location)
 	if err != nil {
 		return err
 	}

@@ -161,7 +161,7 @@ func (s *SpokeServer) ListNetworkconnectivityAlphaSpoke(ctx context.Context, req
 		return nil, err
 	}
 
-	resources, err := cl.ListSpoke(ctx, ProtoToSpoke(request.GetResource()))
+	resources, err := cl.ListSpoke(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

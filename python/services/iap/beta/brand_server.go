@@ -85,7 +85,7 @@ func (s *BrandServer) ListIapBetaBrand(ctx context.Context, request *betapb.List
 		return nil, err
 	}
 
-	resources, err := cl.ListBrand(ctx, ProtoToBrand(request.GetResource()))
+	resources, err := cl.ListBrand(ctx, request.Project)
 	if err != nil {
 		return nil, err
 	}

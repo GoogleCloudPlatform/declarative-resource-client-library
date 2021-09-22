@@ -125,19 +125,23 @@ func (l *FolderList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListFolder(ctx context.Context, r *Folder) (*FolderList, error) {
+func (c *Client) ListFolder(ctx context.Context, parent string) (*FolderList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListFolderWithMaxResults(ctx, r, FolderMaxPage)
+	return c.ListFolderWithMaxResults(ctx, parent, FolderMaxPage)
 
 }
 
-func (c *Client) ListFolderWithMaxResults(ctx context.Context, r *Folder, pageSize int32) (*FolderList, error) {
+func (c *Client) ListFolderWithMaxResults(ctx context.Context, parent string, pageSize int32) (*FolderList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Folder{
+		Parent: &parent,
+	}
 	items, token, err := c.listFolder(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -202,10 +206,7 @@ func (c *Client) DeleteFolder(ctx context.Context, r *Folder) error {
 
 // DeleteAllFolder deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllFolder(ctx context.Context, parent string, filter func(*Folder) bool) error {
-	r := &Folder{
-		Parent: &parent,
-	}
-	listObj, err := c.ListFolder(ctx, r)
+	listObj, err := c.ListFolder(ctx, parent)
 	if err != nil {
 		return err
 	}

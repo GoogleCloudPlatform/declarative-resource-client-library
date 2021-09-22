@@ -3428,19 +3428,23 @@ func (l *DashboardList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListDashboard(ctx context.Context, r *Dashboard) (*DashboardList, error) {
+func (c *Client) ListDashboard(ctx context.Context, project string) (*DashboardList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListDashboardWithMaxResults(ctx, r, DashboardMaxPage)
+	return c.ListDashboardWithMaxResults(ctx, project, DashboardMaxPage)
 
 }
 
-func (c *Client) ListDashboardWithMaxResults(ctx context.Context, r *Dashboard, pageSize int32) (*DashboardList, error) {
+func (c *Client) ListDashboardWithMaxResults(ctx context.Context, project string, pageSize int32) (*DashboardList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Dashboard{
+		Project: &project,
+	}
 	items, token, err := c.listDashboard(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -3506,10 +3510,7 @@ func (c *Client) DeleteDashboard(ctx context.Context, r *Dashboard) error {
 
 // DeleteAllDashboard deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllDashboard(ctx context.Context, project string, filter func(*Dashboard) bool) error {
-	r := &Dashboard{
-		Project: &project,
-	}
-	listObj, err := c.ListDashboard(ctx, r)
+	listObj, err := c.ListDashboard(ctx, project)
 	if err != nil {
 		return err
 	}

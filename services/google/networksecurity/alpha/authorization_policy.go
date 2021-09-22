@@ -331,19 +331,24 @@ func (l *AuthorizationPolicyList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListAuthorizationPolicy(ctx context.Context, r *AuthorizationPolicy) (*AuthorizationPolicyList, error) {
+func (c *Client) ListAuthorizationPolicy(ctx context.Context, project, location string) (*AuthorizationPolicyList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListAuthorizationPolicyWithMaxResults(ctx, r, AuthorizationPolicyMaxPage)
+	return c.ListAuthorizationPolicyWithMaxResults(ctx, project, location, AuthorizationPolicyMaxPage)
 
 }
 
-func (c *Client) ListAuthorizationPolicyWithMaxResults(ctx context.Context, r *AuthorizationPolicy, pageSize int32) (*AuthorizationPolicyList, error) {
+func (c *Client) ListAuthorizationPolicyWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*AuthorizationPolicyList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &AuthorizationPolicy{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listAuthorizationPolicy(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -410,11 +415,7 @@ func (c *Client) DeleteAuthorizationPolicy(ctx context.Context, r *Authorization
 
 // DeleteAllAuthorizationPolicy deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllAuthorizationPolicy(ctx context.Context, project, location string, filter func(*AuthorizationPolicy) bool) error {
-	r := &AuthorizationPolicy{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListAuthorizationPolicy(ctx, r)
+	listObj, err := c.ListAuthorizationPolicy(ctx, project, location)
 	if err != nil {
 		return err
 	}

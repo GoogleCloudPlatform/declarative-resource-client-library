@@ -196,19 +196,23 @@ func (l *RouteList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListRoute(ctx context.Context, r *Route) (*RouteList, error) {
+func (c *Client) ListRoute(ctx context.Context, project string) (*RouteList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListRouteWithMaxResults(ctx, r, RouteMaxPage)
+	return c.ListRouteWithMaxResults(ctx, project, RouteMaxPage)
 
 }
 
-func (c *Client) ListRouteWithMaxResults(ctx context.Context, r *Route, pageSize int32) (*RouteList, error) {
+func (c *Client) ListRouteWithMaxResults(ctx context.Context, project string, pageSize int32) (*RouteList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Route{
+		Project: &project,
+	}
 	items, token, err := c.listRoute(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -277,10 +281,7 @@ func (c *Client) DeleteRoute(ctx context.Context, r *Route) error {
 
 // DeleteAllRoute deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllRoute(ctx context.Context, project string, filter func(*Route) bool) error {
-	r := &Route{
-		Project: &project,
-	}
-	listObj, err := c.ListRoute(ctx, r)
+	listObj, err := c.ListRoute(ctx, project)
 	if err != nil {
 		return err
 	}

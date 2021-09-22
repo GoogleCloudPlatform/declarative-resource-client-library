@@ -388,7 +388,7 @@ func (s *MembershipServer) ListGkehubAlphaMembership(ctx context.Context, reques
 		return nil, err
 	}
 
-	resources, err := cl.ListMembership(ctx, ProtoToMembership(request.GetResource()))
+	resources, err := cl.ListMembership(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

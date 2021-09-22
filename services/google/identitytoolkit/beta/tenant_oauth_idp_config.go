@@ -153,19 +153,24 @@ func (l *TenantOAuthIdpConfigList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListTenantOAuthIdpConfig(ctx context.Context, r *TenantOAuthIdpConfig) (*TenantOAuthIdpConfigList, error) {
+func (c *Client) ListTenantOAuthIdpConfig(ctx context.Context, project, tenant string) (*TenantOAuthIdpConfigList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListTenantOAuthIdpConfigWithMaxResults(ctx, r, TenantOAuthIdpConfigMaxPage)
+	return c.ListTenantOAuthIdpConfigWithMaxResults(ctx, project, tenant, TenantOAuthIdpConfigMaxPage)
 
 }
 
-func (c *Client) ListTenantOAuthIdpConfigWithMaxResults(ctx context.Context, r *TenantOAuthIdpConfig, pageSize int32) (*TenantOAuthIdpConfigList, error) {
+func (c *Client) ListTenantOAuthIdpConfigWithMaxResults(ctx context.Context, project, tenant string, pageSize int32) (*TenantOAuthIdpConfigList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &TenantOAuthIdpConfig{
+		Project: &project,
+		Tenant:  &tenant,
+	}
 	items, token, err := c.listTenantOAuthIdpConfig(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -232,11 +237,7 @@ func (c *Client) DeleteTenantOAuthIdpConfig(ctx context.Context, r *TenantOAuthI
 
 // DeleteAllTenantOAuthIdpConfig deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllTenantOAuthIdpConfig(ctx context.Context, project, tenant string, filter func(*TenantOAuthIdpConfig) bool) error {
-	r := &TenantOAuthIdpConfig{
-		Project: &project,
-		Tenant:  &tenant,
-	}
-	listObj, err := c.ListTenantOAuthIdpConfig(ctx, r)
+	listObj, err := c.ListTenantOAuthIdpConfig(ctx, project, tenant)
 	if err != nil {
 		return err
 	}

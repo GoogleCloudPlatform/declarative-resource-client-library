@@ -88,7 +88,7 @@ func (s *IdentityAwareProxyClientServer) ListIapBetaIdentityAwareProxyClient(ctx
 		return nil, err
 	}
 
-	resources, err := cl.ListIdentityAwareProxyClient(ctx, ProtoToIdentityAwareProxyClient(request.GetResource()))
+	resources, err := cl.ListIdentityAwareProxyClient(ctx, request.Project, request.Brand)
 	if err != nil {
 		return nil, err
 	}

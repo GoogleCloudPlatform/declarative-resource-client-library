@@ -151,19 +151,23 @@ func (l *OAuthIdpConfigList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListOAuthIdpConfig(ctx context.Context, r *OAuthIdpConfig) (*OAuthIdpConfigList, error) {
+func (c *Client) ListOAuthIdpConfig(ctx context.Context, project string) (*OAuthIdpConfigList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListOAuthIdpConfigWithMaxResults(ctx, r, OAuthIdpConfigMaxPage)
+	return c.ListOAuthIdpConfigWithMaxResults(ctx, project, OAuthIdpConfigMaxPage)
 
 }
 
-func (c *Client) ListOAuthIdpConfigWithMaxResults(ctx context.Context, r *OAuthIdpConfig, pageSize int32) (*OAuthIdpConfigList, error) {
+func (c *Client) ListOAuthIdpConfigWithMaxResults(ctx context.Context, project string, pageSize int32) (*OAuthIdpConfigList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &OAuthIdpConfig{
+		Project: &project,
+	}
 	items, token, err := c.listOAuthIdpConfig(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -229,10 +233,7 @@ func (c *Client) DeleteOAuthIdpConfig(ctx context.Context, r *OAuthIdpConfig) er
 
 // DeleteAllOAuthIdpConfig deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllOAuthIdpConfig(ctx context.Context, project string, filter func(*OAuthIdpConfig) bool) error {
-	r := &OAuthIdpConfig{
-		Project: &project,
-	}
-	listObj, err := c.ListOAuthIdpConfig(ctx, r)
+	listObj, err := c.ListOAuthIdpConfig(ctx, project)
 	if err != nil {
 		return err
 	}

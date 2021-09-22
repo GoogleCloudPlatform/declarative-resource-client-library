@@ -225,65 +225,14 @@ class Instance(object):
 
         response = stub.DeleteDatafusionAlphaInstance(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, service_account_file=""):
         stub = instance_pb2_grpc.DatafusionAlphaInstanceServiceStub(channel.Channel())
         request = instance_pb2.ListDatafusionAlphaInstanceRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if InstanceTypeEnum.to_proto(self.type):
-            request.resource.type = InstanceTypeEnum.to_proto(self.type)
-
-        if Primitive.to_proto(self.enable_stackdriver_logging):
-            request.resource.enable_stackdriver_logging = Primitive.to_proto(
-                self.enable_stackdriver_logging
-            )
-
-        if Primitive.to_proto(self.enable_stackdriver_monitoring):
-            request.resource.enable_stackdriver_monitoring = Primitive.to_proto(
-                self.enable_stackdriver_monitoring
-            )
-
-        if Primitive.to_proto(self.private_instance):
-            request.resource.private_instance = Primitive.to_proto(
-                self.private_instance
-            )
-
-        if InstanceNetworkConfig.to_proto(self.network_config):
-            request.resource.network_config.CopyFrom(
-                InstanceNetworkConfig.to_proto(self.network_config)
-            )
-        else:
-            request.resource.ClearField("network_config")
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
-
-        if Primitive.to_proto(self.options):
-            request.resource.options = Primitive.to_proto(self.options)
-
-        if Primitive.to_proto(self.zone):
-            request.resource.zone = Primitive.to_proto(self.zone)
-
-        if Primitive.to_proto(self.version):
-            request.resource.version = Primitive.to_proto(self.version)
-
-        if Primitive.to_proto(self.display_name):
-            request.resource.display_name = Primitive.to_proto(self.display_name)
-
-        if Primitive.to_proto(self.dataproc_service_account):
-            request.resource.dataproc_service_account = Primitive.to_proto(
-                self.dataproc_service_account
-            )
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
+        request.Location = location
 
         return stub.ListDatafusionAlphaInstance(request).items
 

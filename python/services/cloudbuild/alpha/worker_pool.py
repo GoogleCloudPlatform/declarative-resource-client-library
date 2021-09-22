@@ -111,32 +111,16 @@ class WorkerPool(object):
 
         response = stub.DeleteCloudbuildAlphaWorkerPool(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, service_account_file=""):
         stub = worker_pool_pb2_grpc.CloudbuildAlphaWorkerPoolServiceStub(
             channel.Channel()
         )
         request = worker_pool_pb2.ListCloudbuildAlphaWorkerPoolRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if WorkerPoolWorkerConfig.to_proto(self.worker_config):
-            request.resource.worker_config.CopyFrom(
-                WorkerPoolWorkerConfig.to_proto(self.worker_config)
-            )
-        else:
-            request.resource.ClearField("worker_config")
-        if WorkerPoolNetworkConfig.to_proto(self.network_config):
-            request.resource.network_config.CopyFrom(
-                WorkerPoolNetworkConfig.to_proto(self.network_config)
-            )
-        else:
-            request.resource.ClearField("network_config")
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
+        request.Location = location
 
         return stub.ListCloudbuildAlphaWorkerPool(request).items
 

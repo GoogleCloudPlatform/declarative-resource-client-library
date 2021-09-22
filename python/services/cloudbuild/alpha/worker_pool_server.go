@@ -167,7 +167,7 @@ func (s *WorkerPoolServer) ListCloudbuildAlphaWorkerPool(ctx context.Context, re
 		return nil, err
 	}
 
-	resources, err := cl.ListWorkerPool(ctx, ProtoToWorkerPool(request.GetResource()))
+	resources, err := cl.ListWorkerPool(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

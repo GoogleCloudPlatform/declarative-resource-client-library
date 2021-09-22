@@ -148,7 +148,7 @@ func (s *BackupServer) ListFilestoreBetaBackup(ctx context.Context, request *bet
 		return nil, err
 	}
 
-	resources, err := cl.ListBackup(ctx, ProtoToBackup(request.GetResource()))
+	resources, err := cl.ListBackup(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

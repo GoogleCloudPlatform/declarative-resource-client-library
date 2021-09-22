@@ -280,7 +280,8 @@ message DeleteDataprocAlphaClusterRequest {
 
 message ListDataprocAlphaClusterRequest {
   string service_account_file = 1;
-	DataprocAlphaCluster resource = 2;
+  string Project = 2;
+  string Location = 3;
 }
 
 message ListDataprocAlphaClusterResponse {

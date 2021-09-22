@@ -82,23 +82,12 @@ class Brand(object):
 
         response = stub.DeleteIapAlphaBrand(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, service_account_file=""):
         stub = brand_pb2_grpc.IapAlphaBrandServiceStub(channel.Channel())
         request = brand_pb2.ListIapAlphaBrandRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.application_title):
-            request.resource.application_title = Primitive.to_proto(
-                self.application_title
-            )
-
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
-        if Primitive.to_proto(self.support_email):
-            request.resource.support_email = Primitive.to_proto(self.support_email)
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
+        request.service_account_file = service_account_file
+        request.Project = project
 
         return stub.ListIapAlphaBrand(request).items
 

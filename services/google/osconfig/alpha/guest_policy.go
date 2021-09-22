@@ -1860,19 +1860,23 @@ func (l *GuestPolicyList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListGuestPolicy(ctx context.Context, r *GuestPolicy) (*GuestPolicyList, error) {
+func (c *Client) ListGuestPolicy(ctx context.Context, project string) (*GuestPolicyList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListGuestPolicyWithMaxResults(ctx, r, GuestPolicyMaxPage)
+	return c.ListGuestPolicyWithMaxResults(ctx, project, GuestPolicyMaxPage)
 
 }
 
-func (c *Client) ListGuestPolicyWithMaxResults(ctx context.Context, r *GuestPolicy, pageSize int32) (*GuestPolicyList, error) {
+func (c *Client) ListGuestPolicyWithMaxResults(ctx context.Context, project string, pageSize int32) (*GuestPolicyList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &GuestPolicy{
+		Project: &project,
+	}
 	items, token, err := c.listGuestPolicy(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -1938,10 +1942,7 @@ func (c *Client) DeleteGuestPolicy(ctx context.Context, r *GuestPolicy) error {
 
 // DeleteAllGuestPolicy deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllGuestPolicy(ctx context.Context, project string, filter func(*GuestPolicy) bool) error {
-	r := &GuestPolicy{
-		Project: &project,
-	}
-	listObj, err := c.ListGuestPolicy(ctx, r)
+	listObj, err := c.ListGuestPolicy(ctx, project)
 	if err != nil {
 		return err
 	}

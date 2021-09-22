@@ -232,19 +232,25 @@ func (l *WorkloadIdentityPoolProviderList) Next(ctx context.Context, c *Client) 
 	return err
 }
 
-func (c *Client) ListWorkloadIdentityPoolProvider(ctx context.Context, r *WorkloadIdentityPoolProvider) (*WorkloadIdentityPoolProviderList, error) {
+func (c *Client) ListWorkloadIdentityPoolProvider(ctx context.Context, project, location, workloadIdentityPool string) (*WorkloadIdentityPoolProviderList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListWorkloadIdentityPoolProviderWithMaxResults(ctx, r, WorkloadIdentityPoolProviderMaxPage)
+	return c.ListWorkloadIdentityPoolProviderWithMaxResults(ctx, project, location, workloadIdentityPool, WorkloadIdentityPoolProviderMaxPage)
 
 }
 
-func (c *Client) ListWorkloadIdentityPoolProviderWithMaxResults(ctx context.Context, r *WorkloadIdentityPoolProvider, pageSize int32) (*WorkloadIdentityPoolProviderList, error) {
+func (c *Client) ListWorkloadIdentityPoolProviderWithMaxResults(ctx context.Context, project, location, workloadIdentityPool string, pageSize int32) (*WorkloadIdentityPoolProviderList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &WorkloadIdentityPoolProvider{
+		Project:              &project,
+		Location:             &location,
+		WorkloadIdentityPool: &workloadIdentityPool,
+	}
 	items, token, err := c.listWorkloadIdentityPoolProvider(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -312,12 +318,7 @@ func (c *Client) DeleteWorkloadIdentityPoolProvider(ctx context.Context, r *Work
 
 // DeleteAllWorkloadIdentityPoolProvider deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllWorkloadIdentityPoolProvider(ctx context.Context, project, location, workloadIdentityPool string, filter func(*WorkloadIdentityPoolProvider) bool) error {
-	r := &WorkloadIdentityPoolProvider{
-		Project:              &project,
-		Location:             &location,
-		WorkloadIdentityPool: &workloadIdentityPool,
-	}
-	listObj, err := c.ListWorkloadIdentityPoolProvider(ctx, r)
+	listObj, err := c.ListWorkloadIdentityPoolProvider(ctx, project, location, workloadIdentityPool)
 	if err != nil {
 		return err
 	}

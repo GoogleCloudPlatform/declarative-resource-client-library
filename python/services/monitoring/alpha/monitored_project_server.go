@@ -84,7 +84,7 @@ func (s *MonitoredProjectServer) ListMonitoringAlphaMonitoredProject(ctx context
 		return nil, err
 	}
 
-	resources, err := cl.ListMonitoredProject(ctx, ProtoToMonitoredProject(request.GetResource()))
+	resources, err := cl.ListMonitoredProject(ctx, request.MetricsScope)
 	if err != nil {
 		return nil, err
 	}

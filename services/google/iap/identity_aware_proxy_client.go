@@ -91,19 +91,24 @@ func (l *IdentityAwareProxyClientList) Next(ctx context.Context, c *Client) erro
 	return err
 }
 
-func (c *Client) ListIdentityAwareProxyClient(ctx context.Context, r *IdentityAwareProxyClient) (*IdentityAwareProxyClientList, error) {
+func (c *Client) ListIdentityAwareProxyClient(ctx context.Context, project, brand string) (*IdentityAwareProxyClientList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListIdentityAwareProxyClientWithMaxResults(ctx, r, IdentityAwareProxyClientMaxPage)
+	return c.ListIdentityAwareProxyClientWithMaxResults(ctx, project, brand, IdentityAwareProxyClientMaxPage)
 
 }
 
-func (c *Client) ListIdentityAwareProxyClientWithMaxResults(ctx context.Context, r *IdentityAwareProxyClient, pageSize int32) (*IdentityAwareProxyClientList, error) {
+func (c *Client) ListIdentityAwareProxyClientWithMaxResults(ctx context.Context, project, brand string, pageSize int32) (*IdentityAwareProxyClientList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &IdentityAwareProxyClient{
+		Project: &project,
+		Brand:   &brand,
+	}
 	items, token, err := c.listIdentityAwareProxyClient(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -170,11 +175,7 @@ func (c *Client) DeleteIdentityAwareProxyClient(ctx context.Context, r *Identity
 
 // DeleteAllIdentityAwareProxyClient deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllIdentityAwareProxyClient(ctx context.Context, project, brand string, filter func(*IdentityAwareProxyClient) bool) error {
-	r := &IdentityAwareProxyClient{
-		Project: &project,
-		Brand:   &brand,
-	}
-	listObj, err := c.ListIdentityAwareProxyClient(ctx, r)
+	listObj, err := c.ListIdentityAwareProxyClient(ctx, project, brand)
 	if err != nil {
 		return err
 	}

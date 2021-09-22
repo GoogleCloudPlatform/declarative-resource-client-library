@@ -43,7 +43,6 @@ message DeleteMonitoringMetricsScopeRequest {
 
 message ListMonitoringMetricsScopeRequest {
   string service_account_file = 1;
-	MonitoringMetricsScope resource = 2;
 }
 
 message ListMonitoringMetricsScopeResponse {

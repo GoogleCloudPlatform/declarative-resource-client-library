@@ -55,7 +55,9 @@ message DeleteBigqueryreservationBetaAssignmentRequest {
 
 message ListBigqueryreservationBetaAssignmentRequest {
   string service_account_file = 1;
-	BigqueryreservationBetaAssignment resource = 2;
+  string Project = 2;
+  string Location = 3;
+  string Reservation = 4;
 }
 
 message ListBigqueryreservationBetaAssignmentResponse {

@@ -185,19 +185,24 @@ func (l *SpokeList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListSpoke(ctx context.Context, r *Spoke) (*SpokeList, error) {
+func (c *Client) ListSpoke(ctx context.Context, project, location string) (*SpokeList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListSpokeWithMaxResults(ctx, r, SpokeMaxPage)
+	return c.ListSpokeWithMaxResults(ctx, project, location, SpokeMaxPage)
 
 }
 
-func (c *Client) ListSpokeWithMaxResults(ctx context.Context, r *Spoke, pageSize int32) (*SpokeList, error) {
+func (c *Client) ListSpokeWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*SpokeList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Spoke{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listSpoke(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -264,11 +269,7 @@ func (c *Client) DeleteSpoke(ctx context.Context, r *Spoke) error {
 
 // DeleteAllSpoke deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllSpoke(ctx context.Context, project, location string, filter func(*Spoke) bool) error {
-	r := &Spoke{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListSpoke(ctx, r)
+	listObj, err := c.ListSpoke(ctx, project, location)
 	if err != nil {
 		return err
 	}

@@ -49,7 +49,7 @@ message DeleteCloudresourcemanagerBetaFolderRequest {
 
 message ListCloudresourcemanagerBetaFolderRequest {
   string service_account_file = 1;
-	CloudresourcemanagerBetaFolder resource = 2;
+  string Parent = 2;
 }
 
 message ListCloudresourcemanagerBetaFolderResponse {

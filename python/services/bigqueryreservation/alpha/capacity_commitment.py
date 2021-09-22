@@ -124,33 +124,18 @@ class CapacityCommitment(object):
 
         response = stub.DeleteBigqueryreservationAlphaCapacityCommitment(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, service_account_file=""):
         stub = capacity_commitment_pb2_grpc.BigqueryreservationAlphaCapacityCommitmentServiceStub(
             channel.Channel()
         )
         request = (
             capacity_commitment_pb2.ListBigqueryreservationAlphaCapacityCommitmentRequest()
         )
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.slot_count):
-            request.resource.slot_count = Primitive.to_proto(self.slot_count)
-
-        if CapacityCommitmentPlanEnum.to_proto(self.plan):
-            request.resource.plan = CapacityCommitmentPlanEnum.to_proto(self.plan)
-
-        if CapacityCommitmentRenewalPlanEnum.to_proto(self.renewal_plan):
-            request.resource.renewal_plan = CapacityCommitmentRenewalPlanEnum.to_proto(
-                self.renewal_plan
-            )
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
+        request.Location = location
 
         return stub.ListBigqueryreservationAlphaCapacityCommitment(request).items
 

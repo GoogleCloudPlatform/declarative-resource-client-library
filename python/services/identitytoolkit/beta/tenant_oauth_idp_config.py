@@ -141,43 +141,18 @@ class TenantOAuthIdpConfig(object):
 
         response = stub.DeleteIdentitytoolkitBetaTenantOAuthIdpConfig(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, tenant, service_account_file=""):
         stub = tenant_oauth_idp_config_pb2_grpc.IdentitytoolkitBetaTenantOAuthIdpConfigServiceStub(
             channel.Channel()
         )
         request = (
             tenant_oauth_idp_config_pb2.ListIdentitytoolkitBetaTenantOAuthIdpConfigRequest()
         )
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.client_id):
-            request.resource.client_id = Primitive.to_proto(self.client_id)
-
-        if Primitive.to_proto(self.issuer):
-            request.resource.issuer = Primitive.to_proto(self.issuer)
-
-        if Primitive.to_proto(self.display_name):
-            request.resource.display_name = Primitive.to_proto(self.display_name)
-
-        if Primitive.to_proto(self.enabled):
-            request.resource.enabled = Primitive.to_proto(self.enabled)
-
-        if Primitive.to_proto(self.client_secret):
-            request.resource.client_secret = Primitive.to_proto(self.client_secret)
-
-        if TenantOAuthIdpConfigResponseType.to_proto(self.response_type):
-            request.resource.response_type.CopyFrom(
-                TenantOAuthIdpConfigResponseType.to_proto(self.response_type)
-            )
-        else:
-            request.resource.ClearField("response_type")
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.tenant):
-            request.resource.tenant = Primitive.to_proto(self.tenant)
+        request.Tenant = tenant
 
         return stub.ListIdentitytoolkitBetaTenantOAuthIdpConfig(request).items
 

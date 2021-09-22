@@ -420,12 +420,7 @@ func (c *Client) DeleteFeatureMembership(ctx context.Context, r *FeatureMembersh
 
 // DeleteAllFeatureMembership deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllFeatureMembership(ctx context.Context, project, location, feature string, filter func(*FeatureMembership) bool) error {
-	r := &FeatureMembership{
-		Project:  &project,
-		Location: &location,
-		Feature:  &feature,
-	}
-	listObj, err := c.ListFeatureMembership(ctx, r)
+	listObj, err := c.ListFeatureMembership(ctx, project, location, feature)
 	if err != nil {
 		return err
 	}

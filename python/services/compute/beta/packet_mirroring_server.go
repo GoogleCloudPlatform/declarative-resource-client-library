@@ -316,7 +316,7 @@ func (s *PacketMirroringServer) ListComputeBetaPacketMirroring(ctx context.Conte
 		return nil, err
 	}
 
-	resources, err := cl.ListPacketMirroring(ctx, ProtoToPacketMirroring(request.GetResource()))
+	resources, err := cl.ListPacketMirroring(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

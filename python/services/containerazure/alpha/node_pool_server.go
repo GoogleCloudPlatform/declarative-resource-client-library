@@ -253,7 +253,7 @@ func (s *NodePoolServer) ListContainerazureAlphaNodePool(ctx context.Context, re
 		return nil, err
 	}
 
-	resources, err := cl.ListNodePool(ctx, ProtoToNodePool(request.GetResource()))
+	resources, err := cl.ListNodePool(ctx, request.Project, request.Location, request.Cluster)
 	if err != nil {
 		return nil, err
 	}

@@ -177,7 +177,9 @@ message DeleteCloudkmsCryptoKeyRequest {
 
 message ListCloudkmsCryptoKeyRequest {
   string service_account_file = 1;
-	CloudkmsCryptoKey resource = 2;
+  string Project = 2;
+  string Location = 3;
+  string KeyRing = 4;
 }
 
 message ListCloudkmsCryptoKeyResponse {

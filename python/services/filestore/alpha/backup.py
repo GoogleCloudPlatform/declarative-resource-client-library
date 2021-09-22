@@ -121,32 +121,14 @@ class Backup(object):
 
         response = stub.DeleteFilestoreAlphaBackup(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, service_account_file=""):
         stub = backup_pb2_grpc.FilestoreAlphaBackupServiceStub(channel.Channel())
         request = backup_pb2.ListFilestoreAlphaBackupRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
-
-        if Primitive.to_proto(self.source_instance):
-            request.resource.source_instance = Primitive.to_proto(self.source_instance)
-
-        if Primitive.to_proto(self.source_file_share):
-            request.resource.source_file_share = Primitive.to_proto(
-                self.source_file_share
-            )
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
+        request.Location = location
 
         return stub.ListFilestoreAlphaBackup(request).items
 

@@ -66,17 +66,14 @@ class MonitoredProject(object):
 
         response = stub.DeleteMonitoringMonitoredProject(request)
 
-    def list(self):
+    @classmethod
+    def list(self, metricsScope, service_account_file=""):
         stub = monitored_project_pb2_grpc.MonitoringMonitoredProjectServiceStub(
             channel.Channel()
         )
         request = monitored_project_pb2.ListMonitoringMonitoredProjectRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
-        if Primitive.to_proto(self.metrics_scope):
-            request.resource.metrics_scope = Primitive.to_proto(self.metrics_scope)
+        request.service_account_file = service_account_file
+        request.MetricsScope = metricsScope
 
         return stub.ListMonitoringMonitoredProject(request).items
 

@@ -76,7 +76,6 @@ message DeleteBinaryauthorizationBetaPolicyRequest {
 
 message ListBinaryauthorizationBetaPolicyRequest {
   string service_account_file = 1;
-	BinaryauthorizationBetaPolicy resource = 2;
 }
 
 message ListBinaryauthorizationBetaPolicyResponse {

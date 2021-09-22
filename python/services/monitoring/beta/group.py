@@ -94,27 +94,12 @@ class Group(object):
 
         response = stub.DeleteMonitoringBetaGroup(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, service_account_file=""):
         stub = group_pb2_grpc.MonitoringBetaGroupServiceStub(channel.Channel())
         request = group_pb2.ListMonitoringBetaGroupRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.display_name):
-            request.resource.display_name = Primitive.to_proto(self.display_name)
-
-        if Primitive.to_proto(self.filter):
-            request.resource.filter = Primitive.to_proto(self.filter)
-
-        if Primitive.to_proto(self.is_cluster):
-            request.resource.is_cluster = Primitive.to_proto(self.is_cluster)
-
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
-        if Primitive.to_proto(self.parent_name):
-            request.resource.parent_name = Primitive.to_proto(self.parent_name)
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
+        request.service_account_file = service_account_file
+        request.Project = project
 
         return stub.ListMonitoringBetaGroup(request).items
 

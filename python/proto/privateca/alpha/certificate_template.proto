@@ -134,7 +134,8 @@ message DeletePrivatecaAlphaCertificateTemplateRequest {
 
 message ListPrivatecaAlphaCertificateTemplateRequest {
   string service_account_file = 1;
-	PrivatecaAlphaCertificateTemplate resource = 2;
+  string Project = 2;
+  string Location = 3;
 }
 
 message ListPrivatecaAlphaCertificateTemplateResponse {

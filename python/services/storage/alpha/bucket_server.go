@@ -385,7 +385,7 @@ func (s *BucketServer) ListStorageAlphaBucket(ctx context.Context, request *alph
 		return nil, err
 	}
 
-	resources, err := cl.ListBucket(ctx, ProtoToBucket(request.GetResource()))
+	resources, err := cl.ListBucket(ctx, request.Project)
 	if err != nil {
 		return nil, err
 	}

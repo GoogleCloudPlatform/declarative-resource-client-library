@@ -48,7 +48,6 @@ message DeleteCloudresourcemanagerAlphaProjectRequest {
 
 message ListCloudresourcemanagerAlphaProjectRequest {
   string service_account_file = 1;
-	CloudresourcemanagerAlphaProject resource = 2;
 }
 
 message ListCloudresourcemanagerAlphaProjectResponse {

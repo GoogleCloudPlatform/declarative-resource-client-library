@@ -80,7 +80,8 @@ message DeleteComputeBetaServiceAttachmentRequest {
 
 message ListComputeBetaServiceAttachmentRequest {
   string service_account_file = 1;
-	ComputeBetaServiceAttachment resource = 2;
+  string Project = 2;
+  string Location = 3;
 }
 
 message ListComputeBetaServiceAttachmentResponse {

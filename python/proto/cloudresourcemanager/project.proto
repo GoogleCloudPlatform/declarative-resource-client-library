@@ -48,7 +48,6 @@ message DeleteCloudresourcemanagerProjectRequest {
 
 message ListCloudresourcemanagerProjectRequest {
   string service_account_file = 1;
-	CloudresourcemanagerProject resource = 2;
 }
 
 message ListCloudresourcemanagerProjectResponse {

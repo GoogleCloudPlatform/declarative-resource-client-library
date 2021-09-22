@@ -289,7 +289,12 @@ func (l *FeatureMembershipList) Next(_ context.Context, _ *Client) error {
 }
 
 // ListFeatureMembership returns a list of feature memberships retrieved from the membershipSpecs field of a feature.
-func (c *Client) ListFeatureMembership(ctx context.Context, r *FeatureMembership) (*FeatureMembershipList, error) {
+func (c *Client) ListFeatureMembership(ctx context.Context, project, location, feature string) (*FeatureMembershipList, error) {
+	r := &FeatureMembership{
+		Project:  &project,
+		Location: &location,
+		Feature:  &feature,
+	}
 	membershipSpecs, err := getMembershipSpecs(ctx, r, c)
 	if err != nil {
 		return nil, err

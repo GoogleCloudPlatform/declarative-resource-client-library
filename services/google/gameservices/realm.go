@@ -97,19 +97,24 @@ func (l *RealmList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListRealm(ctx context.Context, r *Realm) (*RealmList, error) {
+func (c *Client) ListRealm(ctx context.Context, project, location string) (*RealmList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListRealmWithMaxResults(ctx, r, RealmMaxPage)
+	return c.ListRealmWithMaxResults(ctx, project, location, RealmMaxPage)
 
 }
 
-func (c *Client) ListRealmWithMaxResults(ctx context.Context, r *Realm, pageSize int32) (*RealmList, error) {
+func (c *Client) ListRealmWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*RealmList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Realm{
+		Project:  &project,
+		Location: &location,
+	}
 	items, token, err := c.listRealm(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -176,11 +181,7 @@ func (c *Client) DeleteRealm(ctx context.Context, r *Realm) error {
 
 // DeleteAllRealm deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllRealm(ctx context.Context, project, location string, filter func(*Realm) bool) error {
-	r := &Realm{
-		Project:  &project,
-		Location: &location,
-	}
-	listObj, err := c.ListRealm(ctx, r)
+	listObj, err := c.ListRealm(ctx, project, location)
 	if err != nil {
 		return err
 	}

@@ -128,38 +128,14 @@ class OAuthIdpConfig(object):
 
         response = stub.DeleteIdentitytoolkitAlphaOAuthIdpConfig(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, service_account_file=""):
         stub = oauth_idp_config_pb2_grpc.IdentitytoolkitAlphaOAuthIdpConfigServiceStub(
             channel.Channel()
         )
         request = oauth_idp_config_pb2.ListIdentitytoolkitAlphaOAuthIdpConfigRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
-        if Primitive.to_proto(self.client_id):
-            request.resource.client_id = Primitive.to_proto(self.client_id)
-
-        if Primitive.to_proto(self.issuer):
-            request.resource.issuer = Primitive.to_proto(self.issuer)
-
-        if Primitive.to_proto(self.display_name):
-            request.resource.display_name = Primitive.to_proto(self.display_name)
-
-        if Primitive.to_proto(self.enabled):
-            request.resource.enabled = Primitive.to_proto(self.enabled)
-
-        if Primitive.to_proto(self.client_secret):
-            request.resource.client_secret = Primitive.to_proto(self.client_secret)
-
-        if OAuthIdpConfigResponseType.to_proto(self.response_type):
-            request.resource.response_type.CopyFrom(
-                OAuthIdpConfigResponseType.to_proto(self.response_type)
-            )
-        else:
-            request.resource.ClearField("response_type")
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
+        request.service_account_file = service_account_file
+        request.Project = project
 
         return stub.ListIdentitytoolkitAlphaOAuthIdpConfig(request).items
 

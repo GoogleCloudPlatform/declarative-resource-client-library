@@ -1647,19 +1647,23 @@ func (l *NoteList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListNote(ctx context.Context, r *Note) (*NoteList, error) {
+func (c *Client) ListNote(ctx context.Context, project string) (*NoteList, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListNoteWithMaxResults(ctx, r, NoteMaxPage)
+	return c.ListNoteWithMaxResults(ctx, project, NoteMaxPage)
 
 }
 
-func (c *Client) ListNoteWithMaxResults(ctx context.Context, r *Note, pageSize int32) (*NoteList, error) {
+func (c *Client) ListNoteWithMaxResults(ctx context.Context, project string, pageSize int32) (*NoteList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
+	// Create a resource object so that we can use proper url normalization methods.
+	r := &Note{
+		Project: &project,
+	}
 	items, token, err := c.listNote(ctx, r, "", pageSize)
 	if err != nil {
 		return nil, err
@@ -1725,10 +1729,7 @@ func (c *Client) DeleteNote(ctx context.Context, r *Note) error {
 
 // DeleteAllNote deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllNote(ctx context.Context, project string, filter func(*Note) bool) error {
-	r := &Note{
-		Project: &project,
-	}
-	listObj, err := c.ListNote(ctx, r)
+	listObj, err := c.ListNote(ctx, project)
 	if err != nil {
 		return err
 	}

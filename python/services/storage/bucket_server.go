@@ -385,7 +385,7 @@ func (s *BucketServer) ListStorageBucket(ctx context.Context, request *storagepb
 		return nil, err
 	}
 
-	resources, err := cl.ListBucket(ctx, ProtoToBucket(request.GetResource()))
+	resources, err := cl.ListBucket(ctx, request.Project)
 	if err != nil {
 		return nil, err
 	}

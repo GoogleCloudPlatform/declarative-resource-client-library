@@ -139,46 +139,12 @@ class Bucket(object):
             request.resource.ClearField("website")
         response = stub.DeleteStorageAlphaBucket(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, service_account_file=""):
         stub = bucket_pb2_grpc.StorageAlphaBucketServiceStub(channel.Channel())
         request = bucket_pb2.ListStorageAlphaBucketRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
-
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
-        if BucketCorsArray.to_proto(self.cors):
-            request.resource.cors.extend(BucketCorsArray.to_proto(self.cors))
-        if BucketLifecycle.to_proto(self.lifecycle):
-            request.resource.lifecycle.CopyFrom(
-                BucketLifecycle.to_proto(self.lifecycle)
-            )
-        else:
-            request.resource.ClearField("lifecycle")
-        if BucketLogging.to_proto(self.logging):
-            request.resource.logging.CopyFrom(BucketLogging.to_proto(self.logging))
-        else:
-            request.resource.ClearField("logging")
-        if BucketStorageClassEnum.to_proto(self.storage_class):
-            request.resource.storage_class = BucketStorageClassEnum.to_proto(
-                self.storage_class
-            )
-
-        if BucketVersioning.to_proto(self.versioning):
-            request.resource.versioning.CopyFrom(
-                BucketVersioning.to_proto(self.versioning)
-            )
-        else:
-            request.resource.ClearField("versioning")
-        if BucketWebsite.to_proto(self.website):
-            request.resource.website.CopyFrom(BucketWebsite.to_proto(self.website))
-        else:
-            request.resource.ClearField("website")
+        request.service_account_file = service_account_file
+        request.Project = project
 
         return stub.ListStorageAlphaBucket(request).items
 

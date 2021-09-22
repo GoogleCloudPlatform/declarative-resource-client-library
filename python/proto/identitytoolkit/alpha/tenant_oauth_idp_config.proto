@@ -49,7 +49,8 @@ message DeleteIdentitytoolkitAlphaTenantOAuthIdpConfigRequest {
 
 message ListIdentitytoolkitAlphaTenantOAuthIdpConfigRequest {
   string service_account_file = 1;
-	IdentitytoolkitAlphaTenantOAuthIdpConfig resource = 2;
+  string Project = 2;
+  string Tenant = 3;
 }
 
 message ListIdentitytoolkitAlphaTenantOAuthIdpConfigResponse {

@@ -102,29 +102,16 @@ class WorkloadIdentityPool(object):
 
         response = stub.DeleteIamAlphaWorkloadIdentityPool(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, location, service_account_file=""):
         stub = workload_identity_pool_pb2_grpc.IamAlphaWorkloadIdentityPoolServiceStub(
             channel.Channel()
         )
         request = workload_identity_pool_pb2.ListIamAlphaWorkloadIdentityPoolRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        request.service_account_file = service_account_file
+        request.Project = project
 
-        if Primitive.to_proto(self.display_name):
-            request.resource.display_name = Primitive.to_proto(self.display_name)
-
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if Primitive.to_proto(self.disabled):
-            request.resource.disabled = Primitive.to_proto(self.disabled)
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.location):
-            request.resource.location = Primitive.to_proto(self.location)
+        request.Location = location
 
         return stub.ListIamAlphaWorkloadIdentityPool(request).items
 
