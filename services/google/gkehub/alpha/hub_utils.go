@@ -314,6 +314,7 @@ func (c *Client) ListFeatureMembership(ctx context.Context, r *FeatureMembership
 }
 
 func (op *updateFeatureMembershipUpdateFeatureMembershipOperation) do(ctx context.Context, r *FeatureMembership, c *Client) error {
+	nr := r.urlNormalized()
 	u, err := r.updateURL(c.Config.BasePath, "UpdateFeatureMembership")
 	if err != nil {
 		return err
@@ -324,7 +325,7 @@ func (op *updateFeatureMembershipUpdateFeatureMembershipOperation) do(ctx contex
 	if err != nil {
 		return err
 	}
-	key, _, err := findMembershipSpec(dcl.ValueOrEmptyString(r.Membership), membershipSpecs)
+	key, _, err := findMembershipSpec(dcl.ValueOrEmptyString(nr.Membership), membershipSpecs)
 	if err != nil {
 		return err
 	}
