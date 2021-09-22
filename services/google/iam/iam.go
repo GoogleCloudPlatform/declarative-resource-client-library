@@ -353,3 +353,11 @@ func (c *Client) DeleteMember(ctx context.Context, member *Member) error {
 	_, err = c.SetBinding(ctx, binding)
 	return err
 }
+
+func (p *Policy) String() string {
+	return dcl.SprintResource(p)
+}
+
+func (m *Member) String() string {
+	return dcl.SprintResource(m)
+}

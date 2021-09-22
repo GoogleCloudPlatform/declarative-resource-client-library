@@ -19,9 +19,9 @@ updates:
 - dependencies: []
   resource: samples/update.network.json
 variables:
-- name: project
-  type: project
 - name: compute_network
   type: resource_name
+- name: project
+  type: project
 versions:
 - ga
