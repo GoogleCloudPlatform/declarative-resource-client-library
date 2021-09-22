@@ -51,7 +51,7 @@ func (r *MonitoredProject) ID() (string, error) {
 		"createTime":   dcl.ValueOrEmptyString(nr.CreateTime),
 		"metricsScope": dcl.ValueOrEmptyString(nr.MetricsScope),
 	}
-	return dcl.Nprintf("locations/global/metricsScopes/{{metrics_scope}}", params), nil
+	return dcl.Nprintf("locations/global/metricsScopes/{{metrics_scope}}/projects/{{name}}", params), nil
 }
 
 const MonitoredProjectMaxPage = -1
