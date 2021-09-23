@@ -24,10 +24,10 @@ updates:
   - samples/basic.cloudresourcemanager.project.json
   resource: samples/update_aws.workload_identity_pool_provider.json
 variables:
-- name: id
-  type: resource_name
 - name: org_id
   type: org_id
+- name: id
+  type: resource_name
 - name: pool
   type: resource_name
 - name: provider
