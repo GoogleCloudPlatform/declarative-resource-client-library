@@ -18,24 +18,24 @@ name: minimal_node_pool
 resource: samples/minimal.node_pool.json
 type: node_pool
 variables:
-- name: cluster
-  type: resource_name
-- name: project
-  type: project
-- name: aws_account_id
-  type: aws_account_id
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
 - name: aws_subnet
   type: aws_subnet
 - name: test_service_account
   type: test_service_account
-- name: aws_region
-  type: aws_region
-- name: aws_database_encryption_key
-  type: aws_database_encryption_key
+- name: project
+  type: project
 - name: aws_vpc
   type: aws_vpc
+- name: aws_region
+  type: aws_region
+- name: aws_account_id
+  type: aws_account_id
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
+- name: aws_database_encryption_key
+  type: aws_database_encryption_key
+- name: cluster
+  type: resource_name
 - name: pool
   type: resource_name
 versions:

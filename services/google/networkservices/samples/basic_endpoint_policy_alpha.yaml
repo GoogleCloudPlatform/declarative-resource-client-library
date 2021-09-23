@@ -48,6 +48,12 @@ updates:
 variables:
 - name: project
   type: project
+- name: filter2
+  type: resource_name
+- name: auth2
+  type: resource_name
+- name: client2
+  type: resource_name
 - name: server2
   type: resource_name
 - name: filter1
@@ -57,12 +63,6 @@ variables:
 - name: client1
   type: resource_name
 - name: server1
-  type: resource_name
-- name: filter2
-  type: resource_name
-- name: auth2
-  type: resource_name
-- name: client2
   type: resource_name
 - name: selector
   type: resource_name

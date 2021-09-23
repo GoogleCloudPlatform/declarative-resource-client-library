@@ -16,8 +16,8 @@ name: global_ssl_certificate
 resource: samples/global.ssl_certificate.json
 type: ssl_certificate
 variables:
-- name: certificate
-  type: resource_name
 - name: project
   type: project
+- name: certificate
+  type: resource_name
 versions: []
