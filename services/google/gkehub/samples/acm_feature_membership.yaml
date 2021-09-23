@@ -49,10 +49,10 @@ variables:
   type: org_id
 - name: id1
   type: resource_name
-- name: billing_account
-  type: billing_account
 - name: id2
   type: resource_name
+- name: billing_account
+  type: billing_account
 - name: zone
   type: zone
 - name: cluster1

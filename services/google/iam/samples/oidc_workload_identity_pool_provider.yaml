@@ -24,17 +24,17 @@ updates:
   - samples/basic.cloudresourcemanager.project.json
   resource: samples/update_oidc.workload_identity_pool_provider.json
 variables:
-- name: org_id
-  type: org_id
 - name: id
   type: resource_name
+- name: org_id
+  type: org_id
 - name: pool
-  type: resource_name
-- name: provider
   type: resource_name
 - name: region
   type: region
 - name: location
+  type: resource_name
+- name: provider
   type: resource_name
 versions:
 - ga

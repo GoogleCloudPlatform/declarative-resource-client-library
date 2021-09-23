@@ -117,29 +117,27 @@ func (r *MonitoredProject) customMatcher(ctx context.Context, c *Client) func([]
 }
 
 func equalsMetricDescriptorValueType(m, n *MetricDescriptorValueTypeEnum) bool {
-	if m == nil && n == nil {
-		return true
+	mStr := dcl.ValueOrEmptyString(m)
+	if mStr == "" {
+		mStr = "STRING"
 	}
-	v := *MetricDescriptorValueTypeEnumRef("STRING")
-	if m == nil {
-		return *n == v
-	} else if n == nil {
-		return *m == v
+	nStr := dcl.ValueOrEmptyString(n)
+	if nStr == "" {
+		nStr = "STRING"
 	}
-	return *m == *n
+	return mStr == nStr
 }
 
 func equalsMetricDescriptorLabelsValueType(m, n *MetricDescriptorLabelsValueTypeEnum) bool {
-	if m == nil && n == nil {
-		return true
+	mStr := dcl.ValueOrEmptyString(m)
+	if mStr == "" {
+		mStr = "STRING"
 	}
-	v := *MetricDescriptorLabelsValueTypeEnumRef("STRING")
-	if m == nil {
-		return *n == v
-	} else if n == nil {
-		return *m == v
+	nStr := dcl.ValueOrEmptyString(n)
+	if nStr == "" {
+		nStr = "STRING"
 	}
-	return *m == *n
+	return mStr == nStr
 }
 
 func canonicalizeMetricDescriptorValueType(m, n interface{}) bool {

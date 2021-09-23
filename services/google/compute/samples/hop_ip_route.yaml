@@ -19,16 +19,16 @@ name: hop_ip_route
 resource: samples/hop_ip.route.json
 type: route
 variables:
-- name: compute_network
-  type: resource_name
 - name: project
   type: project
+- name: compute_network
+  type: resource_name
+- name: range
+  type: resource_name
 - name: compute_subnetwork
   type: resource_name
 - name: region
   type: region
-- name: range
-  type: resource_name
 - name: name
   type: resource_name
 versions:

@@ -18,10 +18,10 @@ name: enforce_policy
 resource: samples/enforce.policy.json
 type: policy
 variables:
-- name: org_id
-  type: org_id
 - name: id
   type: resource_name
+- name: org_id
+  type: org_id
 versions:
 - ga
 - beta
