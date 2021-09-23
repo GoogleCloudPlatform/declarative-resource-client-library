@@ -29,20 +29,20 @@ updates:
   - samples/first.compute.network.json
   resource: samples/update_router_appliance.spoke.json
 variables:
+- name: hub
+  type: resource_name
 - name: project
   type: project
 - name: connectivity_network1
   type: resource_name
-- name: hub
-  type: resource_name
-- name: connectivity_subnet1
-  type: resource_name
 - name: region
   type: region
-- name: instance1
+- name: connectivity_subnet1
   type: resource_name
 - name: zone
   type: zone
+- name: instance1
+  type: resource_name
 - name: spoke
   type: resource_name
 versions:

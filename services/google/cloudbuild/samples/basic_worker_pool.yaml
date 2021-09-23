@@ -32,9 +32,9 @@ variables:
   type: project
 - name: address
   type: resource_name
-- name: worker_pool
-  type: resource_name
 - name: region
   type: region
+- name: worker_pool
+  type: resource_name
 versions:
 - ga
