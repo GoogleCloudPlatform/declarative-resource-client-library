@@ -19,9 +19,9 @@ updates:
 - dependencies: []
   resource: samples/kccupdate.authorization_policy.json
 variables:
-- name: project
-  type: project
 - name: policy
   type: resource_name
+- name: project
+  type: project
 versions:
 - alpha

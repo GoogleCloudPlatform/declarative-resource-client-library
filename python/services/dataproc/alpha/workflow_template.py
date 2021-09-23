@@ -39,7 +39,6 @@ class WorkflowTemplate(object):
 
         channel.initialize()
         self.name = name
-        self.version = version
         self.labels = labels
         self.placement = placement
         self.jobs = jobs
@@ -56,9 +55,6 @@ class WorkflowTemplate(object):
         request = workflow_template_pb2.ApplyDataprocAlphaWorkflowTemplateRequest()
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
-
-        if Primitive.to_proto(self.version):
-            request.resource.version = Primitive.to_proto(self.version)
 
         if Primitive.to_proto(self.labels):
             request.resource.labels = Primitive.to_proto(self.labels)
@@ -110,9 +106,6 @@ class WorkflowTemplate(object):
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
-        if Primitive.to_proto(self.version):
-            request.resource.version = Primitive.to_proto(self.version)
-
         if Primitive.to_proto(self.labels):
             request.resource.labels = Primitive.to_proto(self.labels)
 
@@ -156,8 +149,6 @@ class WorkflowTemplate(object):
         resource = workflow_template_pb2.DataprocAlphaWorkflowTemplate()
         if Primitive.to_proto(self.name):
             resource.name = Primitive.to_proto(self.name)
-        if Primitive.to_proto(self.version):
-            resource.version = Primitive.to_proto(self.version)
         if Primitive.to_proto(self.labels):
             resource.labels = Primitive.to_proto(self.labels)
         if WorkflowTemplatePlacement.to_proto(self.placement):

@@ -30,14 +30,14 @@ updates:
   - samples/basic.cloudresourcemanager.project.json
   resource: samples/update_asymmetric.crypto_key.json
 variables:
-- name: id
-  type: resource_name
 - name: org_id
   type: org_id
-- name: test_service_account
-  type: test_service_account
+- name: id
+  type: resource_name
 - name: billing_account
   type: billing_account
+- name: test_service_account
+  type: test_service_account
 - name: ring
   type: resource_name
 - name: key
