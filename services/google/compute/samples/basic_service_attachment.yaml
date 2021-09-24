@@ -56,8 +56,6 @@ variables:
   type: org_id
 - name: id2
   type: resource_name
-- name: compute_psc_subnetwork1
-  type: resource_name
 - name: region
   type: region
 - name: compute_psc_subnetwork2
@@ -65,6 +63,8 @@ variables:
 - name: compute_private_subnetwork
   type: resource_name
 - name: service
+  type: resource_name
+- name: compute_psc_subnetwork1
   type: resource_name
 - name: rule1
   type: resource_name

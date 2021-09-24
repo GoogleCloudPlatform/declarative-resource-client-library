@@ -21,14 +21,14 @@ name: basic_key_ring
 resource: samples/basic.key_ring.json
 type: key_ring
 variables:
-- name: id
-  type: resource_name
 - name: org_id
   type: org_id
-- name: billing_account
-  type: billing_account
+- name: id
+  type: resource_name
 - name: test_service_account
   type: test_service_account
+- name: billing_account
+  type: billing_account
 - name: ring
   type: resource_name
 versions:

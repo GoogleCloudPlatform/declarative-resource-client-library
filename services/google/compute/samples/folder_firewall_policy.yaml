@@ -33,9 +33,9 @@ updates:
 variables:
 - name: org_id
   type: org_id
-- name: id1
-  type: resource_name
 - name: folder
+  type: resource_name
+- name: id1
   type: resource_name
 - name: test_service_account
   type: test_service_account
@@ -43,9 +43,9 @@ variables:
   type: billing_account
 - name: policy
   type: resource_name
-- name: association
-  type: resource_name
 - name: network_name
+  type: resource_name
+- name: association
   type: resource_name
 versions:
 - ga

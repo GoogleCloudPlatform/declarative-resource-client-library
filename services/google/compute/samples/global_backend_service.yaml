@@ -28,12 +28,12 @@ variables:
   type: project
 - name: s_check
   type: resource_name
+- name: region
+  type: region
 - name: zone
   type: zone
 - name: group
   type: resource_name
-- name: region
-  type: region
 - name: service
   type: resource_name
 versions:

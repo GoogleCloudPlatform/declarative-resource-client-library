@@ -22,10 +22,10 @@ updates:
   - samples/first.instance_template.json
   resource: samples/update_fixed.instance_group_manager.json
 variables:
-- name: project
-  type: project
 - name: template1
   type: resource_name
+- name: project
+  type: project
 - name: region
   type: region
 - name: manager
