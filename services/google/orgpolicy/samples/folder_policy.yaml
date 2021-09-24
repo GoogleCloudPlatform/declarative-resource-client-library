@@ -22,10 +22,10 @@ updates:
   - samples/basic.cloudresourcemanager.folder.json
   resource: samples/update_folder.policy.json
 variables:
-- name: org_id
-  type: org_id
 - name: folder
   type: resource_name
+- name: org_id
+  type: org_id
 versions:
 - ga
 - beta

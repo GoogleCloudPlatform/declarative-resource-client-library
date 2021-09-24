@@ -29,13 +29,13 @@ variables:
   type: zone
 - name: compute_network
   type: resource_name
-- name: group
-  type: resource_name
 - name: region
   type: region
-- name: compute_subnetwork
+- name: group
   type: resource_name
 - name: range
+  type: resource_name
+- name: compute_subnetwork
   type: resource_name
 versions:
 - ga
