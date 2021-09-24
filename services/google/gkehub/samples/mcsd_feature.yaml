@@ -28,10 +28,10 @@ updates:
   - samples/basic.cloudresourcemanager.project.json
   resource: samples/update_mcsd.feature.json
 variables:
-- name: id
-  type: resource_name
 - name: org_id
   type: org_id
+- name: id
+  type: resource_name
 - name: billing_account
   type: billing_account
 versions:

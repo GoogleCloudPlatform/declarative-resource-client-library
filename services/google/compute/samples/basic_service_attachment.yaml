@@ -20,7 +20,7 @@ dependencies:
 - samples/basic.network.json
 - samples/first.cloudresourcemanager.project.json
 - samples/second.cloudresourcemanager.project.json
-description: An example of a compute packet mirroring
+description: An example of a compute service attachment
 name: basic_service_attachment
 resource: samples/basic.service_attachment.json
 type: service_attachment
@@ -56,15 +56,15 @@ variables:
   type: project
 - name: id1
   type: resource_name
+- name: service
+  type: resource_name
 - name: region
   type: region
+- name: compute_psc_subnetwork1
+  type: resource_name
 - name: compute_psc_subnetwork2
   type: resource_name
 - name: compute_private_subnetwork
-  type: resource_name
-- name: service
-  type: resource_name
-- name: compute_psc_subnetwork1
   type: resource_name
 - name: rule1
   type: resource_name

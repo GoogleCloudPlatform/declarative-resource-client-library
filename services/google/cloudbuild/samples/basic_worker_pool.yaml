@@ -26,10 +26,10 @@ updates:
   - samples/basic.servicenetworking.connection.json
   resource: samples/update.worker_pool.json
 variables:
-- name: cloudbuild_network
-  type: resource_name
 - name: project
   type: project
+- name: cloudbuild_network
+  type: resource_name
 - name: address
   type: resource_name
 - name: worker_pool
