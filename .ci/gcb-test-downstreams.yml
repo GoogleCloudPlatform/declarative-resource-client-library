@@ -102,6 +102,13 @@ steps:
           - $COMMIT_SHA
 
     - name: 'gcr.io/cloud-builders/git'
+      args:
+          - pull
+          - --rebase
+          - origin
+          - main
+
+    - name: 'gcr.io/cloud-builders/git'
       entrypoint: bash
       secretEnv: ["GITHUB_TOKEN"]
       args:
