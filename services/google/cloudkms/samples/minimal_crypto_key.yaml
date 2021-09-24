@@ -22,10 +22,10 @@ name: minimal_crypto_key
 resource: samples/minimal.crypto_key.json
 type: crypto_key
 variables:
-- name: id
-  type: resource_name
 - name: org_id
   type: org_id
+- name: id
+  type: resource_name
 - name: billing_account
   type: billing_account
 - name: test_service_account

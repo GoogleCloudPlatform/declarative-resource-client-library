@@ -47,16 +47,16 @@ variables:
   type: org_id
 - name: id
   type: resource_name
-- name: id1
-  type: resource_name
 - name: id2
   type: resource_name
 - name: billing_account
   type: billing_account
-- name: cluster1
+- name: id1
   type: resource_name
 - name: zone
   type: zone
+- name: cluster1
+  type: resource_name
 - name: membership1
   type: resource_name
 versions:

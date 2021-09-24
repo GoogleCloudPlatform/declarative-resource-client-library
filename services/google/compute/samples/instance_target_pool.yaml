@@ -31,13 +31,13 @@ updates:
   - samples/basic.network.json
   resource: samples/update.target_pool.json
 variables:
+- name: compute_network
+  type: resource_name
 - name: project
   type: project
 - name: zone
   type: zone
 - name: instance1
-  type: resource_name
-- name: compute_network
   type: resource_name
 - name: region
   type: region
