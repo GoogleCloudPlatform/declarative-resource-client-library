@@ -16,14 +16,14 @@ name: basic_workflow_template
 resource: samples/basic.workflow_template.json
 type: workflow_template
 variables:
-- name: region
-  type: region
-- name: zone
-  type: zone
 - name: project
   type: project
 - name: template_name
   type: resource_name
+- name: region
+  type: region
+- name: zone
+  type: zone
 versions:
 - ga
 - beta
