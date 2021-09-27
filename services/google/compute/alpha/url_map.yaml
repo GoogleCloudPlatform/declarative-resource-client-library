@@ -362,6 +362,7 @@ components:
               headerAction:
                 $ref: '#/components/schemas/HeaderAction'
                 x-dcl-go-name: HeaderAction
+                x-kubernetes-immutable: true
               weight:
                 type: integer
                 format: int64
@@ -622,6 +623,7 @@ components:
               defaultRouteAction:
                 $ref: '#/components/schemas/DefaultRouteAction'
                 x-dcl-go-name: DefaultRouteAction
+                x-kubernetes-immutable: true
               defaultService:
                 type: string
                 x-dcl-go-name: DefaultService
@@ -718,6 +720,7 @@ components:
               headerAction:
                 $ref: '#/components/schemas/HeaderAction'
                 x-dcl-go-name: HeaderAction
+                x-kubernetes-immutable: true
               name:
                 type: string
                 x-dcl-go-name: Name
@@ -1071,6 +1074,7 @@ components:
                               headerAction:
                                 $ref: '#/components/schemas/HeaderAction'
                                 x-dcl-go-name: HeaderAction
+                                x-kubernetes-immutable: true
                               weight:
                                 type: integer
                                 format: int64
@@ -1181,6 +1185,7 @@ components:
                     headerAction:
                       $ref: '#/components/schemas/HeaderAction'
                       x-dcl-go-name: HeaderAction
+                      x-kubernetes-immutable: true
                     matchRule:
                       type: array
                       x-dcl-go-name: MatchRule
@@ -1747,6 +1752,7 @@ components:
                               headerAction:
                                 $ref: '#/components/schemas/HeaderAction'
                                 x-dcl-go-name: HeaderAction
+                                x-kubernetes-immutable: true
                               weight:
                                 type: integer
                                 format: int64

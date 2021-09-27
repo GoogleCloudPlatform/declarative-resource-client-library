@@ -22,10 +22,10 @@ name: minimal_service_attachment
 resource: samples/minimal.service_attachment.json
 type: service_attachment
 variables:
-- name: project
-  type: project
 - name: compute_network
   type: resource_name
+- name: project
+  type: project
 - name: region
   type: region
 - name: service

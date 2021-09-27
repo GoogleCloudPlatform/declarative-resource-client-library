@@ -79,6 +79,7 @@ components:
         config:
           $ref: '#/components/schemas/ClusterConfig'
           x-dcl-go-name: Config
+          x-kubernetes-immutable: true
         labels:
           type: object
           additionalProperties:
@@ -250,6 +251,7 @@ components:
       x-dcl-go-type: ClusterClusterConfig
       description: Required. The cluster config. Note that Dataproc may set default
         values, and values may change when clusters are updated.
+      x-kubernetes-immutable: true
       properties:
         autoscalingConfig:
           type: object
@@ -558,9 +560,11 @@ components:
         masterConfig:
           $ref: '#/components/schemas/InstanceGroupConfig'
           x-dcl-go-name: MasterConfig
+          x-kubernetes-immutable: true
         secondaryWorkerConfig:
           $ref: '#/components/schemas/InstanceGroupConfig'
           x-dcl-go-name: SecondaryWorkerConfig
+          x-kubernetes-immutable: true
         securityConfig:
           type: object
           x-dcl-go-name: SecurityConfig
@@ -767,6 +771,7 @@ components:
         workerConfig:
           $ref: '#/components/schemas/InstanceGroupConfig'
           x-dcl-go-name: WorkerConfig
+          x-kubernetes-immutable: true
     InstanceGroupConfig:
       type: object
       x-dcl-go-name: MasterConfig

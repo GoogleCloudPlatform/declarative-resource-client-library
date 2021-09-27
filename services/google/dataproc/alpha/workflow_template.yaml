@@ -63,6 +63,7 @@ components:
       x-dcl-go-name: Config
       x-dcl-go-type: ClusterClusterConfig
       description: Required. The cluster configuration.
+      x-kubernetes-immutable: true
       properties:
         autoscalingConfig:
           type: object
@@ -401,6 +402,7 @@ components:
         masterConfig:
           $ref: '#/components/schemas/InstanceGroupConfig'
           x-dcl-go-name: MasterConfig
+          x-kubernetes-immutable: true
         metastoreConfig:
           type: object
           x-dcl-go-name: MetastoreConfig
@@ -422,6 +424,7 @@ components:
         secondaryWorkerConfig:
           $ref: '#/components/schemas/InstanceGroupConfig'
           x-dcl-go-name: SecondaryWorkerConfig
+          x-kubernetes-immutable: true
         securityConfig:
           type: object
           x-dcl-go-name: SecurityConfig
@@ -628,6 +631,7 @@ components:
         workerConfig:
           $ref: '#/components/schemas/InstanceGroupConfig'
           x-dcl-go-name: WorkerConfig
+          x-kubernetes-immutable: true
     InstanceGroupConfig:
       type: object
       x-dcl-go-name: WorkerConfig
@@ -1767,6 +1771,7 @@ components:
           x-dcl-go-name: Placement
           x-dcl-go-type: WorkflowTemplatePlacement
           description: Required. WorkflowTemplate scheduling information.
+          x-kubernetes-immutable: true
           properties:
             clusterSelector:
               type: object
@@ -1800,6 +1805,7 @@ components:
               x-dcl-go-name: ManagedCluster
               x-dcl-go-type: WorkflowTemplatePlacementManagedCluster
               description: A cluster that is managed by the workflow.
+              x-kubernetes-immutable: true
               required:
               - clusterName
               - config
@@ -1816,6 +1822,7 @@ components:
                 config:
                   $ref: '#/components/schemas/ClusterConfig'
                   x-dcl-go-name: Config
+                  x-kubernetes-immutable: true
                 labels:
                   type: object
                   additionalProperties:

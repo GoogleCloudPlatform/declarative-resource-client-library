@@ -19,10 +19,10 @@ name: basic_monitored_project
 resource: samples/basic.monitored_project.json
 type: monitored_project
 variables:
-- name: id
-  type: resource_name
 - name: org_id
   type: org_id
+- name: id
+  type: resource_name
 - name: project
   type: project
 versions:

@@ -18,10 +18,10 @@ name: basic_guest_policy
 resource: samples/basic.guest_policy.json
 type: guest_policy
 variables:
-- name: policy_inst
-  type: resource_name
 - name: project
   type: project
+- name: policy_inst
+  type: resource_name
 - name: package
   type: resource_name
 - name: policy

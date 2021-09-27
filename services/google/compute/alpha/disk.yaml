@@ -80,6 +80,7 @@ components:
         diskEncryptionKey:
           $ref: '#/components/schemas/EncryptionKey'
           x-dcl-go-name: DiskEncryptionKey
+          x-kubernetes-immutable: true
         guestOSFeature:
           type: array
           x-dcl-go-name: GuestOSFeature
@@ -387,6 +388,7 @@ components:
         sourceImageEncryptionKey:
           $ref: '#/components/schemas/EncryptionKey'
           x-dcl-go-name: SourceImageEncryptionKey
+          x-kubernetes-immutable: true
         sourceImageId:
           type: string
           x-dcl-go-name: SourceImageId
@@ -411,6 +413,7 @@ components:
         sourceSnapshotEncryptionKey:
           $ref: '#/components/schemas/EncryptionKey'
           x-dcl-go-name: SourceSnapshotEncryptionKey
+          x-kubernetes-immutable: true
         sourceSnapshotId:
           type: string
           x-dcl-go-name: SourceSnapshotId

@@ -46,17 +46,15 @@ updates:
   - samples/second.cloudresourcemanager.project.json
   resource: samples/update_2.service_attachment.json
 variables:
-- name: project
-  type: project
-- name: compute_network
-  type: resource_name
 - name: id1
   type: resource_name
 - name: org_id
   type: org_id
 - name: id2
   type: resource_name
-- name: compute_psc_subnetwork2
+- name: project
+  type: project
+- name: compute_network
   type: resource_name
 - name: region
   type: region
@@ -65,6 +63,8 @@ variables:
 - name: service
   type: resource_name
 - name: compute_psc_subnetwork1
+  type: resource_name
+- name: compute_psc_subnetwork2
   type: resource_name
 - name: rule1
   type: resource_name
