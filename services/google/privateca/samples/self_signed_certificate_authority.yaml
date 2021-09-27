@@ -22,12 +22,12 @@ updates:
   - samples/devops.ca_pool.json
   resource: samples/update_self_signed.certificate_authority.json
 variables:
-- name: project
-  type: project
 - name: region
   type: region
 - name: pool
   type: resource_name
+- name: project
+  type: project
 - name: authority
   type: resource_name
 versions:

@@ -22,10 +22,10 @@ updates:
   - samples/basic.http_health_check.json
   resource: samples/health_check.target_pool.json
 variables:
-- name: check
-  type: resource_name
 - name: project
   type: project
+- name: check
+  type: resource_name
 - name: region
   type: region
 - name: pool1

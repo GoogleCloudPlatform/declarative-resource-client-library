@@ -16,13 +16,13 @@ name: basic_azure_client
 resource: samples/basic.azure_client.json
 type: azure_client
 variables:
-- name: client
-  type: resource_name
-- name: project
-  type: project
 - name: azure_ad_tenant
   type: azure_ad_tenant
 - name: azure_application
   type: azure_application
+- name: client
+  type: resource_name
+- name: project
+  type: project
 versions:
 - alpha
