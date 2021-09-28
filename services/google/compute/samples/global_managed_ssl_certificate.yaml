@@ -16,10 +16,10 @@ name: global_managed_ssl_certificate
 resource: samples/global.managed_ssl_certificate.json
 type: managed_ssl_certificate
 variables:
-- name: domain
-  type: resource_name
 - name: cert
   type: resource_name
 - name: project
   type: project
+- name: domain
+  type: resource_name
 versions: []
