@@ -16,9 +16,9 @@ name: minimal_workload_identity_pool
 resource: samples/minimal.workload_identity_pool.json
 type: workload_identity_pool
 variables:
-- name: project
-  type: project
 - name: pool
   type: resource_name
+- name: project
+  type: project
 versions:
 - ga
