@@ -11,13 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: An example of a zonal disk.
 name: zonal_disk
-resource: samples/zonal.disk.json
+description: An example of a zonal disk.
 type: disk
+versions:
+- ga
+resource: samples/zonal.disk.json
 updates:
-- dependencies: []
-  resource: samples/update_zonal.disk.json
+- resource: samples/update_zonal.disk.json
+  dependencies: []
 variables:
 - name: project
   type: project
@@ -25,5 +27,3 @@ variables:
   type: zone
 - name: disk
   type: resource_name
-versions:
-- ga

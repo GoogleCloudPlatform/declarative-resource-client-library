@@ -11,12 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: complex_guest_policy
+description: A complex example of an OS config guest policy
+type: guest_policy
+versions:
+- beta
+resource: samples/complex.guest_policy.json
 dependencies:
 - samples/basic.compute.instance.json
-description: A complex example of an OS config guest policy
-name: complex_guest_policy
-resource: samples/complex.guest_policy.json
-type: guest_policy
 variables:
 - name: policy_inst
   type: resource_name
@@ -26,5 +28,3 @@ variables:
   type: resource_name
 - name: zone
   type: zone
-versions:
-- beta

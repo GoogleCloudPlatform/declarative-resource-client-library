@@ -11,24 +11,38 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: basic_node_pool
+description: A basic example of a containerazure azure node pool
+type: node_pool
+versions:
+- alpha
+resource: samples/basic.node_pool.json
 dependencies:
 - samples/basic.cluster.json
-description: A basic example of a containerazure azure node pool
-name: basic_node_pool
-resource: samples/basic.node_pool.json
-type: node_pool
 variables:
+- name: project
+  type: project
 - name: azure_subscription
   type: azure_subscription
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
 - name: azure_database_encryption_key_version
   type: azure_database_encryption_key_version
+- name: azure_subscription
+  type: azure_subscription
 - name: cluster
+  type: resource_name
+- name: azure_subscription
+  type: azure_subscription
+- name: azure_subscription
+  type: azure_subscription
+- name: node_pool
   type: resource_name
 - name: project
   type: project
-- name: node_pool
-  type: resource_name
-versions:
-- alpha
+- name: azure_subscription
+  type: azure_subscription
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix

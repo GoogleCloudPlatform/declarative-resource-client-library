@@ -11,17 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A basic test of a storage bucket
 name: basic_bucket
-resource: samples/basic.bucket.json
+description: A basic test of a storage bucket
 type: bucket
+versions:
+- ga
+resource: samples/basic.bucket.json
 updates:
-- dependencies: []
-  resource: samples/update.bucket.json
+- resource: samples/update.bucket.json
+  dependencies: []
 variables:
 - name: bucket
   type: resource_name
 - name: project
   type: project
-versions:
-- ga

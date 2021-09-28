@@ -11,19 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A test ga log metric with exponential buckets
 name: exponential_metric
-resource: samples/exponential.log_metric.json
+description: A test ga log metric with exponential buckets
 type: log_metric
-updates:
-- dependencies: []
-  resource: samples/update_exponential.log_metric.json
-- dependencies: []
-  resource: samples/linear.log_metric.json
-variables:
-- name: metric
-  type: resource_name
-- name: project
-  type: project
 versions:
 - ga
+resource: samples/exponential.log_metric.json
+updates:
+- resource: samples/update_exponential.log_metric.json
+  dependencies: []
+- resource: samples/linear.log_metric.json
+  dependencies: []
+variables:
+- name: project
+  type: project
+- name: metric
+  type: resource_name

@@ -11,23 +11,33 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: pubsub_trigger
+description: An example for building an Eventarc trigger using Pubsub
+type: trigger
+versions:
+- beta
+resource: samples/pubsub.trigger.json
 dependencies:
 - samples/basicservice.run.service.json
 - samples/basic.pubsub.topic.json
-description: An example for building an Eventarc trigger using Pubsub
-name: pubsub_trigger
-resource: samples/pubsub.trigger.json
-type: trigger
 variables:
-- name: project
-  type: project
 - name: name
   type: resource_name
 - name: region
   type: region
+- name: project
+  type: project
+- name: project
+  type: project
 - name: topic
   type: resource_name
+- name: region
+  type: region
+- name: project
+  type: project
 - name: service_account
   type: service_account
-versions:
-- beta
+- name: project
+  type: project
+- name: region
+  type: region

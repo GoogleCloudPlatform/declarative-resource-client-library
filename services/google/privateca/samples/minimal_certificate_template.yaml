@@ -11,16 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: An example of a minimal privateca certificate template
 name: minimal_certificate_template
-resource: samples/minimal.certificate_template.json
+description: An example of a minimal privateca certificate template
 type: certificate_template
+versions:
+- ga
+resource: samples/minimal.certificate_template.json
 variables:
+- name: region
+  type: region
 - name: template
   type: resource_name
 - name: project
   type: project
-- name: region
-  type: region
-versions:
-- ga

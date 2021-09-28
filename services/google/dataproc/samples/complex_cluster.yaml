@@ -11,10 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A Dataproc cluster with a complex config
 name: complex_cluster
-resource: samples/complex.cluster.json
+description: A Dataproc cluster with a complex config
 type: cluster
+versions:
+- ga
+- beta
+resource: samples/complex.cluster.json
 variables:
 - name: cluster_name
   type: resource_name
@@ -24,6 +27,3 @@ variables:
   type: project
 - name: zone
   type: zone
-versions:
-- ga
-- beta

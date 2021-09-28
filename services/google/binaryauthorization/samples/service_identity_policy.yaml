@@ -11,18 +11,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: service_identity_policy
+description: A service identity example for a binary authorization policy
+type: policy
+versions:
+- ga
+resource: samples/service_identity.policy.json
 dependencies:
 - samples/basic.attestor.json
 - samples/basic.containeranalysis.note.json
-description: A service identity example for a binary authorization policy
-name: service_identity_policy
-resource: samples/service_identity.policy.json
-type: policy
 updates:
-- dependencies:
+- resource: samples/cluster.policy.json
+  dependencies:
   - samples/basic.attestor.json
   - samples/basic.containeranalysis.note.json
-  resource: samples/cluster.policy.json
 variables:
 - name: package
   type: resource_name
@@ -32,5 +34,3 @@ variables:
   type: project
 - name: attestor
   type: resource_name
-versions:
-- ga

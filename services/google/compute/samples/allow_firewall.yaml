@@ -11,17 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: An example of an allow firewall.
 name: allow_firewall
-resource: samples/allow.firewall.json
+description: An example of an allow firewall.
 type: firewall
-updates:
-- dependencies: []
-  resource: samples/update_allow.firewall.json
-variables:
-- name: project
-  type: project
-- name: firewall
-  type: resource_name
 versions:
 - ga
+resource: samples/allow.firewall.json
+updates:
+- resource: samples/update_allow.firewall.json
+  dependencies: []
+variables:
+- name: firewall
+  type: resource_name
+- name: project
+  type: project

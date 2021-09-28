@@ -11,23 +11,23 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: basic_subnetwork
+description: An example of a basic subnetwork instance.
+type: subnetwork
+versions:
+- ga
+- beta
+resource: samples/basic.subnetwork.json
 dependencies:
 - samples/basic.network.json
-description: An example of a basic subnetwork instance.
-name: basic_subnetwork
-resource: samples/basic.subnetwork.json
-type: subnetwork
 variables:
 - name: compute_network
   type: resource_name
 - name: project
   type: project
+- name: region
+  type: region
 - name: range
   type: resource_name
 - name: compute_subnetwork
   type: resource_name
-- name: region
-  type: region
-versions:
-- ga
-- beta

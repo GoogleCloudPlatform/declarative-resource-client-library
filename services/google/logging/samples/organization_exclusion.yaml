@@ -11,14 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A basic example for a organization-level logging exclusion
 name: organization_exclusion
-resource: samples/organization.log_exclusion.json
+description: A basic example for a organization-level logging exclusion
 type: log_exclusion
+versions:
+- ga
+resource: samples/organization.log_exclusion.json
 variables:
 - name: log_exclusion_name
   type: resource_name
 - name: org_id
   type: org_id
-versions:
-- ga

@@ -11,17 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A test beta log metric with linear buckets
 name: linear_metric_beta
-resource: samples/linear.log_metric.json
+description: A test beta log metric with linear buckets
 type: log_metric
+versions:
+- beta
+resource: samples/linear.log_metric.json
 updates:
-- dependencies: []
-  resource: samples/update_linear.log_metric.json
+- resource: samples/update_linear.log_metric.json
+  dependencies: []
 variables:
 - name: metric
   type: resource_name
 - name: project
   type: project
-versions:
-- beta

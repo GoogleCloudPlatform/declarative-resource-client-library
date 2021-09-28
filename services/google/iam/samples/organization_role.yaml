@@ -11,15 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A basic example for an organization IAM role
 name: organization_role
-resource: samples/organization.role.json
+description: A basic example for an organization IAM role
 type: role
+versions:
+- ga
+- beta
+resource: samples/organization.role.json
 variables:
 - name: org_id
   type: org_id
 - name: _role
   type: resource_name
-versions:
-- ga
-- beta
+- name: org_id
+  type: org_id

@@ -11,23 +11,23 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: basic_client
+description: A basic example an IAP client.
+type: identity_aware_proxy_client
+versions:
+- ga
+resource: samples/basic.identity_aware_proxy_client.json
 dependencies:
 - samples/basic.brand.json
 - samples/basic.cloudresourcemanager.project.json
-description: A basic example an IAP client.
-name: basic_client
-resource: samples/basic.identity_aware_proxy_client.json
-type: identity_aware_proxy_client
 variables:
+- name: project
+  type: project
 - name: application
   type: resource_name
 - name: test_service_account
   type: test_service_account
-- name: project
-  type: project
 - name: brand
   type: resource_name
 - name: org_id
   type: org_id
-versions:
-- ga

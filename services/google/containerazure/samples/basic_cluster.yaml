@@ -11,20 +11,32 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A basic example of a containerazure azure cluster
 name: basic_cluster
-resource: samples/basic.cluster.json
+description: A basic example of a containerazure azure cluster
 type: cluster
+versions:
+- alpha
+resource: samples/basic.cluster.json
 variables:
-- name: project
-  type: project
-- name: azure_subscription
-  type: azure_subscription
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
 - name: azure_database_encryption_key_version
   type: azure_database_encryption_key_version
+- name: azure_subscription
+  type: azure_subscription
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
 - name: cluster
   type: resource_name
-versions:
-- alpha
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
+- name: project
+  type: project
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix

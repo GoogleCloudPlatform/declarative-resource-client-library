@@ -11,20 +11,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: basic_instance
+description: A basic example for a Data Fusion Instance
+type: instance
+versions:
+- beta
+resource: samples/basic.instance.json
 dependencies:
 - samples/basic.cloudbilling.project_billing_info.json
 - samples/basic.cloudresourcemanager.project.json
 - samples/basic.compute.network.json
-description: A basic example for a Data Fusion Instance
-name: basic_instance
-resource: samples/basic.instance.json
-type: instance
 updates:
-- dependencies:
+- resource: samples/update.instance.json
+  dependencies:
   - samples/basic.cloudbilling.project_billing_info.json
   - samples/basic.cloudresourcemanager.project.json
   - samples/basic.compute.network.json
-  resource: samples/update.instance.json
 variables:
 - name: df
   type: resource_name
@@ -36,7 +38,7 @@ variables:
   type: project
 - name: billing_account
   type: billing_account
+- name: project
+  type: project
 - name: instance
   type: resource_name
-versions:
-- beta

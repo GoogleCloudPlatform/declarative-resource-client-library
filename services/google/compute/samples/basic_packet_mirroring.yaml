@@ -11,6 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: basic_packet_mirroring
+description: An example of a compute packet mirroring
+type: packet_mirroring
+versions:
+- ga
+resource: samples/basic.packet_mirroring.json
 dependencies:
 - samples/basic.instance.json
 - samples/nics.instance.json
@@ -19,12 +25,9 @@ dependencies:
 - samples/regional.backend_service.json
 - samples/basic.subnetwork.json
 - samples/basic.network.json
-description: An example of a compute packet mirroring
-name: basic_packet_mirroring
-resource: samples/basic.packet_mirroring.json
-type: packet_mirroring
 updates:
-- dependencies:
+- resource: samples/update.packet_mirroring.json
+  dependencies:
   - samples/basic.instance.json
   - samples/nics.instance.json
   - samples/first_mirroring_internal.forwarding_rule.json
@@ -32,31 +35,54 @@ updates:
   - samples/regional.backend_service.json
   - samples/basic.subnetwork.json
   - samples/basic.network.json
-  resource: samples/update.packet_mirroring.json
 variables:
-- name: region
-  type: region
 - name: service
   type: resource_name
 - name: project
   type: project
+- name: region
+  type: region
 - name: compute_network
   type: resource_name
-- name: zone
-  type: zone
+- name: project
+  type: project
 - name: instance1
   type: resource_name
-- name: rule1
-  type: resource_name
+- name: project
+  type: project
+- name: zone
+  type: zone
+- name: region
+  type: region
 - name: rule2
+  type: resource_name
+- name: project
+  type: project
+- name: project
+  type: project
+- name: region
+  type: region
+- name: range
   type: resource_name
 - name: compute_subnetwork
   type: resource_name
-- name: range
+- name: region
+  type: region
+- name: project
+  type: project
+- name: rule1
   type: resource_name
 - name: instance2
   type: resource_name
+- name: project
+  type: project
+- name: project
+  type: project
 - name: mirroring
   type: resource_name
-versions:
-- ga
+- name: project
+  type: project
+- name: project
+  type: project
+- name: region
+  type: region

@@ -11,21 +11,23 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: pubsub_job
+description: A basic example for a pubsub SQL instance
+type: job
+versions:
+- ga
+- beta
+resource: samples/pubsub.job.json
 dependencies:
 - samples/pubsub.pubsub.topic.json
-description: A basic example for a pubsub SQL instance
-name: pubsub_job
-resource: samples/pubsub.job.json
-type: job
 variables:
-- name: topic
-  type: resource_name
 - name: project
   type: project
+- name: topic
+  type: resource_name
 - name: job
   type: resource_name
 - name: region
   type: region
-versions:
-- ga
-- beta
+- name: project
+  type: project

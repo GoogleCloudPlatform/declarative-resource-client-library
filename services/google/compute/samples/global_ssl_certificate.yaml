@@ -11,13 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A global example of a compute ssl certificate.
 name: global_ssl_certificate
-resource: samples/global.ssl_certificate.json
+description: A global example of a compute ssl certificate.
 type: ssl_certificate
+versions: []
+resource: samples/global.ssl_certificate.json
 variables:
-- name: project
-  type: project
 - name: certificate
   type: resource_name
-versions: []
+- name: project
+  type: project

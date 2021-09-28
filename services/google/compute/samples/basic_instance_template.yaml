@@ -11,17 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: An example of a basic instance template.
 name: basic_instance_template
-resource: samples/first.instance_template.json
+description: An example of a basic instance template.
 type: instance_template
+versions:
+- ga
+resource: samples/first.instance_template.json
 updates:
-- dependencies: []
-  resource: samples/update.instance_template.json
+- resource: samples/update.instance_template.json
+  dependencies: []
 variables:
 - name: project
   type: project
 - name: template1
   type: resource_name
-versions:
-- ga

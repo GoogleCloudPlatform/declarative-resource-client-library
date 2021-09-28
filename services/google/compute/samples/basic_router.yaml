@@ -11,16 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: basic_router
+description: An example of a basic compute router
+type: router
+versions:
+- ga
+resource: samples/basic.router.json
 dependencies:
 - samples/basic.network.json
-description: An example of a basic compute router
-name: basic_router
-resource: samples/basic.router.json
-type: router
 updates:
-- dependencies:
+- resource: samples/update.router.json
+  dependencies:
   - samples/basic.network.json
-  resource: samples/update.router.json
 variables:
 - name: compute_network
   type: resource_name
@@ -30,5 +32,3 @@ variables:
   type: resource_name
 - name: region
   type: region
-versions:
-- ga

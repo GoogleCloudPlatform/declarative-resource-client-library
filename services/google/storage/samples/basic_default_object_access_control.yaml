@@ -11,16 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: basic_default_object_access_control
+description: A basic test of a storage default object access control
+type: default_object_access_control
+versions:
+- ga
+resource: samples/basic.default_object_access_control.json
 dependencies:
 - samples/basic.bucket.json
-description: A basic test of a storage default object access control
-name: basic_default_object_access_control
-resource: samples/basic.default_object_access_control.json
-type: default_object_access_control
 updates:
-- dependencies:
+- resource: samples/update.default_object_access_control.json
+  dependencies:
   - samples/basic.bucket.json
-  resource: samples/update.default_object_access_control.json
 variables:
 - name: bucket
   type: resource_name
@@ -28,5 +30,3 @@ variables:
   type: project
 - name: project_number
   type: project_number
-versions:
-- ga

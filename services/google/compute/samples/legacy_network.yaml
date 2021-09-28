@@ -11,14 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: An example of a legacy compute network.
 name: legacy_network
-resource: samples/legacy.network.json
+description: An example of a legacy compute network.
 type: network
+versions:
+- ga
+resource: samples/legacy.network.json
 variables:
 - name: compute_network
   type: resource_name
 - name: project
   type: project
-versions:
-- ga

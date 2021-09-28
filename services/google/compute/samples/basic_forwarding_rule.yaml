@@ -11,12 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: basic_forwarding_rule
+description: An example of a compute forwarding rule
+type: forwarding_rule
+versions:
+- ga
+resource: samples/basic.forwarding_rule.json
 dependencies:
 - samples/first.target_pool.json
-description: An example of a compute forwarding rule
-name: basic_forwarding_rule
-resource: samples/basic.forwarding_rule.json
-type: forwarding_rule
 variables:
 - name: region
   type: region
@@ -26,5 +28,5 @@ variables:
   type: project
 - name: rule
   type: resource_name
-versions:
-- ga
+- name: region
+  type: region

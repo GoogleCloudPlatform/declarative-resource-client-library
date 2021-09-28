@@ -11,25 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: minimal_backup
+description: A minimal example of a filestore backup
+type: backup
+versions:
+- ga
+- beta
+resource: samples/minimal.backup.json
 dependencies:
 - samples/basic.instance.json
-description: A minimal example of a filestore backup
-name: minimal_backup
-resource: samples/minimal.backup.json
-type: backup
 variables:
-- name: random_int
-  type: random_int
 - name: instance_name
   type: resource_name
 - name: project
   type: project
 - name: zone
   type: zone
-- name: region
-  type: region
+- name: random_int
+  type: random_int
+- name: random_int
+  type: random_int
 - name: backup
   type: resource_name
-versions:
-- ga
-- beta
+- name: region
+  type: region
+- name: zone
+  type: zone

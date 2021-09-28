@@ -11,24 +11,24 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: self_signed_certificate_authority
+description: An example of a self-signed privateca certificate authority
+type: certificate_authority
+versions:
+- ga
+resource: samples/self_signed.certificate_authority.json
 dependencies:
 - samples/devops.ca_pool.json
-description: An example of a self-signed privateca certificate authority
-name: self_signed_certificate_authority
-resource: samples/self_signed.certificate_authority.json
-type: certificate_authority
 updates:
-- dependencies:
+- resource: samples/update_self_signed.certificate_authority.json
+  dependencies:
   - samples/devops.ca_pool.json
-  resource: samples/update_self_signed.certificate_authority.json
 variables:
-- name: region
-  type: region
 - name: pool
   type: resource_name
 - name: project
   type: project
+- name: region
+  type: region
 - name: authority
   type: resource_name
-versions:
-- ga

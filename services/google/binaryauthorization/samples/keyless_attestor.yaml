@@ -11,17 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-dependencies:
-- samples/basic.containeranalysis.note.json
+name: keyless_attestor
 description: An example of a binary authorization attestor with no public keys being
   updated to have one public key.
-name: keyless_attestor
-resource: samples/keyless.attestor.json
 type: attestor
+versions: []
+resource: samples/keyless.attestor.json
+dependencies:
+- samples/basic.containeranalysis.note.json
 updates:
-- dependencies:
+- resource: samples/update.attestor.json
+  dependencies:
   - samples/basic.containeranalysis.note.json
-  resource: samples/update.attestor.json
 variables:
 - name: note
   type: resource_name
@@ -31,4 +32,5 @@ variables:
   type: resource_name
 - name: attestor
   type: resource_name
-versions: []
+- name: project
+  type: project

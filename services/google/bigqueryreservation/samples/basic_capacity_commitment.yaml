@@ -11,15 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A basic test of a bigqueryreservation capacity commitment
 name: basic_capacity_commitment
-resource: samples/basic.capacity_commitment.json
+description: A basic test of a bigqueryreservation capacity commitment
 type: capacity_commitment
+versions:
+- ga
+resource: samples/basic.capacity_commitment.json
 updates:
-- dependencies: []
-  resource: samples/update.capacity_commitment.json
+- resource: samples/update.capacity_commitment.json
+  dependencies: []
 variables:
 - name: project
   type: project
-versions:
-- ga

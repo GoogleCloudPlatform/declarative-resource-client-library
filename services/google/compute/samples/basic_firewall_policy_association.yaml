@@ -11,26 +11,26 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: basic_firewall_policy_association
+description: An example for a compute firewall policy for an organization
+type: firewall_policy_association
+versions:
+- ga
+- beta
+resource: samples/folder.firewall_policy_association.json
 dependencies:
 - samples/folder.firewall_policy.json
 - samples/basic.cloudresourcemanager.folder.json
 - samples/folder_compute.iam.member.json
 - samples/folder_firewall.iam.member.json
-description: An example for a compute firewall policy for an organization
-name: basic_firewall_policy_association
-resource: samples/folder.firewall_policy_association.json
-type: firewall_policy_association
 variables:
-- name: folder
-  type: resource_name
 - name: org_id
   type: org_id
+- name: folder
+  type: resource_name
 - name: test_service_account
   type: test_service_account
 - name: policy
   type: resource_name
 - name: association
   type: resource_name
-versions:
-- ga
-- beta

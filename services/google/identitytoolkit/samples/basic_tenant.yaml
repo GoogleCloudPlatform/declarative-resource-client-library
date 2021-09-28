@@ -11,15 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A basic example an Identity Toolkit tenant.
 name: basic_tenant
-resource: samples/basic.tenant.json
+description: A basic example an Identity Toolkit tenant.
 type: tenant
+versions:
+- ga
+resource: samples/basic.tenant.json
 updates:
-- dependencies: []
-  resource: samples/update.tenant.json
+- resource: samples/update.tenant.json
+  dependencies: []
 variables:
 - name: project
   type: project
-versions:
-- ga

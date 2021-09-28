@@ -11,26 +11,26 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: cluster_policy
+description: A cluster example for a binary authorization policy
+type: policy
+versions:
+- ga
+resource: samples/cluster.policy.json
 dependencies:
 - samples/basic.attestor.json
 - samples/basic.containeranalysis.note.json
-description: A cluster example for a binary authorization policy
-name: cluster_policy
-resource: samples/cluster.policy.json
-type: policy
 updates:
-- dependencies:
+- resource: samples/namespace.policy.json
+  dependencies:
   - samples/basic.attestor.json
   - samples/basic.containeranalysis.note.json
-  resource: samples/namespace.policy.json
 variables:
-- name: project
-  type: project
 - name: package
   type: resource_name
 - name: note
   type: resource_name
+- name: project
+  type: project
 - name: attestor
   type: resource_name
-versions:
-- ga

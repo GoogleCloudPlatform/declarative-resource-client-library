@@ -11,10 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A basic example of a dataproc workflow_template
 name: basic_workflow_template
-resource: samples/basic.workflow_template.json
+description: A basic example of a dataproc workflow_template
 type: workflow_template
+versions:
+- ga
+- beta
+resource: samples/basic.workflow_template.json
 variables:
 - name: template_name
   type: resource_name
@@ -24,6 +27,3 @@ variables:
   type: zone
 - name: project
   type: project
-versions:
-- ga
-- beta

@@ -11,28 +11,36 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: basic_trigger
+description: A basic example for an Eventarc Trigger
+type: trigger
+versions:
+- beta
+resource: samples/basic.trigger.json
 dependencies:
 - samples/basicservice.run.service.json
 - samples/secondservice.run.service.json
-description: A basic example for an Eventarc Trigger
-name: basic_trigger
-resource: samples/basic.trigger.json
-type: trigger
 updates:
-- dependencies:
+- resource: samples/update.trigger.json
+  dependencies:
   - samples/basicservice.run.service.json
   - samples/secondservice.run.service.json
-  resource: samples/update.trigger.json
 variables:
 - name: project
   type: project
 - name: name
   type: resource_name
+- name: name
+  type: resource_name
 - name: region
   type: region
+- name: project
+  type: project
 - name: secondname
   type: resource_name
 - name: service_account
   type: service_account
-versions:
-- beta
+- name: project
+  type: project
+- name: name
+  type: resource_name

@@ -11,13 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: basic_router_peer
+description: An example of a basic compute router peer
+type: router_peer
+versions:
+- ga
+resource: samples/basic.router_peer.json
 dependencies:
 - samples/basic.router.json
 - samples/basic.network.json
-description: An example of a basic compute router peer
-name: basic_router_peer
-resource: samples/basic.router_peer.json
-type: router_peer
 variables:
 - name: compute_network
   type: resource_name
@@ -27,7 +29,7 @@ variables:
   type: resource_name
 - name: region
   type: region
+- name: region
+  type: region
 - name: peer
   type: resource_name
-versions:
-- ga

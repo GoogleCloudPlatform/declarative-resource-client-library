@@ -11,21 +11,21 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: regional_network_endpoint_group
+description: An example of a regional compute network endpoint group.
+type: network_endpoint_group
+versions:
+- ga
+- beta
+resource: samples/regional.network_endpoint_group.json
 dependencies:
 - samples/regional.cloudfunctions.function.json
-description: An example of a regional compute network endpoint group.
-name: regional_network_endpoint_group
-resource: samples/regional.network_endpoint_group.json
-type: network_endpoint_group
 variables:
+- name: function
+  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
-- name: function
-  type: resource_name
 - name: group
   type: resource_name
-versions:
-- ga
-- beta

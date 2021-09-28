@@ -11,16 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A test of an orgpolicy policy for an organization
 name: organization_policy
-resource: samples/organization.policy.json
+description: A test of an orgpolicy policy for an organization
 type: policy
-updates:
-- dependencies: []
-  resource: samples/update_organization.policy.json
-variables:
-- name: org_id
-  type: org_id
 versions:
 - ga
 - beta
+resource: samples/organization.policy.json
+updates:
+- resource: samples/update_organization.policy.json
+  dependencies: []
+variables:
+- name: org_id
+  type: org_id

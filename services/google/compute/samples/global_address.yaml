@@ -11,10 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: An example of a global compute address
 name: global_address
-resource: samples/global.address.json
+description: An example of a global compute address
 type: address
+versions:
+- ga
+resource: samples/global.address.json
 variables:
 - name: address
   type: resource_name
@@ -22,5 +24,3 @@ variables:
   type: project
 - name: region
   type: region
-versions:
-- ga

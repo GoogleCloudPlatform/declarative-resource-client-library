@@ -11,20 +11,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: basic_guest_policy
+description: A basic example of an OS config guest policy
+type: guest_policy
+versions:
+- beta
+resource: samples/basic.guest_policy.json
 dependencies:
 - samples/basic.compute.instance.json
-description: A basic example of an OS config guest policy
-name: basic_guest_policy
-resource: samples/basic.guest_policy.json
-type: guest_policy
 variables:
 - name: policy_inst
   type: resource_name
 - name: project
   type: project
-- name: policy
-  type: resource_name
 - name: package
   type: resource_name
-versions:
-- beta
+- name: policy
+  type: resource_name

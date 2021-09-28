@@ -11,25 +11,25 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: kcc_cluster
+description: A Dataproc Cluster that matches the KCC Test
+type: cluster
+versions:
+- ga
+- beta
+resource: samples/kcc.cluster.json
 dependencies:
 - samples/basic.autoscaling_policy.json
-description: A Dataproc Cluster that matches the KCC Test
-name: kcc_cluster
-resource: samples/kcc.cluster.json
-type: cluster
 updates:
-- dependencies:
+- resource: samples/kccupdate.cluster.json
+  dependencies:
   - samples/basic.autoscaling_policy.json
-  resource: samples/kccupdate.cluster.json
 variables:
+- name: name
+  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
-- name: name
-  type: resource_name
 - name: cluster_name
   type: resource_name
-versions:
-- ga
-- beta

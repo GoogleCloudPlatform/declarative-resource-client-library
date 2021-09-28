@@ -11,6 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: minimal_feature_membership
+description: A minimal example for a GKEHub acm feature membership
+type: feature_membership
+versions:
+- beta
+resource: samples/minimal.feature_membership.json
 dependencies:
 - samples/acm.feature.json
 - samples/first.membership.json
@@ -20,10 +26,6 @@ dependencies:
 - samples/container.serviceusage.service.json
 - samples/basic.cloudbilling.project_billing_info.json
 - samples/basic.cloudresourcemanager.project.json
-description: A minimal example for a GKEHub acm feature membership
-name: minimal_feature_membership
-resource: samples/minimal.feature_membership.json
-type: feature_membership
 variables:
 - name: org_id
   type: org_id
@@ -31,11 +33,9 @@ variables:
   type: resource_name
 - name: billing_account
   type: billing_account
-- name: zone
-  type: zone
 - name: cluster1
   type: resource_name
+- name: zone
+  type: zone
 - name: membership1
   type: resource_name
-versions:
-- beta

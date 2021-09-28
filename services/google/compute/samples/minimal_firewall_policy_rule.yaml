@@ -11,6 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: minimal_firewall_policy_rule
+description: An example of a compute firewall policy for a folder with only required
+  fields
+type: firewall_policy_rule
+versions:
+- ga
+resource: samples/minimal.firewall_policy_rule.json
 dependencies:
 - samples/folder.firewall_policy_association.json
 - samples/folder.firewall_policy.json
@@ -20,13 +27,9 @@ dependencies:
 - samples/first.cloudresourcemanager.project.json
 - samples/first.cloudbilling.project_billing_info.json
 - samples/compute.serviceusage.service.json
-description: An example of a compute firewall policy for a folder with only required
-  fields
-name: minimal_firewall_policy_rule
-resource: samples/minimal.firewall_policy_rule.json
-type: firewall_policy_rule
 updates:
-- dependencies:
+- resource: samples/update_minimal.firewall_policy_rule.json
+  dependencies:
   - samples/folder.firewall_policy_association.json
   - samples/folder.firewall_policy.json
   - samples/folder_firewall.iam.member.json
@@ -35,7 +38,6 @@ updates:
   - samples/first.cloudresourcemanager.project.json
   - samples/first.cloudbilling.project_billing_info.json
   - samples/compute.serviceusage.service.json
-  resource: samples/update_minimal.firewall_policy_rule.json
 variables:
 - name: org_id
   type: org_id
@@ -43,6 +45,8 @@ variables:
   type: resource_name
 - name: id1
   type: resource_name
+- name: org_id
+  type: org_id
 - name: test_service_account
   type: test_service_account
 - name: billing_account
@@ -51,5 +55,3 @@ variables:
   type: resource_name
 - name: association
   type: resource_name
-versions:
-- ga

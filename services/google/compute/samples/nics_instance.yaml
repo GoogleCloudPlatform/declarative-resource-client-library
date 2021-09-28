@@ -11,33 +11,35 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: nics_instance
+description: An example of a compute instance with multiple network interfaces.
+type: instance
+versions:
+- ga
+- beta
+resource: samples/nics.instance.json
 dependencies:
 - samples/basic.subnetwork.json
 - samples/basic.network.json
-description: An example of a compute instance with multiple network interfaces.
-name: nics_instance
-resource: samples/nics.instance.json
-type: instance
 updates:
-- dependencies:
+- resource: samples/update_nics.instance.json
+  dependencies:
   - samples/basic.subnetwork.json
   - samples/basic.network.json
-  resource: samples/update_nics.instance.json
 variables:
 - name: compute_network
   type: resource_name
 - name: project
   type: project
-- name: region
-  type: region
 - name: range
   type: resource_name
 - name: compute_subnetwork
   type: resource_name
+- name: region
+  type: region
 - name: instance2
   type: resource_name
+- name: project
+  type: project
 - name: zone
   type: zone
-versions:
-- ga
-- beta

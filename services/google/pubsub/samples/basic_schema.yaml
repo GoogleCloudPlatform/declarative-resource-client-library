@@ -11,14 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: An example of a pubsub schema resource.
 name: basic_schema
-resource: samples/basic.schema.json
+description: An example of a pubsub schema resource.
 type: schema
-variables:
-- name: project
-  type: project
-- name: schema
-  type: resource_name
 versions:
 - ga
+resource: samples/basic.schema.json
+variables:
+- name: schema
+  type: resource_name
+- name: project
+  type: project

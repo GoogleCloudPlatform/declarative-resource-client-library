@@ -11,16 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: project_workload_identity_pool
+description: A basic example of an IAM workload identity pool in a newly created project
+type: workload_identity_pool
+versions:
+- ga
+resource: samples/project.workload_identity_pool.json
 dependencies:
 - samples/basic.cloudresourcemanager.project.json
-description: A basic example of an IAM workload identity pool in a newly created project
-name: project_workload_identity_pool
-resource: samples/project.workload_identity_pool.json
-type: workload_identity_pool
 updates:
-- dependencies:
+- resource: samples/update_project.workload_identity_pool.json
+  dependencies:
   - samples/basic.cloudresourcemanager.project.json
-  resource: samples/update_project.workload_identity_pool.json
 variables:
 - name: id
   type: resource_name
@@ -28,5 +30,3 @@ variables:
   type: org_id
 - name: pool
   type: resource_name
-versions:
-- ga

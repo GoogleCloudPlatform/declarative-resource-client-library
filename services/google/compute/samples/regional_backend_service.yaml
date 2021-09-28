@@ -11,19 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: An example of a regional backend service.
 name: regional_backend_service
-resource: samples/regional.backend_service.json
+description: An example of a regional backend service.
 type: backend_service
+versions:
+- ga
+resource: samples/regional.backend_service.json
 updates:
-- dependencies: []
-  resource: samples/update_regional.backend_service.json
+- resource: samples/update_regional.backend_service.json
+  dependencies: []
 variables:
+- name: service
+  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
-- name: service
-  type: resource_name
-versions:
-- ga

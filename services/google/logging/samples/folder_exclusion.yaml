@@ -11,13 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: folder_exclusion
+description: A basic example for a folder-level logging exclusion
+type: log_exclusion
+versions:
+- ga
+resource: samples/folder.log_exclusion.json
 dependencies:
 - samples/folder_logging_admin.iam.member.json
 - samples/folder.cloudresourcemanager.folder.json
-description: A basic example for a folder-level logging exclusion
-name: folder_exclusion
-resource: samples/folder.log_exclusion.json
-type: log_exclusion
 variables:
 - name: org_id
   type: org_id
@@ -27,5 +29,3 @@ variables:
   type: test_service_account
 - name: log_exclusion_name
   type: resource_name
-versions:
-- ga

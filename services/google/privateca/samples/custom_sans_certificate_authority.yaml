@@ -11,20 +11,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: custom_sans_certificate_authority
+description: An example of a custom sans privateca certificate authority
+type: certificate_authority
+versions:
+- ga
+resource: samples/custom_sans.certificate_authority.json
 dependencies:
 - samples/devops.ca_pool.json
-description: An example of a custom sans privateca certificate authority
-name: custom_sans_certificate_authority
-resource: samples/custom_sans.certificate_authority.json
-type: certificate_authority
 variables:
+- name: region
+  type: region
 - name: pool
   type: resource_name
 - name: project
   type: project
-- name: region
-  type: region
 - name: cs_authority
   type: resource_name
-versions:
-- ga
+- name: region
+  type: region

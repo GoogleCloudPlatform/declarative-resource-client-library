@@ -11,19 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-dependencies:
-- samples/basic.group.json
-description: A tcp example for a monitoring uptime check config
 name: tcp_uptime_check_config
-resource: samples/tcp.uptime_check_config.json
+description: A tcp example for a monitoring uptime check config
 type: uptime_check_config
-updates:
-- dependencies:
-  - samples/basic.group.json
-  resource: samples/update_tcp.uptime_check_config.json
-variables:
-- name: project
-  type: project
 versions:
 - ga
 - beta
+resource: samples/tcp.uptime_check_config.json
+dependencies:
+- samples/basic.group.json
+updates:
+- resource: samples/update_tcp.uptime_check_config.json
+  dependencies:
+  - samples/basic.group.json
+variables:
+- name: project
+  type: project

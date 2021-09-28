@@ -11,20 +11,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A basic example of a dataproc autoscaling policy
 name: basic_autoscaling_policy
-resource: samples/basic.autoscaling_policy.json
+description: A basic example of a dataproc autoscaling policy
 type: autoscaling_policy
+versions:
+- ga
+- beta
+resource: samples/basic.autoscaling_policy.json
 updates:
-- dependencies: []
-  resource: samples/update.autoscaling_policy.json
+- resource: samples/update.autoscaling_policy.json
+  dependencies: []
 variables:
-- name: project
-  type: project
 - name: region
   type: region
 - name: name
   type: resource_name
-versions:
-- ga
-- beta
+- name: project
+  type: project

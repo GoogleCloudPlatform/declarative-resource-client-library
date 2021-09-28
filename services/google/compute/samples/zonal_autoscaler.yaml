@@ -11,32 +11,40 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: zonal_autoscaler
+description: An example of a zonal autoscaler.
+type: autoscaler
+versions:
+- ga
+resource: samples/zonal.autoscaler.json
 dependencies:
 - samples/zonal.instance_group_manager.json
 - samples/https.health_check.json
 - samples/first.instance_template.json
-description: An example of a zonal autoscaler.
-name: zonal_autoscaler
-resource: samples/zonal.autoscaler.json
-type: autoscaler
 updates:
-- dependencies:
+- resource: samples/update_zonal.autoscaler.json
+  dependencies:
   - samples/zonal.instance_group_manager.json
   - samples/https.health_check.json
   - samples/first.instance_template.json
-  resource: samples/update_zonal.autoscaler.json
 variables:
+- name: s_check
+  type: resource_name
+- name: project
+  type: project
 - name: project
   type: project
 - name: template1
-  type: resource_name
-- name: s_check
   type: resource_name
 - name: zone
   type: zone
 - name: instance_group_manager
   type: resource_name
+- name: project
+  type: project
+- name: zone
+  type: zone
 - name: autoscaler
   type: resource_name
-versions:
-- ga
+- name: project
+  type: project

@@ -11,41 +11,49 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: instance_target_pool
+description: An example of a compute target pool with an instance
+type: target_pool
+versions:
+- ga
+resource: samples/first.target_pool.json
 dependencies:
 - samples/basic.instance.json
 - samples/basic.subnetwork.json
 - samples/basic.network.json
-description: An example of a compute target pool with an instance
-name: instance_target_pool
-resource: samples/first.target_pool.json
-type: target_pool
 updates:
-- dependencies:
+- resource: samples/instance.target_pool.json
+  dependencies:
   - samples/basic.instance.json
   - samples/basic.subnetwork.json
   - samples/basic.network.json
-  resource: samples/instance.target_pool.json
-- dependencies:
+- resource: samples/update.target_pool.json
+  dependencies:
   - samples/basic.instance.json
   - samples/basic.subnetwork.json
   - samples/basic.network.json
-  resource: samples/update.target_pool.json
 variables:
+- name: project
+  type: project
 - name: zone
   type: zone
 - name: instance1
   type: resource_name
-- name: project
-  type: project
 - name: compute_network
   type: resource_name
+- name: project
+  type: project
+- name: project
+  type: project
 - name: region
   type: region
 - name: range
   type: resource_name
 - name: compute_subnetwork
   type: resource_name
+- name: region
+  type: region
 - name: pool1
   type: resource_name
-versions:
-- ga
+- name: project
+  type: project

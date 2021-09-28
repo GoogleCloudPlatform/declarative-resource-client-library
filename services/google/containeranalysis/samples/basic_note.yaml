@@ -11,17 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A basic example an Container Analysis note.
 name: basic_note
-resource: samples/basic.note.json
+description: A basic example an Container Analysis note.
 type: note
+versions:
+- ga
+resource: samples/basic.note.json
 updates:
-- dependencies: []
-  resource: samples/update.note.json
+- resource: samples/update.note.json
+  dependencies: []
 variables:
 - name: note
   type: resource_name
 - name: project
   type: project
-versions:
-- ga

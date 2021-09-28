@@ -11,28 +11,28 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: mcsd_feature
+description: A basic example for an GKEHub MCSD feature
+type: feature
+versions:
+- beta
+resource: samples/mcsd.feature.json
 dependencies:
 - samples/gkehub.serviceusage.service.json
 - samples/multiclusterservicediscovery.serviceusage.service.json
 - samples/basic.cloudbilling.project_billing_info.json
 - samples/basic.cloudresourcemanager.project.json
-description: A basic example for an GKEHub MCSD feature
-name: mcsd_feature
-resource: samples/mcsd.feature.json
-type: feature
 updates:
-- dependencies:
+- resource: samples/update_mcsd.feature.json
+  dependencies:
   - samples/gkehub.serviceusage.service.json
   - samples/multiclusterservicediscovery.serviceusage.service.json
   - samples/basic.cloudbilling.project_billing_info.json
   - samples/basic.cloudresourcemanager.project.json
-  resource: samples/update_mcsd.feature.json
 variables:
-- name: id
-  type: resource_name
 - name: org_id
   type: org_id
+- name: id
+  type: resource_name
 - name: billing_account
   type: billing_account
-versions:
-- beta

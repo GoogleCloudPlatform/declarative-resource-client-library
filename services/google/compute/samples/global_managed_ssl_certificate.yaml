@@ -11,10 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A global example of a compute managed ssl certificate.
 name: global_managed_ssl_certificate
-resource: samples/global.managed_ssl_certificate.json
+description: A global example of a compute managed ssl certificate.
 type: managed_ssl_certificate
+versions: []
+resource: samples/global.managed_ssl_certificate.json
 variables:
 - name: cert
   type: resource_name
@@ -22,4 +23,3 @@ variables:
   type: project
 - name: domain
   type: resource_name
-versions: []

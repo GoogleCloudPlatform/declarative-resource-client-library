@@ -11,22 +11,28 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: iam_policy
+description: A service account example for a binary authorization policy with iam
+  binding
+type: iam.binding
+versions: []
+resource: samples/default.iam.binding.json
 dependencies:
 - samples/service_account.policy.json
 - samples/basic.attestor.json
 - samples/basic.containeranalysis.note.json
-description: A service account example for a binary authorization policy with iam
-  binding
-name: iam_policy
-resource: samples/default.iam.binding.json
-type: iam.binding
 variables:
-- name: package
-  type: resource_name
 - name: note
   type: resource_name
 - name: project
   type: project
+- name: package
+  type: resource_name
 - name: attestor
   type: resource_name
-versions: []
+- name: project
+  type: project
+- name: project
+  type: project
+- name: project
+  type: project

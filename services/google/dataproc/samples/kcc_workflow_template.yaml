@@ -11,12 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: kcc_workflow_template
+description: KCC's example of a workflow template
+type: workflow_template
+versions:
+- ga
+- beta
+resource: samples/kcc.workflow_template.json
 dependencies:
 - samples/basic.autoscaling_policy.json
-description: KCC's example of a workflow template
-name: kcc_workflow_template
-resource: samples/kcc.workflow_template.json
-type: workflow_template
 variables:
 - name: name
   type: resource_name
@@ -26,6 +29,3 @@ variables:
   type: region
 - name: template_name
   type: resource_name
-versions:
-- ga
-- beta

@@ -11,17 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A basic test of a bigqueryreservation api
 name: basic_reservation
-resource: samples/basic.reservation.json
+description: A basic test of a bigqueryreservation api
 type: reservation
+versions:
+- ga
+resource: samples/basic.reservation.json
 updates:
-- dependencies: []
-  resource: samples/update.reservation.json
+- resource: samples/update.reservation.json
+  dependencies: []
 variables:
 - name: reservation
   type: resource_name
 - name: project
   type: project
-versions:
-- ga

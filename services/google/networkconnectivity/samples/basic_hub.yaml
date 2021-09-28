@@ -11,17 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A basic test of a networkconnectivity hub
 name: basic_hub
-resource: samples/basic.hub.json
+description: A basic test of a networkconnectivity hub
 type: hub
-updates:
-- dependencies: []
-  resource: samples/update.hub.json
-variables:
-- name: project
-  type: project
-- name: hub
-  type: resource_name
 versions:
 - alpha
+resource: samples/basic.hub.json
+updates:
+- resource: samples/update.hub.json
+  dependencies: []
+variables:
+- name: hub
+  type: resource_name
+- name: project
+  type: project

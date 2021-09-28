@@ -11,22 +11,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: basic_tenant_oauth_idp_config
+description: A basic example an Identity Toolkit tenant oauth idp config.
+type: tenant_oauth_idp_config
+versions:
+- ga
+resource: samples/basic.tenant_oauth_idp_config.json
 dependencies:
 - samples/basic.tenant.json
-description: A basic example an Identity Toolkit tenant oauth idp config.
-name: basic_tenant_oauth_idp_config
-resource: samples/basic.tenant_oauth_idp_config.json
-type: tenant_oauth_idp_config
 updates:
-- dependencies:
+- resource: samples/update.tenant_oauth_idp_config.json
+  dependencies:
   - samples/basic.tenant.json
-  resource: samples/update.tenant_oauth_idp_config.json
 variables:
 - name: project
   type: project
-- name: client
-  type: resource_name
 - name: oauthidpconfig
   type: resource_name
-versions:
-- ga
+- name: client
+  type: resource_name

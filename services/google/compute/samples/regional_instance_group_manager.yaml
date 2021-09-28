@@ -11,6 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: regional_instance_group_manager
+description: An example of a regional instance group manager.
+type: instance_group_manager
+versions:
+- ga
+resource: samples/regional.instance_group_manager.json
 dependencies:
 - samples/first.instance_template.json
 - samples/second.instance_template.json
@@ -18,39 +24,41 @@ dependencies:
 - samples/second.target_pool.json
 - samples/https.health_check.json
 - samples/http.health_check.json
-description: An example of a regional instance group manager.
-name: regional_instance_group_manager
-resource: samples/regional.instance_group_manager.json
-type: instance_group_manager
 updates:
-- dependencies:
+- resource: samples/update_regional.instance_group_manager.json
+  dependencies:
   - samples/first.instance_template.json
   - samples/second.instance_template.json
   - samples/first.target_pool.json
   - samples/second.target_pool.json
   - samples/https.health_check.json
   - samples/http.health_check.json
-  resource: samples/update_regional.instance_group_manager.json
 variables:
+- name: check
+  type: resource_name
 - name: project
   type: project
+- name: template1
+  type: resource_name
 - name: template2
   type: resource_name
 - name: pool1
   type: resource_name
 - name: region
   type: region
+- name: region
+  type: region
 - name: pool2
   type: resource_name
 - name: s_check
   type: resource_name
-- name: check
-  type: resource_name
-- name: template1
-  type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
+- name: project
+  type: project
 - name: zone
   type: zone
 - name: instance_group_manager
   type: resource_name
-versions:
-- ga

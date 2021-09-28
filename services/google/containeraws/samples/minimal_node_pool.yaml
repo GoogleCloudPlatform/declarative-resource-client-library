@@ -11,32 +11,44 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: minimal_node_pool
+description: A minimal example of a containeraws aws node pool
+type: node_pool
+versions:
+- alpha
+resource: samples/minimal.node_pool.json
 dependencies:
 - samples/minimal.cluster.json
-description: A minimal example of a containeraws aws node pool
-name: minimal_node_pool
-resource: samples/minimal.node_pool.json
-type: node_pool
 variables:
 - name: aws_region
   type: aws_region
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
+- name: test_service_account
+  type: test_service_account
+- name: aws_subnet
+  type: aws_subnet
+- name: aws_subnet
+  type: aws_subnet
+- name: aws_account_id
+  type: aws_account_id
+- name: aws_database_encryption_key
+  type: aws_database_encryption_key
 - name: aws_account_id
   type: aws_account_id
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
-- name: aws_subnet
-  type: aws_subnet
-- name: aws_database_encryption_key
-  type: aws_database_encryption_key
-- name: test_service_account
-  type: test_service_account
-- name: aws_vpc
-  type: aws_vpc
 - name: cluster
   type: resource_name
 - name: project
   type: project
+- name: aws_vpc
+  type: aws_vpc
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
 - name: pool
   type: resource_name
-versions:
-- alpha
+- name: project
+  type: project
+- name: aws_subnet
+  type: aws_subnet

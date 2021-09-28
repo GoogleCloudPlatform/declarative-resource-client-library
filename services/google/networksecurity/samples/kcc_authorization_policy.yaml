@@ -11,17 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A basic example a network security authorization policy.
 name: kcc_authorization_policy
-resource: samples/kccbasic.authorization_policy.json
+description: A basic example a network security authorization policy.
 type: authorization_policy
+versions:
+- alpha
+resource: samples/kccbasic.authorization_policy.json
 updates:
-- dependencies: []
-  resource: samples/kccupdate.authorization_policy.json
+- resource: samples/kccupdate.authorization_policy.json
+  dependencies: []
 variables:
 - name: policy
   type: resource_name
 - name: project
   type: project
-versions:
-- alpha

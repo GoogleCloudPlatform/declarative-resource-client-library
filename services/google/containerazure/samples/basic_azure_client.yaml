@@ -11,18 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A basic example of a containerazure azure client
 name: basic_azure_client
-resource: samples/basic.azure_client.json
+description: A basic example of a containerazure azure client
 type: azure_client
+versions:
+- alpha
+resource: samples/basic.azure_client.json
 variables:
-- name: client
-  type: resource_name
 - name: project
   type: project
 - name: azure_ad_tenant
   type: azure_ad_tenant
 - name: azure_application
   type: azure_application
-versions:
-- alpha
+- name: client
+  type: resource_name

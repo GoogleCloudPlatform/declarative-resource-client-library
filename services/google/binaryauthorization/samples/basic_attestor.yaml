@@ -11,24 +11,24 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: basic_attestor
+description: A basic example of a binary authorization attestor using ga endpoints
+type: attestor
+versions:
+- ga
+resource: samples/basic.attestor.json
 dependencies:
 - samples/basic.containeranalysis.note.json
-description: A basic example of a binary authorization attestor using ga endpoints
-name: basic_attestor
-resource: samples/basic.attestor.json
-type: attestor
 updates:
-- dependencies:
+- resource: samples/update.attestor.json
+  dependencies:
   - samples/basic.containeranalysis.note.json
-  resource: samples/update.attestor.json
 variables:
-- name: project
-  type: project
 - name: package
   type: resource_name
 - name: note
   type: resource_name
+- name: project
+  type: project
 - name: attestor
   type: resource_name
-versions:
-- ga

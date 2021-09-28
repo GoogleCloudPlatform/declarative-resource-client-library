@@ -11,28 +11,28 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: minimal_crypto_key
+description: An example of a minimal kms crypto key
+type: crypto_key
+versions:
+- ga
+resource: samples/minimal.crypto_key.json
 dependencies:
 - samples/basic.key_ring.json
 - samples/cloudkms_admin.iam.member.json
 - samples/cloudkms.serviceusage.service.json
 - samples/basic.cloudbilling.project_billing_info.json
 - samples/basic.cloudresourcemanager.project.json
-description: An example of a minimal kms crypto key
-name: minimal_crypto_key
-resource: samples/minimal.crypto_key.json
-type: crypto_key
 variables:
 - name: id
   type: resource_name
 - name: org_id
   type: org_id
-- name: billing_account
-  type: billing_account
 - name: test_service_account
   type: test_service_account
+- name: billing_account
+  type: billing_account
 - name: ring
   type: resource_name
 - name: key
   type: resource_name
-versions:
-- ga

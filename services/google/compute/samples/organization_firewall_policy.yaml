@@ -11,18 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: An example for a compute firewall policy for an organization
 name: organization_firewall_policy
-resource: samples/organization.firewall_policy.json
+description: An example for a compute firewall policy for an organization
 type: firewall_policy
+versions:
+- ga
+- beta
+resource: samples/organization.firewall_policy.json
 updates:
-- dependencies: []
-  resource: samples/update_organization.firewall_policy.json
+- resource: samples/update_organization.firewall_policy.json
+  dependencies: []
 variables:
 - name: policy
   type: resource_name
 - name: org_id
   type: org_id
-versions:
-- ga
-- beta

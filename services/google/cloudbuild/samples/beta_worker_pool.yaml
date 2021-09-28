@@ -11,20 +11,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: beta_worker_pool
+description: Example for workerpool instance
+type: worker_pool
+versions:
+- beta
+resource: samples/beta.worker_pool.json
 dependencies:
 - samples/basic.compute.network.json
 - samples/basic.compute.address.json
 - samples/basic.servicenetworking.connection.json
-description: Example for workerpool instance
-name: beta_worker_pool
-resource: samples/beta.worker_pool.json
-type: worker_pool
 updates:
-- dependencies:
+- resource: samples/update_beta.worker_pool.json
+  dependencies:
   - samples/basic.compute.network.json
   - samples/basic.compute.address.json
   - samples/basic.servicenetworking.connection.json
-  resource: samples/update_beta.worker_pool.json
 variables:
 - name: cloudbuild_network
   type: resource_name
@@ -32,9 +34,11 @@ variables:
   type: project
 - name: address
   type: resource_name
-- name: resource_name
-  type: resource_name
 - name: region
   type: region
-versions:
-- beta
+- name: project
+  type: project
+- name: project
+  type: project
+- name: resource_name
+  type: resource_name

@@ -11,30 +11,30 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: oidc_workload_identity_pool_provider
+description: A basic example of an oidc workload identity pool provider
+type: workload_identity_pool_provider
+versions:
+- ga
+resource: samples/oidc.workload_identity_pool_provider.json
 dependencies:
 - samples/project.workload_identity_pool.json
 - samples/basic.cloudresourcemanager.project.json
-description: A basic example of an oidc workload identity pool provider
-name: oidc_workload_identity_pool_provider
-resource: samples/oidc.workload_identity_pool_provider.json
-type: workload_identity_pool_provider
 updates:
-- dependencies:
+- resource: samples/update_oidc.workload_identity_pool_provider.json
+  dependencies:
   - samples/project.workload_identity_pool.json
   - samples/basic.cloudresourcemanager.project.json
-  resource: samples/update_oidc.workload_identity_pool_provider.json
 variables:
-- name: org_id
-  type: org_id
 - name: id
   type: resource_name
+- name: org_id
+  type: org_id
 - name: pool
+  type: resource_name
+- name: provider
   type: resource_name
 - name: region
   type: region
 - name: location
   type: resource_name
-- name: provider
-  type: resource_name
-versions:
-- ga

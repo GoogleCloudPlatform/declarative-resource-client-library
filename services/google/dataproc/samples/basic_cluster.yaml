@@ -11,19 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A basic example of a dataproc cluster
 name: basic_cluster
-resource: samples/basic.cluster.json
+description: A basic example of a dataproc cluster
 type: cluster
+versions:
+- ga
+- beta
+resource: samples/basic.cluster.json
 variables:
-- name: region
-  type: region
-- name: project
-  type: project
 - name: zone
   type: zone
 - name: cluster_name
   type: resource_name
-versions:
-- ga
-- beta
+- name: region
+  type: region
+- name: project
+  type: project

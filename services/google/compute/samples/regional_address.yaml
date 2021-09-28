@@ -11,14 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: An example of a regional compute address
 name: regional_address
-resource: samples/regional.address.json
+description: An example of a regional compute address
 type: address
+versions:
+- ga
+resource: samples/regional.address.json
 variables:
 - name: address
   type: resource_name
 - name: project
   type: project
-versions:
-- ga

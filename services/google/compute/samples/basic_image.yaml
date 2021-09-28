@@ -11,16 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: An example of a basic compute image.
 name: basic_image
-resource: samples/basic.instance.json
+description: An example of a basic compute image.
 type: instance
+versions:
+- ga
+resource: samples/basic.instance.json
 variables:
-- name: project
-  type: project
 - name: zone
   type: zone
 - name: instance1
   type: resource_name
-versions:
-- ga
+- name: project
+  type: project

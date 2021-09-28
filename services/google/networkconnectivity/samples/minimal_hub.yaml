@@ -11,14 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A minimal test of a networkconnectivity hub
 name: minimal_hub
-resource: samples/minimal.hub.json
+description: A minimal test of a networkconnectivity hub
 type: hub
+versions:
+- alpha
+resource: samples/minimal.hub.json
 variables:
 - name: hub
   type: resource_name
 - name: project
   type: project
-versions:
-- alpha

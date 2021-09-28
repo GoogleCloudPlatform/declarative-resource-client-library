@@ -11,18 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A http example for a monitoring uptime check config
 name: http_uptime_check_config
-resource: samples/http.uptime_check_config.json
+description: A http example for a monitoring uptime check config
 type: uptime_check_config
-updates:
-- dependencies: []
-  resource: samples/update_1_http.uptime_check_config.json
-- dependencies: []
-  resource: samples/update_2_http.uptime_check_config.json
-variables:
-- name: project
-  type: project
 versions:
 - ga
 - beta
+resource: samples/http.uptime_check_config.json
+updates:
+- resource: samples/update_1_http.uptime_check_config.json
+  dependencies: []
+- resource: samples/update_2_http.uptime_check_config.json
+  dependencies: []
+variables:
+- name: project
+  type: project

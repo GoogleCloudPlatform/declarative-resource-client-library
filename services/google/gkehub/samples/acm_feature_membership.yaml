@@ -11,6 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: acm_feature_membership
+description: A basic example for a GKEHub acm feature membership
+type: feature_membership
+versions:
+- beta
+resource: samples/acm.feature_membership.json
 dependencies:
 - samples/acm.feature.json
 - samples/first.membership.json
@@ -22,15 +28,12 @@ dependencies:
 - samples/container.serviceusage.service.json
 - samples/basic.cloudbilling.project_billing_info.json
 - samples/basic.cloudresourcemanager.project.json
-description: A basic example for a GKEHub acm feature membership
-name: acm_feature_membership
-resource: samples/acm.feature_membership.json
-type: feature_membership
 updates:
-- dependencies:
+- resource: samples/update_1_acm.feature_membership.json
+  dependencies:
   - samples/update_acm.feature.json
-  resource: samples/update_1_acm.feature_membership.json
-- dependencies:
+- resource: samples/update_2_acm.feature_membership.json
+  dependencies:
   - samples/acm.feature.json
   - samples/first.membership.json
   - samples/first.container.cluster.json
@@ -41,7 +44,6 @@ updates:
   - samples/container.serviceusage.service.json
   - samples/basic.cloudbilling.project_billing_info.json
   - samples/basic.cloudresourcemanager.project.json
-  resource: samples/update_2_acm.feature_membership.json
 variables:
 - name: id
   type: resource_name
@@ -49,15 +51,13 @@ variables:
   type: org_id
 - name: id1
   type: resource_name
-- name: billing_account
-  type: billing_account
 - name: id2
   type: resource_name
+- name: billing_account
+  type: billing_account
 - name: cluster1
   type: resource_name
 - name: zone
   type: zone
 - name: membership1
   type: resource_name
-versions:
-- beta

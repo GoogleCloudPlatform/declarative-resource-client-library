@@ -11,6 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: mci_feature
+description: A basic example for an GKEHub MCI feature
+type: feature
+versions:
+- beta
+resource: samples/mci.feature.json
 dependencies:
 - samples/first.membership.json
 - samples/first.container.cluster.json
@@ -22,12 +28,9 @@ dependencies:
 - samples/container.serviceusage.service.json
 - samples/basic.cloudbilling.project_billing_info.json
 - samples/basic.cloudresourcemanager.project.json
-description: A basic example for an GKEHub MCI feature
-name: mci_feature
-resource: samples/mci.feature.json
-type: feature
 updates:
-- dependencies:
+- resource: samples/update_mci.feature.json
+  dependencies:
   - samples/first.membership.json
   - samples/first.container.cluster.json
   - samples/second.membership.json
@@ -38,7 +41,6 @@ updates:
   - samples/container.serviceusage.service.json
   - samples/basic.cloudbilling.project_billing_info.json
   - samples/basic.cloudresourcemanager.project.json
-  resource: samples/update_mci.feature.json
 variables:
 - name: id
   type: resource_name
@@ -46,15 +48,15 @@ variables:
   type: org_id
 - name: billing_account
   type: billing_account
+- name: cluster1
+  type: resource_name
+- name: zone
+  type: zone
 - name: cluster2
   type: resource_name
 - name: zone
   type: zone
-- name: cluster1
-  type: resource_name
 - name: membership1
   type: resource_name
 - name: membership2
   type: resource_name
-versions:
-- beta

@@ -11,18 +11,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: regional_autoscaler
+description: An example of a regional autoscaler.
+type: autoscaler
+versions:
+- ga
+resource: samples/regional.autoscaler.json
 dependencies:
 - samples/fixed.instance_group_manager.json
 - samples/first.instance_template.json
-description: An example of a regional autoscaler.
-name: regional_autoscaler
-resource: samples/regional.autoscaler.json
-type: autoscaler
 updates:
-- dependencies:
+- resource: samples/update_regional.autoscaler.json
+  dependencies:
   - samples/fixed.instance_group_manager.json
   - samples/first.instance_template.json
-  resource: samples/update_regional.autoscaler.json
 variables:
 - name: project
   type: project
@@ -34,5 +36,7 @@ variables:
   type: region
 - name: autoscaler
   type: resource_name
-versions:
-- ga
+- name: region
+  type: region
+- name: project
+  type: project

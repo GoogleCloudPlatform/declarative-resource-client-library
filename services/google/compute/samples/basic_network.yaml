@@ -11,17 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A basic example of a compute network.
 name: basic_network
-resource: samples/basic.network.json
+description: A basic example of a compute network.
 type: network
+versions:
+- ga
+resource: samples/basic.network.json
 updates:
-- dependencies: []
-  resource: samples/update.network.json
+- resource: samples/update.network.json
+  dependencies: []
 variables:
 - name: compute_network
   type: resource_name
 - name: project
   type: project
-versions:
-- ga

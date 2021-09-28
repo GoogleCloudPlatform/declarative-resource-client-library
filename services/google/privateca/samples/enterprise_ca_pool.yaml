@@ -11,13 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: An example of a enterprise tier privateca ca pool
 name: enterprise_ca_pool
-resource: samples/enterprise.ca_pool.json
+description: An example of a enterprise tier privateca ca pool
 type: ca_pool
+versions:
+- ga
+resource: samples/enterprise.ca_pool.json
 updates:
-- dependencies: []
-  resource: samples/update_enterprise.ca_pool.json
+- resource: samples/update_enterprise.ca_pool.json
+  dependencies: []
 variables:
 - name: pool
   type: resource_name
@@ -25,5 +27,3 @@ variables:
   type: project
 - name: region
   type: region
-versions:
-- ga

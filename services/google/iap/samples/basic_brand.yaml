@@ -11,12 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: basic_brand
+description: A basic example an IAP brand.
+type: brand
+versions:
+- ga
+resource: samples/basic.brand.json
 dependencies:
 - samples/basic.cloudresourcemanager.project.json
-description: A basic example an IAP brand.
-name: basic_brand
-resource: samples/basic.brand.json
-type: brand
 variables:
 - name: brand
   type: resource_name
@@ -28,5 +30,3 @@ variables:
   type: resource_name
 - name: test_service_account
   type: test_service_account
-versions:
-- ga

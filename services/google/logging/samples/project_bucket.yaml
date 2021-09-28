@@ -11,30 +11,30 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: project_bucket
+description: A basic example for a project-level logging bucket
+type: log_bucket
+versions:
+- ga
+resource: samples/project.log_bucket.json
 dependencies:
 - samples/project_logging_admin.iam.member.json
 - samples/project.cloudbilling.project_billing_info.json
 - samples/project.cloudresourcemanager.project.json
-description: A basic example for a project-level logging bucket
-name: project_bucket
-resource: samples/project.log_bucket.json
-type: log_bucket
 updates:
-- dependencies:
+- resource: samples/update_project.log_bucket.json
+  dependencies:
   - samples/project_logging_admin.iam.member.json
   - samples/project.cloudbilling.project_billing_info.json
   - samples/project.cloudresourcemanager.project.json
-  resource: samples/update_project.log_bucket.json
 variables:
 - name: log
   type: resource_name
 - name: org_id
   type: org_id
-- name: billing_account
-  type: billing_account
 - name: test_service_account
   type: test_service_account
+- name: billing_account
+  type: billing_account
 - name: bucket
   type: resource_name
-versions:
-- ga

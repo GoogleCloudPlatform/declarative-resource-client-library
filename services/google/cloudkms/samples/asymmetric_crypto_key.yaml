@@ -11,24 +11,26 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: asymmetric_crypto_key
+description: An example of a asymmetric kms crypto key
+type: crypto_key
+versions:
+- ga
+resource: samples/asymmetric.crypto_key.json
 dependencies:
 - samples/basic.key_ring.json
 - samples/cloudkms_admin.iam.member.json
 - samples/cloudkms.serviceusage.service.json
 - samples/basic.cloudbilling.project_billing_info.json
 - samples/basic.cloudresourcemanager.project.json
-description: An example of a asymmetric kms crypto key
-name: asymmetric_crypto_key
-resource: samples/asymmetric.crypto_key.json
-type: crypto_key
 updates:
-- dependencies:
+- resource: samples/update_asymmetric.crypto_key.json
+  dependencies:
   - samples/basic.key_ring.json
   - samples/cloudkms_admin.iam.member.json
   - samples/cloudkms.serviceusage.service.json
   - samples/basic.cloudbilling.project_billing_info.json
   - samples/basic.cloudresourcemanager.project.json
-  resource: samples/update_asymmetric.crypto_key.json
 variables:
 - name: id
   type: resource_name
@@ -42,5 +44,3 @@ variables:
   type: resource_name
 - name: key
   type: resource_name
-versions:
-- ga

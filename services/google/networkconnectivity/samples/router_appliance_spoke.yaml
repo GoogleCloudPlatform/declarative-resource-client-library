@@ -11,39 +11,49 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: router_appliance_spoke
+description: A basic test of a networkconnectivity spoke with an linked router appliance
+  instance
+type: spoke
+versions:
+- alpha
+resource: samples/router_appliance.spoke.json
 dependencies:
 - samples/basic.hub.json
 - samples/router_appliance.compute.instance.json
 - samples/first.compute.subnetwork.json
 - samples/first.compute.network.json
-description: A basic test of a networkconnectivity spoke with an linked router appliance
-  instance
-name: router_appliance_spoke
-resource: samples/router_appliance.spoke.json
-type: spoke
 updates:
-- dependencies:
+- resource: samples/update_router_appliance.spoke.json
+  dependencies:
   - samples/basic.hub.json
   - samples/router_appliance.compute.instance.json
   - samples/first.compute.subnetwork.json
   - samples/first.compute.network.json
-  resource: samples/update_router_appliance.spoke.json
 variables:
+- name: project
+  type: project
 - name: connectivity_network1
+  type: resource_name
+- name: hub
   type: resource_name
 - name: project
   type: project
-- name: hub
-  type: resource_name
-- name: region
-  type: region
 - name: connectivity_subnet1
   type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
 - name: zone
   type: zone
 - name: instance1
   type: resource_name
+- name: project
+  type: project
 - name: spoke
   type: resource_name
-versions:
-- alpha
+- name: project
+  type: project
+- name: project
+  type: project

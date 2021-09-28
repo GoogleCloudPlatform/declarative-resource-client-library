@@ -11,21 +11,21 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: basic_network_peering
+description: A basic example of a compute network peering.
+type: network_peering
+versions: []
+resource: samples/basic.network_peering.json
 dependencies:
 - samples/basic.network.json
-description: A basic example of a compute network peering.
-name: basic_network_peering
-resource: samples/basic.network_peering.json
-type: network_peering
 updates:
-- dependencies:
+- resource: samples/update.network_peering.json
+  dependencies:
   - samples/basic.network.json
-  resource: samples/update.network_peering.json
 variables:
-- name: project
-  type: project
 - name: compute_network
   type: resource_name
+- name: project
+  type: project
 - name: peering
   type: resource_name
-versions: []

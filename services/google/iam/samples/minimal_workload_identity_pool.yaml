@@ -11,14 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A minimal example of an IAM workload identity pool
 name: minimal_workload_identity_pool
-resource: samples/minimal.workload_identity_pool.json
+description: A minimal example of an IAM workload identity pool
 type: workload_identity_pool
+versions:
+- ga
+resource: samples/minimal.workload_identity_pool.json
 variables:
 - name: pool
   type: resource_name
 - name: project
   type: project
-versions:
-- ga

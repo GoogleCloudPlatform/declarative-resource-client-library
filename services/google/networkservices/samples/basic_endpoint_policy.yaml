@@ -11,6 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: basic_endpoint_policy
+description: A basic example of a networkservices endpoint config selector
+type: endpoint_policy
+versions:
+- beta
+resource: samples/basic.endpoint_policy.json
 dependencies:
 - samples/first.networksecurity.authorization_policy.json
 - samples/first.networksecurity.client_tls_policy.json
@@ -18,43 +24,49 @@ dependencies:
 - samples/second.networksecurity.authorization_policy.json
 - samples/second.networksecurity.client_tls_policy.json
 - samples/second.networksecurity.server_tls_policy.json
-description: A basic example of a networkservices endpoint config selector
-name: basic_endpoint_policy
-resource: samples/basic.endpoint_policy.json
-type: endpoint_policy
 updates:
-- dependencies:
+- resource: samples/update_1.endpoint_policy.json
+  dependencies:
   - samples/first.networksecurity.authorization_policy.json
   - samples/first.networksecurity.client_tls_policy.json
   - samples/first.networksecurity.server_tls_policy.json
   - samples/second.networksecurity.authorization_policy.json
   - samples/second.networksecurity.client_tls_policy.json
   - samples/second.networksecurity.server_tls_policy.json
-  resource: samples/update_1.endpoint_policy.json
-- dependencies:
+- resource: samples/update_2.endpoint_policy.json
+  dependencies:
   - samples/first.networksecurity.authorization_policy.json
   - samples/first.networksecurity.client_tls_policy.json
   - samples/first.networksecurity.server_tls_policy.json
   - samples/second.networksecurity.authorization_policy.json
   - samples/second.networksecurity.client_tls_policy.json
   - samples/second.networksecurity.server_tls_policy.json
-  resource: samples/update_2.endpoint_policy.json
 variables:
-- name: client2
+- name: server1
   type: resource_name
 - name: project
   type: project
-- name: server2
-  type: resource_name
-- name: auth1
-  type: resource_name
-- name: client1
-  type: resource_name
-- name: server1
-  type: resource_name
 - name: auth2
   type: resource_name
+- name: project
+  type: project
+- name: project
+  type: project
+- name: client2
+  type: resource_name
+- name: server2
+  type: resource_name
+- name: project
+  type: project
+- name: auth1
+  type: resource_name
+- name: project
+  type: project
+- name: project
+  type: project
+- name: client1
+  type: resource_name
+- name: project
+  type: project
 - name: selector
   type: resource_name
-versions:
-- beta

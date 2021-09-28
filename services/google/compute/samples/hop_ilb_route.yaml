@@ -11,16 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: hop_ilb_route
+description: Terraform resource_compute_route_test.go testAccComputeRoute_hopInstance
+type: route
+versions:
+- ga
+- beta
+resource: samples/next_hop_ilb.route.json
 dependencies:
 - samples/basic.network.json
 - samples/basic.subnetwork.json
 - samples/basic.health_check.json
 - samples/ilb_regional.backend_service.json
 - samples/ilb_regional.forwarding_rule.json
-description: Terraform resource_compute_route_test.go testAccComputeRoute_hopInstance
-name: hop_ilb_route
-resource: samples/next_hop_ilb.route.json
-type: route
 variables:
 - name: project
   type: project
@@ -28,18 +31,25 @@ variables:
   type: resource_name
 - name: compute_network
   type: resource_name
-- name: region
-  type: region
+- name: project
+  type: project
 - name: range
   type: resource_name
 - name: compute_subnetwork
   type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
 - name: service
   type: resource_name
+- name: project
+  type: project
 - name: rule
   type: resource_name
+- name: project
+  type: project
 - name: name
   type: resource_name
-versions:
-- ga
-- beta
+- name: project
+  type: project

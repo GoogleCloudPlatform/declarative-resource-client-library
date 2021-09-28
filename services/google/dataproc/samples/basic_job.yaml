@@ -11,25 +11,27 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: basic_job
+description: A basic example of a dataproc job
+type: job
+versions:
+- ga
+- beta
+resource: samples/basic.job.json
 dependencies:
 - samples/basic.cluster.json
-description: A basic example of a dataproc job
-name: basic_job
-resource: samples/basic.job.json
-type: job
 updates:
-- dependencies:
+- resource: samples/update.job.json
+  dependencies:
   - samples/basic.cluster.json
-  resource: samples/update.job.json
 variables:
-- name: project
-  type: project
 - name: zone
   type: zone
 - name: cluster_name
   type: resource_name
 - name: region
   type: region
-versions:
-- ga
-- beta
+- name: project
+  type: project
+- name: project
+  type: project

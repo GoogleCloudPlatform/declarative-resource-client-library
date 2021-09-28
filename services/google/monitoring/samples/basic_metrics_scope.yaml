@@ -11,13 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A basic example of a monitoring metrics scope
 name: basic_metrics_scope
-resource: samples/basic.metrics_scope.json
+description: A basic example of a monitoring metrics scope
 type: metrics_scope
-variables:
-- name: project
-  type: project
 versions:
 - ga
 - beta
+resource: samples/basic.metrics_scope.json
+variables:
+- name: project
+  type: project

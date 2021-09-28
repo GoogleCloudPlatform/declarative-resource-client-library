@@ -11,6 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: basic_service_attachment
+description: An example of a compute service attachment
+type: service_attachment
+versions:
+- ga
+resource: samples/basic.service_attachment.json
 dependencies:
 - samples/first_internal.forwarding_rule.json
 - samples/internal.backend_service.json
@@ -20,12 +26,9 @@ dependencies:
 - samples/basic.network.json
 - samples/first.cloudresourcemanager.project.json
 - samples/second.cloudresourcemanager.project.json
-description: An example of a compute service attachment
-name: basic_service_attachment
-resource: samples/basic.service_attachment.json
-type: service_attachment
 updates:
-- dependencies:
+- resource: samples/update_1.service_attachment.json
+  dependencies:
   - samples/first_internal.forwarding_rule.json
   - samples/internal.backend_service.json
   - samples/first_private_service_connect.subnetwork.json
@@ -34,8 +37,8 @@ updates:
   - samples/basic.network.json
   - samples/first.cloudresourcemanager.project.json
   - samples/second.cloudresourcemanager.project.json
-  resource: samples/update_1.service_attachment.json
-- dependencies:
+- resource: samples/update_2.service_attachment.json
+  dependencies:
   - samples/first_internal.forwarding_rule.json
   - samples/internal.backend_service.json
   - samples/first_private_service_connect.subnetwork.json
@@ -44,7 +47,6 @@ updates:
   - samples/basic.network.json
   - samples/first.cloudresourcemanager.project.json
   - samples/second.cloudresourcemanager.project.json
-  resource: samples/update_2.service_attachment.json
 variables:
 - name: project
   type: project
@@ -56,19 +58,33 @@ variables:
   type: org_id
 - name: id2
   type: resource_name
+- name: org_id
+  type: org_id
+- name: project
+  type: project
 - name: region
   type: region
-- name: service
-  type: resource_name
-- name: compute_psc_subnetwork1
-  type: resource_name
-- name: compute_psc_subnetwork2
-  type: resource_name
 - name: compute_private_subnetwork
   type: resource_name
+- name: project
+  type: project
+- name: service
+  type: resource_name
+- name: region
+  type: region
+- name: compute_psc_subnetwork1
+  type: resource_name
+- name: project
+  type: project
+- name: compute_psc_subnetwork2
+  type: resource_name
+- name: project
+  type: project
 - name: rule1
   type: resource_name
+- name: project
+  type: project
+- name: project
+  type: project
 - name: attachment
   type: resource_name
-versions:
-- ga

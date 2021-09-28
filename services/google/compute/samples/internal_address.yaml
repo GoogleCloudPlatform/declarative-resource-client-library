@@ -11,12 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: internal_address
+description: An example of an internal compute address
+type: address
+versions:
+- ga
+resource: samples/internal.address.json
 dependencies:
 - samples/basic.network.json
-description: An example of an internal compute address
-name: internal_address
-resource: samples/internal.address.json
-type: address
 variables:
 - name: compute_network
   type: resource_name
@@ -24,5 +26,3 @@ variables:
   type: project
 - name: address
   type: resource_name
-versions:
-- ga

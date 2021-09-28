@@ -11,17 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A basic example a network security server tls policy.
 name: basic_server_tls_policy
-resource: samples/basic.server_tls_policy.json
+description: A basic example a network security server tls policy.
 type: server_tls_policy
-updates:
-- dependencies: []
-  resource: samples/update.server_tls_policy.json
-variables:
-- name: policy
-  type: resource_name
-- name: project
-  type: project
 versions:
 - alpha
+resource: samples/basic.server_tls_policy.json
+updates:
+- resource: samples/update.server_tls_policy.json
+  dependencies: []
+variables:
+- name: project
+  type: project
+- name: policy
+  type: resource_name

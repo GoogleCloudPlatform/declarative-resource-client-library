@@ -11,16 +11,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: basic_assignment
+description: A basic test of a bigqueryreservation assignment api
+type: assignment
+versions:
+- ga
+resource: samples/basic.assignment.json
 dependencies:
 - samples/basic.reservation.json
-description: A basic test of a bigqueryreservation assignment api
-name: basic_assignment
-resource: samples/basic.assignment.json
-type: assignment
 variables:
 - name: reservation
   type: resource_name
 - name: project
   type: project
-versions:
-- ga
+- name: project
+  type: project
+- name: project
+  type: project

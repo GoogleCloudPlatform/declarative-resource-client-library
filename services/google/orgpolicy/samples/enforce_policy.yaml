@@ -11,17 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: enforce_policy
+description: A test of an enforce orgpolicy policy for a project
+type: policy
+versions:
+- ga
+- beta
+resource: samples/enforce.policy.json
 dependencies:
 - samples/basic.cloudresourcemanager.project.json
-description: A test of an enforce orgpolicy policy for a project
-name: enforce_policy
-resource: samples/enforce.policy.json
-type: policy
 variables:
 - name: id
   type: resource_name
 - name: org_id
   type: org_id
-versions:
-- ga
-- beta

@@ -11,16 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+name: fixed_os_policy_assignment
 description: An example of an osconfig os policy assignment with fixed rollout disruption
   budget
-name: fixed_os_policy_assignment
-resource: samples/fixed.os_policy_assignment.json
 type: os_policy_assignment
+versions:
+- alpha
+resource: samples/fixed.os_policy_assignment.json
 updates:
-- dependencies: []
-  resource: samples/update_fixed.os_policy_assignment.json
-- dependencies: []
-  resource: samples/percent.os_policy_assignment.json
+- resource: samples/update_fixed.os_policy_assignment.json
+  dependencies: []
+- resource: samples/percent.os_policy_assignment.json
+  dependencies: []
 variables:
 - name: assignment
   type: resource_name
@@ -28,5 +30,3 @@ variables:
   type: project
 - name: zone
   type: zone
-versions:
-- alpha
