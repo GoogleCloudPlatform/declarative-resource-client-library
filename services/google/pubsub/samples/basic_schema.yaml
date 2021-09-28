@@ -16,9 +16,9 @@ name: basic_schema
 resource: samples/basic.schema.json
 type: schema
 variables:
-- name: schema
-  type: resource_name
 - name: project
   type: project
+- name: schema
+  type: resource_name
 versions:
 - ga
