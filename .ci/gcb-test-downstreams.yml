@@ -103,10 +103,10 @@ steps:
 
     - name: 'gcr.io/cloud-builders/git'
       args:
-          - pull
-          - --rebase
-          - origin
-          - main
+          - rebase
+          - -X
+          - theirs
+          - origin/main
 
     - name: 'gcr.io/cloud-builders/git'
       entrypoint: bash
