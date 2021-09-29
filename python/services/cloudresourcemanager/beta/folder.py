@@ -37,6 +37,7 @@ class Folder(object):
     ):
 
         channel.initialize()
+        self.name = name
         self.parent = parent
         self.display_name = display_name
         self.service_account_file = service_account_file
@@ -46,6 +47,9 @@ class Folder(object):
             channel.Channel()
         )
         request = folder_pb2.ApplyCloudresourcemanagerBetaFolderRequest()
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
         if Primitive.to_proto(self.parent):
             request.resource.parent = Primitive.to_proto(self.parent)
 
@@ -70,6 +74,9 @@ class Folder(object):
         )
         request = folder_pb2.DeleteCloudresourcemanagerBetaFolderRequest()
         request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
         if Primitive.to_proto(self.parent):
             request.resource.parent = Primitive.to_proto(self.parent)
 
@@ -91,6 +98,8 @@ class Folder(object):
 
     def to_proto(self):
         resource = folder_pb2.CloudresourcemanagerBetaFolder()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.parent):
             resource.parent = Primitive.to_proto(self.parent)
         if Primitive.to_proto(self.display_name):

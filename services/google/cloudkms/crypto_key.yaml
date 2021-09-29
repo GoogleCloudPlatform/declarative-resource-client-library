@@ -296,7 +296,6 @@ components:
             name:
               type: string
               x-dcl-go-name: Name
-              readOnly: true
               description: Output only. The resource name for this CryptoKeyVersion
                 in the format `projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*`.
               x-kubernetes-immutable: true

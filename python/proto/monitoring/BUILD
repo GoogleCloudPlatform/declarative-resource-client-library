@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="monitoring", resources=["dashboard","group","metric_descriptor","metrics_scope","monitored_project"])
+proto_package(name="monitoring", resources=["dashboard","group","metric_descriptor","metrics_scope","monitored_project","uptime_check_config"])

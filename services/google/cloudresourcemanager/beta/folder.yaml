@@ -93,7 +93,6 @@ components:
         name:
           type: string
           x-dcl-go-name: Name
-          readOnly: true
           description: Output only. The resource name of the Folder.
           x-kubernetes-immutable: true
           x-dcl-server-generated-parameter: true

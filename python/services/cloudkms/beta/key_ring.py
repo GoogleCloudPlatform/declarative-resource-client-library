@@ -29,6 +29,7 @@ class KeyRing(object):
     ):
 
         channel.initialize()
+        self.name = name
         self.project = project
         self.location = location
         self.service_account_file = service_account_file
@@ -36,6 +37,9 @@ class KeyRing(object):
     def apply(self):
         stub = key_ring_pb2_grpc.CloudkmsBetaKeyRingServiceStub(channel.Channel())
         request = key_ring_pb2.ApplyCloudkmsBetaKeyRingRequest()
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -54,6 +58,9 @@ class KeyRing(object):
         stub = key_ring_pb2_grpc.CloudkmsBetaKeyRingServiceStub(channel.Channel())
         request = key_ring_pb2.DeleteCloudkmsBetaKeyRingRequest()
         request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -75,6 +82,8 @@ class KeyRing(object):
 
     def to_proto(self):
         resource = key_ring_pb2.CloudkmsBetaKeyRing()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.location):

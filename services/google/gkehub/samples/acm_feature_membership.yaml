@@ -45,13 +45,13 @@ updates:
   - samples/basic.cloudbilling.project_billing_info.json
   - samples/basic.cloudresourcemanager.project.json
 variables:
-- name: id
-  type: resource_name
 - name: org_id
   type: org_id
-- name: id1
+- name: id
   type: resource_name
 - name: id2
+  type: resource_name
+- name: id1
   type: resource_name
 - name: billing_account
   type: billing_account

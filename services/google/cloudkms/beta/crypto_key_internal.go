@@ -563,6 +563,11 @@ func canonicalizeCryptoKeyPrimary(des, initial *CryptoKeyPrimary, opts ...dcl.Ap
 
 	cDes := &CryptoKeyPrimary{}
 
+	if dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
 	if dcl.IsZeroValue(des.State) {
 		des.State = initial.State
 	} else {
@@ -1263,7 +1268,7 @@ func compareCryptoKeyPrimaryNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1747,6 +1752,9 @@ func expandCryptoKeyPrimary(c *Client, f *CryptoKeyPrimary) (map[string]interfac
 	}
 
 	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
 	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
 		m["state"] = v
 	}

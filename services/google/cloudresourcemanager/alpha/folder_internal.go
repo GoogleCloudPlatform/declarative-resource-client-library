@@ -416,6 +416,11 @@ func canonicalizeFolderDesiredState(rawDesired, rawInitial *Folder, opts ...dcl.
 		return rawDesired, nil
 	}
 	canonicalDesired := &Folder{}
+	if dcl.IsZeroValue(rawDesired.Name) {
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
+	}
 	if dcl.StringCanonicalize(rawDesired.Parent, rawInitial.Parent) {
 		canonicalDesired.Parent = rawInitial.Parent
 	} else {
@@ -499,7 +504,7 @@ func diffFolder(c *Client, desired, actual *Folder, opts ...dcl.ApplyOption) ([]
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -603,6 +608,9 @@ func unmarshalMapFolder(m map[string]interface{}, c *Client) (*Folder, error) {
 // expandFolder expands Folder into a JSON request object.
 func expandFolder(c *Client, f *Folder) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
 	if v := f.Parent; !dcl.IsEmptyValueIndirect(v) {
 		m["parent"] = v
 	}

@@ -278,6 +278,11 @@ func canonicalizeKeyRingDesiredState(rawDesired, rawInitial *KeyRing, opts ...dc
 		return rawDesired, nil
 	}
 	canonicalDesired := &KeyRing{}
+	if dcl.IsZeroValue(rawDesired.Name) {
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
+	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		canonicalDesired.Project = rawInitial.Project
 	} else {
@@ -326,7 +331,7 @@ func diffKeyRing(c *Client, desired, actual *KeyRing, opts ...dcl.ApplyOption) (
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -405,6 +410,11 @@ func unmarshalMapKeyRing(m map[string]interface{}, c *Client) (*KeyRing, error) 
 // expandKeyRing expands KeyRing into a JSON request object.
 func expandKeyRing(c *Client, f *KeyRing) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	if v, err := dcl.DeriveField("projects/%s/locations/%s/keyRings/%s", f.Name, f.Project, f.Location, f.Name); err != nil {
+		return nil, fmt.Errorf("error expanding Name into name: %w", err)
+	} else if v != nil {
+		m["name"] = v
+	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
 	} else if v != nil {

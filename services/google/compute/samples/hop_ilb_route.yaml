@@ -25,14 +25,12 @@ dependencies:
 - samples/ilb_regional.backend_service.json
 - samples/ilb_regional.forwarding_rule.json
 variables:
-- name: project
-  type: project
-- name: hc
-  type: resource_name
 - name: compute_network
   type: resource_name
 - name: project
   type: project
+- name: hc
+  type: resource_name
 - name: range
   type: resource_name
 - name: compute_subnetwork
@@ -43,8 +41,6 @@ variables:
   type: region
 - name: service
   type: resource_name
-- name: project
-  type: project
 - name: rule
   type: resource_name
 - name: project

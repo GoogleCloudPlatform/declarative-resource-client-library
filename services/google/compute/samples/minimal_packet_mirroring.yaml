@@ -22,6 +22,12 @@ dependencies:
 - samples/first_mirroring_internal.forwarding_rule.json
 - samples/regional.backend_service.json
 variables:
+- name: project
+  type: project
+- name: zone
+  type: zone
+- name: instance1
+  type: resource_name
 - name: service
   type: resource_name
 - name: project
@@ -30,17 +36,11 @@ variables:
   type: region
 - name: project
   type: project
-- name: zone
-  type: zone
-- name: instance1
-  type: resource_name
 - name: rule1
   type: resource_name
-- name: project
-  type: project
-- name: project
-  type: project
-- name: project
-  type: project
+- name: region
+  type: region
+- name: region
+  type: region
 - name: mirroring
   type: resource_name

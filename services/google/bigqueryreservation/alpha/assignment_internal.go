@@ -359,6 +359,11 @@ func canonicalizeAssignmentDesiredState(rawDesired, rawInitial *Assignment, opts
 		return rawDesired, nil
 	}
 	canonicalDesired := &Assignment{}
+	if dcl.IsZeroValue(rawDesired.Name) {
+		canonicalDesired.Name = rawInitial.Name
+	} else {
+		canonicalDesired.Name = rawDesired.Name
+	}
 	if dcl.NameToSelfLink(rawDesired.Assignee, rawInitial.Assignee) {
 		canonicalDesired.Assignee = rawInitial.Assignee
 	} else {
@@ -437,7 +442,7 @@ func diffAssignment(c *Client, desired, actual *Assignment, opts ...dcl.ApplyOpt
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -539,6 +544,9 @@ func unmarshalMapAssignment(m map[string]interface{}, c *Client) (*Assignment, e
 // expandAssignment expands Assignment into a JSON request object.
 func expandAssignment(c *Client, f *Assignment) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
 	if v := f.Assignee; !dcl.IsEmptyValueIndirect(v) {
 		m["assignee"] = v
 	}

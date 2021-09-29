@@ -36,6 +36,7 @@ class Assignment(object):
     ):
 
         channel.initialize()
+        self.name = name
         self.assignee = assignee
         self.job_type = job_type
         self.project = project
@@ -48,6 +49,9 @@ class Assignment(object):
             channel.Channel()
         )
         request = assignment_pb2.ApplyBigqueryreservationBetaAssignmentRequest()
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
         if Primitive.to_proto(self.assignee):
             request.resource.assignee = Primitive.to_proto(self.assignee)
 
@@ -80,6 +84,9 @@ class Assignment(object):
         )
         request = assignment_pb2.DeleteBigqueryreservationBetaAssignmentRequest()
         request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
         if Primitive.to_proto(self.assignee):
             request.resource.assignee = Primitive.to_proto(self.assignee)
 
@@ -114,6 +121,8 @@ class Assignment(object):
 
     def to_proto(self):
         resource = assignment_pb2.BigqueryreservationBetaAssignment()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.assignee):
             resource.assignee = Primitive.to_proto(self.assignee)
         if AssignmentJobTypeEnum.to_proto(self.job_type):
