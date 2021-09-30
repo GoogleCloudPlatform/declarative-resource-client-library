@@ -28,14 +28,20 @@ updates:
   - samples/first.instance_template.json
   - samples/second.instance_template.json
 variables:
-- name: project
-  type: project
 - name: s_check
   type: resource_name
+- name: project
+  type: project
+- name: project
+  type: project
 - name: template1
   type: resource_name
+- name: project
+  type: project
 - name: template2
   type: resource_name
+- name: project
+  type: project
 - name: zone
   type: zone
 - name: instance_group_manager

@@ -21,12 +21,14 @@ resource: samples/pubsub.job.json
 dependencies:
 - samples/pubsub.pubsub.topic.json
 variables:
-- name: project
-  type: project
 - name: topic
   type: resource_name
+- name: project
+  type: project
 - name: job
   type: resource_name
+- name: project
+  type: project
 - name: region
   type: region
 - name: project

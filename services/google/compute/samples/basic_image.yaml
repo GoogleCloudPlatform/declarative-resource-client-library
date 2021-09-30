@@ -18,6 +18,8 @@ versions:
 - ga
 resource: samples/basic.instance.json
 variables:
+- name: zone
+  type: zone
 - name: instance1
   type: resource_name
 - name: project
