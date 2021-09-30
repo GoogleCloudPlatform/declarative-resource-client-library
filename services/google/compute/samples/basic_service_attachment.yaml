@@ -48,10 +48,6 @@ updates:
   - samples/first.cloudresourcemanager.project.json
   - samples/second.cloudresourcemanager.project.json
 variables:
-- name: id2
-  type: resource_name
-- name: org_id
-  type: org_id
 - name: compute_network
   type: resource_name
 - name: project
@@ -60,8 +56,16 @@ variables:
   type: resource_name
 - name: org_id
   type: org_id
+- name: id2
+  type: resource_name
+- name: org_id
+  type: org_id
 - name: service
   type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
 - name: region
   type: region
 - name: compute_psc_subnetwork1
@@ -70,12 +74,10 @@ variables:
   type: project
 - name: region
   type: region
-- name: project
-  type: project
-- name: region
-  type: region
 - name: compute_psc_subnetwork2
   type: resource_name
+- name: project
+  type: project
 - name: compute_private_subnetwork
   type: resource_name
 - name: project
@@ -90,5 +92,7 @@ variables:
   type: region
 - name: attachment
   type: resource_name
+- name: project
+  type: project
 - name: region
   type: region
