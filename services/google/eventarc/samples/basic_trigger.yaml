@@ -26,12 +26,6 @@ updates:
   - samples/basicservice.run.service.json
   - samples/secondservice.run.service.json
 variables:
-- name: project
-  type: project
-- name: name
-  type: resource_name
-- name: name
-  type: resource_name
 - name: region
   type: region
 - name: project
@@ -42,5 +36,17 @@ variables:
   type: project
 - name: name
   type: resource_name
+- name: name
+  type: resource_name
+- name: region
+  type: region
 - name: service_account
   type: service_account
+- name: project
+  type: project
+- name: region
+  type: region
+- name: name
+  type: resource_name
+- name: region
+  type: region

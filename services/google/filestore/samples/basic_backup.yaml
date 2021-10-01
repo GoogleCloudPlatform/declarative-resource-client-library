@@ -33,7 +33,9 @@ variables:
   type: project
 - name: zone
   type: zone
-- name: backup
-  type: resource_name
 - name: region
   type: region
+- name: zone
+  type: zone
+- name: backup
+  type: resource_name

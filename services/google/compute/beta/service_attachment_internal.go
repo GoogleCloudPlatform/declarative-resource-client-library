@@ -134,7 +134,9 @@ func newUpdateServiceAttachmentPatchRequest(ctx context.Context, f *ServiceAttac
 	if v := f.NatSubnets; v != nil {
 		req["natSubnets"] = v
 	}
-	if v := f.ConsumerRejectLists; v != nil {
+	if v, err := dcl.SelfLinkToNameArrayExpander(f.ConsumerRejectLists); err != nil {
+		return nil, fmt.Errorf("error expanding ConsumerRejectLists into consumerRejectLists: %w", err)
+	} else if v != nil {
 		req["consumerRejectLists"] = v
 	}
 	if v, err := expandServiceAttachmentConsumerAcceptListsSlice(c, f.ConsumerAcceptLists); err != nil {
@@ -1315,7 +1317,11 @@ func expandServiceAttachment(c *Client, f *ServiceAttachment) (map[string]interf
 	if v := f.EnableProxyProtocol; !dcl.IsEmptyValueIndirect(v) {
 		m["enableProxyProtocol"] = v
 	}
-	m["consumerRejectLists"] = f.ConsumerRejectLists
+	if v, err := dcl.SelfLinkToNameArrayExpander(f.ConsumerRejectLists); err != nil {
+		return nil, fmt.Errorf("error expanding ConsumerRejectLists into consumerRejectLists: %w", err)
+	} else {
+		m["consumerRejectLists"] = v
+	}
 	if v, err := expandServiceAttachmentConsumerAcceptListsSlice(c, f.ConsumerAcceptLists); err != nil {
 		return nil, fmt.Errorf("error expanding ConsumerAcceptLists into consumerAcceptLists: %w", err)
 	} else {
@@ -1576,7 +1582,9 @@ func expandServiceAttachmentConsumerAcceptLists(c *Client, f *ServiceAttachmentC
 	}
 
 	m := make(map[string]interface{})
-	if v := f.ProjectIdOrNum; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := dcl.SelfLinkToNameExpander(f.ProjectIdOrNum); err != nil {
+		return nil, fmt.Errorf("error expanding ProjectIdOrNum into projectIdOrNum: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["projectIdOrNum"] = v
 	}
 	if v := f.ConnectionLimit; !dcl.IsEmptyValueIndirect(v) {
