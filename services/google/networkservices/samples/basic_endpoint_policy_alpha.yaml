@@ -48,6 +48,10 @@ updates:
   - samples/second.networksecurity.client_tls_policy.json
   - samples/second.networksecurity.server_tls_policy.json
 variables:
+- name: project
+  type: project
+- name: client1
+  type: resource_name
 - name: server1
   type: resource_name
 - name: project
@@ -56,14 +60,12 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: project
-  type: project
 - name: auth2
   type: resource_name
-- name: client2
-  type: resource_name
 - name: project
   type: project
+- name: client2
+  type: resource_name
 - name: project
   type: project
 - name: server2
@@ -75,8 +77,6 @@ variables:
 - name: project
   type: project
 - name: auth1
-  type: resource_name
-- name: client1
   type: resource_name
 - name: project
   type: project

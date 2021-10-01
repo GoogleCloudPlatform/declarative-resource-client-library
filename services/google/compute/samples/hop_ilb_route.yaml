@@ -31,7 +31,7 @@ variables:
   type: project
 - name: hc
   type: resource_name
-- name: compute_subnetwork
+- name: service
   type: resource_name
 - name: project
   type: project
@@ -39,19 +39,17 @@ variables:
   type: region
 - name: range
   type: resource_name
-- name: service
+- name: compute_subnetwork
   type: resource_name
-- name: project
-  type: project
-- name: region
-  type: region
 - name: region
   type: region
 - name: rule
   type: resource_name
 - name: project
   type: project
-- name: name
-  type: resource_name
+- name: region
+  type: region
 - name: project
   type: project
+- name: name
+  type: resource_name
