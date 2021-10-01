@@ -31,18 +31,16 @@ updates:
   - samples/basic.backend_bucket.json
   - samples/basic.storage.bucket.json
 variables:
-- name: project
-  type: project
 - name: bucket
   type: resource_name
+- name: project
+  type: project
 - name: backend
   type: resource_name
-- name: project
-  type: project
-- name: project
-  type: project
 - name: map1
   type: resource_name
+- name: project
+  type: project
 - name: map2
   type: resource_name
 - name: project

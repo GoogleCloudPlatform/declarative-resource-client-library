@@ -26,10 +26,6 @@ updates:
   - samples/https.health_check.json
   - samples/zonal.network_endpoint_group.json
 variables:
-- name: s_check
-  type: resource_name
-- name: project
-  type: project
 - name: region
   type: region
 - name: zone
@@ -38,9 +34,7 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: project
-  type: project
+- name: s_check
+  type: resource_name
 - name: service
   type: resource_name
-- name: project
-  type: project

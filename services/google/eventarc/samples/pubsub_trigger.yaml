@@ -21,14 +21,14 @@ dependencies:
 - samples/basicservice.run.service.json
 - samples/basic.pubsub.topic.json
 variables:
-- name: region
-  type: region
 - name: project
   type: project
 - name: name
   type: resource_name
 - name: name
   type: resource_name
+- name: region
+  type: region
 - name: topic
   type: resource_name
 - name: project
@@ -39,9 +39,5 @@ variables:
   type: service_account
 - name: project
   type: project
-- name: region
-  type: region
 - name: name
   type: resource_name
-- name: region
-  type: region
