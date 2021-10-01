@@ -24,13 +24,11 @@ variables:
   type: azure_subscription
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
-- name: project
-  type: project
 - name: cluster
   type: resource_name
 - name: azure_database_encryption_key_version
   type: azure_database_encryption_key_version
-- name: node_pool
-  type: resource_name
 - name: project
   type: project
+- name: node_pool
+  type: resource_name

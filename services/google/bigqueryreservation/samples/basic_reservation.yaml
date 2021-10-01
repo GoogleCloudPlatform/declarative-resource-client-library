@@ -21,7 +21,7 @@ updates:
 - resource: samples/update.reservation.json
   dependencies: []
 variables:
-- name: reservation
-  type: resource_name
 - name: project
   type: project
+- name: reservation
+  type: resource_name

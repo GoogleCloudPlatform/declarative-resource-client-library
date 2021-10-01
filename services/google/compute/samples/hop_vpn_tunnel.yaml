@@ -41,23 +41,23 @@ variables:
   type: resource_name
 - name: gateway
   type: resource_name
-- name: region
-  type: region
+- name: project
+  type: project
 - name: gateway
   type: resource_name
 - name: region
   type: region
-- name: project
-  type: project
+- name: udp_forwarding_rule_1
+  type: resource_name
 - name: region
   type: region
 - name: project
   type: project
-- name: udp_forwarding_rule_1
+- name: region
+  type: region
+- name: forwarding_rule
   type: resource_name
 - name: udp_forwarding_rule_2
-  type: resource_name
-- name: forwarding_rule
   type: resource_name
 - name: tunnel
   type: resource_name

@@ -21,9 +21,13 @@ updates:
 - resource: samples/update_regional.disk.json
   dependencies: []
 variables:
+- name: region
+  type: region
 - name: disk
   type: resource_name
 - name: project
   type: project
+- name: region
+  type: region
 - name: region
   type: region
