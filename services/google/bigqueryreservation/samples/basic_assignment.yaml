@@ -20,11 +20,7 @@ resource: samples/basic.assignment.json
 dependencies:
 - samples/basic.reservation.json
 variables:
+- name: project
+  type: project
 - name: reservation
   type: resource_name
-- name: project
-  type: project
-- name: project
-  type: project
-- name: project
-  type: project

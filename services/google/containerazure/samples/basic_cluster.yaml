@@ -18,8 +18,6 @@ versions:
 - alpha
 resource: samples/basic.cluster.json
 variables:
-- name: project
-  type: project
 - name: azure_subscription
   type: azure_subscription
 - name: byo_multicloud_prefix
@@ -28,11 +26,5 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: azure_subscription
-  type: azure_subscription
 - name: azure_database_encryption_key_version
   type: azure_database_encryption_key_version
-- name: azure_subscription
-  type: azure_subscription
-- name: azure_subscription
-  type: azure_subscription
