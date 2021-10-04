@@ -36,12 +36,12 @@ updates:
   - samples/basic.subnetwork.json
   - samples/basic.network.json
 variables:
-- name: region
-  type: region
 - name: service
   type: resource_name
 - name: project
   type: project
+- name: region
+  type: region
 - name: compute_network
   type: resource_name
 - name: project
@@ -52,7 +52,17 @@ variables:
   type: project
 - name: zone
   type: zone
-- name: range
+- name: region
+  type: region
+- name: rule1
+  type: resource_name
+- name: project
+  type: project
+- name: project
+  type: project
+- name: region
+  type: region
+- name: rule2
   type: resource_name
 - name: compute_subnetwork
   type: resource_name
@@ -60,31 +70,21 @@ variables:
   type: project
 - name: region
   type: region
-- name: region
-  type: region
-- name: rule1
+- name: range
   type: resource_name
-- name: project
-  type: project
-- name: rule2
-  type: resource_name
-- name: project
-  type: project
-- name: region
-  type: region
 - name: instance2
   type: resource_name
 - name: project
   type: project
-- name: project
-  type: project
-- name: region
-  type: region
-- name: project
-  type: project
-- name: project
-  type: project
-- name: region
-  type: region
 - name: mirroring
   type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
+- name: project
+  type: project
+- name: project
+  type: project
+- name: region
+  type: region
