@@ -24,7 +24,7 @@ updates:
 - resource: samples/update_2.dashboard.json
   dependencies: []
 variables:
-- name: dashboard
-  type: resource_name
 - name: project
   type: project
+- name: dashboard
+  type: resource_name

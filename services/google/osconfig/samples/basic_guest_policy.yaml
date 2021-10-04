@@ -20,6 +20,8 @@ resource: samples/basic.guest_policy.json
 dependencies:
 - samples/basic.compute.instance.json
 variables:
+- name: project
+  type: project
 - name: policy_inst
   type: resource_name
 - name: project
@@ -28,5 +30,3 @@ variables:
   type: resource_name
 - name: policy
   type: resource_name
-- name: project
-  type: project

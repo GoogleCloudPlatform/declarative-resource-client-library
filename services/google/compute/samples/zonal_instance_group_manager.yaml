@@ -36,7 +36,7 @@ variables:
   type: resource_name
 - name: template1
   type: resource_name
-- name: zone
-  type: zone
 - name: instance_group_manager
   type: resource_name
+- name: zone
+  type: zone

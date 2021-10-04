@@ -39,20 +39,16 @@ updates:
   - samples/first.cloudbilling.project_billing_info.json
   - samples/compute.serviceusage.service.json
 variables:
-- name: org_id
-  type: org_id
 - name: folder
   type: resource_name
-- name: id1
-  type: resource_name
 - name: org_id
   type: org_id
+- name: id1
+  type: resource_name
 - name: test_service_account
   type: test_service_account
 - name: billing_account
   type: billing_account
-- name: test_service_account
-  type: test_service_account
 - name: policy
   type: resource_name
 - name: association
