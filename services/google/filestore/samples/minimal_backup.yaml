@@ -21,6 +21,10 @@ resource: samples/minimal.backup.json
 dependencies:
 - samples/basic.instance.json
 variables:
+- name: zone
+  type: zone
+- name: random_int
+  type: random_int
 - name: random_int
   type: random_int
 - name: instance_name
@@ -29,9 +33,9 @@ variables:
   type: project
 - name: zone
   type: zone
-- name: region
-  type: region
-- name: zone
-  type: zone
 - name: backup
   type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
