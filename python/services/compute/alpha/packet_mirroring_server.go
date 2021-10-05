@@ -49,31 +49,31 @@ func ProtoToComputeAlphaPacketMirroringEnableEnum(e alphapb.ComputeAlphaPacketMi
 	return nil
 }
 
-// ProtoToPacketMirroringNetwork converts a PacketMirroringNetwork resource from its proto representation.
+// ProtoToPacketMirroringNetwork converts a PacketMirroringNetwork object from its proto representation.
 func ProtoToComputeAlphaPacketMirroringNetwork(p *alphapb.ComputeAlphaPacketMirroringNetwork) *alpha.PacketMirroringNetwork {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.PacketMirroringNetwork{
-		Url:          dcl.StringOrNil(p.Url),
-		CanonicalUrl: dcl.StringOrNil(p.CanonicalUrl),
+		Url:          dcl.StringOrNil(p.GetUrl()),
+		CanonicalUrl: dcl.StringOrNil(p.GetCanonicalUrl()),
 	}
 	return obj
 }
 
-// ProtoToPacketMirroringCollectorIlb converts a PacketMirroringCollectorIlb resource from its proto representation.
+// ProtoToPacketMirroringCollectorIlb converts a PacketMirroringCollectorIlb object from its proto representation.
 func ProtoToComputeAlphaPacketMirroringCollectorIlb(p *alphapb.ComputeAlphaPacketMirroringCollectorIlb) *alpha.PacketMirroringCollectorIlb {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.PacketMirroringCollectorIlb{
-		Url:          dcl.StringOrNil(p.Url),
-		CanonicalUrl: dcl.StringOrNil(p.CanonicalUrl),
+		Url:          dcl.StringOrNil(p.GetUrl()),
+		CanonicalUrl: dcl.StringOrNil(p.GetCanonicalUrl()),
 	}
 	return obj
 }
 
-// ProtoToPacketMirroringMirroredResources converts a PacketMirroringMirroredResources resource from its proto representation.
+// ProtoToPacketMirroringMirroredResources converts a PacketMirroringMirroredResources object from its proto representation.
 func ProtoToComputeAlphaPacketMirroringMirroredResources(p *alphapb.ComputeAlphaPacketMirroringMirroredResources) *alpha.PacketMirroringMirroredResources {
 	if p == nil {
 		return nil
@@ -91,31 +91,31 @@ func ProtoToComputeAlphaPacketMirroringMirroredResources(p *alphapb.ComputeAlpha
 	return obj
 }
 
-// ProtoToPacketMirroringMirroredResourcesSubnetworks converts a PacketMirroringMirroredResourcesSubnetworks resource from its proto representation.
+// ProtoToPacketMirroringMirroredResourcesSubnetworks converts a PacketMirroringMirroredResourcesSubnetworks object from its proto representation.
 func ProtoToComputeAlphaPacketMirroringMirroredResourcesSubnetworks(p *alphapb.ComputeAlphaPacketMirroringMirroredResourcesSubnetworks) *alpha.PacketMirroringMirroredResourcesSubnetworks {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.PacketMirroringMirroredResourcesSubnetworks{
-		Url:          dcl.StringOrNil(p.Url),
-		CanonicalUrl: dcl.StringOrNil(p.CanonicalUrl),
+		Url:          dcl.StringOrNil(p.GetUrl()),
+		CanonicalUrl: dcl.StringOrNil(p.GetCanonicalUrl()),
 	}
 	return obj
 }
 
-// ProtoToPacketMirroringMirroredResourcesInstances converts a PacketMirroringMirroredResourcesInstances resource from its proto representation.
+// ProtoToPacketMirroringMirroredResourcesInstances converts a PacketMirroringMirroredResourcesInstances object from its proto representation.
 func ProtoToComputeAlphaPacketMirroringMirroredResourcesInstances(p *alphapb.ComputeAlphaPacketMirroringMirroredResourcesInstances) *alpha.PacketMirroringMirroredResourcesInstances {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.PacketMirroringMirroredResourcesInstances{
-		Url:          dcl.StringOrNil(p.Url),
-		CanonicalUrl: dcl.StringOrNil(p.CanonicalUrl),
+		Url:          dcl.StringOrNil(p.GetUrl()),
+		CanonicalUrl: dcl.StringOrNil(p.GetCanonicalUrl()),
 	}
 	return obj
 }
 
-// ProtoToPacketMirroringFilter converts a PacketMirroringFilter resource from its proto representation.
+// ProtoToPacketMirroringFilter converts a PacketMirroringFilter object from its proto representation.
 func ProtoToComputeAlphaPacketMirroringFilter(p *alphapb.ComputeAlphaPacketMirroringFilter) *alpha.PacketMirroringFilter {
 	if p == nil {
 		return nil
@@ -135,19 +135,19 @@ func ProtoToComputeAlphaPacketMirroringFilter(p *alphapb.ComputeAlphaPacketMirro
 // ProtoToPacketMirroring converts a PacketMirroring resource from its proto representation.
 func ProtoToPacketMirroring(p *alphapb.ComputeAlphaPacketMirroring) *alpha.PacketMirroring {
 	obj := &alpha.PacketMirroring{
-		Id:                dcl.Int64OrNil(p.Id),
-		SelfLink:          dcl.StringOrNil(p.SelfLink),
-		Name:              dcl.StringOrNil(p.Name),
-		Description:       dcl.StringOrNil(p.Description),
-		Region:            dcl.StringOrNil(p.Region),
+		Id:                dcl.Int64OrNil(p.GetId()),
+		SelfLink:          dcl.StringOrNil(p.GetSelfLink()),
+		Name:              dcl.StringOrNil(p.GetName()),
+		Description:       dcl.StringOrNil(p.GetDescription()),
+		Region:            dcl.StringOrNil(p.GetRegion()),
 		Network:           ProtoToComputeAlphaPacketMirroringNetwork(p.GetNetwork()),
-		Priority:          dcl.Int64OrNil(p.Priority),
+		Priority:          dcl.Int64OrNil(p.GetPriority()),
 		CollectorIlb:      ProtoToComputeAlphaPacketMirroringCollectorIlb(p.GetCollectorIlb()),
 		MirroredResources: ProtoToComputeAlphaPacketMirroringMirroredResources(p.GetMirroredResources()),
 		Filter:            ProtoToComputeAlphaPacketMirroringFilter(p.GetFilter()),
 		Enable:            ProtoToComputeAlphaPacketMirroringEnableEnum(p.GetEnable()),
-		Project:           dcl.StringOrNil(p.Project),
-		Location:          dcl.StringOrNil(p.Location),
+		Project:           dcl.StringOrNil(p.GetProject()),
+		Location:          dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -174,111 +174,115 @@ func ComputeAlphaPacketMirroringEnableEnumToProto(e *alpha.PacketMirroringEnable
 	return alphapb.ComputeAlphaPacketMirroringEnableEnum(0)
 }
 
-// PacketMirroringNetworkToProto converts a PacketMirroringNetwork resource to its proto representation.
+// PacketMirroringNetworkToProto converts a PacketMirroringNetwork object to its proto representation.
 func ComputeAlphaPacketMirroringNetworkToProto(o *alpha.PacketMirroringNetwork) *alphapb.ComputeAlphaPacketMirroringNetwork {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ComputeAlphaPacketMirroringNetwork{
-		Url:          dcl.ValueOrEmptyString(o.Url),
-		CanonicalUrl: dcl.ValueOrEmptyString(o.CanonicalUrl),
-	}
+	p := &alphapb.ComputeAlphaPacketMirroringNetwork{}
+	p.SetUrl(dcl.ValueOrEmptyString(o.Url))
+	p.SetCanonicalUrl(dcl.ValueOrEmptyString(o.CanonicalUrl))
 	return p
 }
 
-// PacketMirroringCollectorIlbToProto converts a PacketMirroringCollectorIlb resource to its proto representation.
+// PacketMirroringCollectorIlbToProto converts a PacketMirroringCollectorIlb object to its proto representation.
 func ComputeAlphaPacketMirroringCollectorIlbToProto(o *alpha.PacketMirroringCollectorIlb) *alphapb.ComputeAlphaPacketMirroringCollectorIlb {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ComputeAlphaPacketMirroringCollectorIlb{
-		Url:          dcl.ValueOrEmptyString(o.Url),
-		CanonicalUrl: dcl.ValueOrEmptyString(o.CanonicalUrl),
-	}
+	p := &alphapb.ComputeAlphaPacketMirroringCollectorIlb{}
+	p.SetUrl(dcl.ValueOrEmptyString(o.Url))
+	p.SetCanonicalUrl(dcl.ValueOrEmptyString(o.CanonicalUrl))
 	return p
 }
 
-// PacketMirroringMirroredResourcesToProto converts a PacketMirroringMirroredResources resource to its proto representation.
+// PacketMirroringMirroredResourcesToProto converts a PacketMirroringMirroredResources object to its proto representation.
 func ComputeAlphaPacketMirroringMirroredResourcesToProto(o *alpha.PacketMirroringMirroredResources) *alphapb.ComputeAlphaPacketMirroringMirroredResources {
 	if o == nil {
 		return nil
 	}
 	p := &alphapb.ComputeAlphaPacketMirroringMirroredResources{}
-	for _, r := range o.Subnetworks {
-		p.Subnetworks = append(p.Subnetworks, ComputeAlphaPacketMirroringMirroredResourcesSubnetworksToProto(&r))
+	sSubnetworks := make([]*alphapb.ComputeAlphaPacketMirroringMirroredResourcesSubnetworks, len(o.Subnetworks))
+	for i, r := range o.Subnetworks {
+		sSubnetworks[i] = ComputeAlphaPacketMirroringMirroredResourcesSubnetworksToProto(&r)
 	}
-	for _, r := range o.Instances {
-		p.Instances = append(p.Instances, ComputeAlphaPacketMirroringMirroredResourcesInstancesToProto(&r))
+	p.SetSubnetworks(sSubnetworks)
+	sInstances := make([]*alphapb.ComputeAlphaPacketMirroringMirroredResourcesInstances, len(o.Instances))
+	for i, r := range o.Instances {
+		sInstances[i] = ComputeAlphaPacketMirroringMirroredResourcesInstancesToProto(&r)
 	}
-	for _, r := range o.Tags {
-		p.Tags = append(p.Tags, r)
+	p.SetInstances(sInstances)
+	sTags := make([]string, len(o.Tags))
+	for i, r := range o.Tags {
+		sTags[i] = r
 	}
+	p.SetTags(sTags)
 	return p
 }
 
-// PacketMirroringMirroredResourcesSubnetworksToProto converts a PacketMirroringMirroredResourcesSubnetworks resource to its proto representation.
+// PacketMirroringMirroredResourcesSubnetworksToProto converts a PacketMirroringMirroredResourcesSubnetworks object to its proto representation.
 func ComputeAlphaPacketMirroringMirroredResourcesSubnetworksToProto(o *alpha.PacketMirroringMirroredResourcesSubnetworks) *alphapb.ComputeAlphaPacketMirroringMirroredResourcesSubnetworks {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ComputeAlphaPacketMirroringMirroredResourcesSubnetworks{
-		Url:          dcl.ValueOrEmptyString(o.Url),
-		CanonicalUrl: dcl.ValueOrEmptyString(o.CanonicalUrl),
-	}
+	p := &alphapb.ComputeAlphaPacketMirroringMirroredResourcesSubnetworks{}
+	p.SetUrl(dcl.ValueOrEmptyString(o.Url))
+	p.SetCanonicalUrl(dcl.ValueOrEmptyString(o.CanonicalUrl))
 	return p
 }
 
-// PacketMirroringMirroredResourcesInstancesToProto converts a PacketMirroringMirroredResourcesInstances resource to its proto representation.
+// PacketMirroringMirroredResourcesInstancesToProto converts a PacketMirroringMirroredResourcesInstances object to its proto representation.
 func ComputeAlphaPacketMirroringMirroredResourcesInstancesToProto(o *alpha.PacketMirroringMirroredResourcesInstances) *alphapb.ComputeAlphaPacketMirroringMirroredResourcesInstances {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ComputeAlphaPacketMirroringMirroredResourcesInstances{
-		Url:          dcl.ValueOrEmptyString(o.Url),
-		CanonicalUrl: dcl.ValueOrEmptyString(o.CanonicalUrl),
-	}
+	p := &alphapb.ComputeAlphaPacketMirroringMirroredResourcesInstances{}
+	p.SetUrl(dcl.ValueOrEmptyString(o.Url))
+	p.SetCanonicalUrl(dcl.ValueOrEmptyString(o.CanonicalUrl))
 	return p
 }
 
-// PacketMirroringFilterToProto converts a PacketMirroringFilter resource to its proto representation.
+// PacketMirroringFilterToProto converts a PacketMirroringFilter object to its proto representation.
 func ComputeAlphaPacketMirroringFilterToProto(o *alpha.PacketMirroringFilter) *alphapb.ComputeAlphaPacketMirroringFilter {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ComputeAlphaPacketMirroringFilter{
-		Direction: ComputeAlphaPacketMirroringFilterDirectionEnumToProto(o.Direction),
+	p := &alphapb.ComputeAlphaPacketMirroringFilter{}
+	p.SetDirection(ComputeAlphaPacketMirroringFilterDirectionEnumToProto(o.Direction))
+	sCidrRanges := make([]string, len(o.CidrRanges))
+	for i, r := range o.CidrRanges {
+		sCidrRanges[i] = r
 	}
-	for _, r := range o.CidrRanges {
-		p.CidrRanges = append(p.CidrRanges, r)
+	p.SetCidrRanges(sCidrRanges)
+	sIPProtocols := make([]string, len(o.IPProtocols))
+	for i, r := range o.IPProtocols {
+		sIPProtocols[i] = r
 	}
-	for _, r := range o.IPProtocols {
-		p.IpProtocols = append(p.IpProtocols, r)
-	}
+	p.SetIpProtocols(sIPProtocols)
 	return p
 }
 
 // PacketMirroringToProto converts a PacketMirroring resource to its proto representation.
 func PacketMirroringToProto(resource *alpha.PacketMirroring) *alphapb.ComputeAlphaPacketMirroring {
-	p := &alphapb.ComputeAlphaPacketMirroring{
-		Id:                dcl.ValueOrEmptyInt64(resource.Id),
-		SelfLink:          dcl.ValueOrEmptyString(resource.SelfLink),
-		Name:              dcl.ValueOrEmptyString(resource.Name),
-		Description:       dcl.ValueOrEmptyString(resource.Description),
-		Region:            dcl.ValueOrEmptyString(resource.Region),
-		Network:           ComputeAlphaPacketMirroringNetworkToProto(resource.Network),
-		Priority:          dcl.ValueOrEmptyInt64(resource.Priority),
-		CollectorIlb:      ComputeAlphaPacketMirroringCollectorIlbToProto(resource.CollectorIlb),
-		MirroredResources: ComputeAlphaPacketMirroringMirroredResourcesToProto(resource.MirroredResources),
-		Filter:            ComputeAlphaPacketMirroringFilterToProto(resource.Filter),
-		Enable:            ComputeAlphaPacketMirroringEnableEnumToProto(resource.Enable),
-		Project:           dcl.ValueOrEmptyString(resource.Project),
-		Location:          dcl.ValueOrEmptyString(resource.Location),
-	}
+	p := &alphapb.ComputeAlphaPacketMirroring{}
+	p.SetId(dcl.ValueOrEmptyInt64(resource.Id))
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetRegion(dcl.ValueOrEmptyString(resource.Region))
+	p.SetNetwork(ComputeAlphaPacketMirroringNetworkToProto(resource.Network))
+	p.SetPriority(dcl.ValueOrEmptyInt64(resource.Priority))
+	p.SetCollectorIlb(ComputeAlphaPacketMirroringCollectorIlbToProto(resource.CollectorIlb))
+	p.SetMirroredResources(ComputeAlphaPacketMirroringMirroredResourcesToProto(resource.MirroredResources))
+	p.SetFilter(ComputeAlphaPacketMirroringFilterToProto(resource.Filter))
+	p.SetEnable(ComputeAlphaPacketMirroringEnableEnumToProto(resource.Enable))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 
 	return p
 }
 
-// ApplyPacketMirroring handles the gRPC request by passing it to the underlying PacketMirroring Apply() method.
+// applyPacketMirroring handles the gRPC request by passing it to the underlying PacketMirroring Apply() method.
 func (s *PacketMirroringServer) applyPacketMirroring(ctx context.Context, c *alpha.Client, request *alphapb.ApplyComputeAlphaPacketMirroringRequest) (*alphapb.ComputeAlphaPacketMirroring, error) {
 	p := ProtoToPacketMirroring(request.GetResource())
 	res, err := c.ApplyPacketMirroring(ctx, p)
@@ -289,9 +293,9 @@ func (s *PacketMirroringServer) applyPacketMirroring(ctx context.Context, c *alp
 	return r, nil
 }
 
-// ApplyPacketMirroring handles the gRPC request by passing it to the underlying PacketMirroring Apply() method.
+// applyComputeAlphaPacketMirroring handles the gRPC request by passing it to the underlying PacketMirroring Apply() method.
 func (s *PacketMirroringServer) ApplyComputeAlphaPacketMirroring(ctx context.Context, request *alphapb.ApplyComputeAlphaPacketMirroringRequest) (*alphapb.ComputeAlphaPacketMirroring, error) {
-	cl, err := createConfigPacketMirroring(ctx, request.ServiceAccountFile)
+	cl, err := createConfigPacketMirroring(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -301,7 +305,7 @@ func (s *PacketMirroringServer) ApplyComputeAlphaPacketMirroring(ctx context.Con
 // DeletePacketMirroring handles the gRPC request by passing it to the underlying PacketMirroring Delete() method.
 func (s *PacketMirroringServer) DeleteComputeAlphaPacketMirroring(ctx context.Context, request *alphapb.DeleteComputeAlphaPacketMirroringRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigPacketMirroring(ctx, request.ServiceAccountFile)
+	cl, err := createConfigPacketMirroring(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -311,12 +315,12 @@ func (s *PacketMirroringServer) DeleteComputeAlphaPacketMirroring(ctx context.Co
 
 // ListComputeAlphaPacketMirroring handles the gRPC request by passing it to the underlying PacketMirroringList() method.
 func (s *PacketMirroringServer) ListComputeAlphaPacketMirroring(ctx context.Context, request *alphapb.ListComputeAlphaPacketMirroringRequest) (*alphapb.ListComputeAlphaPacketMirroringResponse, error) {
-	cl, err := createConfigPacketMirroring(ctx, request.ServiceAccountFile)
+	cl, err := createConfigPacketMirroring(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListPacketMirroring(ctx, request.Project, request.Location)
+	resources, err := cl.ListPacketMirroring(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -325,7 +329,9 @@ func (s *PacketMirroringServer) ListComputeAlphaPacketMirroring(ctx context.Cont
 		rp := PacketMirroringToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListComputeAlphaPacketMirroringResponse{Items: protos}, nil
+	p := &alphapb.ListComputeAlphaPacketMirroringResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigPacketMirroring(ctx context.Context, service_account_file string) (*alpha.Client, error) {

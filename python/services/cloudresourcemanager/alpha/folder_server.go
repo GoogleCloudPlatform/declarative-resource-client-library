@@ -40,14 +40,14 @@ func ProtoToCloudresourcemanagerAlphaFolderStateEnum(e alphapb.Cloudresourcemana
 // ProtoToFolder converts a Folder resource from its proto representation.
 func ProtoToFolder(p *alphapb.CloudresourcemanagerAlphaFolder) *alpha.Folder {
 	obj := &alpha.Folder{
-		Name:        dcl.StringOrNil(p.Name),
-		Parent:      dcl.StringOrNil(p.Parent),
-		DisplayName: dcl.StringOrNil(p.DisplayName),
+		Name:        dcl.StringOrNil(p.GetName()),
+		Parent:      dcl.StringOrNil(p.GetParent()),
+		DisplayName: dcl.StringOrNil(p.GetDisplayName()),
 		State:       ProtoToCloudresourcemanagerAlphaFolderStateEnum(p.GetState()),
 		CreateTime:  dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:  dcl.StringOrNil(p.GetUpdateTime()),
 		DeleteTime:  dcl.StringOrNil(p.GetDeleteTime()),
-		Etag:        dcl.StringOrNil(p.Etag),
+		Etag:        dcl.StringOrNil(p.GetEtag()),
 	}
 	return obj
 }
@@ -65,21 +65,20 @@ func CloudresourcemanagerAlphaFolderStateEnumToProto(e *alpha.FolderStateEnum) a
 
 // FolderToProto converts a Folder resource to its proto representation.
 func FolderToProto(resource *alpha.Folder) *alphapb.CloudresourcemanagerAlphaFolder {
-	p := &alphapb.CloudresourcemanagerAlphaFolder{
-		Name:        dcl.ValueOrEmptyString(resource.Name),
-		Parent:      dcl.ValueOrEmptyString(resource.Parent),
-		DisplayName: dcl.ValueOrEmptyString(resource.DisplayName),
-		State:       CloudresourcemanagerAlphaFolderStateEnumToProto(resource.State),
-		CreateTime:  dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:  dcl.ValueOrEmptyString(resource.UpdateTime),
-		DeleteTime:  dcl.ValueOrEmptyString(resource.DeleteTime),
-		Etag:        dcl.ValueOrEmptyString(resource.Etag),
-	}
+	p := &alphapb.CloudresourcemanagerAlphaFolder{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetParent(dcl.ValueOrEmptyString(resource.Parent))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetState(CloudresourcemanagerAlphaFolderStateEnumToProto(resource.State))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetDeleteTime(dcl.ValueOrEmptyString(resource.DeleteTime))
+	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 
 	return p
 }
 
-// ApplyFolder handles the gRPC request by passing it to the underlying Folder Apply() method.
+// applyFolder handles the gRPC request by passing it to the underlying Folder Apply() method.
 func (s *FolderServer) applyFolder(ctx context.Context, c *alpha.Client, request *alphapb.ApplyCloudresourcemanagerAlphaFolderRequest) (*alphapb.CloudresourcemanagerAlphaFolder, error) {
 	p := ProtoToFolder(request.GetResource())
 	res, err := c.ApplyFolder(ctx, p)
@@ -90,9 +89,9 @@ func (s *FolderServer) applyFolder(ctx context.Context, c *alpha.Client, request
 	return r, nil
 }
 
-// ApplyFolder handles the gRPC request by passing it to the underlying Folder Apply() method.
+// applyCloudresourcemanagerAlphaFolder handles the gRPC request by passing it to the underlying Folder Apply() method.
 func (s *FolderServer) ApplyCloudresourcemanagerAlphaFolder(ctx context.Context, request *alphapb.ApplyCloudresourcemanagerAlphaFolderRequest) (*alphapb.CloudresourcemanagerAlphaFolder, error) {
-	cl, err := createConfigFolder(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFolder(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -102,7 +101,7 @@ func (s *FolderServer) ApplyCloudresourcemanagerAlphaFolder(ctx context.Context,
 // DeleteFolder handles the gRPC request by passing it to the underlying Folder Delete() method.
 func (s *FolderServer) DeleteCloudresourcemanagerAlphaFolder(ctx context.Context, request *alphapb.DeleteCloudresourcemanagerAlphaFolderRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigFolder(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFolder(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -112,12 +111,12 @@ func (s *FolderServer) DeleteCloudresourcemanagerAlphaFolder(ctx context.Context
 
 // ListCloudresourcemanagerAlphaFolder handles the gRPC request by passing it to the underlying FolderList() method.
 func (s *FolderServer) ListCloudresourcemanagerAlphaFolder(ctx context.Context, request *alphapb.ListCloudresourcemanagerAlphaFolderRequest) (*alphapb.ListCloudresourcemanagerAlphaFolderResponse, error) {
-	cl, err := createConfigFolder(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFolder(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListFolder(ctx, request.Parent)
+	resources, err := cl.ListFolder(ctx, request.GetParent())
 	if err != nil {
 		return nil, err
 	}
@@ -126,7 +125,9 @@ func (s *FolderServer) ListCloudresourcemanagerAlphaFolder(ctx context.Context, 
 		rp := FolderToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListCloudresourcemanagerAlphaFolderResponse{Items: protos}, nil
+	p := &alphapb.ListCloudresourcemanagerAlphaFolderResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigFolder(ctx context.Context, service_account_file string) (*alpha.Client, error) {

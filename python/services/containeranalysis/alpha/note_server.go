@@ -61,38 +61,38 @@ func ProtoToContaineranalysisAlphaNoteDiscoveryAnalysisKindEnum(e alphapb.Contai
 	return nil
 }
 
-// ProtoToNoteRelatedUrl converts a NoteRelatedUrl resource from its proto representation.
+// ProtoToNoteRelatedUrl converts a NoteRelatedUrl object from its proto representation.
 func ProtoToContaineranalysisAlphaNoteRelatedUrl(p *alphapb.ContaineranalysisAlphaNoteRelatedUrl) *alpha.NoteRelatedUrl {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.NoteRelatedUrl{
-		Url:   dcl.StringOrNil(p.Url),
-		Label: dcl.StringOrNil(p.Label),
+		Url:   dcl.StringOrNil(p.GetUrl()),
+		Label: dcl.StringOrNil(p.GetLabel()),
 	}
 	return obj
 }
 
-// ProtoToNoteImage converts a NoteImage resource from its proto representation.
+// ProtoToNoteImage converts a NoteImage object from its proto representation.
 func ProtoToContaineranalysisAlphaNoteImage(p *alphapb.ContaineranalysisAlphaNoteImage) *alpha.NoteImage {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.NoteImage{
-		ResourceUrl: dcl.StringOrNil(p.ResourceUrl),
+		ResourceUrl: dcl.StringOrNil(p.GetResourceUrl()),
 		Fingerprint: ProtoToContaineranalysisAlphaNoteImageFingerprint(p.GetFingerprint()),
 	}
 	return obj
 }
 
-// ProtoToNoteImageFingerprint converts a NoteImageFingerprint resource from its proto representation.
+// ProtoToNoteImageFingerprint converts a NoteImageFingerprint object from its proto representation.
 func ProtoToContaineranalysisAlphaNoteImageFingerprint(p *alphapb.ContaineranalysisAlphaNoteImageFingerprint) *alpha.NoteImageFingerprint {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.NoteImageFingerprint{
-		V1Name: dcl.StringOrNil(p.V1Name),
-		V2Name: dcl.StringOrNil(p.V2Name),
+		V1Name: dcl.StringOrNil(p.GetV1Name()),
+		V2Name: dcl.StringOrNil(p.GetV2Name()),
 	}
 	for _, r := range p.GetV2Blob() {
 		obj.V2Blob = append(obj.V2Blob, r)
@@ -100,13 +100,13 @@ func ProtoToContaineranalysisAlphaNoteImageFingerprint(p *alphapb.Containeranaly
 	return obj
 }
 
-// ProtoToNotePackage converts a NotePackage resource from its proto representation.
+// ProtoToNotePackage converts a NotePackage object from its proto representation.
 func ProtoToContaineranalysisAlphaNotePackage(p *alphapb.ContaineranalysisAlphaNotePackage) *alpha.NotePackage {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.NotePackage{
-		Name: dcl.StringOrNil(p.Name),
+		Name: dcl.StringOrNil(p.GetName()),
 	}
 	for _, r := range p.GetDistribution() {
 		obj.Distribution = append(obj.Distribution, *ProtoToContaineranalysisAlphaNotePackageDistribution(r))
@@ -114,38 +114,38 @@ func ProtoToContaineranalysisAlphaNotePackage(p *alphapb.ContaineranalysisAlphaN
 	return obj
 }
 
-// ProtoToNotePackageDistribution converts a NotePackageDistribution resource from its proto representation.
+// ProtoToNotePackageDistribution converts a NotePackageDistribution object from its proto representation.
 func ProtoToContaineranalysisAlphaNotePackageDistribution(p *alphapb.ContaineranalysisAlphaNotePackageDistribution) *alpha.NotePackageDistribution {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.NotePackageDistribution{
-		CpeUri:        dcl.StringOrNil(p.CpeUri),
+		CpeUri:        dcl.StringOrNil(p.GetCpeUri()),
 		Architecture:  ProtoToContaineranalysisAlphaNotePackageDistributionArchitectureEnum(p.GetArchitecture()),
 		LatestVersion: ProtoToContaineranalysisAlphaNotePackageDistributionLatestVersion(p.GetLatestVersion()),
-		Maintainer:    dcl.StringOrNil(p.Maintainer),
-		Url:           dcl.StringOrNil(p.Url),
-		Description:   dcl.StringOrNil(p.Description),
+		Maintainer:    dcl.StringOrNil(p.GetMaintainer()),
+		Url:           dcl.StringOrNil(p.GetUrl()),
+		Description:   dcl.StringOrNil(p.GetDescription()),
 	}
 	return obj
 }
 
-// ProtoToNotePackageDistributionLatestVersion converts a NotePackageDistributionLatestVersion resource from its proto representation.
+// ProtoToNotePackageDistributionLatestVersion converts a NotePackageDistributionLatestVersion object from its proto representation.
 func ProtoToContaineranalysisAlphaNotePackageDistributionLatestVersion(p *alphapb.ContaineranalysisAlphaNotePackageDistributionLatestVersion) *alpha.NotePackageDistributionLatestVersion {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.NotePackageDistributionLatestVersion{
-		Epoch:    dcl.Int64OrNil(p.Epoch),
-		Name:     dcl.StringOrNil(p.Name),
-		Revision: dcl.StringOrNil(p.Revision),
+		Epoch:    dcl.Int64OrNil(p.GetEpoch()),
+		Name:     dcl.StringOrNil(p.GetName()),
+		Revision: dcl.StringOrNil(p.GetRevision()),
 		Kind:     ProtoToContaineranalysisAlphaNotePackageDistributionLatestVersionKindEnum(p.GetKind()),
-		FullName: dcl.StringOrNil(p.FullName),
+		FullName: dcl.StringOrNil(p.GetFullName()),
 	}
 	return obj
 }
 
-// ProtoToNoteDiscovery converts a NoteDiscovery resource from its proto representation.
+// ProtoToNoteDiscovery converts a NoteDiscovery object from its proto representation.
 func ProtoToContaineranalysisAlphaNoteDiscovery(p *alphapb.ContaineranalysisAlphaNoteDiscovery) *alpha.NoteDiscovery {
 	if p == nil {
 		return nil
@@ -156,7 +156,7 @@ func ProtoToContaineranalysisAlphaNoteDiscovery(p *alphapb.ContaineranalysisAlph
 	return obj
 }
 
-// ProtoToNoteDeployment converts a NoteDeployment resource from its proto representation.
+// ProtoToNoteDeployment converts a NoteDeployment object from its proto representation.
 func ProtoToContaineranalysisAlphaNoteDeployment(p *alphapb.ContaineranalysisAlphaNoteDeployment) *alpha.NoteDeployment {
 	if p == nil {
 		return nil
@@ -168,7 +168,7 @@ func ProtoToContaineranalysisAlphaNoteDeployment(p *alphapb.ContaineranalysisAlp
 	return obj
 }
 
-// ProtoToNoteAttestation converts a NoteAttestation resource from its proto representation.
+// ProtoToNoteAttestation converts a NoteAttestation object from its proto representation.
 func ProtoToContaineranalysisAlphaNoteAttestation(p *alphapb.ContaineranalysisAlphaNoteAttestation) *alpha.NoteAttestation {
 	if p == nil {
 		return nil
@@ -179,13 +179,13 @@ func ProtoToContaineranalysisAlphaNoteAttestation(p *alphapb.ContaineranalysisAl
 	return obj
 }
 
-// ProtoToNoteAttestationHint converts a NoteAttestationHint resource from its proto representation.
+// ProtoToNoteAttestationHint converts a NoteAttestationHint object from its proto representation.
 func ProtoToContaineranalysisAlphaNoteAttestationHint(p *alphapb.ContaineranalysisAlphaNoteAttestationHint) *alpha.NoteAttestationHint {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.NoteAttestationHint{
-		HumanReadableName: dcl.StringOrNil(p.HumanReadableName),
+		HumanReadableName: dcl.StringOrNil(p.GetHumanReadableName()),
 	}
 	return obj
 }
@@ -193,9 +193,9 @@ func ProtoToContaineranalysisAlphaNoteAttestationHint(p *alphapb.Containeranalys
 // ProtoToNote converts a Note resource from its proto representation.
 func ProtoToNote(p *alphapb.ContaineranalysisAlphaNote) *alpha.Note {
 	obj := &alpha.Note{
-		Name:             dcl.StringOrNil(p.Name),
-		ShortDescription: dcl.StringOrNil(p.ShortDescription),
-		LongDescription:  dcl.StringOrNil(p.LongDescription),
+		Name:             dcl.StringOrNil(p.GetName()),
+		ShortDescription: dcl.StringOrNil(p.GetShortDescription()),
+		LongDescription:  dcl.StringOrNil(p.GetLongDescription()),
 		ExpirationTime:   dcl.StringOrNil(p.GetExpirationTime()),
 		CreateTime:       dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:       dcl.StringOrNil(p.GetUpdateTime()),
@@ -204,7 +204,7 @@ func ProtoToNote(p *alphapb.ContaineranalysisAlphaNote) *alpha.Note {
 		Discovery:        ProtoToContaineranalysisAlphaNoteDiscovery(p.GetDiscovery()),
 		Deployment:       ProtoToContaineranalysisAlphaNoteDeployment(p.GetDeployment()),
 		Attestation:      ProtoToContaineranalysisAlphaNoteAttestation(p.GetAttestation()),
-		Project:          dcl.StringOrNil(p.Project),
+		Project:          dcl.StringOrNil(p.GetProject()),
 	}
 	for _, r := range p.GetRelatedUrl() {
 		obj.RelatedUrl = append(obj.RelatedUrl, *ProtoToContaineranalysisAlphaNoteRelatedUrl(r))
@@ -245,159 +245,157 @@ func ContaineranalysisAlphaNoteDiscoveryAnalysisKindEnumToProto(e *alpha.NoteDis
 	return alphapb.ContaineranalysisAlphaNoteDiscoveryAnalysisKindEnum(0)
 }
 
-// NoteRelatedUrlToProto converts a NoteRelatedUrl resource to its proto representation.
+// NoteRelatedUrlToProto converts a NoteRelatedUrl object to its proto representation.
 func ContaineranalysisAlphaNoteRelatedUrlToProto(o *alpha.NoteRelatedUrl) *alphapb.ContaineranalysisAlphaNoteRelatedUrl {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContaineranalysisAlphaNoteRelatedUrl{
-		Url:   dcl.ValueOrEmptyString(o.Url),
-		Label: dcl.ValueOrEmptyString(o.Label),
-	}
+	p := &alphapb.ContaineranalysisAlphaNoteRelatedUrl{}
+	p.SetUrl(dcl.ValueOrEmptyString(o.Url))
+	p.SetLabel(dcl.ValueOrEmptyString(o.Label))
 	return p
 }
 
-// NoteImageToProto converts a NoteImage resource to its proto representation.
+// NoteImageToProto converts a NoteImage object to its proto representation.
 func ContaineranalysisAlphaNoteImageToProto(o *alpha.NoteImage) *alphapb.ContaineranalysisAlphaNoteImage {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContaineranalysisAlphaNoteImage{
-		ResourceUrl: dcl.ValueOrEmptyString(o.ResourceUrl),
-		Fingerprint: ContaineranalysisAlphaNoteImageFingerprintToProto(o.Fingerprint),
-	}
+	p := &alphapb.ContaineranalysisAlphaNoteImage{}
+	p.SetResourceUrl(dcl.ValueOrEmptyString(o.ResourceUrl))
+	p.SetFingerprint(ContaineranalysisAlphaNoteImageFingerprintToProto(o.Fingerprint))
 	return p
 }
 
-// NoteImageFingerprintToProto converts a NoteImageFingerprint resource to its proto representation.
+// NoteImageFingerprintToProto converts a NoteImageFingerprint object to its proto representation.
 func ContaineranalysisAlphaNoteImageFingerprintToProto(o *alpha.NoteImageFingerprint) *alphapb.ContaineranalysisAlphaNoteImageFingerprint {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContaineranalysisAlphaNoteImageFingerprint{
-		V1Name: dcl.ValueOrEmptyString(o.V1Name),
-		V2Name: dcl.ValueOrEmptyString(o.V2Name),
+	p := &alphapb.ContaineranalysisAlphaNoteImageFingerprint{}
+	p.SetV1Name(dcl.ValueOrEmptyString(o.V1Name))
+	p.SetV2Name(dcl.ValueOrEmptyString(o.V2Name))
+	sV2Blob := make([]string, len(o.V2Blob))
+	for i, r := range o.V2Blob {
+		sV2Blob[i] = r
 	}
-	for _, r := range o.V2Blob {
-		p.V2Blob = append(p.V2Blob, r)
-	}
+	p.SetV2Blob(sV2Blob)
 	return p
 }
 
-// NotePackageToProto converts a NotePackage resource to its proto representation.
+// NotePackageToProto converts a NotePackage object to its proto representation.
 func ContaineranalysisAlphaNotePackageToProto(o *alpha.NotePackage) *alphapb.ContaineranalysisAlphaNotePackage {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContaineranalysisAlphaNotePackage{
-		Name: dcl.ValueOrEmptyString(o.Name),
+	p := &alphapb.ContaineranalysisAlphaNotePackage{}
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	sDistribution := make([]*alphapb.ContaineranalysisAlphaNotePackageDistribution, len(o.Distribution))
+	for i, r := range o.Distribution {
+		sDistribution[i] = ContaineranalysisAlphaNotePackageDistributionToProto(&r)
 	}
-	for _, r := range o.Distribution {
-		p.Distribution = append(p.Distribution, ContaineranalysisAlphaNotePackageDistributionToProto(&r))
-	}
+	p.SetDistribution(sDistribution)
 	return p
 }
 
-// NotePackageDistributionToProto converts a NotePackageDistribution resource to its proto representation.
+// NotePackageDistributionToProto converts a NotePackageDistribution object to its proto representation.
 func ContaineranalysisAlphaNotePackageDistributionToProto(o *alpha.NotePackageDistribution) *alphapb.ContaineranalysisAlphaNotePackageDistribution {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContaineranalysisAlphaNotePackageDistribution{
-		CpeUri:        dcl.ValueOrEmptyString(o.CpeUri),
-		Architecture:  ContaineranalysisAlphaNotePackageDistributionArchitectureEnumToProto(o.Architecture),
-		LatestVersion: ContaineranalysisAlphaNotePackageDistributionLatestVersionToProto(o.LatestVersion),
-		Maintainer:    dcl.ValueOrEmptyString(o.Maintainer),
-		Url:           dcl.ValueOrEmptyString(o.Url),
-		Description:   dcl.ValueOrEmptyString(o.Description),
-	}
+	p := &alphapb.ContaineranalysisAlphaNotePackageDistribution{}
+	p.SetCpeUri(dcl.ValueOrEmptyString(o.CpeUri))
+	p.SetArchitecture(ContaineranalysisAlphaNotePackageDistributionArchitectureEnumToProto(o.Architecture))
+	p.SetLatestVersion(ContaineranalysisAlphaNotePackageDistributionLatestVersionToProto(o.LatestVersion))
+	p.SetMaintainer(dcl.ValueOrEmptyString(o.Maintainer))
+	p.SetUrl(dcl.ValueOrEmptyString(o.Url))
+	p.SetDescription(dcl.ValueOrEmptyString(o.Description))
 	return p
 }
 
-// NotePackageDistributionLatestVersionToProto converts a NotePackageDistributionLatestVersion resource to its proto representation.
+// NotePackageDistributionLatestVersionToProto converts a NotePackageDistributionLatestVersion object to its proto representation.
 func ContaineranalysisAlphaNotePackageDistributionLatestVersionToProto(o *alpha.NotePackageDistributionLatestVersion) *alphapb.ContaineranalysisAlphaNotePackageDistributionLatestVersion {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContaineranalysisAlphaNotePackageDistributionLatestVersion{
-		Epoch:    dcl.ValueOrEmptyInt64(o.Epoch),
-		Name:     dcl.ValueOrEmptyString(o.Name),
-		Revision: dcl.ValueOrEmptyString(o.Revision),
-		Kind:     ContaineranalysisAlphaNotePackageDistributionLatestVersionKindEnumToProto(o.Kind),
-		FullName: dcl.ValueOrEmptyString(o.FullName),
-	}
+	p := &alphapb.ContaineranalysisAlphaNotePackageDistributionLatestVersion{}
+	p.SetEpoch(dcl.ValueOrEmptyInt64(o.Epoch))
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetRevision(dcl.ValueOrEmptyString(o.Revision))
+	p.SetKind(ContaineranalysisAlphaNotePackageDistributionLatestVersionKindEnumToProto(o.Kind))
+	p.SetFullName(dcl.ValueOrEmptyString(o.FullName))
 	return p
 }
 
-// NoteDiscoveryToProto converts a NoteDiscovery resource to its proto representation.
+// NoteDiscoveryToProto converts a NoteDiscovery object to its proto representation.
 func ContaineranalysisAlphaNoteDiscoveryToProto(o *alpha.NoteDiscovery) *alphapb.ContaineranalysisAlphaNoteDiscovery {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContaineranalysisAlphaNoteDiscovery{
-		AnalysisKind: ContaineranalysisAlphaNoteDiscoveryAnalysisKindEnumToProto(o.AnalysisKind),
-	}
+	p := &alphapb.ContaineranalysisAlphaNoteDiscovery{}
+	p.SetAnalysisKind(ContaineranalysisAlphaNoteDiscoveryAnalysisKindEnumToProto(o.AnalysisKind))
 	return p
 }
 
-// NoteDeploymentToProto converts a NoteDeployment resource to its proto representation.
+// NoteDeploymentToProto converts a NoteDeployment object to its proto representation.
 func ContaineranalysisAlphaNoteDeploymentToProto(o *alpha.NoteDeployment) *alphapb.ContaineranalysisAlphaNoteDeployment {
 	if o == nil {
 		return nil
 	}
 	p := &alphapb.ContaineranalysisAlphaNoteDeployment{}
-	for _, r := range o.ResourceUri {
-		p.ResourceUri = append(p.ResourceUri, r)
+	sResourceUri := make([]string, len(o.ResourceUri))
+	for i, r := range o.ResourceUri {
+		sResourceUri[i] = r
 	}
+	p.SetResourceUri(sResourceUri)
 	return p
 }
 
-// NoteAttestationToProto converts a NoteAttestation resource to its proto representation.
+// NoteAttestationToProto converts a NoteAttestation object to its proto representation.
 func ContaineranalysisAlphaNoteAttestationToProto(o *alpha.NoteAttestation) *alphapb.ContaineranalysisAlphaNoteAttestation {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContaineranalysisAlphaNoteAttestation{
-		Hint: ContaineranalysisAlphaNoteAttestationHintToProto(o.Hint),
-	}
+	p := &alphapb.ContaineranalysisAlphaNoteAttestation{}
+	p.SetHint(ContaineranalysisAlphaNoteAttestationHintToProto(o.Hint))
 	return p
 }
 
-// NoteAttestationHintToProto converts a NoteAttestationHint resource to its proto representation.
+// NoteAttestationHintToProto converts a NoteAttestationHint object to its proto representation.
 func ContaineranalysisAlphaNoteAttestationHintToProto(o *alpha.NoteAttestationHint) *alphapb.ContaineranalysisAlphaNoteAttestationHint {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContaineranalysisAlphaNoteAttestationHint{
-		HumanReadableName: dcl.ValueOrEmptyString(o.HumanReadableName),
-	}
+	p := &alphapb.ContaineranalysisAlphaNoteAttestationHint{}
+	p.SetHumanReadableName(dcl.ValueOrEmptyString(o.HumanReadableName))
 	return p
 }
 
 // NoteToProto converts a Note resource to its proto representation.
 func NoteToProto(resource *alpha.Note) *alphapb.ContaineranalysisAlphaNote {
-	p := &alphapb.ContaineranalysisAlphaNote{
-		Name:             dcl.ValueOrEmptyString(resource.Name),
-		ShortDescription: dcl.ValueOrEmptyString(resource.ShortDescription),
-		LongDescription:  dcl.ValueOrEmptyString(resource.LongDescription),
-		ExpirationTime:   dcl.ValueOrEmptyString(resource.ExpirationTime),
-		CreateTime:       dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:       dcl.ValueOrEmptyString(resource.UpdateTime),
-		Image:            ContaineranalysisAlphaNoteImageToProto(resource.Image),
-		Package:          ContaineranalysisAlphaNotePackageToProto(resource.Package),
-		Discovery:        ContaineranalysisAlphaNoteDiscoveryToProto(resource.Discovery),
-		Deployment:       ContaineranalysisAlphaNoteDeploymentToProto(resource.Deployment),
-		Attestation:      ContaineranalysisAlphaNoteAttestationToProto(resource.Attestation),
-		Project:          dcl.ValueOrEmptyString(resource.Project),
+	p := &alphapb.ContaineranalysisAlphaNote{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetShortDescription(dcl.ValueOrEmptyString(resource.ShortDescription))
+	p.SetLongDescription(dcl.ValueOrEmptyString(resource.LongDescription))
+	p.SetExpirationTime(dcl.ValueOrEmptyString(resource.ExpirationTime))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetImage(ContaineranalysisAlphaNoteImageToProto(resource.Image))
+	p.SetPackage(ContaineranalysisAlphaNotePackageToProto(resource.Package))
+	p.SetDiscovery(ContaineranalysisAlphaNoteDiscoveryToProto(resource.Discovery))
+	p.SetDeployment(ContaineranalysisAlphaNoteDeploymentToProto(resource.Deployment))
+	p.SetAttestation(ContaineranalysisAlphaNoteAttestationToProto(resource.Attestation))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	sRelatedUrl := make([]*alphapb.ContaineranalysisAlphaNoteRelatedUrl, len(resource.RelatedUrl))
+	for i, r := range resource.RelatedUrl {
+		sRelatedUrl[i] = ContaineranalysisAlphaNoteRelatedUrlToProto(&r)
 	}
-	for _, r := range resource.RelatedUrl {
-		p.RelatedUrl = append(p.RelatedUrl, ContaineranalysisAlphaNoteRelatedUrlToProto(&r))
-	}
+	p.SetRelatedUrl(sRelatedUrl)
 
 	return p
 }
 
-// ApplyNote handles the gRPC request by passing it to the underlying Note Apply() method.
+// applyNote handles the gRPC request by passing it to the underlying Note Apply() method.
 func (s *NoteServer) applyNote(ctx context.Context, c *alpha.Client, request *alphapb.ApplyContaineranalysisAlphaNoteRequest) (*alphapb.ContaineranalysisAlphaNote, error) {
 	p := ProtoToNote(request.GetResource())
 	res, err := c.ApplyNote(ctx, p)
@@ -408,9 +406,9 @@ func (s *NoteServer) applyNote(ctx context.Context, c *alpha.Client, request *al
 	return r, nil
 }
 
-// ApplyNote handles the gRPC request by passing it to the underlying Note Apply() method.
+// applyContaineranalysisAlphaNote handles the gRPC request by passing it to the underlying Note Apply() method.
 func (s *NoteServer) ApplyContaineranalysisAlphaNote(ctx context.Context, request *alphapb.ApplyContaineranalysisAlphaNoteRequest) (*alphapb.ContaineranalysisAlphaNote, error) {
-	cl, err := createConfigNote(ctx, request.ServiceAccountFile)
+	cl, err := createConfigNote(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -420,7 +418,7 @@ func (s *NoteServer) ApplyContaineranalysisAlphaNote(ctx context.Context, reques
 // DeleteNote handles the gRPC request by passing it to the underlying Note Delete() method.
 func (s *NoteServer) DeleteContaineranalysisAlphaNote(ctx context.Context, request *alphapb.DeleteContaineranalysisAlphaNoteRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigNote(ctx, request.ServiceAccountFile)
+	cl, err := createConfigNote(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -430,12 +428,12 @@ func (s *NoteServer) DeleteContaineranalysisAlphaNote(ctx context.Context, reque
 
 // ListContaineranalysisAlphaNote handles the gRPC request by passing it to the underlying NoteList() method.
 func (s *NoteServer) ListContaineranalysisAlphaNote(ctx context.Context, request *alphapb.ListContaineranalysisAlphaNoteRequest) (*alphapb.ListContaineranalysisAlphaNoteResponse, error) {
-	cl, err := createConfigNote(ctx, request.ServiceAccountFile)
+	cl, err := createConfigNote(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListNote(ctx, request.Project)
+	resources, err := cl.ListNote(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -444,7 +442,9 @@ func (s *NoteServer) ListContaineranalysisAlphaNote(ctx context.Context, request
 		rp := NoteToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListContaineranalysisAlphaNoteResponse{Items: protos}, nil
+	p := &alphapb.ListContaineranalysisAlphaNoteResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigNote(ctx context.Context, service_account_file string) (*alpha.Client, error) {

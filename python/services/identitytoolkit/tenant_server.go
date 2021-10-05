@@ -49,7 +49,7 @@ func ProtoToIdentitytoolkitTenantMfaConfigEnabledProvidersEnum(e identitytoolkit
 	return nil
 }
 
-// ProtoToTenantMfaConfig converts a TenantMfaConfig resource from its proto representation.
+// ProtoToTenantMfaConfig converts a TenantMfaConfig object from its proto representation.
 func ProtoToIdentitytoolkitTenantMfaConfig(p *identitytoolkitpb.IdentitytoolkitTenantMfaConfig) *identitytoolkit.TenantMfaConfig {
 	if p == nil {
 		return nil
@@ -66,14 +66,14 @@ func ProtoToIdentitytoolkitTenantMfaConfig(p *identitytoolkitpb.IdentitytoolkitT
 // ProtoToTenant converts a Tenant resource from its proto representation.
 func ProtoToTenant(p *identitytoolkitpb.IdentitytoolkitTenant) *identitytoolkit.Tenant {
 	obj := &identitytoolkit.Tenant{
-		Name:                  dcl.StringOrNil(p.Name),
-		DisplayName:           dcl.StringOrNil(p.DisplayName),
-		AllowPasswordSignup:   dcl.Bool(p.AllowPasswordSignup),
-		EnableEmailLinkSignin: dcl.Bool(p.EnableEmailLinkSignin),
-		DisableAuth:           dcl.Bool(p.DisableAuth),
-		EnableAnonymousUser:   dcl.Bool(p.EnableAnonymousUser),
+		Name:                  dcl.StringOrNil(p.GetName()),
+		DisplayName:           dcl.StringOrNil(p.GetDisplayName()),
+		AllowPasswordSignup:   dcl.Bool(p.GetAllowPasswordSignup()),
+		EnableEmailLinkSignin: dcl.Bool(p.GetEnableEmailLinkSignin()),
+		DisableAuth:           dcl.Bool(p.GetDisableAuth()),
+		EnableAnonymousUser:   dcl.Bool(p.GetEnableAnonymousUser()),
 		MfaConfig:             ProtoToIdentitytoolkitTenantMfaConfig(p.GetMfaConfig()),
-		Project:               dcl.StringOrNil(p.Project),
+		Project:               dcl.StringOrNil(p.GetProject()),
 	}
 	return obj
 }
@@ -100,37 +100,42 @@ func IdentitytoolkitTenantMfaConfigEnabledProvidersEnumToProto(e *identitytoolki
 	return identitytoolkitpb.IdentitytoolkitTenantMfaConfigEnabledProvidersEnum(0)
 }
 
-// TenantMfaConfigToProto converts a TenantMfaConfig resource to its proto representation.
+// TenantMfaConfigToProto converts a TenantMfaConfig object to its proto representation.
 func IdentitytoolkitTenantMfaConfigToProto(o *identitytoolkit.TenantMfaConfig) *identitytoolkitpb.IdentitytoolkitTenantMfaConfig {
 	if o == nil {
 		return nil
 	}
-	p := &identitytoolkitpb.IdentitytoolkitTenantMfaConfig{
-		State: IdentitytoolkitTenantMfaConfigStateEnumToProto(o.State),
+	p := &identitytoolkitpb.IdentitytoolkitTenantMfaConfig{}
+	p.SetState(IdentitytoolkitTenantMfaConfigStateEnumToProto(o.State))
+	sEnabledProviders := make([]identitytoolkitpb.IdentitytoolkitTenantMfaConfigEnabledProvidersEnum, len(o.EnabledProviders))
+	for i, r := range o.EnabledProviders {
+		sEnabledProviders[i] = identitytoolkitpb.IdentitytoolkitTenantMfaConfigEnabledProvidersEnum(identitytoolkitpb.IdentitytoolkitTenantMfaConfigEnabledProvidersEnum_value[string(r)])
 	}
-	for _, r := range o.EnabledProviders {
-		p.EnabledProviders = append(p.EnabledProviders, identitytoolkitpb.IdentitytoolkitTenantMfaConfigEnabledProvidersEnum(identitytoolkitpb.IdentitytoolkitTenantMfaConfigEnabledProvidersEnum_value[string(r)]))
-	}
+	p.SetEnabledProviders(sEnabledProviders)
 	return p
 }
 
 // TenantToProto converts a Tenant resource to its proto representation.
 func TenantToProto(resource *identitytoolkit.Tenant) *identitytoolkitpb.IdentitytoolkitTenant {
-	p := &identitytoolkitpb.IdentitytoolkitTenant{
-		Name:                  dcl.ValueOrEmptyString(resource.Name),
-		DisplayName:           dcl.ValueOrEmptyString(resource.DisplayName),
-		AllowPasswordSignup:   dcl.ValueOrEmptyBool(resource.AllowPasswordSignup),
-		EnableEmailLinkSignin: dcl.ValueOrEmptyBool(resource.EnableEmailLinkSignin),
-		DisableAuth:           dcl.ValueOrEmptyBool(resource.DisableAuth),
-		EnableAnonymousUser:   dcl.ValueOrEmptyBool(resource.EnableAnonymousUser),
-		MfaConfig:             IdentitytoolkitTenantMfaConfigToProto(resource.MfaConfig),
-		Project:               dcl.ValueOrEmptyString(resource.Project),
+	p := &identitytoolkitpb.IdentitytoolkitTenant{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetAllowPasswordSignup(dcl.ValueOrEmptyBool(resource.AllowPasswordSignup))
+	p.SetEnableEmailLinkSignin(dcl.ValueOrEmptyBool(resource.EnableEmailLinkSignin))
+	p.SetDisableAuth(dcl.ValueOrEmptyBool(resource.DisableAuth))
+	p.SetEnableAnonymousUser(dcl.ValueOrEmptyBool(resource.EnableAnonymousUser))
+	p.SetMfaConfig(IdentitytoolkitTenantMfaConfigToProto(resource.MfaConfig))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	mTestPhoneNumbers := make(map[string]string, len(resource.TestPhoneNumbers))
+	for k, r := range resource.TestPhoneNumbers {
+		mTestPhoneNumbers[k] = r
 	}
+	p.SetTestPhoneNumbers(mTestPhoneNumbers)
 
 	return p
 }
 
-// ApplyTenant handles the gRPC request by passing it to the underlying Tenant Apply() method.
+// applyTenant handles the gRPC request by passing it to the underlying Tenant Apply() method.
 func (s *TenantServer) applyTenant(ctx context.Context, c *identitytoolkit.Client, request *identitytoolkitpb.ApplyIdentitytoolkitTenantRequest) (*identitytoolkitpb.IdentitytoolkitTenant, error) {
 	p := ProtoToTenant(request.GetResource())
 	res, err := c.ApplyTenant(ctx, p)
@@ -141,9 +146,9 @@ func (s *TenantServer) applyTenant(ctx context.Context, c *identitytoolkit.Clien
 	return r, nil
 }
 
-// ApplyTenant handles the gRPC request by passing it to the underlying Tenant Apply() method.
+// applyIdentitytoolkitTenant handles the gRPC request by passing it to the underlying Tenant Apply() method.
 func (s *TenantServer) ApplyIdentitytoolkitTenant(ctx context.Context, request *identitytoolkitpb.ApplyIdentitytoolkitTenantRequest) (*identitytoolkitpb.IdentitytoolkitTenant, error) {
-	cl, err := createConfigTenant(ctx, request.ServiceAccountFile)
+	cl, err := createConfigTenant(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -153,7 +158,7 @@ func (s *TenantServer) ApplyIdentitytoolkitTenant(ctx context.Context, request *
 // DeleteTenant handles the gRPC request by passing it to the underlying Tenant Delete() method.
 func (s *TenantServer) DeleteIdentitytoolkitTenant(ctx context.Context, request *identitytoolkitpb.DeleteIdentitytoolkitTenantRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigTenant(ctx, request.ServiceAccountFile)
+	cl, err := createConfigTenant(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -163,12 +168,12 @@ func (s *TenantServer) DeleteIdentitytoolkitTenant(ctx context.Context, request 
 
 // ListIdentitytoolkitTenant handles the gRPC request by passing it to the underlying TenantList() method.
 func (s *TenantServer) ListIdentitytoolkitTenant(ctx context.Context, request *identitytoolkitpb.ListIdentitytoolkitTenantRequest) (*identitytoolkitpb.ListIdentitytoolkitTenantResponse, error) {
-	cl, err := createConfigTenant(ctx, request.ServiceAccountFile)
+	cl, err := createConfigTenant(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListTenant(ctx, request.Project)
+	resources, err := cl.ListTenant(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -177,7 +182,9 @@ func (s *TenantServer) ListIdentitytoolkitTenant(ctx context.Context, request *i
 		rp := TenantToProto(r)
 		protos = append(protos, rp)
 	}
-	return &identitytoolkitpb.ListIdentitytoolkitTenantResponse{Items: protos}, nil
+	p := &identitytoolkitpb.ListIdentitytoolkitTenantResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigTenant(ctx context.Context, service_account_file string) (*identitytoolkit.Client, error) {

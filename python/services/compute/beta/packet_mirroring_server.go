@@ -49,31 +49,31 @@ func ProtoToComputeBetaPacketMirroringEnableEnum(e betapb.ComputeBetaPacketMirro
 	return nil
 }
 
-// ProtoToPacketMirroringNetwork converts a PacketMirroringNetwork resource from its proto representation.
+// ProtoToPacketMirroringNetwork converts a PacketMirroringNetwork object from its proto representation.
 func ProtoToComputeBetaPacketMirroringNetwork(p *betapb.ComputeBetaPacketMirroringNetwork) *beta.PacketMirroringNetwork {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.PacketMirroringNetwork{
-		Url:          dcl.StringOrNil(p.Url),
-		CanonicalUrl: dcl.StringOrNil(p.CanonicalUrl),
+		Url:          dcl.StringOrNil(p.GetUrl()),
+		CanonicalUrl: dcl.StringOrNil(p.GetCanonicalUrl()),
 	}
 	return obj
 }
 
-// ProtoToPacketMirroringCollectorIlb converts a PacketMirroringCollectorIlb resource from its proto representation.
+// ProtoToPacketMirroringCollectorIlb converts a PacketMirroringCollectorIlb object from its proto representation.
 func ProtoToComputeBetaPacketMirroringCollectorIlb(p *betapb.ComputeBetaPacketMirroringCollectorIlb) *beta.PacketMirroringCollectorIlb {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.PacketMirroringCollectorIlb{
-		Url:          dcl.StringOrNil(p.Url),
-		CanonicalUrl: dcl.StringOrNil(p.CanonicalUrl),
+		Url:          dcl.StringOrNil(p.GetUrl()),
+		CanonicalUrl: dcl.StringOrNil(p.GetCanonicalUrl()),
 	}
 	return obj
 }
 
-// ProtoToPacketMirroringMirroredResources converts a PacketMirroringMirroredResources resource from its proto representation.
+// ProtoToPacketMirroringMirroredResources converts a PacketMirroringMirroredResources object from its proto representation.
 func ProtoToComputeBetaPacketMirroringMirroredResources(p *betapb.ComputeBetaPacketMirroringMirroredResources) *beta.PacketMirroringMirroredResources {
 	if p == nil {
 		return nil
@@ -91,31 +91,31 @@ func ProtoToComputeBetaPacketMirroringMirroredResources(p *betapb.ComputeBetaPac
 	return obj
 }
 
-// ProtoToPacketMirroringMirroredResourcesSubnetworks converts a PacketMirroringMirroredResourcesSubnetworks resource from its proto representation.
+// ProtoToPacketMirroringMirroredResourcesSubnetworks converts a PacketMirroringMirroredResourcesSubnetworks object from its proto representation.
 func ProtoToComputeBetaPacketMirroringMirroredResourcesSubnetworks(p *betapb.ComputeBetaPacketMirroringMirroredResourcesSubnetworks) *beta.PacketMirroringMirroredResourcesSubnetworks {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.PacketMirroringMirroredResourcesSubnetworks{
-		Url:          dcl.StringOrNil(p.Url),
-		CanonicalUrl: dcl.StringOrNil(p.CanonicalUrl),
+		Url:          dcl.StringOrNil(p.GetUrl()),
+		CanonicalUrl: dcl.StringOrNil(p.GetCanonicalUrl()),
 	}
 	return obj
 }
 
-// ProtoToPacketMirroringMirroredResourcesInstances converts a PacketMirroringMirroredResourcesInstances resource from its proto representation.
+// ProtoToPacketMirroringMirroredResourcesInstances converts a PacketMirroringMirroredResourcesInstances object from its proto representation.
 func ProtoToComputeBetaPacketMirroringMirroredResourcesInstances(p *betapb.ComputeBetaPacketMirroringMirroredResourcesInstances) *beta.PacketMirroringMirroredResourcesInstances {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.PacketMirroringMirroredResourcesInstances{
-		Url:          dcl.StringOrNil(p.Url),
-		CanonicalUrl: dcl.StringOrNil(p.CanonicalUrl),
+		Url:          dcl.StringOrNil(p.GetUrl()),
+		CanonicalUrl: dcl.StringOrNil(p.GetCanonicalUrl()),
 	}
 	return obj
 }
 
-// ProtoToPacketMirroringFilter converts a PacketMirroringFilter resource from its proto representation.
+// ProtoToPacketMirroringFilter converts a PacketMirroringFilter object from its proto representation.
 func ProtoToComputeBetaPacketMirroringFilter(p *betapb.ComputeBetaPacketMirroringFilter) *beta.PacketMirroringFilter {
 	if p == nil {
 		return nil
@@ -135,19 +135,19 @@ func ProtoToComputeBetaPacketMirroringFilter(p *betapb.ComputeBetaPacketMirrorin
 // ProtoToPacketMirroring converts a PacketMirroring resource from its proto representation.
 func ProtoToPacketMirroring(p *betapb.ComputeBetaPacketMirroring) *beta.PacketMirroring {
 	obj := &beta.PacketMirroring{
-		Id:                dcl.Int64OrNil(p.Id),
-		SelfLink:          dcl.StringOrNil(p.SelfLink),
-		Name:              dcl.StringOrNil(p.Name),
-		Description:       dcl.StringOrNil(p.Description),
-		Region:            dcl.StringOrNil(p.Region),
+		Id:                dcl.Int64OrNil(p.GetId()),
+		SelfLink:          dcl.StringOrNil(p.GetSelfLink()),
+		Name:              dcl.StringOrNil(p.GetName()),
+		Description:       dcl.StringOrNil(p.GetDescription()),
+		Region:            dcl.StringOrNil(p.GetRegion()),
 		Network:           ProtoToComputeBetaPacketMirroringNetwork(p.GetNetwork()),
-		Priority:          dcl.Int64OrNil(p.Priority),
+		Priority:          dcl.Int64OrNil(p.GetPriority()),
 		CollectorIlb:      ProtoToComputeBetaPacketMirroringCollectorIlb(p.GetCollectorIlb()),
 		MirroredResources: ProtoToComputeBetaPacketMirroringMirroredResources(p.GetMirroredResources()),
 		Filter:            ProtoToComputeBetaPacketMirroringFilter(p.GetFilter()),
 		Enable:            ProtoToComputeBetaPacketMirroringEnableEnum(p.GetEnable()),
-		Project:           dcl.StringOrNil(p.Project),
-		Location:          dcl.StringOrNil(p.Location),
+		Project:           dcl.StringOrNil(p.GetProject()),
+		Location:          dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -174,111 +174,115 @@ func ComputeBetaPacketMirroringEnableEnumToProto(e *beta.PacketMirroringEnableEn
 	return betapb.ComputeBetaPacketMirroringEnableEnum(0)
 }
 
-// PacketMirroringNetworkToProto converts a PacketMirroringNetwork resource to its proto representation.
+// PacketMirroringNetworkToProto converts a PacketMirroringNetwork object to its proto representation.
 func ComputeBetaPacketMirroringNetworkToProto(o *beta.PacketMirroringNetwork) *betapb.ComputeBetaPacketMirroringNetwork {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaPacketMirroringNetwork{
-		Url:          dcl.ValueOrEmptyString(o.Url),
-		CanonicalUrl: dcl.ValueOrEmptyString(o.CanonicalUrl),
-	}
+	p := &betapb.ComputeBetaPacketMirroringNetwork{}
+	p.SetUrl(dcl.ValueOrEmptyString(o.Url))
+	p.SetCanonicalUrl(dcl.ValueOrEmptyString(o.CanonicalUrl))
 	return p
 }
 
-// PacketMirroringCollectorIlbToProto converts a PacketMirroringCollectorIlb resource to its proto representation.
+// PacketMirroringCollectorIlbToProto converts a PacketMirroringCollectorIlb object to its proto representation.
 func ComputeBetaPacketMirroringCollectorIlbToProto(o *beta.PacketMirroringCollectorIlb) *betapb.ComputeBetaPacketMirroringCollectorIlb {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaPacketMirroringCollectorIlb{
-		Url:          dcl.ValueOrEmptyString(o.Url),
-		CanonicalUrl: dcl.ValueOrEmptyString(o.CanonicalUrl),
-	}
+	p := &betapb.ComputeBetaPacketMirroringCollectorIlb{}
+	p.SetUrl(dcl.ValueOrEmptyString(o.Url))
+	p.SetCanonicalUrl(dcl.ValueOrEmptyString(o.CanonicalUrl))
 	return p
 }
 
-// PacketMirroringMirroredResourcesToProto converts a PacketMirroringMirroredResources resource to its proto representation.
+// PacketMirroringMirroredResourcesToProto converts a PacketMirroringMirroredResources object to its proto representation.
 func ComputeBetaPacketMirroringMirroredResourcesToProto(o *beta.PacketMirroringMirroredResources) *betapb.ComputeBetaPacketMirroringMirroredResources {
 	if o == nil {
 		return nil
 	}
 	p := &betapb.ComputeBetaPacketMirroringMirroredResources{}
-	for _, r := range o.Subnetworks {
-		p.Subnetworks = append(p.Subnetworks, ComputeBetaPacketMirroringMirroredResourcesSubnetworksToProto(&r))
+	sSubnetworks := make([]*betapb.ComputeBetaPacketMirroringMirroredResourcesSubnetworks, len(o.Subnetworks))
+	for i, r := range o.Subnetworks {
+		sSubnetworks[i] = ComputeBetaPacketMirroringMirroredResourcesSubnetworksToProto(&r)
 	}
-	for _, r := range o.Instances {
-		p.Instances = append(p.Instances, ComputeBetaPacketMirroringMirroredResourcesInstancesToProto(&r))
+	p.SetSubnetworks(sSubnetworks)
+	sInstances := make([]*betapb.ComputeBetaPacketMirroringMirroredResourcesInstances, len(o.Instances))
+	for i, r := range o.Instances {
+		sInstances[i] = ComputeBetaPacketMirroringMirroredResourcesInstancesToProto(&r)
 	}
-	for _, r := range o.Tags {
-		p.Tags = append(p.Tags, r)
+	p.SetInstances(sInstances)
+	sTags := make([]string, len(o.Tags))
+	for i, r := range o.Tags {
+		sTags[i] = r
 	}
+	p.SetTags(sTags)
 	return p
 }
 
-// PacketMirroringMirroredResourcesSubnetworksToProto converts a PacketMirroringMirroredResourcesSubnetworks resource to its proto representation.
+// PacketMirroringMirroredResourcesSubnetworksToProto converts a PacketMirroringMirroredResourcesSubnetworks object to its proto representation.
 func ComputeBetaPacketMirroringMirroredResourcesSubnetworksToProto(o *beta.PacketMirroringMirroredResourcesSubnetworks) *betapb.ComputeBetaPacketMirroringMirroredResourcesSubnetworks {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaPacketMirroringMirroredResourcesSubnetworks{
-		Url:          dcl.ValueOrEmptyString(o.Url),
-		CanonicalUrl: dcl.ValueOrEmptyString(o.CanonicalUrl),
-	}
+	p := &betapb.ComputeBetaPacketMirroringMirroredResourcesSubnetworks{}
+	p.SetUrl(dcl.ValueOrEmptyString(o.Url))
+	p.SetCanonicalUrl(dcl.ValueOrEmptyString(o.CanonicalUrl))
 	return p
 }
 
-// PacketMirroringMirroredResourcesInstancesToProto converts a PacketMirroringMirroredResourcesInstances resource to its proto representation.
+// PacketMirroringMirroredResourcesInstancesToProto converts a PacketMirroringMirroredResourcesInstances object to its proto representation.
 func ComputeBetaPacketMirroringMirroredResourcesInstancesToProto(o *beta.PacketMirroringMirroredResourcesInstances) *betapb.ComputeBetaPacketMirroringMirroredResourcesInstances {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaPacketMirroringMirroredResourcesInstances{
-		Url:          dcl.ValueOrEmptyString(o.Url),
-		CanonicalUrl: dcl.ValueOrEmptyString(o.CanonicalUrl),
-	}
+	p := &betapb.ComputeBetaPacketMirroringMirroredResourcesInstances{}
+	p.SetUrl(dcl.ValueOrEmptyString(o.Url))
+	p.SetCanonicalUrl(dcl.ValueOrEmptyString(o.CanonicalUrl))
 	return p
 }
 
-// PacketMirroringFilterToProto converts a PacketMirroringFilter resource to its proto representation.
+// PacketMirroringFilterToProto converts a PacketMirroringFilter object to its proto representation.
 func ComputeBetaPacketMirroringFilterToProto(o *beta.PacketMirroringFilter) *betapb.ComputeBetaPacketMirroringFilter {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaPacketMirroringFilter{
-		Direction: ComputeBetaPacketMirroringFilterDirectionEnumToProto(o.Direction),
+	p := &betapb.ComputeBetaPacketMirroringFilter{}
+	p.SetDirection(ComputeBetaPacketMirroringFilterDirectionEnumToProto(o.Direction))
+	sCidrRanges := make([]string, len(o.CidrRanges))
+	for i, r := range o.CidrRanges {
+		sCidrRanges[i] = r
 	}
-	for _, r := range o.CidrRanges {
-		p.CidrRanges = append(p.CidrRanges, r)
+	p.SetCidrRanges(sCidrRanges)
+	sIPProtocols := make([]string, len(o.IPProtocols))
+	for i, r := range o.IPProtocols {
+		sIPProtocols[i] = r
 	}
-	for _, r := range o.IPProtocols {
-		p.IpProtocols = append(p.IpProtocols, r)
-	}
+	p.SetIpProtocols(sIPProtocols)
 	return p
 }
 
 // PacketMirroringToProto converts a PacketMirroring resource to its proto representation.
 func PacketMirroringToProto(resource *beta.PacketMirroring) *betapb.ComputeBetaPacketMirroring {
-	p := &betapb.ComputeBetaPacketMirroring{
-		Id:                dcl.ValueOrEmptyInt64(resource.Id),
-		SelfLink:          dcl.ValueOrEmptyString(resource.SelfLink),
-		Name:              dcl.ValueOrEmptyString(resource.Name),
-		Description:       dcl.ValueOrEmptyString(resource.Description),
-		Region:            dcl.ValueOrEmptyString(resource.Region),
-		Network:           ComputeBetaPacketMirroringNetworkToProto(resource.Network),
-		Priority:          dcl.ValueOrEmptyInt64(resource.Priority),
-		CollectorIlb:      ComputeBetaPacketMirroringCollectorIlbToProto(resource.CollectorIlb),
-		MirroredResources: ComputeBetaPacketMirroringMirroredResourcesToProto(resource.MirroredResources),
-		Filter:            ComputeBetaPacketMirroringFilterToProto(resource.Filter),
-		Enable:            ComputeBetaPacketMirroringEnableEnumToProto(resource.Enable),
-		Project:           dcl.ValueOrEmptyString(resource.Project),
-		Location:          dcl.ValueOrEmptyString(resource.Location),
-	}
+	p := &betapb.ComputeBetaPacketMirroring{}
+	p.SetId(dcl.ValueOrEmptyInt64(resource.Id))
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetRegion(dcl.ValueOrEmptyString(resource.Region))
+	p.SetNetwork(ComputeBetaPacketMirroringNetworkToProto(resource.Network))
+	p.SetPriority(dcl.ValueOrEmptyInt64(resource.Priority))
+	p.SetCollectorIlb(ComputeBetaPacketMirroringCollectorIlbToProto(resource.CollectorIlb))
+	p.SetMirroredResources(ComputeBetaPacketMirroringMirroredResourcesToProto(resource.MirroredResources))
+	p.SetFilter(ComputeBetaPacketMirroringFilterToProto(resource.Filter))
+	p.SetEnable(ComputeBetaPacketMirroringEnableEnumToProto(resource.Enable))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 
 	return p
 }
 
-// ApplyPacketMirroring handles the gRPC request by passing it to the underlying PacketMirroring Apply() method.
+// applyPacketMirroring handles the gRPC request by passing it to the underlying PacketMirroring Apply() method.
 func (s *PacketMirroringServer) applyPacketMirroring(ctx context.Context, c *beta.Client, request *betapb.ApplyComputeBetaPacketMirroringRequest) (*betapb.ComputeBetaPacketMirroring, error) {
 	p := ProtoToPacketMirroring(request.GetResource())
 	res, err := c.ApplyPacketMirroring(ctx, p)
@@ -289,9 +293,9 @@ func (s *PacketMirroringServer) applyPacketMirroring(ctx context.Context, c *bet
 	return r, nil
 }
 
-// ApplyPacketMirroring handles the gRPC request by passing it to the underlying PacketMirroring Apply() method.
+// applyComputeBetaPacketMirroring handles the gRPC request by passing it to the underlying PacketMirroring Apply() method.
 func (s *PacketMirroringServer) ApplyComputeBetaPacketMirroring(ctx context.Context, request *betapb.ApplyComputeBetaPacketMirroringRequest) (*betapb.ComputeBetaPacketMirroring, error) {
-	cl, err := createConfigPacketMirroring(ctx, request.ServiceAccountFile)
+	cl, err := createConfigPacketMirroring(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -301,7 +305,7 @@ func (s *PacketMirroringServer) ApplyComputeBetaPacketMirroring(ctx context.Cont
 // DeletePacketMirroring handles the gRPC request by passing it to the underlying PacketMirroring Delete() method.
 func (s *PacketMirroringServer) DeleteComputeBetaPacketMirroring(ctx context.Context, request *betapb.DeleteComputeBetaPacketMirroringRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigPacketMirroring(ctx, request.ServiceAccountFile)
+	cl, err := createConfigPacketMirroring(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -311,12 +315,12 @@ func (s *PacketMirroringServer) DeleteComputeBetaPacketMirroring(ctx context.Con
 
 // ListComputeBetaPacketMirroring handles the gRPC request by passing it to the underlying PacketMirroringList() method.
 func (s *PacketMirroringServer) ListComputeBetaPacketMirroring(ctx context.Context, request *betapb.ListComputeBetaPacketMirroringRequest) (*betapb.ListComputeBetaPacketMirroringResponse, error) {
-	cl, err := createConfigPacketMirroring(ctx, request.ServiceAccountFile)
+	cl, err := createConfigPacketMirroring(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListPacketMirroring(ctx, request.Project, request.Location)
+	resources, err := cl.ListPacketMirroring(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -325,7 +329,9 @@ func (s *PacketMirroringServer) ListComputeBetaPacketMirroring(ctx context.Conte
 		rp := PacketMirroringToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListComputeBetaPacketMirroringResponse{Items: protos}, nil
+	p := &betapb.ListComputeBetaPacketMirroringResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigPacketMirroring(ctx context.Context, service_account_file string) (*beta.Client, error) {

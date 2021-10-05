@@ -40,13 +40,13 @@ func ProtoToNetworkconnectivityAlphaHubStateEnum(e alphapb.NetworkconnectivityAl
 // ProtoToHub converts a Hub resource from its proto representation.
 func ProtoToHub(p *alphapb.NetworkconnectivityAlphaHub) *alpha.Hub {
 	obj := &alpha.Hub{
-		Name:        dcl.StringOrNil(p.Name),
+		Name:        dcl.StringOrNil(p.GetName()),
 		CreateTime:  dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:  dcl.StringOrNil(p.GetUpdateTime()),
-		Description: dcl.StringOrNil(p.Description),
-		UniqueId:    dcl.StringOrNil(p.UniqueId),
+		Description: dcl.StringOrNil(p.GetDescription()),
+		UniqueId:    dcl.StringOrNil(p.GetUniqueId()),
 		State:       ProtoToNetworkconnectivityAlphaHubStateEnum(p.GetState()),
-		Project:     dcl.StringOrNil(p.Project),
+		Project:     dcl.StringOrNil(p.GetProject()),
 	}
 	return obj
 }
@@ -64,20 +64,24 @@ func NetworkconnectivityAlphaHubStateEnumToProto(e *alpha.HubStateEnum) alphapb.
 
 // HubToProto converts a Hub resource to its proto representation.
 func HubToProto(resource *alpha.Hub) *alphapb.NetworkconnectivityAlphaHub {
-	p := &alphapb.NetworkconnectivityAlphaHub{
-		Name:        dcl.ValueOrEmptyString(resource.Name),
-		CreateTime:  dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:  dcl.ValueOrEmptyString(resource.UpdateTime),
-		Description: dcl.ValueOrEmptyString(resource.Description),
-		UniqueId:    dcl.ValueOrEmptyString(resource.UniqueId),
-		State:       NetworkconnectivityAlphaHubStateEnumToProto(resource.State),
-		Project:     dcl.ValueOrEmptyString(resource.Project),
+	p := &alphapb.NetworkconnectivityAlphaHub{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetUniqueId(dcl.ValueOrEmptyString(resource.UniqueId))
+	p.SetState(NetworkconnectivityAlphaHubStateEnumToProto(resource.State))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
+	p.SetLabels(mLabels)
 
 	return p
 }
 
-// ApplyHub handles the gRPC request by passing it to the underlying Hub Apply() method.
+// applyHub handles the gRPC request by passing it to the underlying Hub Apply() method.
 func (s *HubServer) applyHub(ctx context.Context, c *alpha.Client, request *alphapb.ApplyNetworkconnectivityAlphaHubRequest) (*alphapb.NetworkconnectivityAlphaHub, error) {
 	p := ProtoToHub(request.GetResource())
 	res, err := c.ApplyHub(ctx, p)
@@ -88,9 +92,9 @@ func (s *HubServer) applyHub(ctx context.Context, c *alpha.Client, request *alph
 	return r, nil
 }
 
-// ApplyHub handles the gRPC request by passing it to the underlying Hub Apply() method.
+// applyNetworkconnectivityAlphaHub handles the gRPC request by passing it to the underlying Hub Apply() method.
 func (s *HubServer) ApplyNetworkconnectivityAlphaHub(ctx context.Context, request *alphapb.ApplyNetworkconnectivityAlphaHubRequest) (*alphapb.NetworkconnectivityAlphaHub, error) {
-	cl, err := createConfigHub(ctx, request.ServiceAccountFile)
+	cl, err := createConfigHub(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -100,7 +104,7 @@ func (s *HubServer) ApplyNetworkconnectivityAlphaHub(ctx context.Context, reques
 // DeleteHub handles the gRPC request by passing it to the underlying Hub Delete() method.
 func (s *HubServer) DeleteNetworkconnectivityAlphaHub(ctx context.Context, request *alphapb.DeleteNetworkconnectivityAlphaHubRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigHub(ctx, request.ServiceAccountFile)
+	cl, err := createConfigHub(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -110,12 +114,12 @@ func (s *HubServer) DeleteNetworkconnectivityAlphaHub(ctx context.Context, reque
 
 // ListNetworkconnectivityAlphaHub handles the gRPC request by passing it to the underlying HubList() method.
 func (s *HubServer) ListNetworkconnectivityAlphaHub(ctx context.Context, request *alphapb.ListNetworkconnectivityAlphaHubRequest) (*alphapb.ListNetworkconnectivityAlphaHubResponse, error) {
-	cl, err := createConfigHub(ctx, request.ServiceAccountFile)
+	cl, err := createConfigHub(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListHub(ctx, request.Project)
+	resources, err := cl.ListHub(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -124,7 +128,9 @@ func (s *HubServer) ListNetworkconnectivityAlphaHub(ctx context.Context, request
 		rp := HubToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListNetworkconnectivityAlphaHubResponse{Items: protos}, nil
+	p := &alphapb.ListNetworkconnectivityAlphaHubResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigHub(ctx context.Context, service_account_file string) (*alpha.Client, error) {

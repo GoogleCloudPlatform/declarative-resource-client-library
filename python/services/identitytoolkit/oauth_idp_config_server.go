@@ -25,15 +25,15 @@ import (
 // Server implements the gRPC interface for OAuthIdpConfig.
 type OAuthIdpConfigServer struct{}
 
-// ProtoToOAuthIdpConfigResponseType converts a OAuthIdpConfigResponseType resource from its proto representation.
+// ProtoToOAuthIdpConfigResponseType converts a OAuthIdpConfigResponseType object from its proto representation.
 func ProtoToIdentitytoolkitOAuthIdpConfigResponseType(p *identitytoolkitpb.IdentitytoolkitOAuthIdpConfigResponseType) *identitytoolkit.OAuthIdpConfigResponseType {
 	if p == nil {
 		return nil
 	}
 	obj := &identitytoolkit.OAuthIdpConfigResponseType{
-		IdToken: dcl.Bool(p.IdToken),
-		Code:    dcl.Bool(p.Code),
-		Token:   dcl.Bool(p.Token),
+		IdToken: dcl.Bool(p.GetIdToken()),
+		Code:    dcl.Bool(p.GetCode()),
+		Token:   dcl.Bool(p.GetToken()),
 	}
 	return obj
 }
@@ -41,48 +41,46 @@ func ProtoToIdentitytoolkitOAuthIdpConfigResponseType(p *identitytoolkitpb.Ident
 // ProtoToOAuthIdpConfig converts a OAuthIdpConfig resource from its proto representation.
 func ProtoToOAuthIdpConfig(p *identitytoolkitpb.IdentitytoolkitOAuthIdpConfig) *identitytoolkit.OAuthIdpConfig {
 	obj := &identitytoolkit.OAuthIdpConfig{
-		Name:         dcl.StringOrNil(p.Name),
-		ClientId:     dcl.StringOrNil(p.ClientId),
-		Issuer:       dcl.StringOrNil(p.Issuer),
-		DisplayName:  dcl.StringOrNil(p.DisplayName),
-		Enabled:      dcl.Bool(p.Enabled),
-		ClientSecret: dcl.StringOrNil(p.ClientSecret),
+		Name:         dcl.StringOrNil(p.GetName()),
+		ClientId:     dcl.StringOrNil(p.GetClientId()),
+		Issuer:       dcl.StringOrNil(p.GetIssuer()),
+		DisplayName:  dcl.StringOrNil(p.GetDisplayName()),
+		Enabled:      dcl.Bool(p.GetEnabled()),
+		ClientSecret: dcl.StringOrNil(p.GetClientSecret()),
 		ResponseType: ProtoToIdentitytoolkitOAuthIdpConfigResponseType(p.GetResponseType()),
-		Project:      dcl.StringOrNil(p.Project),
+		Project:      dcl.StringOrNil(p.GetProject()),
 	}
 	return obj
 }
 
-// OAuthIdpConfigResponseTypeToProto converts a OAuthIdpConfigResponseType resource to its proto representation.
+// OAuthIdpConfigResponseTypeToProto converts a OAuthIdpConfigResponseType object to its proto representation.
 func IdentitytoolkitOAuthIdpConfigResponseTypeToProto(o *identitytoolkit.OAuthIdpConfigResponseType) *identitytoolkitpb.IdentitytoolkitOAuthIdpConfigResponseType {
 	if o == nil {
 		return nil
 	}
-	p := &identitytoolkitpb.IdentitytoolkitOAuthIdpConfigResponseType{
-		IdToken: dcl.ValueOrEmptyBool(o.IdToken),
-		Code:    dcl.ValueOrEmptyBool(o.Code),
-		Token:   dcl.ValueOrEmptyBool(o.Token),
-	}
+	p := &identitytoolkitpb.IdentitytoolkitOAuthIdpConfigResponseType{}
+	p.SetIdToken(dcl.ValueOrEmptyBool(o.IdToken))
+	p.SetCode(dcl.ValueOrEmptyBool(o.Code))
+	p.SetToken(dcl.ValueOrEmptyBool(o.Token))
 	return p
 }
 
 // OAuthIdpConfigToProto converts a OAuthIdpConfig resource to its proto representation.
 func OAuthIdpConfigToProto(resource *identitytoolkit.OAuthIdpConfig) *identitytoolkitpb.IdentitytoolkitOAuthIdpConfig {
-	p := &identitytoolkitpb.IdentitytoolkitOAuthIdpConfig{
-		Name:         dcl.ValueOrEmptyString(resource.Name),
-		ClientId:     dcl.ValueOrEmptyString(resource.ClientId),
-		Issuer:       dcl.ValueOrEmptyString(resource.Issuer),
-		DisplayName:  dcl.ValueOrEmptyString(resource.DisplayName),
-		Enabled:      dcl.ValueOrEmptyBool(resource.Enabled),
-		ClientSecret: dcl.ValueOrEmptyString(resource.ClientSecret),
-		ResponseType: IdentitytoolkitOAuthIdpConfigResponseTypeToProto(resource.ResponseType),
-		Project:      dcl.ValueOrEmptyString(resource.Project),
-	}
+	p := &identitytoolkitpb.IdentitytoolkitOAuthIdpConfig{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetClientId(dcl.ValueOrEmptyString(resource.ClientId))
+	p.SetIssuer(dcl.ValueOrEmptyString(resource.Issuer))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetEnabled(dcl.ValueOrEmptyBool(resource.Enabled))
+	p.SetClientSecret(dcl.ValueOrEmptyString(resource.ClientSecret))
+	p.SetResponseType(IdentitytoolkitOAuthIdpConfigResponseTypeToProto(resource.ResponseType))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 
 	return p
 }
 
-// ApplyOAuthIdpConfig handles the gRPC request by passing it to the underlying OAuthIdpConfig Apply() method.
+// applyOAuthIdpConfig handles the gRPC request by passing it to the underlying OAuthIdpConfig Apply() method.
 func (s *OAuthIdpConfigServer) applyOAuthIdpConfig(ctx context.Context, c *identitytoolkit.Client, request *identitytoolkitpb.ApplyIdentitytoolkitOAuthIdpConfigRequest) (*identitytoolkitpb.IdentitytoolkitOAuthIdpConfig, error) {
 	p := ProtoToOAuthIdpConfig(request.GetResource())
 	res, err := c.ApplyOAuthIdpConfig(ctx, p)
@@ -93,9 +91,9 @@ func (s *OAuthIdpConfigServer) applyOAuthIdpConfig(ctx context.Context, c *ident
 	return r, nil
 }
 
-// ApplyOAuthIdpConfig handles the gRPC request by passing it to the underlying OAuthIdpConfig Apply() method.
+// applyIdentitytoolkitOAuthIdpConfig handles the gRPC request by passing it to the underlying OAuthIdpConfig Apply() method.
 func (s *OAuthIdpConfigServer) ApplyIdentitytoolkitOAuthIdpConfig(ctx context.Context, request *identitytoolkitpb.ApplyIdentitytoolkitOAuthIdpConfigRequest) (*identitytoolkitpb.IdentitytoolkitOAuthIdpConfig, error) {
-	cl, err := createConfigOAuthIdpConfig(ctx, request.ServiceAccountFile)
+	cl, err := createConfigOAuthIdpConfig(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +103,7 @@ func (s *OAuthIdpConfigServer) ApplyIdentitytoolkitOAuthIdpConfig(ctx context.Co
 // DeleteOAuthIdpConfig handles the gRPC request by passing it to the underlying OAuthIdpConfig Delete() method.
 func (s *OAuthIdpConfigServer) DeleteIdentitytoolkitOAuthIdpConfig(ctx context.Context, request *identitytoolkitpb.DeleteIdentitytoolkitOAuthIdpConfigRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigOAuthIdpConfig(ctx, request.ServiceAccountFile)
+	cl, err := createConfigOAuthIdpConfig(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -115,12 +113,12 @@ func (s *OAuthIdpConfigServer) DeleteIdentitytoolkitOAuthIdpConfig(ctx context.C
 
 // ListIdentitytoolkitOAuthIdpConfig handles the gRPC request by passing it to the underlying OAuthIdpConfigList() method.
 func (s *OAuthIdpConfigServer) ListIdentitytoolkitOAuthIdpConfig(ctx context.Context, request *identitytoolkitpb.ListIdentitytoolkitOAuthIdpConfigRequest) (*identitytoolkitpb.ListIdentitytoolkitOAuthIdpConfigResponse, error) {
-	cl, err := createConfigOAuthIdpConfig(ctx, request.ServiceAccountFile)
+	cl, err := createConfigOAuthIdpConfig(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListOAuthIdpConfig(ctx, request.Project)
+	resources, err := cl.ListOAuthIdpConfig(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -129,7 +127,9 @@ func (s *OAuthIdpConfigServer) ListIdentitytoolkitOAuthIdpConfig(ctx context.Con
 		rp := OAuthIdpConfigToProto(r)
 		protos = append(protos, rp)
 	}
-	return &identitytoolkitpb.ListIdentitytoolkitOAuthIdpConfigResponse{Items: protos}, nil
+	p := &identitytoolkitpb.ListIdentitytoolkitOAuthIdpConfigResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigOAuthIdpConfig(ctx context.Context, service_account_file string) (*identitytoolkit.Client, error) {

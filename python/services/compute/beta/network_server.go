@@ -37,7 +37,7 @@ func ProtoToComputeBetaNetworkRoutingConfigRoutingModeEnum(e betapb.ComputeBetaN
 	return nil
 }
 
-// ProtoToNetworkRoutingConfig converts a NetworkRoutingConfig resource from its proto representation.
+// ProtoToNetworkRoutingConfig converts a NetworkRoutingConfig object from its proto representation.
 func ProtoToComputeBetaNetworkRoutingConfig(p *betapb.ComputeBetaNetworkRoutingConfig) *beta.NetworkRoutingConfig {
 	if p == nil {
 		return nil
@@ -51,14 +51,14 @@ func ProtoToComputeBetaNetworkRoutingConfig(p *betapb.ComputeBetaNetworkRoutingC
 // ProtoToNetwork converts a Network resource from its proto representation.
 func ProtoToNetwork(p *betapb.ComputeBetaNetwork) *beta.Network {
 	obj := &beta.Network{
-		Description:           dcl.StringOrNil(p.Description),
-		GatewayIPv4:           dcl.StringOrNil(p.GatewayIpv4),
-		Name:                  dcl.StringOrNil(p.Name),
-		AutoCreateSubnetworks: dcl.Bool(p.AutoCreateSubnetworks),
+		Description:           dcl.StringOrNil(p.GetDescription()),
+		GatewayIPv4:           dcl.StringOrNil(p.GetGatewayIpv4()),
+		Name:                  dcl.StringOrNil(p.GetName()),
+		AutoCreateSubnetworks: dcl.Bool(p.GetAutoCreateSubnetworks()),
 		RoutingConfig:         ProtoToComputeBetaNetworkRoutingConfig(p.GetRoutingConfig()),
-		Mtu:                   dcl.Int64OrNil(p.Mtu),
-		Project:               dcl.StringOrNil(p.Project),
-		SelfLink:              dcl.StringOrNil(p.SelfLink),
+		Mtu:                   dcl.Int64OrNil(p.GetMtu()),
+		Project:               dcl.StringOrNil(p.GetProject()),
+		SelfLink:              dcl.StringOrNil(p.GetSelfLink()),
 	}
 	return obj
 }
@@ -74,34 +74,32 @@ func ComputeBetaNetworkRoutingConfigRoutingModeEnumToProto(e *beta.NetworkRoutin
 	return betapb.ComputeBetaNetworkRoutingConfigRoutingModeEnum(0)
 }
 
-// NetworkRoutingConfigToProto converts a NetworkRoutingConfig resource to its proto representation.
+// NetworkRoutingConfigToProto converts a NetworkRoutingConfig object to its proto representation.
 func ComputeBetaNetworkRoutingConfigToProto(o *beta.NetworkRoutingConfig) *betapb.ComputeBetaNetworkRoutingConfig {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaNetworkRoutingConfig{
-		RoutingMode: ComputeBetaNetworkRoutingConfigRoutingModeEnumToProto(o.RoutingMode),
-	}
+	p := &betapb.ComputeBetaNetworkRoutingConfig{}
+	p.SetRoutingMode(ComputeBetaNetworkRoutingConfigRoutingModeEnumToProto(o.RoutingMode))
 	return p
 }
 
 // NetworkToProto converts a Network resource to its proto representation.
 func NetworkToProto(resource *beta.Network) *betapb.ComputeBetaNetwork {
-	p := &betapb.ComputeBetaNetwork{
-		Description:           dcl.ValueOrEmptyString(resource.Description),
-		GatewayIpv4:           dcl.ValueOrEmptyString(resource.GatewayIPv4),
-		Name:                  dcl.ValueOrEmptyString(resource.Name),
-		AutoCreateSubnetworks: dcl.ValueOrEmptyBool(resource.AutoCreateSubnetworks),
-		RoutingConfig:         ComputeBetaNetworkRoutingConfigToProto(resource.RoutingConfig),
-		Mtu:                   dcl.ValueOrEmptyInt64(resource.Mtu),
-		Project:               dcl.ValueOrEmptyString(resource.Project),
-		SelfLink:              dcl.ValueOrEmptyString(resource.SelfLink),
-	}
+	p := &betapb.ComputeBetaNetwork{}
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetGatewayIpv4(dcl.ValueOrEmptyString(resource.GatewayIPv4))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetAutoCreateSubnetworks(dcl.ValueOrEmptyBool(resource.AutoCreateSubnetworks))
+	p.SetRoutingConfig(ComputeBetaNetworkRoutingConfigToProto(resource.RoutingConfig))
+	p.SetMtu(dcl.ValueOrEmptyInt64(resource.Mtu))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
 
 	return p
 }
 
-// ApplyNetwork handles the gRPC request by passing it to the underlying Network Apply() method.
+// applyNetwork handles the gRPC request by passing it to the underlying Network Apply() method.
 func (s *NetworkServer) applyNetwork(ctx context.Context, c *beta.Client, request *betapb.ApplyComputeBetaNetworkRequest) (*betapb.ComputeBetaNetwork, error) {
 	p := ProtoToNetwork(request.GetResource())
 	res, err := c.ApplyNetwork(ctx, p)
@@ -112,9 +110,9 @@ func (s *NetworkServer) applyNetwork(ctx context.Context, c *beta.Client, reques
 	return r, nil
 }
 
-// ApplyNetwork handles the gRPC request by passing it to the underlying Network Apply() method.
+// applyComputeBetaNetwork handles the gRPC request by passing it to the underlying Network Apply() method.
 func (s *NetworkServer) ApplyComputeBetaNetwork(ctx context.Context, request *betapb.ApplyComputeBetaNetworkRequest) (*betapb.ComputeBetaNetwork, error) {
-	cl, err := createConfigNetwork(ctx, request.ServiceAccountFile)
+	cl, err := createConfigNetwork(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -124,7 +122,7 @@ func (s *NetworkServer) ApplyComputeBetaNetwork(ctx context.Context, request *be
 // DeleteNetwork handles the gRPC request by passing it to the underlying Network Delete() method.
 func (s *NetworkServer) DeleteComputeBetaNetwork(ctx context.Context, request *betapb.DeleteComputeBetaNetworkRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigNetwork(ctx, request.ServiceAccountFile)
+	cl, err := createConfigNetwork(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -134,12 +132,12 @@ func (s *NetworkServer) DeleteComputeBetaNetwork(ctx context.Context, request *b
 
 // ListComputeBetaNetwork handles the gRPC request by passing it to the underlying NetworkList() method.
 func (s *NetworkServer) ListComputeBetaNetwork(ctx context.Context, request *betapb.ListComputeBetaNetworkRequest) (*betapb.ListComputeBetaNetworkResponse, error) {
-	cl, err := createConfigNetwork(ctx, request.ServiceAccountFile)
+	cl, err := createConfigNetwork(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListNetwork(ctx, request.Project)
+	resources, err := cl.ListNetwork(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -148,7 +146,9 @@ func (s *NetworkServer) ListComputeBetaNetwork(ctx context.Context, request *bet
 		rp := NetworkToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListComputeBetaNetworkResponse{Items: protos}, nil
+	p := &betapb.ListComputeBetaNetworkResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigNetwork(ctx context.Context, service_account_file string) (*beta.Client, error) {

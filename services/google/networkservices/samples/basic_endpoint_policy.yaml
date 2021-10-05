@@ -44,12 +44,12 @@ updates:
 variables:
 - name: project
   type: project
+- name: server1
+  type: resource_name
 - name: auth2
   type: resource_name
 - name: client2
   type: resource_name
-- name: project
-  type: project
 - name: server2
   type: resource_name
 - name: project
@@ -62,10 +62,6 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: project
-  type: project
-- name: server1
-  type: resource_name
 - name: selector
   type: resource_name
 - name: project

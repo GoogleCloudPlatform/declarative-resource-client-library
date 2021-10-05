@@ -62,18 +62,18 @@ func ProtoToBinaryauthorizationPolicyGlobalPolicyEvaluationModeEnum(e binaryauth
 	return nil
 }
 
-// ProtoToPolicyAdmissionWhitelistPatterns converts a PolicyAdmissionWhitelistPatterns resource from its proto representation.
+// ProtoToPolicyAdmissionWhitelistPatterns converts a PolicyAdmissionWhitelistPatterns object from its proto representation.
 func ProtoToBinaryauthorizationPolicyAdmissionWhitelistPatterns(p *binaryauthorizationpb.BinaryauthorizationPolicyAdmissionWhitelistPatterns) *binaryauthorization.PolicyAdmissionWhitelistPatterns {
 	if p == nil {
 		return nil
 	}
 	obj := &binaryauthorization.PolicyAdmissionWhitelistPatterns{
-		NamePattern: dcl.StringOrNil(p.NamePattern),
+		NamePattern: dcl.StringOrNil(p.GetNamePattern()),
 	}
 	return obj
 }
 
-// ProtoToPolicyAdmissionRule converts a PolicyAdmissionRule resource from its proto representation.
+// ProtoToPolicyAdmissionRule converts a PolicyAdmissionRule object from its proto representation.
 func ProtoToBinaryauthorizationPolicyAdmissionRule(p *binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRule) *binaryauthorization.PolicyAdmissionRule {
 	if p == nil {
 		return nil
@@ -92,10 +92,10 @@ func ProtoToBinaryauthorizationPolicyAdmissionRule(p *binaryauthorizationpb.Bina
 func ProtoToPolicy(p *binaryauthorizationpb.BinaryauthorizationPolicy) *binaryauthorization.Policy {
 	obj := &binaryauthorization.Policy{
 		DefaultAdmissionRule:       ProtoToBinaryauthorizationPolicyAdmissionRule(p.GetDefaultAdmissionRule()),
-		Description:                dcl.StringOrNil(p.Description),
+		Description:                dcl.StringOrNil(p.GetDescription()),
 		GlobalPolicyEvaluationMode: ProtoToBinaryauthorizationPolicyGlobalPolicyEvaluationModeEnum(p.GetGlobalPolicyEvaluationMode()),
-		SelfLink:                   dcl.StringOrNil(p.SelfLink),
-		Project:                    dcl.StringOrNil(p.Project),
+		SelfLink:                   dcl.StringOrNil(p.GetSelfLink()),
+		Project:                    dcl.StringOrNil(p.GetProject()),
 		UpdateTime:                 dcl.StringOrNil(p.GetUpdateTime()),
 	}
 	for _, r := range p.GetAdmissionWhitelistPatterns() {
@@ -137,50 +137,71 @@ func BinaryauthorizationPolicyGlobalPolicyEvaluationModeEnumToProto(e *binaryaut
 	return binaryauthorizationpb.BinaryauthorizationPolicyGlobalPolicyEvaluationModeEnum(0)
 }
 
-// PolicyAdmissionWhitelistPatternsToProto converts a PolicyAdmissionWhitelistPatterns resource to its proto representation.
+// PolicyAdmissionWhitelistPatternsToProto converts a PolicyAdmissionWhitelistPatterns object to its proto representation.
 func BinaryauthorizationPolicyAdmissionWhitelistPatternsToProto(o *binaryauthorization.PolicyAdmissionWhitelistPatterns) *binaryauthorizationpb.BinaryauthorizationPolicyAdmissionWhitelistPatterns {
 	if o == nil {
 		return nil
 	}
-	p := &binaryauthorizationpb.BinaryauthorizationPolicyAdmissionWhitelistPatterns{
-		NamePattern: dcl.ValueOrEmptyString(o.NamePattern),
-	}
+	p := &binaryauthorizationpb.BinaryauthorizationPolicyAdmissionWhitelistPatterns{}
+	p.SetNamePattern(dcl.ValueOrEmptyString(o.NamePattern))
 	return p
 }
 
-// PolicyAdmissionRuleToProto converts a PolicyAdmissionRule resource to its proto representation.
+// PolicyAdmissionRuleToProto converts a PolicyAdmissionRule object to its proto representation.
 func BinaryauthorizationPolicyAdmissionRuleToProto(o *binaryauthorization.PolicyAdmissionRule) *binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRule {
 	if o == nil {
 		return nil
 	}
-	p := &binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRule{
-		EvaluationMode:  BinaryauthorizationPolicyAdmissionRuleEvaluationModeEnumToProto(o.EvaluationMode),
-		EnforcementMode: BinaryauthorizationPolicyAdmissionRuleEnforcementModeEnumToProto(o.EnforcementMode),
+	p := &binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRule{}
+	p.SetEvaluationMode(BinaryauthorizationPolicyAdmissionRuleEvaluationModeEnumToProto(o.EvaluationMode))
+	p.SetEnforcementMode(BinaryauthorizationPolicyAdmissionRuleEnforcementModeEnumToProto(o.EnforcementMode))
+	sRequireAttestationsBy := make([]string, len(o.RequireAttestationsBy))
+	for i, r := range o.RequireAttestationsBy {
+		sRequireAttestationsBy[i] = r
 	}
-	for _, r := range o.RequireAttestationsBy {
-		p.RequireAttestationsBy = append(p.RequireAttestationsBy, r)
-	}
+	p.SetRequireAttestationsBy(sRequireAttestationsBy)
 	return p
 }
 
 // PolicyToProto converts a Policy resource to its proto representation.
 func PolicyToProto(resource *binaryauthorization.Policy) *binaryauthorizationpb.BinaryauthorizationPolicy {
-	p := &binaryauthorizationpb.BinaryauthorizationPolicy{
-		DefaultAdmissionRule:       BinaryauthorizationPolicyAdmissionRuleToProto(resource.DefaultAdmissionRule),
-		Description:                dcl.ValueOrEmptyString(resource.Description),
-		GlobalPolicyEvaluationMode: BinaryauthorizationPolicyGlobalPolicyEvaluationModeEnumToProto(resource.GlobalPolicyEvaluationMode),
-		SelfLink:                   dcl.ValueOrEmptyString(resource.SelfLink),
-		Project:                    dcl.ValueOrEmptyString(resource.Project),
-		UpdateTime:                 dcl.ValueOrEmptyString(resource.UpdateTime),
+	p := &binaryauthorizationpb.BinaryauthorizationPolicy{}
+	p.SetDefaultAdmissionRule(BinaryauthorizationPolicyAdmissionRuleToProto(resource.DefaultAdmissionRule))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetGlobalPolicyEvaluationMode(BinaryauthorizationPolicyGlobalPolicyEvaluationModeEnumToProto(resource.GlobalPolicyEvaluationMode))
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	sAdmissionWhitelistPatterns := make([]*binaryauthorizationpb.BinaryauthorizationPolicyAdmissionWhitelistPatterns, len(resource.AdmissionWhitelistPatterns))
+	for i, r := range resource.AdmissionWhitelistPatterns {
+		sAdmissionWhitelistPatterns[i] = BinaryauthorizationPolicyAdmissionWhitelistPatternsToProto(&r)
 	}
-	for _, r := range resource.AdmissionWhitelistPatterns {
-		p.AdmissionWhitelistPatterns = append(p.AdmissionWhitelistPatterns, BinaryauthorizationPolicyAdmissionWhitelistPatternsToProto(&r))
+	p.SetAdmissionWhitelistPatterns(sAdmissionWhitelistPatterns)
+	mClusterAdmissionRules := make(map[string]*binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRule, len(resource.ClusterAdmissionRules))
+	for k, r := range resource.ClusterAdmissionRules {
+		mClusterAdmissionRules[k] = BinaryauthorizationPolicyAdmissionRuleToProto(&r)
 	}
+	p.SetClusterAdmissionRules(mClusterAdmissionRules)
+	mKubernetesNamespaceAdmissionRules := make(map[string]*binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRule, len(resource.KubernetesNamespaceAdmissionRules))
+	for k, r := range resource.KubernetesNamespaceAdmissionRules {
+		mKubernetesNamespaceAdmissionRules[k] = BinaryauthorizationPolicyAdmissionRuleToProto(&r)
+	}
+	p.SetKubernetesNamespaceAdmissionRules(mKubernetesNamespaceAdmissionRules)
+	mKubernetesServiceAccountAdmissionRules := make(map[string]*binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRule, len(resource.KubernetesServiceAccountAdmissionRules))
+	for k, r := range resource.KubernetesServiceAccountAdmissionRules {
+		mKubernetesServiceAccountAdmissionRules[k] = BinaryauthorizationPolicyAdmissionRuleToProto(&r)
+	}
+	p.SetKubernetesServiceAccountAdmissionRules(mKubernetesServiceAccountAdmissionRules)
+	mIstioServiceIdentityAdmissionRules := make(map[string]*binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRule, len(resource.IstioServiceIdentityAdmissionRules))
+	for k, r := range resource.IstioServiceIdentityAdmissionRules {
+		mIstioServiceIdentityAdmissionRules[k] = BinaryauthorizationPolicyAdmissionRuleToProto(&r)
+	}
+	p.SetIstioServiceIdentityAdmissionRules(mIstioServiceIdentityAdmissionRules)
 
 	return p
 }
 
-// ApplyPolicy handles the gRPC request by passing it to the underlying Policy Apply() method.
+// applyPolicy handles the gRPC request by passing it to the underlying Policy Apply() method.
 func (s *PolicyServer) applyPolicy(ctx context.Context, c *binaryauthorization.Client, request *binaryauthorizationpb.ApplyBinaryauthorizationPolicyRequest) (*binaryauthorizationpb.BinaryauthorizationPolicy, error) {
 	p := ProtoToPolicy(request.GetResource())
 	res, err := c.ApplyPolicy(ctx, p)
@@ -191,9 +212,9 @@ func (s *PolicyServer) applyPolicy(ctx context.Context, c *binaryauthorization.C
 	return r, nil
 }
 
-// ApplyPolicy handles the gRPC request by passing it to the underlying Policy Apply() method.
+// applyBinaryauthorizationPolicy handles the gRPC request by passing it to the underlying Policy Apply() method.
 func (s *PolicyServer) ApplyBinaryauthorizationPolicy(ctx context.Context, request *binaryauthorizationpb.ApplyBinaryauthorizationPolicyRequest) (*binaryauthorizationpb.BinaryauthorizationPolicy, error) {
-	cl, err := createConfigPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}

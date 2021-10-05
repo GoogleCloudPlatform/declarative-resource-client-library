@@ -61,13 +61,13 @@ func ProtoToStorageBucketStorageClassEnum(e storagepb.StorageBucketStorageClassE
 	return nil
 }
 
-// ProtoToBucketCors converts a BucketCors resource from its proto representation.
+// ProtoToBucketCors converts a BucketCors object from its proto representation.
 func ProtoToStorageBucketCors(p *storagepb.StorageBucketCors) *storage.BucketCors {
 	if p == nil {
 		return nil
 	}
 	obj := &storage.BucketCors{
-		MaxAgeSeconds: dcl.Int64OrNil(p.MaxAgeSeconds),
+		MaxAgeSeconds: dcl.Int64OrNil(p.GetMaxAgeSeconds()),
 	}
 	for _, r := range p.GetMethod() {
 		obj.Method = append(obj.Method, r)
@@ -81,7 +81,7 @@ func ProtoToStorageBucketCors(p *storagepb.StorageBucketCors) *storage.BucketCor
 	return obj
 }
 
-// ProtoToBucketLifecycle converts a BucketLifecycle resource from its proto representation.
+// ProtoToBucketLifecycle converts a BucketLifecycle object from its proto representation.
 func ProtoToStorageBucketLifecycle(p *storagepb.StorageBucketLifecycle) *storage.BucketLifecycle {
 	if p == nil {
 		return nil
@@ -93,7 +93,7 @@ func ProtoToStorageBucketLifecycle(p *storagepb.StorageBucketLifecycle) *storage
 	return obj
 }
 
-// ProtoToBucketLifecycleRule converts a BucketLifecycleRule resource from its proto representation.
+// ProtoToBucketLifecycleRule converts a BucketLifecycleRule object from its proto representation.
 func ProtoToStorageBucketLifecycleRule(p *storagepb.StorageBucketLifecycleRule) *storage.BucketLifecycleRule {
 	if p == nil {
 		return nil
@@ -105,28 +105,28 @@ func ProtoToStorageBucketLifecycleRule(p *storagepb.StorageBucketLifecycleRule) 
 	return obj
 }
 
-// ProtoToBucketLifecycleRuleAction converts a BucketLifecycleRuleAction resource from its proto representation.
+// ProtoToBucketLifecycleRuleAction converts a BucketLifecycleRuleAction object from its proto representation.
 func ProtoToStorageBucketLifecycleRuleAction(p *storagepb.StorageBucketLifecycleRuleAction) *storage.BucketLifecycleRuleAction {
 	if p == nil {
 		return nil
 	}
 	obj := &storage.BucketLifecycleRuleAction{
-		StorageClass: dcl.StringOrNil(p.StorageClass),
+		StorageClass: dcl.StringOrNil(p.GetStorageClass()),
 		Type:         ProtoToStorageBucketLifecycleRuleActionTypeEnum(p.GetType()),
 	}
 	return obj
 }
 
-// ProtoToBucketLifecycleRuleCondition converts a BucketLifecycleRuleCondition resource from its proto representation.
+// ProtoToBucketLifecycleRuleCondition converts a BucketLifecycleRuleCondition object from its proto representation.
 func ProtoToStorageBucketLifecycleRuleCondition(p *storagepb.StorageBucketLifecycleRuleCondition) *storage.BucketLifecycleRuleCondition {
 	if p == nil {
 		return nil
 	}
 	obj := &storage.BucketLifecycleRuleCondition{
-		Age:              dcl.Int64OrNil(p.Age),
+		Age:              dcl.Int64OrNil(p.GetAge()),
 		CreatedBefore:    dcl.StringOrNil(p.GetCreatedBefore()),
 		WithState:        ProtoToStorageBucketLifecycleRuleConditionWithStateEnum(p.GetWithState()),
-		NumNewerVersions: dcl.Int64OrNil(p.NumNewerVersions),
+		NumNewerVersions: dcl.Int64OrNil(p.GetNumNewerVersions()),
 	}
 	for _, r := range p.GetMatchesStorageClass() {
 		obj.MatchesStorageClass = append(obj.MatchesStorageClass, r)
@@ -134,37 +134,37 @@ func ProtoToStorageBucketLifecycleRuleCondition(p *storagepb.StorageBucketLifecy
 	return obj
 }
 
-// ProtoToBucketLogging converts a BucketLogging resource from its proto representation.
+// ProtoToBucketLogging converts a BucketLogging object from its proto representation.
 func ProtoToStorageBucketLogging(p *storagepb.StorageBucketLogging) *storage.BucketLogging {
 	if p == nil {
 		return nil
 	}
 	obj := &storage.BucketLogging{
-		LogBucket:       dcl.StringOrNil(p.LogBucket),
-		LogObjectPrefix: dcl.StringOrNil(p.LogObjectPrefix),
+		LogBucket:       dcl.StringOrNil(p.GetLogBucket()),
+		LogObjectPrefix: dcl.StringOrNil(p.GetLogObjectPrefix()),
 	}
 	return obj
 }
 
-// ProtoToBucketVersioning converts a BucketVersioning resource from its proto representation.
+// ProtoToBucketVersioning converts a BucketVersioning object from its proto representation.
 func ProtoToStorageBucketVersioning(p *storagepb.StorageBucketVersioning) *storage.BucketVersioning {
 	if p == nil {
 		return nil
 	}
 	obj := &storage.BucketVersioning{
-		Enabled: dcl.Bool(p.Enabled),
+		Enabled: dcl.Bool(p.GetEnabled()),
 	}
 	return obj
 }
 
-// ProtoToBucketWebsite converts a BucketWebsite resource from its proto representation.
+// ProtoToBucketWebsite converts a BucketWebsite object from its proto representation.
 func ProtoToStorageBucketWebsite(p *storagepb.StorageBucketWebsite) *storage.BucketWebsite {
 	if p == nil {
 		return nil
 	}
 	obj := &storage.BucketWebsite{
-		MainPageSuffix: dcl.StringOrNil(p.MainPageSuffix),
-		NotFoundPage:   dcl.StringOrNil(p.NotFoundPage),
+		MainPageSuffix: dcl.StringOrNil(p.GetMainPageSuffix()),
+		NotFoundPage:   dcl.StringOrNil(p.GetNotFoundPage()),
 	}
 	return obj
 }
@@ -172,9 +172,9 @@ func ProtoToStorageBucketWebsite(p *storagepb.StorageBucketWebsite) *storage.Buc
 // ProtoToBucket converts a Bucket resource from its proto representation.
 func ProtoToBucket(p *storagepb.StorageBucket) *storage.Bucket {
 	obj := &storage.Bucket{
-		Project:      dcl.StringOrNil(p.Project),
-		Location:     dcl.StringOrNil(p.Location),
-		Name:         dcl.StringOrNil(p.Name),
+		Project:      dcl.StringOrNil(p.GetProject()),
+		Location:     dcl.StringOrNil(p.GetLocation()),
+		Name:         dcl.StringOrNil(p.GetName()),
 		Lifecycle:    ProtoToStorageBucketLifecycle(p.GetLifecycle()),
 		Logging:      ProtoToStorageBucketLogging(p.GetLogging()),
 		StorageClass: ProtoToStorageBucketStorageClassEnum(p.GetStorageClass()),
@@ -220,134 +220,138 @@ func StorageBucketStorageClassEnumToProto(e *storage.BucketStorageClassEnum) sto
 	return storagepb.StorageBucketStorageClassEnum(0)
 }
 
-// BucketCorsToProto converts a BucketCors resource to its proto representation.
+// BucketCorsToProto converts a BucketCors object to its proto representation.
 func StorageBucketCorsToProto(o *storage.BucketCors) *storagepb.StorageBucketCors {
 	if o == nil {
 		return nil
 	}
-	p := &storagepb.StorageBucketCors{
-		MaxAgeSeconds: dcl.ValueOrEmptyInt64(o.MaxAgeSeconds),
+	p := &storagepb.StorageBucketCors{}
+	p.SetMaxAgeSeconds(dcl.ValueOrEmptyInt64(o.MaxAgeSeconds))
+	sMethod := make([]string, len(o.Method))
+	for i, r := range o.Method {
+		sMethod[i] = r
 	}
-	for _, r := range o.Method {
-		p.Method = append(p.Method, r)
+	p.SetMethod(sMethod)
+	sOrigin := make([]string, len(o.Origin))
+	for i, r := range o.Origin {
+		sOrigin[i] = r
 	}
-	for _, r := range o.Origin {
-		p.Origin = append(p.Origin, r)
+	p.SetOrigin(sOrigin)
+	sResponseHeader := make([]string, len(o.ResponseHeader))
+	for i, r := range o.ResponseHeader {
+		sResponseHeader[i] = r
 	}
-	for _, r := range o.ResponseHeader {
-		p.ResponseHeader = append(p.ResponseHeader, r)
-	}
+	p.SetResponseHeader(sResponseHeader)
 	return p
 }
 
-// BucketLifecycleToProto converts a BucketLifecycle resource to its proto representation.
+// BucketLifecycleToProto converts a BucketLifecycle object to its proto representation.
 func StorageBucketLifecycleToProto(o *storage.BucketLifecycle) *storagepb.StorageBucketLifecycle {
 	if o == nil {
 		return nil
 	}
 	p := &storagepb.StorageBucketLifecycle{}
-	for _, r := range o.Rule {
-		p.Rule = append(p.Rule, StorageBucketLifecycleRuleToProto(&r))
+	sRule := make([]*storagepb.StorageBucketLifecycleRule, len(o.Rule))
+	for i, r := range o.Rule {
+		sRule[i] = StorageBucketLifecycleRuleToProto(&r)
 	}
+	p.SetRule(sRule)
 	return p
 }
 
-// BucketLifecycleRuleToProto converts a BucketLifecycleRule resource to its proto representation.
+// BucketLifecycleRuleToProto converts a BucketLifecycleRule object to its proto representation.
 func StorageBucketLifecycleRuleToProto(o *storage.BucketLifecycleRule) *storagepb.StorageBucketLifecycleRule {
 	if o == nil {
 		return nil
 	}
-	p := &storagepb.StorageBucketLifecycleRule{
-		Action:    StorageBucketLifecycleRuleActionToProto(o.Action),
-		Condition: StorageBucketLifecycleRuleConditionToProto(o.Condition),
-	}
+	p := &storagepb.StorageBucketLifecycleRule{}
+	p.SetAction(StorageBucketLifecycleRuleActionToProto(o.Action))
+	p.SetCondition(StorageBucketLifecycleRuleConditionToProto(o.Condition))
 	return p
 }
 
-// BucketLifecycleRuleActionToProto converts a BucketLifecycleRuleAction resource to its proto representation.
+// BucketLifecycleRuleActionToProto converts a BucketLifecycleRuleAction object to its proto representation.
 func StorageBucketLifecycleRuleActionToProto(o *storage.BucketLifecycleRuleAction) *storagepb.StorageBucketLifecycleRuleAction {
 	if o == nil {
 		return nil
 	}
-	p := &storagepb.StorageBucketLifecycleRuleAction{
-		StorageClass: dcl.ValueOrEmptyString(o.StorageClass),
-		Type:         StorageBucketLifecycleRuleActionTypeEnumToProto(o.Type),
-	}
+	p := &storagepb.StorageBucketLifecycleRuleAction{}
+	p.SetStorageClass(dcl.ValueOrEmptyString(o.StorageClass))
+	p.SetType(StorageBucketLifecycleRuleActionTypeEnumToProto(o.Type))
 	return p
 }
 
-// BucketLifecycleRuleConditionToProto converts a BucketLifecycleRuleCondition resource to its proto representation.
+// BucketLifecycleRuleConditionToProto converts a BucketLifecycleRuleCondition object to its proto representation.
 func StorageBucketLifecycleRuleConditionToProto(o *storage.BucketLifecycleRuleCondition) *storagepb.StorageBucketLifecycleRuleCondition {
 	if o == nil {
 		return nil
 	}
-	p := &storagepb.StorageBucketLifecycleRuleCondition{
-		Age:              dcl.ValueOrEmptyInt64(o.Age),
-		CreatedBefore:    dcl.ValueOrEmptyString(o.CreatedBefore),
-		WithState:        StorageBucketLifecycleRuleConditionWithStateEnumToProto(o.WithState),
-		NumNewerVersions: dcl.ValueOrEmptyInt64(o.NumNewerVersions),
+	p := &storagepb.StorageBucketLifecycleRuleCondition{}
+	p.SetAge(dcl.ValueOrEmptyInt64(o.Age))
+	p.SetCreatedBefore(dcl.ValueOrEmptyString(o.CreatedBefore))
+	p.SetWithState(StorageBucketLifecycleRuleConditionWithStateEnumToProto(o.WithState))
+	p.SetNumNewerVersions(dcl.ValueOrEmptyInt64(o.NumNewerVersions))
+	sMatchesStorageClass := make([]string, len(o.MatchesStorageClass))
+	for i, r := range o.MatchesStorageClass {
+		sMatchesStorageClass[i] = r
 	}
-	for _, r := range o.MatchesStorageClass {
-		p.MatchesStorageClass = append(p.MatchesStorageClass, r)
-	}
+	p.SetMatchesStorageClass(sMatchesStorageClass)
 	return p
 }
 
-// BucketLoggingToProto converts a BucketLogging resource to its proto representation.
+// BucketLoggingToProto converts a BucketLogging object to its proto representation.
 func StorageBucketLoggingToProto(o *storage.BucketLogging) *storagepb.StorageBucketLogging {
 	if o == nil {
 		return nil
 	}
-	p := &storagepb.StorageBucketLogging{
-		LogBucket:       dcl.ValueOrEmptyString(o.LogBucket),
-		LogObjectPrefix: dcl.ValueOrEmptyString(o.LogObjectPrefix),
-	}
+	p := &storagepb.StorageBucketLogging{}
+	p.SetLogBucket(dcl.ValueOrEmptyString(o.LogBucket))
+	p.SetLogObjectPrefix(dcl.ValueOrEmptyString(o.LogObjectPrefix))
 	return p
 }
 
-// BucketVersioningToProto converts a BucketVersioning resource to its proto representation.
+// BucketVersioningToProto converts a BucketVersioning object to its proto representation.
 func StorageBucketVersioningToProto(o *storage.BucketVersioning) *storagepb.StorageBucketVersioning {
 	if o == nil {
 		return nil
 	}
-	p := &storagepb.StorageBucketVersioning{
-		Enabled: dcl.ValueOrEmptyBool(o.Enabled),
-	}
+	p := &storagepb.StorageBucketVersioning{}
+	p.SetEnabled(dcl.ValueOrEmptyBool(o.Enabled))
 	return p
 }
 
-// BucketWebsiteToProto converts a BucketWebsite resource to its proto representation.
+// BucketWebsiteToProto converts a BucketWebsite object to its proto representation.
 func StorageBucketWebsiteToProto(o *storage.BucketWebsite) *storagepb.StorageBucketWebsite {
 	if o == nil {
 		return nil
 	}
-	p := &storagepb.StorageBucketWebsite{
-		MainPageSuffix: dcl.ValueOrEmptyString(o.MainPageSuffix),
-		NotFoundPage:   dcl.ValueOrEmptyString(o.NotFoundPage),
-	}
+	p := &storagepb.StorageBucketWebsite{}
+	p.SetMainPageSuffix(dcl.ValueOrEmptyString(o.MainPageSuffix))
+	p.SetNotFoundPage(dcl.ValueOrEmptyString(o.NotFoundPage))
 	return p
 }
 
 // BucketToProto converts a Bucket resource to its proto representation.
 func BucketToProto(resource *storage.Bucket) *storagepb.StorageBucket {
-	p := &storagepb.StorageBucket{
-		Project:      dcl.ValueOrEmptyString(resource.Project),
-		Location:     dcl.ValueOrEmptyString(resource.Location),
-		Name:         dcl.ValueOrEmptyString(resource.Name),
-		Lifecycle:    StorageBucketLifecycleToProto(resource.Lifecycle),
-		Logging:      StorageBucketLoggingToProto(resource.Logging),
-		StorageClass: StorageBucketStorageClassEnumToProto(resource.StorageClass),
-		Versioning:   StorageBucketVersioningToProto(resource.Versioning),
-		Website:      StorageBucketWebsiteToProto(resource.Website),
+	p := &storagepb.StorageBucket{}
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetLifecycle(StorageBucketLifecycleToProto(resource.Lifecycle))
+	p.SetLogging(StorageBucketLoggingToProto(resource.Logging))
+	p.SetStorageClass(StorageBucketStorageClassEnumToProto(resource.StorageClass))
+	p.SetVersioning(StorageBucketVersioningToProto(resource.Versioning))
+	p.SetWebsite(StorageBucketWebsiteToProto(resource.Website))
+	sCors := make([]*storagepb.StorageBucketCors, len(resource.Cors))
+	for i, r := range resource.Cors {
+		sCors[i] = StorageBucketCorsToProto(&r)
 	}
-	for _, r := range resource.Cors {
-		p.Cors = append(p.Cors, StorageBucketCorsToProto(&r))
-	}
+	p.SetCors(sCors)
 
 	return p
 }
 
-// ApplyBucket handles the gRPC request by passing it to the underlying Bucket Apply() method.
+// applyBucket handles the gRPC request by passing it to the underlying Bucket Apply() method.
 func (s *BucketServer) applyBucket(ctx context.Context, c *storage.Client, request *storagepb.ApplyStorageBucketRequest) (*storagepb.StorageBucket, error) {
 	p := ProtoToBucket(request.GetResource())
 	res, err := c.ApplyBucket(ctx, p)
@@ -358,9 +362,9 @@ func (s *BucketServer) applyBucket(ctx context.Context, c *storage.Client, reque
 	return r, nil
 }
 
-// ApplyBucket handles the gRPC request by passing it to the underlying Bucket Apply() method.
+// applyStorageBucket handles the gRPC request by passing it to the underlying Bucket Apply() method.
 func (s *BucketServer) ApplyStorageBucket(ctx context.Context, request *storagepb.ApplyStorageBucketRequest) (*storagepb.StorageBucket, error) {
-	cl, err := createConfigBucket(ctx, request.ServiceAccountFile)
+	cl, err := createConfigBucket(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -370,7 +374,7 @@ func (s *BucketServer) ApplyStorageBucket(ctx context.Context, request *storagep
 // DeleteBucket handles the gRPC request by passing it to the underlying Bucket Delete() method.
 func (s *BucketServer) DeleteStorageBucket(ctx context.Context, request *storagepb.DeleteStorageBucketRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigBucket(ctx, request.ServiceAccountFile)
+	cl, err := createConfigBucket(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -380,12 +384,12 @@ func (s *BucketServer) DeleteStorageBucket(ctx context.Context, request *storage
 
 // ListStorageBucket handles the gRPC request by passing it to the underlying BucketList() method.
 func (s *BucketServer) ListStorageBucket(ctx context.Context, request *storagepb.ListStorageBucketRequest) (*storagepb.ListStorageBucketResponse, error) {
-	cl, err := createConfigBucket(ctx, request.ServiceAccountFile)
+	cl, err := createConfigBucket(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListBucket(ctx, request.Project)
+	resources, err := cl.ListBucket(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -394,7 +398,9 @@ func (s *BucketServer) ListStorageBucket(ctx context.Context, request *storagepb
 		rp := BucketToProto(r)
 		protos = append(protos, rp)
 	}
-	return &storagepb.ListStorageBucketResponse{Items: protos}, nil
+	p := &storagepb.ListStorageBucketResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigBucket(ctx context.Context, service_account_file string) (*storage.Client, error) {

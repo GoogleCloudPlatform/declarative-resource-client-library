@@ -481,13 +481,13 @@ func ProtoToMonitoringAlphaDashboardWidgetTextFormatEnum(e alphapb.MonitoringAlp
 	return nil
 }
 
-// ProtoToDashboardGridLayout converts a DashboardGridLayout resource from its proto representation.
+// ProtoToDashboardGridLayout converts a DashboardGridLayout object from its proto representation.
 func ProtoToMonitoringAlphaDashboardGridLayout(p *alphapb.MonitoringAlphaDashboardGridLayout) *alpha.DashboardGridLayout {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardGridLayout{
-		Columns: dcl.Int64OrNil(p.Columns),
+		Columns: dcl.Int64OrNil(p.GetColumns()),
 	}
 	for _, r := range p.GetWidgets() {
 		obj.Widgets = append(obj.Widgets, *ProtoToMonitoringAlphaDashboardWidget(r))
@@ -495,13 +495,13 @@ func ProtoToMonitoringAlphaDashboardGridLayout(p *alphapb.MonitoringAlphaDashboa
 	return obj
 }
 
-// ProtoToDashboardMosaicLayout converts a DashboardMosaicLayout resource from its proto representation.
+// ProtoToDashboardMosaicLayout converts a DashboardMosaicLayout object from its proto representation.
 func ProtoToMonitoringAlphaDashboardMosaicLayout(p *alphapb.MonitoringAlphaDashboardMosaicLayout) *alpha.DashboardMosaicLayout {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardMosaicLayout{
-		Columns: dcl.Int64OrNil(p.Columns),
+		Columns: dcl.Int64OrNil(p.GetColumns()),
 	}
 	for _, r := range p.GetTiles() {
 		obj.Tiles = append(obj.Tiles, *ProtoToMonitoringAlphaDashboardMosaicLayoutTiles(r))
@@ -509,22 +509,22 @@ func ProtoToMonitoringAlphaDashboardMosaicLayout(p *alphapb.MonitoringAlphaDashb
 	return obj
 }
 
-// ProtoToDashboardMosaicLayoutTiles converts a DashboardMosaicLayoutTiles resource from its proto representation.
+// ProtoToDashboardMosaicLayoutTiles converts a DashboardMosaicLayoutTiles object from its proto representation.
 func ProtoToMonitoringAlphaDashboardMosaicLayoutTiles(p *alphapb.MonitoringAlphaDashboardMosaicLayoutTiles) *alpha.DashboardMosaicLayoutTiles {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardMosaicLayoutTiles{
-		XPos:   dcl.Int64OrNil(p.XPos),
-		YPos:   dcl.Int64OrNil(p.YPos),
-		Width:  dcl.Int64OrNil(p.Width),
-		Height: dcl.Int64OrNil(p.Height),
+		XPos:   dcl.Int64OrNil(p.GetXPos()),
+		YPos:   dcl.Int64OrNil(p.GetYPos()),
+		Width:  dcl.Int64OrNil(p.GetWidth()),
+		Height: dcl.Int64OrNil(p.GetHeight()),
 		Widget: ProtoToMonitoringAlphaDashboardWidget(p.GetWidget()),
 	}
 	return obj
 }
 
-// ProtoToDashboardRowLayout converts a DashboardRowLayout resource from its proto representation.
+// ProtoToDashboardRowLayout converts a DashboardRowLayout object from its proto representation.
 func ProtoToMonitoringAlphaDashboardRowLayout(p *alphapb.MonitoringAlphaDashboardRowLayout) *alpha.DashboardRowLayout {
 	if p == nil {
 		return nil
@@ -536,13 +536,13 @@ func ProtoToMonitoringAlphaDashboardRowLayout(p *alphapb.MonitoringAlphaDashboar
 	return obj
 }
 
-// ProtoToDashboardRowLayoutRows converts a DashboardRowLayoutRows resource from its proto representation.
+// ProtoToDashboardRowLayoutRows converts a DashboardRowLayoutRows object from its proto representation.
 func ProtoToMonitoringAlphaDashboardRowLayoutRows(p *alphapb.MonitoringAlphaDashboardRowLayoutRows) *alpha.DashboardRowLayoutRows {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardRowLayoutRows{
-		Weight: dcl.Int64OrNil(p.Weight),
+		Weight: dcl.Int64OrNil(p.GetWeight()),
 	}
 	for _, r := range p.GetWidgets() {
 		obj.Widgets = append(obj.Widgets, *ProtoToMonitoringAlphaDashboardWidget(r))
@@ -550,7 +550,7 @@ func ProtoToMonitoringAlphaDashboardRowLayoutRows(p *alphapb.MonitoringAlphaDash
 	return obj
 }
 
-// ProtoToDashboardColumnLayout converts a DashboardColumnLayout resource from its proto representation.
+// ProtoToDashboardColumnLayout converts a DashboardColumnLayout object from its proto representation.
 func ProtoToMonitoringAlphaDashboardColumnLayout(p *alphapb.MonitoringAlphaDashboardColumnLayout) *alpha.DashboardColumnLayout {
 	if p == nil {
 		return nil
@@ -562,13 +562,13 @@ func ProtoToMonitoringAlphaDashboardColumnLayout(p *alphapb.MonitoringAlphaDashb
 	return obj
 }
 
-// ProtoToDashboardColumnLayoutColumns converts a DashboardColumnLayoutColumns resource from its proto representation.
+// ProtoToDashboardColumnLayoutColumns converts a DashboardColumnLayoutColumns object from its proto representation.
 func ProtoToMonitoringAlphaDashboardColumnLayoutColumns(p *alphapb.MonitoringAlphaDashboardColumnLayoutColumns) *alpha.DashboardColumnLayoutColumns {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardColumnLayoutColumns{
-		Weight: dcl.Int64OrNil(p.Weight),
+		Weight: dcl.Int64OrNil(p.GetWeight()),
 	}
 	for _, r := range p.GetWidgets() {
 		obj.Widgets = append(obj.Widgets, *ProtoToMonitoringAlphaDashboardWidget(r))
@@ -576,13 +576,13 @@ func ProtoToMonitoringAlphaDashboardColumnLayoutColumns(p *alphapb.MonitoringAlp
 	return obj
 }
 
-// ProtoToDashboardWidget converts a DashboardWidget resource from its proto representation.
+// ProtoToDashboardWidget converts a DashboardWidget object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidget(p *alphapb.MonitoringAlphaDashboardWidget) *alpha.DashboardWidget {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidget{
-		Title:     dcl.StringOrNil(p.Title),
+		Title:     dcl.StringOrNil(p.GetTitle()),
 		XyChart:   ProtoToMonitoringAlphaDashboardWidgetXyChart(p.GetXyChart()),
 		Scorecard: ProtoToMonitoringAlphaDashboardWidgetScorecard(p.GetScorecard()),
 		Text:      ProtoToMonitoringAlphaDashboardWidgetText(p.GetText()),
@@ -591,13 +591,13 @@ func ProtoToMonitoringAlphaDashboardWidget(p *alphapb.MonitoringAlphaDashboardWi
 	return obj
 }
 
-// ProtoToDashboardWidgetXyChart converts a DashboardWidgetXyChart resource from its proto representation.
+// ProtoToDashboardWidgetXyChart converts a DashboardWidgetXyChart object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetXyChart(p *alphapb.MonitoringAlphaDashboardWidgetXyChart) *alpha.DashboardWidgetXyChart {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetXyChart{
-		TimeshiftDuration: dcl.StringOrNil(p.TimeshiftDuration),
+		TimeshiftDuration: dcl.StringOrNil(p.GetTimeshiftDuration()),
 		XAxis:             ProtoToMonitoringAlphaDashboardWidgetXyChartXAxis(p.GetXAxis()),
 		YAxis:             ProtoToMonitoringAlphaDashboardWidgetXyChartYAxis(p.GetYAxis()),
 		ChartOptions:      ProtoToMonitoringAlphaDashboardWidgetXyChartChartOptions(p.GetChartOptions()),
@@ -611,7 +611,7 @@ func ProtoToMonitoringAlphaDashboardWidgetXyChart(p *alphapb.MonitoringAlphaDash
 	return obj
 }
 
-// ProtoToDashboardWidgetXyChartDataSets converts a DashboardWidgetXyChartDataSets resource from its proto representation.
+// ProtoToDashboardWidgetXyChartDataSets converts a DashboardWidgetXyChartDataSets object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSets(p *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSets) *alpha.DashboardWidgetXyChartDataSets {
 	if p == nil {
 		return nil
@@ -619,13 +619,13 @@ func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSets(p *alphapb.MonitoringA
 	obj := &alpha.DashboardWidgetXyChartDataSets{
 		TimeSeriesQuery:    ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQuery(p.GetTimeSeriesQuery()),
 		PlotType:           ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsPlotTypeEnum(p.GetPlotType()),
-		LegendTemplate:     dcl.StringOrNil(p.LegendTemplate),
-		MinAlignmentPeriod: dcl.StringOrNil(p.MinAlignmentPeriod),
+		LegendTemplate:     dcl.StringOrNil(p.GetLegendTemplate()),
+		MinAlignmentPeriod: dcl.StringOrNil(p.GetMinAlignmentPeriod()),
 	}
 	return obj
 }
 
-// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQuery converts a DashboardWidgetXyChartDataSetsTimeSeriesQuery resource from its proto representation.
+// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQuery converts a DashboardWidgetXyChartDataSetsTimeSeriesQuery object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQuery(p *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQuery) *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQuery {
 	if p == nil {
 		return nil
@@ -633,19 +633,19 @@ func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQuery(p *alph
 	obj := &alpha.DashboardWidgetXyChartDataSetsTimeSeriesQuery{
 		TimeSeriesFilter:        ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(p.GetTimeSeriesFilter()),
 		TimeSeriesFilterRatio:   ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(p.GetTimeSeriesFilterRatio()),
-		TimeSeriesQueryLanguage: dcl.StringOrNil(p.TimeSeriesQueryLanguage),
-		UnitOverride:            dcl.StringOrNil(p.UnitOverride),
+		TimeSeriesQueryLanguage: dcl.StringOrNil(p.GetTimeSeriesQueryLanguage()),
+		UnitOverride:            dcl.StringOrNil(p.GetUnitOverride()),
 	}
 	return obj
 }
 
-// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter resource from its proto representation.
+// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(p *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter{
-		Filter:               dcl.StringOrNil(p.Filter),
+		Filter:               dcl.StringOrNil(p.GetFilter()),
 		Aggregation:          ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(p.GetAggregation()),
 		SecondaryAggregation: ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(p.GetSecondaryAggregation()),
 		PickTimeSeriesFilter: ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(p.GetPickTimeSeriesFilter()),
@@ -653,13 +653,13 @@ func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeri
 	return obj
 }
 
-// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation resource from its proto representation.
+// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(p *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{
-		AlignmentPeriod:    dcl.StringOrNil(p.AlignmentPeriod),
+		AlignmentPeriod:    dcl.StringOrNil(p.GetAlignmentPeriod()),
 		PerSeriesAligner:   ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(p.GetPerSeriesAligner()),
 		CrossSeriesReducer: ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(p.GetCrossSeriesReducer()),
 	}
@@ -669,13 +669,13 @@ func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeri
 	return obj
 }
 
-// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation resource from its proto representation.
+// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(p *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{
-		AlignmentPeriod:    dcl.StringOrNil(p.AlignmentPeriod),
+		AlignmentPeriod:    dcl.StringOrNil(p.GetAlignmentPeriod()),
 		PerSeriesAligner:   ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(p.GetPerSeriesAligner()),
 		CrossSeriesReducer: ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(p.GetCrossSeriesReducer()),
 	}
@@ -685,20 +685,20 @@ func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeri
 	return obj
 }
 
-// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter resource from its proto representation.
+// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(p *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{
 		RankingMethod: ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(p.GetRankingMethod()),
-		NumTimeSeries: dcl.Int64OrNil(p.NumTimeSeries),
+		NumTimeSeries: dcl.Int64OrNil(p.GetNumTimeSeries()),
 		Direction:     ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(p.GetDirection()),
 	}
 	return obj
 }
 
-// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio resource from its proto representation.
+// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(p *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
 	if p == nil {
 		return nil
@@ -712,25 +712,25 @@ func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeri
 	return obj
 }
 
-// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator resource from its proto representation.
+// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(p *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator{
-		Filter:      dcl.StringOrNil(p.Filter),
+		Filter:      dcl.StringOrNil(p.GetFilter()),
 		Aggregation: ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(p.GetAggregation()),
 	}
 	return obj
 }
 
-// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation resource from its proto representation.
+// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(p *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{
-		AlignmentPeriod:    dcl.StringOrNil(p.AlignmentPeriod),
+		AlignmentPeriod:    dcl.StringOrNil(p.GetAlignmentPeriod()),
 		PerSeriesAligner:   ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(p.GetPerSeriesAligner()),
 		CrossSeriesReducer: ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(p.GetCrossSeriesReducer()),
 	}
@@ -740,25 +740,25 @@ func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeri
 	return obj
 }
 
-// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator resource from its proto representation.
+// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(p *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator{
-		Filter:      dcl.StringOrNil(p.Filter),
+		Filter:      dcl.StringOrNil(p.GetFilter()),
 		Aggregation: ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(p.GetAggregation()),
 	}
 	return obj
 }
 
-// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation resource from its proto representation.
+// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(p *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{
-		AlignmentPeriod:    dcl.StringOrNil(p.AlignmentPeriod),
+		AlignmentPeriod:    dcl.StringOrNil(p.GetAlignmentPeriod()),
 		PerSeriesAligner:   ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(p.GetPerSeriesAligner()),
 		CrossSeriesReducer: ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(p.GetCrossSeriesReducer()),
 	}
@@ -768,13 +768,13 @@ func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeri
 	return obj
 }
 
-// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation resource from its proto representation.
+// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(p *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{
-		AlignmentPeriod:    dcl.StringOrNil(p.AlignmentPeriod),
+		AlignmentPeriod:    dcl.StringOrNil(p.GetAlignmentPeriod()),
 		PerSeriesAligner:   ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(p.GetPerSeriesAligner()),
 		CrossSeriesReducer: ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(p.GetCrossSeriesReducer()),
 	}
@@ -784,58 +784,58 @@ func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeri
 	return obj
 }
 
-// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter resource from its proto representation.
+// ProtoToDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(p *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{
 		RankingMethod: ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(p.GetRankingMethod()),
-		NumTimeSeries: dcl.Int64OrNil(p.NumTimeSeries),
+		NumTimeSeries: dcl.Int64OrNil(p.GetNumTimeSeries()),
 		Direction:     ProtoToMonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(p.GetDirection()),
 	}
 	return obj
 }
 
-// ProtoToDashboardWidgetXyChartThresholds converts a DashboardWidgetXyChartThresholds resource from its proto representation.
+// ProtoToDashboardWidgetXyChartThresholds converts a DashboardWidgetXyChartThresholds object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetXyChartThresholds(p *alphapb.MonitoringAlphaDashboardWidgetXyChartThresholds) *alpha.DashboardWidgetXyChartThresholds {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetXyChartThresholds{
-		Label:     dcl.StringOrNil(p.Label),
-		Value:     dcl.Float64OrNil(p.Value),
+		Label:     dcl.StringOrNil(p.GetLabel()),
+		Value:     dcl.Float64OrNil(p.GetValue()),
 		Color:     ProtoToMonitoringAlphaDashboardWidgetXyChartThresholdsColorEnum(p.GetColor()),
 		Direction: ProtoToMonitoringAlphaDashboardWidgetXyChartThresholdsDirectionEnum(p.GetDirection()),
 	}
 	return obj
 }
 
-// ProtoToDashboardWidgetXyChartXAxis converts a DashboardWidgetXyChartXAxis resource from its proto representation.
+// ProtoToDashboardWidgetXyChartXAxis converts a DashboardWidgetXyChartXAxis object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetXyChartXAxis(p *alphapb.MonitoringAlphaDashboardWidgetXyChartXAxis) *alpha.DashboardWidgetXyChartXAxis {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetXyChartXAxis{
-		Label: dcl.StringOrNil(p.Label),
+		Label: dcl.StringOrNil(p.GetLabel()),
 		Scale: ProtoToMonitoringAlphaDashboardWidgetXyChartXAxisScaleEnum(p.GetScale()),
 	}
 	return obj
 }
 
-// ProtoToDashboardWidgetXyChartYAxis converts a DashboardWidgetXyChartYAxis resource from its proto representation.
+// ProtoToDashboardWidgetXyChartYAxis converts a DashboardWidgetXyChartYAxis object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetXyChartYAxis(p *alphapb.MonitoringAlphaDashboardWidgetXyChartYAxis) *alpha.DashboardWidgetXyChartYAxis {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetXyChartYAxis{
-		Label: dcl.StringOrNil(p.Label),
+		Label: dcl.StringOrNil(p.GetLabel()),
 		Scale: ProtoToMonitoringAlphaDashboardWidgetXyChartYAxisScaleEnum(p.GetScale()),
 	}
 	return obj
 }
 
-// ProtoToDashboardWidgetXyChartChartOptions converts a DashboardWidgetXyChartChartOptions resource from its proto representation.
+// ProtoToDashboardWidgetXyChartChartOptions converts a DashboardWidgetXyChartChartOptions object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetXyChartChartOptions(p *alphapb.MonitoringAlphaDashboardWidgetXyChartChartOptions) *alpha.DashboardWidgetXyChartChartOptions {
 	if p == nil {
 		return nil
@@ -846,7 +846,7 @@ func ProtoToMonitoringAlphaDashboardWidgetXyChartChartOptions(p *alphapb.Monitor
 	return obj
 }
 
-// ProtoToDashboardWidgetScorecard converts a DashboardWidgetScorecard resource from its proto representation.
+// ProtoToDashboardWidgetScorecard converts a DashboardWidgetScorecard object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetScorecard(p *alphapb.MonitoringAlphaDashboardWidgetScorecard) *alpha.DashboardWidgetScorecard {
 	if p == nil {
 		return nil
@@ -862,7 +862,7 @@ func ProtoToMonitoringAlphaDashboardWidgetScorecard(p *alphapb.MonitoringAlphaDa
 	return obj
 }
 
-// ProtoToDashboardWidgetScorecardTimeSeriesQuery converts a DashboardWidgetScorecardTimeSeriesQuery resource from its proto representation.
+// ProtoToDashboardWidgetScorecardTimeSeriesQuery converts a DashboardWidgetScorecardTimeSeriesQuery object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQuery(p *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQuery) *alpha.DashboardWidgetScorecardTimeSeriesQuery {
 	if p == nil {
 		return nil
@@ -870,19 +870,19 @@ func ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQuery(p *alphapb.Mo
 	obj := &alpha.DashboardWidgetScorecardTimeSeriesQuery{
 		TimeSeriesFilter:        ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(p.GetTimeSeriesFilter()),
 		TimeSeriesFilterRatio:   ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(p.GetTimeSeriesFilterRatio()),
-		TimeSeriesQueryLanguage: dcl.StringOrNil(p.TimeSeriesQueryLanguage),
-		UnitOverride:            dcl.StringOrNil(p.UnitOverride),
+		TimeSeriesQueryLanguage: dcl.StringOrNil(p.GetTimeSeriesQueryLanguage()),
+		UnitOverride:            dcl.StringOrNil(p.GetUnitOverride()),
 	}
 	return obj
 }
 
-// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter resource from its proto representation.
+// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(p *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter{
-		Filter:               dcl.StringOrNil(p.Filter),
+		Filter:               dcl.StringOrNil(p.GetFilter()),
 		Aggregation:          ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(p.GetAggregation()),
 		SecondaryAggregation: ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(p.GetSecondaryAggregation()),
 		PickTimeSeriesFilter: ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(p.GetPickTimeSeriesFilter()),
@@ -890,13 +890,13 @@ func ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilt
 	return obj
 }
 
-// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation resource from its proto representation.
+// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(p *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation{
-		AlignmentPeriod:    dcl.StringOrNil(p.AlignmentPeriod),
+		AlignmentPeriod:    dcl.StringOrNil(p.GetAlignmentPeriod()),
 		PerSeriesAligner:   ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(p.GetPerSeriesAligner()),
 		CrossSeriesReducer: ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(p.GetCrossSeriesReducer()),
 	}
@@ -906,13 +906,13 @@ func ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilt
 	return obj
 }
 
-// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation resource from its proto representation.
+// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(p *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{
-		AlignmentPeriod:    dcl.StringOrNil(p.AlignmentPeriod),
+		AlignmentPeriod:    dcl.StringOrNil(p.GetAlignmentPeriod()),
 		PerSeriesAligner:   ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(p.GetPerSeriesAligner()),
 		CrossSeriesReducer: ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(p.GetCrossSeriesReducer()),
 	}
@@ -922,20 +922,20 @@ func ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilt
 	return obj
 }
 
-// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter resource from its proto representation.
+// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(p *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{
 		RankingMethod: ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(p.GetRankingMethod()),
-		NumTimeSeries: dcl.Int64OrNil(p.NumTimeSeries),
+		NumTimeSeries: dcl.Int64OrNil(p.GetNumTimeSeries()),
 		Direction:     ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(p.GetDirection()),
 	}
 	return obj
 }
 
-// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio resource from its proto representation.
+// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(p *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio {
 	if p == nil {
 		return nil
@@ -949,25 +949,25 @@ func ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilt
 	return obj
 }
 
-// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator resource from its proto representation.
+// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(p *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator{
-		Filter:      dcl.StringOrNil(p.Filter),
+		Filter:      dcl.StringOrNil(p.GetFilter()),
 		Aggregation: ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(p.GetAggregation()),
 	}
 	return obj
 }
 
-// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation resource from its proto representation.
+// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(p *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{
-		AlignmentPeriod:    dcl.StringOrNil(p.AlignmentPeriod),
+		AlignmentPeriod:    dcl.StringOrNil(p.GetAlignmentPeriod()),
 		PerSeriesAligner:   ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(p.GetPerSeriesAligner()),
 		CrossSeriesReducer: ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(p.GetCrossSeriesReducer()),
 	}
@@ -977,25 +977,25 @@ func ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilt
 	return obj
 }
 
-// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator resource from its proto representation.
+// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(p *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator{
-		Filter:      dcl.StringOrNil(p.Filter),
+		Filter:      dcl.StringOrNil(p.GetFilter()),
 		Aggregation: ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(p.GetAggregation()),
 	}
 	return obj
 }
 
-// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation resource from its proto representation.
+// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(p *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{
-		AlignmentPeriod:    dcl.StringOrNil(p.AlignmentPeriod),
+		AlignmentPeriod:    dcl.StringOrNil(p.GetAlignmentPeriod()),
 		PerSeriesAligner:   ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(p.GetPerSeriesAligner()),
 		CrossSeriesReducer: ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(p.GetCrossSeriesReducer()),
 	}
@@ -1005,13 +1005,13 @@ func ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilt
 	return obj
 }
 
-// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation resource from its proto representation.
+// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(p *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{
-		AlignmentPeriod:    dcl.StringOrNil(p.AlignmentPeriod),
+		AlignmentPeriod:    dcl.StringOrNil(p.GetAlignmentPeriod()),
 		PerSeriesAligner:   ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(p.GetPerSeriesAligner()),
 		CrossSeriesReducer: ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(p.GetCrossSeriesReducer()),
 	}
@@ -1021,70 +1021,70 @@ func ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilt
 	return obj
 }
 
-// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter resource from its proto representation.
+// ProtoToDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(p *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{
 		RankingMethod: ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(p.GetRankingMethod()),
-		NumTimeSeries: dcl.Int64OrNil(p.NumTimeSeries),
+		NumTimeSeries: dcl.Int64OrNil(p.GetNumTimeSeries()),
 		Direction:     ProtoToMonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(p.GetDirection()),
 	}
 	return obj
 }
 
-// ProtoToDashboardWidgetScorecardGaugeView converts a DashboardWidgetScorecardGaugeView resource from its proto representation.
+// ProtoToDashboardWidgetScorecardGaugeView converts a DashboardWidgetScorecardGaugeView object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetScorecardGaugeView(p *alphapb.MonitoringAlphaDashboardWidgetScorecardGaugeView) *alpha.DashboardWidgetScorecardGaugeView {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetScorecardGaugeView{
-		LowerBound: dcl.Float64OrNil(p.LowerBound),
-		UpperBound: dcl.Float64OrNil(p.UpperBound),
+		LowerBound: dcl.Float64OrNil(p.GetLowerBound()),
+		UpperBound: dcl.Float64OrNil(p.GetUpperBound()),
 	}
 	return obj
 }
 
-// ProtoToDashboardWidgetScorecardSparkChartView converts a DashboardWidgetScorecardSparkChartView resource from its proto representation.
+// ProtoToDashboardWidgetScorecardSparkChartView converts a DashboardWidgetScorecardSparkChartView object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetScorecardSparkChartView(p *alphapb.MonitoringAlphaDashboardWidgetScorecardSparkChartView) *alpha.DashboardWidgetScorecardSparkChartView {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetScorecardSparkChartView{
 		SparkChartType:     ProtoToMonitoringAlphaDashboardWidgetScorecardSparkChartViewSparkChartTypeEnum(p.GetSparkChartType()),
-		MinAlignmentPeriod: dcl.StringOrNil(p.MinAlignmentPeriod),
+		MinAlignmentPeriod: dcl.StringOrNil(p.GetMinAlignmentPeriod()),
 	}
 	return obj
 }
 
-// ProtoToDashboardWidgetScorecardThresholds converts a DashboardWidgetScorecardThresholds resource from its proto representation.
+// ProtoToDashboardWidgetScorecardThresholds converts a DashboardWidgetScorecardThresholds object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetScorecardThresholds(p *alphapb.MonitoringAlphaDashboardWidgetScorecardThresholds) *alpha.DashboardWidgetScorecardThresholds {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetScorecardThresholds{
-		Label:     dcl.StringOrNil(p.Label),
-		Value:     dcl.Float64OrNil(p.Value),
+		Label:     dcl.StringOrNil(p.GetLabel()),
+		Value:     dcl.Float64OrNil(p.GetValue()),
 		Color:     ProtoToMonitoringAlphaDashboardWidgetScorecardThresholdsColorEnum(p.GetColor()),
 		Direction: ProtoToMonitoringAlphaDashboardWidgetScorecardThresholdsDirectionEnum(p.GetDirection()),
 	}
 	return obj
 }
 
-// ProtoToDashboardWidgetText converts a DashboardWidgetText resource from its proto representation.
+// ProtoToDashboardWidgetText converts a DashboardWidgetText object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetText(p *alphapb.MonitoringAlphaDashboardWidgetText) *alpha.DashboardWidgetText {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.DashboardWidgetText{
-		Content: dcl.StringOrNil(p.Content),
+		Content: dcl.StringOrNil(p.GetContent()),
 		Format:  ProtoToMonitoringAlphaDashboardWidgetTextFormatEnum(p.GetFormat()),
 	}
 	return obj
 }
 
-// ProtoToDashboardWidgetBlank converts a DashboardWidgetBlank resource from its proto representation.
+// ProtoToDashboardWidgetBlank converts a DashboardWidgetBlank object from its proto representation.
 func ProtoToMonitoringAlphaDashboardWidgetBlank(p *alphapb.MonitoringAlphaDashboardWidgetBlank) *alpha.DashboardWidgetBlank {
 	if p == nil {
 		return nil
@@ -1096,14 +1096,14 @@ func ProtoToMonitoringAlphaDashboardWidgetBlank(p *alphapb.MonitoringAlphaDashbo
 // ProtoToDashboard converts a Dashboard resource from its proto representation.
 func ProtoToDashboard(p *alphapb.MonitoringAlphaDashboard) *alpha.Dashboard {
 	obj := &alpha.Dashboard{
-		Name:         dcl.StringOrNil(p.Name),
-		DisplayName:  dcl.StringOrNil(p.DisplayName),
+		Name:         dcl.StringOrNil(p.GetName()),
+		DisplayName:  dcl.StringOrNil(p.GetDisplayName()),
 		GridLayout:   ProtoToMonitoringAlphaDashboardGridLayout(p.GetGridLayout()),
 		MosaicLayout: ProtoToMonitoringAlphaDashboardMosaicLayout(p.GetMosaicLayout()),
 		RowLayout:    ProtoToMonitoringAlphaDashboardRowLayout(p.GetRowLayout()),
 		ColumnLayout: ProtoToMonitoringAlphaDashboardColumnLayout(p.GetColumnLayout()),
-		Project:      dcl.StringOrNil(p.Project),
-		Etag:         dcl.StringOrNil(p.Etag),
+		Project:      dcl.StringOrNil(p.GetProject()),
+		Etag:         dcl.StringOrNil(p.GetEtag()),
 	}
 	return obj
 }
@@ -1526,610 +1526,607 @@ func MonitoringAlphaDashboardWidgetTextFormatEnumToProto(e *alpha.DashboardWidge
 	return alphapb.MonitoringAlphaDashboardWidgetTextFormatEnum(0)
 }
 
-// DashboardGridLayoutToProto converts a DashboardGridLayout resource to its proto representation.
+// DashboardGridLayoutToProto converts a DashboardGridLayout object to its proto representation.
 func MonitoringAlphaDashboardGridLayoutToProto(o *alpha.DashboardGridLayout) *alphapb.MonitoringAlphaDashboardGridLayout {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardGridLayout{
-		Columns: dcl.ValueOrEmptyInt64(o.Columns),
+	p := &alphapb.MonitoringAlphaDashboardGridLayout{}
+	p.SetColumns(dcl.ValueOrEmptyInt64(o.Columns))
+	sWidgets := make([]*alphapb.MonitoringAlphaDashboardWidget, len(o.Widgets))
+	for i, r := range o.Widgets {
+		sWidgets[i] = MonitoringAlphaDashboardWidgetToProto(&r)
 	}
-	for _, r := range o.Widgets {
-		p.Widgets = append(p.Widgets, MonitoringAlphaDashboardWidgetToProto(&r))
-	}
+	p.SetWidgets(sWidgets)
 	return p
 }
 
-// DashboardMosaicLayoutToProto converts a DashboardMosaicLayout resource to its proto representation.
+// DashboardMosaicLayoutToProto converts a DashboardMosaicLayout object to its proto representation.
 func MonitoringAlphaDashboardMosaicLayoutToProto(o *alpha.DashboardMosaicLayout) *alphapb.MonitoringAlphaDashboardMosaicLayout {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardMosaicLayout{
-		Columns: dcl.ValueOrEmptyInt64(o.Columns),
+	p := &alphapb.MonitoringAlphaDashboardMosaicLayout{}
+	p.SetColumns(dcl.ValueOrEmptyInt64(o.Columns))
+	sTiles := make([]*alphapb.MonitoringAlphaDashboardMosaicLayoutTiles, len(o.Tiles))
+	for i, r := range o.Tiles {
+		sTiles[i] = MonitoringAlphaDashboardMosaicLayoutTilesToProto(&r)
 	}
-	for _, r := range o.Tiles {
-		p.Tiles = append(p.Tiles, MonitoringAlphaDashboardMosaicLayoutTilesToProto(&r))
-	}
+	p.SetTiles(sTiles)
 	return p
 }
 
-// DashboardMosaicLayoutTilesToProto converts a DashboardMosaicLayoutTiles resource to its proto representation.
+// DashboardMosaicLayoutTilesToProto converts a DashboardMosaicLayoutTiles object to its proto representation.
 func MonitoringAlphaDashboardMosaicLayoutTilesToProto(o *alpha.DashboardMosaicLayoutTiles) *alphapb.MonitoringAlphaDashboardMosaicLayoutTiles {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardMosaicLayoutTiles{
-		XPos:   dcl.ValueOrEmptyInt64(o.XPos),
-		YPos:   dcl.ValueOrEmptyInt64(o.YPos),
-		Width:  dcl.ValueOrEmptyInt64(o.Width),
-		Height: dcl.ValueOrEmptyInt64(o.Height),
-		Widget: MonitoringAlphaDashboardWidgetToProto(o.Widget),
-	}
+	p := &alphapb.MonitoringAlphaDashboardMosaicLayoutTiles{}
+	p.SetXPos(dcl.ValueOrEmptyInt64(o.XPos))
+	p.SetYPos(dcl.ValueOrEmptyInt64(o.YPos))
+	p.SetWidth(dcl.ValueOrEmptyInt64(o.Width))
+	p.SetHeight(dcl.ValueOrEmptyInt64(o.Height))
+	p.SetWidget(MonitoringAlphaDashboardWidgetToProto(o.Widget))
 	return p
 }
 
-// DashboardRowLayoutToProto converts a DashboardRowLayout resource to its proto representation.
+// DashboardRowLayoutToProto converts a DashboardRowLayout object to its proto representation.
 func MonitoringAlphaDashboardRowLayoutToProto(o *alpha.DashboardRowLayout) *alphapb.MonitoringAlphaDashboardRowLayout {
 	if o == nil {
 		return nil
 	}
 	p := &alphapb.MonitoringAlphaDashboardRowLayout{}
-	for _, r := range o.Rows {
-		p.Rows = append(p.Rows, MonitoringAlphaDashboardRowLayoutRowsToProto(&r))
+	sRows := make([]*alphapb.MonitoringAlphaDashboardRowLayoutRows, len(o.Rows))
+	for i, r := range o.Rows {
+		sRows[i] = MonitoringAlphaDashboardRowLayoutRowsToProto(&r)
 	}
+	p.SetRows(sRows)
 	return p
 }
 
-// DashboardRowLayoutRowsToProto converts a DashboardRowLayoutRows resource to its proto representation.
+// DashboardRowLayoutRowsToProto converts a DashboardRowLayoutRows object to its proto representation.
 func MonitoringAlphaDashboardRowLayoutRowsToProto(o *alpha.DashboardRowLayoutRows) *alphapb.MonitoringAlphaDashboardRowLayoutRows {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardRowLayoutRows{
-		Weight: dcl.ValueOrEmptyInt64(o.Weight),
+	p := &alphapb.MonitoringAlphaDashboardRowLayoutRows{}
+	p.SetWeight(dcl.ValueOrEmptyInt64(o.Weight))
+	sWidgets := make([]*alphapb.MonitoringAlphaDashboardWidget, len(o.Widgets))
+	for i, r := range o.Widgets {
+		sWidgets[i] = MonitoringAlphaDashboardWidgetToProto(&r)
 	}
-	for _, r := range o.Widgets {
-		p.Widgets = append(p.Widgets, MonitoringAlphaDashboardWidgetToProto(&r))
-	}
+	p.SetWidgets(sWidgets)
 	return p
 }
 
-// DashboardColumnLayoutToProto converts a DashboardColumnLayout resource to its proto representation.
+// DashboardColumnLayoutToProto converts a DashboardColumnLayout object to its proto representation.
 func MonitoringAlphaDashboardColumnLayoutToProto(o *alpha.DashboardColumnLayout) *alphapb.MonitoringAlphaDashboardColumnLayout {
 	if o == nil {
 		return nil
 	}
 	p := &alphapb.MonitoringAlphaDashboardColumnLayout{}
-	for _, r := range o.Columns {
-		p.Columns = append(p.Columns, MonitoringAlphaDashboardColumnLayoutColumnsToProto(&r))
+	sColumns := make([]*alphapb.MonitoringAlphaDashboardColumnLayoutColumns, len(o.Columns))
+	for i, r := range o.Columns {
+		sColumns[i] = MonitoringAlphaDashboardColumnLayoutColumnsToProto(&r)
 	}
+	p.SetColumns(sColumns)
 	return p
 }
 
-// DashboardColumnLayoutColumnsToProto converts a DashboardColumnLayoutColumns resource to its proto representation.
+// DashboardColumnLayoutColumnsToProto converts a DashboardColumnLayoutColumns object to its proto representation.
 func MonitoringAlphaDashboardColumnLayoutColumnsToProto(o *alpha.DashboardColumnLayoutColumns) *alphapb.MonitoringAlphaDashboardColumnLayoutColumns {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardColumnLayoutColumns{
-		Weight: dcl.ValueOrEmptyInt64(o.Weight),
+	p := &alphapb.MonitoringAlphaDashboardColumnLayoutColumns{}
+	p.SetWeight(dcl.ValueOrEmptyInt64(o.Weight))
+	sWidgets := make([]*alphapb.MonitoringAlphaDashboardWidget, len(o.Widgets))
+	for i, r := range o.Widgets {
+		sWidgets[i] = MonitoringAlphaDashboardWidgetToProto(&r)
 	}
-	for _, r := range o.Widgets {
-		p.Widgets = append(p.Widgets, MonitoringAlphaDashboardWidgetToProto(&r))
-	}
+	p.SetWidgets(sWidgets)
 	return p
 }
 
-// DashboardWidgetToProto converts a DashboardWidget resource to its proto representation.
+// DashboardWidgetToProto converts a DashboardWidget object to its proto representation.
 func MonitoringAlphaDashboardWidgetToProto(o *alpha.DashboardWidget) *alphapb.MonitoringAlphaDashboardWidget {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidget{
-		Title:     dcl.ValueOrEmptyString(o.Title),
-		XyChart:   MonitoringAlphaDashboardWidgetXyChartToProto(o.XyChart),
-		Scorecard: MonitoringAlphaDashboardWidgetScorecardToProto(o.Scorecard),
-		Text:      MonitoringAlphaDashboardWidgetTextToProto(o.Text),
-		Blank:     MonitoringAlphaDashboardWidgetBlankToProto(o.Blank),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidget{}
+	p.SetTitle(dcl.ValueOrEmptyString(o.Title))
+	p.SetXyChart(MonitoringAlphaDashboardWidgetXyChartToProto(o.XyChart))
+	p.SetScorecard(MonitoringAlphaDashboardWidgetScorecardToProto(o.Scorecard))
+	p.SetText(MonitoringAlphaDashboardWidgetTextToProto(o.Text))
+	p.SetBlank(MonitoringAlphaDashboardWidgetBlankToProto(o.Blank))
 	return p
 }
 
-// DashboardWidgetXyChartToProto converts a DashboardWidgetXyChart resource to its proto representation.
+// DashboardWidgetXyChartToProto converts a DashboardWidgetXyChart object to its proto representation.
 func MonitoringAlphaDashboardWidgetXyChartToProto(o *alpha.DashboardWidgetXyChart) *alphapb.MonitoringAlphaDashboardWidgetXyChart {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetXyChart{
-		TimeshiftDuration: dcl.ValueOrEmptyString(o.TimeshiftDuration),
-		XAxis:             MonitoringAlphaDashboardWidgetXyChartXAxisToProto(o.XAxis),
-		YAxis:             MonitoringAlphaDashboardWidgetXyChartYAxisToProto(o.YAxis),
-		ChartOptions:      MonitoringAlphaDashboardWidgetXyChartChartOptionsToProto(o.ChartOptions),
+	p := &alphapb.MonitoringAlphaDashboardWidgetXyChart{}
+	p.SetTimeshiftDuration(dcl.ValueOrEmptyString(o.TimeshiftDuration))
+	p.SetXAxis(MonitoringAlphaDashboardWidgetXyChartXAxisToProto(o.XAxis))
+	p.SetYAxis(MonitoringAlphaDashboardWidgetXyChartYAxisToProto(o.YAxis))
+	p.SetChartOptions(MonitoringAlphaDashboardWidgetXyChartChartOptionsToProto(o.ChartOptions))
+	sDataSets := make([]*alphapb.MonitoringAlphaDashboardWidgetXyChartDataSets, len(o.DataSets))
+	for i, r := range o.DataSets {
+		sDataSets[i] = MonitoringAlphaDashboardWidgetXyChartDataSetsToProto(&r)
 	}
-	for _, r := range o.DataSets {
-		p.DataSets = append(p.DataSets, MonitoringAlphaDashboardWidgetXyChartDataSetsToProto(&r))
+	p.SetDataSets(sDataSets)
+	sThresholds := make([]*alphapb.MonitoringAlphaDashboardWidgetXyChartThresholds, len(o.Thresholds))
+	for i, r := range o.Thresholds {
+		sThresholds[i] = MonitoringAlphaDashboardWidgetXyChartThresholdsToProto(&r)
 	}
-	for _, r := range o.Thresholds {
-		p.Thresholds = append(p.Thresholds, MonitoringAlphaDashboardWidgetXyChartThresholdsToProto(&r))
-	}
+	p.SetThresholds(sThresholds)
 	return p
 }
 
-// DashboardWidgetXyChartDataSetsToProto converts a DashboardWidgetXyChartDataSets resource to its proto representation.
+// DashboardWidgetXyChartDataSetsToProto converts a DashboardWidgetXyChartDataSets object to its proto representation.
 func MonitoringAlphaDashboardWidgetXyChartDataSetsToProto(o *alpha.DashboardWidgetXyChartDataSets) *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSets {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSets{
-		TimeSeriesQuery:    MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryToProto(o.TimeSeriesQuery),
-		PlotType:           MonitoringAlphaDashboardWidgetXyChartDataSetsPlotTypeEnumToProto(o.PlotType),
-		LegendTemplate:     dcl.ValueOrEmptyString(o.LegendTemplate),
-		MinAlignmentPeriod: dcl.ValueOrEmptyString(o.MinAlignmentPeriod),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSets{}
+	p.SetTimeSeriesQuery(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryToProto(o.TimeSeriesQuery))
+	p.SetPlotType(MonitoringAlphaDashboardWidgetXyChartDataSetsPlotTypeEnumToProto(o.PlotType))
+	p.SetLegendTemplate(dcl.ValueOrEmptyString(o.LegendTemplate))
+	p.SetMinAlignmentPeriod(dcl.ValueOrEmptyString(o.MinAlignmentPeriod))
 	return p
 }
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQuery resource to its proto representation.
+// DashboardWidgetXyChartDataSetsTimeSeriesQueryToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQuery object to its proto representation.
 func MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryToProto(o *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQuery) *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQuery {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQuery{
-		TimeSeriesFilter:        MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterToProto(o.TimeSeriesFilter),
-		TimeSeriesFilterRatio:   MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioToProto(o.TimeSeriesFilterRatio),
-		TimeSeriesQueryLanguage: dcl.ValueOrEmptyString(o.TimeSeriesQueryLanguage),
-		UnitOverride:            dcl.ValueOrEmptyString(o.UnitOverride),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQuery{}
+	p.SetTimeSeriesFilter(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterToProto(o.TimeSeriesFilter))
+	p.SetTimeSeriesFilterRatio(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioToProto(o.TimeSeriesFilterRatio))
+	p.SetTimeSeriesQueryLanguage(dcl.ValueOrEmptyString(o.TimeSeriesQueryLanguage))
+	p.SetUnitOverride(dcl.ValueOrEmptyString(o.UnitOverride))
 	return p
 }
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter resource to its proto representation.
+// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter object to its proto representation.
 func MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterToProto(o *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter{
-		Filter:               dcl.ValueOrEmptyString(o.Filter),
-		Aggregation:          MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationToProto(o.Aggregation),
-		SecondaryAggregation: MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationToProto(o.SecondaryAggregation),
-		PickTimeSeriesFilter: MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterToProto(o.PickTimeSeriesFilter),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter{}
+	p.SetFilter(dcl.ValueOrEmptyString(o.Filter))
+	p.SetAggregation(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationToProto(o.Aggregation))
+	p.SetSecondaryAggregation(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationToProto(o.SecondaryAggregation))
+	p.SetPickTimeSeriesFilter(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterToProto(o.PickTimeSeriesFilter))
 	return p
 }
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation resource to its proto representation.
+// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation object to its proto representation.
 func MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationToProto(o *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{
-		AlignmentPeriod:    dcl.ValueOrEmptyString(o.AlignmentPeriod),
-		PerSeriesAligner:   MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner),
-		CrossSeriesReducer: MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer),
+	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{}
+	p.SetAlignmentPeriod(dcl.ValueOrEmptyString(o.AlignmentPeriod))
+	p.SetPerSeriesAligner(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner))
+	p.SetCrossSeriesReducer(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer))
+	sGroupByFields := make([]string, len(o.GroupByFields))
+	for i, r := range o.GroupByFields {
+		sGroupByFields[i] = r
 	}
-	for _, r := range o.GroupByFields {
-		p.GroupByFields = append(p.GroupByFields, r)
-	}
+	p.SetGroupByFields(sGroupByFields)
 	return p
 }
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation resource to its proto representation.
+// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation object to its proto representation.
 func MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationToProto(o *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{
-		AlignmentPeriod:    dcl.ValueOrEmptyString(o.AlignmentPeriod),
-		PerSeriesAligner:   MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner),
-		CrossSeriesReducer: MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer),
+	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
+	p.SetAlignmentPeriod(dcl.ValueOrEmptyString(o.AlignmentPeriod))
+	p.SetPerSeriesAligner(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner))
+	p.SetCrossSeriesReducer(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer))
+	sGroupByFields := make([]string, len(o.GroupByFields))
+	for i, r := range o.GroupByFields {
+		sGroupByFields[i] = r
 	}
-	for _, r := range o.GroupByFields {
-		p.GroupByFields = append(p.GroupByFields, r)
-	}
+	p.SetGroupByFields(sGroupByFields)
 	return p
 }
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter resource to its proto representation.
+// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter object to its proto representation.
 func MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterToProto(o *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{
-		RankingMethod: MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumToProto(o.RankingMethod),
-		NumTimeSeries: dcl.ValueOrEmptyInt64(o.NumTimeSeries),
-		Direction:     MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumToProto(o.Direction),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
+	p.SetRankingMethod(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumToProto(o.RankingMethod))
+	p.SetNumTimeSeries(dcl.ValueOrEmptyInt64(o.NumTimeSeries))
+	p.SetDirection(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumToProto(o.Direction))
 	return p
 }
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio resource to its proto representation.
+// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio object to its proto representation.
 func MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioToProto(o *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio{
-		Numerator:            MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorToProto(o.Numerator),
-		Denominator:          MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorToProto(o.Denominator),
-		SecondaryAggregation: MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationToProto(o.SecondaryAggregation),
-		PickTimeSeriesFilter: MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterToProto(o.PickTimeSeriesFilter),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio{}
+	p.SetNumerator(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorToProto(o.Numerator))
+	p.SetDenominator(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorToProto(o.Denominator))
+	p.SetSecondaryAggregation(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationToProto(o.SecondaryAggregation))
+	p.SetPickTimeSeriesFilter(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterToProto(o.PickTimeSeriesFilter))
 	return p
 }
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator resource to its proto representation.
+// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator object to its proto representation.
 func MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorToProto(o *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator{
-		Filter:      dcl.ValueOrEmptyString(o.Filter),
-		Aggregation: MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationToProto(o.Aggregation),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
+	p.SetFilter(dcl.ValueOrEmptyString(o.Filter))
+	p.SetAggregation(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationToProto(o.Aggregation))
 	return p
 }
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation resource to its proto representation.
+// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation object to its proto representation.
 func MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationToProto(o *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{
-		AlignmentPeriod:    dcl.ValueOrEmptyString(o.AlignmentPeriod),
-		PerSeriesAligner:   MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner),
-		CrossSeriesReducer: MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer),
+	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
+	p.SetAlignmentPeriod(dcl.ValueOrEmptyString(o.AlignmentPeriod))
+	p.SetPerSeriesAligner(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner))
+	p.SetCrossSeriesReducer(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer))
+	sGroupByFields := make([]string, len(o.GroupByFields))
+	for i, r := range o.GroupByFields {
+		sGroupByFields[i] = r
 	}
-	for _, r := range o.GroupByFields {
-		p.GroupByFields = append(p.GroupByFields, r)
-	}
+	p.SetGroupByFields(sGroupByFields)
 	return p
 }
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator resource to its proto representation.
+// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator object to its proto representation.
 func MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorToProto(o *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator{
-		Filter:      dcl.ValueOrEmptyString(o.Filter),
-		Aggregation: MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationToProto(o.Aggregation),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
+	p.SetFilter(dcl.ValueOrEmptyString(o.Filter))
+	p.SetAggregation(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationToProto(o.Aggregation))
 	return p
 }
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation resource to its proto representation.
+// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation object to its proto representation.
 func MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationToProto(o *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{
-		AlignmentPeriod:    dcl.ValueOrEmptyString(o.AlignmentPeriod),
-		PerSeriesAligner:   MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner),
-		CrossSeriesReducer: MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer),
+	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
+	p.SetAlignmentPeriod(dcl.ValueOrEmptyString(o.AlignmentPeriod))
+	p.SetPerSeriesAligner(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner))
+	p.SetCrossSeriesReducer(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer))
+	sGroupByFields := make([]string, len(o.GroupByFields))
+	for i, r := range o.GroupByFields {
+		sGroupByFields[i] = r
 	}
-	for _, r := range o.GroupByFields {
-		p.GroupByFields = append(p.GroupByFields, r)
-	}
+	p.SetGroupByFields(sGroupByFields)
 	return p
 }
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation resource to its proto representation.
+// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation object to its proto representation.
 func MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationToProto(o *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{
-		AlignmentPeriod:    dcl.ValueOrEmptyString(o.AlignmentPeriod),
-		PerSeriesAligner:   MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner),
-		CrossSeriesReducer: MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer),
+	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
+	p.SetAlignmentPeriod(dcl.ValueOrEmptyString(o.AlignmentPeriod))
+	p.SetPerSeriesAligner(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner))
+	p.SetCrossSeriesReducer(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer))
+	sGroupByFields := make([]string, len(o.GroupByFields))
+	for i, r := range o.GroupByFields {
+		sGroupByFields[i] = r
 	}
-	for _, r := range o.GroupByFields {
-		p.GroupByFields = append(p.GroupByFields, r)
-	}
+	p.SetGroupByFields(sGroupByFields)
 	return p
 }
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter resource to its proto representation.
+// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterToProto converts a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter object to its proto representation.
 func MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterToProto(o *alpha.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) *alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{
-		RankingMethod: MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumToProto(o.RankingMethod),
-		NumTimeSeries: dcl.ValueOrEmptyInt64(o.NumTimeSeries),
-		Direction:     MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumToProto(o.Direction),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
+	p.SetRankingMethod(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumToProto(o.RankingMethod))
+	p.SetNumTimeSeries(dcl.ValueOrEmptyInt64(o.NumTimeSeries))
+	p.SetDirection(MonitoringAlphaDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumToProto(o.Direction))
 	return p
 }
 
-// DashboardWidgetXyChartThresholdsToProto converts a DashboardWidgetXyChartThresholds resource to its proto representation.
+// DashboardWidgetXyChartThresholdsToProto converts a DashboardWidgetXyChartThresholds object to its proto representation.
 func MonitoringAlphaDashboardWidgetXyChartThresholdsToProto(o *alpha.DashboardWidgetXyChartThresholds) *alphapb.MonitoringAlphaDashboardWidgetXyChartThresholds {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartThresholds{
-		Label:     dcl.ValueOrEmptyString(o.Label),
-		Value:     dcl.ValueOrEmptyDouble(o.Value),
-		Color:     MonitoringAlphaDashboardWidgetXyChartThresholdsColorEnumToProto(o.Color),
-		Direction: MonitoringAlphaDashboardWidgetXyChartThresholdsDirectionEnumToProto(o.Direction),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartThresholds{}
+	p.SetLabel(dcl.ValueOrEmptyString(o.Label))
+	p.SetValue(dcl.ValueOrEmptyDouble(o.Value))
+	p.SetColor(MonitoringAlphaDashboardWidgetXyChartThresholdsColorEnumToProto(o.Color))
+	p.SetDirection(MonitoringAlphaDashboardWidgetXyChartThresholdsDirectionEnumToProto(o.Direction))
 	return p
 }
 
-// DashboardWidgetXyChartXAxisToProto converts a DashboardWidgetXyChartXAxis resource to its proto representation.
+// DashboardWidgetXyChartXAxisToProto converts a DashboardWidgetXyChartXAxis object to its proto representation.
 func MonitoringAlphaDashboardWidgetXyChartXAxisToProto(o *alpha.DashboardWidgetXyChartXAxis) *alphapb.MonitoringAlphaDashboardWidgetXyChartXAxis {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartXAxis{
-		Label: dcl.ValueOrEmptyString(o.Label),
-		Scale: MonitoringAlphaDashboardWidgetXyChartXAxisScaleEnumToProto(o.Scale),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartXAxis{}
+	p.SetLabel(dcl.ValueOrEmptyString(o.Label))
+	p.SetScale(MonitoringAlphaDashboardWidgetXyChartXAxisScaleEnumToProto(o.Scale))
 	return p
 }
 
-// DashboardWidgetXyChartYAxisToProto converts a DashboardWidgetXyChartYAxis resource to its proto representation.
+// DashboardWidgetXyChartYAxisToProto converts a DashboardWidgetXyChartYAxis object to its proto representation.
 func MonitoringAlphaDashboardWidgetXyChartYAxisToProto(o *alpha.DashboardWidgetXyChartYAxis) *alphapb.MonitoringAlphaDashboardWidgetXyChartYAxis {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartYAxis{
-		Label: dcl.ValueOrEmptyString(o.Label),
-		Scale: MonitoringAlphaDashboardWidgetXyChartYAxisScaleEnumToProto(o.Scale),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartYAxis{}
+	p.SetLabel(dcl.ValueOrEmptyString(o.Label))
+	p.SetScale(MonitoringAlphaDashboardWidgetXyChartYAxisScaleEnumToProto(o.Scale))
 	return p
 }
 
-// DashboardWidgetXyChartChartOptionsToProto converts a DashboardWidgetXyChartChartOptions resource to its proto representation.
+// DashboardWidgetXyChartChartOptionsToProto converts a DashboardWidgetXyChartChartOptions object to its proto representation.
 func MonitoringAlphaDashboardWidgetXyChartChartOptionsToProto(o *alpha.DashboardWidgetXyChartChartOptions) *alphapb.MonitoringAlphaDashboardWidgetXyChartChartOptions {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartChartOptions{
-		Mode: MonitoringAlphaDashboardWidgetXyChartChartOptionsModeEnumToProto(o.Mode),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetXyChartChartOptions{}
+	p.SetMode(MonitoringAlphaDashboardWidgetXyChartChartOptionsModeEnumToProto(o.Mode))
 	return p
 }
 
-// DashboardWidgetScorecardToProto converts a DashboardWidgetScorecard resource to its proto representation.
+// DashboardWidgetScorecardToProto converts a DashboardWidgetScorecard object to its proto representation.
 func MonitoringAlphaDashboardWidgetScorecardToProto(o *alpha.DashboardWidgetScorecard) *alphapb.MonitoringAlphaDashboardWidgetScorecard {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetScorecard{
-		TimeSeriesQuery: MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryToProto(o.TimeSeriesQuery),
-		GaugeView:       MonitoringAlphaDashboardWidgetScorecardGaugeViewToProto(o.GaugeView),
-		SparkChartView:  MonitoringAlphaDashboardWidgetScorecardSparkChartViewToProto(o.SparkChartView),
+	p := &alphapb.MonitoringAlphaDashboardWidgetScorecard{}
+	p.SetTimeSeriesQuery(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryToProto(o.TimeSeriesQuery))
+	p.SetGaugeView(MonitoringAlphaDashboardWidgetScorecardGaugeViewToProto(o.GaugeView))
+	p.SetSparkChartView(MonitoringAlphaDashboardWidgetScorecardSparkChartViewToProto(o.SparkChartView))
+	sThresholds := make([]*alphapb.MonitoringAlphaDashboardWidgetScorecardThresholds, len(o.Thresholds))
+	for i, r := range o.Thresholds {
+		sThresholds[i] = MonitoringAlphaDashboardWidgetScorecardThresholdsToProto(&r)
 	}
-	for _, r := range o.Thresholds {
-		p.Thresholds = append(p.Thresholds, MonitoringAlphaDashboardWidgetScorecardThresholdsToProto(&r))
-	}
+	p.SetThresholds(sThresholds)
 	return p
 }
 
-// DashboardWidgetScorecardTimeSeriesQueryToProto converts a DashboardWidgetScorecardTimeSeriesQuery resource to its proto representation.
+// DashboardWidgetScorecardTimeSeriesQueryToProto converts a DashboardWidgetScorecardTimeSeriesQuery object to its proto representation.
 func MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryToProto(o *alpha.DashboardWidgetScorecardTimeSeriesQuery) *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQuery {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQuery{
-		TimeSeriesFilter:        MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterToProto(o.TimeSeriesFilter),
-		TimeSeriesFilterRatio:   MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioToProto(o.TimeSeriesFilterRatio),
-		TimeSeriesQueryLanguage: dcl.ValueOrEmptyString(o.TimeSeriesQueryLanguage),
-		UnitOverride:            dcl.ValueOrEmptyString(o.UnitOverride),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQuery{}
+	p.SetTimeSeriesFilter(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterToProto(o.TimeSeriesFilter))
+	p.SetTimeSeriesFilterRatio(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioToProto(o.TimeSeriesFilterRatio))
+	p.SetTimeSeriesQueryLanguage(dcl.ValueOrEmptyString(o.TimeSeriesQueryLanguage))
+	p.SetUnitOverride(dcl.ValueOrEmptyString(o.UnitOverride))
 	return p
 }
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter resource to its proto representation.
+// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter object to its proto representation.
 func MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterToProto(o *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter{
-		Filter:               dcl.ValueOrEmptyString(o.Filter),
-		Aggregation:          MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationToProto(o.Aggregation),
-		SecondaryAggregation: MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationToProto(o.SecondaryAggregation),
-		PickTimeSeriesFilter: MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterToProto(o.PickTimeSeriesFilter),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter{}
+	p.SetFilter(dcl.ValueOrEmptyString(o.Filter))
+	p.SetAggregation(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationToProto(o.Aggregation))
+	p.SetSecondaryAggregation(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationToProto(o.SecondaryAggregation))
+	p.SetPickTimeSeriesFilter(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterToProto(o.PickTimeSeriesFilter))
 	return p
 }
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation resource to its proto representation.
+// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation object to its proto representation.
 func MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationToProto(o *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation{
-		AlignmentPeriod:    dcl.ValueOrEmptyString(o.AlignmentPeriod),
-		PerSeriesAligner:   MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner),
-		CrossSeriesReducer: MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer),
+	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation{}
+	p.SetAlignmentPeriod(dcl.ValueOrEmptyString(o.AlignmentPeriod))
+	p.SetPerSeriesAligner(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner))
+	p.SetCrossSeriesReducer(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer))
+	sGroupByFields := make([]string, len(o.GroupByFields))
+	for i, r := range o.GroupByFields {
+		sGroupByFields[i] = r
 	}
-	for _, r := range o.GroupByFields {
-		p.GroupByFields = append(p.GroupByFields, r)
-	}
+	p.SetGroupByFields(sGroupByFields)
 	return p
 }
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation resource to its proto representation.
+// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation object to its proto representation.
 func MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationToProto(o *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{
-		AlignmentPeriod:    dcl.ValueOrEmptyString(o.AlignmentPeriod),
-		PerSeriesAligner:   MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner),
-		CrossSeriesReducer: MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer),
+	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
+	p.SetAlignmentPeriod(dcl.ValueOrEmptyString(o.AlignmentPeriod))
+	p.SetPerSeriesAligner(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner))
+	p.SetCrossSeriesReducer(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer))
+	sGroupByFields := make([]string, len(o.GroupByFields))
+	for i, r := range o.GroupByFields {
+		sGroupByFields[i] = r
 	}
-	for _, r := range o.GroupByFields {
-		p.GroupByFields = append(p.GroupByFields, r)
-	}
+	p.SetGroupByFields(sGroupByFields)
 	return p
 }
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter resource to its proto representation.
+// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter object to its proto representation.
 func MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterToProto(o *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{
-		RankingMethod: MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumToProto(o.RankingMethod),
-		NumTimeSeries: dcl.ValueOrEmptyInt64(o.NumTimeSeries),
-		Direction:     MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumToProto(o.Direction),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
+	p.SetRankingMethod(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumToProto(o.RankingMethod))
+	p.SetNumTimeSeries(dcl.ValueOrEmptyInt64(o.NumTimeSeries))
+	p.SetDirection(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumToProto(o.Direction))
 	return p
 }
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio resource to its proto representation.
+// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio object to its proto representation.
 func MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioToProto(o *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio{
-		Numerator:            MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorToProto(o.Numerator),
-		Denominator:          MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorToProto(o.Denominator),
-		SecondaryAggregation: MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationToProto(o.SecondaryAggregation),
-		PickTimeSeriesFilter: MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterToProto(o.PickTimeSeriesFilter),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio{}
+	p.SetNumerator(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorToProto(o.Numerator))
+	p.SetDenominator(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorToProto(o.Denominator))
+	p.SetSecondaryAggregation(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationToProto(o.SecondaryAggregation))
+	p.SetPickTimeSeriesFilter(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterToProto(o.PickTimeSeriesFilter))
 	return p
 }
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator resource to its proto representation.
+// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator object to its proto representation.
 func MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorToProto(o *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator{
-		Filter:      dcl.ValueOrEmptyString(o.Filter),
-		Aggregation: MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationToProto(o.Aggregation),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
+	p.SetFilter(dcl.ValueOrEmptyString(o.Filter))
+	p.SetAggregation(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationToProto(o.Aggregation))
 	return p
 }
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation resource to its proto representation.
+// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation object to its proto representation.
 func MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationToProto(o *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{
-		AlignmentPeriod:    dcl.ValueOrEmptyString(o.AlignmentPeriod),
-		PerSeriesAligner:   MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner),
-		CrossSeriesReducer: MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer),
+	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
+	p.SetAlignmentPeriod(dcl.ValueOrEmptyString(o.AlignmentPeriod))
+	p.SetPerSeriesAligner(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner))
+	p.SetCrossSeriesReducer(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer))
+	sGroupByFields := make([]string, len(o.GroupByFields))
+	for i, r := range o.GroupByFields {
+		sGroupByFields[i] = r
 	}
-	for _, r := range o.GroupByFields {
-		p.GroupByFields = append(p.GroupByFields, r)
-	}
+	p.SetGroupByFields(sGroupByFields)
 	return p
 }
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator resource to its proto representation.
+// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator object to its proto representation.
 func MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorToProto(o *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator{
-		Filter:      dcl.ValueOrEmptyString(o.Filter),
-		Aggregation: MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationToProto(o.Aggregation),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
+	p.SetFilter(dcl.ValueOrEmptyString(o.Filter))
+	p.SetAggregation(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationToProto(o.Aggregation))
 	return p
 }
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation resource to its proto representation.
+// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation object to its proto representation.
 func MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationToProto(o *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{
-		AlignmentPeriod:    dcl.ValueOrEmptyString(o.AlignmentPeriod),
-		PerSeriesAligner:   MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner),
-		CrossSeriesReducer: MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer),
+	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
+	p.SetAlignmentPeriod(dcl.ValueOrEmptyString(o.AlignmentPeriod))
+	p.SetPerSeriesAligner(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner))
+	p.SetCrossSeriesReducer(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer))
+	sGroupByFields := make([]string, len(o.GroupByFields))
+	for i, r := range o.GroupByFields {
+		sGroupByFields[i] = r
 	}
-	for _, r := range o.GroupByFields {
-		p.GroupByFields = append(p.GroupByFields, r)
-	}
+	p.SetGroupByFields(sGroupByFields)
 	return p
 }
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation resource to its proto representation.
+// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation object to its proto representation.
 func MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationToProto(o *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{
-		AlignmentPeriod:    dcl.ValueOrEmptyString(o.AlignmentPeriod),
-		PerSeriesAligner:   MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner),
-		CrossSeriesReducer: MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer),
+	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
+	p.SetAlignmentPeriod(dcl.ValueOrEmptyString(o.AlignmentPeriod))
+	p.SetPerSeriesAligner(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumToProto(o.PerSeriesAligner))
+	p.SetCrossSeriesReducer(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumToProto(o.CrossSeriesReducer))
+	sGroupByFields := make([]string, len(o.GroupByFields))
+	for i, r := range o.GroupByFields {
+		sGroupByFields[i] = r
 	}
-	for _, r := range o.GroupByFields {
-		p.GroupByFields = append(p.GroupByFields, r)
-	}
+	p.SetGroupByFields(sGroupByFields)
 	return p
 }
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter resource to its proto representation.
+// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterToProto converts a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter object to its proto representation.
 func MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterToProto(o *alpha.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) *alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{
-		RankingMethod: MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumToProto(o.RankingMethod),
-		NumTimeSeries: dcl.ValueOrEmptyInt64(o.NumTimeSeries),
-		Direction:     MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumToProto(o.Direction),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
+	p.SetRankingMethod(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumToProto(o.RankingMethod))
+	p.SetNumTimeSeries(dcl.ValueOrEmptyInt64(o.NumTimeSeries))
+	p.SetDirection(MonitoringAlphaDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumToProto(o.Direction))
 	return p
 }
 
-// DashboardWidgetScorecardGaugeViewToProto converts a DashboardWidgetScorecardGaugeView resource to its proto representation.
+// DashboardWidgetScorecardGaugeViewToProto converts a DashboardWidgetScorecardGaugeView object to its proto representation.
 func MonitoringAlphaDashboardWidgetScorecardGaugeViewToProto(o *alpha.DashboardWidgetScorecardGaugeView) *alphapb.MonitoringAlphaDashboardWidgetScorecardGaugeView {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardGaugeView{
-		LowerBound: dcl.ValueOrEmptyDouble(o.LowerBound),
-		UpperBound: dcl.ValueOrEmptyDouble(o.UpperBound),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardGaugeView{}
+	p.SetLowerBound(dcl.ValueOrEmptyDouble(o.LowerBound))
+	p.SetUpperBound(dcl.ValueOrEmptyDouble(o.UpperBound))
 	return p
 }
 
-// DashboardWidgetScorecardSparkChartViewToProto converts a DashboardWidgetScorecardSparkChartView resource to its proto representation.
+// DashboardWidgetScorecardSparkChartViewToProto converts a DashboardWidgetScorecardSparkChartView object to its proto representation.
 func MonitoringAlphaDashboardWidgetScorecardSparkChartViewToProto(o *alpha.DashboardWidgetScorecardSparkChartView) *alphapb.MonitoringAlphaDashboardWidgetScorecardSparkChartView {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardSparkChartView{
-		SparkChartType:     MonitoringAlphaDashboardWidgetScorecardSparkChartViewSparkChartTypeEnumToProto(o.SparkChartType),
-		MinAlignmentPeriod: dcl.ValueOrEmptyString(o.MinAlignmentPeriod),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardSparkChartView{}
+	p.SetSparkChartType(MonitoringAlphaDashboardWidgetScorecardSparkChartViewSparkChartTypeEnumToProto(o.SparkChartType))
+	p.SetMinAlignmentPeriod(dcl.ValueOrEmptyString(o.MinAlignmentPeriod))
 	return p
 }
 
-// DashboardWidgetScorecardThresholdsToProto converts a DashboardWidgetScorecardThresholds resource to its proto representation.
+// DashboardWidgetScorecardThresholdsToProto converts a DashboardWidgetScorecardThresholds object to its proto representation.
 func MonitoringAlphaDashboardWidgetScorecardThresholdsToProto(o *alpha.DashboardWidgetScorecardThresholds) *alphapb.MonitoringAlphaDashboardWidgetScorecardThresholds {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardThresholds{
-		Label:     dcl.ValueOrEmptyString(o.Label),
-		Value:     dcl.ValueOrEmptyDouble(o.Value),
-		Color:     MonitoringAlphaDashboardWidgetScorecardThresholdsColorEnumToProto(o.Color),
-		Direction: MonitoringAlphaDashboardWidgetScorecardThresholdsDirectionEnumToProto(o.Direction),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetScorecardThresholds{}
+	p.SetLabel(dcl.ValueOrEmptyString(o.Label))
+	p.SetValue(dcl.ValueOrEmptyDouble(o.Value))
+	p.SetColor(MonitoringAlphaDashboardWidgetScorecardThresholdsColorEnumToProto(o.Color))
+	p.SetDirection(MonitoringAlphaDashboardWidgetScorecardThresholdsDirectionEnumToProto(o.Direction))
 	return p
 }
 
-// DashboardWidgetTextToProto converts a DashboardWidgetText resource to its proto representation.
+// DashboardWidgetTextToProto converts a DashboardWidgetText object to its proto representation.
 func MonitoringAlphaDashboardWidgetTextToProto(o *alpha.DashboardWidgetText) *alphapb.MonitoringAlphaDashboardWidgetText {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaDashboardWidgetText{
-		Content: dcl.ValueOrEmptyString(o.Content),
-		Format:  MonitoringAlphaDashboardWidgetTextFormatEnumToProto(o.Format),
-	}
+	p := &alphapb.MonitoringAlphaDashboardWidgetText{}
+	p.SetContent(dcl.ValueOrEmptyString(o.Content))
+	p.SetFormat(MonitoringAlphaDashboardWidgetTextFormatEnumToProto(o.Format))
 	return p
 }
 
-// DashboardWidgetBlankToProto converts a DashboardWidgetBlank resource to its proto representation.
+// DashboardWidgetBlankToProto converts a DashboardWidgetBlank object to its proto representation.
 func MonitoringAlphaDashboardWidgetBlankToProto(o *alpha.DashboardWidgetBlank) *alphapb.MonitoringAlphaDashboardWidgetBlank {
 	if o == nil {
 		return nil
@@ -2140,21 +2137,20 @@ func MonitoringAlphaDashboardWidgetBlankToProto(o *alpha.DashboardWidgetBlank) *
 
 // DashboardToProto converts a Dashboard resource to its proto representation.
 func DashboardToProto(resource *alpha.Dashboard) *alphapb.MonitoringAlphaDashboard {
-	p := &alphapb.MonitoringAlphaDashboard{
-		Name:         dcl.ValueOrEmptyString(resource.Name),
-		DisplayName:  dcl.ValueOrEmptyString(resource.DisplayName),
-		GridLayout:   MonitoringAlphaDashboardGridLayoutToProto(resource.GridLayout),
-		MosaicLayout: MonitoringAlphaDashboardMosaicLayoutToProto(resource.MosaicLayout),
-		RowLayout:    MonitoringAlphaDashboardRowLayoutToProto(resource.RowLayout),
-		ColumnLayout: MonitoringAlphaDashboardColumnLayoutToProto(resource.ColumnLayout),
-		Project:      dcl.ValueOrEmptyString(resource.Project),
-		Etag:         dcl.ValueOrEmptyString(resource.Etag),
-	}
+	p := &alphapb.MonitoringAlphaDashboard{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetGridLayout(MonitoringAlphaDashboardGridLayoutToProto(resource.GridLayout))
+	p.SetMosaicLayout(MonitoringAlphaDashboardMosaicLayoutToProto(resource.MosaicLayout))
+	p.SetRowLayout(MonitoringAlphaDashboardRowLayoutToProto(resource.RowLayout))
+	p.SetColumnLayout(MonitoringAlphaDashboardColumnLayoutToProto(resource.ColumnLayout))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 
 	return p
 }
 
-// ApplyDashboard handles the gRPC request by passing it to the underlying Dashboard Apply() method.
+// applyDashboard handles the gRPC request by passing it to the underlying Dashboard Apply() method.
 func (s *DashboardServer) applyDashboard(ctx context.Context, c *alpha.Client, request *alphapb.ApplyMonitoringAlphaDashboardRequest) (*alphapb.MonitoringAlphaDashboard, error) {
 	p := ProtoToDashboard(request.GetResource())
 	res, err := c.ApplyDashboard(ctx, p)
@@ -2165,9 +2161,9 @@ func (s *DashboardServer) applyDashboard(ctx context.Context, c *alpha.Client, r
 	return r, nil
 }
 
-// ApplyDashboard handles the gRPC request by passing it to the underlying Dashboard Apply() method.
+// applyMonitoringAlphaDashboard handles the gRPC request by passing it to the underlying Dashboard Apply() method.
 func (s *DashboardServer) ApplyMonitoringAlphaDashboard(ctx context.Context, request *alphapb.ApplyMonitoringAlphaDashboardRequest) (*alphapb.MonitoringAlphaDashboard, error) {
-	cl, err := createConfigDashboard(ctx, request.ServiceAccountFile)
+	cl, err := createConfigDashboard(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -2177,7 +2173,7 @@ func (s *DashboardServer) ApplyMonitoringAlphaDashboard(ctx context.Context, req
 // DeleteDashboard handles the gRPC request by passing it to the underlying Dashboard Delete() method.
 func (s *DashboardServer) DeleteMonitoringAlphaDashboard(ctx context.Context, request *alphapb.DeleteMonitoringAlphaDashboardRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigDashboard(ctx, request.ServiceAccountFile)
+	cl, err := createConfigDashboard(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -2187,12 +2183,12 @@ func (s *DashboardServer) DeleteMonitoringAlphaDashboard(ctx context.Context, re
 
 // ListMonitoringAlphaDashboard handles the gRPC request by passing it to the underlying DashboardList() method.
 func (s *DashboardServer) ListMonitoringAlphaDashboard(ctx context.Context, request *alphapb.ListMonitoringAlphaDashboardRequest) (*alphapb.ListMonitoringAlphaDashboardResponse, error) {
-	cl, err := createConfigDashboard(ctx, request.ServiceAccountFile)
+	cl, err := createConfigDashboard(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListDashboard(ctx, request.Project)
+	resources, err := cl.ListDashboard(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -2201,7 +2197,9 @@ func (s *DashboardServer) ListMonitoringAlphaDashboard(ctx context.Context, requ
 		rp := DashboardToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListMonitoringAlphaDashboardResponse{Items: protos}, nil
+	p := &alphapb.ListMonitoringAlphaDashboardResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigDashboard(ctx context.Context, service_account_file string) (*alpha.Client, error) {

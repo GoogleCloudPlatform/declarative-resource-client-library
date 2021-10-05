@@ -85,15 +85,15 @@ func ProtoToFilestoreBetaInstanceNetworksModesEnum(e betapb.FilestoreBetaInstanc
 	return nil
 }
 
-// ProtoToInstanceFileShares converts a InstanceFileShares resource from its proto representation.
+// ProtoToInstanceFileShares converts a InstanceFileShares object from its proto representation.
 func ProtoToFilestoreBetaInstanceFileShares(p *betapb.FilestoreBetaInstanceFileShares) *beta.InstanceFileShares {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.InstanceFileShares{
-		Name:         dcl.StringOrNil(p.Name),
-		CapacityGb:   dcl.Int64OrNil(p.CapacityGb),
-		SourceBackup: dcl.StringOrNil(p.SourceBackup),
+		Name:         dcl.StringOrNil(p.GetName()),
+		CapacityGb:   dcl.Int64OrNil(p.GetCapacityGb()),
+		SourceBackup: dcl.StringOrNil(p.GetSourceBackup()),
 	}
 	for _, r := range p.GetNfsExportOptions() {
 		obj.NfsExportOptions = append(obj.NfsExportOptions, *ProtoToFilestoreBetaInstanceFileSharesNfsExportOptions(r))
@@ -101,7 +101,7 @@ func ProtoToFilestoreBetaInstanceFileShares(p *betapb.FilestoreBetaInstanceFileS
 	return obj
 }
 
-// ProtoToInstanceFileSharesNfsExportOptions converts a InstanceFileSharesNfsExportOptions resource from its proto representation.
+// ProtoToInstanceFileSharesNfsExportOptions converts a InstanceFileSharesNfsExportOptions object from its proto representation.
 func ProtoToFilestoreBetaInstanceFileSharesNfsExportOptions(p *betapb.FilestoreBetaInstanceFileSharesNfsExportOptions) *beta.InstanceFileSharesNfsExportOptions {
 	if p == nil {
 		return nil
@@ -109,8 +109,8 @@ func ProtoToFilestoreBetaInstanceFileSharesNfsExportOptions(p *betapb.FilestoreB
 	obj := &beta.InstanceFileSharesNfsExportOptions{
 		AccessMode: ProtoToFilestoreBetaInstanceFileSharesNfsExportOptionsAccessModeEnum(p.GetAccessMode()),
 		SquashMode: ProtoToFilestoreBetaInstanceFileSharesNfsExportOptionsSquashModeEnum(p.GetSquashMode()),
-		AnonUid:    dcl.Int64OrNil(p.AnonUid),
-		AnonGid:    dcl.Int64OrNil(p.AnonGid),
+		AnonUid:    dcl.Int64OrNil(p.GetAnonUid()),
+		AnonGid:    dcl.Int64OrNil(p.GetAnonGid()),
 	}
 	for _, r := range p.GetIpRanges() {
 		obj.IPRanges = append(obj.IPRanges, r)
@@ -118,14 +118,14 @@ func ProtoToFilestoreBetaInstanceFileSharesNfsExportOptions(p *betapb.FilestoreB
 	return obj
 }
 
-// ProtoToInstanceNetworks converts a InstanceNetworks resource from its proto representation.
+// ProtoToInstanceNetworks converts a InstanceNetworks object from its proto representation.
 func ProtoToFilestoreBetaInstanceNetworks(p *betapb.FilestoreBetaInstanceNetworks) *beta.InstanceNetworks {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.InstanceNetworks{
-		Network:         dcl.StringOrNil(p.Network),
-		ReservedIPRange: dcl.StringOrNil(p.ReservedIpRange),
+		Network:         dcl.StringOrNil(p.GetNetwork()),
+		ReservedIPRange: dcl.StringOrNil(p.GetReservedIpRange()),
 	}
 	for _, r := range p.GetModes() {
 		obj.Modes = append(obj.Modes, *ProtoToFilestoreBetaInstanceNetworksModesEnum(r))
@@ -139,15 +139,15 @@ func ProtoToFilestoreBetaInstanceNetworks(p *betapb.FilestoreBetaInstanceNetwork
 // ProtoToInstance converts a Instance resource from its proto representation.
 func ProtoToInstance(p *betapb.FilestoreBetaInstance) *beta.Instance {
 	obj := &beta.Instance{
-		Name:          dcl.StringOrNil(p.Name),
-		Description:   dcl.StringOrNil(p.Description),
+		Name:          dcl.StringOrNil(p.GetName()),
+		Description:   dcl.StringOrNil(p.GetDescription()),
 		State:         ProtoToFilestoreBetaInstanceStateEnum(p.GetState()),
-		StatusMessage: dcl.StringOrNil(p.StatusMessage),
+		StatusMessage: dcl.StringOrNil(p.GetStatusMessage()),
 		CreateTime:    dcl.StringOrNil(p.GetCreateTime()),
 		Tier:          ProtoToFilestoreBetaInstanceTierEnum(p.GetTier()),
-		Etag:          dcl.StringOrNil(p.Etag),
-		Project:       dcl.StringOrNil(p.Project),
-		Location:      dcl.StringOrNil(p.Location),
+		Etag:          dcl.StringOrNil(p.GetEtag()),
+		Project:       dcl.StringOrNil(p.GetProject()),
+		Location:      dcl.StringOrNil(p.GetLocation()),
 	}
 	for _, r := range p.GetFileShares() {
 		obj.FileShares = append(obj.FileShares, *ProtoToFilestoreBetaInstanceFileShares(r))
@@ -213,81 +213,94 @@ func FilestoreBetaInstanceNetworksModesEnumToProto(e *beta.InstanceNetworksModes
 	return betapb.FilestoreBetaInstanceNetworksModesEnum(0)
 }
 
-// InstanceFileSharesToProto converts a InstanceFileShares resource to its proto representation.
+// InstanceFileSharesToProto converts a InstanceFileShares object to its proto representation.
 func FilestoreBetaInstanceFileSharesToProto(o *beta.InstanceFileShares) *betapb.FilestoreBetaInstanceFileShares {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.FilestoreBetaInstanceFileShares{
-		Name:         dcl.ValueOrEmptyString(o.Name),
-		CapacityGb:   dcl.ValueOrEmptyInt64(o.CapacityGb),
-		SourceBackup: dcl.ValueOrEmptyString(o.SourceBackup),
+	p := &betapb.FilestoreBetaInstanceFileShares{}
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetCapacityGb(dcl.ValueOrEmptyInt64(o.CapacityGb))
+	p.SetSourceBackup(dcl.ValueOrEmptyString(o.SourceBackup))
+	sNfsExportOptions := make([]*betapb.FilestoreBetaInstanceFileSharesNfsExportOptions, len(o.NfsExportOptions))
+	for i, r := range o.NfsExportOptions {
+		sNfsExportOptions[i] = FilestoreBetaInstanceFileSharesNfsExportOptionsToProto(&r)
 	}
-	for _, r := range o.NfsExportOptions {
-		p.NfsExportOptions = append(p.NfsExportOptions, FilestoreBetaInstanceFileSharesNfsExportOptionsToProto(&r))
-	}
+	p.SetNfsExportOptions(sNfsExportOptions)
 	return p
 }
 
-// InstanceFileSharesNfsExportOptionsToProto converts a InstanceFileSharesNfsExportOptions resource to its proto representation.
+// InstanceFileSharesNfsExportOptionsToProto converts a InstanceFileSharesNfsExportOptions object to its proto representation.
 func FilestoreBetaInstanceFileSharesNfsExportOptionsToProto(o *beta.InstanceFileSharesNfsExportOptions) *betapb.FilestoreBetaInstanceFileSharesNfsExportOptions {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.FilestoreBetaInstanceFileSharesNfsExportOptions{
-		AccessMode: FilestoreBetaInstanceFileSharesNfsExportOptionsAccessModeEnumToProto(o.AccessMode),
-		SquashMode: FilestoreBetaInstanceFileSharesNfsExportOptionsSquashModeEnumToProto(o.SquashMode),
-		AnonUid:    dcl.ValueOrEmptyInt64(o.AnonUid),
-		AnonGid:    dcl.ValueOrEmptyInt64(o.AnonGid),
+	p := &betapb.FilestoreBetaInstanceFileSharesNfsExportOptions{}
+	p.SetAccessMode(FilestoreBetaInstanceFileSharesNfsExportOptionsAccessModeEnumToProto(o.AccessMode))
+	p.SetSquashMode(FilestoreBetaInstanceFileSharesNfsExportOptionsSquashModeEnumToProto(o.SquashMode))
+	p.SetAnonUid(dcl.ValueOrEmptyInt64(o.AnonUid))
+	p.SetAnonGid(dcl.ValueOrEmptyInt64(o.AnonGid))
+	sIPRanges := make([]string, len(o.IPRanges))
+	for i, r := range o.IPRanges {
+		sIPRanges[i] = r
 	}
-	for _, r := range o.IPRanges {
-		p.IpRanges = append(p.IpRanges, r)
-	}
+	p.SetIpRanges(sIPRanges)
 	return p
 }
 
-// InstanceNetworksToProto converts a InstanceNetworks resource to its proto representation.
+// InstanceNetworksToProto converts a InstanceNetworks object to its proto representation.
 func FilestoreBetaInstanceNetworksToProto(o *beta.InstanceNetworks) *betapb.FilestoreBetaInstanceNetworks {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.FilestoreBetaInstanceNetworks{
-		Network:         dcl.ValueOrEmptyString(o.Network),
-		ReservedIpRange: dcl.ValueOrEmptyString(o.ReservedIPRange),
+	p := &betapb.FilestoreBetaInstanceNetworks{}
+	p.SetNetwork(dcl.ValueOrEmptyString(o.Network))
+	p.SetReservedIpRange(dcl.ValueOrEmptyString(o.ReservedIPRange))
+	sModes := make([]betapb.FilestoreBetaInstanceNetworksModesEnum, len(o.Modes))
+	for i, r := range o.Modes {
+		sModes[i] = betapb.FilestoreBetaInstanceNetworksModesEnum(betapb.FilestoreBetaInstanceNetworksModesEnum_value[string(r)])
 	}
-	for _, r := range o.Modes {
-		p.Modes = append(p.Modes, betapb.FilestoreBetaInstanceNetworksModesEnum(betapb.FilestoreBetaInstanceNetworksModesEnum_value[string(r)]))
+	p.SetModes(sModes)
+	sIPAddresses := make([]string, len(o.IPAddresses))
+	for i, r := range o.IPAddresses {
+		sIPAddresses[i] = r
 	}
-	for _, r := range o.IPAddresses {
-		p.IpAddresses = append(p.IpAddresses, r)
-	}
+	p.SetIpAddresses(sIPAddresses)
 	return p
 }
 
 // InstanceToProto converts a Instance resource to its proto representation.
 func InstanceToProto(resource *beta.Instance) *betapb.FilestoreBetaInstance {
-	p := &betapb.FilestoreBetaInstance{
-		Name:          dcl.ValueOrEmptyString(resource.Name),
-		Description:   dcl.ValueOrEmptyString(resource.Description),
-		State:         FilestoreBetaInstanceStateEnumToProto(resource.State),
-		StatusMessage: dcl.ValueOrEmptyString(resource.StatusMessage),
-		CreateTime:    dcl.ValueOrEmptyString(resource.CreateTime),
-		Tier:          FilestoreBetaInstanceTierEnumToProto(resource.Tier),
-		Etag:          dcl.ValueOrEmptyString(resource.Etag),
-		Project:       dcl.ValueOrEmptyString(resource.Project),
-		Location:      dcl.ValueOrEmptyString(resource.Location),
+	p := &betapb.FilestoreBetaInstance{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetState(FilestoreBetaInstanceStateEnumToProto(resource.State))
+	p.SetStatusMessage(dcl.ValueOrEmptyString(resource.StatusMessage))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetTier(FilestoreBetaInstanceTierEnumToProto(resource.Tier))
+	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
-	for _, r := range resource.FileShares {
-		p.FileShares = append(p.FileShares, FilestoreBetaInstanceFileSharesToProto(&r))
+	p.SetLabels(mLabels)
+	sFileShares := make([]*betapb.FilestoreBetaInstanceFileShares, len(resource.FileShares))
+	for i, r := range resource.FileShares {
+		sFileShares[i] = FilestoreBetaInstanceFileSharesToProto(&r)
 	}
-	for _, r := range resource.Networks {
-		p.Networks = append(p.Networks, FilestoreBetaInstanceNetworksToProto(&r))
+	p.SetFileShares(sFileShares)
+	sNetworks := make([]*betapb.FilestoreBetaInstanceNetworks, len(resource.Networks))
+	for i, r := range resource.Networks {
+		sNetworks[i] = FilestoreBetaInstanceNetworksToProto(&r)
 	}
+	p.SetNetworks(sNetworks)
 
 	return p
 }
 
-// ApplyInstance handles the gRPC request by passing it to the underlying Instance Apply() method.
+// applyInstance handles the gRPC request by passing it to the underlying Instance Apply() method.
 func (s *InstanceServer) applyInstance(ctx context.Context, c *beta.Client, request *betapb.ApplyFilestoreBetaInstanceRequest) (*betapb.FilestoreBetaInstance, error) {
 	p := ProtoToInstance(request.GetResource())
 	res, err := c.ApplyInstance(ctx, p)
@@ -298,9 +311,9 @@ func (s *InstanceServer) applyInstance(ctx context.Context, c *beta.Client, requ
 	return r, nil
 }
 
-// ApplyInstance handles the gRPC request by passing it to the underlying Instance Apply() method.
+// applyFilestoreBetaInstance handles the gRPC request by passing it to the underlying Instance Apply() method.
 func (s *InstanceServer) ApplyFilestoreBetaInstance(ctx context.Context, request *betapb.ApplyFilestoreBetaInstanceRequest) (*betapb.FilestoreBetaInstance, error) {
-	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
+	cl, err := createConfigInstance(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -310,7 +323,7 @@ func (s *InstanceServer) ApplyFilestoreBetaInstance(ctx context.Context, request
 // DeleteInstance handles the gRPC request by passing it to the underlying Instance Delete() method.
 func (s *InstanceServer) DeleteFilestoreBetaInstance(ctx context.Context, request *betapb.DeleteFilestoreBetaInstanceRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
+	cl, err := createConfigInstance(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -320,12 +333,12 @@ func (s *InstanceServer) DeleteFilestoreBetaInstance(ctx context.Context, reques
 
 // ListFilestoreBetaInstance handles the gRPC request by passing it to the underlying InstanceList() method.
 func (s *InstanceServer) ListFilestoreBetaInstance(ctx context.Context, request *betapb.ListFilestoreBetaInstanceRequest) (*betapb.ListFilestoreBetaInstanceResponse, error) {
-	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
+	cl, err := createConfigInstance(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListInstance(ctx, request.Project, request.Location)
+	resources, err := cl.ListInstance(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -334,7 +347,9 @@ func (s *InstanceServer) ListFilestoreBetaInstance(ctx context.Context, request 
 		rp := InstanceToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListFilestoreBetaInstanceResponse{Items: protos}, nil
+	p := &betapb.ListFilestoreBetaInstanceResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigInstance(ctx context.Context, service_account_file string) (*beta.Client, error) {

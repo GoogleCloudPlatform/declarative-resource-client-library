@@ -37,7 +37,7 @@ func ProtoToPrivatecaAlphaCertificateTemplatePassthroughExtensionsKnownExtension
 	return nil
 }
 
-// ProtoToCertificateTemplatePredefinedValues converts a CertificateTemplatePredefinedValues resource from its proto representation.
+// ProtoToCertificateTemplatePredefinedValues converts a CertificateTemplatePredefinedValues object from its proto representation.
 func ProtoToPrivatecaAlphaCertificateTemplatePredefinedValues(p *alphapb.PrivatecaAlphaCertificateTemplatePredefinedValues) *alpha.CertificateTemplatePredefinedValues {
 	if p == nil {
 		return nil
@@ -58,7 +58,7 @@ func ProtoToPrivatecaAlphaCertificateTemplatePredefinedValues(p *alphapb.Private
 	return obj
 }
 
-// ProtoToCertificateTemplatePredefinedValuesKeyUsage converts a CertificateTemplatePredefinedValuesKeyUsage resource from its proto representation.
+// ProtoToCertificateTemplatePredefinedValuesKeyUsage converts a CertificateTemplatePredefinedValuesKeyUsage object from its proto representation.
 func ProtoToPrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsage(p *alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsage) *alpha.CertificateTemplatePredefinedValuesKeyUsage {
 	if p == nil {
 		return nil
@@ -73,42 +73,42 @@ func ProtoToPrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsage(p *alphapb
 	return obj
 }
 
-// ProtoToCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage converts a CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage resource from its proto representation.
+// ProtoToCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage converts a CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage object from its proto representation.
 func ProtoToPrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(p *alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage) *alpha.CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage{
-		DigitalSignature:  dcl.Bool(p.DigitalSignature),
-		ContentCommitment: dcl.Bool(p.ContentCommitment),
-		KeyEncipherment:   dcl.Bool(p.KeyEncipherment),
-		DataEncipherment:  dcl.Bool(p.DataEncipherment),
-		KeyAgreement:      dcl.Bool(p.KeyAgreement),
-		CertSign:          dcl.Bool(p.CertSign),
-		CrlSign:           dcl.Bool(p.CrlSign),
-		EncipherOnly:      dcl.Bool(p.EncipherOnly),
-		DecipherOnly:      dcl.Bool(p.DecipherOnly),
+		DigitalSignature:  dcl.Bool(p.GetDigitalSignature()),
+		ContentCommitment: dcl.Bool(p.GetContentCommitment()),
+		KeyEncipherment:   dcl.Bool(p.GetKeyEncipherment()),
+		DataEncipherment:  dcl.Bool(p.GetDataEncipherment()),
+		KeyAgreement:      dcl.Bool(p.GetKeyAgreement()),
+		CertSign:          dcl.Bool(p.GetCertSign()),
+		CrlSign:           dcl.Bool(p.GetCrlSign()),
+		EncipherOnly:      dcl.Bool(p.GetEncipherOnly()),
+		DecipherOnly:      dcl.Bool(p.GetDecipherOnly()),
 	}
 	return obj
 }
 
-// ProtoToCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage converts a CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage resource from its proto representation.
+// ProtoToCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage converts a CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage object from its proto representation.
 func ProtoToPrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(p *alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage) *alpha.CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage{
-		ServerAuth:      dcl.Bool(p.ServerAuth),
-		ClientAuth:      dcl.Bool(p.ClientAuth),
-		CodeSigning:     dcl.Bool(p.CodeSigning),
-		EmailProtection: dcl.Bool(p.EmailProtection),
-		TimeStamping:    dcl.Bool(p.TimeStamping),
-		OcspSigning:     dcl.Bool(p.OcspSigning),
+		ServerAuth:      dcl.Bool(p.GetServerAuth()),
+		ClientAuth:      dcl.Bool(p.GetClientAuth()),
+		CodeSigning:     dcl.Bool(p.GetCodeSigning()),
+		EmailProtection: dcl.Bool(p.GetEmailProtection()),
+		TimeStamping:    dcl.Bool(p.GetTimeStamping()),
+		OcspSigning:     dcl.Bool(p.GetOcspSigning()),
 	}
 	return obj
 }
 
-// ProtoToCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages converts a CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages resource from its proto representation.
+// ProtoToCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages converts a CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages object from its proto representation.
 func ProtoToPrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages(p *alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages) *alpha.CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages {
 	if p == nil {
 		return nil
@@ -120,19 +120,19 @@ func ProtoToPrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageUnknownExte
 	return obj
 }
 
-// ProtoToCertificateTemplatePredefinedValuesCaOptions converts a CertificateTemplatePredefinedValuesCaOptions resource from its proto representation.
+// ProtoToCertificateTemplatePredefinedValuesCaOptions converts a CertificateTemplatePredefinedValuesCaOptions object from its proto representation.
 func ProtoToPrivatecaAlphaCertificateTemplatePredefinedValuesCaOptions(p *alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesCaOptions) *alpha.CertificateTemplatePredefinedValuesCaOptions {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.CertificateTemplatePredefinedValuesCaOptions{
-		IsCa:                dcl.Bool(p.IsCa),
-		MaxIssuerPathLength: dcl.Int64OrNil(p.MaxIssuerPathLength),
+		IsCa:                dcl.Bool(p.GetIsCa()),
+		MaxIssuerPathLength: dcl.Int64OrNil(p.GetMaxIssuerPathLength()),
 	}
 	return obj
 }
 
-// ProtoToCertificateTemplatePredefinedValuesPolicyIds converts a CertificateTemplatePredefinedValuesPolicyIds resource from its proto representation.
+// ProtoToCertificateTemplatePredefinedValuesPolicyIds converts a CertificateTemplatePredefinedValuesPolicyIds object from its proto representation.
 func ProtoToPrivatecaAlphaCertificateTemplatePredefinedValuesPolicyIds(p *alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesPolicyIds) *alpha.CertificateTemplatePredefinedValuesPolicyIds {
 	if p == nil {
 		return nil
@@ -144,20 +144,20 @@ func ProtoToPrivatecaAlphaCertificateTemplatePredefinedValuesPolicyIds(p *alphap
 	return obj
 }
 
-// ProtoToCertificateTemplatePredefinedValuesAdditionalExtensions converts a CertificateTemplatePredefinedValuesAdditionalExtensions resource from its proto representation.
+// ProtoToCertificateTemplatePredefinedValuesAdditionalExtensions converts a CertificateTemplatePredefinedValuesAdditionalExtensions object from its proto representation.
 func ProtoToPrivatecaAlphaCertificateTemplatePredefinedValuesAdditionalExtensions(p *alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesAdditionalExtensions) *alpha.CertificateTemplatePredefinedValuesAdditionalExtensions {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.CertificateTemplatePredefinedValuesAdditionalExtensions{
 		ObjectId: ProtoToPrivatecaAlphaCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(p.GetObjectId()),
-		Critical: dcl.Bool(p.Critical),
-		Value:    dcl.StringOrNil(p.Value),
+		Critical: dcl.Bool(p.GetCritical()),
+		Value:    dcl.StringOrNil(p.GetValue()),
 	}
 	return obj
 }
 
-// ProtoToCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId converts a CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId resource from its proto representation.
+// ProtoToCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId converts a CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId object from its proto representation.
 func ProtoToPrivatecaAlphaCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(p *alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId) *alpha.CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId {
 	if p == nil {
 		return nil
@@ -169,34 +169,34 @@ func ProtoToPrivatecaAlphaCertificateTemplatePredefinedValuesAdditionalExtension
 	return obj
 }
 
-// ProtoToCertificateTemplateIdentityConstraints converts a CertificateTemplateIdentityConstraints resource from its proto representation.
+// ProtoToCertificateTemplateIdentityConstraints converts a CertificateTemplateIdentityConstraints object from its proto representation.
 func ProtoToPrivatecaAlphaCertificateTemplateIdentityConstraints(p *alphapb.PrivatecaAlphaCertificateTemplateIdentityConstraints) *alpha.CertificateTemplateIdentityConstraints {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.CertificateTemplateIdentityConstraints{
 		CelExpression:                   ProtoToPrivatecaAlphaCertificateTemplateIdentityConstraintsCelExpression(p.GetCelExpression()),
-		AllowSubjectPassthrough:         dcl.Bool(p.AllowSubjectPassthrough),
-		AllowSubjectAltNamesPassthrough: dcl.Bool(p.AllowSubjectAltNamesPassthrough),
+		AllowSubjectPassthrough:         dcl.Bool(p.GetAllowSubjectPassthrough()),
+		AllowSubjectAltNamesPassthrough: dcl.Bool(p.GetAllowSubjectAltNamesPassthrough()),
 	}
 	return obj
 }
 
-// ProtoToCertificateTemplateIdentityConstraintsCelExpression converts a CertificateTemplateIdentityConstraintsCelExpression resource from its proto representation.
+// ProtoToCertificateTemplateIdentityConstraintsCelExpression converts a CertificateTemplateIdentityConstraintsCelExpression object from its proto representation.
 func ProtoToPrivatecaAlphaCertificateTemplateIdentityConstraintsCelExpression(p *alphapb.PrivatecaAlphaCertificateTemplateIdentityConstraintsCelExpression) *alpha.CertificateTemplateIdentityConstraintsCelExpression {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.CertificateTemplateIdentityConstraintsCelExpression{
-		Expression:  dcl.StringOrNil(p.Expression),
-		Title:       dcl.StringOrNil(p.Title),
-		Description: dcl.StringOrNil(p.Description),
-		Location:    dcl.StringOrNil(p.Location),
+		Expression:  dcl.StringOrNil(p.GetExpression()),
+		Title:       dcl.StringOrNil(p.GetTitle()),
+		Description: dcl.StringOrNil(p.GetDescription()),
+		Location:    dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
 
-// ProtoToCertificateTemplatePassthroughExtensions converts a CertificateTemplatePassthroughExtensions resource from its proto representation.
+// ProtoToCertificateTemplatePassthroughExtensions converts a CertificateTemplatePassthroughExtensions object from its proto representation.
 func ProtoToPrivatecaAlphaCertificateTemplatePassthroughExtensions(p *alphapb.PrivatecaAlphaCertificateTemplatePassthroughExtensions) *alpha.CertificateTemplatePassthroughExtensions {
 	if p == nil {
 		return nil
@@ -211,7 +211,7 @@ func ProtoToPrivatecaAlphaCertificateTemplatePassthroughExtensions(p *alphapb.Pr
 	return obj
 }
 
-// ProtoToCertificateTemplatePassthroughExtensionsAdditionalExtensions converts a CertificateTemplatePassthroughExtensionsAdditionalExtensions resource from its proto representation.
+// ProtoToCertificateTemplatePassthroughExtensionsAdditionalExtensions converts a CertificateTemplatePassthroughExtensionsAdditionalExtensions object from its proto representation.
 func ProtoToPrivatecaAlphaCertificateTemplatePassthroughExtensionsAdditionalExtensions(p *alphapb.PrivatecaAlphaCertificateTemplatePassthroughExtensionsAdditionalExtensions) *alpha.CertificateTemplatePassthroughExtensionsAdditionalExtensions {
 	if p == nil {
 		return nil
@@ -226,15 +226,15 @@ func ProtoToPrivatecaAlphaCertificateTemplatePassthroughExtensionsAdditionalExte
 // ProtoToCertificateTemplate converts a CertificateTemplate resource from its proto representation.
 func ProtoToCertificateTemplate(p *alphapb.PrivatecaAlphaCertificateTemplate) *alpha.CertificateTemplate {
 	obj := &alpha.CertificateTemplate{
-		Name:                  dcl.StringOrNil(p.Name),
+		Name:                  dcl.StringOrNil(p.GetName()),
 		PredefinedValues:      ProtoToPrivatecaAlphaCertificateTemplatePredefinedValues(p.GetPredefinedValues()),
 		IdentityConstraints:   ProtoToPrivatecaAlphaCertificateTemplateIdentityConstraints(p.GetIdentityConstraints()),
 		PassthroughExtensions: ProtoToPrivatecaAlphaCertificateTemplatePassthroughExtensions(p.GetPassthroughExtensions()),
-		Description:           dcl.StringOrNil(p.Description),
+		Description:           dcl.StringOrNil(p.GetDescription()),
 		CreateTime:            dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:            dcl.StringOrNil(p.GetUpdateTime()),
-		Project:               dcl.StringOrNil(p.Project),
-		Location:              dcl.StringOrNil(p.Location),
+		Project:               dcl.StringOrNil(p.GetProject()),
+		Location:              dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -250,210 +250,226 @@ func PrivatecaAlphaCertificateTemplatePassthroughExtensionsKnownExtensionsEnumTo
 	return alphapb.PrivatecaAlphaCertificateTemplatePassthroughExtensionsKnownExtensionsEnum(0)
 }
 
-// CertificateTemplatePredefinedValuesToProto converts a CertificateTemplatePredefinedValues resource to its proto representation.
+// CertificateTemplatePredefinedValuesToProto converts a CertificateTemplatePredefinedValues object to its proto representation.
 func PrivatecaAlphaCertificateTemplatePredefinedValuesToProto(o *alpha.CertificateTemplatePredefinedValues) *alphapb.PrivatecaAlphaCertificateTemplatePredefinedValues {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.PrivatecaAlphaCertificateTemplatePredefinedValues{
-		KeyUsage:  PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageToProto(o.KeyUsage),
-		CaOptions: PrivatecaAlphaCertificateTemplatePredefinedValuesCaOptionsToProto(o.CaOptions),
+	p := &alphapb.PrivatecaAlphaCertificateTemplatePredefinedValues{}
+	p.SetKeyUsage(PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageToProto(o.KeyUsage))
+	p.SetCaOptions(PrivatecaAlphaCertificateTemplatePredefinedValuesCaOptionsToProto(o.CaOptions))
+	sPolicyIds := make([]*alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesPolicyIds, len(o.PolicyIds))
+	for i, r := range o.PolicyIds {
+		sPolicyIds[i] = PrivatecaAlphaCertificateTemplatePredefinedValuesPolicyIdsToProto(&r)
 	}
-	for _, r := range o.PolicyIds {
-		p.PolicyIds = append(p.PolicyIds, PrivatecaAlphaCertificateTemplatePredefinedValuesPolicyIdsToProto(&r))
+	p.SetPolicyIds(sPolicyIds)
+	sAiaOcspServers := make([]string, len(o.AiaOcspServers))
+	for i, r := range o.AiaOcspServers {
+		sAiaOcspServers[i] = r
 	}
-	for _, r := range o.AiaOcspServers {
-		p.AiaOcspServers = append(p.AiaOcspServers, r)
+	p.SetAiaOcspServers(sAiaOcspServers)
+	sAdditionalExtensions := make([]*alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesAdditionalExtensions, len(o.AdditionalExtensions))
+	for i, r := range o.AdditionalExtensions {
+		sAdditionalExtensions[i] = PrivatecaAlphaCertificateTemplatePredefinedValuesAdditionalExtensionsToProto(&r)
 	}
-	for _, r := range o.AdditionalExtensions {
-		p.AdditionalExtensions = append(p.AdditionalExtensions, PrivatecaAlphaCertificateTemplatePredefinedValuesAdditionalExtensionsToProto(&r))
-	}
+	p.SetAdditionalExtensions(sAdditionalExtensions)
 	return p
 }
 
-// CertificateTemplatePredefinedValuesKeyUsageToProto converts a CertificateTemplatePredefinedValuesKeyUsage resource to its proto representation.
+// CertificateTemplatePredefinedValuesKeyUsageToProto converts a CertificateTemplatePredefinedValuesKeyUsage object to its proto representation.
 func PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageToProto(o *alpha.CertificateTemplatePredefinedValuesKeyUsage) *alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsage {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsage{
-		BaseKeyUsage:     PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageToProto(o.BaseKeyUsage),
-		ExtendedKeyUsage: PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageToProto(o.ExtendedKeyUsage),
+	p := &alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsage{}
+	p.SetBaseKeyUsage(PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageToProto(o.BaseKeyUsage))
+	p.SetExtendedKeyUsage(PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageToProto(o.ExtendedKeyUsage))
+	sUnknownExtendedKeyUsages := make([]*alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages, len(o.UnknownExtendedKeyUsages))
+	for i, r := range o.UnknownExtendedKeyUsages {
+		sUnknownExtendedKeyUsages[i] = PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesToProto(&r)
 	}
-	for _, r := range o.UnknownExtendedKeyUsages {
-		p.UnknownExtendedKeyUsages = append(p.UnknownExtendedKeyUsages, PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesToProto(&r))
-	}
+	p.SetUnknownExtendedKeyUsages(sUnknownExtendedKeyUsages)
 	return p
 }
 
-// CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageToProto converts a CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage resource to its proto representation.
+// CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageToProto converts a CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage object to its proto representation.
 func PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageToProto(o *alpha.CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage) *alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage{
-		DigitalSignature:  dcl.ValueOrEmptyBool(o.DigitalSignature),
-		ContentCommitment: dcl.ValueOrEmptyBool(o.ContentCommitment),
-		KeyEncipherment:   dcl.ValueOrEmptyBool(o.KeyEncipherment),
-		DataEncipherment:  dcl.ValueOrEmptyBool(o.DataEncipherment),
-		KeyAgreement:      dcl.ValueOrEmptyBool(o.KeyAgreement),
-		CertSign:          dcl.ValueOrEmptyBool(o.CertSign),
-		CrlSign:           dcl.ValueOrEmptyBool(o.CrlSign),
-		EncipherOnly:      dcl.ValueOrEmptyBool(o.EncipherOnly),
-		DecipherOnly:      dcl.ValueOrEmptyBool(o.DecipherOnly),
-	}
+	p := &alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage{}
+	p.SetDigitalSignature(dcl.ValueOrEmptyBool(o.DigitalSignature))
+	p.SetContentCommitment(dcl.ValueOrEmptyBool(o.ContentCommitment))
+	p.SetKeyEncipherment(dcl.ValueOrEmptyBool(o.KeyEncipherment))
+	p.SetDataEncipherment(dcl.ValueOrEmptyBool(o.DataEncipherment))
+	p.SetKeyAgreement(dcl.ValueOrEmptyBool(o.KeyAgreement))
+	p.SetCertSign(dcl.ValueOrEmptyBool(o.CertSign))
+	p.SetCrlSign(dcl.ValueOrEmptyBool(o.CrlSign))
+	p.SetEncipherOnly(dcl.ValueOrEmptyBool(o.EncipherOnly))
+	p.SetDecipherOnly(dcl.ValueOrEmptyBool(o.DecipherOnly))
 	return p
 }
 
-// CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageToProto converts a CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage resource to its proto representation.
+// CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageToProto converts a CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage object to its proto representation.
 func PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageToProto(o *alpha.CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage) *alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage{
-		ServerAuth:      dcl.ValueOrEmptyBool(o.ServerAuth),
-		ClientAuth:      dcl.ValueOrEmptyBool(o.ClientAuth),
-		CodeSigning:     dcl.ValueOrEmptyBool(o.CodeSigning),
-		EmailProtection: dcl.ValueOrEmptyBool(o.EmailProtection),
-		TimeStamping:    dcl.ValueOrEmptyBool(o.TimeStamping),
-		OcspSigning:     dcl.ValueOrEmptyBool(o.OcspSigning),
-	}
+	p := &alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage{}
+	p.SetServerAuth(dcl.ValueOrEmptyBool(o.ServerAuth))
+	p.SetClientAuth(dcl.ValueOrEmptyBool(o.ClientAuth))
+	p.SetCodeSigning(dcl.ValueOrEmptyBool(o.CodeSigning))
+	p.SetEmailProtection(dcl.ValueOrEmptyBool(o.EmailProtection))
+	p.SetTimeStamping(dcl.ValueOrEmptyBool(o.TimeStamping))
+	p.SetOcspSigning(dcl.ValueOrEmptyBool(o.OcspSigning))
 	return p
 }
 
-// CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesToProto converts a CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages resource to its proto representation.
+// CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesToProto converts a CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages object to its proto representation.
 func PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesToProto(o *alpha.CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages) *alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages {
 	if o == nil {
 		return nil
 	}
 	p := &alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages{}
-	for _, r := range o.ObjectIdPath {
-		p.ObjectIdPath = append(p.ObjectIdPath, r)
+	sObjectIdPath := make([]int64, len(o.ObjectIdPath))
+	for i, r := range o.ObjectIdPath {
+		sObjectIdPath[i] = r
 	}
+	p.SetObjectIdPath(sObjectIdPath)
 	return p
 }
 
-// CertificateTemplatePredefinedValuesCaOptionsToProto converts a CertificateTemplatePredefinedValuesCaOptions resource to its proto representation.
+// CertificateTemplatePredefinedValuesCaOptionsToProto converts a CertificateTemplatePredefinedValuesCaOptions object to its proto representation.
 func PrivatecaAlphaCertificateTemplatePredefinedValuesCaOptionsToProto(o *alpha.CertificateTemplatePredefinedValuesCaOptions) *alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesCaOptions {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesCaOptions{
-		IsCa:                dcl.ValueOrEmptyBool(o.IsCa),
-		MaxIssuerPathLength: dcl.ValueOrEmptyInt64(o.MaxIssuerPathLength),
-	}
+	p := &alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesCaOptions{}
+	p.SetIsCa(dcl.ValueOrEmptyBool(o.IsCa))
+	p.SetMaxIssuerPathLength(dcl.ValueOrEmptyInt64(o.MaxIssuerPathLength))
 	return p
 }
 
-// CertificateTemplatePredefinedValuesPolicyIdsToProto converts a CertificateTemplatePredefinedValuesPolicyIds resource to its proto representation.
+// CertificateTemplatePredefinedValuesPolicyIdsToProto converts a CertificateTemplatePredefinedValuesPolicyIds object to its proto representation.
 func PrivatecaAlphaCertificateTemplatePredefinedValuesPolicyIdsToProto(o *alpha.CertificateTemplatePredefinedValuesPolicyIds) *alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesPolicyIds {
 	if o == nil {
 		return nil
 	}
 	p := &alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesPolicyIds{}
-	for _, r := range o.ObjectIdPath {
-		p.ObjectIdPath = append(p.ObjectIdPath, r)
+	sObjectIdPath := make([]int64, len(o.ObjectIdPath))
+	for i, r := range o.ObjectIdPath {
+		sObjectIdPath[i] = r
 	}
+	p.SetObjectIdPath(sObjectIdPath)
 	return p
 }
 
-// CertificateTemplatePredefinedValuesAdditionalExtensionsToProto converts a CertificateTemplatePredefinedValuesAdditionalExtensions resource to its proto representation.
+// CertificateTemplatePredefinedValuesAdditionalExtensionsToProto converts a CertificateTemplatePredefinedValuesAdditionalExtensions object to its proto representation.
 func PrivatecaAlphaCertificateTemplatePredefinedValuesAdditionalExtensionsToProto(o *alpha.CertificateTemplatePredefinedValuesAdditionalExtensions) *alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesAdditionalExtensions {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesAdditionalExtensions{
-		ObjectId: PrivatecaAlphaCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdToProto(o.ObjectId),
-		Critical: dcl.ValueOrEmptyBool(o.Critical),
-		Value:    dcl.ValueOrEmptyString(o.Value),
-	}
+	p := &alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesAdditionalExtensions{}
+	p.SetObjectId(PrivatecaAlphaCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdToProto(o.ObjectId))
+	p.SetCritical(dcl.ValueOrEmptyBool(o.Critical))
+	p.SetValue(dcl.ValueOrEmptyString(o.Value))
 	return p
 }
 
-// CertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdToProto converts a CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId resource to its proto representation.
+// CertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdToProto converts a CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId object to its proto representation.
 func PrivatecaAlphaCertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdToProto(o *alpha.CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId) *alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId {
 	if o == nil {
 		return nil
 	}
 	p := &alphapb.PrivatecaAlphaCertificateTemplatePredefinedValuesAdditionalExtensionsObjectId{}
-	for _, r := range o.ObjectIdPath {
-		p.ObjectIdPath = append(p.ObjectIdPath, r)
+	sObjectIdPath := make([]int64, len(o.ObjectIdPath))
+	for i, r := range o.ObjectIdPath {
+		sObjectIdPath[i] = r
 	}
+	p.SetObjectIdPath(sObjectIdPath)
 	return p
 }
 
-// CertificateTemplateIdentityConstraintsToProto converts a CertificateTemplateIdentityConstraints resource to its proto representation.
+// CertificateTemplateIdentityConstraintsToProto converts a CertificateTemplateIdentityConstraints object to its proto representation.
 func PrivatecaAlphaCertificateTemplateIdentityConstraintsToProto(o *alpha.CertificateTemplateIdentityConstraints) *alphapb.PrivatecaAlphaCertificateTemplateIdentityConstraints {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.PrivatecaAlphaCertificateTemplateIdentityConstraints{
-		CelExpression:                   PrivatecaAlphaCertificateTemplateIdentityConstraintsCelExpressionToProto(o.CelExpression),
-		AllowSubjectPassthrough:         dcl.ValueOrEmptyBool(o.AllowSubjectPassthrough),
-		AllowSubjectAltNamesPassthrough: dcl.ValueOrEmptyBool(o.AllowSubjectAltNamesPassthrough),
-	}
+	p := &alphapb.PrivatecaAlphaCertificateTemplateIdentityConstraints{}
+	p.SetCelExpression(PrivatecaAlphaCertificateTemplateIdentityConstraintsCelExpressionToProto(o.CelExpression))
+	p.SetAllowSubjectPassthrough(dcl.ValueOrEmptyBool(o.AllowSubjectPassthrough))
+	p.SetAllowSubjectAltNamesPassthrough(dcl.ValueOrEmptyBool(o.AllowSubjectAltNamesPassthrough))
 	return p
 }
 
-// CertificateTemplateIdentityConstraintsCelExpressionToProto converts a CertificateTemplateIdentityConstraintsCelExpression resource to its proto representation.
+// CertificateTemplateIdentityConstraintsCelExpressionToProto converts a CertificateTemplateIdentityConstraintsCelExpression object to its proto representation.
 func PrivatecaAlphaCertificateTemplateIdentityConstraintsCelExpressionToProto(o *alpha.CertificateTemplateIdentityConstraintsCelExpression) *alphapb.PrivatecaAlphaCertificateTemplateIdentityConstraintsCelExpression {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.PrivatecaAlphaCertificateTemplateIdentityConstraintsCelExpression{
-		Expression:  dcl.ValueOrEmptyString(o.Expression),
-		Title:       dcl.ValueOrEmptyString(o.Title),
-		Description: dcl.ValueOrEmptyString(o.Description),
-		Location:    dcl.ValueOrEmptyString(o.Location),
-	}
+	p := &alphapb.PrivatecaAlphaCertificateTemplateIdentityConstraintsCelExpression{}
+	p.SetExpression(dcl.ValueOrEmptyString(o.Expression))
+	p.SetTitle(dcl.ValueOrEmptyString(o.Title))
+	p.SetDescription(dcl.ValueOrEmptyString(o.Description))
+	p.SetLocation(dcl.ValueOrEmptyString(o.Location))
 	return p
 }
 
-// CertificateTemplatePassthroughExtensionsToProto converts a CertificateTemplatePassthroughExtensions resource to its proto representation.
+// CertificateTemplatePassthroughExtensionsToProto converts a CertificateTemplatePassthroughExtensions object to its proto representation.
 func PrivatecaAlphaCertificateTemplatePassthroughExtensionsToProto(o *alpha.CertificateTemplatePassthroughExtensions) *alphapb.PrivatecaAlphaCertificateTemplatePassthroughExtensions {
 	if o == nil {
 		return nil
 	}
 	p := &alphapb.PrivatecaAlphaCertificateTemplatePassthroughExtensions{}
-	for _, r := range o.KnownExtensions {
-		p.KnownExtensions = append(p.KnownExtensions, alphapb.PrivatecaAlphaCertificateTemplatePassthroughExtensionsKnownExtensionsEnum(alphapb.PrivatecaAlphaCertificateTemplatePassthroughExtensionsKnownExtensionsEnum_value[string(r)]))
+	sKnownExtensions := make([]alphapb.PrivatecaAlphaCertificateTemplatePassthroughExtensionsKnownExtensionsEnum, len(o.KnownExtensions))
+	for i, r := range o.KnownExtensions {
+		sKnownExtensions[i] = alphapb.PrivatecaAlphaCertificateTemplatePassthroughExtensionsKnownExtensionsEnum(alphapb.PrivatecaAlphaCertificateTemplatePassthroughExtensionsKnownExtensionsEnum_value[string(r)])
 	}
-	for _, r := range o.AdditionalExtensions {
-		p.AdditionalExtensions = append(p.AdditionalExtensions, PrivatecaAlphaCertificateTemplatePassthroughExtensionsAdditionalExtensionsToProto(&r))
+	p.SetKnownExtensions(sKnownExtensions)
+	sAdditionalExtensions := make([]*alphapb.PrivatecaAlphaCertificateTemplatePassthroughExtensionsAdditionalExtensions, len(o.AdditionalExtensions))
+	for i, r := range o.AdditionalExtensions {
+		sAdditionalExtensions[i] = PrivatecaAlphaCertificateTemplatePassthroughExtensionsAdditionalExtensionsToProto(&r)
 	}
+	p.SetAdditionalExtensions(sAdditionalExtensions)
 	return p
 }
 
-// CertificateTemplatePassthroughExtensionsAdditionalExtensionsToProto converts a CertificateTemplatePassthroughExtensionsAdditionalExtensions resource to its proto representation.
+// CertificateTemplatePassthroughExtensionsAdditionalExtensionsToProto converts a CertificateTemplatePassthroughExtensionsAdditionalExtensions object to its proto representation.
 func PrivatecaAlphaCertificateTemplatePassthroughExtensionsAdditionalExtensionsToProto(o *alpha.CertificateTemplatePassthroughExtensionsAdditionalExtensions) *alphapb.PrivatecaAlphaCertificateTemplatePassthroughExtensionsAdditionalExtensions {
 	if o == nil {
 		return nil
 	}
 	p := &alphapb.PrivatecaAlphaCertificateTemplatePassthroughExtensionsAdditionalExtensions{}
-	for _, r := range o.ObjectIdPath {
-		p.ObjectIdPath = append(p.ObjectIdPath, r)
+	sObjectIdPath := make([]int64, len(o.ObjectIdPath))
+	for i, r := range o.ObjectIdPath {
+		sObjectIdPath[i] = r
 	}
+	p.SetObjectIdPath(sObjectIdPath)
 	return p
 }
 
 // CertificateTemplateToProto converts a CertificateTemplate resource to its proto representation.
 func CertificateTemplateToProto(resource *alpha.CertificateTemplate) *alphapb.PrivatecaAlphaCertificateTemplate {
-	p := &alphapb.PrivatecaAlphaCertificateTemplate{
-		Name:                  dcl.ValueOrEmptyString(resource.Name),
-		PredefinedValues:      PrivatecaAlphaCertificateTemplatePredefinedValuesToProto(resource.PredefinedValues),
-		IdentityConstraints:   PrivatecaAlphaCertificateTemplateIdentityConstraintsToProto(resource.IdentityConstraints),
-		PassthroughExtensions: PrivatecaAlphaCertificateTemplatePassthroughExtensionsToProto(resource.PassthroughExtensions),
-		Description:           dcl.ValueOrEmptyString(resource.Description),
-		CreateTime:            dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:            dcl.ValueOrEmptyString(resource.UpdateTime),
-		Project:               dcl.ValueOrEmptyString(resource.Project),
-		Location:              dcl.ValueOrEmptyString(resource.Location),
+	p := &alphapb.PrivatecaAlphaCertificateTemplate{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetPredefinedValues(PrivatecaAlphaCertificateTemplatePredefinedValuesToProto(resource.PredefinedValues))
+	p.SetIdentityConstraints(PrivatecaAlphaCertificateTemplateIdentityConstraintsToProto(resource.IdentityConstraints))
+	p.SetPassthroughExtensions(PrivatecaAlphaCertificateTemplatePassthroughExtensionsToProto(resource.PassthroughExtensions))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
+	p.SetLabels(mLabels)
 
 	return p
 }
 
-// ApplyCertificateTemplate handles the gRPC request by passing it to the underlying CertificateTemplate Apply() method.
+// applyCertificateTemplate handles the gRPC request by passing it to the underlying CertificateTemplate Apply() method.
 func (s *CertificateTemplateServer) applyCertificateTemplate(ctx context.Context, c *alpha.Client, request *alphapb.ApplyPrivatecaAlphaCertificateTemplateRequest) (*alphapb.PrivatecaAlphaCertificateTemplate, error) {
 	p := ProtoToCertificateTemplate(request.GetResource())
 	res, err := c.ApplyCertificateTemplate(ctx, p)
@@ -464,9 +480,9 @@ func (s *CertificateTemplateServer) applyCertificateTemplate(ctx context.Context
 	return r, nil
 }
 
-// ApplyCertificateTemplate handles the gRPC request by passing it to the underlying CertificateTemplate Apply() method.
+// applyPrivatecaAlphaCertificateTemplate handles the gRPC request by passing it to the underlying CertificateTemplate Apply() method.
 func (s *CertificateTemplateServer) ApplyPrivatecaAlphaCertificateTemplate(ctx context.Context, request *alphapb.ApplyPrivatecaAlphaCertificateTemplateRequest) (*alphapb.PrivatecaAlphaCertificateTemplate, error) {
-	cl, err := createConfigCertificateTemplate(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCertificateTemplate(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -476,7 +492,7 @@ func (s *CertificateTemplateServer) ApplyPrivatecaAlphaCertificateTemplate(ctx c
 // DeleteCertificateTemplate handles the gRPC request by passing it to the underlying CertificateTemplate Delete() method.
 func (s *CertificateTemplateServer) DeletePrivatecaAlphaCertificateTemplate(ctx context.Context, request *alphapb.DeletePrivatecaAlphaCertificateTemplateRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigCertificateTemplate(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCertificateTemplate(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -486,12 +502,12 @@ func (s *CertificateTemplateServer) DeletePrivatecaAlphaCertificateTemplate(ctx 
 
 // ListPrivatecaAlphaCertificateTemplate handles the gRPC request by passing it to the underlying CertificateTemplateList() method.
 func (s *CertificateTemplateServer) ListPrivatecaAlphaCertificateTemplate(ctx context.Context, request *alphapb.ListPrivatecaAlphaCertificateTemplateRequest) (*alphapb.ListPrivatecaAlphaCertificateTemplateResponse, error) {
-	cl, err := createConfigCertificateTemplate(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCertificateTemplate(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListCertificateTemplate(ctx, request.Project, request.Location)
+	resources, err := cl.ListCertificateTemplate(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -500,7 +516,9 @@ func (s *CertificateTemplateServer) ListPrivatecaAlphaCertificateTemplate(ctx co
 		rp := CertificateTemplateToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListPrivatecaAlphaCertificateTemplateResponse{Items: protos}, nil
+	p := &alphapb.ListPrivatecaAlphaCertificateTemplateResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigCertificateTemplate(ctx context.Context, service_account_file string) (*alpha.Client, error) {

@@ -37,7 +37,7 @@ func ProtoToComputeNetworkRoutingConfigRoutingModeEnum(e computepb.ComputeNetwor
 	return nil
 }
 
-// ProtoToNetworkRoutingConfig converts a NetworkRoutingConfig resource from its proto representation.
+// ProtoToNetworkRoutingConfig converts a NetworkRoutingConfig object from its proto representation.
 func ProtoToComputeNetworkRoutingConfig(p *computepb.ComputeNetworkRoutingConfig) *compute.NetworkRoutingConfig {
 	if p == nil {
 		return nil
@@ -51,14 +51,14 @@ func ProtoToComputeNetworkRoutingConfig(p *computepb.ComputeNetworkRoutingConfig
 // ProtoToNetwork converts a Network resource from its proto representation.
 func ProtoToNetwork(p *computepb.ComputeNetwork) *compute.Network {
 	obj := &compute.Network{
-		Description:           dcl.StringOrNil(p.Description),
-		GatewayIPv4:           dcl.StringOrNil(p.GatewayIpv4),
-		Name:                  dcl.StringOrNil(p.Name),
-		AutoCreateSubnetworks: dcl.Bool(p.AutoCreateSubnetworks),
+		Description:           dcl.StringOrNil(p.GetDescription()),
+		GatewayIPv4:           dcl.StringOrNil(p.GetGatewayIpv4()),
+		Name:                  dcl.StringOrNil(p.GetName()),
+		AutoCreateSubnetworks: dcl.Bool(p.GetAutoCreateSubnetworks()),
 		RoutingConfig:         ProtoToComputeNetworkRoutingConfig(p.GetRoutingConfig()),
-		Mtu:                   dcl.Int64OrNil(p.Mtu),
-		Project:               dcl.StringOrNil(p.Project),
-		SelfLink:              dcl.StringOrNil(p.SelfLink),
+		Mtu:                   dcl.Int64OrNil(p.GetMtu()),
+		Project:               dcl.StringOrNil(p.GetProject()),
+		SelfLink:              dcl.StringOrNil(p.GetSelfLink()),
 	}
 	return obj
 }
@@ -74,34 +74,32 @@ func ComputeNetworkRoutingConfigRoutingModeEnumToProto(e *compute.NetworkRouting
 	return computepb.ComputeNetworkRoutingConfigRoutingModeEnum(0)
 }
 
-// NetworkRoutingConfigToProto converts a NetworkRoutingConfig resource to its proto representation.
+// NetworkRoutingConfigToProto converts a NetworkRoutingConfig object to its proto representation.
 func ComputeNetworkRoutingConfigToProto(o *compute.NetworkRoutingConfig) *computepb.ComputeNetworkRoutingConfig {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeNetworkRoutingConfig{
-		RoutingMode: ComputeNetworkRoutingConfigRoutingModeEnumToProto(o.RoutingMode),
-	}
+	p := &computepb.ComputeNetworkRoutingConfig{}
+	p.SetRoutingMode(ComputeNetworkRoutingConfigRoutingModeEnumToProto(o.RoutingMode))
 	return p
 }
 
 // NetworkToProto converts a Network resource to its proto representation.
 func NetworkToProto(resource *compute.Network) *computepb.ComputeNetwork {
-	p := &computepb.ComputeNetwork{
-		Description:           dcl.ValueOrEmptyString(resource.Description),
-		GatewayIpv4:           dcl.ValueOrEmptyString(resource.GatewayIPv4),
-		Name:                  dcl.ValueOrEmptyString(resource.Name),
-		AutoCreateSubnetworks: dcl.ValueOrEmptyBool(resource.AutoCreateSubnetworks),
-		RoutingConfig:         ComputeNetworkRoutingConfigToProto(resource.RoutingConfig),
-		Mtu:                   dcl.ValueOrEmptyInt64(resource.Mtu),
-		Project:               dcl.ValueOrEmptyString(resource.Project),
-		SelfLink:              dcl.ValueOrEmptyString(resource.SelfLink),
-	}
+	p := &computepb.ComputeNetwork{}
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetGatewayIpv4(dcl.ValueOrEmptyString(resource.GatewayIPv4))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetAutoCreateSubnetworks(dcl.ValueOrEmptyBool(resource.AutoCreateSubnetworks))
+	p.SetRoutingConfig(ComputeNetworkRoutingConfigToProto(resource.RoutingConfig))
+	p.SetMtu(dcl.ValueOrEmptyInt64(resource.Mtu))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
 
 	return p
 }
 
-// ApplyNetwork handles the gRPC request by passing it to the underlying Network Apply() method.
+// applyNetwork handles the gRPC request by passing it to the underlying Network Apply() method.
 func (s *NetworkServer) applyNetwork(ctx context.Context, c *compute.Client, request *computepb.ApplyComputeNetworkRequest) (*computepb.ComputeNetwork, error) {
 	p := ProtoToNetwork(request.GetResource())
 	res, err := c.ApplyNetwork(ctx, p)
@@ -112,9 +110,9 @@ func (s *NetworkServer) applyNetwork(ctx context.Context, c *compute.Client, req
 	return r, nil
 }
 
-// ApplyNetwork handles the gRPC request by passing it to the underlying Network Apply() method.
+// applyComputeNetwork handles the gRPC request by passing it to the underlying Network Apply() method.
 func (s *NetworkServer) ApplyComputeNetwork(ctx context.Context, request *computepb.ApplyComputeNetworkRequest) (*computepb.ComputeNetwork, error) {
-	cl, err := createConfigNetwork(ctx, request.ServiceAccountFile)
+	cl, err := createConfigNetwork(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -124,7 +122,7 @@ func (s *NetworkServer) ApplyComputeNetwork(ctx context.Context, request *comput
 // DeleteNetwork handles the gRPC request by passing it to the underlying Network Delete() method.
 func (s *NetworkServer) DeleteComputeNetwork(ctx context.Context, request *computepb.DeleteComputeNetworkRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigNetwork(ctx, request.ServiceAccountFile)
+	cl, err := createConfigNetwork(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -134,12 +132,12 @@ func (s *NetworkServer) DeleteComputeNetwork(ctx context.Context, request *compu
 
 // ListComputeNetwork handles the gRPC request by passing it to the underlying NetworkList() method.
 func (s *NetworkServer) ListComputeNetwork(ctx context.Context, request *computepb.ListComputeNetworkRequest) (*computepb.ListComputeNetworkResponse, error) {
-	cl, err := createConfigNetwork(ctx, request.ServiceAccountFile)
+	cl, err := createConfigNetwork(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListNetwork(ctx, request.Project)
+	resources, err := cl.ListNetwork(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -148,7 +146,9 @@ func (s *NetworkServer) ListComputeNetwork(ctx context.Context, request *compute
 		rp := NetworkToProto(r)
 		protos = append(protos, rp)
 	}
-	return &computepb.ListComputeNetworkResponse{Items: protos}, nil
+	p := &computepb.ListComputeNetworkResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigNetwork(ctx context.Context, service_account_file string) (*compute.Client, error) {

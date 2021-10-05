@@ -49,7 +49,7 @@ func ProtoToGkehubAlphaMembershipInfrastructureTypeEnum(e alphapb.GkehubAlphaMem
 	return nil
 }
 
-// ProtoToMembershipEndpoint converts a MembershipEndpoint resource from its proto representation.
+// ProtoToMembershipEndpoint converts a MembershipEndpoint object from its proto representation.
 func ProtoToGkehubAlphaMembershipEndpoint(p *alphapb.GkehubAlphaMembershipEndpoint) *alpha.MembershipEndpoint {
 	if p == nil {
 		return nil
@@ -62,40 +62,40 @@ func ProtoToGkehubAlphaMembershipEndpoint(p *alphapb.GkehubAlphaMembershipEndpoi
 	return obj
 }
 
-// ProtoToMembershipEndpointGkeCluster converts a MembershipEndpointGkeCluster resource from its proto representation.
+// ProtoToMembershipEndpointGkeCluster converts a MembershipEndpointGkeCluster object from its proto representation.
 func ProtoToGkehubAlphaMembershipEndpointGkeCluster(p *alphapb.GkehubAlphaMembershipEndpointGkeCluster) *alpha.MembershipEndpointGkeCluster {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.MembershipEndpointGkeCluster{
-		ResourceLink: dcl.StringOrNil(p.ResourceLink),
+		ResourceLink: dcl.StringOrNil(p.GetResourceLink()),
 	}
 	return obj
 }
 
-// ProtoToMembershipEndpointKubernetesMetadata converts a MembershipEndpointKubernetesMetadata resource from its proto representation.
+// ProtoToMembershipEndpointKubernetesMetadata converts a MembershipEndpointKubernetesMetadata object from its proto representation.
 func ProtoToGkehubAlphaMembershipEndpointKubernetesMetadata(p *alphapb.GkehubAlphaMembershipEndpointKubernetesMetadata) *alpha.MembershipEndpointKubernetesMetadata {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.MembershipEndpointKubernetesMetadata{
-		KubernetesApiServerVersion: dcl.StringOrNil(p.KubernetesApiServerVersion),
-		NodeProviderId:             dcl.StringOrNil(p.NodeProviderId),
-		NodeCount:                  dcl.Int64OrNil(p.NodeCount),
-		VcpuCount:                  dcl.Int64OrNil(p.VcpuCount),
-		MemoryMb:                   dcl.Int64OrNil(p.MemoryMb),
+		KubernetesApiServerVersion: dcl.StringOrNil(p.GetKubernetesApiServerVersion()),
+		NodeProviderId:             dcl.StringOrNil(p.GetNodeProviderId()),
+		NodeCount:                  dcl.Int64OrNil(p.GetNodeCount()),
+		VcpuCount:                  dcl.Int64OrNil(p.GetVcpuCount()),
+		MemoryMb:                   dcl.Int64OrNil(p.GetMemoryMb()),
 		UpdateTime:                 dcl.StringOrNil(p.GetUpdateTime()),
 	}
 	return obj
 }
 
-// ProtoToMembershipEndpointKubernetesResource converts a MembershipEndpointKubernetesResource resource from its proto representation.
+// ProtoToMembershipEndpointKubernetesResource converts a MembershipEndpointKubernetesResource object from its proto representation.
 func ProtoToGkehubAlphaMembershipEndpointKubernetesResource(p *alphapb.GkehubAlphaMembershipEndpointKubernetesResource) *alpha.MembershipEndpointKubernetesResource {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.MembershipEndpointKubernetesResource{
-		MembershipCrManifest: dcl.StringOrNil(p.MembershipCrManifest),
+		MembershipCrManifest: dcl.StringOrNil(p.GetMembershipCrManifest()),
 		ResourceOptions:      ProtoToGkehubAlphaMembershipEndpointKubernetesResourceResourceOptions(p.GetResourceOptions()),
 	}
 	for _, r := range p.GetMembershipResources() {
@@ -107,43 +107,43 @@ func ProtoToGkehubAlphaMembershipEndpointKubernetesResource(p *alphapb.GkehubAlp
 	return obj
 }
 
-// ProtoToMembershipEndpointKubernetesResourceMembershipResources converts a MembershipEndpointKubernetesResourceMembershipResources resource from its proto representation.
+// ProtoToMembershipEndpointKubernetesResourceMembershipResources converts a MembershipEndpointKubernetesResourceMembershipResources object from its proto representation.
 func ProtoToGkehubAlphaMembershipEndpointKubernetesResourceMembershipResources(p *alphapb.GkehubAlphaMembershipEndpointKubernetesResourceMembershipResources) *alpha.MembershipEndpointKubernetesResourceMembershipResources {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.MembershipEndpointKubernetesResourceMembershipResources{
-		Manifest:      dcl.StringOrNil(p.Manifest),
-		ClusterScoped: dcl.Bool(p.ClusterScoped),
+		Manifest:      dcl.StringOrNil(p.GetManifest()),
+		ClusterScoped: dcl.Bool(p.GetClusterScoped()),
 	}
 	return obj
 }
 
-// ProtoToMembershipEndpointKubernetesResourceConnectResources converts a MembershipEndpointKubernetesResourceConnectResources resource from its proto representation.
+// ProtoToMembershipEndpointKubernetesResourceConnectResources converts a MembershipEndpointKubernetesResourceConnectResources object from its proto representation.
 func ProtoToGkehubAlphaMembershipEndpointKubernetesResourceConnectResources(p *alphapb.GkehubAlphaMembershipEndpointKubernetesResourceConnectResources) *alpha.MembershipEndpointKubernetesResourceConnectResources {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.MembershipEndpointKubernetesResourceConnectResources{
-		Manifest:      dcl.StringOrNil(p.Manifest),
-		ClusterScoped: dcl.Bool(p.ClusterScoped),
+		Manifest:      dcl.StringOrNil(p.GetManifest()),
+		ClusterScoped: dcl.Bool(p.GetClusterScoped()),
 	}
 	return obj
 }
 
-// ProtoToMembershipEndpointKubernetesResourceResourceOptions converts a MembershipEndpointKubernetesResourceResourceOptions resource from its proto representation.
+// ProtoToMembershipEndpointKubernetesResourceResourceOptions converts a MembershipEndpointKubernetesResourceResourceOptions object from its proto representation.
 func ProtoToGkehubAlphaMembershipEndpointKubernetesResourceResourceOptions(p *alphapb.GkehubAlphaMembershipEndpointKubernetesResourceResourceOptions) *alpha.MembershipEndpointKubernetesResourceResourceOptions {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.MembershipEndpointKubernetesResourceResourceOptions{
-		ConnectVersion: dcl.StringOrNil(p.ConnectVersion),
-		V1Beta1Crd:     dcl.Bool(p.V1Beta1Crd),
+		ConnectVersion: dcl.StringOrNil(p.GetConnectVersion()),
+		V1Beta1Crd:     dcl.Bool(p.GetV1Beta1Crd()),
 	}
 	return obj
 }
 
-// ProtoToMembershipState converts a MembershipState resource from its proto representation.
+// ProtoToMembershipState converts a MembershipState object from its proto representation.
 func ProtoToGkehubAlphaMembershipState(p *alphapb.GkehubAlphaMembershipState) *alpha.MembershipState {
 	if p == nil {
 		return nil
@@ -154,15 +154,15 @@ func ProtoToGkehubAlphaMembershipState(p *alphapb.GkehubAlphaMembershipState) *a
 	return obj
 }
 
-// ProtoToMembershipAuthority converts a MembershipAuthority resource from its proto representation.
+// ProtoToMembershipAuthority converts a MembershipAuthority object from its proto representation.
 func ProtoToGkehubAlphaMembershipAuthority(p *alphapb.GkehubAlphaMembershipAuthority) *alpha.MembershipAuthority {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.MembershipAuthority{
-		Issuer:               dcl.StringOrNil(p.Issuer),
-		WorkloadIdentityPool: dcl.StringOrNil(p.WorkloadIdentityPool),
-		IdentityProvider:     dcl.StringOrNil(p.IdentityProvider),
+		Issuer:               dcl.StringOrNil(p.GetIssuer()),
+		WorkloadIdentityPool: dcl.StringOrNil(p.GetWorkloadIdentityPool()),
+		IdentityProvider:     dcl.StringOrNil(p.GetIdentityProvider()),
 	}
 	return obj
 }
@@ -171,19 +171,19 @@ func ProtoToGkehubAlphaMembershipAuthority(p *alphapb.GkehubAlphaMembershipAutho
 func ProtoToMembership(p *alphapb.GkehubAlphaMembership) *alpha.Membership {
 	obj := &alpha.Membership{
 		Endpoint:           ProtoToGkehubAlphaMembershipEndpoint(p.GetEndpoint()),
-		Name:               dcl.StringOrNil(p.Name),
-		Description:        dcl.StringOrNil(p.Description),
+		Name:               dcl.StringOrNil(p.GetName()),
+		Description:        dcl.StringOrNil(p.GetDescription()),
 		State:              ProtoToGkehubAlphaMembershipState(p.GetState()),
 		CreateTime:         dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:         dcl.StringOrNil(p.GetUpdateTime()),
 		DeleteTime:         dcl.StringOrNil(p.GetDeleteTime()),
-		ExternalId:         dcl.StringOrNil(p.ExternalId),
+		ExternalId:         dcl.StringOrNil(p.GetExternalId()),
 		LastConnectionTime: dcl.StringOrNil(p.GetLastConnectionTime()),
-		UniqueId:           dcl.StringOrNil(p.UniqueId),
+		UniqueId:           dcl.StringOrNil(p.GetUniqueId()),
 		Authority:          ProtoToGkehubAlphaMembershipAuthority(p.GetAuthority()),
 		InfrastructureType: ProtoToGkehubAlphaMembershipInfrastructureTypeEnum(p.GetInfrastructureType()),
-		Project:            dcl.StringOrNil(p.Project),
-		Location:           dcl.StringOrNil(p.Location),
+		Project:            dcl.StringOrNil(p.GetProject()),
+		Location:           dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -210,147 +210,146 @@ func GkehubAlphaMembershipInfrastructureTypeEnumToProto(e *alpha.MembershipInfra
 	return alphapb.GkehubAlphaMembershipInfrastructureTypeEnum(0)
 }
 
-// MembershipEndpointToProto converts a MembershipEndpoint resource to its proto representation.
+// MembershipEndpointToProto converts a MembershipEndpoint object to its proto representation.
 func GkehubAlphaMembershipEndpointToProto(o *alpha.MembershipEndpoint) *alphapb.GkehubAlphaMembershipEndpoint {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.GkehubAlphaMembershipEndpoint{
-		GkeCluster:         GkehubAlphaMembershipEndpointGkeClusterToProto(o.GkeCluster),
-		KubernetesMetadata: GkehubAlphaMembershipEndpointKubernetesMetadataToProto(o.KubernetesMetadata),
-		KubernetesResource: GkehubAlphaMembershipEndpointKubernetesResourceToProto(o.KubernetesResource),
-	}
+	p := &alphapb.GkehubAlphaMembershipEndpoint{}
+	p.SetGkeCluster(GkehubAlphaMembershipEndpointGkeClusterToProto(o.GkeCluster))
+	p.SetKubernetesMetadata(GkehubAlphaMembershipEndpointKubernetesMetadataToProto(o.KubernetesMetadata))
+	p.SetKubernetesResource(GkehubAlphaMembershipEndpointKubernetesResourceToProto(o.KubernetesResource))
 	return p
 }
 
-// MembershipEndpointGkeClusterToProto converts a MembershipEndpointGkeCluster resource to its proto representation.
+// MembershipEndpointGkeClusterToProto converts a MembershipEndpointGkeCluster object to its proto representation.
 func GkehubAlphaMembershipEndpointGkeClusterToProto(o *alpha.MembershipEndpointGkeCluster) *alphapb.GkehubAlphaMembershipEndpointGkeCluster {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.GkehubAlphaMembershipEndpointGkeCluster{
-		ResourceLink: dcl.ValueOrEmptyString(o.ResourceLink),
-	}
+	p := &alphapb.GkehubAlphaMembershipEndpointGkeCluster{}
+	p.SetResourceLink(dcl.ValueOrEmptyString(o.ResourceLink))
 	return p
 }
 
-// MembershipEndpointKubernetesMetadataToProto converts a MembershipEndpointKubernetesMetadata resource to its proto representation.
+// MembershipEndpointKubernetesMetadataToProto converts a MembershipEndpointKubernetesMetadata object to its proto representation.
 func GkehubAlphaMembershipEndpointKubernetesMetadataToProto(o *alpha.MembershipEndpointKubernetesMetadata) *alphapb.GkehubAlphaMembershipEndpointKubernetesMetadata {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.GkehubAlphaMembershipEndpointKubernetesMetadata{
-		KubernetesApiServerVersion: dcl.ValueOrEmptyString(o.KubernetesApiServerVersion),
-		NodeProviderId:             dcl.ValueOrEmptyString(o.NodeProviderId),
-		NodeCount:                  dcl.ValueOrEmptyInt64(o.NodeCount),
-		VcpuCount:                  dcl.ValueOrEmptyInt64(o.VcpuCount),
-		MemoryMb:                   dcl.ValueOrEmptyInt64(o.MemoryMb),
-		UpdateTime:                 dcl.ValueOrEmptyString(o.UpdateTime),
-	}
+	p := &alphapb.GkehubAlphaMembershipEndpointKubernetesMetadata{}
+	p.SetKubernetesApiServerVersion(dcl.ValueOrEmptyString(o.KubernetesApiServerVersion))
+	p.SetNodeProviderId(dcl.ValueOrEmptyString(o.NodeProviderId))
+	p.SetNodeCount(dcl.ValueOrEmptyInt64(o.NodeCount))
+	p.SetVcpuCount(dcl.ValueOrEmptyInt64(o.VcpuCount))
+	p.SetMemoryMb(dcl.ValueOrEmptyInt64(o.MemoryMb))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(o.UpdateTime))
 	return p
 }
 
-// MembershipEndpointKubernetesResourceToProto converts a MembershipEndpointKubernetesResource resource to its proto representation.
+// MembershipEndpointKubernetesResourceToProto converts a MembershipEndpointKubernetesResource object to its proto representation.
 func GkehubAlphaMembershipEndpointKubernetesResourceToProto(o *alpha.MembershipEndpointKubernetesResource) *alphapb.GkehubAlphaMembershipEndpointKubernetesResource {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.GkehubAlphaMembershipEndpointKubernetesResource{
-		MembershipCrManifest: dcl.ValueOrEmptyString(o.MembershipCrManifest),
-		ResourceOptions:      GkehubAlphaMembershipEndpointKubernetesResourceResourceOptionsToProto(o.ResourceOptions),
+	p := &alphapb.GkehubAlphaMembershipEndpointKubernetesResource{}
+	p.SetMembershipCrManifest(dcl.ValueOrEmptyString(o.MembershipCrManifest))
+	p.SetResourceOptions(GkehubAlphaMembershipEndpointKubernetesResourceResourceOptionsToProto(o.ResourceOptions))
+	sMembershipResources := make([]*alphapb.GkehubAlphaMembershipEndpointKubernetesResourceMembershipResources, len(o.MembershipResources))
+	for i, r := range o.MembershipResources {
+		sMembershipResources[i] = GkehubAlphaMembershipEndpointKubernetesResourceMembershipResourcesToProto(&r)
 	}
-	for _, r := range o.MembershipResources {
-		p.MembershipResources = append(p.MembershipResources, GkehubAlphaMembershipEndpointKubernetesResourceMembershipResourcesToProto(&r))
+	p.SetMembershipResources(sMembershipResources)
+	sConnectResources := make([]*alphapb.GkehubAlphaMembershipEndpointKubernetesResourceConnectResources, len(o.ConnectResources))
+	for i, r := range o.ConnectResources {
+		sConnectResources[i] = GkehubAlphaMembershipEndpointKubernetesResourceConnectResourcesToProto(&r)
 	}
-	for _, r := range o.ConnectResources {
-		p.ConnectResources = append(p.ConnectResources, GkehubAlphaMembershipEndpointKubernetesResourceConnectResourcesToProto(&r))
-	}
+	p.SetConnectResources(sConnectResources)
 	return p
 }
 
-// MembershipEndpointKubernetesResourceMembershipResourcesToProto converts a MembershipEndpointKubernetesResourceMembershipResources resource to its proto representation.
+// MembershipEndpointKubernetesResourceMembershipResourcesToProto converts a MembershipEndpointKubernetesResourceMembershipResources object to its proto representation.
 func GkehubAlphaMembershipEndpointKubernetesResourceMembershipResourcesToProto(o *alpha.MembershipEndpointKubernetesResourceMembershipResources) *alphapb.GkehubAlphaMembershipEndpointKubernetesResourceMembershipResources {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.GkehubAlphaMembershipEndpointKubernetesResourceMembershipResources{
-		Manifest:      dcl.ValueOrEmptyString(o.Manifest),
-		ClusterScoped: dcl.ValueOrEmptyBool(o.ClusterScoped),
-	}
+	p := &alphapb.GkehubAlphaMembershipEndpointKubernetesResourceMembershipResources{}
+	p.SetManifest(dcl.ValueOrEmptyString(o.Manifest))
+	p.SetClusterScoped(dcl.ValueOrEmptyBool(o.ClusterScoped))
 	return p
 }
 
-// MembershipEndpointKubernetesResourceConnectResourcesToProto converts a MembershipEndpointKubernetesResourceConnectResources resource to its proto representation.
+// MembershipEndpointKubernetesResourceConnectResourcesToProto converts a MembershipEndpointKubernetesResourceConnectResources object to its proto representation.
 func GkehubAlphaMembershipEndpointKubernetesResourceConnectResourcesToProto(o *alpha.MembershipEndpointKubernetesResourceConnectResources) *alphapb.GkehubAlphaMembershipEndpointKubernetesResourceConnectResources {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.GkehubAlphaMembershipEndpointKubernetesResourceConnectResources{
-		Manifest:      dcl.ValueOrEmptyString(o.Manifest),
-		ClusterScoped: dcl.ValueOrEmptyBool(o.ClusterScoped),
-	}
+	p := &alphapb.GkehubAlphaMembershipEndpointKubernetesResourceConnectResources{}
+	p.SetManifest(dcl.ValueOrEmptyString(o.Manifest))
+	p.SetClusterScoped(dcl.ValueOrEmptyBool(o.ClusterScoped))
 	return p
 }
 
-// MembershipEndpointKubernetesResourceResourceOptionsToProto converts a MembershipEndpointKubernetesResourceResourceOptions resource to its proto representation.
+// MembershipEndpointKubernetesResourceResourceOptionsToProto converts a MembershipEndpointKubernetesResourceResourceOptions object to its proto representation.
 func GkehubAlphaMembershipEndpointKubernetesResourceResourceOptionsToProto(o *alpha.MembershipEndpointKubernetesResourceResourceOptions) *alphapb.GkehubAlphaMembershipEndpointKubernetesResourceResourceOptions {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.GkehubAlphaMembershipEndpointKubernetesResourceResourceOptions{
-		ConnectVersion: dcl.ValueOrEmptyString(o.ConnectVersion),
-		V1Beta1Crd:     dcl.ValueOrEmptyBool(o.V1Beta1Crd),
-	}
+	p := &alphapb.GkehubAlphaMembershipEndpointKubernetesResourceResourceOptions{}
+	p.SetConnectVersion(dcl.ValueOrEmptyString(o.ConnectVersion))
+	p.SetV1Beta1Crd(dcl.ValueOrEmptyBool(o.V1Beta1Crd))
 	return p
 }
 
-// MembershipStateToProto converts a MembershipState resource to its proto representation.
+// MembershipStateToProto converts a MembershipState object to its proto representation.
 func GkehubAlphaMembershipStateToProto(o *alpha.MembershipState) *alphapb.GkehubAlphaMembershipState {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.GkehubAlphaMembershipState{
-		Code: GkehubAlphaMembershipStateCodeEnumToProto(o.Code),
-	}
+	p := &alphapb.GkehubAlphaMembershipState{}
+	p.SetCode(GkehubAlphaMembershipStateCodeEnumToProto(o.Code))
 	return p
 }
 
-// MembershipAuthorityToProto converts a MembershipAuthority resource to its proto representation.
+// MembershipAuthorityToProto converts a MembershipAuthority object to its proto representation.
 func GkehubAlphaMembershipAuthorityToProto(o *alpha.MembershipAuthority) *alphapb.GkehubAlphaMembershipAuthority {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.GkehubAlphaMembershipAuthority{
-		Issuer:               dcl.ValueOrEmptyString(o.Issuer),
-		WorkloadIdentityPool: dcl.ValueOrEmptyString(o.WorkloadIdentityPool),
-		IdentityProvider:     dcl.ValueOrEmptyString(o.IdentityProvider),
-	}
+	p := &alphapb.GkehubAlphaMembershipAuthority{}
+	p.SetIssuer(dcl.ValueOrEmptyString(o.Issuer))
+	p.SetWorkloadIdentityPool(dcl.ValueOrEmptyString(o.WorkloadIdentityPool))
+	p.SetIdentityProvider(dcl.ValueOrEmptyString(o.IdentityProvider))
 	return p
 }
 
 // MembershipToProto converts a Membership resource to its proto representation.
 func MembershipToProto(resource *alpha.Membership) *alphapb.GkehubAlphaMembership {
-	p := &alphapb.GkehubAlphaMembership{
-		Endpoint:           GkehubAlphaMembershipEndpointToProto(resource.Endpoint),
-		Name:               dcl.ValueOrEmptyString(resource.Name),
-		Description:        dcl.ValueOrEmptyString(resource.Description),
-		State:              GkehubAlphaMembershipStateToProto(resource.State),
-		CreateTime:         dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:         dcl.ValueOrEmptyString(resource.UpdateTime),
-		DeleteTime:         dcl.ValueOrEmptyString(resource.DeleteTime),
-		ExternalId:         dcl.ValueOrEmptyString(resource.ExternalId),
-		LastConnectionTime: dcl.ValueOrEmptyString(resource.LastConnectionTime),
-		UniqueId:           dcl.ValueOrEmptyString(resource.UniqueId),
-		Authority:          GkehubAlphaMembershipAuthorityToProto(resource.Authority),
-		InfrastructureType: GkehubAlphaMembershipInfrastructureTypeEnumToProto(resource.InfrastructureType),
-		Project:            dcl.ValueOrEmptyString(resource.Project),
-		Location:           dcl.ValueOrEmptyString(resource.Location),
+	p := &alphapb.GkehubAlphaMembership{}
+	p.SetEndpoint(GkehubAlphaMembershipEndpointToProto(resource.Endpoint))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetState(GkehubAlphaMembershipStateToProto(resource.State))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetDeleteTime(dcl.ValueOrEmptyString(resource.DeleteTime))
+	p.SetExternalId(dcl.ValueOrEmptyString(resource.ExternalId))
+	p.SetLastConnectionTime(dcl.ValueOrEmptyString(resource.LastConnectionTime))
+	p.SetUniqueId(dcl.ValueOrEmptyString(resource.UniqueId))
+	p.SetAuthority(GkehubAlphaMembershipAuthorityToProto(resource.Authority))
+	p.SetInfrastructureType(GkehubAlphaMembershipInfrastructureTypeEnumToProto(resource.InfrastructureType))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
+	p.SetLabels(mLabels)
 
 	return p
 }
 
-// ApplyMembership handles the gRPC request by passing it to the underlying Membership Apply() method.
+// applyMembership handles the gRPC request by passing it to the underlying Membership Apply() method.
 func (s *MembershipServer) applyMembership(ctx context.Context, c *alpha.Client, request *alphapb.ApplyGkehubAlphaMembershipRequest) (*alphapb.GkehubAlphaMembership, error) {
 	p := ProtoToMembership(request.GetResource())
 	res, err := c.ApplyMembership(ctx, p)
@@ -361,9 +360,9 @@ func (s *MembershipServer) applyMembership(ctx context.Context, c *alpha.Client,
 	return r, nil
 }
 
-// ApplyMembership handles the gRPC request by passing it to the underlying Membership Apply() method.
+// applyGkehubAlphaMembership handles the gRPC request by passing it to the underlying Membership Apply() method.
 func (s *MembershipServer) ApplyGkehubAlphaMembership(ctx context.Context, request *alphapb.ApplyGkehubAlphaMembershipRequest) (*alphapb.GkehubAlphaMembership, error) {
-	cl, err := createConfigMembership(ctx, request.ServiceAccountFile)
+	cl, err := createConfigMembership(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -373,7 +372,7 @@ func (s *MembershipServer) ApplyGkehubAlphaMembership(ctx context.Context, reque
 // DeleteMembership handles the gRPC request by passing it to the underlying Membership Delete() method.
 func (s *MembershipServer) DeleteGkehubAlphaMembership(ctx context.Context, request *alphapb.DeleteGkehubAlphaMembershipRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigMembership(ctx, request.ServiceAccountFile)
+	cl, err := createConfigMembership(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -383,12 +382,12 @@ func (s *MembershipServer) DeleteGkehubAlphaMembership(ctx context.Context, requ
 
 // ListGkehubAlphaMembership handles the gRPC request by passing it to the underlying MembershipList() method.
 func (s *MembershipServer) ListGkehubAlphaMembership(ctx context.Context, request *alphapb.ListGkehubAlphaMembershipRequest) (*alphapb.ListGkehubAlphaMembershipResponse, error) {
-	cl, err := createConfigMembership(ctx, request.ServiceAccountFile)
+	cl, err := createConfigMembership(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListMembership(ctx, request.Project, request.Location)
+	resources, err := cl.ListMembership(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -397,7 +396,9 @@ func (s *MembershipServer) ListGkehubAlphaMembership(ctx context.Context, reques
 		rp := MembershipToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListGkehubAlphaMembershipResponse{Items: protos}, nil
+	p := &alphapb.ListGkehubAlphaMembershipResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigMembership(ctx context.Context, service_account_file string) (*alpha.Client, error) {

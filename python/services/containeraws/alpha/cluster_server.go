@@ -61,13 +61,13 @@ func ProtoToContainerawsAlphaClusterStateEnum(e alphapb.ContainerawsAlphaCluster
 	return nil
 }
 
-// ProtoToClusterNetworking converts a ClusterNetworking resource from its proto representation.
+// ProtoToClusterNetworking converts a ClusterNetworking object from its proto representation.
 func ProtoToContainerawsAlphaClusterNetworking(p *alphapb.ContainerawsAlphaClusterNetworking) *alpha.ClusterNetworking {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClusterNetworking{
-		VPCId: dcl.StringOrNil(p.VpcId),
+		VPCId: dcl.StringOrNil(p.GetVpcId()),
 	}
 	for _, r := range p.GetPodAddressCidrBlocks() {
 		obj.PodAddressCidrBlocks = append(obj.PodAddressCidrBlocks, r)
@@ -81,16 +81,16 @@ func ProtoToContainerawsAlphaClusterNetworking(p *alphapb.ContainerawsAlphaClust
 	return obj
 }
 
-// ProtoToClusterControlPlane converts a ClusterControlPlane resource from its proto representation.
+// ProtoToClusterControlPlane converts a ClusterControlPlane object from its proto representation.
 func ProtoToContainerawsAlphaClusterControlPlane(p *alphapb.ContainerawsAlphaClusterControlPlane) *alpha.ClusterControlPlane {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClusterControlPlane{
-		Version:                   dcl.StringOrNil(p.Version),
-		InstanceType:              dcl.StringOrNil(p.InstanceType),
+		Version:                   dcl.StringOrNil(p.GetVersion()),
+		InstanceType:              dcl.StringOrNil(p.GetInstanceType()),
 		SshConfig:                 ProtoToContainerawsAlphaClusterControlPlaneSshConfig(p.GetSshConfig()),
-		IamInstanceProfile:        dcl.StringOrNil(p.IamInstanceProfile),
+		IamInstanceProfile:        dcl.StringOrNil(p.GetIamInstanceProfile()),
 		RootVolume:                ProtoToContainerawsAlphaClusterControlPlaneRootVolume(p.GetRootVolume()),
 		MainVolume:                ProtoToContainerawsAlphaClusterControlPlaneMainVolume(p.GetMainVolume()),
 		DatabaseEncryption:        ProtoToContainerawsAlphaClusterControlPlaneDatabaseEncryption(p.GetDatabaseEncryption()),
@@ -105,69 +105,69 @@ func ProtoToContainerawsAlphaClusterControlPlane(p *alphapb.ContainerawsAlphaClu
 	return obj
 }
 
-// ProtoToClusterControlPlaneSshConfig converts a ClusterControlPlaneSshConfig resource from its proto representation.
+// ProtoToClusterControlPlaneSshConfig converts a ClusterControlPlaneSshConfig object from its proto representation.
 func ProtoToContainerawsAlphaClusterControlPlaneSshConfig(p *alphapb.ContainerawsAlphaClusterControlPlaneSshConfig) *alpha.ClusterControlPlaneSshConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClusterControlPlaneSshConfig{
-		Ec2KeyPair: dcl.StringOrNil(p.Ec2KeyPair),
+		Ec2KeyPair: dcl.StringOrNil(p.GetEc2KeyPair()),
 	}
 	return obj
 }
 
-// ProtoToClusterControlPlaneRootVolume converts a ClusterControlPlaneRootVolume resource from its proto representation.
+// ProtoToClusterControlPlaneRootVolume converts a ClusterControlPlaneRootVolume object from its proto representation.
 func ProtoToContainerawsAlphaClusterControlPlaneRootVolume(p *alphapb.ContainerawsAlphaClusterControlPlaneRootVolume) *alpha.ClusterControlPlaneRootVolume {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClusterControlPlaneRootVolume{
-		SizeGib:    dcl.Int64OrNil(p.SizeGib),
+		SizeGib:    dcl.Int64OrNil(p.GetSizeGib()),
 		VolumeType: ProtoToContainerawsAlphaClusterControlPlaneRootVolumeVolumeTypeEnum(p.GetVolumeType()),
-		Iops:       dcl.Int64OrNil(p.Iops),
-		KmsKeyArn:  dcl.StringOrNil(p.KmsKeyArn),
+		Iops:       dcl.Int64OrNil(p.GetIops()),
+		KmsKeyArn:  dcl.StringOrNil(p.GetKmsKeyArn()),
 	}
 	return obj
 }
 
-// ProtoToClusterControlPlaneMainVolume converts a ClusterControlPlaneMainVolume resource from its proto representation.
+// ProtoToClusterControlPlaneMainVolume converts a ClusterControlPlaneMainVolume object from its proto representation.
 func ProtoToContainerawsAlphaClusterControlPlaneMainVolume(p *alphapb.ContainerawsAlphaClusterControlPlaneMainVolume) *alpha.ClusterControlPlaneMainVolume {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClusterControlPlaneMainVolume{
-		SizeGib:    dcl.Int64OrNil(p.SizeGib),
+		SizeGib:    dcl.Int64OrNil(p.GetSizeGib()),
 		VolumeType: ProtoToContainerawsAlphaClusterControlPlaneMainVolumeVolumeTypeEnum(p.GetVolumeType()),
-		Iops:       dcl.Int64OrNil(p.Iops),
-		KmsKeyArn:  dcl.StringOrNil(p.KmsKeyArn),
+		Iops:       dcl.Int64OrNil(p.GetIops()),
+		KmsKeyArn:  dcl.StringOrNil(p.GetKmsKeyArn()),
 	}
 	return obj
 }
 
-// ProtoToClusterControlPlaneDatabaseEncryption converts a ClusterControlPlaneDatabaseEncryption resource from its proto representation.
+// ProtoToClusterControlPlaneDatabaseEncryption converts a ClusterControlPlaneDatabaseEncryption object from its proto representation.
 func ProtoToContainerawsAlphaClusterControlPlaneDatabaseEncryption(p *alphapb.ContainerawsAlphaClusterControlPlaneDatabaseEncryption) *alpha.ClusterControlPlaneDatabaseEncryption {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClusterControlPlaneDatabaseEncryption{
-		KmsKeyArn: dcl.StringOrNil(p.KmsKeyArn),
+		KmsKeyArn: dcl.StringOrNil(p.GetKmsKeyArn()),
 	}
 	return obj
 }
 
-// ProtoToClusterControlPlaneAwsServicesAuthentication converts a ClusterControlPlaneAwsServicesAuthentication resource from its proto representation.
+// ProtoToClusterControlPlaneAwsServicesAuthentication converts a ClusterControlPlaneAwsServicesAuthentication object from its proto representation.
 func ProtoToContainerawsAlphaClusterControlPlaneAwsServicesAuthentication(p *alphapb.ContainerawsAlphaClusterControlPlaneAwsServicesAuthentication) *alpha.ClusterControlPlaneAwsServicesAuthentication {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClusterControlPlaneAwsServicesAuthentication{
-		RoleArn:         dcl.StringOrNil(p.RoleArn),
-		RoleSessionName: dcl.StringOrNil(p.RoleSessionName),
+		RoleArn:         dcl.StringOrNil(p.GetRoleArn()),
+		RoleSessionName: dcl.StringOrNil(p.GetRoleSessionName()),
 	}
 	return obj
 }
 
-// ProtoToClusterAuthorization converts a ClusterAuthorization resource from its proto representation.
+// ProtoToClusterAuthorization converts a ClusterAuthorization object from its proto representation.
 func ProtoToContainerawsAlphaClusterAuthorization(p *alphapb.ContainerawsAlphaClusterAuthorization) *alpha.ClusterAuthorization {
 	if p == nil {
 		return nil
@@ -179,26 +179,26 @@ func ProtoToContainerawsAlphaClusterAuthorization(p *alphapb.ContainerawsAlphaCl
 	return obj
 }
 
-// ProtoToClusterAuthorizationAdminUsers converts a ClusterAuthorizationAdminUsers resource from its proto representation.
+// ProtoToClusterAuthorizationAdminUsers converts a ClusterAuthorizationAdminUsers object from its proto representation.
 func ProtoToContainerawsAlphaClusterAuthorizationAdminUsers(p *alphapb.ContainerawsAlphaClusterAuthorizationAdminUsers) *alpha.ClusterAuthorizationAdminUsers {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClusterAuthorizationAdminUsers{
-		Username: dcl.StringOrNil(p.Username),
+		Username: dcl.StringOrNil(p.GetUsername()),
 	}
 	return obj
 }
 
-// ProtoToClusterWorkloadIdentityConfig converts a ClusterWorkloadIdentityConfig resource from its proto representation.
+// ProtoToClusterWorkloadIdentityConfig converts a ClusterWorkloadIdentityConfig object from its proto representation.
 func ProtoToContainerawsAlphaClusterWorkloadIdentityConfig(p *alphapb.ContainerawsAlphaClusterWorkloadIdentityConfig) *alpha.ClusterWorkloadIdentityConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClusterWorkloadIdentityConfig{
-		IssuerUri:        dcl.StringOrNil(p.IssuerUri),
-		WorkloadPool:     dcl.StringOrNil(p.WorkloadPool),
-		IdentityProvider: dcl.StringOrNil(p.IdentityProvider),
+		IssuerUri:        dcl.StringOrNil(p.GetIssuerUri()),
+		WorkloadPool:     dcl.StringOrNil(p.GetWorkloadPool()),
+		IdentityProvider: dcl.StringOrNil(p.GetIdentityProvider()),
 	}
 	return obj
 }
@@ -206,22 +206,22 @@ func ProtoToContainerawsAlphaClusterWorkloadIdentityConfig(p *alphapb.Containera
 // ProtoToCluster converts a Cluster resource from its proto representation.
 func ProtoToCluster(p *alphapb.ContainerawsAlphaCluster) *alpha.Cluster {
 	obj := &alpha.Cluster{
-		Name:                   dcl.StringOrNil(p.Name),
-		Description:            dcl.StringOrNil(p.Description),
+		Name:                   dcl.StringOrNil(p.GetName()),
+		Description:            dcl.StringOrNil(p.GetDescription()),
 		Networking:             ProtoToContainerawsAlphaClusterNetworking(p.GetNetworking()),
-		AwsRegion:              dcl.StringOrNil(p.AwsRegion),
+		AwsRegion:              dcl.StringOrNil(p.GetAwsRegion()),
 		ControlPlane:           ProtoToContainerawsAlphaClusterControlPlane(p.GetControlPlane()),
 		Authorization:          ProtoToContainerawsAlphaClusterAuthorization(p.GetAuthorization()),
 		State:                  ProtoToContainerawsAlphaClusterStateEnum(p.GetState()),
-		Endpoint:               dcl.StringOrNil(p.Endpoint),
-		Uid:                    dcl.StringOrNil(p.Uid),
-		Reconciling:            dcl.Bool(p.Reconciling),
+		Endpoint:               dcl.StringOrNil(p.GetEndpoint()),
+		Uid:                    dcl.StringOrNil(p.GetUid()),
+		Reconciling:            dcl.Bool(p.GetReconciling()),
 		CreateTime:             dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:             dcl.StringOrNil(p.GetUpdateTime()),
-		Etag:                   dcl.StringOrNil(p.Etag),
+		Etag:                   dcl.StringOrNil(p.GetEtag()),
 		WorkloadIdentityConfig: ProtoToContainerawsAlphaClusterWorkloadIdentityConfig(p.GetWorkloadIdentityConfig()),
-		Project:                dcl.StringOrNil(p.Project),
-		Location:               dcl.StringOrNil(p.Location),
+		Project:                dcl.StringOrNil(p.GetProject()),
+		Location:               dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -259,177 +259,185 @@ func ContainerawsAlphaClusterStateEnumToProto(e *alpha.ClusterStateEnum) alphapb
 	return alphapb.ContainerawsAlphaClusterStateEnum(0)
 }
 
-// ClusterNetworkingToProto converts a ClusterNetworking resource to its proto representation.
+// ClusterNetworkingToProto converts a ClusterNetworking object to its proto representation.
 func ContainerawsAlphaClusterNetworkingToProto(o *alpha.ClusterNetworking) *alphapb.ContainerawsAlphaClusterNetworking {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerawsAlphaClusterNetworking{
-		VpcId: dcl.ValueOrEmptyString(o.VPCId),
+	p := &alphapb.ContainerawsAlphaClusterNetworking{}
+	p.SetVpcId(dcl.ValueOrEmptyString(o.VPCId))
+	sPodAddressCidrBlocks := make([]string, len(o.PodAddressCidrBlocks))
+	for i, r := range o.PodAddressCidrBlocks {
+		sPodAddressCidrBlocks[i] = r
 	}
-	for _, r := range o.PodAddressCidrBlocks {
-		p.PodAddressCidrBlocks = append(p.PodAddressCidrBlocks, r)
+	p.SetPodAddressCidrBlocks(sPodAddressCidrBlocks)
+	sServiceAddressCidrBlocks := make([]string, len(o.ServiceAddressCidrBlocks))
+	for i, r := range o.ServiceAddressCidrBlocks {
+		sServiceAddressCidrBlocks[i] = r
 	}
-	for _, r := range o.ServiceAddressCidrBlocks {
-		p.ServiceAddressCidrBlocks = append(p.ServiceAddressCidrBlocks, r)
+	p.SetServiceAddressCidrBlocks(sServiceAddressCidrBlocks)
+	sServiceLoadBalancerSubnetIds := make([]string, len(o.ServiceLoadBalancerSubnetIds))
+	for i, r := range o.ServiceLoadBalancerSubnetIds {
+		sServiceLoadBalancerSubnetIds[i] = r
 	}
-	for _, r := range o.ServiceLoadBalancerSubnetIds {
-		p.ServiceLoadBalancerSubnetIds = append(p.ServiceLoadBalancerSubnetIds, r)
-	}
+	p.SetServiceLoadBalancerSubnetIds(sServiceLoadBalancerSubnetIds)
 	return p
 }
 
-// ClusterControlPlaneToProto converts a ClusterControlPlane resource to its proto representation.
+// ClusterControlPlaneToProto converts a ClusterControlPlane object to its proto representation.
 func ContainerawsAlphaClusterControlPlaneToProto(o *alpha.ClusterControlPlane) *alphapb.ContainerawsAlphaClusterControlPlane {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerawsAlphaClusterControlPlane{
-		Version:                   dcl.ValueOrEmptyString(o.Version),
-		InstanceType:              dcl.ValueOrEmptyString(o.InstanceType),
-		SshConfig:                 ContainerawsAlphaClusterControlPlaneSshConfigToProto(o.SshConfig),
-		IamInstanceProfile:        dcl.ValueOrEmptyString(o.IamInstanceProfile),
-		RootVolume:                ContainerawsAlphaClusterControlPlaneRootVolumeToProto(o.RootVolume),
-		MainVolume:                ContainerawsAlphaClusterControlPlaneMainVolumeToProto(o.MainVolume),
-		DatabaseEncryption:        ContainerawsAlphaClusterControlPlaneDatabaseEncryptionToProto(o.DatabaseEncryption),
-		AwsServicesAuthentication: ContainerawsAlphaClusterControlPlaneAwsServicesAuthenticationToProto(o.AwsServicesAuthentication),
+	p := &alphapb.ContainerawsAlphaClusterControlPlane{}
+	p.SetVersion(dcl.ValueOrEmptyString(o.Version))
+	p.SetInstanceType(dcl.ValueOrEmptyString(o.InstanceType))
+	p.SetSshConfig(ContainerawsAlphaClusterControlPlaneSshConfigToProto(o.SshConfig))
+	p.SetIamInstanceProfile(dcl.ValueOrEmptyString(o.IamInstanceProfile))
+	p.SetRootVolume(ContainerawsAlphaClusterControlPlaneRootVolumeToProto(o.RootVolume))
+	p.SetMainVolume(ContainerawsAlphaClusterControlPlaneMainVolumeToProto(o.MainVolume))
+	p.SetDatabaseEncryption(ContainerawsAlphaClusterControlPlaneDatabaseEncryptionToProto(o.DatabaseEncryption))
+	p.SetAwsServicesAuthentication(ContainerawsAlphaClusterControlPlaneAwsServicesAuthenticationToProto(o.AwsServicesAuthentication))
+	sSubnetIds := make([]string, len(o.SubnetIds))
+	for i, r := range o.SubnetIds {
+		sSubnetIds[i] = r
 	}
-	for _, r := range o.SubnetIds {
-		p.SubnetIds = append(p.SubnetIds, r)
+	p.SetSubnetIds(sSubnetIds)
+	sSecurityGroupIds := make([]string, len(o.SecurityGroupIds))
+	for i, r := range o.SecurityGroupIds {
+		sSecurityGroupIds[i] = r
 	}
-	for _, r := range o.SecurityGroupIds {
-		p.SecurityGroupIds = append(p.SecurityGroupIds, r)
-	}
-	p.Tags = make(map[string]string)
+	p.SetSecurityGroupIds(sSecurityGroupIds)
+	mTags := make(map[string]string, len(o.Tags))
 	for k, r := range o.Tags {
-		p.Tags[k] = r
+		mTags[k] = r
 	}
+	p.SetTags(mTags)
 	return p
 }
 
-// ClusterControlPlaneSshConfigToProto converts a ClusterControlPlaneSshConfig resource to its proto representation.
+// ClusterControlPlaneSshConfigToProto converts a ClusterControlPlaneSshConfig object to its proto representation.
 func ContainerawsAlphaClusterControlPlaneSshConfigToProto(o *alpha.ClusterControlPlaneSshConfig) *alphapb.ContainerawsAlphaClusterControlPlaneSshConfig {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerawsAlphaClusterControlPlaneSshConfig{
-		Ec2KeyPair: dcl.ValueOrEmptyString(o.Ec2KeyPair),
-	}
+	p := &alphapb.ContainerawsAlphaClusterControlPlaneSshConfig{}
+	p.SetEc2KeyPair(dcl.ValueOrEmptyString(o.Ec2KeyPair))
 	return p
 }
 
-// ClusterControlPlaneRootVolumeToProto converts a ClusterControlPlaneRootVolume resource to its proto representation.
+// ClusterControlPlaneRootVolumeToProto converts a ClusterControlPlaneRootVolume object to its proto representation.
 func ContainerawsAlphaClusterControlPlaneRootVolumeToProto(o *alpha.ClusterControlPlaneRootVolume) *alphapb.ContainerawsAlphaClusterControlPlaneRootVolume {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerawsAlphaClusterControlPlaneRootVolume{
-		SizeGib:    dcl.ValueOrEmptyInt64(o.SizeGib),
-		VolumeType: ContainerawsAlphaClusterControlPlaneRootVolumeVolumeTypeEnumToProto(o.VolumeType),
-		Iops:       dcl.ValueOrEmptyInt64(o.Iops),
-		KmsKeyArn:  dcl.ValueOrEmptyString(o.KmsKeyArn),
-	}
+	p := &alphapb.ContainerawsAlphaClusterControlPlaneRootVolume{}
+	p.SetSizeGib(dcl.ValueOrEmptyInt64(o.SizeGib))
+	p.SetVolumeType(ContainerawsAlphaClusterControlPlaneRootVolumeVolumeTypeEnumToProto(o.VolumeType))
+	p.SetIops(dcl.ValueOrEmptyInt64(o.Iops))
+	p.SetKmsKeyArn(dcl.ValueOrEmptyString(o.KmsKeyArn))
 	return p
 }
 
-// ClusterControlPlaneMainVolumeToProto converts a ClusterControlPlaneMainVolume resource to its proto representation.
+// ClusterControlPlaneMainVolumeToProto converts a ClusterControlPlaneMainVolume object to its proto representation.
 func ContainerawsAlphaClusterControlPlaneMainVolumeToProto(o *alpha.ClusterControlPlaneMainVolume) *alphapb.ContainerawsAlphaClusterControlPlaneMainVolume {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerawsAlphaClusterControlPlaneMainVolume{
-		SizeGib:    dcl.ValueOrEmptyInt64(o.SizeGib),
-		VolumeType: ContainerawsAlphaClusterControlPlaneMainVolumeVolumeTypeEnumToProto(o.VolumeType),
-		Iops:       dcl.ValueOrEmptyInt64(o.Iops),
-		KmsKeyArn:  dcl.ValueOrEmptyString(o.KmsKeyArn),
-	}
+	p := &alphapb.ContainerawsAlphaClusterControlPlaneMainVolume{}
+	p.SetSizeGib(dcl.ValueOrEmptyInt64(o.SizeGib))
+	p.SetVolumeType(ContainerawsAlphaClusterControlPlaneMainVolumeVolumeTypeEnumToProto(o.VolumeType))
+	p.SetIops(dcl.ValueOrEmptyInt64(o.Iops))
+	p.SetKmsKeyArn(dcl.ValueOrEmptyString(o.KmsKeyArn))
 	return p
 }
 
-// ClusterControlPlaneDatabaseEncryptionToProto converts a ClusterControlPlaneDatabaseEncryption resource to its proto representation.
+// ClusterControlPlaneDatabaseEncryptionToProto converts a ClusterControlPlaneDatabaseEncryption object to its proto representation.
 func ContainerawsAlphaClusterControlPlaneDatabaseEncryptionToProto(o *alpha.ClusterControlPlaneDatabaseEncryption) *alphapb.ContainerawsAlphaClusterControlPlaneDatabaseEncryption {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerawsAlphaClusterControlPlaneDatabaseEncryption{
-		KmsKeyArn: dcl.ValueOrEmptyString(o.KmsKeyArn),
-	}
+	p := &alphapb.ContainerawsAlphaClusterControlPlaneDatabaseEncryption{}
+	p.SetKmsKeyArn(dcl.ValueOrEmptyString(o.KmsKeyArn))
 	return p
 }
 
-// ClusterControlPlaneAwsServicesAuthenticationToProto converts a ClusterControlPlaneAwsServicesAuthentication resource to its proto representation.
+// ClusterControlPlaneAwsServicesAuthenticationToProto converts a ClusterControlPlaneAwsServicesAuthentication object to its proto representation.
 func ContainerawsAlphaClusterControlPlaneAwsServicesAuthenticationToProto(o *alpha.ClusterControlPlaneAwsServicesAuthentication) *alphapb.ContainerawsAlphaClusterControlPlaneAwsServicesAuthentication {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerawsAlphaClusterControlPlaneAwsServicesAuthentication{
-		RoleArn:         dcl.ValueOrEmptyString(o.RoleArn),
-		RoleSessionName: dcl.ValueOrEmptyString(o.RoleSessionName),
-	}
+	p := &alphapb.ContainerawsAlphaClusterControlPlaneAwsServicesAuthentication{}
+	p.SetRoleArn(dcl.ValueOrEmptyString(o.RoleArn))
+	p.SetRoleSessionName(dcl.ValueOrEmptyString(o.RoleSessionName))
 	return p
 }
 
-// ClusterAuthorizationToProto converts a ClusterAuthorization resource to its proto representation.
+// ClusterAuthorizationToProto converts a ClusterAuthorization object to its proto representation.
 func ContainerawsAlphaClusterAuthorizationToProto(o *alpha.ClusterAuthorization) *alphapb.ContainerawsAlphaClusterAuthorization {
 	if o == nil {
 		return nil
 	}
 	p := &alphapb.ContainerawsAlphaClusterAuthorization{}
-	for _, r := range o.AdminUsers {
-		p.AdminUsers = append(p.AdminUsers, ContainerawsAlphaClusterAuthorizationAdminUsersToProto(&r))
+	sAdminUsers := make([]*alphapb.ContainerawsAlphaClusterAuthorizationAdminUsers, len(o.AdminUsers))
+	for i, r := range o.AdminUsers {
+		sAdminUsers[i] = ContainerawsAlphaClusterAuthorizationAdminUsersToProto(&r)
 	}
+	p.SetAdminUsers(sAdminUsers)
 	return p
 }
 
-// ClusterAuthorizationAdminUsersToProto converts a ClusterAuthorizationAdminUsers resource to its proto representation.
+// ClusterAuthorizationAdminUsersToProto converts a ClusterAuthorizationAdminUsers object to its proto representation.
 func ContainerawsAlphaClusterAuthorizationAdminUsersToProto(o *alpha.ClusterAuthorizationAdminUsers) *alphapb.ContainerawsAlphaClusterAuthorizationAdminUsers {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerawsAlphaClusterAuthorizationAdminUsers{
-		Username: dcl.ValueOrEmptyString(o.Username),
-	}
+	p := &alphapb.ContainerawsAlphaClusterAuthorizationAdminUsers{}
+	p.SetUsername(dcl.ValueOrEmptyString(o.Username))
 	return p
 }
 
-// ClusterWorkloadIdentityConfigToProto converts a ClusterWorkloadIdentityConfig resource to its proto representation.
+// ClusterWorkloadIdentityConfigToProto converts a ClusterWorkloadIdentityConfig object to its proto representation.
 func ContainerawsAlphaClusterWorkloadIdentityConfigToProto(o *alpha.ClusterWorkloadIdentityConfig) *alphapb.ContainerawsAlphaClusterWorkloadIdentityConfig {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerawsAlphaClusterWorkloadIdentityConfig{
-		IssuerUri:        dcl.ValueOrEmptyString(o.IssuerUri),
-		WorkloadPool:     dcl.ValueOrEmptyString(o.WorkloadPool),
-		IdentityProvider: dcl.ValueOrEmptyString(o.IdentityProvider),
-	}
+	p := &alphapb.ContainerawsAlphaClusterWorkloadIdentityConfig{}
+	p.SetIssuerUri(dcl.ValueOrEmptyString(o.IssuerUri))
+	p.SetWorkloadPool(dcl.ValueOrEmptyString(o.WorkloadPool))
+	p.SetIdentityProvider(dcl.ValueOrEmptyString(o.IdentityProvider))
 	return p
 }
 
 // ClusterToProto converts a Cluster resource to its proto representation.
 func ClusterToProto(resource *alpha.Cluster) *alphapb.ContainerawsAlphaCluster {
-	p := &alphapb.ContainerawsAlphaCluster{
-		Name:                   dcl.ValueOrEmptyString(resource.Name),
-		Description:            dcl.ValueOrEmptyString(resource.Description),
-		Networking:             ContainerawsAlphaClusterNetworkingToProto(resource.Networking),
-		AwsRegion:              dcl.ValueOrEmptyString(resource.AwsRegion),
-		ControlPlane:           ContainerawsAlphaClusterControlPlaneToProto(resource.ControlPlane),
-		Authorization:          ContainerawsAlphaClusterAuthorizationToProto(resource.Authorization),
-		State:                  ContainerawsAlphaClusterStateEnumToProto(resource.State),
-		Endpoint:               dcl.ValueOrEmptyString(resource.Endpoint),
-		Uid:                    dcl.ValueOrEmptyString(resource.Uid),
-		Reconciling:            dcl.ValueOrEmptyBool(resource.Reconciling),
-		CreateTime:             dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:             dcl.ValueOrEmptyString(resource.UpdateTime),
-		Etag:                   dcl.ValueOrEmptyString(resource.Etag),
-		WorkloadIdentityConfig: ContainerawsAlphaClusterWorkloadIdentityConfigToProto(resource.WorkloadIdentityConfig),
-		Project:                dcl.ValueOrEmptyString(resource.Project),
-		Location:               dcl.ValueOrEmptyString(resource.Location),
+	p := &alphapb.ContainerawsAlphaCluster{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetNetworking(ContainerawsAlphaClusterNetworkingToProto(resource.Networking))
+	p.SetAwsRegion(dcl.ValueOrEmptyString(resource.AwsRegion))
+	p.SetControlPlane(ContainerawsAlphaClusterControlPlaneToProto(resource.ControlPlane))
+	p.SetAuthorization(ContainerawsAlphaClusterAuthorizationToProto(resource.Authorization))
+	p.SetState(ContainerawsAlphaClusterStateEnumToProto(resource.State))
+	p.SetEndpoint(dcl.ValueOrEmptyString(resource.Endpoint))
+	p.SetUid(dcl.ValueOrEmptyString(resource.Uid))
+	p.SetReconciling(dcl.ValueOrEmptyBool(resource.Reconciling))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
+	p.SetWorkloadIdentityConfig(ContainerawsAlphaClusterWorkloadIdentityConfigToProto(resource.WorkloadIdentityConfig))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	mAnnotations := make(map[string]string, len(resource.Annotations))
+	for k, r := range resource.Annotations {
+		mAnnotations[k] = r
 	}
+	p.SetAnnotations(mAnnotations)
 
 	return p
 }
 
-// ApplyCluster handles the gRPC request by passing it to the underlying Cluster Apply() method.
+// applyCluster handles the gRPC request by passing it to the underlying Cluster Apply() method.
 func (s *ClusterServer) applyCluster(ctx context.Context, c *alpha.Client, request *alphapb.ApplyContainerawsAlphaClusterRequest) (*alphapb.ContainerawsAlphaCluster, error) {
 	p := ProtoToCluster(request.GetResource())
 	res, err := c.ApplyCluster(ctx, p)
@@ -440,9 +448,9 @@ func (s *ClusterServer) applyCluster(ctx context.Context, c *alpha.Client, reque
 	return r, nil
 }
 
-// ApplyCluster handles the gRPC request by passing it to the underlying Cluster Apply() method.
+// applyContainerawsAlphaCluster handles the gRPC request by passing it to the underlying Cluster Apply() method.
 func (s *ClusterServer) ApplyContainerawsAlphaCluster(ctx context.Context, request *alphapb.ApplyContainerawsAlphaClusterRequest) (*alphapb.ContainerawsAlphaCluster, error) {
-	cl, err := createConfigCluster(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCluster(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -452,7 +460,7 @@ func (s *ClusterServer) ApplyContainerawsAlphaCluster(ctx context.Context, reque
 // DeleteCluster handles the gRPC request by passing it to the underlying Cluster Delete() method.
 func (s *ClusterServer) DeleteContainerawsAlphaCluster(ctx context.Context, request *alphapb.DeleteContainerawsAlphaClusterRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigCluster(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCluster(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -462,12 +470,12 @@ func (s *ClusterServer) DeleteContainerawsAlphaCluster(ctx context.Context, requ
 
 // ListContainerawsAlphaCluster handles the gRPC request by passing it to the underlying ClusterList() method.
 func (s *ClusterServer) ListContainerawsAlphaCluster(ctx context.Context, request *alphapb.ListContainerawsAlphaClusterRequest) (*alphapb.ListContainerawsAlphaClusterResponse, error) {
-	cl, err := createConfigCluster(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCluster(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListCluster(ctx, request.Project, request.Location)
+	resources, err := cl.ListCluster(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -476,7 +484,9 @@ func (s *ClusterServer) ListContainerawsAlphaCluster(ctx context.Context, reques
 		rp := ClusterToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListContainerawsAlphaClusterResponse{Items: protos}, nil
+	p := &alphapb.ListContainerawsAlphaClusterResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigCluster(ctx context.Context, service_account_file string) (*alpha.Client, error) {

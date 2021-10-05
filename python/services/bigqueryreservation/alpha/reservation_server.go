@@ -28,35 +28,34 @@ type ReservationServer struct{}
 // ProtoToReservation converts a Reservation resource from its proto representation.
 func ProtoToReservation(p *alphapb.BigqueryreservationAlphaReservation) *alpha.Reservation {
 	obj := &alpha.Reservation{
-		Name:            dcl.StringOrNil(p.Name),
-		SlotCapacity:    dcl.Int64OrNil(p.SlotCapacity),
-		IgnoreIdleSlots: dcl.Bool(p.IgnoreIdleSlots),
+		Name:            dcl.StringOrNil(p.GetName()),
+		SlotCapacity:    dcl.Int64OrNil(p.GetSlotCapacity()),
+		IgnoreIdleSlots: dcl.Bool(p.GetIgnoreIdleSlots()),
 		CreationTime:    dcl.StringOrNil(p.GetCreationTime()),
 		UpdateTime:      dcl.StringOrNil(p.GetUpdateTime()),
-		MaxConcurrency:  dcl.Int64OrNil(p.MaxConcurrency),
-		Project:         dcl.StringOrNil(p.Project),
-		Location:        dcl.StringOrNil(p.Location),
+		MaxConcurrency:  dcl.Int64OrNil(p.GetMaxConcurrency()),
+		Project:         dcl.StringOrNil(p.GetProject()),
+		Location:        dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
 
 // ReservationToProto converts a Reservation resource to its proto representation.
 func ReservationToProto(resource *alpha.Reservation) *alphapb.BigqueryreservationAlphaReservation {
-	p := &alphapb.BigqueryreservationAlphaReservation{
-		Name:            dcl.ValueOrEmptyString(resource.Name),
-		SlotCapacity:    dcl.ValueOrEmptyInt64(resource.SlotCapacity),
-		IgnoreIdleSlots: dcl.ValueOrEmptyBool(resource.IgnoreIdleSlots),
-		CreationTime:    dcl.ValueOrEmptyString(resource.CreationTime),
-		UpdateTime:      dcl.ValueOrEmptyString(resource.UpdateTime),
-		MaxConcurrency:  dcl.ValueOrEmptyInt64(resource.MaxConcurrency),
-		Project:         dcl.ValueOrEmptyString(resource.Project),
-		Location:        dcl.ValueOrEmptyString(resource.Location),
-	}
+	p := &alphapb.BigqueryreservationAlphaReservation{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetSlotCapacity(dcl.ValueOrEmptyInt64(resource.SlotCapacity))
+	p.SetIgnoreIdleSlots(dcl.ValueOrEmptyBool(resource.IgnoreIdleSlots))
+	p.SetCreationTime(dcl.ValueOrEmptyString(resource.CreationTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetMaxConcurrency(dcl.ValueOrEmptyInt64(resource.MaxConcurrency))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 
 	return p
 }
 
-// ApplyReservation handles the gRPC request by passing it to the underlying Reservation Apply() method.
+// applyReservation handles the gRPC request by passing it to the underlying Reservation Apply() method.
 func (s *ReservationServer) applyReservation(ctx context.Context, c *alpha.Client, request *alphapb.ApplyBigqueryreservationAlphaReservationRequest) (*alphapb.BigqueryreservationAlphaReservation, error) {
 	p := ProtoToReservation(request.GetResource())
 	res, err := c.ApplyReservation(ctx, p)
@@ -67,9 +66,9 @@ func (s *ReservationServer) applyReservation(ctx context.Context, c *alpha.Clien
 	return r, nil
 }
 
-// ApplyReservation handles the gRPC request by passing it to the underlying Reservation Apply() method.
+// applyBigqueryreservationAlphaReservation handles the gRPC request by passing it to the underlying Reservation Apply() method.
 func (s *ReservationServer) ApplyBigqueryreservationAlphaReservation(ctx context.Context, request *alphapb.ApplyBigqueryreservationAlphaReservationRequest) (*alphapb.BigqueryreservationAlphaReservation, error) {
-	cl, err := createConfigReservation(ctx, request.ServiceAccountFile)
+	cl, err := createConfigReservation(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +78,7 @@ func (s *ReservationServer) ApplyBigqueryreservationAlphaReservation(ctx context
 // DeleteReservation handles the gRPC request by passing it to the underlying Reservation Delete() method.
 func (s *ReservationServer) DeleteBigqueryreservationAlphaReservation(ctx context.Context, request *alphapb.DeleteBigqueryreservationAlphaReservationRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigReservation(ctx, request.ServiceAccountFile)
+	cl, err := createConfigReservation(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -89,12 +88,12 @@ func (s *ReservationServer) DeleteBigqueryreservationAlphaReservation(ctx contex
 
 // ListBigqueryreservationAlphaReservation handles the gRPC request by passing it to the underlying ReservationList() method.
 func (s *ReservationServer) ListBigqueryreservationAlphaReservation(ctx context.Context, request *alphapb.ListBigqueryreservationAlphaReservationRequest) (*alphapb.ListBigqueryreservationAlphaReservationResponse, error) {
-	cl, err := createConfigReservation(ctx, request.ServiceAccountFile)
+	cl, err := createConfigReservation(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListReservation(ctx, request.Project, request.Location)
+	resources, err := cl.ListReservation(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -103,7 +102,9 @@ func (s *ReservationServer) ListBigqueryreservationAlphaReservation(ctx context.
 		rp := ReservationToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListBigqueryreservationAlphaReservationResponse{Items: protos}, nil
+	p := &alphapb.ListBigqueryreservationAlphaReservationResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigReservation(ctx context.Context, service_account_file string) (*alpha.Client, error) {

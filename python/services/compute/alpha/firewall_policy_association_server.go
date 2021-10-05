@@ -28,27 +28,26 @@ type FirewallPolicyAssociationServer struct{}
 // ProtoToFirewallPolicyAssociation converts a FirewallPolicyAssociation resource from its proto representation.
 func ProtoToFirewallPolicyAssociation(p *alphapb.ComputeAlphaFirewallPolicyAssociation) *alpha.FirewallPolicyAssociation {
 	obj := &alpha.FirewallPolicyAssociation{
-		Name:             dcl.StringOrNil(p.Name),
-		AttachmentTarget: dcl.StringOrNil(p.AttachmentTarget),
-		FirewallPolicy:   dcl.StringOrNil(p.FirewallPolicy),
-		ShortName:        dcl.StringOrNil(p.ShortName),
+		Name:             dcl.StringOrNil(p.GetName()),
+		AttachmentTarget: dcl.StringOrNil(p.GetAttachmentTarget()),
+		FirewallPolicy:   dcl.StringOrNil(p.GetFirewallPolicy()),
+		ShortName:        dcl.StringOrNil(p.GetShortName()),
 	}
 	return obj
 }
 
 // FirewallPolicyAssociationToProto converts a FirewallPolicyAssociation resource to its proto representation.
 func FirewallPolicyAssociationToProto(resource *alpha.FirewallPolicyAssociation) *alphapb.ComputeAlphaFirewallPolicyAssociation {
-	p := &alphapb.ComputeAlphaFirewallPolicyAssociation{
-		Name:             dcl.ValueOrEmptyString(resource.Name),
-		AttachmentTarget: dcl.ValueOrEmptyString(resource.AttachmentTarget),
-		FirewallPolicy:   dcl.ValueOrEmptyString(resource.FirewallPolicy),
-		ShortName:        dcl.ValueOrEmptyString(resource.ShortName),
-	}
+	p := &alphapb.ComputeAlphaFirewallPolicyAssociation{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetAttachmentTarget(dcl.ValueOrEmptyString(resource.AttachmentTarget))
+	p.SetFirewallPolicy(dcl.ValueOrEmptyString(resource.FirewallPolicy))
+	p.SetShortName(dcl.ValueOrEmptyString(resource.ShortName))
 
 	return p
 }
 
-// ApplyFirewallPolicyAssociation handles the gRPC request by passing it to the underlying FirewallPolicyAssociation Apply() method.
+// applyFirewallPolicyAssociation handles the gRPC request by passing it to the underlying FirewallPolicyAssociation Apply() method.
 func (s *FirewallPolicyAssociationServer) applyFirewallPolicyAssociation(ctx context.Context, c *alpha.Client, request *alphapb.ApplyComputeAlphaFirewallPolicyAssociationRequest) (*alphapb.ComputeAlphaFirewallPolicyAssociation, error) {
 	p := ProtoToFirewallPolicyAssociation(request.GetResource())
 	res, err := c.ApplyFirewallPolicyAssociation(ctx, p)
@@ -59,9 +58,9 @@ func (s *FirewallPolicyAssociationServer) applyFirewallPolicyAssociation(ctx con
 	return r, nil
 }
 
-// ApplyFirewallPolicyAssociation handles the gRPC request by passing it to the underlying FirewallPolicyAssociation Apply() method.
+// applyComputeAlphaFirewallPolicyAssociation handles the gRPC request by passing it to the underlying FirewallPolicyAssociation Apply() method.
 func (s *FirewallPolicyAssociationServer) ApplyComputeAlphaFirewallPolicyAssociation(ctx context.Context, request *alphapb.ApplyComputeAlphaFirewallPolicyAssociationRequest) (*alphapb.ComputeAlphaFirewallPolicyAssociation, error) {
-	cl, err := createConfigFirewallPolicyAssociation(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFirewallPolicyAssociation(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -71,7 +70,7 @@ func (s *FirewallPolicyAssociationServer) ApplyComputeAlphaFirewallPolicyAssocia
 // DeleteFirewallPolicyAssociation handles the gRPC request by passing it to the underlying FirewallPolicyAssociation Delete() method.
 func (s *FirewallPolicyAssociationServer) DeleteComputeAlphaFirewallPolicyAssociation(ctx context.Context, request *alphapb.DeleteComputeAlphaFirewallPolicyAssociationRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigFirewallPolicyAssociation(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFirewallPolicyAssociation(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -81,12 +80,12 @@ func (s *FirewallPolicyAssociationServer) DeleteComputeAlphaFirewallPolicyAssoci
 
 // ListComputeAlphaFirewallPolicyAssociation handles the gRPC request by passing it to the underlying FirewallPolicyAssociationList() method.
 func (s *FirewallPolicyAssociationServer) ListComputeAlphaFirewallPolicyAssociation(ctx context.Context, request *alphapb.ListComputeAlphaFirewallPolicyAssociationRequest) (*alphapb.ListComputeAlphaFirewallPolicyAssociationResponse, error) {
-	cl, err := createConfigFirewallPolicyAssociation(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFirewallPolicyAssociation(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListFirewallPolicyAssociation(ctx, request.FirewallPolicy)
+	resources, err := cl.ListFirewallPolicyAssociation(ctx, request.GetFirewallPolicy())
 	if err != nil {
 		return nil, err
 	}
@@ -95,7 +94,9 @@ func (s *FirewallPolicyAssociationServer) ListComputeAlphaFirewallPolicyAssociat
 		rp := FirewallPolicyAssociationToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListComputeAlphaFirewallPolicyAssociationResponse{Items: protos}, nil
+	p := &alphapb.ListComputeAlphaFirewallPolicyAssociationResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigFirewallPolicyAssociation(ctx context.Context, service_account_file string) (*alpha.Client, error) {

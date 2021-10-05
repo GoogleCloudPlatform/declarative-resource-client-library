@@ -61,14 +61,14 @@ func ProtoToBigqueryreservationAlphaCapacityCommitmentRenewalPlanEnum(e alphapb.
 	return nil
 }
 
-// ProtoToCapacityCommitmentFailureStatus converts a CapacityCommitmentFailureStatus resource from its proto representation.
+// ProtoToCapacityCommitmentFailureStatus converts a CapacityCommitmentFailureStatus object from its proto representation.
 func ProtoToBigqueryreservationAlphaCapacityCommitmentFailureStatus(p *alphapb.BigqueryreservationAlphaCapacityCommitmentFailureStatus) *alpha.CapacityCommitmentFailureStatus {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.CapacityCommitmentFailureStatus{
-		Code:    dcl.Int64OrNil(p.Code),
-		Message: dcl.StringOrNil(p.Message),
+		Code:    dcl.Int64OrNil(p.GetCode()),
+		Message: dcl.StringOrNil(p.GetMessage()),
 	}
 	for _, r := range p.GetDetails() {
 		obj.Details = append(obj.Details, *ProtoToBigqueryreservationAlphaCapacityCommitmentFailureStatusDetails(r))
@@ -76,14 +76,14 @@ func ProtoToBigqueryreservationAlphaCapacityCommitmentFailureStatus(p *alphapb.B
 	return obj
 }
 
-// ProtoToCapacityCommitmentFailureStatusDetails converts a CapacityCommitmentFailureStatusDetails resource from its proto representation.
+// ProtoToCapacityCommitmentFailureStatusDetails converts a CapacityCommitmentFailureStatusDetails object from its proto representation.
 func ProtoToBigqueryreservationAlphaCapacityCommitmentFailureStatusDetails(p *alphapb.BigqueryreservationAlphaCapacityCommitmentFailureStatusDetails) *alpha.CapacityCommitmentFailureStatusDetails {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.CapacityCommitmentFailureStatusDetails{
-		TypeUrl: dcl.StringOrNil(p.TypeUrl),
-		Value:   dcl.StringOrNil(p.Value),
+		TypeUrl: dcl.StringOrNil(p.GetTypeUrl()),
+		Value:   dcl.StringOrNil(p.GetValue()),
 	}
 	return obj
 }
@@ -91,16 +91,16 @@ func ProtoToBigqueryreservationAlphaCapacityCommitmentFailureStatusDetails(p *al
 // ProtoToCapacityCommitment converts a CapacityCommitment resource from its proto representation.
 func ProtoToCapacityCommitment(p *alphapb.BigqueryreservationAlphaCapacityCommitment) *alpha.CapacityCommitment {
 	obj := &alpha.CapacityCommitment{
-		Name:                dcl.StringOrNil(p.Name),
-		SlotCount:           dcl.Int64OrNil(p.SlotCount),
+		Name:                dcl.StringOrNil(p.GetName()),
+		SlotCount:           dcl.Int64OrNil(p.GetSlotCount()),
 		Plan:                ProtoToBigqueryreservationAlphaCapacityCommitmentPlanEnum(p.GetPlan()),
 		State:               ProtoToBigqueryreservationAlphaCapacityCommitmentStateEnum(p.GetState()),
 		CommitmentStartTime: dcl.StringOrNil(p.GetCommitmentStartTime()),
 		CommitmentEndTime:   dcl.StringOrNil(p.GetCommitmentEndTime()),
 		FailureStatus:       ProtoToBigqueryreservationAlphaCapacityCommitmentFailureStatus(p.GetFailureStatus()),
 		RenewalPlan:         ProtoToBigqueryreservationAlphaCapacityCommitmentRenewalPlanEnum(p.GetRenewalPlan()),
-		Project:             dcl.StringOrNil(p.Project),
-		Location:            dcl.StringOrNil(p.Location),
+		Project:             dcl.StringOrNil(p.GetProject()),
+		Location:            dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -138,52 +138,51 @@ func BigqueryreservationAlphaCapacityCommitmentRenewalPlanEnumToProto(e *alpha.C
 	return alphapb.BigqueryreservationAlphaCapacityCommitmentRenewalPlanEnum(0)
 }
 
-// CapacityCommitmentFailureStatusToProto converts a CapacityCommitmentFailureStatus resource to its proto representation.
+// CapacityCommitmentFailureStatusToProto converts a CapacityCommitmentFailureStatus object to its proto representation.
 func BigqueryreservationAlphaCapacityCommitmentFailureStatusToProto(o *alpha.CapacityCommitmentFailureStatus) *alphapb.BigqueryreservationAlphaCapacityCommitmentFailureStatus {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.BigqueryreservationAlphaCapacityCommitmentFailureStatus{
-		Code:    dcl.ValueOrEmptyInt64(o.Code),
-		Message: dcl.ValueOrEmptyString(o.Message),
+	p := &alphapb.BigqueryreservationAlphaCapacityCommitmentFailureStatus{}
+	p.SetCode(dcl.ValueOrEmptyInt64(o.Code))
+	p.SetMessage(dcl.ValueOrEmptyString(o.Message))
+	sDetails := make([]*alphapb.BigqueryreservationAlphaCapacityCommitmentFailureStatusDetails, len(o.Details))
+	for i, r := range o.Details {
+		sDetails[i] = BigqueryreservationAlphaCapacityCommitmentFailureStatusDetailsToProto(&r)
 	}
-	for _, r := range o.Details {
-		p.Details = append(p.Details, BigqueryreservationAlphaCapacityCommitmentFailureStatusDetailsToProto(&r))
-	}
+	p.SetDetails(sDetails)
 	return p
 }
 
-// CapacityCommitmentFailureStatusDetailsToProto converts a CapacityCommitmentFailureStatusDetails resource to its proto representation.
+// CapacityCommitmentFailureStatusDetailsToProto converts a CapacityCommitmentFailureStatusDetails object to its proto representation.
 func BigqueryreservationAlphaCapacityCommitmentFailureStatusDetailsToProto(o *alpha.CapacityCommitmentFailureStatusDetails) *alphapb.BigqueryreservationAlphaCapacityCommitmentFailureStatusDetails {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.BigqueryreservationAlphaCapacityCommitmentFailureStatusDetails{
-		TypeUrl: dcl.ValueOrEmptyString(o.TypeUrl),
-		Value:   dcl.ValueOrEmptyString(o.Value),
-	}
+	p := &alphapb.BigqueryreservationAlphaCapacityCommitmentFailureStatusDetails{}
+	p.SetTypeUrl(dcl.ValueOrEmptyString(o.TypeUrl))
+	p.SetValue(dcl.ValueOrEmptyString(o.Value))
 	return p
 }
 
 // CapacityCommitmentToProto converts a CapacityCommitment resource to its proto representation.
 func CapacityCommitmentToProto(resource *alpha.CapacityCommitment) *alphapb.BigqueryreservationAlphaCapacityCommitment {
-	p := &alphapb.BigqueryreservationAlphaCapacityCommitment{
-		Name:                dcl.ValueOrEmptyString(resource.Name),
-		SlotCount:           dcl.ValueOrEmptyInt64(resource.SlotCount),
-		Plan:                BigqueryreservationAlphaCapacityCommitmentPlanEnumToProto(resource.Plan),
-		State:               BigqueryreservationAlphaCapacityCommitmentStateEnumToProto(resource.State),
-		CommitmentStartTime: dcl.ValueOrEmptyString(resource.CommitmentStartTime),
-		CommitmentEndTime:   dcl.ValueOrEmptyString(resource.CommitmentEndTime),
-		FailureStatus:       BigqueryreservationAlphaCapacityCommitmentFailureStatusToProto(resource.FailureStatus),
-		RenewalPlan:         BigqueryreservationAlphaCapacityCommitmentRenewalPlanEnumToProto(resource.RenewalPlan),
-		Project:             dcl.ValueOrEmptyString(resource.Project),
-		Location:            dcl.ValueOrEmptyString(resource.Location),
-	}
+	p := &alphapb.BigqueryreservationAlphaCapacityCommitment{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetSlotCount(dcl.ValueOrEmptyInt64(resource.SlotCount))
+	p.SetPlan(BigqueryreservationAlphaCapacityCommitmentPlanEnumToProto(resource.Plan))
+	p.SetState(BigqueryreservationAlphaCapacityCommitmentStateEnumToProto(resource.State))
+	p.SetCommitmentStartTime(dcl.ValueOrEmptyString(resource.CommitmentStartTime))
+	p.SetCommitmentEndTime(dcl.ValueOrEmptyString(resource.CommitmentEndTime))
+	p.SetFailureStatus(BigqueryreservationAlphaCapacityCommitmentFailureStatusToProto(resource.FailureStatus))
+	p.SetRenewalPlan(BigqueryreservationAlphaCapacityCommitmentRenewalPlanEnumToProto(resource.RenewalPlan))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 
 	return p
 }
 
-// ApplyCapacityCommitment handles the gRPC request by passing it to the underlying CapacityCommitment Apply() method.
+// applyCapacityCommitment handles the gRPC request by passing it to the underlying CapacityCommitment Apply() method.
 func (s *CapacityCommitmentServer) applyCapacityCommitment(ctx context.Context, c *alpha.Client, request *alphapb.ApplyBigqueryreservationAlphaCapacityCommitmentRequest) (*alphapb.BigqueryreservationAlphaCapacityCommitment, error) {
 	p := ProtoToCapacityCommitment(request.GetResource())
 	res, err := c.ApplyCapacityCommitment(ctx, p)
@@ -194,9 +193,9 @@ func (s *CapacityCommitmentServer) applyCapacityCommitment(ctx context.Context, 
 	return r, nil
 }
 
-// ApplyCapacityCommitment handles the gRPC request by passing it to the underlying CapacityCommitment Apply() method.
+// applyBigqueryreservationAlphaCapacityCommitment handles the gRPC request by passing it to the underlying CapacityCommitment Apply() method.
 func (s *CapacityCommitmentServer) ApplyBigqueryreservationAlphaCapacityCommitment(ctx context.Context, request *alphapb.ApplyBigqueryreservationAlphaCapacityCommitmentRequest) (*alphapb.BigqueryreservationAlphaCapacityCommitment, error) {
-	cl, err := createConfigCapacityCommitment(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCapacityCommitment(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -206,7 +205,7 @@ func (s *CapacityCommitmentServer) ApplyBigqueryreservationAlphaCapacityCommitme
 // DeleteCapacityCommitment handles the gRPC request by passing it to the underlying CapacityCommitment Delete() method.
 func (s *CapacityCommitmentServer) DeleteBigqueryreservationAlphaCapacityCommitment(ctx context.Context, request *alphapb.DeleteBigqueryreservationAlphaCapacityCommitmentRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigCapacityCommitment(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCapacityCommitment(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -216,12 +215,12 @@ func (s *CapacityCommitmentServer) DeleteBigqueryreservationAlphaCapacityCommitm
 
 // ListBigqueryreservationAlphaCapacityCommitment handles the gRPC request by passing it to the underlying CapacityCommitmentList() method.
 func (s *CapacityCommitmentServer) ListBigqueryreservationAlphaCapacityCommitment(ctx context.Context, request *alphapb.ListBigqueryreservationAlphaCapacityCommitmentRequest) (*alphapb.ListBigqueryreservationAlphaCapacityCommitmentResponse, error) {
-	cl, err := createConfigCapacityCommitment(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCapacityCommitment(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListCapacityCommitment(ctx, request.Project, request.Location)
+	resources, err := cl.ListCapacityCommitment(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -230,7 +229,9 @@ func (s *CapacityCommitmentServer) ListBigqueryreservationAlphaCapacityCommitmen
 		rp := CapacityCommitmentToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListBigqueryreservationAlphaCapacityCommitmentResponse{Items: protos}, nil
+	p := &alphapb.ListBigqueryreservationAlphaCapacityCommitmentResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigCapacityCommitment(ctx context.Context, service_account_file string) (*alpha.Client, error) {

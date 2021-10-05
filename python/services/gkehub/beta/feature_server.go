@@ -49,19 +49,19 @@ func ProtoToGkehubBetaFeatureStateStateCodeEnum(e betapb.GkehubBetaFeatureStateS
 	return nil
 }
 
-// ProtoToFeatureResourceState converts a FeatureResourceState resource from its proto representation.
+// ProtoToFeatureResourceState converts a FeatureResourceState object from its proto representation.
 func ProtoToGkehubBetaFeatureResourceState(p *betapb.GkehubBetaFeatureResourceState) *beta.FeatureResourceState {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.FeatureResourceState{
 		State:        ProtoToGkehubBetaFeatureResourceStateStateEnum(p.GetState()),
-		HasResources: dcl.Bool(p.HasResources),
+		HasResources: dcl.Bool(p.GetHasResources()),
 	}
 	return obj
 }
 
-// ProtoToFeatureSpec converts a FeatureSpec resource from its proto representation.
+// ProtoToFeatureSpec converts a FeatureSpec object from its proto representation.
 func ProtoToGkehubBetaFeatureSpec(p *betapb.GkehubBetaFeatureSpec) *beta.FeatureSpec {
 	if p == nil {
 		return nil
@@ -72,18 +72,18 @@ func ProtoToGkehubBetaFeatureSpec(p *betapb.GkehubBetaFeatureSpec) *beta.Feature
 	return obj
 }
 
-// ProtoToFeatureSpecMulticlusteringress converts a FeatureSpecMulticlusteringress resource from its proto representation.
+// ProtoToFeatureSpecMulticlusteringress converts a FeatureSpecMulticlusteringress object from its proto representation.
 func ProtoToGkehubBetaFeatureSpecMulticlusteringress(p *betapb.GkehubBetaFeatureSpecMulticlusteringress) *beta.FeatureSpecMulticlusteringress {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.FeatureSpecMulticlusteringress{
-		ConfigMembership: dcl.StringOrNil(p.ConfigMembership),
+		ConfigMembership: dcl.StringOrNil(p.GetConfigMembership()),
 	}
 	return obj
 }
 
-// ProtoToFeatureState converts a FeatureState resource from its proto representation.
+// ProtoToFeatureState converts a FeatureState object from its proto representation.
 func ProtoToGkehubBetaFeatureState(p *betapb.GkehubBetaFeatureState) *beta.FeatureState {
 	if p == nil {
 		return nil
@@ -94,15 +94,15 @@ func ProtoToGkehubBetaFeatureState(p *betapb.GkehubBetaFeatureState) *beta.Featu
 	return obj
 }
 
-// ProtoToFeatureStateState converts a FeatureStateState resource from its proto representation.
+// ProtoToFeatureStateState converts a FeatureStateState object from its proto representation.
 func ProtoToGkehubBetaFeatureStateState(p *betapb.GkehubBetaFeatureStateState) *beta.FeatureStateState {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.FeatureStateState{
 		Code:        ProtoToGkehubBetaFeatureStateStateCodeEnum(p.GetCode()),
-		Description: dcl.StringOrNil(p.Description),
-		UpdateTime:  dcl.StringOrNil(p.UpdateTime),
+		Description: dcl.StringOrNil(p.GetDescription()),
+		UpdateTime:  dcl.StringOrNil(p.GetUpdateTime()),
 	}
 	return obj
 }
@@ -110,15 +110,15 @@ func ProtoToGkehubBetaFeatureStateState(p *betapb.GkehubBetaFeatureStateState) *
 // ProtoToFeature converts a Feature resource from its proto representation.
 func ProtoToFeature(p *betapb.GkehubBetaFeature) *beta.Feature {
 	obj := &beta.Feature{
-		Name:          dcl.StringOrNil(p.Name),
+		Name:          dcl.StringOrNil(p.GetName()),
 		ResourceState: ProtoToGkehubBetaFeatureResourceState(p.GetResourceState()),
 		Spec:          ProtoToGkehubBetaFeatureSpec(p.GetSpec()),
 		State:         ProtoToGkehubBetaFeatureState(p.GetState()),
 		CreateTime:    dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:    dcl.StringOrNil(p.GetUpdateTime()),
 		DeleteTime:    dcl.StringOrNil(p.GetDeleteTime()),
-		Project:       dcl.StringOrNil(p.Project),
-		Location:      dcl.StringOrNil(p.Location),
+		Project:       dcl.StringOrNil(p.GetProject()),
+		Location:      dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -145,82 +145,81 @@ func GkehubBetaFeatureStateStateCodeEnumToProto(e *beta.FeatureStateStateCodeEnu
 	return betapb.GkehubBetaFeatureStateStateCodeEnum(0)
 }
 
-// FeatureResourceStateToProto converts a FeatureResourceState resource to its proto representation.
+// FeatureResourceStateToProto converts a FeatureResourceState object to its proto representation.
 func GkehubBetaFeatureResourceStateToProto(o *beta.FeatureResourceState) *betapb.GkehubBetaFeatureResourceState {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.GkehubBetaFeatureResourceState{
-		State:        GkehubBetaFeatureResourceStateStateEnumToProto(o.State),
-		HasResources: dcl.ValueOrEmptyBool(o.HasResources),
-	}
+	p := &betapb.GkehubBetaFeatureResourceState{}
+	p.SetState(GkehubBetaFeatureResourceStateStateEnumToProto(o.State))
+	p.SetHasResources(dcl.ValueOrEmptyBool(o.HasResources))
 	return p
 }
 
-// FeatureSpecToProto converts a FeatureSpec resource to its proto representation.
+// FeatureSpecToProto converts a FeatureSpec object to its proto representation.
 func GkehubBetaFeatureSpecToProto(o *beta.FeatureSpec) *betapb.GkehubBetaFeatureSpec {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.GkehubBetaFeatureSpec{
-		Multiclusteringress: GkehubBetaFeatureSpecMulticlusteringressToProto(o.Multiclusteringress),
-	}
+	p := &betapb.GkehubBetaFeatureSpec{}
+	p.SetMulticlusteringress(GkehubBetaFeatureSpecMulticlusteringressToProto(o.Multiclusteringress))
 	return p
 }
 
-// FeatureSpecMulticlusteringressToProto converts a FeatureSpecMulticlusteringress resource to its proto representation.
+// FeatureSpecMulticlusteringressToProto converts a FeatureSpecMulticlusteringress object to its proto representation.
 func GkehubBetaFeatureSpecMulticlusteringressToProto(o *beta.FeatureSpecMulticlusteringress) *betapb.GkehubBetaFeatureSpecMulticlusteringress {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.GkehubBetaFeatureSpecMulticlusteringress{
-		ConfigMembership: dcl.ValueOrEmptyString(o.ConfigMembership),
-	}
+	p := &betapb.GkehubBetaFeatureSpecMulticlusteringress{}
+	p.SetConfigMembership(dcl.ValueOrEmptyString(o.ConfigMembership))
 	return p
 }
 
-// FeatureStateToProto converts a FeatureState resource to its proto representation.
+// FeatureStateToProto converts a FeatureState object to its proto representation.
 func GkehubBetaFeatureStateToProto(o *beta.FeatureState) *betapb.GkehubBetaFeatureState {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.GkehubBetaFeatureState{
-		State: GkehubBetaFeatureStateStateToProto(o.State),
-	}
+	p := &betapb.GkehubBetaFeatureState{}
+	p.SetState(GkehubBetaFeatureStateStateToProto(o.State))
 	return p
 }
 
-// FeatureStateStateToProto converts a FeatureStateState resource to its proto representation.
+// FeatureStateStateToProto converts a FeatureStateState object to its proto representation.
 func GkehubBetaFeatureStateStateToProto(o *beta.FeatureStateState) *betapb.GkehubBetaFeatureStateState {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.GkehubBetaFeatureStateState{
-		Code:        GkehubBetaFeatureStateStateCodeEnumToProto(o.Code),
-		Description: dcl.ValueOrEmptyString(o.Description),
-		UpdateTime:  dcl.ValueOrEmptyString(o.UpdateTime),
-	}
+	p := &betapb.GkehubBetaFeatureStateState{}
+	p.SetCode(GkehubBetaFeatureStateStateCodeEnumToProto(o.Code))
+	p.SetDescription(dcl.ValueOrEmptyString(o.Description))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(o.UpdateTime))
 	return p
 }
 
 // FeatureToProto converts a Feature resource to its proto representation.
 func FeatureToProto(resource *beta.Feature) *betapb.GkehubBetaFeature {
-	p := &betapb.GkehubBetaFeature{
-		Name:          dcl.ValueOrEmptyString(resource.Name),
-		ResourceState: GkehubBetaFeatureResourceStateToProto(resource.ResourceState),
-		Spec:          GkehubBetaFeatureSpecToProto(resource.Spec),
-		State:         GkehubBetaFeatureStateToProto(resource.State),
-		CreateTime:    dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:    dcl.ValueOrEmptyString(resource.UpdateTime),
-		DeleteTime:    dcl.ValueOrEmptyString(resource.DeleteTime),
-		Project:       dcl.ValueOrEmptyString(resource.Project),
-		Location:      dcl.ValueOrEmptyString(resource.Location),
+	p := &betapb.GkehubBetaFeature{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetResourceState(GkehubBetaFeatureResourceStateToProto(resource.ResourceState))
+	p.SetSpec(GkehubBetaFeatureSpecToProto(resource.Spec))
+	p.SetState(GkehubBetaFeatureStateToProto(resource.State))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetDeleteTime(dcl.ValueOrEmptyString(resource.DeleteTime))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
+	p.SetLabels(mLabels)
 
 	return p
 }
 
-// ApplyFeature handles the gRPC request by passing it to the underlying Feature Apply() method.
+// applyFeature handles the gRPC request by passing it to the underlying Feature Apply() method.
 func (s *FeatureServer) applyFeature(ctx context.Context, c *beta.Client, request *betapb.ApplyGkehubBetaFeatureRequest) (*betapb.GkehubBetaFeature, error) {
 	p := ProtoToFeature(request.GetResource())
 	res, err := c.ApplyFeature(ctx, p)
@@ -231,9 +230,9 @@ func (s *FeatureServer) applyFeature(ctx context.Context, c *beta.Client, reques
 	return r, nil
 }
 
-// ApplyFeature handles the gRPC request by passing it to the underlying Feature Apply() method.
+// applyGkehubBetaFeature handles the gRPC request by passing it to the underlying Feature Apply() method.
 func (s *FeatureServer) ApplyGkehubBetaFeature(ctx context.Context, request *betapb.ApplyGkehubBetaFeatureRequest) (*betapb.GkehubBetaFeature, error) {
-	cl, err := createConfigFeature(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFeature(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -243,7 +242,7 @@ func (s *FeatureServer) ApplyGkehubBetaFeature(ctx context.Context, request *bet
 // DeleteFeature handles the gRPC request by passing it to the underlying Feature Delete() method.
 func (s *FeatureServer) DeleteGkehubBetaFeature(ctx context.Context, request *betapb.DeleteGkehubBetaFeatureRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigFeature(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFeature(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -253,12 +252,12 @@ func (s *FeatureServer) DeleteGkehubBetaFeature(ctx context.Context, request *be
 
 // ListGkehubBetaFeature handles the gRPC request by passing it to the underlying FeatureList() method.
 func (s *FeatureServer) ListGkehubBetaFeature(ctx context.Context, request *betapb.ListGkehubBetaFeatureRequest) (*betapb.ListGkehubBetaFeatureResponse, error) {
-	cl, err := createConfigFeature(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFeature(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListFeature(ctx, request.Project, request.Location)
+	resources, err := cl.ListFeature(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -267,7 +266,9 @@ func (s *FeatureServer) ListGkehubBetaFeature(ctx context.Context, request *beta
 		rp := FeatureToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListGkehubBetaFeatureResponse{Items: protos}, nil
+	p := &betapb.ListGkehubBetaFeatureResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigFeature(ctx context.Context, service_account_file string) (*beta.Client, error) {

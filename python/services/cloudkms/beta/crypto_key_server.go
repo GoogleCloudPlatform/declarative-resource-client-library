@@ -110,13 +110,13 @@ func ProtoToCloudkmsBetaCryptoKeyVersionTemplateAlgorithmEnum(e betapb.CloudkmsB
 	return nil
 }
 
-// ProtoToCryptoKeyPrimary converts a CryptoKeyPrimary resource from its proto representation.
+// ProtoToCryptoKeyPrimary converts a CryptoKeyPrimary object from its proto representation.
 func ProtoToCloudkmsBetaCryptoKeyPrimary(p *betapb.CloudkmsBetaCryptoKeyPrimary) *beta.CryptoKeyPrimary {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CryptoKeyPrimary{
-		Name:                           dcl.StringOrNil(p.Name),
+		Name:                           dcl.StringOrNil(p.GetName()),
 		State:                          ProtoToCloudkmsBetaCryptoKeyPrimaryStateEnum(p.GetState()),
 		ProtectionLevel:                ProtoToCloudkmsBetaCryptoKeyPrimaryProtectionLevelEnum(p.GetProtectionLevel()),
 		Algorithm:                      ProtoToCloudkmsBetaCryptoKeyPrimaryAlgorithmEnum(p.GetAlgorithm()),
@@ -125,29 +125,29 @@ func ProtoToCloudkmsBetaCryptoKeyPrimary(p *betapb.CloudkmsBetaCryptoKeyPrimary)
 		GenerateTime:                   dcl.StringOrNil(p.GetGenerateTime()),
 		DestroyTime:                    dcl.StringOrNil(p.GetDestroyTime()),
 		DestroyEventTime:               dcl.StringOrNil(p.GetDestroyEventTime()),
-		ImportJob:                      dcl.StringOrNil(p.ImportJob),
+		ImportJob:                      dcl.StringOrNil(p.GetImportJob()),
 		ImportTime:                     dcl.StringOrNil(p.GetImportTime()),
-		ImportFailureReason:            dcl.StringOrNil(p.ImportFailureReason),
+		ImportFailureReason:            dcl.StringOrNil(p.GetImportFailureReason()),
 		ExternalProtectionLevelOptions: ProtoToCloudkmsBetaCryptoKeyPrimaryExternalProtectionLevelOptions(p.GetExternalProtectionLevelOptions()),
-		ReimportEligible:               dcl.Bool(p.ReimportEligible),
+		ReimportEligible:               dcl.Bool(p.GetReimportEligible()),
 	}
 	return obj
 }
 
-// ProtoToCryptoKeyPrimaryAttestation converts a CryptoKeyPrimaryAttestation resource from its proto representation.
+// ProtoToCryptoKeyPrimaryAttestation converts a CryptoKeyPrimaryAttestation object from its proto representation.
 func ProtoToCloudkmsBetaCryptoKeyPrimaryAttestation(p *betapb.CloudkmsBetaCryptoKeyPrimaryAttestation) *beta.CryptoKeyPrimaryAttestation {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CryptoKeyPrimaryAttestation{
 		Format:     ProtoToCloudkmsBetaCryptoKeyPrimaryAttestationFormatEnum(p.GetFormat()),
-		Content:    dcl.StringOrNil(p.Content),
+		Content:    dcl.StringOrNil(p.GetContent()),
 		CertChains: ProtoToCloudkmsBetaCryptoKeyPrimaryAttestationCertChains(p.GetCertChains()),
 	}
 	return obj
 }
 
-// ProtoToCryptoKeyPrimaryAttestationCertChains converts a CryptoKeyPrimaryAttestationCertChains resource from its proto representation.
+// ProtoToCryptoKeyPrimaryAttestationCertChains converts a CryptoKeyPrimaryAttestationCertChains object from its proto representation.
 func ProtoToCloudkmsBetaCryptoKeyPrimaryAttestationCertChains(p *betapb.CloudkmsBetaCryptoKeyPrimaryAttestationCertChains) *beta.CryptoKeyPrimaryAttestationCertChains {
 	if p == nil {
 		return nil
@@ -165,18 +165,18 @@ func ProtoToCloudkmsBetaCryptoKeyPrimaryAttestationCertChains(p *betapb.Cloudkms
 	return obj
 }
 
-// ProtoToCryptoKeyPrimaryExternalProtectionLevelOptions converts a CryptoKeyPrimaryExternalProtectionLevelOptions resource from its proto representation.
+// ProtoToCryptoKeyPrimaryExternalProtectionLevelOptions converts a CryptoKeyPrimaryExternalProtectionLevelOptions object from its proto representation.
 func ProtoToCloudkmsBetaCryptoKeyPrimaryExternalProtectionLevelOptions(p *betapb.CloudkmsBetaCryptoKeyPrimaryExternalProtectionLevelOptions) *beta.CryptoKeyPrimaryExternalProtectionLevelOptions {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CryptoKeyPrimaryExternalProtectionLevelOptions{
-		ExternalKeyUri: dcl.StringOrNil(p.ExternalKeyUri),
+		ExternalKeyUri: dcl.StringOrNil(p.GetExternalKeyUri()),
 	}
 	return obj
 }
 
-// ProtoToCryptoKeyVersionTemplate converts a CryptoKeyVersionTemplate resource from its proto representation.
+// ProtoToCryptoKeyVersionTemplate converts a CryptoKeyVersionTemplate object from its proto representation.
 func ProtoToCloudkmsBetaCryptoKeyVersionTemplate(p *betapb.CloudkmsBetaCryptoKeyVersionTemplate) *beta.CryptoKeyVersionTemplate {
 	if p == nil {
 		return nil
@@ -191,18 +191,18 @@ func ProtoToCloudkmsBetaCryptoKeyVersionTemplate(p *betapb.CloudkmsBetaCryptoKey
 // ProtoToCryptoKey converts a CryptoKey resource from its proto representation.
 func ProtoToCryptoKey(p *betapb.CloudkmsBetaCryptoKey) *beta.CryptoKey {
 	obj := &beta.CryptoKey{
-		Name:                     dcl.StringOrNil(p.Name),
+		Name:                     dcl.StringOrNil(p.GetName()),
 		Primary:                  ProtoToCloudkmsBetaCryptoKeyPrimary(p.GetPrimary()),
 		Purpose:                  ProtoToCloudkmsBetaCryptoKeyPurposeEnum(p.GetPurpose()),
 		CreateTime:               dcl.StringOrNil(p.GetCreateTime()),
 		NextRotationTime:         dcl.StringOrNil(p.GetNextRotationTime()),
-		RotationPeriod:           dcl.StringOrNil(p.RotationPeriod),
+		RotationPeriod:           dcl.StringOrNil(p.GetRotationPeriod()),
 		VersionTemplate:          ProtoToCloudkmsBetaCryptoKeyVersionTemplate(p.GetVersionTemplate()),
-		ImportOnly:               dcl.Bool(p.ImportOnly),
-		DestroyScheduledDuration: dcl.StringOrNil(p.DestroyScheduledDuration),
-		Project:                  dcl.StringOrNil(p.Project),
-		Location:                 dcl.StringOrNil(p.Location),
-		KeyRing:                  dcl.StringOrNil(p.KeyRing),
+		ImportOnly:               dcl.Bool(p.GetImportOnly()),
+		DestroyScheduledDuration: dcl.StringOrNil(p.GetDestroyScheduledDuration()),
+		Project:                  dcl.StringOrNil(p.GetProject()),
+		Location:                 dcl.StringOrNil(p.GetLocation()),
+		KeyRing:                  dcl.StringOrNil(p.GetKeyRing()),
 	}
 	return obj
 }
@@ -284,105 +284,111 @@ func CloudkmsBetaCryptoKeyVersionTemplateAlgorithmEnumToProto(e *beta.CryptoKeyV
 	return betapb.CloudkmsBetaCryptoKeyVersionTemplateAlgorithmEnum(0)
 }
 
-// CryptoKeyPrimaryToProto converts a CryptoKeyPrimary resource to its proto representation.
+// CryptoKeyPrimaryToProto converts a CryptoKeyPrimary object to its proto representation.
 func CloudkmsBetaCryptoKeyPrimaryToProto(o *beta.CryptoKeyPrimary) *betapb.CloudkmsBetaCryptoKeyPrimary {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.CloudkmsBetaCryptoKeyPrimary{
-		Name:                           dcl.ValueOrEmptyString(o.Name),
-		State:                          CloudkmsBetaCryptoKeyPrimaryStateEnumToProto(o.State),
-		ProtectionLevel:                CloudkmsBetaCryptoKeyPrimaryProtectionLevelEnumToProto(o.ProtectionLevel),
-		Algorithm:                      CloudkmsBetaCryptoKeyPrimaryAlgorithmEnumToProto(o.Algorithm),
-		Attestation:                    CloudkmsBetaCryptoKeyPrimaryAttestationToProto(o.Attestation),
-		CreateTime:                     dcl.ValueOrEmptyString(o.CreateTime),
-		GenerateTime:                   dcl.ValueOrEmptyString(o.GenerateTime),
-		DestroyTime:                    dcl.ValueOrEmptyString(o.DestroyTime),
-		DestroyEventTime:               dcl.ValueOrEmptyString(o.DestroyEventTime),
-		ImportJob:                      dcl.ValueOrEmptyString(o.ImportJob),
-		ImportTime:                     dcl.ValueOrEmptyString(o.ImportTime),
-		ImportFailureReason:            dcl.ValueOrEmptyString(o.ImportFailureReason),
-		ExternalProtectionLevelOptions: CloudkmsBetaCryptoKeyPrimaryExternalProtectionLevelOptionsToProto(o.ExternalProtectionLevelOptions),
-		ReimportEligible:               dcl.ValueOrEmptyBool(o.ReimportEligible),
-	}
+	p := &betapb.CloudkmsBetaCryptoKeyPrimary{}
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetState(CloudkmsBetaCryptoKeyPrimaryStateEnumToProto(o.State))
+	p.SetProtectionLevel(CloudkmsBetaCryptoKeyPrimaryProtectionLevelEnumToProto(o.ProtectionLevel))
+	p.SetAlgorithm(CloudkmsBetaCryptoKeyPrimaryAlgorithmEnumToProto(o.Algorithm))
+	p.SetAttestation(CloudkmsBetaCryptoKeyPrimaryAttestationToProto(o.Attestation))
+	p.SetCreateTime(dcl.ValueOrEmptyString(o.CreateTime))
+	p.SetGenerateTime(dcl.ValueOrEmptyString(o.GenerateTime))
+	p.SetDestroyTime(dcl.ValueOrEmptyString(o.DestroyTime))
+	p.SetDestroyEventTime(dcl.ValueOrEmptyString(o.DestroyEventTime))
+	p.SetImportJob(dcl.ValueOrEmptyString(o.ImportJob))
+	p.SetImportTime(dcl.ValueOrEmptyString(o.ImportTime))
+	p.SetImportFailureReason(dcl.ValueOrEmptyString(o.ImportFailureReason))
+	p.SetExternalProtectionLevelOptions(CloudkmsBetaCryptoKeyPrimaryExternalProtectionLevelOptionsToProto(o.ExternalProtectionLevelOptions))
+	p.SetReimportEligible(dcl.ValueOrEmptyBool(o.ReimportEligible))
 	return p
 }
 
-// CryptoKeyPrimaryAttestationToProto converts a CryptoKeyPrimaryAttestation resource to its proto representation.
+// CryptoKeyPrimaryAttestationToProto converts a CryptoKeyPrimaryAttestation object to its proto representation.
 func CloudkmsBetaCryptoKeyPrimaryAttestationToProto(o *beta.CryptoKeyPrimaryAttestation) *betapb.CloudkmsBetaCryptoKeyPrimaryAttestation {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.CloudkmsBetaCryptoKeyPrimaryAttestation{
-		Format:     CloudkmsBetaCryptoKeyPrimaryAttestationFormatEnumToProto(o.Format),
-		Content:    dcl.ValueOrEmptyString(o.Content),
-		CertChains: CloudkmsBetaCryptoKeyPrimaryAttestationCertChainsToProto(o.CertChains),
-	}
+	p := &betapb.CloudkmsBetaCryptoKeyPrimaryAttestation{}
+	p.SetFormat(CloudkmsBetaCryptoKeyPrimaryAttestationFormatEnumToProto(o.Format))
+	p.SetContent(dcl.ValueOrEmptyString(o.Content))
+	p.SetCertChains(CloudkmsBetaCryptoKeyPrimaryAttestationCertChainsToProto(o.CertChains))
 	return p
 }
 
-// CryptoKeyPrimaryAttestationCertChainsToProto converts a CryptoKeyPrimaryAttestationCertChains resource to its proto representation.
+// CryptoKeyPrimaryAttestationCertChainsToProto converts a CryptoKeyPrimaryAttestationCertChains object to its proto representation.
 func CloudkmsBetaCryptoKeyPrimaryAttestationCertChainsToProto(o *beta.CryptoKeyPrimaryAttestationCertChains) *betapb.CloudkmsBetaCryptoKeyPrimaryAttestationCertChains {
 	if o == nil {
 		return nil
 	}
 	p := &betapb.CloudkmsBetaCryptoKeyPrimaryAttestationCertChains{}
-	for _, r := range o.CaviumCerts {
-		p.CaviumCerts = append(p.CaviumCerts, r)
+	sCaviumCerts := make([]string, len(o.CaviumCerts))
+	for i, r := range o.CaviumCerts {
+		sCaviumCerts[i] = r
 	}
-	for _, r := range o.GoogleCardCerts {
-		p.GoogleCardCerts = append(p.GoogleCardCerts, r)
+	p.SetCaviumCerts(sCaviumCerts)
+	sGoogleCardCerts := make([]string, len(o.GoogleCardCerts))
+	for i, r := range o.GoogleCardCerts {
+		sGoogleCardCerts[i] = r
 	}
-	for _, r := range o.GooglePartitionCerts {
-		p.GooglePartitionCerts = append(p.GooglePartitionCerts, r)
+	p.SetGoogleCardCerts(sGoogleCardCerts)
+	sGooglePartitionCerts := make([]string, len(o.GooglePartitionCerts))
+	for i, r := range o.GooglePartitionCerts {
+		sGooglePartitionCerts[i] = r
 	}
+	p.SetGooglePartitionCerts(sGooglePartitionCerts)
 	return p
 }
 
-// CryptoKeyPrimaryExternalProtectionLevelOptionsToProto converts a CryptoKeyPrimaryExternalProtectionLevelOptions resource to its proto representation.
+// CryptoKeyPrimaryExternalProtectionLevelOptionsToProto converts a CryptoKeyPrimaryExternalProtectionLevelOptions object to its proto representation.
 func CloudkmsBetaCryptoKeyPrimaryExternalProtectionLevelOptionsToProto(o *beta.CryptoKeyPrimaryExternalProtectionLevelOptions) *betapb.CloudkmsBetaCryptoKeyPrimaryExternalProtectionLevelOptions {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.CloudkmsBetaCryptoKeyPrimaryExternalProtectionLevelOptions{
-		ExternalKeyUri: dcl.ValueOrEmptyString(o.ExternalKeyUri),
-	}
+	p := &betapb.CloudkmsBetaCryptoKeyPrimaryExternalProtectionLevelOptions{}
+	p.SetExternalKeyUri(dcl.ValueOrEmptyString(o.ExternalKeyUri))
 	return p
 }
 
-// CryptoKeyVersionTemplateToProto converts a CryptoKeyVersionTemplate resource to its proto representation.
+// CryptoKeyVersionTemplateToProto converts a CryptoKeyVersionTemplate object to its proto representation.
 func CloudkmsBetaCryptoKeyVersionTemplateToProto(o *beta.CryptoKeyVersionTemplate) *betapb.CloudkmsBetaCryptoKeyVersionTemplate {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.CloudkmsBetaCryptoKeyVersionTemplate{
-		ProtectionLevel: CloudkmsBetaCryptoKeyVersionTemplateProtectionLevelEnumToProto(o.ProtectionLevel),
-		Algorithm:       CloudkmsBetaCryptoKeyVersionTemplateAlgorithmEnumToProto(o.Algorithm),
-	}
+	p := &betapb.CloudkmsBetaCryptoKeyVersionTemplate{}
+	p.SetProtectionLevel(CloudkmsBetaCryptoKeyVersionTemplateProtectionLevelEnumToProto(o.ProtectionLevel))
+	p.SetAlgorithm(CloudkmsBetaCryptoKeyVersionTemplateAlgorithmEnumToProto(o.Algorithm))
 	return p
 }
 
 // CryptoKeyToProto converts a CryptoKey resource to its proto representation.
 func CryptoKeyToProto(resource *beta.CryptoKey) *betapb.CloudkmsBetaCryptoKey {
-	p := &betapb.CloudkmsBetaCryptoKey{
-		Name:                     dcl.ValueOrEmptyString(resource.Name),
-		Primary:                  CloudkmsBetaCryptoKeyPrimaryToProto(resource.Primary),
-		Purpose:                  CloudkmsBetaCryptoKeyPurposeEnumToProto(resource.Purpose),
-		CreateTime:               dcl.ValueOrEmptyString(resource.CreateTime),
-		NextRotationTime:         dcl.ValueOrEmptyString(resource.NextRotationTime),
-		RotationPeriod:           dcl.ValueOrEmptyString(resource.RotationPeriod),
-		VersionTemplate:          CloudkmsBetaCryptoKeyVersionTemplateToProto(resource.VersionTemplate),
-		ImportOnly:               dcl.ValueOrEmptyBool(resource.ImportOnly),
-		DestroyScheduledDuration: dcl.ValueOrEmptyString(resource.DestroyScheduledDuration),
-		Project:                  dcl.ValueOrEmptyString(resource.Project),
-		Location:                 dcl.ValueOrEmptyString(resource.Location),
-		KeyRing:                  dcl.ValueOrEmptyString(resource.KeyRing),
+	p := &betapb.CloudkmsBetaCryptoKey{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetPrimary(CloudkmsBetaCryptoKeyPrimaryToProto(resource.Primary))
+	p.SetPurpose(CloudkmsBetaCryptoKeyPurposeEnumToProto(resource.Purpose))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetNextRotationTime(dcl.ValueOrEmptyString(resource.NextRotationTime))
+	p.SetRotationPeriod(dcl.ValueOrEmptyString(resource.RotationPeriod))
+	p.SetVersionTemplate(CloudkmsBetaCryptoKeyVersionTemplateToProto(resource.VersionTemplate))
+	p.SetImportOnly(dcl.ValueOrEmptyBool(resource.ImportOnly))
+	p.SetDestroyScheduledDuration(dcl.ValueOrEmptyString(resource.DestroyScheduledDuration))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetKeyRing(dcl.ValueOrEmptyString(resource.KeyRing))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
+	p.SetLabels(mLabels)
 
 	return p
 }
 
-// ApplyCryptoKey handles the gRPC request by passing it to the underlying CryptoKey Apply() method.
+// applyCryptoKey handles the gRPC request by passing it to the underlying CryptoKey Apply() method.
 func (s *CryptoKeyServer) applyCryptoKey(ctx context.Context, c *beta.Client, request *betapb.ApplyCloudkmsBetaCryptoKeyRequest) (*betapb.CloudkmsBetaCryptoKey, error) {
 	p := ProtoToCryptoKey(request.GetResource())
 	res, err := c.ApplyCryptoKey(ctx, p)
@@ -393,9 +399,9 @@ func (s *CryptoKeyServer) applyCryptoKey(ctx context.Context, c *beta.Client, re
 	return r, nil
 }
 
-// ApplyCryptoKey handles the gRPC request by passing it to the underlying CryptoKey Apply() method.
+// applyCloudkmsBetaCryptoKey handles the gRPC request by passing it to the underlying CryptoKey Apply() method.
 func (s *CryptoKeyServer) ApplyCloudkmsBetaCryptoKey(ctx context.Context, request *betapb.ApplyCloudkmsBetaCryptoKeyRequest) (*betapb.CloudkmsBetaCryptoKey, error) {
-	cl, err := createConfigCryptoKey(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCryptoKey(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -411,12 +417,12 @@ func (s *CryptoKeyServer) DeleteCloudkmsBetaCryptoKey(ctx context.Context, reque
 
 // ListCloudkmsBetaCryptoKey handles the gRPC request by passing it to the underlying CryptoKeyList() method.
 func (s *CryptoKeyServer) ListCloudkmsBetaCryptoKey(ctx context.Context, request *betapb.ListCloudkmsBetaCryptoKeyRequest) (*betapb.ListCloudkmsBetaCryptoKeyResponse, error) {
-	cl, err := createConfigCryptoKey(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCryptoKey(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListCryptoKey(ctx, request.Project, request.Location, request.KeyRing)
+	resources, err := cl.ListCryptoKey(ctx, request.GetProject(), request.GetLocation(), request.GetKeyRing())
 	if err != nil {
 		return nil, err
 	}
@@ -425,7 +431,9 @@ func (s *CryptoKeyServer) ListCloudkmsBetaCryptoKey(ctx context.Context, request
 		rp := CryptoKeyToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListCloudkmsBetaCryptoKeyResponse{Items: protos}, nil
+	p := &betapb.ListCloudkmsBetaCryptoKeyResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigCryptoKey(ctx context.Context, service_account_file string) (*beta.Client, error) {

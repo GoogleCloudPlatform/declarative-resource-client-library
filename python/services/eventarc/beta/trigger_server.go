@@ -25,44 +25,44 @@ import (
 // Server implements the gRPC interface for Trigger.
 type TriggerServer struct{}
 
-// ProtoToTriggerMatchingCriteria converts a TriggerMatchingCriteria resource from its proto representation.
+// ProtoToTriggerMatchingCriteria converts a TriggerMatchingCriteria object from its proto representation.
 func ProtoToEventarcBetaTriggerMatchingCriteria(p *betapb.EventarcBetaTriggerMatchingCriteria) *beta.TriggerMatchingCriteria {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.TriggerMatchingCriteria{
-		Attribute: dcl.StringOrNil(p.Attribute),
-		Value:     dcl.StringOrNil(p.Value),
+		Attribute: dcl.StringOrNil(p.GetAttribute()),
+		Value:     dcl.StringOrNil(p.GetValue()),
 	}
 	return obj
 }
 
-// ProtoToTriggerDestination converts a TriggerDestination resource from its proto representation.
+// ProtoToTriggerDestination converts a TriggerDestination object from its proto representation.
 func ProtoToEventarcBetaTriggerDestination(p *betapb.EventarcBetaTriggerDestination) *beta.TriggerDestination {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.TriggerDestination{
 		CloudRunService: ProtoToEventarcBetaTriggerDestinationCloudRunService(p.GetCloudRunService()),
-		CloudFunction:   dcl.StringOrNil(p.CloudFunction),
+		CloudFunction:   dcl.StringOrNil(p.GetCloudFunction()),
 	}
 	return obj
 }
 
-// ProtoToTriggerDestinationCloudRunService converts a TriggerDestinationCloudRunService resource from its proto representation.
+// ProtoToTriggerDestinationCloudRunService converts a TriggerDestinationCloudRunService object from its proto representation.
 func ProtoToEventarcBetaTriggerDestinationCloudRunService(p *betapb.EventarcBetaTriggerDestinationCloudRunService) *beta.TriggerDestinationCloudRunService {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.TriggerDestinationCloudRunService{
-		Service: dcl.StringOrNil(p.Service),
-		Path:    dcl.StringOrNil(p.Path),
-		Region:  dcl.StringOrNil(p.Region),
+		Service: dcl.StringOrNil(p.GetService()),
+		Path:    dcl.StringOrNil(p.GetPath()),
+		Region:  dcl.StringOrNil(p.GetRegion()),
 	}
 	return obj
 }
 
-// ProtoToTriggerTransport converts a TriggerTransport resource from its proto representation.
+// ProtoToTriggerTransport converts a TriggerTransport object from its proto representation.
 func ProtoToEventarcBetaTriggerTransport(p *betapb.EventarcBetaTriggerTransport) *beta.TriggerTransport {
 	if p == nil {
 		return nil
@@ -73,14 +73,14 @@ func ProtoToEventarcBetaTriggerTransport(p *betapb.EventarcBetaTriggerTransport)
 	return obj
 }
 
-// ProtoToTriggerTransportPubsub converts a TriggerTransportPubsub resource from its proto representation.
+// ProtoToTriggerTransportPubsub converts a TriggerTransportPubsub object from its proto representation.
 func ProtoToEventarcBetaTriggerTransportPubsub(p *betapb.EventarcBetaTriggerTransportPubsub) *beta.TriggerTransportPubsub {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.TriggerTransportPubsub{
-		Topic:        dcl.StringOrNil(p.Topic),
-		Subscription: dcl.StringOrNil(p.Subscription),
+		Topic:        dcl.StringOrNil(p.GetTopic()),
+		Subscription: dcl.StringOrNil(p.GetSubscription()),
 	}
 	return obj
 }
@@ -88,16 +88,16 @@ func ProtoToEventarcBetaTriggerTransportPubsub(p *betapb.EventarcBetaTriggerTran
 // ProtoToTrigger converts a Trigger resource from its proto representation.
 func ProtoToTrigger(p *betapb.EventarcBetaTrigger) *beta.Trigger {
 	obj := &beta.Trigger{
-		Name:           dcl.StringOrNil(p.Name),
-		Uid:            dcl.StringOrNil(p.Uid),
+		Name:           dcl.StringOrNil(p.GetName()),
+		Uid:            dcl.StringOrNil(p.GetUid()),
 		CreateTime:     dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:     dcl.StringOrNil(p.GetUpdateTime()),
-		ServiceAccount: dcl.StringOrNil(p.ServiceAccount),
+		ServiceAccount: dcl.StringOrNil(p.GetServiceAccount()),
 		Destination:    ProtoToEventarcBetaTriggerDestination(p.GetDestination()),
 		Transport:      ProtoToEventarcBetaTriggerTransport(p.GetTransport()),
-		Etag:           dcl.StringOrNil(p.Etag),
-		Project:        dcl.StringOrNil(p.Project),
-		Location:       dcl.StringOrNil(p.Location),
+		Etag:           dcl.StringOrNil(p.GetEtag()),
+		Project:        dcl.StringOrNil(p.GetProject()),
+		Location:       dcl.StringOrNil(p.GetLocation()),
 	}
 	for _, r := range p.GetMatchingCriteria() {
 		obj.MatchingCriteria = append(obj.MatchingCriteria, *ProtoToEventarcBetaTriggerMatchingCriteria(r))
@@ -105,88 +105,89 @@ func ProtoToTrigger(p *betapb.EventarcBetaTrigger) *beta.Trigger {
 	return obj
 }
 
-// TriggerMatchingCriteriaToProto converts a TriggerMatchingCriteria resource to its proto representation.
+// TriggerMatchingCriteriaToProto converts a TriggerMatchingCriteria object to its proto representation.
 func EventarcBetaTriggerMatchingCriteriaToProto(o *beta.TriggerMatchingCriteria) *betapb.EventarcBetaTriggerMatchingCriteria {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.EventarcBetaTriggerMatchingCriteria{
-		Attribute: dcl.ValueOrEmptyString(o.Attribute),
-		Value:     dcl.ValueOrEmptyString(o.Value),
-	}
+	p := &betapb.EventarcBetaTriggerMatchingCriteria{}
+	p.SetAttribute(dcl.ValueOrEmptyString(o.Attribute))
+	p.SetValue(dcl.ValueOrEmptyString(o.Value))
 	return p
 }
 
-// TriggerDestinationToProto converts a TriggerDestination resource to its proto representation.
+// TriggerDestinationToProto converts a TriggerDestination object to its proto representation.
 func EventarcBetaTriggerDestinationToProto(o *beta.TriggerDestination) *betapb.EventarcBetaTriggerDestination {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.EventarcBetaTriggerDestination{
-		CloudRunService: EventarcBetaTriggerDestinationCloudRunServiceToProto(o.CloudRunService),
-		CloudFunction:   dcl.ValueOrEmptyString(o.CloudFunction),
-	}
+	p := &betapb.EventarcBetaTriggerDestination{}
+	p.SetCloudRunService(EventarcBetaTriggerDestinationCloudRunServiceToProto(o.CloudRunService))
+	p.SetCloudFunction(dcl.ValueOrEmptyString(o.CloudFunction))
 	return p
 }
 
-// TriggerDestinationCloudRunServiceToProto converts a TriggerDestinationCloudRunService resource to its proto representation.
+// TriggerDestinationCloudRunServiceToProto converts a TriggerDestinationCloudRunService object to its proto representation.
 func EventarcBetaTriggerDestinationCloudRunServiceToProto(o *beta.TriggerDestinationCloudRunService) *betapb.EventarcBetaTriggerDestinationCloudRunService {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.EventarcBetaTriggerDestinationCloudRunService{
-		Service: dcl.ValueOrEmptyString(o.Service),
-		Path:    dcl.ValueOrEmptyString(o.Path),
-		Region:  dcl.ValueOrEmptyString(o.Region),
-	}
+	p := &betapb.EventarcBetaTriggerDestinationCloudRunService{}
+	p.SetService(dcl.ValueOrEmptyString(o.Service))
+	p.SetPath(dcl.ValueOrEmptyString(o.Path))
+	p.SetRegion(dcl.ValueOrEmptyString(o.Region))
 	return p
 }
 
-// TriggerTransportToProto converts a TriggerTransport resource to its proto representation.
+// TriggerTransportToProto converts a TriggerTransport object to its proto representation.
 func EventarcBetaTriggerTransportToProto(o *beta.TriggerTransport) *betapb.EventarcBetaTriggerTransport {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.EventarcBetaTriggerTransport{
-		Pubsub: EventarcBetaTriggerTransportPubsubToProto(o.Pubsub),
-	}
+	p := &betapb.EventarcBetaTriggerTransport{}
+	p.SetPubsub(EventarcBetaTriggerTransportPubsubToProto(o.Pubsub))
 	return p
 }
 
-// TriggerTransportPubsubToProto converts a TriggerTransportPubsub resource to its proto representation.
+// TriggerTransportPubsubToProto converts a TriggerTransportPubsub object to its proto representation.
 func EventarcBetaTriggerTransportPubsubToProto(o *beta.TriggerTransportPubsub) *betapb.EventarcBetaTriggerTransportPubsub {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.EventarcBetaTriggerTransportPubsub{
-		Topic:        dcl.ValueOrEmptyString(o.Topic),
-		Subscription: dcl.ValueOrEmptyString(o.Subscription),
-	}
+	p := &betapb.EventarcBetaTriggerTransportPubsub{}
+	p.SetTopic(dcl.ValueOrEmptyString(o.Topic))
+	p.SetSubscription(dcl.ValueOrEmptyString(o.Subscription))
 	return p
 }
 
 // TriggerToProto converts a Trigger resource to its proto representation.
 func TriggerToProto(resource *beta.Trigger) *betapb.EventarcBetaTrigger {
-	p := &betapb.EventarcBetaTrigger{
-		Name:           dcl.ValueOrEmptyString(resource.Name),
-		Uid:            dcl.ValueOrEmptyString(resource.Uid),
-		CreateTime:     dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:     dcl.ValueOrEmptyString(resource.UpdateTime),
-		ServiceAccount: dcl.ValueOrEmptyString(resource.ServiceAccount),
-		Destination:    EventarcBetaTriggerDestinationToProto(resource.Destination),
-		Transport:      EventarcBetaTriggerTransportToProto(resource.Transport),
-		Etag:           dcl.ValueOrEmptyString(resource.Etag),
-		Project:        dcl.ValueOrEmptyString(resource.Project),
-		Location:       dcl.ValueOrEmptyString(resource.Location),
+	p := &betapb.EventarcBetaTrigger{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetUid(dcl.ValueOrEmptyString(resource.Uid))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetServiceAccount(dcl.ValueOrEmptyString(resource.ServiceAccount))
+	p.SetDestination(EventarcBetaTriggerDestinationToProto(resource.Destination))
+	p.SetTransport(EventarcBetaTriggerTransportToProto(resource.Transport))
+	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	sMatchingCriteria := make([]*betapb.EventarcBetaTriggerMatchingCriteria, len(resource.MatchingCriteria))
+	for i, r := range resource.MatchingCriteria {
+		sMatchingCriteria[i] = EventarcBetaTriggerMatchingCriteriaToProto(&r)
 	}
-	for _, r := range resource.MatchingCriteria {
-		p.MatchingCriteria = append(p.MatchingCriteria, EventarcBetaTriggerMatchingCriteriaToProto(&r))
+	p.SetMatchingCriteria(sMatchingCriteria)
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
+	p.SetLabels(mLabels)
 
 	return p
 }
 
-// ApplyTrigger handles the gRPC request by passing it to the underlying Trigger Apply() method.
+// applyTrigger handles the gRPC request by passing it to the underlying Trigger Apply() method.
 func (s *TriggerServer) applyTrigger(ctx context.Context, c *beta.Client, request *betapb.ApplyEventarcBetaTriggerRequest) (*betapb.EventarcBetaTrigger, error) {
 	p := ProtoToTrigger(request.GetResource())
 	res, err := c.ApplyTrigger(ctx, p)
@@ -197,9 +198,9 @@ func (s *TriggerServer) applyTrigger(ctx context.Context, c *beta.Client, reques
 	return r, nil
 }
 
-// ApplyTrigger handles the gRPC request by passing it to the underlying Trigger Apply() method.
+// applyEventarcBetaTrigger handles the gRPC request by passing it to the underlying Trigger Apply() method.
 func (s *TriggerServer) ApplyEventarcBetaTrigger(ctx context.Context, request *betapb.ApplyEventarcBetaTriggerRequest) (*betapb.EventarcBetaTrigger, error) {
-	cl, err := createConfigTrigger(ctx, request.ServiceAccountFile)
+	cl, err := createConfigTrigger(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -209,7 +210,7 @@ func (s *TriggerServer) ApplyEventarcBetaTrigger(ctx context.Context, request *b
 // DeleteTrigger handles the gRPC request by passing it to the underlying Trigger Delete() method.
 func (s *TriggerServer) DeleteEventarcBetaTrigger(ctx context.Context, request *betapb.DeleteEventarcBetaTriggerRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigTrigger(ctx, request.ServiceAccountFile)
+	cl, err := createConfigTrigger(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -219,12 +220,12 @@ func (s *TriggerServer) DeleteEventarcBetaTrigger(ctx context.Context, request *
 
 // ListEventarcBetaTrigger handles the gRPC request by passing it to the underlying TriggerList() method.
 func (s *TriggerServer) ListEventarcBetaTrigger(ctx context.Context, request *betapb.ListEventarcBetaTriggerRequest) (*betapb.ListEventarcBetaTriggerResponse, error) {
-	cl, err := createConfigTrigger(ctx, request.ServiceAccountFile)
+	cl, err := createConfigTrigger(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListTrigger(ctx, request.Project, request.Location)
+	resources, err := cl.ListTrigger(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -233,7 +234,9 @@ func (s *TriggerServer) ListEventarcBetaTrigger(ctx context.Context, request *be
 		rp := TriggerToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListEventarcBetaTriggerResponse{Items: protos}, nil
+	p := &betapb.ListEventarcBetaTriggerResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigTrigger(ctx context.Context, service_account_file string) (*beta.Client, error) {

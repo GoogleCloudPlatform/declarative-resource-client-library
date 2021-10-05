@@ -49,7 +49,7 @@ func ProtoToIdentitytoolkitBetaTenantMfaConfigEnabledProvidersEnum(e betapb.Iden
 	return nil
 }
 
-// ProtoToTenantMfaConfig converts a TenantMfaConfig resource from its proto representation.
+// ProtoToTenantMfaConfig converts a TenantMfaConfig object from its proto representation.
 func ProtoToIdentitytoolkitBetaTenantMfaConfig(p *betapb.IdentitytoolkitBetaTenantMfaConfig) *beta.TenantMfaConfig {
 	if p == nil {
 		return nil
@@ -66,14 +66,14 @@ func ProtoToIdentitytoolkitBetaTenantMfaConfig(p *betapb.IdentitytoolkitBetaTena
 // ProtoToTenant converts a Tenant resource from its proto representation.
 func ProtoToTenant(p *betapb.IdentitytoolkitBetaTenant) *beta.Tenant {
 	obj := &beta.Tenant{
-		Name:                  dcl.StringOrNil(p.Name),
-		DisplayName:           dcl.StringOrNil(p.DisplayName),
-		AllowPasswordSignup:   dcl.Bool(p.AllowPasswordSignup),
-		EnableEmailLinkSignin: dcl.Bool(p.EnableEmailLinkSignin),
-		DisableAuth:           dcl.Bool(p.DisableAuth),
-		EnableAnonymousUser:   dcl.Bool(p.EnableAnonymousUser),
+		Name:                  dcl.StringOrNil(p.GetName()),
+		DisplayName:           dcl.StringOrNil(p.GetDisplayName()),
+		AllowPasswordSignup:   dcl.Bool(p.GetAllowPasswordSignup()),
+		EnableEmailLinkSignin: dcl.Bool(p.GetEnableEmailLinkSignin()),
+		DisableAuth:           dcl.Bool(p.GetDisableAuth()),
+		EnableAnonymousUser:   dcl.Bool(p.GetEnableAnonymousUser()),
 		MfaConfig:             ProtoToIdentitytoolkitBetaTenantMfaConfig(p.GetMfaConfig()),
-		Project:               dcl.StringOrNil(p.Project),
+		Project:               dcl.StringOrNil(p.GetProject()),
 	}
 	return obj
 }
@@ -100,37 +100,42 @@ func IdentitytoolkitBetaTenantMfaConfigEnabledProvidersEnumToProto(e *beta.Tenan
 	return betapb.IdentitytoolkitBetaTenantMfaConfigEnabledProvidersEnum(0)
 }
 
-// TenantMfaConfigToProto converts a TenantMfaConfig resource to its proto representation.
+// TenantMfaConfigToProto converts a TenantMfaConfig object to its proto representation.
 func IdentitytoolkitBetaTenantMfaConfigToProto(o *beta.TenantMfaConfig) *betapb.IdentitytoolkitBetaTenantMfaConfig {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.IdentitytoolkitBetaTenantMfaConfig{
-		State: IdentitytoolkitBetaTenantMfaConfigStateEnumToProto(o.State),
+	p := &betapb.IdentitytoolkitBetaTenantMfaConfig{}
+	p.SetState(IdentitytoolkitBetaTenantMfaConfigStateEnumToProto(o.State))
+	sEnabledProviders := make([]betapb.IdentitytoolkitBetaTenantMfaConfigEnabledProvidersEnum, len(o.EnabledProviders))
+	for i, r := range o.EnabledProviders {
+		sEnabledProviders[i] = betapb.IdentitytoolkitBetaTenantMfaConfigEnabledProvidersEnum(betapb.IdentitytoolkitBetaTenantMfaConfigEnabledProvidersEnum_value[string(r)])
 	}
-	for _, r := range o.EnabledProviders {
-		p.EnabledProviders = append(p.EnabledProviders, betapb.IdentitytoolkitBetaTenantMfaConfigEnabledProvidersEnum(betapb.IdentitytoolkitBetaTenantMfaConfigEnabledProvidersEnum_value[string(r)]))
-	}
+	p.SetEnabledProviders(sEnabledProviders)
 	return p
 }
 
 // TenantToProto converts a Tenant resource to its proto representation.
 func TenantToProto(resource *beta.Tenant) *betapb.IdentitytoolkitBetaTenant {
-	p := &betapb.IdentitytoolkitBetaTenant{
-		Name:                  dcl.ValueOrEmptyString(resource.Name),
-		DisplayName:           dcl.ValueOrEmptyString(resource.DisplayName),
-		AllowPasswordSignup:   dcl.ValueOrEmptyBool(resource.AllowPasswordSignup),
-		EnableEmailLinkSignin: dcl.ValueOrEmptyBool(resource.EnableEmailLinkSignin),
-		DisableAuth:           dcl.ValueOrEmptyBool(resource.DisableAuth),
-		EnableAnonymousUser:   dcl.ValueOrEmptyBool(resource.EnableAnonymousUser),
-		MfaConfig:             IdentitytoolkitBetaTenantMfaConfigToProto(resource.MfaConfig),
-		Project:               dcl.ValueOrEmptyString(resource.Project),
+	p := &betapb.IdentitytoolkitBetaTenant{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetAllowPasswordSignup(dcl.ValueOrEmptyBool(resource.AllowPasswordSignup))
+	p.SetEnableEmailLinkSignin(dcl.ValueOrEmptyBool(resource.EnableEmailLinkSignin))
+	p.SetDisableAuth(dcl.ValueOrEmptyBool(resource.DisableAuth))
+	p.SetEnableAnonymousUser(dcl.ValueOrEmptyBool(resource.EnableAnonymousUser))
+	p.SetMfaConfig(IdentitytoolkitBetaTenantMfaConfigToProto(resource.MfaConfig))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	mTestPhoneNumbers := make(map[string]string, len(resource.TestPhoneNumbers))
+	for k, r := range resource.TestPhoneNumbers {
+		mTestPhoneNumbers[k] = r
 	}
+	p.SetTestPhoneNumbers(mTestPhoneNumbers)
 
 	return p
 }
 
-// ApplyTenant handles the gRPC request by passing it to the underlying Tenant Apply() method.
+// applyTenant handles the gRPC request by passing it to the underlying Tenant Apply() method.
 func (s *TenantServer) applyTenant(ctx context.Context, c *beta.Client, request *betapb.ApplyIdentitytoolkitBetaTenantRequest) (*betapb.IdentitytoolkitBetaTenant, error) {
 	p := ProtoToTenant(request.GetResource())
 	res, err := c.ApplyTenant(ctx, p)
@@ -141,9 +146,9 @@ func (s *TenantServer) applyTenant(ctx context.Context, c *beta.Client, request 
 	return r, nil
 }
 
-// ApplyTenant handles the gRPC request by passing it to the underlying Tenant Apply() method.
+// applyIdentitytoolkitBetaTenant handles the gRPC request by passing it to the underlying Tenant Apply() method.
 func (s *TenantServer) ApplyIdentitytoolkitBetaTenant(ctx context.Context, request *betapb.ApplyIdentitytoolkitBetaTenantRequest) (*betapb.IdentitytoolkitBetaTenant, error) {
-	cl, err := createConfigTenant(ctx, request.ServiceAccountFile)
+	cl, err := createConfigTenant(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -153,7 +158,7 @@ func (s *TenantServer) ApplyIdentitytoolkitBetaTenant(ctx context.Context, reque
 // DeleteTenant handles the gRPC request by passing it to the underlying Tenant Delete() method.
 func (s *TenantServer) DeleteIdentitytoolkitBetaTenant(ctx context.Context, request *betapb.DeleteIdentitytoolkitBetaTenantRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigTenant(ctx, request.ServiceAccountFile)
+	cl, err := createConfigTenant(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -163,12 +168,12 @@ func (s *TenantServer) DeleteIdentitytoolkitBetaTenant(ctx context.Context, requ
 
 // ListIdentitytoolkitBetaTenant handles the gRPC request by passing it to the underlying TenantList() method.
 func (s *TenantServer) ListIdentitytoolkitBetaTenant(ctx context.Context, request *betapb.ListIdentitytoolkitBetaTenantRequest) (*betapb.ListIdentitytoolkitBetaTenantResponse, error) {
-	cl, err := createConfigTenant(ctx, request.ServiceAccountFile)
+	cl, err := createConfigTenant(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListTenant(ctx, request.Project)
+	resources, err := cl.ListTenant(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -177,7 +182,9 @@ func (s *TenantServer) ListIdentitytoolkitBetaTenant(ctx context.Context, reques
 		rp := TenantToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListIdentitytoolkitBetaTenantResponse{Items: protos}, nil
+	p := &betapb.ListIdentitytoolkitBetaTenantResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigTenant(ctx context.Context, service_account_file string) (*beta.Client, error) {

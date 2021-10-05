@@ -37,14 +37,14 @@ func ProtoToBinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeysPkixPu
 	return nil
 }
 
-// ProtoToAttestorUserOwnedDrydockNote converts a AttestorUserOwnedDrydockNote resource from its proto representation.
+// ProtoToAttestorUserOwnedDrydockNote converts a AttestorUserOwnedDrydockNote object from its proto representation.
 func ProtoToBinaryauthorizationAlphaAttestorUserOwnedDrydockNote(p *alphapb.BinaryauthorizationAlphaAttestorUserOwnedDrydockNote) *alpha.AttestorUserOwnedDrydockNote {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.AttestorUserOwnedDrydockNote{
-		NoteReference:                 dcl.StringOrNil(p.NoteReference),
-		DelegationServiceAccountEmail: dcl.StringOrNil(p.DelegationServiceAccountEmail),
+		NoteReference:                 dcl.StringOrNil(p.GetNoteReference()),
+		DelegationServiceAccountEmail: dcl.StringOrNil(p.GetDelegationServiceAccountEmail()),
 	}
 	for _, r := range p.GetPublicKeys() {
 		obj.PublicKeys = append(obj.PublicKeys, *ProtoToBinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeys(r))
@@ -52,27 +52,27 @@ func ProtoToBinaryauthorizationAlphaAttestorUserOwnedDrydockNote(p *alphapb.Bina
 	return obj
 }
 
-// ProtoToAttestorUserOwnedDrydockNotePublicKeys converts a AttestorUserOwnedDrydockNotePublicKeys resource from its proto representation.
+// ProtoToAttestorUserOwnedDrydockNotePublicKeys converts a AttestorUserOwnedDrydockNotePublicKeys object from its proto representation.
 func ProtoToBinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeys(p *alphapb.BinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeys) *alpha.AttestorUserOwnedDrydockNotePublicKeys {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.AttestorUserOwnedDrydockNotePublicKeys{
-		Comment:                  dcl.StringOrNil(p.Comment),
-		Id:                       dcl.StringOrNil(p.Id),
-		AsciiArmoredPgpPublicKey: dcl.StringOrNil(p.AsciiArmoredPgpPublicKey),
+		Comment:                  dcl.StringOrNil(p.GetComment()),
+		Id:                       dcl.StringOrNil(p.GetId()),
+		AsciiArmoredPgpPublicKey: dcl.StringOrNil(p.GetAsciiArmoredPgpPublicKey()),
 		PkixPublicKey:            ProtoToBinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(p.GetPkixPublicKey()),
 	}
 	return obj
 }
 
-// ProtoToAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey converts a AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey resource from its proto representation.
+// ProtoToAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey converts a AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey object from its proto representation.
 func ProtoToBinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(p *alphapb.BinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) *alpha.AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey{
-		PublicKeyPem:       dcl.StringOrNil(p.PublicKeyPem),
+		PublicKeyPem:       dcl.StringOrNil(p.GetPublicKeyPem()),
 		SignatureAlgorithm: ProtoToBinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(p.GetSignatureAlgorithm()),
 	}
 	return obj
@@ -81,11 +81,11 @@ func ProtoToBinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeysPkixPu
 // ProtoToAttestor converts a Attestor resource from its proto representation.
 func ProtoToAttestor(p *alphapb.BinaryauthorizationAlphaAttestor) *alpha.Attestor {
 	obj := &alpha.Attestor{
-		Name:                 dcl.StringOrNil(p.Name),
-		Description:          dcl.StringOrNil(p.Description),
+		Name:                 dcl.StringOrNil(p.GetName()),
+		Description:          dcl.StringOrNil(p.GetDescription()),
 		UserOwnedDrydockNote: ProtoToBinaryauthorizationAlphaAttestorUserOwnedDrydockNote(p.GetUserOwnedDrydockNote()),
 		UpdateTime:           dcl.StringOrNil(p.GetUpdateTime()),
-		Project:              dcl.StringOrNil(p.Project),
+		Project:              dcl.StringOrNil(p.GetProject()),
 	}
 	return obj
 }
@@ -101,61 +101,59 @@ func BinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey
 	return alphapb.BinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(0)
 }
 
-// AttestorUserOwnedDrydockNoteToProto converts a AttestorUserOwnedDrydockNote resource to its proto representation.
+// AttestorUserOwnedDrydockNoteToProto converts a AttestorUserOwnedDrydockNote object to its proto representation.
 func BinaryauthorizationAlphaAttestorUserOwnedDrydockNoteToProto(o *alpha.AttestorUserOwnedDrydockNote) *alphapb.BinaryauthorizationAlphaAttestorUserOwnedDrydockNote {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.BinaryauthorizationAlphaAttestorUserOwnedDrydockNote{
-		NoteReference:                 dcl.ValueOrEmptyString(o.NoteReference),
-		DelegationServiceAccountEmail: dcl.ValueOrEmptyString(o.DelegationServiceAccountEmail),
+	p := &alphapb.BinaryauthorizationAlphaAttestorUserOwnedDrydockNote{}
+	p.SetNoteReference(dcl.ValueOrEmptyString(o.NoteReference))
+	p.SetDelegationServiceAccountEmail(dcl.ValueOrEmptyString(o.DelegationServiceAccountEmail))
+	sPublicKeys := make([]*alphapb.BinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeys, len(o.PublicKeys))
+	for i, r := range o.PublicKeys {
+		sPublicKeys[i] = BinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeysToProto(&r)
 	}
-	for _, r := range o.PublicKeys {
-		p.PublicKeys = append(p.PublicKeys, BinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeysToProto(&r))
-	}
+	p.SetPublicKeys(sPublicKeys)
 	return p
 }
 
-// AttestorUserOwnedDrydockNotePublicKeysToProto converts a AttestorUserOwnedDrydockNotePublicKeys resource to its proto representation.
+// AttestorUserOwnedDrydockNotePublicKeysToProto converts a AttestorUserOwnedDrydockNotePublicKeys object to its proto representation.
 func BinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeysToProto(o *alpha.AttestorUserOwnedDrydockNotePublicKeys) *alphapb.BinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeys {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.BinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeys{
-		Comment:                  dcl.ValueOrEmptyString(o.Comment),
-		Id:                       dcl.ValueOrEmptyString(o.Id),
-		AsciiArmoredPgpPublicKey: dcl.ValueOrEmptyString(o.AsciiArmoredPgpPublicKey),
-		PkixPublicKey:            BinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyToProto(o.PkixPublicKey),
-	}
+	p := &alphapb.BinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeys{}
+	p.SetComment(dcl.ValueOrEmptyString(o.Comment))
+	p.SetId(dcl.ValueOrEmptyString(o.Id))
+	p.SetAsciiArmoredPgpPublicKey(dcl.ValueOrEmptyString(o.AsciiArmoredPgpPublicKey))
+	p.SetPkixPublicKey(BinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyToProto(o.PkixPublicKey))
 	return p
 }
 
-// AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyToProto converts a AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey resource to its proto representation.
+// AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyToProto converts a AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey object to its proto representation.
 func BinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyToProto(o *alpha.AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) *alphapb.BinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.BinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey{
-		PublicKeyPem:       dcl.ValueOrEmptyString(o.PublicKeyPem),
-		SignatureAlgorithm: BinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumToProto(o.SignatureAlgorithm),
-	}
+	p := &alphapb.BinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey{}
+	p.SetPublicKeyPem(dcl.ValueOrEmptyString(o.PublicKeyPem))
+	p.SetSignatureAlgorithm(BinaryauthorizationAlphaAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumToProto(o.SignatureAlgorithm))
 	return p
 }
 
 // AttestorToProto converts a Attestor resource to its proto representation.
 func AttestorToProto(resource *alpha.Attestor) *alphapb.BinaryauthorizationAlphaAttestor {
-	p := &alphapb.BinaryauthorizationAlphaAttestor{
-		Name:                 dcl.ValueOrEmptyString(resource.Name),
-		Description:          dcl.ValueOrEmptyString(resource.Description),
-		UserOwnedDrydockNote: BinaryauthorizationAlphaAttestorUserOwnedDrydockNoteToProto(resource.UserOwnedDrydockNote),
-		UpdateTime:           dcl.ValueOrEmptyString(resource.UpdateTime),
-		Project:              dcl.ValueOrEmptyString(resource.Project),
-	}
+	p := &alphapb.BinaryauthorizationAlphaAttestor{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetUserOwnedDrydockNote(BinaryauthorizationAlphaAttestorUserOwnedDrydockNoteToProto(resource.UserOwnedDrydockNote))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 
 	return p
 }
 
-// ApplyAttestor handles the gRPC request by passing it to the underlying Attestor Apply() method.
+// applyAttestor handles the gRPC request by passing it to the underlying Attestor Apply() method.
 func (s *AttestorServer) applyAttestor(ctx context.Context, c *alpha.Client, request *alphapb.ApplyBinaryauthorizationAlphaAttestorRequest) (*alphapb.BinaryauthorizationAlphaAttestor, error) {
 	p := ProtoToAttestor(request.GetResource())
 	res, err := c.ApplyAttestor(ctx, p)
@@ -166,9 +164,9 @@ func (s *AttestorServer) applyAttestor(ctx context.Context, c *alpha.Client, req
 	return r, nil
 }
 
-// ApplyAttestor handles the gRPC request by passing it to the underlying Attestor Apply() method.
+// applyBinaryauthorizationAlphaAttestor handles the gRPC request by passing it to the underlying Attestor Apply() method.
 func (s *AttestorServer) ApplyBinaryauthorizationAlphaAttestor(ctx context.Context, request *alphapb.ApplyBinaryauthorizationAlphaAttestorRequest) (*alphapb.BinaryauthorizationAlphaAttestor, error) {
-	cl, err := createConfigAttestor(ctx, request.ServiceAccountFile)
+	cl, err := createConfigAttestor(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -178,7 +176,7 @@ func (s *AttestorServer) ApplyBinaryauthorizationAlphaAttestor(ctx context.Conte
 // DeleteAttestor handles the gRPC request by passing it to the underlying Attestor Delete() method.
 func (s *AttestorServer) DeleteBinaryauthorizationAlphaAttestor(ctx context.Context, request *alphapb.DeleteBinaryauthorizationAlphaAttestorRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigAttestor(ctx, request.ServiceAccountFile)
+	cl, err := createConfigAttestor(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -188,12 +186,12 @@ func (s *AttestorServer) DeleteBinaryauthorizationAlphaAttestor(ctx context.Cont
 
 // ListBinaryauthorizationAlphaAttestor handles the gRPC request by passing it to the underlying AttestorList() method.
 func (s *AttestorServer) ListBinaryauthorizationAlphaAttestor(ctx context.Context, request *alphapb.ListBinaryauthorizationAlphaAttestorRequest) (*alphapb.ListBinaryauthorizationAlphaAttestorResponse, error) {
-	cl, err := createConfigAttestor(ctx, request.ServiceAccountFile)
+	cl, err := createConfigAttestor(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListAttestor(ctx, request.Project)
+	resources, err := cl.ListAttestor(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -202,7 +200,9 @@ func (s *AttestorServer) ListBinaryauthorizationAlphaAttestor(ctx context.Contex
 		rp := AttestorToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListBinaryauthorizationAlphaAttestorResponse{Items: protos}, nil
+	p := &alphapb.ListBinaryauthorizationAlphaAttestorResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigAttestor(ctx context.Context, service_account_file string) (*alpha.Client, error) {

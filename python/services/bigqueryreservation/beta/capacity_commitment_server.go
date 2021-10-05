@@ -61,14 +61,14 @@ func ProtoToBigqueryreservationBetaCapacityCommitmentRenewalPlanEnum(e betapb.Bi
 	return nil
 }
 
-// ProtoToCapacityCommitmentFailureStatus converts a CapacityCommitmentFailureStatus resource from its proto representation.
+// ProtoToCapacityCommitmentFailureStatus converts a CapacityCommitmentFailureStatus object from its proto representation.
 func ProtoToBigqueryreservationBetaCapacityCommitmentFailureStatus(p *betapb.BigqueryreservationBetaCapacityCommitmentFailureStatus) *beta.CapacityCommitmentFailureStatus {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CapacityCommitmentFailureStatus{
-		Code:    dcl.Int64OrNil(p.Code),
-		Message: dcl.StringOrNil(p.Message),
+		Code:    dcl.Int64OrNil(p.GetCode()),
+		Message: dcl.StringOrNil(p.GetMessage()),
 	}
 	for _, r := range p.GetDetails() {
 		obj.Details = append(obj.Details, *ProtoToBigqueryreservationBetaCapacityCommitmentFailureStatusDetails(r))
@@ -76,14 +76,14 @@ func ProtoToBigqueryreservationBetaCapacityCommitmentFailureStatus(p *betapb.Big
 	return obj
 }
 
-// ProtoToCapacityCommitmentFailureStatusDetails converts a CapacityCommitmentFailureStatusDetails resource from its proto representation.
+// ProtoToCapacityCommitmentFailureStatusDetails converts a CapacityCommitmentFailureStatusDetails object from its proto representation.
 func ProtoToBigqueryreservationBetaCapacityCommitmentFailureStatusDetails(p *betapb.BigqueryreservationBetaCapacityCommitmentFailureStatusDetails) *beta.CapacityCommitmentFailureStatusDetails {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.CapacityCommitmentFailureStatusDetails{
-		TypeUrl: dcl.StringOrNil(p.TypeUrl),
-		Value:   dcl.StringOrNil(p.Value),
+		TypeUrl: dcl.StringOrNil(p.GetTypeUrl()),
+		Value:   dcl.StringOrNil(p.GetValue()),
 	}
 	return obj
 }
@@ -91,16 +91,16 @@ func ProtoToBigqueryreservationBetaCapacityCommitmentFailureStatusDetails(p *bet
 // ProtoToCapacityCommitment converts a CapacityCommitment resource from its proto representation.
 func ProtoToCapacityCommitment(p *betapb.BigqueryreservationBetaCapacityCommitment) *beta.CapacityCommitment {
 	obj := &beta.CapacityCommitment{
-		Name:                dcl.StringOrNil(p.Name),
-		SlotCount:           dcl.Int64OrNil(p.SlotCount),
+		Name:                dcl.StringOrNil(p.GetName()),
+		SlotCount:           dcl.Int64OrNil(p.GetSlotCount()),
 		Plan:                ProtoToBigqueryreservationBetaCapacityCommitmentPlanEnum(p.GetPlan()),
 		State:               ProtoToBigqueryreservationBetaCapacityCommitmentStateEnum(p.GetState()),
 		CommitmentStartTime: dcl.StringOrNil(p.GetCommitmentStartTime()),
 		CommitmentEndTime:   dcl.StringOrNil(p.GetCommitmentEndTime()),
 		FailureStatus:       ProtoToBigqueryreservationBetaCapacityCommitmentFailureStatus(p.GetFailureStatus()),
 		RenewalPlan:         ProtoToBigqueryreservationBetaCapacityCommitmentRenewalPlanEnum(p.GetRenewalPlan()),
-		Project:             dcl.StringOrNil(p.Project),
-		Location:            dcl.StringOrNil(p.Location),
+		Project:             dcl.StringOrNil(p.GetProject()),
+		Location:            dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -138,52 +138,51 @@ func BigqueryreservationBetaCapacityCommitmentRenewalPlanEnumToProto(e *beta.Cap
 	return betapb.BigqueryreservationBetaCapacityCommitmentRenewalPlanEnum(0)
 }
 
-// CapacityCommitmentFailureStatusToProto converts a CapacityCommitmentFailureStatus resource to its proto representation.
+// CapacityCommitmentFailureStatusToProto converts a CapacityCommitmentFailureStatus object to its proto representation.
 func BigqueryreservationBetaCapacityCommitmentFailureStatusToProto(o *beta.CapacityCommitmentFailureStatus) *betapb.BigqueryreservationBetaCapacityCommitmentFailureStatus {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.BigqueryreservationBetaCapacityCommitmentFailureStatus{
-		Code:    dcl.ValueOrEmptyInt64(o.Code),
-		Message: dcl.ValueOrEmptyString(o.Message),
+	p := &betapb.BigqueryreservationBetaCapacityCommitmentFailureStatus{}
+	p.SetCode(dcl.ValueOrEmptyInt64(o.Code))
+	p.SetMessage(dcl.ValueOrEmptyString(o.Message))
+	sDetails := make([]*betapb.BigqueryreservationBetaCapacityCommitmentFailureStatusDetails, len(o.Details))
+	for i, r := range o.Details {
+		sDetails[i] = BigqueryreservationBetaCapacityCommitmentFailureStatusDetailsToProto(&r)
 	}
-	for _, r := range o.Details {
-		p.Details = append(p.Details, BigqueryreservationBetaCapacityCommitmentFailureStatusDetailsToProto(&r))
-	}
+	p.SetDetails(sDetails)
 	return p
 }
 
-// CapacityCommitmentFailureStatusDetailsToProto converts a CapacityCommitmentFailureStatusDetails resource to its proto representation.
+// CapacityCommitmentFailureStatusDetailsToProto converts a CapacityCommitmentFailureStatusDetails object to its proto representation.
 func BigqueryreservationBetaCapacityCommitmentFailureStatusDetailsToProto(o *beta.CapacityCommitmentFailureStatusDetails) *betapb.BigqueryreservationBetaCapacityCommitmentFailureStatusDetails {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.BigqueryreservationBetaCapacityCommitmentFailureStatusDetails{
-		TypeUrl: dcl.ValueOrEmptyString(o.TypeUrl),
-		Value:   dcl.ValueOrEmptyString(o.Value),
-	}
+	p := &betapb.BigqueryreservationBetaCapacityCommitmentFailureStatusDetails{}
+	p.SetTypeUrl(dcl.ValueOrEmptyString(o.TypeUrl))
+	p.SetValue(dcl.ValueOrEmptyString(o.Value))
 	return p
 }
 
 // CapacityCommitmentToProto converts a CapacityCommitment resource to its proto representation.
 func CapacityCommitmentToProto(resource *beta.CapacityCommitment) *betapb.BigqueryreservationBetaCapacityCommitment {
-	p := &betapb.BigqueryreservationBetaCapacityCommitment{
-		Name:                dcl.ValueOrEmptyString(resource.Name),
-		SlotCount:           dcl.ValueOrEmptyInt64(resource.SlotCount),
-		Plan:                BigqueryreservationBetaCapacityCommitmentPlanEnumToProto(resource.Plan),
-		State:               BigqueryreservationBetaCapacityCommitmentStateEnumToProto(resource.State),
-		CommitmentStartTime: dcl.ValueOrEmptyString(resource.CommitmentStartTime),
-		CommitmentEndTime:   dcl.ValueOrEmptyString(resource.CommitmentEndTime),
-		FailureStatus:       BigqueryreservationBetaCapacityCommitmentFailureStatusToProto(resource.FailureStatus),
-		RenewalPlan:         BigqueryreservationBetaCapacityCommitmentRenewalPlanEnumToProto(resource.RenewalPlan),
-		Project:             dcl.ValueOrEmptyString(resource.Project),
-		Location:            dcl.ValueOrEmptyString(resource.Location),
-	}
+	p := &betapb.BigqueryreservationBetaCapacityCommitment{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetSlotCount(dcl.ValueOrEmptyInt64(resource.SlotCount))
+	p.SetPlan(BigqueryreservationBetaCapacityCommitmentPlanEnumToProto(resource.Plan))
+	p.SetState(BigqueryreservationBetaCapacityCommitmentStateEnumToProto(resource.State))
+	p.SetCommitmentStartTime(dcl.ValueOrEmptyString(resource.CommitmentStartTime))
+	p.SetCommitmentEndTime(dcl.ValueOrEmptyString(resource.CommitmentEndTime))
+	p.SetFailureStatus(BigqueryreservationBetaCapacityCommitmentFailureStatusToProto(resource.FailureStatus))
+	p.SetRenewalPlan(BigqueryreservationBetaCapacityCommitmentRenewalPlanEnumToProto(resource.RenewalPlan))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 
 	return p
 }
 
-// ApplyCapacityCommitment handles the gRPC request by passing it to the underlying CapacityCommitment Apply() method.
+// applyCapacityCommitment handles the gRPC request by passing it to the underlying CapacityCommitment Apply() method.
 func (s *CapacityCommitmentServer) applyCapacityCommitment(ctx context.Context, c *beta.Client, request *betapb.ApplyBigqueryreservationBetaCapacityCommitmentRequest) (*betapb.BigqueryreservationBetaCapacityCommitment, error) {
 	p := ProtoToCapacityCommitment(request.GetResource())
 	res, err := c.ApplyCapacityCommitment(ctx, p)
@@ -194,9 +193,9 @@ func (s *CapacityCommitmentServer) applyCapacityCommitment(ctx context.Context, 
 	return r, nil
 }
 
-// ApplyCapacityCommitment handles the gRPC request by passing it to the underlying CapacityCommitment Apply() method.
+// applyBigqueryreservationBetaCapacityCommitment handles the gRPC request by passing it to the underlying CapacityCommitment Apply() method.
 func (s *CapacityCommitmentServer) ApplyBigqueryreservationBetaCapacityCommitment(ctx context.Context, request *betapb.ApplyBigqueryreservationBetaCapacityCommitmentRequest) (*betapb.BigqueryreservationBetaCapacityCommitment, error) {
-	cl, err := createConfigCapacityCommitment(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCapacityCommitment(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -206,7 +205,7 @@ func (s *CapacityCommitmentServer) ApplyBigqueryreservationBetaCapacityCommitmen
 // DeleteCapacityCommitment handles the gRPC request by passing it to the underlying CapacityCommitment Delete() method.
 func (s *CapacityCommitmentServer) DeleteBigqueryreservationBetaCapacityCommitment(ctx context.Context, request *betapb.DeleteBigqueryreservationBetaCapacityCommitmentRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigCapacityCommitment(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCapacityCommitment(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -216,12 +215,12 @@ func (s *CapacityCommitmentServer) DeleteBigqueryreservationBetaCapacityCommitme
 
 // ListBigqueryreservationBetaCapacityCommitment handles the gRPC request by passing it to the underlying CapacityCommitmentList() method.
 func (s *CapacityCommitmentServer) ListBigqueryreservationBetaCapacityCommitment(ctx context.Context, request *betapb.ListBigqueryreservationBetaCapacityCommitmentRequest) (*betapb.ListBigqueryreservationBetaCapacityCommitmentResponse, error) {
-	cl, err := createConfigCapacityCommitment(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCapacityCommitment(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListCapacityCommitment(ctx, request.Project, request.Location)
+	resources, err := cl.ListCapacityCommitment(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -230,7 +229,9 @@ func (s *CapacityCommitmentServer) ListBigqueryreservationBetaCapacityCommitment
 		rp := CapacityCommitmentToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListBigqueryreservationBetaCapacityCommitmentResponse{Items: protos}, nil
+	p := &betapb.ListBigqueryreservationBetaCapacityCommitmentResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigCapacityCommitment(ctx context.Context, service_account_file string) (*beta.Client, error) {

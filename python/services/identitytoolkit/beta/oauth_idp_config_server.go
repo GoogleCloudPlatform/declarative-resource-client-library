@@ -25,15 +25,15 @@ import (
 // Server implements the gRPC interface for OAuthIdpConfig.
 type OAuthIdpConfigServer struct{}
 
-// ProtoToOAuthIdpConfigResponseType converts a OAuthIdpConfigResponseType resource from its proto representation.
+// ProtoToOAuthIdpConfigResponseType converts a OAuthIdpConfigResponseType object from its proto representation.
 func ProtoToIdentitytoolkitBetaOAuthIdpConfigResponseType(p *betapb.IdentitytoolkitBetaOAuthIdpConfigResponseType) *beta.OAuthIdpConfigResponseType {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.OAuthIdpConfigResponseType{
-		IdToken: dcl.Bool(p.IdToken),
-		Code:    dcl.Bool(p.Code),
-		Token:   dcl.Bool(p.Token),
+		IdToken: dcl.Bool(p.GetIdToken()),
+		Code:    dcl.Bool(p.GetCode()),
+		Token:   dcl.Bool(p.GetToken()),
 	}
 	return obj
 }
@@ -41,48 +41,46 @@ func ProtoToIdentitytoolkitBetaOAuthIdpConfigResponseType(p *betapb.Identitytool
 // ProtoToOAuthIdpConfig converts a OAuthIdpConfig resource from its proto representation.
 func ProtoToOAuthIdpConfig(p *betapb.IdentitytoolkitBetaOAuthIdpConfig) *beta.OAuthIdpConfig {
 	obj := &beta.OAuthIdpConfig{
-		Name:         dcl.StringOrNil(p.Name),
-		ClientId:     dcl.StringOrNil(p.ClientId),
-		Issuer:       dcl.StringOrNil(p.Issuer),
-		DisplayName:  dcl.StringOrNil(p.DisplayName),
-		Enabled:      dcl.Bool(p.Enabled),
-		ClientSecret: dcl.StringOrNil(p.ClientSecret),
+		Name:         dcl.StringOrNil(p.GetName()),
+		ClientId:     dcl.StringOrNil(p.GetClientId()),
+		Issuer:       dcl.StringOrNil(p.GetIssuer()),
+		DisplayName:  dcl.StringOrNil(p.GetDisplayName()),
+		Enabled:      dcl.Bool(p.GetEnabled()),
+		ClientSecret: dcl.StringOrNil(p.GetClientSecret()),
 		ResponseType: ProtoToIdentitytoolkitBetaOAuthIdpConfigResponseType(p.GetResponseType()),
-		Project:      dcl.StringOrNil(p.Project),
+		Project:      dcl.StringOrNil(p.GetProject()),
 	}
 	return obj
 }
 
-// OAuthIdpConfigResponseTypeToProto converts a OAuthIdpConfigResponseType resource to its proto representation.
+// OAuthIdpConfigResponseTypeToProto converts a OAuthIdpConfigResponseType object to its proto representation.
 func IdentitytoolkitBetaOAuthIdpConfigResponseTypeToProto(o *beta.OAuthIdpConfigResponseType) *betapb.IdentitytoolkitBetaOAuthIdpConfigResponseType {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.IdentitytoolkitBetaOAuthIdpConfigResponseType{
-		IdToken: dcl.ValueOrEmptyBool(o.IdToken),
-		Code:    dcl.ValueOrEmptyBool(o.Code),
-		Token:   dcl.ValueOrEmptyBool(o.Token),
-	}
+	p := &betapb.IdentitytoolkitBetaOAuthIdpConfigResponseType{}
+	p.SetIdToken(dcl.ValueOrEmptyBool(o.IdToken))
+	p.SetCode(dcl.ValueOrEmptyBool(o.Code))
+	p.SetToken(dcl.ValueOrEmptyBool(o.Token))
 	return p
 }
 
 // OAuthIdpConfigToProto converts a OAuthIdpConfig resource to its proto representation.
 func OAuthIdpConfigToProto(resource *beta.OAuthIdpConfig) *betapb.IdentitytoolkitBetaOAuthIdpConfig {
-	p := &betapb.IdentitytoolkitBetaOAuthIdpConfig{
-		Name:         dcl.ValueOrEmptyString(resource.Name),
-		ClientId:     dcl.ValueOrEmptyString(resource.ClientId),
-		Issuer:       dcl.ValueOrEmptyString(resource.Issuer),
-		DisplayName:  dcl.ValueOrEmptyString(resource.DisplayName),
-		Enabled:      dcl.ValueOrEmptyBool(resource.Enabled),
-		ClientSecret: dcl.ValueOrEmptyString(resource.ClientSecret),
-		ResponseType: IdentitytoolkitBetaOAuthIdpConfigResponseTypeToProto(resource.ResponseType),
-		Project:      dcl.ValueOrEmptyString(resource.Project),
-	}
+	p := &betapb.IdentitytoolkitBetaOAuthIdpConfig{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetClientId(dcl.ValueOrEmptyString(resource.ClientId))
+	p.SetIssuer(dcl.ValueOrEmptyString(resource.Issuer))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetEnabled(dcl.ValueOrEmptyBool(resource.Enabled))
+	p.SetClientSecret(dcl.ValueOrEmptyString(resource.ClientSecret))
+	p.SetResponseType(IdentitytoolkitBetaOAuthIdpConfigResponseTypeToProto(resource.ResponseType))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 
 	return p
 }
 
-// ApplyOAuthIdpConfig handles the gRPC request by passing it to the underlying OAuthIdpConfig Apply() method.
+// applyOAuthIdpConfig handles the gRPC request by passing it to the underlying OAuthIdpConfig Apply() method.
 func (s *OAuthIdpConfigServer) applyOAuthIdpConfig(ctx context.Context, c *beta.Client, request *betapb.ApplyIdentitytoolkitBetaOAuthIdpConfigRequest) (*betapb.IdentitytoolkitBetaOAuthIdpConfig, error) {
 	p := ProtoToOAuthIdpConfig(request.GetResource())
 	res, err := c.ApplyOAuthIdpConfig(ctx, p)
@@ -93,9 +91,9 @@ func (s *OAuthIdpConfigServer) applyOAuthIdpConfig(ctx context.Context, c *beta.
 	return r, nil
 }
 
-// ApplyOAuthIdpConfig handles the gRPC request by passing it to the underlying OAuthIdpConfig Apply() method.
+// applyIdentitytoolkitBetaOAuthIdpConfig handles the gRPC request by passing it to the underlying OAuthIdpConfig Apply() method.
 func (s *OAuthIdpConfigServer) ApplyIdentitytoolkitBetaOAuthIdpConfig(ctx context.Context, request *betapb.ApplyIdentitytoolkitBetaOAuthIdpConfigRequest) (*betapb.IdentitytoolkitBetaOAuthIdpConfig, error) {
-	cl, err := createConfigOAuthIdpConfig(ctx, request.ServiceAccountFile)
+	cl, err := createConfigOAuthIdpConfig(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +103,7 @@ func (s *OAuthIdpConfigServer) ApplyIdentitytoolkitBetaOAuthIdpConfig(ctx contex
 // DeleteOAuthIdpConfig handles the gRPC request by passing it to the underlying OAuthIdpConfig Delete() method.
 func (s *OAuthIdpConfigServer) DeleteIdentitytoolkitBetaOAuthIdpConfig(ctx context.Context, request *betapb.DeleteIdentitytoolkitBetaOAuthIdpConfigRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigOAuthIdpConfig(ctx, request.ServiceAccountFile)
+	cl, err := createConfigOAuthIdpConfig(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -115,12 +113,12 @@ func (s *OAuthIdpConfigServer) DeleteIdentitytoolkitBetaOAuthIdpConfig(ctx conte
 
 // ListIdentitytoolkitBetaOAuthIdpConfig handles the gRPC request by passing it to the underlying OAuthIdpConfigList() method.
 func (s *OAuthIdpConfigServer) ListIdentitytoolkitBetaOAuthIdpConfig(ctx context.Context, request *betapb.ListIdentitytoolkitBetaOAuthIdpConfigRequest) (*betapb.ListIdentitytoolkitBetaOAuthIdpConfigResponse, error) {
-	cl, err := createConfigOAuthIdpConfig(ctx, request.ServiceAccountFile)
+	cl, err := createConfigOAuthIdpConfig(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListOAuthIdpConfig(ctx, request.Project)
+	resources, err := cl.ListOAuthIdpConfig(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -129,7 +127,9 @@ func (s *OAuthIdpConfigServer) ListIdentitytoolkitBetaOAuthIdpConfig(ctx context
 		rp := OAuthIdpConfigToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListIdentitytoolkitBetaOAuthIdpConfigResponse{Items: protos}, nil
+	p := &betapb.ListIdentitytoolkitBetaOAuthIdpConfigResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigOAuthIdpConfig(ctx context.Context, service_account_file string) (*beta.Client, error) {

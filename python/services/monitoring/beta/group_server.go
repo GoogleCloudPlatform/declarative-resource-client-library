@@ -28,31 +28,30 @@ type GroupServer struct{}
 // ProtoToGroup converts a Group resource from its proto representation.
 func ProtoToGroup(p *betapb.MonitoringBetaGroup) *beta.Group {
 	obj := &beta.Group{
-		DisplayName: dcl.StringOrNil(p.DisplayName),
-		Filter:      dcl.StringOrNil(p.Filter),
-		IsCluster:   dcl.Bool(p.IsCluster),
-		Name:        dcl.StringOrNil(p.Name),
-		ParentName:  dcl.StringOrNil(p.ParentName),
-		Project:     dcl.StringOrNil(p.Project),
+		DisplayName: dcl.StringOrNil(p.GetDisplayName()),
+		Filter:      dcl.StringOrNil(p.GetFilter()),
+		IsCluster:   dcl.Bool(p.GetIsCluster()),
+		Name:        dcl.StringOrNil(p.GetName()),
+		ParentName:  dcl.StringOrNil(p.GetParentName()),
+		Project:     dcl.StringOrNil(p.GetProject()),
 	}
 	return obj
 }
 
 // GroupToProto converts a Group resource to its proto representation.
 func GroupToProto(resource *beta.Group) *betapb.MonitoringBetaGroup {
-	p := &betapb.MonitoringBetaGroup{
-		DisplayName: dcl.ValueOrEmptyString(resource.DisplayName),
-		Filter:      dcl.ValueOrEmptyString(resource.Filter),
-		IsCluster:   dcl.ValueOrEmptyBool(resource.IsCluster),
-		Name:        dcl.ValueOrEmptyString(resource.Name),
-		ParentName:  dcl.ValueOrEmptyString(resource.ParentName),
-		Project:     dcl.ValueOrEmptyString(resource.Project),
-	}
+	p := &betapb.MonitoringBetaGroup{}
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetFilter(dcl.ValueOrEmptyString(resource.Filter))
+	p.SetIsCluster(dcl.ValueOrEmptyBool(resource.IsCluster))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetParentName(dcl.ValueOrEmptyString(resource.ParentName))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 
 	return p
 }
 
-// ApplyGroup handles the gRPC request by passing it to the underlying Group Apply() method.
+// applyGroup handles the gRPC request by passing it to the underlying Group Apply() method.
 func (s *GroupServer) applyGroup(ctx context.Context, c *beta.Client, request *betapb.ApplyMonitoringBetaGroupRequest) (*betapb.MonitoringBetaGroup, error) {
 	p := ProtoToGroup(request.GetResource())
 	res, err := c.ApplyGroup(ctx, p)
@@ -63,9 +62,9 @@ func (s *GroupServer) applyGroup(ctx context.Context, c *beta.Client, request *b
 	return r, nil
 }
 
-// ApplyGroup handles the gRPC request by passing it to the underlying Group Apply() method.
+// applyMonitoringBetaGroup handles the gRPC request by passing it to the underlying Group Apply() method.
 func (s *GroupServer) ApplyMonitoringBetaGroup(ctx context.Context, request *betapb.ApplyMonitoringBetaGroupRequest) (*betapb.MonitoringBetaGroup, error) {
-	cl, err := createConfigGroup(ctx, request.ServiceAccountFile)
+	cl, err := createConfigGroup(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +74,7 @@ func (s *GroupServer) ApplyMonitoringBetaGroup(ctx context.Context, request *bet
 // DeleteGroup handles the gRPC request by passing it to the underlying Group Delete() method.
 func (s *GroupServer) DeleteMonitoringBetaGroup(ctx context.Context, request *betapb.DeleteMonitoringBetaGroupRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigGroup(ctx, request.ServiceAccountFile)
+	cl, err := createConfigGroup(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -85,12 +84,12 @@ func (s *GroupServer) DeleteMonitoringBetaGroup(ctx context.Context, request *be
 
 // ListMonitoringBetaGroup handles the gRPC request by passing it to the underlying GroupList() method.
 func (s *GroupServer) ListMonitoringBetaGroup(ctx context.Context, request *betapb.ListMonitoringBetaGroupRequest) (*betapb.ListMonitoringBetaGroupResponse, error) {
-	cl, err := createConfigGroup(ctx, request.ServiceAccountFile)
+	cl, err := createConfigGroup(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListGroup(ctx, request.Project)
+	resources, err := cl.ListGroup(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -99,7 +98,9 @@ func (s *GroupServer) ListMonitoringBetaGroup(ctx context.Context, request *beta
 		rp := GroupToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListMonitoringBetaGroupResponse{Items: protos}, nil
+	p := &betapb.ListMonitoringBetaGroupResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigGroup(ctx context.Context, service_account_file string) (*beta.Client, error) {

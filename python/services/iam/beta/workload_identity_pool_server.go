@@ -40,13 +40,13 @@ func ProtoToIamBetaWorkloadIdentityPoolStateEnum(e betapb.IamBetaWorkloadIdentit
 // ProtoToWorkloadIdentityPool converts a WorkloadIdentityPool resource from its proto representation.
 func ProtoToWorkloadIdentityPool(p *betapb.IamBetaWorkloadIdentityPool) *beta.WorkloadIdentityPool {
 	obj := &beta.WorkloadIdentityPool{
-		Name:        dcl.StringOrNil(p.Name),
-		DisplayName: dcl.StringOrNil(p.DisplayName),
-		Description: dcl.StringOrNil(p.Description),
+		Name:        dcl.StringOrNil(p.GetName()),
+		DisplayName: dcl.StringOrNil(p.GetDisplayName()),
+		Description: dcl.StringOrNil(p.GetDescription()),
 		State:       ProtoToIamBetaWorkloadIdentityPoolStateEnum(p.GetState()),
-		Disabled:    dcl.Bool(p.Disabled),
-		Project:     dcl.StringOrNil(p.Project),
-		Location:    dcl.StringOrNil(p.Location),
+		Disabled:    dcl.Bool(p.GetDisabled()),
+		Project:     dcl.StringOrNil(p.GetProject()),
+		Location:    dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -64,20 +64,19 @@ func IamBetaWorkloadIdentityPoolStateEnumToProto(e *beta.WorkloadIdentityPoolSta
 
 // WorkloadIdentityPoolToProto converts a WorkloadIdentityPool resource to its proto representation.
 func WorkloadIdentityPoolToProto(resource *beta.WorkloadIdentityPool) *betapb.IamBetaWorkloadIdentityPool {
-	p := &betapb.IamBetaWorkloadIdentityPool{
-		Name:        dcl.ValueOrEmptyString(resource.Name),
-		DisplayName: dcl.ValueOrEmptyString(resource.DisplayName),
-		Description: dcl.ValueOrEmptyString(resource.Description),
-		State:       IamBetaWorkloadIdentityPoolStateEnumToProto(resource.State),
-		Disabled:    dcl.ValueOrEmptyBool(resource.Disabled),
-		Project:     dcl.ValueOrEmptyString(resource.Project),
-		Location:    dcl.ValueOrEmptyString(resource.Location),
-	}
+	p := &betapb.IamBetaWorkloadIdentityPool{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetState(IamBetaWorkloadIdentityPoolStateEnumToProto(resource.State))
+	p.SetDisabled(dcl.ValueOrEmptyBool(resource.Disabled))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 
 	return p
 }
 
-// ApplyWorkloadIdentityPool handles the gRPC request by passing it to the underlying WorkloadIdentityPool Apply() method.
+// applyWorkloadIdentityPool handles the gRPC request by passing it to the underlying WorkloadIdentityPool Apply() method.
 func (s *WorkloadIdentityPoolServer) applyWorkloadIdentityPool(ctx context.Context, c *beta.Client, request *betapb.ApplyIamBetaWorkloadIdentityPoolRequest) (*betapb.IamBetaWorkloadIdentityPool, error) {
 	p := ProtoToWorkloadIdentityPool(request.GetResource())
 	res, err := c.ApplyWorkloadIdentityPool(ctx, p)
@@ -88,9 +87,9 @@ func (s *WorkloadIdentityPoolServer) applyWorkloadIdentityPool(ctx context.Conte
 	return r, nil
 }
 
-// ApplyWorkloadIdentityPool handles the gRPC request by passing it to the underlying WorkloadIdentityPool Apply() method.
+// applyIamBetaWorkloadIdentityPool handles the gRPC request by passing it to the underlying WorkloadIdentityPool Apply() method.
 func (s *WorkloadIdentityPoolServer) ApplyIamBetaWorkloadIdentityPool(ctx context.Context, request *betapb.ApplyIamBetaWorkloadIdentityPoolRequest) (*betapb.IamBetaWorkloadIdentityPool, error) {
-	cl, err := createConfigWorkloadIdentityPool(ctx, request.ServiceAccountFile)
+	cl, err := createConfigWorkloadIdentityPool(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -100,7 +99,7 @@ func (s *WorkloadIdentityPoolServer) ApplyIamBetaWorkloadIdentityPool(ctx contex
 // DeleteWorkloadIdentityPool handles the gRPC request by passing it to the underlying WorkloadIdentityPool Delete() method.
 func (s *WorkloadIdentityPoolServer) DeleteIamBetaWorkloadIdentityPool(ctx context.Context, request *betapb.DeleteIamBetaWorkloadIdentityPoolRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigWorkloadIdentityPool(ctx, request.ServiceAccountFile)
+	cl, err := createConfigWorkloadIdentityPool(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -110,12 +109,12 @@ func (s *WorkloadIdentityPoolServer) DeleteIamBetaWorkloadIdentityPool(ctx conte
 
 // ListIamBetaWorkloadIdentityPool handles the gRPC request by passing it to the underlying WorkloadIdentityPoolList() method.
 func (s *WorkloadIdentityPoolServer) ListIamBetaWorkloadIdentityPool(ctx context.Context, request *betapb.ListIamBetaWorkloadIdentityPoolRequest) (*betapb.ListIamBetaWorkloadIdentityPoolResponse, error) {
-	cl, err := createConfigWorkloadIdentityPool(ctx, request.ServiceAccountFile)
+	cl, err := createConfigWorkloadIdentityPool(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListWorkloadIdentityPool(ctx, request.Project, request.Location)
+	resources, err := cl.ListWorkloadIdentityPool(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -124,7 +123,9 @@ func (s *WorkloadIdentityPoolServer) ListIamBetaWorkloadIdentityPool(ctx context
 		rp := WorkloadIdentityPoolToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListIamBetaWorkloadIdentityPoolResponse{Items: protos}, nil
+	p := &betapb.ListIamBetaWorkloadIdentityPoolResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigWorkloadIdentityPool(ctx context.Context, service_account_file string) (*beta.Client, error) {

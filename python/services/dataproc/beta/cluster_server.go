@@ -121,14 +121,14 @@ func ProtoToDataprocBetaClusterStatusHistorySubstateEnum(e betapb.DataprocBetaCl
 	return nil
 }
 
-// ProtoToClusterClusterConfig converts a ClusterClusterConfig resource from its proto representation.
+// ProtoToClusterClusterConfig converts a ClusterClusterConfig object from its proto representation.
 func ProtoToDataprocBetaClusterClusterConfig(p *betapb.DataprocBetaClusterClusterConfig) *beta.ClusterClusterConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClusterClusterConfig{
-		StagingBucket:         dcl.StringOrNil(p.StagingBucket),
-		TempBucket:            dcl.StringOrNil(p.TempBucket),
+		StagingBucket:         dcl.StringOrNil(p.GetStagingBucket()),
+		TempBucket:            dcl.StringOrNil(p.GetTempBucket()),
 		GceClusterConfig:      ProtoToDataprocBetaClusterClusterConfigGceClusterConfig(p.GetGceClusterConfig()),
 		MasterConfig:          ProtoToDataprocBetaClusterInstanceGroupConfig(p.GetMasterConfig()),
 		WorkerConfig:          ProtoToDataprocBetaClusterInstanceGroupConfig(p.GetWorkerConfig()),
@@ -148,18 +148,18 @@ func ProtoToDataprocBetaClusterClusterConfig(p *betapb.DataprocBetaClusterCluste
 	return obj
 }
 
-// ProtoToClusterClusterConfigGceClusterConfig converts a ClusterClusterConfigGceClusterConfig resource from its proto representation.
+// ProtoToClusterClusterConfigGceClusterConfig converts a ClusterClusterConfigGceClusterConfig object from its proto representation.
 func ProtoToDataprocBetaClusterClusterConfigGceClusterConfig(p *betapb.DataprocBetaClusterClusterConfigGceClusterConfig) *beta.ClusterClusterConfigGceClusterConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClusterClusterConfigGceClusterConfig{
-		Zone:                    dcl.StringOrNil(p.Zone),
-		Network:                 dcl.StringOrNil(p.Network),
-		Subnetwork:              dcl.StringOrNil(p.Subnetwork),
-		InternalIPOnly:          dcl.Bool(p.InternalIpOnly),
+		Zone:                    dcl.StringOrNil(p.GetZone()),
+		Network:                 dcl.StringOrNil(p.GetNetwork()),
+		Subnetwork:              dcl.StringOrNil(p.GetSubnetwork()),
+		InternalIPOnly:          dcl.Bool(p.GetInternalIpOnly()),
 		PrivateIPv6GoogleAccess: ProtoToDataprocBetaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(p.GetPrivateIpv6GoogleAccess()),
-		ServiceAccount:          dcl.StringOrNil(p.ServiceAccount),
+		ServiceAccount:          dcl.StringOrNil(p.GetServiceAccount()),
 		ReservationAffinity:     ProtoToDataprocBetaClusterClusterConfigGceClusterConfigReservationAffinity(p.GetReservationAffinity()),
 		NodeGroupAffinity:       ProtoToDataprocBetaClusterClusterConfigGceClusterConfigNodeGroupAffinity(p.GetNodeGroupAffinity()),
 	}
@@ -172,14 +172,14 @@ func ProtoToDataprocBetaClusterClusterConfigGceClusterConfig(p *betapb.DataprocB
 	return obj
 }
 
-// ProtoToClusterClusterConfigGceClusterConfigReservationAffinity converts a ClusterClusterConfigGceClusterConfigReservationAffinity resource from its proto representation.
+// ProtoToClusterClusterConfigGceClusterConfigReservationAffinity converts a ClusterClusterConfigGceClusterConfigReservationAffinity object from its proto representation.
 func ProtoToDataprocBetaClusterClusterConfigGceClusterConfigReservationAffinity(p *betapb.DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinity) *beta.ClusterClusterConfigGceClusterConfigReservationAffinity {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClusterClusterConfigGceClusterConfigReservationAffinity{
 		ConsumeReservationType: ProtoToDataprocBetaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum(p.GetConsumeReservationType()),
-		Key:                    dcl.StringOrNil(p.Key),
+		Key:                    dcl.StringOrNil(p.GetKey()),
 	}
 	for _, r := range p.GetValues() {
 		obj.Values = append(obj.Values, r)
@@ -187,31 +187,31 @@ func ProtoToDataprocBetaClusterClusterConfigGceClusterConfigReservationAffinity(
 	return obj
 }
 
-// ProtoToClusterClusterConfigGceClusterConfigNodeGroupAffinity converts a ClusterClusterConfigGceClusterConfigNodeGroupAffinity resource from its proto representation.
+// ProtoToClusterClusterConfigGceClusterConfigNodeGroupAffinity converts a ClusterClusterConfigGceClusterConfigNodeGroupAffinity object from its proto representation.
 func ProtoToDataprocBetaClusterClusterConfigGceClusterConfigNodeGroupAffinity(p *betapb.DataprocBetaClusterClusterConfigGceClusterConfigNodeGroupAffinity) *beta.ClusterClusterConfigGceClusterConfigNodeGroupAffinity {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClusterClusterConfigGceClusterConfigNodeGroupAffinity{
-		NodeGroup: dcl.StringOrNil(p.NodeGroup),
+		NodeGroup: dcl.StringOrNil(p.GetNodeGroup()),
 	}
 	return obj
 }
 
-// ProtoToClusterInstanceGroupConfig converts a ClusterInstanceGroupConfig resource from its proto representation.
+// ProtoToClusterInstanceGroupConfig converts a ClusterInstanceGroupConfig object from its proto representation.
 func ProtoToDataprocBetaClusterInstanceGroupConfig(p *betapb.DataprocBetaClusterInstanceGroupConfig) *beta.ClusterInstanceGroupConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClusterInstanceGroupConfig{
-		NumInstances:       dcl.Int64OrNil(p.NumInstances),
-		Image:              dcl.StringOrNil(p.Image),
-		MachineType:        dcl.StringOrNil(p.MachineType),
+		NumInstances:       dcl.Int64OrNil(p.GetNumInstances()),
+		Image:              dcl.StringOrNil(p.GetImage()),
+		MachineType:        dcl.StringOrNil(p.GetMachineType()),
 		DiskConfig:         ProtoToDataprocBetaClusterInstanceGroupConfigDiskConfig(p.GetDiskConfig()),
-		IsPreemptible:      dcl.Bool(p.IsPreemptible),
+		IsPreemptible:      dcl.Bool(p.GetIsPreemptible()),
 		Preemptibility:     ProtoToDataprocBetaClusterInstanceGroupConfigPreemptibilityEnum(p.GetPreemptibility()),
 		ManagedGroupConfig: ProtoToDataprocBetaClusterInstanceGroupConfigManagedGroupConfig(p.GetManagedGroupConfig()),
-		MinCpuPlatform:     dcl.StringOrNil(p.MinCpuPlatform),
+		MinCpuPlatform:     dcl.StringOrNil(p.GetMinCpuPlatform()),
 	}
 	for _, r := range p.GetInstanceNames() {
 		obj.InstanceNames = append(obj.InstanceNames, r)
@@ -222,50 +222,50 @@ func ProtoToDataprocBetaClusterInstanceGroupConfig(p *betapb.DataprocBetaCluster
 	return obj
 }
 
-// ProtoToClusterInstanceGroupConfigDiskConfig converts a ClusterInstanceGroupConfigDiskConfig resource from its proto representation.
+// ProtoToClusterInstanceGroupConfigDiskConfig converts a ClusterInstanceGroupConfigDiskConfig object from its proto representation.
 func ProtoToDataprocBetaClusterInstanceGroupConfigDiskConfig(p *betapb.DataprocBetaClusterInstanceGroupConfigDiskConfig) *beta.ClusterInstanceGroupConfigDiskConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClusterInstanceGroupConfigDiskConfig{
-		BootDiskType:   dcl.StringOrNil(p.BootDiskType),
-		BootDiskSizeGb: dcl.Int64OrNil(p.BootDiskSizeGb),
-		NumLocalSsds:   dcl.Int64OrNil(p.NumLocalSsds),
+		BootDiskType:   dcl.StringOrNil(p.GetBootDiskType()),
+		BootDiskSizeGb: dcl.Int64OrNil(p.GetBootDiskSizeGb()),
+		NumLocalSsds:   dcl.Int64OrNil(p.GetNumLocalSsds()),
 	}
 	return obj
 }
 
-// ProtoToClusterInstanceGroupConfigManagedGroupConfig converts a ClusterInstanceGroupConfigManagedGroupConfig resource from its proto representation.
+// ProtoToClusterInstanceGroupConfigManagedGroupConfig converts a ClusterInstanceGroupConfigManagedGroupConfig object from its proto representation.
 func ProtoToDataprocBetaClusterInstanceGroupConfigManagedGroupConfig(p *betapb.DataprocBetaClusterInstanceGroupConfigManagedGroupConfig) *beta.ClusterInstanceGroupConfigManagedGroupConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClusterInstanceGroupConfigManagedGroupConfig{
-		InstanceTemplateName:     dcl.StringOrNil(p.InstanceTemplateName),
-		InstanceGroupManagerName: dcl.StringOrNil(p.InstanceGroupManagerName),
+		InstanceTemplateName:     dcl.StringOrNil(p.GetInstanceTemplateName()),
+		InstanceGroupManagerName: dcl.StringOrNil(p.GetInstanceGroupManagerName()),
 	}
 	return obj
 }
 
-// ProtoToClusterInstanceGroupConfigAccelerators converts a ClusterInstanceGroupConfigAccelerators resource from its proto representation.
+// ProtoToClusterInstanceGroupConfigAccelerators converts a ClusterInstanceGroupConfigAccelerators object from its proto representation.
 func ProtoToDataprocBetaClusterInstanceGroupConfigAccelerators(p *betapb.DataprocBetaClusterInstanceGroupConfigAccelerators) *beta.ClusterInstanceGroupConfigAccelerators {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClusterInstanceGroupConfigAccelerators{
-		AcceleratorType:  dcl.StringOrNil(p.AcceleratorType),
-		AcceleratorCount: dcl.Int64OrNil(p.AcceleratorCount),
+		AcceleratorType:  dcl.StringOrNil(p.GetAcceleratorType()),
+		AcceleratorCount: dcl.Int64OrNil(p.GetAcceleratorCount()),
 	}
 	return obj
 }
 
-// ProtoToClusterClusterConfigSoftwareConfig converts a ClusterClusterConfigSoftwareConfig resource from its proto representation.
+// ProtoToClusterClusterConfigSoftwareConfig converts a ClusterClusterConfigSoftwareConfig object from its proto representation.
 func ProtoToDataprocBetaClusterClusterConfigSoftwareConfig(p *betapb.DataprocBetaClusterClusterConfigSoftwareConfig) *beta.ClusterClusterConfigSoftwareConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClusterClusterConfigSoftwareConfig{
-		ImageVersion: dcl.StringOrNil(p.ImageVersion),
+		ImageVersion: dcl.StringOrNil(p.GetImageVersion()),
 	}
 	for _, r := range p.GetOptionalComponents() {
 		obj.OptionalComponents = append(obj.OptionalComponents, *ProtoToDataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnum(r))
@@ -273,41 +273,41 @@ func ProtoToDataprocBetaClusterClusterConfigSoftwareConfig(p *betapb.DataprocBet
 	return obj
 }
 
-// ProtoToClusterClusterConfigInitializationActions converts a ClusterClusterConfigInitializationActions resource from its proto representation.
+// ProtoToClusterClusterConfigInitializationActions converts a ClusterClusterConfigInitializationActions object from its proto representation.
 func ProtoToDataprocBetaClusterClusterConfigInitializationActions(p *betapb.DataprocBetaClusterClusterConfigInitializationActions) *beta.ClusterClusterConfigInitializationActions {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClusterClusterConfigInitializationActions{
-		ExecutableFile:   dcl.StringOrNil(p.ExecutableFile),
-		ExecutionTimeout: dcl.StringOrNil(p.ExecutionTimeout),
+		ExecutableFile:   dcl.StringOrNil(p.GetExecutableFile()),
+		ExecutionTimeout: dcl.StringOrNil(p.GetExecutionTimeout()),
 	}
 	return obj
 }
 
-// ProtoToClusterClusterConfigEncryptionConfig converts a ClusterClusterConfigEncryptionConfig resource from its proto representation.
+// ProtoToClusterClusterConfigEncryptionConfig converts a ClusterClusterConfigEncryptionConfig object from its proto representation.
 func ProtoToDataprocBetaClusterClusterConfigEncryptionConfig(p *betapb.DataprocBetaClusterClusterConfigEncryptionConfig) *beta.ClusterClusterConfigEncryptionConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClusterClusterConfigEncryptionConfig{
-		GcePdKmsKeyName: dcl.StringOrNil(p.GcePdKmsKeyName),
+		GcePdKmsKeyName: dcl.StringOrNil(p.GetGcePdKmsKeyName()),
 	}
 	return obj
 }
 
-// ProtoToClusterClusterConfigAutoscalingConfig converts a ClusterClusterConfigAutoscalingConfig resource from its proto representation.
+// ProtoToClusterClusterConfigAutoscalingConfig converts a ClusterClusterConfigAutoscalingConfig object from its proto representation.
 func ProtoToDataprocBetaClusterClusterConfigAutoscalingConfig(p *betapb.DataprocBetaClusterClusterConfigAutoscalingConfig) *beta.ClusterClusterConfigAutoscalingConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClusterClusterConfigAutoscalingConfig{
-		Policy: dcl.StringOrNil(p.Policy),
+		Policy: dcl.StringOrNil(p.GetPolicy()),
 	}
 	return obj
 }
 
-// ProtoToClusterClusterConfigSecurityConfig converts a ClusterClusterConfigSecurityConfig resource from its proto representation.
+// ProtoToClusterClusterConfigSecurityConfig converts a ClusterClusterConfigSecurityConfig object from its proto representation.
 func ProtoToDataprocBetaClusterClusterConfigSecurityConfig(p *betapb.DataprocBetaClusterClusterConfigSecurityConfig) *beta.ClusterClusterConfigSecurityConfig {
 	if p == nil {
 		return nil
@@ -318,57 +318,57 @@ func ProtoToDataprocBetaClusterClusterConfigSecurityConfig(p *betapb.DataprocBet
 	return obj
 }
 
-// ProtoToClusterClusterConfigSecurityConfigKerberosConfig converts a ClusterClusterConfigSecurityConfigKerberosConfig resource from its proto representation.
+// ProtoToClusterClusterConfigSecurityConfigKerberosConfig converts a ClusterClusterConfigSecurityConfigKerberosConfig object from its proto representation.
 func ProtoToDataprocBetaClusterClusterConfigSecurityConfigKerberosConfig(p *betapb.DataprocBetaClusterClusterConfigSecurityConfigKerberosConfig) *beta.ClusterClusterConfigSecurityConfigKerberosConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClusterClusterConfigSecurityConfigKerberosConfig{
-		EnableKerberos:                dcl.Bool(p.EnableKerberos),
-		RootPrincipalPassword:         dcl.StringOrNil(p.RootPrincipalPassword),
-		KmsKey:                        dcl.StringOrNil(p.KmsKey),
-		Keystore:                      dcl.StringOrNil(p.Keystore),
-		Truststore:                    dcl.StringOrNil(p.Truststore),
-		KeystorePassword:              dcl.StringOrNil(p.KeystorePassword),
-		KeyPassword:                   dcl.StringOrNil(p.KeyPassword),
-		TruststorePassword:            dcl.StringOrNil(p.TruststorePassword),
-		CrossRealmTrustRealm:          dcl.StringOrNil(p.CrossRealmTrustRealm),
-		CrossRealmTrustKdc:            dcl.StringOrNil(p.CrossRealmTrustKdc),
-		CrossRealmTrustAdminServer:    dcl.StringOrNil(p.CrossRealmTrustAdminServer),
-		CrossRealmTrustSharedPassword: dcl.StringOrNil(p.CrossRealmTrustSharedPassword),
-		KdcDbKey:                      dcl.StringOrNil(p.KdcDbKey),
-		TgtLifetimeHours:              dcl.Int64OrNil(p.TgtLifetimeHours),
-		Realm:                         dcl.StringOrNil(p.Realm),
+		EnableKerberos:                dcl.Bool(p.GetEnableKerberos()),
+		RootPrincipalPassword:         dcl.StringOrNil(p.GetRootPrincipalPassword()),
+		KmsKey:                        dcl.StringOrNil(p.GetKmsKey()),
+		Keystore:                      dcl.StringOrNil(p.GetKeystore()),
+		Truststore:                    dcl.StringOrNil(p.GetTruststore()),
+		KeystorePassword:              dcl.StringOrNil(p.GetKeystorePassword()),
+		KeyPassword:                   dcl.StringOrNil(p.GetKeyPassword()),
+		TruststorePassword:            dcl.StringOrNil(p.GetTruststorePassword()),
+		CrossRealmTrustRealm:          dcl.StringOrNil(p.GetCrossRealmTrustRealm()),
+		CrossRealmTrustKdc:            dcl.StringOrNil(p.GetCrossRealmTrustKdc()),
+		CrossRealmTrustAdminServer:    dcl.StringOrNil(p.GetCrossRealmTrustAdminServer()),
+		CrossRealmTrustSharedPassword: dcl.StringOrNil(p.GetCrossRealmTrustSharedPassword()),
+		KdcDbKey:                      dcl.StringOrNil(p.GetKdcDbKey()),
+		TgtLifetimeHours:              dcl.Int64OrNil(p.GetTgtLifetimeHours()),
+		Realm:                         dcl.StringOrNil(p.GetRealm()),
 	}
 	return obj
 }
 
-// ProtoToClusterClusterConfigLifecycleConfig converts a ClusterClusterConfigLifecycleConfig resource from its proto representation.
+// ProtoToClusterClusterConfigLifecycleConfig converts a ClusterClusterConfigLifecycleConfig object from its proto representation.
 func ProtoToDataprocBetaClusterClusterConfigLifecycleConfig(p *betapb.DataprocBetaClusterClusterConfigLifecycleConfig) *beta.ClusterClusterConfigLifecycleConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClusterClusterConfigLifecycleConfig{
-		IdleDeleteTtl:  dcl.StringOrNil(p.IdleDeleteTtl),
+		IdleDeleteTtl:  dcl.StringOrNil(p.GetIdleDeleteTtl()),
 		AutoDeleteTime: dcl.StringOrNil(p.GetAutoDeleteTime()),
-		AutoDeleteTtl:  dcl.StringOrNil(p.AutoDeleteTtl),
+		AutoDeleteTtl:  dcl.StringOrNil(p.GetAutoDeleteTtl()),
 		IdleStartTime:  dcl.StringOrNil(p.GetIdleStartTime()),
 	}
 	return obj
 }
 
-// ProtoToClusterClusterConfigEndpointConfig converts a ClusterClusterConfigEndpointConfig resource from its proto representation.
+// ProtoToClusterClusterConfigEndpointConfig converts a ClusterClusterConfigEndpointConfig object from its proto representation.
 func ProtoToDataprocBetaClusterClusterConfigEndpointConfig(p *betapb.DataprocBetaClusterClusterConfigEndpointConfig) *beta.ClusterClusterConfigEndpointConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClusterClusterConfigEndpointConfig{
-		EnableHttpPortAccess: dcl.Bool(p.EnableHttpPortAccess),
+		EnableHttpPortAccess: dcl.Bool(p.GetEnableHttpPortAccess()),
 	}
 	return obj
 }
 
-// ProtoToClusterClusterConfigGkeClusterConfig converts a ClusterClusterConfigGkeClusterConfig resource from its proto representation.
+// ProtoToClusterClusterConfigGkeClusterConfig converts a ClusterClusterConfigGkeClusterConfig object from its proto representation.
 func ProtoToDataprocBetaClusterClusterConfigGkeClusterConfig(p *betapb.DataprocBetaClusterClusterConfigGkeClusterConfig) *beta.ClusterClusterConfigGkeClusterConfig {
 	if p == nil {
 		return nil
@@ -379,58 +379,58 @@ func ProtoToDataprocBetaClusterClusterConfigGkeClusterConfig(p *betapb.DataprocB
 	return obj
 }
 
-// ProtoToClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget converts a ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget resource from its proto representation.
+// ProtoToClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget converts a ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget object from its proto representation.
 func ProtoToDataprocBetaClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(p *betapb.DataprocBetaClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget) *beta.ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget{
-		TargetGkeCluster: dcl.StringOrNil(p.TargetGkeCluster),
-		ClusterNamespace: dcl.StringOrNil(p.ClusterNamespace),
+		TargetGkeCluster: dcl.StringOrNil(p.GetTargetGkeCluster()),
+		ClusterNamespace: dcl.StringOrNil(p.GetClusterNamespace()),
 	}
 	return obj
 }
 
-// ProtoToClusterClusterConfigMetastoreConfig converts a ClusterClusterConfigMetastoreConfig resource from its proto representation.
+// ProtoToClusterClusterConfigMetastoreConfig converts a ClusterClusterConfigMetastoreConfig object from its proto representation.
 func ProtoToDataprocBetaClusterClusterConfigMetastoreConfig(p *betapb.DataprocBetaClusterClusterConfigMetastoreConfig) *beta.ClusterClusterConfigMetastoreConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClusterClusterConfigMetastoreConfig{
-		DataprocMetastoreService: dcl.StringOrNil(p.DataprocMetastoreService),
+		DataprocMetastoreService: dcl.StringOrNil(p.GetDataprocMetastoreService()),
 	}
 	return obj
 }
 
-// ProtoToClusterStatus converts a ClusterStatus resource from its proto representation.
+// ProtoToClusterStatus converts a ClusterStatus object from its proto representation.
 func ProtoToDataprocBetaClusterStatus(p *betapb.DataprocBetaClusterStatus) *beta.ClusterStatus {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClusterStatus{
 		State:          ProtoToDataprocBetaClusterStatusStateEnum(p.GetState()),
-		Detail:         dcl.StringOrNil(p.Detail),
+		Detail:         dcl.StringOrNil(p.GetDetail()),
 		StateStartTime: dcl.StringOrNil(p.GetStateStartTime()),
 		Substate:       ProtoToDataprocBetaClusterStatusSubstateEnum(p.GetSubstate()),
 	}
 	return obj
 }
 
-// ProtoToClusterStatusHistory converts a ClusterStatusHistory resource from its proto representation.
+// ProtoToClusterStatusHistory converts a ClusterStatusHistory object from its proto representation.
 func ProtoToDataprocBetaClusterStatusHistory(p *betapb.DataprocBetaClusterStatusHistory) *beta.ClusterStatusHistory {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.ClusterStatusHistory{
 		State:          ProtoToDataprocBetaClusterStatusHistoryStateEnum(p.GetState()),
-		Detail:         dcl.StringOrNil(p.Detail),
+		Detail:         dcl.StringOrNil(p.GetDetail()),
 		StateStartTime: dcl.StringOrNil(p.GetStateStartTime()),
 		Substate:       ProtoToDataprocBetaClusterStatusHistorySubstateEnum(p.GetSubstate()),
 	}
 	return obj
 }
 
-// ProtoToClusterMetrics converts a ClusterMetrics resource from its proto representation.
+// ProtoToClusterMetrics converts a ClusterMetrics object from its proto representation.
 func ProtoToDataprocBetaClusterMetrics(p *betapb.DataprocBetaClusterMetrics) *beta.ClusterMetrics {
 	if p == nil {
 		return nil
@@ -442,13 +442,13 @@ func ProtoToDataprocBetaClusterMetrics(p *betapb.DataprocBetaClusterMetrics) *be
 // ProtoToCluster converts a Cluster resource from its proto representation.
 func ProtoToCluster(p *betapb.DataprocBetaCluster) *beta.Cluster {
 	obj := &beta.Cluster{
-		Project:     dcl.StringOrNil(p.Project),
-		Name:        dcl.StringOrNil(p.Name),
+		Project:     dcl.StringOrNil(p.GetProject()),
+		Name:        dcl.StringOrNil(p.GetName()),
 		Config:      ProtoToDataprocBetaClusterClusterConfig(p.GetConfig()),
 		Status:      ProtoToDataprocBetaClusterStatus(p.GetStatus()),
-		ClusterUuid: dcl.StringOrNil(p.ClusterUuid),
+		ClusterUuid: dcl.StringOrNil(p.GetClusterUuid()),
 		Metrics:     ProtoToDataprocBetaClusterMetrics(p.GetMetrics()),
-		Location:    dcl.StringOrNil(p.Location),
+		Location:    dcl.StringOrNil(p.GetLocation()),
 	}
 	for _, r := range p.GetStatusHistory() {
 		obj.StatusHistory = append(obj.StatusHistory, *ProtoToDataprocBetaClusterStatusHistory(r))
@@ -544,363 +544,367 @@ func DataprocBetaClusterStatusHistorySubstateEnumToProto(e *beta.ClusterStatusHi
 	return betapb.DataprocBetaClusterStatusHistorySubstateEnum(0)
 }
 
-// ClusterClusterConfigToProto converts a ClusterClusterConfig resource to its proto representation.
+// ClusterClusterConfigToProto converts a ClusterClusterConfig object to its proto representation.
 func DataprocBetaClusterClusterConfigToProto(o *beta.ClusterClusterConfig) *betapb.DataprocBetaClusterClusterConfig {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.DataprocBetaClusterClusterConfig{
-		StagingBucket:         dcl.ValueOrEmptyString(o.StagingBucket),
-		TempBucket:            dcl.ValueOrEmptyString(o.TempBucket),
-		GceClusterConfig:      DataprocBetaClusterClusterConfigGceClusterConfigToProto(o.GceClusterConfig),
-		MasterConfig:          DataprocBetaClusterInstanceGroupConfigToProto(o.MasterConfig),
-		WorkerConfig:          DataprocBetaClusterInstanceGroupConfigToProto(o.WorkerConfig),
-		SecondaryWorkerConfig: DataprocBetaClusterInstanceGroupConfigToProto(o.SecondaryWorkerConfig),
-		SoftwareConfig:        DataprocBetaClusterClusterConfigSoftwareConfigToProto(o.SoftwareConfig),
-		EncryptionConfig:      DataprocBetaClusterClusterConfigEncryptionConfigToProto(o.EncryptionConfig),
-		AutoscalingConfig:     DataprocBetaClusterClusterConfigAutoscalingConfigToProto(o.AutoscalingConfig),
-		SecurityConfig:        DataprocBetaClusterClusterConfigSecurityConfigToProto(o.SecurityConfig),
-		LifecycleConfig:       DataprocBetaClusterClusterConfigLifecycleConfigToProto(o.LifecycleConfig),
-		EndpointConfig:        DataprocBetaClusterClusterConfigEndpointConfigToProto(o.EndpointConfig),
-		GkeClusterConfig:      DataprocBetaClusterClusterConfigGkeClusterConfigToProto(o.GkeClusterConfig),
-		MetastoreConfig:       DataprocBetaClusterClusterConfigMetastoreConfigToProto(o.MetastoreConfig),
+	p := &betapb.DataprocBetaClusterClusterConfig{}
+	p.SetStagingBucket(dcl.ValueOrEmptyString(o.StagingBucket))
+	p.SetTempBucket(dcl.ValueOrEmptyString(o.TempBucket))
+	p.SetGceClusterConfig(DataprocBetaClusterClusterConfigGceClusterConfigToProto(o.GceClusterConfig))
+	p.SetMasterConfig(DataprocBetaClusterInstanceGroupConfigToProto(o.MasterConfig))
+	p.SetWorkerConfig(DataprocBetaClusterInstanceGroupConfigToProto(o.WorkerConfig))
+	p.SetSecondaryWorkerConfig(DataprocBetaClusterInstanceGroupConfigToProto(o.SecondaryWorkerConfig))
+	p.SetSoftwareConfig(DataprocBetaClusterClusterConfigSoftwareConfigToProto(o.SoftwareConfig))
+	p.SetEncryptionConfig(DataprocBetaClusterClusterConfigEncryptionConfigToProto(o.EncryptionConfig))
+	p.SetAutoscalingConfig(DataprocBetaClusterClusterConfigAutoscalingConfigToProto(o.AutoscalingConfig))
+	p.SetSecurityConfig(DataprocBetaClusterClusterConfigSecurityConfigToProto(o.SecurityConfig))
+	p.SetLifecycleConfig(DataprocBetaClusterClusterConfigLifecycleConfigToProto(o.LifecycleConfig))
+	p.SetEndpointConfig(DataprocBetaClusterClusterConfigEndpointConfigToProto(o.EndpointConfig))
+	p.SetGkeClusterConfig(DataprocBetaClusterClusterConfigGkeClusterConfigToProto(o.GkeClusterConfig))
+	p.SetMetastoreConfig(DataprocBetaClusterClusterConfigMetastoreConfigToProto(o.MetastoreConfig))
+	sInitializationActions := make([]*betapb.DataprocBetaClusterClusterConfigInitializationActions, len(o.InitializationActions))
+	for i, r := range o.InitializationActions {
+		sInitializationActions[i] = DataprocBetaClusterClusterConfigInitializationActionsToProto(&r)
 	}
-	for _, r := range o.InitializationActions {
-		p.InitializationActions = append(p.InitializationActions, DataprocBetaClusterClusterConfigInitializationActionsToProto(&r))
-	}
+	p.SetInitializationActions(sInitializationActions)
 	return p
 }
 
-// ClusterClusterConfigGceClusterConfigToProto converts a ClusterClusterConfigGceClusterConfig resource to its proto representation.
+// ClusterClusterConfigGceClusterConfigToProto converts a ClusterClusterConfigGceClusterConfig object to its proto representation.
 func DataprocBetaClusterClusterConfigGceClusterConfigToProto(o *beta.ClusterClusterConfigGceClusterConfig) *betapb.DataprocBetaClusterClusterConfigGceClusterConfig {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.DataprocBetaClusterClusterConfigGceClusterConfig{
-		Zone:                    dcl.ValueOrEmptyString(o.Zone),
-		Network:                 dcl.ValueOrEmptyString(o.Network),
-		Subnetwork:              dcl.ValueOrEmptyString(o.Subnetwork),
-		InternalIpOnly:          dcl.ValueOrEmptyBool(o.InternalIPOnly),
-		PrivateIpv6GoogleAccess: DataprocBetaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumToProto(o.PrivateIPv6GoogleAccess),
-		ServiceAccount:          dcl.ValueOrEmptyString(o.ServiceAccount),
-		ReservationAffinity:     DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinityToProto(o.ReservationAffinity),
-		NodeGroupAffinity:       DataprocBetaClusterClusterConfigGceClusterConfigNodeGroupAffinityToProto(o.NodeGroupAffinity),
+	p := &betapb.DataprocBetaClusterClusterConfigGceClusterConfig{}
+	p.SetZone(dcl.ValueOrEmptyString(o.Zone))
+	p.SetNetwork(dcl.ValueOrEmptyString(o.Network))
+	p.SetSubnetwork(dcl.ValueOrEmptyString(o.Subnetwork))
+	p.SetInternalIpOnly(dcl.ValueOrEmptyBool(o.InternalIPOnly))
+	p.SetPrivateIpv6GoogleAccess(DataprocBetaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumToProto(o.PrivateIPv6GoogleAccess))
+	p.SetServiceAccount(dcl.ValueOrEmptyString(o.ServiceAccount))
+	p.SetReservationAffinity(DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinityToProto(o.ReservationAffinity))
+	p.SetNodeGroupAffinity(DataprocBetaClusterClusterConfigGceClusterConfigNodeGroupAffinityToProto(o.NodeGroupAffinity))
+	sServiceAccountScopes := make([]string, len(o.ServiceAccountScopes))
+	for i, r := range o.ServiceAccountScopes {
+		sServiceAccountScopes[i] = r
 	}
-	for _, r := range o.ServiceAccountScopes {
-		p.ServiceAccountScopes = append(p.ServiceAccountScopes, r)
+	p.SetServiceAccountScopes(sServiceAccountScopes)
+	sTags := make([]string, len(o.Tags))
+	for i, r := range o.Tags {
+		sTags[i] = r
 	}
-	for _, r := range o.Tags {
-		p.Tags = append(p.Tags, r)
-	}
-	p.Metadata = make(map[string]string)
+	p.SetTags(sTags)
+	mMetadata := make(map[string]string, len(o.Metadata))
 	for k, r := range o.Metadata {
-		p.Metadata[k] = r
+		mMetadata[k] = r
 	}
+	p.SetMetadata(mMetadata)
 	return p
 }
 
-// ClusterClusterConfigGceClusterConfigReservationAffinityToProto converts a ClusterClusterConfigGceClusterConfigReservationAffinity resource to its proto representation.
+// ClusterClusterConfigGceClusterConfigReservationAffinityToProto converts a ClusterClusterConfigGceClusterConfigReservationAffinity object to its proto representation.
 func DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinityToProto(o *beta.ClusterClusterConfigGceClusterConfigReservationAffinity) *betapb.DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinity {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinity{
-		ConsumeReservationType: DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumToProto(o.ConsumeReservationType),
-		Key:                    dcl.ValueOrEmptyString(o.Key),
+	p := &betapb.DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinity{}
+	p.SetConsumeReservationType(DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumToProto(o.ConsumeReservationType))
+	p.SetKey(dcl.ValueOrEmptyString(o.Key))
+	sValues := make([]string, len(o.Values))
+	for i, r := range o.Values {
+		sValues[i] = r
 	}
-	for _, r := range o.Values {
-		p.Values = append(p.Values, r)
-	}
+	p.SetValues(sValues)
 	return p
 }
 
-// ClusterClusterConfigGceClusterConfigNodeGroupAffinityToProto converts a ClusterClusterConfigGceClusterConfigNodeGroupAffinity resource to its proto representation.
+// ClusterClusterConfigGceClusterConfigNodeGroupAffinityToProto converts a ClusterClusterConfigGceClusterConfigNodeGroupAffinity object to its proto representation.
 func DataprocBetaClusterClusterConfigGceClusterConfigNodeGroupAffinityToProto(o *beta.ClusterClusterConfigGceClusterConfigNodeGroupAffinity) *betapb.DataprocBetaClusterClusterConfigGceClusterConfigNodeGroupAffinity {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.DataprocBetaClusterClusterConfigGceClusterConfigNodeGroupAffinity{
-		NodeGroup: dcl.ValueOrEmptyString(o.NodeGroup),
-	}
+	p := &betapb.DataprocBetaClusterClusterConfigGceClusterConfigNodeGroupAffinity{}
+	p.SetNodeGroup(dcl.ValueOrEmptyString(o.NodeGroup))
 	return p
 }
 
-// ClusterInstanceGroupConfigToProto converts a ClusterInstanceGroupConfig resource to its proto representation.
+// ClusterInstanceGroupConfigToProto converts a ClusterInstanceGroupConfig object to its proto representation.
 func DataprocBetaClusterInstanceGroupConfigToProto(o *beta.ClusterInstanceGroupConfig) *betapb.DataprocBetaClusterInstanceGroupConfig {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.DataprocBetaClusterInstanceGroupConfig{
-		NumInstances:       dcl.ValueOrEmptyInt64(o.NumInstances),
-		Image:              dcl.ValueOrEmptyString(o.Image),
-		MachineType:        dcl.ValueOrEmptyString(o.MachineType),
-		DiskConfig:         DataprocBetaClusterInstanceGroupConfigDiskConfigToProto(o.DiskConfig),
-		IsPreemptible:      dcl.ValueOrEmptyBool(o.IsPreemptible),
-		Preemptibility:     DataprocBetaClusterInstanceGroupConfigPreemptibilityEnumToProto(o.Preemptibility),
-		ManagedGroupConfig: DataprocBetaClusterInstanceGroupConfigManagedGroupConfigToProto(o.ManagedGroupConfig),
-		MinCpuPlatform:     dcl.ValueOrEmptyString(o.MinCpuPlatform),
+	p := &betapb.DataprocBetaClusterInstanceGroupConfig{}
+	p.SetNumInstances(dcl.ValueOrEmptyInt64(o.NumInstances))
+	p.SetImage(dcl.ValueOrEmptyString(o.Image))
+	p.SetMachineType(dcl.ValueOrEmptyString(o.MachineType))
+	p.SetDiskConfig(DataprocBetaClusterInstanceGroupConfigDiskConfigToProto(o.DiskConfig))
+	p.SetIsPreemptible(dcl.ValueOrEmptyBool(o.IsPreemptible))
+	p.SetPreemptibility(DataprocBetaClusterInstanceGroupConfigPreemptibilityEnumToProto(o.Preemptibility))
+	p.SetManagedGroupConfig(DataprocBetaClusterInstanceGroupConfigManagedGroupConfigToProto(o.ManagedGroupConfig))
+	p.SetMinCpuPlatform(dcl.ValueOrEmptyString(o.MinCpuPlatform))
+	sInstanceNames := make([]string, len(o.InstanceNames))
+	for i, r := range o.InstanceNames {
+		sInstanceNames[i] = r
 	}
-	for _, r := range o.InstanceNames {
-		p.InstanceNames = append(p.InstanceNames, r)
+	p.SetInstanceNames(sInstanceNames)
+	sAccelerators := make([]*betapb.DataprocBetaClusterInstanceGroupConfigAccelerators, len(o.Accelerators))
+	for i, r := range o.Accelerators {
+		sAccelerators[i] = DataprocBetaClusterInstanceGroupConfigAcceleratorsToProto(&r)
 	}
-	for _, r := range o.Accelerators {
-		p.Accelerators = append(p.Accelerators, DataprocBetaClusterInstanceGroupConfigAcceleratorsToProto(&r))
-	}
+	p.SetAccelerators(sAccelerators)
 	return p
 }
 
-// ClusterInstanceGroupConfigDiskConfigToProto converts a ClusterInstanceGroupConfigDiskConfig resource to its proto representation.
+// ClusterInstanceGroupConfigDiskConfigToProto converts a ClusterInstanceGroupConfigDiskConfig object to its proto representation.
 func DataprocBetaClusterInstanceGroupConfigDiskConfigToProto(o *beta.ClusterInstanceGroupConfigDiskConfig) *betapb.DataprocBetaClusterInstanceGroupConfigDiskConfig {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.DataprocBetaClusterInstanceGroupConfigDiskConfig{
-		BootDiskType:   dcl.ValueOrEmptyString(o.BootDiskType),
-		BootDiskSizeGb: dcl.ValueOrEmptyInt64(o.BootDiskSizeGb),
-		NumLocalSsds:   dcl.ValueOrEmptyInt64(o.NumLocalSsds),
-	}
+	p := &betapb.DataprocBetaClusterInstanceGroupConfigDiskConfig{}
+	p.SetBootDiskType(dcl.ValueOrEmptyString(o.BootDiskType))
+	p.SetBootDiskSizeGb(dcl.ValueOrEmptyInt64(o.BootDiskSizeGb))
+	p.SetNumLocalSsds(dcl.ValueOrEmptyInt64(o.NumLocalSsds))
 	return p
 }
 
-// ClusterInstanceGroupConfigManagedGroupConfigToProto converts a ClusterInstanceGroupConfigManagedGroupConfig resource to its proto representation.
+// ClusterInstanceGroupConfigManagedGroupConfigToProto converts a ClusterInstanceGroupConfigManagedGroupConfig object to its proto representation.
 func DataprocBetaClusterInstanceGroupConfigManagedGroupConfigToProto(o *beta.ClusterInstanceGroupConfigManagedGroupConfig) *betapb.DataprocBetaClusterInstanceGroupConfigManagedGroupConfig {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.DataprocBetaClusterInstanceGroupConfigManagedGroupConfig{
-		InstanceTemplateName:     dcl.ValueOrEmptyString(o.InstanceTemplateName),
-		InstanceGroupManagerName: dcl.ValueOrEmptyString(o.InstanceGroupManagerName),
-	}
+	p := &betapb.DataprocBetaClusterInstanceGroupConfigManagedGroupConfig{}
+	p.SetInstanceTemplateName(dcl.ValueOrEmptyString(o.InstanceTemplateName))
+	p.SetInstanceGroupManagerName(dcl.ValueOrEmptyString(o.InstanceGroupManagerName))
 	return p
 }
 
-// ClusterInstanceGroupConfigAcceleratorsToProto converts a ClusterInstanceGroupConfigAccelerators resource to its proto representation.
+// ClusterInstanceGroupConfigAcceleratorsToProto converts a ClusterInstanceGroupConfigAccelerators object to its proto representation.
 func DataprocBetaClusterInstanceGroupConfigAcceleratorsToProto(o *beta.ClusterInstanceGroupConfigAccelerators) *betapb.DataprocBetaClusterInstanceGroupConfigAccelerators {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.DataprocBetaClusterInstanceGroupConfigAccelerators{
-		AcceleratorType:  dcl.ValueOrEmptyString(o.AcceleratorType),
-		AcceleratorCount: dcl.ValueOrEmptyInt64(o.AcceleratorCount),
-	}
+	p := &betapb.DataprocBetaClusterInstanceGroupConfigAccelerators{}
+	p.SetAcceleratorType(dcl.ValueOrEmptyString(o.AcceleratorType))
+	p.SetAcceleratorCount(dcl.ValueOrEmptyInt64(o.AcceleratorCount))
 	return p
 }
 
-// ClusterClusterConfigSoftwareConfigToProto converts a ClusterClusterConfigSoftwareConfig resource to its proto representation.
+// ClusterClusterConfigSoftwareConfigToProto converts a ClusterClusterConfigSoftwareConfig object to its proto representation.
 func DataprocBetaClusterClusterConfigSoftwareConfigToProto(o *beta.ClusterClusterConfigSoftwareConfig) *betapb.DataprocBetaClusterClusterConfigSoftwareConfig {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.DataprocBetaClusterClusterConfigSoftwareConfig{
-		ImageVersion: dcl.ValueOrEmptyString(o.ImageVersion),
-	}
-	p.Properties = make(map[string]string)
+	p := &betapb.DataprocBetaClusterClusterConfigSoftwareConfig{}
+	p.SetImageVersion(dcl.ValueOrEmptyString(o.ImageVersion))
+	mProperties := make(map[string]string, len(o.Properties))
 	for k, r := range o.Properties {
-		p.Properties[k] = r
+		mProperties[k] = r
 	}
-	for _, r := range o.OptionalComponents {
-		p.OptionalComponents = append(p.OptionalComponents, betapb.DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnum(betapb.DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnum_value[string(r)]))
+	p.SetProperties(mProperties)
+	sOptionalComponents := make([]betapb.DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnum, len(o.OptionalComponents))
+	for i, r := range o.OptionalComponents {
+		sOptionalComponents[i] = betapb.DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnum(betapb.DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnum_value[string(r)])
 	}
+	p.SetOptionalComponents(sOptionalComponents)
 	return p
 }
 
-// ClusterClusterConfigInitializationActionsToProto converts a ClusterClusterConfigInitializationActions resource to its proto representation.
+// ClusterClusterConfigInitializationActionsToProto converts a ClusterClusterConfigInitializationActions object to its proto representation.
 func DataprocBetaClusterClusterConfigInitializationActionsToProto(o *beta.ClusterClusterConfigInitializationActions) *betapb.DataprocBetaClusterClusterConfigInitializationActions {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.DataprocBetaClusterClusterConfigInitializationActions{
-		ExecutableFile:   dcl.ValueOrEmptyString(o.ExecutableFile),
-		ExecutionTimeout: dcl.ValueOrEmptyString(o.ExecutionTimeout),
-	}
+	p := &betapb.DataprocBetaClusterClusterConfigInitializationActions{}
+	p.SetExecutableFile(dcl.ValueOrEmptyString(o.ExecutableFile))
+	p.SetExecutionTimeout(dcl.ValueOrEmptyString(o.ExecutionTimeout))
 	return p
 }
 
-// ClusterClusterConfigEncryptionConfigToProto converts a ClusterClusterConfigEncryptionConfig resource to its proto representation.
+// ClusterClusterConfigEncryptionConfigToProto converts a ClusterClusterConfigEncryptionConfig object to its proto representation.
 func DataprocBetaClusterClusterConfigEncryptionConfigToProto(o *beta.ClusterClusterConfigEncryptionConfig) *betapb.DataprocBetaClusterClusterConfigEncryptionConfig {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.DataprocBetaClusterClusterConfigEncryptionConfig{
-		GcePdKmsKeyName: dcl.ValueOrEmptyString(o.GcePdKmsKeyName),
-	}
+	p := &betapb.DataprocBetaClusterClusterConfigEncryptionConfig{}
+	p.SetGcePdKmsKeyName(dcl.ValueOrEmptyString(o.GcePdKmsKeyName))
 	return p
 }
 
-// ClusterClusterConfigAutoscalingConfigToProto converts a ClusterClusterConfigAutoscalingConfig resource to its proto representation.
+// ClusterClusterConfigAutoscalingConfigToProto converts a ClusterClusterConfigAutoscalingConfig object to its proto representation.
 func DataprocBetaClusterClusterConfigAutoscalingConfigToProto(o *beta.ClusterClusterConfigAutoscalingConfig) *betapb.DataprocBetaClusterClusterConfigAutoscalingConfig {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.DataprocBetaClusterClusterConfigAutoscalingConfig{
-		Policy: dcl.ValueOrEmptyString(o.Policy),
-	}
+	p := &betapb.DataprocBetaClusterClusterConfigAutoscalingConfig{}
+	p.SetPolicy(dcl.ValueOrEmptyString(o.Policy))
 	return p
 }
 
-// ClusterClusterConfigSecurityConfigToProto converts a ClusterClusterConfigSecurityConfig resource to its proto representation.
+// ClusterClusterConfigSecurityConfigToProto converts a ClusterClusterConfigSecurityConfig object to its proto representation.
 func DataprocBetaClusterClusterConfigSecurityConfigToProto(o *beta.ClusterClusterConfigSecurityConfig) *betapb.DataprocBetaClusterClusterConfigSecurityConfig {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.DataprocBetaClusterClusterConfigSecurityConfig{
-		KerberosConfig: DataprocBetaClusterClusterConfigSecurityConfigKerberosConfigToProto(o.KerberosConfig),
-	}
+	p := &betapb.DataprocBetaClusterClusterConfigSecurityConfig{}
+	p.SetKerberosConfig(DataprocBetaClusterClusterConfigSecurityConfigKerberosConfigToProto(o.KerberosConfig))
 	return p
 }
 
-// ClusterClusterConfigSecurityConfigKerberosConfigToProto converts a ClusterClusterConfigSecurityConfigKerberosConfig resource to its proto representation.
+// ClusterClusterConfigSecurityConfigKerberosConfigToProto converts a ClusterClusterConfigSecurityConfigKerberosConfig object to its proto representation.
 func DataprocBetaClusterClusterConfigSecurityConfigKerberosConfigToProto(o *beta.ClusterClusterConfigSecurityConfigKerberosConfig) *betapb.DataprocBetaClusterClusterConfigSecurityConfigKerberosConfig {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.DataprocBetaClusterClusterConfigSecurityConfigKerberosConfig{
-		EnableKerberos:                dcl.ValueOrEmptyBool(o.EnableKerberos),
-		RootPrincipalPassword:         dcl.ValueOrEmptyString(o.RootPrincipalPassword),
-		KmsKey:                        dcl.ValueOrEmptyString(o.KmsKey),
-		Keystore:                      dcl.ValueOrEmptyString(o.Keystore),
-		Truststore:                    dcl.ValueOrEmptyString(o.Truststore),
-		KeystorePassword:              dcl.ValueOrEmptyString(o.KeystorePassword),
-		KeyPassword:                   dcl.ValueOrEmptyString(o.KeyPassword),
-		TruststorePassword:            dcl.ValueOrEmptyString(o.TruststorePassword),
-		CrossRealmTrustRealm:          dcl.ValueOrEmptyString(o.CrossRealmTrustRealm),
-		CrossRealmTrustKdc:            dcl.ValueOrEmptyString(o.CrossRealmTrustKdc),
-		CrossRealmTrustAdminServer:    dcl.ValueOrEmptyString(o.CrossRealmTrustAdminServer),
-		CrossRealmTrustSharedPassword: dcl.ValueOrEmptyString(o.CrossRealmTrustSharedPassword),
-		KdcDbKey:                      dcl.ValueOrEmptyString(o.KdcDbKey),
-		TgtLifetimeHours:              dcl.ValueOrEmptyInt64(o.TgtLifetimeHours),
-		Realm:                         dcl.ValueOrEmptyString(o.Realm),
-	}
+	p := &betapb.DataprocBetaClusterClusterConfigSecurityConfigKerberosConfig{}
+	p.SetEnableKerberos(dcl.ValueOrEmptyBool(o.EnableKerberos))
+	p.SetRootPrincipalPassword(dcl.ValueOrEmptyString(o.RootPrincipalPassword))
+	p.SetKmsKey(dcl.ValueOrEmptyString(o.KmsKey))
+	p.SetKeystore(dcl.ValueOrEmptyString(o.Keystore))
+	p.SetTruststore(dcl.ValueOrEmptyString(o.Truststore))
+	p.SetKeystorePassword(dcl.ValueOrEmptyString(o.KeystorePassword))
+	p.SetKeyPassword(dcl.ValueOrEmptyString(o.KeyPassword))
+	p.SetTruststorePassword(dcl.ValueOrEmptyString(o.TruststorePassword))
+	p.SetCrossRealmTrustRealm(dcl.ValueOrEmptyString(o.CrossRealmTrustRealm))
+	p.SetCrossRealmTrustKdc(dcl.ValueOrEmptyString(o.CrossRealmTrustKdc))
+	p.SetCrossRealmTrustAdminServer(dcl.ValueOrEmptyString(o.CrossRealmTrustAdminServer))
+	p.SetCrossRealmTrustSharedPassword(dcl.ValueOrEmptyString(o.CrossRealmTrustSharedPassword))
+	p.SetKdcDbKey(dcl.ValueOrEmptyString(o.KdcDbKey))
+	p.SetTgtLifetimeHours(dcl.ValueOrEmptyInt64(o.TgtLifetimeHours))
+	p.SetRealm(dcl.ValueOrEmptyString(o.Realm))
 	return p
 }
 
-// ClusterClusterConfigLifecycleConfigToProto converts a ClusterClusterConfigLifecycleConfig resource to its proto representation.
+// ClusterClusterConfigLifecycleConfigToProto converts a ClusterClusterConfigLifecycleConfig object to its proto representation.
 func DataprocBetaClusterClusterConfigLifecycleConfigToProto(o *beta.ClusterClusterConfigLifecycleConfig) *betapb.DataprocBetaClusterClusterConfigLifecycleConfig {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.DataprocBetaClusterClusterConfigLifecycleConfig{
-		IdleDeleteTtl:  dcl.ValueOrEmptyString(o.IdleDeleteTtl),
-		AutoDeleteTime: dcl.ValueOrEmptyString(o.AutoDeleteTime),
-		AutoDeleteTtl:  dcl.ValueOrEmptyString(o.AutoDeleteTtl),
-		IdleStartTime:  dcl.ValueOrEmptyString(o.IdleStartTime),
-	}
+	p := &betapb.DataprocBetaClusterClusterConfigLifecycleConfig{}
+	p.SetIdleDeleteTtl(dcl.ValueOrEmptyString(o.IdleDeleteTtl))
+	p.SetAutoDeleteTime(dcl.ValueOrEmptyString(o.AutoDeleteTime))
+	p.SetAutoDeleteTtl(dcl.ValueOrEmptyString(o.AutoDeleteTtl))
+	p.SetIdleStartTime(dcl.ValueOrEmptyString(o.IdleStartTime))
 	return p
 }
 
-// ClusterClusterConfigEndpointConfigToProto converts a ClusterClusterConfigEndpointConfig resource to its proto representation.
+// ClusterClusterConfigEndpointConfigToProto converts a ClusterClusterConfigEndpointConfig object to its proto representation.
 func DataprocBetaClusterClusterConfigEndpointConfigToProto(o *beta.ClusterClusterConfigEndpointConfig) *betapb.DataprocBetaClusterClusterConfigEndpointConfig {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.DataprocBetaClusterClusterConfigEndpointConfig{
-		EnableHttpPortAccess: dcl.ValueOrEmptyBool(o.EnableHttpPortAccess),
-	}
-	p.HttpPorts = make(map[string]string)
+	p := &betapb.DataprocBetaClusterClusterConfigEndpointConfig{}
+	p.SetEnableHttpPortAccess(dcl.ValueOrEmptyBool(o.EnableHttpPortAccess))
+	mHttpPorts := make(map[string]string, len(o.HttpPorts))
 	for k, r := range o.HttpPorts {
-		p.HttpPorts[k] = r
+		mHttpPorts[k] = r
 	}
+	p.SetHttpPorts(mHttpPorts)
 	return p
 }
 
-// ClusterClusterConfigGkeClusterConfigToProto converts a ClusterClusterConfigGkeClusterConfig resource to its proto representation.
+// ClusterClusterConfigGkeClusterConfigToProto converts a ClusterClusterConfigGkeClusterConfig object to its proto representation.
 func DataprocBetaClusterClusterConfigGkeClusterConfigToProto(o *beta.ClusterClusterConfigGkeClusterConfig) *betapb.DataprocBetaClusterClusterConfigGkeClusterConfig {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.DataprocBetaClusterClusterConfigGkeClusterConfig{
-		NamespacedGkeDeploymentTarget: DataprocBetaClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetToProto(o.NamespacedGkeDeploymentTarget),
-	}
+	p := &betapb.DataprocBetaClusterClusterConfigGkeClusterConfig{}
+	p.SetNamespacedGkeDeploymentTarget(DataprocBetaClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetToProto(o.NamespacedGkeDeploymentTarget))
 	return p
 }
 
-// ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetToProto converts a ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget resource to its proto representation.
+// ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetToProto converts a ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget object to its proto representation.
 func DataprocBetaClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetToProto(o *beta.ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget) *betapb.DataprocBetaClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.DataprocBetaClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget{
-		TargetGkeCluster: dcl.ValueOrEmptyString(o.TargetGkeCluster),
-		ClusterNamespace: dcl.ValueOrEmptyString(o.ClusterNamespace),
-	}
+	p := &betapb.DataprocBetaClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget{}
+	p.SetTargetGkeCluster(dcl.ValueOrEmptyString(o.TargetGkeCluster))
+	p.SetClusterNamespace(dcl.ValueOrEmptyString(o.ClusterNamespace))
 	return p
 }
 
-// ClusterClusterConfigMetastoreConfigToProto converts a ClusterClusterConfigMetastoreConfig resource to its proto representation.
+// ClusterClusterConfigMetastoreConfigToProto converts a ClusterClusterConfigMetastoreConfig object to its proto representation.
 func DataprocBetaClusterClusterConfigMetastoreConfigToProto(o *beta.ClusterClusterConfigMetastoreConfig) *betapb.DataprocBetaClusterClusterConfigMetastoreConfig {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.DataprocBetaClusterClusterConfigMetastoreConfig{
-		DataprocMetastoreService: dcl.ValueOrEmptyString(o.DataprocMetastoreService),
-	}
+	p := &betapb.DataprocBetaClusterClusterConfigMetastoreConfig{}
+	p.SetDataprocMetastoreService(dcl.ValueOrEmptyString(o.DataprocMetastoreService))
 	return p
 }
 
-// ClusterStatusToProto converts a ClusterStatus resource to its proto representation.
+// ClusterStatusToProto converts a ClusterStatus object to its proto representation.
 func DataprocBetaClusterStatusToProto(o *beta.ClusterStatus) *betapb.DataprocBetaClusterStatus {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.DataprocBetaClusterStatus{
-		State:          DataprocBetaClusterStatusStateEnumToProto(o.State),
-		Detail:         dcl.ValueOrEmptyString(o.Detail),
-		StateStartTime: dcl.ValueOrEmptyString(o.StateStartTime),
-		Substate:       DataprocBetaClusterStatusSubstateEnumToProto(o.Substate),
-	}
+	p := &betapb.DataprocBetaClusterStatus{}
+	p.SetState(DataprocBetaClusterStatusStateEnumToProto(o.State))
+	p.SetDetail(dcl.ValueOrEmptyString(o.Detail))
+	p.SetStateStartTime(dcl.ValueOrEmptyString(o.StateStartTime))
+	p.SetSubstate(DataprocBetaClusterStatusSubstateEnumToProto(o.Substate))
 	return p
 }
 
-// ClusterStatusHistoryToProto converts a ClusterStatusHistory resource to its proto representation.
+// ClusterStatusHistoryToProto converts a ClusterStatusHistory object to its proto representation.
 func DataprocBetaClusterStatusHistoryToProto(o *beta.ClusterStatusHistory) *betapb.DataprocBetaClusterStatusHistory {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.DataprocBetaClusterStatusHistory{
-		State:          DataprocBetaClusterStatusHistoryStateEnumToProto(o.State),
-		Detail:         dcl.ValueOrEmptyString(o.Detail),
-		StateStartTime: dcl.ValueOrEmptyString(o.StateStartTime),
-		Substate:       DataprocBetaClusterStatusHistorySubstateEnumToProto(o.Substate),
-	}
+	p := &betapb.DataprocBetaClusterStatusHistory{}
+	p.SetState(DataprocBetaClusterStatusHistoryStateEnumToProto(o.State))
+	p.SetDetail(dcl.ValueOrEmptyString(o.Detail))
+	p.SetStateStartTime(dcl.ValueOrEmptyString(o.StateStartTime))
+	p.SetSubstate(DataprocBetaClusterStatusHistorySubstateEnumToProto(o.Substate))
 	return p
 }
 
-// ClusterMetricsToProto converts a ClusterMetrics resource to its proto representation.
+// ClusterMetricsToProto converts a ClusterMetrics object to its proto representation.
 func DataprocBetaClusterMetricsToProto(o *beta.ClusterMetrics) *betapb.DataprocBetaClusterMetrics {
 	if o == nil {
 		return nil
 	}
 	p := &betapb.DataprocBetaClusterMetrics{}
-	p.HdfsMetrics = make(map[string]string)
+	mHdfsMetrics := make(map[string]string, len(o.HdfsMetrics))
 	for k, r := range o.HdfsMetrics {
-		p.HdfsMetrics[k] = r
+		mHdfsMetrics[k] = r
 	}
-	p.YarnMetrics = make(map[string]string)
+	p.SetHdfsMetrics(mHdfsMetrics)
+	mYarnMetrics := make(map[string]string, len(o.YarnMetrics))
 	for k, r := range o.YarnMetrics {
-		p.YarnMetrics[k] = r
+		mYarnMetrics[k] = r
 	}
+	p.SetYarnMetrics(mYarnMetrics)
 	return p
 }
 
 // ClusterToProto converts a Cluster resource to its proto representation.
 func ClusterToProto(resource *beta.Cluster) *betapb.DataprocBetaCluster {
-	p := &betapb.DataprocBetaCluster{
-		Project:     dcl.ValueOrEmptyString(resource.Project),
-		Name:        dcl.ValueOrEmptyString(resource.Name),
-		Config:      DataprocBetaClusterClusterConfigToProto(resource.Config),
-		Status:      DataprocBetaClusterStatusToProto(resource.Status),
-		ClusterUuid: dcl.ValueOrEmptyString(resource.ClusterUuid),
-		Metrics:     DataprocBetaClusterMetricsToProto(resource.Metrics),
-		Location:    dcl.ValueOrEmptyString(resource.Location),
+	p := &betapb.DataprocBetaCluster{}
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetConfig(DataprocBetaClusterClusterConfigToProto(resource.Config))
+	p.SetStatus(DataprocBetaClusterStatusToProto(resource.Status))
+	p.SetClusterUuid(dcl.ValueOrEmptyString(resource.ClusterUuid))
+	p.SetMetrics(DataprocBetaClusterMetricsToProto(resource.Metrics))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
-	for _, r := range resource.StatusHistory {
-		p.StatusHistory = append(p.StatusHistory, DataprocBetaClusterStatusHistoryToProto(&r))
+	p.SetLabels(mLabels)
+	sStatusHistory := make([]*betapb.DataprocBetaClusterStatusHistory, len(resource.StatusHistory))
+	for i, r := range resource.StatusHistory {
+		sStatusHistory[i] = DataprocBetaClusterStatusHistoryToProto(&r)
 	}
+	p.SetStatusHistory(sStatusHistory)
 
 	return p
 }
 
-// ApplyCluster handles the gRPC request by passing it to the underlying Cluster Apply() method.
+// applyCluster handles the gRPC request by passing it to the underlying Cluster Apply() method.
 func (s *ClusterServer) applyCluster(ctx context.Context, c *beta.Client, request *betapb.ApplyDataprocBetaClusterRequest) (*betapb.DataprocBetaCluster, error) {
 	p := ProtoToCluster(request.GetResource())
 	res, err := c.ApplyCluster(ctx, p)
@@ -911,9 +915,9 @@ func (s *ClusterServer) applyCluster(ctx context.Context, c *beta.Client, reques
 	return r, nil
 }
 
-// ApplyCluster handles the gRPC request by passing it to the underlying Cluster Apply() method.
+// applyDataprocBetaCluster handles the gRPC request by passing it to the underlying Cluster Apply() method.
 func (s *ClusterServer) ApplyDataprocBetaCluster(ctx context.Context, request *betapb.ApplyDataprocBetaClusterRequest) (*betapb.DataprocBetaCluster, error) {
-	cl, err := createConfigCluster(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCluster(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -923,7 +927,7 @@ func (s *ClusterServer) ApplyDataprocBetaCluster(ctx context.Context, request *b
 // DeleteCluster handles the gRPC request by passing it to the underlying Cluster Delete() method.
 func (s *ClusterServer) DeleteDataprocBetaCluster(ctx context.Context, request *betapb.DeleteDataprocBetaClusterRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigCluster(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCluster(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -933,12 +937,12 @@ func (s *ClusterServer) DeleteDataprocBetaCluster(ctx context.Context, request *
 
 // ListDataprocBetaCluster handles the gRPC request by passing it to the underlying ClusterList() method.
 func (s *ClusterServer) ListDataprocBetaCluster(ctx context.Context, request *betapb.ListDataprocBetaClusterRequest) (*betapb.ListDataprocBetaClusterResponse, error) {
-	cl, err := createConfigCluster(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCluster(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListCluster(ctx, request.Project, request.Location)
+	resources, err := cl.ListCluster(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -947,7 +951,9 @@ func (s *ClusterServer) ListDataprocBetaCluster(ctx context.Context, request *be
 		rp := ClusterToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListDataprocBetaClusterResponse{Items: protos}, nil
+	p := &betapb.ListDataprocBetaClusterResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigCluster(ctx context.Context, service_account_file string) (*beta.Client, error) {

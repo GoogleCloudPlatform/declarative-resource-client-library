@@ -25,15 +25,15 @@ import (
 // Server implements the gRPC interface for TenantOAuthIdpConfig.
 type TenantOAuthIdpConfigServer struct{}
 
-// ProtoToTenantOAuthIdpConfigResponseType converts a TenantOAuthIdpConfigResponseType resource from its proto representation.
+// ProtoToTenantOAuthIdpConfigResponseType converts a TenantOAuthIdpConfigResponseType object from its proto representation.
 func ProtoToIdentitytoolkitTenantOAuthIdpConfigResponseType(p *identitytoolkitpb.IdentitytoolkitTenantOAuthIdpConfigResponseType) *identitytoolkit.TenantOAuthIdpConfigResponseType {
 	if p == nil {
 		return nil
 	}
 	obj := &identitytoolkit.TenantOAuthIdpConfigResponseType{
-		IdToken: dcl.Bool(p.IdToken),
-		Code:    dcl.Bool(p.Code),
-		Token:   dcl.Bool(p.Token),
+		IdToken: dcl.Bool(p.GetIdToken()),
+		Code:    dcl.Bool(p.GetCode()),
+		Token:   dcl.Bool(p.GetToken()),
 	}
 	return obj
 }
@@ -41,50 +41,48 @@ func ProtoToIdentitytoolkitTenantOAuthIdpConfigResponseType(p *identitytoolkitpb
 // ProtoToTenantOAuthIdpConfig converts a TenantOAuthIdpConfig resource from its proto representation.
 func ProtoToTenantOAuthIdpConfig(p *identitytoolkitpb.IdentitytoolkitTenantOAuthIdpConfig) *identitytoolkit.TenantOAuthIdpConfig {
 	obj := &identitytoolkit.TenantOAuthIdpConfig{
-		Name:         dcl.StringOrNil(p.Name),
-		ClientId:     dcl.StringOrNil(p.ClientId),
-		Issuer:       dcl.StringOrNil(p.Issuer),
-		DisplayName:  dcl.StringOrNil(p.DisplayName),
-		Enabled:      dcl.Bool(p.Enabled),
-		ClientSecret: dcl.StringOrNil(p.ClientSecret),
+		Name:         dcl.StringOrNil(p.GetName()),
+		ClientId:     dcl.StringOrNil(p.GetClientId()),
+		Issuer:       dcl.StringOrNil(p.GetIssuer()),
+		DisplayName:  dcl.StringOrNil(p.GetDisplayName()),
+		Enabled:      dcl.Bool(p.GetEnabled()),
+		ClientSecret: dcl.StringOrNil(p.GetClientSecret()),
 		ResponseType: ProtoToIdentitytoolkitTenantOAuthIdpConfigResponseType(p.GetResponseType()),
-		Project:      dcl.StringOrNil(p.Project),
-		Tenant:       dcl.StringOrNil(p.Tenant),
+		Project:      dcl.StringOrNil(p.GetProject()),
+		Tenant:       dcl.StringOrNil(p.GetTenant()),
 	}
 	return obj
 }
 
-// TenantOAuthIdpConfigResponseTypeToProto converts a TenantOAuthIdpConfigResponseType resource to its proto representation.
+// TenantOAuthIdpConfigResponseTypeToProto converts a TenantOAuthIdpConfigResponseType object to its proto representation.
 func IdentitytoolkitTenantOAuthIdpConfigResponseTypeToProto(o *identitytoolkit.TenantOAuthIdpConfigResponseType) *identitytoolkitpb.IdentitytoolkitTenantOAuthIdpConfigResponseType {
 	if o == nil {
 		return nil
 	}
-	p := &identitytoolkitpb.IdentitytoolkitTenantOAuthIdpConfigResponseType{
-		IdToken: dcl.ValueOrEmptyBool(o.IdToken),
-		Code:    dcl.ValueOrEmptyBool(o.Code),
-		Token:   dcl.ValueOrEmptyBool(o.Token),
-	}
+	p := &identitytoolkitpb.IdentitytoolkitTenantOAuthIdpConfigResponseType{}
+	p.SetIdToken(dcl.ValueOrEmptyBool(o.IdToken))
+	p.SetCode(dcl.ValueOrEmptyBool(o.Code))
+	p.SetToken(dcl.ValueOrEmptyBool(o.Token))
 	return p
 }
 
 // TenantOAuthIdpConfigToProto converts a TenantOAuthIdpConfig resource to its proto representation.
 func TenantOAuthIdpConfigToProto(resource *identitytoolkit.TenantOAuthIdpConfig) *identitytoolkitpb.IdentitytoolkitTenantOAuthIdpConfig {
-	p := &identitytoolkitpb.IdentitytoolkitTenantOAuthIdpConfig{
-		Name:         dcl.ValueOrEmptyString(resource.Name),
-		ClientId:     dcl.ValueOrEmptyString(resource.ClientId),
-		Issuer:       dcl.ValueOrEmptyString(resource.Issuer),
-		DisplayName:  dcl.ValueOrEmptyString(resource.DisplayName),
-		Enabled:      dcl.ValueOrEmptyBool(resource.Enabled),
-		ClientSecret: dcl.ValueOrEmptyString(resource.ClientSecret),
-		ResponseType: IdentitytoolkitTenantOAuthIdpConfigResponseTypeToProto(resource.ResponseType),
-		Project:      dcl.ValueOrEmptyString(resource.Project),
-		Tenant:       dcl.ValueOrEmptyString(resource.Tenant),
-	}
+	p := &identitytoolkitpb.IdentitytoolkitTenantOAuthIdpConfig{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetClientId(dcl.ValueOrEmptyString(resource.ClientId))
+	p.SetIssuer(dcl.ValueOrEmptyString(resource.Issuer))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetEnabled(dcl.ValueOrEmptyBool(resource.Enabled))
+	p.SetClientSecret(dcl.ValueOrEmptyString(resource.ClientSecret))
+	p.SetResponseType(IdentitytoolkitTenantOAuthIdpConfigResponseTypeToProto(resource.ResponseType))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetTenant(dcl.ValueOrEmptyString(resource.Tenant))
 
 	return p
 }
 
-// ApplyTenantOAuthIdpConfig handles the gRPC request by passing it to the underlying TenantOAuthIdpConfig Apply() method.
+// applyTenantOAuthIdpConfig handles the gRPC request by passing it to the underlying TenantOAuthIdpConfig Apply() method.
 func (s *TenantOAuthIdpConfigServer) applyTenantOAuthIdpConfig(ctx context.Context, c *identitytoolkit.Client, request *identitytoolkitpb.ApplyIdentitytoolkitTenantOAuthIdpConfigRequest) (*identitytoolkitpb.IdentitytoolkitTenantOAuthIdpConfig, error) {
 	p := ProtoToTenantOAuthIdpConfig(request.GetResource())
 	res, err := c.ApplyTenantOAuthIdpConfig(ctx, p)
@@ -95,9 +93,9 @@ func (s *TenantOAuthIdpConfigServer) applyTenantOAuthIdpConfig(ctx context.Conte
 	return r, nil
 }
 
-// ApplyTenantOAuthIdpConfig handles the gRPC request by passing it to the underlying TenantOAuthIdpConfig Apply() method.
+// applyIdentitytoolkitTenantOAuthIdpConfig handles the gRPC request by passing it to the underlying TenantOAuthIdpConfig Apply() method.
 func (s *TenantOAuthIdpConfigServer) ApplyIdentitytoolkitTenantOAuthIdpConfig(ctx context.Context, request *identitytoolkitpb.ApplyIdentitytoolkitTenantOAuthIdpConfigRequest) (*identitytoolkitpb.IdentitytoolkitTenantOAuthIdpConfig, error) {
-	cl, err := createConfigTenantOAuthIdpConfig(ctx, request.ServiceAccountFile)
+	cl, err := createConfigTenantOAuthIdpConfig(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -107,7 +105,7 @@ func (s *TenantOAuthIdpConfigServer) ApplyIdentitytoolkitTenantOAuthIdpConfig(ct
 // DeleteTenantOAuthIdpConfig handles the gRPC request by passing it to the underlying TenantOAuthIdpConfig Delete() method.
 func (s *TenantOAuthIdpConfigServer) DeleteIdentitytoolkitTenantOAuthIdpConfig(ctx context.Context, request *identitytoolkitpb.DeleteIdentitytoolkitTenantOAuthIdpConfigRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigTenantOAuthIdpConfig(ctx, request.ServiceAccountFile)
+	cl, err := createConfigTenantOAuthIdpConfig(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -117,12 +115,12 @@ func (s *TenantOAuthIdpConfigServer) DeleteIdentitytoolkitTenantOAuthIdpConfig(c
 
 // ListIdentitytoolkitTenantOAuthIdpConfig handles the gRPC request by passing it to the underlying TenantOAuthIdpConfigList() method.
 func (s *TenantOAuthIdpConfigServer) ListIdentitytoolkitTenantOAuthIdpConfig(ctx context.Context, request *identitytoolkitpb.ListIdentitytoolkitTenantOAuthIdpConfigRequest) (*identitytoolkitpb.ListIdentitytoolkitTenantOAuthIdpConfigResponse, error) {
-	cl, err := createConfigTenantOAuthIdpConfig(ctx, request.ServiceAccountFile)
+	cl, err := createConfigTenantOAuthIdpConfig(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListTenantOAuthIdpConfig(ctx, request.Project, request.Tenant)
+	resources, err := cl.ListTenantOAuthIdpConfig(ctx, request.GetProject(), request.GetTenant())
 	if err != nil {
 		return nil, err
 	}
@@ -131,7 +129,9 @@ func (s *TenantOAuthIdpConfigServer) ListIdentitytoolkitTenantOAuthIdpConfig(ctx
 		rp := TenantOAuthIdpConfigToProto(r)
 		protos = append(protos, rp)
 	}
-	return &identitytoolkitpb.ListIdentitytoolkitTenantOAuthIdpConfigResponse{Items: protos}, nil
+	p := &identitytoolkitpb.ListIdentitytoolkitTenantOAuthIdpConfigResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigTenantOAuthIdpConfig(ctx context.Context, service_account_file string) (*identitytoolkit.Client, error) {

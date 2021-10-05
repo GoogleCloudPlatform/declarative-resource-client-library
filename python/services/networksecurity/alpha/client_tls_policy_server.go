@@ -25,7 +25,7 @@ import (
 // Server implements the gRPC interface for ClientTlsPolicy.
 type ClientTlsPolicyServer struct{}
 
-// ProtoToClientTlsPolicyClientCertificate converts a ClientTlsPolicyClientCertificate resource from its proto representation.
+// ProtoToClientTlsPolicyClientCertificate converts a ClientTlsPolicyClientCertificate object from its proto representation.
 func ProtoToNetworksecurityAlphaClientTlsPolicyClientCertificate(p *alphapb.NetworksecurityAlphaClientTlsPolicyClientCertificate) *alpha.ClientTlsPolicyClientCertificate {
 	if p == nil {
 		return nil
@@ -38,71 +38,71 @@ func ProtoToNetworksecurityAlphaClientTlsPolicyClientCertificate(p *alphapb.Netw
 	return obj
 }
 
-// ProtoToClientTlsPolicyClientCertificateLocalFilepath converts a ClientTlsPolicyClientCertificateLocalFilepath resource from its proto representation.
+// ProtoToClientTlsPolicyClientCertificateLocalFilepath converts a ClientTlsPolicyClientCertificateLocalFilepath object from its proto representation.
 func ProtoToNetworksecurityAlphaClientTlsPolicyClientCertificateLocalFilepath(p *alphapb.NetworksecurityAlphaClientTlsPolicyClientCertificateLocalFilepath) *alpha.ClientTlsPolicyClientCertificateLocalFilepath {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClientTlsPolicyClientCertificateLocalFilepath{
-		CertificatePath: dcl.StringOrNil(p.CertificatePath),
-		PrivateKeyPath:  dcl.StringOrNil(p.PrivateKeyPath),
+		CertificatePath: dcl.StringOrNil(p.GetCertificatePath()),
+		PrivateKeyPath:  dcl.StringOrNil(p.GetPrivateKeyPath()),
 	}
 	return obj
 }
 
-// ProtoToClientTlsPolicyClientCertificateGrpcEndpoint converts a ClientTlsPolicyClientCertificateGrpcEndpoint resource from its proto representation.
+// ProtoToClientTlsPolicyClientCertificateGrpcEndpoint converts a ClientTlsPolicyClientCertificateGrpcEndpoint object from its proto representation.
 func ProtoToNetworksecurityAlphaClientTlsPolicyClientCertificateGrpcEndpoint(p *alphapb.NetworksecurityAlphaClientTlsPolicyClientCertificateGrpcEndpoint) *alpha.ClientTlsPolicyClientCertificateGrpcEndpoint {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClientTlsPolicyClientCertificateGrpcEndpoint{
-		TargetUri: dcl.StringOrNil(p.TargetUri),
+		TargetUri: dcl.StringOrNil(p.GetTargetUri()),
 	}
 	return obj
 }
 
-// ProtoToClientTlsPolicyClientCertificateCertificateProviderInstance converts a ClientTlsPolicyClientCertificateCertificateProviderInstance resource from its proto representation.
+// ProtoToClientTlsPolicyClientCertificateCertificateProviderInstance converts a ClientTlsPolicyClientCertificateCertificateProviderInstance object from its proto representation.
 func ProtoToNetworksecurityAlphaClientTlsPolicyClientCertificateCertificateProviderInstance(p *alphapb.NetworksecurityAlphaClientTlsPolicyClientCertificateCertificateProviderInstance) *alpha.ClientTlsPolicyClientCertificateCertificateProviderInstance {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClientTlsPolicyClientCertificateCertificateProviderInstance{
-		PluginInstance: dcl.StringOrNil(p.PluginInstance),
+		PluginInstance: dcl.StringOrNil(p.GetPluginInstance()),
 	}
 	return obj
 }
 
-// ProtoToClientTlsPolicyServerValidationCa converts a ClientTlsPolicyServerValidationCa resource from its proto representation.
+// ProtoToClientTlsPolicyServerValidationCa converts a ClientTlsPolicyServerValidationCa object from its proto representation.
 func ProtoToNetworksecurityAlphaClientTlsPolicyServerValidationCa(p *alphapb.NetworksecurityAlphaClientTlsPolicyServerValidationCa) *alpha.ClientTlsPolicyServerValidationCa {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClientTlsPolicyServerValidationCa{
-		CaCertPath:                  dcl.StringOrNil(p.CaCertPath),
+		CaCertPath:                  dcl.StringOrNil(p.GetCaCertPath()),
 		GrpcEndpoint:                ProtoToNetworksecurityAlphaClientTlsPolicyServerValidationCaGrpcEndpoint(p.GetGrpcEndpoint()),
 		CertificateProviderInstance: ProtoToNetworksecurityAlphaClientTlsPolicyServerValidationCaCertificateProviderInstance(p.GetCertificateProviderInstance()),
 	}
 	return obj
 }
 
-// ProtoToClientTlsPolicyServerValidationCaGrpcEndpoint converts a ClientTlsPolicyServerValidationCaGrpcEndpoint resource from its proto representation.
+// ProtoToClientTlsPolicyServerValidationCaGrpcEndpoint converts a ClientTlsPolicyServerValidationCaGrpcEndpoint object from its proto representation.
 func ProtoToNetworksecurityAlphaClientTlsPolicyServerValidationCaGrpcEndpoint(p *alphapb.NetworksecurityAlphaClientTlsPolicyServerValidationCaGrpcEndpoint) *alpha.ClientTlsPolicyServerValidationCaGrpcEndpoint {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClientTlsPolicyServerValidationCaGrpcEndpoint{
-		TargetUri: dcl.StringOrNil(p.TargetUri),
+		TargetUri: dcl.StringOrNil(p.GetTargetUri()),
 	}
 	return obj
 }
 
-// ProtoToClientTlsPolicyServerValidationCaCertificateProviderInstance converts a ClientTlsPolicyServerValidationCaCertificateProviderInstance resource from its proto representation.
+// ProtoToClientTlsPolicyServerValidationCaCertificateProviderInstance converts a ClientTlsPolicyServerValidationCaCertificateProviderInstance object from its proto representation.
 func ProtoToNetworksecurityAlphaClientTlsPolicyServerValidationCaCertificateProviderInstance(p *alphapb.NetworksecurityAlphaClientTlsPolicyServerValidationCaCertificateProviderInstance) *alpha.ClientTlsPolicyServerValidationCaCertificateProviderInstance {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClientTlsPolicyServerValidationCaCertificateProviderInstance{
-		PluginInstance: dcl.StringOrNil(p.PluginInstance),
+		PluginInstance: dcl.StringOrNil(p.GetPluginInstance()),
 	}
 	return obj
 }
@@ -110,14 +110,14 @@ func ProtoToNetworksecurityAlphaClientTlsPolicyServerValidationCaCertificateProv
 // ProtoToClientTlsPolicy converts a ClientTlsPolicy resource from its proto representation.
 func ProtoToClientTlsPolicy(p *alphapb.NetworksecurityAlphaClientTlsPolicy) *alpha.ClientTlsPolicy {
 	obj := &alpha.ClientTlsPolicy{
-		Name:              dcl.StringOrNil(p.Name),
-		Description:       dcl.StringOrNil(p.Description),
+		Name:              dcl.StringOrNil(p.GetName()),
+		Description:       dcl.StringOrNil(p.GetDescription()),
 		CreateTime:        dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:        dcl.StringOrNil(p.GetUpdateTime()),
-		Sni:               dcl.StringOrNil(p.Sni),
+		Sni:               dcl.StringOrNil(p.GetSni()),
 		ClientCertificate: ProtoToNetworksecurityAlphaClientTlsPolicyClientCertificate(p.GetClientCertificate()),
-		Project:           dcl.StringOrNil(p.Project),
-		Location:          dcl.StringOrNil(p.Location),
+		Project:           dcl.StringOrNil(p.GetProject()),
+		Location:          dcl.StringOrNil(p.GetLocation()),
 	}
 	for _, r := range p.GetServerValidationCa() {
 		obj.ServerValidationCa = append(obj.ServerValidationCa, *ProtoToNetworksecurityAlphaClientTlsPolicyServerValidationCa(r))
@@ -125,108 +125,107 @@ func ProtoToClientTlsPolicy(p *alphapb.NetworksecurityAlphaClientTlsPolicy) *alp
 	return obj
 }
 
-// ClientTlsPolicyClientCertificateToProto converts a ClientTlsPolicyClientCertificate resource to its proto representation.
+// ClientTlsPolicyClientCertificateToProto converts a ClientTlsPolicyClientCertificate object to its proto representation.
 func NetworksecurityAlphaClientTlsPolicyClientCertificateToProto(o *alpha.ClientTlsPolicyClientCertificate) *alphapb.NetworksecurityAlphaClientTlsPolicyClientCertificate {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.NetworksecurityAlphaClientTlsPolicyClientCertificate{
-		LocalFilepath:               NetworksecurityAlphaClientTlsPolicyClientCertificateLocalFilepathToProto(o.LocalFilepath),
-		GrpcEndpoint:                NetworksecurityAlphaClientTlsPolicyClientCertificateGrpcEndpointToProto(o.GrpcEndpoint),
-		CertificateProviderInstance: NetworksecurityAlphaClientTlsPolicyClientCertificateCertificateProviderInstanceToProto(o.CertificateProviderInstance),
-	}
+	p := &alphapb.NetworksecurityAlphaClientTlsPolicyClientCertificate{}
+	p.SetLocalFilepath(NetworksecurityAlphaClientTlsPolicyClientCertificateLocalFilepathToProto(o.LocalFilepath))
+	p.SetGrpcEndpoint(NetworksecurityAlphaClientTlsPolicyClientCertificateGrpcEndpointToProto(o.GrpcEndpoint))
+	p.SetCertificateProviderInstance(NetworksecurityAlphaClientTlsPolicyClientCertificateCertificateProviderInstanceToProto(o.CertificateProviderInstance))
 	return p
 }
 
-// ClientTlsPolicyClientCertificateLocalFilepathToProto converts a ClientTlsPolicyClientCertificateLocalFilepath resource to its proto representation.
+// ClientTlsPolicyClientCertificateLocalFilepathToProto converts a ClientTlsPolicyClientCertificateLocalFilepath object to its proto representation.
 func NetworksecurityAlphaClientTlsPolicyClientCertificateLocalFilepathToProto(o *alpha.ClientTlsPolicyClientCertificateLocalFilepath) *alphapb.NetworksecurityAlphaClientTlsPolicyClientCertificateLocalFilepath {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.NetworksecurityAlphaClientTlsPolicyClientCertificateLocalFilepath{
-		CertificatePath: dcl.ValueOrEmptyString(o.CertificatePath),
-		PrivateKeyPath:  dcl.ValueOrEmptyString(o.PrivateKeyPath),
-	}
+	p := &alphapb.NetworksecurityAlphaClientTlsPolicyClientCertificateLocalFilepath{}
+	p.SetCertificatePath(dcl.ValueOrEmptyString(o.CertificatePath))
+	p.SetPrivateKeyPath(dcl.ValueOrEmptyString(o.PrivateKeyPath))
 	return p
 }
 
-// ClientTlsPolicyClientCertificateGrpcEndpointToProto converts a ClientTlsPolicyClientCertificateGrpcEndpoint resource to its proto representation.
+// ClientTlsPolicyClientCertificateGrpcEndpointToProto converts a ClientTlsPolicyClientCertificateGrpcEndpoint object to its proto representation.
 func NetworksecurityAlphaClientTlsPolicyClientCertificateGrpcEndpointToProto(o *alpha.ClientTlsPolicyClientCertificateGrpcEndpoint) *alphapb.NetworksecurityAlphaClientTlsPolicyClientCertificateGrpcEndpoint {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.NetworksecurityAlphaClientTlsPolicyClientCertificateGrpcEndpoint{
-		TargetUri: dcl.ValueOrEmptyString(o.TargetUri),
-	}
+	p := &alphapb.NetworksecurityAlphaClientTlsPolicyClientCertificateGrpcEndpoint{}
+	p.SetTargetUri(dcl.ValueOrEmptyString(o.TargetUri))
 	return p
 }
 
-// ClientTlsPolicyClientCertificateCertificateProviderInstanceToProto converts a ClientTlsPolicyClientCertificateCertificateProviderInstance resource to its proto representation.
+// ClientTlsPolicyClientCertificateCertificateProviderInstanceToProto converts a ClientTlsPolicyClientCertificateCertificateProviderInstance object to its proto representation.
 func NetworksecurityAlphaClientTlsPolicyClientCertificateCertificateProviderInstanceToProto(o *alpha.ClientTlsPolicyClientCertificateCertificateProviderInstance) *alphapb.NetworksecurityAlphaClientTlsPolicyClientCertificateCertificateProviderInstance {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.NetworksecurityAlphaClientTlsPolicyClientCertificateCertificateProviderInstance{
-		PluginInstance: dcl.ValueOrEmptyString(o.PluginInstance),
-	}
+	p := &alphapb.NetworksecurityAlphaClientTlsPolicyClientCertificateCertificateProviderInstance{}
+	p.SetPluginInstance(dcl.ValueOrEmptyString(o.PluginInstance))
 	return p
 }
 
-// ClientTlsPolicyServerValidationCaToProto converts a ClientTlsPolicyServerValidationCa resource to its proto representation.
+// ClientTlsPolicyServerValidationCaToProto converts a ClientTlsPolicyServerValidationCa object to its proto representation.
 func NetworksecurityAlphaClientTlsPolicyServerValidationCaToProto(o *alpha.ClientTlsPolicyServerValidationCa) *alphapb.NetworksecurityAlphaClientTlsPolicyServerValidationCa {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.NetworksecurityAlphaClientTlsPolicyServerValidationCa{
-		CaCertPath:                  dcl.ValueOrEmptyString(o.CaCertPath),
-		GrpcEndpoint:                NetworksecurityAlphaClientTlsPolicyServerValidationCaGrpcEndpointToProto(o.GrpcEndpoint),
-		CertificateProviderInstance: NetworksecurityAlphaClientTlsPolicyServerValidationCaCertificateProviderInstanceToProto(o.CertificateProviderInstance),
-	}
+	p := &alphapb.NetworksecurityAlphaClientTlsPolicyServerValidationCa{}
+	p.SetCaCertPath(dcl.ValueOrEmptyString(o.CaCertPath))
+	p.SetGrpcEndpoint(NetworksecurityAlphaClientTlsPolicyServerValidationCaGrpcEndpointToProto(o.GrpcEndpoint))
+	p.SetCertificateProviderInstance(NetworksecurityAlphaClientTlsPolicyServerValidationCaCertificateProviderInstanceToProto(o.CertificateProviderInstance))
 	return p
 }
 
-// ClientTlsPolicyServerValidationCaGrpcEndpointToProto converts a ClientTlsPolicyServerValidationCaGrpcEndpoint resource to its proto representation.
+// ClientTlsPolicyServerValidationCaGrpcEndpointToProto converts a ClientTlsPolicyServerValidationCaGrpcEndpoint object to its proto representation.
 func NetworksecurityAlphaClientTlsPolicyServerValidationCaGrpcEndpointToProto(o *alpha.ClientTlsPolicyServerValidationCaGrpcEndpoint) *alphapb.NetworksecurityAlphaClientTlsPolicyServerValidationCaGrpcEndpoint {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.NetworksecurityAlphaClientTlsPolicyServerValidationCaGrpcEndpoint{
-		TargetUri: dcl.ValueOrEmptyString(o.TargetUri),
-	}
+	p := &alphapb.NetworksecurityAlphaClientTlsPolicyServerValidationCaGrpcEndpoint{}
+	p.SetTargetUri(dcl.ValueOrEmptyString(o.TargetUri))
 	return p
 }
 
-// ClientTlsPolicyServerValidationCaCertificateProviderInstanceToProto converts a ClientTlsPolicyServerValidationCaCertificateProviderInstance resource to its proto representation.
+// ClientTlsPolicyServerValidationCaCertificateProviderInstanceToProto converts a ClientTlsPolicyServerValidationCaCertificateProviderInstance object to its proto representation.
 func NetworksecurityAlphaClientTlsPolicyServerValidationCaCertificateProviderInstanceToProto(o *alpha.ClientTlsPolicyServerValidationCaCertificateProviderInstance) *alphapb.NetworksecurityAlphaClientTlsPolicyServerValidationCaCertificateProviderInstance {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.NetworksecurityAlphaClientTlsPolicyServerValidationCaCertificateProviderInstance{
-		PluginInstance: dcl.ValueOrEmptyString(o.PluginInstance),
-	}
+	p := &alphapb.NetworksecurityAlphaClientTlsPolicyServerValidationCaCertificateProviderInstance{}
+	p.SetPluginInstance(dcl.ValueOrEmptyString(o.PluginInstance))
 	return p
 }
 
 // ClientTlsPolicyToProto converts a ClientTlsPolicy resource to its proto representation.
 func ClientTlsPolicyToProto(resource *alpha.ClientTlsPolicy) *alphapb.NetworksecurityAlphaClientTlsPolicy {
-	p := &alphapb.NetworksecurityAlphaClientTlsPolicy{
-		Name:              dcl.ValueOrEmptyString(resource.Name),
-		Description:       dcl.ValueOrEmptyString(resource.Description),
-		CreateTime:        dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:        dcl.ValueOrEmptyString(resource.UpdateTime),
-		Sni:               dcl.ValueOrEmptyString(resource.Sni),
-		ClientCertificate: NetworksecurityAlphaClientTlsPolicyClientCertificateToProto(resource.ClientCertificate),
-		Project:           dcl.ValueOrEmptyString(resource.Project),
-		Location:          dcl.ValueOrEmptyString(resource.Location),
+	p := &alphapb.NetworksecurityAlphaClientTlsPolicy{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetSni(dcl.ValueOrEmptyString(resource.Sni))
+	p.SetClientCertificate(NetworksecurityAlphaClientTlsPolicyClientCertificateToProto(resource.ClientCertificate))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
-	for _, r := range resource.ServerValidationCa {
-		p.ServerValidationCa = append(p.ServerValidationCa, NetworksecurityAlphaClientTlsPolicyServerValidationCaToProto(&r))
+	p.SetLabels(mLabels)
+	sServerValidationCa := make([]*alphapb.NetworksecurityAlphaClientTlsPolicyServerValidationCa, len(resource.ServerValidationCa))
+	for i, r := range resource.ServerValidationCa {
+		sServerValidationCa[i] = NetworksecurityAlphaClientTlsPolicyServerValidationCaToProto(&r)
 	}
+	p.SetServerValidationCa(sServerValidationCa)
 
 	return p
 }
 
-// ApplyClientTlsPolicy handles the gRPC request by passing it to the underlying ClientTlsPolicy Apply() method.
+// applyClientTlsPolicy handles the gRPC request by passing it to the underlying ClientTlsPolicy Apply() method.
 func (s *ClientTlsPolicyServer) applyClientTlsPolicy(ctx context.Context, c *alpha.Client, request *alphapb.ApplyNetworksecurityAlphaClientTlsPolicyRequest) (*alphapb.NetworksecurityAlphaClientTlsPolicy, error) {
 	p := ProtoToClientTlsPolicy(request.GetResource())
 	res, err := c.ApplyClientTlsPolicy(ctx, p)
@@ -237,9 +236,9 @@ func (s *ClientTlsPolicyServer) applyClientTlsPolicy(ctx context.Context, c *alp
 	return r, nil
 }
 
-// ApplyClientTlsPolicy handles the gRPC request by passing it to the underlying ClientTlsPolicy Apply() method.
+// applyNetworksecurityAlphaClientTlsPolicy handles the gRPC request by passing it to the underlying ClientTlsPolicy Apply() method.
 func (s *ClientTlsPolicyServer) ApplyNetworksecurityAlphaClientTlsPolicy(ctx context.Context, request *alphapb.ApplyNetworksecurityAlphaClientTlsPolicyRequest) (*alphapb.NetworksecurityAlphaClientTlsPolicy, error) {
-	cl, err := createConfigClientTlsPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigClientTlsPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -249,7 +248,7 @@ func (s *ClientTlsPolicyServer) ApplyNetworksecurityAlphaClientTlsPolicy(ctx con
 // DeleteClientTlsPolicy handles the gRPC request by passing it to the underlying ClientTlsPolicy Delete() method.
 func (s *ClientTlsPolicyServer) DeleteNetworksecurityAlphaClientTlsPolicy(ctx context.Context, request *alphapb.DeleteNetworksecurityAlphaClientTlsPolicyRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigClientTlsPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigClientTlsPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -259,12 +258,12 @@ func (s *ClientTlsPolicyServer) DeleteNetworksecurityAlphaClientTlsPolicy(ctx co
 
 // ListNetworksecurityAlphaClientTlsPolicy handles the gRPC request by passing it to the underlying ClientTlsPolicyList() method.
 func (s *ClientTlsPolicyServer) ListNetworksecurityAlphaClientTlsPolicy(ctx context.Context, request *alphapb.ListNetworksecurityAlphaClientTlsPolicyRequest) (*alphapb.ListNetworksecurityAlphaClientTlsPolicyResponse, error) {
-	cl, err := createConfigClientTlsPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigClientTlsPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListClientTlsPolicy(ctx, request.Project, request.Location)
+	resources, err := cl.ListClientTlsPolicy(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -273,7 +272,9 @@ func (s *ClientTlsPolicyServer) ListNetworksecurityAlphaClientTlsPolicy(ctx cont
 		rp := ClientTlsPolicyToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListNetworksecurityAlphaClientTlsPolicyResponse{Items: protos}, nil
+	p := &alphapb.ListNetworksecurityAlphaClientTlsPolicyResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigClientTlsPolicy(ctx context.Context, service_account_file string) (*alpha.Client, error) {

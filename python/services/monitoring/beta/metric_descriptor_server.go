@@ -85,28 +85,28 @@ func ProtoToMonitoringBetaMetricDescriptorLaunchStageEnum(e betapb.MonitoringBet
 	return nil
 }
 
-// ProtoToMetricDescriptorLabels converts a MetricDescriptorLabels resource from its proto representation.
+// ProtoToMetricDescriptorLabels converts a MetricDescriptorLabels object from its proto representation.
 func ProtoToMonitoringBetaMetricDescriptorLabels(p *betapb.MonitoringBetaMetricDescriptorLabels) *beta.MetricDescriptorLabels {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.MetricDescriptorLabels{
-		Key:         dcl.StringOrNil(p.Key),
+		Key:         dcl.StringOrNil(p.GetKey()),
 		ValueType:   ProtoToMonitoringBetaMetricDescriptorLabelsValueTypeEnum(p.GetValueType()),
-		Description: dcl.StringOrNil(p.Description),
+		Description: dcl.StringOrNil(p.GetDescription()),
 	}
 	return obj
 }
 
-// ProtoToMetricDescriptorMetadata converts a MetricDescriptorMetadata resource from its proto representation.
+// ProtoToMetricDescriptorMetadata converts a MetricDescriptorMetadata object from its proto representation.
 func ProtoToMonitoringBetaMetricDescriptorMetadata(p *betapb.MonitoringBetaMetricDescriptorMetadata) *beta.MetricDescriptorMetadata {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.MetricDescriptorMetadata{
 		LaunchStage:  ProtoToMonitoringBetaMetricDescriptorMetadataLaunchStageEnum(p.GetLaunchStage()),
-		SamplePeriod: dcl.StringOrNil(p.SamplePeriod),
-		IngestDelay:  dcl.StringOrNil(p.IngestDelay),
+		SamplePeriod: dcl.StringOrNil(p.GetSamplePeriod()),
+		IngestDelay:  dcl.StringOrNil(p.GetIngestDelay()),
 	}
 	return obj
 }
@@ -114,16 +114,16 @@ func ProtoToMonitoringBetaMetricDescriptorMetadata(p *betapb.MonitoringBetaMetri
 // ProtoToMetricDescriptor converts a MetricDescriptor resource from its proto representation.
 func ProtoToMetricDescriptor(p *betapb.MonitoringBetaMetricDescriptor) *beta.MetricDescriptor {
 	obj := &beta.MetricDescriptor{
-		SelfLink:    dcl.StringOrNil(p.SelfLink),
-		Type:        dcl.StringOrNil(p.Type),
+		SelfLink:    dcl.StringOrNil(p.GetSelfLink()),
+		Type:        dcl.StringOrNil(p.GetType()),
 		MetricKind:  ProtoToMonitoringBetaMetricDescriptorMetricKindEnum(p.GetMetricKind()),
 		ValueType:   ProtoToMonitoringBetaMetricDescriptorValueTypeEnum(p.GetValueType()),
-		Unit:        dcl.StringOrNil(p.Unit),
-		Description: dcl.StringOrNil(p.Description),
-		DisplayName: dcl.StringOrNil(p.DisplayName),
+		Unit:        dcl.StringOrNil(p.GetUnit()),
+		Description: dcl.StringOrNil(p.GetDescription()),
+		DisplayName: dcl.StringOrNil(p.GetDisplayName()),
 		Metadata:    ProtoToMonitoringBetaMetricDescriptorMetadata(p.GetMetadata()),
 		LaunchStage: ProtoToMonitoringBetaMetricDescriptorLaunchStageEnum(p.GetLaunchStage()),
-		Project:     dcl.StringOrNil(p.Project),
+		Project:     dcl.StringOrNil(p.GetProject()),
 	}
 	for _, r := range p.GetLabels() {
 		obj.Labels = append(obj.Labels, *ProtoToMonitoringBetaMetricDescriptorLabels(r))
@@ -189,57 +189,58 @@ func MonitoringBetaMetricDescriptorLaunchStageEnumToProto(e *beta.MetricDescript
 	return betapb.MonitoringBetaMetricDescriptorLaunchStageEnum(0)
 }
 
-// MetricDescriptorLabelsToProto converts a MetricDescriptorLabels resource to its proto representation.
+// MetricDescriptorLabelsToProto converts a MetricDescriptorLabels object to its proto representation.
 func MonitoringBetaMetricDescriptorLabelsToProto(o *beta.MetricDescriptorLabels) *betapb.MonitoringBetaMetricDescriptorLabels {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.MonitoringBetaMetricDescriptorLabels{
-		Key:         dcl.ValueOrEmptyString(o.Key),
-		ValueType:   MonitoringBetaMetricDescriptorLabelsValueTypeEnumToProto(o.ValueType),
-		Description: dcl.ValueOrEmptyString(o.Description),
-	}
+	p := &betapb.MonitoringBetaMetricDescriptorLabels{}
+	p.SetKey(dcl.ValueOrEmptyString(o.Key))
+	p.SetValueType(MonitoringBetaMetricDescriptorLabelsValueTypeEnumToProto(o.ValueType))
+	p.SetDescription(dcl.ValueOrEmptyString(o.Description))
 	return p
 }
 
-// MetricDescriptorMetadataToProto converts a MetricDescriptorMetadata resource to its proto representation.
+// MetricDescriptorMetadataToProto converts a MetricDescriptorMetadata object to its proto representation.
 func MonitoringBetaMetricDescriptorMetadataToProto(o *beta.MetricDescriptorMetadata) *betapb.MonitoringBetaMetricDescriptorMetadata {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.MonitoringBetaMetricDescriptorMetadata{
-		LaunchStage:  MonitoringBetaMetricDescriptorMetadataLaunchStageEnumToProto(o.LaunchStage),
-		SamplePeriod: dcl.ValueOrEmptyString(o.SamplePeriod),
-		IngestDelay:  dcl.ValueOrEmptyString(o.IngestDelay),
-	}
+	p := &betapb.MonitoringBetaMetricDescriptorMetadata{}
+	p.SetLaunchStage(MonitoringBetaMetricDescriptorMetadataLaunchStageEnumToProto(o.LaunchStage))
+	p.SetSamplePeriod(dcl.ValueOrEmptyString(o.SamplePeriod))
+	p.SetIngestDelay(dcl.ValueOrEmptyString(o.IngestDelay))
 	return p
 }
 
 // MetricDescriptorToProto converts a MetricDescriptor resource to its proto representation.
 func MetricDescriptorToProto(resource *beta.MetricDescriptor) *betapb.MonitoringBetaMetricDescriptor {
-	p := &betapb.MonitoringBetaMetricDescriptor{
-		SelfLink:    dcl.ValueOrEmptyString(resource.SelfLink),
-		Type:        dcl.ValueOrEmptyString(resource.Type),
-		MetricKind:  MonitoringBetaMetricDescriptorMetricKindEnumToProto(resource.MetricKind),
-		ValueType:   MonitoringBetaMetricDescriptorValueTypeEnumToProto(resource.ValueType),
-		Unit:        dcl.ValueOrEmptyString(resource.Unit),
-		Description: dcl.ValueOrEmptyString(resource.Description),
-		DisplayName: dcl.ValueOrEmptyString(resource.DisplayName),
-		Metadata:    MonitoringBetaMetricDescriptorMetadataToProto(resource.Metadata),
-		LaunchStage: MonitoringBetaMetricDescriptorLaunchStageEnumToProto(resource.LaunchStage),
-		Project:     dcl.ValueOrEmptyString(resource.Project),
+	p := &betapb.MonitoringBetaMetricDescriptor{}
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
+	p.SetType(dcl.ValueOrEmptyString(resource.Type))
+	p.SetMetricKind(MonitoringBetaMetricDescriptorMetricKindEnumToProto(resource.MetricKind))
+	p.SetValueType(MonitoringBetaMetricDescriptorValueTypeEnumToProto(resource.ValueType))
+	p.SetUnit(dcl.ValueOrEmptyString(resource.Unit))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetMetadata(MonitoringBetaMetricDescriptorMetadataToProto(resource.Metadata))
+	p.SetLaunchStage(MonitoringBetaMetricDescriptorLaunchStageEnumToProto(resource.LaunchStage))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	sLabels := make([]*betapb.MonitoringBetaMetricDescriptorLabels, len(resource.Labels))
+	for i, r := range resource.Labels {
+		sLabels[i] = MonitoringBetaMetricDescriptorLabelsToProto(&r)
 	}
-	for _, r := range resource.Labels {
-		p.Labels = append(p.Labels, MonitoringBetaMetricDescriptorLabelsToProto(&r))
+	p.SetLabels(sLabels)
+	sMonitoredResourceTypes := make([]string, len(resource.MonitoredResourceTypes))
+	for i, r := range resource.MonitoredResourceTypes {
+		sMonitoredResourceTypes[i] = r
 	}
-	for _, r := range resource.MonitoredResourceTypes {
-		p.MonitoredResourceTypes = append(p.MonitoredResourceTypes, r)
-	}
+	p.SetMonitoredResourceTypes(sMonitoredResourceTypes)
 
 	return p
 }
 
-// ApplyMetricDescriptor handles the gRPC request by passing it to the underlying MetricDescriptor Apply() method.
+// applyMetricDescriptor handles the gRPC request by passing it to the underlying MetricDescriptor Apply() method.
 func (s *MetricDescriptorServer) applyMetricDescriptor(ctx context.Context, c *beta.Client, request *betapb.ApplyMonitoringBetaMetricDescriptorRequest) (*betapb.MonitoringBetaMetricDescriptor, error) {
 	p := ProtoToMetricDescriptor(request.GetResource())
 	res, err := c.ApplyMetricDescriptor(ctx, p)
@@ -250,9 +251,9 @@ func (s *MetricDescriptorServer) applyMetricDescriptor(ctx context.Context, c *b
 	return r, nil
 }
 
-// ApplyMetricDescriptor handles the gRPC request by passing it to the underlying MetricDescriptor Apply() method.
+// applyMonitoringBetaMetricDescriptor handles the gRPC request by passing it to the underlying MetricDescriptor Apply() method.
 func (s *MetricDescriptorServer) ApplyMonitoringBetaMetricDescriptor(ctx context.Context, request *betapb.ApplyMonitoringBetaMetricDescriptorRequest) (*betapb.MonitoringBetaMetricDescriptor, error) {
-	cl, err := createConfigMetricDescriptor(ctx, request.ServiceAccountFile)
+	cl, err := createConfigMetricDescriptor(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -262,7 +263,7 @@ func (s *MetricDescriptorServer) ApplyMonitoringBetaMetricDescriptor(ctx context
 // DeleteMetricDescriptor handles the gRPC request by passing it to the underlying MetricDescriptor Delete() method.
 func (s *MetricDescriptorServer) DeleteMonitoringBetaMetricDescriptor(ctx context.Context, request *betapb.DeleteMonitoringBetaMetricDescriptorRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigMetricDescriptor(ctx, request.ServiceAccountFile)
+	cl, err := createConfigMetricDescriptor(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -272,12 +273,12 @@ func (s *MetricDescriptorServer) DeleteMonitoringBetaMetricDescriptor(ctx contex
 
 // ListMonitoringBetaMetricDescriptor handles the gRPC request by passing it to the underlying MetricDescriptorList() method.
 func (s *MetricDescriptorServer) ListMonitoringBetaMetricDescriptor(ctx context.Context, request *betapb.ListMonitoringBetaMetricDescriptorRequest) (*betapb.ListMonitoringBetaMetricDescriptorResponse, error) {
-	cl, err := createConfigMetricDescriptor(ctx, request.ServiceAccountFile)
+	cl, err := createConfigMetricDescriptor(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListMetricDescriptor(ctx, request.Project)
+	resources, err := cl.ListMetricDescriptor(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -286,7 +287,9 @@ func (s *MetricDescriptorServer) ListMonitoringBetaMetricDescriptor(ctx context.
 		rp := MetricDescriptorToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListMonitoringBetaMetricDescriptorResponse{Items: protos}, nil
+	p := &betapb.ListMonitoringBetaMetricDescriptorResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigMetricDescriptor(ctx context.Context, service_account_file string) (*beta.Client, error) {

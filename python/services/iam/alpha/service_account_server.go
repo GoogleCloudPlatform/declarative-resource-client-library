@@ -25,7 +25,7 @@ import (
 // Server implements the gRPC interface for ServiceAccount.
 type ServiceAccountServer struct{}
 
-// ProtoToServiceAccountActasResources converts a ServiceAccountActasResources resource from its proto representation.
+// ProtoToServiceAccountActasResources converts a ServiceAccountActasResources object from its proto representation.
 func ProtoToIamAlphaServiceAccountActasResources(p *alphapb.IamAlphaServiceAccountActasResources) *alpha.ServiceAccountActasResources {
 	if p == nil {
 		return nil
@@ -37,13 +37,13 @@ func ProtoToIamAlphaServiceAccountActasResources(p *alphapb.IamAlphaServiceAccou
 	return obj
 }
 
-// ProtoToServiceAccountActasResourcesResources converts a ServiceAccountActasResourcesResources resource from its proto representation.
+// ProtoToServiceAccountActasResourcesResources converts a ServiceAccountActasResourcesResources object from its proto representation.
 func ProtoToIamAlphaServiceAccountActasResourcesResources(p *alphapb.IamAlphaServiceAccountActasResourcesResources) *alpha.ServiceAccountActasResourcesResources {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ServiceAccountActasResourcesResources{
-		FullResourceName: dcl.StringOrNil(p.FullResourceName),
+		FullResourceName: dcl.StringOrNil(p.GetFullResourceName()),
 	}
 	return obj
 }
@@ -51,60 +51,60 @@ func ProtoToIamAlphaServiceAccountActasResourcesResources(p *alphapb.IamAlphaSer
 // ProtoToServiceAccount converts a ServiceAccount resource from its proto representation.
 func ProtoToServiceAccount(p *alphapb.IamAlphaServiceAccount) *alpha.ServiceAccount {
 	obj := &alpha.ServiceAccount{
-		Name:           dcl.StringOrNil(p.Name),
-		Project:        dcl.StringOrNil(p.Project),
-		UniqueId:       dcl.StringOrNil(p.UniqueId),
-		Email:          dcl.StringOrNil(p.Email),
-		DisplayName:    dcl.StringOrNil(p.DisplayName),
-		Description:    dcl.StringOrNil(p.Description),
-		OAuth2ClientId: dcl.StringOrNil(p.Oauth2ClientId),
+		Name:           dcl.StringOrNil(p.GetName()),
+		Project:        dcl.StringOrNil(p.GetProject()),
+		UniqueId:       dcl.StringOrNil(p.GetUniqueId()),
+		Email:          dcl.StringOrNil(p.GetEmail()),
+		DisplayName:    dcl.StringOrNil(p.GetDisplayName()),
+		Description:    dcl.StringOrNil(p.GetDescription()),
+		OAuth2ClientId: dcl.StringOrNil(p.GetOauth2ClientId()),
 		ActasResources: ProtoToIamAlphaServiceAccountActasResources(p.GetActasResources()),
-		Disabled:       dcl.Bool(p.Disabled),
+		Disabled:       dcl.Bool(p.GetDisabled()),
 	}
 	return obj
 }
 
-// ServiceAccountActasResourcesToProto converts a ServiceAccountActasResources resource to its proto representation.
+// ServiceAccountActasResourcesToProto converts a ServiceAccountActasResources object to its proto representation.
 func IamAlphaServiceAccountActasResourcesToProto(o *alpha.ServiceAccountActasResources) *alphapb.IamAlphaServiceAccountActasResources {
 	if o == nil {
 		return nil
 	}
 	p := &alphapb.IamAlphaServiceAccountActasResources{}
-	for _, r := range o.Resources {
-		p.Resources = append(p.Resources, IamAlphaServiceAccountActasResourcesResourcesToProto(&r))
+	sResources := make([]*alphapb.IamAlphaServiceAccountActasResourcesResources, len(o.Resources))
+	for i, r := range o.Resources {
+		sResources[i] = IamAlphaServiceAccountActasResourcesResourcesToProto(&r)
 	}
+	p.SetResources(sResources)
 	return p
 }
 
-// ServiceAccountActasResourcesResourcesToProto converts a ServiceAccountActasResourcesResources resource to its proto representation.
+// ServiceAccountActasResourcesResourcesToProto converts a ServiceAccountActasResourcesResources object to its proto representation.
 func IamAlphaServiceAccountActasResourcesResourcesToProto(o *alpha.ServiceAccountActasResourcesResources) *alphapb.IamAlphaServiceAccountActasResourcesResources {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.IamAlphaServiceAccountActasResourcesResources{
-		FullResourceName: dcl.ValueOrEmptyString(o.FullResourceName),
-	}
+	p := &alphapb.IamAlphaServiceAccountActasResourcesResources{}
+	p.SetFullResourceName(dcl.ValueOrEmptyString(o.FullResourceName))
 	return p
 }
 
 // ServiceAccountToProto converts a ServiceAccount resource to its proto representation.
 func ServiceAccountToProto(resource *alpha.ServiceAccount) *alphapb.IamAlphaServiceAccount {
-	p := &alphapb.IamAlphaServiceAccount{
-		Name:           dcl.ValueOrEmptyString(resource.Name),
-		Project:        dcl.ValueOrEmptyString(resource.Project),
-		UniqueId:       dcl.ValueOrEmptyString(resource.UniqueId),
-		Email:          dcl.ValueOrEmptyString(resource.Email),
-		DisplayName:    dcl.ValueOrEmptyString(resource.DisplayName),
-		Description:    dcl.ValueOrEmptyString(resource.Description),
-		Oauth2ClientId: dcl.ValueOrEmptyString(resource.OAuth2ClientId),
-		ActasResources: IamAlphaServiceAccountActasResourcesToProto(resource.ActasResources),
-		Disabled:       dcl.ValueOrEmptyBool(resource.Disabled),
-	}
+	p := &alphapb.IamAlphaServiceAccount{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetUniqueId(dcl.ValueOrEmptyString(resource.UniqueId))
+	p.SetEmail(dcl.ValueOrEmptyString(resource.Email))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetOauth2ClientId(dcl.ValueOrEmptyString(resource.OAuth2ClientId))
+	p.SetActasResources(IamAlphaServiceAccountActasResourcesToProto(resource.ActasResources))
+	p.SetDisabled(dcl.ValueOrEmptyBool(resource.Disabled))
 
 	return p
 }
 
-// ApplyServiceAccount handles the gRPC request by passing it to the underlying ServiceAccount Apply() method.
+// applyServiceAccount handles the gRPC request by passing it to the underlying ServiceAccount Apply() method.
 func (s *ServiceAccountServer) applyServiceAccount(ctx context.Context, c *alpha.Client, request *alphapb.ApplyIamAlphaServiceAccountRequest) (*alphapb.IamAlphaServiceAccount, error) {
 	p := ProtoToServiceAccount(request.GetResource())
 	res, err := c.ApplyServiceAccount(ctx, p)
@@ -115,9 +115,9 @@ func (s *ServiceAccountServer) applyServiceAccount(ctx context.Context, c *alpha
 	return r, nil
 }
 
-// ApplyServiceAccount handles the gRPC request by passing it to the underlying ServiceAccount Apply() method.
+// applyIamAlphaServiceAccount handles the gRPC request by passing it to the underlying ServiceAccount Apply() method.
 func (s *ServiceAccountServer) ApplyIamAlphaServiceAccount(ctx context.Context, request *alphapb.ApplyIamAlphaServiceAccountRequest) (*alphapb.IamAlphaServiceAccount, error) {
-	cl, err := createConfigServiceAccount(ctx, request.ServiceAccountFile)
+	cl, err := createConfigServiceAccount(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -127,7 +127,7 @@ func (s *ServiceAccountServer) ApplyIamAlphaServiceAccount(ctx context.Context, 
 // DeleteServiceAccount handles the gRPC request by passing it to the underlying ServiceAccount Delete() method.
 func (s *ServiceAccountServer) DeleteIamAlphaServiceAccount(ctx context.Context, request *alphapb.DeleteIamAlphaServiceAccountRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigServiceAccount(ctx, request.ServiceAccountFile)
+	cl, err := createConfigServiceAccount(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -137,12 +137,12 @@ func (s *ServiceAccountServer) DeleteIamAlphaServiceAccount(ctx context.Context,
 
 // ListIamAlphaServiceAccount handles the gRPC request by passing it to the underlying ServiceAccountList() method.
 func (s *ServiceAccountServer) ListIamAlphaServiceAccount(ctx context.Context, request *alphapb.ListIamAlphaServiceAccountRequest) (*alphapb.ListIamAlphaServiceAccountResponse, error) {
-	cl, err := createConfigServiceAccount(ctx, request.ServiceAccountFile)
+	cl, err := createConfigServiceAccount(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListServiceAccount(ctx, request.Project)
+	resources, err := cl.ListServiceAccount(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -151,7 +151,9 @@ func (s *ServiceAccountServer) ListIamAlphaServiceAccount(ctx context.Context, r
 		rp := ServiceAccountToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListIamAlphaServiceAccountResponse{Items: protos}, nil
+	p := &alphapb.ListIamAlphaServiceAccountResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigServiceAccount(ctx context.Context, service_account_file string) (*alpha.Client, error) {

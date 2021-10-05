@@ -217,25 +217,25 @@ func ProtoToContaineranalysisBetaNoteDiscoveryAnalysisKindEnum(e betapb.Containe
 	return nil
 }
 
-// ProtoToNoteRelatedUrl converts a NoteRelatedUrl resource from its proto representation.
+// ProtoToNoteRelatedUrl converts a NoteRelatedUrl object from its proto representation.
 func ProtoToContaineranalysisBetaNoteRelatedUrl(p *betapb.ContaineranalysisBetaNoteRelatedUrl) *beta.NoteRelatedUrl {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.NoteRelatedUrl{
-		Url:   dcl.StringOrNil(p.Url),
-		Label: dcl.StringOrNil(p.Label),
+		Url:   dcl.StringOrNil(p.GetUrl()),
+		Label: dcl.StringOrNil(p.GetLabel()),
 	}
 	return obj
 }
 
-// ProtoToNoteVulnerability converts a NoteVulnerability resource from its proto representation.
+// ProtoToNoteVulnerability converts a NoteVulnerability object from its proto representation.
 func ProtoToContaineranalysisBetaNoteVulnerability(p *betapb.ContaineranalysisBetaNoteVulnerability) *beta.NoteVulnerability {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.NoteVulnerability{
-		CvssScore:        dcl.Float64OrNil(p.CvssScore),
+		CvssScore:        dcl.Float64OrNil(p.GetCvssScore()),
 		Severity:         ProtoToContaineranalysisBetaNoteVulnerabilitySeverityEnum(p.GetSeverity()),
 		CvssV3:           ProtoToContaineranalysisBetaNoteVulnerabilityCvssV3(p.GetCvssV3()),
 		SourceUpdateTime: dcl.StringOrNil(p.GetSourceUpdateTime()),
@@ -249,82 +249,82 @@ func ProtoToContaineranalysisBetaNoteVulnerability(p *betapb.ContaineranalysisBe
 	return obj
 }
 
-// ProtoToNoteVulnerabilityDetails converts a NoteVulnerabilityDetails resource from its proto representation.
+// ProtoToNoteVulnerabilityDetails converts a NoteVulnerabilityDetails object from its proto representation.
 func ProtoToContaineranalysisBetaNoteVulnerabilityDetails(p *betapb.ContaineranalysisBetaNoteVulnerabilityDetails) *beta.NoteVulnerabilityDetails {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.NoteVulnerabilityDetails{
-		SeverityName:         dcl.StringOrNil(p.SeverityName),
-		Description:          dcl.StringOrNil(p.Description),
-		PackageType:          dcl.StringOrNil(p.PackageType),
-		AffectedCpeUri:       dcl.StringOrNil(p.AffectedCpeUri),
-		AffectedPackage:      dcl.StringOrNil(p.AffectedPackage),
+		SeverityName:         dcl.StringOrNil(p.GetSeverityName()),
+		Description:          dcl.StringOrNil(p.GetDescription()),
+		PackageType:          dcl.StringOrNil(p.GetPackageType()),
+		AffectedCpeUri:       dcl.StringOrNil(p.GetAffectedCpeUri()),
+		AffectedPackage:      dcl.StringOrNil(p.GetAffectedPackage()),
 		AffectedVersionStart: ProtoToContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionStart(p.GetAffectedVersionStart()),
 		AffectedVersionEnd:   ProtoToContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionEnd(p.GetAffectedVersionEnd()),
-		FixedCpeUri:          dcl.StringOrNil(p.FixedCpeUri),
-		FixedPackage:         dcl.StringOrNil(p.FixedPackage),
+		FixedCpeUri:          dcl.StringOrNil(p.GetFixedCpeUri()),
+		FixedPackage:         dcl.StringOrNil(p.GetFixedPackage()),
 		FixedVersion:         ProtoToContaineranalysisBetaNoteVulnerabilityDetailsFixedVersion(p.GetFixedVersion()),
-		IsObsolete:           dcl.Bool(p.IsObsolete),
+		IsObsolete:           dcl.Bool(p.GetIsObsolete()),
 		SourceUpdateTime:     dcl.StringOrNil(p.GetSourceUpdateTime()),
 	}
 	return obj
 }
 
-// ProtoToNoteVulnerabilityDetailsAffectedVersionStart converts a NoteVulnerabilityDetailsAffectedVersionStart resource from its proto representation.
+// ProtoToNoteVulnerabilityDetailsAffectedVersionStart converts a NoteVulnerabilityDetailsAffectedVersionStart object from its proto representation.
 func ProtoToContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionStart(p *betapb.ContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionStart) *beta.NoteVulnerabilityDetailsAffectedVersionStart {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.NoteVulnerabilityDetailsAffectedVersionStart{
-		Epoch:    dcl.Int64OrNil(p.Epoch),
-		Name:     dcl.StringOrNil(p.Name),
-		Revision: dcl.StringOrNil(p.Revision),
+		Epoch:    dcl.Int64OrNil(p.GetEpoch()),
+		Name:     dcl.StringOrNil(p.GetName()),
+		Revision: dcl.StringOrNil(p.GetRevision()),
 		Kind:     ProtoToContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionStartKindEnum(p.GetKind()),
-		FullName: dcl.StringOrNil(p.FullName),
+		FullName: dcl.StringOrNil(p.GetFullName()),
 	}
 	return obj
 }
 
-// ProtoToNoteVulnerabilityDetailsAffectedVersionEnd converts a NoteVulnerabilityDetailsAffectedVersionEnd resource from its proto representation.
+// ProtoToNoteVulnerabilityDetailsAffectedVersionEnd converts a NoteVulnerabilityDetailsAffectedVersionEnd object from its proto representation.
 func ProtoToContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionEnd(p *betapb.ContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionEnd) *beta.NoteVulnerabilityDetailsAffectedVersionEnd {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.NoteVulnerabilityDetailsAffectedVersionEnd{
-		Epoch:    dcl.Int64OrNil(p.Epoch),
-		Name:     dcl.StringOrNil(p.Name),
-		Revision: dcl.StringOrNil(p.Revision),
+		Epoch:    dcl.Int64OrNil(p.GetEpoch()),
+		Name:     dcl.StringOrNil(p.GetName()),
+		Revision: dcl.StringOrNil(p.GetRevision()),
 		Kind:     ProtoToContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionEndKindEnum(p.GetKind()),
-		FullName: dcl.StringOrNil(p.FullName),
+		FullName: dcl.StringOrNil(p.GetFullName()),
 	}
 	return obj
 }
 
-// ProtoToNoteVulnerabilityDetailsFixedVersion converts a NoteVulnerabilityDetailsFixedVersion resource from its proto representation.
+// ProtoToNoteVulnerabilityDetailsFixedVersion converts a NoteVulnerabilityDetailsFixedVersion object from its proto representation.
 func ProtoToContaineranalysisBetaNoteVulnerabilityDetailsFixedVersion(p *betapb.ContaineranalysisBetaNoteVulnerabilityDetailsFixedVersion) *beta.NoteVulnerabilityDetailsFixedVersion {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.NoteVulnerabilityDetailsFixedVersion{
-		Epoch:    dcl.Int64OrNil(p.Epoch),
-		Name:     dcl.StringOrNil(p.Name),
-		Revision: dcl.StringOrNil(p.Revision),
+		Epoch:    dcl.Int64OrNil(p.GetEpoch()),
+		Name:     dcl.StringOrNil(p.GetName()),
+		Revision: dcl.StringOrNil(p.GetRevision()),
 		Kind:     ProtoToContaineranalysisBetaNoteVulnerabilityDetailsFixedVersionKindEnum(p.GetKind()),
-		FullName: dcl.StringOrNil(p.FullName),
+		FullName: dcl.StringOrNil(p.GetFullName()),
 	}
 	return obj
 }
 
-// ProtoToNoteVulnerabilityCvssV3 converts a NoteVulnerabilityCvssV3 resource from its proto representation.
+// ProtoToNoteVulnerabilityCvssV3 converts a NoteVulnerabilityCvssV3 object from its proto representation.
 func ProtoToContaineranalysisBetaNoteVulnerabilityCvssV3(p *betapb.ContaineranalysisBetaNoteVulnerabilityCvssV3) *beta.NoteVulnerabilityCvssV3 {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.NoteVulnerabilityCvssV3{
-		BaseScore:             dcl.Float64OrNil(p.BaseScore),
-		ExploitabilityScore:   dcl.Float64OrNil(p.ExploitabilityScore),
-		ImpactScore:           dcl.Float64OrNil(p.ImpactScore),
+		BaseScore:             dcl.Float64OrNil(p.GetBaseScore()),
+		ExploitabilityScore:   dcl.Float64OrNil(p.GetExploitabilityScore()),
+		ImpactScore:           dcl.Float64OrNil(p.GetImpactScore()),
 		AttackVector:          ProtoToContaineranalysisBetaNoteVulnerabilityCvssV3AttackVectorEnum(p.GetAttackVector()),
 		AttackComplexity:      ProtoToContaineranalysisBetaNoteVulnerabilityCvssV3AttackComplexityEnum(p.GetAttackComplexity()),
 		PrivilegesRequired:    ProtoToContaineranalysisBetaNoteVulnerabilityCvssV3PrivilegesRequiredEnum(p.GetPrivilegesRequired()),
@@ -337,15 +337,15 @@ func ProtoToContaineranalysisBetaNoteVulnerabilityCvssV3(p *betapb.Containeranal
 	return obj
 }
 
-// ProtoToNoteVulnerabilityWindowsDetails converts a NoteVulnerabilityWindowsDetails resource from its proto representation.
+// ProtoToNoteVulnerabilityWindowsDetails converts a NoteVulnerabilityWindowsDetails object from its proto representation.
 func ProtoToContaineranalysisBetaNoteVulnerabilityWindowsDetails(p *betapb.ContaineranalysisBetaNoteVulnerabilityWindowsDetails) *beta.NoteVulnerabilityWindowsDetails {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.NoteVulnerabilityWindowsDetails{
-		CpeUri:      dcl.StringOrNil(p.CpeUri),
-		Name:        dcl.StringOrNil(p.Name),
-		Description: dcl.StringOrNil(p.Description),
+		CpeUri:      dcl.StringOrNil(p.GetCpeUri()),
+		Name:        dcl.StringOrNil(p.GetName()),
+		Description: dcl.StringOrNil(p.GetDescription()),
 	}
 	for _, r := range p.GetFixingKbs() {
 		obj.FixingKbs = append(obj.FixingKbs, *ProtoToContaineranalysisBetaNoteVulnerabilityWindowsDetailsFixingKbs(r))
@@ -353,64 +353,64 @@ func ProtoToContaineranalysisBetaNoteVulnerabilityWindowsDetails(p *betapb.Conta
 	return obj
 }
 
-// ProtoToNoteVulnerabilityWindowsDetailsFixingKbs converts a NoteVulnerabilityWindowsDetailsFixingKbs resource from its proto representation.
+// ProtoToNoteVulnerabilityWindowsDetailsFixingKbs converts a NoteVulnerabilityWindowsDetailsFixingKbs object from its proto representation.
 func ProtoToContaineranalysisBetaNoteVulnerabilityWindowsDetailsFixingKbs(p *betapb.ContaineranalysisBetaNoteVulnerabilityWindowsDetailsFixingKbs) *beta.NoteVulnerabilityWindowsDetailsFixingKbs {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.NoteVulnerabilityWindowsDetailsFixingKbs{
-		Name: dcl.StringOrNil(p.Name),
-		Url:  dcl.StringOrNil(p.Url),
+		Name: dcl.StringOrNil(p.GetName()),
+		Url:  dcl.StringOrNil(p.GetUrl()),
 	}
 	return obj
 }
 
-// ProtoToNoteBuild converts a NoteBuild resource from its proto representation.
+// ProtoToNoteBuild converts a NoteBuild object from its proto representation.
 func ProtoToContaineranalysisBetaNoteBuild(p *betapb.ContaineranalysisBetaNoteBuild) *beta.NoteBuild {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.NoteBuild{
-		BuilderVersion: dcl.StringOrNil(p.BuilderVersion),
+		BuilderVersion: dcl.StringOrNil(p.GetBuilderVersion()),
 		Signature:      ProtoToContaineranalysisBetaNoteBuildSignature(p.GetSignature()),
 	}
 	return obj
 }
 
-// ProtoToNoteBuildSignature converts a NoteBuildSignature resource from its proto representation.
+// ProtoToNoteBuildSignature converts a NoteBuildSignature object from its proto representation.
 func ProtoToContaineranalysisBetaNoteBuildSignature(p *betapb.ContaineranalysisBetaNoteBuildSignature) *beta.NoteBuildSignature {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.NoteBuildSignature{
-		PublicKey: dcl.StringOrNil(p.PublicKey),
-		Signature: dcl.StringOrNil(p.Signature),
-		KeyId:     dcl.StringOrNil(p.KeyId),
+		PublicKey: dcl.StringOrNil(p.GetPublicKey()),
+		Signature: dcl.StringOrNil(p.GetSignature()),
+		KeyId:     dcl.StringOrNil(p.GetKeyId()),
 		KeyType:   ProtoToContaineranalysisBetaNoteBuildSignatureKeyTypeEnum(p.GetKeyType()),
 	}
 	return obj
 }
 
-// ProtoToNoteImage converts a NoteImage resource from its proto representation.
+// ProtoToNoteImage converts a NoteImage object from its proto representation.
 func ProtoToContaineranalysisBetaNoteImage(p *betapb.ContaineranalysisBetaNoteImage) *beta.NoteImage {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.NoteImage{
-		ResourceUrl: dcl.StringOrNil(p.ResourceUrl),
+		ResourceUrl: dcl.StringOrNil(p.GetResourceUrl()),
 		Fingerprint: ProtoToContaineranalysisBetaNoteImageFingerprint(p.GetFingerprint()),
 	}
 	return obj
 }
 
-// ProtoToNoteImageFingerprint converts a NoteImageFingerprint resource from its proto representation.
+// ProtoToNoteImageFingerprint converts a NoteImageFingerprint object from its proto representation.
 func ProtoToContaineranalysisBetaNoteImageFingerprint(p *betapb.ContaineranalysisBetaNoteImageFingerprint) *beta.NoteImageFingerprint {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.NoteImageFingerprint{
-		V1Name: dcl.StringOrNil(p.V1Name),
-		V2Name: dcl.StringOrNil(p.V2Name),
+		V1Name: dcl.StringOrNil(p.GetV1Name()),
+		V2Name: dcl.StringOrNil(p.GetV2Name()),
 	}
 	for _, r := range p.GetV2Blob() {
 		obj.V2Blob = append(obj.V2Blob, r)
@@ -418,13 +418,13 @@ func ProtoToContaineranalysisBetaNoteImageFingerprint(p *betapb.Containeranalysi
 	return obj
 }
 
-// ProtoToNotePackage converts a NotePackage resource from its proto representation.
+// ProtoToNotePackage converts a NotePackage object from its proto representation.
 func ProtoToContaineranalysisBetaNotePackage(p *betapb.ContaineranalysisBetaNotePackage) *beta.NotePackage {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.NotePackage{
-		Name: dcl.StringOrNil(p.Name),
+		Name: dcl.StringOrNil(p.GetName()),
 	}
 	for _, r := range p.GetDistribution() {
 		obj.Distribution = append(obj.Distribution, *ProtoToContaineranalysisBetaNotePackageDistribution(r))
@@ -432,38 +432,38 @@ func ProtoToContaineranalysisBetaNotePackage(p *betapb.ContaineranalysisBetaNote
 	return obj
 }
 
-// ProtoToNotePackageDistribution converts a NotePackageDistribution resource from its proto representation.
+// ProtoToNotePackageDistribution converts a NotePackageDistribution object from its proto representation.
 func ProtoToContaineranalysisBetaNotePackageDistribution(p *betapb.ContaineranalysisBetaNotePackageDistribution) *beta.NotePackageDistribution {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.NotePackageDistribution{
-		CpeUri:        dcl.StringOrNil(p.CpeUri),
+		CpeUri:        dcl.StringOrNil(p.GetCpeUri()),
 		Architecture:  ProtoToContaineranalysisBetaNotePackageDistributionArchitectureEnum(p.GetArchitecture()),
 		LatestVersion: ProtoToContaineranalysisBetaNotePackageDistributionLatestVersion(p.GetLatestVersion()),
-		Maintainer:    dcl.StringOrNil(p.Maintainer),
-		Url:           dcl.StringOrNil(p.Url),
-		Description:   dcl.StringOrNil(p.Description),
+		Maintainer:    dcl.StringOrNil(p.GetMaintainer()),
+		Url:           dcl.StringOrNil(p.GetUrl()),
+		Description:   dcl.StringOrNil(p.GetDescription()),
 	}
 	return obj
 }
 
-// ProtoToNotePackageDistributionLatestVersion converts a NotePackageDistributionLatestVersion resource from its proto representation.
+// ProtoToNotePackageDistributionLatestVersion converts a NotePackageDistributionLatestVersion object from its proto representation.
 func ProtoToContaineranalysisBetaNotePackageDistributionLatestVersion(p *betapb.ContaineranalysisBetaNotePackageDistributionLatestVersion) *beta.NotePackageDistributionLatestVersion {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.NotePackageDistributionLatestVersion{
-		Epoch:    dcl.Int64OrNil(p.Epoch),
-		Name:     dcl.StringOrNil(p.Name),
-		Revision: dcl.StringOrNil(p.Revision),
+		Epoch:    dcl.Int64OrNil(p.GetEpoch()),
+		Name:     dcl.StringOrNil(p.GetName()),
+		Revision: dcl.StringOrNil(p.GetRevision()),
 		Kind:     ProtoToContaineranalysisBetaNotePackageDistributionLatestVersionKindEnum(p.GetKind()),
-		FullName: dcl.StringOrNil(p.FullName),
+		FullName: dcl.StringOrNil(p.GetFullName()),
 	}
 	return obj
 }
 
-// ProtoToNoteDiscovery converts a NoteDiscovery resource from its proto representation.
+// ProtoToNoteDiscovery converts a NoteDiscovery object from its proto representation.
 func ProtoToContaineranalysisBetaNoteDiscovery(p *betapb.ContaineranalysisBetaNoteDiscovery) *beta.NoteDiscovery {
 	if p == nil {
 		return nil
@@ -474,7 +474,7 @@ func ProtoToContaineranalysisBetaNoteDiscovery(p *betapb.ContaineranalysisBetaNo
 	return obj
 }
 
-// ProtoToNoteDeployment converts a NoteDeployment resource from its proto representation.
+// ProtoToNoteDeployment converts a NoteDeployment object from its proto representation.
 func ProtoToContaineranalysisBetaNoteDeployment(p *betapb.ContaineranalysisBetaNoteDeployment) *beta.NoteDeployment {
 	if p == nil {
 		return nil
@@ -486,7 +486,7 @@ func ProtoToContaineranalysisBetaNoteDeployment(p *betapb.ContaineranalysisBetaN
 	return obj
 }
 
-// ProtoToNoteAttestation converts a NoteAttestation resource from its proto representation.
+// ProtoToNoteAttestation converts a NoteAttestation object from its proto representation.
 func ProtoToContaineranalysisBetaNoteAttestation(p *betapb.ContaineranalysisBetaNoteAttestation) *beta.NoteAttestation {
 	if p == nil {
 		return nil
@@ -497,13 +497,13 @@ func ProtoToContaineranalysisBetaNoteAttestation(p *betapb.ContaineranalysisBeta
 	return obj
 }
 
-// ProtoToNoteAttestationHint converts a NoteAttestationHint resource from its proto representation.
+// ProtoToNoteAttestationHint converts a NoteAttestationHint object from its proto representation.
 func ProtoToContaineranalysisBetaNoteAttestationHint(p *betapb.ContaineranalysisBetaNoteAttestationHint) *beta.NoteAttestationHint {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.NoteAttestationHint{
-		HumanReadableName: dcl.StringOrNil(p.HumanReadableName),
+		HumanReadableName: dcl.StringOrNil(p.GetHumanReadableName()),
 	}
 	return obj
 }
@@ -511,20 +511,20 @@ func ProtoToContaineranalysisBetaNoteAttestationHint(p *betapb.Containeranalysis
 // ProtoToNote converts a Note resource from its proto representation.
 func ProtoToNote(p *betapb.ContaineranalysisBetaNote) *beta.Note {
 	obj := &beta.Note{
-		Name:             dcl.StringOrNil(p.Name),
-		ShortDescription: dcl.StringOrNil(p.ShortDescription),
-		LongDescription:  dcl.StringOrNil(p.LongDescription),
+		Name:             dcl.StringOrNil(p.GetName()),
+		ShortDescription: dcl.StringOrNil(p.GetShortDescription()),
+		LongDescription:  dcl.StringOrNil(p.GetLongDescription()),
 		ExpirationTime:   dcl.StringOrNil(p.GetExpirationTime()),
 		CreateTime:       dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:       dcl.StringOrNil(p.GetUpdateTime()),
 		Vulnerability:    ProtoToContaineranalysisBetaNoteVulnerability(p.GetVulnerability()),
-		Build:            ProtoToContaineranalysisBetaNoteBuild(p.GetBuild()),
+		Build:            ProtoToContaineranalysisBetaNoteBuild(p.GetBuild_()),
 		Image:            ProtoToContaineranalysisBetaNoteImage(p.GetImage()),
 		Package:          ProtoToContaineranalysisBetaNotePackage(p.GetPackage()),
 		Discovery:        ProtoToContaineranalysisBetaNoteDiscovery(p.GetDiscovery()),
 		Deployment:       ProtoToContaineranalysisBetaNoteDeployment(p.GetDeployment()),
 		Attestation:      ProtoToContaineranalysisBetaNoteAttestation(p.GetAttestation()),
-		Project:          dcl.StringOrNil(p.Project),
+		Project:          dcl.StringOrNil(p.GetProject()),
 	}
 	for _, r := range p.GetRelatedUrl() {
 		obj.RelatedUrl = append(obj.RelatedUrl, *ProtoToContaineranalysisBetaNoteRelatedUrl(r))
@@ -711,326 +711,322 @@ func ContaineranalysisBetaNoteDiscoveryAnalysisKindEnumToProto(e *beta.NoteDisco
 	return betapb.ContaineranalysisBetaNoteDiscoveryAnalysisKindEnum(0)
 }
 
-// NoteRelatedUrlToProto converts a NoteRelatedUrl resource to its proto representation.
+// NoteRelatedUrlToProto converts a NoteRelatedUrl object to its proto representation.
 func ContaineranalysisBetaNoteRelatedUrlToProto(o *beta.NoteRelatedUrl) *betapb.ContaineranalysisBetaNoteRelatedUrl {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNoteRelatedUrl{
-		Url:   dcl.ValueOrEmptyString(o.Url),
-		Label: dcl.ValueOrEmptyString(o.Label),
-	}
+	p := &betapb.ContaineranalysisBetaNoteRelatedUrl{}
+	p.SetUrl(dcl.ValueOrEmptyString(o.Url))
+	p.SetLabel(dcl.ValueOrEmptyString(o.Label))
 	return p
 }
 
-// NoteVulnerabilityToProto converts a NoteVulnerability resource to its proto representation.
+// NoteVulnerabilityToProto converts a NoteVulnerability object to its proto representation.
 func ContaineranalysisBetaNoteVulnerabilityToProto(o *beta.NoteVulnerability) *betapb.ContaineranalysisBetaNoteVulnerability {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNoteVulnerability{
-		CvssScore:        dcl.ValueOrEmptyDouble(o.CvssScore),
-		Severity:         ContaineranalysisBetaNoteVulnerabilitySeverityEnumToProto(o.Severity),
-		CvssV3:           ContaineranalysisBetaNoteVulnerabilityCvssV3ToProto(o.CvssV3),
-		SourceUpdateTime: dcl.ValueOrEmptyString(o.SourceUpdateTime),
+	p := &betapb.ContaineranalysisBetaNoteVulnerability{}
+	p.SetCvssScore(dcl.ValueOrEmptyDouble(o.CvssScore))
+	p.SetSeverity(ContaineranalysisBetaNoteVulnerabilitySeverityEnumToProto(o.Severity))
+	p.SetCvssV3(ContaineranalysisBetaNoteVulnerabilityCvssV3ToProto(o.CvssV3))
+	p.SetSourceUpdateTime(dcl.ValueOrEmptyString(o.SourceUpdateTime))
+	sDetails := make([]*betapb.ContaineranalysisBetaNoteVulnerabilityDetails, len(o.Details))
+	for i, r := range o.Details {
+		sDetails[i] = ContaineranalysisBetaNoteVulnerabilityDetailsToProto(&r)
 	}
-	for _, r := range o.Details {
-		p.Details = append(p.Details, ContaineranalysisBetaNoteVulnerabilityDetailsToProto(&r))
+	p.SetDetails(sDetails)
+	sWindowsDetails := make([]*betapb.ContaineranalysisBetaNoteVulnerabilityWindowsDetails, len(o.WindowsDetails))
+	for i, r := range o.WindowsDetails {
+		sWindowsDetails[i] = ContaineranalysisBetaNoteVulnerabilityWindowsDetailsToProto(&r)
 	}
-	for _, r := range o.WindowsDetails {
-		p.WindowsDetails = append(p.WindowsDetails, ContaineranalysisBetaNoteVulnerabilityWindowsDetailsToProto(&r))
-	}
+	p.SetWindowsDetails(sWindowsDetails)
 	return p
 }
 
-// NoteVulnerabilityDetailsToProto converts a NoteVulnerabilityDetails resource to its proto representation.
+// NoteVulnerabilityDetailsToProto converts a NoteVulnerabilityDetails object to its proto representation.
 func ContaineranalysisBetaNoteVulnerabilityDetailsToProto(o *beta.NoteVulnerabilityDetails) *betapb.ContaineranalysisBetaNoteVulnerabilityDetails {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNoteVulnerabilityDetails{
-		SeverityName:         dcl.ValueOrEmptyString(o.SeverityName),
-		Description:          dcl.ValueOrEmptyString(o.Description),
-		PackageType:          dcl.ValueOrEmptyString(o.PackageType),
-		AffectedCpeUri:       dcl.ValueOrEmptyString(o.AffectedCpeUri),
-		AffectedPackage:      dcl.ValueOrEmptyString(o.AffectedPackage),
-		AffectedVersionStart: ContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionStartToProto(o.AffectedVersionStart),
-		AffectedVersionEnd:   ContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionEndToProto(o.AffectedVersionEnd),
-		FixedCpeUri:          dcl.ValueOrEmptyString(o.FixedCpeUri),
-		FixedPackage:         dcl.ValueOrEmptyString(o.FixedPackage),
-		FixedVersion:         ContaineranalysisBetaNoteVulnerabilityDetailsFixedVersionToProto(o.FixedVersion),
-		IsObsolete:           dcl.ValueOrEmptyBool(o.IsObsolete),
-		SourceUpdateTime:     dcl.ValueOrEmptyString(o.SourceUpdateTime),
-	}
+	p := &betapb.ContaineranalysisBetaNoteVulnerabilityDetails{}
+	p.SetSeverityName(dcl.ValueOrEmptyString(o.SeverityName))
+	p.SetDescription(dcl.ValueOrEmptyString(o.Description))
+	p.SetPackageType(dcl.ValueOrEmptyString(o.PackageType))
+	p.SetAffectedCpeUri(dcl.ValueOrEmptyString(o.AffectedCpeUri))
+	p.SetAffectedPackage(dcl.ValueOrEmptyString(o.AffectedPackage))
+	p.SetAffectedVersionStart(ContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionStartToProto(o.AffectedVersionStart))
+	p.SetAffectedVersionEnd(ContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionEndToProto(o.AffectedVersionEnd))
+	p.SetFixedCpeUri(dcl.ValueOrEmptyString(o.FixedCpeUri))
+	p.SetFixedPackage(dcl.ValueOrEmptyString(o.FixedPackage))
+	p.SetFixedVersion(ContaineranalysisBetaNoteVulnerabilityDetailsFixedVersionToProto(o.FixedVersion))
+	p.SetIsObsolete(dcl.ValueOrEmptyBool(o.IsObsolete))
+	p.SetSourceUpdateTime(dcl.ValueOrEmptyString(o.SourceUpdateTime))
 	return p
 }
 
-// NoteVulnerabilityDetailsAffectedVersionStartToProto converts a NoteVulnerabilityDetailsAffectedVersionStart resource to its proto representation.
+// NoteVulnerabilityDetailsAffectedVersionStartToProto converts a NoteVulnerabilityDetailsAffectedVersionStart object to its proto representation.
 func ContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionStartToProto(o *beta.NoteVulnerabilityDetailsAffectedVersionStart) *betapb.ContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionStart {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionStart{
-		Epoch:    dcl.ValueOrEmptyInt64(o.Epoch),
-		Name:     dcl.ValueOrEmptyString(o.Name),
-		Revision: dcl.ValueOrEmptyString(o.Revision),
-		Kind:     ContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionStartKindEnumToProto(o.Kind),
-		FullName: dcl.ValueOrEmptyString(o.FullName),
-	}
+	p := &betapb.ContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionStart{}
+	p.SetEpoch(dcl.ValueOrEmptyInt64(o.Epoch))
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetRevision(dcl.ValueOrEmptyString(o.Revision))
+	p.SetKind(ContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionStartKindEnumToProto(o.Kind))
+	p.SetFullName(dcl.ValueOrEmptyString(o.FullName))
 	return p
 }
 
-// NoteVulnerabilityDetailsAffectedVersionEndToProto converts a NoteVulnerabilityDetailsAffectedVersionEnd resource to its proto representation.
+// NoteVulnerabilityDetailsAffectedVersionEndToProto converts a NoteVulnerabilityDetailsAffectedVersionEnd object to its proto representation.
 func ContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionEndToProto(o *beta.NoteVulnerabilityDetailsAffectedVersionEnd) *betapb.ContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionEnd {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionEnd{
-		Epoch:    dcl.ValueOrEmptyInt64(o.Epoch),
-		Name:     dcl.ValueOrEmptyString(o.Name),
-		Revision: dcl.ValueOrEmptyString(o.Revision),
-		Kind:     ContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionEndKindEnumToProto(o.Kind),
-		FullName: dcl.ValueOrEmptyString(o.FullName),
-	}
+	p := &betapb.ContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionEnd{}
+	p.SetEpoch(dcl.ValueOrEmptyInt64(o.Epoch))
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetRevision(dcl.ValueOrEmptyString(o.Revision))
+	p.SetKind(ContaineranalysisBetaNoteVulnerabilityDetailsAffectedVersionEndKindEnumToProto(o.Kind))
+	p.SetFullName(dcl.ValueOrEmptyString(o.FullName))
 	return p
 }
 
-// NoteVulnerabilityDetailsFixedVersionToProto converts a NoteVulnerabilityDetailsFixedVersion resource to its proto representation.
+// NoteVulnerabilityDetailsFixedVersionToProto converts a NoteVulnerabilityDetailsFixedVersion object to its proto representation.
 func ContaineranalysisBetaNoteVulnerabilityDetailsFixedVersionToProto(o *beta.NoteVulnerabilityDetailsFixedVersion) *betapb.ContaineranalysisBetaNoteVulnerabilityDetailsFixedVersion {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNoteVulnerabilityDetailsFixedVersion{
-		Epoch:    dcl.ValueOrEmptyInt64(o.Epoch),
-		Name:     dcl.ValueOrEmptyString(o.Name),
-		Revision: dcl.ValueOrEmptyString(o.Revision),
-		Kind:     ContaineranalysisBetaNoteVulnerabilityDetailsFixedVersionKindEnumToProto(o.Kind),
-		FullName: dcl.ValueOrEmptyString(o.FullName),
-	}
+	p := &betapb.ContaineranalysisBetaNoteVulnerabilityDetailsFixedVersion{}
+	p.SetEpoch(dcl.ValueOrEmptyInt64(o.Epoch))
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetRevision(dcl.ValueOrEmptyString(o.Revision))
+	p.SetKind(ContaineranalysisBetaNoteVulnerabilityDetailsFixedVersionKindEnumToProto(o.Kind))
+	p.SetFullName(dcl.ValueOrEmptyString(o.FullName))
 	return p
 }
 
-// NoteVulnerabilityCvssV3ToProto converts a NoteVulnerabilityCvssV3 resource to its proto representation.
+// NoteVulnerabilityCvssV3ToProto converts a NoteVulnerabilityCvssV3 object to its proto representation.
 func ContaineranalysisBetaNoteVulnerabilityCvssV3ToProto(o *beta.NoteVulnerabilityCvssV3) *betapb.ContaineranalysisBetaNoteVulnerabilityCvssV3 {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNoteVulnerabilityCvssV3{
-		BaseScore:             dcl.ValueOrEmptyDouble(o.BaseScore),
-		ExploitabilityScore:   dcl.ValueOrEmptyDouble(o.ExploitabilityScore),
-		ImpactScore:           dcl.ValueOrEmptyDouble(o.ImpactScore),
-		AttackVector:          ContaineranalysisBetaNoteVulnerabilityCvssV3AttackVectorEnumToProto(o.AttackVector),
-		AttackComplexity:      ContaineranalysisBetaNoteVulnerabilityCvssV3AttackComplexityEnumToProto(o.AttackComplexity),
-		PrivilegesRequired:    ContaineranalysisBetaNoteVulnerabilityCvssV3PrivilegesRequiredEnumToProto(o.PrivilegesRequired),
-		UserInteraction:       ContaineranalysisBetaNoteVulnerabilityCvssV3UserInteractionEnumToProto(o.UserInteraction),
-		Scope:                 ContaineranalysisBetaNoteVulnerabilityCvssV3ScopeEnumToProto(o.Scope),
-		ConfidentialityImpact: ContaineranalysisBetaNoteVulnerabilityCvssV3ConfidentialityImpactEnumToProto(o.ConfidentialityImpact),
-		IntegrityImpact:       ContaineranalysisBetaNoteVulnerabilityCvssV3IntegrityImpactEnumToProto(o.IntegrityImpact),
-		AvailabilityImpact:    ContaineranalysisBetaNoteVulnerabilityCvssV3AvailabilityImpactEnumToProto(o.AvailabilityImpact),
-	}
+	p := &betapb.ContaineranalysisBetaNoteVulnerabilityCvssV3{}
+	p.SetBaseScore(dcl.ValueOrEmptyDouble(o.BaseScore))
+	p.SetExploitabilityScore(dcl.ValueOrEmptyDouble(o.ExploitabilityScore))
+	p.SetImpactScore(dcl.ValueOrEmptyDouble(o.ImpactScore))
+	p.SetAttackVector(ContaineranalysisBetaNoteVulnerabilityCvssV3AttackVectorEnumToProto(o.AttackVector))
+	p.SetAttackComplexity(ContaineranalysisBetaNoteVulnerabilityCvssV3AttackComplexityEnumToProto(o.AttackComplexity))
+	p.SetPrivilegesRequired(ContaineranalysisBetaNoteVulnerabilityCvssV3PrivilegesRequiredEnumToProto(o.PrivilegesRequired))
+	p.SetUserInteraction(ContaineranalysisBetaNoteVulnerabilityCvssV3UserInteractionEnumToProto(o.UserInteraction))
+	p.SetScope(ContaineranalysisBetaNoteVulnerabilityCvssV3ScopeEnumToProto(o.Scope))
+	p.SetConfidentialityImpact(ContaineranalysisBetaNoteVulnerabilityCvssV3ConfidentialityImpactEnumToProto(o.ConfidentialityImpact))
+	p.SetIntegrityImpact(ContaineranalysisBetaNoteVulnerabilityCvssV3IntegrityImpactEnumToProto(o.IntegrityImpact))
+	p.SetAvailabilityImpact(ContaineranalysisBetaNoteVulnerabilityCvssV3AvailabilityImpactEnumToProto(o.AvailabilityImpact))
 	return p
 }
 
-// NoteVulnerabilityWindowsDetailsToProto converts a NoteVulnerabilityWindowsDetails resource to its proto representation.
+// NoteVulnerabilityWindowsDetailsToProto converts a NoteVulnerabilityWindowsDetails object to its proto representation.
 func ContaineranalysisBetaNoteVulnerabilityWindowsDetailsToProto(o *beta.NoteVulnerabilityWindowsDetails) *betapb.ContaineranalysisBetaNoteVulnerabilityWindowsDetails {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNoteVulnerabilityWindowsDetails{
-		CpeUri:      dcl.ValueOrEmptyString(o.CpeUri),
-		Name:        dcl.ValueOrEmptyString(o.Name),
-		Description: dcl.ValueOrEmptyString(o.Description),
+	p := &betapb.ContaineranalysisBetaNoteVulnerabilityWindowsDetails{}
+	p.SetCpeUri(dcl.ValueOrEmptyString(o.CpeUri))
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(o.Description))
+	sFixingKbs := make([]*betapb.ContaineranalysisBetaNoteVulnerabilityWindowsDetailsFixingKbs, len(o.FixingKbs))
+	for i, r := range o.FixingKbs {
+		sFixingKbs[i] = ContaineranalysisBetaNoteVulnerabilityWindowsDetailsFixingKbsToProto(&r)
 	}
-	for _, r := range o.FixingKbs {
-		p.FixingKbs = append(p.FixingKbs, ContaineranalysisBetaNoteVulnerabilityWindowsDetailsFixingKbsToProto(&r))
-	}
+	p.SetFixingKbs(sFixingKbs)
 	return p
 }
 
-// NoteVulnerabilityWindowsDetailsFixingKbsToProto converts a NoteVulnerabilityWindowsDetailsFixingKbs resource to its proto representation.
+// NoteVulnerabilityWindowsDetailsFixingKbsToProto converts a NoteVulnerabilityWindowsDetailsFixingKbs object to its proto representation.
 func ContaineranalysisBetaNoteVulnerabilityWindowsDetailsFixingKbsToProto(o *beta.NoteVulnerabilityWindowsDetailsFixingKbs) *betapb.ContaineranalysisBetaNoteVulnerabilityWindowsDetailsFixingKbs {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNoteVulnerabilityWindowsDetailsFixingKbs{
-		Name: dcl.ValueOrEmptyString(o.Name),
-		Url:  dcl.ValueOrEmptyString(o.Url),
-	}
+	p := &betapb.ContaineranalysisBetaNoteVulnerabilityWindowsDetailsFixingKbs{}
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetUrl(dcl.ValueOrEmptyString(o.Url))
 	return p
 }
 
-// NoteBuildToProto converts a NoteBuild resource to its proto representation.
+// NoteBuildToProto converts a NoteBuild object to its proto representation.
 func ContaineranalysisBetaNoteBuildToProto(o *beta.NoteBuild) *betapb.ContaineranalysisBetaNoteBuild {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNoteBuild{
-		BuilderVersion: dcl.ValueOrEmptyString(o.BuilderVersion),
-		Signature:      ContaineranalysisBetaNoteBuildSignatureToProto(o.Signature),
-	}
+	p := &betapb.ContaineranalysisBetaNoteBuild{}
+	p.SetBuilderVersion(dcl.ValueOrEmptyString(o.BuilderVersion))
+	p.SetSignature(ContaineranalysisBetaNoteBuildSignatureToProto(o.Signature))
 	return p
 }
 
-// NoteBuildSignatureToProto converts a NoteBuildSignature resource to its proto representation.
+// NoteBuildSignatureToProto converts a NoteBuildSignature object to its proto representation.
 func ContaineranalysisBetaNoteBuildSignatureToProto(o *beta.NoteBuildSignature) *betapb.ContaineranalysisBetaNoteBuildSignature {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNoteBuildSignature{
-		PublicKey: dcl.ValueOrEmptyString(o.PublicKey),
-		Signature: dcl.ValueOrEmptyString(o.Signature),
-		KeyId:     dcl.ValueOrEmptyString(o.KeyId),
-		KeyType:   ContaineranalysisBetaNoteBuildSignatureKeyTypeEnumToProto(o.KeyType),
-	}
+	p := &betapb.ContaineranalysisBetaNoteBuildSignature{}
+	p.SetPublicKey(dcl.ValueOrEmptyString(o.PublicKey))
+	p.SetSignature(dcl.ValueOrEmptyString(o.Signature))
+	p.SetKeyId(dcl.ValueOrEmptyString(o.KeyId))
+	p.SetKeyType(ContaineranalysisBetaNoteBuildSignatureKeyTypeEnumToProto(o.KeyType))
 	return p
 }
 
-// NoteImageToProto converts a NoteImage resource to its proto representation.
+// NoteImageToProto converts a NoteImage object to its proto representation.
 func ContaineranalysisBetaNoteImageToProto(o *beta.NoteImage) *betapb.ContaineranalysisBetaNoteImage {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNoteImage{
-		ResourceUrl: dcl.ValueOrEmptyString(o.ResourceUrl),
-		Fingerprint: ContaineranalysisBetaNoteImageFingerprintToProto(o.Fingerprint),
-	}
+	p := &betapb.ContaineranalysisBetaNoteImage{}
+	p.SetResourceUrl(dcl.ValueOrEmptyString(o.ResourceUrl))
+	p.SetFingerprint(ContaineranalysisBetaNoteImageFingerprintToProto(o.Fingerprint))
 	return p
 }
 
-// NoteImageFingerprintToProto converts a NoteImageFingerprint resource to its proto representation.
+// NoteImageFingerprintToProto converts a NoteImageFingerprint object to its proto representation.
 func ContaineranalysisBetaNoteImageFingerprintToProto(o *beta.NoteImageFingerprint) *betapb.ContaineranalysisBetaNoteImageFingerprint {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNoteImageFingerprint{
-		V1Name: dcl.ValueOrEmptyString(o.V1Name),
-		V2Name: dcl.ValueOrEmptyString(o.V2Name),
+	p := &betapb.ContaineranalysisBetaNoteImageFingerprint{}
+	p.SetV1Name(dcl.ValueOrEmptyString(o.V1Name))
+	p.SetV2Name(dcl.ValueOrEmptyString(o.V2Name))
+	sV2Blob := make([]string, len(o.V2Blob))
+	for i, r := range o.V2Blob {
+		sV2Blob[i] = r
 	}
-	for _, r := range o.V2Blob {
-		p.V2Blob = append(p.V2Blob, r)
-	}
+	p.SetV2Blob(sV2Blob)
 	return p
 }
 
-// NotePackageToProto converts a NotePackage resource to its proto representation.
+// NotePackageToProto converts a NotePackage object to its proto representation.
 func ContaineranalysisBetaNotePackageToProto(o *beta.NotePackage) *betapb.ContaineranalysisBetaNotePackage {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNotePackage{
-		Name: dcl.ValueOrEmptyString(o.Name),
+	p := &betapb.ContaineranalysisBetaNotePackage{}
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	sDistribution := make([]*betapb.ContaineranalysisBetaNotePackageDistribution, len(o.Distribution))
+	for i, r := range o.Distribution {
+		sDistribution[i] = ContaineranalysisBetaNotePackageDistributionToProto(&r)
 	}
-	for _, r := range o.Distribution {
-		p.Distribution = append(p.Distribution, ContaineranalysisBetaNotePackageDistributionToProto(&r))
-	}
+	p.SetDistribution(sDistribution)
 	return p
 }
 
-// NotePackageDistributionToProto converts a NotePackageDistribution resource to its proto representation.
+// NotePackageDistributionToProto converts a NotePackageDistribution object to its proto representation.
 func ContaineranalysisBetaNotePackageDistributionToProto(o *beta.NotePackageDistribution) *betapb.ContaineranalysisBetaNotePackageDistribution {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNotePackageDistribution{
-		CpeUri:        dcl.ValueOrEmptyString(o.CpeUri),
-		Architecture:  ContaineranalysisBetaNotePackageDistributionArchitectureEnumToProto(o.Architecture),
-		LatestVersion: ContaineranalysisBetaNotePackageDistributionLatestVersionToProto(o.LatestVersion),
-		Maintainer:    dcl.ValueOrEmptyString(o.Maintainer),
-		Url:           dcl.ValueOrEmptyString(o.Url),
-		Description:   dcl.ValueOrEmptyString(o.Description),
-	}
+	p := &betapb.ContaineranalysisBetaNotePackageDistribution{}
+	p.SetCpeUri(dcl.ValueOrEmptyString(o.CpeUri))
+	p.SetArchitecture(ContaineranalysisBetaNotePackageDistributionArchitectureEnumToProto(o.Architecture))
+	p.SetLatestVersion(ContaineranalysisBetaNotePackageDistributionLatestVersionToProto(o.LatestVersion))
+	p.SetMaintainer(dcl.ValueOrEmptyString(o.Maintainer))
+	p.SetUrl(dcl.ValueOrEmptyString(o.Url))
+	p.SetDescription(dcl.ValueOrEmptyString(o.Description))
 	return p
 }
 
-// NotePackageDistributionLatestVersionToProto converts a NotePackageDistributionLatestVersion resource to its proto representation.
+// NotePackageDistributionLatestVersionToProto converts a NotePackageDistributionLatestVersion object to its proto representation.
 func ContaineranalysisBetaNotePackageDistributionLatestVersionToProto(o *beta.NotePackageDistributionLatestVersion) *betapb.ContaineranalysisBetaNotePackageDistributionLatestVersion {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNotePackageDistributionLatestVersion{
-		Epoch:    dcl.ValueOrEmptyInt64(o.Epoch),
-		Name:     dcl.ValueOrEmptyString(o.Name),
-		Revision: dcl.ValueOrEmptyString(o.Revision),
-		Kind:     ContaineranalysisBetaNotePackageDistributionLatestVersionKindEnumToProto(o.Kind),
-		FullName: dcl.ValueOrEmptyString(o.FullName),
-	}
+	p := &betapb.ContaineranalysisBetaNotePackageDistributionLatestVersion{}
+	p.SetEpoch(dcl.ValueOrEmptyInt64(o.Epoch))
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetRevision(dcl.ValueOrEmptyString(o.Revision))
+	p.SetKind(ContaineranalysisBetaNotePackageDistributionLatestVersionKindEnumToProto(o.Kind))
+	p.SetFullName(dcl.ValueOrEmptyString(o.FullName))
 	return p
 }
 
-// NoteDiscoveryToProto converts a NoteDiscovery resource to its proto representation.
+// NoteDiscoveryToProto converts a NoteDiscovery object to its proto representation.
 func ContaineranalysisBetaNoteDiscoveryToProto(o *beta.NoteDiscovery) *betapb.ContaineranalysisBetaNoteDiscovery {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNoteDiscovery{
-		AnalysisKind: ContaineranalysisBetaNoteDiscoveryAnalysisKindEnumToProto(o.AnalysisKind),
-	}
+	p := &betapb.ContaineranalysisBetaNoteDiscovery{}
+	p.SetAnalysisKind(ContaineranalysisBetaNoteDiscoveryAnalysisKindEnumToProto(o.AnalysisKind))
 	return p
 }
 
-// NoteDeploymentToProto converts a NoteDeployment resource to its proto representation.
+// NoteDeploymentToProto converts a NoteDeployment object to its proto representation.
 func ContaineranalysisBetaNoteDeploymentToProto(o *beta.NoteDeployment) *betapb.ContaineranalysisBetaNoteDeployment {
 	if o == nil {
 		return nil
 	}
 	p := &betapb.ContaineranalysisBetaNoteDeployment{}
-	for _, r := range o.ResourceUri {
-		p.ResourceUri = append(p.ResourceUri, r)
+	sResourceUri := make([]string, len(o.ResourceUri))
+	for i, r := range o.ResourceUri {
+		sResourceUri[i] = r
 	}
+	p.SetResourceUri(sResourceUri)
 	return p
 }
 
-// NoteAttestationToProto converts a NoteAttestation resource to its proto representation.
+// NoteAttestationToProto converts a NoteAttestation object to its proto representation.
 func ContaineranalysisBetaNoteAttestationToProto(o *beta.NoteAttestation) *betapb.ContaineranalysisBetaNoteAttestation {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNoteAttestation{
-		Hint: ContaineranalysisBetaNoteAttestationHintToProto(o.Hint),
-	}
+	p := &betapb.ContaineranalysisBetaNoteAttestation{}
+	p.SetHint(ContaineranalysisBetaNoteAttestationHintToProto(o.Hint))
 	return p
 }
 
-// NoteAttestationHintToProto converts a NoteAttestationHint resource to its proto representation.
+// NoteAttestationHintToProto converts a NoteAttestationHint object to its proto representation.
 func ContaineranalysisBetaNoteAttestationHintToProto(o *beta.NoteAttestationHint) *betapb.ContaineranalysisBetaNoteAttestationHint {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ContaineranalysisBetaNoteAttestationHint{
-		HumanReadableName: dcl.ValueOrEmptyString(o.HumanReadableName),
-	}
+	p := &betapb.ContaineranalysisBetaNoteAttestationHint{}
+	p.SetHumanReadableName(dcl.ValueOrEmptyString(o.HumanReadableName))
 	return p
 }
 
 // NoteToProto converts a Note resource to its proto representation.
 func NoteToProto(resource *beta.Note) *betapb.ContaineranalysisBetaNote {
-	p := &betapb.ContaineranalysisBetaNote{
-		Name:             dcl.ValueOrEmptyString(resource.Name),
-		ShortDescription: dcl.ValueOrEmptyString(resource.ShortDescription),
-		LongDescription:  dcl.ValueOrEmptyString(resource.LongDescription),
-		ExpirationTime:   dcl.ValueOrEmptyString(resource.ExpirationTime),
-		CreateTime:       dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:       dcl.ValueOrEmptyString(resource.UpdateTime),
-		Vulnerability:    ContaineranalysisBetaNoteVulnerabilityToProto(resource.Vulnerability),
-		Build:            ContaineranalysisBetaNoteBuildToProto(resource.Build),
-		Image:            ContaineranalysisBetaNoteImageToProto(resource.Image),
-		Package:          ContaineranalysisBetaNotePackageToProto(resource.Package),
-		Discovery:        ContaineranalysisBetaNoteDiscoveryToProto(resource.Discovery),
-		Deployment:       ContaineranalysisBetaNoteDeploymentToProto(resource.Deployment),
-		Attestation:      ContaineranalysisBetaNoteAttestationToProto(resource.Attestation),
-		Project:          dcl.ValueOrEmptyString(resource.Project),
+	p := &betapb.ContaineranalysisBetaNote{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetShortDescription(dcl.ValueOrEmptyString(resource.ShortDescription))
+	p.SetLongDescription(dcl.ValueOrEmptyString(resource.LongDescription))
+	p.SetExpirationTime(dcl.ValueOrEmptyString(resource.ExpirationTime))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetVulnerability(ContaineranalysisBetaNoteVulnerabilityToProto(resource.Vulnerability))
+	p.SetBuild_(ContaineranalysisBetaNoteBuildToProto(resource.Build))
+	p.SetImage(ContaineranalysisBetaNoteImageToProto(resource.Image))
+	p.SetPackage(ContaineranalysisBetaNotePackageToProto(resource.Package))
+	p.SetDiscovery(ContaineranalysisBetaNoteDiscoveryToProto(resource.Discovery))
+	p.SetDeployment(ContaineranalysisBetaNoteDeploymentToProto(resource.Deployment))
+	p.SetAttestation(ContaineranalysisBetaNoteAttestationToProto(resource.Attestation))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	sRelatedUrl := make([]*betapb.ContaineranalysisBetaNoteRelatedUrl, len(resource.RelatedUrl))
+	for i, r := range resource.RelatedUrl {
+		sRelatedUrl[i] = ContaineranalysisBetaNoteRelatedUrlToProto(&r)
 	}
-	for _, r := range resource.RelatedUrl {
-		p.RelatedUrl = append(p.RelatedUrl, ContaineranalysisBetaNoteRelatedUrlToProto(&r))
+	p.SetRelatedUrl(sRelatedUrl)
+	sRelatedNoteNames := make([]string, len(resource.RelatedNoteNames))
+	for i, r := range resource.RelatedNoteNames {
+		sRelatedNoteNames[i] = r
 	}
-	for _, r := range resource.RelatedNoteNames {
-		p.RelatedNoteNames = append(p.RelatedNoteNames, r)
-	}
+	p.SetRelatedNoteNames(sRelatedNoteNames)
 
 	return p
 }
 
-// ApplyNote handles the gRPC request by passing it to the underlying Note Apply() method.
+// applyNote handles the gRPC request by passing it to the underlying Note Apply() method.
 func (s *NoteServer) applyNote(ctx context.Context, c *beta.Client, request *betapb.ApplyContaineranalysisBetaNoteRequest) (*betapb.ContaineranalysisBetaNote, error) {
 	p := ProtoToNote(request.GetResource())
 	res, err := c.ApplyNote(ctx, p)
@@ -1041,9 +1037,9 @@ func (s *NoteServer) applyNote(ctx context.Context, c *beta.Client, request *bet
 	return r, nil
 }
 
-// ApplyNote handles the gRPC request by passing it to the underlying Note Apply() method.
+// applyContaineranalysisBetaNote handles the gRPC request by passing it to the underlying Note Apply() method.
 func (s *NoteServer) ApplyContaineranalysisBetaNote(ctx context.Context, request *betapb.ApplyContaineranalysisBetaNoteRequest) (*betapb.ContaineranalysisBetaNote, error) {
-	cl, err := createConfigNote(ctx, request.ServiceAccountFile)
+	cl, err := createConfigNote(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -1053,7 +1049,7 @@ func (s *NoteServer) ApplyContaineranalysisBetaNote(ctx context.Context, request
 // DeleteNote handles the gRPC request by passing it to the underlying Note Delete() method.
 func (s *NoteServer) DeleteContaineranalysisBetaNote(ctx context.Context, request *betapb.DeleteContaineranalysisBetaNoteRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigNote(ctx, request.ServiceAccountFile)
+	cl, err := createConfigNote(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -1063,12 +1059,12 @@ func (s *NoteServer) DeleteContaineranalysisBetaNote(ctx context.Context, reques
 
 // ListContaineranalysisBetaNote handles the gRPC request by passing it to the underlying NoteList() method.
 func (s *NoteServer) ListContaineranalysisBetaNote(ctx context.Context, request *betapb.ListContaineranalysisBetaNoteRequest) (*betapb.ListContaineranalysisBetaNoteResponse, error) {
-	cl, err := createConfigNote(ctx, request.ServiceAccountFile)
+	cl, err := createConfigNote(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListNote(ctx, request.Project)
+	resources, err := cl.ListNote(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -1077,7 +1073,9 @@ func (s *NoteServer) ListContaineranalysisBetaNote(ctx context.Context, request 
 		rp := NoteToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListContaineranalysisBetaNoteResponse{Items: protos}, nil
+	p := &betapb.ListContaineranalysisBetaNoteResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigNote(ctx context.Context, service_account_file string) (*beta.Client, error) {

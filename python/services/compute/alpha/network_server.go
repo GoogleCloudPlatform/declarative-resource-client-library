@@ -37,7 +37,7 @@ func ProtoToComputeAlphaNetworkRoutingConfigRoutingModeEnum(e alphapb.ComputeAlp
 	return nil
 }
 
-// ProtoToNetworkRoutingConfig converts a NetworkRoutingConfig resource from its proto representation.
+// ProtoToNetworkRoutingConfig converts a NetworkRoutingConfig object from its proto representation.
 func ProtoToComputeAlphaNetworkRoutingConfig(p *alphapb.ComputeAlphaNetworkRoutingConfig) *alpha.NetworkRoutingConfig {
 	if p == nil {
 		return nil
@@ -51,14 +51,14 @@ func ProtoToComputeAlphaNetworkRoutingConfig(p *alphapb.ComputeAlphaNetworkRouti
 // ProtoToNetwork converts a Network resource from its proto representation.
 func ProtoToNetwork(p *alphapb.ComputeAlphaNetwork) *alpha.Network {
 	obj := &alpha.Network{
-		Description:           dcl.StringOrNil(p.Description),
-		GatewayIPv4:           dcl.StringOrNil(p.GatewayIpv4),
-		Name:                  dcl.StringOrNil(p.Name),
-		AutoCreateSubnetworks: dcl.Bool(p.AutoCreateSubnetworks),
+		Description:           dcl.StringOrNil(p.GetDescription()),
+		GatewayIPv4:           dcl.StringOrNil(p.GetGatewayIpv4()),
+		Name:                  dcl.StringOrNil(p.GetName()),
+		AutoCreateSubnetworks: dcl.Bool(p.GetAutoCreateSubnetworks()),
 		RoutingConfig:         ProtoToComputeAlphaNetworkRoutingConfig(p.GetRoutingConfig()),
-		Mtu:                   dcl.Int64OrNil(p.Mtu),
-		Project:               dcl.StringOrNil(p.Project),
-		SelfLink:              dcl.StringOrNil(p.SelfLink),
+		Mtu:                   dcl.Int64OrNil(p.GetMtu()),
+		Project:               dcl.StringOrNil(p.GetProject()),
+		SelfLink:              dcl.StringOrNil(p.GetSelfLink()),
 	}
 	return obj
 }
@@ -74,34 +74,32 @@ func ComputeAlphaNetworkRoutingConfigRoutingModeEnumToProto(e *alpha.NetworkRout
 	return alphapb.ComputeAlphaNetworkRoutingConfigRoutingModeEnum(0)
 }
 
-// NetworkRoutingConfigToProto converts a NetworkRoutingConfig resource to its proto representation.
+// NetworkRoutingConfigToProto converts a NetworkRoutingConfig object to its proto representation.
 func ComputeAlphaNetworkRoutingConfigToProto(o *alpha.NetworkRoutingConfig) *alphapb.ComputeAlphaNetworkRoutingConfig {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ComputeAlphaNetworkRoutingConfig{
-		RoutingMode: ComputeAlphaNetworkRoutingConfigRoutingModeEnumToProto(o.RoutingMode),
-	}
+	p := &alphapb.ComputeAlphaNetworkRoutingConfig{}
+	p.SetRoutingMode(ComputeAlphaNetworkRoutingConfigRoutingModeEnumToProto(o.RoutingMode))
 	return p
 }
 
 // NetworkToProto converts a Network resource to its proto representation.
 func NetworkToProto(resource *alpha.Network) *alphapb.ComputeAlphaNetwork {
-	p := &alphapb.ComputeAlphaNetwork{
-		Description:           dcl.ValueOrEmptyString(resource.Description),
-		GatewayIpv4:           dcl.ValueOrEmptyString(resource.GatewayIPv4),
-		Name:                  dcl.ValueOrEmptyString(resource.Name),
-		AutoCreateSubnetworks: dcl.ValueOrEmptyBool(resource.AutoCreateSubnetworks),
-		RoutingConfig:         ComputeAlphaNetworkRoutingConfigToProto(resource.RoutingConfig),
-		Mtu:                   dcl.ValueOrEmptyInt64(resource.Mtu),
-		Project:               dcl.ValueOrEmptyString(resource.Project),
-		SelfLink:              dcl.ValueOrEmptyString(resource.SelfLink),
-	}
+	p := &alphapb.ComputeAlphaNetwork{}
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetGatewayIpv4(dcl.ValueOrEmptyString(resource.GatewayIPv4))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetAutoCreateSubnetworks(dcl.ValueOrEmptyBool(resource.AutoCreateSubnetworks))
+	p.SetRoutingConfig(ComputeAlphaNetworkRoutingConfigToProto(resource.RoutingConfig))
+	p.SetMtu(dcl.ValueOrEmptyInt64(resource.Mtu))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
 
 	return p
 }
 
-// ApplyNetwork handles the gRPC request by passing it to the underlying Network Apply() method.
+// applyNetwork handles the gRPC request by passing it to the underlying Network Apply() method.
 func (s *NetworkServer) applyNetwork(ctx context.Context, c *alpha.Client, request *alphapb.ApplyComputeAlphaNetworkRequest) (*alphapb.ComputeAlphaNetwork, error) {
 	p := ProtoToNetwork(request.GetResource())
 	res, err := c.ApplyNetwork(ctx, p)
@@ -112,9 +110,9 @@ func (s *NetworkServer) applyNetwork(ctx context.Context, c *alpha.Client, reque
 	return r, nil
 }
 
-// ApplyNetwork handles the gRPC request by passing it to the underlying Network Apply() method.
+// applyComputeAlphaNetwork handles the gRPC request by passing it to the underlying Network Apply() method.
 func (s *NetworkServer) ApplyComputeAlphaNetwork(ctx context.Context, request *alphapb.ApplyComputeAlphaNetworkRequest) (*alphapb.ComputeAlphaNetwork, error) {
-	cl, err := createConfigNetwork(ctx, request.ServiceAccountFile)
+	cl, err := createConfigNetwork(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -124,7 +122,7 @@ func (s *NetworkServer) ApplyComputeAlphaNetwork(ctx context.Context, request *a
 // DeleteNetwork handles the gRPC request by passing it to the underlying Network Delete() method.
 func (s *NetworkServer) DeleteComputeAlphaNetwork(ctx context.Context, request *alphapb.DeleteComputeAlphaNetworkRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigNetwork(ctx, request.ServiceAccountFile)
+	cl, err := createConfigNetwork(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -134,12 +132,12 @@ func (s *NetworkServer) DeleteComputeAlphaNetwork(ctx context.Context, request *
 
 // ListComputeAlphaNetwork handles the gRPC request by passing it to the underlying NetworkList() method.
 func (s *NetworkServer) ListComputeAlphaNetwork(ctx context.Context, request *alphapb.ListComputeAlphaNetworkRequest) (*alphapb.ListComputeAlphaNetworkResponse, error) {
-	cl, err := createConfigNetwork(ctx, request.ServiceAccountFile)
+	cl, err := createConfigNetwork(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListNetwork(ctx, request.Project)
+	resources, err := cl.ListNetwork(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -148,7 +146,9 @@ func (s *NetworkServer) ListComputeAlphaNetwork(ctx context.Context, request *al
 		rp := NetworkToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListComputeAlphaNetworkResponse{Items: protos}, nil
+	p := &alphapb.ListComputeAlphaNetworkResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigNetwork(ctx context.Context, service_account_file string) (*alpha.Client, error) {

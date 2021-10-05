@@ -25,55 +25,55 @@ import (
 // Server implements the gRPC interface for AutoscalingPolicy.
 type AutoscalingPolicyServer struct{}
 
-// ProtoToAutoscalingPolicyBasicAlgorithm converts a AutoscalingPolicyBasicAlgorithm resource from its proto representation.
+// ProtoToAutoscalingPolicyBasicAlgorithm converts a AutoscalingPolicyBasicAlgorithm object from its proto representation.
 func ProtoToDataprocAutoscalingPolicyBasicAlgorithm(p *dataprocpb.DataprocAutoscalingPolicyBasicAlgorithm) *dataproc.AutoscalingPolicyBasicAlgorithm {
 	if p == nil {
 		return nil
 	}
 	obj := &dataproc.AutoscalingPolicyBasicAlgorithm{
 		YarnConfig:     ProtoToDataprocAutoscalingPolicyBasicAlgorithmYarnConfig(p.GetYarnConfig()),
-		CooldownPeriod: dcl.StringOrNil(p.CooldownPeriod),
+		CooldownPeriod: dcl.StringOrNil(p.GetCooldownPeriod()),
 	}
 	return obj
 }
 
-// ProtoToAutoscalingPolicyBasicAlgorithmYarnConfig converts a AutoscalingPolicyBasicAlgorithmYarnConfig resource from its proto representation.
+// ProtoToAutoscalingPolicyBasicAlgorithmYarnConfig converts a AutoscalingPolicyBasicAlgorithmYarnConfig object from its proto representation.
 func ProtoToDataprocAutoscalingPolicyBasicAlgorithmYarnConfig(p *dataprocpb.DataprocAutoscalingPolicyBasicAlgorithmYarnConfig) *dataproc.AutoscalingPolicyBasicAlgorithmYarnConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &dataproc.AutoscalingPolicyBasicAlgorithmYarnConfig{
-		GracefulDecommissionTimeout: dcl.StringOrNil(p.GracefulDecommissionTimeout),
-		ScaleUpFactor:               dcl.Float64OrNil(p.ScaleUpFactor),
-		ScaleDownFactor:             dcl.Float64OrNil(p.ScaleDownFactor),
-		ScaleUpMinWorkerFraction:    dcl.Float64OrNil(p.ScaleUpMinWorkerFraction),
-		ScaleDownMinWorkerFraction:  dcl.Float64OrNil(p.ScaleDownMinWorkerFraction),
+		GracefulDecommissionTimeout: dcl.StringOrNil(p.GetGracefulDecommissionTimeout()),
+		ScaleUpFactor:               dcl.Float64OrNil(p.GetScaleUpFactor()),
+		ScaleDownFactor:             dcl.Float64OrNil(p.GetScaleDownFactor()),
+		ScaleUpMinWorkerFraction:    dcl.Float64OrNil(p.GetScaleUpMinWorkerFraction()),
+		ScaleDownMinWorkerFraction:  dcl.Float64OrNil(p.GetScaleDownMinWorkerFraction()),
 	}
 	return obj
 }
 
-// ProtoToAutoscalingPolicyWorkerConfig converts a AutoscalingPolicyWorkerConfig resource from its proto representation.
+// ProtoToAutoscalingPolicyWorkerConfig converts a AutoscalingPolicyWorkerConfig object from its proto representation.
 func ProtoToDataprocAutoscalingPolicyWorkerConfig(p *dataprocpb.DataprocAutoscalingPolicyWorkerConfig) *dataproc.AutoscalingPolicyWorkerConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &dataproc.AutoscalingPolicyWorkerConfig{
-		MinInstances: dcl.Int64OrNil(p.MinInstances),
-		MaxInstances: dcl.Int64OrNil(p.MaxInstances),
-		Weight:       dcl.Int64OrNil(p.Weight),
+		MinInstances: dcl.Int64OrNil(p.GetMinInstances()),
+		MaxInstances: dcl.Int64OrNil(p.GetMaxInstances()),
+		Weight:       dcl.Int64OrNil(p.GetWeight()),
 	}
 	return obj
 }
 
-// ProtoToAutoscalingPolicySecondaryWorkerConfig converts a AutoscalingPolicySecondaryWorkerConfig resource from its proto representation.
+// ProtoToAutoscalingPolicySecondaryWorkerConfig converts a AutoscalingPolicySecondaryWorkerConfig object from its proto representation.
 func ProtoToDataprocAutoscalingPolicySecondaryWorkerConfig(p *dataprocpb.DataprocAutoscalingPolicySecondaryWorkerConfig) *dataproc.AutoscalingPolicySecondaryWorkerConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &dataproc.AutoscalingPolicySecondaryWorkerConfig{
-		MinInstances: dcl.Int64OrNil(p.MinInstances),
-		MaxInstances: dcl.Int64OrNil(p.MaxInstances),
-		Weight:       dcl.Int64OrNil(p.Weight),
+		MinInstances: dcl.Int64OrNil(p.GetMinInstances()),
+		MaxInstances: dcl.Int64OrNil(p.GetMaxInstances()),
+		Weight:       dcl.Int64OrNil(p.GetWeight()),
 	}
 	return obj
 }
@@ -81,84 +81,79 @@ func ProtoToDataprocAutoscalingPolicySecondaryWorkerConfig(p *dataprocpb.Datapro
 // ProtoToAutoscalingPolicy converts a AutoscalingPolicy resource from its proto representation.
 func ProtoToAutoscalingPolicy(p *dataprocpb.DataprocAutoscalingPolicy) *dataproc.AutoscalingPolicy {
 	obj := &dataproc.AutoscalingPolicy{
-		Name:                  dcl.StringOrNil(p.Name),
+		Name:                  dcl.StringOrNil(p.GetName()),
 		BasicAlgorithm:        ProtoToDataprocAutoscalingPolicyBasicAlgorithm(p.GetBasicAlgorithm()),
 		WorkerConfig:          ProtoToDataprocAutoscalingPolicyWorkerConfig(p.GetWorkerConfig()),
 		SecondaryWorkerConfig: ProtoToDataprocAutoscalingPolicySecondaryWorkerConfig(p.GetSecondaryWorkerConfig()),
-		Project:               dcl.StringOrNil(p.Project),
-		Location:              dcl.StringOrNil(p.Location),
+		Project:               dcl.StringOrNil(p.GetProject()),
+		Location:              dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
 
-// AutoscalingPolicyBasicAlgorithmToProto converts a AutoscalingPolicyBasicAlgorithm resource to its proto representation.
+// AutoscalingPolicyBasicAlgorithmToProto converts a AutoscalingPolicyBasicAlgorithm object to its proto representation.
 func DataprocAutoscalingPolicyBasicAlgorithmToProto(o *dataproc.AutoscalingPolicyBasicAlgorithm) *dataprocpb.DataprocAutoscalingPolicyBasicAlgorithm {
 	if o == nil {
 		return nil
 	}
-	p := &dataprocpb.DataprocAutoscalingPolicyBasicAlgorithm{
-		YarnConfig:     DataprocAutoscalingPolicyBasicAlgorithmYarnConfigToProto(o.YarnConfig),
-		CooldownPeriod: dcl.ValueOrEmptyString(o.CooldownPeriod),
-	}
+	p := &dataprocpb.DataprocAutoscalingPolicyBasicAlgorithm{}
+	p.SetYarnConfig(DataprocAutoscalingPolicyBasicAlgorithmYarnConfigToProto(o.YarnConfig))
+	p.SetCooldownPeriod(dcl.ValueOrEmptyString(o.CooldownPeriod))
 	return p
 }
 
-// AutoscalingPolicyBasicAlgorithmYarnConfigToProto converts a AutoscalingPolicyBasicAlgorithmYarnConfig resource to its proto representation.
+// AutoscalingPolicyBasicAlgorithmYarnConfigToProto converts a AutoscalingPolicyBasicAlgorithmYarnConfig object to its proto representation.
 func DataprocAutoscalingPolicyBasicAlgorithmYarnConfigToProto(o *dataproc.AutoscalingPolicyBasicAlgorithmYarnConfig) *dataprocpb.DataprocAutoscalingPolicyBasicAlgorithmYarnConfig {
 	if o == nil {
 		return nil
 	}
-	p := &dataprocpb.DataprocAutoscalingPolicyBasicAlgorithmYarnConfig{
-		GracefulDecommissionTimeout: dcl.ValueOrEmptyString(o.GracefulDecommissionTimeout),
-		ScaleUpFactor:               dcl.ValueOrEmptyDouble(o.ScaleUpFactor),
-		ScaleDownFactor:             dcl.ValueOrEmptyDouble(o.ScaleDownFactor),
-		ScaleUpMinWorkerFraction:    dcl.ValueOrEmptyDouble(o.ScaleUpMinWorkerFraction),
-		ScaleDownMinWorkerFraction:  dcl.ValueOrEmptyDouble(o.ScaleDownMinWorkerFraction),
-	}
+	p := &dataprocpb.DataprocAutoscalingPolicyBasicAlgorithmYarnConfig{}
+	p.SetGracefulDecommissionTimeout(dcl.ValueOrEmptyString(o.GracefulDecommissionTimeout))
+	p.SetScaleUpFactor(dcl.ValueOrEmptyDouble(o.ScaleUpFactor))
+	p.SetScaleDownFactor(dcl.ValueOrEmptyDouble(o.ScaleDownFactor))
+	p.SetScaleUpMinWorkerFraction(dcl.ValueOrEmptyDouble(o.ScaleUpMinWorkerFraction))
+	p.SetScaleDownMinWorkerFraction(dcl.ValueOrEmptyDouble(o.ScaleDownMinWorkerFraction))
 	return p
 }
 
-// AutoscalingPolicyWorkerConfigToProto converts a AutoscalingPolicyWorkerConfig resource to its proto representation.
+// AutoscalingPolicyWorkerConfigToProto converts a AutoscalingPolicyWorkerConfig object to its proto representation.
 func DataprocAutoscalingPolicyWorkerConfigToProto(o *dataproc.AutoscalingPolicyWorkerConfig) *dataprocpb.DataprocAutoscalingPolicyWorkerConfig {
 	if o == nil {
 		return nil
 	}
-	p := &dataprocpb.DataprocAutoscalingPolicyWorkerConfig{
-		MinInstances: dcl.ValueOrEmptyInt64(o.MinInstances),
-		MaxInstances: dcl.ValueOrEmptyInt64(o.MaxInstances),
-		Weight:       dcl.ValueOrEmptyInt64(o.Weight),
-	}
+	p := &dataprocpb.DataprocAutoscalingPolicyWorkerConfig{}
+	p.SetMinInstances(dcl.ValueOrEmptyInt64(o.MinInstances))
+	p.SetMaxInstances(dcl.ValueOrEmptyInt64(o.MaxInstances))
+	p.SetWeight(dcl.ValueOrEmptyInt64(o.Weight))
 	return p
 }
 
-// AutoscalingPolicySecondaryWorkerConfigToProto converts a AutoscalingPolicySecondaryWorkerConfig resource to its proto representation.
+// AutoscalingPolicySecondaryWorkerConfigToProto converts a AutoscalingPolicySecondaryWorkerConfig object to its proto representation.
 func DataprocAutoscalingPolicySecondaryWorkerConfigToProto(o *dataproc.AutoscalingPolicySecondaryWorkerConfig) *dataprocpb.DataprocAutoscalingPolicySecondaryWorkerConfig {
 	if o == nil {
 		return nil
 	}
-	p := &dataprocpb.DataprocAutoscalingPolicySecondaryWorkerConfig{
-		MinInstances: dcl.ValueOrEmptyInt64(o.MinInstances),
-		MaxInstances: dcl.ValueOrEmptyInt64(o.MaxInstances),
-		Weight:       dcl.ValueOrEmptyInt64(o.Weight),
-	}
+	p := &dataprocpb.DataprocAutoscalingPolicySecondaryWorkerConfig{}
+	p.SetMinInstances(dcl.ValueOrEmptyInt64(o.MinInstances))
+	p.SetMaxInstances(dcl.ValueOrEmptyInt64(o.MaxInstances))
+	p.SetWeight(dcl.ValueOrEmptyInt64(o.Weight))
 	return p
 }
 
 // AutoscalingPolicyToProto converts a AutoscalingPolicy resource to its proto representation.
 func AutoscalingPolicyToProto(resource *dataproc.AutoscalingPolicy) *dataprocpb.DataprocAutoscalingPolicy {
-	p := &dataprocpb.DataprocAutoscalingPolicy{
-		Name:                  dcl.ValueOrEmptyString(resource.Name),
-		BasicAlgorithm:        DataprocAutoscalingPolicyBasicAlgorithmToProto(resource.BasicAlgorithm),
-		WorkerConfig:          DataprocAutoscalingPolicyWorkerConfigToProto(resource.WorkerConfig),
-		SecondaryWorkerConfig: DataprocAutoscalingPolicySecondaryWorkerConfigToProto(resource.SecondaryWorkerConfig),
-		Project:               dcl.ValueOrEmptyString(resource.Project),
-		Location:              dcl.ValueOrEmptyString(resource.Location),
-	}
+	p := &dataprocpb.DataprocAutoscalingPolicy{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetBasicAlgorithm(DataprocAutoscalingPolicyBasicAlgorithmToProto(resource.BasicAlgorithm))
+	p.SetWorkerConfig(DataprocAutoscalingPolicyWorkerConfigToProto(resource.WorkerConfig))
+	p.SetSecondaryWorkerConfig(DataprocAutoscalingPolicySecondaryWorkerConfigToProto(resource.SecondaryWorkerConfig))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 
 	return p
 }
 
-// ApplyAutoscalingPolicy handles the gRPC request by passing it to the underlying AutoscalingPolicy Apply() method.
+// applyAutoscalingPolicy handles the gRPC request by passing it to the underlying AutoscalingPolicy Apply() method.
 func (s *AutoscalingPolicyServer) applyAutoscalingPolicy(ctx context.Context, c *dataproc.Client, request *dataprocpb.ApplyDataprocAutoscalingPolicyRequest) (*dataprocpb.DataprocAutoscalingPolicy, error) {
 	p := ProtoToAutoscalingPolicy(request.GetResource())
 	res, err := c.ApplyAutoscalingPolicy(ctx, p)
@@ -169,9 +164,9 @@ func (s *AutoscalingPolicyServer) applyAutoscalingPolicy(ctx context.Context, c 
 	return r, nil
 }
 
-// ApplyAutoscalingPolicy handles the gRPC request by passing it to the underlying AutoscalingPolicy Apply() method.
+// applyDataprocAutoscalingPolicy handles the gRPC request by passing it to the underlying AutoscalingPolicy Apply() method.
 func (s *AutoscalingPolicyServer) ApplyDataprocAutoscalingPolicy(ctx context.Context, request *dataprocpb.ApplyDataprocAutoscalingPolicyRequest) (*dataprocpb.DataprocAutoscalingPolicy, error) {
-	cl, err := createConfigAutoscalingPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigAutoscalingPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -181,7 +176,7 @@ func (s *AutoscalingPolicyServer) ApplyDataprocAutoscalingPolicy(ctx context.Con
 // DeleteAutoscalingPolicy handles the gRPC request by passing it to the underlying AutoscalingPolicy Delete() method.
 func (s *AutoscalingPolicyServer) DeleteDataprocAutoscalingPolicy(ctx context.Context, request *dataprocpb.DeleteDataprocAutoscalingPolicyRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigAutoscalingPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigAutoscalingPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -191,12 +186,12 @@ func (s *AutoscalingPolicyServer) DeleteDataprocAutoscalingPolicy(ctx context.Co
 
 // ListDataprocAutoscalingPolicy handles the gRPC request by passing it to the underlying AutoscalingPolicyList() method.
 func (s *AutoscalingPolicyServer) ListDataprocAutoscalingPolicy(ctx context.Context, request *dataprocpb.ListDataprocAutoscalingPolicyRequest) (*dataprocpb.ListDataprocAutoscalingPolicyResponse, error) {
-	cl, err := createConfigAutoscalingPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigAutoscalingPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListAutoscalingPolicy(ctx, request.Project, request.Location)
+	resources, err := cl.ListAutoscalingPolicy(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -205,7 +200,9 @@ func (s *AutoscalingPolicyServer) ListDataprocAutoscalingPolicy(ctx context.Cont
 		rp := AutoscalingPolicyToProto(r)
 		protos = append(protos, rp)
 	}
-	return &dataprocpb.ListDataprocAutoscalingPolicyResponse{Items: protos}, nil
+	p := &dataprocpb.ListDataprocAutoscalingPolicyResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigAutoscalingPolicy(ctx context.Context, service_account_file string) (*dataproc.Client, error) {

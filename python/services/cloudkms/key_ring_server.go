@@ -29,27 +29,26 @@ type KeyRingServer struct{}
 // ProtoToKeyRing converts a KeyRing resource from its proto representation.
 func ProtoToKeyRing(p *cloudkmspb.CloudkmsKeyRing) *cloudkms.KeyRing {
 	obj := &cloudkms.KeyRing{
-		Name:       dcl.StringOrNil(p.Name),
+		Name:       dcl.StringOrNil(p.GetName()),
 		CreateTime: dcl.StringOrNil(p.GetCreateTime()),
-		Project:    dcl.StringOrNil(p.Project),
-		Location:   dcl.StringOrNil(p.Location),
+		Project:    dcl.StringOrNil(p.GetProject()),
+		Location:   dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
 
 // KeyRingToProto converts a KeyRing resource to its proto representation.
 func KeyRingToProto(resource *cloudkms.KeyRing) *cloudkmspb.CloudkmsKeyRing {
-	p := &cloudkmspb.CloudkmsKeyRing{
-		Name:       dcl.ValueOrEmptyString(resource.Name),
-		CreateTime: dcl.ValueOrEmptyString(resource.CreateTime),
-		Project:    dcl.ValueOrEmptyString(resource.Project),
-		Location:   dcl.ValueOrEmptyString(resource.Location),
-	}
+	p := &cloudkmspb.CloudkmsKeyRing{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 
 	return p
 }
 
-// ApplyKeyRing handles the gRPC request by passing it to the underlying KeyRing Apply() method.
+// applyKeyRing handles the gRPC request by passing it to the underlying KeyRing Apply() method.
 func (s *KeyRingServer) applyKeyRing(ctx context.Context, c *cloudkms.Client, request *cloudkmspb.ApplyCloudkmsKeyRingRequest) (*cloudkmspb.CloudkmsKeyRing, error) {
 	p := ProtoToKeyRing(request.GetResource())
 	res, err := c.ApplyKeyRing(ctx, p)
@@ -60,9 +59,9 @@ func (s *KeyRingServer) applyKeyRing(ctx context.Context, c *cloudkms.Client, re
 	return r, nil
 }
 
-// ApplyKeyRing handles the gRPC request by passing it to the underlying KeyRing Apply() method.
+// applyCloudkmsKeyRing handles the gRPC request by passing it to the underlying KeyRing Apply() method.
 func (s *KeyRingServer) ApplyCloudkmsKeyRing(ctx context.Context, request *cloudkmspb.ApplyCloudkmsKeyRingRequest) (*cloudkmspb.CloudkmsKeyRing, error) {
-	cl, err := createConfigKeyRing(ctx, request.ServiceAccountFile)
+	cl, err := createConfigKeyRing(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -78,12 +77,12 @@ func (s *KeyRingServer) DeleteCloudkmsKeyRing(ctx context.Context, request *clou
 
 // ListCloudkmsKeyRing handles the gRPC request by passing it to the underlying KeyRingList() method.
 func (s *KeyRingServer) ListCloudkmsKeyRing(ctx context.Context, request *cloudkmspb.ListCloudkmsKeyRingRequest) (*cloudkmspb.ListCloudkmsKeyRingResponse, error) {
-	cl, err := createConfigKeyRing(ctx, request.ServiceAccountFile)
+	cl, err := createConfigKeyRing(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListKeyRing(ctx, request.Project, request.Location)
+	resources, err := cl.ListKeyRing(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -92,7 +91,9 @@ func (s *KeyRingServer) ListCloudkmsKeyRing(ctx context.Context, request *cloudk
 		rp := KeyRingToProto(r)
 		protos = append(protos, rp)
 	}
-	return &cloudkmspb.ListCloudkmsKeyRingResponse{Items: protos}, nil
+	p := &cloudkmspb.ListCloudkmsKeyRingResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigKeyRing(ctx context.Context, service_account_file string) (*cloudkms.Client, error) {

@@ -25,16 +25,16 @@ import (
 // Server implements the gRPC interface for Policy.
 type PolicyServer struct{}
 
-// ProtoToPolicySpec converts a PolicySpec resource from its proto representation.
+// ProtoToPolicySpec converts a PolicySpec object from its proto representation.
 func ProtoToOrgpolicyBetaPolicySpec(p *betapb.OrgpolicyBetaPolicySpec) *beta.PolicySpec {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.PolicySpec{
-		Etag:              dcl.StringOrNil(p.Etag),
+		Etag:              dcl.StringOrNil(p.GetEtag()),
 		UpdateTime:        dcl.StringOrNil(p.GetUpdateTime()),
-		InheritFromParent: dcl.Bool(p.InheritFromParent),
-		Reset:             dcl.Bool(p.Reset_),
+		InheritFromParent: dcl.Bool(p.GetInheritFromParent()),
+		Reset:             dcl.Bool(p.GetReset()),
 	}
 	for _, r := range p.GetRules() {
 		obj.Rules = append(obj.Rules, *ProtoToOrgpolicyBetaPolicySpecRules(r))
@@ -42,22 +42,22 @@ func ProtoToOrgpolicyBetaPolicySpec(p *betapb.OrgpolicyBetaPolicySpec) *beta.Pol
 	return obj
 }
 
-// ProtoToPolicySpecRules converts a PolicySpecRules resource from its proto representation.
+// ProtoToPolicySpecRules converts a PolicySpecRules object from its proto representation.
 func ProtoToOrgpolicyBetaPolicySpecRules(p *betapb.OrgpolicyBetaPolicySpecRules) *beta.PolicySpecRules {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.PolicySpecRules{
 		Values:    ProtoToOrgpolicyBetaPolicySpecRulesValues(p.GetValues()),
-		AllowAll:  dcl.Bool(p.AllowAll),
-		DenyAll:   dcl.Bool(p.DenyAll),
-		Enforce:   dcl.Bool(p.Enforce),
+		AllowAll:  dcl.Bool(p.GetAllowAll()),
+		DenyAll:   dcl.Bool(p.GetDenyAll()),
+		Enforce:   dcl.Bool(p.GetEnforce()),
 		Condition: ProtoToOrgpolicyBetaPolicySpecRulesCondition(p.GetCondition()),
 	}
 	return obj
 }
 
-// ProtoToPolicySpecRulesValues converts a PolicySpecRulesValues resource from its proto representation.
+// ProtoToPolicySpecRulesValues converts a PolicySpecRulesValues object from its proto representation.
 func ProtoToOrgpolicyBetaPolicySpecRulesValues(p *betapb.OrgpolicyBetaPolicySpecRulesValues) *beta.PolicySpecRulesValues {
 	if p == nil {
 		return nil
@@ -72,16 +72,16 @@ func ProtoToOrgpolicyBetaPolicySpecRulesValues(p *betapb.OrgpolicyBetaPolicySpec
 	return obj
 }
 
-// ProtoToPolicySpecRulesCondition converts a PolicySpecRulesCondition resource from its proto representation.
+// ProtoToPolicySpecRulesCondition converts a PolicySpecRulesCondition object from its proto representation.
 func ProtoToOrgpolicyBetaPolicySpecRulesCondition(p *betapb.OrgpolicyBetaPolicySpecRulesCondition) *beta.PolicySpecRulesCondition {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.PolicySpecRulesCondition{
-		Expression:  dcl.StringOrNil(p.Expression),
-		Title:       dcl.StringOrNil(p.Title),
-		Description: dcl.StringOrNil(p.Description),
-		Location:    dcl.StringOrNil(p.Location),
+		Expression:  dcl.StringOrNil(p.GetExpression()),
+		Title:       dcl.StringOrNil(p.GetTitle()),
+		Description: dcl.StringOrNil(p.GetDescription()),
+		Location:    dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -89,86 +89,88 @@ func ProtoToOrgpolicyBetaPolicySpecRulesCondition(p *betapb.OrgpolicyBetaPolicyS
 // ProtoToPolicy converts a Policy resource from its proto representation.
 func ProtoToPolicy(p *betapb.OrgpolicyBetaPolicy) *beta.Policy {
 	obj := &beta.Policy{
-		Name:   dcl.StringOrNil(p.Name),
+		Name:   dcl.StringOrNil(p.GetName()),
 		Spec:   ProtoToOrgpolicyBetaPolicySpec(p.GetSpec()),
-		Parent: dcl.StringOrNil(p.Parent),
+		Parent: dcl.StringOrNil(p.GetParent()),
 	}
 	return obj
 }
 
-// PolicySpecToProto converts a PolicySpec resource to its proto representation.
+// PolicySpecToProto converts a PolicySpec object to its proto representation.
 func OrgpolicyBetaPolicySpecToProto(o *beta.PolicySpec) *betapb.OrgpolicyBetaPolicySpec {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.OrgpolicyBetaPolicySpec{
-		Etag:              dcl.ValueOrEmptyString(o.Etag),
-		UpdateTime:        dcl.ValueOrEmptyString(o.UpdateTime),
-		InheritFromParent: dcl.ValueOrEmptyBool(o.InheritFromParent),
-		Reset_:            dcl.ValueOrEmptyBool(o.Reset),
+	p := &betapb.OrgpolicyBetaPolicySpec{}
+	p.SetEtag(dcl.ValueOrEmptyString(o.Etag))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(o.UpdateTime))
+	p.SetInheritFromParent(dcl.ValueOrEmptyBool(o.InheritFromParent))
+	p.SetReset(dcl.ValueOrEmptyBool(o.Reset))
+	sRules := make([]*betapb.OrgpolicyBetaPolicySpecRules, len(o.Rules))
+	for i, r := range o.Rules {
+		sRules[i] = OrgpolicyBetaPolicySpecRulesToProto(&r)
 	}
-	for _, r := range o.Rules {
-		p.Rules = append(p.Rules, OrgpolicyBetaPolicySpecRulesToProto(&r))
-	}
+	p.SetRules(sRules)
 	return p
 }
 
-// PolicySpecRulesToProto converts a PolicySpecRules resource to its proto representation.
+// PolicySpecRulesToProto converts a PolicySpecRules object to its proto representation.
 func OrgpolicyBetaPolicySpecRulesToProto(o *beta.PolicySpecRules) *betapb.OrgpolicyBetaPolicySpecRules {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.OrgpolicyBetaPolicySpecRules{
-		Values:    OrgpolicyBetaPolicySpecRulesValuesToProto(o.Values),
-		AllowAll:  dcl.ValueOrEmptyBool(o.AllowAll),
-		DenyAll:   dcl.ValueOrEmptyBool(o.DenyAll),
-		Enforce:   dcl.ValueOrEmptyBool(o.Enforce),
-		Condition: OrgpolicyBetaPolicySpecRulesConditionToProto(o.Condition),
-	}
+	p := &betapb.OrgpolicyBetaPolicySpecRules{}
+	p.SetValues(OrgpolicyBetaPolicySpecRulesValuesToProto(o.Values))
+	p.SetAllowAll(dcl.ValueOrEmptyBool(o.AllowAll))
+	p.SetDenyAll(dcl.ValueOrEmptyBool(o.DenyAll))
+	p.SetEnforce(dcl.ValueOrEmptyBool(o.Enforce))
+	p.SetCondition(OrgpolicyBetaPolicySpecRulesConditionToProto(o.Condition))
 	return p
 }
 
-// PolicySpecRulesValuesToProto converts a PolicySpecRulesValues resource to its proto representation.
+// PolicySpecRulesValuesToProto converts a PolicySpecRulesValues object to its proto representation.
 func OrgpolicyBetaPolicySpecRulesValuesToProto(o *beta.PolicySpecRulesValues) *betapb.OrgpolicyBetaPolicySpecRulesValues {
 	if o == nil {
 		return nil
 	}
 	p := &betapb.OrgpolicyBetaPolicySpecRulesValues{}
-	for _, r := range o.AllowedValues {
-		p.AllowedValues = append(p.AllowedValues, r)
+	sAllowedValues := make([]string, len(o.AllowedValues))
+	for i, r := range o.AllowedValues {
+		sAllowedValues[i] = r
 	}
-	for _, r := range o.DeniedValues {
-		p.DeniedValues = append(p.DeniedValues, r)
+	p.SetAllowedValues(sAllowedValues)
+	sDeniedValues := make([]string, len(o.DeniedValues))
+	for i, r := range o.DeniedValues {
+		sDeniedValues[i] = r
 	}
+	p.SetDeniedValues(sDeniedValues)
 	return p
 }
 
-// PolicySpecRulesConditionToProto converts a PolicySpecRulesCondition resource to its proto representation.
+// PolicySpecRulesConditionToProto converts a PolicySpecRulesCondition object to its proto representation.
 func OrgpolicyBetaPolicySpecRulesConditionToProto(o *beta.PolicySpecRulesCondition) *betapb.OrgpolicyBetaPolicySpecRulesCondition {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.OrgpolicyBetaPolicySpecRulesCondition{
-		Expression:  dcl.ValueOrEmptyString(o.Expression),
-		Title:       dcl.ValueOrEmptyString(o.Title),
-		Description: dcl.ValueOrEmptyString(o.Description),
-		Location:    dcl.ValueOrEmptyString(o.Location),
-	}
+	p := &betapb.OrgpolicyBetaPolicySpecRulesCondition{}
+	p.SetExpression(dcl.ValueOrEmptyString(o.Expression))
+	p.SetTitle(dcl.ValueOrEmptyString(o.Title))
+	p.SetDescription(dcl.ValueOrEmptyString(o.Description))
+	p.SetLocation(dcl.ValueOrEmptyString(o.Location))
 	return p
 }
 
 // PolicyToProto converts a Policy resource to its proto representation.
 func PolicyToProto(resource *beta.Policy) *betapb.OrgpolicyBetaPolicy {
-	p := &betapb.OrgpolicyBetaPolicy{
-		Name:   dcl.ValueOrEmptyString(resource.Name),
-		Spec:   OrgpolicyBetaPolicySpecToProto(resource.Spec),
-		Parent: dcl.ValueOrEmptyString(resource.Parent),
-	}
+	p := &betapb.OrgpolicyBetaPolicy{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetSpec(OrgpolicyBetaPolicySpecToProto(resource.Spec))
+	p.SetParent(dcl.ValueOrEmptyString(resource.Parent))
 
 	return p
 }
 
-// ApplyPolicy handles the gRPC request by passing it to the underlying Policy Apply() method.
+// applyPolicy handles the gRPC request by passing it to the underlying Policy Apply() method.
 func (s *PolicyServer) applyPolicy(ctx context.Context, c *beta.Client, request *betapb.ApplyOrgpolicyBetaPolicyRequest) (*betapb.OrgpolicyBetaPolicy, error) {
 	p := ProtoToPolicy(request.GetResource())
 	res, err := c.ApplyPolicy(ctx, p)
@@ -179,9 +181,9 @@ func (s *PolicyServer) applyPolicy(ctx context.Context, c *beta.Client, request 
 	return r, nil
 }
 
-// ApplyPolicy handles the gRPC request by passing it to the underlying Policy Apply() method.
+// applyOrgpolicyBetaPolicy handles the gRPC request by passing it to the underlying Policy Apply() method.
 func (s *PolicyServer) ApplyOrgpolicyBetaPolicy(ctx context.Context, request *betapb.ApplyOrgpolicyBetaPolicyRequest) (*betapb.OrgpolicyBetaPolicy, error) {
-	cl, err := createConfigPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -191,7 +193,7 @@ func (s *PolicyServer) ApplyOrgpolicyBetaPolicy(ctx context.Context, request *be
 // DeletePolicy handles the gRPC request by passing it to the underlying Policy Delete() method.
 func (s *PolicyServer) DeleteOrgpolicyBetaPolicy(ctx context.Context, request *betapb.DeleteOrgpolicyBetaPolicyRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -201,12 +203,12 @@ func (s *PolicyServer) DeleteOrgpolicyBetaPolicy(ctx context.Context, request *b
 
 // ListOrgpolicyBetaPolicy handles the gRPC request by passing it to the underlying PolicyList() method.
 func (s *PolicyServer) ListOrgpolicyBetaPolicy(ctx context.Context, request *betapb.ListOrgpolicyBetaPolicyRequest) (*betapb.ListOrgpolicyBetaPolicyResponse, error) {
-	cl, err := createConfigPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListPolicy(ctx, request.Parent)
+	resources, err := cl.ListPolicy(ctx, request.GetParent())
 	if err != nil {
 		return nil, err
 	}
@@ -215,7 +217,9 @@ func (s *PolicyServer) ListOrgpolicyBetaPolicy(ctx context.Context, request *bet
 		rp := PolicyToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListOrgpolicyBetaPolicyResponse{Items: protos}, nil
+	p := &betapb.ListOrgpolicyBetaPolicyResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigPolicy(ctx context.Context, service_account_file string) (*beta.Client, error) {

@@ -92,6 +92,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage"
 	storage_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/alpha"
 	storage_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/beta"
+	vmwareengine_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vmwareengine/alpha"
 )
 
 type Directory struct {
@@ -480,5 +481,9 @@ func Services() *Directory {
 	d.AddResource("alpha", "storage", "Bucket", storage_alpha.YAML_bucket)
 	d.AddResource("alpha", "privateca", dcl.TitleToSnakeCase("CertificateTemplate"), privateca_alpha.YAML_certificate_template)
 	d.AddResource("alpha", "privateca", "CertificateTemplate", privateca_alpha.YAML_certificate_template)
+	d.AddResource("alpha", "vmwareengine", dcl.TitleToSnakeCase("PrivateCloud"), vmwareengine_alpha.YAML_private_cloud)
+	d.AddResource("alpha", "vmwareengine", "PrivateCloud", vmwareengine_alpha.YAML_private_cloud)
+	d.AddResource("alpha", "vmwareengine", dcl.TitleToSnakeCase("Cluster"), vmwareengine_alpha.YAML_cluster)
+	d.AddResource("alpha", "vmwareengine", "Cluster", vmwareengine_alpha.YAML_cluster)
 	return d
 }

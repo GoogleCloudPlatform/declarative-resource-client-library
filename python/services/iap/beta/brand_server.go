@@ -29,29 +29,28 @@ type BrandServer struct{}
 // ProtoToBrand converts a Brand resource from its proto representation.
 func ProtoToBrand(p *betapb.IapBetaBrand) *beta.Brand {
 	obj := &beta.Brand{
-		ApplicationTitle: dcl.StringOrNil(p.ApplicationTitle),
-		Name:             dcl.StringOrNil(p.Name),
-		OrgInternalOnly:  dcl.Bool(p.OrgInternalOnly),
-		SupportEmail:     dcl.StringOrNil(p.SupportEmail),
-		Project:          dcl.StringOrNil(p.Project),
+		ApplicationTitle: dcl.StringOrNil(p.GetApplicationTitle()),
+		Name:             dcl.StringOrNil(p.GetName()),
+		OrgInternalOnly:  dcl.Bool(p.GetOrgInternalOnly()),
+		SupportEmail:     dcl.StringOrNil(p.GetSupportEmail()),
+		Project:          dcl.StringOrNil(p.GetProject()),
 	}
 	return obj
 }
 
 // BrandToProto converts a Brand resource to its proto representation.
 func BrandToProto(resource *beta.Brand) *betapb.IapBetaBrand {
-	p := &betapb.IapBetaBrand{
-		ApplicationTitle: dcl.ValueOrEmptyString(resource.ApplicationTitle),
-		Name:             dcl.ValueOrEmptyString(resource.Name),
-		OrgInternalOnly:  dcl.ValueOrEmptyBool(resource.OrgInternalOnly),
-		SupportEmail:     dcl.ValueOrEmptyString(resource.SupportEmail),
-		Project:          dcl.ValueOrEmptyString(resource.Project),
-	}
+	p := &betapb.IapBetaBrand{}
+	p.SetApplicationTitle(dcl.ValueOrEmptyString(resource.ApplicationTitle))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetOrgInternalOnly(dcl.ValueOrEmptyBool(resource.OrgInternalOnly))
+	p.SetSupportEmail(dcl.ValueOrEmptyString(resource.SupportEmail))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 
 	return p
 }
 
-// ApplyBrand handles the gRPC request by passing it to the underlying Brand Apply() method.
+// applyBrand handles the gRPC request by passing it to the underlying Brand Apply() method.
 func (s *BrandServer) applyBrand(ctx context.Context, c *beta.Client, request *betapb.ApplyIapBetaBrandRequest) (*betapb.IapBetaBrand, error) {
 	p := ProtoToBrand(request.GetResource())
 	res, err := c.ApplyBrand(ctx, p)
@@ -62,9 +61,9 @@ func (s *BrandServer) applyBrand(ctx context.Context, c *beta.Client, request *b
 	return r, nil
 }
 
-// ApplyBrand handles the gRPC request by passing it to the underlying Brand Apply() method.
+// applyIapBetaBrand handles the gRPC request by passing it to the underlying Brand Apply() method.
 func (s *BrandServer) ApplyIapBetaBrand(ctx context.Context, request *betapb.ApplyIapBetaBrandRequest) (*betapb.IapBetaBrand, error) {
-	cl, err := createConfigBrand(ctx, request.ServiceAccountFile)
+	cl, err := createConfigBrand(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -80,12 +79,12 @@ func (s *BrandServer) DeleteIapBetaBrand(ctx context.Context, request *betapb.De
 
 // ListIapBetaBrand handles the gRPC request by passing it to the underlying BrandList() method.
 func (s *BrandServer) ListIapBetaBrand(ctx context.Context, request *betapb.ListIapBetaBrandRequest) (*betapb.ListIapBetaBrandResponse, error) {
-	cl, err := createConfigBrand(ctx, request.ServiceAccountFile)
+	cl, err := createConfigBrand(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListBrand(ctx, request.Project)
+	resources, err := cl.ListBrand(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -94,7 +93,9 @@ func (s *BrandServer) ListIapBetaBrand(ctx context.Context, request *betapb.List
 		rp := BrandToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListIapBetaBrandResponse{Items: protos}, nil
+	p := &betapb.ListIapBetaBrandResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigBrand(ctx context.Context, service_account_file string) (*beta.Client, error) {

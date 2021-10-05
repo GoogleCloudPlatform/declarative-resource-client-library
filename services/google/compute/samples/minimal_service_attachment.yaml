@@ -32,12 +32,14 @@ variables:
   type: resource_name
 - name: region
   type: region
-- name: region
-  type: region
 - name: compute_psc_subnetwork1
   type: resource_name
+- name: region
+  type: region
 - name: compute_private_subnetwork
   type: resource_name
+- name: region
+  type: region
 - name: region
   type: region
 - name: rule1
@@ -46,7 +48,3 @@ variables:
   type: region
 - name: attachment
   type: resource_name
-- name: project
-  type: project
-- name: region
-  type: region

@@ -28,25 +28,24 @@ type MonitoredProjectServer struct{}
 // ProtoToMonitoredProject converts a MonitoredProject resource from its proto representation.
 func ProtoToMonitoredProject(p *betapb.MonitoringBetaMonitoredProject) *beta.MonitoredProject {
 	obj := &beta.MonitoredProject{
-		Name:         dcl.StringOrNil(p.Name),
+		Name:         dcl.StringOrNil(p.GetName()),
 		CreateTime:   dcl.StringOrNil(p.GetCreateTime()),
-		MetricsScope: dcl.StringOrNil(p.MetricsScope),
+		MetricsScope: dcl.StringOrNil(p.GetMetricsScope()),
 	}
 	return obj
 }
 
 // MonitoredProjectToProto converts a MonitoredProject resource to its proto representation.
 func MonitoredProjectToProto(resource *beta.MonitoredProject) *betapb.MonitoringBetaMonitoredProject {
-	p := &betapb.MonitoringBetaMonitoredProject{
-		Name:         dcl.ValueOrEmptyString(resource.Name),
-		CreateTime:   dcl.ValueOrEmptyString(resource.CreateTime),
-		MetricsScope: dcl.ValueOrEmptyString(resource.MetricsScope),
-	}
+	p := &betapb.MonitoringBetaMonitoredProject{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetMetricsScope(dcl.ValueOrEmptyString(resource.MetricsScope))
 
 	return p
 }
 
-// ApplyMonitoredProject handles the gRPC request by passing it to the underlying MonitoredProject Apply() method.
+// applyMonitoredProject handles the gRPC request by passing it to the underlying MonitoredProject Apply() method.
 func (s *MonitoredProjectServer) applyMonitoredProject(ctx context.Context, c *beta.Client, request *betapb.ApplyMonitoringBetaMonitoredProjectRequest) (*betapb.MonitoringBetaMonitoredProject, error) {
 	p := ProtoToMonitoredProject(request.GetResource())
 	res, err := c.ApplyMonitoredProject(ctx, p)
@@ -57,9 +56,9 @@ func (s *MonitoredProjectServer) applyMonitoredProject(ctx context.Context, c *b
 	return r, nil
 }
 
-// ApplyMonitoredProject handles the gRPC request by passing it to the underlying MonitoredProject Apply() method.
+// applyMonitoringBetaMonitoredProject handles the gRPC request by passing it to the underlying MonitoredProject Apply() method.
 func (s *MonitoredProjectServer) ApplyMonitoringBetaMonitoredProject(ctx context.Context, request *betapb.ApplyMonitoringBetaMonitoredProjectRequest) (*betapb.MonitoringBetaMonitoredProject, error) {
-	cl, err := createConfigMonitoredProject(ctx, request.ServiceAccountFile)
+	cl, err := createConfigMonitoredProject(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -69,7 +68,7 @@ func (s *MonitoredProjectServer) ApplyMonitoringBetaMonitoredProject(ctx context
 // DeleteMonitoredProject handles the gRPC request by passing it to the underlying MonitoredProject Delete() method.
 func (s *MonitoredProjectServer) DeleteMonitoringBetaMonitoredProject(ctx context.Context, request *betapb.DeleteMonitoringBetaMonitoredProjectRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigMonitoredProject(ctx, request.ServiceAccountFile)
+	cl, err := createConfigMonitoredProject(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -79,12 +78,12 @@ func (s *MonitoredProjectServer) DeleteMonitoringBetaMonitoredProject(ctx contex
 
 // ListMonitoringBetaMonitoredProject handles the gRPC request by passing it to the underlying MonitoredProjectList() method.
 func (s *MonitoredProjectServer) ListMonitoringBetaMonitoredProject(ctx context.Context, request *betapb.ListMonitoringBetaMonitoredProjectRequest) (*betapb.ListMonitoringBetaMonitoredProjectResponse, error) {
-	cl, err := createConfigMonitoredProject(ctx, request.ServiceAccountFile)
+	cl, err := createConfigMonitoredProject(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListMonitoredProject(ctx, request.MetricsScope)
+	resources, err := cl.ListMonitoredProject(ctx, request.GetMetricsScope())
 	if err != nil {
 		return nil, err
 	}
@@ -93,7 +92,9 @@ func (s *MonitoredProjectServer) ListMonitoringBetaMonitoredProject(ctx context.
 		rp := MonitoredProjectToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListMonitoringBetaMonitoredProjectResponse{Items: protos}, nil
+	p := &betapb.ListMonitoringBetaMonitoredProjectResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigMonitoredProject(ctx context.Context, service_account_file string) (*beta.Client, error) {

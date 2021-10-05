@@ -37,7 +37,7 @@ func ProtoToComputeAlphaFirewallPolicyRuleDirectionEnum(e alphapb.ComputeAlphaFi
 	return nil
 }
 
-// ProtoToFirewallPolicyRuleMatch converts a FirewallPolicyRuleMatch resource from its proto representation.
+// ProtoToFirewallPolicyRuleMatch converts a FirewallPolicyRuleMatch object from its proto representation.
 func ProtoToComputeAlphaFirewallPolicyRuleMatch(p *alphapb.ComputeAlphaFirewallPolicyRuleMatch) *alpha.FirewallPolicyRuleMatch {
 	if p == nil {
 		return nil
@@ -55,13 +55,13 @@ func ProtoToComputeAlphaFirewallPolicyRuleMatch(p *alphapb.ComputeAlphaFirewallP
 	return obj
 }
 
-// ProtoToFirewallPolicyRuleMatchLayer4Configs converts a FirewallPolicyRuleMatchLayer4Configs resource from its proto representation.
+// ProtoToFirewallPolicyRuleMatchLayer4Configs converts a FirewallPolicyRuleMatchLayer4Configs object from its proto representation.
 func ProtoToComputeAlphaFirewallPolicyRuleMatchLayer4Configs(p *alphapb.ComputeAlphaFirewallPolicyRuleMatchLayer4Configs) *alpha.FirewallPolicyRuleMatchLayer4Configs {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.FirewallPolicyRuleMatchLayer4Configs{
-		IPProtocol: dcl.StringOrNil(p.IpProtocol),
+		IPProtocol: dcl.StringOrNil(p.GetIpProtocol()),
 	}
 	for _, r := range p.GetPorts() {
 		obj.Ports = append(obj.Ports, r)
@@ -72,16 +72,16 @@ func ProtoToComputeAlphaFirewallPolicyRuleMatchLayer4Configs(p *alphapb.ComputeA
 // ProtoToFirewallPolicyRule converts a FirewallPolicyRule resource from its proto representation.
 func ProtoToFirewallPolicyRule(p *alphapb.ComputeAlphaFirewallPolicyRule) *alpha.FirewallPolicyRule {
 	obj := &alpha.FirewallPolicyRule{
-		Description:    dcl.StringOrNil(p.Description),
-		Priority:       dcl.Int64OrNil(p.Priority),
+		Description:    dcl.StringOrNil(p.GetDescription()),
+		Priority:       dcl.Int64OrNil(p.GetPriority()),
 		Match:          ProtoToComputeAlphaFirewallPolicyRuleMatch(p.GetMatch()),
-		Action:         dcl.StringOrNil(p.Action),
+		Action:         dcl.StringOrNil(p.GetAction()),
 		Direction:      ProtoToComputeAlphaFirewallPolicyRuleDirectionEnum(p.GetDirection()),
-		EnableLogging:  dcl.Bool(p.EnableLogging),
-		RuleTupleCount: dcl.Int64OrNil(p.RuleTupleCount),
-		Disabled:       dcl.Bool(p.Disabled),
-		Kind:           dcl.StringOrNil(p.Kind),
-		FirewallPolicy: dcl.StringOrNil(p.FirewallPolicy),
+		EnableLogging:  dcl.Bool(p.GetEnableLogging()),
+		RuleTupleCount: dcl.Int64OrNil(p.GetRuleTupleCount()),
+		Disabled:       dcl.Bool(p.GetDisabled()),
+		Kind:           dcl.StringOrNil(p.GetKind()),
+		FirewallPolicy: dcl.StringOrNil(p.GetFirewallPolicy()),
 	}
 	for _, r := range p.GetTargetResources() {
 		obj.TargetResources = append(obj.TargetResources, r)
@@ -103,63 +103,73 @@ func ComputeAlphaFirewallPolicyRuleDirectionEnumToProto(e *alpha.FirewallPolicyR
 	return alphapb.ComputeAlphaFirewallPolicyRuleDirectionEnum(0)
 }
 
-// FirewallPolicyRuleMatchToProto converts a FirewallPolicyRuleMatch resource to its proto representation.
+// FirewallPolicyRuleMatchToProto converts a FirewallPolicyRuleMatch object to its proto representation.
 func ComputeAlphaFirewallPolicyRuleMatchToProto(o *alpha.FirewallPolicyRuleMatch) *alphapb.ComputeAlphaFirewallPolicyRuleMatch {
 	if o == nil {
 		return nil
 	}
 	p := &alphapb.ComputeAlphaFirewallPolicyRuleMatch{}
-	for _, r := range o.SrcIPRanges {
-		p.SrcIpRanges = append(p.SrcIpRanges, r)
+	sSrcIPRanges := make([]string, len(o.SrcIPRanges))
+	for i, r := range o.SrcIPRanges {
+		sSrcIPRanges[i] = r
 	}
-	for _, r := range o.DestIPRanges {
-		p.DestIpRanges = append(p.DestIpRanges, r)
+	p.SetSrcIpRanges(sSrcIPRanges)
+	sDestIPRanges := make([]string, len(o.DestIPRanges))
+	for i, r := range o.DestIPRanges {
+		sDestIPRanges[i] = r
 	}
-	for _, r := range o.Layer4Configs {
-		p.Layer4Configs = append(p.Layer4Configs, ComputeAlphaFirewallPolicyRuleMatchLayer4ConfigsToProto(&r))
+	p.SetDestIpRanges(sDestIPRanges)
+	sLayer4Configs := make([]*alphapb.ComputeAlphaFirewallPolicyRuleMatchLayer4Configs, len(o.Layer4Configs))
+	for i, r := range o.Layer4Configs {
+		sLayer4Configs[i] = ComputeAlphaFirewallPolicyRuleMatchLayer4ConfigsToProto(&r)
 	}
+	p.SetLayer4Configs(sLayer4Configs)
 	return p
 }
 
-// FirewallPolicyRuleMatchLayer4ConfigsToProto converts a FirewallPolicyRuleMatchLayer4Configs resource to its proto representation.
+// FirewallPolicyRuleMatchLayer4ConfigsToProto converts a FirewallPolicyRuleMatchLayer4Configs object to its proto representation.
 func ComputeAlphaFirewallPolicyRuleMatchLayer4ConfigsToProto(o *alpha.FirewallPolicyRuleMatchLayer4Configs) *alphapb.ComputeAlphaFirewallPolicyRuleMatchLayer4Configs {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ComputeAlphaFirewallPolicyRuleMatchLayer4Configs{
-		IpProtocol: dcl.ValueOrEmptyString(o.IPProtocol),
+	p := &alphapb.ComputeAlphaFirewallPolicyRuleMatchLayer4Configs{}
+	p.SetIpProtocol(dcl.ValueOrEmptyString(o.IPProtocol))
+	sPorts := make([]string, len(o.Ports))
+	for i, r := range o.Ports {
+		sPorts[i] = r
 	}
-	for _, r := range o.Ports {
-		p.Ports = append(p.Ports, r)
-	}
+	p.SetPorts(sPorts)
 	return p
 }
 
 // FirewallPolicyRuleToProto converts a FirewallPolicyRule resource to its proto representation.
 func FirewallPolicyRuleToProto(resource *alpha.FirewallPolicyRule) *alphapb.ComputeAlphaFirewallPolicyRule {
-	p := &alphapb.ComputeAlphaFirewallPolicyRule{
-		Description:    dcl.ValueOrEmptyString(resource.Description),
-		Priority:       dcl.ValueOrEmptyInt64(resource.Priority),
-		Match:          ComputeAlphaFirewallPolicyRuleMatchToProto(resource.Match),
-		Action:         dcl.ValueOrEmptyString(resource.Action),
-		Direction:      ComputeAlphaFirewallPolicyRuleDirectionEnumToProto(resource.Direction),
-		EnableLogging:  dcl.ValueOrEmptyBool(resource.EnableLogging),
-		RuleTupleCount: dcl.ValueOrEmptyInt64(resource.RuleTupleCount),
-		Disabled:       dcl.ValueOrEmptyBool(resource.Disabled),
-		Kind:           dcl.ValueOrEmptyString(resource.Kind),
-		FirewallPolicy: dcl.ValueOrEmptyString(resource.FirewallPolicy),
+	p := &alphapb.ComputeAlphaFirewallPolicyRule{}
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetPriority(dcl.ValueOrEmptyInt64(resource.Priority))
+	p.SetMatch(ComputeAlphaFirewallPolicyRuleMatchToProto(resource.Match))
+	p.SetAction(dcl.ValueOrEmptyString(resource.Action))
+	p.SetDirection(ComputeAlphaFirewallPolicyRuleDirectionEnumToProto(resource.Direction))
+	p.SetEnableLogging(dcl.ValueOrEmptyBool(resource.EnableLogging))
+	p.SetRuleTupleCount(dcl.ValueOrEmptyInt64(resource.RuleTupleCount))
+	p.SetDisabled(dcl.ValueOrEmptyBool(resource.Disabled))
+	p.SetKind(dcl.ValueOrEmptyString(resource.Kind))
+	p.SetFirewallPolicy(dcl.ValueOrEmptyString(resource.FirewallPolicy))
+	sTargetResources := make([]string, len(resource.TargetResources))
+	for i, r := range resource.TargetResources {
+		sTargetResources[i] = r
 	}
-	for _, r := range resource.TargetResources {
-		p.TargetResources = append(p.TargetResources, r)
+	p.SetTargetResources(sTargetResources)
+	sTargetServiceAccounts := make([]string, len(resource.TargetServiceAccounts))
+	for i, r := range resource.TargetServiceAccounts {
+		sTargetServiceAccounts[i] = r
 	}
-	for _, r := range resource.TargetServiceAccounts {
-		p.TargetServiceAccounts = append(p.TargetServiceAccounts, r)
-	}
+	p.SetTargetServiceAccounts(sTargetServiceAccounts)
 
 	return p
 }
 
-// ApplyFirewallPolicyRule handles the gRPC request by passing it to the underlying FirewallPolicyRule Apply() method.
+// applyFirewallPolicyRule handles the gRPC request by passing it to the underlying FirewallPolicyRule Apply() method.
 func (s *FirewallPolicyRuleServer) applyFirewallPolicyRule(ctx context.Context, c *alpha.Client, request *alphapb.ApplyComputeAlphaFirewallPolicyRuleRequest) (*alphapb.ComputeAlphaFirewallPolicyRule, error) {
 	p := ProtoToFirewallPolicyRule(request.GetResource())
 	res, err := c.ApplyFirewallPolicyRule(ctx, p)
@@ -170,9 +180,9 @@ func (s *FirewallPolicyRuleServer) applyFirewallPolicyRule(ctx context.Context, 
 	return r, nil
 }
 
-// ApplyFirewallPolicyRule handles the gRPC request by passing it to the underlying FirewallPolicyRule Apply() method.
+// applyComputeAlphaFirewallPolicyRule handles the gRPC request by passing it to the underlying FirewallPolicyRule Apply() method.
 func (s *FirewallPolicyRuleServer) ApplyComputeAlphaFirewallPolicyRule(ctx context.Context, request *alphapb.ApplyComputeAlphaFirewallPolicyRuleRequest) (*alphapb.ComputeAlphaFirewallPolicyRule, error) {
-	cl, err := createConfigFirewallPolicyRule(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFirewallPolicyRule(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -182,7 +192,7 @@ func (s *FirewallPolicyRuleServer) ApplyComputeAlphaFirewallPolicyRule(ctx conte
 // DeleteFirewallPolicyRule handles the gRPC request by passing it to the underlying FirewallPolicyRule Delete() method.
 func (s *FirewallPolicyRuleServer) DeleteComputeAlphaFirewallPolicyRule(ctx context.Context, request *alphapb.DeleteComputeAlphaFirewallPolicyRuleRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigFirewallPolicyRule(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFirewallPolicyRule(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -192,12 +202,12 @@ func (s *FirewallPolicyRuleServer) DeleteComputeAlphaFirewallPolicyRule(ctx cont
 
 // ListComputeAlphaFirewallPolicyRule handles the gRPC request by passing it to the underlying FirewallPolicyRuleList() method.
 func (s *FirewallPolicyRuleServer) ListComputeAlphaFirewallPolicyRule(ctx context.Context, request *alphapb.ListComputeAlphaFirewallPolicyRuleRequest) (*alphapb.ListComputeAlphaFirewallPolicyRuleResponse, error) {
-	cl, err := createConfigFirewallPolicyRule(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFirewallPolicyRule(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListFirewallPolicyRule(ctx, request.FirewallPolicy)
+	resources, err := cl.ListFirewallPolicyRule(ctx, request.GetFirewallPolicy())
 	if err != nil {
 		return nil, err
 	}
@@ -206,7 +216,9 @@ func (s *FirewallPolicyRuleServer) ListComputeAlphaFirewallPolicyRule(ctx contex
 		rp := FirewallPolicyRuleToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListComputeAlphaFirewallPolicyRuleResponse{Items: protos}, nil
+	p := &alphapb.ListComputeAlphaFirewallPolicyRuleResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigFirewallPolicyRule(ctx context.Context, service_account_file string) (*alpha.Client, error) {

@@ -37,13 +37,13 @@ func ProtoToIamAlphaWorkloadIdentityPoolProviderStateEnum(e alphapb.IamAlphaWork
 	return nil
 }
 
-// ProtoToWorkloadIdentityPoolProviderAws converts a WorkloadIdentityPoolProviderAws resource from its proto representation.
+// ProtoToWorkloadIdentityPoolProviderAws converts a WorkloadIdentityPoolProviderAws object from its proto representation.
 func ProtoToIamAlphaWorkloadIdentityPoolProviderAws(p *alphapb.IamAlphaWorkloadIdentityPoolProviderAws) *alpha.WorkloadIdentityPoolProviderAws {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.WorkloadIdentityPoolProviderAws{
-		AccountId: dcl.StringOrNil(p.AccountId),
+		AccountId: dcl.StringOrNil(p.GetAccountId()),
 	}
 	for _, r := range p.GetStsUri() {
 		obj.StsUri = append(obj.StsUri, r)
@@ -51,13 +51,13 @@ func ProtoToIamAlphaWorkloadIdentityPoolProviderAws(p *alphapb.IamAlphaWorkloadI
 	return obj
 }
 
-// ProtoToWorkloadIdentityPoolProviderOidc converts a WorkloadIdentityPoolProviderOidc resource from its proto representation.
+// ProtoToWorkloadIdentityPoolProviderOidc converts a WorkloadIdentityPoolProviderOidc object from its proto representation.
 func ProtoToIamAlphaWorkloadIdentityPoolProviderOidc(p *alphapb.IamAlphaWorkloadIdentityPoolProviderOidc) *alpha.WorkloadIdentityPoolProviderOidc {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.WorkloadIdentityPoolProviderOidc{
-		IssuerUri: dcl.StringOrNil(p.IssuerUri),
+		IssuerUri: dcl.StringOrNil(p.GetIssuerUri()),
 	}
 	for _, r := range p.GetAllowedAudiences() {
 		obj.AllowedAudiences = append(obj.AllowedAudiences, r)
@@ -68,17 +68,17 @@ func ProtoToIamAlphaWorkloadIdentityPoolProviderOidc(p *alphapb.IamAlphaWorkload
 // ProtoToWorkloadIdentityPoolProvider converts a WorkloadIdentityPoolProvider resource from its proto representation.
 func ProtoToWorkloadIdentityPoolProvider(p *alphapb.IamAlphaWorkloadIdentityPoolProvider) *alpha.WorkloadIdentityPoolProvider {
 	obj := &alpha.WorkloadIdentityPoolProvider{
-		Name:                 dcl.StringOrNil(p.Name),
-		DisplayName:          dcl.StringOrNil(p.DisplayName),
-		Description:          dcl.StringOrNil(p.Description),
+		Name:                 dcl.StringOrNil(p.GetName()),
+		DisplayName:          dcl.StringOrNil(p.GetDisplayName()),
+		Description:          dcl.StringOrNil(p.GetDescription()),
 		State:                ProtoToIamAlphaWorkloadIdentityPoolProviderStateEnum(p.GetState()),
-		Disabled:             dcl.Bool(p.Disabled),
-		AttributeCondition:   dcl.StringOrNil(p.AttributeCondition),
+		Disabled:             dcl.Bool(p.GetDisabled()),
+		AttributeCondition:   dcl.StringOrNil(p.GetAttributeCondition()),
 		Aws:                  ProtoToIamAlphaWorkloadIdentityPoolProviderAws(p.GetAws()),
 		Oidc:                 ProtoToIamAlphaWorkloadIdentityPoolProviderOidc(p.GetOidc()),
-		Project:              dcl.StringOrNil(p.Project),
-		Location:             dcl.StringOrNil(p.Location),
-		WorkloadIdentityPool: dcl.StringOrNil(p.WorkloadIdentityPool),
+		Project:              dcl.StringOrNil(p.GetProject()),
+		Location:             dcl.StringOrNil(p.GetLocation()),
+		WorkloadIdentityPool: dcl.StringOrNil(p.GetWorkloadIdentityPool()),
 	}
 	return obj
 }
@@ -94,54 +94,60 @@ func IamAlphaWorkloadIdentityPoolProviderStateEnumToProto(e *alpha.WorkloadIdent
 	return alphapb.IamAlphaWorkloadIdentityPoolProviderStateEnum(0)
 }
 
-// WorkloadIdentityPoolProviderAwsToProto converts a WorkloadIdentityPoolProviderAws resource to its proto representation.
+// WorkloadIdentityPoolProviderAwsToProto converts a WorkloadIdentityPoolProviderAws object to its proto representation.
 func IamAlphaWorkloadIdentityPoolProviderAwsToProto(o *alpha.WorkloadIdentityPoolProviderAws) *alphapb.IamAlphaWorkloadIdentityPoolProviderAws {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.IamAlphaWorkloadIdentityPoolProviderAws{
-		AccountId: dcl.ValueOrEmptyString(o.AccountId),
+	p := &alphapb.IamAlphaWorkloadIdentityPoolProviderAws{}
+	p.SetAccountId(dcl.ValueOrEmptyString(o.AccountId))
+	sStsUri := make([]string, len(o.StsUri))
+	for i, r := range o.StsUri {
+		sStsUri[i] = r
 	}
-	for _, r := range o.StsUri {
-		p.StsUri = append(p.StsUri, r)
-	}
+	p.SetStsUri(sStsUri)
 	return p
 }
 
-// WorkloadIdentityPoolProviderOidcToProto converts a WorkloadIdentityPoolProviderOidc resource to its proto representation.
+// WorkloadIdentityPoolProviderOidcToProto converts a WorkloadIdentityPoolProviderOidc object to its proto representation.
 func IamAlphaWorkloadIdentityPoolProviderOidcToProto(o *alpha.WorkloadIdentityPoolProviderOidc) *alphapb.IamAlphaWorkloadIdentityPoolProviderOidc {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.IamAlphaWorkloadIdentityPoolProviderOidc{
-		IssuerUri: dcl.ValueOrEmptyString(o.IssuerUri),
+	p := &alphapb.IamAlphaWorkloadIdentityPoolProviderOidc{}
+	p.SetIssuerUri(dcl.ValueOrEmptyString(o.IssuerUri))
+	sAllowedAudiences := make([]string, len(o.AllowedAudiences))
+	for i, r := range o.AllowedAudiences {
+		sAllowedAudiences[i] = r
 	}
-	for _, r := range o.AllowedAudiences {
-		p.AllowedAudiences = append(p.AllowedAudiences, r)
-	}
+	p.SetAllowedAudiences(sAllowedAudiences)
 	return p
 }
 
 // WorkloadIdentityPoolProviderToProto converts a WorkloadIdentityPoolProvider resource to its proto representation.
 func WorkloadIdentityPoolProviderToProto(resource *alpha.WorkloadIdentityPoolProvider) *alphapb.IamAlphaWorkloadIdentityPoolProvider {
-	p := &alphapb.IamAlphaWorkloadIdentityPoolProvider{
-		Name:                 dcl.ValueOrEmptyString(resource.Name),
-		DisplayName:          dcl.ValueOrEmptyString(resource.DisplayName),
-		Description:          dcl.ValueOrEmptyString(resource.Description),
-		State:                IamAlphaWorkloadIdentityPoolProviderStateEnumToProto(resource.State),
-		Disabled:             dcl.ValueOrEmptyBool(resource.Disabled),
-		AttributeCondition:   dcl.ValueOrEmptyString(resource.AttributeCondition),
-		Aws:                  IamAlphaWorkloadIdentityPoolProviderAwsToProto(resource.Aws),
-		Oidc:                 IamAlphaWorkloadIdentityPoolProviderOidcToProto(resource.Oidc),
-		Project:              dcl.ValueOrEmptyString(resource.Project),
-		Location:             dcl.ValueOrEmptyString(resource.Location),
-		WorkloadIdentityPool: dcl.ValueOrEmptyString(resource.WorkloadIdentityPool),
+	p := &alphapb.IamAlphaWorkloadIdentityPoolProvider{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetState(IamAlphaWorkloadIdentityPoolProviderStateEnumToProto(resource.State))
+	p.SetDisabled(dcl.ValueOrEmptyBool(resource.Disabled))
+	p.SetAttributeCondition(dcl.ValueOrEmptyString(resource.AttributeCondition))
+	p.SetAws(IamAlphaWorkloadIdentityPoolProviderAwsToProto(resource.Aws))
+	p.SetOidc(IamAlphaWorkloadIdentityPoolProviderOidcToProto(resource.Oidc))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetWorkloadIdentityPool(dcl.ValueOrEmptyString(resource.WorkloadIdentityPool))
+	mAttributeMapping := make(map[string]string, len(resource.AttributeMapping))
+	for k, r := range resource.AttributeMapping {
+		mAttributeMapping[k] = r
 	}
+	p.SetAttributeMapping(mAttributeMapping)
 
 	return p
 }
 
-// ApplyWorkloadIdentityPoolProvider handles the gRPC request by passing it to the underlying WorkloadIdentityPoolProvider Apply() method.
+// applyWorkloadIdentityPoolProvider handles the gRPC request by passing it to the underlying WorkloadIdentityPoolProvider Apply() method.
 func (s *WorkloadIdentityPoolProviderServer) applyWorkloadIdentityPoolProvider(ctx context.Context, c *alpha.Client, request *alphapb.ApplyIamAlphaWorkloadIdentityPoolProviderRequest) (*alphapb.IamAlphaWorkloadIdentityPoolProvider, error) {
 	p := ProtoToWorkloadIdentityPoolProvider(request.GetResource())
 	res, err := c.ApplyWorkloadIdentityPoolProvider(ctx, p)
@@ -152,9 +158,9 @@ func (s *WorkloadIdentityPoolProviderServer) applyWorkloadIdentityPoolProvider(c
 	return r, nil
 }
 
-// ApplyWorkloadIdentityPoolProvider handles the gRPC request by passing it to the underlying WorkloadIdentityPoolProvider Apply() method.
+// applyIamAlphaWorkloadIdentityPoolProvider handles the gRPC request by passing it to the underlying WorkloadIdentityPoolProvider Apply() method.
 func (s *WorkloadIdentityPoolProviderServer) ApplyIamAlphaWorkloadIdentityPoolProvider(ctx context.Context, request *alphapb.ApplyIamAlphaWorkloadIdentityPoolProviderRequest) (*alphapb.IamAlphaWorkloadIdentityPoolProvider, error) {
-	cl, err := createConfigWorkloadIdentityPoolProvider(ctx, request.ServiceAccountFile)
+	cl, err := createConfigWorkloadIdentityPoolProvider(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -164,7 +170,7 @@ func (s *WorkloadIdentityPoolProviderServer) ApplyIamAlphaWorkloadIdentityPoolPr
 // DeleteWorkloadIdentityPoolProvider handles the gRPC request by passing it to the underlying WorkloadIdentityPoolProvider Delete() method.
 func (s *WorkloadIdentityPoolProviderServer) DeleteIamAlphaWorkloadIdentityPoolProvider(ctx context.Context, request *alphapb.DeleteIamAlphaWorkloadIdentityPoolProviderRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigWorkloadIdentityPoolProvider(ctx, request.ServiceAccountFile)
+	cl, err := createConfigWorkloadIdentityPoolProvider(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -174,12 +180,12 @@ func (s *WorkloadIdentityPoolProviderServer) DeleteIamAlphaWorkloadIdentityPoolP
 
 // ListIamAlphaWorkloadIdentityPoolProvider handles the gRPC request by passing it to the underlying WorkloadIdentityPoolProviderList() method.
 func (s *WorkloadIdentityPoolProviderServer) ListIamAlphaWorkloadIdentityPoolProvider(ctx context.Context, request *alphapb.ListIamAlphaWorkloadIdentityPoolProviderRequest) (*alphapb.ListIamAlphaWorkloadIdentityPoolProviderResponse, error) {
-	cl, err := createConfigWorkloadIdentityPoolProvider(ctx, request.ServiceAccountFile)
+	cl, err := createConfigWorkloadIdentityPoolProvider(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListWorkloadIdentityPoolProvider(ctx, request.Project, request.Location, request.WorkloadIdentityPool)
+	resources, err := cl.ListWorkloadIdentityPoolProvider(ctx, request.GetProject(), request.GetLocation(), request.GetWorkloadIdentityPool())
 	if err != nil {
 		return nil, err
 	}
@@ -188,7 +194,9 @@ func (s *WorkloadIdentityPoolProviderServer) ListIamAlphaWorkloadIdentityPoolPro
 		rp := WorkloadIdentityPoolProviderToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListIamAlphaWorkloadIdentityPoolProviderResponse{Items: protos}, nil
+	p := &alphapb.ListIamAlphaWorkloadIdentityPoolProviderResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigWorkloadIdentityPoolProvider(ctx context.Context, service_account_file string) (*alpha.Client, error) {

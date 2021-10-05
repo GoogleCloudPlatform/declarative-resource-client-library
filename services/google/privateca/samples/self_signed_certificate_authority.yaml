@@ -24,6 +24,8 @@ updates:
   dependencies:
   - samples/devops.ca_pool.json
 variables:
+- name: region
+  type: region
 - name: pool
   type: resource_name
 - name: project
@@ -32,3 +34,5 @@ variables:
   type: region
 - name: authority
   type: resource_name
+- name: region
+  type: region

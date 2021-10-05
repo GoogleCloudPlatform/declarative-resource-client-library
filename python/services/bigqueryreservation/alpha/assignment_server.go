@@ -52,13 +52,13 @@ func ProtoToBigqueryreservationAlphaAssignmentStateEnum(e alphapb.Bigqueryreserv
 // ProtoToAssignment converts a Assignment resource from its proto representation.
 func ProtoToAssignment(p *alphapb.BigqueryreservationAlphaAssignment) *alpha.Assignment {
 	obj := &alpha.Assignment{
-		Name:        dcl.StringOrNil(p.Name),
-		Assignee:    dcl.StringOrNil(p.Assignee),
+		Name:        dcl.StringOrNil(p.GetName()),
+		Assignee:    dcl.StringOrNil(p.GetAssignee()),
 		JobType:     ProtoToBigqueryreservationAlphaAssignmentJobTypeEnum(p.GetJobType()),
 		State:       ProtoToBigqueryreservationAlphaAssignmentStateEnum(p.GetState()),
-		Project:     dcl.StringOrNil(p.Project),
-		Location:    dcl.StringOrNil(p.Location),
-		Reservation: dcl.StringOrNil(p.Reservation),
+		Project:     dcl.StringOrNil(p.GetProject()),
+		Location:    dcl.StringOrNil(p.GetLocation()),
+		Reservation: dcl.StringOrNil(p.GetReservation()),
 	}
 	return obj
 }
@@ -87,20 +87,19 @@ func BigqueryreservationAlphaAssignmentStateEnumToProto(e *alpha.AssignmentState
 
 // AssignmentToProto converts a Assignment resource to its proto representation.
 func AssignmentToProto(resource *alpha.Assignment) *alphapb.BigqueryreservationAlphaAssignment {
-	p := &alphapb.BigqueryreservationAlphaAssignment{
-		Name:        dcl.ValueOrEmptyString(resource.Name),
-		Assignee:    dcl.ValueOrEmptyString(resource.Assignee),
-		JobType:     BigqueryreservationAlphaAssignmentJobTypeEnumToProto(resource.JobType),
-		State:       BigqueryreservationAlphaAssignmentStateEnumToProto(resource.State),
-		Project:     dcl.ValueOrEmptyString(resource.Project),
-		Location:    dcl.ValueOrEmptyString(resource.Location),
-		Reservation: dcl.ValueOrEmptyString(resource.Reservation),
-	}
+	p := &alphapb.BigqueryreservationAlphaAssignment{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetAssignee(dcl.ValueOrEmptyString(resource.Assignee))
+	p.SetJobType(BigqueryreservationAlphaAssignmentJobTypeEnumToProto(resource.JobType))
+	p.SetState(BigqueryreservationAlphaAssignmentStateEnumToProto(resource.State))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetReservation(dcl.ValueOrEmptyString(resource.Reservation))
 
 	return p
 }
 
-// ApplyAssignment handles the gRPC request by passing it to the underlying Assignment Apply() method.
+// applyAssignment handles the gRPC request by passing it to the underlying Assignment Apply() method.
 func (s *AssignmentServer) applyAssignment(ctx context.Context, c *alpha.Client, request *alphapb.ApplyBigqueryreservationAlphaAssignmentRequest) (*alphapb.BigqueryreservationAlphaAssignment, error) {
 	p := ProtoToAssignment(request.GetResource())
 	res, err := c.ApplyAssignment(ctx, p)
@@ -111,9 +110,9 @@ func (s *AssignmentServer) applyAssignment(ctx context.Context, c *alpha.Client,
 	return r, nil
 }
 
-// ApplyAssignment handles the gRPC request by passing it to the underlying Assignment Apply() method.
+// applyBigqueryreservationAlphaAssignment handles the gRPC request by passing it to the underlying Assignment Apply() method.
 func (s *AssignmentServer) ApplyBigqueryreservationAlphaAssignment(ctx context.Context, request *alphapb.ApplyBigqueryreservationAlphaAssignmentRequest) (*alphapb.BigqueryreservationAlphaAssignment, error) {
-	cl, err := createConfigAssignment(ctx, request.ServiceAccountFile)
+	cl, err := createConfigAssignment(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -123,7 +122,7 @@ func (s *AssignmentServer) ApplyBigqueryreservationAlphaAssignment(ctx context.C
 // DeleteAssignment handles the gRPC request by passing it to the underlying Assignment Delete() method.
 func (s *AssignmentServer) DeleteBigqueryreservationAlphaAssignment(ctx context.Context, request *alphapb.DeleteBigqueryreservationAlphaAssignmentRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigAssignment(ctx, request.ServiceAccountFile)
+	cl, err := createConfigAssignment(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -133,12 +132,12 @@ func (s *AssignmentServer) DeleteBigqueryreservationAlphaAssignment(ctx context.
 
 // ListBigqueryreservationAlphaAssignment handles the gRPC request by passing it to the underlying AssignmentList() method.
 func (s *AssignmentServer) ListBigqueryreservationAlphaAssignment(ctx context.Context, request *alphapb.ListBigqueryreservationAlphaAssignmentRequest) (*alphapb.ListBigqueryreservationAlphaAssignmentResponse, error) {
-	cl, err := createConfigAssignment(ctx, request.ServiceAccountFile)
+	cl, err := createConfigAssignment(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListAssignment(ctx, request.Project, request.Location, request.Reservation)
+	resources, err := cl.ListAssignment(ctx, request.GetProject(), request.GetLocation(), request.GetReservation())
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +146,9 @@ func (s *AssignmentServer) ListBigqueryreservationAlphaAssignment(ctx context.Co
 		rp := AssignmentToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListBigqueryreservationAlphaAssignmentResponse{Items: protos}, nil
+	p := &alphapb.ListBigqueryreservationAlphaAssignmentResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigAssignment(ctx context.Context, service_account_file string) (*alpha.Client, error) {

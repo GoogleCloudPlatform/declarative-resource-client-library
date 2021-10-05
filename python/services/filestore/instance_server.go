@@ -85,15 +85,15 @@ func ProtoToFilestoreInstanceNetworksModesEnum(e filestorepb.FilestoreInstanceNe
 	return nil
 }
 
-// ProtoToInstanceFileShares converts a InstanceFileShares resource from its proto representation.
+// ProtoToInstanceFileShares converts a InstanceFileShares object from its proto representation.
 func ProtoToFilestoreInstanceFileShares(p *filestorepb.FilestoreInstanceFileShares) *filestore.InstanceFileShares {
 	if p == nil {
 		return nil
 	}
 	obj := &filestore.InstanceFileShares{
-		Name:         dcl.StringOrNil(p.Name),
-		CapacityGb:   dcl.Int64OrNil(p.CapacityGb),
-		SourceBackup: dcl.StringOrNil(p.SourceBackup),
+		Name:         dcl.StringOrNil(p.GetName()),
+		CapacityGb:   dcl.Int64OrNil(p.GetCapacityGb()),
+		SourceBackup: dcl.StringOrNil(p.GetSourceBackup()),
 	}
 	for _, r := range p.GetNfsExportOptions() {
 		obj.NfsExportOptions = append(obj.NfsExportOptions, *ProtoToFilestoreInstanceFileSharesNfsExportOptions(r))
@@ -101,7 +101,7 @@ func ProtoToFilestoreInstanceFileShares(p *filestorepb.FilestoreInstanceFileShar
 	return obj
 }
 
-// ProtoToInstanceFileSharesNfsExportOptions converts a InstanceFileSharesNfsExportOptions resource from its proto representation.
+// ProtoToInstanceFileSharesNfsExportOptions converts a InstanceFileSharesNfsExportOptions object from its proto representation.
 func ProtoToFilestoreInstanceFileSharesNfsExportOptions(p *filestorepb.FilestoreInstanceFileSharesNfsExportOptions) *filestore.InstanceFileSharesNfsExportOptions {
 	if p == nil {
 		return nil
@@ -109,8 +109,8 @@ func ProtoToFilestoreInstanceFileSharesNfsExportOptions(p *filestorepb.Filestore
 	obj := &filestore.InstanceFileSharesNfsExportOptions{
 		AccessMode: ProtoToFilestoreInstanceFileSharesNfsExportOptionsAccessModeEnum(p.GetAccessMode()),
 		SquashMode: ProtoToFilestoreInstanceFileSharesNfsExportOptionsSquashModeEnum(p.GetSquashMode()),
-		AnonUid:    dcl.Int64OrNil(p.AnonUid),
-		AnonGid:    dcl.Int64OrNil(p.AnonGid),
+		AnonUid:    dcl.Int64OrNil(p.GetAnonUid()),
+		AnonGid:    dcl.Int64OrNil(p.GetAnonGid()),
 	}
 	for _, r := range p.GetIpRanges() {
 		obj.IPRanges = append(obj.IPRanges, r)
@@ -118,14 +118,14 @@ func ProtoToFilestoreInstanceFileSharesNfsExportOptions(p *filestorepb.Filestore
 	return obj
 }
 
-// ProtoToInstanceNetworks converts a InstanceNetworks resource from its proto representation.
+// ProtoToInstanceNetworks converts a InstanceNetworks object from its proto representation.
 func ProtoToFilestoreInstanceNetworks(p *filestorepb.FilestoreInstanceNetworks) *filestore.InstanceNetworks {
 	if p == nil {
 		return nil
 	}
 	obj := &filestore.InstanceNetworks{
-		Network:         dcl.StringOrNil(p.Network),
-		ReservedIPRange: dcl.StringOrNil(p.ReservedIpRange),
+		Network:         dcl.StringOrNil(p.GetNetwork()),
+		ReservedIPRange: dcl.StringOrNil(p.GetReservedIpRange()),
 	}
 	for _, r := range p.GetModes() {
 		obj.Modes = append(obj.Modes, *ProtoToFilestoreInstanceNetworksModesEnum(r))
@@ -139,15 +139,15 @@ func ProtoToFilestoreInstanceNetworks(p *filestorepb.FilestoreInstanceNetworks) 
 // ProtoToInstance converts a Instance resource from its proto representation.
 func ProtoToInstance(p *filestorepb.FilestoreInstance) *filestore.Instance {
 	obj := &filestore.Instance{
-		Name:          dcl.StringOrNil(p.Name),
-		Description:   dcl.StringOrNil(p.Description),
+		Name:          dcl.StringOrNil(p.GetName()),
+		Description:   dcl.StringOrNil(p.GetDescription()),
 		State:         ProtoToFilestoreInstanceStateEnum(p.GetState()),
-		StatusMessage: dcl.StringOrNil(p.StatusMessage),
+		StatusMessage: dcl.StringOrNil(p.GetStatusMessage()),
 		CreateTime:    dcl.StringOrNil(p.GetCreateTime()),
 		Tier:          ProtoToFilestoreInstanceTierEnum(p.GetTier()),
-		Etag:          dcl.StringOrNil(p.Etag),
-		Project:       dcl.StringOrNil(p.Project),
-		Location:      dcl.StringOrNil(p.Location),
+		Etag:          dcl.StringOrNil(p.GetEtag()),
+		Project:       dcl.StringOrNil(p.GetProject()),
+		Location:      dcl.StringOrNil(p.GetLocation()),
 	}
 	for _, r := range p.GetFileShares() {
 		obj.FileShares = append(obj.FileShares, *ProtoToFilestoreInstanceFileShares(r))
@@ -213,81 +213,94 @@ func FilestoreInstanceNetworksModesEnumToProto(e *filestore.InstanceNetworksMode
 	return filestorepb.FilestoreInstanceNetworksModesEnum(0)
 }
 
-// InstanceFileSharesToProto converts a InstanceFileShares resource to its proto representation.
+// InstanceFileSharesToProto converts a InstanceFileShares object to its proto representation.
 func FilestoreInstanceFileSharesToProto(o *filestore.InstanceFileShares) *filestorepb.FilestoreInstanceFileShares {
 	if o == nil {
 		return nil
 	}
-	p := &filestorepb.FilestoreInstanceFileShares{
-		Name:         dcl.ValueOrEmptyString(o.Name),
-		CapacityGb:   dcl.ValueOrEmptyInt64(o.CapacityGb),
-		SourceBackup: dcl.ValueOrEmptyString(o.SourceBackup),
+	p := &filestorepb.FilestoreInstanceFileShares{}
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetCapacityGb(dcl.ValueOrEmptyInt64(o.CapacityGb))
+	p.SetSourceBackup(dcl.ValueOrEmptyString(o.SourceBackup))
+	sNfsExportOptions := make([]*filestorepb.FilestoreInstanceFileSharesNfsExportOptions, len(o.NfsExportOptions))
+	for i, r := range o.NfsExportOptions {
+		sNfsExportOptions[i] = FilestoreInstanceFileSharesNfsExportOptionsToProto(&r)
 	}
-	for _, r := range o.NfsExportOptions {
-		p.NfsExportOptions = append(p.NfsExportOptions, FilestoreInstanceFileSharesNfsExportOptionsToProto(&r))
-	}
+	p.SetNfsExportOptions(sNfsExportOptions)
 	return p
 }
 
-// InstanceFileSharesNfsExportOptionsToProto converts a InstanceFileSharesNfsExportOptions resource to its proto representation.
+// InstanceFileSharesNfsExportOptionsToProto converts a InstanceFileSharesNfsExportOptions object to its proto representation.
 func FilestoreInstanceFileSharesNfsExportOptionsToProto(o *filestore.InstanceFileSharesNfsExportOptions) *filestorepb.FilestoreInstanceFileSharesNfsExportOptions {
 	if o == nil {
 		return nil
 	}
-	p := &filestorepb.FilestoreInstanceFileSharesNfsExportOptions{
-		AccessMode: FilestoreInstanceFileSharesNfsExportOptionsAccessModeEnumToProto(o.AccessMode),
-		SquashMode: FilestoreInstanceFileSharesNfsExportOptionsSquashModeEnumToProto(o.SquashMode),
-		AnonUid:    dcl.ValueOrEmptyInt64(o.AnonUid),
-		AnonGid:    dcl.ValueOrEmptyInt64(o.AnonGid),
+	p := &filestorepb.FilestoreInstanceFileSharesNfsExportOptions{}
+	p.SetAccessMode(FilestoreInstanceFileSharesNfsExportOptionsAccessModeEnumToProto(o.AccessMode))
+	p.SetSquashMode(FilestoreInstanceFileSharesNfsExportOptionsSquashModeEnumToProto(o.SquashMode))
+	p.SetAnonUid(dcl.ValueOrEmptyInt64(o.AnonUid))
+	p.SetAnonGid(dcl.ValueOrEmptyInt64(o.AnonGid))
+	sIPRanges := make([]string, len(o.IPRanges))
+	for i, r := range o.IPRanges {
+		sIPRanges[i] = r
 	}
-	for _, r := range o.IPRanges {
-		p.IpRanges = append(p.IpRanges, r)
-	}
+	p.SetIpRanges(sIPRanges)
 	return p
 }
 
-// InstanceNetworksToProto converts a InstanceNetworks resource to its proto representation.
+// InstanceNetworksToProto converts a InstanceNetworks object to its proto representation.
 func FilestoreInstanceNetworksToProto(o *filestore.InstanceNetworks) *filestorepb.FilestoreInstanceNetworks {
 	if o == nil {
 		return nil
 	}
-	p := &filestorepb.FilestoreInstanceNetworks{
-		Network:         dcl.ValueOrEmptyString(o.Network),
-		ReservedIpRange: dcl.ValueOrEmptyString(o.ReservedIPRange),
+	p := &filestorepb.FilestoreInstanceNetworks{}
+	p.SetNetwork(dcl.ValueOrEmptyString(o.Network))
+	p.SetReservedIpRange(dcl.ValueOrEmptyString(o.ReservedIPRange))
+	sModes := make([]filestorepb.FilestoreInstanceNetworksModesEnum, len(o.Modes))
+	for i, r := range o.Modes {
+		sModes[i] = filestorepb.FilestoreInstanceNetworksModesEnum(filestorepb.FilestoreInstanceNetworksModesEnum_value[string(r)])
 	}
-	for _, r := range o.Modes {
-		p.Modes = append(p.Modes, filestorepb.FilestoreInstanceNetworksModesEnum(filestorepb.FilestoreInstanceNetworksModesEnum_value[string(r)]))
+	p.SetModes(sModes)
+	sIPAddresses := make([]string, len(o.IPAddresses))
+	for i, r := range o.IPAddresses {
+		sIPAddresses[i] = r
 	}
-	for _, r := range o.IPAddresses {
-		p.IpAddresses = append(p.IpAddresses, r)
-	}
+	p.SetIpAddresses(sIPAddresses)
 	return p
 }
 
 // InstanceToProto converts a Instance resource to its proto representation.
 func InstanceToProto(resource *filestore.Instance) *filestorepb.FilestoreInstance {
-	p := &filestorepb.FilestoreInstance{
-		Name:          dcl.ValueOrEmptyString(resource.Name),
-		Description:   dcl.ValueOrEmptyString(resource.Description),
-		State:         FilestoreInstanceStateEnumToProto(resource.State),
-		StatusMessage: dcl.ValueOrEmptyString(resource.StatusMessage),
-		CreateTime:    dcl.ValueOrEmptyString(resource.CreateTime),
-		Tier:          FilestoreInstanceTierEnumToProto(resource.Tier),
-		Etag:          dcl.ValueOrEmptyString(resource.Etag),
-		Project:       dcl.ValueOrEmptyString(resource.Project),
-		Location:      dcl.ValueOrEmptyString(resource.Location),
+	p := &filestorepb.FilestoreInstance{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetState(FilestoreInstanceStateEnumToProto(resource.State))
+	p.SetStatusMessage(dcl.ValueOrEmptyString(resource.StatusMessage))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetTier(FilestoreInstanceTierEnumToProto(resource.Tier))
+	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
-	for _, r := range resource.FileShares {
-		p.FileShares = append(p.FileShares, FilestoreInstanceFileSharesToProto(&r))
+	p.SetLabels(mLabels)
+	sFileShares := make([]*filestorepb.FilestoreInstanceFileShares, len(resource.FileShares))
+	for i, r := range resource.FileShares {
+		sFileShares[i] = FilestoreInstanceFileSharesToProto(&r)
 	}
-	for _, r := range resource.Networks {
-		p.Networks = append(p.Networks, FilestoreInstanceNetworksToProto(&r))
+	p.SetFileShares(sFileShares)
+	sNetworks := make([]*filestorepb.FilestoreInstanceNetworks, len(resource.Networks))
+	for i, r := range resource.Networks {
+		sNetworks[i] = FilestoreInstanceNetworksToProto(&r)
 	}
+	p.SetNetworks(sNetworks)
 
 	return p
 }
 
-// ApplyInstance handles the gRPC request by passing it to the underlying Instance Apply() method.
+// applyInstance handles the gRPC request by passing it to the underlying Instance Apply() method.
 func (s *InstanceServer) applyInstance(ctx context.Context, c *filestore.Client, request *filestorepb.ApplyFilestoreInstanceRequest) (*filestorepb.FilestoreInstance, error) {
 	p := ProtoToInstance(request.GetResource())
 	res, err := c.ApplyInstance(ctx, p)
@@ -298,9 +311,9 @@ func (s *InstanceServer) applyInstance(ctx context.Context, c *filestore.Client,
 	return r, nil
 }
 
-// ApplyInstance handles the gRPC request by passing it to the underlying Instance Apply() method.
+// applyFilestoreInstance handles the gRPC request by passing it to the underlying Instance Apply() method.
 func (s *InstanceServer) ApplyFilestoreInstance(ctx context.Context, request *filestorepb.ApplyFilestoreInstanceRequest) (*filestorepb.FilestoreInstance, error) {
-	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
+	cl, err := createConfigInstance(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -310,7 +323,7 @@ func (s *InstanceServer) ApplyFilestoreInstance(ctx context.Context, request *fi
 // DeleteInstance handles the gRPC request by passing it to the underlying Instance Delete() method.
 func (s *InstanceServer) DeleteFilestoreInstance(ctx context.Context, request *filestorepb.DeleteFilestoreInstanceRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
+	cl, err := createConfigInstance(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -320,12 +333,12 @@ func (s *InstanceServer) DeleteFilestoreInstance(ctx context.Context, request *f
 
 // ListFilestoreInstance handles the gRPC request by passing it to the underlying InstanceList() method.
 func (s *InstanceServer) ListFilestoreInstance(ctx context.Context, request *filestorepb.ListFilestoreInstanceRequest) (*filestorepb.ListFilestoreInstanceResponse, error) {
-	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
+	cl, err := createConfigInstance(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListInstance(ctx, request.Project, request.Location)
+	resources, err := cl.ListInstance(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -334,7 +347,9 @@ func (s *InstanceServer) ListFilestoreInstance(ctx context.Context, request *fil
 		rp := InstanceToProto(r)
 		protos = append(protos, rp)
 	}
-	return &filestorepb.ListFilestoreInstanceResponse{Items: protos}, nil
+	p := &filestorepb.ListFilestoreInstanceResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigInstance(ctx context.Context, service_account_file string) (*filestore.Client, error) {

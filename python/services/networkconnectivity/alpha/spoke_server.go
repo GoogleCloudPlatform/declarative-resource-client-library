@@ -37,14 +37,14 @@ func ProtoToNetworkconnectivityAlphaSpokeStateEnum(e alphapb.Networkconnectivity
 	return nil
 }
 
-// ProtoToSpokeLinkedRouterApplianceInstances converts a SpokeLinkedRouterApplianceInstances resource from its proto representation.
+// ProtoToSpokeLinkedRouterApplianceInstances converts a SpokeLinkedRouterApplianceInstances object from its proto representation.
 func ProtoToNetworkconnectivityAlphaSpokeLinkedRouterApplianceInstances(p *alphapb.NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstances) *alpha.SpokeLinkedRouterApplianceInstances {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.SpokeLinkedRouterApplianceInstances{
-		VirtualMachine: dcl.StringOrNil(p.VirtualMachine),
-		IPAddress:      dcl.StringOrNil(p.IpAddress),
+		VirtualMachine: dcl.StringOrNil(p.GetVirtualMachine()),
+		IPAddress:      dcl.StringOrNil(p.GetIpAddress()),
 	}
 	return obj
 }
@@ -52,15 +52,15 @@ func ProtoToNetworkconnectivityAlphaSpokeLinkedRouterApplianceInstances(p *alpha
 // ProtoToSpoke converts a Spoke resource from its proto representation.
 func ProtoToSpoke(p *alphapb.NetworkconnectivityAlphaSpoke) *alpha.Spoke {
 	obj := &alpha.Spoke{
-		Name:        dcl.StringOrNil(p.Name),
+		Name:        dcl.StringOrNil(p.GetName()),
 		CreateTime:  dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:  dcl.StringOrNil(p.GetUpdateTime()),
-		Description: dcl.StringOrNil(p.Description),
-		Hub:         dcl.StringOrNil(p.Hub),
-		UniqueId:    dcl.StringOrNil(p.UniqueId),
+		Description: dcl.StringOrNil(p.GetDescription()),
+		Hub:         dcl.StringOrNil(p.GetHub()),
+		UniqueId:    dcl.StringOrNil(p.GetUniqueId()),
 		State:       ProtoToNetworkconnectivityAlphaSpokeStateEnum(p.GetState()),
-		Project:     dcl.StringOrNil(p.Project),
-		Location:    dcl.StringOrNil(p.Location),
+		Project:     dcl.StringOrNil(p.GetProject()),
+		Location:    dcl.StringOrNil(p.GetLocation()),
 	}
 	for _, r := range p.GetLinkedVpnTunnels() {
 		obj.LinkedVpnTunnels = append(obj.LinkedVpnTunnels, r)
@@ -85,45 +85,54 @@ func NetworkconnectivityAlphaSpokeStateEnumToProto(e *alpha.SpokeStateEnum) alph
 	return alphapb.NetworkconnectivityAlphaSpokeStateEnum(0)
 }
 
-// SpokeLinkedRouterApplianceInstancesToProto converts a SpokeLinkedRouterApplianceInstances resource to its proto representation.
+// SpokeLinkedRouterApplianceInstancesToProto converts a SpokeLinkedRouterApplianceInstances object to its proto representation.
 func NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstancesToProto(o *alpha.SpokeLinkedRouterApplianceInstances) *alphapb.NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstances {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstances{
-		VirtualMachine: dcl.ValueOrEmptyString(o.VirtualMachine),
-		IpAddress:      dcl.ValueOrEmptyString(o.IPAddress),
-	}
+	p := &alphapb.NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstances{}
+	p.SetVirtualMachine(dcl.ValueOrEmptyString(o.VirtualMachine))
+	p.SetIpAddress(dcl.ValueOrEmptyString(o.IPAddress))
 	return p
 }
 
 // SpokeToProto converts a Spoke resource to its proto representation.
 func SpokeToProto(resource *alpha.Spoke) *alphapb.NetworkconnectivityAlphaSpoke {
-	p := &alphapb.NetworkconnectivityAlphaSpoke{
-		Name:        dcl.ValueOrEmptyString(resource.Name),
-		CreateTime:  dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:  dcl.ValueOrEmptyString(resource.UpdateTime),
-		Description: dcl.ValueOrEmptyString(resource.Description),
-		Hub:         dcl.ValueOrEmptyString(resource.Hub),
-		UniqueId:    dcl.ValueOrEmptyString(resource.UniqueId),
-		State:       NetworkconnectivityAlphaSpokeStateEnumToProto(resource.State),
-		Project:     dcl.ValueOrEmptyString(resource.Project),
-		Location:    dcl.ValueOrEmptyString(resource.Location),
+	p := &alphapb.NetworkconnectivityAlphaSpoke{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetHub(dcl.ValueOrEmptyString(resource.Hub))
+	p.SetUniqueId(dcl.ValueOrEmptyString(resource.UniqueId))
+	p.SetState(NetworkconnectivityAlphaSpokeStateEnumToProto(resource.State))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
-	for _, r := range resource.LinkedVpnTunnels {
-		p.LinkedVpnTunnels = append(p.LinkedVpnTunnels, r)
+	p.SetLabels(mLabels)
+	sLinkedVpnTunnels := make([]string, len(resource.LinkedVpnTunnels))
+	for i, r := range resource.LinkedVpnTunnels {
+		sLinkedVpnTunnels[i] = r
 	}
-	for _, r := range resource.LinkedInterconnectAttachments {
-		p.LinkedInterconnectAttachments = append(p.LinkedInterconnectAttachments, r)
+	p.SetLinkedVpnTunnels(sLinkedVpnTunnels)
+	sLinkedInterconnectAttachments := make([]string, len(resource.LinkedInterconnectAttachments))
+	for i, r := range resource.LinkedInterconnectAttachments {
+		sLinkedInterconnectAttachments[i] = r
 	}
-	for _, r := range resource.LinkedRouterApplianceInstances {
-		p.LinkedRouterApplianceInstances = append(p.LinkedRouterApplianceInstances, NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstancesToProto(&r))
+	p.SetLinkedInterconnectAttachments(sLinkedInterconnectAttachments)
+	sLinkedRouterApplianceInstances := make([]*alphapb.NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstances, len(resource.LinkedRouterApplianceInstances))
+	for i, r := range resource.LinkedRouterApplianceInstances {
+		sLinkedRouterApplianceInstances[i] = NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstancesToProto(&r)
 	}
+	p.SetLinkedRouterApplianceInstances(sLinkedRouterApplianceInstances)
 
 	return p
 }
 
-// ApplySpoke handles the gRPC request by passing it to the underlying Spoke Apply() method.
+// applySpoke handles the gRPC request by passing it to the underlying Spoke Apply() method.
 func (s *SpokeServer) applySpoke(ctx context.Context, c *alpha.Client, request *alphapb.ApplyNetworkconnectivityAlphaSpokeRequest) (*alphapb.NetworkconnectivityAlphaSpoke, error) {
 	p := ProtoToSpoke(request.GetResource())
 	res, err := c.ApplySpoke(ctx, p)
@@ -134,9 +143,9 @@ func (s *SpokeServer) applySpoke(ctx context.Context, c *alpha.Client, request *
 	return r, nil
 }
 
-// ApplySpoke handles the gRPC request by passing it to the underlying Spoke Apply() method.
+// applyNetworkconnectivityAlphaSpoke handles the gRPC request by passing it to the underlying Spoke Apply() method.
 func (s *SpokeServer) ApplyNetworkconnectivityAlphaSpoke(ctx context.Context, request *alphapb.ApplyNetworkconnectivityAlphaSpokeRequest) (*alphapb.NetworkconnectivityAlphaSpoke, error) {
-	cl, err := createConfigSpoke(ctx, request.ServiceAccountFile)
+	cl, err := createConfigSpoke(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -146,7 +155,7 @@ func (s *SpokeServer) ApplyNetworkconnectivityAlphaSpoke(ctx context.Context, re
 // DeleteSpoke handles the gRPC request by passing it to the underlying Spoke Delete() method.
 func (s *SpokeServer) DeleteNetworkconnectivityAlphaSpoke(ctx context.Context, request *alphapb.DeleteNetworkconnectivityAlphaSpokeRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigSpoke(ctx, request.ServiceAccountFile)
+	cl, err := createConfigSpoke(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -156,12 +165,12 @@ func (s *SpokeServer) DeleteNetworkconnectivityAlphaSpoke(ctx context.Context, r
 
 // ListNetworkconnectivityAlphaSpoke handles the gRPC request by passing it to the underlying SpokeList() method.
 func (s *SpokeServer) ListNetworkconnectivityAlphaSpoke(ctx context.Context, request *alphapb.ListNetworkconnectivityAlphaSpokeRequest) (*alphapb.ListNetworkconnectivityAlphaSpokeResponse, error) {
-	cl, err := createConfigSpoke(ctx, request.ServiceAccountFile)
+	cl, err := createConfigSpoke(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListSpoke(ctx, request.Project, request.Location)
+	resources, err := cl.ListSpoke(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -170,7 +179,9 @@ func (s *SpokeServer) ListNetworkconnectivityAlphaSpoke(ctx context.Context, req
 		rp := SpokeToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListNetworkconnectivityAlphaSpokeResponse{Items: protos}, nil
+	p := &alphapb.ListNetworkconnectivityAlphaSpokeResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigSpoke(ctx context.Context, service_account_file string) (*alpha.Client, error) {

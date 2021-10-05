@@ -41,10 +41,10 @@ func ProtoToCloudresourcemanagerProjectLifecycleStateEnum(e cloudresourcemanager
 func ProtoToProject(p *cloudresourcemanagerpb.CloudresourcemanagerProject) *cloudresourcemanager.Project {
 	obj := &cloudresourcemanager.Project{
 		LifecycleState: ProtoToCloudresourcemanagerProjectLifecycleStateEnum(p.GetLifecycleState()),
-		DisplayName:    dcl.StringOrNil(p.DisplayName),
-		Parent:         dcl.StringOrNil(p.Parent),
-		Name:           dcl.StringOrNil(p.Name),
-		ProjectNumber:  dcl.Int64OrNil(p.ProjectNumber),
+		DisplayName:    dcl.StringOrNil(p.GetDisplayName()),
+		Parent:         dcl.StringOrNil(p.GetParent()),
+		Name:           dcl.StringOrNil(p.GetName()),
+		ProjectNumber:  dcl.Int64OrNil(p.GetProjectNumber()),
 	}
 	return obj
 }
@@ -62,18 +62,22 @@ func CloudresourcemanagerProjectLifecycleStateEnumToProto(e *cloudresourcemanage
 
 // ProjectToProto converts a Project resource to its proto representation.
 func ProjectToProto(resource *cloudresourcemanager.Project) *cloudresourcemanagerpb.CloudresourcemanagerProject {
-	p := &cloudresourcemanagerpb.CloudresourcemanagerProject{
-		LifecycleState: CloudresourcemanagerProjectLifecycleStateEnumToProto(resource.LifecycleState),
-		DisplayName:    dcl.ValueOrEmptyString(resource.DisplayName),
-		Parent:         dcl.ValueOrEmptyString(resource.Parent),
-		Name:           dcl.ValueOrEmptyString(resource.Name),
-		ProjectNumber:  dcl.ValueOrEmptyInt64(resource.ProjectNumber),
+	p := &cloudresourcemanagerpb.CloudresourcemanagerProject{}
+	p.SetLifecycleState(CloudresourcemanagerProjectLifecycleStateEnumToProto(resource.LifecycleState))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetParent(dcl.ValueOrEmptyString(resource.Parent))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetProjectNumber(dcl.ValueOrEmptyInt64(resource.ProjectNumber))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
+	p.SetLabels(mLabels)
 
 	return p
 }
 
-// ApplyProject handles the gRPC request by passing it to the underlying Project Apply() method.
+// applyProject handles the gRPC request by passing it to the underlying Project Apply() method.
 func (s *ProjectServer) applyProject(ctx context.Context, c *cloudresourcemanager.Client, request *cloudresourcemanagerpb.ApplyCloudresourcemanagerProjectRequest) (*cloudresourcemanagerpb.CloudresourcemanagerProject, error) {
 	p := ProtoToProject(request.GetResource())
 	res, err := c.ApplyProject(ctx, p)
@@ -84,9 +88,9 @@ func (s *ProjectServer) applyProject(ctx context.Context, c *cloudresourcemanage
 	return r, nil
 }
 
-// ApplyProject handles the gRPC request by passing it to the underlying Project Apply() method.
+// applyCloudresourcemanagerProject handles the gRPC request by passing it to the underlying Project Apply() method.
 func (s *ProjectServer) ApplyCloudresourcemanagerProject(ctx context.Context, request *cloudresourcemanagerpb.ApplyCloudresourcemanagerProjectRequest) (*cloudresourcemanagerpb.CloudresourcemanagerProject, error) {
-	cl, err := createConfigProject(ctx, request.ServiceAccountFile)
+	cl, err := createConfigProject(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -96,7 +100,7 @@ func (s *ProjectServer) ApplyCloudresourcemanagerProject(ctx context.Context, re
 // DeleteProject handles the gRPC request by passing it to the underlying Project Delete() method.
 func (s *ProjectServer) DeleteCloudresourcemanagerProject(ctx context.Context, request *cloudresourcemanagerpb.DeleteCloudresourcemanagerProjectRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigProject(ctx, request.ServiceAccountFile)
+	cl, err := createConfigProject(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -106,7 +110,7 @@ func (s *ProjectServer) DeleteCloudresourcemanagerProject(ctx context.Context, r
 
 // ListCloudresourcemanagerProject handles the gRPC request by passing it to the underlying ProjectList() method.
 func (s *ProjectServer) ListCloudresourcemanagerProject(ctx context.Context, request *cloudresourcemanagerpb.ListCloudresourcemanagerProjectRequest) (*cloudresourcemanagerpb.ListCloudresourcemanagerProjectResponse, error) {
-	cl, err := createConfigProject(ctx, request.ServiceAccountFile)
+	cl, err := createConfigProject(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -120,7 +124,9 @@ func (s *ProjectServer) ListCloudresourcemanagerProject(ctx context.Context, req
 		rp := ProjectToProto(r)
 		protos = append(protos, rp)
 	}
-	return &cloudresourcemanagerpb.ListCloudresourcemanagerProjectResponse{Items: protos}, nil
+	p := &cloudresourcemanagerpb.ListCloudresourcemanagerProjectResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigProject(ctx context.Context, service_account_file string) (*cloudresourcemanager.Client, error) {

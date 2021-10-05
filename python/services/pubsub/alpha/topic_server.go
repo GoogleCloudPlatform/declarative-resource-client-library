@@ -25,7 +25,7 @@ import (
 // Server implements the gRPC interface for Topic.
 type TopicServer struct{}
 
-// ProtoToTopicMessageStoragePolicy converts a TopicMessageStoragePolicy resource from its proto representation.
+// ProtoToTopicMessageStoragePolicy converts a TopicMessageStoragePolicy object from its proto representation.
 func ProtoToPubsubAlphaTopicMessageStoragePolicy(p *alphapb.PubsubAlphaTopicMessageStoragePolicy) *alpha.TopicMessageStoragePolicy {
 	if p == nil {
 		return nil
@@ -40,39 +40,45 @@ func ProtoToPubsubAlphaTopicMessageStoragePolicy(p *alphapb.PubsubAlphaTopicMess
 // ProtoToTopic converts a Topic resource from its proto representation.
 func ProtoToTopic(p *alphapb.PubsubAlphaTopic) *alpha.Topic {
 	obj := &alpha.Topic{
-		Name:                 dcl.StringOrNil(p.Name),
-		KmsKeyName:           dcl.StringOrNil(p.KmsKeyName),
+		Name:                 dcl.StringOrNil(p.GetName()),
+		KmsKeyName:           dcl.StringOrNil(p.GetKmsKeyName()),
 		MessageStoragePolicy: ProtoToPubsubAlphaTopicMessageStoragePolicy(p.GetMessageStoragePolicy()),
-		Project:              dcl.StringOrNil(p.Project),
+		Project:              dcl.StringOrNil(p.GetProject()),
 	}
 	return obj
 }
 
-// TopicMessageStoragePolicyToProto converts a TopicMessageStoragePolicy resource to its proto representation.
+// TopicMessageStoragePolicyToProto converts a TopicMessageStoragePolicy object to its proto representation.
 func PubsubAlphaTopicMessageStoragePolicyToProto(o *alpha.TopicMessageStoragePolicy) *alphapb.PubsubAlphaTopicMessageStoragePolicy {
 	if o == nil {
 		return nil
 	}
 	p := &alphapb.PubsubAlphaTopicMessageStoragePolicy{}
-	for _, r := range o.AllowedPersistenceRegions {
-		p.AllowedPersistenceRegions = append(p.AllowedPersistenceRegions, r)
+	sAllowedPersistenceRegions := make([]string, len(o.AllowedPersistenceRegions))
+	for i, r := range o.AllowedPersistenceRegions {
+		sAllowedPersistenceRegions[i] = r
 	}
+	p.SetAllowedPersistenceRegions(sAllowedPersistenceRegions)
 	return p
 }
 
 // TopicToProto converts a Topic resource to its proto representation.
 func TopicToProto(resource *alpha.Topic) *alphapb.PubsubAlphaTopic {
-	p := &alphapb.PubsubAlphaTopic{
-		Name:                 dcl.ValueOrEmptyString(resource.Name),
-		KmsKeyName:           dcl.ValueOrEmptyString(resource.KmsKeyName),
-		MessageStoragePolicy: PubsubAlphaTopicMessageStoragePolicyToProto(resource.MessageStoragePolicy),
-		Project:              dcl.ValueOrEmptyString(resource.Project),
+	p := &alphapb.PubsubAlphaTopic{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetKmsKeyName(dcl.ValueOrEmptyString(resource.KmsKeyName))
+	p.SetMessageStoragePolicy(PubsubAlphaTopicMessageStoragePolicyToProto(resource.MessageStoragePolicy))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
+	p.SetLabels(mLabels)
 
 	return p
 }
 
-// ApplyTopic handles the gRPC request by passing it to the underlying Topic Apply() method.
+// applyTopic handles the gRPC request by passing it to the underlying Topic Apply() method.
 func (s *TopicServer) applyTopic(ctx context.Context, c *alpha.Client, request *alphapb.ApplyPubsubAlphaTopicRequest) (*alphapb.PubsubAlphaTopic, error) {
 	p := ProtoToTopic(request.GetResource())
 	res, err := c.ApplyTopic(ctx, p)
@@ -83,9 +89,9 @@ func (s *TopicServer) applyTopic(ctx context.Context, c *alpha.Client, request *
 	return r, nil
 }
 
-// ApplyTopic handles the gRPC request by passing it to the underlying Topic Apply() method.
+// applyPubsubAlphaTopic handles the gRPC request by passing it to the underlying Topic Apply() method.
 func (s *TopicServer) ApplyPubsubAlphaTopic(ctx context.Context, request *alphapb.ApplyPubsubAlphaTopicRequest) (*alphapb.PubsubAlphaTopic, error) {
-	cl, err := createConfigTopic(ctx, request.ServiceAccountFile)
+	cl, err := createConfigTopic(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -95,7 +101,7 @@ func (s *TopicServer) ApplyPubsubAlphaTopic(ctx context.Context, request *alphap
 // DeleteTopic handles the gRPC request by passing it to the underlying Topic Delete() method.
 func (s *TopicServer) DeletePubsubAlphaTopic(ctx context.Context, request *alphapb.DeletePubsubAlphaTopicRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigTopic(ctx, request.ServiceAccountFile)
+	cl, err := createConfigTopic(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -105,12 +111,12 @@ func (s *TopicServer) DeletePubsubAlphaTopic(ctx context.Context, request *alpha
 
 // ListPubsubAlphaTopic handles the gRPC request by passing it to the underlying TopicList() method.
 func (s *TopicServer) ListPubsubAlphaTopic(ctx context.Context, request *alphapb.ListPubsubAlphaTopicRequest) (*alphapb.ListPubsubAlphaTopicResponse, error) {
-	cl, err := createConfigTopic(ctx, request.ServiceAccountFile)
+	cl, err := createConfigTopic(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListTopic(ctx, request.Project)
+	resources, err := cl.ListTopic(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -119,7 +125,9 @@ func (s *TopicServer) ListPubsubAlphaTopic(ctx context.Context, request *alphapb
 		rp := TopicToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListPubsubAlphaTopicResponse{Items: protos}, nil
+	p := &alphapb.ListPubsubAlphaTopicResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigTopic(ctx context.Context, service_account_file string) (*alpha.Client, error) {

@@ -37,14 +37,14 @@ func ProtoToComputeBetaRouteWarningCodeEnum(e betapb.ComputeBetaRouteWarningCode
 	return nil
 }
 
-// ProtoToRouteWarning converts a RouteWarning resource from its proto representation.
+// ProtoToRouteWarning converts a RouteWarning object from its proto representation.
 func ProtoToComputeBetaRouteWarning(p *betapb.ComputeBetaRouteWarning) *beta.RouteWarning {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.RouteWarning{
 		Code:    ProtoToComputeBetaRouteWarningCodeEnum(p.GetCode()),
-		Message: dcl.StringOrNil(p.Message),
+		Message: dcl.StringOrNil(p.GetMessage()),
 	}
 	return obj
 }
@@ -52,21 +52,21 @@ func ProtoToComputeBetaRouteWarning(p *betapb.ComputeBetaRouteWarning) *beta.Rou
 // ProtoToRoute converts a Route resource from its proto representation.
 func ProtoToRoute(p *betapb.ComputeBetaRoute) *beta.Route {
 	obj := &beta.Route{
-		Id:               dcl.Int64OrNil(p.Id),
-		Name:             dcl.StringOrNil(p.Name),
-		Description:      dcl.StringOrNil(p.Description),
-		Network:          dcl.StringOrNil(p.Network),
-		DestRange:        dcl.StringOrNil(p.DestRange),
-		Priority:         dcl.Int64OrNil(p.Priority),
-		NextHopInstance:  dcl.StringOrNil(p.NextHopInstance),
-		NextHopIP:        dcl.StringOrNil(p.NextHopIp),
-		NextHopNetwork:   dcl.StringOrNil(p.NextHopNetwork),
-		NextHopGateway:   dcl.StringOrNil(p.NextHopGateway),
-		NextHopPeering:   dcl.StringOrNil(p.NextHopPeering),
-		NextHopIlb:       dcl.StringOrNil(p.NextHopIlb),
-		NextHopVpnTunnel: dcl.StringOrNil(p.NextHopVpnTunnel),
-		SelfLink:         dcl.StringOrNil(p.SelfLink),
-		Project:          dcl.StringOrNil(p.Project),
+		Id:               dcl.Int64OrNil(p.GetId()),
+		Name:             dcl.StringOrNil(p.GetName()),
+		Description:      dcl.StringOrNil(p.GetDescription()),
+		Network:          dcl.StringOrNil(p.GetNetwork()),
+		DestRange:        dcl.StringOrNil(p.GetDestRange()),
+		Priority:         dcl.Int64OrNil(p.GetPriority()),
+		NextHopInstance:  dcl.StringOrNil(p.GetNextHopInstance()),
+		NextHopIP:        dcl.StringOrNil(p.GetNextHopIp()),
+		NextHopNetwork:   dcl.StringOrNil(p.GetNextHopNetwork()),
+		NextHopGateway:   dcl.StringOrNil(p.GetNextHopGateway()),
+		NextHopPeering:   dcl.StringOrNil(p.GetNextHopPeering()),
+		NextHopIlb:       dcl.StringOrNil(p.GetNextHopIlb()),
+		NextHopVpnTunnel: dcl.StringOrNil(p.GetNextHopVpnTunnel()),
+		SelfLink:         dcl.StringOrNil(p.GetSelfLink()),
+		Project:          dcl.StringOrNil(p.GetProject()),
 	}
 	for _, r := range p.GetTag() {
 		obj.Tag = append(obj.Tag, r)
@@ -88,52 +88,55 @@ func ComputeBetaRouteWarningCodeEnumToProto(e *beta.RouteWarningCodeEnum) betapb
 	return betapb.ComputeBetaRouteWarningCodeEnum(0)
 }
 
-// RouteWarningToProto converts a RouteWarning resource to its proto representation.
+// RouteWarningToProto converts a RouteWarning object to its proto representation.
 func ComputeBetaRouteWarningToProto(o *beta.RouteWarning) *betapb.ComputeBetaRouteWarning {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaRouteWarning{
-		Code:    ComputeBetaRouteWarningCodeEnumToProto(o.Code),
-		Message: dcl.ValueOrEmptyString(o.Message),
-	}
-	p.Data = make(map[string]string)
+	p := &betapb.ComputeBetaRouteWarning{}
+	p.SetCode(ComputeBetaRouteWarningCodeEnumToProto(o.Code))
+	p.SetMessage(dcl.ValueOrEmptyString(o.Message))
+	mData := make(map[string]string, len(o.Data))
 	for k, r := range o.Data {
-		p.Data[k] = r
+		mData[k] = r
 	}
+	p.SetData(mData)
 	return p
 }
 
 // RouteToProto converts a Route resource to its proto representation.
 func RouteToProto(resource *beta.Route) *betapb.ComputeBetaRoute {
-	p := &betapb.ComputeBetaRoute{
-		Id:               dcl.ValueOrEmptyInt64(resource.Id),
-		Name:             dcl.ValueOrEmptyString(resource.Name),
-		Description:      dcl.ValueOrEmptyString(resource.Description),
-		Network:          dcl.ValueOrEmptyString(resource.Network),
-		DestRange:        dcl.ValueOrEmptyString(resource.DestRange),
-		Priority:         dcl.ValueOrEmptyInt64(resource.Priority),
-		NextHopInstance:  dcl.ValueOrEmptyString(resource.NextHopInstance),
-		NextHopIp:        dcl.ValueOrEmptyString(resource.NextHopIP),
-		NextHopNetwork:   dcl.ValueOrEmptyString(resource.NextHopNetwork),
-		NextHopGateway:   dcl.ValueOrEmptyString(resource.NextHopGateway),
-		NextHopPeering:   dcl.ValueOrEmptyString(resource.NextHopPeering),
-		NextHopIlb:       dcl.ValueOrEmptyString(resource.NextHopIlb),
-		NextHopVpnTunnel: dcl.ValueOrEmptyString(resource.NextHopVpnTunnel),
-		SelfLink:         dcl.ValueOrEmptyString(resource.SelfLink),
-		Project:          dcl.ValueOrEmptyString(resource.Project),
+	p := &betapb.ComputeBetaRoute{}
+	p.SetId(dcl.ValueOrEmptyInt64(resource.Id))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetNetwork(dcl.ValueOrEmptyString(resource.Network))
+	p.SetDestRange(dcl.ValueOrEmptyString(resource.DestRange))
+	p.SetPriority(dcl.ValueOrEmptyInt64(resource.Priority))
+	p.SetNextHopInstance(dcl.ValueOrEmptyString(resource.NextHopInstance))
+	p.SetNextHopIp(dcl.ValueOrEmptyString(resource.NextHopIP))
+	p.SetNextHopNetwork(dcl.ValueOrEmptyString(resource.NextHopNetwork))
+	p.SetNextHopGateway(dcl.ValueOrEmptyString(resource.NextHopGateway))
+	p.SetNextHopPeering(dcl.ValueOrEmptyString(resource.NextHopPeering))
+	p.SetNextHopIlb(dcl.ValueOrEmptyString(resource.NextHopIlb))
+	p.SetNextHopVpnTunnel(dcl.ValueOrEmptyString(resource.NextHopVpnTunnel))
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	sTag := make([]string, len(resource.Tag))
+	for i, r := range resource.Tag {
+		sTag[i] = r
 	}
-	for _, r := range resource.Tag {
-		p.Tag = append(p.Tag, r)
+	p.SetTag(sTag)
+	sWarning := make([]*betapb.ComputeBetaRouteWarning, len(resource.Warning))
+	for i, r := range resource.Warning {
+		sWarning[i] = ComputeBetaRouteWarningToProto(&r)
 	}
-	for _, r := range resource.Warning {
-		p.Warning = append(p.Warning, ComputeBetaRouteWarningToProto(&r))
-	}
+	p.SetWarning(sWarning)
 
 	return p
 }
 
-// ApplyRoute handles the gRPC request by passing it to the underlying Route Apply() method.
+// applyRoute handles the gRPC request by passing it to the underlying Route Apply() method.
 func (s *RouteServer) applyRoute(ctx context.Context, c *beta.Client, request *betapb.ApplyComputeBetaRouteRequest) (*betapb.ComputeBetaRoute, error) {
 	p := ProtoToRoute(request.GetResource())
 	res, err := c.ApplyRoute(ctx, p)
@@ -144,9 +147,9 @@ func (s *RouteServer) applyRoute(ctx context.Context, c *beta.Client, request *b
 	return r, nil
 }
 
-// ApplyRoute handles the gRPC request by passing it to the underlying Route Apply() method.
+// applyComputeBetaRoute handles the gRPC request by passing it to the underlying Route Apply() method.
 func (s *RouteServer) ApplyComputeBetaRoute(ctx context.Context, request *betapb.ApplyComputeBetaRouteRequest) (*betapb.ComputeBetaRoute, error) {
-	cl, err := createConfigRoute(ctx, request.ServiceAccountFile)
+	cl, err := createConfigRoute(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -156,7 +159,7 @@ func (s *RouteServer) ApplyComputeBetaRoute(ctx context.Context, request *betapb
 // DeleteRoute handles the gRPC request by passing it to the underlying Route Delete() method.
 func (s *RouteServer) DeleteComputeBetaRoute(ctx context.Context, request *betapb.DeleteComputeBetaRouteRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigRoute(ctx, request.ServiceAccountFile)
+	cl, err := createConfigRoute(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -166,12 +169,12 @@ func (s *RouteServer) DeleteComputeBetaRoute(ctx context.Context, request *betap
 
 // ListComputeBetaRoute handles the gRPC request by passing it to the underlying RouteList() method.
 func (s *RouteServer) ListComputeBetaRoute(ctx context.Context, request *betapb.ListComputeBetaRouteRequest) (*betapb.ListComputeBetaRouteResponse, error) {
-	cl, err := createConfigRoute(ctx, request.ServiceAccountFile)
+	cl, err := createConfigRoute(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListRoute(ctx, request.Project)
+	resources, err := cl.ListRoute(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -180,7 +183,9 @@ func (s *RouteServer) ListComputeBetaRoute(ctx context.Context, request *betapb.
 		rp := RouteToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListComputeBetaRouteResponse{Items: protos}, nil
+	p := &betapb.ListComputeBetaRouteResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigRoute(ctx context.Context, service_account_file string) (*beta.Client, error) {

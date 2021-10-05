@@ -1,0 +1,18 @@
+{
+  "name": "{{cloud}}",
+  "project": "{{project}}",
+  "location": "{{zone}}",
+  "labels": {
+    "label-one": "value-one"
+  },
+  "networkConfig": {
+    "network": "projects/{{project}}/global/networks/default",
+    "managementCidr": "192.168.0.0/24"
+  },
+  "managementCluster": {
+    "clusterId": "{{management}}",
+    "nodeTypeId": "standard-72",
+    "nodeCount": 4
+  },
+  "description": "A sample private cloud"
+}

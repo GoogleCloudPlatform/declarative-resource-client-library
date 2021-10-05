@@ -61,19 +61,19 @@ func ProtoToCloudschedulerAlphaJobStateEnum(e alphapb.CloudschedulerAlphaJobStat
 	return nil
 }
 
-// ProtoToJobPubsubTarget converts a JobPubsubTarget resource from its proto representation.
+// ProtoToJobPubsubTarget converts a JobPubsubTarget object from its proto representation.
 func ProtoToCloudschedulerAlphaJobPubsubTarget(p *alphapb.CloudschedulerAlphaJobPubsubTarget) *alpha.JobPubsubTarget {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.JobPubsubTarget{
-		TopicName: dcl.StringOrNil(p.TopicName),
-		Data:      dcl.StringOrNil(p.Data),
+		TopicName: dcl.StringOrNil(p.GetTopicName()),
+		Data:      dcl.StringOrNil(p.GetData()),
 	}
 	return obj
 }
 
-// ProtoToJobAppEngineHttpTarget converts a JobAppEngineHttpTarget resource from its proto representation.
+// ProtoToJobAppEngineHttpTarget converts a JobAppEngineHttpTarget object from its proto representation.
 func ProtoToCloudschedulerAlphaJobAppEngineHttpTarget(p *alphapb.CloudschedulerAlphaJobAppEngineHttpTarget) *alpha.JobAppEngineHttpTarget {
 	if p == nil {
 		return nil
@@ -81,73 +81,73 @@ func ProtoToCloudschedulerAlphaJobAppEngineHttpTarget(p *alphapb.CloudschedulerA
 	obj := &alpha.JobAppEngineHttpTarget{
 		HttpMethod:       ProtoToCloudschedulerAlphaJobAppEngineHttpTargetHttpMethodEnum(p.GetHttpMethod()),
 		AppEngineRouting: ProtoToCloudschedulerAlphaJobAppEngineHttpTargetAppEngineRouting(p.GetAppEngineRouting()),
-		RelativeUri:      dcl.StringOrNil(p.RelativeUri),
-		Body:             dcl.StringOrNil(p.Body),
+		RelativeUri:      dcl.StringOrNil(p.GetRelativeUri()),
+		Body:             dcl.StringOrNil(p.GetBody()),
 	}
 	return obj
 }
 
-// ProtoToJobAppEngineHttpTargetAppEngineRouting converts a JobAppEngineHttpTargetAppEngineRouting resource from its proto representation.
+// ProtoToJobAppEngineHttpTargetAppEngineRouting converts a JobAppEngineHttpTargetAppEngineRouting object from its proto representation.
 func ProtoToCloudschedulerAlphaJobAppEngineHttpTargetAppEngineRouting(p *alphapb.CloudschedulerAlphaJobAppEngineHttpTargetAppEngineRouting) *alpha.JobAppEngineHttpTargetAppEngineRouting {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.JobAppEngineHttpTargetAppEngineRouting{
-		Service:  dcl.StringOrNil(p.Service),
-		Version:  dcl.StringOrNil(p.Version),
-		Instance: dcl.StringOrNil(p.Instance),
-		Host:     dcl.StringOrNil(p.Host),
+		Service:  dcl.StringOrNil(p.GetService()),
+		Version:  dcl.StringOrNil(p.GetVersion()),
+		Instance: dcl.StringOrNil(p.GetInstance()),
+		Host:     dcl.StringOrNil(p.GetHost()),
 	}
 	return obj
 }
 
-// ProtoToJobHttpTarget converts a JobHttpTarget resource from its proto representation.
+// ProtoToJobHttpTarget converts a JobHttpTarget object from its proto representation.
 func ProtoToCloudschedulerAlphaJobHttpTarget(p *alphapb.CloudschedulerAlphaJobHttpTarget) *alpha.JobHttpTarget {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.JobHttpTarget{
-		Uri:        dcl.StringOrNil(p.Uri),
+		Uri:        dcl.StringOrNil(p.GetUri()),
 		HttpMethod: ProtoToCloudschedulerAlphaJobHttpTargetHttpMethodEnum(p.GetHttpMethod()),
-		Body:       dcl.StringOrNil(p.Body),
+		Body:       dcl.StringOrNil(p.GetBody()),
 		OAuthToken: ProtoToCloudschedulerAlphaJobHttpTargetOAuthToken(p.GetOauthToken()),
 		OidcToken:  ProtoToCloudschedulerAlphaJobHttpTargetOidcToken(p.GetOidcToken()),
 	}
 	return obj
 }
 
-// ProtoToJobHttpTargetOAuthToken converts a JobHttpTargetOAuthToken resource from its proto representation.
+// ProtoToJobHttpTargetOAuthToken converts a JobHttpTargetOAuthToken object from its proto representation.
 func ProtoToCloudschedulerAlphaJobHttpTargetOAuthToken(p *alphapb.CloudschedulerAlphaJobHttpTargetOAuthToken) *alpha.JobHttpTargetOAuthToken {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.JobHttpTargetOAuthToken{
-		ServiceAccountEmail: dcl.StringOrNil(p.ServiceAccountEmail),
-		Scope:               dcl.StringOrNil(p.Scope),
+		ServiceAccountEmail: dcl.StringOrNil(p.GetServiceAccountEmail()),
+		Scope:               dcl.StringOrNil(p.GetScope()),
 	}
 	return obj
 }
 
-// ProtoToJobHttpTargetOidcToken converts a JobHttpTargetOidcToken resource from its proto representation.
+// ProtoToJobHttpTargetOidcToken converts a JobHttpTargetOidcToken object from its proto representation.
 func ProtoToCloudschedulerAlphaJobHttpTargetOidcToken(p *alphapb.CloudschedulerAlphaJobHttpTargetOidcToken) *alpha.JobHttpTargetOidcToken {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.JobHttpTargetOidcToken{
-		ServiceAccountEmail: dcl.StringOrNil(p.ServiceAccountEmail),
-		Audience:            dcl.StringOrNil(p.Audience),
+		ServiceAccountEmail: dcl.StringOrNil(p.GetServiceAccountEmail()),
+		Audience:            dcl.StringOrNil(p.GetAudience()),
 	}
 	return obj
 }
 
-// ProtoToJobStatus converts a JobStatus resource from its proto representation.
+// ProtoToJobStatus converts a JobStatus object from its proto representation.
 func ProtoToCloudschedulerAlphaJobStatus(p *alphapb.CloudschedulerAlphaJobStatus) *alpha.JobStatus {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.JobStatus{
-		Code:    dcl.Int64OrNil(p.Code),
-		Message: dcl.StringOrNil(p.Message),
+		Code:    dcl.Int64OrNil(p.GetCode()),
+		Message: dcl.StringOrNil(p.GetMessage()),
 	}
 	for _, r := range p.GetDetails() {
 		obj.Details = append(obj.Details, *ProtoToCloudschedulerAlphaJobStatusDetails(r))
@@ -155,29 +155,29 @@ func ProtoToCloudschedulerAlphaJobStatus(p *alphapb.CloudschedulerAlphaJobStatus
 	return obj
 }
 
-// ProtoToJobStatusDetails converts a JobStatusDetails resource from its proto representation.
+// ProtoToJobStatusDetails converts a JobStatusDetails object from its proto representation.
 func ProtoToCloudschedulerAlphaJobStatusDetails(p *alphapb.CloudschedulerAlphaJobStatusDetails) *alpha.JobStatusDetails {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.JobStatusDetails{
-		TypeUrl: dcl.StringOrNil(p.TypeUrl),
-		Value:   dcl.StringOrNil(p.Value),
+		TypeUrl: dcl.StringOrNil(p.GetTypeUrl()),
+		Value:   dcl.StringOrNil(p.GetValue()),
 	}
 	return obj
 }
 
-// ProtoToJobRetryConfig converts a JobRetryConfig resource from its proto representation.
+// ProtoToJobRetryConfig converts a JobRetryConfig object from its proto representation.
 func ProtoToCloudschedulerAlphaJobRetryConfig(p *alphapb.CloudschedulerAlphaJobRetryConfig) *alpha.JobRetryConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.JobRetryConfig{
-		RetryCount:         dcl.Int64OrNil(p.RetryCount),
-		MaxRetryDuration:   dcl.StringOrNil(p.MaxRetryDuration),
-		MinBackoffDuration: dcl.StringOrNil(p.MinBackoffDuration),
-		MaxBackoffDuration: dcl.StringOrNil(p.MaxBackoffDuration),
-		MaxDoublings:       dcl.Int64OrNil(p.MaxDoublings),
+		RetryCount:         dcl.Int64OrNil(p.GetRetryCount()),
+		MaxRetryDuration:   dcl.StringOrNil(p.GetMaxRetryDuration()),
+		MinBackoffDuration: dcl.StringOrNil(p.GetMinBackoffDuration()),
+		MaxBackoffDuration: dcl.StringOrNil(p.GetMaxBackoffDuration()),
+		MaxDoublings:       dcl.Int64OrNil(p.GetMaxDoublings()),
 	}
 	return obj
 }
@@ -185,22 +185,22 @@ func ProtoToCloudschedulerAlphaJobRetryConfig(p *alphapb.CloudschedulerAlphaJobR
 // ProtoToJob converts a Job resource from its proto representation.
 func ProtoToJob(p *alphapb.CloudschedulerAlphaJob) *alpha.Job {
 	obj := &alpha.Job{
-		Name:                dcl.StringOrNil(p.Name),
-		Description:         dcl.StringOrNil(p.Description),
+		Name:                dcl.StringOrNil(p.GetName()),
+		Description:         dcl.StringOrNil(p.GetDescription()),
 		PubsubTarget:        ProtoToCloudschedulerAlphaJobPubsubTarget(p.GetPubsubTarget()),
 		AppEngineHttpTarget: ProtoToCloudschedulerAlphaJobAppEngineHttpTarget(p.GetAppEngineHttpTarget()),
 		HttpTarget:          ProtoToCloudschedulerAlphaJobHttpTarget(p.GetHttpTarget()),
-		Schedule:            dcl.StringOrNil(p.Schedule),
-		TimeZone:            dcl.StringOrNil(p.TimeZone),
+		Schedule:            dcl.StringOrNil(p.GetSchedule()),
+		TimeZone:            dcl.StringOrNil(p.GetTimeZone()),
 		UserUpdateTime:      dcl.StringOrNil(p.GetUserUpdateTime()),
 		State:               ProtoToCloudschedulerAlphaJobStateEnum(p.GetState()),
 		Status:              ProtoToCloudschedulerAlphaJobStatus(p.GetStatus()),
 		ScheduleTime:        dcl.StringOrNil(p.GetScheduleTime()),
 		LastAttemptTime:     dcl.StringOrNil(p.GetLastAttemptTime()),
 		RetryConfig:         ProtoToCloudschedulerAlphaJobRetryConfig(p.GetRetryConfig()),
-		AttemptDeadline:     dcl.StringOrNil(p.AttemptDeadline),
-		Project:             dcl.StringOrNil(p.Project),
-		Location:            dcl.StringOrNil(p.Location),
+		AttemptDeadline:     dcl.StringOrNil(p.GetAttemptDeadline()),
+		Project:             dcl.StringOrNil(p.GetProject()),
+		Location:            dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -238,164 +238,159 @@ func CloudschedulerAlphaJobStateEnumToProto(e *alpha.JobStateEnum) alphapb.Cloud
 	return alphapb.CloudschedulerAlphaJobStateEnum(0)
 }
 
-// JobPubsubTargetToProto converts a JobPubsubTarget resource to its proto representation.
+// JobPubsubTargetToProto converts a JobPubsubTarget object to its proto representation.
 func CloudschedulerAlphaJobPubsubTargetToProto(o *alpha.JobPubsubTarget) *alphapb.CloudschedulerAlphaJobPubsubTarget {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.CloudschedulerAlphaJobPubsubTarget{
-		TopicName: dcl.ValueOrEmptyString(o.TopicName),
-		Data:      dcl.ValueOrEmptyString(o.Data),
-	}
-	p.Attributes = make(map[string]string)
+	p := &alphapb.CloudschedulerAlphaJobPubsubTarget{}
+	p.SetTopicName(dcl.ValueOrEmptyString(o.TopicName))
+	p.SetData(dcl.ValueOrEmptyString(o.Data))
+	mAttributes := make(map[string]string, len(o.Attributes))
 	for k, r := range o.Attributes {
-		p.Attributes[k] = r
+		mAttributes[k] = r
 	}
+	p.SetAttributes(mAttributes)
 	return p
 }
 
-// JobAppEngineHttpTargetToProto converts a JobAppEngineHttpTarget resource to its proto representation.
+// JobAppEngineHttpTargetToProto converts a JobAppEngineHttpTarget object to its proto representation.
 func CloudschedulerAlphaJobAppEngineHttpTargetToProto(o *alpha.JobAppEngineHttpTarget) *alphapb.CloudschedulerAlphaJobAppEngineHttpTarget {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.CloudschedulerAlphaJobAppEngineHttpTarget{
-		HttpMethod:       CloudschedulerAlphaJobAppEngineHttpTargetHttpMethodEnumToProto(o.HttpMethod),
-		AppEngineRouting: CloudschedulerAlphaJobAppEngineHttpTargetAppEngineRoutingToProto(o.AppEngineRouting),
-		RelativeUri:      dcl.ValueOrEmptyString(o.RelativeUri),
-		Body:             dcl.ValueOrEmptyString(o.Body),
-	}
-	p.Headers = make(map[string]string)
+	p := &alphapb.CloudschedulerAlphaJobAppEngineHttpTarget{}
+	p.SetHttpMethod(CloudschedulerAlphaJobAppEngineHttpTargetHttpMethodEnumToProto(o.HttpMethod))
+	p.SetAppEngineRouting(CloudschedulerAlphaJobAppEngineHttpTargetAppEngineRoutingToProto(o.AppEngineRouting))
+	p.SetRelativeUri(dcl.ValueOrEmptyString(o.RelativeUri))
+	p.SetBody(dcl.ValueOrEmptyString(o.Body))
+	mHeaders := make(map[string]string, len(o.Headers))
 	for k, r := range o.Headers {
-		p.Headers[k] = r
+		mHeaders[k] = r
 	}
+	p.SetHeaders(mHeaders)
 	return p
 }
 
-// JobAppEngineHttpTargetAppEngineRoutingToProto converts a JobAppEngineHttpTargetAppEngineRouting resource to its proto representation.
+// JobAppEngineHttpTargetAppEngineRoutingToProto converts a JobAppEngineHttpTargetAppEngineRouting object to its proto representation.
 func CloudschedulerAlphaJobAppEngineHttpTargetAppEngineRoutingToProto(o *alpha.JobAppEngineHttpTargetAppEngineRouting) *alphapb.CloudschedulerAlphaJobAppEngineHttpTargetAppEngineRouting {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.CloudschedulerAlphaJobAppEngineHttpTargetAppEngineRouting{
-		Service:  dcl.ValueOrEmptyString(o.Service),
-		Version:  dcl.ValueOrEmptyString(o.Version),
-		Instance: dcl.ValueOrEmptyString(o.Instance),
-		Host:     dcl.ValueOrEmptyString(o.Host),
-	}
+	p := &alphapb.CloudschedulerAlphaJobAppEngineHttpTargetAppEngineRouting{}
+	p.SetService(dcl.ValueOrEmptyString(o.Service))
+	p.SetVersion(dcl.ValueOrEmptyString(o.Version))
+	p.SetInstance(dcl.ValueOrEmptyString(o.Instance))
+	p.SetHost(dcl.ValueOrEmptyString(o.Host))
 	return p
 }
 
-// JobHttpTargetToProto converts a JobHttpTarget resource to its proto representation.
+// JobHttpTargetToProto converts a JobHttpTarget object to its proto representation.
 func CloudschedulerAlphaJobHttpTargetToProto(o *alpha.JobHttpTarget) *alphapb.CloudschedulerAlphaJobHttpTarget {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.CloudschedulerAlphaJobHttpTarget{
-		Uri:        dcl.ValueOrEmptyString(o.Uri),
-		HttpMethod: CloudschedulerAlphaJobHttpTargetHttpMethodEnumToProto(o.HttpMethod),
-		Body:       dcl.ValueOrEmptyString(o.Body),
-		OauthToken: CloudschedulerAlphaJobHttpTargetOAuthTokenToProto(o.OAuthToken),
-		OidcToken:  CloudschedulerAlphaJobHttpTargetOidcTokenToProto(o.OidcToken),
-	}
-	p.Headers = make(map[string]string)
+	p := &alphapb.CloudschedulerAlphaJobHttpTarget{}
+	p.SetUri(dcl.ValueOrEmptyString(o.Uri))
+	p.SetHttpMethod(CloudschedulerAlphaJobHttpTargetHttpMethodEnumToProto(o.HttpMethod))
+	p.SetBody(dcl.ValueOrEmptyString(o.Body))
+	p.SetOauthToken(CloudschedulerAlphaJobHttpTargetOAuthTokenToProto(o.OAuthToken))
+	p.SetOidcToken(CloudschedulerAlphaJobHttpTargetOidcTokenToProto(o.OidcToken))
+	mHeaders := make(map[string]string, len(o.Headers))
 	for k, r := range o.Headers {
-		p.Headers[k] = r
+		mHeaders[k] = r
 	}
+	p.SetHeaders(mHeaders)
 	return p
 }
 
-// JobHttpTargetOAuthTokenToProto converts a JobHttpTargetOAuthToken resource to its proto representation.
+// JobHttpTargetOAuthTokenToProto converts a JobHttpTargetOAuthToken object to its proto representation.
 func CloudschedulerAlphaJobHttpTargetOAuthTokenToProto(o *alpha.JobHttpTargetOAuthToken) *alphapb.CloudschedulerAlphaJobHttpTargetOAuthToken {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.CloudschedulerAlphaJobHttpTargetOAuthToken{
-		ServiceAccountEmail: dcl.ValueOrEmptyString(o.ServiceAccountEmail),
-		Scope:               dcl.ValueOrEmptyString(o.Scope),
-	}
+	p := &alphapb.CloudschedulerAlphaJobHttpTargetOAuthToken{}
+	p.SetServiceAccountEmail(dcl.ValueOrEmptyString(o.ServiceAccountEmail))
+	p.SetScope(dcl.ValueOrEmptyString(o.Scope))
 	return p
 }
 
-// JobHttpTargetOidcTokenToProto converts a JobHttpTargetOidcToken resource to its proto representation.
+// JobHttpTargetOidcTokenToProto converts a JobHttpTargetOidcToken object to its proto representation.
 func CloudschedulerAlphaJobHttpTargetOidcTokenToProto(o *alpha.JobHttpTargetOidcToken) *alphapb.CloudschedulerAlphaJobHttpTargetOidcToken {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.CloudschedulerAlphaJobHttpTargetOidcToken{
-		ServiceAccountEmail: dcl.ValueOrEmptyString(o.ServiceAccountEmail),
-		Audience:            dcl.ValueOrEmptyString(o.Audience),
-	}
+	p := &alphapb.CloudschedulerAlphaJobHttpTargetOidcToken{}
+	p.SetServiceAccountEmail(dcl.ValueOrEmptyString(o.ServiceAccountEmail))
+	p.SetAudience(dcl.ValueOrEmptyString(o.Audience))
 	return p
 }
 
-// JobStatusToProto converts a JobStatus resource to its proto representation.
+// JobStatusToProto converts a JobStatus object to its proto representation.
 func CloudschedulerAlphaJobStatusToProto(o *alpha.JobStatus) *alphapb.CloudschedulerAlphaJobStatus {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.CloudschedulerAlphaJobStatus{
-		Code:    dcl.ValueOrEmptyInt64(o.Code),
-		Message: dcl.ValueOrEmptyString(o.Message),
+	p := &alphapb.CloudschedulerAlphaJobStatus{}
+	p.SetCode(dcl.ValueOrEmptyInt64(o.Code))
+	p.SetMessage(dcl.ValueOrEmptyString(o.Message))
+	sDetails := make([]*alphapb.CloudschedulerAlphaJobStatusDetails, len(o.Details))
+	for i, r := range o.Details {
+		sDetails[i] = CloudschedulerAlphaJobStatusDetailsToProto(&r)
 	}
-	for _, r := range o.Details {
-		p.Details = append(p.Details, CloudschedulerAlphaJobStatusDetailsToProto(&r))
-	}
+	p.SetDetails(sDetails)
 	return p
 }
 
-// JobStatusDetailsToProto converts a JobStatusDetails resource to its proto representation.
+// JobStatusDetailsToProto converts a JobStatusDetails object to its proto representation.
 func CloudschedulerAlphaJobStatusDetailsToProto(o *alpha.JobStatusDetails) *alphapb.CloudschedulerAlphaJobStatusDetails {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.CloudschedulerAlphaJobStatusDetails{
-		TypeUrl: dcl.ValueOrEmptyString(o.TypeUrl),
-		Value:   dcl.ValueOrEmptyString(o.Value),
-	}
+	p := &alphapb.CloudschedulerAlphaJobStatusDetails{}
+	p.SetTypeUrl(dcl.ValueOrEmptyString(o.TypeUrl))
+	p.SetValue(dcl.ValueOrEmptyString(o.Value))
 	return p
 }
 
-// JobRetryConfigToProto converts a JobRetryConfig resource to its proto representation.
+// JobRetryConfigToProto converts a JobRetryConfig object to its proto representation.
 func CloudschedulerAlphaJobRetryConfigToProto(o *alpha.JobRetryConfig) *alphapb.CloudschedulerAlphaJobRetryConfig {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.CloudschedulerAlphaJobRetryConfig{
-		RetryCount:         dcl.ValueOrEmptyInt64(o.RetryCount),
-		MaxRetryDuration:   dcl.ValueOrEmptyString(o.MaxRetryDuration),
-		MinBackoffDuration: dcl.ValueOrEmptyString(o.MinBackoffDuration),
-		MaxBackoffDuration: dcl.ValueOrEmptyString(o.MaxBackoffDuration),
-		MaxDoublings:       dcl.ValueOrEmptyInt64(o.MaxDoublings),
-	}
+	p := &alphapb.CloudschedulerAlphaJobRetryConfig{}
+	p.SetRetryCount(dcl.ValueOrEmptyInt64(o.RetryCount))
+	p.SetMaxRetryDuration(dcl.ValueOrEmptyString(o.MaxRetryDuration))
+	p.SetMinBackoffDuration(dcl.ValueOrEmptyString(o.MinBackoffDuration))
+	p.SetMaxBackoffDuration(dcl.ValueOrEmptyString(o.MaxBackoffDuration))
+	p.SetMaxDoublings(dcl.ValueOrEmptyInt64(o.MaxDoublings))
 	return p
 }
 
 // JobToProto converts a Job resource to its proto representation.
 func JobToProto(resource *alpha.Job) *alphapb.CloudschedulerAlphaJob {
-	p := &alphapb.CloudschedulerAlphaJob{
-		Name:                dcl.ValueOrEmptyString(resource.Name),
-		Description:         dcl.ValueOrEmptyString(resource.Description),
-		PubsubTarget:        CloudschedulerAlphaJobPubsubTargetToProto(resource.PubsubTarget),
-		AppEngineHttpTarget: CloudschedulerAlphaJobAppEngineHttpTargetToProto(resource.AppEngineHttpTarget),
-		HttpTarget:          CloudschedulerAlphaJobHttpTargetToProto(resource.HttpTarget),
-		Schedule:            dcl.ValueOrEmptyString(resource.Schedule),
-		TimeZone:            dcl.ValueOrEmptyString(resource.TimeZone),
-		UserUpdateTime:      dcl.ValueOrEmptyString(resource.UserUpdateTime),
-		State:               CloudschedulerAlphaJobStateEnumToProto(resource.State),
-		Status:              CloudschedulerAlphaJobStatusToProto(resource.Status),
-		ScheduleTime:        dcl.ValueOrEmptyString(resource.ScheduleTime),
-		LastAttemptTime:     dcl.ValueOrEmptyString(resource.LastAttemptTime),
-		RetryConfig:         CloudschedulerAlphaJobRetryConfigToProto(resource.RetryConfig),
-		AttemptDeadline:     dcl.ValueOrEmptyString(resource.AttemptDeadline),
-		Project:             dcl.ValueOrEmptyString(resource.Project),
-		Location:            dcl.ValueOrEmptyString(resource.Location),
-	}
+	p := &alphapb.CloudschedulerAlphaJob{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetPubsubTarget(CloudschedulerAlphaJobPubsubTargetToProto(resource.PubsubTarget))
+	p.SetAppEngineHttpTarget(CloudschedulerAlphaJobAppEngineHttpTargetToProto(resource.AppEngineHttpTarget))
+	p.SetHttpTarget(CloudschedulerAlphaJobHttpTargetToProto(resource.HttpTarget))
+	p.SetSchedule(dcl.ValueOrEmptyString(resource.Schedule))
+	p.SetTimeZone(dcl.ValueOrEmptyString(resource.TimeZone))
+	p.SetUserUpdateTime(dcl.ValueOrEmptyString(resource.UserUpdateTime))
+	p.SetState(CloudschedulerAlphaJobStateEnumToProto(resource.State))
+	p.SetStatus(CloudschedulerAlphaJobStatusToProto(resource.Status))
+	p.SetScheduleTime(dcl.ValueOrEmptyString(resource.ScheduleTime))
+	p.SetLastAttemptTime(dcl.ValueOrEmptyString(resource.LastAttemptTime))
+	p.SetRetryConfig(CloudschedulerAlphaJobRetryConfigToProto(resource.RetryConfig))
+	p.SetAttemptDeadline(dcl.ValueOrEmptyString(resource.AttemptDeadline))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 
 	return p
 }
 
-// ApplyJob handles the gRPC request by passing it to the underlying Job Apply() method.
+// applyJob handles the gRPC request by passing it to the underlying Job Apply() method.
 func (s *JobServer) applyJob(ctx context.Context, c *alpha.Client, request *alphapb.ApplyCloudschedulerAlphaJobRequest) (*alphapb.CloudschedulerAlphaJob, error) {
 	p := ProtoToJob(request.GetResource())
 	res, err := c.ApplyJob(ctx, p)
@@ -406,9 +401,9 @@ func (s *JobServer) applyJob(ctx context.Context, c *alpha.Client, request *alph
 	return r, nil
 }
 
-// ApplyJob handles the gRPC request by passing it to the underlying Job Apply() method.
+// applyCloudschedulerAlphaJob handles the gRPC request by passing it to the underlying Job Apply() method.
 func (s *JobServer) ApplyCloudschedulerAlphaJob(ctx context.Context, request *alphapb.ApplyCloudschedulerAlphaJobRequest) (*alphapb.CloudschedulerAlphaJob, error) {
-	cl, err := createConfigJob(ctx, request.ServiceAccountFile)
+	cl, err := createConfigJob(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -418,7 +413,7 @@ func (s *JobServer) ApplyCloudschedulerAlphaJob(ctx context.Context, request *al
 // DeleteJob handles the gRPC request by passing it to the underlying Job Delete() method.
 func (s *JobServer) DeleteCloudschedulerAlphaJob(ctx context.Context, request *alphapb.DeleteCloudschedulerAlphaJobRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigJob(ctx, request.ServiceAccountFile)
+	cl, err := createConfigJob(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -428,12 +423,12 @@ func (s *JobServer) DeleteCloudschedulerAlphaJob(ctx context.Context, request *a
 
 // ListCloudschedulerAlphaJob handles the gRPC request by passing it to the underlying JobList() method.
 func (s *JobServer) ListCloudschedulerAlphaJob(ctx context.Context, request *alphapb.ListCloudschedulerAlphaJobRequest) (*alphapb.ListCloudschedulerAlphaJobResponse, error) {
-	cl, err := createConfigJob(ctx, request.ServiceAccountFile)
+	cl, err := createConfigJob(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListJob(ctx, request.Project, request.Location)
+	resources, err := cl.ListJob(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -442,7 +437,9 @@ func (s *JobServer) ListCloudschedulerAlphaJob(ctx context.Context, request *alp
 		rp := JobToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListCloudschedulerAlphaJobResponse{Items: protos}, nil
+	p := &alphapb.ListCloudschedulerAlphaJobResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigJob(ctx context.Context, service_account_file string) (*alpha.Client, error) {

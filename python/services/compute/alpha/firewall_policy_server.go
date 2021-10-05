@@ -28,39 +28,38 @@ type FirewallPolicyServer struct{}
 // ProtoToFirewallPolicy converts a FirewallPolicy resource from its proto representation.
 func ProtoToFirewallPolicy(p *alphapb.ComputeAlphaFirewallPolicy) *alpha.FirewallPolicy {
 	obj := &alpha.FirewallPolicy{
-		Name:              dcl.StringOrNil(p.Name),
-		Id:                dcl.StringOrNil(p.Id),
-		CreationTimestamp: dcl.StringOrNil(p.CreationTimestamp),
-		Description:       dcl.StringOrNil(p.Description),
-		Fingerprint:       dcl.StringOrNil(p.Fingerprint),
-		SelfLink:          dcl.StringOrNil(p.SelfLink),
-		SelfLinkWithId:    dcl.StringOrNil(p.SelfLinkWithId),
-		RuleTupleCount:    dcl.Int64OrNil(p.RuleTupleCount),
-		ShortName:         dcl.StringOrNil(p.ShortName),
-		Parent:            dcl.StringOrNil(p.Parent),
+		Name:              dcl.StringOrNil(p.GetName()),
+		Id:                dcl.StringOrNil(p.GetId()),
+		CreationTimestamp: dcl.StringOrNil(p.GetCreationTimestamp()),
+		Description:       dcl.StringOrNil(p.GetDescription()),
+		Fingerprint:       dcl.StringOrNil(p.GetFingerprint()),
+		SelfLink:          dcl.StringOrNil(p.GetSelfLink()),
+		SelfLinkWithId:    dcl.StringOrNil(p.GetSelfLinkWithId()),
+		RuleTupleCount:    dcl.Int64OrNil(p.GetRuleTupleCount()),
+		ShortName:         dcl.StringOrNil(p.GetShortName()),
+		Parent:            dcl.StringOrNil(p.GetParent()),
 	}
 	return obj
 }
 
 // FirewallPolicyToProto converts a FirewallPolicy resource to its proto representation.
 func FirewallPolicyToProto(resource *alpha.FirewallPolicy) *alphapb.ComputeAlphaFirewallPolicy {
-	p := &alphapb.ComputeAlphaFirewallPolicy{
-		Name:              dcl.ValueOrEmptyString(resource.Name),
-		Id:                dcl.ValueOrEmptyString(resource.Id),
-		CreationTimestamp: dcl.ValueOrEmptyString(resource.CreationTimestamp),
-		Description:       dcl.ValueOrEmptyString(resource.Description),
-		Fingerprint:       dcl.ValueOrEmptyString(resource.Fingerprint),
-		SelfLink:          dcl.ValueOrEmptyString(resource.SelfLink),
-		SelfLinkWithId:    dcl.ValueOrEmptyString(resource.SelfLinkWithId),
-		RuleTupleCount:    dcl.ValueOrEmptyInt64(resource.RuleTupleCount),
-		ShortName:         dcl.ValueOrEmptyString(resource.ShortName),
-		Parent:            dcl.ValueOrEmptyString(resource.Parent),
-	}
+	p := &alphapb.ComputeAlphaFirewallPolicy{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetId(dcl.ValueOrEmptyString(resource.Id))
+	p.SetCreationTimestamp(dcl.ValueOrEmptyString(resource.CreationTimestamp))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetFingerprint(dcl.ValueOrEmptyString(resource.Fingerprint))
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
+	p.SetSelfLinkWithId(dcl.ValueOrEmptyString(resource.SelfLinkWithId))
+	p.SetRuleTupleCount(dcl.ValueOrEmptyInt64(resource.RuleTupleCount))
+	p.SetShortName(dcl.ValueOrEmptyString(resource.ShortName))
+	p.SetParent(dcl.ValueOrEmptyString(resource.Parent))
 
 	return p
 }
 
-// ApplyFirewallPolicy handles the gRPC request by passing it to the underlying FirewallPolicy Apply() method.
+// applyFirewallPolicy handles the gRPC request by passing it to the underlying FirewallPolicy Apply() method.
 func (s *FirewallPolicyServer) applyFirewallPolicy(ctx context.Context, c *alpha.Client, request *alphapb.ApplyComputeAlphaFirewallPolicyRequest) (*alphapb.ComputeAlphaFirewallPolicy, error) {
 	p := ProtoToFirewallPolicy(request.GetResource())
 	res, err := c.ApplyFirewallPolicy(ctx, p)
@@ -71,9 +70,9 @@ func (s *FirewallPolicyServer) applyFirewallPolicy(ctx context.Context, c *alpha
 	return r, nil
 }
 
-// ApplyFirewallPolicy handles the gRPC request by passing it to the underlying FirewallPolicy Apply() method.
+// applyComputeAlphaFirewallPolicy handles the gRPC request by passing it to the underlying FirewallPolicy Apply() method.
 func (s *FirewallPolicyServer) ApplyComputeAlphaFirewallPolicy(ctx context.Context, request *alphapb.ApplyComputeAlphaFirewallPolicyRequest) (*alphapb.ComputeAlphaFirewallPolicy, error) {
-	cl, err := createConfigFirewallPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFirewallPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -83,7 +82,7 @@ func (s *FirewallPolicyServer) ApplyComputeAlphaFirewallPolicy(ctx context.Conte
 // DeleteFirewallPolicy handles the gRPC request by passing it to the underlying FirewallPolicy Delete() method.
 func (s *FirewallPolicyServer) DeleteComputeAlphaFirewallPolicy(ctx context.Context, request *alphapb.DeleteComputeAlphaFirewallPolicyRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigFirewallPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFirewallPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -93,12 +92,12 @@ func (s *FirewallPolicyServer) DeleteComputeAlphaFirewallPolicy(ctx context.Cont
 
 // ListComputeAlphaFirewallPolicy handles the gRPC request by passing it to the underlying FirewallPolicyList() method.
 func (s *FirewallPolicyServer) ListComputeAlphaFirewallPolicy(ctx context.Context, request *alphapb.ListComputeAlphaFirewallPolicyRequest) (*alphapb.ListComputeAlphaFirewallPolicyResponse, error) {
-	cl, err := createConfigFirewallPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFirewallPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListFirewallPolicy(ctx, request.Parent)
+	resources, err := cl.ListFirewallPolicy(ctx, request.GetParent())
 	if err != nil {
 		return nil, err
 	}
@@ -107,7 +106,9 @@ func (s *FirewallPolicyServer) ListComputeAlphaFirewallPolicy(ctx context.Contex
 		rp := FirewallPolicyToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListComputeAlphaFirewallPolicyResponse{Items: protos}, nil
+	p := &alphapb.ListComputeAlphaFirewallPolicyResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigFirewallPolicy(ctx context.Context, service_account_file string) (*alpha.Client, error) {

@@ -28,33 +28,32 @@ type LogExclusionServer struct{}
 // ProtoToLogExclusion converts a LogExclusion resource from its proto representation.
 func ProtoToLogExclusion(p *loggingpb.LoggingLogExclusion) *logging.LogExclusion {
 	obj := &logging.LogExclusion{
-		Name:        dcl.StringOrNil(p.Name),
-		Description: dcl.StringOrNil(p.Description),
-		Filter:      dcl.StringOrNil(p.Filter),
-		Disabled:    dcl.Bool(p.Disabled),
+		Name:        dcl.StringOrNil(p.GetName()),
+		Description: dcl.StringOrNil(p.GetDescription()),
+		Filter:      dcl.StringOrNil(p.GetFilter()),
+		Disabled:    dcl.Bool(p.GetDisabled()),
 		CreateTime:  dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:  dcl.StringOrNil(p.GetUpdateTime()),
-		Parent:      dcl.StringOrNil(p.Parent),
+		Parent:      dcl.StringOrNil(p.GetParent()),
 	}
 	return obj
 }
 
 // LogExclusionToProto converts a LogExclusion resource to its proto representation.
 func LogExclusionToProto(resource *logging.LogExclusion) *loggingpb.LoggingLogExclusion {
-	p := &loggingpb.LoggingLogExclusion{
-		Name:        dcl.ValueOrEmptyString(resource.Name),
-		Description: dcl.ValueOrEmptyString(resource.Description),
-		Filter:      dcl.ValueOrEmptyString(resource.Filter),
-		Disabled:    dcl.ValueOrEmptyBool(resource.Disabled),
-		CreateTime:  dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:  dcl.ValueOrEmptyString(resource.UpdateTime),
-		Parent:      dcl.ValueOrEmptyString(resource.Parent),
-	}
+	p := &loggingpb.LoggingLogExclusion{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetFilter(dcl.ValueOrEmptyString(resource.Filter))
+	p.SetDisabled(dcl.ValueOrEmptyBool(resource.Disabled))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetParent(dcl.ValueOrEmptyString(resource.Parent))
 
 	return p
 }
 
-// ApplyLogExclusion handles the gRPC request by passing it to the underlying LogExclusion Apply() method.
+// applyLogExclusion handles the gRPC request by passing it to the underlying LogExclusion Apply() method.
 func (s *LogExclusionServer) applyLogExclusion(ctx context.Context, c *logging.Client, request *loggingpb.ApplyLoggingLogExclusionRequest) (*loggingpb.LoggingLogExclusion, error) {
 	p := ProtoToLogExclusion(request.GetResource())
 	res, err := c.ApplyLogExclusion(ctx, p)
@@ -65,9 +64,9 @@ func (s *LogExclusionServer) applyLogExclusion(ctx context.Context, c *logging.C
 	return r, nil
 }
 
-// ApplyLogExclusion handles the gRPC request by passing it to the underlying LogExclusion Apply() method.
+// applyLoggingLogExclusion handles the gRPC request by passing it to the underlying LogExclusion Apply() method.
 func (s *LogExclusionServer) ApplyLoggingLogExclusion(ctx context.Context, request *loggingpb.ApplyLoggingLogExclusionRequest) (*loggingpb.LoggingLogExclusion, error) {
-	cl, err := createConfigLogExclusion(ctx, request.ServiceAccountFile)
+	cl, err := createConfigLogExclusion(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -77,7 +76,7 @@ func (s *LogExclusionServer) ApplyLoggingLogExclusion(ctx context.Context, reque
 // DeleteLogExclusion handles the gRPC request by passing it to the underlying LogExclusion Delete() method.
 func (s *LogExclusionServer) DeleteLoggingLogExclusion(ctx context.Context, request *loggingpb.DeleteLoggingLogExclusionRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigLogExclusion(ctx, request.ServiceAccountFile)
+	cl, err := createConfigLogExclusion(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -87,12 +86,12 @@ func (s *LogExclusionServer) DeleteLoggingLogExclusion(ctx context.Context, requ
 
 // ListLoggingLogExclusion handles the gRPC request by passing it to the underlying LogExclusionList() method.
 func (s *LogExclusionServer) ListLoggingLogExclusion(ctx context.Context, request *loggingpb.ListLoggingLogExclusionRequest) (*loggingpb.ListLoggingLogExclusionResponse, error) {
-	cl, err := createConfigLogExclusion(ctx, request.ServiceAccountFile)
+	cl, err := createConfigLogExclusion(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListLogExclusion(ctx, request.Parent)
+	resources, err := cl.ListLogExclusion(ctx, request.GetParent())
 	if err != nil {
 		return nil, err
 	}
@@ -101,7 +100,9 @@ func (s *LogExclusionServer) ListLoggingLogExclusion(ctx context.Context, reques
 		rp := LogExclusionToProto(r)
 		protos = append(protos, rp)
 	}
-	return &loggingpb.ListLoggingLogExclusionResponse{Items: protos}, nil
+	p := &loggingpb.ListLoggingLogExclusionResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigLogExclusion(ctx context.Context, service_account_file string) (*logging.Client, error) {

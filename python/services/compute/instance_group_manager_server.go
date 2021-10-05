@@ -97,7 +97,7 @@ func ProtoToComputeInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDele
 	return nil
 }
 
-// ProtoToInstanceGroupManagerDistributionPolicy converts a InstanceGroupManagerDistributionPolicy resource from its proto representation.
+// ProtoToInstanceGroupManagerDistributionPolicy converts a InstanceGroupManagerDistributionPolicy object from its proto representation.
 func ProtoToComputeInstanceGroupManagerDistributionPolicy(p *computepb.ComputeInstanceGroupManagerDistributionPolicy) *compute.InstanceGroupManagerDistributionPolicy {
 	if p == nil {
 		return nil
@@ -111,123 +111,123 @@ func ProtoToComputeInstanceGroupManagerDistributionPolicy(p *computepb.ComputeIn
 	return obj
 }
 
-// ProtoToInstanceGroupManagerDistributionPolicyZones converts a InstanceGroupManagerDistributionPolicyZones resource from its proto representation.
+// ProtoToInstanceGroupManagerDistributionPolicyZones converts a InstanceGroupManagerDistributionPolicyZones object from its proto representation.
 func ProtoToComputeInstanceGroupManagerDistributionPolicyZones(p *computepb.ComputeInstanceGroupManagerDistributionPolicyZones) *compute.InstanceGroupManagerDistributionPolicyZones {
 	if p == nil {
 		return nil
 	}
 	obj := &compute.InstanceGroupManagerDistributionPolicyZones{
-		Zone: dcl.StringOrNil(p.Zone),
+		Zone: dcl.StringOrNil(p.GetZone()),
 	}
 	return obj
 }
 
-// ProtoToInstanceGroupManagerVersions converts a InstanceGroupManagerVersions resource from its proto representation.
+// ProtoToInstanceGroupManagerVersions converts a InstanceGroupManagerVersions object from its proto representation.
 func ProtoToComputeInstanceGroupManagerVersions(p *computepb.ComputeInstanceGroupManagerVersions) *compute.InstanceGroupManagerVersions {
 	if p == nil {
 		return nil
 	}
 	obj := &compute.InstanceGroupManagerVersions{
-		Name:             dcl.StringOrNil(p.Name),
-		InstanceTemplate: dcl.StringOrNil(p.InstanceTemplate),
+		Name:             dcl.StringOrNil(p.GetName()),
+		InstanceTemplate: dcl.StringOrNil(p.GetInstanceTemplate()),
 		TargetSize:       ProtoToComputeInstanceGroupManagerFixedOrPercent(p.GetTargetSize()),
 	}
 	return obj
 }
 
-// ProtoToInstanceGroupManagerFixedOrPercent converts a InstanceGroupManagerFixedOrPercent resource from its proto representation.
+// ProtoToInstanceGroupManagerFixedOrPercent converts a InstanceGroupManagerFixedOrPercent object from its proto representation.
 func ProtoToComputeInstanceGroupManagerFixedOrPercent(p *computepb.ComputeInstanceGroupManagerFixedOrPercent) *compute.InstanceGroupManagerFixedOrPercent {
 	if p == nil {
 		return nil
 	}
 	obj := &compute.InstanceGroupManagerFixedOrPercent{
-		Fixed:      dcl.Int64OrNil(p.Fixed),
-		Percent:    dcl.Int64OrNil(p.Percent),
-		Calculated: dcl.Int64OrNil(p.Calculated),
+		Fixed:      dcl.Int64OrNil(p.GetFixed()),
+		Percent:    dcl.Int64OrNil(p.GetPercent()),
+		Calculated: dcl.Int64OrNil(p.GetCalculated()),
 	}
 	return obj
 }
 
-// ProtoToInstanceGroupManagerCurrentActions converts a InstanceGroupManagerCurrentActions resource from its proto representation.
+// ProtoToInstanceGroupManagerCurrentActions converts a InstanceGroupManagerCurrentActions object from its proto representation.
 func ProtoToComputeInstanceGroupManagerCurrentActions(p *computepb.ComputeInstanceGroupManagerCurrentActions) *compute.InstanceGroupManagerCurrentActions {
 	if p == nil {
 		return nil
 	}
 	obj := &compute.InstanceGroupManagerCurrentActions{
-		None:                   dcl.Int64OrNil(p.None),
-		Creating:               dcl.Int64OrNil(p.Creating),
-		CreatingWithoutRetries: dcl.Int64OrNil(p.CreatingWithoutRetries),
-		Verifying:              dcl.Int64OrNil(p.Verifying),
-		Recreating:             dcl.Int64OrNil(p.Recreating),
-		Deleting:               dcl.Int64OrNil(p.Deleting),
-		Abandoning:             dcl.Int64OrNil(p.Abandoning),
-		Restarting:             dcl.Int64OrNil(p.Restarting),
-		Refreshing:             dcl.Int64OrNil(p.Refreshing),
+		None:                   dcl.Int64OrNil(p.GetNone()),
+		Creating:               dcl.Int64OrNil(p.GetCreating()),
+		CreatingWithoutRetries: dcl.Int64OrNil(p.GetCreatingWithoutRetries()),
+		Verifying:              dcl.Int64OrNil(p.GetVerifying()),
+		Recreating:             dcl.Int64OrNil(p.GetRecreating()),
+		Deleting:               dcl.Int64OrNil(p.GetDeleting()),
+		Abandoning:             dcl.Int64OrNil(p.GetAbandoning()),
+		Restarting:             dcl.Int64OrNil(p.GetRestarting()),
+		Refreshing:             dcl.Int64OrNil(p.GetRefreshing()),
 	}
 	return obj
 }
 
-// ProtoToInstanceGroupManagerStatus converts a InstanceGroupManagerStatus resource from its proto representation.
+// ProtoToInstanceGroupManagerStatus converts a InstanceGroupManagerStatus object from its proto representation.
 func ProtoToComputeInstanceGroupManagerStatus(p *computepb.ComputeInstanceGroupManagerStatus) *compute.InstanceGroupManagerStatus {
 	if p == nil {
 		return nil
 	}
 	obj := &compute.InstanceGroupManagerStatus{
-		IsStable:      dcl.Bool(p.IsStable),
+		IsStable:      dcl.Bool(p.GetIsStable()),
 		VersionTarget: ProtoToComputeInstanceGroupManagerStatusVersionTarget(p.GetVersionTarget()),
 		Stateful:      ProtoToComputeInstanceGroupManagerStatusStateful(p.GetStateful()),
-		Autoscaler:    dcl.StringOrNil(p.Autoscaler),
+		Autoscaler:    dcl.StringOrNil(p.GetAutoscaler()),
 	}
 	return obj
 }
 
-// ProtoToInstanceGroupManagerStatusVersionTarget converts a InstanceGroupManagerStatusVersionTarget resource from its proto representation.
+// ProtoToInstanceGroupManagerStatusVersionTarget converts a InstanceGroupManagerStatusVersionTarget object from its proto representation.
 func ProtoToComputeInstanceGroupManagerStatusVersionTarget(p *computepb.ComputeInstanceGroupManagerStatusVersionTarget) *compute.InstanceGroupManagerStatusVersionTarget {
 	if p == nil {
 		return nil
 	}
 	obj := &compute.InstanceGroupManagerStatusVersionTarget{
-		IsReached: dcl.Bool(p.IsReached),
+		IsReached: dcl.Bool(p.GetIsReached()),
 	}
 	return obj
 }
 
-// ProtoToInstanceGroupManagerStatusStateful converts a InstanceGroupManagerStatusStateful resource from its proto representation.
+// ProtoToInstanceGroupManagerStatusStateful converts a InstanceGroupManagerStatusStateful object from its proto representation.
 func ProtoToComputeInstanceGroupManagerStatusStateful(p *computepb.ComputeInstanceGroupManagerStatusStateful) *compute.InstanceGroupManagerStatusStateful {
 	if p == nil {
 		return nil
 	}
 	obj := &compute.InstanceGroupManagerStatusStateful{
-		HasStatefulConfig:  dcl.Bool(p.HasStatefulConfig),
+		HasStatefulConfig:  dcl.Bool(p.GetHasStatefulConfig()),
 		PerInstanceConfigs: ProtoToComputeInstanceGroupManagerStatusStatefulPerInstanceConfigs(p.GetPerInstanceConfigs()),
 	}
 	return obj
 }
 
-// ProtoToInstanceGroupManagerStatusStatefulPerInstanceConfigs converts a InstanceGroupManagerStatusStatefulPerInstanceConfigs resource from its proto representation.
+// ProtoToInstanceGroupManagerStatusStatefulPerInstanceConfigs converts a InstanceGroupManagerStatusStatefulPerInstanceConfigs object from its proto representation.
 func ProtoToComputeInstanceGroupManagerStatusStatefulPerInstanceConfigs(p *computepb.ComputeInstanceGroupManagerStatusStatefulPerInstanceConfigs) *compute.InstanceGroupManagerStatusStatefulPerInstanceConfigs {
 	if p == nil {
 		return nil
 	}
 	obj := &compute.InstanceGroupManagerStatusStatefulPerInstanceConfigs{
-		AllEffective: dcl.Bool(p.AllEffective),
+		AllEffective: dcl.Bool(p.GetAllEffective()),
 	}
 	return obj
 }
 
-// ProtoToInstanceGroupManagerAutoHealingPolicies converts a InstanceGroupManagerAutoHealingPolicies resource from its proto representation.
+// ProtoToInstanceGroupManagerAutoHealingPolicies converts a InstanceGroupManagerAutoHealingPolicies object from its proto representation.
 func ProtoToComputeInstanceGroupManagerAutoHealingPolicies(p *computepb.ComputeInstanceGroupManagerAutoHealingPolicies) *compute.InstanceGroupManagerAutoHealingPolicies {
 	if p == nil {
 		return nil
 	}
 	obj := &compute.InstanceGroupManagerAutoHealingPolicies{
-		HealthCheck:     dcl.StringOrNil(p.HealthCheck),
-		InitialDelaySec: dcl.Int64OrNil(p.InitialDelaySec),
+		HealthCheck:     dcl.StringOrNil(p.GetHealthCheck()),
+		InitialDelaySec: dcl.Int64OrNil(p.GetInitialDelaySec()),
 	}
 	return obj
 }
 
-// ProtoToInstanceGroupManagerUpdatePolicy converts a InstanceGroupManagerUpdatePolicy resource from its proto representation.
+// ProtoToInstanceGroupManagerUpdatePolicy converts a InstanceGroupManagerUpdatePolicy object from its proto representation.
 func ProtoToComputeInstanceGroupManagerUpdatePolicy(p *computepb.ComputeInstanceGroupManagerUpdatePolicy) *compute.InstanceGroupManagerUpdatePolicy {
 	if p == nil {
 		return nil
@@ -243,19 +243,19 @@ func ProtoToComputeInstanceGroupManagerUpdatePolicy(p *computepb.ComputeInstance
 	return obj
 }
 
-// ProtoToInstanceGroupManagerNamedPorts converts a InstanceGroupManagerNamedPorts resource from its proto representation.
+// ProtoToInstanceGroupManagerNamedPorts converts a InstanceGroupManagerNamedPorts object from its proto representation.
 func ProtoToComputeInstanceGroupManagerNamedPorts(p *computepb.ComputeInstanceGroupManagerNamedPorts) *compute.InstanceGroupManagerNamedPorts {
 	if p == nil {
 		return nil
 	}
 	obj := &compute.InstanceGroupManagerNamedPorts{
-		Name: dcl.StringOrNil(p.Name),
-		Port: dcl.Int64OrNil(p.Port),
+		Name: dcl.StringOrNil(p.GetName()),
+		Port: dcl.Int64OrNil(p.GetPort()),
 	}
 	return obj
 }
 
-// ProtoToInstanceGroupManagerStatefulPolicy converts a InstanceGroupManagerStatefulPolicy resource from its proto representation.
+// ProtoToInstanceGroupManagerStatefulPolicy converts a InstanceGroupManagerStatefulPolicy object from its proto representation.
 func ProtoToComputeInstanceGroupManagerStatefulPolicy(p *computepb.ComputeInstanceGroupManagerStatefulPolicy) *compute.InstanceGroupManagerStatefulPolicy {
 	if p == nil {
 		return nil
@@ -266,7 +266,7 @@ func ProtoToComputeInstanceGroupManagerStatefulPolicy(p *computepb.ComputeInstan
 	return obj
 }
 
-// ProtoToInstanceGroupManagerStatefulPolicyPreservedState converts a InstanceGroupManagerStatefulPolicyPreservedState resource from its proto representation.
+// ProtoToInstanceGroupManagerStatefulPolicyPreservedState converts a InstanceGroupManagerStatefulPolicyPreservedState object from its proto representation.
 func ProtoToComputeInstanceGroupManagerStatefulPolicyPreservedState(p *computepb.ComputeInstanceGroupManagerStatefulPolicyPreservedState) *compute.InstanceGroupManagerStatefulPolicyPreservedState {
 	if p == nil {
 		return nil
@@ -275,7 +275,7 @@ func ProtoToComputeInstanceGroupManagerStatefulPolicyPreservedState(p *computepb
 	return obj
 }
 
-// ProtoToInstanceGroupManagerStatefulPolicyPreservedStateDisks converts a InstanceGroupManagerStatefulPolicyPreservedStateDisks resource from its proto representation.
+// ProtoToInstanceGroupManagerStatefulPolicyPreservedStateDisks converts a InstanceGroupManagerStatefulPolicyPreservedStateDisks object from its proto representation.
 func ProtoToComputeInstanceGroupManagerStatefulPolicyPreservedStateDisks(p *computepb.ComputeInstanceGroupManagerStatefulPolicyPreservedStateDisks) *compute.InstanceGroupManagerStatefulPolicyPreservedStateDisks {
 	if p == nil {
 		return nil
@@ -289,25 +289,25 @@ func ProtoToComputeInstanceGroupManagerStatefulPolicyPreservedStateDisks(p *comp
 // ProtoToInstanceGroupManager converts a InstanceGroupManager resource from its proto representation.
 func ProtoToInstanceGroupManager(p *computepb.ComputeInstanceGroupManager) *compute.InstanceGroupManager {
 	obj := &compute.InstanceGroupManager{
-		Id:                 dcl.Int64OrNil(p.Id),
-		CreationTimestamp:  dcl.StringOrNil(p.CreationTimestamp),
-		Name:               dcl.StringOrNil(p.Name),
-		Description:        dcl.StringOrNil(p.Description),
-		Zone:               dcl.StringOrNil(p.Zone),
-		Region:             dcl.StringOrNil(p.Region),
+		Id:                 dcl.Int64OrNil(p.GetId()),
+		CreationTimestamp:  dcl.StringOrNil(p.GetCreationTimestamp()),
+		Name:               dcl.StringOrNil(p.GetName()),
+		Description:        dcl.StringOrNil(p.GetDescription()),
+		Zone:               dcl.StringOrNil(p.GetZone()),
+		Region:             dcl.StringOrNil(p.GetRegion()),
 		DistributionPolicy: ProtoToComputeInstanceGroupManagerDistributionPolicy(p.GetDistributionPolicy()),
-		InstanceTemplate:   dcl.StringOrNil(p.InstanceTemplate),
-		InstanceGroup:      dcl.StringOrNil(p.InstanceGroup),
-		BaseInstanceName:   dcl.StringOrNil(p.BaseInstanceName),
-		Fingerprint:        dcl.StringOrNil(p.Fingerprint),
+		InstanceTemplate:   dcl.StringOrNil(p.GetInstanceTemplate()),
+		InstanceGroup:      dcl.StringOrNil(p.GetInstanceGroup()),
+		BaseInstanceName:   dcl.StringOrNil(p.GetBaseInstanceName()),
+		Fingerprint:        dcl.StringOrNil(p.GetFingerprint()),
 		CurrentActions:     ProtoToComputeInstanceGroupManagerCurrentActions(p.GetCurrentActions()),
 		Status:             ProtoToComputeInstanceGroupManagerStatus(p.GetStatus()),
-		TargetSize:         dcl.Int64OrNil(p.TargetSize),
-		SelfLink:           dcl.StringOrNil(p.SelfLink),
+		TargetSize:         dcl.Int64OrNil(p.GetTargetSize()),
+		SelfLink:           dcl.StringOrNil(p.GetSelfLink()),
 		UpdatePolicy:       ProtoToComputeInstanceGroupManagerUpdatePolicy(p.GetUpdatePolicy()),
 		StatefulPolicy:     ProtoToComputeInstanceGroupManagerStatefulPolicy(p.GetStatefulPolicy()),
-		Project:            dcl.StringOrNil(p.Project),
-		Location:           dcl.StringOrNil(p.Location),
+		Project:            dcl.StringOrNil(p.GetProject()),
+		Location:           dcl.StringOrNil(p.GetLocation()),
 	}
 	for _, r := range p.GetVersions() {
 		obj.Versions = append(obj.Versions, *ProtoToComputeInstanceGroupManagerVersions(r))
@@ -390,239 +390,235 @@ func ComputeInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumT
 	return computepb.ComputeInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum(0)
 }
 
-// InstanceGroupManagerDistributionPolicyToProto converts a InstanceGroupManagerDistributionPolicy resource to its proto representation.
+// InstanceGroupManagerDistributionPolicyToProto converts a InstanceGroupManagerDistributionPolicy object to its proto representation.
 func ComputeInstanceGroupManagerDistributionPolicyToProto(o *compute.InstanceGroupManagerDistributionPolicy) *computepb.ComputeInstanceGroupManagerDistributionPolicy {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeInstanceGroupManagerDistributionPolicy{
-		TargetShape: ComputeInstanceGroupManagerDistributionPolicyTargetShapeEnumToProto(o.TargetShape),
+	p := &computepb.ComputeInstanceGroupManagerDistributionPolicy{}
+	p.SetTargetShape(ComputeInstanceGroupManagerDistributionPolicyTargetShapeEnumToProto(o.TargetShape))
+	sZones := make([]*computepb.ComputeInstanceGroupManagerDistributionPolicyZones, len(o.Zones))
+	for i, r := range o.Zones {
+		sZones[i] = ComputeInstanceGroupManagerDistributionPolicyZonesToProto(&r)
 	}
-	for _, r := range o.Zones {
-		p.Zones = append(p.Zones, ComputeInstanceGroupManagerDistributionPolicyZonesToProto(&r))
-	}
+	p.SetZones(sZones)
 	return p
 }
 
-// InstanceGroupManagerDistributionPolicyZonesToProto converts a InstanceGroupManagerDistributionPolicyZones resource to its proto representation.
+// InstanceGroupManagerDistributionPolicyZonesToProto converts a InstanceGroupManagerDistributionPolicyZones object to its proto representation.
 func ComputeInstanceGroupManagerDistributionPolicyZonesToProto(o *compute.InstanceGroupManagerDistributionPolicyZones) *computepb.ComputeInstanceGroupManagerDistributionPolicyZones {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeInstanceGroupManagerDistributionPolicyZones{
-		Zone: dcl.ValueOrEmptyString(o.Zone),
-	}
+	p := &computepb.ComputeInstanceGroupManagerDistributionPolicyZones{}
+	p.SetZone(dcl.ValueOrEmptyString(o.Zone))
 	return p
 }
 
-// InstanceGroupManagerVersionsToProto converts a InstanceGroupManagerVersions resource to its proto representation.
+// InstanceGroupManagerVersionsToProto converts a InstanceGroupManagerVersions object to its proto representation.
 func ComputeInstanceGroupManagerVersionsToProto(o *compute.InstanceGroupManagerVersions) *computepb.ComputeInstanceGroupManagerVersions {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeInstanceGroupManagerVersions{
-		Name:             dcl.ValueOrEmptyString(o.Name),
-		InstanceTemplate: dcl.ValueOrEmptyString(o.InstanceTemplate),
-		TargetSize:       ComputeInstanceGroupManagerFixedOrPercentToProto(o.TargetSize),
-	}
+	p := &computepb.ComputeInstanceGroupManagerVersions{}
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetInstanceTemplate(dcl.ValueOrEmptyString(o.InstanceTemplate))
+	p.SetTargetSize(ComputeInstanceGroupManagerFixedOrPercentToProto(o.TargetSize))
 	return p
 }
 
-// InstanceGroupManagerFixedOrPercentToProto converts a InstanceGroupManagerFixedOrPercent resource to its proto representation.
+// InstanceGroupManagerFixedOrPercentToProto converts a InstanceGroupManagerFixedOrPercent object to its proto representation.
 func ComputeInstanceGroupManagerFixedOrPercentToProto(o *compute.InstanceGroupManagerFixedOrPercent) *computepb.ComputeInstanceGroupManagerFixedOrPercent {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeInstanceGroupManagerFixedOrPercent{
-		Fixed:      dcl.ValueOrEmptyInt64(o.Fixed),
-		Percent:    dcl.ValueOrEmptyInt64(o.Percent),
-		Calculated: dcl.ValueOrEmptyInt64(o.Calculated),
-	}
+	p := &computepb.ComputeInstanceGroupManagerFixedOrPercent{}
+	p.SetFixed(dcl.ValueOrEmptyInt64(o.Fixed))
+	p.SetPercent(dcl.ValueOrEmptyInt64(o.Percent))
+	p.SetCalculated(dcl.ValueOrEmptyInt64(o.Calculated))
 	return p
 }
 
-// InstanceGroupManagerCurrentActionsToProto converts a InstanceGroupManagerCurrentActions resource to its proto representation.
+// InstanceGroupManagerCurrentActionsToProto converts a InstanceGroupManagerCurrentActions object to its proto representation.
 func ComputeInstanceGroupManagerCurrentActionsToProto(o *compute.InstanceGroupManagerCurrentActions) *computepb.ComputeInstanceGroupManagerCurrentActions {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeInstanceGroupManagerCurrentActions{
-		None:                   dcl.ValueOrEmptyInt64(o.None),
-		Creating:               dcl.ValueOrEmptyInt64(o.Creating),
-		CreatingWithoutRetries: dcl.ValueOrEmptyInt64(o.CreatingWithoutRetries),
-		Verifying:              dcl.ValueOrEmptyInt64(o.Verifying),
-		Recreating:             dcl.ValueOrEmptyInt64(o.Recreating),
-		Deleting:               dcl.ValueOrEmptyInt64(o.Deleting),
-		Abandoning:             dcl.ValueOrEmptyInt64(o.Abandoning),
-		Restarting:             dcl.ValueOrEmptyInt64(o.Restarting),
-		Refreshing:             dcl.ValueOrEmptyInt64(o.Refreshing),
-	}
+	p := &computepb.ComputeInstanceGroupManagerCurrentActions{}
+	p.SetNone(dcl.ValueOrEmptyInt64(o.None))
+	p.SetCreating(dcl.ValueOrEmptyInt64(o.Creating))
+	p.SetCreatingWithoutRetries(dcl.ValueOrEmptyInt64(o.CreatingWithoutRetries))
+	p.SetVerifying(dcl.ValueOrEmptyInt64(o.Verifying))
+	p.SetRecreating(dcl.ValueOrEmptyInt64(o.Recreating))
+	p.SetDeleting(dcl.ValueOrEmptyInt64(o.Deleting))
+	p.SetAbandoning(dcl.ValueOrEmptyInt64(o.Abandoning))
+	p.SetRestarting(dcl.ValueOrEmptyInt64(o.Restarting))
+	p.SetRefreshing(dcl.ValueOrEmptyInt64(o.Refreshing))
 	return p
 }
 
-// InstanceGroupManagerStatusToProto converts a InstanceGroupManagerStatus resource to its proto representation.
+// InstanceGroupManagerStatusToProto converts a InstanceGroupManagerStatus object to its proto representation.
 func ComputeInstanceGroupManagerStatusToProto(o *compute.InstanceGroupManagerStatus) *computepb.ComputeInstanceGroupManagerStatus {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeInstanceGroupManagerStatus{
-		IsStable:      dcl.ValueOrEmptyBool(o.IsStable),
-		VersionTarget: ComputeInstanceGroupManagerStatusVersionTargetToProto(o.VersionTarget),
-		Stateful:      ComputeInstanceGroupManagerStatusStatefulToProto(o.Stateful),
-		Autoscaler:    dcl.ValueOrEmptyString(o.Autoscaler),
-	}
+	p := &computepb.ComputeInstanceGroupManagerStatus{}
+	p.SetIsStable(dcl.ValueOrEmptyBool(o.IsStable))
+	p.SetVersionTarget(ComputeInstanceGroupManagerStatusVersionTargetToProto(o.VersionTarget))
+	p.SetStateful(ComputeInstanceGroupManagerStatusStatefulToProto(o.Stateful))
+	p.SetAutoscaler(dcl.ValueOrEmptyString(o.Autoscaler))
 	return p
 }
 
-// InstanceGroupManagerStatusVersionTargetToProto converts a InstanceGroupManagerStatusVersionTarget resource to its proto representation.
+// InstanceGroupManagerStatusVersionTargetToProto converts a InstanceGroupManagerStatusVersionTarget object to its proto representation.
 func ComputeInstanceGroupManagerStatusVersionTargetToProto(o *compute.InstanceGroupManagerStatusVersionTarget) *computepb.ComputeInstanceGroupManagerStatusVersionTarget {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeInstanceGroupManagerStatusVersionTarget{
-		IsReached: dcl.ValueOrEmptyBool(o.IsReached),
-	}
+	p := &computepb.ComputeInstanceGroupManagerStatusVersionTarget{}
+	p.SetIsReached(dcl.ValueOrEmptyBool(o.IsReached))
 	return p
 }
 
-// InstanceGroupManagerStatusStatefulToProto converts a InstanceGroupManagerStatusStateful resource to its proto representation.
+// InstanceGroupManagerStatusStatefulToProto converts a InstanceGroupManagerStatusStateful object to its proto representation.
 func ComputeInstanceGroupManagerStatusStatefulToProto(o *compute.InstanceGroupManagerStatusStateful) *computepb.ComputeInstanceGroupManagerStatusStateful {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeInstanceGroupManagerStatusStateful{
-		HasStatefulConfig:  dcl.ValueOrEmptyBool(o.HasStatefulConfig),
-		PerInstanceConfigs: ComputeInstanceGroupManagerStatusStatefulPerInstanceConfigsToProto(o.PerInstanceConfigs),
-	}
+	p := &computepb.ComputeInstanceGroupManagerStatusStateful{}
+	p.SetHasStatefulConfig(dcl.ValueOrEmptyBool(o.HasStatefulConfig))
+	p.SetPerInstanceConfigs(ComputeInstanceGroupManagerStatusStatefulPerInstanceConfigsToProto(o.PerInstanceConfigs))
 	return p
 }
 
-// InstanceGroupManagerStatusStatefulPerInstanceConfigsToProto converts a InstanceGroupManagerStatusStatefulPerInstanceConfigs resource to its proto representation.
+// InstanceGroupManagerStatusStatefulPerInstanceConfigsToProto converts a InstanceGroupManagerStatusStatefulPerInstanceConfigs object to its proto representation.
 func ComputeInstanceGroupManagerStatusStatefulPerInstanceConfigsToProto(o *compute.InstanceGroupManagerStatusStatefulPerInstanceConfigs) *computepb.ComputeInstanceGroupManagerStatusStatefulPerInstanceConfigs {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeInstanceGroupManagerStatusStatefulPerInstanceConfigs{
-		AllEffective: dcl.ValueOrEmptyBool(o.AllEffective),
-	}
+	p := &computepb.ComputeInstanceGroupManagerStatusStatefulPerInstanceConfigs{}
+	p.SetAllEffective(dcl.ValueOrEmptyBool(o.AllEffective))
 	return p
 }
 
-// InstanceGroupManagerAutoHealingPoliciesToProto converts a InstanceGroupManagerAutoHealingPolicies resource to its proto representation.
+// InstanceGroupManagerAutoHealingPoliciesToProto converts a InstanceGroupManagerAutoHealingPolicies object to its proto representation.
 func ComputeInstanceGroupManagerAutoHealingPoliciesToProto(o *compute.InstanceGroupManagerAutoHealingPolicies) *computepb.ComputeInstanceGroupManagerAutoHealingPolicies {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeInstanceGroupManagerAutoHealingPolicies{
-		HealthCheck:     dcl.ValueOrEmptyString(o.HealthCheck),
-		InitialDelaySec: dcl.ValueOrEmptyInt64(o.InitialDelaySec),
-	}
+	p := &computepb.ComputeInstanceGroupManagerAutoHealingPolicies{}
+	p.SetHealthCheck(dcl.ValueOrEmptyString(o.HealthCheck))
+	p.SetInitialDelaySec(dcl.ValueOrEmptyInt64(o.InitialDelaySec))
 	return p
 }
 
-// InstanceGroupManagerUpdatePolicyToProto converts a InstanceGroupManagerUpdatePolicy resource to its proto representation.
+// InstanceGroupManagerUpdatePolicyToProto converts a InstanceGroupManagerUpdatePolicy object to its proto representation.
 func ComputeInstanceGroupManagerUpdatePolicyToProto(o *compute.InstanceGroupManagerUpdatePolicy) *computepb.ComputeInstanceGroupManagerUpdatePolicy {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeInstanceGroupManagerUpdatePolicy{
-		Type:                       ComputeInstanceGroupManagerUpdatePolicyTypeEnumToProto(o.Type),
-		InstanceRedistributionType: ComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumToProto(o.InstanceRedistributionType),
-		MinimalAction:              ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnumToProto(o.MinimalAction),
-		MaxSurge:                   ComputeInstanceGroupManagerFixedOrPercentToProto(o.MaxSurge),
-		MaxUnavailable:             ComputeInstanceGroupManagerFixedOrPercentToProto(o.MaxUnavailable),
-		ReplacementMethod:          ComputeInstanceGroupManagerUpdatePolicyReplacementMethodEnumToProto(o.ReplacementMethod),
-	}
+	p := &computepb.ComputeInstanceGroupManagerUpdatePolicy{}
+	p.SetType(ComputeInstanceGroupManagerUpdatePolicyTypeEnumToProto(o.Type))
+	p.SetInstanceRedistributionType(ComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumToProto(o.InstanceRedistributionType))
+	p.SetMinimalAction(ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnumToProto(o.MinimalAction))
+	p.SetMaxSurge(ComputeInstanceGroupManagerFixedOrPercentToProto(o.MaxSurge))
+	p.SetMaxUnavailable(ComputeInstanceGroupManagerFixedOrPercentToProto(o.MaxUnavailable))
+	p.SetReplacementMethod(ComputeInstanceGroupManagerUpdatePolicyReplacementMethodEnumToProto(o.ReplacementMethod))
 	return p
 }
 
-// InstanceGroupManagerNamedPortsToProto converts a InstanceGroupManagerNamedPorts resource to its proto representation.
+// InstanceGroupManagerNamedPortsToProto converts a InstanceGroupManagerNamedPorts object to its proto representation.
 func ComputeInstanceGroupManagerNamedPortsToProto(o *compute.InstanceGroupManagerNamedPorts) *computepb.ComputeInstanceGroupManagerNamedPorts {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeInstanceGroupManagerNamedPorts{
-		Name: dcl.ValueOrEmptyString(o.Name),
-		Port: dcl.ValueOrEmptyInt64(o.Port),
-	}
+	p := &computepb.ComputeInstanceGroupManagerNamedPorts{}
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetPort(dcl.ValueOrEmptyInt64(o.Port))
 	return p
 }
 
-// InstanceGroupManagerStatefulPolicyToProto converts a InstanceGroupManagerStatefulPolicy resource to its proto representation.
+// InstanceGroupManagerStatefulPolicyToProto converts a InstanceGroupManagerStatefulPolicy object to its proto representation.
 func ComputeInstanceGroupManagerStatefulPolicyToProto(o *compute.InstanceGroupManagerStatefulPolicy) *computepb.ComputeInstanceGroupManagerStatefulPolicy {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeInstanceGroupManagerStatefulPolicy{
-		PreservedState: ComputeInstanceGroupManagerStatefulPolicyPreservedStateToProto(o.PreservedState),
-	}
+	p := &computepb.ComputeInstanceGroupManagerStatefulPolicy{}
+	p.SetPreservedState(ComputeInstanceGroupManagerStatefulPolicyPreservedStateToProto(o.PreservedState))
 	return p
 }
 
-// InstanceGroupManagerStatefulPolicyPreservedStateToProto converts a InstanceGroupManagerStatefulPolicyPreservedState resource to its proto representation.
+// InstanceGroupManagerStatefulPolicyPreservedStateToProto converts a InstanceGroupManagerStatefulPolicyPreservedState object to its proto representation.
 func ComputeInstanceGroupManagerStatefulPolicyPreservedStateToProto(o *compute.InstanceGroupManagerStatefulPolicyPreservedState) *computepb.ComputeInstanceGroupManagerStatefulPolicyPreservedState {
 	if o == nil {
 		return nil
 	}
 	p := &computepb.ComputeInstanceGroupManagerStatefulPolicyPreservedState{}
-	p.Disks = make(map[string]*computepb.ComputeInstanceGroupManagerStatefulPolicyPreservedStateDisks)
+	mDisks := make(map[string]*computepb.ComputeInstanceGroupManagerStatefulPolicyPreservedStateDisks, len(o.Disks))
 	for k, r := range o.Disks {
-		p.Disks[k] = ComputeInstanceGroupManagerStatefulPolicyPreservedStateDisksToProto(&r)
+		mDisks[k] = ComputeInstanceGroupManagerStatefulPolicyPreservedStateDisksToProto(&r)
 	}
+	p.SetDisks(mDisks)
 	return p
 }
 
-// InstanceGroupManagerStatefulPolicyPreservedStateDisksToProto converts a InstanceGroupManagerStatefulPolicyPreservedStateDisks resource to its proto representation.
+// InstanceGroupManagerStatefulPolicyPreservedStateDisksToProto converts a InstanceGroupManagerStatefulPolicyPreservedStateDisks object to its proto representation.
 func ComputeInstanceGroupManagerStatefulPolicyPreservedStateDisksToProto(o *compute.InstanceGroupManagerStatefulPolicyPreservedStateDisks) *computepb.ComputeInstanceGroupManagerStatefulPolicyPreservedStateDisks {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeInstanceGroupManagerStatefulPolicyPreservedStateDisks{
-		AutoDelete: ComputeInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumToProto(o.AutoDelete),
-	}
+	p := &computepb.ComputeInstanceGroupManagerStatefulPolicyPreservedStateDisks{}
+	p.SetAutoDelete(ComputeInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumToProto(o.AutoDelete))
 	return p
 }
 
 // InstanceGroupManagerToProto converts a InstanceGroupManager resource to its proto representation.
 func InstanceGroupManagerToProto(resource *compute.InstanceGroupManager) *computepb.ComputeInstanceGroupManager {
-	p := &computepb.ComputeInstanceGroupManager{
-		Id:                 dcl.ValueOrEmptyInt64(resource.Id),
-		CreationTimestamp:  dcl.ValueOrEmptyString(resource.CreationTimestamp),
-		Name:               dcl.ValueOrEmptyString(resource.Name),
-		Description:        dcl.ValueOrEmptyString(resource.Description),
-		Zone:               dcl.ValueOrEmptyString(resource.Zone),
-		Region:             dcl.ValueOrEmptyString(resource.Region),
-		DistributionPolicy: ComputeInstanceGroupManagerDistributionPolicyToProto(resource.DistributionPolicy),
-		InstanceTemplate:   dcl.ValueOrEmptyString(resource.InstanceTemplate),
-		InstanceGroup:      dcl.ValueOrEmptyString(resource.InstanceGroup),
-		BaseInstanceName:   dcl.ValueOrEmptyString(resource.BaseInstanceName),
-		Fingerprint:        dcl.ValueOrEmptyString(resource.Fingerprint),
-		CurrentActions:     ComputeInstanceGroupManagerCurrentActionsToProto(resource.CurrentActions),
-		Status:             ComputeInstanceGroupManagerStatusToProto(resource.Status),
-		TargetSize:         dcl.ValueOrEmptyInt64(resource.TargetSize),
-		SelfLink:           dcl.ValueOrEmptyString(resource.SelfLink),
-		UpdatePolicy:       ComputeInstanceGroupManagerUpdatePolicyToProto(resource.UpdatePolicy),
-		StatefulPolicy:     ComputeInstanceGroupManagerStatefulPolicyToProto(resource.StatefulPolicy),
-		Project:            dcl.ValueOrEmptyString(resource.Project),
-		Location:           dcl.ValueOrEmptyString(resource.Location),
+	p := &computepb.ComputeInstanceGroupManager{}
+	p.SetId(dcl.ValueOrEmptyInt64(resource.Id))
+	p.SetCreationTimestamp(dcl.ValueOrEmptyString(resource.CreationTimestamp))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetZone(dcl.ValueOrEmptyString(resource.Zone))
+	p.SetRegion(dcl.ValueOrEmptyString(resource.Region))
+	p.SetDistributionPolicy(ComputeInstanceGroupManagerDistributionPolicyToProto(resource.DistributionPolicy))
+	p.SetInstanceTemplate(dcl.ValueOrEmptyString(resource.InstanceTemplate))
+	p.SetInstanceGroup(dcl.ValueOrEmptyString(resource.InstanceGroup))
+	p.SetBaseInstanceName(dcl.ValueOrEmptyString(resource.BaseInstanceName))
+	p.SetFingerprint(dcl.ValueOrEmptyString(resource.Fingerprint))
+	p.SetCurrentActions(ComputeInstanceGroupManagerCurrentActionsToProto(resource.CurrentActions))
+	p.SetStatus(ComputeInstanceGroupManagerStatusToProto(resource.Status))
+	p.SetTargetSize(dcl.ValueOrEmptyInt64(resource.TargetSize))
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
+	p.SetUpdatePolicy(ComputeInstanceGroupManagerUpdatePolicyToProto(resource.UpdatePolicy))
+	p.SetStatefulPolicy(ComputeInstanceGroupManagerStatefulPolicyToProto(resource.StatefulPolicy))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	sVersions := make([]*computepb.ComputeInstanceGroupManagerVersions, len(resource.Versions))
+	for i, r := range resource.Versions {
+		sVersions[i] = ComputeInstanceGroupManagerVersionsToProto(&r)
 	}
-	for _, r := range resource.Versions {
-		p.Versions = append(p.Versions, ComputeInstanceGroupManagerVersionsToProto(&r))
+	p.SetVersions(sVersions)
+	sTargetPools := make([]string, len(resource.TargetPools))
+	for i, r := range resource.TargetPools {
+		sTargetPools[i] = r
 	}
-	for _, r := range resource.TargetPools {
-		p.TargetPools = append(p.TargetPools, r)
+	p.SetTargetPools(sTargetPools)
+	sAutoHealingPolicies := make([]*computepb.ComputeInstanceGroupManagerAutoHealingPolicies, len(resource.AutoHealingPolicies))
+	for i, r := range resource.AutoHealingPolicies {
+		sAutoHealingPolicies[i] = ComputeInstanceGroupManagerAutoHealingPoliciesToProto(&r)
 	}
-	for _, r := range resource.AutoHealingPolicies {
-		p.AutoHealingPolicies = append(p.AutoHealingPolicies, ComputeInstanceGroupManagerAutoHealingPoliciesToProto(&r))
+	p.SetAutoHealingPolicies(sAutoHealingPolicies)
+	sNamedPorts := make([]*computepb.ComputeInstanceGroupManagerNamedPorts, len(resource.NamedPorts))
+	for i, r := range resource.NamedPorts {
+		sNamedPorts[i] = ComputeInstanceGroupManagerNamedPortsToProto(&r)
 	}
-	for _, r := range resource.NamedPorts {
-		p.NamedPorts = append(p.NamedPorts, ComputeInstanceGroupManagerNamedPortsToProto(&r))
-	}
+	p.SetNamedPorts(sNamedPorts)
 
 	return p
 }
 
-// ApplyInstanceGroupManager handles the gRPC request by passing it to the underlying InstanceGroupManager Apply() method.
+// applyInstanceGroupManager handles the gRPC request by passing it to the underlying InstanceGroupManager Apply() method.
 func (s *InstanceGroupManagerServer) applyInstanceGroupManager(ctx context.Context, c *compute.Client, request *computepb.ApplyComputeInstanceGroupManagerRequest) (*computepb.ComputeInstanceGroupManager, error) {
 	p := ProtoToInstanceGroupManager(request.GetResource())
 	res, err := c.ApplyInstanceGroupManager(ctx, p)
@@ -633,9 +629,9 @@ func (s *InstanceGroupManagerServer) applyInstanceGroupManager(ctx context.Conte
 	return r, nil
 }
 
-// ApplyInstanceGroupManager handles the gRPC request by passing it to the underlying InstanceGroupManager Apply() method.
+// applyComputeInstanceGroupManager handles the gRPC request by passing it to the underlying InstanceGroupManager Apply() method.
 func (s *InstanceGroupManagerServer) ApplyComputeInstanceGroupManager(ctx context.Context, request *computepb.ApplyComputeInstanceGroupManagerRequest) (*computepb.ComputeInstanceGroupManager, error) {
-	cl, err := createConfigInstanceGroupManager(ctx, request.ServiceAccountFile)
+	cl, err := createConfigInstanceGroupManager(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -645,7 +641,7 @@ func (s *InstanceGroupManagerServer) ApplyComputeInstanceGroupManager(ctx contex
 // DeleteInstanceGroupManager handles the gRPC request by passing it to the underlying InstanceGroupManager Delete() method.
 func (s *InstanceGroupManagerServer) DeleteComputeInstanceGroupManager(ctx context.Context, request *computepb.DeleteComputeInstanceGroupManagerRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigInstanceGroupManager(ctx, request.ServiceAccountFile)
+	cl, err := createConfigInstanceGroupManager(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -655,12 +651,12 @@ func (s *InstanceGroupManagerServer) DeleteComputeInstanceGroupManager(ctx conte
 
 // ListComputeInstanceGroupManager handles the gRPC request by passing it to the underlying InstanceGroupManagerList() method.
 func (s *InstanceGroupManagerServer) ListComputeInstanceGroupManager(ctx context.Context, request *computepb.ListComputeInstanceGroupManagerRequest) (*computepb.ListComputeInstanceGroupManagerResponse, error) {
-	cl, err := createConfigInstanceGroupManager(ctx, request.ServiceAccountFile)
+	cl, err := createConfigInstanceGroupManager(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListInstanceGroupManager(ctx, request.Project, request.Location)
+	resources, err := cl.ListInstanceGroupManager(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -669,7 +665,9 @@ func (s *InstanceGroupManagerServer) ListComputeInstanceGroupManager(ctx context
 		rp := InstanceGroupManagerToProto(r)
 		protos = append(protos, rp)
 	}
-	return &computepb.ListComputeInstanceGroupManagerResponse{Items: protos}, nil
+	p := &computepb.ListComputeInstanceGroupManagerResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigInstanceGroupManager(ctx context.Context, service_account_file string) (*compute.Client, error) {

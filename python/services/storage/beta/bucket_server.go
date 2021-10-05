@@ -61,13 +61,13 @@ func ProtoToStorageBetaBucketStorageClassEnum(e betapb.StorageBetaBucketStorageC
 	return nil
 }
 
-// ProtoToBucketCors converts a BucketCors resource from its proto representation.
+// ProtoToBucketCors converts a BucketCors object from its proto representation.
 func ProtoToStorageBetaBucketCors(p *betapb.StorageBetaBucketCors) *beta.BucketCors {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.BucketCors{
-		MaxAgeSeconds: dcl.Int64OrNil(p.MaxAgeSeconds),
+		MaxAgeSeconds: dcl.Int64OrNil(p.GetMaxAgeSeconds()),
 	}
 	for _, r := range p.GetMethod() {
 		obj.Method = append(obj.Method, r)
@@ -81,7 +81,7 @@ func ProtoToStorageBetaBucketCors(p *betapb.StorageBetaBucketCors) *beta.BucketC
 	return obj
 }
 
-// ProtoToBucketLifecycle converts a BucketLifecycle resource from its proto representation.
+// ProtoToBucketLifecycle converts a BucketLifecycle object from its proto representation.
 func ProtoToStorageBetaBucketLifecycle(p *betapb.StorageBetaBucketLifecycle) *beta.BucketLifecycle {
 	if p == nil {
 		return nil
@@ -93,7 +93,7 @@ func ProtoToStorageBetaBucketLifecycle(p *betapb.StorageBetaBucketLifecycle) *be
 	return obj
 }
 
-// ProtoToBucketLifecycleRule converts a BucketLifecycleRule resource from its proto representation.
+// ProtoToBucketLifecycleRule converts a BucketLifecycleRule object from its proto representation.
 func ProtoToStorageBetaBucketLifecycleRule(p *betapb.StorageBetaBucketLifecycleRule) *beta.BucketLifecycleRule {
 	if p == nil {
 		return nil
@@ -105,28 +105,28 @@ func ProtoToStorageBetaBucketLifecycleRule(p *betapb.StorageBetaBucketLifecycleR
 	return obj
 }
 
-// ProtoToBucketLifecycleRuleAction converts a BucketLifecycleRuleAction resource from its proto representation.
+// ProtoToBucketLifecycleRuleAction converts a BucketLifecycleRuleAction object from its proto representation.
 func ProtoToStorageBetaBucketLifecycleRuleAction(p *betapb.StorageBetaBucketLifecycleRuleAction) *beta.BucketLifecycleRuleAction {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.BucketLifecycleRuleAction{
-		StorageClass: dcl.StringOrNil(p.StorageClass),
+		StorageClass: dcl.StringOrNil(p.GetStorageClass()),
 		Type:         ProtoToStorageBetaBucketLifecycleRuleActionTypeEnum(p.GetType()),
 	}
 	return obj
 }
 
-// ProtoToBucketLifecycleRuleCondition converts a BucketLifecycleRuleCondition resource from its proto representation.
+// ProtoToBucketLifecycleRuleCondition converts a BucketLifecycleRuleCondition object from its proto representation.
 func ProtoToStorageBetaBucketLifecycleRuleCondition(p *betapb.StorageBetaBucketLifecycleRuleCondition) *beta.BucketLifecycleRuleCondition {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.BucketLifecycleRuleCondition{
-		Age:              dcl.Int64OrNil(p.Age),
+		Age:              dcl.Int64OrNil(p.GetAge()),
 		CreatedBefore:    dcl.StringOrNil(p.GetCreatedBefore()),
 		WithState:        ProtoToStorageBetaBucketLifecycleRuleConditionWithStateEnum(p.GetWithState()),
-		NumNewerVersions: dcl.Int64OrNil(p.NumNewerVersions),
+		NumNewerVersions: dcl.Int64OrNil(p.GetNumNewerVersions()),
 	}
 	for _, r := range p.GetMatchesStorageClass() {
 		obj.MatchesStorageClass = append(obj.MatchesStorageClass, r)
@@ -134,37 +134,37 @@ func ProtoToStorageBetaBucketLifecycleRuleCondition(p *betapb.StorageBetaBucketL
 	return obj
 }
 
-// ProtoToBucketLogging converts a BucketLogging resource from its proto representation.
+// ProtoToBucketLogging converts a BucketLogging object from its proto representation.
 func ProtoToStorageBetaBucketLogging(p *betapb.StorageBetaBucketLogging) *beta.BucketLogging {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.BucketLogging{
-		LogBucket:       dcl.StringOrNil(p.LogBucket),
-		LogObjectPrefix: dcl.StringOrNil(p.LogObjectPrefix),
+		LogBucket:       dcl.StringOrNil(p.GetLogBucket()),
+		LogObjectPrefix: dcl.StringOrNil(p.GetLogObjectPrefix()),
 	}
 	return obj
 }
 
-// ProtoToBucketVersioning converts a BucketVersioning resource from its proto representation.
+// ProtoToBucketVersioning converts a BucketVersioning object from its proto representation.
 func ProtoToStorageBetaBucketVersioning(p *betapb.StorageBetaBucketVersioning) *beta.BucketVersioning {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.BucketVersioning{
-		Enabled: dcl.Bool(p.Enabled),
+		Enabled: dcl.Bool(p.GetEnabled()),
 	}
 	return obj
 }
 
-// ProtoToBucketWebsite converts a BucketWebsite resource from its proto representation.
+// ProtoToBucketWebsite converts a BucketWebsite object from its proto representation.
 func ProtoToStorageBetaBucketWebsite(p *betapb.StorageBetaBucketWebsite) *beta.BucketWebsite {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.BucketWebsite{
-		MainPageSuffix: dcl.StringOrNil(p.MainPageSuffix),
-		NotFoundPage:   dcl.StringOrNil(p.NotFoundPage),
+		MainPageSuffix: dcl.StringOrNil(p.GetMainPageSuffix()),
+		NotFoundPage:   dcl.StringOrNil(p.GetNotFoundPage()),
 	}
 	return obj
 }
@@ -172,9 +172,9 @@ func ProtoToStorageBetaBucketWebsite(p *betapb.StorageBetaBucketWebsite) *beta.B
 // ProtoToBucket converts a Bucket resource from its proto representation.
 func ProtoToBucket(p *betapb.StorageBetaBucket) *beta.Bucket {
 	obj := &beta.Bucket{
-		Project:      dcl.StringOrNil(p.Project),
-		Location:     dcl.StringOrNil(p.Location),
-		Name:         dcl.StringOrNil(p.Name),
+		Project:      dcl.StringOrNil(p.GetProject()),
+		Location:     dcl.StringOrNil(p.GetLocation()),
+		Name:         dcl.StringOrNil(p.GetName()),
 		Lifecycle:    ProtoToStorageBetaBucketLifecycle(p.GetLifecycle()),
 		Logging:      ProtoToStorageBetaBucketLogging(p.GetLogging()),
 		StorageClass: ProtoToStorageBetaBucketStorageClassEnum(p.GetStorageClass()),
@@ -220,134 +220,138 @@ func StorageBetaBucketStorageClassEnumToProto(e *beta.BucketStorageClassEnum) be
 	return betapb.StorageBetaBucketStorageClassEnum(0)
 }
 
-// BucketCorsToProto converts a BucketCors resource to its proto representation.
+// BucketCorsToProto converts a BucketCors object to its proto representation.
 func StorageBetaBucketCorsToProto(o *beta.BucketCors) *betapb.StorageBetaBucketCors {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.StorageBetaBucketCors{
-		MaxAgeSeconds: dcl.ValueOrEmptyInt64(o.MaxAgeSeconds),
+	p := &betapb.StorageBetaBucketCors{}
+	p.SetMaxAgeSeconds(dcl.ValueOrEmptyInt64(o.MaxAgeSeconds))
+	sMethod := make([]string, len(o.Method))
+	for i, r := range o.Method {
+		sMethod[i] = r
 	}
-	for _, r := range o.Method {
-		p.Method = append(p.Method, r)
+	p.SetMethod(sMethod)
+	sOrigin := make([]string, len(o.Origin))
+	for i, r := range o.Origin {
+		sOrigin[i] = r
 	}
-	for _, r := range o.Origin {
-		p.Origin = append(p.Origin, r)
+	p.SetOrigin(sOrigin)
+	sResponseHeader := make([]string, len(o.ResponseHeader))
+	for i, r := range o.ResponseHeader {
+		sResponseHeader[i] = r
 	}
-	for _, r := range o.ResponseHeader {
-		p.ResponseHeader = append(p.ResponseHeader, r)
-	}
+	p.SetResponseHeader(sResponseHeader)
 	return p
 }
 
-// BucketLifecycleToProto converts a BucketLifecycle resource to its proto representation.
+// BucketLifecycleToProto converts a BucketLifecycle object to its proto representation.
 func StorageBetaBucketLifecycleToProto(o *beta.BucketLifecycle) *betapb.StorageBetaBucketLifecycle {
 	if o == nil {
 		return nil
 	}
 	p := &betapb.StorageBetaBucketLifecycle{}
-	for _, r := range o.Rule {
-		p.Rule = append(p.Rule, StorageBetaBucketLifecycleRuleToProto(&r))
+	sRule := make([]*betapb.StorageBetaBucketLifecycleRule, len(o.Rule))
+	for i, r := range o.Rule {
+		sRule[i] = StorageBetaBucketLifecycleRuleToProto(&r)
 	}
+	p.SetRule(sRule)
 	return p
 }
 
-// BucketLifecycleRuleToProto converts a BucketLifecycleRule resource to its proto representation.
+// BucketLifecycleRuleToProto converts a BucketLifecycleRule object to its proto representation.
 func StorageBetaBucketLifecycleRuleToProto(o *beta.BucketLifecycleRule) *betapb.StorageBetaBucketLifecycleRule {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.StorageBetaBucketLifecycleRule{
-		Action:    StorageBetaBucketLifecycleRuleActionToProto(o.Action),
-		Condition: StorageBetaBucketLifecycleRuleConditionToProto(o.Condition),
-	}
+	p := &betapb.StorageBetaBucketLifecycleRule{}
+	p.SetAction(StorageBetaBucketLifecycleRuleActionToProto(o.Action))
+	p.SetCondition(StorageBetaBucketLifecycleRuleConditionToProto(o.Condition))
 	return p
 }
 
-// BucketLifecycleRuleActionToProto converts a BucketLifecycleRuleAction resource to its proto representation.
+// BucketLifecycleRuleActionToProto converts a BucketLifecycleRuleAction object to its proto representation.
 func StorageBetaBucketLifecycleRuleActionToProto(o *beta.BucketLifecycleRuleAction) *betapb.StorageBetaBucketLifecycleRuleAction {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.StorageBetaBucketLifecycleRuleAction{
-		StorageClass: dcl.ValueOrEmptyString(o.StorageClass),
-		Type:         StorageBetaBucketLifecycleRuleActionTypeEnumToProto(o.Type),
-	}
+	p := &betapb.StorageBetaBucketLifecycleRuleAction{}
+	p.SetStorageClass(dcl.ValueOrEmptyString(o.StorageClass))
+	p.SetType(StorageBetaBucketLifecycleRuleActionTypeEnumToProto(o.Type))
 	return p
 }
 
-// BucketLifecycleRuleConditionToProto converts a BucketLifecycleRuleCondition resource to its proto representation.
+// BucketLifecycleRuleConditionToProto converts a BucketLifecycleRuleCondition object to its proto representation.
 func StorageBetaBucketLifecycleRuleConditionToProto(o *beta.BucketLifecycleRuleCondition) *betapb.StorageBetaBucketLifecycleRuleCondition {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.StorageBetaBucketLifecycleRuleCondition{
-		Age:              dcl.ValueOrEmptyInt64(o.Age),
-		CreatedBefore:    dcl.ValueOrEmptyString(o.CreatedBefore),
-		WithState:        StorageBetaBucketLifecycleRuleConditionWithStateEnumToProto(o.WithState),
-		NumNewerVersions: dcl.ValueOrEmptyInt64(o.NumNewerVersions),
+	p := &betapb.StorageBetaBucketLifecycleRuleCondition{}
+	p.SetAge(dcl.ValueOrEmptyInt64(o.Age))
+	p.SetCreatedBefore(dcl.ValueOrEmptyString(o.CreatedBefore))
+	p.SetWithState(StorageBetaBucketLifecycleRuleConditionWithStateEnumToProto(o.WithState))
+	p.SetNumNewerVersions(dcl.ValueOrEmptyInt64(o.NumNewerVersions))
+	sMatchesStorageClass := make([]string, len(o.MatchesStorageClass))
+	for i, r := range o.MatchesStorageClass {
+		sMatchesStorageClass[i] = r
 	}
-	for _, r := range o.MatchesStorageClass {
-		p.MatchesStorageClass = append(p.MatchesStorageClass, r)
-	}
+	p.SetMatchesStorageClass(sMatchesStorageClass)
 	return p
 }
 
-// BucketLoggingToProto converts a BucketLogging resource to its proto representation.
+// BucketLoggingToProto converts a BucketLogging object to its proto representation.
 func StorageBetaBucketLoggingToProto(o *beta.BucketLogging) *betapb.StorageBetaBucketLogging {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.StorageBetaBucketLogging{
-		LogBucket:       dcl.ValueOrEmptyString(o.LogBucket),
-		LogObjectPrefix: dcl.ValueOrEmptyString(o.LogObjectPrefix),
-	}
+	p := &betapb.StorageBetaBucketLogging{}
+	p.SetLogBucket(dcl.ValueOrEmptyString(o.LogBucket))
+	p.SetLogObjectPrefix(dcl.ValueOrEmptyString(o.LogObjectPrefix))
 	return p
 }
 
-// BucketVersioningToProto converts a BucketVersioning resource to its proto representation.
+// BucketVersioningToProto converts a BucketVersioning object to its proto representation.
 func StorageBetaBucketVersioningToProto(o *beta.BucketVersioning) *betapb.StorageBetaBucketVersioning {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.StorageBetaBucketVersioning{
-		Enabled: dcl.ValueOrEmptyBool(o.Enabled),
-	}
+	p := &betapb.StorageBetaBucketVersioning{}
+	p.SetEnabled(dcl.ValueOrEmptyBool(o.Enabled))
 	return p
 }
 
-// BucketWebsiteToProto converts a BucketWebsite resource to its proto representation.
+// BucketWebsiteToProto converts a BucketWebsite object to its proto representation.
 func StorageBetaBucketWebsiteToProto(o *beta.BucketWebsite) *betapb.StorageBetaBucketWebsite {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.StorageBetaBucketWebsite{
-		MainPageSuffix: dcl.ValueOrEmptyString(o.MainPageSuffix),
-		NotFoundPage:   dcl.ValueOrEmptyString(o.NotFoundPage),
-	}
+	p := &betapb.StorageBetaBucketWebsite{}
+	p.SetMainPageSuffix(dcl.ValueOrEmptyString(o.MainPageSuffix))
+	p.SetNotFoundPage(dcl.ValueOrEmptyString(o.NotFoundPage))
 	return p
 }
 
 // BucketToProto converts a Bucket resource to its proto representation.
 func BucketToProto(resource *beta.Bucket) *betapb.StorageBetaBucket {
-	p := &betapb.StorageBetaBucket{
-		Project:      dcl.ValueOrEmptyString(resource.Project),
-		Location:     dcl.ValueOrEmptyString(resource.Location),
-		Name:         dcl.ValueOrEmptyString(resource.Name),
-		Lifecycle:    StorageBetaBucketLifecycleToProto(resource.Lifecycle),
-		Logging:      StorageBetaBucketLoggingToProto(resource.Logging),
-		StorageClass: StorageBetaBucketStorageClassEnumToProto(resource.StorageClass),
-		Versioning:   StorageBetaBucketVersioningToProto(resource.Versioning),
-		Website:      StorageBetaBucketWebsiteToProto(resource.Website),
+	p := &betapb.StorageBetaBucket{}
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetLifecycle(StorageBetaBucketLifecycleToProto(resource.Lifecycle))
+	p.SetLogging(StorageBetaBucketLoggingToProto(resource.Logging))
+	p.SetStorageClass(StorageBetaBucketStorageClassEnumToProto(resource.StorageClass))
+	p.SetVersioning(StorageBetaBucketVersioningToProto(resource.Versioning))
+	p.SetWebsite(StorageBetaBucketWebsiteToProto(resource.Website))
+	sCors := make([]*betapb.StorageBetaBucketCors, len(resource.Cors))
+	for i, r := range resource.Cors {
+		sCors[i] = StorageBetaBucketCorsToProto(&r)
 	}
-	for _, r := range resource.Cors {
-		p.Cors = append(p.Cors, StorageBetaBucketCorsToProto(&r))
-	}
+	p.SetCors(sCors)
 
 	return p
 }
 
-// ApplyBucket handles the gRPC request by passing it to the underlying Bucket Apply() method.
+// applyBucket handles the gRPC request by passing it to the underlying Bucket Apply() method.
 func (s *BucketServer) applyBucket(ctx context.Context, c *beta.Client, request *betapb.ApplyStorageBetaBucketRequest) (*betapb.StorageBetaBucket, error) {
 	p := ProtoToBucket(request.GetResource())
 	res, err := c.ApplyBucket(ctx, p)
@@ -358,9 +362,9 @@ func (s *BucketServer) applyBucket(ctx context.Context, c *beta.Client, request 
 	return r, nil
 }
 
-// ApplyBucket handles the gRPC request by passing it to the underlying Bucket Apply() method.
+// applyStorageBetaBucket handles the gRPC request by passing it to the underlying Bucket Apply() method.
 func (s *BucketServer) ApplyStorageBetaBucket(ctx context.Context, request *betapb.ApplyStorageBetaBucketRequest) (*betapb.StorageBetaBucket, error) {
-	cl, err := createConfigBucket(ctx, request.ServiceAccountFile)
+	cl, err := createConfigBucket(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -370,7 +374,7 @@ func (s *BucketServer) ApplyStorageBetaBucket(ctx context.Context, request *beta
 // DeleteBucket handles the gRPC request by passing it to the underlying Bucket Delete() method.
 func (s *BucketServer) DeleteStorageBetaBucket(ctx context.Context, request *betapb.DeleteStorageBetaBucketRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigBucket(ctx, request.ServiceAccountFile)
+	cl, err := createConfigBucket(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -380,12 +384,12 @@ func (s *BucketServer) DeleteStorageBetaBucket(ctx context.Context, request *bet
 
 // ListStorageBetaBucket handles the gRPC request by passing it to the underlying BucketList() method.
 func (s *BucketServer) ListStorageBetaBucket(ctx context.Context, request *betapb.ListStorageBetaBucketRequest) (*betapb.ListStorageBetaBucketResponse, error) {
-	cl, err := createConfigBucket(ctx, request.ServiceAccountFile)
+	cl, err := createConfigBucket(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListBucket(ctx, request.Project)
+	resources, err := cl.ListBucket(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -394,7 +398,9 @@ func (s *BucketServer) ListStorageBetaBucket(ctx context.Context, request *betap
 		rp := BucketToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListStorageBetaBucketResponse{Items: protos}, nil
+	p := &betapb.ListStorageBetaBucketResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigBucket(ctx context.Context, service_account_file string) (*beta.Client, error) {

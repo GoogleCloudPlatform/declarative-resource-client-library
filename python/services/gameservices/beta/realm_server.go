@@ -28,31 +28,35 @@ type RealmServer struct{}
 // ProtoToRealm converts a Realm resource from its proto representation.
 func ProtoToRealm(p *betapb.GameservicesBetaRealm) *beta.Realm {
 	obj := &beta.Realm{
-		Name:        dcl.StringOrNil(p.Name),
+		Name:        dcl.StringOrNil(p.GetName()),
 		CreateTime:  dcl.StringOrNil(p.GetCreateTime()),
-		TimeZone:    dcl.StringOrNil(p.TimeZone),
-		Description: dcl.StringOrNil(p.Description),
-		Location:    dcl.StringOrNil(p.Location),
-		Project:     dcl.StringOrNil(p.Project),
+		TimeZone:    dcl.StringOrNil(p.GetTimeZone()),
+		Description: dcl.StringOrNil(p.GetDescription()),
+		Location:    dcl.StringOrNil(p.GetLocation()),
+		Project:     dcl.StringOrNil(p.GetProject()),
 	}
 	return obj
 }
 
 // RealmToProto converts a Realm resource to its proto representation.
 func RealmToProto(resource *beta.Realm) *betapb.GameservicesBetaRealm {
-	p := &betapb.GameservicesBetaRealm{
-		Name:        dcl.ValueOrEmptyString(resource.Name),
-		CreateTime:  dcl.ValueOrEmptyString(resource.CreateTime),
-		TimeZone:    dcl.ValueOrEmptyString(resource.TimeZone),
-		Description: dcl.ValueOrEmptyString(resource.Description),
-		Location:    dcl.ValueOrEmptyString(resource.Location),
-		Project:     dcl.ValueOrEmptyString(resource.Project),
+	p := &betapb.GameservicesBetaRealm{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetTimeZone(dcl.ValueOrEmptyString(resource.TimeZone))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
+	p.SetLabels(mLabels)
 
 	return p
 }
 
-// ApplyRealm handles the gRPC request by passing it to the underlying Realm Apply() method.
+// applyRealm handles the gRPC request by passing it to the underlying Realm Apply() method.
 func (s *RealmServer) applyRealm(ctx context.Context, c *beta.Client, request *betapb.ApplyGameservicesBetaRealmRequest) (*betapb.GameservicesBetaRealm, error) {
 	p := ProtoToRealm(request.GetResource())
 	res, err := c.ApplyRealm(ctx, p)
@@ -63,9 +67,9 @@ func (s *RealmServer) applyRealm(ctx context.Context, c *beta.Client, request *b
 	return r, nil
 }
 
-// ApplyRealm handles the gRPC request by passing it to the underlying Realm Apply() method.
+// applyGameservicesBetaRealm handles the gRPC request by passing it to the underlying Realm Apply() method.
 func (s *RealmServer) ApplyGameservicesBetaRealm(ctx context.Context, request *betapb.ApplyGameservicesBetaRealmRequest) (*betapb.GameservicesBetaRealm, error) {
-	cl, err := createConfigRealm(ctx, request.ServiceAccountFile)
+	cl, err := createConfigRealm(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +79,7 @@ func (s *RealmServer) ApplyGameservicesBetaRealm(ctx context.Context, request *b
 // DeleteRealm handles the gRPC request by passing it to the underlying Realm Delete() method.
 func (s *RealmServer) DeleteGameservicesBetaRealm(ctx context.Context, request *betapb.DeleteGameservicesBetaRealmRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigRealm(ctx, request.ServiceAccountFile)
+	cl, err := createConfigRealm(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -85,12 +89,12 @@ func (s *RealmServer) DeleteGameservicesBetaRealm(ctx context.Context, request *
 
 // ListGameservicesBetaRealm handles the gRPC request by passing it to the underlying RealmList() method.
 func (s *RealmServer) ListGameservicesBetaRealm(ctx context.Context, request *betapb.ListGameservicesBetaRealmRequest) (*betapb.ListGameservicesBetaRealmResponse, error) {
-	cl, err := createConfigRealm(ctx, request.ServiceAccountFile)
+	cl, err := createConfigRealm(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListRealm(ctx, request.Project, request.Location)
+	resources, err := cl.ListRealm(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -99,7 +103,9 @@ func (s *RealmServer) ListGameservicesBetaRealm(ctx context.Context, request *be
 		rp := RealmToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListGameservicesBetaRealmResponse{Items: protos}, nil
+	p := &betapb.ListGameservicesBetaRealmResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigRealm(ctx context.Context, service_account_file string) (*beta.Client, error) {

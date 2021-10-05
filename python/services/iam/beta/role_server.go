@@ -37,14 +37,14 @@ func ProtoToIamBetaRoleStageEnum(e betapb.IamBetaRoleStageEnum) *beta.RoleStageE
 	return nil
 }
 
-// ProtoToRoleLocalizedValues converts a RoleLocalizedValues resource from its proto representation.
+// ProtoToRoleLocalizedValues converts a RoleLocalizedValues object from its proto representation.
 func ProtoToIamBetaRoleLocalizedValues(p *betapb.IamBetaRoleLocalizedValues) *beta.RoleLocalizedValues {
 	if p == nil {
 		return nil
 	}
 	obj := &beta.RoleLocalizedValues{
-		LocalizedTitle:       dcl.StringOrNil(p.LocalizedTitle),
-		LocalizedDescription: dcl.StringOrNil(p.LocalizedDescription),
+		LocalizedTitle:       dcl.StringOrNil(p.GetLocalizedTitle()),
+		LocalizedDescription: dcl.StringOrNil(p.GetLocalizedDescription()),
 	}
 	return obj
 }
@@ -52,17 +52,17 @@ func ProtoToIamBetaRoleLocalizedValues(p *betapb.IamBetaRoleLocalizedValues) *be
 // ProtoToRole converts a Role resource from its proto representation.
 func ProtoToRole(p *betapb.IamBetaRole) *beta.Role {
 	obj := &beta.Role{
-		Name:            dcl.StringOrNil(p.Name),
-		Title:           dcl.StringOrNil(p.Title),
-		Description:     dcl.StringOrNil(p.Description),
+		Name:            dcl.StringOrNil(p.GetName()),
+		Title:           dcl.StringOrNil(p.GetTitle()),
+		Description:     dcl.StringOrNil(p.GetDescription()),
 		LocalizedValues: ProtoToIamBetaRoleLocalizedValues(p.GetLocalizedValues()),
-		LifecyclePhase:  dcl.StringOrNil(p.LifecyclePhase),
-		GroupName:       dcl.StringOrNil(p.GroupName),
-		GroupTitle:      dcl.StringOrNil(p.GroupTitle),
+		LifecyclePhase:  dcl.StringOrNil(p.GetLifecyclePhase()),
+		GroupName:       dcl.StringOrNil(p.GetGroupName()),
+		GroupTitle:      dcl.StringOrNil(p.GetGroupTitle()),
 		Stage:           ProtoToIamBetaRoleStageEnum(p.GetStage()),
-		Etag:            dcl.StringOrNil(p.Etag),
-		Deleted:         dcl.Bool(p.Deleted),
-		Parent:          dcl.StringOrNil(p.Parent),
+		Etag:            dcl.StringOrNil(p.GetEtag()),
+		Deleted:         dcl.Bool(p.GetDeleted()),
+		Parent:          dcl.StringOrNil(p.GetParent()),
 	}
 	for _, r := range p.GetIncludedPermissions() {
 		obj.IncludedPermissions = append(obj.IncludedPermissions, r)
@@ -84,44 +84,46 @@ func IamBetaRoleStageEnumToProto(e *beta.RoleStageEnum) betapb.IamBetaRoleStageE
 	return betapb.IamBetaRoleStageEnum(0)
 }
 
-// RoleLocalizedValuesToProto converts a RoleLocalizedValues resource to its proto representation.
+// RoleLocalizedValuesToProto converts a RoleLocalizedValues object to its proto representation.
 func IamBetaRoleLocalizedValuesToProto(o *beta.RoleLocalizedValues) *betapb.IamBetaRoleLocalizedValues {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.IamBetaRoleLocalizedValues{
-		LocalizedTitle:       dcl.ValueOrEmptyString(o.LocalizedTitle),
-		LocalizedDescription: dcl.ValueOrEmptyString(o.LocalizedDescription),
-	}
+	p := &betapb.IamBetaRoleLocalizedValues{}
+	p.SetLocalizedTitle(dcl.ValueOrEmptyString(o.LocalizedTitle))
+	p.SetLocalizedDescription(dcl.ValueOrEmptyString(o.LocalizedDescription))
 	return p
 }
 
 // RoleToProto converts a Role resource to its proto representation.
 func RoleToProto(resource *beta.Role) *betapb.IamBetaRole {
-	p := &betapb.IamBetaRole{
-		Name:            dcl.ValueOrEmptyString(resource.Name),
-		Title:           dcl.ValueOrEmptyString(resource.Title),
-		Description:     dcl.ValueOrEmptyString(resource.Description),
-		LocalizedValues: IamBetaRoleLocalizedValuesToProto(resource.LocalizedValues),
-		LifecyclePhase:  dcl.ValueOrEmptyString(resource.LifecyclePhase),
-		GroupName:       dcl.ValueOrEmptyString(resource.GroupName),
-		GroupTitle:      dcl.ValueOrEmptyString(resource.GroupTitle),
-		Stage:           IamBetaRoleStageEnumToProto(resource.Stage),
-		Etag:            dcl.ValueOrEmptyString(resource.Etag),
-		Deleted:         dcl.ValueOrEmptyBool(resource.Deleted),
-		Parent:          dcl.ValueOrEmptyString(resource.Parent),
+	p := &betapb.IamBetaRole{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetTitle(dcl.ValueOrEmptyString(resource.Title))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetLocalizedValues(IamBetaRoleLocalizedValuesToProto(resource.LocalizedValues))
+	p.SetLifecyclePhase(dcl.ValueOrEmptyString(resource.LifecyclePhase))
+	p.SetGroupName(dcl.ValueOrEmptyString(resource.GroupName))
+	p.SetGroupTitle(dcl.ValueOrEmptyString(resource.GroupTitle))
+	p.SetStage(IamBetaRoleStageEnumToProto(resource.Stage))
+	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
+	p.SetDeleted(dcl.ValueOrEmptyBool(resource.Deleted))
+	p.SetParent(dcl.ValueOrEmptyString(resource.Parent))
+	sIncludedPermissions := make([]string, len(resource.IncludedPermissions))
+	for i, r := range resource.IncludedPermissions {
+		sIncludedPermissions[i] = r
 	}
-	for _, r := range resource.IncludedPermissions {
-		p.IncludedPermissions = append(p.IncludedPermissions, r)
+	p.SetIncludedPermissions(sIncludedPermissions)
+	sIncludedRoles := make([]string, len(resource.IncludedRoles))
+	for i, r := range resource.IncludedRoles {
+		sIncludedRoles[i] = r
 	}
-	for _, r := range resource.IncludedRoles {
-		p.IncludedRoles = append(p.IncludedRoles, r)
-	}
+	p.SetIncludedRoles(sIncludedRoles)
 
 	return p
 }
 
-// ApplyRole handles the gRPC request by passing it to the underlying Role Apply() method.
+// applyRole handles the gRPC request by passing it to the underlying Role Apply() method.
 func (s *RoleServer) applyRole(ctx context.Context, c *beta.Client, request *betapb.ApplyIamBetaRoleRequest) (*betapb.IamBetaRole, error) {
 	p := ProtoToRole(request.GetResource())
 	res, err := c.ApplyRole(ctx, p)
@@ -132,9 +134,9 @@ func (s *RoleServer) applyRole(ctx context.Context, c *beta.Client, request *bet
 	return r, nil
 }
 
-// ApplyRole handles the gRPC request by passing it to the underlying Role Apply() method.
+// applyIamBetaRole handles the gRPC request by passing it to the underlying Role Apply() method.
 func (s *RoleServer) ApplyIamBetaRole(ctx context.Context, request *betapb.ApplyIamBetaRoleRequest) (*betapb.IamBetaRole, error) {
-	cl, err := createConfigRole(ctx, request.ServiceAccountFile)
+	cl, err := createConfigRole(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -144,7 +146,7 @@ func (s *RoleServer) ApplyIamBetaRole(ctx context.Context, request *betapb.Apply
 // DeleteRole handles the gRPC request by passing it to the underlying Role Delete() method.
 func (s *RoleServer) DeleteIamBetaRole(ctx context.Context, request *betapb.DeleteIamBetaRoleRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigRole(ctx, request.ServiceAccountFile)
+	cl, err := createConfigRole(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -154,12 +156,12 @@ func (s *RoleServer) DeleteIamBetaRole(ctx context.Context, request *betapb.Dele
 
 // ListIamBetaRole handles the gRPC request by passing it to the underlying RoleList() method.
 func (s *RoleServer) ListIamBetaRole(ctx context.Context, request *betapb.ListIamBetaRoleRequest) (*betapb.ListIamBetaRoleResponse, error) {
-	cl, err := createConfigRole(ctx, request.ServiceAccountFile)
+	cl, err := createConfigRole(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListRole(ctx, request.Parent)
+	resources, err := cl.ListRole(ctx, request.GetParent())
 	if err != nil {
 		return nil, err
 	}
@@ -168,7 +170,9 @@ func (s *RoleServer) ListIamBetaRole(ctx context.Context, request *betapb.ListIa
 		rp := RoleToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListIamBetaRoleResponse{Items: protos}, nil
+	p := &betapb.ListIamBetaRoleResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigRole(ctx context.Context, service_account_file string) (*beta.Client, error) {

@@ -61,15 +61,15 @@ func ProtoToContainerawsAlphaNodePoolStateEnum(e alphapb.ContainerawsAlphaNodePo
 	return nil
 }
 
-// ProtoToNodePoolConfig converts a NodePoolConfig resource from its proto representation.
+// ProtoToNodePoolConfig converts a NodePoolConfig object from its proto representation.
 func ProtoToContainerawsAlphaNodePoolConfig(p *alphapb.ContainerawsAlphaNodePoolConfig) *alpha.NodePoolConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.NodePoolConfig{
-		InstanceType:       dcl.StringOrNil(p.InstanceType),
+		InstanceType:       dcl.StringOrNil(p.GetInstanceType()),
 		RootVolume:         ProtoToContainerawsAlphaNodePoolConfigRootVolume(p.GetRootVolume()),
-		IamInstanceProfile: dcl.StringOrNil(p.IamInstanceProfile),
+		IamInstanceProfile: dcl.StringOrNil(p.GetIamInstanceProfile()),
 		SshConfig:          ProtoToContainerawsAlphaNodePoolConfigSshConfig(p.GetSshConfig()),
 	}
 	for _, r := range p.GetTaints() {
@@ -81,63 +81,63 @@ func ProtoToContainerawsAlphaNodePoolConfig(p *alphapb.ContainerawsAlphaNodePool
 	return obj
 }
 
-// ProtoToNodePoolConfigRootVolume converts a NodePoolConfigRootVolume resource from its proto representation.
+// ProtoToNodePoolConfigRootVolume converts a NodePoolConfigRootVolume object from its proto representation.
 func ProtoToContainerawsAlphaNodePoolConfigRootVolume(p *alphapb.ContainerawsAlphaNodePoolConfigRootVolume) *alpha.NodePoolConfigRootVolume {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.NodePoolConfigRootVolume{
-		SizeGib:    dcl.Int64OrNil(p.SizeGib),
+		SizeGib:    dcl.Int64OrNil(p.GetSizeGib()),
 		VolumeType: ProtoToContainerawsAlphaNodePoolConfigRootVolumeVolumeTypeEnum(p.GetVolumeType()),
-		Iops:       dcl.Int64OrNil(p.Iops),
-		KmsKeyArn:  dcl.StringOrNil(p.KmsKeyArn),
+		Iops:       dcl.Int64OrNil(p.GetIops()),
+		KmsKeyArn:  dcl.StringOrNil(p.GetKmsKeyArn()),
 	}
 	return obj
 }
 
-// ProtoToNodePoolConfigTaints converts a NodePoolConfigTaints resource from its proto representation.
+// ProtoToNodePoolConfigTaints converts a NodePoolConfigTaints object from its proto representation.
 func ProtoToContainerawsAlphaNodePoolConfigTaints(p *alphapb.ContainerawsAlphaNodePoolConfigTaints) *alpha.NodePoolConfigTaints {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.NodePoolConfigTaints{
-		Key:    dcl.StringOrNil(p.Key),
-		Value:  dcl.StringOrNil(p.Value),
+		Key:    dcl.StringOrNil(p.GetKey()),
+		Value:  dcl.StringOrNil(p.GetValue()),
 		Effect: ProtoToContainerawsAlphaNodePoolConfigTaintsEffectEnum(p.GetEffect()),
 	}
 	return obj
 }
 
-// ProtoToNodePoolConfigSshConfig converts a NodePoolConfigSshConfig resource from its proto representation.
+// ProtoToNodePoolConfigSshConfig converts a NodePoolConfigSshConfig object from its proto representation.
 func ProtoToContainerawsAlphaNodePoolConfigSshConfig(p *alphapb.ContainerawsAlphaNodePoolConfigSshConfig) *alpha.NodePoolConfigSshConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.NodePoolConfigSshConfig{
-		Ec2KeyPair: dcl.StringOrNil(p.Ec2KeyPair),
+		Ec2KeyPair: dcl.StringOrNil(p.GetEc2KeyPair()),
 	}
 	return obj
 }
 
-// ProtoToNodePoolAutoscaling converts a NodePoolAutoscaling resource from its proto representation.
+// ProtoToNodePoolAutoscaling converts a NodePoolAutoscaling object from its proto representation.
 func ProtoToContainerawsAlphaNodePoolAutoscaling(p *alphapb.ContainerawsAlphaNodePoolAutoscaling) *alpha.NodePoolAutoscaling {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.NodePoolAutoscaling{
-		MinNodeCount: dcl.Int64OrNil(p.MinNodeCount),
-		MaxNodeCount: dcl.Int64OrNil(p.MaxNodeCount),
+		MinNodeCount: dcl.Int64OrNil(p.GetMinNodeCount()),
+		MaxNodeCount: dcl.Int64OrNil(p.GetMaxNodeCount()),
 	}
 	return obj
 }
 
-// ProtoToNodePoolMaxPodsConstraint converts a NodePoolMaxPodsConstraint resource from its proto representation.
+// ProtoToNodePoolMaxPodsConstraint converts a NodePoolMaxPodsConstraint object from its proto representation.
 func ProtoToContainerawsAlphaNodePoolMaxPodsConstraint(p *alphapb.ContainerawsAlphaNodePoolMaxPodsConstraint) *alpha.NodePoolMaxPodsConstraint {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.NodePoolMaxPodsConstraint{
-		MaxPodsPerNode: dcl.Int64OrNil(p.MaxPodsPerNode),
+		MaxPodsPerNode: dcl.Int64OrNil(p.GetMaxPodsPerNode()),
 	}
 	return obj
 }
@@ -145,21 +145,21 @@ func ProtoToContainerawsAlphaNodePoolMaxPodsConstraint(p *alphapb.ContainerawsAl
 // ProtoToNodePool converts a NodePool resource from its proto representation.
 func ProtoToNodePool(p *alphapb.ContainerawsAlphaNodePool) *alpha.NodePool {
 	obj := &alpha.NodePool{
-		Name:              dcl.StringOrNil(p.Name),
-		Version:           dcl.StringOrNil(p.Version),
+		Name:              dcl.StringOrNil(p.GetName()),
+		Version:           dcl.StringOrNil(p.GetVersion()),
 		Config:            ProtoToContainerawsAlphaNodePoolConfig(p.GetConfig()),
 		Autoscaling:       ProtoToContainerawsAlphaNodePoolAutoscaling(p.GetAutoscaling()),
-		SubnetId:          dcl.StringOrNil(p.SubnetId),
+		SubnetId:          dcl.StringOrNil(p.GetSubnetId()),
 		State:             ProtoToContainerawsAlphaNodePoolStateEnum(p.GetState()),
-		Uid:               dcl.StringOrNil(p.Uid),
-		Reconciling:       dcl.Bool(p.Reconciling),
+		Uid:               dcl.StringOrNil(p.GetUid()),
+		Reconciling:       dcl.Bool(p.GetReconciling()),
 		CreateTime:        dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:        dcl.StringOrNil(p.GetUpdateTime()),
-		Etag:              dcl.StringOrNil(p.Etag),
+		Etag:              dcl.StringOrNil(p.GetEtag()),
 		MaxPodsConstraint: ProtoToContainerawsAlphaNodePoolMaxPodsConstraint(p.GetMaxPodsConstraint()),
-		Project:           dcl.StringOrNil(p.Project),
-		Location:          dcl.StringOrNil(p.Location),
-		Cluster:           dcl.StringOrNil(p.Cluster),
+		Project:           dcl.StringOrNil(p.GetProject()),
+		Location:          dcl.StringOrNil(p.GetLocation()),
+		Cluster:           dcl.StringOrNil(p.GetCluster()),
 	}
 	return obj
 }
@@ -197,119 +197,123 @@ func ContainerawsAlphaNodePoolStateEnumToProto(e *alpha.NodePoolStateEnum) alpha
 	return alphapb.ContainerawsAlphaNodePoolStateEnum(0)
 }
 
-// NodePoolConfigToProto converts a NodePoolConfig resource to its proto representation.
+// NodePoolConfigToProto converts a NodePoolConfig object to its proto representation.
 func ContainerawsAlphaNodePoolConfigToProto(o *alpha.NodePoolConfig) *alphapb.ContainerawsAlphaNodePoolConfig {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerawsAlphaNodePoolConfig{
-		InstanceType:       dcl.ValueOrEmptyString(o.InstanceType),
-		RootVolume:         ContainerawsAlphaNodePoolConfigRootVolumeToProto(o.RootVolume),
-		IamInstanceProfile: dcl.ValueOrEmptyString(o.IamInstanceProfile),
-		SshConfig:          ContainerawsAlphaNodePoolConfigSshConfigToProto(o.SshConfig),
+	p := &alphapb.ContainerawsAlphaNodePoolConfig{}
+	p.SetInstanceType(dcl.ValueOrEmptyString(o.InstanceType))
+	p.SetRootVolume(ContainerawsAlphaNodePoolConfigRootVolumeToProto(o.RootVolume))
+	p.SetIamInstanceProfile(dcl.ValueOrEmptyString(o.IamInstanceProfile))
+	p.SetSshConfig(ContainerawsAlphaNodePoolConfigSshConfigToProto(o.SshConfig))
+	sTaints := make([]*alphapb.ContainerawsAlphaNodePoolConfigTaints, len(o.Taints))
+	for i, r := range o.Taints {
+		sTaints[i] = ContainerawsAlphaNodePoolConfigTaintsToProto(&r)
 	}
-	for _, r := range o.Taints {
-		p.Taints = append(p.Taints, ContainerawsAlphaNodePoolConfigTaintsToProto(&r))
-	}
-	p.Labels = make(map[string]string)
+	p.SetTaints(sTaints)
+	mLabels := make(map[string]string, len(o.Labels))
 	for k, r := range o.Labels {
-		p.Labels[k] = r
+		mLabels[k] = r
 	}
-	p.Tags = make(map[string]string)
+	p.SetLabels(mLabels)
+	mTags := make(map[string]string, len(o.Tags))
 	for k, r := range o.Tags {
-		p.Tags[k] = r
+		mTags[k] = r
 	}
-	for _, r := range o.SecurityGroupIds {
-		p.SecurityGroupIds = append(p.SecurityGroupIds, r)
+	p.SetTags(mTags)
+	sSecurityGroupIds := make([]string, len(o.SecurityGroupIds))
+	for i, r := range o.SecurityGroupIds {
+		sSecurityGroupIds[i] = r
 	}
+	p.SetSecurityGroupIds(sSecurityGroupIds)
 	return p
 }
 
-// NodePoolConfigRootVolumeToProto converts a NodePoolConfigRootVolume resource to its proto representation.
+// NodePoolConfigRootVolumeToProto converts a NodePoolConfigRootVolume object to its proto representation.
 func ContainerawsAlphaNodePoolConfigRootVolumeToProto(o *alpha.NodePoolConfigRootVolume) *alphapb.ContainerawsAlphaNodePoolConfigRootVolume {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerawsAlphaNodePoolConfigRootVolume{
-		SizeGib:    dcl.ValueOrEmptyInt64(o.SizeGib),
-		VolumeType: ContainerawsAlphaNodePoolConfigRootVolumeVolumeTypeEnumToProto(o.VolumeType),
-		Iops:       dcl.ValueOrEmptyInt64(o.Iops),
-		KmsKeyArn:  dcl.ValueOrEmptyString(o.KmsKeyArn),
-	}
+	p := &alphapb.ContainerawsAlphaNodePoolConfigRootVolume{}
+	p.SetSizeGib(dcl.ValueOrEmptyInt64(o.SizeGib))
+	p.SetVolumeType(ContainerawsAlphaNodePoolConfigRootVolumeVolumeTypeEnumToProto(o.VolumeType))
+	p.SetIops(dcl.ValueOrEmptyInt64(o.Iops))
+	p.SetKmsKeyArn(dcl.ValueOrEmptyString(o.KmsKeyArn))
 	return p
 }
 
-// NodePoolConfigTaintsToProto converts a NodePoolConfigTaints resource to its proto representation.
+// NodePoolConfigTaintsToProto converts a NodePoolConfigTaints object to its proto representation.
 func ContainerawsAlphaNodePoolConfigTaintsToProto(o *alpha.NodePoolConfigTaints) *alphapb.ContainerawsAlphaNodePoolConfigTaints {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerawsAlphaNodePoolConfigTaints{
-		Key:    dcl.ValueOrEmptyString(o.Key),
-		Value:  dcl.ValueOrEmptyString(o.Value),
-		Effect: ContainerawsAlphaNodePoolConfigTaintsEffectEnumToProto(o.Effect),
-	}
+	p := &alphapb.ContainerawsAlphaNodePoolConfigTaints{}
+	p.SetKey(dcl.ValueOrEmptyString(o.Key))
+	p.SetValue(dcl.ValueOrEmptyString(o.Value))
+	p.SetEffect(ContainerawsAlphaNodePoolConfigTaintsEffectEnumToProto(o.Effect))
 	return p
 }
 
-// NodePoolConfigSshConfigToProto converts a NodePoolConfigSshConfig resource to its proto representation.
+// NodePoolConfigSshConfigToProto converts a NodePoolConfigSshConfig object to its proto representation.
 func ContainerawsAlphaNodePoolConfigSshConfigToProto(o *alpha.NodePoolConfigSshConfig) *alphapb.ContainerawsAlphaNodePoolConfigSshConfig {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerawsAlphaNodePoolConfigSshConfig{
-		Ec2KeyPair: dcl.ValueOrEmptyString(o.Ec2KeyPair),
-	}
+	p := &alphapb.ContainerawsAlphaNodePoolConfigSshConfig{}
+	p.SetEc2KeyPair(dcl.ValueOrEmptyString(o.Ec2KeyPair))
 	return p
 }
 
-// NodePoolAutoscalingToProto converts a NodePoolAutoscaling resource to its proto representation.
+// NodePoolAutoscalingToProto converts a NodePoolAutoscaling object to its proto representation.
 func ContainerawsAlphaNodePoolAutoscalingToProto(o *alpha.NodePoolAutoscaling) *alphapb.ContainerawsAlphaNodePoolAutoscaling {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerawsAlphaNodePoolAutoscaling{
-		MinNodeCount: dcl.ValueOrEmptyInt64(o.MinNodeCount),
-		MaxNodeCount: dcl.ValueOrEmptyInt64(o.MaxNodeCount),
-	}
+	p := &alphapb.ContainerawsAlphaNodePoolAutoscaling{}
+	p.SetMinNodeCount(dcl.ValueOrEmptyInt64(o.MinNodeCount))
+	p.SetMaxNodeCount(dcl.ValueOrEmptyInt64(o.MaxNodeCount))
 	return p
 }
 
-// NodePoolMaxPodsConstraintToProto converts a NodePoolMaxPodsConstraint resource to its proto representation.
+// NodePoolMaxPodsConstraintToProto converts a NodePoolMaxPodsConstraint object to its proto representation.
 func ContainerawsAlphaNodePoolMaxPodsConstraintToProto(o *alpha.NodePoolMaxPodsConstraint) *alphapb.ContainerawsAlphaNodePoolMaxPodsConstraint {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerawsAlphaNodePoolMaxPodsConstraint{
-		MaxPodsPerNode: dcl.ValueOrEmptyInt64(o.MaxPodsPerNode),
-	}
+	p := &alphapb.ContainerawsAlphaNodePoolMaxPodsConstraint{}
+	p.SetMaxPodsPerNode(dcl.ValueOrEmptyInt64(o.MaxPodsPerNode))
 	return p
 }
 
 // NodePoolToProto converts a NodePool resource to its proto representation.
 func NodePoolToProto(resource *alpha.NodePool) *alphapb.ContainerawsAlphaNodePool {
-	p := &alphapb.ContainerawsAlphaNodePool{
-		Name:              dcl.ValueOrEmptyString(resource.Name),
-		Version:           dcl.ValueOrEmptyString(resource.Version),
-		Config:            ContainerawsAlphaNodePoolConfigToProto(resource.Config),
-		Autoscaling:       ContainerawsAlphaNodePoolAutoscalingToProto(resource.Autoscaling),
-		SubnetId:          dcl.ValueOrEmptyString(resource.SubnetId),
-		State:             ContainerawsAlphaNodePoolStateEnumToProto(resource.State),
-		Uid:               dcl.ValueOrEmptyString(resource.Uid),
-		Reconciling:       dcl.ValueOrEmptyBool(resource.Reconciling),
-		CreateTime:        dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:        dcl.ValueOrEmptyString(resource.UpdateTime),
-		Etag:              dcl.ValueOrEmptyString(resource.Etag),
-		MaxPodsConstraint: ContainerawsAlphaNodePoolMaxPodsConstraintToProto(resource.MaxPodsConstraint),
-		Project:           dcl.ValueOrEmptyString(resource.Project),
-		Location:          dcl.ValueOrEmptyString(resource.Location),
-		Cluster:           dcl.ValueOrEmptyString(resource.Cluster),
+	p := &alphapb.ContainerawsAlphaNodePool{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetVersion(dcl.ValueOrEmptyString(resource.Version))
+	p.SetConfig(ContainerawsAlphaNodePoolConfigToProto(resource.Config))
+	p.SetAutoscaling(ContainerawsAlphaNodePoolAutoscalingToProto(resource.Autoscaling))
+	p.SetSubnetId(dcl.ValueOrEmptyString(resource.SubnetId))
+	p.SetState(ContainerawsAlphaNodePoolStateEnumToProto(resource.State))
+	p.SetUid(dcl.ValueOrEmptyString(resource.Uid))
+	p.SetReconciling(dcl.ValueOrEmptyBool(resource.Reconciling))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
+	p.SetMaxPodsConstraint(ContainerawsAlphaNodePoolMaxPodsConstraintToProto(resource.MaxPodsConstraint))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetCluster(dcl.ValueOrEmptyString(resource.Cluster))
+	mAnnotations := make(map[string]string, len(resource.Annotations))
+	for k, r := range resource.Annotations {
+		mAnnotations[k] = r
 	}
+	p.SetAnnotations(mAnnotations)
 
 	return p
 }
 
-// ApplyNodePool handles the gRPC request by passing it to the underlying NodePool Apply() method.
+// applyNodePool handles the gRPC request by passing it to the underlying NodePool Apply() method.
 func (s *NodePoolServer) applyNodePool(ctx context.Context, c *alpha.Client, request *alphapb.ApplyContainerawsAlphaNodePoolRequest) (*alphapb.ContainerawsAlphaNodePool, error) {
 	p := ProtoToNodePool(request.GetResource())
 	res, err := c.ApplyNodePool(ctx, p)
@@ -320,9 +324,9 @@ func (s *NodePoolServer) applyNodePool(ctx context.Context, c *alpha.Client, req
 	return r, nil
 }
 
-// ApplyNodePool handles the gRPC request by passing it to the underlying NodePool Apply() method.
+// applyContainerawsAlphaNodePool handles the gRPC request by passing it to the underlying NodePool Apply() method.
 func (s *NodePoolServer) ApplyContainerawsAlphaNodePool(ctx context.Context, request *alphapb.ApplyContainerawsAlphaNodePoolRequest) (*alphapb.ContainerawsAlphaNodePool, error) {
-	cl, err := createConfigNodePool(ctx, request.ServiceAccountFile)
+	cl, err := createConfigNodePool(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -332,7 +336,7 @@ func (s *NodePoolServer) ApplyContainerawsAlphaNodePool(ctx context.Context, req
 // DeleteNodePool handles the gRPC request by passing it to the underlying NodePool Delete() method.
 func (s *NodePoolServer) DeleteContainerawsAlphaNodePool(ctx context.Context, request *alphapb.DeleteContainerawsAlphaNodePoolRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigNodePool(ctx, request.ServiceAccountFile)
+	cl, err := createConfigNodePool(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -342,12 +346,12 @@ func (s *NodePoolServer) DeleteContainerawsAlphaNodePool(ctx context.Context, re
 
 // ListContainerawsAlphaNodePool handles the gRPC request by passing it to the underlying NodePoolList() method.
 func (s *NodePoolServer) ListContainerawsAlphaNodePool(ctx context.Context, request *alphapb.ListContainerawsAlphaNodePoolRequest) (*alphapb.ListContainerawsAlphaNodePoolResponse, error) {
-	cl, err := createConfigNodePool(ctx, request.ServiceAccountFile)
+	cl, err := createConfigNodePool(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListNodePool(ctx, request.Project, request.Location, request.Cluster)
+	resources, err := cl.ListNodePool(ctx, request.GetProject(), request.GetLocation(), request.GetCluster())
 	if err != nil {
 		return nil, err
 	}
@@ -356,7 +360,9 @@ func (s *NodePoolServer) ListContainerawsAlphaNodePool(ctx context.Context, requ
 		rp := NodePoolToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListContainerawsAlphaNodePoolResponse{Items: protos}, nil
+	p := &alphapb.ListContainerawsAlphaNodePoolResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigNodePool(ctx context.Context, service_account_file string) (*alpha.Client, error) {

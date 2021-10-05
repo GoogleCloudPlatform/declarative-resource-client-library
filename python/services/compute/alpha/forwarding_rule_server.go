@@ -85,7 +85,7 @@ func ProtoToComputeAlphaForwardingRuleNetworkTierEnum(e alphapb.ComputeAlphaForw
 	return nil
 }
 
-// ProtoToForwardingRuleMetadataFilter converts a ForwardingRuleMetadataFilter resource from its proto representation.
+// ProtoToForwardingRuleMetadataFilter converts a ForwardingRuleMetadataFilter object from its proto representation.
 func ProtoToComputeAlphaForwardingRuleMetadataFilter(p *alphapb.ComputeAlphaForwardingRuleMetadataFilter) *alpha.ForwardingRuleMetadataFilter {
 	if p == nil {
 		return nil
@@ -99,14 +99,14 @@ func ProtoToComputeAlphaForwardingRuleMetadataFilter(p *alphapb.ComputeAlphaForw
 	return obj
 }
 
-// ProtoToForwardingRuleMetadataFilterFilterLabel converts a ForwardingRuleMetadataFilterFilterLabel resource from its proto representation.
+// ProtoToForwardingRuleMetadataFilterFilterLabel converts a ForwardingRuleMetadataFilterFilterLabel object from its proto representation.
 func ProtoToComputeAlphaForwardingRuleMetadataFilterFilterLabel(p *alphapb.ComputeAlphaForwardingRuleMetadataFilterFilterLabel) *alpha.ForwardingRuleMetadataFilterFilterLabel {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ForwardingRuleMetadataFilterFilterLabel{
-		Name:  dcl.StringOrNil(p.Name),
-		Value: dcl.StringOrNil(p.Value),
+		Name:  dcl.StringOrNil(p.GetName()),
+		Value: dcl.StringOrNil(p.GetValue()),
 	}
 	return obj
 }
@@ -114,29 +114,29 @@ func ProtoToComputeAlphaForwardingRuleMetadataFilterFilterLabel(p *alphapb.Compu
 // ProtoToForwardingRule converts a ForwardingRule resource from its proto representation.
 func ProtoToForwardingRule(p *alphapb.ComputeAlphaForwardingRule) *alpha.ForwardingRule {
 	obj := &alpha.ForwardingRule{
-		AllPorts:             dcl.Bool(p.AllPorts),
-		AllowGlobalAccess:    dcl.Bool(p.AllowGlobalAccess),
-		LabelFingerprint:     dcl.StringOrNil(p.LabelFingerprint),
-		BackendService:       dcl.StringOrNil(p.BackendService),
-		CreationTimestamp:    dcl.StringOrNil(p.CreationTimestamp),
-		Description:          dcl.StringOrNil(p.Description),
-		IPAddress:            dcl.StringOrNil(p.IpAddress),
+		AllPorts:             dcl.Bool(p.GetAllPorts()),
+		AllowGlobalAccess:    dcl.Bool(p.GetAllowGlobalAccess()),
+		LabelFingerprint:     dcl.StringOrNil(p.GetLabelFingerprint()),
+		BackendService:       dcl.StringOrNil(p.GetBackendService()),
+		CreationTimestamp:    dcl.StringOrNil(p.GetCreationTimestamp()),
+		Description:          dcl.StringOrNil(p.GetDescription()),
+		IPAddress:            dcl.StringOrNil(p.GetIpAddress()),
 		IPProtocol:           ProtoToComputeAlphaForwardingRuleIPProtocolEnum(p.GetIpProtocol()),
 		IPVersion:            ProtoToComputeAlphaForwardingRuleIPVersionEnum(p.GetIpVersion()),
-		IsMirroringCollector: dcl.Bool(p.IsMirroringCollector),
+		IsMirroringCollector: dcl.Bool(p.GetIsMirroringCollector()),
 		LoadBalancingScheme:  ProtoToComputeAlphaForwardingRuleLoadBalancingSchemeEnum(p.GetLoadBalancingScheme()),
-		Name:                 dcl.StringOrNil(p.Name),
-		Network:              dcl.StringOrNil(p.Network),
+		Name:                 dcl.StringOrNil(p.GetName()),
+		Network:              dcl.StringOrNil(p.GetNetwork()),
 		NetworkTier:          ProtoToComputeAlphaForwardingRuleNetworkTierEnum(p.GetNetworkTier()),
-		PortRange:            dcl.StringOrNil(p.PortRange),
-		Region:               dcl.StringOrNil(p.Region),
-		SelfLink:             dcl.StringOrNil(p.SelfLink),
-		ServiceLabel:         dcl.StringOrNil(p.ServiceLabel),
-		ServiceName:          dcl.StringOrNil(p.ServiceName),
-		Subnetwork:           dcl.StringOrNil(p.Subnetwork),
-		Target:               dcl.StringOrNil(p.Target),
-		Project:              dcl.StringOrNil(p.Project),
-		Location:             dcl.StringOrNil(p.Location),
+		PortRange:            dcl.StringOrNil(p.GetPortRange()),
+		Region:               dcl.StringOrNil(p.GetRegion()),
+		SelfLink:             dcl.StringOrNil(p.GetSelfLink()),
+		ServiceLabel:         dcl.StringOrNil(p.GetServiceLabel()),
+		ServiceName:          dcl.StringOrNil(p.GetServiceName()),
+		Subnetwork:           dcl.StringOrNil(p.GetSubnetwork()),
+		Target:               dcl.StringOrNil(p.GetTarget()),
+		Project:              dcl.StringOrNil(p.GetProject()),
+		Location:             dcl.StringOrNil(p.GetLocation()),
 	}
 	for _, r := range p.GetMetadataFilter() {
 		obj.MetadataFilter = append(obj.MetadataFilter, *ProtoToComputeAlphaForwardingRuleMetadataFilter(r))
@@ -202,70 +202,78 @@ func ComputeAlphaForwardingRuleNetworkTierEnumToProto(e *alpha.ForwardingRuleNet
 	return alphapb.ComputeAlphaForwardingRuleNetworkTierEnum(0)
 }
 
-// ForwardingRuleMetadataFilterToProto converts a ForwardingRuleMetadataFilter resource to its proto representation.
+// ForwardingRuleMetadataFilterToProto converts a ForwardingRuleMetadataFilter object to its proto representation.
 func ComputeAlphaForwardingRuleMetadataFilterToProto(o *alpha.ForwardingRuleMetadataFilter) *alphapb.ComputeAlphaForwardingRuleMetadataFilter {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ComputeAlphaForwardingRuleMetadataFilter{
-		FilterMatchCriteria: ComputeAlphaForwardingRuleMetadataFilterFilterMatchCriteriaEnumToProto(o.FilterMatchCriteria),
+	p := &alphapb.ComputeAlphaForwardingRuleMetadataFilter{}
+	p.SetFilterMatchCriteria(ComputeAlphaForwardingRuleMetadataFilterFilterMatchCriteriaEnumToProto(o.FilterMatchCriteria))
+	sFilterLabel := make([]*alphapb.ComputeAlphaForwardingRuleMetadataFilterFilterLabel, len(o.FilterLabel))
+	for i, r := range o.FilterLabel {
+		sFilterLabel[i] = ComputeAlphaForwardingRuleMetadataFilterFilterLabelToProto(&r)
 	}
-	for _, r := range o.FilterLabel {
-		p.FilterLabel = append(p.FilterLabel, ComputeAlphaForwardingRuleMetadataFilterFilterLabelToProto(&r))
-	}
+	p.SetFilterLabel(sFilterLabel)
 	return p
 }
 
-// ForwardingRuleMetadataFilterFilterLabelToProto converts a ForwardingRuleMetadataFilterFilterLabel resource to its proto representation.
+// ForwardingRuleMetadataFilterFilterLabelToProto converts a ForwardingRuleMetadataFilterFilterLabel object to its proto representation.
 func ComputeAlphaForwardingRuleMetadataFilterFilterLabelToProto(o *alpha.ForwardingRuleMetadataFilterFilterLabel) *alphapb.ComputeAlphaForwardingRuleMetadataFilterFilterLabel {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ComputeAlphaForwardingRuleMetadataFilterFilterLabel{
-		Name:  dcl.ValueOrEmptyString(o.Name),
-		Value: dcl.ValueOrEmptyString(o.Value),
-	}
+	p := &alphapb.ComputeAlphaForwardingRuleMetadataFilterFilterLabel{}
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetValue(dcl.ValueOrEmptyString(o.Value))
 	return p
 }
 
 // ForwardingRuleToProto converts a ForwardingRule resource to its proto representation.
 func ForwardingRuleToProto(resource *alpha.ForwardingRule) *alphapb.ComputeAlphaForwardingRule {
-	p := &alphapb.ComputeAlphaForwardingRule{
-		AllPorts:             dcl.ValueOrEmptyBool(resource.AllPorts),
-		AllowGlobalAccess:    dcl.ValueOrEmptyBool(resource.AllowGlobalAccess),
-		LabelFingerprint:     dcl.ValueOrEmptyString(resource.LabelFingerprint),
-		BackendService:       dcl.ValueOrEmptyString(resource.BackendService),
-		CreationTimestamp:    dcl.ValueOrEmptyString(resource.CreationTimestamp),
-		Description:          dcl.ValueOrEmptyString(resource.Description),
-		IpAddress:            dcl.ValueOrEmptyString(resource.IPAddress),
-		IpProtocol:           ComputeAlphaForwardingRuleIPProtocolEnumToProto(resource.IPProtocol),
-		IpVersion:            ComputeAlphaForwardingRuleIPVersionEnumToProto(resource.IPVersion),
-		IsMirroringCollector: dcl.ValueOrEmptyBool(resource.IsMirroringCollector),
-		LoadBalancingScheme:  ComputeAlphaForwardingRuleLoadBalancingSchemeEnumToProto(resource.LoadBalancingScheme),
-		Name:                 dcl.ValueOrEmptyString(resource.Name),
-		Network:              dcl.ValueOrEmptyString(resource.Network),
-		NetworkTier:          ComputeAlphaForwardingRuleNetworkTierEnumToProto(resource.NetworkTier),
-		PortRange:            dcl.ValueOrEmptyString(resource.PortRange),
-		Region:               dcl.ValueOrEmptyString(resource.Region),
-		SelfLink:             dcl.ValueOrEmptyString(resource.SelfLink),
-		ServiceLabel:         dcl.ValueOrEmptyString(resource.ServiceLabel),
-		ServiceName:          dcl.ValueOrEmptyString(resource.ServiceName),
-		Subnetwork:           dcl.ValueOrEmptyString(resource.Subnetwork),
-		Target:               dcl.ValueOrEmptyString(resource.Target),
-		Project:              dcl.ValueOrEmptyString(resource.Project),
-		Location:             dcl.ValueOrEmptyString(resource.Location),
+	p := &alphapb.ComputeAlphaForwardingRule{}
+	p.SetAllPorts(dcl.ValueOrEmptyBool(resource.AllPorts))
+	p.SetAllowGlobalAccess(dcl.ValueOrEmptyBool(resource.AllowGlobalAccess))
+	p.SetLabelFingerprint(dcl.ValueOrEmptyString(resource.LabelFingerprint))
+	p.SetBackendService(dcl.ValueOrEmptyString(resource.BackendService))
+	p.SetCreationTimestamp(dcl.ValueOrEmptyString(resource.CreationTimestamp))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetIpAddress(dcl.ValueOrEmptyString(resource.IPAddress))
+	p.SetIpProtocol(ComputeAlphaForwardingRuleIPProtocolEnumToProto(resource.IPProtocol))
+	p.SetIpVersion(ComputeAlphaForwardingRuleIPVersionEnumToProto(resource.IPVersion))
+	p.SetIsMirroringCollector(dcl.ValueOrEmptyBool(resource.IsMirroringCollector))
+	p.SetLoadBalancingScheme(ComputeAlphaForwardingRuleLoadBalancingSchemeEnumToProto(resource.LoadBalancingScheme))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetNetwork(dcl.ValueOrEmptyString(resource.Network))
+	p.SetNetworkTier(ComputeAlphaForwardingRuleNetworkTierEnumToProto(resource.NetworkTier))
+	p.SetPortRange(dcl.ValueOrEmptyString(resource.PortRange))
+	p.SetRegion(dcl.ValueOrEmptyString(resource.Region))
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
+	p.SetServiceLabel(dcl.ValueOrEmptyString(resource.ServiceLabel))
+	p.SetServiceName(dcl.ValueOrEmptyString(resource.ServiceName))
+	p.SetSubnetwork(dcl.ValueOrEmptyString(resource.Subnetwork))
+	p.SetTarget(dcl.ValueOrEmptyString(resource.Target))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
-	for _, r := range resource.MetadataFilter {
-		p.MetadataFilter = append(p.MetadataFilter, ComputeAlphaForwardingRuleMetadataFilterToProto(&r))
+	p.SetLabels(mLabels)
+	sMetadataFilter := make([]*alphapb.ComputeAlphaForwardingRuleMetadataFilter, len(resource.MetadataFilter))
+	for i, r := range resource.MetadataFilter {
+		sMetadataFilter[i] = ComputeAlphaForwardingRuleMetadataFilterToProto(&r)
 	}
-	for _, r := range resource.Ports {
-		p.Ports = append(p.Ports, r)
+	p.SetMetadataFilter(sMetadataFilter)
+	sPorts := make([]string, len(resource.Ports))
+	for i, r := range resource.Ports {
+		sPorts[i] = r
 	}
+	p.SetPorts(sPorts)
 
 	return p
 }
 
-// ApplyForwardingRule handles the gRPC request by passing it to the underlying ForwardingRule Apply() method.
+// applyForwardingRule handles the gRPC request by passing it to the underlying ForwardingRule Apply() method.
 func (s *ForwardingRuleServer) applyForwardingRule(ctx context.Context, c *alpha.Client, request *alphapb.ApplyComputeAlphaForwardingRuleRequest) (*alphapb.ComputeAlphaForwardingRule, error) {
 	p := ProtoToForwardingRule(request.GetResource())
 	res, err := c.ApplyForwardingRule(ctx, p)
@@ -276,9 +284,9 @@ func (s *ForwardingRuleServer) applyForwardingRule(ctx context.Context, c *alpha
 	return r, nil
 }
 
-// ApplyForwardingRule handles the gRPC request by passing it to the underlying ForwardingRule Apply() method.
+// applyComputeAlphaForwardingRule handles the gRPC request by passing it to the underlying ForwardingRule Apply() method.
 func (s *ForwardingRuleServer) ApplyComputeAlphaForwardingRule(ctx context.Context, request *alphapb.ApplyComputeAlphaForwardingRuleRequest) (*alphapb.ComputeAlphaForwardingRule, error) {
-	cl, err := createConfigForwardingRule(ctx, request.ServiceAccountFile)
+	cl, err := createConfigForwardingRule(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -288,7 +296,7 @@ func (s *ForwardingRuleServer) ApplyComputeAlphaForwardingRule(ctx context.Conte
 // DeleteForwardingRule handles the gRPC request by passing it to the underlying ForwardingRule Delete() method.
 func (s *ForwardingRuleServer) DeleteComputeAlphaForwardingRule(ctx context.Context, request *alphapb.DeleteComputeAlphaForwardingRuleRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigForwardingRule(ctx, request.ServiceAccountFile)
+	cl, err := createConfigForwardingRule(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -298,12 +306,12 @@ func (s *ForwardingRuleServer) DeleteComputeAlphaForwardingRule(ctx context.Cont
 
 // ListComputeAlphaForwardingRule handles the gRPC request by passing it to the underlying ForwardingRuleList() method.
 func (s *ForwardingRuleServer) ListComputeAlphaForwardingRule(ctx context.Context, request *alphapb.ListComputeAlphaForwardingRuleRequest) (*alphapb.ListComputeAlphaForwardingRuleResponse, error) {
-	cl, err := createConfigForwardingRule(ctx, request.ServiceAccountFile)
+	cl, err := createConfigForwardingRule(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListForwardingRule(ctx, request.Project, request.Location)
+	resources, err := cl.ListForwardingRule(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -312,7 +320,9 @@ func (s *ForwardingRuleServer) ListComputeAlphaForwardingRule(ctx context.Contex
 		rp := ForwardingRuleToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListComputeAlphaForwardingRuleResponse{Items: protos}, nil
+	p := &alphapb.ListComputeAlphaForwardingRuleResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigForwardingRule(ctx context.Context, service_account_file string) (*alpha.Client, error) {

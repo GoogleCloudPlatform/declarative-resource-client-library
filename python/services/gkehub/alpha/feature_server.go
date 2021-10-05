@@ -61,19 +61,19 @@ func ProtoToGkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBaseLevelEn
 	return nil
 }
 
-// ProtoToFeatureResourceState converts a FeatureResourceState resource from its proto representation.
+// ProtoToFeatureResourceState converts a FeatureResourceState object from its proto representation.
 func ProtoToGkehubAlphaFeatureResourceState(p *alphapb.GkehubAlphaFeatureResourceState) *alpha.FeatureResourceState {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.FeatureResourceState{
 		State:        ProtoToGkehubAlphaFeatureResourceStateStateEnum(p.GetState()),
-		HasResources: dcl.Bool(p.HasResources),
+		HasResources: dcl.Bool(p.GetHasResources()),
 	}
 	return obj
 }
 
-// ProtoToFeatureSpec converts a FeatureSpec resource from its proto representation.
+// ProtoToFeatureSpec converts a FeatureSpec object from its proto representation.
 func ProtoToGkehubAlphaFeatureSpec(p *alphapb.GkehubAlphaFeatureSpec) *alpha.FeatureSpec {
 	if p == nil {
 		return nil
@@ -85,18 +85,18 @@ func ProtoToGkehubAlphaFeatureSpec(p *alphapb.GkehubAlphaFeatureSpec) *alpha.Fea
 	return obj
 }
 
-// ProtoToFeatureSpecMulticlusteringress converts a FeatureSpecMulticlusteringress resource from its proto representation.
+// ProtoToFeatureSpecMulticlusteringress converts a FeatureSpecMulticlusteringress object from its proto representation.
 func ProtoToGkehubAlphaFeatureSpecMulticlusteringress(p *alphapb.GkehubAlphaFeatureSpecMulticlusteringress) *alpha.FeatureSpecMulticlusteringress {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.FeatureSpecMulticlusteringress{
-		ConfigMembership: dcl.StringOrNil(p.ConfigMembership),
+		ConfigMembership: dcl.StringOrNil(p.GetConfigMembership()),
 	}
 	return obj
 }
 
-// ProtoToFeatureSpecCloudauditlogging converts a FeatureSpecCloudauditlogging resource from its proto representation.
+// ProtoToFeatureSpecCloudauditlogging converts a FeatureSpecCloudauditlogging object from its proto representation.
 func ProtoToGkehubAlphaFeatureSpecCloudauditlogging(p *alphapb.GkehubAlphaFeatureSpecCloudauditlogging) *alpha.FeatureSpecCloudauditlogging {
 	if p == nil {
 		return nil
@@ -108,7 +108,7 @@ func ProtoToGkehubAlphaFeatureSpecCloudauditlogging(p *alphapb.GkehubAlphaFeatur
 	return obj
 }
 
-// ProtoToFeatureState converts a FeatureState resource from its proto representation.
+// ProtoToFeatureState converts a FeatureState object from its proto representation.
 func ProtoToGkehubAlphaFeatureState(p *alphapb.GkehubAlphaFeatureState) *alpha.FeatureState {
 	if p == nil {
 		return nil
@@ -120,20 +120,20 @@ func ProtoToGkehubAlphaFeatureState(p *alphapb.GkehubAlphaFeatureState) *alpha.F
 	return obj
 }
 
-// ProtoToFeatureStateState converts a FeatureStateState resource from its proto representation.
+// ProtoToFeatureStateState converts a FeatureStateState object from its proto representation.
 func ProtoToGkehubAlphaFeatureStateState(p *alphapb.GkehubAlphaFeatureStateState) *alpha.FeatureStateState {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.FeatureStateState{
 		Code:        ProtoToGkehubAlphaFeatureStateStateCodeEnum(p.GetCode()),
-		Description: dcl.StringOrNil(p.Description),
-		UpdateTime:  dcl.StringOrNil(p.UpdateTime),
+		Description: dcl.StringOrNil(p.GetDescription()),
+		UpdateTime:  dcl.StringOrNil(p.GetUpdateTime()),
 	}
 	return obj
 }
 
-// ProtoToFeatureStateServicemesh converts a FeatureStateServicemesh resource from its proto representation.
+// ProtoToFeatureStateServicemesh converts a FeatureStateServicemesh object from its proto representation.
 func ProtoToGkehubAlphaFeatureStateServicemesh(p *alphapb.GkehubAlphaFeatureStateServicemesh) *alpha.FeatureStateServicemesh {
 	if p == nil {
 		return nil
@@ -145,14 +145,14 @@ func ProtoToGkehubAlphaFeatureStateServicemesh(p *alphapb.GkehubAlphaFeatureStat
 	return obj
 }
 
-// ProtoToFeatureStateServicemeshAnalysisMessages converts a FeatureStateServicemeshAnalysisMessages resource from its proto representation.
+// ProtoToFeatureStateServicemeshAnalysisMessages converts a FeatureStateServicemeshAnalysisMessages object from its proto representation.
 func ProtoToGkehubAlphaFeatureStateServicemeshAnalysisMessages(p *alphapb.GkehubAlphaFeatureStateServicemeshAnalysisMessages) *alpha.FeatureStateServicemeshAnalysisMessages {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.FeatureStateServicemeshAnalysisMessages{
 		MessageBase: ProtoToGkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBase(p.GetMessageBase()),
-		Description: dcl.StringOrNil(p.Description),
+		Description: dcl.StringOrNil(p.GetDescription()),
 	}
 	for _, r := range p.GetResourcePaths() {
 		obj.ResourcePaths = append(obj.ResourcePaths, r)
@@ -160,7 +160,7 @@ func ProtoToGkehubAlphaFeatureStateServicemeshAnalysisMessages(p *alphapb.Gkehub
 	return obj
 }
 
-// ProtoToFeatureStateServicemeshAnalysisMessagesMessageBase converts a FeatureStateServicemeshAnalysisMessagesMessageBase resource from its proto representation.
+// ProtoToFeatureStateServicemeshAnalysisMessagesMessageBase converts a FeatureStateServicemeshAnalysisMessagesMessageBase object from its proto representation.
 func ProtoToGkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBase(p *alphapb.GkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBase) *alpha.FeatureStateServicemeshAnalysisMessagesMessageBase {
 	if p == nil {
 		return nil
@@ -168,19 +168,19 @@ func ProtoToGkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBase(p *alp
 	obj := &alpha.FeatureStateServicemeshAnalysisMessagesMessageBase{
 		Type:             ProtoToGkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBaseType(p.GetType()),
 		Level:            ProtoToGkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnum(p.GetLevel()),
-		DocumentationUrl: dcl.StringOrNil(p.DocumentationUrl),
+		DocumentationUrl: dcl.StringOrNil(p.GetDocumentationUrl()),
 	}
 	return obj
 }
 
-// ProtoToFeatureStateServicemeshAnalysisMessagesMessageBaseType converts a FeatureStateServicemeshAnalysisMessagesMessageBaseType resource from its proto representation.
+// ProtoToFeatureStateServicemeshAnalysisMessagesMessageBaseType converts a FeatureStateServicemeshAnalysisMessagesMessageBaseType object from its proto representation.
 func ProtoToGkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBaseType(p *alphapb.GkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBaseType) *alpha.FeatureStateServicemeshAnalysisMessagesMessageBaseType {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.FeatureStateServicemeshAnalysisMessagesMessageBaseType{
-		DisplayName: dcl.StringOrNil(p.DisplayName),
-		Code:        dcl.StringOrNil(p.Code),
+		DisplayName: dcl.StringOrNil(p.GetDisplayName()),
+		Code:        dcl.StringOrNil(p.GetCode()),
 	}
 	return obj
 }
@@ -188,15 +188,15 @@ func ProtoToGkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBaseType(p 
 // ProtoToFeature converts a Feature resource from its proto representation.
 func ProtoToFeature(p *alphapb.GkehubAlphaFeature) *alpha.Feature {
 	obj := &alpha.Feature{
-		Name:          dcl.StringOrNil(p.Name),
+		Name:          dcl.StringOrNil(p.GetName()),
 		ResourceState: ProtoToGkehubAlphaFeatureResourceState(p.GetResourceState()),
 		Spec:          ProtoToGkehubAlphaFeatureSpec(p.GetSpec()),
 		State:         ProtoToGkehubAlphaFeatureState(p.GetState()),
 		CreateTime:    dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:    dcl.StringOrNil(p.GetUpdateTime()),
 		DeleteTime:    dcl.StringOrNil(p.GetDeleteTime()),
-		Project:       dcl.StringOrNil(p.Project),
-		Location:      dcl.StringOrNil(p.Location),
+		Project:       dcl.StringOrNil(p.GetProject()),
+		Location:      dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -234,152 +234,155 @@ func GkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnumToPro
 	return alphapb.GkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnum(0)
 }
 
-// FeatureResourceStateToProto converts a FeatureResourceState resource to its proto representation.
+// FeatureResourceStateToProto converts a FeatureResourceState object to its proto representation.
 func GkehubAlphaFeatureResourceStateToProto(o *alpha.FeatureResourceState) *alphapb.GkehubAlphaFeatureResourceState {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.GkehubAlphaFeatureResourceState{
-		State:        GkehubAlphaFeatureResourceStateStateEnumToProto(o.State),
-		HasResources: dcl.ValueOrEmptyBool(o.HasResources),
-	}
+	p := &alphapb.GkehubAlphaFeatureResourceState{}
+	p.SetState(GkehubAlphaFeatureResourceStateStateEnumToProto(o.State))
+	p.SetHasResources(dcl.ValueOrEmptyBool(o.HasResources))
 	return p
 }
 
-// FeatureSpecToProto converts a FeatureSpec resource to its proto representation.
+// FeatureSpecToProto converts a FeatureSpec object to its proto representation.
 func GkehubAlphaFeatureSpecToProto(o *alpha.FeatureSpec) *alphapb.GkehubAlphaFeatureSpec {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.GkehubAlphaFeatureSpec{
-		Multiclusteringress: GkehubAlphaFeatureSpecMulticlusteringressToProto(o.Multiclusteringress),
-		Cloudauditlogging:   GkehubAlphaFeatureSpecCloudauditloggingToProto(o.Cloudauditlogging),
-	}
+	p := &alphapb.GkehubAlphaFeatureSpec{}
+	p.SetMulticlusteringress(GkehubAlphaFeatureSpecMulticlusteringressToProto(o.Multiclusteringress))
+	p.SetCloudauditlogging(GkehubAlphaFeatureSpecCloudauditloggingToProto(o.Cloudauditlogging))
 	return p
 }
 
-// FeatureSpecMulticlusteringressToProto converts a FeatureSpecMulticlusteringress resource to its proto representation.
+// FeatureSpecMulticlusteringressToProto converts a FeatureSpecMulticlusteringress object to its proto representation.
 func GkehubAlphaFeatureSpecMulticlusteringressToProto(o *alpha.FeatureSpecMulticlusteringress) *alphapb.GkehubAlphaFeatureSpecMulticlusteringress {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.GkehubAlphaFeatureSpecMulticlusteringress{
-		ConfigMembership: dcl.ValueOrEmptyString(o.ConfigMembership),
-	}
+	p := &alphapb.GkehubAlphaFeatureSpecMulticlusteringress{}
+	p.SetConfigMembership(dcl.ValueOrEmptyString(o.ConfigMembership))
 	return p
 }
 
-// FeatureSpecCloudauditloggingToProto converts a FeatureSpecCloudauditlogging resource to its proto representation.
+// FeatureSpecCloudauditloggingToProto converts a FeatureSpecCloudauditlogging object to its proto representation.
 func GkehubAlphaFeatureSpecCloudauditloggingToProto(o *alpha.FeatureSpecCloudauditlogging) *alphapb.GkehubAlphaFeatureSpecCloudauditlogging {
 	if o == nil {
 		return nil
 	}
 	p := &alphapb.GkehubAlphaFeatureSpecCloudauditlogging{}
-	for _, r := range o.AllowlistedServiceAccounts {
-		p.AllowlistedServiceAccounts = append(p.AllowlistedServiceAccounts, r)
+	sAllowlistedServiceAccounts := make([]string, len(o.AllowlistedServiceAccounts))
+	for i, r := range o.AllowlistedServiceAccounts {
+		sAllowlistedServiceAccounts[i] = r
 	}
+	p.SetAllowlistedServiceAccounts(sAllowlistedServiceAccounts)
 	return p
 }
 
-// FeatureStateToProto converts a FeatureState resource to its proto representation.
+// FeatureStateToProto converts a FeatureState object to its proto representation.
 func GkehubAlphaFeatureStateToProto(o *alpha.FeatureState) *alphapb.GkehubAlphaFeatureState {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.GkehubAlphaFeatureState{
-		State:       GkehubAlphaFeatureStateStateToProto(o.State),
-		Servicemesh: GkehubAlphaFeatureStateServicemeshToProto(o.Servicemesh),
-	}
+	p := &alphapb.GkehubAlphaFeatureState{}
+	p.SetState(GkehubAlphaFeatureStateStateToProto(o.State))
+	p.SetServicemesh(GkehubAlphaFeatureStateServicemeshToProto(o.Servicemesh))
 	return p
 }
 
-// FeatureStateStateToProto converts a FeatureStateState resource to its proto representation.
+// FeatureStateStateToProto converts a FeatureStateState object to its proto representation.
 func GkehubAlphaFeatureStateStateToProto(o *alpha.FeatureStateState) *alphapb.GkehubAlphaFeatureStateState {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.GkehubAlphaFeatureStateState{
-		Code:        GkehubAlphaFeatureStateStateCodeEnumToProto(o.Code),
-		Description: dcl.ValueOrEmptyString(o.Description),
-		UpdateTime:  dcl.ValueOrEmptyString(o.UpdateTime),
-	}
+	p := &alphapb.GkehubAlphaFeatureStateState{}
+	p.SetCode(GkehubAlphaFeatureStateStateCodeEnumToProto(o.Code))
+	p.SetDescription(dcl.ValueOrEmptyString(o.Description))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(o.UpdateTime))
 	return p
 }
 
-// FeatureStateServicemeshToProto converts a FeatureStateServicemesh resource to its proto representation.
+// FeatureStateServicemeshToProto converts a FeatureStateServicemesh object to its proto representation.
 func GkehubAlphaFeatureStateServicemeshToProto(o *alpha.FeatureStateServicemesh) *alphapb.GkehubAlphaFeatureStateServicemesh {
 	if o == nil {
 		return nil
 	}
 	p := &alphapb.GkehubAlphaFeatureStateServicemesh{}
-	for _, r := range o.AnalysisMessages {
-		p.AnalysisMessages = append(p.AnalysisMessages, GkehubAlphaFeatureStateServicemeshAnalysisMessagesToProto(&r))
+	sAnalysisMessages := make([]*alphapb.GkehubAlphaFeatureStateServicemeshAnalysisMessages, len(o.AnalysisMessages))
+	for i, r := range o.AnalysisMessages {
+		sAnalysisMessages[i] = GkehubAlphaFeatureStateServicemeshAnalysisMessagesToProto(&r)
 	}
+	p.SetAnalysisMessages(sAnalysisMessages)
 	return p
 }
 
-// FeatureStateServicemeshAnalysisMessagesToProto converts a FeatureStateServicemeshAnalysisMessages resource to its proto representation.
+// FeatureStateServicemeshAnalysisMessagesToProto converts a FeatureStateServicemeshAnalysisMessages object to its proto representation.
 func GkehubAlphaFeatureStateServicemeshAnalysisMessagesToProto(o *alpha.FeatureStateServicemeshAnalysisMessages) *alphapb.GkehubAlphaFeatureStateServicemeshAnalysisMessages {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.GkehubAlphaFeatureStateServicemeshAnalysisMessages{
-		MessageBase: GkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBaseToProto(o.MessageBase),
-		Description: dcl.ValueOrEmptyString(o.Description),
+	p := &alphapb.GkehubAlphaFeatureStateServicemeshAnalysisMessages{}
+	p.SetMessageBase(GkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBaseToProto(o.MessageBase))
+	p.SetDescription(dcl.ValueOrEmptyString(o.Description))
+	sResourcePaths := make([]string, len(o.ResourcePaths))
+	for i, r := range o.ResourcePaths {
+		sResourcePaths[i] = r
 	}
-	for _, r := range o.ResourcePaths {
-		p.ResourcePaths = append(p.ResourcePaths, r)
-	}
-	p.Args = make(map[string]string)
+	p.SetResourcePaths(sResourcePaths)
+	mArgs := make(map[string]string, len(o.Args))
 	for k, r := range o.Args {
-		p.Args[k] = r
+		mArgs[k] = r
 	}
+	p.SetArgs(mArgs)
 	return p
 }
 
-// FeatureStateServicemeshAnalysisMessagesMessageBaseToProto converts a FeatureStateServicemeshAnalysisMessagesMessageBase resource to its proto representation.
+// FeatureStateServicemeshAnalysisMessagesMessageBaseToProto converts a FeatureStateServicemeshAnalysisMessagesMessageBase object to its proto representation.
 func GkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBaseToProto(o *alpha.FeatureStateServicemeshAnalysisMessagesMessageBase) *alphapb.GkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBase {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.GkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBase{
-		Type:             GkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBaseTypeToProto(o.Type),
-		Level:            GkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnumToProto(o.Level),
-		DocumentationUrl: dcl.ValueOrEmptyString(o.DocumentationUrl),
-	}
+	p := &alphapb.GkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBase{}
+	p.SetType(GkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBaseTypeToProto(o.Type))
+	p.SetLevel(GkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnumToProto(o.Level))
+	p.SetDocumentationUrl(dcl.ValueOrEmptyString(o.DocumentationUrl))
 	return p
 }
 
-// FeatureStateServicemeshAnalysisMessagesMessageBaseTypeToProto converts a FeatureStateServicemeshAnalysisMessagesMessageBaseType resource to its proto representation.
+// FeatureStateServicemeshAnalysisMessagesMessageBaseTypeToProto converts a FeatureStateServicemeshAnalysisMessagesMessageBaseType object to its proto representation.
 func GkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBaseTypeToProto(o *alpha.FeatureStateServicemeshAnalysisMessagesMessageBaseType) *alphapb.GkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBaseType {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.GkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBaseType{
-		DisplayName: dcl.ValueOrEmptyString(o.DisplayName),
-		Code:        dcl.ValueOrEmptyString(o.Code),
-	}
+	p := &alphapb.GkehubAlphaFeatureStateServicemeshAnalysisMessagesMessageBaseType{}
+	p.SetDisplayName(dcl.ValueOrEmptyString(o.DisplayName))
+	p.SetCode(dcl.ValueOrEmptyString(o.Code))
 	return p
 }
 
 // FeatureToProto converts a Feature resource to its proto representation.
 func FeatureToProto(resource *alpha.Feature) *alphapb.GkehubAlphaFeature {
-	p := &alphapb.GkehubAlphaFeature{
-		Name:          dcl.ValueOrEmptyString(resource.Name),
-		ResourceState: GkehubAlphaFeatureResourceStateToProto(resource.ResourceState),
-		Spec:          GkehubAlphaFeatureSpecToProto(resource.Spec),
-		State:         GkehubAlphaFeatureStateToProto(resource.State),
-		CreateTime:    dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:    dcl.ValueOrEmptyString(resource.UpdateTime),
-		DeleteTime:    dcl.ValueOrEmptyString(resource.DeleteTime),
-		Project:       dcl.ValueOrEmptyString(resource.Project),
-		Location:      dcl.ValueOrEmptyString(resource.Location),
+	p := &alphapb.GkehubAlphaFeature{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetResourceState(GkehubAlphaFeatureResourceStateToProto(resource.ResourceState))
+	p.SetSpec(GkehubAlphaFeatureSpecToProto(resource.Spec))
+	p.SetState(GkehubAlphaFeatureStateToProto(resource.State))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetDeleteTime(dcl.ValueOrEmptyString(resource.DeleteTime))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
+	p.SetLabels(mLabels)
 
 	return p
 }
 
-// ApplyFeature handles the gRPC request by passing it to the underlying Feature Apply() method.
+// applyFeature handles the gRPC request by passing it to the underlying Feature Apply() method.
 func (s *FeatureServer) applyFeature(ctx context.Context, c *alpha.Client, request *alphapb.ApplyGkehubAlphaFeatureRequest) (*alphapb.GkehubAlphaFeature, error) {
 	p := ProtoToFeature(request.GetResource())
 	res, err := c.ApplyFeature(ctx, p)
@@ -390,9 +393,9 @@ func (s *FeatureServer) applyFeature(ctx context.Context, c *alpha.Client, reque
 	return r, nil
 }
 
-// ApplyFeature handles the gRPC request by passing it to the underlying Feature Apply() method.
+// applyGkehubAlphaFeature handles the gRPC request by passing it to the underlying Feature Apply() method.
 func (s *FeatureServer) ApplyGkehubAlphaFeature(ctx context.Context, request *alphapb.ApplyGkehubAlphaFeatureRequest) (*alphapb.GkehubAlphaFeature, error) {
-	cl, err := createConfigFeature(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFeature(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -402,7 +405,7 @@ func (s *FeatureServer) ApplyGkehubAlphaFeature(ctx context.Context, request *al
 // DeleteFeature handles the gRPC request by passing it to the underlying Feature Delete() method.
 func (s *FeatureServer) DeleteGkehubAlphaFeature(ctx context.Context, request *alphapb.DeleteGkehubAlphaFeatureRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigFeature(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFeature(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -412,12 +415,12 @@ func (s *FeatureServer) DeleteGkehubAlphaFeature(ctx context.Context, request *a
 
 // ListGkehubAlphaFeature handles the gRPC request by passing it to the underlying FeatureList() method.
 func (s *FeatureServer) ListGkehubAlphaFeature(ctx context.Context, request *alphapb.ListGkehubAlphaFeatureRequest) (*alphapb.ListGkehubAlphaFeatureResponse, error) {
-	cl, err := createConfigFeature(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFeature(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListFeature(ctx, request.Project, request.Location)
+	resources, err := cl.ListFeature(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -426,7 +429,9 @@ func (s *FeatureServer) ListGkehubAlphaFeature(ctx context.Context, request *alp
 		rp := FeatureToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListGkehubAlphaFeatureResponse{Items: protos}, nil
+	p := &alphapb.ListGkehubAlphaFeatureResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigFeature(ctx context.Context, service_account_file string) (*alpha.Client, error) {

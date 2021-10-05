@@ -25,7 +25,7 @@ import (
 // Server implements the gRPC interface for WorkflowTemplate.
 type WorkflowTemplateServer struct{}
 
-// ProtoToWorkflowTemplatePlacement converts a WorkflowTemplatePlacement resource from its proto representation.
+// ProtoToWorkflowTemplatePlacement converts a WorkflowTemplatePlacement object from its proto representation.
 func ProtoToDataprocWorkflowTemplatePlacement(p *dataprocpb.DataprocWorkflowTemplatePlacement) *dataproc.WorkflowTemplatePlacement {
 	if p == nil {
 		return nil
@@ -37,36 +37,36 @@ func ProtoToDataprocWorkflowTemplatePlacement(p *dataprocpb.DataprocWorkflowTemp
 	return obj
 }
 
-// ProtoToWorkflowTemplatePlacementManagedCluster converts a WorkflowTemplatePlacementManagedCluster resource from its proto representation.
+// ProtoToWorkflowTemplatePlacementManagedCluster converts a WorkflowTemplatePlacementManagedCluster object from its proto representation.
 func ProtoToDataprocWorkflowTemplatePlacementManagedCluster(p *dataprocpb.DataprocWorkflowTemplatePlacementManagedCluster) *dataproc.WorkflowTemplatePlacementManagedCluster {
 	if p == nil {
 		return nil
 	}
 	obj := &dataproc.WorkflowTemplatePlacementManagedCluster{
-		ClusterName: dcl.StringOrNil(p.ClusterName),
+		ClusterName: dcl.StringOrNil(p.GetClusterName()),
 		Config:      ProtoToDataprocClusterClusterConfig(p.GetConfig()),
 	}
 	return obj
 }
 
-// ProtoToWorkflowTemplatePlacementClusterSelector converts a WorkflowTemplatePlacementClusterSelector resource from its proto representation.
+// ProtoToWorkflowTemplatePlacementClusterSelector converts a WorkflowTemplatePlacementClusterSelector object from its proto representation.
 func ProtoToDataprocWorkflowTemplatePlacementClusterSelector(p *dataprocpb.DataprocWorkflowTemplatePlacementClusterSelector) *dataproc.WorkflowTemplatePlacementClusterSelector {
 	if p == nil {
 		return nil
 	}
 	obj := &dataproc.WorkflowTemplatePlacementClusterSelector{
-		Zone: dcl.StringOrNil(p.Zone),
+		Zone: dcl.StringOrNil(p.GetZone()),
 	}
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobs converts a WorkflowTemplateJobs resource from its proto representation.
+// ProtoToWorkflowTemplateJobs converts a WorkflowTemplateJobs object from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobs(p *dataprocpb.DataprocWorkflowTemplateJobs) *dataproc.WorkflowTemplateJobs {
 	if p == nil {
 		return nil
 	}
 	obj := &dataproc.WorkflowTemplateJobs{
-		StepId:      dcl.StringOrNil(p.StepId),
+		StepId:      dcl.StringOrNil(p.GetStepId()),
 		HadoopJob:   ProtoToDataprocWorkflowTemplateJobsHadoopJob(p.GetHadoopJob()),
 		SparkJob:    ProtoToDataprocWorkflowTemplateJobsSparkJob(p.GetSparkJob()),
 		PysparkJob:  ProtoToDataprocWorkflowTemplateJobsPysparkJob(p.GetPysparkJob()),
@@ -83,14 +83,14 @@ func ProtoToDataprocWorkflowTemplateJobs(p *dataprocpb.DataprocWorkflowTemplateJ
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsHadoopJob converts a WorkflowTemplateJobsHadoopJob resource from its proto representation.
+// ProtoToWorkflowTemplateJobsHadoopJob converts a WorkflowTemplateJobsHadoopJob object from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsHadoopJob(p *dataprocpb.DataprocWorkflowTemplateJobsHadoopJob) *dataproc.WorkflowTemplateJobsHadoopJob {
 	if p == nil {
 		return nil
 	}
 	obj := &dataproc.WorkflowTemplateJobsHadoopJob{
-		MainJarFileUri: dcl.StringOrNil(p.MainJarFileUri),
-		MainClass:      dcl.StringOrNil(p.MainClass),
+		MainJarFileUri: dcl.StringOrNil(p.GetMainJarFileUri()),
+		MainClass:      dcl.StringOrNil(p.GetMainClass()),
 		LoggingConfig:  ProtoToDataprocWorkflowTemplateJobsHadoopJobLoggingConfig(p.GetLoggingConfig()),
 	}
 	for _, r := range p.GetArgs() {
@@ -108,7 +108,7 @@ func ProtoToDataprocWorkflowTemplateJobsHadoopJob(p *dataprocpb.DataprocWorkflow
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsHadoopJobLoggingConfig converts a WorkflowTemplateJobsHadoopJobLoggingConfig resource from its proto representation.
+// ProtoToWorkflowTemplateJobsHadoopJobLoggingConfig converts a WorkflowTemplateJobsHadoopJobLoggingConfig object from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsHadoopJobLoggingConfig(p *dataprocpb.DataprocWorkflowTemplateJobsHadoopJobLoggingConfig) *dataproc.WorkflowTemplateJobsHadoopJobLoggingConfig {
 	if p == nil {
 		return nil
@@ -117,14 +117,14 @@ func ProtoToDataprocWorkflowTemplateJobsHadoopJobLoggingConfig(p *dataprocpb.Dat
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsSparkJob converts a WorkflowTemplateJobsSparkJob resource from its proto representation.
+// ProtoToWorkflowTemplateJobsSparkJob converts a WorkflowTemplateJobsSparkJob object from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsSparkJob(p *dataprocpb.DataprocWorkflowTemplateJobsSparkJob) *dataproc.WorkflowTemplateJobsSparkJob {
 	if p == nil {
 		return nil
 	}
 	obj := &dataproc.WorkflowTemplateJobsSparkJob{
-		MainJarFileUri: dcl.StringOrNil(p.MainJarFileUri),
-		MainClass:      dcl.StringOrNil(p.MainClass),
+		MainJarFileUri: dcl.StringOrNil(p.GetMainJarFileUri()),
+		MainClass:      dcl.StringOrNil(p.GetMainClass()),
 		LoggingConfig:  ProtoToDataprocWorkflowTemplateJobsSparkJobLoggingConfig(p.GetLoggingConfig()),
 	}
 	for _, r := range p.GetArgs() {
@@ -142,7 +142,7 @@ func ProtoToDataprocWorkflowTemplateJobsSparkJob(p *dataprocpb.DataprocWorkflowT
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsSparkJobLoggingConfig converts a WorkflowTemplateJobsSparkJobLoggingConfig resource from its proto representation.
+// ProtoToWorkflowTemplateJobsSparkJobLoggingConfig converts a WorkflowTemplateJobsSparkJobLoggingConfig object from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsSparkJobLoggingConfig(p *dataprocpb.DataprocWorkflowTemplateJobsSparkJobLoggingConfig) *dataproc.WorkflowTemplateJobsSparkJobLoggingConfig {
 	if p == nil {
 		return nil
@@ -151,13 +151,13 @@ func ProtoToDataprocWorkflowTemplateJobsSparkJobLoggingConfig(p *dataprocpb.Data
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsPysparkJob converts a WorkflowTemplateJobsPysparkJob resource from its proto representation.
+// ProtoToWorkflowTemplateJobsPysparkJob converts a WorkflowTemplateJobsPysparkJob object from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsPysparkJob(p *dataprocpb.DataprocWorkflowTemplateJobsPysparkJob) *dataproc.WorkflowTemplateJobsPysparkJob {
 	if p == nil {
 		return nil
 	}
 	obj := &dataproc.WorkflowTemplateJobsPysparkJob{
-		MainPythonFileUri: dcl.StringOrNil(p.MainPythonFileUri),
+		MainPythonFileUri: dcl.StringOrNil(p.GetMainPythonFileUri()),
 		LoggingConfig:     ProtoToDataprocWorkflowTemplateJobsPysparkJobLoggingConfig(p.GetLoggingConfig()),
 	}
 	for _, r := range p.GetArgs() {
@@ -178,7 +178,7 @@ func ProtoToDataprocWorkflowTemplateJobsPysparkJob(p *dataprocpb.DataprocWorkflo
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsPysparkJobLoggingConfig converts a WorkflowTemplateJobsPysparkJobLoggingConfig resource from its proto representation.
+// ProtoToWorkflowTemplateJobsPysparkJobLoggingConfig converts a WorkflowTemplateJobsPysparkJobLoggingConfig object from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsPysparkJobLoggingConfig(p *dataprocpb.DataprocWorkflowTemplateJobsPysparkJobLoggingConfig) *dataproc.WorkflowTemplateJobsPysparkJobLoggingConfig {
 	if p == nil {
 		return nil
@@ -187,15 +187,15 @@ func ProtoToDataprocWorkflowTemplateJobsPysparkJobLoggingConfig(p *dataprocpb.Da
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsHiveJob converts a WorkflowTemplateJobsHiveJob resource from its proto representation.
+// ProtoToWorkflowTemplateJobsHiveJob converts a WorkflowTemplateJobsHiveJob object from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsHiveJob(p *dataprocpb.DataprocWorkflowTemplateJobsHiveJob) *dataproc.WorkflowTemplateJobsHiveJob {
 	if p == nil {
 		return nil
 	}
 	obj := &dataproc.WorkflowTemplateJobsHiveJob{
-		QueryFileUri:      dcl.StringOrNil(p.QueryFileUri),
+		QueryFileUri:      dcl.StringOrNil(p.GetQueryFileUri()),
 		QueryList:         ProtoToDataprocWorkflowTemplateJobsHiveJobQueryList(p.GetQueryList()),
-		ContinueOnFailure: dcl.Bool(p.ContinueOnFailure),
+		ContinueOnFailure: dcl.Bool(p.GetContinueOnFailure()),
 	}
 	for _, r := range p.GetJarFileUris() {
 		obj.JarFileUris = append(obj.JarFileUris, r)
@@ -203,7 +203,7 @@ func ProtoToDataprocWorkflowTemplateJobsHiveJob(p *dataprocpb.DataprocWorkflowTe
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsHiveJobQueryList converts a WorkflowTemplateJobsHiveJobQueryList resource from its proto representation.
+// ProtoToWorkflowTemplateJobsHiveJobQueryList converts a WorkflowTemplateJobsHiveJobQueryList object from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsHiveJobQueryList(p *dataprocpb.DataprocWorkflowTemplateJobsHiveJobQueryList) *dataproc.WorkflowTemplateJobsHiveJobQueryList {
 	if p == nil {
 		return nil
@@ -215,15 +215,15 @@ func ProtoToDataprocWorkflowTemplateJobsHiveJobQueryList(p *dataprocpb.DataprocW
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsPigJob converts a WorkflowTemplateJobsPigJob resource from its proto representation.
+// ProtoToWorkflowTemplateJobsPigJob converts a WorkflowTemplateJobsPigJob object from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsPigJob(p *dataprocpb.DataprocWorkflowTemplateJobsPigJob) *dataproc.WorkflowTemplateJobsPigJob {
 	if p == nil {
 		return nil
 	}
 	obj := &dataproc.WorkflowTemplateJobsPigJob{
-		QueryFileUri:      dcl.StringOrNil(p.QueryFileUri),
+		QueryFileUri:      dcl.StringOrNil(p.GetQueryFileUri()),
 		QueryList:         ProtoToDataprocWorkflowTemplateJobsPigJobQueryList(p.GetQueryList()),
-		ContinueOnFailure: dcl.Bool(p.ContinueOnFailure),
+		ContinueOnFailure: dcl.Bool(p.GetContinueOnFailure()),
 		LoggingConfig:     ProtoToDataprocWorkflowTemplateJobsPigJobLoggingConfig(p.GetLoggingConfig()),
 	}
 	for _, r := range p.GetJarFileUris() {
@@ -232,7 +232,7 @@ func ProtoToDataprocWorkflowTemplateJobsPigJob(p *dataprocpb.DataprocWorkflowTem
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsPigJobQueryList converts a WorkflowTemplateJobsPigJobQueryList resource from its proto representation.
+// ProtoToWorkflowTemplateJobsPigJobQueryList converts a WorkflowTemplateJobsPigJobQueryList object from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsPigJobQueryList(p *dataprocpb.DataprocWorkflowTemplateJobsPigJobQueryList) *dataproc.WorkflowTemplateJobsPigJobQueryList {
 	if p == nil {
 		return nil
@@ -244,7 +244,7 @@ func ProtoToDataprocWorkflowTemplateJobsPigJobQueryList(p *dataprocpb.DataprocWo
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsPigJobLoggingConfig converts a WorkflowTemplateJobsPigJobLoggingConfig resource from its proto representation.
+// ProtoToWorkflowTemplateJobsPigJobLoggingConfig converts a WorkflowTemplateJobsPigJobLoggingConfig object from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsPigJobLoggingConfig(p *dataprocpb.DataprocWorkflowTemplateJobsPigJobLoggingConfig) *dataproc.WorkflowTemplateJobsPigJobLoggingConfig {
 	if p == nil {
 		return nil
@@ -253,13 +253,13 @@ func ProtoToDataprocWorkflowTemplateJobsPigJobLoggingConfig(p *dataprocpb.Datapr
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsSparkRJob converts a WorkflowTemplateJobsSparkRJob resource from its proto representation.
+// ProtoToWorkflowTemplateJobsSparkRJob converts a WorkflowTemplateJobsSparkRJob object from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsSparkRJob(p *dataprocpb.DataprocWorkflowTemplateJobsSparkRJob) *dataproc.WorkflowTemplateJobsSparkRJob {
 	if p == nil {
 		return nil
 	}
 	obj := &dataproc.WorkflowTemplateJobsSparkRJob{
-		MainRFileUri:  dcl.StringOrNil(p.MainRFileUri),
+		MainRFileUri:  dcl.StringOrNil(p.GetMainRFileUri()),
 		LoggingConfig: ProtoToDataprocWorkflowTemplateJobsSparkRJobLoggingConfig(p.GetLoggingConfig()),
 	}
 	for _, r := range p.GetArgs() {
@@ -274,7 +274,7 @@ func ProtoToDataprocWorkflowTemplateJobsSparkRJob(p *dataprocpb.DataprocWorkflow
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsSparkRJobLoggingConfig converts a WorkflowTemplateJobsSparkRJobLoggingConfig resource from its proto representation.
+// ProtoToWorkflowTemplateJobsSparkRJobLoggingConfig converts a WorkflowTemplateJobsSparkRJobLoggingConfig object from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsSparkRJobLoggingConfig(p *dataprocpb.DataprocWorkflowTemplateJobsSparkRJobLoggingConfig) *dataproc.WorkflowTemplateJobsSparkRJobLoggingConfig {
 	if p == nil {
 		return nil
@@ -283,13 +283,13 @@ func ProtoToDataprocWorkflowTemplateJobsSparkRJobLoggingConfig(p *dataprocpb.Dat
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsSparkSqlJob converts a WorkflowTemplateJobsSparkSqlJob resource from its proto representation.
+// ProtoToWorkflowTemplateJobsSparkSqlJob converts a WorkflowTemplateJobsSparkSqlJob object from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsSparkSqlJob(p *dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJob) *dataproc.WorkflowTemplateJobsSparkSqlJob {
 	if p == nil {
 		return nil
 	}
 	obj := &dataproc.WorkflowTemplateJobsSparkSqlJob{
-		QueryFileUri:  dcl.StringOrNil(p.QueryFileUri),
+		QueryFileUri:  dcl.StringOrNil(p.GetQueryFileUri()),
 		QueryList:     ProtoToDataprocWorkflowTemplateJobsSparkSqlJobQueryList(p.GetQueryList()),
 		LoggingConfig: ProtoToDataprocWorkflowTemplateJobsSparkSqlJobLoggingConfig(p.GetLoggingConfig()),
 	}
@@ -299,7 +299,7 @@ func ProtoToDataprocWorkflowTemplateJobsSparkSqlJob(p *dataprocpb.DataprocWorkfl
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsSparkSqlJobQueryList converts a WorkflowTemplateJobsSparkSqlJobQueryList resource from its proto representation.
+// ProtoToWorkflowTemplateJobsSparkSqlJobQueryList converts a WorkflowTemplateJobsSparkSqlJobQueryList object from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsSparkSqlJobQueryList(p *dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobQueryList) *dataproc.WorkflowTemplateJobsSparkSqlJobQueryList {
 	if p == nil {
 		return nil
@@ -311,7 +311,7 @@ func ProtoToDataprocWorkflowTemplateJobsSparkSqlJobQueryList(p *dataprocpb.Datap
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsSparkSqlJobLoggingConfig converts a WorkflowTemplateJobsSparkSqlJobLoggingConfig resource from its proto representation.
+// ProtoToWorkflowTemplateJobsSparkSqlJobLoggingConfig converts a WorkflowTemplateJobsSparkSqlJobLoggingConfig object from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsSparkSqlJobLoggingConfig(p *dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfig) *dataproc.WorkflowTemplateJobsSparkSqlJobLoggingConfig {
 	if p == nil {
 		return nil
@@ -320,16 +320,16 @@ func ProtoToDataprocWorkflowTemplateJobsSparkSqlJobLoggingConfig(p *dataprocpb.D
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsPrestoJob converts a WorkflowTemplateJobsPrestoJob resource from its proto representation.
+// ProtoToWorkflowTemplateJobsPrestoJob converts a WorkflowTemplateJobsPrestoJob object from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsPrestoJob(p *dataprocpb.DataprocWorkflowTemplateJobsPrestoJob) *dataproc.WorkflowTemplateJobsPrestoJob {
 	if p == nil {
 		return nil
 	}
 	obj := &dataproc.WorkflowTemplateJobsPrestoJob{
-		QueryFileUri:      dcl.StringOrNil(p.QueryFileUri),
+		QueryFileUri:      dcl.StringOrNil(p.GetQueryFileUri()),
 		QueryList:         ProtoToDataprocWorkflowTemplateJobsPrestoJobQueryList(p.GetQueryList()),
-		ContinueOnFailure: dcl.Bool(p.ContinueOnFailure),
-		OutputFormat:      dcl.StringOrNil(p.OutputFormat),
+		ContinueOnFailure: dcl.Bool(p.GetContinueOnFailure()),
+		OutputFormat:      dcl.StringOrNil(p.GetOutputFormat()),
 		LoggingConfig:     ProtoToDataprocWorkflowTemplateJobsPrestoJobLoggingConfig(p.GetLoggingConfig()),
 	}
 	for _, r := range p.GetClientTags() {
@@ -338,7 +338,7 @@ func ProtoToDataprocWorkflowTemplateJobsPrestoJob(p *dataprocpb.DataprocWorkflow
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsPrestoJobQueryList converts a WorkflowTemplateJobsPrestoJobQueryList resource from its proto representation.
+// ProtoToWorkflowTemplateJobsPrestoJobQueryList converts a WorkflowTemplateJobsPrestoJobQueryList object from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsPrestoJobQueryList(p *dataprocpb.DataprocWorkflowTemplateJobsPrestoJobQueryList) *dataproc.WorkflowTemplateJobsPrestoJobQueryList {
 	if p == nil {
 		return nil
@@ -350,7 +350,7 @@ func ProtoToDataprocWorkflowTemplateJobsPrestoJobQueryList(p *dataprocpb.Datapro
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsPrestoJobLoggingConfig converts a WorkflowTemplateJobsPrestoJobLoggingConfig resource from its proto representation.
+// ProtoToWorkflowTemplateJobsPrestoJobLoggingConfig converts a WorkflowTemplateJobsPrestoJobLoggingConfig object from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsPrestoJobLoggingConfig(p *dataprocpb.DataprocWorkflowTemplateJobsPrestoJobLoggingConfig) *dataproc.WorkflowTemplateJobsPrestoJobLoggingConfig {
 	if p == nil {
 		return nil
@@ -359,26 +359,26 @@ func ProtoToDataprocWorkflowTemplateJobsPrestoJobLoggingConfig(p *dataprocpb.Dat
 	return obj
 }
 
-// ProtoToWorkflowTemplateJobsScheduling converts a WorkflowTemplateJobsScheduling resource from its proto representation.
+// ProtoToWorkflowTemplateJobsScheduling converts a WorkflowTemplateJobsScheduling object from its proto representation.
 func ProtoToDataprocWorkflowTemplateJobsScheduling(p *dataprocpb.DataprocWorkflowTemplateJobsScheduling) *dataproc.WorkflowTemplateJobsScheduling {
 	if p == nil {
 		return nil
 	}
 	obj := &dataproc.WorkflowTemplateJobsScheduling{
-		MaxFailuresPerHour: dcl.Int64OrNil(p.MaxFailuresPerHour),
-		MaxFailuresTotal:   dcl.Int64OrNil(p.MaxFailuresTotal),
+		MaxFailuresPerHour: dcl.Int64OrNil(p.GetMaxFailuresPerHour()),
+		MaxFailuresTotal:   dcl.Int64OrNil(p.GetMaxFailuresTotal()),
 	}
 	return obj
 }
 
-// ProtoToWorkflowTemplateParameters converts a WorkflowTemplateParameters resource from its proto representation.
+// ProtoToWorkflowTemplateParameters converts a WorkflowTemplateParameters object from its proto representation.
 func ProtoToDataprocWorkflowTemplateParameters(p *dataprocpb.DataprocWorkflowTemplateParameters) *dataproc.WorkflowTemplateParameters {
 	if p == nil {
 		return nil
 	}
 	obj := &dataproc.WorkflowTemplateParameters{
-		Name:        dcl.StringOrNil(p.Name),
-		Description: dcl.StringOrNil(p.Description),
+		Name:        dcl.StringOrNil(p.GetName()),
+		Description: dcl.StringOrNil(p.GetDescription()),
 		Validation:  ProtoToDataprocWorkflowTemplateParametersValidation(p.GetValidation()),
 	}
 	for _, r := range p.GetFields() {
@@ -387,7 +387,7 @@ func ProtoToDataprocWorkflowTemplateParameters(p *dataprocpb.DataprocWorkflowTem
 	return obj
 }
 
-// ProtoToWorkflowTemplateParametersValidation converts a WorkflowTemplateParametersValidation resource from its proto representation.
+// ProtoToWorkflowTemplateParametersValidation converts a WorkflowTemplateParametersValidation object from its proto representation.
 func ProtoToDataprocWorkflowTemplateParametersValidation(p *dataprocpb.DataprocWorkflowTemplateParametersValidation) *dataproc.WorkflowTemplateParametersValidation {
 	if p == nil {
 		return nil
@@ -399,7 +399,7 @@ func ProtoToDataprocWorkflowTemplateParametersValidation(p *dataprocpb.DataprocW
 	return obj
 }
 
-// ProtoToWorkflowTemplateParametersValidationRegex converts a WorkflowTemplateParametersValidationRegex resource from its proto representation.
+// ProtoToWorkflowTemplateParametersValidationRegex converts a WorkflowTemplateParametersValidationRegex object from its proto representation.
 func ProtoToDataprocWorkflowTemplateParametersValidationRegex(p *dataprocpb.DataprocWorkflowTemplateParametersValidationRegex) *dataproc.WorkflowTemplateParametersValidationRegex {
 	if p == nil {
 		return nil
@@ -411,7 +411,7 @@ func ProtoToDataprocWorkflowTemplateParametersValidationRegex(p *dataprocpb.Data
 	return obj
 }
 
-// ProtoToWorkflowTemplateParametersValidationValues converts a WorkflowTemplateParametersValidationValues resource from its proto representation.
+// ProtoToWorkflowTemplateParametersValidationValues converts a WorkflowTemplateParametersValidationValues object from its proto representation.
 func ProtoToDataprocWorkflowTemplateParametersValidationValues(p *dataprocpb.DataprocWorkflowTemplateParametersValidationValues) *dataproc.WorkflowTemplateParametersValidationValues {
 	if p == nil {
 		return nil
@@ -426,14 +426,14 @@ func ProtoToDataprocWorkflowTemplateParametersValidationValues(p *dataprocpb.Dat
 // ProtoToWorkflowTemplate converts a WorkflowTemplate resource from its proto representation.
 func ProtoToWorkflowTemplate(p *dataprocpb.DataprocWorkflowTemplate) *dataproc.WorkflowTemplate {
 	obj := &dataproc.WorkflowTemplate{
-		Name:       dcl.StringOrNil(p.Name),
-		Version:    dcl.Int64OrNil(p.Version),
+		Name:       dcl.StringOrNil(p.GetName()),
+		Version:    dcl.Int64OrNil(p.GetVersion()),
 		CreateTime: dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime: dcl.StringOrNil(p.GetUpdateTime()),
 		Placement:  ProtoToDataprocWorkflowTemplatePlacement(p.GetPlacement()),
-		DagTimeout: dcl.StringOrNil(p.DagTimeout),
-		Project:    dcl.StringOrNil(p.Project),
-		Location:   dcl.StringOrNil(p.Location),
+		DagTimeout: dcl.StringOrNil(p.GetDagTimeout()),
+		Project:    dcl.StringOrNil(p.GetProject()),
+		Location:   dcl.StringOrNil(p.GetLocation()),
 	}
 	for _, r := range p.GetJobs() {
 		obj.Jobs = append(obj.Jobs, *ProtoToDataprocWorkflowTemplateJobs(r))
@@ -444,511 +444,581 @@ func ProtoToWorkflowTemplate(p *dataprocpb.DataprocWorkflowTemplate) *dataproc.W
 	return obj
 }
 
-// WorkflowTemplatePlacementToProto converts a WorkflowTemplatePlacement resource to its proto representation.
+// WorkflowTemplatePlacementToProto converts a WorkflowTemplatePlacement object to its proto representation.
 func DataprocWorkflowTemplatePlacementToProto(o *dataproc.WorkflowTemplatePlacement) *dataprocpb.DataprocWorkflowTemplatePlacement {
 	if o == nil {
 		return nil
 	}
-	p := &dataprocpb.DataprocWorkflowTemplatePlacement{
-		ManagedCluster:  DataprocWorkflowTemplatePlacementManagedClusterToProto(o.ManagedCluster),
-		ClusterSelector: DataprocWorkflowTemplatePlacementClusterSelectorToProto(o.ClusterSelector),
-	}
+	p := &dataprocpb.DataprocWorkflowTemplatePlacement{}
+	p.SetManagedCluster(DataprocWorkflowTemplatePlacementManagedClusterToProto(o.ManagedCluster))
+	p.SetClusterSelector(DataprocWorkflowTemplatePlacementClusterSelectorToProto(o.ClusterSelector))
 	return p
 }
 
-// WorkflowTemplatePlacementManagedClusterToProto converts a WorkflowTemplatePlacementManagedCluster resource to its proto representation.
+// WorkflowTemplatePlacementManagedClusterToProto converts a WorkflowTemplatePlacementManagedCluster object to its proto representation.
 func DataprocWorkflowTemplatePlacementManagedClusterToProto(o *dataproc.WorkflowTemplatePlacementManagedCluster) *dataprocpb.DataprocWorkflowTemplatePlacementManagedCluster {
 	if o == nil {
 		return nil
 	}
-	p := &dataprocpb.DataprocWorkflowTemplatePlacementManagedCluster{
-		ClusterName: dcl.ValueOrEmptyString(o.ClusterName),
-		Config:      DataprocClusterClusterConfigToProto(o.Config),
-	}
-	p.Labels = make(map[string]string)
+	p := &dataprocpb.DataprocWorkflowTemplatePlacementManagedCluster{}
+	p.SetClusterName(dcl.ValueOrEmptyString(o.ClusterName))
+	p.SetConfig(DataprocClusterClusterConfigToProto(o.Config))
+	mLabels := make(map[string]string, len(o.Labels))
 	for k, r := range o.Labels {
-		p.Labels[k] = r
+		mLabels[k] = r
 	}
+	p.SetLabels(mLabels)
 	return p
 }
 
-// WorkflowTemplatePlacementClusterSelectorToProto converts a WorkflowTemplatePlacementClusterSelector resource to its proto representation.
+// WorkflowTemplatePlacementClusterSelectorToProto converts a WorkflowTemplatePlacementClusterSelector object to its proto representation.
 func DataprocWorkflowTemplatePlacementClusterSelectorToProto(o *dataproc.WorkflowTemplatePlacementClusterSelector) *dataprocpb.DataprocWorkflowTemplatePlacementClusterSelector {
 	if o == nil {
 		return nil
 	}
-	p := &dataprocpb.DataprocWorkflowTemplatePlacementClusterSelector{
-		Zone: dcl.ValueOrEmptyString(o.Zone),
-	}
-	p.ClusterLabels = make(map[string]string)
+	p := &dataprocpb.DataprocWorkflowTemplatePlacementClusterSelector{}
+	p.SetZone(dcl.ValueOrEmptyString(o.Zone))
+	mClusterLabels := make(map[string]string, len(o.ClusterLabels))
 	for k, r := range o.ClusterLabels {
-		p.ClusterLabels[k] = r
+		mClusterLabels[k] = r
 	}
+	p.SetClusterLabels(mClusterLabels)
 	return p
 }
 
-// WorkflowTemplateJobsToProto converts a WorkflowTemplateJobs resource to its proto representation.
+// WorkflowTemplateJobsToProto converts a WorkflowTemplateJobs object to its proto representation.
 func DataprocWorkflowTemplateJobsToProto(o *dataproc.WorkflowTemplateJobs) *dataprocpb.DataprocWorkflowTemplateJobs {
 	if o == nil {
 		return nil
 	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobs{
-		StepId:      dcl.ValueOrEmptyString(o.StepId),
-		HadoopJob:   DataprocWorkflowTemplateJobsHadoopJobToProto(o.HadoopJob),
-		SparkJob:    DataprocWorkflowTemplateJobsSparkJobToProto(o.SparkJob),
-		PysparkJob:  DataprocWorkflowTemplateJobsPysparkJobToProto(o.PysparkJob),
-		HiveJob:     DataprocWorkflowTemplateJobsHiveJobToProto(o.HiveJob),
-		PigJob:      DataprocWorkflowTemplateJobsPigJobToProto(o.PigJob),
-		SparkRJob:   DataprocWorkflowTemplateJobsSparkRJobToProto(o.SparkRJob),
-		SparkSqlJob: DataprocWorkflowTemplateJobsSparkSqlJobToProto(o.SparkSqlJob),
-		PrestoJob:   DataprocWorkflowTemplateJobsPrestoJobToProto(o.PrestoJob),
-		Scheduling:  DataprocWorkflowTemplateJobsSchedulingToProto(o.Scheduling),
-	}
-	p.Labels = make(map[string]string)
+	p := &dataprocpb.DataprocWorkflowTemplateJobs{}
+	p.SetStepId(dcl.ValueOrEmptyString(o.StepId))
+	p.SetHadoopJob(DataprocWorkflowTemplateJobsHadoopJobToProto(o.HadoopJob))
+	p.SetSparkJob(DataprocWorkflowTemplateJobsSparkJobToProto(o.SparkJob))
+	p.SetPysparkJob(DataprocWorkflowTemplateJobsPysparkJobToProto(o.PysparkJob))
+	p.SetHiveJob(DataprocWorkflowTemplateJobsHiveJobToProto(o.HiveJob))
+	p.SetPigJob(DataprocWorkflowTemplateJobsPigJobToProto(o.PigJob))
+	p.SetSparkRJob(DataprocWorkflowTemplateJobsSparkRJobToProto(o.SparkRJob))
+	p.SetSparkSqlJob(DataprocWorkflowTemplateJobsSparkSqlJobToProto(o.SparkSqlJob))
+	p.SetPrestoJob(DataprocWorkflowTemplateJobsPrestoJobToProto(o.PrestoJob))
+	p.SetScheduling(DataprocWorkflowTemplateJobsSchedulingToProto(o.Scheduling))
+	mLabels := make(map[string]string, len(o.Labels))
 	for k, r := range o.Labels {
-		p.Labels[k] = r
+		mLabels[k] = r
 	}
-	for _, r := range o.PrerequisiteStepIds {
-		p.PrerequisiteStepIds = append(p.PrerequisiteStepIds, r)
+	p.SetLabels(mLabels)
+	sPrerequisiteStepIds := make([]string, len(o.PrerequisiteStepIds))
+	for i, r := range o.PrerequisiteStepIds {
+		sPrerequisiteStepIds[i] = r
 	}
+	p.SetPrerequisiteStepIds(sPrerequisiteStepIds)
 	return p
 }
 
-// WorkflowTemplateJobsHadoopJobToProto converts a WorkflowTemplateJobsHadoopJob resource to its proto representation.
+// WorkflowTemplateJobsHadoopJobToProto converts a WorkflowTemplateJobsHadoopJob object to its proto representation.
 func DataprocWorkflowTemplateJobsHadoopJobToProto(o *dataproc.WorkflowTemplateJobsHadoopJob) *dataprocpb.DataprocWorkflowTemplateJobsHadoopJob {
 	if o == nil {
 		return nil
 	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsHadoopJob{
-		MainJarFileUri: dcl.ValueOrEmptyString(o.MainJarFileUri),
-		MainClass:      dcl.ValueOrEmptyString(o.MainClass),
-		LoggingConfig:  DataprocWorkflowTemplateJobsHadoopJobLoggingConfigToProto(o.LoggingConfig),
+	p := &dataprocpb.DataprocWorkflowTemplateJobsHadoopJob{}
+	p.SetMainJarFileUri(dcl.ValueOrEmptyString(o.MainJarFileUri))
+	p.SetMainClass(dcl.ValueOrEmptyString(o.MainClass))
+	p.SetLoggingConfig(DataprocWorkflowTemplateJobsHadoopJobLoggingConfigToProto(o.LoggingConfig))
+	sArgs := make([]string, len(o.Args))
+	for i, r := range o.Args {
+		sArgs[i] = r
 	}
-	for _, r := range o.Args {
-		p.Args = append(p.Args, r)
+	p.SetArgs(sArgs)
+	sJarFileUris := make([]string, len(o.JarFileUris))
+	for i, r := range o.JarFileUris {
+		sJarFileUris[i] = r
 	}
-	for _, r := range o.JarFileUris {
-		p.JarFileUris = append(p.JarFileUris, r)
+	p.SetJarFileUris(sJarFileUris)
+	sFileUris := make([]string, len(o.FileUris))
+	for i, r := range o.FileUris {
+		sFileUris[i] = r
 	}
-	for _, r := range o.FileUris {
-		p.FileUris = append(p.FileUris, r)
+	p.SetFileUris(sFileUris)
+	sArchiveUris := make([]string, len(o.ArchiveUris))
+	for i, r := range o.ArchiveUris {
+		sArchiveUris[i] = r
 	}
-	for _, r := range o.ArchiveUris {
-		p.ArchiveUris = append(p.ArchiveUris, r)
-	}
-	p.Properties = make(map[string]string)
+	p.SetArchiveUris(sArchiveUris)
+	mProperties := make(map[string]string, len(o.Properties))
 	for k, r := range o.Properties {
-		p.Properties[k] = r
+		mProperties[k] = r
 	}
+	p.SetProperties(mProperties)
 	return p
 }
 
-// WorkflowTemplateJobsHadoopJobLoggingConfigToProto converts a WorkflowTemplateJobsHadoopJobLoggingConfig resource to its proto representation.
+// WorkflowTemplateJobsHadoopJobLoggingConfigToProto converts a WorkflowTemplateJobsHadoopJobLoggingConfig object to its proto representation.
 func DataprocWorkflowTemplateJobsHadoopJobLoggingConfigToProto(o *dataproc.WorkflowTemplateJobsHadoopJobLoggingConfig) *dataprocpb.DataprocWorkflowTemplateJobsHadoopJobLoggingConfig {
 	if o == nil {
 		return nil
 	}
 	p := &dataprocpb.DataprocWorkflowTemplateJobsHadoopJobLoggingConfig{}
-	p.DriverLogLevels = make(map[string]string)
+	mDriverLogLevels := make(map[string]string, len(o.DriverLogLevels))
 	for k, r := range o.DriverLogLevels {
-		p.DriverLogLevels[k] = r
+		mDriverLogLevels[k] = r
 	}
+	p.SetDriverLogLevels(mDriverLogLevels)
 	return p
 }
 
-// WorkflowTemplateJobsSparkJobToProto converts a WorkflowTemplateJobsSparkJob resource to its proto representation.
+// WorkflowTemplateJobsSparkJobToProto converts a WorkflowTemplateJobsSparkJob object to its proto representation.
 func DataprocWorkflowTemplateJobsSparkJobToProto(o *dataproc.WorkflowTemplateJobsSparkJob) *dataprocpb.DataprocWorkflowTemplateJobsSparkJob {
 	if o == nil {
 		return nil
 	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsSparkJob{
-		MainJarFileUri: dcl.ValueOrEmptyString(o.MainJarFileUri),
-		MainClass:      dcl.ValueOrEmptyString(o.MainClass),
-		LoggingConfig:  DataprocWorkflowTemplateJobsSparkJobLoggingConfigToProto(o.LoggingConfig),
+	p := &dataprocpb.DataprocWorkflowTemplateJobsSparkJob{}
+	p.SetMainJarFileUri(dcl.ValueOrEmptyString(o.MainJarFileUri))
+	p.SetMainClass(dcl.ValueOrEmptyString(o.MainClass))
+	p.SetLoggingConfig(DataprocWorkflowTemplateJobsSparkJobLoggingConfigToProto(o.LoggingConfig))
+	sArgs := make([]string, len(o.Args))
+	for i, r := range o.Args {
+		sArgs[i] = r
 	}
-	for _, r := range o.Args {
-		p.Args = append(p.Args, r)
+	p.SetArgs(sArgs)
+	sJarFileUris := make([]string, len(o.JarFileUris))
+	for i, r := range o.JarFileUris {
+		sJarFileUris[i] = r
 	}
-	for _, r := range o.JarFileUris {
-		p.JarFileUris = append(p.JarFileUris, r)
+	p.SetJarFileUris(sJarFileUris)
+	sFileUris := make([]string, len(o.FileUris))
+	for i, r := range o.FileUris {
+		sFileUris[i] = r
 	}
-	for _, r := range o.FileUris {
-		p.FileUris = append(p.FileUris, r)
+	p.SetFileUris(sFileUris)
+	sArchiveUris := make([]string, len(o.ArchiveUris))
+	for i, r := range o.ArchiveUris {
+		sArchiveUris[i] = r
 	}
-	for _, r := range o.ArchiveUris {
-		p.ArchiveUris = append(p.ArchiveUris, r)
-	}
-	p.Properties = make(map[string]string)
+	p.SetArchiveUris(sArchiveUris)
+	mProperties := make(map[string]string, len(o.Properties))
 	for k, r := range o.Properties {
-		p.Properties[k] = r
+		mProperties[k] = r
 	}
+	p.SetProperties(mProperties)
 	return p
 }
 
-// WorkflowTemplateJobsSparkJobLoggingConfigToProto converts a WorkflowTemplateJobsSparkJobLoggingConfig resource to its proto representation.
+// WorkflowTemplateJobsSparkJobLoggingConfigToProto converts a WorkflowTemplateJobsSparkJobLoggingConfig object to its proto representation.
 func DataprocWorkflowTemplateJobsSparkJobLoggingConfigToProto(o *dataproc.WorkflowTemplateJobsSparkJobLoggingConfig) *dataprocpb.DataprocWorkflowTemplateJobsSparkJobLoggingConfig {
 	if o == nil {
 		return nil
 	}
 	p := &dataprocpb.DataprocWorkflowTemplateJobsSparkJobLoggingConfig{}
-	p.DriverLogLevels = make(map[string]string)
+	mDriverLogLevels := make(map[string]string, len(o.DriverLogLevels))
 	for k, r := range o.DriverLogLevels {
-		p.DriverLogLevels[k] = r
+		mDriverLogLevels[k] = r
 	}
+	p.SetDriverLogLevels(mDriverLogLevels)
 	return p
 }
 
-// WorkflowTemplateJobsPysparkJobToProto converts a WorkflowTemplateJobsPysparkJob resource to its proto representation.
+// WorkflowTemplateJobsPysparkJobToProto converts a WorkflowTemplateJobsPysparkJob object to its proto representation.
 func DataprocWorkflowTemplateJobsPysparkJobToProto(o *dataproc.WorkflowTemplateJobsPysparkJob) *dataprocpb.DataprocWorkflowTemplateJobsPysparkJob {
 	if o == nil {
 		return nil
 	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsPysparkJob{
-		MainPythonFileUri: dcl.ValueOrEmptyString(o.MainPythonFileUri),
-		LoggingConfig:     DataprocWorkflowTemplateJobsPysparkJobLoggingConfigToProto(o.LoggingConfig),
+	p := &dataprocpb.DataprocWorkflowTemplateJobsPysparkJob{}
+	p.SetMainPythonFileUri(dcl.ValueOrEmptyString(o.MainPythonFileUri))
+	p.SetLoggingConfig(DataprocWorkflowTemplateJobsPysparkJobLoggingConfigToProto(o.LoggingConfig))
+	sArgs := make([]string, len(o.Args))
+	for i, r := range o.Args {
+		sArgs[i] = r
 	}
-	for _, r := range o.Args {
-		p.Args = append(p.Args, r)
+	p.SetArgs(sArgs)
+	sPythonFileUris := make([]string, len(o.PythonFileUris))
+	for i, r := range o.PythonFileUris {
+		sPythonFileUris[i] = r
 	}
-	for _, r := range o.PythonFileUris {
-		p.PythonFileUris = append(p.PythonFileUris, r)
+	p.SetPythonFileUris(sPythonFileUris)
+	sJarFileUris := make([]string, len(o.JarFileUris))
+	for i, r := range o.JarFileUris {
+		sJarFileUris[i] = r
 	}
-	for _, r := range o.JarFileUris {
-		p.JarFileUris = append(p.JarFileUris, r)
+	p.SetJarFileUris(sJarFileUris)
+	sFileUris := make([]string, len(o.FileUris))
+	for i, r := range o.FileUris {
+		sFileUris[i] = r
 	}
-	for _, r := range o.FileUris {
-		p.FileUris = append(p.FileUris, r)
+	p.SetFileUris(sFileUris)
+	sArchiveUris := make([]string, len(o.ArchiveUris))
+	for i, r := range o.ArchiveUris {
+		sArchiveUris[i] = r
 	}
-	for _, r := range o.ArchiveUris {
-		p.ArchiveUris = append(p.ArchiveUris, r)
-	}
-	p.Properties = make(map[string]string)
+	p.SetArchiveUris(sArchiveUris)
+	mProperties := make(map[string]string, len(o.Properties))
 	for k, r := range o.Properties {
-		p.Properties[k] = r
+		mProperties[k] = r
 	}
+	p.SetProperties(mProperties)
 	return p
 }
 
-// WorkflowTemplateJobsPysparkJobLoggingConfigToProto converts a WorkflowTemplateJobsPysparkJobLoggingConfig resource to its proto representation.
+// WorkflowTemplateJobsPysparkJobLoggingConfigToProto converts a WorkflowTemplateJobsPysparkJobLoggingConfig object to its proto representation.
 func DataprocWorkflowTemplateJobsPysparkJobLoggingConfigToProto(o *dataproc.WorkflowTemplateJobsPysparkJobLoggingConfig) *dataprocpb.DataprocWorkflowTemplateJobsPysparkJobLoggingConfig {
 	if o == nil {
 		return nil
 	}
 	p := &dataprocpb.DataprocWorkflowTemplateJobsPysparkJobLoggingConfig{}
-	p.DriverLogLevels = make(map[string]string)
+	mDriverLogLevels := make(map[string]string, len(o.DriverLogLevels))
 	for k, r := range o.DriverLogLevels {
-		p.DriverLogLevels[k] = r
+		mDriverLogLevels[k] = r
 	}
+	p.SetDriverLogLevels(mDriverLogLevels)
 	return p
 }
 
-// WorkflowTemplateJobsHiveJobToProto converts a WorkflowTemplateJobsHiveJob resource to its proto representation.
+// WorkflowTemplateJobsHiveJobToProto converts a WorkflowTemplateJobsHiveJob object to its proto representation.
 func DataprocWorkflowTemplateJobsHiveJobToProto(o *dataproc.WorkflowTemplateJobsHiveJob) *dataprocpb.DataprocWorkflowTemplateJobsHiveJob {
 	if o == nil {
 		return nil
 	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsHiveJob{
-		QueryFileUri:      dcl.ValueOrEmptyString(o.QueryFileUri),
-		QueryList:         DataprocWorkflowTemplateJobsHiveJobQueryListToProto(o.QueryList),
-		ContinueOnFailure: dcl.ValueOrEmptyBool(o.ContinueOnFailure),
-	}
-	p.ScriptVariables = make(map[string]string)
+	p := &dataprocpb.DataprocWorkflowTemplateJobsHiveJob{}
+	p.SetQueryFileUri(dcl.ValueOrEmptyString(o.QueryFileUri))
+	p.SetQueryList(DataprocWorkflowTemplateJobsHiveJobQueryListToProto(o.QueryList))
+	p.SetContinueOnFailure(dcl.ValueOrEmptyBool(o.ContinueOnFailure))
+	mScriptVariables := make(map[string]string, len(o.ScriptVariables))
 	for k, r := range o.ScriptVariables {
-		p.ScriptVariables[k] = r
+		mScriptVariables[k] = r
 	}
-	p.Properties = make(map[string]string)
+	p.SetScriptVariables(mScriptVariables)
+	mProperties := make(map[string]string, len(o.Properties))
 	for k, r := range o.Properties {
-		p.Properties[k] = r
+		mProperties[k] = r
 	}
-	for _, r := range o.JarFileUris {
-		p.JarFileUris = append(p.JarFileUris, r)
+	p.SetProperties(mProperties)
+	sJarFileUris := make([]string, len(o.JarFileUris))
+	for i, r := range o.JarFileUris {
+		sJarFileUris[i] = r
 	}
+	p.SetJarFileUris(sJarFileUris)
 	return p
 }
 
-// WorkflowTemplateJobsHiveJobQueryListToProto converts a WorkflowTemplateJobsHiveJobQueryList resource to its proto representation.
+// WorkflowTemplateJobsHiveJobQueryListToProto converts a WorkflowTemplateJobsHiveJobQueryList object to its proto representation.
 func DataprocWorkflowTemplateJobsHiveJobQueryListToProto(o *dataproc.WorkflowTemplateJobsHiveJobQueryList) *dataprocpb.DataprocWorkflowTemplateJobsHiveJobQueryList {
 	if o == nil {
 		return nil
 	}
 	p := &dataprocpb.DataprocWorkflowTemplateJobsHiveJobQueryList{}
-	for _, r := range o.Queries {
-		p.Queries = append(p.Queries, r)
+	sQueries := make([]string, len(o.Queries))
+	for i, r := range o.Queries {
+		sQueries[i] = r
 	}
+	p.SetQueries(sQueries)
 	return p
 }
 
-// WorkflowTemplateJobsPigJobToProto converts a WorkflowTemplateJobsPigJob resource to its proto representation.
+// WorkflowTemplateJobsPigJobToProto converts a WorkflowTemplateJobsPigJob object to its proto representation.
 func DataprocWorkflowTemplateJobsPigJobToProto(o *dataproc.WorkflowTemplateJobsPigJob) *dataprocpb.DataprocWorkflowTemplateJobsPigJob {
 	if o == nil {
 		return nil
 	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsPigJob{
-		QueryFileUri:      dcl.ValueOrEmptyString(o.QueryFileUri),
-		QueryList:         DataprocWorkflowTemplateJobsPigJobQueryListToProto(o.QueryList),
-		ContinueOnFailure: dcl.ValueOrEmptyBool(o.ContinueOnFailure),
-		LoggingConfig:     DataprocWorkflowTemplateJobsPigJobLoggingConfigToProto(o.LoggingConfig),
-	}
-	p.ScriptVariables = make(map[string]string)
+	p := &dataprocpb.DataprocWorkflowTemplateJobsPigJob{}
+	p.SetQueryFileUri(dcl.ValueOrEmptyString(o.QueryFileUri))
+	p.SetQueryList(DataprocWorkflowTemplateJobsPigJobQueryListToProto(o.QueryList))
+	p.SetContinueOnFailure(dcl.ValueOrEmptyBool(o.ContinueOnFailure))
+	p.SetLoggingConfig(DataprocWorkflowTemplateJobsPigJobLoggingConfigToProto(o.LoggingConfig))
+	mScriptVariables := make(map[string]string, len(o.ScriptVariables))
 	for k, r := range o.ScriptVariables {
-		p.ScriptVariables[k] = r
+		mScriptVariables[k] = r
 	}
-	p.Properties = make(map[string]string)
+	p.SetScriptVariables(mScriptVariables)
+	mProperties := make(map[string]string, len(o.Properties))
 	for k, r := range o.Properties {
-		p.Properties[k] = r
+		mProperties[k] = r
 	}
-	for _, r := range o.JarFileUris {
-		p.JarFileUris = append(p.JarFileUris, r)
+	p.SetProperties(mProperties)
+	sJarFileUris := make([]string, len(o.JarFileUris))
+	for i, r := range o.JarFileUris {
+		sJarFileUris[i] = r
 	}
+	p.SetJarFileUris(sJarFileUris)
 	return p
 }
 
-// WorkflowTemplateJobsPigJobQueryListToProto converts a WorkflowTemplateJobsPigJobQueryList resource to its proto representation.
+// WorkflowTemplateJobsPigJobQueryListToProto converts a WorkflowTemplateJobsPigJobQueryList object to its proto representation.
 func DataprocWorkflowTemplateJobsPigJobQueryListToProto(o *dataproc.WorkflowTemplateJobsPigJobQueryList) *dataprocpb.DataprocWorkflowTemplateJobsPigJobQueryList {
 	if o == nil {
 		return nil
 	}
 	p := &dataprocpb.DataprocWorkflowTemplateJobsPigJobQueryList{}
-	for _, r := range o.Queries {
-		p.Queries = append(p.Queries, r)
+	sQueries := make([]string, len(o.Queries))
+	for i, r := range o.Queries {
+		sQueries[i] = r
 	}
+	p.SetQueries(sQueries)
 	return p
 }
 
-// WorkflowTemplateJobsPigJobLoggingConfigToProto converts a WorkflowTemplateJobsPigJobLoggingConfig resource to its proto representation.
+// WorkflowTemplateJobsPigJobLoggingConfigToProto converts a WorkflowTemplateJobsPigJobLoggingConfig object to its proto representation.
 func DataprocWorkflowTemplateJobsPigJobLoggingConfigToProto(o *dataproc.WorkflowTemplateJobsPigJobLoggingConfig) *dataprocpb.DataprocWorkflowTemplateJobsPigJobLoggingConfig {
 	if o == nil {
 		return nil
 	}
 	p := &dataprocpb.DataprocWorkflowTemplateJobsPigJobLoggingConfig{}
-	p.DriverLogLevels = make(map[string]string)
+	mDriverLogLevels := make(map[string]string, len(o.DriverLogLevels))
 	for k, r := range o.DriverLogLevels {
-		p.DriverLogLevels[k] = r
+		mDriverLogLevels[k] = r
 	}
+	p.SetDriverLogLevels(mDriverLogLevels)
 	return p
 }
 
-// WorkflowTemplateJobsSparkRJobToProto converts a WorkflowTemplateJobsSparkRJob resource to its proto representation.
+// WorkflowTemplateJobsSparkRJobToProto converts a WorkflowTemplateJobsSparkRJob object to its proto representation.
 func DataprocWorkflowTemplateJobsSparkRJobToProto(o *dataproc.WorkflowTemplateJobsSparkRJob) *dataprocpb.DataprocWorkflowTemplateJobsSparkRJob {
 	if o == nil {
 		return nil
 	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsSparkRJob{
-		MainRFileUri:  dcl.ValueOrEmptyString(o.MainRFileUri),
-		LoggingConfig: DataprocWorkflowTemplateJobsSparkRJobLoggingConfigToProto(o.LoggingConfig),
+	p := &dataprocpb.DataprocWorkflowTemplateJobsSparkRJob{}
+	p.SetMainRFileUri(dcl.ValueOrEmptyString(o.MainRFileUri))
+	p.SetLoggingConfig(DataprocWorkflowTemplateJobsSparkRJobLoggingConfigToProto(o.LoggingConfig))
+	sArgs := make([]string, len(o.Args))
+	for i, r := range o.Args {
+		sArgs[i] = r
 	}
-	for _, r := range o.Args {
-		p.Args = append(p.Args, r)
+	p.SetArgs(sArgs)
+	sFileUris := make([]string, len(o.FileUris))
+	for i, r := range o.FileUris {
+		sFileUris[i] = r
 	}
-	for _, r := range o.FileUris {
-		p.FileUris = append(p.FileUris, r)
+	p.SetFileUris(sFileUris)
+	sArchiveUris := make([]string, len(o.ArchiveUris))
+	for i, r := range o.ArchiveUris {
+		sArchiveUris[i] = r
 	}
-	for _, r := range o.ArchiveUris {
-		p.ArchiveUris = append(p.ArchiveUris, r)
-	}
-	p.Properties = make(map[string]string)
+	p.SetArchiveUris(sArchiveUris)
+	mProperties := make(map[string]string, len(o.Properties))
 	for k, r := range o.Properties {
-		p.Properties[k] = r
+		mProperties[k] = r
 	}
+	p.SetProperties(mProperties)
 	return p
 }
 
-// WorkflowTemplateJobsSparkRJobLoggingConfigToProto converts a WorkflowTemplateJobsSparkRJobLoggingConfig resource to its proto representation.
+// WorkflowTemplateJobsSparkRJobLoggingConfigToProto converts a WorkflowTemplateJobsSparkRJobLoggingConfig object to its proto representation.
 func DataprocWorkflowTemplateJobsSparkRJobLoggingConfigToProto(o *dataproc.WorkflowTemplateJobsSparkRJobLoggingConfig) *dataprocpb.DataprocWorkflowTemplateJobsSparkRJobLoggingConfig {
 	if o == nil {
 		return nil
 	}
 	p := &dataprocpb.DataprocWorkflowTemplateJobsSparkRJobLoggingConfig{}
-	p.DriverLogLevels = make(map[string]string)
+	mDriverLogLevels := make(map[string]string, len(o.DriverLogLevels))
 	for k, r := range o.DriverLogLevels {
-		p.DriverLogLevels[k] = r
+		mDriverLogLevels[k] = r
 	}
+	p.SetDriverLogLevels(mDriverLogLevels)
 	return p
 }
 
-// WorkflowTemplateJobsSparkSqlJobToProto converts a WorkflowTemplateJobsSparkSqlJob resource to its proto representation.
+// WorkflowTemplateJobsSparkSqlJobToProto converts a WorkflowTemplateJobsSparkSqlJob object to its proto representation.
 func DataprocWorkflowTemplateJobsSparkSqlJobToProto(o *dataproc.WorkflowTemplateJobsSparkSqlJob) *dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJob {
 	if o == nil {
 		return nil
 	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJob{
-		QueryFileUri:  dcl.ValueOrEmptyString(o.QueryFileUri),
-		QueryList:     DataprocWorkflowTemplateJobsSparkSqlJobQueryListToProto(o.QueryList),
-		LoggingConfig: DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigToProto(o.LoggingConfig),
-	}
-	p.ScriptVariables = make(map[string]string)
+	p := &dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJob{}
+	p.SetQueryFileUri(dcl.ValueOrEmptyString(o.QueryFileUri))
+	p.SetQueryList(DataprocWorkflowTemplateJobsSparkSqlJobQueryListToProto(o.QueryList))
+	p.SetLoggingConfig(DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigToProto(o.LoggingConfig))
+	mScriptVariables := make(map[string]string, len(o.ScriptVariables))
 	for k, r := range o.ScriptVariables {
-		p.ScriptVariables[k] = r
+		mScriptVariables[k] = r
 	}
-	p.Properties = make(map[string]string)
+	p.SetScriptVariables(mScriptVariables)
+	mProperties := make(map[string]string, len(o.Properties))
 	for k, r := range o.Properties {
-		p.Properties[k] = r
+		mProperties[k] = r
 	}
-	for _, r := range o.JarFileUris {
-		p.JarFileUris = append(p.JarFileUris, r)
+	p.SetProperties(mProperties)
+	sJarFileUris := make([]string, len(o.JarFileUris))
+	for i, r := range o.JarFileUris {
+		sJarFileUris[i] = r
 	}
+	p.SetJarFileUris(sJarFileUris)
 	return p
 }
 
-// WorkflowTemplateJobsSparkSqlJobQueryListToProto converts a WorkflowTemplateJobsSparkSqlJobQueryList resource to its proto representation.
+// WorkflowTemplateJobsSparkSqlJobQueryListToProto converts a WorkflowTemplateJobsSparkSqlJobQueryList object to its proto representation.
 func DataprocWorkflowTemplateJobsSparkSqlJobQueryListToProto(o *dataproc.WorkflowTemplateJobsSparkSqlJobQueryList) *dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobQueryList {
 	if o == nil {
 		return nil
 	}
 	p := &dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobQueryList{}
-	for _, r := range o.Queries {
-		p.Queries = append(p.Queries, r)
+	sQueries := make([]string, len(o.Queries))
+	for i, r := range o.Queries {
+		sQueries[i] = r
 	}
+	p.SetQueries(sQueries)
 	return p
 }
 
-// WorkflowTemplateJobsSparkSqlJobLoggingConfigToProto converts a WorkflowTemplateJobsSparkSqlJobLoggingConfig resource to its proto representation.
+// WorkflowTemplateJobsSparkSqlJobLoggingConfigToProto converts a WorkflowTemplateJobsSparkSqlJobLoggingConfig object to its proto representation.
 func DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfigToProto(o *dataproc.WorkflowTemplateJobsSparkSqlJobLoggingConfig) *dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfig {
 	if o == nil {
 		return nil
 	}
 	p := &dataprocpb.DataprocWorkflowTemplateJobsSparkSqlJobLoggingConfig{}
-	p.DriverLogLevels = make(map[string]string)
+	mDriverLogLevels := make(map[string]string, len(o.DriverLogLevels))
 	for k, r := range o.DriverLogLevels {
-		p.DriverLogLevels[k] = r
+		mDriverLogLevels[k] = r
 	}
+	p.SetDriverLogLevels(mDriverLogLevels)
 	return p
 }
 
-// WorkflowTemplateJobsPrestoJobToProto converts a WorkflowTemplateJobsPrestoJob resource to its proto representation.
+// WorkflowTemplateJobsPrestoJobToProto converts a WorkflowTemplateJobsPrestoJob object to its proto representation.
 func DataprocWorkflowTemplateJobsPrestoJobToProto(o *dataproc.WorkflowTemplateJobsPrestoJob) *dataprocpb.DataprocWorkflowTemplateJobsPrestoJob {
 	if o == nil {
 		return nil
 	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsPrestoJob{
-		QueryFileUri:      dcl.ValueOrEmptyString(o.QueryFileUri),
-		QueryList:         DataprocWorkflowTemplateJobsPrestoJobQueryListToProto(o.QueryList),
-		ContinueOnFailure: dcl.ValueOrEmptyBool(o.ContinueOnFailure),
-		OutputFormat:      dcl.ValueOrEmptyString(o.OutputFormat),
-		LoggingConfig:     DataprocWorkflowTemplateJobsPrestoJobLoggingConfigToProto(o.LoggingConfig),
+	p := &dataprocpb.DataprocWorkflowTemplateJobsPrestoJob{}
+	p.SetQueryFileUri(dcl.ValueOrEmptyString(o.QueryFileUri))
+	p.SetQueryList(DataprocWorkflowTemplateJobsPrestoJobQueryListToProto(o.QueryList))
+	p.SetContinueOnFailure(dcl.ValueOrEmptyBool(o.ContinueOnFailure))
+	p.SetOutputFormat(dcl.ValueOrEmptyString(o.OutputFormat))
+	p.SetLoggingConfig(DataprocWorkflowTemplateJobsPrestoJobLoggingConfigToProto(o.LoggingConfig))
+	sClientTags := make([]string, len(o.ClientTags))
+	for i, r := range o.ClientTags {
+		sClientTags[i] = r
 	}
-	for _, r := range o.ClientTags {
-		p.ClientTags = append(p.ClientTags, r)
-	}
-	p.Properties = make(map[string]string)
+	p.SetClientTags(sClientTags)
+	mProperties := make(map[string]string, len(o.Properties))
 	for k, r := range o.Properties {
-		p.Properties[k] = r
+		mProperties[k] = r
 	}
+	p.SetProperties(mProperties)
 	return p
 }
 
-// WorkflowTemplateJobsPrestoJobQueryListToProto converts a WorkflowTemplateJobsPrestoJobQueryList resource to its proto representation.
+// WorkflowTemplateJobsPrestoJobQueryListToProto converts a WorkflowTemplateJobsPrestoJobQueryList object to its proto representation.
 func DataprocWorkflowTemplateJobsPrestoJobQueryListToProto(o *dataproc.WorkflowTemplateJobsPrestoJobQueryList) *dataprocpb.DataprocWorkflowTemplateJobsPrestoJobQueryList {
 	if o == nil {
 		return nil
 	}
 	p := &dataprocpb.DataprocWorkflowTemplateJobsPrestoJobQueryList{}
-	for _, r := range o.Queries {
-		p.Queries = append(p.Queries, r)
+	sQueries := make([]string, len(o.Queries))
+	for i, r := range o.Queries {
+		sQueries[i] = r
 	}
+	p.SetQueries(sQueries)
 	return p
 }
 
-// WorkflowTemplateJobsPrestoJobLoggingConfigToProto converts a WorkflowTemplateJobsPrestoJobLoggingConfig resource to its proto representation.
+// WorkflowTemplateJobsPrestoJobLoggingConfigToProto converts a WorkflowTemplateJobsPrestoJobLoggingConfig object to its proto representation.
 func DataprocWorkflowTemplateJobsPrestoJobLoggingConfigToProto(o *dataproc.WorkflowTemplateJobsPrestoJobLoggingConfig) *dataprocpb.DataprocWorkflowTemplateJobsPrestoJobLoggingConfig {
 	if o == nil {
 		return nil
 	}
 	p := &dataprocpb.DataprocWorkflowTemplateJobsPrestoJobLoggingConfig{}
-	p.DriverLogLevels = make(map[string]string)
+	mDriverLogLevels := make(map[string]string, len(o.DriverLogLevels))
 	for k, r := range o.DriverLogLevels {
-		p.DriverLogLevels[k] = r
+		mDriverLogLevels[k] = r
 	}
+	p.SetDriverLogLevels(mDriverLogLevels)
 	return p
 }
 
-// WorkflowTemplateJobsSchedulingToProto converts a WorkflowTemplateJobsScheduling resource to its proto representation.
+// WorkflowTemplateJobsSchedulingToProto converts a WorkflowTemplateJobsScheduling object to its proto representation.
 func DataprocWorkflowTemplateJobsSchedulingToProto(o *dataproc.WorkflowTemplateJobsScheduling) *dataprocpb.DataprocWorkflowTemplateJobsScheduling {
 	if o == nil {
 		return nil
 	}
-	p := &dataprocpb.DataprocWorkflowTemplateJobsScheduling{
-		MaxFailuresPerHour: dcl.ValueOrEmptyInt64(o.MaxFailuresPerHour),
-		MaxFailuresTotal:   dcl.ValueOrEmptyInt64(o.MaxFailuresTotal),
-	}
+	p := &dataprocpb.DataprocWorkflowTemplateJobsScheduling{}
+	p.SetMaxFailuresPerHour(dcl.ValueOrEmptyInt64(o.MaxFailuresPerHour))
+	p.SetMaxFailuresTotal(dcl.ValueOrEmptyInt64(o.MaxFailuresTotal))
 	return p
 }
 
-// WorkflowTemplateParametersToProto converts a WorkflowTemplateParameters resource to its proto representation.
+// WorkflowTemplateParametersToProto converts a WorkflowTemplateParameters object to its proto representation.
 func DataprocWorkflowTemplateParametersToProto(o *dataproc.WorkflowTemplateParameters) *dataprocpb.DataprocWorkflowTemplateParameters {
 	if o == nil {
 		return nil
 	}
-	p := &dataprocpb.DataprocWorkflowTemplateParameters{
-		Name:        dcl.ValueOrEmptyString(o.Name),
-		Description: dcl.ValueOrEmptyString(o.Description),
-		Validation:  DataprocWorkflowTemplateParametersValidationToProto(o.Validation),
+	p := &dataprocpb.DataprocWorkflowTemplateParameters{}
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(o.Description))
+	p.SetValidation(DataprocWorkflowTemplateParametersValidationToProto(o.Validation))
+	sFields := make([]string, len(o.Fields))
+	for i, r := range o.Fields {
+		sFields[i] = r
 	}
-	for _, r := range o.Fields {
-		p.Fields = append(p.Fields, r)
-	}
+	p.SetFields(sFields)
 	return p
 }
 
-// WorkflowTemplateParametersValidationToProto converts a WorkflowTemplateParametersValidation resource to its proto representation.
+// WorkflowTemplateParametersValidationToProto converts a WorkflowTemplateParametersValidation object to its proto representation.
 func DataprocWorkflowTemplateParametersValidationToProto(o *dataproc.WorkflowTemplateParametersValidation) *dataprocpb.DataprocWorkflowTemplateParametersValidation {
 	if o == nil {
 		return nil
 	}
-	p := &dataprocpb.DataprocWorkflowTemplateParametersValidation{
-		Regex:  DataprocWorkflowTemplateParametersValidationRegexToProto(o.Regex),
-		Values: DataprocWorkflowTemplateParametersValidationValuesToProto(o.Values),
-	}
+	p := &dataprocpb.DataprocWorkflowTemplateParametersValidation{}
+	p.SetRegex(DataprocWorkflowTemplateParametersValidationRegexToProto(o.Regex))
+	p.SetValues(DataprocWorkflowTemplateParametersValidationValuesToProto(o.Values))
 	return p
 }
 
-// WorkflowTemplateParametersValidationRegexToProto converts a WorkflowTemplateParametersValidationRegex resource to its proto representation.
+// WorkflowTemplateParametersValidationRegexToProto converts a WorkflowTemplateParametersValidationRegex object to its proto representation.
 func DataprocWorkflowTemplateParametersValidationRegexToProto(o *dataproc.WorkflowTemplateParametersValidationRegex) *dataprocpb.DataprocWorkflowTemplateParametersValidationRegex {
 	if o == nil {
 		return nil
 	}
 	p := &dataprocpb.DataprocWorkflowTemplateParametersValidationRegex{}
-	for _, r := range o.Regexes {
-		p.Regexes = append(p.Regexes, r)
+	sRegexes := make([]string, len(o.Regexes))
+	for i, r := range o.Regexes {
+		sRegexes[i] = r
 	}
+	p.SetRegexes(sRegexes)
 	return p
 }
 
-// WorkflowTemplateParametersValidationValuesToProto converts a WorkflowTemplateParametersValidationValues resource to its proto representation.
+// WorkflowTemplateParametersValidationValuesToProto converts a WorkflowTemplateParametersValidationValues object to its proto representation.
 func DataprocWorkflowTemplateParametersValidationValuesToProto(o *dataproc.WorkflowTemplateParametersValidationValues) *dataprocpb.DataprocWorkflowTemplateParametersValidationValues {
 	if o == nil {
 		return nil
 	}
 	p := &dataprocpb.DataprocWorkflowTemplateParametersValidationValues{}
-	for _, r := range o.Values {
-		p.Values = append(p.Values, r)
+	sValues := make([]string, len(o.Values))
+	for i, r := range o.Values {
+		sValues[i] = r
 	}
+	p.SetValues(sValues)
 	return p
 }
 
 // WorkflowTemplateToProto converts a WorkflowTemplate resource to its proto representation.
 func WorkflowTemplateToProto(resource *dataproc.WorkflowTemplate) *dataprocpb.DataprocWorkflowTemplate {
-	p := &dataprocpb.DataprocWorkflowTemplate{
-		Name:       dcl.ValueOrEmptyString(resource.Name),
-		Version:    dcl.ValueOrEmptyInt64(resource.Version),
-		CreateTime: dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime: dcl.ValueOrEmptyString(resource.UpdateTime),
-		Placement:  DataprocWorkflowTemplatePlacementToProto(resource.Placement),
-		DagTimeout: dcl.ValueOrEmptyString(resource.DagTimeout),
-		Project:    dcl.ValueOrEmptyString(resource.Project),
-		Location:   dcl.ValueOrEmptyString(resource.Location),
+	p := &dataprocpb.DataprocWorkflowTemplate{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetVersion(dcl.ValueOrEmptyInt64(resource.Version))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetPlacement(DataprocWorkflowTemplatePlacementToProto(resource.Placement))
+	p.SetDagTimeout(dcl.ValueOrEmptyString(resource.DagTimeout))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
-	for _, r := range resource.Jobs {
-		p.Jobs = append(p.Jobs, DataprocWorkflowTemplateJobsToProto(&r))
+	p.SetLabels(mLabels)
+	sJobs := make([]*dataprocpb.DataprocWorkflowTemplateJobs, len(resource.Jobs))
+	for i, r := range resource.Jobs {
+		sJobs[i] = DataprocWorkflowTemplateJobsToProto(&r)
 	}
-	for _, r := range resource.Parameters {
-		p.Parameters = append(p.Parameters, DataprocWorkflowTemplateParametersToProto(&r))
+	p.SetJobs(sJobs)
+	sParameters := make([]*dataprocpb.DataprocWorkflowTemplateParameters, len(resource.Parameters))
+	for i, r := range resource.Parameters {
+		sParameters[i] = DataprocWorkflowTemplateParametersToProto(&r)
 	}
+	p.SetParameters(sParameters)
 
 	return p
 }
 
-// ApplyWorkflowTemplate handles the gRPC request by passing it to the underlying WorkflowTemplate Apply() method.
+// applyWorkflowTemplate handles the gRPC request by passing it to the underlying WorkflowTemplate Apply() method.
 func (s *WorkflowTemplateServer) applyWorkflowTemplate(ctx context.Context, c *dataproc.Client, request *dataprocpb.ApplyDataprocWorkflowTemplateRequest) (*dataprocpb.DataprocWorkflowTemplate, error) {
 	p := ProtoToWorkflowTemplate(request.GetResource())
 	res, err := c.ApplyWorkflowTemplate(ctx, p)
@@ -959,9 +1029,9 @@ func (s *WorkflowTemplateServer) applyWorkflowTemplate(ctx context.Context, c *d
 	return r, nil
 }
 
-// ApplyWorkflowTemplate handles the gRPC request by passing it to the underlying WorkflowTemplate Apply() method.
+// applyDataprocWorkflowTemplate handles the gRPC request by passing it to the underlying WorkflowTemplate Apply() method.
 func (s *WorkflowTemplateServer) ApplyDataprocWorkflowTemplate(ctx context.Context, request *dataprocpb.ApplyDataprocWorkflowTemplateRequest) (*dataprocpb.DataprocWorkflowTemplate, error) {
-	cl, err := createConfigWorkflowTemplate(ctx, request.ServiceAccountFile)
+	cl, err := createConfigWorkflowTemplate(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -971,7 +1041,7 @@ func (s *WorkflowTemplateServer) ApplyDataprocWorkflowTemplate(ctx context.Conte
 // DeleteWorkflowTemplate handles the gRPC request by passing it to the underlying WorkflowTemplate Delete() method.
 func (s *WorkflowTemplateServer) DeleteDataprocWorkflowTemplate(ctx context.Context, request *dataprocpb.DeleteDataprocWorkflowTemplateRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigWorkflowTemplate(ctx, request.ServiceAccountFile)
+	cl, err := createConfigWorkflowTemplate(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -981,12 +1051,12 @@ func (s *WorkflowTemplateServer) DeleteDataprocWorkflowTemplate(ctx context.Cont
 
 // ListDataprocWorkflowTemplate handles the gRPC request by passing it to the underlying WorkflowTemplateList() method.
 func (s *WorkflowTemplateServer) ListDataprocWorkflowTemplate(ctx context.Context, request *dataprocpb.ListDataprocWorkflowTemplateRequest) (*dataprocpb.ListDataprocWorkflowTemplateResponse, error) {
-	cl, err := createConfigWorkflowTemplate(ctx, request.ServiceAccountFile)
+	cl, err := createConfigWorkflowTemplate(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListWorkflowTemplate(ctx, request.Project, request.Location)
+	resources, err := cl.ListWorkflowTemplate(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -995,7 +1065,9 @@ func (s *WorkflowTemplateServer) ListDataprocWorkflowTemplate(ctx context.Contex
 		rp := WorkflowTemplateToProto(r)
 		protos = append(protos, rp)
 	}
-	return &dataprocpb.ListDataprocWorkflowTemplateResponse{Items: protos}, nil
+	p := &dataprocpb.ListDataprocWorkflowTemplateResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigWorkflowTemplate(ctx context.Context, service_account_file string) (*dataproc.Client, error) {

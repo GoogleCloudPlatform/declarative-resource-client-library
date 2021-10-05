@@ -41,10 +41,10 @@ func ProtoToCloudresourcemanagerBetaProjectLifecycleStateEnum(e betapb.Cloudreso
 func ProtoToProject(p *betapb.CloudresourcemanagerBetaProject) *beta.Project {
 	obj := &beta.Project{
 		LifecycleState: ProtoToCloudresourcemanagerBetaProjectLifecycleStateEnum(p.GetLifecycleState()),
-		DisplayName:    dcl.StringOrNil(p.DisplayName),
-		Parent:         dcl.StringOrNil(p.Parent),
-		Name:           dcl.StringOrNil(p.Name),
-		ProjectNumber:  dcl.Int64OrNil(p.ProjectNumber),
+		DisplayName:    dcl.StringOrNil(p.GetDisplayName()),
+		Parent:         dcl.StringOrNil(p.GetParent()),
+		Name:           dcl.StringOrNil(p.GetName()),
+		ProjectNumber:  dcl.Int64OrNil(p.GetProjectNumber()),
 	}
 	return obj
 }
@@ -62,18 +62,22 @@ func CloudresourcemanagerBetaProjectLifecycleStateEnumToProto(e *beta.ProjectLif
 
 // ProjectToProto converts a Project resource to its proto representation.
 func ProjectToProto(resource *beta.Project) *betapb.CloudresourcemanagerBetaProject {
-	p := &betapb.CloudresourcemanagerBetaProject{
-		LifecycleState: CloudresourcemanagerBetaProjectLifecycleStateEnumToProto(resource.LifecycleState),
-		DisplayName:    dcl.ValueOrEmptyString(resource.DisplayName),
-		Parent:         dcl.ValueOrEmptyString(resource.Parent),
-		Name:           dcl.ValueOrEmptyString(resource.Name),
-		ProjectNumber:  dcl.ValueOrEmptyInt64(resource.ProjectNumber),
+	p := &betapb.CloudresourcemanagerBetaProject{}
+	p.SetLifecycleState(CloudresourcemanagerBetaProjectLifecycleStateEnumToProto(resource.LifecycleState))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetParent(dcl.ValueOrEmptyString(resource.Parent))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetProjectNumber(dcl.ValueOrEmptyInt64(resource.ProjectNumber))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
+	p.SetLabels(mLabels)
 
 	return p
 }
 
-// ApplyProject handles the gRPC request by passing it to the underlying Project Apply() method.
+// applyProject handles the gRPC request by passing it to the underlying Project Apply() method.
 func (s *ProjectServer) applyProject(ctx context.Context, c *beta.Client, request *betapb.ApplyCloudresourcemanagerBetaProjectRequest) (*betapb.CloudresourcemanagerBetaProject, error) {
 	p := ProtoToProject(request.GetResource())
 	res, err := c.ApplyProject(ctx, p)
@@ -84,9 +88,9 @@ func (s *ProjectServer) applyProject(ctx context.Context, c *beta.Client, reques
 	return r, nil
 }
 
-// ApplyProject handles the gRPC request by passing it to the underlying Project Apply() method.
+// applyCloudresourcemanagerBetaProject handles the gRPC request by passing it to the underlying Project Apply() method.
 func (s *ProjectServer) ApplyCloudresourcemanagerBetaProject(ctx context.Context, request *betapb.ApplyCloudresourcemanagerBetaProjectRequest) (*betapb.CloudresourcemanagerBetaProject, error) {
-	cl, err := createConfigProject(ctx, request.ServiceAccountFile)
+	cl, err := createConfigProject(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -96,7 +100,7 @@ func (s *ProjectServer) ApplyCloudresourcemanagerBetaProject(ctx context.Context
 // DeleteProject handles the gRPC request by passing it to the underlying Project Delete() method.
 func (s *ProjectServer) DeleteCloudresourcemanagerBetaProject(ctx context.Context, request *betapb.DeleteCloudresourcemanagerBetaProjectRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigProject(ctx, request.ServiceAccountFile)
+	cl, err := createConfigProject(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -106,7 +110,7 @@ func (s *ProjectServer) DeleteCloudresourcemanagerBetaProject(ctx context.Contex
 
 // ListCloudresourcemanagerBetaProject handles the gRPC request by passing it to the underlying ProjectList() method.
 func (s *ProjectServer) ListCloudresourcemanagerBetaProject(ctx context.Context, request *betapb.ListCloudresourcemanagerBetaProjectRequest) (*betapb.ListCloudresourcemanagerBetaProjectResponse, error) {
-	cl, err := createConfigProject(ctx, request.ServiceAccountFile)
+	cl, err := createConfigProject(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -120,7 +124,9 @@ func (s *ProjectServer) ListCloudresourcemanagerBetaProject(ctx context.Context,
 		rp := ProjectToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListCloudresourcemanagerBetaProjectResponse{Items: protos}, nil
+	p := &betapb.ListCloudresourcemanagerBetaProjectResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigProject(ctx context.Context, service_account_file string) (*beta.Client, error) {

@@ -37,26 +37,26 @@ func ProtoToCloudbuildAlphaWorkerPoolStateEnum(e alphapb.CloudbuildAlphaWorkerPo
 	return nil
 }
 
-// ProtoToWorkerPoolWorkerConfig converts a WorkerPoolWorkerConfig resource from its proto representation.
+// ProtoToWorkerPoolWorkerConfig converts a WorkerPoolWorkerConfig object from its proto representation.
 func ProtoToCloudbuildAlphaWorkerPoolWorkerConfig(p *alphapb.CloudbuildAlphaWorkerPoolWorkerConfig) *alpha.WorkerPoolWorkerConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.WorkerPoolWorkerConfig{
-		MachineType:  dcl.StringOrNil(p.MachineType),
-		DiskSizeGb:   dcl.Int64OrNil(p.DiskSizeGb),
-		NoExternalIP: dcl.Bool(p.NoExternalIp),
+		MachineType:  dcl.StringOrNil(p.GetMachineType()),
+		DiskSizeGb:   dcl.Int64OrNil(p.GetDiskSizeGb()),
+		NoExternalIP: dcl.Bool(p.GetNoExternalIp()),
 	}
 	return obj
 }
 
-// ProtoToWorkerPoolNetworkConfig converts a WorkerPoolNetworkConfig resource from its proto representation.
+// ProtoToWorkerPoolNetworkConfig converts a WorkerPoolNetworkConfig object from its proto representation.
 func ProtoToCloudbuildAlphaWorkerPoolNetworkConfig(p *alphapb.CloudbuildAlphaWorkerPoolNetworkConfig) *alpha.WorkerPoolNetworkConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.WorkerPoolNetworkConfig{
-		PeeredNetwork: dcl.StringOrNil(p.PeeredNetwork),
+		PeeredNetwork: dcl.StringOrNil(p.GetPeeredNetwork()),
 	}
 	return obj
 }
@@ -64,15 +64,15 @@ func ProtoToCloudbuildAlphaWorkerPoolNetworkConfig(p *alphapb.CloudbuildAlphaWor
 // ProtoToWorkerPool converts a WorkerPool resource from its proto representation.
 func ProtoToWorkerPool(p *alphapb.CloudbuildAlphaWorkerPool) *alpha.WorkerPool {
 	obj := &alpha.WorkerPool{
-		Name:          dcl.StringOrNil(p.Name),
+		Name:          dcl.StringOrNil(p.GetName()),
 		CreateTime:    dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:    dcl.StringOrNil(p.GetUpdateTime()),
 		DeleteTime:    dcl.StringOrNil(p.GetDeleteTime()),
 		State:         ProtoToCloudbuildAlphaWorkerPoolStateEnum(p.GetState()),
 		WorkerConfig:  ProtoToCloudbuildAlphaWorkerPoolWorkerConfig(p.GetWorkerConfig()),
 		NetworkConfig: ProtoToCloudbuildAlphaWorkerPoolNetworkConfig(p.GetNetworkConfig()),
-		Project:       dcl.StringOrNil(p.Project),
-		Location:      dcl.StringOrNil(p.Location),
+		Project:       dcl.StringOrNil(p.GetProject()),
+		Location:      dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -88,48 +88,45 @@ func CloudbuildAlphaWorkerPoolStateEnumToProto(e *alpha.WorkerPoolStateEnum) alp
 	return alphapb.CloudbuildAlphaWorkerPoolStateEnum(0)
 }
 
-// WorkerPoolWorkerConfigToProto converts a WorkerPoolWorkerConfig resource to its proto representation.
+// WorkerPoolWorkerConfigToProto converts a WorkerPoolWorkerConfig object to its proto representation.
 func CloudbuildAlphaWorkerPoolWorkerConfigToProto(o *alpha.WorkerPoolWorkerConfig) *alphapb.CloudbuildAlphaWorkerPoolWorkerConfig {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.CloudbuildAlphaWorkerPoolWorkerConfig{
-		MachineType:  dcl.ValueOrEmptyString(o.MachineType),
-		DiskSizeGb:   dcl.ValueOrEmptyInt64(o.DiskSizeGb),
-		NoExternalIp: dcl.ValueOrEmptyBool(o.NoExternalIP),
-	}
+	p := &alphapb.CloudbuildAlphaWorkerPoolWorkerConfig{}
+	p.SetMachineType(dcl.ValueOrEmptyString(o.MachineType))
+	p.SetDiskSizeGb(dcl.ValueOrEmptyInt64(o.DiskSizeGb))
+	p.SetNoExternalIp(dcl.ValueOrEmptyBool(o.NoExternalIP))
 	return p
 }
 
-// WorkerPoolNetworkConfigToProto converts a WorkerPoolNetworkConfig resource to its proto representation.
+// WorkerPoolNetworkConfigToProto converts a WorkerPoolNetworkConfig object to its proto representation.
 func CloudbuildAlphaWorkerPoolNetworkConfigToProto(o *alpha.WorkerPoolNetworkConfig) *alphapb.CloudbuildAlphaWorkerPoolNetworkConfig {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.CloudbuildAlphaWorkerPoolNetworkConfig{
-		PeeredNetwork: dcl.ValueOrEmptyString(o.PeeredNetwork),
-	}
+	p := &alphapb.CloudbuildAlphaWorkerPoolNetworkConfig{}
+	p.SetPeeredNetwork(dcl.ValueOrEmptyString(o.PeeredNetwork))
 	return p
 }
 
 // WorkerPoolToProto converts a WorkerPool resource to its proto representation.
 func WorkerPoolToProto(resource *alpha.WorkerPool) *alphapb.CloudbuildAlphaWorkerPool {
-	p := &alphapb.CloudbuildAlphaWorkerPool{
-		Name:          dcl.ValueOrEmptyString(resource.Name),
-		CreateTime:    dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:    dcl.ValueOrEmptyString(resource.UpdateTime),
-		DeleteTime:    dcl.ValueOrEmptyString(resource.DeleteTime),
-		State:         CloudbuildAlphaWorkerPoolStateEnumToProto(resource.State),
-		WorkerConfig:  CloudbuildAlphaWorkerPoolWorkerConfigToProto(resource.WorkerConfig),
-		NetworkConfig: CloudbuildAlphaWorkerPoolNetworkConfigToProto(resource.NetworkConfig),
-		Project:       dcl.ValueOrEmptyString(resource.Project),
-		Location:      dcl.ValueOrEmptyString(resource.Location),
-	}
+	p := &alphapb.CloudbuildAlphaWorkerPool{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetDeleteTime(dcl.ValueOrEmptyString(resource.DeleteTime))
+	p.SetState(CloudbuildAlphaWorkerPoolStateEnumToProto(resource.State))
+	p.SetWorkerConfig(CloudbuildAlphaWorkerPoolWorkerConfigToProto(resource.WorkerConfig))
+	p.SetNetworkConfig(CloudbuildAlphaWorkerPoolNetworkConfigToProto(resource.NetworkConfig))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 
 	return p
 }
 
-// ApplyWorkerPool handles the gRPC request by passing it to the underlying WorkerPool Apply() method.
+// applyWorkerPool handles the gRPC request by passing it to the underlying WorkerPool Apply() method.
 func (s *WorkerPoolServer) applyWorkerPool(ctx context.Context, c *alpha.Client, request *alphapb.ApplyCloudbuildAlphaWorkerPoolRequest) (*alphapb.CloudbuildAlphaWorkerPool, error) {
 	p := ProtoToWorkerPool(request.GetResource())
 	res, err := c.ApplyWorkerPool(ctx, p)
@@ -140,9 +137,9 @@ func (s *WorkerPoolServer) applyWorkerPool(ctx context.Context, c *alpha.Client,
 	return r, nil
 }
 
-// ApplyWorkerPool handles the gRPC request by passing it to the underlying WorkerPool Apply() method.
+// applyCloudbuildAlphaWorkerPool handles the gRPC request by passing it to the underlying WorkerPool Apply() method.
 func (s *WorkerPoolServer) ApplyCloudbuildAlphaWorkerPool(ctx context.Context, request *alphapb.ApplyCloudbuildAlphaWorkerPoolRequest) (*alphapb.CloudbuildAlphaWorkerPool, error) {
-	cl, err := createConfigWorkerPool(ctx, request.ServiceAccountFile)
+	cl, err := createConfigWorkerPool(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -152,7 +149,7 @@ func (s *WorkerPoolServer) ApplyCloudbuildAlphaWorkerPool(ctx context.Context, r
 // DeleteWorkerPool handles the gRPC request by passing it to the underlying WorkerPool Delete() method.
 func (s *WorkerPoolServer) DeleteCloudbuildAlphaWorkerPool(ctx context.Context, request *alphapb.DeleteCloudbuildAlphaWorkerPoolRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigWorkerPool(ctx, request.ServiceAccountFile)
+	cl, err := createConfigWorkerPool(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -162,12 +159,12 @@ func (s *WorkerPoolServer) DeleteCloudbuildAlphaWorkerPool(ctx context.Context, 
 
 // ListCloudbuildAlphaWorkerPool handles the gRPC request by passing it to the underlying WorkerPoolList() method.
 func (s *WorkerPoolServer) ListCloudbuildAlphaWorkerPool(ctx context.Context, request *alphapb.ListCloudbuildAlphaWorkerPoolRequest) (*alphapb.ListCloudbuildAlphaWorkerPoolResponse, error) {
-	cl, err := createConfigWorkerPool(ctx, request.ServiceAccountFile)
+	cl, err := createConfigWorkerPool(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListWorkerPool(ctx, request.Project, request.Location)
+	resources, err := cl.ListWorkerPool(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -176,7 +173,9 @@ func (s *WorkerPoolServer) ListCloudbuildAlphaWorkerPool(ctx context.Context, re
 		rp := WorkerPoolToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListCloudbuildAlphaWorkerPoolResponse{Items: protos}, nil
+	p := &alphapb.ListCloudbuildAlphaWorkerPoolResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigWorkerPool(ctx context.Context, service_account_file string) (*alpha.Client, error) {

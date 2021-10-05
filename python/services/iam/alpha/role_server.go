@@ -37,14 +37,14 @@ func ProtoToIamAlphaRoleStageEnum(e alphapb.IamAlphaRoleStageEnum) *alpha.RoleSt
 	return nil
 }
 
-// ProtoToRoleLocalizedValues converts a RoleLocalizedValues resource from its proto representation.
+// ProtoToRoleLocalizedValues converts a RoleLocalizedValues object from its proto representation.
 func ProtoToIamAlphaRoleLocalizedValues(p *alphapb.IamAlphaRoleLocalizedValues) *alpha.RoleLocalizedValues {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.RoleLocalizedValues{
-		LocalizedTitle:       dcl.StringOrNil(p.LocalizedTitle),
-		LocalizedDescription: dcl.StringOrNil(p.LocalizedDescription),
+		LocalizedTitle:       dcl.StringOrNil(p.GetLocalizedTitle()),
+		LocalizedDescription: dcl.StringOrNil(p.GetLocalizedDescription()),
 	}
 	return obj
 }
@@ -52,17 +52,17 @@ func ProtoToIamAlphaRoleLocalizedValues(p *alphapb.IamAlphaRoleLocalizedValues) 
 // ProtoToRole converts a Role resource from its proto representation.
 func ProtoToRole(p *alphapb.IamAlphaRole) *alpha.Role {
 	obj := &alpha.Role{
-		Name:            dcl.StringOrNil(p.Name),
-		Title:           dcl.StringOrNil(p.Title),
-		Description:     dcl.StringOrNil(p.Description),
+		Name:            dcl.StringOrNil(p.GetName()),
+		Title:           dcl.StringOrNil(p.GetTitle()),
+		Description:     dcl.StringOrNil(p.GetDescription()),
 		LocalizedValues: ProtoToIamAlphaRoleLocalizedValues(p.GetLocalizedValues()),
-		LifecyclePhase:  dcl.StringOrNil(p.LifecyclePhase),
-		GroupName:       dcl.StringOrNil(p.GroupName),
-		GroupTitle:      dcl.StringOrNil(p.GroupTitle),
+		LifecyclePhase:  dcl.StringOrNil(p.GetLifecyclePhase()),
+		GroupName:       dcl.StringOrNil(p.GetGroupName()),
+		GroupTitle:      dcl.StringOrNil(p.GetGroupTitle()),
 		Stage:           ProtoToIamAlphaRoleStageEnum(p.GetStage()),
-		Etag:            dcl.StringOrNil(p.Etag),
-		Deleted:         dcl.Bool(p.Deleted),
-		Parent:          dcl.StringOrNil(p.Parent),
+		Etag:            dcl.StringOrNil(p.GetEtag()),
+		Deleted:         dcl.Bool(p.GetDeleted()),
+		Parent:          dcl.StringOrNil(p.GetParent()),
 	}
 	for _, r := range p.GetIncludedPermissions() {
 		obj.IncludedPermissions = append(obj.IncludedPermissions, r)
@@ -84,44 +84,46 @@ func IamAlphaRoleStageEnumToProto(e *alpha.RoleStageEnum) alphapb.IamAlphaRoleSt
 	return alphapb.IamAlphaRoleStageEnum(0)
 }
 
-// RoleLocalizedValuesToProto converts a RoleLocalizedValues resource to its proto representation.
+// RoleLocalizedValuesToProto converts a RoleLocalizedValues object to its proto representation.
 func IamAlphaRoleLocalizedValuesToProto(o *alpha.RoleLocalizedValues) *alphapb.IamAlphaRoleLocalizedValues {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.IamAlphaRoleLocalizedValues{
-		LocalizedTitle:       dcl.ValueOrEmptyString(o.LocalizedTitle),
-		LocalizedDescription: dcl.ValueOrEmptyString(o.LocalizedDescription),
-	}
+	p := &alphapb.IamAlphaRoleLocalizedValues{}
+	p.SetLocalizedTitle(dcl.ValueOrEmptyString(o.LocalizedTitle))
+	p.SetLocalizedDescription(dcl.ValueOrEmptyString(o.LocalizedDescription))
 	return p
 }
 
 // RoleToProto converts a Role resource to its proto representation.
 func RoleToProto(resource *alpha.Role) *alphapb.IamAlphaRole {
-	p := &alphapb.IamAlphaRole{
-		Name:            dcl.ValueOrEmptyString(resource.Name),
-		Title:           dcl.ValueOrEmptyString(resource.Title),
-		Description:     dcl.ValueOrEmptyString(resource.Description),
-		LocalizedValues: IamAlphaRoleLocalizedValuesToProto(resource.LocalizedValues),
-		LifecyclePhase:  dcl.ValueOrEmptyString(resource.LifecyclePhase),
-		GroupName:       dcl.ValueOrEmptyString(resource.GroupName),
-		GroupTitle:      dcl.ValueOrEmptyString(resource.GroupTitle),
-		Stage:           IamAlphaRoleStageEnumToProto(resource.Stage),
-		Etag:            dcl.ValueOrEmptyString(resource.Etag),
-		Deleted:         dcl.ValueOrEmptyBool(resource.Deleted),
-		Parent:          dcl.ValueOrEmptyString(resource.Parent),
+	p := &alphapb.IamAlphaRole{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetTitle(dcl.ValueOrEmptyString(resource.Title))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetLocalizedValues(IamAlphaRoleLocalizedValuesToProto(resource.LocalizedValues))
+	p.SetLifecyclePhase(dcl.ValueOrEmptyString(resource.LifecyclePhase))
+	p.SetGroupName(dcl.ValueOrEmptyString(resource.GroupName))
+	p.SetGroupTitle(dcl.ValueOrEmptyString(resource.GroupTitle))
+	p.SetStage(IamAlphaRoleStageEnumToProto(resource.Stage))
+	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
+	p.SetDeleted(dcl.ValueOrEmptyBool(resource.Deleted))
+	p.SetParent(dcl.ValueOrEmptyString(resource.Parent))
+	sIncludedPermissions := make([]string, len(resource.IncludedPermissions))
+	for i, r := range resource.IncludedPermissions {
+		sIncludedPermissions[i] = r
 	}
-	for _, r := range resource.IncludedPermissions {
-		p.IncludedPermissions = append(p.IncludedPermissions, r)
+	p.SetIncludedPermissions(sIncludedPermissions)
+	sIncludedRoles := make([]string, len(resource.IncludedRoles))
+	for i, r := range resource.IncludedRoles {
+		sIncludedRoles[i] = r
 	}
-	for _, r := range resource.IncludedRoles {
-		p.IncludedRoles = append(p.IncludedRoles, r)
-	}
+	p.SetIncludedRoles(sIncludedRoles)
 
 	return p
 }
 
-// ApplyRole handles the gRPC request by passing it to the underlying Role Apply() method.
+// applyRole handles the gRPC request by passing it to the underlying Role Apply() method.
 func (s *RoleServer) applyRole(ctx context.Context, c *alpha.Client, request *alphapb.ApplyIamAlphaRoleRequest) (*alphapb.IamAlphaRole, error) {
 	p := ProtoToRole(request.GetResource())
 	res, err := c.ApplyRole(ctx, p)
@@ -132,9 +134,9 @@ func (s *RoleServer) applyRole(ctx context.Context, c *alpha.Client, request *al
 	return r, nil
 }
 
-// ApplyRole handles the gRPC request by passing it to the underlying Role Apply() method.
+// applyIamAlphaRole handles the gRPC request by passing it to the underlying Role Apply() method.
 func (s *RoleServer) ApplyIamAlphaRole(ctx context.Context, request *alphapb.ApplyIamAlphaRoleRequest) (*alphapb.IamAlphaRole, error) {
-	cl, err := createConfigRole(ctx, request.ServiceAccountFile)
+	cl, err := createConfigRole(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -144,7 +146,7 @@ func (s *RoleServer) ApplyIamAlphaRole(ctx context.Context, request *alphapb.App
 // DeleteRole handles the gRPC request by passing it to the underlying Role Delete() method.
 func (s *RoleServer) DeleteIamAlphaRole(ctx context.Context, request *alphapb.DeleteIamAlphaRoleRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigRole(ctx, request.ServiceAccountFile)
+	cl, err := createConfigRole(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -154,12 +156,12 @@ func (s *RoleServer) DeleteIamAlphaRole(ctx context.Context, request *alphapb.De
 
 // ListIamAlphaRole handles the gRPC request by passing it to the underlying RoleList() method.
 func (s *RoleServer) ListIamAlphaRole(ctx context.Context, request *alphapb.ListIamAlphaRoleRequest) (*alphapb.ListIamAlphaRoleResponse, error) {
-	cl, err := createConfigRole(ctx, request.ServiceAccountFile)
+	cl, err := createConfigRole(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListRole(ctx, request.Parent)
+	resources, err := cl.ListRole(ctx, request.GetParent())
 	if err != nil {
 		return nil, err
 	}
@@ -168,7 +170,9 @@ func (s *RoleServer) ListIamAlphaRole(ctx context.Context, request *alphapb.List
 		rp := RoleToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListIamAlphaRoleResponse{Items: protos}, nil
+	p := &alphapb.ListIamAlphaRoleResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigRole(ctx context.Context, service_account_file string) (*alpha.Client, error) {

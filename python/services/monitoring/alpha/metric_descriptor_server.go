@@ -85,28 +85,28 @@ func ProtoToMonitoringAlphaMetricDescriptorLaunchStageEnum(e alphapb.MonitoringA
 	return nil
 }
 
-// ProtoToMetricDescriptorLabels converts a MetricDescriptorLabels resource from its proto representation.
+// ProtoToMetricDescriptorLabels converts a MetricDescriptorLabels object from its proto representation.
 func ProtoToMonitoringAlphaMetricDescriptorLabels(p *alphapb.MonitoringAlphaMetricDescriptorLabels) *alpha.MetricDescriptorLabels {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.MetricDescriptorLabels{
-		Key:         dcl.StringOrNil(p.Key),
+		Key:         dcl.StringOrNil(p.GetKey()),
 		ValueType:   ProtoToMonitoringAlphaMetricDescriptorLabelsValueTypeEnum(p.GetValueType()),
-		Description: dcl.StringOrNil(p.Description),
+		Description: dcl.StringOrNil(p.GetDescription()),
 	}
 	return obj
 }
 
-// ProtoToMetricDescriptorMetadata converts a MetricDescriptorMetadata resource from its proto representation.
+// ProtoToMetricDescriptorMetadata converts a MetricDescriptorMetadata object from its proto representation.
 func ProtoToMonitoringAlphaMetricDescriptorMetadata(p *alphapb.MonitoringAlphaMetricDescriptorMetadata) *alpha.MetricDescriptorMetadata {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.MetricDescriptorMetadata{
 		LaunchStage:  ProtoToMonitoringAlphaMetricDescriptorMetadataLaunchStageEnum(p.GetLaunchStage()),
-		SamplePeriod: dcl.StringOrNil(p.SamplePeriod),
-		IngestDelay:  dcl.StringOrNil(p.IngestDelay),
+		SamplePeriod: dcl.StringOrNil(p.GetSamplePeriod()),
+		IngestDelay:  dcl.StringOrNil(p.GetIngestDelay()),
 	}
 	return obj
 }
@@ -114,16 +114,16 @@ func ProtoToMonitoringAlphaMetricDescriptorMetadata(p *alphapb.MonitoringAlphaMe
 // ProtoToMetricDescriptor converts a MetricDescriptor resource from its proto representation.
 func ProtoToMetricDescriptor(p *alphapb.MonitoringAlphaMetricDescriptor) *alpha.MetricDescriptor {
 	obj := &alpha.MetricDescriptor{
-		SelfLink:    dcl.StringOrNil(p.SelfLink),
-		Type:        dcl.StringOrNil(p.Type),
+		SelfLink:    dcl.StringOrNil(p.GetSelfLink()),
+		Type:        dcl.StringOrNil(p.GetType()),
 		MetricKind:  ProtoToMonitoringAlphaMetricDescriptorMetricKindEnum(p.GetMetricKind()),
 		ValueType:   ProtoToMonitoringAlphaMetricDescriptorValueTypeEnum(p.GetValueType()),
-		Unit:        dcl.StringOrNil(p.Unit),
-		Description: dcl.StringOrNil(p.Description),
-		DisplayName: dcl.StringOrNil(p.DisplayName),
+		Unit:        dcl.StringOrNil(p.GetUnit()),
+		Description: dcl.StringOrNil(p.GetDescription()),
+		DisplayName: dcl.StringOrNil(p.GetDisplayName()),
 		Metadata:    ProtoToMonitoringAlphaMetricDescriptorMetadata(p.GetMetadata()),
 		LaunchStage: ProtoToMonitoringAlphaMetricDescriptorLaunchStageEnum(p.GetLaunchStage()),
-		Project:     dcl.StringOrNil(p.Project),
+		Project:     dcl.StringOrNil(p.GetProject()),
 	}
 	for _, r := range p.GetLabels() {
 		obj.Labels = append(obj.Labels, *ProtoToMonitoringAlphaMetricDescriptorLabels(r))
@@ -189,57 +189,58 @@ func MonitoringAlphaMetricDescriptorLaunchStageEnumToProto(e *alpha.MetricDescri
 	return alphapb.MonitoringAlphaMetricDescriptorLaunchStageEnum(0)
 }
 
-// MetricDescriptorLabelsToProto converts a MetricDescriptorLabels resource to its proto representation.
+// MetricDescriptorLabelsToProto converts a MetricDescriptorLabels object to its proto representation.
 func MonitoringAlphaMetricDescriptorLabelsToProto(o *alpha.MetricDescriptorLabels) *alphapb.MonitoringAlphaMetricDescriptorLabels {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaMetricDescriptorLabels{
-		Key:         dcl.ValueOrEmptyString(o.Key),
-		ValueType:   MonitoringAlphaMetricDescriptorLabelsValueTypeEnumToProto(o.ValueType),
-		Description: dcl.ValueOrEmptyString(o.Description),
-	}
+	p := &alphapb.MonitoringAlphaMetricDescriptorLabels{}
+	p.SetKey(dcl.ValueOrEmptyString(o.Key))
+	p.SetValueType(MonitoringAlphaMetricDescriptorLabelsValueTypeEnumToProto(o.ValueType))
+	p.SetDescription(dcl.ValueOrEmptyString(o.Description))
 	return p
 }
 
-// MetricDescriptorMetadataToProto converts a MetricDescriptorMetadata resource to its proto representation.
+// MetricDescriptorMetadataToProto converts a MetricDescriptorMetadata object to its proto representation.
 func MonitoringAlphaMetricDescriptorMetadataToProto(o *alpha.MetricDescriptorMetadata) *alphapb.MonitoringAlphaMetricDescriptorMetadata {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaMetricDescriptorMetadata{
-		LaunchStage:  MonitoringAlphaMetricDescriptorMetadataLaunchStageEnumToProto(o.LaunchStage),
-		SamplePeriod: dcl.ValueOrEmptyString(o.SamplePeriod),
-		IngestDelay:  dcl.ValueOrEmptyString(o.IngestDelay),
-	}
+	p := &alphapb.MonitoringAlphaMetricDescriptorMetadata{}
+	p.SetLaunchStage(MonitoringAlphaMetricDescriptorMetadataLaunchStageEnumToProto(o.LaunchStage))
+	p.SetSamplePeriod(dcl.ValueOrEmptyString(o.SamplePeriod))
+	p.SetIngestDelay(dcl.ValueOrEmptyString(o.IngestDelay))
 	return p
 }
 
 // MetricDescriptorToProto converts a MetricDescriptor resource to its proto representation.
 func MetricDescriptorToProto(resource *alpha.MetricDescriptor) *alphapb.MonitoringAlphaMetricDescriptor {
-	p := &alphapb.MonitoringAlphaMetricDescriptor{
-		SelfLink:    dcl.ValueOrEmptyString(resource.SelfLink),
-		Type:        dcl.ValueOrEmptyString(resource.Type),
-		MetricKind:  MonitoringAlphaMetricDescriptorMetricKindEnumToProto(resource.MetricKind),
-		ValueType:   MonitoringAlphaMetricDescriptorValueTypeEnumToProto(resource.ValueType),
-		Unit:        dcl.ValueOrEmptyString(resource.Unit),
-		Description: dcl.ValueOrEmptyString(resource.Description),
-		DisplayName: dcl.ValueOrEmptyString(resource.DisplayName),
-		Metadata:    MonitoringAlphaMetricDescriptorMetadataToProto(resource.Metadata),
-		LaunchStage: MonitoringAlphaMetricDescriptorLaunchStageEnumToProto(resource.LaunchStage),
-		Project:     dcl.ValueOrEmptyString(resource.Project),
+	p := &alphapb.MonitoringAlphaMetricDescriptor{}
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
+	p.SetType(dcl.ValueOrEmptyString(resource.Type))
+	p.SetMetricKind(MonitoringAlphaMetricDescriptorMetricKindEnumToProto(resource.MetricKind))
+	p.SetValueType(MonitoringAlphaMetricDescriptorValueTypeEnumToProto(resource.ValueType))
+	p.SetUnit(dcl.ValueOrEmptyString(resource.Unit))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetMetadata(MonitoringAlphaMetricDescriptorMetadataToProto(resource.Metadata))
+	p.SetLaunchStage(MonitoringAlphaMetricDescriptorLaunchStageEnumToProto(resource.LaunchStage))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	sLabels := make([]*alphapb.MonitoringAlphaMetricDescriptorLabels, len(resource.Labels))
+	for i, r := range resource.Labels {
+		sLabels[i] = MonitoringAlphaMetricDescriptorLabelsToProto(&r)
 	}
-	for _, r := range resource.Labels {
-		p.Labels = append(p.Labels, MonitoringAlphaMetricDescriptorLabelsToProto(&r))
+	p.SetLabels(sLabels)
+	sMonitoredResourceTypes := make([]string, len(resource.MonitoredResourceTypes))
+	for i, r := range resource.MonitoredResourceTypes {
+		sMonitoredResourceTypes[i] = r
 	}
-	for _, r := range resource.MonitoredResourceTypes {
-		p.MonitoredResourceTypes = append(p.MonitoredResourceTypes, r)
-	}
+	p.SetMonitoredResourceTypes(sMonitoredResourceTypes)
 
 	return p
 }
 
-// ApplyMetricDescriptor handles the gRPC request by passing it to the underlying MetricDescriptor Apply() method.
+// applyMetricDescriptor handles the gRPC request by passing it to the underlying MetricDescriptor Apply() method.
 func (s *MetricDescriptorServer) applyMetricDescriptor(ctx context.Context, c *alpha.Client, request *alphapb.ApplyMonitoringAlphaMetricDescriptorRequest) (*alphapb.MonitoringAlphaMetricDescriptor, error) {
 	p := ProtoToMetricDescriptor(request.GetResource())
 	res, err := c.ApplyMetricDescriptor(ctx, p)
@@ -250,9 +251,9 @@ func (s *MetricDescriptorServer) applyMetricDescriptor(ctx context.Context, c *a
 	return r, nil
 }
 
-// ApplyMetricDescriptor handles the gRPC request by passing it to the underlying MetricDescriptor Apply() method.
+// applyMonitoringAlphaMetricDescriptor handles the gRPC request by passing it to the underlying MetricDescriptor Apply() method.
 func (s *MetricDescriptorServer) ApplyMonitoringAlphaMetricDescriptor(ctx context.Context, request *alphapb.ApplyMonitoringAlphaMetricDescriptorRequest) (*alphapb.MonitoringAlphaMetricDescriptor, error) {
-	cl, err := createConfigMetricDescriptor(ctx, request.ServiceAccountFile)
+	cl, err := createConfigMetricDescriptor(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -262,7 +263,7 @@ func (s *MetricDescriptorServer) ApplyMonitoringAlphaMetricDescriptor(ctx contex
 // DeleteMetricDescriptor handles the gRPC request by passing it to the underlying MetricDescriptor Delete() method.
 func (s *MetricDescriptorServer) DeleteMonitoringAlphaMetricDescriptor(ctx context.Context, request *alphapb.DeleteMonitoringAlphaMetricDescriptorRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigMetricDescriptor(ctx, request.ServiceAccountFile)
+	cl, err := createConfigMetricDescriptor(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -272,12 +273,12 @@ func (s *MetricDescriptorServer) DeleteMonitoringAlphaMetricDescriptor(ctx conte
 
 // ListMonitoringAlphaMetricDescriptor handles the gRPC request by passing it to the underlying MetricDescriptorList() method.
 func (s *MetricDescriptorServer) ListMonitoringAlphaMetricDescriptor(ctx context.Context, request *alphapb.ListMonitoringAlphaMetricDescriptorRequest) (*alphapb.ListMonitoringAlphaMetricDescriptorResponse, error) {
-	cl, err := createConfigMetricDescriptor(ctx, request.ServiceAccountFile)
+	cl, err := createConfigMetricDescriptor(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListMetricDescriptor(ctx, request.Project)
+	resources, err := cl.ListMetricDescriptor(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -286,7 +287,9 @@ func (s *MetricDescriptorServer) ListMonitoringAlphaMetricDescriptor(ctx context
 		rp := MetricDescriptorToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListMonitoringAlphaMetricDescriptorResponse{Items: protos}, nil
+	p := &alphapb.ListMonitoringAlphaMetricDescriptorResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigMetricDescriptor(ctx context.Context, service_account_file string) (*alpha.Client, error) {

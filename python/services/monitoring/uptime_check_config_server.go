@@ -73,78 +73,78 @@ func ProtoToMonitoringUptimeCheckConfigContentMatchersMatcherEnum(e monitoringpb
 	return nil
 }
 
-// ProtoToUptimeCheckConfigMonitoredResource converts a UptimeCheckConfigMonitoredResource resource from its proto representation.
+// ProtoToUptimeCheckConfigMonitoredResource converts a UptimeCheckConfigMonitoredResource object from its proto representation.
 func ProtoToMonitoringUptimeCheckConfigMonitoredResource(p *monitoringpb.MonitoringUptimeCheckConfigMonitoredResource) *monitoring.UptimeCheckConfigMonitoredResource {
 	if p == nil {
 		return nil
 	}
 	obj := &monitoring.UptimeCheckConfigMonitoredResource{
-		Type: dcl.StringOrNil(p.Type),
+		Type: dcl.StringOrNil(p.GetType()),
 	}
 	return obj
 }
 
-// ProtoToUptimeCheckConfigResourceGroup converts a UptimeCheckConfigResourceGroup resource from its proto representation.
+// ProtoToUptimeCheckConfigResourceGroup converts a UptimeCheckConfigResourceGroup object from its proto representation.
 func ProtoToMonitoringUptimeCheckConfigResourceGroup(p *monitoringpb.MonitoringUptimeCheckConfigResourceGroup) *monitoring.UptimeCheckConfigResourceGroup {
 	if p == nil {
 		return nil
 	}
 	obj := &monitoring.UptimeCheckConfigResourceGroup{
-		GroupId:      dcl.StringOrNil(p.GroupId),
+		GroupId:      dcl.StringOrNil(p.GetGroupId()),
 		ResourceType: ProtoToMonitoringUptimeCheckConfigResourceGroupResourceTypeEnum(p.GetResourceType()),
 	}
 	return obj
 }
 
-// ProtoToUptimeCheckConfigHttpCheck converts a UptimeCheckConfigHttpCheck resource from its proto representation.
+// ProtoToUptimeCheckConfigHttpCheck converts a UptimeCheckConfigHttpCheck object from its proto representation.
 func ProtoToMonitoringUptimeCheckConfigHttpCheck(p *monitoringpb.MonitoringUptimeCheckConfigHttpCheck) *monitoring.UptimeCheckConfigHttpCheck {
 	if p == nil {
 		return nil
 	}
 	obj := &monitoring.UptimeCheckConfigHttpCheck{
 		RequestMethod: ProtoToMonitoringUptimeCheckConfigHttpCheckRequestMethodEnum(p.GetRequestMethod()),
-		UseSsl:        dcl.Bool(p.UseSsl),
-		Path:          dcl.StringOrNil(p.Path),
-		Port:          dcl.Int64OrNil(p.Port),
+		UseSsl:        dcl.Bool(p.GetUseSsl()),
+		Path:          dcl.StringOrNil(p.GetPath()),
+		Port:          dcl.Int64OrNil(p.GetPort()),
 		AuthInfo:      ProtoToMonitoringUptimeCheckConfigHttpCheckAuthInfo(p.GetAuthInfo()),
-		MaskHeaders:   dcl.Bool(p.MaskHeaders),
+		MaskHeaders:   dcl.Bool(p.GetMaskHeaders()),
 		ContentType:   ProtoToMonitoringUptimeCheckConfigHttpCheckContentTypeEnum(p.GetContentType()),
-		ValidateSsl:   dcl.Bool(p.ValidateSsl),
-		Body:          dcl.StringOrNil(p.Body),
+		ValidateSsl:   dcl.Bool(p.GetValidateSsl()),
+		Body:          dcl.StringOrNil(p.GetBody()),
 	}
 	return obj
 }
 
-// ProtoToUptimeCheckConfigHttpCheckAuthInfo converts a UptimeCheckConfigHttpCheckAuthInfo resource from its proto representation.
+// ProtoToUptimeCheckConfigHttpCheckAuthInfo converts a UptimeCheckConfigHttpCheckAuthInfo object from its proto representation.
 func ProtoToMonitoringUptimeCheckConfigHttpCheckAuthInfo(p *monitoringpb.MonitoringUptimeCheckConfigHttpCheckAuthInfo) *monitoring.UptimeCheckConfigHttpCheckAuthInfo {
 	if p == nil {
 		return nil
 	}
 	obj := &monitoring.UptimeCheckConfigHttpCheckAuthInfo{
-		Username: dcl.StringOrNil(p.Username),
-		Password: dcl.StringOrNil(p.Password),
+		Username: dcl.StringOrNil(p.GetUsername()),
+		Password: dcl.StringOrNil(p.GetPassword()),
 	}
 	return obj
 }
 
-// ProtoToUptimeCheckConfigTcpCheck converts a UptimeCheckConfigTcpCheck resource from its proto representation.
+// ProtoToUptimeCheckConfigTcpCheck converts a UptimeCheckConfigTcpCheck object from its proto representation.
 func ProtoToMonitoringUptimeCheckConfigTcpCheck(p *monitoringpb.MonitoringUptimeCheckConfigTcpCheck) *monitoring.UptimeCheckConfigTcpCheck {
 	if p == nil {
 		return nil
 	}
 	obj := &monitoring.UptimeCheckConfigTcpCheck{
-		Port: dcl.Int64OrNil(p.Port),
+		Port: dcl.Int64OrNil(p.GetPort()),
 	}
 	return obj
 }
 
-// ProtoToUptimeCheckConfigContentMatchers converts a UptimeCheckConfigContentMatchers resource from its proto representation.
+// ProtoToUptimeCheckConfigContentMatchers converts a UptimeCheckConfigContentMatchers object from its proto representation.
 func ProtoToMonitoringUptimeCheckConfigContentMatchers(p *monitoringpb.MonitoringUptimeCheckConfigContentMatchers) *monitoring.UptimeCheckConfigContentMatchers {
 	if p == nil {
 		return nil
 	}
 	obj := &monitoring.UptimeCheckConfigContentMatchers{
-		Content: dcl.StringOrNil(p.Content),
+		Content: dcl.StringOrNil(p.GetContent()),
 		Matcher: ProtoToMonitoringUptimeCheckConfigContentMatchersMatcherEnum(p.GetMatcher()),
 	}
 	return obj
@@ -153,15 +153,15 @@ func ProtoToMonitoringUptimeCheckConfigContentMatchers(p *monitoringpb.Monitorin
 // ProtoToUptimeCheckConfig converts a UptimeCheckConfig resource from its proto representation.
 func ProtoToUptimeCheckConfig(p *monitoringpb.MonitoringUptimeCheckConfig) *monitoring.UptimeCheckConfig {
 	obj := &monitoring.UptimeCheckConfig{
-		Name:              dcl.StringOrNil(p.Name),
-		DisplayName:       dcl.StringOrNil(p.DisplayName),
+		Name:              dcl.StringOrNil(p.GetName()),
+		DisplayName:       dcl.StringOrNil(p.GetDisplayName()),
 		MonitoredResource: ProtoToMonitoringUptimeCheckConfigMonitoredResource(p.GetMonitoredResource()),
 		ResourceGroup:     ProtoToMonitoringUptimeCheckConfigResourceGroup(p.GetResourceGroup()),
 		HttpCheck:         ProtoToMonitoringUptimeCheckConfigHttpCheck(p.GetHttpCheck()),
 		TcpCheck:          ProtoToMonitoringUptimeCheckConfigTcpCheck(p.GetTcpCheck()),
-		Period:            dcl.StringOrNil(p.Period),
-		Timeout:           dcl.StringOrNil(p.Timeout),
-		Project:           dcl.StringOrNil(p.Project),
+		Period:            dcl.StringOrNil(p.GetPeriod()),
+		Timeout:           dcl.StringOrNil(p.GetTimeout()),
+		Project:           dcl.StringOrNil(p.GetProject()),
 	}
 	for _, r := range p.GetContentMatchers() {
 		obj.ContentMatchers = append(obj.ContentMatchers, *ProtoToMonitoringUptimeCheckConfigContentMatchers(r))
@@ -216,115 +216,114 @@ func MonitoringUptimeCheckConfigContentMatchersMatcherEnumToProto(e *monitoring.
 	return monitoringpb.MonitoringUptimeCheckConfigContentMatchersMatcherEnum(0)
 }
 
-// UptimeCheckConfigMonitoredResourceToProto converts a UptimeCheckConfigMonitoredResource resource to its proto representation.
+// UptimeCheckConfigMonitoredResourceToProto converts a UptimeCheckConfigMonitoredResource object to its proto representation.
 func MonitoringUptimeCheckConfigMonitoredResourceToProto(o *monitoring.UptimeCheckConfigMonitoredResource) *monitoringpb.MonitoringUptimeCheckConfigMonitoredResource {
 	if o == nil {
 		return nil
 	}
-	p := &monitoringpb.MonitoringUptimeCheckConfigMonitoredResource{
-		Type: dcl.ValueOrEmptyString(o.Type),
-	}
-	p.FilterLabels = make(map[string]string)
+	p := &monitoringpb.MonitoringUptimeCheckConfigMonitoredResource{}
+	p.SetType(dcl.ValueOrEmptyString(o.Type))
+	mFilterLabels := make(map[string]string, len(o.FilterLabels))
 	for k, r := range o.FilterLabels {
-		p.FilterLabels[k] = r
+		mFilterLabels[k] = r
 	}
+	p.SetFilterLabels(mFilterLabels)
 	return p
 }
 
-// UptimeCheckConfigResourceGroupToProto converts a UptimeCheckConfigResourceGroup resource to its proto representation.
+// UptimeCheckConfigResourceGroupToProto converts a UptimeCheckConfigResourceGroup object to its proto representation.
 func MonitoringUptimeCheckConfigResourceGroupToProto(o *monitoring.UptimeCheckConfigResourceGroup) *monitoringpb.MonitoringUptimeCheckConfigResourceGroup {
 	if o == nil {
 		return nil
 	}
-	p := &monitoringpb.MonitoringUptimeCheckConfigResourceGroup{
-		GroupId:      dcl.ValueOrEmptyString(o.GroupId),
-		ResourceType: MonitoringUptimeCheckConfigResourceGroupResourceTypeEnumToProto(o.ResourceType),
-	}
+	p := &monitoringpb.MonitoringUptimeCheckConfigResourceGroup{}
+	p.SetGroupId(dcl.ValueOrEmptyString(o.GroupId))
+	p.SetResourceType(MonitoringUptimeCheckConfigResourceGroupResourceTypeEnumToProto(o.ResourceType))
 	return p
 }
 
-// UptimeCheckConfigHttpCheckToProto converts a UptimeCheckConfigHttpCheck resource to its proto representation.
+// UptimeCheckConfigHttpCheckToProto converts a UptimeCheckConfigHttpCheck object to its proto representation.
 func MonitoringUptimeCheckConfigHttpCheckToProto(o *monitoring.UptimeCheckConfigHttpCheck) *monitoringpb.MonitoringUptimeCheckConfigHttpCheck {
 	if o == nil {
 		return nil
 	}
-	p := &monitoringpb.MonitoringUptimeCheckConfigHttpCheck{
-		RequestMethod: MonitoringUptimeCheckConfigHttpCheckRequestMethodEnumToProto(o.RequestMethod),
-		UseSsl:        dcl.ValueOrEmptyBool(o.UseSsl),
-		Path:          dcl.ValueOrEmptyString(o.Path),
-		Port:          dcl.ValueOrEmptyInt64(o.Port),
-		AuthInfo:      MonitoringUptimeCheckConfigHttpCheckAuthInfoToProto(o.AuthInfo),
-		MaskHeaders:   dcl.ValueOrEmptyBool(o.MaskHeaders),
-		ContentType:   MonitoringUptimeCheckConfigHttpCheckContentTypeEnumToProto(o.ContentType),
-		ValidateSsl:   dcl.ValueOrEmptyBool(o.ValidateSsl),
-		Body:          dcl.ValueOrEmptyString(o.Body),
-	}
-	p.Headers = make(map[string]string)
+	p := &monitoringpb.MonitoringUptimeCheckConfigHttpCheck{}
+	p.SetRequestMethod(MonitoringUptimeCheckConfigHttpCheckRequestMethodEnumToProto(o.RequestMethod))
+	p.SetUseSsl(dcl.ValueOrEmptyBool(o.UseSsl))
+	p.SetPath(dcl.ValueOrEmptyString(o.Path))
+	p.SetPort(dcl.ValueOrEmptyInt64(o.Port))
+	p.SetAuthInfo(MonitoringUptimeCheckConfigHttpCheckAuthInfoToProto(o.AuthInfo))
+	p.SetMaskHeaders(dcl.ValueOrEmptyBool(o.MaskHeaders))
+	p.SetContentType(MonitoringUptimeCheckConfigHttpCheckContentTypeEnumToProto(o.ContentType))
+	p.SetValidateSsl(dcl.ValueOrEmptyBool(o.ValidateSsl))
+	p.SetBody(dcl.ValueOrEmptyString(o.Body))
+	mHeaders := make(map[string]string, len(o.Headers))
 	for k, r := range o.Headers {
-		p.Headers[k] = r
+		mHeaders[k] = r
 	}
+	p.SetHeaders(mHeaders)
 	return p
 }
 
-// UptimeCheckConfigHttpCheckAuthInfoToProto converts a UptimeCheckConfigHttpCheckAuthInfo resource to its proto representation.
+// UptimeCheckConfigHttpCheckAuthInfoToProto converts a UptimeCheckConfigHttpCheckAuthInfo object to its proto representation.
 func MonitoringUptimeCheckConfigHttpCheckAuthInfoToProto(o *monitoring.UptimeCheckConfigHttpCheckAuthInfo) *monitoringpb.MonitoringUptimeCheckConfigHttpCheckAuthInfo {
 	if o == nil {
 		return nil
 	}
-	p := &monitoringpb.MonitoringUptimeCheckConfigHttpCheckAuthInfo{
-		Username: dcl.ValueOrEmptyString(o.Username),
-		Password: dcl.ValueOrEmptyString(o.Password),
-	}
+	p := &monitoringpb.MonitoringUptimeCheckConfigHttpCheckAuthInfo{}
+	p.SetUsername(dcl.ValueOrEmptyString(o.Username))
+	p.SetPassword(dcl.ValueOrEmptyString(o.Password))
 	return p
 }
 
-// UptimeCheckConfigTcpCheckToProto converts a UptimeCheckConfigTcpCheck resource to its proto representation.
+// UptimeCheckConfigTcpCheckToProto converts a UptimeCheckConfigTcpCheck object to its proto representation.
 func MonitoringUptimeCheckConfigTcpCheckToProto(o *monitoring.UptimeCheckConfigTcpCheck) *monitoringpb.MonitoringUptimeCheckConfigTcpCheck {
 	if o == nil {
 		return nil
 	}
-	p := &monitoringpb.MonitoringUptimeCheckConfigTcpCheck{
-		Port: dcl.ValueOrEmptyInt64(o.Port),
-	}
+	p := &monitoringpb.MonitoringUptimeCheckConfigTcpCheck{}
+	p.SetPort(dcl.ValueOrEmptyInt64(o.Port))
 	return p
 }
 
-// UptimeCheckConfigContentMatchersToProto converts a UptimeCheckConfigContentMatchers resource to its proto representation.
+// UptimeCheckConfigContentMatchersToProto converts a UptimeCheckConfigContentMatchers object to its proto representation.
 func MonitoringUptimeCheckConfigContentMatchersToProto(o *monitoring.UptimeCheckConfigContentMatchers) *monitoringpb.MonitoringUptimeCheckConfigContentMatchers {
 	if o == nil {
 		return nil
 	}
-	p := &monitoringpb.MonitoringUptimeCheckConfigContentMatchers{
-		Content: dcl.ValueOrEmptyString(o.Content),
-		Matcher: MonitoringUptimeCheckConfigContentMatchersMatcherEnumToProto(o.Matcher),
-	}
+	p := &monitoringpb.MonitoringUptimeCheckConfigContentMatchers{}
+	p.SetContent(dcl.ValueOrEmptyString(o.Content))
+	p.SetMatcher(MonitoringUptimeCheckConfigContentMatchersMatcherEnumToProto(o.Matcher))
 	return p
 }
 
 // UptimeCheckConfigToProto converts a UptimeCheckConfig resource to its proto representation.
 func UptimeCheckConfigToProto(resource *monitoring.UptimeCheckConfig) *monitoringpb.MonitoringUptimeCheckConfig {
-	p := &monitoringpb.MonitoringUptimeCheckConfig{
-		Name:              dcl.ValueOrEmptyString(resource.Name),
-		DisplayName:       dcl.ValueOrEmptyString(resource.DisplayName),
-		MonitoredResource: MonitoringUptimeCheckConfigMonitoredResourceToProto(resource.MonitoredResource),
-		ResourceGroup:     MonitoringUptimeCheckConfigResourceGroupToProto(resource.ResourceGroup),
-		HttpCheck:         MonitoringUptimeCheckConfigHttpCheckToProto(resource.HttpCheck),
-		TcpCheck:          MonitoringUptimeCheckConfigTcpCheckToProto(resource.TcpCheck),
-		Period:            dcl.ValueOrEmptyString(resource.Period),
-		Timeout:           dcl.ValueOrEmptyString(resource.Timeout),
-		Project:           dcl.ValueOrEmptyString(resource.Project),
+	p := &monitoringpb.MonitoringUptimeCheckConfig{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetMonitoredResource(MonitoringUptimeCheckConfigMonitoredResourceToProto(resource.MonitoredResource))
+	p.SetResourceGroup(MonitoringUptimeCheckConfigResourceGroupToProto(resource.ResourceGroup))
+	p.SetHttpCheck(MonitoringUptimeCheckConfigHttpCheckToProto(resource.HttpCheck))
+	p.SetTcpCheck(MonitoringUptimeCheckConfigTcpCheckToProto(resource.TcpCheck))
+	p.SetPeriod(dcl.ValueOrEmptyString(resource.Period))
+	p.SetTimeout(dcl.ValueOrEmptyString(resource.Timeout))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	sContentMatchers := make([]*monitoringpb.MonitoringUptimeCheckConfigContentMatchers, len(resource.ContentMatchers))
+	for i, r := range resource.ContentMatchers {
+		sContentMatchers[i] = MonitoringUptimeCheckConfigContentMatchersToProto(&r)
 	}
-	for _, r := range resource.ContentMatchers {
-		p.ContentMatchers = append(p.ContentMatchers, MonitoringUptimeCheckConfigContentMatchersToProto(&r))
+	p.SetContentMatchers(sContentMatchers)
+	sSelectedRegions := make([]string, len(resource.SelectedRegions))
+	for i, r := range resource.SelectedRegions {
+		sSelectedRegions[i] = r
 	}
-	for _, r := range resource.SelectedRegions {
-		p.SelectedRegions = append(p.SelectedRegions, r)
-	}
+	p.SetSelectedRegions(sSelectedRegions)
 
 	return p
 }
 
-// ApplyUptimeCheckConfig handles the gRPC request by passing it to the underlying UptimeCheckConfig Apply() method.
+// applyUptimeCheckConfig handles the gRPC request by passing it to the underlying UptimeCheckConfig Apply() method.
 func (s *UptimeCheckConfigServer) applyUptimeCheckConfig(ctx context.Context, c *monitoring.Client, request *monitoringpb.ApplyMonitoringUptimeCheckConfigRequest) (*monitoringpb.MonitoringUptimeCheckConfig, error) {
 	p := ProtoToUptimeCheckConfig(request.GetResource())
 	res, err := c.ApplyUptimeCheckConfig(ctx, p)
@@ -335,9 +334,9 @@ func (s *UptimeCheckConfigServer) applyUptimeCheckConfig(ctx context.Context, c 
 	return r, nil
 }
 
-// ApplyUptimeCheckConfig handles the gRPC request by passing it to the underlying UptimeCheckConfig Apply() method.
+// applyMonitoringUptimeCheckConfig handles the gRPC request by passing it to the underlying UptimeCheckConfig Apply() method.
 func (s *UptimeCheckConfigServer) ApplyMonitoringUptimeCheckConfig(ctx context.Context, request *monitoringpb.ApplyMonitoringUptimeCheckConfigRequest) (*monitoringpb.MonitoringUptimeCheckConfig, error) {
-	cl, err := createConfigUptimeCheckConfig(ctx, request.ServiceAccountFile)
+	cl, err := createConfigUptimeCheckConfig(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -347,7 +346,7 @@ func (s *UptimeCheckConfigServer) ApplyMonitoringUptimeCheckConfig(ctx context.C
 // DeleteUptimeCheckConfig handles the gRPC request by passing it to the underlying UptimeCheckConfig Delete() method.
 func (s *UptimeCheckConfigServer) DeleteMonitoringUptimeCheckConfig(ctx context.Context, request *monitoringpb.DeleteMonitoringUptimeCheckConfigRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigUptimeCheckConfig(ctx, request.ServiceAccountFile)
+	cl, err := createConfigUptimeCheckConfig(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -357,12 +356,12 @@ func (s *UptimeCheckConfigServer) DeleteMonitoringUptimeCheckConfig(ctx context.
 
 // ListMonitoringUptimeCheckConfig handles the gRPC request by passing it to the underlying UptimeCheckConfigList() method.
 func (s *UptimeCheckConfigServer) ListMonitoringUptimeCheckConfig(ctx context.Context, request *monitoringpb.ListMonitoringUptimeCheckConfigRequest) (*monitoringpb.ListMonitoringUptimeCheckConfigResponse, error) {
-	cl, err := createConfigUptimeCheckConfig(ctx, request.ServiceAccountFile)
+	cl, err := createConfigUptimeCheckConfig(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListUptimeCheckConfig(ctx, request.Project)
+	resources, err := cl.ListUptimeCheckConfig(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -371,7 +370,9 @@ func (s *UptimeCheckConfigServer) ListMonitoringUptimeCheckConfig(ctx context.Co
 		rp := UptimeCheckConfigToProto(r)
 		protos = append(protos, rp)
 	}
-	return &monitoringpb.ListMonitoringUptimeCheckConfigResponse{Items: protos}, nil
+	p := &monitoringpb.ListMonitoringUptimeCheckConfigResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigUptimeCheckConfig(ctx context.Context, service_account_file string) (*monitoring.Client, error) {

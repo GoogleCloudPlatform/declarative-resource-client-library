@@ -37,60 +37,60 @@ func ProtoToContainerazureAlphaNodePoolStateEnum(e alphapb.ContainerazureAlphaNo
 	return nil
 }
 
-// ProtoToNodePoolConfig converts a NodePoolConfig resource from its proto representation.
+// ProtoToNodePoolConfig converts a NodePoolConfig object from its proto representation.
 func ProtoToContainerazureAlphaNodePoolConfig(p *alphapb.ContainerazureAlphaNodePoolConfig) *alpha.NodePoolConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.NodePoolConfig{
-		VmSize:     dcl.StringOrNil(p.VmSize),
+		VmSize:     dcl.StringOrNil(p.GetVmSize()),
 		RootVolume: ProtoToContainerazureAlphaNodePoolConfigRootVolume(p.GetRootVolume()),
 		SshConfig:  ProtoToContainerazureAlphaNodePoolConfigSshConfig(p.GetSshConfig()),
 	}
 	return obj
 }
 
-// ProtoToNodePoolConfigRootVolume converts a NodePoolConfigRootVolume resource from its proto representation.
+// ProtoToNodePoolConfigRootVolume converts a NodePoolConfigRootVolume object from its proto representation.
 func ProtoToContainerazureAlphaNodePoolConfigRootVolume(p *alphapb.ContainerazureAlphaNodePoolConfigRootVolume) *alpha.NodePoolConfigRootVolume {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.NodePoolConfigRootVolume{
-		SizeGib: dcl.Int64OrNil(p.SizeGib),
+		SizeGib: dcl.Int64OrNil(p.GetSizeGib()),
 	}
 	return obj
 }
 
-// ProtoToNodePoolConfigSshConfig converts a NodePoolConfigSshConfig resource from its proto representation.
+// ProtoToNodePoolConfigSshConfig converts a NodePoolConfigSshConfig object from its proto representation.
 func ProtoToContainerazureAlphaNodePoolConfigSshConfig(p *alphapb.ContainerazureAlphaNodePoolConfigSshConfig) *alpha.NodePoolConfigSshConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.NodePoolConfigSshConfig{
-		AuthorizedKey: dcl.StringOrNil(p.AuthorizedKey),
+		AuthorizedKey: dcl.StringOrNil(p.GetAuthorizedKey()),
 	}
 	return obj
 }
 
-// ProtoToNodePoolAutoscaling converts a NodePoolAutoscaling resource from its proto representation.
+// ProtoToNodePoolAutoscaling converts a NodePoolAutoscaling object from its proto representation.
 func ProtoToContainerazureAlphaNodePoolAutoscaling(p *alphapb.ContainerazureAlphaNodePoolAutoscaling) *alpha.NodePoolAutoscaling {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.NodePoolAutoscaling{
-		MinNodeCount: dcl.Int64OrNil(p.MinNodeCount),
-		MaxNodeCount: dcl.Int64OrNil(p.MaxNodeCount),
+		MinNodeCount: dcl.Int64OrNil(p.GetMinNodeCount()),
+		MaxNodeCount: dcl.Int64OrNil(p.GetMaxNodeCount()),
 	}
 	return obj
 }
 
-// ProtoToNodePoolMaxPodsConstraint converts a NodePoolMaxPodsConstraint resource from its proto representation.
+// ProtoToNodePoolMaxPodsConstraint converts a NodePoolMaxPodsConstraint object from its proto representation.
 func ProtoToContainerazureAlphaNodePoolMaxPodsConstraint(p *alphapb.ContainerazureAlphaNodePoolMaxPodsConstraint) *alpha.NodePoolMaxPodsConstraint {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.NodePoolMaxPodsConstraint{
-		MaxPodsPerNode: dcl.Int64OrNil(p.MaxPodsPerNode),
+		MaxPodsPerNode: dcl.Int64OrNil(p.GetMaxPodsPerNode()),
 	}
 	return obj
 }
@@ -98,22 +98,22 @@ func ProtoToContainerazureAlphaNodePoolMaxPodsConstraint(p *alphapb.Containerazu
 // ProtoToNodePool converts a NodePool resource from its proto representation.
 func ProtoToNodePool(p *alphapb.ContainerazureAlphaNodePool) *alpha.NodePool {
 	obj := &alpha.NodePool{
-		Name:                  dcl.StringOrNil(p.Name),
-		Version:               dcl.StringOrNil(p.Version),
+		Name:                  dcl.StringOrNil(p.GetName()),
+		Version:               dcl.StringOrNil(p.GetVersion()),
 		Config:                ProtoToContainerazureAlphaNodePoolConfig(p.GetConfig()),
-		SubnetId:              dcl.StringOrNil(p.SubnetId),
+		SubnetId:              dcl.StringOrNil(p.GetSubnetId()),
 		Autoscaling:           ProtoToContainerazureAlphaNodePoolAutoscaling(p.GetAutoscaling()),
 		State:                 ProtoToContainerazureAlphaNodePoolStateEnum(p.GetState()),
-		Uid:                   dcl.StringOrNil(p.Uid),
-		Reconciling:           dcl.Bool(p.Reconciling),
+		Uid:                   dcl.StringOrNil(p.GetUid()),
+		Reconciling:           dcl.Bool(p.GetReconciling()),
 		CreateTime:            dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:            dcl.StringOrNil(p.GetUpdateTime()),
-		Etag:                  dcl.StringOrNil(p.Etag),
+		Etag:                  dcl.StringOrNil(p.GetEtag()),
 		MaxPodsConstraint:     ProtoToContainerazureAlphaNodePoolMaxPodsConstraint(p.GetMaxPodsConstraint()),
-		AzureAvailabilityZone: dcl.StringOrNil(p.AzureAvailabilityZone),
-		Project:               dcl.StringOrNil(p.Project),
-		Location:              dcl.StringOrNil(p.Location),
-		Cluster:               dcl.StringOrNil(p.Cluster),
+		AzureAvailabilityZone: dcl.StringOrNil(p.GetAzureAvailabilityZone()),
+		Project:               dcl.StringOrNil(p.GetProject()),
+		Location:              dcl.StringOrNil(p.GetLocation()),
+		Cluster:               dcl.StringOrNil(p.GetCluster()),
 	}
 	return obj
 }
@@ -129,93 +129,93 @@ func ContainerazureAlphaNodePoolStateEnumToProto(e *alpha.NodePoolStateEnum) alp
 	return alphapb.ContainerazureAlphaNodePoolStateEnum(0)
 }
 
-// NodePoolConfigToProto converts a NodePoolConfig resource to its proto representation.
+// NodePoolConfigToProto converts a NodePoolConfig object to its proto representation.
 func ContainerazureAlphaNodePoolConfigToProto(o *alpha.NodePoolConfig) *alphapb.ContainerazureAlphaNodePoolConfig {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerazureAlphaNodePoolConfig{
-		VmSize:     dcl.ValueOrEmptyString(o.VmSize),
-		RootVolume: ContainerazureAlphaNodePoolConfigRootVolumeToProto(o.RootVolume),
-		SshConfig:  ContainerazureAlphaNodePoolConfigSshConfigToProto(o.SshConfig),
-	}
-	p.Tags = make(map[string]string)
+	p := &alphapb.ContainerazureAlphaNodePoolConfig{}
+	p.SetVmSize(dcl.ValueOrEmptyString(o.VmSize))
+	p.SetRootVolume(ContainerazureAlphaNodePoolConfigRootVolumeToProto(o.RootVolume))
+	p.SetSshConfig(ContainerazureAlphaNodePoolConfigSshConfigToProto(o.SshConfig))
+	mTags := make(map[string]string, len(o.Tags))
 	for k, r := range o.Tags {
-		p.Tags[k] = r
+		mTags[k] = r
 	}
+	p.SetTags(mTags)
 	return p
 }
 
-// NodePoolConfigRootVolumeToProto converts a NodePoolConfigRootVolume resource to its proto representation.
+// NodePoolConfigRootVolumeToProto converts a NodePoolConfigRootVolume object to its proto representation.
 func ContainerazureAlphaNodePoolConfigRootVolumeToProto(o *alpha.NodePoolConfigRootVolume) *alphapb.ContainerazureAlphaNodePoolConfigRootVolume {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerazureAlphaNodePoolConfigRootVolume{
-		SizeGib: dcl.ValueOrEmptyInt64(o.SizeGib),
-	}
+	p := &alphapb.ContainerazureAlphaNodePoolConfigRootVolume{}
+	p.SetSizeGib(dcl.ValueOrEmptyInt64(o.SizeGib))
 	return p
 }
 
-// NodePoolConfigSshConfigToProto converts a NodePoolConfigSshConfig resource to its proto representation.
+// NodePoolConfigSshConfigToProto converts a NodePoolConfigSshConfig object to its proto representation.
 func ContainerazureAlphaNodePoolConfigSshConfigToProto(o *alpha.NodePoolConfigSshConfig) *alphapb.ContainerazureAlphaNodePoolConfigSshConfig {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerazureAlphaNodePoolConfigSshConfig{
-		AuthorizedKey: dcl.ValueOrEmptyString(o.AuthorizedKey),
-	}
+	p := &alphapb.ContainerazureAlphaNodePoolConfigSshConfig{}
+	p.SetAuthorizedKey(dcl.ValueOrEmptyString(o.AuthorizedKey))
 	return p
 }
 
-// NodePoolAutoscalingToProto converts a NodePoolAutoscaling resource to its proto representation.
+// NodePoolAutoscalingToProto converts a NodePoolAutoscaling object to its proto representation.
 func ContainerazureAlphaNodePoolAutoscalingToProto(o *alpha.NodePoolAutoscaling) *alphapb.ContainerazureAlphaNodePoolAutoscaling {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerazureAlphaNodePoolAutoscaling{
-		MinNodeCount: dcl.ValueOrEmptyInt64(o.MinNodeCount),
-		MaxNodeCount: dcl.ValueOrEmptyInt64(o.MaxNodeCount),
-	}
+	p := &alphapb.ContainerazureAlphaNodePoolAutoscaling{}
+	p.SetMinNodeCount(dcl.ValueOrEmptyInt64(o.MinNodeCount))
+	p.SetMaxNodeCount(dcl.ValueOrEmptyInt64(o.MaxNodeCount))
 	return p
 }
 
-// NodePoolMaxPodsConstraintToProto converts a NodePoolMaxPodsConstraint resource to its proto representation.
+// NodePoolMaxPodsConstraintToProto converts a NodePoolMaxPodsConstraint object to its proto representation.
 func ContainerazureAlphaNodePoolMaxPodsConstraintToProto(o *alpha.NodePoolMaxPodsConstraint) *alphapb.ContainerazureAlphaNodePoolMaxPodsConstraint {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerazureAlphaNodePoolMaxPodsConstraint{
-		MaxPodsPerNode: dcl.ValueOrEmptyInt64(o.MaxPodsPerNode),
-	}
+	p := &alphapb.ContainerazureAlphaNodePoolMaxPodsConstraint{}
+	p.SetMaxPodsPerNode(dcl.ValueOrEmptyInt64(o.MaxPodsPerNode))
 	return p
 }
 
 // NodePoolToProto converts a NodePool resource to its proto representation.
 func NodePoolToProto(resource *alpha.NodePool) *alphapb.ContainerazureAlphaNodePool {
-	p := &alphapb.ContainerazureAlphaNodePool{
-		Name:                  dcl.ValueOrEmptyString(resource.Name),
-		Version:               dcl.ValueOrEmptyString(resource.Version),
-		Config:                ContainerazureAlphaNodePoolConfigToProto(resource.Config),
-		SubnetId:              dcl.ValueOrEmptyString(resource.SubnetId),
-		Autoscaling:           ContainerazureAlphaNodePoolAutoscalingToProto(resource.Autoscaling),
-		State:                 ContainerazureAlphaNodePoolStateEnumToProto(resource.State),
-		Uid:                   dcl.ValueOrEmptyString(resource.Uid),
-		Reconciling:           dcl.ValueOrEmptyBool(resource.Reconciling),
-		CreateTime:            dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:            dcl.ValueOrEmptyString(resource.UpdateTime),
-		Etag:                  dcl.ValueOrEmptyString(resource.Etag),
-		MaxPodsConstraint:     ContainerazureAlphaNodePoolMaxPodsConstraintToProto(resource.MaxPodsConstraint),
-		AzureAvailabilityZone: dcl.ValueOrEmptyString(resource.AzureAvailabilityZone),
-		Project:               dcl.ValueOrEmptyString(resource.Project),
-		Location:              dcl.ValueOrEmptyString(resource.Location),
-		Cluster:               dcl.ValueOrEmptyString(resource.Cluster),
+	p := &alphapb.ContainerazureAlphaNodePool{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetVersion(dcl.ValueOrEmptyString(resource.Version))
+	p.SetConfig(ContainerazureAlphaNodePoolConfigToProto(resource.Config))
+	p.SetSubnetId(dcl.ValueOrEmptyString(resource.SubnetId))
+	p.SetAutoscaling(ContainerazureAlphaNodePoolAutoscalingToProto(resource.Autoscaling))
+	p.SetState(ContainerazureAlphaNodePoolStateEnumToProto(resource.State))
+	p.SetUid(dcl.ValueOrEmptyString(resource.Uid))
+	p.SetReconciling(dcl.ValueOrEmptyBool(resource.Reconciling))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
+	p.SetMaxPodsConstraint(ContainerazureAlphaNodePoolMaxPodsConstraintToProto(resource.MaxPodsConstraint))
+	p.SetAzureAvailabilityZone(dcl.ValueOrEmptyString(resource.AzureAvailabilityZone))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetCluster(dcl.ValueOrEmptyString(resource.Cluster))
+	mAnnotations := make(map[string]string, len(resource.Annotations))
+	for k, r := range resource.Annotations {
+		mAnnotations[k] = r
 	}
+	p.SetAnnotations(mAnnotations)
 
 	return p
 }
 
-// ApplyNodePool handles the gRPC request by passing it to the underlying NodePool Apply() method.
+// applyNodePool handles the gRPC request by passing it to the underlying NodePool Apply() method.
 func (s *NodePoolServer) applyNodePool(ctx context.Context, c *alpha.Client, request *alphapb.ApplyContainerazureAlphaNodePoolRequest) (*alphapb.ContainerazureAlphaNodePool, error) {
 	p := ProtoToNodePool(request.GetResource())
 	res, err := c.ApplyNodePool(ctx, p)
@@ -226,9 +226,9 @@ func (s *NodePoolServer) applyNodePool(ctx context.Context, c *alpha.Client, req
 	return r, nil
 }
 
-// ApplyNodePool handles the gRPC request by passing it to the underlying NodePool Apply() method.
+// applyContainerazureAlphaNodePool handles the gRPC request by passing it to the underlying NodePool Apply() method.
 func (s *NodePoolServer) ApplyContainerazureAlphaNodePool(ctx context.Context, request *alphapb.ApplyContainerazureAlphaNodePoolRequest) (*alphapb.ContainerazureAlphaNodePool, error) {
-	cl, err := createConfigNodePool(ctx, request.ServiceAccountFile)
+	cl, err := createConfigNodePool(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -238,7 +238,7 @@ func (s *NodePoolServer) ApplyContainerazureAlphaNodePool(ctx context.Context, r
 // DeleteNodePool handles the gRPC request by passing it to the underlying NodePool Delete() method.
 func (s *NodePoolServer) DeleteContainerazureAlphaNodePool(ctx context.Context, request *alphapb.DeleteContainerazureAlphaNodePoolRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigNodePool(ctx, request.ServiceAccountFile)
+	cl, err := createConfigNodePool(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -248,12 +248,12 @@ func (s *NodePoolServer) DeleteContainerazureAlphaNodePool(ctx context.Context, 
 
 // ListContainerazureAlphaNodePool handles the gRPC request by passing it to the underlying NodePoolList() method.
 func (s *NodePoolServer) ListContainerazureAlphaNodePool(ctx context.Context, request *alphapb.ListContainerazureAlphaNodePoolRequest) (*alphapb.ListContainerazureAlphaNodePoolResponse, error) {
-	cl, err := createConfigNodePool(ctx, request.ServiceAccountFile)
+	cl, err := createConfigNodePool(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListNodePool(ctx, request.Project, request.Location, request.Cluster)
+	resources, err := cl.ListNodePool(ctx, request.GetProject(), request.GetLocation(), request.GetCluster())
 	if err != nil {
 		return nil, err
 	}
@@ -262,7 +262,9 @@ func (s *NodePoolServer) ListContainerazureAlphaNodePool(ctx context.Context, re
 		rp := NodePoolToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListContainerazureAlphaNodePoolResponse{Items: protos}, nil
+	p := &alphapb.ListContainerazureAlphaNodePoolResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigNodePool(ctx context.Context, service_account_file string) (*alpha.Client, error) {

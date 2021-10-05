@@ -26,13 +26,13 @@ import (
 // Server implements the gRPC interface for MetricsScope.
 type MetricsScopeServer struct{}
 
-// ProtoToMetricsScopeMonitoredProjects converts a MetricsScopeMonitoredProjects resource from its proto representation.
+// ProtoToMetricsScopeMonitoredProjects converts a MetricsScopeMonitoredProjects object from its proto representation.
 func ProtoToMonitoringAlphaMetricsScopeMonitoredProjects(p *alphapb.MonitoringAlphaMetricsScopeMonitoredProjects) *alpha.MetricsScopeMonitoredProjects {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.MetricsScopeMonitoredProjects{
-		Name:       dcl.StringOrNil(p.Name),
+		Name:       dcl.StringOrNil(p.GetName()),
 		CreateTime: dcl.StringOrNil(p.GetCreateTime()),
 	}
 	return obj
@@ -41,7 +41,7 @@ func ProtoToMonitoringAlphaMetricsScopeMonitoredProjects(p *alphapb.MonitoringAl
 // ProtoToMetricsScope converts a MetricsScope resource from its proto representation.
 func ProtoToMetricsScope(p *alphapb.MonitoringAlphaMetricsScope) *alpha.MetricsScope {
 	obj := &alpha.MetricsScope{
-		Name:       dcl.StringOrNil(p.Name),
+		Name:       dcl.StringOrNil(p.GetName()),
 		CreateTime: dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime: dcl.StringOrNil(p.GetUpdateTime()),
 	}
@@ -51,33 +51,33 @@ func ProtoToMetricsScope(p *alphapb.MonitoringAlphaMetricsScope) *alpha.MetricsS
 	return obj
 }
 
-// MetricsScopeMonitoredProjectsToProto converts a MetricsScopeMonitoredProjects resource to its proto representation.
+// MetricsScopeMonitoredProjectsToProto converts a MetricsScopeMonitoredProjects object to its proto representation.
 func MonitoringAlphaMetricsScopeMonitoredProjectsToProto(o *alpha.MetricsScopeMonitoredProjects) *alphapb.MonitoringAlphaMetricsScopeMonitoredProjects {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.MonitoringAlphaMetricsScopeMonitoredProjects{
-		Name:       dcl.ValueOrEmptyString(o.Name),
-		CreateTime: dcl.ValueOrEmptyString(o.CreateTime),
-	}
+	p := &alphapb.MonitoringAlphaMetricsScopeMonitoredProjects{}
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetCreateTime(dcl.ValueOrEmptyString(o.CreateTime))
 	return p
 }
 
 // MetricsScopeToProto converts a MetricsScope resource to its proto representation.
 func MetricsScopeToProto(resource *alpha.MetricsScope) *alphapb.MonitoringAlphaMetricsScope {
-	p := &alphapb.MonitoringAlphaMetricsScope{
-		Name:       dcl.ValueOrEmptyString(resource.Name),
-		CreateTime: dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime: dcl.ValueOrEmptyString(resource.UpdateTime),
+	p := &alphapb.MonitoringAlphaMetricsScope{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	sMonitoredProjects := make([]*alphapb.MonitoringAlphaMetricsScopeMonitoredProjects, len(resource.MonitoredProjects))
+	for i, r := range resource.MonitoredProjects {
+		sMonitoredProjects[i] = MonitoringAlphaMetricsScopeMonitoredProjectsToProto(&r)
 	}
-	for _, r := range resource.MonitoredProjects {
-		p.MonitoredProjects = append(p.MonitoredProjects, MonitoringAlphaMetricsScopeMonitoredProjectsToProto(&r))
-	}
+	p.SetMonitoredProjects(sMonitoredProjects)
 
 	return p
 }
 
-// ApplyMetricsScope handles the gRPC request by passing it to the underlying MetricsScope Apply() method.
+// applyMetricsScope handles the gRPC request by passing it to the underlying MetricsScope Apply() method.
 func (s *MetricsScopeServer) applyMetricsScope(ctx context.Context, c *alpha.Client, request *alphapb.ApplyMonitoringAlphaMetricsScopeRequest) (*alphapb.MonitoringAlphaMetricsScope, error) {
 	p := ProtoToMetricsScope(request.GetResource())
 	res, err := c.ApplyMetricsScope(ctx, p)
@@ -88,9 +88,9 @@ func (s *MetricsScopeServer) applyMetricsScope(ctx context.Context, c *alpha.Cli
 	return r, nil
 }
 
-// ApplyMetricsScope handles the gRPC request by passing it to the underlying MetricsScope Apply() method.
+// applyMonitoringAlphaMetricsScope handles the gRPC request by passing it to the underlying MetricsScope Apply() method.
 func (s *MetricsScopeServer) ApplyMonitoringAlphaMetricsScope(ctx context.Context, request *alphapb.ApplyMonitoringAlphaMetricsScopeRequest) (*alphapb.MonitoringAlphaMetricsScope, error) {
-	cl, err := createConfigMetricsScope(ctx, request.ServiceAccountFile)
+	cl, err := createConfigMetricsScope(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}

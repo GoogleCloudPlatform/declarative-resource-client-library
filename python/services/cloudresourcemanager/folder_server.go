@@ -40,14 +40,14 @@ func ProtoToCloudresourcemanagerFolderStateEnum(e cloudresourcemanagerpb.Cloudre
 // ProtoToFolder converts a Folder resource from its proto representation.
 func ProtoToFolder(p *cloudresourcemanagerpb.CloudresourcemanagerFolder) *cloudresourcemanager.Folder {
 	obj := &cloudresourcemanager.Folder{
-		Name:        dcl.StringOrNil(p.Name),
-		Parent:      dcl.StringOrNil(p.Parent),
-		DisplayName: dcl.StringOrNil(p.DisplayName),
+		Name:        dcl.StringOrNil(p.GetName()),
+		Parent:      dcl.StringOrNil(p.GetParent()),
+		DisplayName: dcl.StringOrNil(p.GetDisplayName()),
 		State:       ProtoToCloudresourcemanagerFolderStateEnum(p.GetState()),
 		CreateTime:  dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:  dcl.StringOrNil(p.GetUpdateTime()),
 		DeleteTime:  dcl.StringOrNil(p.GetDeleteTime()),
-		Etag:        dcl.StringOrNil(p.Etag),
+		Etag:        dcl.StringOrNil(p.GetEtag()),
 	}
 	return obj
 }
@@ -65,21 +65,20 @@ func CloudresourcemanagerFolderStateEnumToProto(e *cloudresourcemanager.FolderSt
 
 // FolderToProto converts a Folder resource to its proto representation.
 func FolderToProto(resource *cloudresourcemanager.Folder) *cloudresourcemanagerpb.CloudresourcemanagerFolder {
-	p := &cloudresourcemanagerpb.CloudresourcemanagerFolder{
-		Name:        dcl.ValueOrEmptyString(resource.Name),
-		Parent:      dcl.ValueOrEmptyString(resource.Parent),
-		DisplayName: dcl.ValueOrEmptyString(resource.DisplayName),
-		State:       CloudresourcemanagerFolderStateEnumToProto(resource.State),
-		CreateTime:  dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:  dcl.ValueOrEmptyString(resource.UpdateTime),
-		DeleteTime:  dcl.ValueOrEmptyString(resource.DeleteTime),
-		Etag:        dcl.ValueOrEmptyString(resource.Etag),
-	}
+	p := &cloudresourcemanagerpb.CloudresourcemanagerFolder{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetParent(dcl.ValueOrEmptyString(resource.Parent))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetState(CloudresourcemanagerFolderStateEnumToProto(resource.State))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetDeleteTime(dcl.ValueOrEmptyString(resource.DeleteTime))
+	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 
 	return p
 }
 
-// ApplyFolder handles the gRPC request by passing it to the underlying Folder Apply() method.
+// applyFolder handles the gRPC request by passing it to the underlying Folder Apply() method.
 func (s *FolderServer) applyFolder(ctx context.Context, c *cloudresourcemanager.Client, request *cloudresourcemanagerpb.ApplyCloudresourcemanagerFolderRequest) (*cloudresourcemanagerpb.CloudresourcemanagerFolder, error) {
 	p := ProtoToFolder(request.GetResource())
 	res, err := c.ApplyFolder(ctx, p)
@@ -90,9 +89,9 @@ func (s *FolderServer) applyFolder(ctx context.Context, c *cloudresourcemanager.
 	return r, nil
 }
 
-// ApplyFolder handles the gRPC request by passing it to the underlying Folder Apply() method.
+// applyCloudresourcemanagerFolder handles the gRPC request by passing it to the underlying Folder Apply() method.
 func (s *FolderServer) ApplyCloudresourcemanagerFolder(ctx context.Context, request *cloudresourcemanagerpb.ApplyCloudresourcemanagerFolderRequest) (*cloudresourcemanagerpb.CloudresourcemanagerFolder, error) {
-	cl, err := createConfigFolder(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFolder(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -102,7 +101,7 @@ func (s *FolderServer) ApplyCloudresourcemanagerFolder(ctx context.Context, requ
 // DeleteFolder handles the gRPC request by passing it to the underlying Folder Delete() method.
 func (s *FolderServer) DeleteCloudresourcemanagerFolder(ctx context.Context, request *cloudresourcemanagerpb.DeleteCloudresourcemanagerFolderRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigFolder(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFolder(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -112,12 +111,12 @@ func (s *FolderServer) DeleteCloudresourcemanagerFolder(ctx context.Context, req
 
 // ListCloudresourcemanagerFolder handles the gRPC request by passing it to the underlying FolderList() method.
 func (s *FolderServer) ListCloudresourcemanagerFolder(ctx context.Context, request *cloudresourcemanagerpb.ListCloudresourcemanagerFolderRequest) (*cloudresourcemanagerpb.ListCloudresourcemanagerFolderResponse, error) {
-	cl, err := createConfigFolder(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFolder(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListFolder(ctx, request.Parent)
+	resources, err := cl.ListFolder(ctx, request.GetParent())
 	if err != nil {
 		return nil, err
 	}
@@ -126,7 +125,9 @@ func (s *FolderServer) ListCloudresourcemanagerFolder(ctx context.Context, reque
 		rp := FolderToProto(r)
 		protos = append(protos, rp)
 	}
-	return &cloudresourcemanagerpb.ListCloudresourcemanagerFolderResponse{Items: protos}, nil
+	p := &cloudresourcemanagerpb.ListCloudresourcemanagerFolderResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigFolder(ctx context.Context, service_account_file string) (*cloudresourcemanager.Client, error) {

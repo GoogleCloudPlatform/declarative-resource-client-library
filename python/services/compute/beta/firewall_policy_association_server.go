@@ -28,27 +28,26 @@ type FirewallPolicyAssociationServer struct{}
 // ProtoToFirewallPolicyAssociation converts a FirewallPolicyAssociation resource from its proto representation.
 func ProtoToFirewallPolicyAssociation(p *betapb.ComputeBetaFirewallPolicyAssociation) *beta.FirewallPolicyAssociation {
 	obj := &beta.FirewallPolicyAssociation{
-		Name:             dcl.StringOrNil(p.Name),
-		AttachmentTarget: dcl.StringOrNil(p.AttachmentTarget),
-		FirewallPolicy:   dcl.StringOrNil(p.FirewallPolicy),
-		ShortName:        dcl.StringOrNil(p.ShortName),
+		Name:             dcl.StringOrNil(p.GetName()),
+		AttachmentTarget: dcl.StringOrNil(p.GetAttachmentTarget()),
+		FirewallPolicy:   dcl.StringOrNil(p.GetFirewallPolicy()),
+		ShortName:        dcl.StringOrNil(p.GetShortName()),
 	}
 	return obj
 }
 
 // FirewallPolicyAssociationToProto converts a FirewallPolicyAssociation resource to its proto representation.
 func FirewallPolicyAssociationToProto(resource *beta.FirewallPolicyAssociation) *betapb.ComputeBetaFirewallPolicyAssociation {
-	p := &betapb.ComputeBetaFirewallPolicyAssociation{
-		Name:             dcl.ValueOrEmptyString(resource.Name),
-		AttachmentTarget: dcl.ValueOrEmptyString(resource.AttachmentTarget),
-		FirewallPolicy:   dcl.ValueOrEmptyString(resource.FirewallPolicy),
-		ShortName:        dcl.ValueOrEmptyString(resource.ShortName),
-	}
+	p := &betapb.ComputeBetaFirewallPolicyAssociation{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetAttachmentTarget(dcl.ValueOrEmptyString(resource.AttachmentTarget))
+	p.SetFirewallPolicy(dcl.ValueOrEmptyString(resource.FirewallPolicy))
+	p.SetShortName(dcl.ValueOrEmptyString(resource.ShortName))
 
 	return p
 }
 
-// ApplyFirewallPolicyAssociation handles the gRPC request by passing it to the underlying FirewallPolicyAssociation Apply() method.
+// applyFirewallPolicyAssociation handles the gRPC request by passing it to the underlying FirewallPolicyAssociation Apply() method.
 func (s *FirewallPolicyAssociationServer) applyFirewallPolicyAssociation(ctx context.Context, c *beta.Client, request *betapb.ApplyComputeBetaFirewallPolicyAssociationRequest) (*betapb.ComputeBetaFirewallPolicyAssociation, error) {
 	p := ProtoToFirewallPolicyAssociation(request.GetResource())
 	res, err := c.ApplyFirewallPolicyAssociation(ctx, p)
@@ -59,9 +58,9 @@ func (s *FirewallPolicyAssociationServer) applyFirewallPolicyAssociation(ctx con
 	return r, nil
 }
 
-// ApplyFirewallPolicyAssociation handles the gRPC request by passing it to the underlying FirewallPolicyAssociation Apply() method.
+// applyComputeBetaFirewallPolicyAssociation handles the gRPC request by passing it to the underlying FirewallPolicyAssociation Apply() method.
 func (s *FirewallPolicyAssociationServer) ApplyComputeBetaFirewallPolicyAssociation(ctx context.Context, request *betapb.ApplyComputeBetaFirewallPolicyAssociationRequest) (*betapb.ComputeBetaFirewallPolicyAssociation, error) {
-	cl, err := createConfigFirewallPolicyAssociation(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFirewallPolicyAssociation(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -71,7 +70,7 @@ func (s *FirewallPolicyAssociationServer) ApplyComputeBetaFirewallPolicyAssociat
 // DeleteFirewallPolicyAssociation handles the gRPC request by passing it to the underlying FirewallPolicyAssociation Delete() method.
 func (s *FirewallPolicyAssociationServer) DeleteComputeBetaFirewallPolicyAssociation(ctx context.Context, request *betapb.DeleteComputeBetaFirewallPolicyAssociationRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigFirewallPolicyAssociation(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFirewallPolicyAssociation(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -81,12 +80,12 @@ func (s *FirewallPolicyAssociationServer) DeleteComputeBetaFirewallPolicyAssocia
 
 // ListComputeBetaFirewallPolicyAssociation handles the gRPC request by passing it to the underlying FirewallPolicyAssociationList() method.
 func (s *FirewallPolicyAssociationServer) ListComputeBetaFirewallPolicyAssociation(ctx context.Context, request *betapb.ListComputeBetaFirewallPolicyAssociationRequest) (*betapb.ListComputeBetaFirewallPolicyAssociationResponse, error) {
-	cl, err := createConfigFirewallPolicyAssociation(ctx, request.ServiceAccountFile)
+	cl, err := createConfigFirewallPolicyAssociation(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListFirewallPolicyAssociation(ctx, request.FirewallPolicy)
+	resources, err := cl.ListFirewallPolicyAssociation(ctx, request.GetFirewallPolicy())
 	if err != nil {
 		return nil, err
 	}
@@ -95,7 +94,9 @@ func (s *FirewallPolicyAssociationServer) ListComputeBetaFirewallPolicyAssociati
 		rp := FirewallPolicyAssociationToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListComputeBetaFirewallPolicyAssociationResponse{Items: protos}, nil
+	p := &betapb.ListComputeBetaFirewallPolicyAssociationResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigFirewallPolicyAssociation(ctx context.Context, service_account_file string) (*beta.Client, error) {

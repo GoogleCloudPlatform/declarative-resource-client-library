@@ -37,13 +37,13 @@ func ProtoToContainerazureAlphaClusterStateEnum(e alphapb.ContainerazureAlphaClu
 	return nil
 }
 
-// ProtoToClusterNetworking converts a ClusterNetworking resource from its proto representation.
+// ProtoToClusterNetworking converts a ClusterNetworking object from its proto representation.
 func ProtoToContainerazureAlphaClusterNetworking(p *alphapb.ContainerazureAlphaClusterNetworking) *alpha.ClusterNetworking {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClusterNetworking{
-		VirtualNetworkId: dcl.StringOrNil(p.VirtualNetworkId),
+		VirtualNetworkId: dcl.StringOrNil(p.GetVirtualNetworkId()),
 	}
 	for _, r := range p.GetPodAddressCidrBlocks() {
 		obj.PodAddressCidrBlocks = append(obj.PodAddressCidrBlocks, r)
@@ -54,15 +54,15 @@ func ProtoToContainerazureAlphaClusterNetworking(p *alphapb.ContainerazureAlphaC
 	return obj
 }
 
-// ProtoToClusterControlPlane converts a ClusterControlPlane resource from its proto representation.
+// ProtoToClusterControlPlane converts a ClusterControlPlane object from its proto representation.
 func ProtoToContainerazureAlphaClusterControlPlane(p *alphapb.ContainerazureAlphaClusterControlPlane) *alpha.ClusterControlPlane {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClusterControlPlane{
-		Version:            dcl.StringOrNil(p.Version),
-		SubnetId:           dcl.StringOrNil(p.SubnetId),
-		VmSize:             dcl.StringOrNil(p.VmSize),
+		Version:            dcl.StringOrNil(p.GetVersion()),
+		SubnetId:           dcl.StringOrNil(p.GetSubnetId()),
+		VmSize:             dcl.StringOrNil(p.GetVmSize()),
 		SshConfig:          ProtoToContainerazureAlphaClusterControlPlaneSshConfig(p.GetSshConfig()),
 		RootVolume:         ProtoToContainerazureAlphaClusterControlPlaneRootVolume(p.GetRootVolume()),
 		MainVolume:         ProtoToContainerazureAlphaClusterControlPlaneMainVolume(p.GetMainVolume()),
@@ -71,52 +71,52 @@ func ProtoToContainerazureAlphaClusterControlPlane(p *alphapb.ContainerazureAlph
 	return obj
 }
 
-// ProtoToClusterControlPlaneSshConfig converts a ClusterControlPlaneSshConfig resource from its proto representation.
+// ProtoToClusterControlPlaneSshConfig converts a ClusterControlPlaneSshConfig object from its proto representation.
 func ProtoToContainerazureAlphaClusterControlPlaneSshConfig(p *alphapb.ContainerazureAlphaClusterControlPlaneSshConfig) *alpha.ClusterControlPlaneSshConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClusterControlPlaneSshConfig{
-		AuthorizedKey: dcl.StringOrNil(p.AuthorizedKey),
+		AuthorizedKey: dcl.StringOrNil(p.GetAuthorizedKey()),
 	}
 	return obj
 }
 
-// ProtoToClusterControlPlaneRootVolume converts a ClusterControlPlaneRootVolume resource from its proto representation.
+// ProtoToClusterControlPlaneRootVolume converts a ClusterControlPlaneRootVolume object from its proto representation.
 func ProtoToContainerazureAlphaClusterControlPlaneRootVolume(p *alphapb.ContainerazureAlphaClusterControlPlaneRootVolume) *alpha.ClusterControlPlaneRootVolume {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClusterControlPlaneRootVolume{
-		SizeGib: dcl.Int64OrNil(p.SizeGib),
+		SizeGib: dcl.Int64OrNil(p.GetSizeGib()),
 	}
 	return obj
 }
 
-// ProtoToClusterControlPlaneMainVolume converts a ClusterControlPlaneMainVolume resource from its proto representation.
+// ProtoToClusterControlPlaneMainVolume converts a ClusterControlPlaneMainVolume object from its proto representation.
 func ProtoToContainerazureAlphaClusterControlPlaneMainVolume(p *alphapb.ContainerazureAlphaClusterControlPlaneMainVolume) *alpha.ClusterControlPlaneMainVolume {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClusterControlPlaneMainVolume{
-		SizeGib: dcl.Int64OrNil(p.SizeGib),
+		SizeGib: dcl.Int64OrNil(p.GetSizeGib()),
 	}
 	return obj
 }
 
-// ProtoToClusterControlPlaneDatabaseEncryption converts a ClusterControlPlaneDatabaseEncryption resource from its proto representation.
+// ProtoToClusterControlPlaneDatabaseEncryption converts a ClusterControlPlaneDatabaseEncryption object from its proto representation.
 func ProtoToContainerazureAlphaClusterControlPlaneDatabaseEncryption(p *alphapb.ContainerazureAlphaClusterControlPlaneDatabaseEncryption) *alpha.ClusterControlPlaneDatabaseEncryption {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClusterControlPlaneDatabaseEncryption{
-		ResourceGroupId:  dcl.StringOrNil(p.ResourceGroupId),
-		KmsKeyIdentifier: dcl.StringOrNil(p.KmsKeyIdentifier),
+		ResourceGroupId:  dcl.StringOrNil(p.GetResourceGroupId()),
+		KmsKeyIdentifier: dcl.StringOrNil(p.GetKmsKeyIdentifier()),
 	}
 	return obj
 }
 
-// ProtoToClusterAuthorization converts a ClusterAuthorization resource from its proto representation.
+// ProtoToClusterAuthorization converts a ClusterAuthorization object from its proto representation.
 func ProtoToContainerazureAlphaClusterAuthorization(p *alphapb.ContainerazureAlphaClusterAuthorization) *alpha.ClusterAuthorization {
 	if p == nil {
 		return nil
@@ -128,26 +128,26 @@ func ProtoToContainerazureAlphaClusterAuthorization(p *alphapb.ContainerazureAlp
 	return obj
 }
 
-// ProtoToClusterAuthorizationAdminUsers converts a ClusterAuthorizationAdminUsers resource from its proto representation.
+// ProtoToClusterAuthorizationAdminUsers converts a ClusterAuthorizationAdminUsers object from its proto representation.
 func ProtoToContainerazureAlphaClusterAuthorizationAdminUsers(p *alphapb.ContainerazureAlphaClusterAuthorizationAdminUsers) *alpha.ClusterAuthorizationAdminUsers {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClusterAuthorizationAdminUsers{
-		Username: dcl.StringOrNil(p.Username),
+		Username: dcl.StringOrNil(p.GetUsername()),
 	}
 	return obj
 }
 
-// ProtoToClusterWorkloadIdentityConfig converts a ClusterWorkloadIdentityConfig resource from its proto representation.
+// ProtoToClusterWorkloadIdentityConfig converts a ClusterWorkloadIdentityConfig object from its proto representation.
 func ProtoToContainerazureAlphaClusterWorkloadIdentityConfig(p *alphapb.ContainerazureAlphaClusterWorkloadIdentityConfig) *alpha.ClusterWorkloadIdentityConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.ClusterWorkloadIdentityConfig{
-		IssuerUri:        dcl.StringOrNil(p.IssuerUri),
-		WorkloadPool:     dcl.StringOrNil(p.WorkloadPool),
-		IdentityProvider: dcl.StringOrNil(p.IdentityProvider),
+		IssuerUri:        dcl.StringOrNil(p.GetIssuerUri()),
+		WorkloadPool:     dcl.StringOrNil(p.GetWorkloadPool()),
+		IdentityProvider: dcl.StringOrNil(p.GetIdentityProvider()),
 	}
 	return obj
 }
@@ -155,24 +155,24 @@ func ProtoToContainerazureAlphaClusterWorkloadIdentityConfig(p *alphapb.Containe
 // ProtoToCluster converts a Cluster resource from its proto representation.
 func ProtoToCluster(p *alphapb.ContainerazureAlphaCluster) *alpha.Cluster {
 	obj := &alpha.Cluster{
-		Name:                   dcl.StringOrNil(p.Name),
-		Description:            dcl.StringOrNil(p.Description),
-		AzureRegion:            dcl.StringOrNil(p.AzureRegion),
-		ResourceGroupId:        dcl.StringOrNil(p.ResourceGroupId),
-		Client:                 dcl.StringOrNil(p.Client),
+		Name:                   dcl.StringOrNil(p.GetName()),
+		Description:            dcl.StringOrNil(p.GetDescription()),
+		AzureRegion:            dcl.StringOrNil(p.GetAzureRegion()),
+		ResourceGroupId:        dcl.StringOrNil(p.GetResourceGroupId()),
+		Client:                 dcl.StringOrNil(p.GetClient()),
 		Networking:             ProtoToContainerazureAlphaClusterNetworking(p.GetNetworking()),
 		ControlPlane:           ProtoToContainerazureAlphaClusterControlPlane(p.GetControlPlane()),
 		Authorization:          ProtoToContainerazureAlphaClusterAuthorization(p.GetAuthorization()),
 		State:                  ProtoToContainerazureAlphaClusterStateEnum(p.GetState()),
-		Endpoint:               dcl.StringOrNil(p.Endpoint),
-		Uid:                    dcl.StringOrNil(p.Uid),
-		Reconciling:            dcl.Bool(p.Reconciling),
+		Endpoint:               dcl.StringOrNil(p.GetEndpoint()),
+		Uid:                    dcl.StringOrNil(p.GetUid()),
+		Reconciling:            dcl.Bool(p.GetReconciling()),
 		CreateTime:             dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:             dcl.StringOrNil(p.GetUpdateTime()),
-		Etag:                   dcl.StringOrNil(p.Etag),
+		Etag:                   dcl.StringOrNil(p.GetEtag()),
 		WorkloadIdentityConfig: ProtoToContainerazureAlphaClusterWorkloadIdentityConfig(p.GetWorkloadIdentityConfig()),
-		Project:                dcl.StringOrNil(p.Project),
-		Location:               dcl.StringOrNil(p.Location),
+		Project:                dcl.StringOrNil(p.GetProject()),
+		Location:               dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -188,152 +188,155 @@ func ContainerazureAlphaClusterStateEnumToProto(e *alpha.ClusterStateEnum) alpha
 	return alphapb.ContainerazureAlphaClusterStateEnum(0)
 }
 
-// ClusterNetworkingToProto converts a ClusterNetworking resource to its proto representation.
+// ClusterNetworkingToProto converts a ClusterNetworking object to its proto representation.
 func ContainerazureAlphaClusterNetworkingToProto(o *alpha.ClusterNetworking) *alphapb.ContainerazureAlphaClusterNetworking {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerazureAlphaClusterNetworking{
-		VirtualNetworkId: dcl.ValueOrEmptyString(o.VirtualNetworkId),
+	p := &alphapb.ContainerazureAlphaClusterNetworking{}
+	p.SetVirtualNetworkId(dcl.ValueOrEmptyString(o.VirtualNetworkId))
+	sPodAddressCidrBlocks := make([]string, len(o.PodAddressCidrBlocks))
+	for i, r := range o.PodAddressCidrBlocks {
+		sPodAddressCidrBlocks[i] = r
 	}
-	for _, r := range o.PodAddressCidrBlocks {
-		p.PodAddressCidrBlocks = append(p.PodAddressCidrBlocks, r)
+	p.SetPodAddressCidrBlocks(sPodAddressCidrBlocks)
+	sServiceAddressCidrBlocks := make([]string, len(o.ServiceAddressCidrBlocks))
+	for i, r := range o.ServiceAddressCidrBlocks {
+		sServiceAddressCidrBlocks[i] = r
 	}
-	for _, r := range o.ServiceAddressCidrBlocks {
-		p.ServiceAddressCidrBlocks = append(p.ServiceAddressCidrBlocks, r)
-	}
+	p.SetServiceAddressCidrBlocks(sServiceAddressCidrBlocks)
 	return p
 }
 
-// ClusterControlPlaneToProto converts a ClusterControlPlane resource to its proto representation.
+// ClusterControlPlaneToProto converts a ClusterControlPlane object to its proto representation.
 func ContainerazureAlphaClusterControlPlaneToProto(o *alpha.ClusterControlPlane) *alphapb.ContainerazureAlphaClusterControlPlane {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerazureAlphaClusterControlPlane{
-		Version:            dcl.ValueOrEmptyString(o.Version),
-		SubnetId:           dcl.ValueOrEmptyString(o.SubnetId),
-		VmSize:             dcl.ValueOrEmptyString(o.VmSize),
-		SshConfig:          ContainerazureAlphaClusterControlPlaneSshConfigToProto(o.SshConfig),
-		RootVolume:         ContainerazureAlphaClusterControlPlaneRootVolumeToProto(o.RootVolume),
-		MainVolume:         ContainerazureAlphaClusterControlPlaneMainVolumeToProto(o.MainVolume),
-		DatabaseEncryption: ContainerazureAlphaClusterControlPlaneDatabaseEncryptionToProto(o.DatabaseEncryption),
-	}
-	p.Tags = make(map[string]string)
+	p := &alphapb.ContainerazureAlphaClusterControlPlane{}
+	p.SetVersion(dcl.ValueOrEmptyString(o.Version))
+	p.SetSubnetId(dcl.ValueOrEmptyString(o.SubnetId))
+	p.SetVmSize(dcl.ValueOrEmptyString(o.VmSize))
+	p.SetSshConfig(ContainerazureAlphaClusterControlPlaneSshConfigToProto(o.SshConfig))
+	p.SetRootVolume(ContainerazureAlphaClusterControlPlaneRootVolumeToProto(o.RootVolume))
+	p.SetMainVolume(ContainerazureAlphaClusterControlPlaneMainVolumeToProto(o.MainVolume))
+	p.SetDatabaseEncryption(ContainerazureAlphaClusterControlPlaneDatabaseEncryptionToProto(o.DatabaseEncryption))
+	mTags := make(map[string]string, len(o.Tags))
 	for k, r := range o.Tags {
-		p.Tags[k] = r
+		mTags[k] = r
 	}
+	p.SetTags(mTags)
 	return p
 }
 
-// ClusterControlPlaneSshConfigToProto converts a ClusterControlPlaneSshConfig resource to its proto representation.
+// ClusterControlPlaneSshConfigToProto converts a ClusterControlPlaneSshConfig object to its proto representation.
 func ContainerazureAlphaClusterControlPlaneSshConfigToProto(o *alpha.ClusterControlPlaneSshConfig) *alphapb.ContainerazureAlphaClusterControlPlaneSshConfig {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerazureAlphaClusterControlPlaneSshConfig{
-		AuthorizedKey: dcl.ValueOrEmptyString(o.AuthorizedKey),
-	}
+	p := &alphapb.ContainerazureAlphaClusterControlPlaneSshConfig{}
+	p.SetAuthorizedKey(dcl.ValueOrEmptyString(o.AuthorizedKey))
 	return p
 }
 
-// ClusterControlPlaneRootVolumeToProto converts a ClusterControlPlaneRootVolume resource to its proto representation.
+// ClusterControlPlaneRootVolumeToProto converts a ClusterControlPlaneRootVolume object to its proto representation.
 func ContainerazureAlphaClusterControlPlaneRootVolumeToProto(o *alpha.ClusterControlPlaneRootVolume) *alphapb.ContainerazureAlphaClusterControlPlaneRootVolume {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerazureAlphaClusterControlPlaneRootVolume{
-		SizeGib: dcl.ValueOrEmptyInt64(o.SizeGib),
-	}
+	p := &alphapb.ContainerazureAlphaClusterControlPlaneRootVolume{}
+	p.SetSizeGib(dcl.ValueOrEmptyInt64(o.SizeGib))
 	return p
 }
 
-// ClusterControlPlaneMainVolumeToProto converts a ClusterControlPlaneMainVolume resource to its proto representation.
+// ClusterControlPlaneMainVolumeToProto converts a ClusterControlPlaneMainVolume object to its proto representation.
 func ContainerazureAlphaClusterControlPlaneMainVolumeToProto(o *alpha.ClusterControlPlaneMainVolume) *alphapb.ContainerazureAlphaClusterControlPlaneMainVolume {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerazureAlphaClusterControlPlaneMainVolume{
-		SizeGib: dcl.ValueOrEmptyInt64(o.SizeGib),
-	}
+	p := &alphapb.ContainerazureAlphaClusterControlPlaneMainVolume{}
+	p.SetSizeGib(dcl.ValueOrEmptyInt64(o.SizeGib))
 	return p
 }
 
-// ClusterControlPlaneDatabaseEncryptionToProto converts a ClusterControlPlaneDatabaseEncryption resource to its proto representation.
+// ClusterControlPlaneDatabaseEncryptionToProto converts a ClusterControlPlaneDatabaseEncryption object to its proto representation.
 func ContainerazureAlphaClusterControlPlaneDatabaseEncryptionToProto(o *alpha.ClusterControlPlaneDatabaseEncryption) *alphapb.ContainerazureAlphaClusterControlPlaneDatabaseEncryption {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerazureAlphaClusterControlPlaneDatabaseEncryption{
-		ResourceGroupId:  dcl.ValueOrEmptyString(o.ResourceGroupId),
-		KmsKeyIdentifier: dcl.ValueOrEmptyString(o.KmsKeyIdentifier),
-	}
+	p := &alphapb.ContainerazureAlphaClusterControlPlaneDatabaseEncryption{}
+	p.SetResourceGroupId(dcl.ValueOrEmptyString(o.ResourceGroupId))
+	p.SetKmsKeyIdentifier(dcl.ValueOrEmptyString(o.KmsKeyIdentifier))
 	return p
 }
 
-// ClusterAuthorizationToProto converts a ClusterAuthorization resource to its proto representation.
+// ClusterAuthorizationToProto converts a ClusterAuthorization object to its proto representation.
 func ContainerazureAlphaClusterAuthorizationToProto(o *alpha.ClusterAuthorization) *alphapb.ContainerazureAlphaClusterAuthorization {
 	if o == nil {
 		return nil
 	}
 	p := &alphapb.ContainerazureAlphaClusterAuthorization{}
-	for _, r := range o.AdminUsers {
-		p.AdminUsers = append(p.AdminUsers, ContainerazureAlphaClusterAuthorizationAdminUsersToProto(&r))
+	sAdminUsers := make([]*alphapb.ContainerazureAlphaClusterAuthorizationAdminUsers, len(o.AdminUsers))
+	for i, r := range o.AdminUsers {
+		sAdminUsers[i] = ContainerazureAlphaClusterAuthorizationAdminUsersToProto(&r)
 	}
+	p.SetAdminUsers(sAdminUsers)
 	return p
 }
 
-// ClusterAuthorizationAdminUsersToProto converts a ClusterAuthorizationAdminUsers resource to its proto representation.
+// ClusterAuthorizationAdminUsersToProto converts a ClusterAuthorizationAdminUsers object to its proto representation.
 func ContainerazureAlphaClusterAuthorizationAdminUsersToProto(o *alpha.ClusterAuthorizationAdminUsers) *alphapb.ContainerazureAlphaClusterAuthorizationAdminUsers {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerazureAlphaClusterAuthorizationAdminUsers{
-		Username: dcl.ValueOrEmptyString(o.Username),
-	}
+	p := &alphapb.ContainerazureAlphaClusterAuthorizationAdminUsers{}
+	p.SetUsername(dcl.ValueOrEmptyString(o.Username))
 	return p
 }
 
-// ClusterWorkloadIdentityConfigToProto converts a ClusterWorkloadIdentityConfig resource to its proto representation.
+// ClusterWorkloadIdentityConfigToProto converts a ClusterWorkloadIdentityConfig object to its proto representation.
 func ContainerazureAlphaClusterWorkloadIdentityConfigToProto(o *alpha.ClusterWorkloadIdentityConfig) *alphapb.ContainerazureAlphaClusterWorkloadIdentityConfig {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.ContainerazureAlphaClusterWorkloadIdentityConfig{
-		IssuerUri:        dcl.ValueOrEmptyString(o.IssuerUri),
-		WorkloadPool:     dcl.ValueOrEmptyString(o.WorkloadPool),
-		IdentityProvider: dcl.ValueOrEmptyString(o.IdentityProvider),
-	}
+	p := &alphapb.ContainerazureAlphaClusterWorkloadIdentityConfig{}
+	p.SetIssuerUri(dcl.ValueOrEmptyString(o.IssuerUri))
+	p.SetWorkloadPool(dcl.ValueOrEmptyString(o.WorkloadPool))
+	p.SetIdentityProvider(dcl.ValueOrEmptyString(o.IdentityProvider))
 	return p
 }
 
 // ClusterToProto converts a Cluster resource to its proto representation.
 func ClusterToProto(resource *alpha.Cluster) *alphapb.ContainerazureAlphaCluster {
-	p := &alphapb.ContainerazureAlphaCluster{
-		Name:                   dcl.ValueOrEmptyString(resource.Name),
-		Description:            dcl.ValueOrEmptyString(resource.Description),
-		AzureRegion:            dcl.ValueOrEmptyString(resource.AzureRegion),
-		ResourceGroupId:        dcl.ValueOrEmptyString(resource.ResourceGroupId),
-		Client:                 dcl.ValueOrEmptyString(resource.Client),
-		Networking:             ContainerazureAlphaClusterNetworkingToProto(resource.Networking),
-		ControlPlane:           ContainerazureAlphaClusterControlPlaneToProto(resource.ControlPlane),
-		Authorization:          ContainerazureAlphaClusterAuthorizationToProto(resource.Authorization),
-		State:                  ContainerazureAlphaClusterStateEnumToProto(resource.State),
-		Endpoint:               dcl.ValueOrEmptyString(resource.Endpoint),
-		Uid:                    dcl.ValueOrEmptyString(resource.Uid),
-		Reconciling:            dcl.ValueOrEmptyBool(resource.Reconciling),
-		CreateTime:             dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:             dcl.ValueOrEmptyString(resource.UpdateTime),
-		Etag:                   dcl.ValueOrEmptyString(resource.Etag),
-		WorkloadIdentityConfig: ContainerazureAlphaClusterWorkloadIdentityConfigToProto(resource.WorkloadIdentityConfig),
-		Project:                dcl.ValueOrEmptyString(resource.Project),
-		Location:               dcl.ValueOrEmptyString(resource.Location),
+	p := &alphapb.ContainerazureAlphaCluster{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetAzureRegion(dcl.ValueOrEmptyString(resource.AzureRegion))
+	p.SetResourceGroupId(dcl.ValueOrEmptyString(resource.ResourceGroupId))
+	p.SetClient(dcl.ValueOrEmptyString(resource.Client))
+	p.SetNetworking(ContainerazureAlphaClusterNetworkingToProto(resource.Networking))
+	p.SetControlPlane(ContainerazureAlphaClusterControlPlaneToProto(resource.ControlPlane))
+	p.SetAuthorization(ContainerazureAlphaClusterAuthorizationToProto(resource.Authorization))
+	p.SetState(ContainerazureAlphaClusterStateEnumToProto(resource.State))
+	p.SetEndpoint(dcl.ValueOrEmptyString(resource.Endpoint))
+	p.SetUid(dcl.ValueOrEmptyString(resource.Uid))
+	p.SetReconciling(dcl.ValueOrEmptyBool(resource.Reconciling))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
+	p.SetWorkloadIdentityConfig(ContainerazureAlphaClusterWorkloadIdentityConfigToProto(resource.WorkloadIdentityConfig))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	mAnnotations := make(map[string]string, len(resource.Annotations))
+	for k, r := range resource.Annotations {
+		mAnnotations[k] = r
 	}
+	p.SetAnnotations(mAnnotations)
 
 	return p
 }
 
-// ApplyCluster handles the gRPC request by passing it to the underlying Cluster Apply() method.
+// applyCluster handles the gRPC request by passing it to the underlying Cluster Apply() method.
 func (s *ClusterServer) applyCluster(ctx context.Context, c *alpha.Client, request *alphapb.ApplyContainerazureAlphaClusterRequest) (*alphapb.ContainerazureAlphaCluster, error) {
 	p := ProtoToCluster(request.GetResource())
 	res, err := c.ApplyCluster(ctx, p)
@@ -344,9 +347,9 @@ func (s *ClusterServer) applyCluster(ctx context.Context, c *alpha.Client, reque
 	return r, nil
 }
 
-// ApplyCluster handles the gRPC request by passing it to the underlying Cluster Apply() method.
+// applyContainerazureAlphaCluster handles the gRPC request by passing it to the underlying Cluster Apply() method.
 func (s *ClusterServer) ApplyContainerazureAlphaCluster(ctx context.Context, request *alphapb.ApplyContainerazureAlphaClusterRequest) (*alphapb.ContainerazureAlphaCluster, error) {
-	cl, err := createConfigCluster(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCluster(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -356,7 +359,7 @@ func (s *ClusterServer) ApplyContainerazureAlphaCluster(ctx context.Context, req
 // DeleteCluster handles the gRPC request by passing it to the underlying Cluster Delete() method.
 func (s *ClusterServer) DeleteContainerazureAlphaCluster(ctx context.Context, request *alphapb.DeleteContainerazureAlphaClusterRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigCluster(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCluster(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -366,12 +369,12 @@ func (s *ClusterServer) DeleteContainerazureAlphaCluster(ctx context.Context, re
 
 // ListContainerazureAlphaCluster handles the gRPC request by passing it to the underlying ClusterList() method.
 func (s *ClusterServer) ListContainerazureAlphaCluster(ctx context.Context, request *alphapb.ListContainerazureAlphaClusterRequest) (*alphapb.ListContainerazureAlphaClusterResponse, error) {
-	cl, err := createConfigCluster(ctx, request.ServiceAccountFile)
+	cl, err := createConfigCluster(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListCluster(ctx, request.Project, request.Location)
+	resources, err := cl.ListCluster(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -380,7 +383,9 @@ func (s *ClusterServer) ListContainerazureAlphaCluster(ctx context.Context, requ
 		rp := ClusterToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListContainerazureAlphaClusterResponse{Items: protos}, nil
+	p := &alphapb.ListContainerazureAlphaClusterResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigCluster(ctx context.Context, service_account_file string) (*alpha.Client, error) {

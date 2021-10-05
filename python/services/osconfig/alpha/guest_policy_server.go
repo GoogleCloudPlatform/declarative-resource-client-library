@@ -121,7 +121,7 @@ func ProtoToOsconfigAlphaGuestPolicyRecipesDesiredStateEnum(e alphapb.OsconfigAl
 	return nil
 }
 
-// ProtoToGuestPolicyAssignment converts a GuestPolicyAssignment resource from its proto representation.
+// ProtoToGuestPolicyAssignment converts a GuestPolicyAssignment object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyAssignment(p *alphapb.OsconfigAlphaGuestPolicyAssignment) *alpha.GuestPolicyAssignment {
 	if p == nil {
 		return nil
@@ -145,7 +145,7 @@ func ProtoToOsconfigAlphaGuestPolicyAssignment(p *alphapb.OsconfigAlphaGuestPoli
 	return obj
 }
 
-// ProtoToGuestPolicyAssignmentGroupLabels converts a GuestPolicyAssignmentGroupLabels resource from its proto representation.
+// ProtoToGuestPolicyAssignmentGroupLabels converts a GuestPolicyAssignmentGroupLabels object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyAssignmentGroupLabels(p *alphapb.OsconfigAlphaGuestPolicyAssignmentGroupLabels) *alpha.GuestPolicyAssignmentGroupLabels {
 	if p == nil {
 		return nil
@@ -154,33 +154,33 @@ func ProtoToOsconfigAlphaGuestPolicyAssignmentGroupLabels(p *alphapb.OsconfigAlp
 	return obj
 }
 
-// ProtoToGuestPolicyAssignmentOSTypes converts a GuestPolicyAssignmentOSTypes resource from its proto representation.
+// ProtoToGuestPolicyAssignmentOSTypes converts a GuestPolicyAssignmentOSTypes object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyAssignmentOSTypes(p *alphapb.OsconfigAlphaGuestPolicyAssignmentOSTypes) *alpha.GuestPolicyAssignmentOSTypes {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyAssignmentOSTypes{
-		OSShortName:    dcl.StringOrNil(p.OsShortName),
-		OSVersion:      dcl.StringOrNil(p.OsVersion),
-		OSArchitecture: dcl.StringOrNil(p.OsArchitecture),
+		OSShortName:    dcl.StringOrNil(p.GetOsShortName()),
+		OSVersion:      dcl.StringOrNil(p.GetOsVersion()),
+		OSArchitecture: dcl.StringOrNil(p.GetOsArchitecture()),
 	}
 	return obj
 }
 
-// ProtoToGuestPolicyPackages converts a GuestPolicyPackages resource from its proto representation.
+// ProtoToGuestPolicyPackages converts a GuestPolicyPackages object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyPackages(p *alphapb.OsconfigAlphaGuestPolicyPackages) *alpha.GuestPolicyPackages {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyPackages{
-		Name:         dcl.StringOrNil(p.Name),
+		Name:         dcl.StringOrNil(p.GetName()),
 		DesiredState: ProtoToOsconfigAlphaGuestPolicyPackagesDesiredStateEnum(p.GetDesiredState()),
 		Manager:      ProtoToOsconfigAlphaGuestPolicyPackagesManagerEnum(p.GetManager()),
 	}
 	return obj
 }
 
-// ProtoToGuestPolicyPackageRepositories converts a GuestPolicyPackageRepositories resource from its proto representation.
+// ProtoToGuestPolicyPackageRepositories converts a GuestPolicyPackageRepositories object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyPackageRepositories(p *alphapb.OsconfigAlphaGuestPolicyPackageRepositories) *alpha.GuestPolicyPackageRepositories {
 	if p == nil {
 		return nil
@@ -194,16 +194,16 @@ func ProtoToOsconfigAlphaGuestPolicyPackageRepositories(p *alphapb.OsconfigAlpha
 	return obj
 }
 
-// ProtoToGuestPolicyPackageRepositoriesApt converts a GuestPolicyPackageRepositoriesApt resource from its proto representation.
+// ProtoToGuestPolicyPackageRepositoriesApt converts a GuestPolicyPackageRepositoriesApt object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyPackageRepositoriesApt(p *alphapb.OsconfigAlphaGuestPolicyPackageRepositoriesApt) *alpha.GuestPolicyPackageRepositoriesApt {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyPackageRepositoriesApt{
 		ArchiveType:  ProtoToOsconfigAlphaGuestPolicyPackageRepositoriesAptArchiveTypeEnum(p.GetArchiveType()),
-		Uri:          dcl.StringOrNil(p.Uri),
-		Distribution: dcl.StringOrNil(p.Distribution),
-		GpgKey:       dcl.StringOrNil(p.GpgKey),
+		Uri:          dcl.StringOrNil(p.GetUri()),
+		Distribution: dcl.StringOrNil(p.GetDistribution()),
+		GpgKey:       dcl.StringOrNil(p.GetGpgKey()),
 	}
 	for _, r := range p.GetComponents() {
 		obj.Components = append(obj.Components, r)
@@ -211,15 +211,15 @@ func ProtoToOsconfigAlphaGuestPolicyPackageRepositoriesApt(p *alphapb.OsconfigAl
 	return obj
 }
 
-// ProtoToGuestPolicyPackageRepositoriesYum converts a GuestPolicyPackageRepositoriesYum resource from its proto representation.
+// ProtoToGuestPolicyPackageRepositoriesYum converts a GuestPolicyPackageRepositoriesYum object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyPackageRepositoriesYum(p *alphapb.OsconfigAlphaGuestPolicyPackageRepositoriesYum) *alpha.GuestPolicyPackageRepositoriesYum {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyPackageRepositoriesYum{
-		Id:          dcl.StringOrNil(p.Id),
-		DisplayName: dcl.StringOrNil(p.DisplayName),
-		BaseUrl:     dcl.StringOrNil(p.BaseUrl),
+		Id:          dcl.StringOrNil(p.GetId()),
+		DisplayName: dcl.StringOrNil(p.GetDisplayName()),
+		BaseUrl:     dcl.StringOrNil(p.GetBaseUrl()),
 	}
 	for _, r := range p.GetGpgKeys() {
 		obj.GpgKeys = append(obj.GpgKeys, r)
@@ -227,15 +227,15 @@ func ProtoToOsconfigAlphaGuestPolicyPackageRepositoriesYum(p *alphapb.OsconfigAl
 	return obj
 }
 
-// ProtoToGuestPolicyPackageRepositoriesZypper converts a GuestPolicyPackageRepositoriesZypper resource from its proto representation.
+// ProtoToGuestPolicyPackageRepositoriesZypper converts a GuestPolicyPackageRepositoriesZypper object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyPackageRepositoriesZypper(p *alphapb.OsconfigAlphaGuestPolicyPackageRepositoriesZypper) *alpha.GuestPolicyPackageRepositoriesZypper {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyPackageRepositoriesZypper{
-		Id:          dcl.StringOrNil(p.Id),
-		DisplayName: dcl.StringOrNil(p.DisplayName),
-		BaseUrl:     dcl.StringOrNil(p.BaseUrl),
+		Id:          dcl.StringOrNil(p.GetId()),
+		DisplayName: dcl.StringOrNil(p.GetDisplayName()),
+		BaseUrl:     dcl.StringOrNil(p.GetBaseUrl()),
 	}
 	for _, r := range p.GetGpgKeys() {
 		obj.GpgKeys = append(obj.GpgKeys, r)
@@ -243,26 +243,26 @@ func ProtoToOsconfigAlphaGuestPolicyPackageRepositoriesZypper(p *alphapb.Osconfi
 	return obj
 }
 
-// ProtoToGuestPolicyPackageRepositoriesGoo converts a GuestPolicyPackageRepositoriesGoo resource from its proto representation.
+// ProtoToGuestPolicyPackageRepositoriesGoo converts a GuestPolicyPackageRepositoriesGoo object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyPackageRepositoriesGoo(p *alphapb.OsconfigAlphaGuestPolicyPackageRepositoriesGoo) *alpha.GuestPolicyPackageRepositoriesGoo {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyPackageRepositoriesGoo{
-		Name: dcl.StringOrNil(p.Name),
-		Url:  dcl.StringOrNil(p.Url),
+		Name: dcl.StringOrNil(p.GetName()),
+		Url:  dcl.StringOrNil(p.GetUrl()),
 	}
 	return obj
 }
 
-// ProtoToGuestPolicyRecipes converts a GuestPolicyRecipes resource from its proto representation.
+// ProtoToGuestPolicyRecipes converts a GuestPolicyRecipes object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyRecipes(p *alphapb.OsconfigAlphaGuestPolicyRecipes) *alpha.GuestPolicyRecipes {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyRecipes{
-		Name:         dcl.StringOrNil(p.Name),
-		Version:      dcl.StringOrNil(p.Version),
+		Name:         dcl.StringOrNil(p.GetName()),
+		Version:      dcl.StringOrNil(p.GetVersion()),
 		DesiredState: ProtoToOsconfigAlphaGuestPolicyRecipesDesiredStateEnum(p.GetDesiredState()),
 	}
 	for _, r := range p.GetArtifacts() {
@@ -277,46 +277,46 @@ func ProtoToOsconfigAlphaGuestPolicyRecipes(p *alphapb.OsconfigAlphaGuestPolicyR
 	return obj
 }
 
-// ProtoToGuestPolicyRecipesArtifacts converts a GuestPolicyRecipesArtifacts resource from its proto representation.
+// ProtoToGuestPolicyRecipesArtifacts converts a GuestPolicyRecipesArtifacts object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyRecipesArtifacts(p *alphapb.OsconfigAlphaGuestPolicyRecipesArtifacts) *alpha.GuestPolicyRecipesArtifacts {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyRecipesArtifacts{
-		Id:            dcl.StringOrNil(p.Id),
+		Id:            dcl.StringOrNil(p.GetId()),
 		Remote:        ProtoToOsconfigAlphaGuestPolicyRecipesArtifactsRemote(p.GetRemote()),
 		Gcs:           ProtoToOsconfigAlphaGuestPolicyRecipesArtifactsGcs(p.GetGcs()),
-		AllowInsecure: dcl.Bool(p.AllowInsecure),
+		AllowInsecure: dcl.Bool(p.GetAllowInsecure()),
 	}
 	return obj
 }
 
-// ProtoToGuestPolicyRecipesArtifactsRemote converts a GuestPolicyRecipesArtifactsRemote resource from its proto representation.
+// ProtoToGuestPolicyRecipesArtifactsRemote converts a GuestPolicyRecipesArtifactsRemote object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyRecipesArtifactsRemote(p *alphapb.OsconfigAlphaGuestPolicyRecipesArtifactsRemote) *alpha.GuestPolicyRecipesArtifactsRemote {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyRecipesArtifactsRemote{
-		Uri:      dcl.StringOrNil(p.Uri),
-		Checksum: dcl.StringOrNil(p.Checksum),
+		Uri:      dcl.StringOrNil(p.GetUri()),
+		Checksum: dcl.StringOrNil(p.GetChecksum()),
 	}
 	return obj
 }
 
-// ProtoToGuestPolicyRecipesArtifactsGcs converts a GuestPolicyRecipesArtifactsGcs resource from its proto representation.
+// ProtoToGuestPolicyRecipesArtifactsGcs converts a GuestPolicyRecipesArtifactsGcs object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyRecipesArtifactsGcs(p *alphapb.OsconfigAlphaGuestPolicyRecipesArtifactsGcs) *alpha.GuestPolicyRecipesArtifactsGcs {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyRecipesArtifactsGcs{
-		Bucket:     dcl.StringOrNil(p.Bucket),
-		Object:     dcl.StringOrNil(p.Object),
-		Generation: dcl.Int64OrNil(p.Generation),
+		Bucket:     dcl.StringOrNil(p.GetBucket()),
+		Object:     dcl.StringOrNil(p.GetObject()),
+		Generation: dcl.Int64OrNil(p.GetGeneration()),
 	}
 	return obj
 }
 
-// ProtoToGuestPolicyRecipesInstallSteps converts a GuestPolicyRecipesInstallSteps resource from its proto representation.
+// ProtoToGuestPolicyRecipesInstallSteps converts a GuestPolicyRecipesInstallSteps object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyRecipesInstallSteps(p *alphapb.OsconfigAlphaGuestPolicyRecipesInstallSteps) *alpha.GuestPolicyRecipesInstallSteps {
 	if p == nil {
 		return nil
@@ -333,40 +333,40 @@ func ProtoToOsconfigAlphaGuestPolicyRecipesInstallSteps(p *alphapb.OsconfigAlpha
 	return obj
 }
 
-// ProtoToGuestPolicyRecipesInstallStepsFileCopy converts a GuestPolicyRecipesInstallStepsFileCopy resource from its proto representation.
+// ProtoToGuestPolicyRecipesInstallStepsFileCopy converts a GuestPolicyRecipesInstallStepsFileCopy object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyRecipesInstallStepsFileCopy(p *alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsFileCopy) *alpha.GuestPolicyRecipesInstallStepsFileCopy {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyRecipesInstallStepsFileCopy{
-		ArtifactId:  dcl.StringOrNil(p.ArtifactId),
-		Destination: dcl.StringOrNil(p.Destination),
-		Overwrite:   dcl.Bool(p.Overwrite),
-		Permissions: dcl.StringOrNil(p.Permissions),
+		ArtifactId:  dcl.StringOrNil(p.GetArtifactId()),
+		Destination: dcl.StringOrNil(p.GetDestination()),
+		Overwrite:   dcl.Bool(p.GetOverwrite()),
+		Permissions: dcl.StringOrNil(p.GetPermissions()),
 	}
 	return obj
 }
 
-// ProtoToGuestPolicyRecipesInstallStepsArchiveExtraction converts a GuestPolicyRecipesInstallStepsArchiveExtraction resource from its proto representation.
+// ProtoToGuestPolicyRecipesInstallStepsArchiveExtraction converts a GuestPolicyRecipesInstallStepsArchiveExtraction object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyRecipesInstallStepsArchiveExtraction(p *alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsArchiveExtraction) *alpha.GuestPolicyRecipesInstallStepsArchiveExtraction {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyRecipesInstallStepsArchiveExtraction{
-		ArtifactId:  dcl.StringOrNil(p.ArtifactId),
-		Destination: dcl.StringOrNil(p.Destination),
+		ArtifactId:  dcl.StringOrNil(p.GetArtifactId()),
+		Destination: dcl.StringOrNil(p.GetDestination()),
 		Type:        ProtoToOsconfigAlphaGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum(p.GetType()),
 	}
 	return obj
 }
 
-// ProtoToGuestPolicyRecipesInstallStepsMsiInstallation converts a GuestPolicyRecipesInstallStepsMsiInstallation resource from its proto representation.
+// ProtoToGuestPolicyRecipesInstallStepsMsiInstallation converts a GuestPolicyRecipesInstallStepsMsiInstallation object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyRecipesInstallStepsMsiInstallation(p *alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsMsiInstallation) *alpha.GuestPolicyRecipesInstallStepsMsiInstallation {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyRecipesInstallStepsMsiInstallation{
-		ArtifactId: dcl.StringOrNil(p.ArtifactId),
+		ArtifactId: dcl.StringOrNil(p.GetArtifactId()),
 	}
 	for _, r := range p.GetFlags() {
 		obj.Flags = append(obj.Flags, r)
@@ -377,36 +377,36 @@ func ProtoToOsconfigAlphaGuestPolicyRecipesInstallStepsMsiInstallation(p *alphap
 	return obj
 }
 
-// ProtoToGuestPolicyRecipesInstallStepsDpkgInstallation converts a GuestPolicyRecipesInstallStepsDpkgInstallation resource from its proto representation.
+// ProtoToGuestPolicyRecipesInstallStepsDpkgInstallation converts a GuestPolicyRecipesInstallStepsDpkgInstallation object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyRecipesInstallStepsDpkgInstallation(p *alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsDpkgInstallation) *alpha.GuestPolicyRecipesInstallStepsDpkgInstallation {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyRecipesInstallStepsDpkgInstallation{
-		ArtifactId: dcl.StringOrNil(p.ArtifactId),
+		ArtifactId: dcl.StringOrNil(p.GetArtifactId()),
 	}
 	return obj
 }
 
-// ProtoToGuestPolicyRecipesInstallStepsRpmInstallation converts a GuestPolicyRecipesInstallStepsRpmInstallation resource from its proto representation.
+// ProtoToGuestPolicyRecipesInstallStepsRpmInstallation converts a GuestPolicyRecipesInstallStepsRpmInstallation object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyRecipesInstallStepsRpmInstallation(p *alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsRpmInstallation) *alpha.GuestPolicyRecipesInstallStepsRpmInstallation {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyRecipesInstallStepsRpmInstallation{
-		ArtifactId: dcl.StringOrNil(p.ArtifactId),
+		ArtifactId: dcl.StringOrNil(p.GetArtifactId()),
 	}
 	return obj
 }
 
-// ProtoToGuestPolicyRecipesInstallStepsFileExec converts a GuestPolicyRecipesInstallStepsFileExec resource from its proto representation.
+// ProtoToGuestPolicyRecipesInstallStepsFileExec converts a GuestPolicyRecipesInstallStepsFileExec object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyRecipesInstallStepsFileExec(p *alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsFileExec) *alpha.GuestPolicyRecipesInstallStepsFileExec {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyRecipesInstallStepsFileExec{
-		ArtifactId: dcl.StringOrNil(p.ArtifactId),
-		LocalPath:  dcl.StringOrNil(p.LocalPath),
+		ArtifactId: dcl.StringOrNil(p.GetArtifactId()),
+		LocalPath:  dcl.StringOrNil(p.GetLocalPath()),
 	}
 	for _, r := range p.GetArgs() {
 		obj.Args = append(obj.Args, r)
@@ -417,13 +417,13 @@ func ProtoToOsconfigAlphaGuestPolicyRecipesInstallStepsFileExec(p *alphapb.Oscon
 	return obj
 }
 
-// ProtoToGuestPolicyRecipesInstallStepsScriptRun converts a GuestPolicyRecipesInstallStepsScriptRun resource from its proto representation.
+// ProtoToGuestPolicyRecipesInstallStepsScriptRun converts a GuestPolicyRecipesInstallStepsScriptRun object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyRecipesInstallStepsScriptRun(p *alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsScriptRun) *alpha.GuestPolicyRecipesInstallStepsScriptRun {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyRecipesInstallStepsScriptRun{
-		Script:      dcl.StringOrNil(p.Script),
+		Script:      dcl.StringOrNil(p.GetScript()),
 		Interpreter: ProtoToOsconfigAlphaGuestPolicyRecipesInstallStepsScriptRunInterpreterEnum(p.GetInterpreter()),
 	}
 	for _, r := range p.GetAllowedExitCodes() {
@@ -432,7 +432,7 @@ func ProtoToOsconfigAlphaGuestPolicyRecipesInstallStepsScriptRun(p *alphapb.Osco
 	return obj
 }
 
-// ProtoToGuestPolicyRecipesUpdateSteps converts a GuestPolicyRecipesUpdateSteps resource from its proto representation.
+// ProtoToGuestPolicyRecipesUpdateSteps converts a GuestPolicyRecipesUpdateSteps object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyRecipesUpdateSteps(p *alphapb.OsconfigAlphaGuestPolicyRecipesUpdateSteps) *alpha.GuestPolicyRecipesUpdateSteps {
 	if p == nil {
 		return nil
@@ -449,40 +449,40 @@ func ProtoToOsconfigAlphaGuestPolicyRecipesUpdateSteps(p *alphapb.OsconfigAlphaG
 	return obj
 }
 
-// ProtoToGuestPolicyRecipesUpdateStepsFileCopy converts a GuestPolicyRecipesUpdateStepsFileCopy resource from its proto representation.
+// ProtoToGuestPolicyRecipesUpdateStepsFileCopy converts a GuestPolicyRecipesUpdateStepsFileCopy object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyRecipesUpdateStepsFileCopy(p *alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsFileCopy) *alpha.GuestPolicyRecipesUpdateStepsFileCopy {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyRecipesUpdateStepsFileCopy{
-		ArtifactId:  dcl.StringOrNil(p.ArtifactId),
-		Destination: dcl.StringOrNil(p.Destination),
-		Overwrite:   dcl.Bool(p.Overwrite),
-		Permissions: dcl.StringOrNil(p.Permissions),
+		ArtifactId:  dcl.StringOrNil(p.GetArtifactId()),
+		Destination: dcl.StringOrNil(p.GetDestination()),
+		Overwrite:   dcl.Bool(p.GetOverwrite()),
+		Permissions: dcl.StringOrNil(p.GetPermissions()),
 	}
 	return obj
 }
 
-// ProtoToGuestPolicyRecipesUpdateStepsArchiveExtraction converts a GuestPolicyRecipesUpdateStepsArchiveExtraction resource from its proto representation.
+// ProtoToGuestPolicyRecipesUpdateStepsArchiveExtraction converts a GuestPolicyRecipesUpdateStepsArchiveExtraction object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyRecipesUpdateStepsArchiveExtraction(p *alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsArchiveExtraction) *alpha.GuestPolicyRecipesUpdateStepsArchiveExtraction {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyRecipesUpdateStepsArchiveExtraction{
-		ArtifactId:  dcl.StringOrNil(p.ArtifactId),
-		Destination: dcl.StringOrNil(p.Destination),
+		ArtifactId:  dcl.StringOrNil(p.GetArtifactId()),
+		Destination: dcl.StringOrNil(p.GetDestination()),
 		Type:        ProtoToOsconfigAlphaGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum(p.GetType()),
 	}
 	return obj
 }
 
-// ProtoToGuestPolicyRecipesUpdateStepsMsiInstallation converts a GuestPolicyRecipesUpdateStepsMsiInstallation resource from its proto representation.
+// ProtoToGuestPolicyRecipesUpdateStepsMsiInstallation converts a GuestPolicyRecipesUpdateStepsMsiInstallation object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyRecipesUpdateStepsMsiInstallation(p *alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsMsiInstallation) *alpha.GuestPolicyRecipesUpdateStepsMsiInstallation {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyRecipesUpdateStepsMsiInstallation{
-		ArtifactId: dcl.StringOrNil(p.ArtifactId),
+		ArtifactId: dcl.StringOrNil(p.GetArtifactId()),
 	}
 	for _, r := range p.GetFlags() {
 		obj.Flags = append(obj.Flags, r)
@@ -493,36 +493,36 @@ func ProtoToOsconfigAlphaGuestPolicyRecipesUpdateStepsMsiInstallation(p *alphapb
 	return obj
 }
 
-// ProtoToGuestPolicyRecipesUpdateStepsDpkgInstallation converts a GuestPolicyRecipesUpdateStepsDpkgInstallation resource from its proto representation.
+// ProtoToGuestPolicyRecipesUpdateStepsDpkgInstallation converts a GuestPolicyRecipesUpdateStepsDpkgInstallation object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyRecipesUpdateStepsDpkgInstallation(p *alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsDpkgInstallation) *alpha.GuestPolicyRecipesUpdateStepsDpkgInstallation {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyRecipesUpdateStepsDpkgInstallation{
-		ArtifactId: dcl.StringOrNil(p.ArtifactId),
+		ArtifactId: dcl.StringOrNil(p.GetArtifactId()),
 	}
 	return obj
 }
 
-// ProtoToGuestPolicyRecipesUpdateStepsRpmInstallation converts a GuestPolicyRecipesUpdateStepsRpmInstallation resource from its proto representation.
+// ProtoToGuestPolicyRecipesUpdateStepsRpmInstallation converts a GuestPolicyRecipesUpdateStepsRpmInstallation object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyRecipesUpdateStepsRpmInstallation(p *alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsRpmInstallation) *alpha.GuestPolicyRecipesUpdateStepsRpmInstallation {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyRecipesUpdateStepsRpmInstallation{
-		ArtifactId: dcl.StringOrNil(p.ArtifactId),
+		ArtifactId: dcl.StringOrNil(p.GetArtifactId()),
 	}
 	return obj
 }
 
-// ProtoToGuestPolicyRecipesUpdateStepsFileExec converts a GuestPolicyRecipesUpdateStepsFileExec resource from its proto representation.
+// ProtoToGuestPolicyRecipesUpdateStepsFileExec converts a GuestPolicyRecipesUpdateStepsFileExec object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyRecipesUpdateStepsFileExec(p *alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsFileExec) *alpha.GuestPolicyRecipesUpdateStepsFileExec {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyRecipesUpdateStepsFileExec{
-		ArtifactId: dcl.StringOrNil(p.ArtifactId),
-		LocalPath:  dcl.StringOrNil(p.LocalPath),
+		ArtifactId: dcl.StringOrNil(p.GetArtifactId()),
+		LocalPath:  dcl.StringOrNil(p.GetLocalPath()),
 	}
 	for _, r := range p.GetArgs() {
 		obj.Args = append(obj.Args, r)
@@ -533,13 +533,13 @@ func ProtoToOsconfigAlphaGuestPolicyRecipesUpdateStepsFileExec(p *alphapb.Osconf
 	return obj
 }
 
-// ProtoToGuestPolicyRecipesUpdateStepsScriptRun converts a GuestPolicyRecipesUpdateStepsScriptRun resource from its proto representation.
+// ProtoToGuestPolicyRecipesUpdateStepsScriptRun converts a GuestPolicyRecipesUpdateStepsScriptRun object from its proto representation.
 func ProtoToOsconfigAlphaGuestPolicyRecipesUpdateStepsScriptRun(p *alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsScriptRun) *alpha.GuestPolicyRecipesUpdateStepsScriptRun {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.GuestPolicyRecipesUpdateStepsScriptRun{
-		Script:      dcl.StringOrNil(p.Script),
+		Script:      dcl.StringOrNil(p.GetScript()),
 		Interpreter: ProtoToOsconfigAlphaGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum(p.GetInterpreter()),
 	}
 	for _, r := range p.GetAllowedExitCodes() {
@@ -551,13 +551,13 @@ func ProtoToOsconfigAlphaGuestPolicyRecipesUpdateStepsScriptRun(p *alphapb.Oscon
 // ProtoToGuestPolicy converts a GuestPolicy resource from its proto representation.
 func ProtoToGuestPolicy(p *alphapb.OsconfigAlphaGuestPolicy) *alpha.GuestPolicy {
 	obj := &alpha.GuestPolicy{
-		Name:        dcl.StringOrNil(p.Name),
-		Description: dcl.StringOrNil(p.Description),
+		Name:        dcl.StringOrNil(p.GetName()),
+		Description: dcl.StringOrNil(p.GetDescription()),
 		CreateTime:  dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:  dcl.StringOrNil(p.GetUpdateTime()),
 		Assignment:  ProtoToOsconfigAlphaGuestPolicyAssignment(p.GetAssignment()),
-		Etag:        dcl.StringOrNil(p.Etag),
-		Project:     dcl.StringOrNil(p.Project),
+		Etag:        dcl.StringOrNil(p.GetEtag()),
+		Project:     dcl.StringOrNil(p.GetProject()),
 	}
 	for _, r := range p.GetPackages() {
 		obj.Packages = append(obj.Packages, *ProtoToOsconfigAlphaGuestPolicyPackages(r))
@@ -659,462 +659,483 @@ func OsconfigAlphaGuestPolicyRecipesDesiredStateEnumToProto(e *alpha.GuestPolicy
 	return alphapb.OsconfigAlphaGuestPolicyRecipesDesiredStateEnum(0)
 }
 
-// GuestPolicyAssignmentToProto converts a GuestPolicyAssignment resource to its proto representation.
+// GuestPolicyAssignmentToProto converts a GuestPolicyAssignment object to its proto representation.
 func OsconfigAlphaGuestPolicyAssignmentToProto(o *alpha.GuestPolicyAssignment) *alphapb.OsconfigAlphaGuestPolicyAssignment {
 	if o == nil {
 		return nil
 	}
 	p := &alphapb.OsconfigAlphaGuestPolicyAssignment{}
-	for _, r := range o.GroupLabels {
-		p.GroupLabels = append(p.GroupLabels, OsconfigAlphaGuestPolicyAssignmentGroupLabelsToProto(&r))
+	sGroupLabels := make([]*alphapb.OsconfigAlphaGuestPolicyAssignmentGroupLabels, len(o.GroupLabels))
+	for i, r := range o.GroupLabels {
+		sGroupLabels[i] = OsconfigAlphaGuestPolicyAssignmentGroupLabelsToProto(&r)
 	}
-	for _, r := range o.Zones {
-		p.Zones = append(p.Zones, r)
+	p.SetGroupLabels(sGroupLabels)
+	sZones := make([]string, len(o.Zones))
+	for i, r := range o.Zones {
+		sZones[i] = r
 	}
-	for _, r := range o.Instances {
-		p.Instances = append(p.Instances, r)
+	p.SetZones(sZones)
+	sInstances := make([]string, len(o.Instances))
+	for i, r := range o.Instances {
+		sInstances[i] = r
 	}
-	for _, r := range o.InstanceNamePrefixes {
-		p.InstanceNamePrefixes = append(p.InstanceNamePrefixes, r)
+	p.SetInstances(sInstances)
+	sInstanceNamePrefixes := make([]string, len(o.InstanceNamePrefixes))
+	for i, r := range o.InstanceNamePrefixes {
+		sInstanceNamePrefixes[i] = r
 	}
-	for _, r := range o.OSTypes {
-		p.OsTypes = append(p.OsTypes, OsconfigAlphaGuestPolicyAssignmentOSTypesToProto(&r))
+	p.SetInstanceNamePrefixes(sInstanceNamePrefixes)
+	sOSTypes := make([]*alphapb.OsconfigAlphaGuestPolicyAssignmentOSTypes, len(o.OSTypes))
+	for i, r := range o.OSTypes {
+		sOSTypes[i] = OsconfigAlphaGuestPolicyAssignmentOSTypesToProto(&r)
 	}
+	p.SetOsTypes(sOSTypes)
 	return p
 }
 
-// GuestPolicyAssignmentGroupLabelsToProto converts a GuestPolicyAssignmentGroupLabels resource to its proto representation.
+// GuestPolicyAssignmentGroupLabelsToProto converts a GuestPolicyAssignmentGroupLabels object to its proto representation.
 func OsconfigAlphaGuestPolicyAssignmentGroupLabelsToProto(o *alpha.GuestPolicyAssignmentGroupLabels) *alphapb.OsconfigAlphaGuestPolicyAssignmentGroupLabels {
 	if o == nil {
 		return nil
 	}
 	p := &alphapb.OsconfigAlphaGuestPolicyAssignmentGroupLabels{}
-	p.Labels = make(map[string]string)
+	mLabels := make(map[string]string, len(o.Labels))
 	for k, r := range o.Labels {
-		p.Labels[k] = r
+		mLabels[k] = r
 	}
+	p.SetLabels(mLabels)
 	return p
 }
 
-// GuestPolicyAssignmentOSTypesToProto converts a GuestPolicyAssignmentOSTypes resource to its proto representation.
+// GuestPolicyAssignmentOSTypesToProto converts a GuestPolicyAssignmentOSTypes object to its proto representation.
 func OsconfigAlphaGuestPolicyAssignmentOSTypesToProto(o *alpha.GuestPolicyAssignmentOSTypes) *alphapb.OsconfigAlphaGuestPolicyAssignmentOSTypes {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyAssignmentOSTypes{
-		OsShortName:    dcl.ValueOrEmptyString(o.OSShortName),
-		OsVersion:      dcl.ValueOrEmptyString(o.OSVersion),
-		OsArchitecture: dcl.ValueOrEmptyString(o.OSArchitecture),
-	}
+	p := &alphapb.OsconfigAlphaGuestPolicyAssignmentOSTypes{}
+	p.SetOsShortName(dcl.ValueOrEmptyString(o.OSShortName))
+	p.SetOsVersion(dcl.ValueOrEmptyString(o.OSVersion))
+	p.SetOsArchitecture(dcl.ValueOrEmptyString(o.OSArchitecture))
 	return p
 }
 
-// GuestPolicyPackagesToProto converts a GuestPolicyPackages resource to its proto representation.
+// GuestPolicyPackagesToProto converts a GuestPolicyPackages object to its proto representation.
 func OsconfigAlphaGuestPolicyPackagesToProto(o *alpha.GuestPolicyPackages) *alphapb.OsconfigAlphaGuestPolicyPackages {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyPackages{
-		Name:         dcl.ValueOrEmptyString(o.Name),
-		DesiredState: OsconfigAlphaGuestPolicyPackagesDesiredStateEnumToProto(o.DesiredState),
-		Manager:      OsconfigAlphaGuestPolicyPackagesManagerEnumToProto(o.Manager),
-	}
+	p := &alphapb.OsconfigAlphaGuestPolicyPackages{}
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetDesiredState(OsconfigAlphaGuestPolicyPackagesDesiredStateEnumToProto(o.DesiredState))
+	p.SetManager(OsconfigAlphaGuestPolicyPackagesManagerEnumToProto(o.Manager))
 	return p
 }
 
-// GuestPolicyPackageRepositoriesToProto converts a GuestPolicyPackageRepositories resource to its proto representation.
+// GuestPolicyPackageRepositoriesToProto converts a GuestPolicyPackageRepositories object to its proto representation.
 func OsconfigAlphaGuestPolicyPackageRepositoriesToProto(o *alpha.GuestPolicyPackageRepositories) *alphapb.OsconfigAlphaGuestPolicyPackageRepositories {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyPackageRepositories{
-		Apt:    OsconfigAlphaGuestPolicyPackageRepositoriesAptToProto(o.Apt),
-		Yum:    OsconfigAlphaGuestPolicyPackageRepositoriesYumToProto(o.Yum),
-		Zypper: OsconfigAlphaGuestPolicyPackageRepositoriesZypperToProto(o.Zypper),
-		Goo:    OsconfigAlphaGuestPolicyPackageRepositoriesGooToProto(o.Goo),
-	}
+	p := &alphapb.OsconfigAlphaGuestPolicyPackageRepositories{}
+	p.SetApt(OsconfigAlphaGuestPolicyPackageRepositoriesAptToProto(o.Apt))
+	p.SetYum(OsconfigAlphaGuestPolicyPackageRepositoriesYumToProto(o.Yum))
+	p.SetZypper(OsconfigAlphaGuestPolicyPackageRepositoriesZypperToProto(o.Zypper))
+	p.SetGoo(OsconfigAlphaGuestPolicyPackageRepositoriesGooToProto(o.Goo))
 	return p
 }
 
-// GuestPolicyPackageRepositoriesAptToProto converts a GuestPolicyPackageRepositoriesApt resource to its proto representation.
+// GuestPolicyPackageRepositoriesAptToProto converts a GuestPolicyPackageRepositoriesApt object to its proto representation.
 func OsconfigAlphaGuestPolicyPackageRepositoriesAptToProto(o *alpha.GuestPolicyPackageRepositoriesApt) *alphapb.OsconfigAlphaGuestPolicyPackageRepositoriesApt {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyPackageRepositoriesApt{
-		ArchiveType:  OsconfigAlphaGuestPolicyPackageRepositoriesAptArchiveTypeEnumToProto(o.ArchiveType),
-		Uri:          dcl.ValueOrEmptyString(o.Uri),
-		Distribution: dcl.ValueOrEmptyString(o.Distribution),
-		GpgKey:       dcl.ValueOrEmptyString(o.GpgKey),
+	p := &alphapb.OsconfigAlphaGuestPolicyPackageRepositoriesApt{}
+	p.SetArchiveType(OsconfigAlphaGuestPolicyPackageRepositoriesAptArchiveTypeEnumToProto(o.ArchiveType))
+	p.SetUri(dcl.ValueOrEmptyString(o.Uri))
+	p.SetDistribution(dcl.ValueOrEmptyString(o.Distribution))
+	p.SetGpgKey(dcl.ValueOrEmptyString(o.GpgKey))
+	sComponents := make([]string, len(o.Components))
+	for i, r := range o.Components {
+		sComponents[i] = r
 	}
-	for _, r := range o.Components {
-		p.Components = append(p.Components, r)
-	}
+	p.SetComponents(sComponents)
 	return p
 }
 
-// GuestPolicyPackageRepositoriesYumToProto converts a GuestPolicyPackageRepositoriesYum resource to its proto representation.
+// GuestPolicyPackageRepositoriesYumToProto converts a GuestPolicyPackageRepositoriesYum object to its proto representation.
 func OsconfigAlphaGuestPolicyPackageRepositoriesYumToProto(o *alpha.GuestPolicyPackageRepositoriesYum) *alphapb.OsconfigAlphaGuestPolicyPackageRepositoriesYum {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyPackageRepositoriesYum{
-		Id:          dcl.ValueOrEmptyString(o.Id),
-		DisplayName: dcl.ValueOrEmptyString(o.DisplayName),
-		BaseUrl:     dcl.ValueOrEmptyString(o.BaseUrl),
+	p := &alphapb.OsconfigAlphaGuestPolicyPackageRepositoriesYum{}
+	p.SetId(dcl.ValueOrEmptyString(o.Id))
+	p.SetDisplayName(dcl.ValueOrEmptyString(o.DisplayName))
+	p.SetBaseUrl(dcl.ValueOrEmptyString(o.BaseUrl))
+	sGpgKeys := make([]string, len(o.GpgKeys))
+	for i, r := range o.GpgKeys {
+		sGpgKeys[i] = r
 	}
-	for _, r := range o.GpgKeys {
-		p.GpgKeys = append(p.GpgKeys, r)
-	}
+	p.SetGpgKeys(sGpgKeys)
 	return p
 }
 
-// GuestPolicyPackageRepositoriesZypperToProto converts a GuestPolicyPackageRepositoriesZypper resource to its proto representation.
+// GuestPolicyPackageRepositoriesZypperToProto converts a GuestPolicyPackageRepositoriesZypper object to its proto representation.
 func OsconfigAlphaGuestPolicyPackageRepositoriesZypperToProto(o *alpha.GuestPolicyPackageRepositoriesZypper) *alphapb.OsconfigAlphaGuestPolicyPackageRepositoriesZypper {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyPackageRepositoriesZypper{
-		Id:          dcl.ValueOrEmptyString(o.Id),
-		DisplayName: dcl.ValueOrEmptyString(o.DisplayName),
-		BaseUrl:     dcl.ValueOrEmptyString(o.BaseUrl),
+	p := &alphapb.OsconfigAlphaGuestPolicyPackageRepositoriesZypper{}
+	p.SetId(dcl.ValueOrEmptyString(o.Id))
+	p.SetDisplayName(dcl.ValueOrEmptyString(o.DisplayName))
+	p.SetBaseUrl(dcl.ValueOrEmptyString(o.BaseUrl))
+	sGpgKeys := make([]string, len(o.GpgKeys))
+	for i, r := range o.GpgKeys {
+		sGpgKeys[i] = r
 	}
-	for _, r := range o.GpgKeys {
-		p.GpgKeys = append(p.GpgKeys, r)
-	}
+	p.SetGpgKeys(sGpgKeys)
 	return p
 }
 
-// GuestPolicyPackageRepositoriesGooToProto converts a GuestPolicyPackageRepositoriesGoo resource to its proto representation.
+// GuestPolicyPackageRepositoriesGooToProto converts a GuestPolicyPackageRepositoriesGoo object to its proto representation.
 func OsconfigAlphaGuestPolicyPackageRepositoriesGooToProto(o *alpha.GuestPolicyPackageRepositoriesGoo) *alphapb.OsconfigAlphaGuestPolicyPackageRepositoriesGoo {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyPackageRepositoriesGoo{
-		Name: dcl.ValueOrEmptyString(o.Name),
-		Url:  dcl.ValueOrEmptyString(o.Url),
-	}
+	p := &alphapb.OsconfigAlphaGuestPolicyPackageRepositoriesGoo{}
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetUrl(dcl.ValueOrEmptyString(o.Url))
 	return p
 }
 
-// GuestPolicyRecipesToProto converts a GuestPolicyRecipes resource to its proto representation.
+// GuestPolicyRecipesToProto converts a GuestPolicyRecipes object to its proto representation.
 func OsconfigAlphaGuestPolicyRecipesToProto(o *alpha.GuestPolicyRecipes) *alphapb.OsconfigAlphaGuestPolicyRecipes {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyRecipes{
-		Name:         dcl.ValueOrEmptyString(o.Name),
-		Version:      dcl.ValueOrEmptyString(o.Version),
-		DesiredState: OsconfigAlphaGuestPolicyRecipesDesiredStateEnumToProto(o.DesiredState),
+	p := &alphapb.OsconfigAlphaGuestPolicyRecipes{}
+	p.SetName(dcl.ValueOrEmptyString(o.Name))
+	p.SetVersion(dcl.ValueOrEmptyString(o.Version))
+	p.SetDesiredState(OsconfigAlphaGuestPolicyRecipesDesiredStateEnumToProto(o.DesiredState))
+	sArtifacts := make([]*alphapb.OsconfigAlphaGuestPolicyRecipesArtifacts, len(o.Artifacts))
+	for i, r := range o.Artifacts {
+		sArtifacts[i] = OsconfigAlphaGuestPolicyRecipesArtifactsToProto(&r)
 	}
-	for _, r := range o.Artifacts {
-		p.Artifacts = append(p.Artifacts, OsconfigAlphaGuestPolicyRecipesArtifactsToProto(&r))
+	p.SetArtifacts(sArtifacts)
+	sInstallSteps := make([]*alphapb.OsconfigAlphaGuestPolicyRecipesInstallSteps, len(o.InstallSteps))
+	for i, r := range o.InstallSteps {
+		sInstallSteps[i] = OsconfigAlphaGuestPolicyRecipesInstallStepsToProto(&r)
 	}
-	for _, r := range o.InstallSteps {
-		p.InstallSteps = append(p.InstallSteps, OsconfigAlphaGuestPolicyRecipesInstallStepsToProto(&r))
+	p.SetInstallSteps(sInstallSteps)
+	sUpdateSteps := make([]*alphapb.OsconfigAlphaGuestPolicyRecipesUpdateSteps, len(o.UpdateSteps))
+	for i, r := range o.UpdateSteps {
+		sUpdateSteps[i] = OsconfigAlphaGuestPolicyRecipesUpdateStepsToProto(&r)
 	}
-	for _, r := range o.UpdateSteps {
-		p.UpdateSteps = append(p.UpdateSteps, OsconfigAlphaGuestPolicyRecipesUpdateStepsToProto(&r))
-	}
+	p.SetUpdateSteps(sUpdateSteps)
 	return p
 }
 
-// GuestPolicyRecipesArtifactsToProto converts a GuestPolicyRecipesArtifacts resource to its proto representation.
+// GuestPolicyRecipesArtifactsToProto converts a GuestPolicyRecipesArtifacts object to its proto representation.
 func OsconfigAlphaGuestPolicyRecipesArtifactsToProto(o *alpha.GuestPolicyRecipesArtifacts) *alphapb.OsconfigAlphaGuestPolicyRecipesArtifacts {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyRecipesArtifacts{
-		Id:            dcl.ValueOrEmptyString(o.Id),
-		Remote:        OsconfigAlphaGuestPolicyRecipesArtifactsRemoteToProto(o.Remote),
-		Gcs:           OsconfigAlphaGuestPolicyRecipesArtifactsGcsToProto(o.Gcs),
-		AllowInsecure: dcl.ValueOrEmptyBool(o.AllowInsecure),
-	}
+	p := &alphapb.OsconfigAlphaGuestPolicyRecipesArtifacts{}
+	p.SetId(dcl.ValueOrEmptyString(o.Id))
+	p.SetRemote(OsconfigAlphaGuestPolicyRecipesArtifactsRemoteToProto(o.Remote))
+	p.SetGcs(OsconfigAlphaGuestPolicyRecipesArtifactsGcsToProto(o.Gcs))
+	p.SetAllowInsecure(dcl.ValueOrEmptyBool(o.AllowInsecure))
 	return p
 }
 
-// GuestPolicyRecipesArtifactsRemoteToProto converts a GuestPolicyRecipesArtifactsRemote resource to its proto representation.
+// GuestPolicyRecipesArtifactsRemoteToProto converts a GuestPolicyRecipesArtifactsRemote object to its proto representation.
 func OsconfigAlphaGuestPolicyRecipesArtifactsRemoteToProto(o *alpha.GuestPolicyRecipesArtifactsRemote) *alphapb.OsconfigAlphaGuestPolicyRecipesArtifactsRemote {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyRecipesArtifactsRemote{
-		Uri:      dcl.ValueOrEmptyString(o.Uri),
-		Checksum: dcl.ValueOrEmptyString(o.Checksum),
-	}
+	p := &alphapb.OsconfigAlphaGuestPolicyRecipesArtifactsRemote{}
+	p.SetUri(dcl.ValueOrEmptyString(o.Uri))
+	p.SetChecksum(dcl.ValueOrEmptyString(o.Checksum))
 	return p
 }
 
-// GuestPolicyRecipesArtifactsGcsToProto converts a GuestPolicyRecipesArtifactsGcs resource to its proto representation.
+// GuestPolicyRecipesArtifactsGcsToProto converts a GuestPolicyRecipesArtifactsGcs object to its proto representation.
 func OsconfigAlphaGuestPolicyRecipesArtifactsGcsToProto(o *alpha.GuestPolicyRecipesArtifactsGcs) *alphapb.OsconfigAlphaGuestPolicyRecipesArtifactsGcs {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyRecipesArtifactsGcs{
-		Bucket:     dcl.ValueOrEmptyString(o.Bucket),
-		Object:     dcl.ValueOrEmptyString(o.Object),
-		Generation: dcl.ValueOrEmptyInt64(o.Generation),
-	}
+	p := &alphapb.OsconfigAlphaGuestPolicyRecipesArtifactsGcs{}
+	p.SetBucket(dcl.ValueOrEmptyString(o.Bucket))
+	p.SetObject(dcl.ValueOrEmptyString(o.Object))
+	p.SetGeneration(dcl.ValueOrEmptyInt64(o.Generation))
 	return p
 }
 
-// GuestPolicyRecipesInstallStepsToProto converts a GuestPolicyRecipesInstallSteps resource to its proto representation.
+// GuestPolicyRecipesInstallStepsToProto converts a GuestPolicyRecipesInstallSteps object to its proto representation.
 func OsconfigAlphaGuestPolicyRecipesInstallStepsToProto(o *alpha.GuestPolicyRecipesInstallSteps) *alphapb.OsconfigAlphaGuestPolicyRecipesInstallSteps {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyRecipesInstallSteps{
-		FileCopy:          OsconfigAlphaGuestPolicyRecipesInstallStepsFileCopyToProto(o.FileCopy),
-		ArchiveExtraction: OsconfigAlphaGuestPolicyRecipesInstallStepsArchiveExtractionToProto(o.ArchiveExtraction),
-		MsiInstallation:   OsconfigAlphaGuestPolicyRecipesInstallStepsMsiInstallationToProto(o.MsiInstallation),
-		DpkgInstallation:  OsconfigAlphaGuestPolicyRecipesInstallStepsDpkgInstallationToProto(o.DpkgInstallation),
-		RpmInstallation:   OsconfigAlphaGuestPolicyRecipesInstallStepsRpmInstallationToProto(o.RpmInstallation),
-		FileExec:          OsconfigAlphaGuestPolicyRecipesInstallStepsFileExecToProto(o.FileExec),
-		ScriptRun:         OsconfigAlphaGuestPolicyRecipesInstallStepsScriptRunToProto(o.ScriptRun),
-	}
+	p := &alphapb.OsconfigAlphaGuestPolicyRecipesInstallSteps{}
+	p.SetFileCopy(OsconfigAlphaGuestPolicyRecipesInstallStepsFileCopyToProto(o.FileCopy))
+	p.SetArchiveExtraction(OsconfigAlphaGuestPolicyRecipesInstallStepsArchiveExtractionToProto(o.ArchiveExtraction))
+	p.SetMsiInstallation(OsconfigAlphaGuestPolicyRecipesInstallStepsMsiInstallationToProto(o.MsiInstallation))
+	p.SetDpkgInstallation(OsconfigAlphaGuestPolicyRecipesInstallStepsDpkgInstallationToProto(o.DpkgInstallation))
+	p.SetRpmInstallation(OsconfigAlphaGuestPolicyRecipesInstallStepsRpmInstallationToProto(o.RpmInstallation))
+	p.SetFileExec(OsconfigAlphaGuestPolicyRecipesInstallStepsFileExecToProto(o.FileExec))
+	p.SetScriptRun(OsconfigAlphaGuestPolicyRecipesInstallStepsScriptRunToProto(o.ScriptRun))
 	return p
 }
 
-// GuestPolicyRecipesInstallStepsFileCopyToProto converts a GuestPolicyRecipesInstallStepsFileCopy resource to its proto representation.
+// GuestPolicyRecipesInstallStepsFileCopyToProto converts a GuestPolicyRecipesInstallStepsFileCopy object to its proto representation.
 func OsconfigAlphaGuestPolicyRecipesInstallStepsFileCopyToProto(o *alpha.GuestPolicyRecipesInstallStepsFileCopy) *alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsFileCopy {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsFileCopy{
-		ArtifactId:  dcl.ValueOrEmptyString(o.ArtifactId),
-		Destination: dcl.ValueOrEmptyString(o.Destination),
-		Overwrite:   dcl.ValueOrEmptyBool(o.Overwrite),
-		Permissions: dcl.ValueOrEmptyString(o.Permissions),
-	}
+	p := &alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsFileCopy{}
+	p.SetArtifactId(dcl.ValueOrEmptyString(o.ArtifactId))
+	p.SetDestination(dcl.ValueOrEmptyString(o.Destination))
+	p.SetOverwrite(dcl.ValueOrEmptyBool(o.Overwrite))
+	p.SetPermissions(dcl.ValueOrEmptyString(o.Permissions))
 	return p
 }
 
-// GuestPolicyRecipesInstallStepsArchiveExtractionToProto converts a GuestPolicyRecipesInstallStepsArchiveExtraction resource to its proto representation.
+// GuestPolicyRecipesInstallStepsArchiveExtractionToProto converts a GuestPolicyRecipesInstallStepsArchiveExtraction object to its proto representation.
 func OsconfigAlphaGuestPolicyRecipesInstallStepsArchiveExtractionToProto(o *alpha.GuestPolicyRecipesInstallStepsArchiveExtraction) *alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsArchiveExtraction {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsArchiveExtraction{
-		ArtifactId:  dcl.ValueOrEmptyString(o.ArtifactId),
-		Destination: dcl.ValueOrEmptyString(o.Destination),
-		Type:        OsconfigAlphaGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnumToProto(o.Type),
-	}
+	p := &alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsArchiveExtraction{}
+	p.SetArtifactId(dcl.ValueOrEmptyString(o.ArtifactId))
+	p.SetDestination(dcl.ValueOrEmptyString(o.Destination))
+	p.SetType(OsconfigAlphaGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnumToProto(o.Type))
 	return p
 }
 
-// GuestPolicyRecipesInstallStepsMsiInstallationToProto converts a GuestPolicyRecipesInstallStepsMsiInstallation resource to its proto representation.
+// GuestPolicyRecipesInstallStepsMsiInstallationToProto converts a GuestPolicyRecipesInstallStepsMsiInstallation object to its proto representation.
 func OsconfigAlphaGuestPolicyRecipesInstallStepsMsiInstallationToProto(o *alpha.GuestPolicyRecipesInstallStepsMsiInstallation) *alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsMsiInstallation {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsMsiInstallation{
-		ArtifactId: dcl.ValueOrEmptyString(o.ArtifactId),
+	p := &alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsMsiInstallation{}
+	p.SetArtifactId(dcl.ValueOrEmptyString(o.ArtifactId))
+	sFlags := make([]string, len(o.Flags))
+	for i, r := range o.Flags {
+		sFlags[i] = r
 	}
-	for _, r := range o.Flags {
-		p.Flags = append(p.Flags, r)
+	p.SetFlags(sFlags)
+	sAllowedExitCodes := make([]int64, len(o.AllowedExitCodes))
+	for i, r := range o.AllowedExitCodes {
+		sAllowedExitCodes[i] = r
 	}
-	for _, r := range o.AllowedExitCodes {
-		p.AllowedExitCodes = append(p.AllowedExitCodes, r)
-	}
+	p.SetAllowedExitCodes(sAllowedExitCodes)
 	return p
 }
 
-// GuestPolicyRecipesInstallStepsDpkgInstallationToProto converts a GuestPolicyRecipesInstallStepsDpkgInstallation resource to its proto representation.
+// GuestPolicyRecipesInstallStepsDpkgInstallationToProto converts a GuestPolicyRecipesInstallStepsDpkgInstallation object to its proto representation.
 func OsconfigAlphaGuestPolicyRecipesInstallStepsDpkgInstallationToProto(o *alpha.GuestPolicyRecipesInstallStepsDpkgInstallation) *alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsDpkgInstallation {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsDpkgInstallation{
-		ArtifactId: dcl.ValueOrEmptyString(o.ArtifactId),
-	}
+	p := &alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsDpkgInstallation{}
+	p.SetArtifactId(dcl.ValueOrEmptyString(o.ArtifactId))
 	return p
 }
 
-// GuestPolicyRecipesInstallStepsRpmInstallationToProto converts a GuestPolicyRecipesInstallStepsRpmInstallation resource to its proto representation.
+// GuestPolicyRecipesInstallStepsRpmInstallationToProto converts a GuestPolicyRecipesInstallStepsRpmInstallation object to its proto representation.
 func OsconfigAlphaGuestPolicyRecipesInstallStepsRpmInstallationToProto(o *alpha.GuestPolicyRecipesInstallStepsRpmInstallation) *alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsRpmInstallation {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsRpmInstallation{
-		ArtifactId: dcl.ValueOrEmptyString(o.ArtifactId),
-	}
+	p := &alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsRpmInstallation{}
+	p.SetArtifactId(dcl.ValueOrEmptyString(o.ArtifactId))
 	return p
 }
 
-// GuestPolicyRecipesInstallStepsFileExecToProto converts a GuestPolicyRecipesInstallStepsFileExec resource to its proto representation.
+// GuestPolicyRecipesInstallStepsFileExecToProto converts a GuestPolicyRecipesInstallStepsFileExec object to its proto representation.
 func OsconfigAlphaGuestPolicyRecipesInstallStepsFileExecToProto(o *alpha.GuestPolicyRecipesInstallStepsFileExec) *alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsFileExec {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsFileExec{
-		ArtifactId: dcl.ValueOrEmptyString(o.ArtifactId),
-		LocalPath:  dcl.ValueOrEmptyString(o.LocalPath),
+	p := &alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsFileExec{}
+	p.SetArtifactId(dcl.ValueOrEmptyString(o.ArtifactId))
+	p.SetLocalPath(dcl.ValueOrEmptyString(o.LocalPath))
+	sArgs := make([]string, len(o.Args))
+	for i, r := range o.Args {
+		sArgs[i] = r
 	}
-	for _, r := range o.Args {
-		p.Args = append(p.Args, r)
+	p.SetArgs(sArgs)
+	sAllowedExitCodes := make([]int64, len(o.AllowedExitCodes))
+	for i, r := range o.AllowedExitCodes {
+		sAllowedExitCodes[i] = r
 	}
-	for _, r := range o.AllowedExitCodes {
-		p.AllowedExitCodes = append(p.AllowedExitCodes, r)
-	}
+	p.SetAllowedExitCodes(sAllowedExitCodes)
 	return p
 }
 
-// GuestPolicyRecipesInstallStepsScriptRunToProto converts a GuestPolicyRecipesInstallStepsScriptRun resource to its proto representation.
+// GuestPolicyRecipesInstallStepsScriptRunToProto converts a GuestPolicyRecipesInstallStepsScriptRun object to its proto representation.
 func OsconfigAlphaGuestPolicyRecipesInstallStepsScriptRunToProto(o *alpha.GuestPolicyRecipesInstallStepsScriptRun) *alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsScriptRun {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsScriptRun{
-		Script:      dcl.ValueOrEmptyString(o.Script),
-		Interpreter: OsconfigAlphaGuestPolicyRecipesInstallStepsScriptRunInterpreterEnumToProto(o.Interpreter),
+	p := &alphapb.OsconfigAlphaGuestPolicyRecipesInstallStepsScriptRun{}
+	p.SetScript(dcl.ValueOrEmptyString(o.Script))
+	p.SetInterpreter(OsconfigAlphaGuestPolicyRecipesInstallStepsScriptRunInterpreterEnumToProto(o.Interpreter))
+	sAllowedExitCodes := make([]int64, len(o.AllowedExitCodes))
+	for i, r := range o.AllowedExitCodes {
+		sAllowedExitCodes[i] = r
 	}
-	for _, r := range o.AllowedExitCodes {
-		p.AllowedExitCodes = append(p.AllowedExitCodes, r)
-	}
+	p.SetAllowedExitCodes(sAllowedExitCodes)
 	return p
 }
 
-// GuestPolicyRecipesUpdateStepsToProto converts a GuestPolicyRecipesUpdateSteps resource to its proto representation.
+// GuestPolicyRecipesUpdateStepsToProto converts a GuestPolicyRecipesUpdateSteps object to its proto representation.
 func OsconfigAlphaGuestPolicyRecipesUpdateStepsToProto(o *alpha.GuestPolicyRecipesUpdateSteps) *alphapb.OsconfigAlphaGuestPolicyRecipesUpdateSteps {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyRecipesUpdateSteps{
-		FileCopy:          OsconfigAlphaGuestPolicyRecipesUpdateStepsFileCopyToProto(o.FileCopy),
-		ArchiveExtraction: OsconfigAlphaGuestPolicyRecipesUpdateStepsArchiveExtractionToProto(o.ArchiveExtraction),
-		MsiInstallation:   OsconfigAlphaGuestPolicyRecipesUpdateStepsMsiInstallationToProto(o.MsiInstallation),
-		DpkgInstallation:  OsconfigAlphaGuestPolicyRecipesUpdateStepsDpkgInstallationToProto(o.DpkgInstallation),
-		RpmInstallation:   OsconfigAlphaGuestPolicyRecipesUpdateStepsRpmInstallationToProto(o.RpmInstallation),
-		FileExec:          OsconfigAlphaGuestPolicyRecipesUpdateStepsFileExecToProto(o.FileExec),
-		ScriptRun:         OsconfigAlphaGuestPolicyRecipesUpdateStepsScriptRunToProto(o.ScriptRun),
-	}
+	p := &alphapb.OsconfigAlphaGuestPolicyRecipesUpdateSteps{}
+	p.SetFileCopy(OsconfigAlphaGuestPolicyRecipesUpdateStepsFileCopyToProto(o.FileCopy))
+	p.SetArchiveExtraction(OsconfigAlphaGuestPolicyRecipesUpdateStepsArchiveExtractionToProto(o.ArchiveExtraction))
+	p.SetMsiInstallation(OsconfigAlphaGuestPolicyRecipesUpdateStepsMsiInstallationToProto(o.MsiInstallation))
+	p.SetDpkgInstallation(OsconfigAlphaGuestPolicyRecipesUpdateStepsDpkgInstallationToProto(o.DpkgInstallation))
+	p.SetRpmInstallation(OsconfigAlphaGuestPolicyRecipesUpdateStepsRpmInstallationToProto(o.RpmInstallation))
+	p.SetFileExec(OsconfigAlphaGuestPolicyRecipesUpdateStepsFileExecToProto(o.FileExec))
+	p.SetScriptRun(OsconfigAlphaGuestPolicyRecipesUpdateStepsScriptRunToProto(o.ScriptRun))
 	return p
 }
 
-// GuestPolicyRecipesUpdateStepsFileCopyToProto converts a GuestPolicyRecipesUpdateStepsFileCopy resource to its proto representation.
+// GuestPolicyRecipesUpdateStepsFileCopyToProto converts a GuestPolicyRecipesUpdateStepsFileCopy object to its proto representation.
 func OsconfigAlphaGuestPolicyRecipesUpdateStepsFileCopyToProto(o *alpha.GuestPolicyRecipesUpdateStepsFileCopy) *alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsFileCopy {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsFileCopy{
-		ArtifactId:  dcl.ValueOrEmptyString(o.ArtifactId),
-		Destination: dcl.ValueOrEmptyString(o.Destination),
-		Overwrite:   dcl.ValueOrEmptyBool(o.Overwrite),
-		Permissions: dcl.ValueOrEmptyString(o.Permissions),
-	}
+	p := &alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsFileCopy{}
+	p.SetArtifactId(dcl.ValueOrEmptyString(o.ArtifactId))
+	p.SetDestination(dcl.ValueOrEmptyString(o.Destination))
+	p.SetOverwrite(dcl.ValueOrEmptyBool(o.Overwrite))
+	p.SetPermissions(dcl.ValueOrEmptyString(o.Permissions))
 	return p
 }
 
-// GuestPolicyRecipesUpdateStepsArchiveExtractionToProto converts a GuestPolicyRecipesUpdateStepsArchiveExtraction resource to its proto representation.
+// GuestPolicyRecipesUpdateStepsArchiveExtractionToProto converts a GuestPolicyRecipesUpdateStepsArchiveExtraction object to its proto representation.
 func OsconfigAlphaGuestPolicyRecipesUpdateStepsArchiveExtractionToProto(o *alpha.GuestPolicyRecipesUpdateStepsArchiveExtraction) *alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsArchiveExtraction {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsArchiveExtraction{
-		ArtifactId:  dcl.ValueOrEmptyString(o.ArtifactId),
-		Destination: dcl.ValueOrEmptyString(o.Destination),
-		Type:        OsconfigAlphaGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnumToProto(o.Type),
-	}
+	p := &alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsArchiveExtraction{}
+	p.SetArtifactId(dcl.ValueOrEmptyString(o.ArtifactId))
+	p.SetDestination(dcl.ValueOrEmptyString(o.Destination))
+	p.SetType(OsconfigAlphaGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnumToProto(o.Type))
 	return p
 }
 
-// GuestPolicyRecipesUpdateStepsMsiInstallationToProto converts a GuestPolicyRecipesUpdateStepsMsiInstallation resource to its proto representation.
+// GuestPolicyRecipesUpdateStepsMsiInstallationToProto converts a GuestPolicyRecipesUpdateStepsMsiInstallation object to its proto representation.
 func OsconfigAlphaGuestPolicyRecipesUpdateStepsMsiInstallationToProto(o *alpha.GuestPolicyRecipesUpdateStepsMsiInstallation) *alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsMsiInstallation {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsMsiInstallation{
-		ArtifactId: dcl.ValueOrEmptyString(o.ArtifactId),
+	p := &alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsMsiInstallation{}
+	p.SetArtifactId(dcl.ValueOrEmptyString(o.ArtifactId))
+	sFlags := make([]string, len(o.Flags))
+	for i, r := range o.Flags {
+		sFlags[i] = r
 	}
-	for _, r := range o.Flags {
-		p.Flags = append(p.Flags, r)
+	p.SetFlags(sFlags)
+	sAllowedExitCodes := make([]int64, len(o.AllowedExitCodes))
+	for i, r := range o.AllowedExitCodes {
+		sAllowedExitCodes[i] = r
 	}
-	for _, r := range o.AllowedExitCodes {
-		p.AllowedExitCodes = append(p.AllowedExitCodes, r)
-	}
+	p.SetAllowedExitCodes(sAllowedExitCodes)
 	return p
 }
 
-// GuestPolicyRecipesUpdateStepsDpkgInstallationToProto converts a GuestPolicyRecipesUpdateStepsDpkgInstallation resource to its proto representation.
+// GuestPolicyRecipesUpdateStepsDpkgInstallationToProto converts a GuestPolicyRecipesUpdateStepsDpkgInstallation object to its proto representation.
 func OsconfigAlphaGuestPolicyRecipesUpdateStepsDpkgInstallationToProto(o *alpha.GuestPolicyRecipesUpdateStepsDpkgInstallation) *alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsDpkgInstallation {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsDpkgInstallation{
-		ArtifactId: dcl.ValueOrEmptyString(o.ArtifactId),
-	}
+	p := &alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsDpkgInstallation{}
+	p.SetArtifactId(dcl.ValueOrEmptyString(o.ArtifactId))
 	return p
 }
 
-// GuestPolicyRecipesUpdateStepsRpmInstallationToProto converts a GuestPolicyRecipesUpdateStepsRpmInstallation resource to its proto representation.
+// GuestPolicyRecipesUpdateStepsRpmInstallationToProto converts a GuestPolicyRecipesUpdateStepsRpmInstallation object to its proto representation.
 func OsconfigAlphaGuestPolicyRecipesUpdateStepsRpmInstallationToProto(o *alpha.GuestPolicyRecipesUpdateStepsRpmInstallation) *alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsRpmInstallation {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsRpmInstallation{
-		ArtifactId: dcl.ValueOrEmptyString(o.ArtifactId),
-	}
+	p := &alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsRpmInstallation{}
+	p.SetArtifactId(dcl.ValueOrEmptyString(o.ArtifactId))
 	return p
 }
 
-// GuestPolicyRecipesUpdateStepsFileExecToProto converts a GuestPolicyRecipesUpdateStepsFileExec resource to its proto representation.
+// GuestPolicyRecipesUpdateStepsFileExecToProto converts a GuestPolicyRecipesUpdateStepsFileExec object to its proto representation.
 func OsconfigAlphaGuestPolicyRecipesUpdateStepsFileExecToProto(o *alpha.GuestPolicyRecipesUpdateStepsFileExec) *alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsFileExec {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsFileExec{
-		ArtifactId: dcl.ValueOrEmptyString(o.ArtifactId),
-		LocalPath:  dcl.ValueOrEmptyString(o.LocalPath),
+	p := &alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsFileExec{}
+	p.SetArtifactId(dcl.ValueOrEmptyString(o.ArtifactId))
+	p.SetLocalPath(dcl.ValueOrEmptyString(o.LocalPath))
+	sArgs := make([]string, len(o.Args))
+	for i, r := range o.Args {
+		sArgs[i] = r
 	}
-	for _, r := range o.Args {
-		p.Args = append(p.Args, r)
+	p.SetArgs(sArgs)
+	sAllowedExitCodes := make([]int64, len(o.AllowedExitCodes))
+	for i, r := range o.AllowedExitCodes {
+		sAllowedExitCodes[i] = r
 	}
-	for _, r := range o.AllowedExitCodes {
-		p.AllowedExitCodes = append(p.AllowedExitCodes, r)
-	}
+	p.SetAllowedExitCodes(sAllowedExitCodes)
 	return p
 }
 
-// GuestPolicyRecipesUpdateStepsScriptRunToProto converts a GuestPolicyRecipesUpdateStepsScriptRun resource to its proto representation.
+// GuestPolicyRecipesUpdateStepsScriptRunToProto converts a GuestPolicyRecipesUpdateStepsScriptRun object to its proto representation.
 func OsconfigAlphaGuestPolicyRecipesUpdateStepsScriptRunToProto(o *alpha.GuestPolicyRecipesUpdateStepsScriptRun) *alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsScriptRun {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsScriptRun{
-		Script:      dcl.ValueOrEmptyString(o.Script),
-		Interpreter: OsconfigAlphaGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnumToProto(o.Interpreter),
+	p := &alphapb.OsconfigAlphaGuestPolicyRecipesUpdateStepsScriptRun{}
+	p.SetScript(dcl.ValueOrEmptyString(o.Script))
+	p.SetInterpreter(OsconfigAlphaGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnumToProto(o.Interpreter))
+	sAllowedExitCodes := make([]int64, len(o.AllowedExitCodes))
+	for i, r := range o.AllowedExitCodes {
+		sAllowedExitCodes[i] = r
 	}
-	for _, r := range o.AllowedExitCodes {
-		p.AllowedExitCodes = append(p.AllowedExitCodes, r)
-	}
+	p.SetAllowedExitCodes(sAllowedExitCodes)
 	return p
 }
 
 // GuestPolicyToProto converts a GuestPolicy resource to its proto representation.
 func GuestPolicyToProto(resource *alpha.GuestPolicy) *alphapb.OsconfigAlphaGuestPolicy {
-	p := &alphapb.OsconfigAlphaGuestPolicy{
-		Name:        dcl.ValueOrEmptyString(resource.Name),
-		Description: dcl.ValueOrEmptyString(resource.Description),
-		CreateTime:  dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:  dcl.ValueOrEmptyString(resource.UpdateTime),
-		Assignment:  OsconfigAlphaGuestPolicyAssignmentToProto(resource.Assignment),
-		Etag:        dcl.ValueOrEmptyString(resource.Etag),
-		Project:     dcl.ValueOrEmptyString(resource.Project),
+	p := &alphapb.OsconfigAlphaGuestPolicy{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetAssignment(OsconfigAlphaGuestPolicyAssignmentToProto(resource.Assignment))
+	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	sPackages := make([]*alphapb.OsconfigAlphaGuestPolicyPackages, len(resource.Packages))
+	for i, r := range resource.Packages {
+		sPackages[i] = OsconfigAlphaGuestPolicyPackagesToProto(&r)
 	}
-	for _, r := range resource.Packages {
-		p.Packages = append(p.Packages, OsconfigAlphaGuestPolicyPackagesToProto(&r))
+	p.SetPackages(sPackages)
+	sPackageRepositories := make([]*alphapb.OsconfigAlphaGuestPolicyPackageRepositories, len(resource.PackageRepositories))
+	for i, r := range resource.PackageRepositories {
+		sPackageRepositories[i] = OsconfigAlphaGuestPolicyPackageRepositoriesToProto(&r)
 	}
-	for _, r := range resource.PackageRepositories {
-		p.PackageRepositories = append(p.PackageRepositories, OsconfigAlphaGuestPolicyPackageRepositoriesToProto(&r))
+	p.SetPackageRepositories(sPackageRepositories)
+	sRecipes := make([]*alphapb.OsconfigAlphaGuestPolicyRecipes, len(resource.Recipes))
+	for i, r := range resource.Recipes {
+		sRecipes[i] = OsconfigAlphaGuestPolicyRecipesToProto(&r)
 	}
-	for _, r := range resource.Recipes {
-		p.Recipes = append(p.Recipes, OsconfigAlphaGuestPolicyRecipesToProto(&r))
-	}
+	p.SetRecipes(sRecipes)
 
 	return p
 }
 
-// ApplyGuestPolicy handles the gRPC request by passing it to the underlying GuestPolicy Apply() method.
+// applyGuestPolicy handles the gRPC request by passing it to the underlying GuestPolicy Apply() method.
 func (s *GuestPolicyServer) applyGuestPolicy(ctx context.Context, c *alpha.Client, request *alphapb.ApplyOsconfigAlphaGuestPolicyRequest) (*alphapb.OsconfigAlphaGuestPolicy, error) {
 	p := ProtoToGuestPolicy(request.GetResource())
 	res, err := c.ApplyGuestPolicy(ctx, p)
@@ -1125,9 +1146,9 @@ func (s *GuestPolicyServer) applyGuestPolicy(ctx context.Context, c *alpha.Clien
 	return r, nil
 }
 
-// ApplyGuestPolicy handles the gRPC request by passing it to the underlying GuestPolicy Apply() method.
+// applyOsconfigAlphaGuestPolicy handles the gRPC request by passing it to the underlying GuestPolicy Apply() method.
 func (s *GuestPolicyServer) ApplyOsconfigAlphaGuestPolicy(ctx context.Context, request *alphapb.ApplyOsconfigAlphaGuestPolicyRequest) (*alphapb.OsconfigAlphaGuestPolicy, error) {
-	cl, err := createConfigGuestPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigGuestPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -1137,7 +1158,7 @@ func (s *GuestPolicyServer) ApplyOsconfigAlphaGuestPolicy(ctx context.Context, r
 // DeleteGuestPolicy handles the gRPC request by passing it to the underlying GuestPolicy Delete() method.
 func (s *GuestPolicyServer) DeleteOsconfigAlphaGuestPolicy(ctx context.Context, request *alphapb.DeleteOsconfigAlphaGuestPolicyRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigGuestPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigGuestPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -1147,12 +1168,12 @@ func (s *GuestPolicyServer) DeleteOsconfigAlphaGuestPolicy(ctx context.Context, 
 
 // ListOsconfigAlphaGuestPolicy handles the gRPC request by passing it to the underlying GuestPolicyList() method.
 func (s *GuestPolicyServer) ListOsconfigAlphaGuestPolicy(ctx context.Context, request *alphapb.ListOsconfigAlphaGuestPolicyRequest) (*alphapb.ListOsconfigAlphaGuestPolicyResponse, error) {
-	cl, err := createConfigGuestPolicy(ctx, request.ServiceAccountFile)
+	cl, err := createConfigGuestPolicy(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListGuestPolicy(ctx, request.Project)
+	resources, err := cl.ListGuestPolicy(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -1161,7 +1182,9 @@ func (s *GuestPolicyServer) ListOsconfigAlphaGuestPolicy(ctx context.Context, re
 		rp := GuestPolicyToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListOsconfigAlphaGuestPolicyResponse{Items: protos}, nil
+	p := &alphapb.ListOsconfigAlphaGuestPolicyResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigGuestPolicy(ctx context.Context, service_account_file string) (*alpha.Client, error) {

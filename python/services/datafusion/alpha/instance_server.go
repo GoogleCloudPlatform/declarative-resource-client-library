@@ -49,26 +49,26 @@ func ProtoToDatafusionAlphaInstanceStateEnum(e alphapb.DatafusionAlphaInstanceSt
 	return nil
 }
 
-// ProtoToInstanceNetworkConfig converts a InstanceNetworkConfig resource from its proto representation.
+// ProtoToInstanceNetworkConfig converts a InstanceNetworkConfig object from its proto representation.
 func ProtoToDatafusionAlphaInstanceNetworkConfig(p *alphapb.DatafusionAlphaInstanceNetworkConfig) *alpha.InstanceNetworkConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.InstanceNetworkConfig{
-		Network:      dcl.StringOrNil(p.Network),
-		IPAllocation: dcl.StringOrNil(p.IpAllocation),
+		Network:      dcl.StringOrNil(p.GetNetwork()),
+		IPAllocation: dcl.StringOrNil(p.GetIpAllocation()),
 	}
 	return obj
 }
 
-// ProtoToInstanceAvailableVersion converts a InstanceAvailableVersion resource from its proto representation.
+// ProtoToInstanceAvailableVersion converts a InstanceAvailableVersion object from its proto representation.
 func ProtoToDatafusionAlphaInstanceAvailableVersion(p *alphapb.DatafusionAlphaInstanceAvailableVersion) *alpha.InstanceAvailableVersion {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.InstanceAvailableVersion{
-		VersionNumber:  dcl.StringOrNil(p.VersionNumber),
-		DefaultVersion: dcl.Bool(p.DefaultVersion),
+		VersionNumber:  dcl.StringOrNil(p.GetVersionNumber()),
+		DefaultVersion: dcl.Bool(p.GetDefaultVersion()),
 	}
 	for _, r := range p.GetAvailableFeatures() {
 		obj.AvailableFeatures = append(obj.AvailableFeatures, r)
@@ -79,28 +79,28 @@ func ProtoToDatafusionAlphaInstanceAvailableVersion(p *alphapb.DatafusionAlphaIn
 // ProtoToInstance converts a Instance resource from its proto representation.
 func ProtoToInstance(p *alphapb.DatafusionAlphaInstance) *alpha.Instance {
 	obj := &alpha.Instance{
-		Name:                        dcl.StringOrNil(p.Name),
-		Description:                 dcl.StringOrNil(p.Description),
+		Name:                        dcl.StringOrNil(p.GetName()),
+		Description:                 dcl.StringOrNil(p.GetDescription()),
 		Type:                        ProtoToDatafusionAlphaInstanceTypeEnum(p.GetType()),
-		EnableStackdriverLogging:    dcl.Bool(p.EnableStackdriverLogging),
-		EnableStackdriverMonitoring: dcl.Bool(p.EnableStackdriverMonitoring),
-		PrivateInstance:             dcl.Bool(p.PrivateInstance),
+		EnableStackdriverLogging:    dcl.Bool(p.GetEnableStackdriverLogging()),
+		EnableStackdriverMonitoring: dcl.Bool(p.GetEnableStackdriverMonitoring()),
+		PrivateInstance:             dcl.Bool(p.GetPrivateInstance()),
 		NetworkConfig:               ProtoToDatafusionAlphaInstanceNetworkConfig(p.GetNetworkConfig()),
 		CreateTime:                  dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:                  dcl.StringOrNil(p.GetUpdateTime()),
 		State:                       ProtoToDatafusionAlphaInstanceStateEnum(p.GetState()),
-		StateMessage:                dcl.StringOrNil(p.StateMessage),
-		ServiceEndpoint:             dcl.StringOrNil(p.ServiceEndpoint),
-		Zone:                        dcl.StringOrNil(p.Zone),
-		Version:                     dcl.StringOrNil(p.Version),
-		DisplayName:                 dcl.StringOrNil(p.DisplayName),
-		ApiEndpoint:                 dcl.StringOrNil(p.ApiEndpoint),
-		GcsBucket:                   dcl.StringOrNil(p.GcsBucket),
-		P4ServiceAccount:            dcl.StringOrNil(p.P4ServiceAccount),
-		TenantProjectId:             dcl.StringOrNil(p.TenantProjectId),
-		DataprocServiceAccount:      dcl.StringOrNil(p.DataprocServiceAccount),
-		Project:                     dcl.StringOrNil(p.Project),
-		Location:                    dcl.StringOrNil(p.Location),
+		StateMessage:                dcl.StringOrNil(p.GetStateMessage()),
+		ServiceEndpoint:             dcl.StringOrNil(p.GetServiceEndpoint()),
+		Zone:                        dcl.StringOrNil(p.GetZone()),
+		Version:                     dcl.StringOrNil(p.GetVersion()),
+		DisplayName:                 dcl.StringOrNil(p.GetDisplayName()),
+		ApiEndpoint:                 dcl.StringOrNil(p.GetApiEndpoint()),
+		GcsBucket:                   dcl.StringOrNil(p.GetGcsBucket()),
+		P4ServiceAccount:            dcl.StringOrNil(p.GetP4ServiceAccount()),
+		TenantProjectId:             dcl.StringOrNil(p.GetTenantProjectId()),
+		DataprocServiceAccount:      dcl.StringOrNil(p.GetDataprocServiceAccount()),
+		Project:                     dcl.StringOrNil(p.GetProject()),
+		Location:                    dcl.StringOrNil(p.GetLocation()),
 	}
 	for _, r := range p.GetAvailableVersion() {
 		obj.AvailableVersion = append(obj.AvailableVersion, *ProtoToDatafusionAlphaInstanceAvailableVersion(r))
@@ -130,67 +130,78 @@ func DatafusionAlphaInstanceStateEnumToProto(e *alpha.InstanceStateEnum) alphapb
 	return alphapb.DatafusionAlphaInstanceStateEnum(0)
 }
 
-// InstanceNetworkConfigToProto converts a InstanceNetworkConfig resource to its proto representation.
+// InstanceNetworkConfigToProto converts a InstanceNetworkConfig object to its proto representation.
 func DatafusionAlphaInstanceNetworkConfigToProto(o *alpha.InstanceNetworkConfig) *alphapb.DatafusionAlphaInstanceNetworkConfig {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.DatafusionAlphaInstanceNetworkConfig{
-		Network:      dcl.ValueOrEmptyString(o.Network),
-		IpAllocation: dcl.ValueOrEmptyString(o.IPAllocation),
-	}
+	p := &alphapb.DatafusionAlphaInstanceNetworkConfig{}
+	p.SetNetwork(dcl.ValueOrEmptyString(o.Network))
+	p.SetIpAllocation(dcl.ValueOrEmptyString(o.IPAllocation))
 	return p
 }
 
-// InstanceAvailableVersionToProto converts a InstanceAvailableVersion resource to its proto representation.
+// InstanceAvailableVersionToProto converts a InstanceAvailableVersion object to its proto representation.
 func DatafusionAlphaInstanceAvailableVersionToProto(o *alpha.InstanceAvailableVersion) *alphapb.DatafusionAlphaInstanceAvailableVersion {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.DatafusionAlphaInstanceAvailableVersion{
-		VersionNumber:  dcl.ValueOrEmptyString(o.VersionNumber),
-		DefaultVersion: dcl.ValueOrEmptyBool(o.DefaultVersion),
+	p := &alphapb.DatafusionAlphaInstanceAvailableVersion{}
+	p.SetVersionNumber(dcl.ValueOrEmptyString(o.VersionNumber))
+	p.SetDefaultVersion(dcl.ValueOrEmptyBool(o.DefaultVersion))
+	sAvailableFeatures := make([]string, len(o.AvailableFeatures))
+	for i, r := range o.AvailableFeatures {
+		sAvailableFeatures[i] = r
 	}
-	for _, r := range o.AvailableFeatures {
-		p.AvailableFeatures = append(p.AvailableFeatures, r)
-	}
+	p.SetAvailableFeatures(sAvailableFeatures)
 	return p
 }
 
 // InstanceToProto converts a Instance resource to its proto representation.
 func InstanceToProto(resource *alpha.Instance) *alphapb.DatafusionAlphaInstance {
-	p := &alphapb.DatafusionAlphaInstance{
-		Name:                        dcl.ValueOrEmptyString(resource.Name),
-		Description:                 dcl.ValueOrEmptyString(resource.Description),
-		Type:                        DatafusionAlphaInstanceTypeEnumToProto(resource.Type),
-		EnableStackdriverLogging:    dcl.ValueOrEmptyBool(resource.EnableStackdriverLogging),
-		EnableStackdriverMonitoring: dcl.ValueOrEmptyBool(resource.EnableStackdriverMonitoring),
-		PrivateInstance:             dcl.ValueOrEmptyBool(resource.PrivateInstance),
-		NetworkConfig:               DatafusionAlphaInstanceNetworkConfigToProto(resource.NetworkConfig),
-		CreateTime:                  dcl.ValueOrEmptyString(resource.CreateTime),
-		UpdateTime:                  dcl.ValueOrEmptyString(resource.UpdateTime),
-		State:                       DatafusionAlphaInstanceStateEnumToProto(resource.State),
-		StateMessage:                dcl.ValueOrEmptyString(resource.StateMessage),
-		ServiceEndpoint:             dcl.ValueOrEmptyString(resource.ServiceEndpoint),
-		Zone:                        dcl.ValueOrEmptyString(resource.Zone),
-		Version:                     dcl.ValueOrEmptyString(resource.Version),
-		DisplayName:                 dcl.ValueOrEmptyString(resource.DisplayName),
-		ApiEndpoint:                 dcl.ValueOrEmptyString(resource.ApiEndpoint),
-		GcsBucket:                   dcl.ValueOrEmptyString(resource.GcsBucket),
-		P4ServiceAccount:            dcl.ValueOrEmptyString(resource.P4ServiceAccount),
-		TenantProjectId:             dcl.ValueOrEmptyString(resource.TenantProjectId),
-		DataprocServiceAccount:      dcl.ValueOrEmptyString(resource.DataprocServiceAccount),
-		Project:                     dcl.ValueOrEmptyString(resource.Project),
-		Location:                    dcl.ValueOrEmptyString(resource.Location),
+	p := &alphapb.DatafusionAlphaInstance{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetType(DatafusionAlphaInstanceTypeEnumToProto(resource.Type))
+	p.SetEnableStackdriverLogging(dcl.ValueOrEmptyBool(resource.EnableStackdriverLogging))
+	p.SetEnableStackdriverMonitoring(dcl.ValueOrEmptyBool(resource.EnableStackdriverMonitoring))
+	p.SetPrivateInstance(dcl.ValueOrEmptyBool(resource.PrivateInstance))
+	p.SetNetworkConfig(DatafusionAlphaInstanceNetworkConfigToProto(resource.NetworkConfig))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetState(DatafusionAlphaInstanceStateEnumToProto(resource.State))
+	p.SetStateMessage(dcl.ValueOrEmptyString(resource.StateMessage))
+	p.SetServiceEndpoint(dcl.ValueOrEmptyString(resource.ServiceEndpoint))
+	p.SetZone(dcl.ValueOrEmptyString(resource.Zone))
+	p.SetVersion(dcl.ValueOrEmptyString(resource.Version))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetApiEndpoint(dcl.ValueOrEmptyString(resource.ApiEndpoint))
+	p.SetGcsBucket(dcl.ValueOrEmptyString(resource.GcsBucket))
+	p.SetP4ServiceAccount(dcl.ValueOrEmptyString(resource.P4ServiceAccount))
+	p.SetTenantProjectId(dcl.ValueOrEmptyString(resource.TenantProjectId))
+	p.SetDataprocServiceAccount(dcl.ValueOrEmptyString(resource.DataprocServiceAccount))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
-	for _, r := range resource.AvailableVersion {
-		p.AvailableVersion = append(p.AvailableVersion, DatafusionAlphaInstanceAvailableVersionToProto(&r))
+	p.SetLabels(mLabels)
+	mOptions := make(map[string]string, len(resource.Options))
+	for k, r := range resource.Options {
+		mOptions[k] = r
 	}
+	p.SetOptions(mOptions)
+	sAvailableVersion := make([]*alphapb.DatafusionAlphaInstanceAvailableVersion, len(resource.AvailableVersion))
+	for i, r := range resource.AvailableVersion {
+		sAvailableVersion[i] = DatafusionAlphaInstanceAvailableVersionToProto(&r)
+	}
+	p.SetAvailableVersion(sAvailableVersion)
 
 	return p
 }
 
-// ApplyInstance handles the gRPC request by passing it to the underlying Instance Apply() method.
+// applyInstance handles the gRPC request by passing it to the underlying Instance Apply() method.
 func (s *InstanceServer) applyInstance(ctx context.Context, c *alpha.Client, request *alphapb.ApplyDatafusionAlphaInstanceRequest) (*alphapb.DatafusionAlphaInstance, error) {
 	p := ProtoToInstance(request.GetResource())
 	res, err := c.ApplyInstance(ctx, p)
@@ -201,9 +212,9 @@ func (s *InstanceServer) applyInstance(ctx context.Context, c *alpha.Client, req
 	return r, nil
 }
 
-// ApplyInstance handles the gRPC request by passing it to the underlying Instance Apply() method.
+// applyDatafusionAlphaInstance handles the gRPC request by passing it to the underlying Instance Apply() method.
 func (s *InstanceServer) ApplyDatafusionAlphaInstance(ctx context.Context, request *alphapb.ApplyDatafusionAlphaInstanceRequest) (*alphapb.DatafusionAlphaInstance, error) {
-	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
+	cl, err := createConfigInstance(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -213,7 +224,7 @@ func (s *InstanceServer) ApplyDatafusionAlphaInstance(ctx context.Context, reque
 // DeleteInstance handles the gRPC request by passing it to the underlying Instance Delete() method.
 func (s *InstanceServer) DeleteDatafusionAlphaInstance(ctx context.Context, request *alphapb.DeleteDatafusionAlphaInstanceRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
+	cl, err := createConfigInstance(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -223,12 +234,12 @@ func (s *InstanceServer) DeleteDatafusionAlphaInstance(ctx context.Context, requ
 
 // ListDatafusionAlphaInstance handles the gRPC request by passing it to the underlying InstanceList() method.
 func (s *InstanceServer) ListDatafusionAlphaInstance(ctx context.Context, request *alphapb.ListDatafusionAlphaInstanceRequest) (*alphapb.ListDatafusionAlphaInstanceResponse, error) {
-	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
+	cl, err := createConfigInstance(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListInstance(ctx, request.Project, request.Location)
+	resources, err := cl.ListInstance(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -237,7 +248,9 @@ func (s *InstanceServer) ListDatafusionAlphaInstance(ctx context.Context, reques
 		rp := InstanceToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListDatafusionAlphaInstanceResponse{Items: protos}, nil
+	p := &alphapb.ListDatafusionAlphaInstanceResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigInstance(ctx context.Context, service_account_file string) (*alpha.Client, error) {

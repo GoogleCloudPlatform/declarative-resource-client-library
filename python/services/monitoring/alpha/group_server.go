@@ -28,31 +28,30 @@ type GroupServer struct{}
 // ProtoToGroup converts a Group resource from its proto representation.
 func ProtoToGroup(p *alphapb.MonitoringAlphaGroup) *alpha.Group {
 	obj := &alpha.Group{
-		DisplayName: dcl.StringOrNil(p.DisplayName),
-		Filter:      dcl.StringOrNil(p.Filter),
-		IsCluster:   dcl.Bool(p.IsCluster),
-		Name:        dcl.StringOrNil(p.Name),
-		ParentName:  dcl.StringOrNil(p.ParentName),
-		Project:     dcl.StringOrNil(p.Project),
+		DisplayName: dcl.StringOrNil(p.GetDisplayName()),
+		Filter:      dcl.StringOrNil(p.GetFilter()),
+		IsCluster:   dcl.Bool(p.GetIsCluster()),
+		Name:        dcl.StringOrNil(p.GetName()),
+		ParentName:  dcl.StringOrNil(p.GetParentName()),
+		Project:     dcl.StringOrNil(p.GetProject()),
 	}
 	return obj
 }
 
 // GroupToProto converts a Group resource to its proto representation.
 func GroupToProto(resource *alpha.Group) *alphapb.MonitoringAlphaGroup {
-	p := &alphapb.MonitoringAlphaGroup{
-		DisplayName: dcl.ValueOrEmptyString(resource.DisplayName),
-		Filter:      dcl.ValueOrEmptyString(resource.Filter),
-		IsCluster:   dcl.ValueOrEmptyBool(resource.IsCluster),
-		Name:        dcl.ValueOrEmptyString(resource.Name),
-		ParentName:  dcl.ValueOrEmptyString(resource.ParentName),
-		Project:     dcl.ValueOrEmptyString(resource.Project),
-	}
+	p := &alphapb.MonitoringAlphaGroup{}
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetFilter(dcl.ValueOrEmptyString(resource.Filter))
+	p.SetIsCluster(dcl.ValueOrEmptyBool(resource.IsCluster))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetParentName(dcl.ValueOrEmptyString(resource.ParentName))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 
 	return p
 }
 
-// ApplyGroup handles the gRPC request by passing it to the underlying Group Apply() method.
+// applyGroup handles the gRPC request by passing it to the underlying Group Apply() method.
 func (s *GroupServer) applyGroup(ctx context.Context, c *alpha.Client, request *alphapb.ApplyMonitoringAlphaGroupRequest) (*alphapb.MonitoringAlphaGroup, error) {
 	p := ProtoToGroup(request.GetResource())
 	res, err := c.ApplyGroup(ctx, p)
@@ -63,9 +62,9 @@ func (s *GroupServer) applyGroup(ctx context.Context, c *alpha.Client, request *
 	return r, nil
 }
 
-// ApplyGroup handles the gRPC request by passing it to the underlying Group Apply() method.
+// applyMonitoringAlphaGroup handles the gRPC request by passing it to the underlying Group Apply() method.
 func (s *GroupServer) ApplyMonitoringAlphaGroup(ctx context.Context, request *alphapb.ApplyMonitoringAlphaGroupRequest) (*alphapb.MonitoringAlphaGroup, error) {
-	cl, err := createConfigGroup(ctx, request.ServiceAccountFile)
+	cl, err := createConfigGroup(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +74,7 @@ func (s *GroupServer) ApplyMonitoringAlphaGroup(ctx context.Context, request *al
 // DeleteGroup handles the gRPC request by passing it to the underlying Group Delete() method.
 func (s *GroupServer) DeleteMonitoringAlphaGroup(ctx context.Context, request *alphapb.DeleteMonitoringAlphaGroupRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigGroup(ctx, request.ServiceAccountFile)
+	cl, err := createConfigGroup(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -85,12 +84,12 @@ func (s *GroupServer) DeleteMonitoringAlphaGroup(ctx context.Context, request *a
 
 // ListMonitoringAlphaGroup handles the gRPC request by passing it to the underlying GroupList() method.
 func (s *GroupServer) ListMonitoringAlphaGroup(ctx context.Context, request *alphapb.ListMonitoringAlphaGroupRequest) (*alphapb.ListMonitoringAlphaGroupResponse, error) {
-	cl, err := createConfigGroup(ctx, request.ServiceAccountFile)
+	cl, err := createConfigGroup(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListGroup(ctx, request.Project)
+	resources, err := cl.ListGroup(ctx, request.GetProject())
 	if err != nil {
 		return nil, err
 	}
@@ -99,7 +98,9 @@ func (s *GroupServer) ListMonitoringAlphaGroup(ctx context.Context, request *alp
 		rp := GroupToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListMonitoringAlphaGroupResponse{Items: protos}, nil
+	p := &alphapb.ListMonitoringAlphaGroupResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigGroup(ctx context.Context, service_account_file string) (*alpha.Client, error) {

@@ -49,39 +49,39 @@ func ProtoToComputeServiceAttachmentConnectedEndpointsStatusEnum(e computepb.Com
 	return nil
 }
 
-// ProtoToServiceAttachmentConnectedEndpoints converts a ServiceAttachmentConnectedEndpoints resource from its proto representation.
+// ProtoToServiceAttachmentConnectedEndpoints converts a ServiceAttachmentConnectedEndpoints object from its proto representation.
 func ProtoToComputeServiceAttachmentConnectedEndpoints(p *computepb.ComputeServiceAttachmentConnectedEndpoints) *compute.ServiceAttachmentConnectedEndpoints {
 	if p == nil {
 		return nil
 	}
 	obj := &compute.ServiceAttachmentConnectedEndpoints{
 		Status:          ProtoToComputeServiceAttachmentConnectedEndpointsStatusEnum(p.GetStatus()),
-		PscConnectionId: dcl.Int64OrNil(p.PscConnectionId),
-		Endpoint:        dcl.StringOrNil(p.Endpoint),
+		PscConnectionId: dcl.Int64OrNil(p.GetPscConnectionId()),
+		Endpoint:        dcl.StringOrNil(p.GetEndpoint()),
 	}
 	return obj
 }
 
-// ProtoToServiceAttachmentConsumerAcceptLists converts a ServiceAttachmentConsumerAcceptLists resource from its proto representation.
+// ProtoToServiceAttachmentConsumerAcceptLists converts a ServiceAttachmentConsumerAcceptLists object from its proto representation.
 func ProtoToComputeServiceAttachmentConsumerAcceptLists(p *computepb.ComputeServiceAttachmentConsumerAcceptLists) *compute.ServiceAttachmentConsumerAcceptLists {
 	if p == nil {
 		return nil
 	}
 	obj := &compute.ServiceAttachmentConsumerAcceptLists{
-		ProjectIdOrNum:  dcl.StringOrNil(p.ProjectIdOrNum),
-		ConnectionLimit: dcl.Int64OrNil(p.ConnectionLimit),
+		ProjectIdOrNum:  dcl.StringOrNil(p.GetProjectIdOrNum()),
+		ConnectionLimit: dcl.Int64OrNil(p.GetConnectionLimit()),
 	}
 	return obj
 }
 
-// ProtoToServiceAttachmentPscServiceAttachmentId converts a ServiceAttachmentPscServiceAttachmentId resource from its proto representation.
+// ProtoToServiceAttachmentPscServiceAttachmentId converts a ServiceAttachmentPscServiceAttachmentId object from its proto representation.
 func ProtoToComputeServiceAttachmentPscServiceAttachmentId(p *computepb.ComputeServiceAttachmentPscServiceAttachmentId) *compute.ServiceAttachmentPscServiceAttachmentId {
 	if p == nil {
 		return nil
 	}
 	obj := &compute.ServiceAttachmentPscServiceAttachmentId{
-		High: dcl.Int64OrNil(p.High),
-		Low:  dcl.Int64OrNil(p.Low),
+		High: dcl.Int64OrNil(p.GetHigh()),
+		Low:  dcl.Int64OrNil(p.GetLow()),
 	}
 	return obj
 }
@@ -89,18 +89,18 @@ func ProtoToComputeServiceAttachmentPscServiceAttachmentId(p *computepb.ComputeS
 // ProtoToServiceAttachment converts a ServiceAttachment resource from its proto representation.
 func ProtoToServiceAttachment(p *computepb.ComputeServiceAttachment) *compute.ServiceAttachment {
 	obj := &compute.ServiceAttachment{
-		Id:                     dcl.Int64OrNil(p.Id),
-		Name:                   dcl.StringOrNil(p.Name),
-		Description:            dcl.StringOrNil(p.Description),
-		SelfLink:               dcl.StringOrNil(p.SelfLink),
-		Region:                 dcl.StringOrNil(p.Region),
-		TargetService:          dcl.StringOrNil(p.TargetService),
+		Id:                     dcl.Int64OrNil(p.GetId()),
+		Name:                   dcl.StringOrNil(p.GetName()),
+		Description:            dcl.StringOrNil(p.GetDescription()),
+		SelfLink:               dcl.StringOrNil(p.GetSelfLink()),
+		Region:                 dcl.StringOrNil(p.GetRegion()),
+		TargetService:          dcl.StringOrNil(p.GetTargetService()),
 		ConnectionPreference:   ProtoToComputeServiceAttachmentConnectionPreferenceEnum(p.GetConnectionPreference()),
-		EnableProxyProtocol:    dcl.Bool(p.EnableProxyProtocol),
+		EnableProxyProtocol:    dcl.Bool(p.GetEnableProxyProtocol()),
 		PscServiceAttachmentId: ProtoToComputeServiceAttachmentPscServiceAttachmentId(p.GetPscServiceAttachmentId()),
-		Fingerprint:            dcl.StringOrNil(p.Fingerprint),
-		Project:                dcl.StringOrNil(p.Project),
-		Location:               dcl.StringOrNil(p.Location),
+		Fingerprint:            dcl.StringOrNil(p.GetFingerprint()),
+		Project:                dcl.StringOrNil(p.GetProject()),
+		Location:               dcl.StringOrNil(p.GetLocation()),
 	}
 	for _, r := range p.GetConnectedEndpoints() {
 		obj.ConnectedEndpoints = append(obj.ConnectedEndpoints, *ProtoToComputeServiceAttachmentConnectedEndpoints(r))
@@ -139,76 +139,80 @@ func ComputeServiceAttachmentConnectedEndpointsStatusEnumToProto(e *compute.Serv
 	return computepb.ComputeServiceAttachmentConnectedEndpointsStatusEnum(0)
 }
 
-// ServiceAttachmentConnectedEndpointsToProto converts a ServiceAttachmentConnectedEndpoints resource to its proto representation.
+// ServiceAttachmentConnectedEndpointsToProto converts a ServiceAttachmentConnectedEndpoints object to its proto representation.
 func ComputeServiceAttachmentConnectedEndpointsToProto(o *compute.ServiceAttachmentConnectedEndpoints) *computepb.ComputeServiceAttachmentConnectedEndpoints {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeServiceAttachmentConnectedEndpoints{
-		Status:          ComputeServiceAttachmentConnectedEndpointsStatusEnumToProto(o.Status),
-		PscConnectionId: dcl.ValueOrEmptyInt64(o.PscConnectionId),
-		Endpoint:        dcl.ValueOrEmptyString(o.Endpoint),
-	}
+	p := &computepb.ComputeServiceAttachmentConnectedEndpoints{}
+	p.SetStatus(ComputeServiceAttachmentConnectedEndpointsStatusEnumToProto(o.Status))
+	p.SetPscConnectionId(dcl.ValueOrEmptyInt64(o.PscConnectionId))
+	p.SetEndpoint(dcl.ValueOrEmptyString(o.Endpoint))
 	return p
 }
 
-// ServiceAttachmentConsumerAcceptListsToProto converts a ServiceAttachmentConsumerAcceptLists resource to its proto representation.
+// ServiceAttachmentConsumerAcceptListsToProto converts a ServiceAttachmentConsumerAcceptLists object to its proto representation.
 func ComputeServiceAttachmentConsumerAcceptListsToProto(o *compute.ServiceAttachmentConsumerAcceptLists) *computepb.ComputeServiceAttachmentConsumerAcceptLists {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeServiceAttachmentConsumerAcceptLists{
-		ProjectIdOrNum:  dcl.ValueOrEmptyString(o.ProjectIdOrNum),
-		ConnectionLimit: dcl.ValueOrEmptyInt64(o.ConnectionLimit),
-	}
+	p := &computepb.ComputeServiceAttachmentConsumerAcceptLists{}
+	p.SetProjectIdOrNum(dcl.ValueOrEmptyString(o.ProjectIdOrNum))
+	p.SetConnectionLimit(dcl.ValueOrEmptyInt64(o.ConnectionLimit))
 	return p
 }
 
-// ServiceAttachmentPscServiceAttachmentIdToProto converts a ServiceAttachmentPscServiceAttachmentId resource to its proto representation.
+// ServiceAttachmentPscServiceAttachmentIdToProto converts a ServiceAttachmentPscServiceAttachmentId object to its proto representation.
 func ComputeServiceAttachmentPscServiceAttachmentIdToProto(o *compute.ServiceAttachmentPscServiceAttachmentId) *computepb.ComputeServiceAttachmentPscServiceAttachmentId {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeServiceAttachmentPscServiceAttachmentId{
-		High: dcl.ValueOrEmptyInt64(o.High),
-		Low:  dcl.ValueOrEmptyInt64(o.Low),
-	}
+	p := &computepb.ComputeServiceAttachmentPscServiceAttachmentId{}
+	p.SetHigh(dcl.ValueOrEmptyInt64(o.High))
+	p.SetLow(dcl.ValueOrEmptyInt64(o.Low))
 	return p
 }
 
 // ServiceAttachmentToProto converts a ServiceAttachment resource to its proto representation.
 func ServiceAttachmentToProto(resource *compute.ServiceAttachment) *computepb.ComputeServiceAttachment {
-	p := &computepb.ComputeServiceAttachment{
-		Id:                     dcl.ValueOrEmptyInt64(resource.Id),
-		Name:                   dcl.ValueOrEmptyString(resource.Name),
-		Description:            dcl.ValueOrEmptyString(resource.Description),
-		SelfLink:               dcl.ValueOrEmptyString(resource.SelfLink),
-		Region:                 dcl.ValueOrEmptyString(resource.Region),
-		TargetService:          dcl.ValueOrEmptyString(resource.TargetService),
-		ConnectionPreference:   ComputeServiceAttachmentConnectionPreferenceEnumToProto(resource.ConnectionPreference),
-		EnableProxyProtocol:    dcl.ValueOrEmptyBool(resource.EnableProxyProtocol),
-		PscServiceAttachmentId: ComputeServiceAttachmentPscServiceAttachmentIdToProto(resource.PscServiceAttachmentId),
-		Fingerprint:            dcl.ValueOrEmptyString(resource.Fingerprint),
-		Project:                dcl.ValueOrEmptyString(resource.Project),
-		Location:               dcl.ValueOrEmptyString(resource.Location),
+	p := &computepb.ComputeServiceAttachment{}
+	p.SetId(dcl.ValueOrEmptyInt64(resource.Id))
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
+	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
+	p.SetRegion(dcl.ValueOrEmptyString(resource.Region))
+	p.SetTargetService(dcl.ValueOrEmptyString(resource.TargetService))
+	p.SetConnectionPreference(ComputeServiceAttachmentConnectionPreferenceEnumToProto(resource.ConnectionPreference))
+	p.SetEnableProxyProtocol(dcl.ValueOrEmptyBool(resource.EnableProxyProtocol))
+	p.SetPscServiceAttachmentId(ComputeServiceAttachmentPscServiceAttachmentIdToProto(resource.PscServiceAttachmentId))
+	p.SetFingerprint(dcl.ValueOrEmptyString(resource.Fingerprint))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	sConnectedEndpoints := make([]*computepb.ComputeServiceAttachmentConnectedEndpoints, len(resource.ConnectedEndpoints))
+	for i, r := range resource.ConnectedEndpoints {
+		sConnectedEndpoints[i] = ComputeServiceAttachmentConnectedEndpointsToProto(&r)
 	}
-	for _, r := range resource.ConnectedEndpoints {
-		p.ConnectedEndpoints = append(p.ConnectedEndpoints, ComputeServiceAttachmentConnectedEndpointsToProto(&r))
+	p.SetConnectedEndpoints(sConnectedEndpoints)
+	sNatSubnets := make([]string, len(resource.NatSubnets))
+	for i, r := range resource.NatSubnets {
+		sNatSubnets[i] = r
 	}
-	for _, r := range resource.NatSubnets {
-		p.NatSubnets = append(p.NatSubnets, r)
+	p.SetNatSubnets(sNatSubnets)
+	sConsumerRejectLists := make([]string, len(resource.ConsumerRejectLists))
+	for i, r := range resource.ConsumerRejectLists {
+		sConsumerRejectLists[i] = r
 	}
-	for _, r := range resource.ConsumerRejectLists {
-		p.ConsumerRejectLists = append(p.ConsumerRejectLists, r)
+	p.SetConsumerRejectLists(sConsumerRejectLists)
+	sConsumerAcceptLists := make([]*computepb.ComputeServiceAttachmentConsumerAcceptLists, len(resource.ConsumerAcceptLists))
+	for i, r := range resource.ConsumerAcceptLists {
+		sConsumerAcceptLists[i] = ComputeServiceAttachmentConsumerAcceptListsToProto(&r)
 	}
-	for _, r := range resource.ConsumerAcceptLists {
-		p.ConsumerAcceptLists = append(p.ConsumerAcceptLists, ComputeServiceAttachmentConsumerAcceptListsToProto(&r))
-	}
+	p.SetConsumerAcceptLists(sConsumerAcceptLists)
 
 	return p
 }
 
-// ApplyServiceAttachment handles the gRPC request by passing it to the underlying ServiceAttachment Apply() method.
+// applyServiceAttachment handles the gRPC request by passing it to the underlying ServiceAttachment Apply() method.
 func (s *ServiceAttachmentServer) applyServiceAttachment(ctx context.Context, c *compute.Client, request *computepb.ApplyComputeServiceAttachmentRequest) (*computepb.ComputeServiceAttachment, error) {
 	p := ProtoToServiceAttachment(request.GetResource())
 	res, err := c.ApplyServiceAttachment(ctx, p)
@@ -219,9 +223,9 @@ func (s *ServiceAttachmentServer) applyServiceAttachment(ctx context.Context, c 
 	return r, nil
 }
 
-// ApplyServiceAttachment handles the gRPC request by passing it to the underlying ServiceAttachment Apply() method.
+// applyComputeServiceAttachment handles the gRPC request by passing it to the underlying ServiceAttachment Apply() method.
 func (s *ServiceAttachmentServer) ApplyComputeServiceAttachment(ctx context.Context, request *computepb.ApplyComputeServiceAttachmentRequest) (*computepb.ComputeServiceAttachment, error) {
-	cl, err := createConfigServiceAttachment(ctx, request.ServiceAccountFile)
+	cl, err := createConfigServiceAttachment(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -231,7 +235,7 @@ func (s *ServiceAttachmentServer) ApplyComputeServiceAttachment(ctx context.Cont
 // DeleteServiceAttachment handles the gRPC request by passing it to the underlying ServiceAttachment Delete() method.
 func (s *ServiceAttachmentServer) DeleteComputeServiceAttachment(ctx context.Context, request *computepb.DeleteComputeServiceAttachmentRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigServiceAttachment(ctx, request.ServiceAccountFile)
+	cl, err := createConfigServiceAttachment(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -241,12 +245,12 @@ func (s *ServiceAttachmentServer) DeleteComputeServiceAttachment(ctx context.Con
 
 // ListComputeServiceAttachment handles the gRPC request by passing it to the underlying ServiceAttachmentList() method.
 func (s *ServiceAttachmentServer) ListComputeServiceAttachment(ctx context.Context, request *computepb.ListComputeServiceAttachmentRequest) (*computepb.ListComputeServiceAttachmentResponse, error) {
-	cl, err := createConfigServiceAttachment(ctx, request.ServiceAccountFile)
+	cl, err := createConfigServiceAttachment(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListServiceAttachment(ctx, request.Project, request.Location)
+	resources, err := cl.ListServiceAttachment(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -255,7 +259,9 @@ func (s *ServiceAttachmentServer) ListComputeServiceAttachment(ctx context.Conte
 		rp := ServiceAttachmentToProto(r)
 		protos = append(protos, rp)
 	}
-	return &computepb.ListComputeServiceAttachmentResponse{Items: protos}, nil
+	p := &computepb.ListComputeServiceAttachmentResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigServiceAttachment(ctx context.Context, service_account_file string) (*compute.Client, error) {

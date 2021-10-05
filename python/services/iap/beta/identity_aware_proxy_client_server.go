@@ -28,29 +28,28 @@ type IdentityAwareProxyClientServer struct{}
 // ProtoToIdentityAwareProxyClient converts a IdentityAwareProxyClient resource from its proto representation.
 func ProtoToIdentityAwareProxyClient(p *betapb.IapBetaIdentityAwareProxyClient) *beta.IdentityAwareProxyClient {
 	obj := &beta.IdentityAwareProxyClient{
-		Name:        dcl.StringOrNil(p.Name),
-		Secret:      dcl.StringOrNil(p.Secret),
-		DisplayName: dcl.StringOrNil(p.DisplayName),
-		Project:     dcl.StringOrNil(p.Project),
-		Brand:       dcl.StringOrNil(p.Brand),
+		Name:        dcl.StringOrNil(p.GetName()),
+		Secret:      dcl.StringOrNil(p.GetSecret()),
+		DisplayName: dcl.StringOrNil(p.GetDisplayName()),
+		Project:     dcl.StringOrNil(p.GetProject()),
+		Brand:       dcl.StringOrNil(p.GetBrand()),
 	}
 	return obj
 }
 
 // IdentityAwareProxyClientToProto converts a IdentityAwareProxyClient resource to its proto representation.
 func IdentityAwareProxyClientToProto(resource *beta.IdentityAwareProxyClient) *betapb.IapBetaIdentityAwareProxyClient {
-	p := &betapb.IapBetaIdentityAwareProxyClient{
-		Name:        dcl.ValueOrEmptyString(resource.Name),
-		Secret:      dcl.ValueOrEmptyString(resource.Secret),
-		DisplayName: dcl.ValueOrEmptyString(resource.DisplayName),
-		Project:     dcl.ValueOrEmptyString(resource.Project),
-		Brand:       dcl.ValueOrEmptyString(resource.Brand),
-	}
+	p := &betapb.IapBetaIdentityAwareProxyClient{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetSecret(dcl.ValueOrEmptyString(resource.Secret))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	p.SetBrand(dcl.ValueOrEmptyString(resource.Brand))
 
 	return p
 }
 
-// ApplyIdentityAwareProxyClient handles the gRPC request by passing it to the underlying IdentityAwareProxyClient Apply() method.
+// applyIdentityAwareProxyClient handles the gRPC request by passing it to the underlying IdentityAwareProxyClient Apply() method.
 func (s *IdentityAwareProxyClientServer) applyIdentityAwareProxyClient(ctx context.Context, c *beta.Client, request *betapb.ApplyIapBetaIdentityAwareProxyClientRequest) (*betapb.IapBetaIdentityAwareProxyClient, error) {
 	p := ProtoToIdentityAwareProxyClient(request.GetResource())
 	res, err := c.ApplyIdentityAwareProxyClient(ctx, p)
@@ -61,9 +60,9 @@ func (s *IdentityAwareProxyClientServer) applyIdentityAwareProxyClient(ctx conte
 	return r, nil
 }
 
-// ApplyIdentityAwareProxyClient handles the gRPC request by passing it to the underlying IdentityAwareProxyClient Apply() method.
+// applyIapBetaIdentityAwareProxyClient handles the gRPC request by passing it to the underlying IdentityAwareProxyClient Apply() method.
 func (s *IdentityAwareProxyClientServer) ApplyIapBetaIdentityAwareProxyClient(ctx context.Context, request *betapb.ApplyIapBetaIdentityAwareProxyClientRequest) (*betapb.IapBetaIdentityAwareProxyClient, error) {
-	cl, err := createConfigIdentityAwareProxyClient(ctx, request.ServiceAccountFile)
+	cl, err := createConfigIdentityAwareProxyClient(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -73,7 +72,7 @@ func (s *IdentityAwareProxyClientServer) ApplyIapBetaIdentityAwareProxyClient(ct
 // DeleteIdentityAwareProxyClient handles the gRPC request by passing it to the underlying IdentityAwareProxyClient Delete() method.
 func (s *IdentityAwareProxyClientServer) DeleteIapBetaIdentityAwareProxyClient(ctx context.Context, request *betapb.DeleteIapBetaIdentityAwareProxyClientRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigIdentityAwareProxyClient(ctx, request.ServiceAccountFile)
+	cl, err := createConfigIdentityAwareProxyClient(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -83,12 +82,12 @@ func (s *IdentityAwareProxyClientServer) DeleteIapBetaIdentityAwareProxyClient(c
 
 // ListIapBetaIdentityAwareProxyClient handles the gRPC request by passing it to the underlying IdentityAwareProxyClientList() method.
 func (s *IdentityAwareProxyClientServer) ListIapBetaIdentityAwareProxyClient(ctx context.Context, request *betapb.ListIapBetaIdentityAwareProxyClientRequest) (*betapb.ListIapBetaIdentityAwareProxyClientResponse, error) {
-	cl, err := createConfigIdentityAwareProxyClient(ctx, request.ServiceAccountFile)
+	cl, err := createConfigIdentityAwareProxyClient(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListIdentityAwareProxyClient(ctx, request.Project, request.Brand)
+	resources, err := cl.ListIdentityAwareProxyClient(ctx, request.GetProject(), request.GetBrand())
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +96,9 @@ func (s *IdentityAwareProxyClientServer) ListIapBetaIdentityAwareProxyClient(ctx
 		rp := IdentityAwareProxyClientToProto(r)
 		protos = append(protos, rp)
 	}
-	return &betapb.ListIapBetaIdentityAwareProxyClientResponse{Items: protos}, nil
+	p := &betapb.ListIapBetaIdentityAwareProxyClientResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigIdentityAwareProxyClient(ctx context.Context, service_account_file string) (*beta.Client, error) {

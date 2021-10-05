@@ -61,37 +61,37 @@ func ProtoToAssuredworkloadsAlphaWorkloadResourceSettingsResourceTypeEnum(e alph
 	return nil
 }
 
-// ProtoToWorkloadResources converts a WorkloadResources resource from its proto representation.
+// ProtoToWorkloadResources converts a WorkloadResources object from its proto representation.
 func ProtoToAssuredworkloadsAlphaWorkloadResources(p *alphapb.AssuredworkloadsAlphaWorkloadResources) *alpha.WorkloadResources {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.WorkloadResources{
-		ResourceId:   dcl.Int64OrNil(p.ResourceId),
+		ResourceId:   dcl.Int64OrNil(p.GetResourceId()),
 		ResourceType: ProtoToAssuredworkloadsAlphaWorkloadResourcesResourceTypeEnum(p.GetResourceType()),
 	}
 	return obj
 }
 
-// ProtoToWorkloadKmsSettings converts a WorkloadKmsSettings resource from its proto representation.
+// ProtoToWorkloadKmsSettings converts a WorkloadKmsSettings object from its proto representation.
 func ProtoToAssuredworkloadsAlphaWorkloadKmsSettings(p *alphapb.AssuredworkloadsAlphaWorkloadKmsSettings) *alpha.WorkloadKmsSettings {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.WorkloadKmsSettings{
 		NextRotationTime: dcl.StringOrNil(p.GetNextRotationTime()),
-		RotationPeriod:   dcl.StringOrNil(p.RotationPeriod),
+		RotationPeriod:   dcl.StringOrNil(p.GetRotationPeriod()),
 	}
 	return obj
 }
 
-// ProtoToWorkloadResourceSettings converts a WorkloadResourceSettings resource from its proto representation.
+// ProtoToWorkloadResourceSettings converts a WorkloadResourceSettings object from its proto representation.
 func ProtoToAssuredworkloadsAlphaWorkloadResourceSettings(p *alphapb.AssuredworkloadsAlphaWorkloadResourceSettings) *alpha.WorkloadResourceSettings {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.WorkloadResourceSettings{
-		ResourceId:   dcl.StringOrNil(p.ResourceId),
+		ResourceId:   dcl.StringOrNil(p.GetResourceId()),
 		ResourceType: ProtoToAssuredworkloadsAlphaWorkloadResourceSettingsResourceTypeEnum(p.GetResourceType()),
 	}
 	return obj
@@ -100,15 +100,15 @@ func ProtoToAssuredworkloadsAlphaWorkloadResourceSettings(p *alphapb.Assuredwork
 // ProtoToWorkload converts a Workload resource from its proto representation.
 func ProtoToWorkload(p *alphapb.AssuredworkloadsAlphaWorkload) *alpha.Workload {
 	obj := &alpha.Workload{
-		Name:                       dcl.StringOrNil(p.Name),
-		DisplayName:                dcl.StringOrNil(p.DisplayName),
+		Name:                       dcl.StringOrNil(p.GetName()),
+		DisplayName:                dcl.StringOrNil(p.GetDisplayName()),
 		ComplianceRegime:           ProtoToAssuredworkloadsAlphaWorkloadComplianceRegimeEnum(p.GetComplianceRegime()),
 		CreateTime:                 dcl.StringOrNil(p.GetCreateTime()),
-		BillingAccount:             dcl.StringOrNil(p.BillingAccount),
-		ProvisionedResourcesParent: dcl.StringOrNil(p.ProvisionedResourcesParent),
+		BillingAccount:             dcl.StringOrNil(p.GetBillingAccount()),
+		ProvisionedResourcesParent: dcl.StringOrNil(p.GetProvisionedResourcesParent()),
 		KmsSettings:                ProtoToAssuredworkloadsAlphaWorkloadKmsSettings(p.GetKmsSettings()),
-		Organization:               dcl.StringOrNil(p.Organization),
-		Location:                   dcl.StringOrNil(p.Location),
+		Organization:               dcl.StringOrNil(p.GetOrganization()),
+		Location:                   dcl.StringOrNil(p.GetLocation()),
 	}
 	for _, r := range p.GetResources() {
 		obj.Resources = append(obj.Resources, *ProtoToAssuredworkloadsAlphaWorkloadResources(r))
@@ -152,66 +152,71 @@ func AssuredworkloadsAlphaWorkloadResourceSettingsResourceTypeEnumToProto(e *alp
 	return alphapb.AssuredworkloadsAlphaWorkloadResourceSettingsResourceTypeEnum(0)
 }
 
-// WorkloadResourcesToProto converts a WorkloadResources resource to its proto representation.
+// WorkloadResourcesToProto converts a WorkloadResources object to its proto representation.
 func AssuredworkloadsAlphaWorkloadResourcesToProto(o *alpha.WorkloadResources) *alphapb.AssuredworkloadsAlphaWorkloadResources {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.AssuredworkloadsAlphaWorkloadResources{
-		ResourceId:   dcl.ValueOrEmptyInt64(o.ResourceId),
-		ResourceType: AssuredworkloadsAlphaWorkloadResourcesResourceTypeEnumToProto(o.ResourceType),
-	}
+	p := &alphapb.AssuredworkloadsAlphaWorkloadResources{}
+	p.SetResourceId(dcl.ValueOrEmptyInt64(o.ResourceId))
+	p.SetResourceType(AssuredworkloadsAlphaWorkloadResourcesResourceTypeEnumToProto(o.ResourceType))
 	return p
 }
 
-// WorkloadKmsSettingsToProto converts a WorkloadKmsSettings resource to its proto representation.
+// WorkloadKmsSettingsToProto converts a WorkloadKmsSettings object to its proto representation.
 func AssuredworkloadsAlphaWorkloadKmsSettingsToProto(o *alpha.WorkloadKmsSettings) *alphapb.AssuredworkloadsAlphaWorkloadKmsSettings {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.AssuredworkloadsAlphaWorkloadKmsSettings{
-		NextRotationTime: dcl.ValueOrEmptyString(o.NextRotationTime),
-		RotationPeriod:   dcl.ValueOrEmptyString(o.RotationPeriod),
-	}
+	p := &alphapb.AssuredworkloadsAlphaWorkloadKmsSettings{}
+	p.SetNextRotationTime(dcl.ValueOrEmptyString(o.NextRotationTime))
+	p.SetRotationPeriod(dcl.ValueOrEmptyString(o.RotationPeriod))
 	return p
 }
 
-// WorkloadResourceSettingsToProto converts a WorkloadResourceSettings resource to its proto representation.
+// WorkloadResourceSettingsToProto converts a WorkloadResourceSettings object to its proto representation.
 func AssuredworkloadsAlphaWorkloadResourceSettingsToProto(o *alpha.WorkloadResourceSettings) *alphapb.AssuredworkloadsAlphaWorkloadResourceSettings {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.AssuredworkloadsAlphaWorkloadResourceSettings{
-		ResourceId:   dcl.ValueOrEmptyString(o.ResourceId),
-		ResourceType: AssuredworkloadsAlphaWorkloadResourceSettingsResourceTypeEnumToProto(o.ResourceType),
-	}
+	p := &alphapb.AssuredworkloadsAlphaWorkloadResourceSettings{}
+	p.SetResourceId(dcl.ValueOrEmptyString(o.ResourceId))
+	p.SetResourceType(AssuredworkloadsAlphaWorkloadResourceSettingsResourceTypeEnumToProto(o.ResourceType))
 	return p
 }
 
 // WorkloadToProto converts a Workload resource to its proto representation.
 func WorkloadToProto(resource *alpha.Workload) *alphapb.AssuredworkloadsAlphaWorkload {
-	p := &alphapb.AssuredworkloadsAlphaWorkload{
-		Name:                       dcl.ValueOrEmptyString(resource.Name),
-		DisplayName:                dcl.ValueOrEmptyString(resource.DisplayName),
-		ComplianceRegime:           AssuredworkloadsAlphaWorkloadComplianceRegimeEnumToProto(resource.ComplianceRegime),
-		CreateTime:                 dcl.ValueOrEmptyString(resource.CreateTime),
-		BillingAccount:             dcl.ValueOrEmptyString(resource.BillingAccount),
-		ProvisionedResourcesParent: dcl.ValueOrEmptyString(resource.ProvisionedResourcesParent),
-		KmsSettings:                AssuredworkloadsAlphaWorkloadKmsSettingsToProto(resource.KmsSettings),
-		Organization:               dcl.ValueOrEmptyString(resource.Organization),
-		Location:                   dcl.ValueOrEmptyString(resource.Location),
+	p := &alphapb.AssuredworkloadsAlphaWorkload{}
+	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
+	p.SetComplianceRegime(AssuredworkloadsAlphaWorkloadComplianceRegimeEnumToProto(resource.ComplianceRegime))
+	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetBillingAccount(dcl.ValueOrEmptyString(resource.BillingAccount))
+	p.SetProvisionedResourcesParent(dcl.ValueOrEmptyString(resource.ProvisionedResourcesParent))
+	p.SetKmsSettings(AssuredworkloadsAlphaWorkloadKmsSettingsToProto(resource.KmsSettings))
+	p.SetOrganization(dcl.ValueOrEmptyString(resource.Organization))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	sResources := make([]*alphapb.AssuredworkloadsAlphaWorkloadResources, len(resource.Resources))
+	for i, r := range resource.Resources {
+		sResources[i] = AssuredworkloadsAlphaWorkloadResourcesToProto(&r)
 	}
-	for _, r := range resource.Resources {
-		p.Resources = append(p.Resources, AssuredworkloadsAlphaWorkloadResourcesToProto(&r))
+	p.SetResources(sResources)
+	mLabels := make(map[string]string, len(resource.Labels))
+	for k, r := range resource.Labels {
+		mLabels[k] = r
 	}
-	for _, r := range resource.ResourceSettings {
-		p.ResourceSettings = append(p.ResourceSettings, AssuredworkloadsAlphaWorkloadResourceSettingsToProto(&r))
+	p.SetLabels(mLabels)
+	sResourceSettings := make([]*alphapb.AssuredworkloadsAlphaWorkloadResourceSettings, len(resource.ResourceSettings))
+	for i, r := range resource.ResourceSettings {
+		sResourceSettings[i] = AssuredworkloadsAlphaWorkloadResourceSettingsToProto(&r)
 	}
+	p.SetResourceSettings(sResourceSettings)
 
 	return p
 }
 
-// ApplyWorkload handles the gRPC request by passing it to the underlying Workload Apply() method.
+// applyWorkload handles the gRPC request by passing it to the underlying Workload Apply() method.
 func (s *WorkloadServer) applyWorkload(ctx context.Context, c *alpha.Client, request *alphapb.ApplyAssuredworkloadsAlphaWorkloadRequest) (*alphapb.AssuredworkloadsAlphaWorkload, error) {
 	p := ProtoToWorkload(request.GetResource())
 	res, err := c.ApplyWorkload(ctx, p)
@@ -222,9 +227,9 @@ func (s *WorkloadServer) applyWorkload(ctx context.Context, c *alpha.Client, req
 	return r, nil
 }
 
-// ApplyWorkload handles the gRPC request by passing it to the underlying Workload Apply() method.
+// applyAssuredworkloadsAlphaWorkload handles the gRPC request by passing it to the underlying Workload Apply() method.
 func (s *WorkloadServer) ApplyAssuredworkloadsAlphaWorkload(ctx context.Context, request *alphapb.ApplyAssuredworkloadsAlphaWorkloadRequest) (*alphapb.AssuredworkloadsAlphaWorkload, error) {
-	cl, err := createConfigWorkload(ctx, request.ServiceAccountFile)
+	cl, err := createConfigWorkload(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -234,7 +239,7 @@ func (s *WorkloadServer) ApplyAssuredworkloadsAlphaWorkload(ctx context.Context,
 // DeleteWorkload handles the gRPC request by passing it to the underlying Workload Delete() method.
 func (s *WorkloadServer) DeleteAssuredworkloadsAlphaWorkload(ctx context.Context, request *alphapb.DeleteAssuredworkloadsAlphaWorkloadRequest) (*emptypb.Empty, error) {
 
-	cl, err := createConfigWorkload(ctx, request.ServiceAccountFile)
+	cl, err := createConfigWorkload(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
@@ -244,12 +249,12 @@ func (s *WorkloadServer) DeleteAssuredworkloadsAlphaWorkload(ctx context.Context
 
 // ListAssuredworkloadsAlphaWorkload handles the gRPC request by passing it to the underlying WorkloadList() method.
 func (s *WorkloadServer) ListAssuredworkloadsAlphaWorkload(ctx context.Context, request *alphapb.ListAssuredworkloadsAlphaWorkloadRequest) (*alphapb.ListAssuredworkloadsAlphaWorkloadResponse, error) {
-	cl, err := createConfigWorkload(ctx, request.ServiceAccountFile)
+	cl, err := createConfigWorkload(ctx, request.GetServiceAccountFile())
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListWorkload(ctx, request.Organization, request.Location)
+	resources, err := cl.ListWorkload(ctx, request.GetOrganization(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
@@ -258,7 +263,9 @@ func (s *WorkloadServer) ListAssuredworkloadsAlphaWorkload(ctx context.Context, 
 		rp := WorkloadToProto(r)
 		protos = append(protos, rp)
 	}
-	return &alphapb.ListAssuredworkloadsAlphaWorkloadResponse{Items: protos}, nil
+	p := &alphapb.ListAssuredworkloadsAlphaWorkloadResponse{}
+	p.SetItems(protos)
+	return p, nil
 }
 
 func createConfigWorkload(ctx context.Context, service_account_file string) (*alpha.Client, error) {
