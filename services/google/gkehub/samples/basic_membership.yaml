@@ -28,10 +28,10 @@ updates:
   dependencies:
   - samples/update_first.container.cluster.json
 variables:
-- name: id
-  type: resource_name
 - name: org_id
   type: org_id
+- name: id
+  type: resource_name
 - name: billing_account
   type: billing_account
 - name: cluster1

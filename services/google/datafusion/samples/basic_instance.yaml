@@ -28,10 +28,10 @@ updates:
   - samples/basic.cloudresourcemanager.project.json
   - samples/basic.compute.network.json
 variables:
-- name: df
-  type: resource_name
 - name: org_id
   type: org_id
+- name: df
+  type: resource_name
 - name: datafusion_network
   type: resource_name
 - name: project

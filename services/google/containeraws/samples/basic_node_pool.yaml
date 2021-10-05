@@ -22,44 +22,52 @@ dependencies:
 variables:
 - name: aws_vpc
   type: aws_vpc
-- name: test_service_account
-  type: test_service_account
 - name: aws_region
   type: aws_region
 - name: aws_account_id
   type: aws_account_id
 - name: aws_volume_encryption_key
   type: aws_volume_encryption_key
+- name: aws_account_id
+  type: aws_account_id
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
+- name: aws_subnet
+  type: aws_subnet
+- name: test_service_account
+  type: test_service_account
+- name: aws_security_group
+  type: aws_security_group
 - name: aws_region
   type: aws_region
 - name: aws_account_id
   type: aws_account_id
 - name: aws_database_encryption_key
   type: aws_database_encryption_key
-- name: aws_account_id
-  type: aws_account_id
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
 - name: cluster
   type: resource_name
 - name: aws_region
   type: aws_region
-- name: aws_subnet
-  type: aws_subnet
+- name: test_service_account
+  type: test_service_account
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
 - name: aws_region
   type: aws_region
 - name: aws_account_id
   type: aws_account_id
-- name: test_service_account
-  type: test_service_account
+- name: aws_volume_encryption_key
+  type: aws_volume_encryption_key
 - name: aws_subnet
   type: aws_subnet
-- name: aws_security_group
-  type: aws_security_group
-- name: test_service_account
-  type: test_service_account
 - name: project
   type: project
+- name: aws_subnet
+  type: aws_subnet
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
 - name: aws_security_group
   type: aws_security_group
 - name: aws_region
@@ -72,5 +80,3 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: aws_subnet
-  type: aws_subnet
