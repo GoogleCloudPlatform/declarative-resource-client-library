@@ -24,37 +24,23 @@ dependencies:
 - samples/private.subnetwork.json
 - samples/basic.network.json
 variables:
-- name: project
-  type: project
 - name: compute_network
   type: resource_name
-- name: service
-  type: resource_name
 - name: project
   type: project
-- name: region
-  type: region
-- name: compute_psc_subnetwork1
-  type: resource_name
-- name: project
-  type: project
-- name: region
-  type: region
 - name: compute_private_subnetwork
   type: resource_name
-- name: project
-  type: project
 - name: region
   type: region
+- name: project
+  type: project
+- name: service
+  type: resource_name
+- name: compute_psc_subnetwork1
+  type: resource_name
 - name: rule1
   type: resource_name
-- name: project
-  type: project
-- name: region
-  type: region
 - name: attachment
   type: resource_name
 - name: project
   type: project
-- name: region
-  type: region

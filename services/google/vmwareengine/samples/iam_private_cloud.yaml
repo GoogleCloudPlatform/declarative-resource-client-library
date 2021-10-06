@@ -20,8 +20,6 @@ resource: samples/vmwareengine_viewer.iam.binding.json
 dependencies:
 - samples/basic.private_cloud.json
 variables:
-- name: project
-  type: project
 - name: management
   type: resource_name
 - name: cloud

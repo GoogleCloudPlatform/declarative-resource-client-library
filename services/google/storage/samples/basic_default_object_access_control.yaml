@@ -24,11 +24,9 @@ updates:
   dependencies:
   - samples/basic.bucket.json
 variables:
-- name: project
-  type: project
 - name: bucket
   type: resource_name
-- name: project_number
-  type: project_number
 - name: project
   type: project
+- name: project_number
+  type: project_number
