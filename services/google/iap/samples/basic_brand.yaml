@@ -24,9 +24,9 @@ variables:
   type: org_id
 - name: brand
   type: resource_name
+- name: application
+  type: resource_name
 - name: test_service_account
   type: test_service_account
 - name: project
   type: project
-- name: application
-  type: resource_name

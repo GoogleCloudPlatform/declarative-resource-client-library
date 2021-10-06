@@ -37,7 +37,7 @@ variables:
   type: region
 - name: range
   type: resource_name
-- name: instance2
-  type: resource_name
 - name: zone
   type: zone
+- name: instance2
+  type: resource_name

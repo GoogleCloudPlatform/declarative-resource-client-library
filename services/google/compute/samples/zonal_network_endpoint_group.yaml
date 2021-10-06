@@ -34,6 +34,10 @@ variables:
   type: zone
 - name: group
   type: resource_name
+- name: zone
+  type: zone
+- name: zone
+  type: zone
 - name: instance1
   type: resource_name
 - name: range
@@ -44,5 +48,3 @@ variables:
   type: project
 - name: zone
   type: zone
-- name: project
-  type: project
