@@ -35,9 +35,9 @@ variables:
   type: project
 - name: project
   type: project
-- name: name
-  type: resource_name
-- name: project
-  type: project
 - name: service_account
   type: service_account
+- name: project
+  type: project
+- name: name
+  type: resource_name
