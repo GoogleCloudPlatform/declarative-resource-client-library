@@ -33,7 +33,7 @@ variables:
   type: project
 - name: zone
   type: zone
-- name: project
-  type: project
 - name: region
   type: region
+- name: project
+  type: project

@@ -24,8 +24,6 @@ updates:
   dependencies:
   - samples/basic.http_health_check.json
 variables:
-- name: project
-  type: project
 - name: check
   type: resource_name
 - name: project

@@ -23,10 +23,10 @@ dependencies:
 variables:
 - name: project
   type: project
-- name: region
-  type: region
 - name: function
   type: resource_name
+- name: region
+  type: region
 - name: group
   type: resource_name
 - name: project
