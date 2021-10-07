@@ -21,7 +21,7 @@ resource: samples/enforce.policy.json
 dependencies:
 - samples/basic.cloudresourcemanager.project.json
 variables:
-- name: org_id
-  type: org_id
 - name: id
   type: resource_name
+- name: org_id
+  type: org_id

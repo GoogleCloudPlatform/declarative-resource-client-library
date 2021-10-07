@@ -36,10 +36,10 @@ variables:
   type: region
 - name: project
   type: project
-- name: rule1
-  type: resource_name
 - name: region
   type: region
+- name: rule1
+  type: resource_name
 - name: mirroring
   type: resource_name
 - name: region
