@@ -32,8 +32,6 @@ variables:
   type: region
 - name: range
   type: resource_name
-- name: region
-  type: region
 - name: project
   type: project
 - name: template_name

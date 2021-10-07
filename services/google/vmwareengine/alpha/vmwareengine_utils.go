@@ -34,3 +34,23 @@ func (op *updatePrivateCloudUpdateClusterOperation) UpdateMask() string {
 	}
 	return dcl.UpdateMask(op.FieldDiffs)
 }
+
+// Compare two private cloud network field values by only considering the networks' short names and
+// not their partial urls.
+func canonicalizePrivateCloudNetwork(n, m interface{}) bool {
+	mVal, ok := m.(*string)
+	if !ok {
+		return false
+	}
+	nVal, ok := n.(*string)
+	if !ok {
+		return false
+	}
+	if mVal == nil && nVal == nil {
+		return true
+	}
+	if mVal == nil || nVal == nil {
+		return false
+	}
+	return dcl.ValueOrEmptyString(dcl.SelfLinkToName(mVal)) == dcl.ValueOrEmptyString(dcl.SelfLinkToName(nVal))
+}

@@ -718,7 +718,7 @@ func canonicalizePrivateCloudNetworkConfig(des, initial *PrivateCloudNetworkConf
 
 	cDes := &PrivateCloudNetworkConfig{}
 
-	if dcl.NameToSelfLink(des.Network, initial.Network) || dcl.IsZeroValue(des.Network) {
+	if canonicalizePrivateCloudNetwork(des.Network, initial.Network) || dcl.IsZeroValue(des.Network) {
 		cDes.Network = initial.Network
 	} else {
 		cDes.Network = des.Network
@@ -774,7 +774,7 @@ func canonicalizeNewPrivateCloudNetworkConfig(c *Client, des, nw *PrivateCloudNe
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.Network, nw.Network) {
+	if canonicalizePrivateCloudNetwork(des.Network, nw.Network) {
 		nw.Network = des.Network
 	}
 	if dcl.StringCanonicalize(des.ServiceNetwork, nw.ServiceNetwork) {
@@ -1636,7 +1636,7 @@ func comparePrivateCloudNetworkConfigNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType", CustomDiff: canonicalizePrivateCloudNetwork, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

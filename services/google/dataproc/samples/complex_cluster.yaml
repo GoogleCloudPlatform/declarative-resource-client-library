@@ -19,11 +19,11 @@ versions:
 - beta
 resource: samples/complex.cluster.json
 variables:
-- name: project
-  type: project
-- name: zone
-  type: zone
 - name: cluster_name
   type: resource_name
 - name: region
   type: region
+- name: project
+  type: project
+- name: zone
+  type: zone
