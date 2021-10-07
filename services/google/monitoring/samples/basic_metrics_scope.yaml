@@ -15,7 +15,6 @@ name: basic_metrics_scope
 description: A basic example of a monitoring metrics scope
 type: metrics_scope
 versions:
-- ga
 - beta
 resource: samples/basic.metrics_scope.json
 variables:

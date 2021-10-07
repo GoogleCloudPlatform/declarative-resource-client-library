@@ -20,16 +20,18 @@ resource: samples/minimal.node_pool.json
 dependencies:
 - samples/minimal.cluster.json
 variables:
-- name: project
-  type: project
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
 - name: aws_region
   type: aws_region
 - name: aws_account_id
   type: aws_account_id
 - name: aws_database_encryption_key
   type: aws_database_encryption_key
+- name: project
+  type: project
+- name: aws_vpc
+  type: aws_vpc
+- name: aws_region
+  type: aws_region
 - name: aws_account_id
   type: aws_account_id
 - name: byo_multicloud_prefix
@@ -40,16 +42,10 @@ variables:
   type: resource_name
 - name: aws_subnet
   type: aws_subnet
-- name: aws_vpc
-  type: aws_vpc
-- name: aws_region
-  type: aws_region
 - name: aws_subnet
   type: aws_subnet
 - name: pool
   type: resource_name
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
 - name: project
   type: project
 - name: aws_subnet

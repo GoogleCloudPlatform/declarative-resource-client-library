@@ -36,6 +36,10 @@ variables:
   type: project
 - name: template1
   type: resource_name
+- name: project
+  type: project
+- name: zone
+  type: zone
 - name: instance_group_manager
   type: resource_name
 - name: project
@@ -44,7 +48,3 @@ variables:
   type: zone
 - name: autoscaler
   type: resource_name
-- name: project
-  type: project
-- name: zone
-  type: zone

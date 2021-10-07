@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="monitoring/beta", resources=["dashboard","group","metric_descriptor","metrics_scope","monitored_project","uptime_check_config"])
+connector(name="monitoring/beta", resources=["dashboard","group","metric_descriptor","uptime_check_config","metrics_scope","monitored_project"])
