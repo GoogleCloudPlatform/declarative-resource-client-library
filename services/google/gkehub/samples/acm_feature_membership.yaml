@@ -51,9 +51,9 @@ variables:
   type: org_id
 - name: billing_account
   type: billing_account
-- name: id1
-  type: resource_name
 - name: id2
+  type: resource_name
+- name: id1
   type: resource_name
 - name: cluster1
   type: resource_name

@@ -26,8 +26,6 @@ updates:
   - samples/basic.attestor.json
   - samples/basic.containeranalysis.note.json
 variables:
-- name: project
-  type: project
 - name: package
   type: resource_name
 - name: note
@@ -36,7 +34,3 @@ variables:
   type: project
 - name: attestor
   type: resource_name
-- name: project
-  type: project
-- name: project
-  type: project

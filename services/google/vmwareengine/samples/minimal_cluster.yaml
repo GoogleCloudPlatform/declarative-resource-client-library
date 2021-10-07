@@ -30,9 +30,9 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: cluster
-  type: resource_name
 - name: project
   type: project
 - name: zone
   type: zone
+- name: cluster
+  type: resource_name

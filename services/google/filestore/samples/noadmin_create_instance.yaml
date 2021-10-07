@@ -23,6 +23,8 @@ updates:
 - resource: samples/update.instance.json
   dependencies: []
 variables:
+- name: instance_name
+  type: resource_name
 - name: project
   type: project
 - name: zone
@@ -31,5 +33,3 @@ variables:
   type: random_int
 - name: random_int
   type: random_int
-- name: instance_name
-  type: resource_name

@@ -24,10 +24,10 @@ dependencies:
 - samples/basic.cloudbilling.project_billing_info.json
 - samples/basic.cloudresourcemanager.project.json
 variables:
-- name: org_id
-  type: org_id
 - name: id
   type: resource_name
+- name: org_id
+  type: org_id
 - name: test_service_account
   type: test_service_account
 - name: billing_account
