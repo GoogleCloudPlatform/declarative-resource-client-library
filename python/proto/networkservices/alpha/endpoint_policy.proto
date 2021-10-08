@@ -20,6 +20,7 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+
 enum NetworkservicesAlphaEndpointPolicyTypeEnum {
   NetworkservicesAlphaEndpointPolicyTypeEnumNO_VALUE_DO_NOT_USE = 0;
   NetworkservicesAlphaEndpointPolicyTypeEnumENDPOINT_CONFIG_SELECTOR_TYPE_UNSPECIFIED = 1;

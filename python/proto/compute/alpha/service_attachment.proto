@@ -20,6 +20,7 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+
 enum ComputeAlphaServiceAttachmentConnectionPreferenceEnum {
   ComputeAlphaServiceAttachmentConnectionPreferenceEnumNO_VALUE_DO_NOT_USE = 0;
   ComputeAlphaServiceAttachmentConnectionPreferenceEnumCONNECTION_PREFERENCE_UNSPECIFIED = 1;

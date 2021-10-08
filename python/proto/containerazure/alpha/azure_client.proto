@@ -20,6 +20,7 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+
 message ContainerazureAlphaAzureClient {
   string name = 1;
   string tenant_id = 2;

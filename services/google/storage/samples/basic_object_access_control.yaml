@@ -34,7 +34,7 @@ variables:
   type: resource_name
 - name: object
   type: resource_name
-- name: project_number
-  type: project_number
 - name: project
   type: project
+- name: project_number
+  type: project_number

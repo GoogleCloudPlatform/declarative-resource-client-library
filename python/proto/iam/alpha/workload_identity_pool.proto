@@ -20,6 +20,7 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+
 enum IamAlphaWorkloadIdentityPoolStateEnum {
   IamAlphaWorkloadIdentityPoolStateEnumNO_VALUE_DO_NOT_USE = 0;
   IamAlphaWorkloadIdentityPoolStateEnumSTATE_UNSPECIFIED = 1;

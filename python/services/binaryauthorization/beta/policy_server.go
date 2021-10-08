@@ -16,7 +16,6 @@ package server
 import (
 	"context"
 	"errors"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	betapb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/binaryauthorization/beta/binaryauthorization_beta_go_proto"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"

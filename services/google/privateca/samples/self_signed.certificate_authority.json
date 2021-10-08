@@ -2,7 +2,7 @@
   "name": "{{authority}}",
   "project": "{{project}}",
   "location": "{{region}}",
-  "caPool": "projects/{{project}}/locations/{{region}}/caPools/{{ref:devops.ca_pool.json:name}}",
+  "caPool": "no-delete-test",
   "type": "SELF_SIGNED",
   "config": {
     "subjectConfig": {

@@ -20,6 +20,7 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+
 message IdentitytoolkitBetaOAuthIdpConfig {
   string name = 1;
   string client_id = 2;

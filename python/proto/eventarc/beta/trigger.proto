@@ -20,6 +20,7 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+
 message EventarcBetaTrigger {
   string name = 1;
   string uid = 2;

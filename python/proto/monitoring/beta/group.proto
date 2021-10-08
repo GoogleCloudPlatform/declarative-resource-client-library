@@ -20,6 +20,7 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+
 message MonitoringBetaGroup {
   string display_name = 1;
   string filter = 2;

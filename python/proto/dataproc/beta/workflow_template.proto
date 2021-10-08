@@ -19,6 +19,7 @@ package dcl;
 
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
+
 import "cloud/graphite/mmv2/services/google/dataproc/beta/cluster.proto";
 
 message DataprocBetaWorkflowTemplate {

@@ -20,6 +20,7 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+
 enum BigqueryreservationBetaAssignmentJobTypeEnum {
   BigqueryreservationBetaAssignmentJobTypeEnumNO_VALUE_DO_NOT_USE = 0;
   BigqueryreservationBetaAssignmentJobTypeEnumJOB_TYPE_UNSPECIFIED = 1;

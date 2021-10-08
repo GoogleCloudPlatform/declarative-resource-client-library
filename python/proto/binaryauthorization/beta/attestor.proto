@@ -20,6 +20,7 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+
 enum BinaryauthorizationBetaAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum {
   BinaryauthorizationBetaAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumNO_VALUE_DO_NOT_USE = 0;
   BinaryauthorizationBetaAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumSIGNATURE_ALGORITHM_UNSPECIFIED = 1;

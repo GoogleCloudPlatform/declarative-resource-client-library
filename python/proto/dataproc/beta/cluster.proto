@@ -20,6 +20,7 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+
 enum DataprocBetaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum {
   DataprocBetaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumNO_VALUE_DO_NOT_USE = 0;
   DataprocBetaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumPRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED = 1;

@@ -26,12 +26,12 @@ variables:
   type: azure_subscription
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
 - name: project
   type: project
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
 - name: cluster

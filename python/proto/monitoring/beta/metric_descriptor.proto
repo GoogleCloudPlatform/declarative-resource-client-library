@@ -20,6 +20,7 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+
 enum MonitoringBetaMetricDescriptorLabelsValueTypeEnum {
   MonitoringBetaMetricDescriptorLabelsValueTypeEnumNO_VALUE_DO_NOT_USE = 0;
   MonitoringBetaMetricDescriptorLabelsValueTypeEnumSTRING = 1;

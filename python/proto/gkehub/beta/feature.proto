@@ -20,6 +20,7 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+
 enum GkehubBetaFeatureResourceStateStateEnum {
   GkehubBetaFeatureResourceStateStateEnumNO_VALUE_DO_NOT_USE = 0;
   GkehubBetaFeatureResourceStateStateEnumSTATE_UNSPECIFIED = 1;

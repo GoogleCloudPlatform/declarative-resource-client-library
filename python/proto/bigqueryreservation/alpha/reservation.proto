@@ -20,6 +20,7 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+
 message BigqueryreservationAlphaReservation {
   string name = 1;
   int64 slot_capacity = 2;

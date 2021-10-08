@@ -15,7 +15,6 @@ package server
 
 import (
 	"context"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	containeranalysispb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/containeranalysis/containeranalysis_go_proto"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"

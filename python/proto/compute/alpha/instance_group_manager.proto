@@ -20,6 +20,7 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+
 enum ComputeAlphaInstanceGroupManagerDistributionPolicyTargetShapeEnum {
   ComputeAlphaInstanceGroupManagerDistributionPolicyTargetShapeEnumNO_VALUE_DO_NOT_USE = 0;
   ComputeAlphaInstanceGroupManagerDistributionPolicyTargetShapeEnumTARGET_SHAPE_UNSPECIFIED = 1;

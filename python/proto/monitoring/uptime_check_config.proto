@@ -20,6 +20,7 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+
 enum MonitoringUptimeCheckConfigResourceGroupResourceTypeEnum {
   MonitoringUptimeCheckConfigResourceGroupResourceTypeEnumNO_VALUE_DO_NOT_USE = 0;
   MonitoringUptimeCheckConfigResourceGroupResourceTypeEnumRESOURCE_TYPE_UNSPECIFIED = 1;

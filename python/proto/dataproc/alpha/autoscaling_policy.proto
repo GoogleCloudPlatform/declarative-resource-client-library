@@ -20,6 +20,7 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+
 message DataprocAlphaAutoscalingPolicy {
   string name = 1;
   DataprocAlphaAutoscalingPolicyBasicAlgorithm basic_algorithm = 2;

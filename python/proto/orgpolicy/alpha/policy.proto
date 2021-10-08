@@ -20,6 +20,7 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+
 message OrgpolicyAlphaPolicy {
   string name = 1;
   OrgpolicyAlphaPolicySpec spec = 2;

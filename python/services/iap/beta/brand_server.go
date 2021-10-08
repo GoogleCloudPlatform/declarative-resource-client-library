@@ -16,7 +16,6 @@ package server
 import (
 	"context"
 	"errors"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
 	betapb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/iap/beta/iap_beta_go_proto"

@@ -163,6 +163,20 @@ func FlattenKeyValuePairs(v interface{}) map[string]string {
 	return assertStringMap(p)
 }
 
+// FlattenKeyValueInterface returns a pointer to an interface.
+// It can only be used for untyped maps.
+func FlattenKeyValueInterface(v interface{}) map[string]interface{} {
+	if v == nil {
+		return nil
+	}
+
+	if ss, ok := v.(map[string]interface{}); ok {
+		return ss
+	}
+
+	return map[string]interface{}{}
+}
+
 // Returns a map[string]string from a map[string]interface{}
 // Non-string values are skipped.
 func assertStringMap(mi map[string]interface{}) map[string]string {

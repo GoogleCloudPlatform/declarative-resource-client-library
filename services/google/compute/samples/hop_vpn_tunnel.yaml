@@ -49,10 +49,10 @@ variables:
   type: project
 - name: region
   type: region
-- name: router
-  type: resource_name
 - name: region
   type: region
+- name: router
+  type: resource_name
 - name: project
   type: project
 - name: project
@@ -65,20 +65,20 @@ variables:
   type: project
 - name: region
   type: region
-- name: udp_forwarding_rule_2
-  type: resource_name
-- name: project
-  type: project
-- name: region
-  type: region
 - name: forwarding_rule
   type: resource_name
+- name: region
+  type: region
+- name: project
+  type: project
+- name: udp_forwarding_rule_2
+  type: resource_name
+- name: tunnel
+  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
-- name: tunnel
-  type: resource_name
 - name: name
   type: resource_name
 - name: project

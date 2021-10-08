@@ -20,6 +20,7 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+
 enum CloudresourcemanagerBetaFolderStateEnum {
   CloudresourcemanagerBetaFolderStateEnumNO_VALUE_DO_NOT_USE = 0;
   CloudresourcemanagerBetaFolderStateEnumLIFECYCLE_STATE_UNSPECIFIED = 1;

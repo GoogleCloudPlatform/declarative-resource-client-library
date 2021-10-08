@@ -122,7 +122,6 @@ components:
           x-dcl-go-name: Description
           description: An optional description of this resource. Provide this property
             when you create the resource.
-          x-kubernetes-immutable: true
         diskSizeGb:
           type: integer
           format: int64
@@ -138,7 +137,6 @@ components:
             can create disks by specifying an image family instead of a specific image
             name. The image family always returns its latest image that is not deprecated.
             The name of the image family must comply with [RFC1035](https://www.ietf.org/rfc/rfc1035.txt).
-          x-kubernetes-immutable: true
         guestOSFeature:
           type: array
           x-dcl-go-name: GuestOSFeature
@@ -146,7 +144,6 @@ components:
             Applicable only for bootable images. Read [Enabling guest operating system
             features](/compute/docs/images/create-delete-deprecate-private-images#guest-os-features)
             to see a list of available options.
-          x-kubernetes-immutable: true
           x-dcl-server-default: true
           x-dcl-send-empty: true
           x-dcl-list-type: set
@@ -163,7 +160,6 @@ components:
                   to see a list of available options. Possible values: FEATURE_TYPE_UNSPECIFIED,
                   VIRTIO_SCSI_MULTIQUEUE, WINDOWS, MULTI_IP_SUBNET, UEFI_COMPATIBLE,
                   SECURE_BOOT, SEV_CAPABLE'
-                x-kubernetes-immutable: true
                 enum:
                 - FEATURE_TYPE_UNSPECIFIED
                 - VIRTIO_SCSI_MULTIQUEUE
@@ -183,35 +179,30 @@ components:
             of the disk. If you do not provide an encryption key when creating the
             image, then the disk will be encrypted using an automatically generated
             key and you do not need to provide a key to use the image later.
-          x-kubernetes-immutable: true
           properties:
             kmsKeyName:
               type: string
               x-dcl-go-name: KmsKeyName
               description: The name of the encryption key that is stored in Google
                 Cloud KMS.
-              x-kubernetes-immutable: true
             kmsKeyServiceAccount:
               type: string
               x-dcl-go-name: KmsKeyServiceAccount
               description: The service account being used for the encryption request
                 for the given KMS key. If absent, the Compute Engine default service
                 account is used.
-              x-kubernetes-immutable: true
             rawKey:
               type: string
               x-dcl-go-name: RawKey
               description: Specifies a 256-bit [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption),
                 encoded in [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
                 to either encrypt or decrypt this resource.
-              x-kubernetes-immutable: true
             sha256:
               type: string
               x-dcl-go-name: Sha256
               description: '[Output only] The [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
                 encoded SHA-256 hash of the [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption)
                 that protects this resource.'
-              x-kubernetes-immutable: true
         labels:
           type: object
           additionalProperties:
@@ -223,7 +214,6 @@ components:
           type: array
           x-dcl-go-name: License
           description: Any applicable license URI.
-          x-kubernetes-immutable: true
           x-dcl-server-default: true
           x-dcl-send-empty: true
           x-dcl-list-type: list
@@ -255,7 +245,6 @@ components:
           x-dcl-go-name: RawDisk
           x-dcl-go-type: ImageRawDisk
           description: The parameters of the raw disk image.
-          x-kubernetes-immutable: true
           x-dcl-mutable-unreadable: true
           properties:
             containerType:
@@ -266,7 +255,6 @@ components:
                 which should be `TAR`. This is just a container and transmission format
                 and not a runtime format. Provided by the client when the disk image
                 is created.
-              x-kubernetes-immutable: true
               default: TAR
               enum:
               - TAR
@@ -276,14 +264,12 @@ components:
               description: '[Deprecated] This field is deprecated. An optional SHA1
                 checksum of the disk image before unpackaging provided by the client
                 when the disk image is created.'
-              x-kubernetes-immutable: true
             source:
               type: string
               x-dcl-go-name: Source
               description: The full Google Cloud Storage URL where the disk image
                 is stored. You must provide either this property or the `sourceDisk`
                 property but not both.
-              x-kubernetes-immutable: true
         selfLink:
           type: string
           x-dcl-go-name: SelfLink
@@ -295,13 +281,11 @@ components:
           x-dcl-go-name: ShieldedInstanceInitialState
           x-dcl-go-type: ImageShieldedInstanceInitialState
           description: Set the secure boot keys of shielded instance.
-          x-kubernetes-immutable: true
           properties:
             db:
               type: array
               x-dcl-go-name: Db
               description: The Key Database (db).
-              x-kubernetes-immutable: true
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -312,14 +296,12 @@ components:
                     type: string
                     x-dcl-go-name: Content
                     description: The raw content in the secure keys file.
-                    x-kubernetes-immutable: true
                   fileType:
                     type: string
                     x-dcl-go-name: FileType
                     x-dcl-go-type: ImageShieldedInstanceInitialStateDbFileTypeEnum
                     description: 'The file type of source file. Possible values: UNDEFINED,
                       BIN, X509'
-                    x-kubernetes-immutable: true
                     enum:
                     - UNDEFINED
                     - BIN
@@ -328,7 +310,6 @@ components:
               type: array
               x-dcl-go-name: Dbx
               description: The forbidden key database (dbx).
-              x-kubernetes-immutable: true
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -339,14 +320,12 @@ components:
                     type: string
                     x-dcl-go-name: Content
                     description: The raw content in the secure keys file.
-                    x-kubernetes-immutable: true
                   fileType:
                     type: string
                     x-dcl-go-name: FileType
                     x-dcl-go-type: ImageShieldedInstanceInitialStateDbxFileTypeEnum
                     description: 'The file type of source file. Possible values: UNDEFINED,
                       BIN, X509'
-                    x-kubernetes-immutable: true
                     enum:
                     - UNDEFINED
                     - BIN
@@ -355,7 +334,6 @@ components:
               type: array
               x-dcl-go-name: Kek
               description: The Key Exchange Key (KEK).
-              x-kubernetes-immutable: true
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -366,14 +344,12 @@ components:
                     type: string
                     x-dcl-go-name: Content
                     description: The raw content in the secure keys file.
-                    x-kubernetes-immutable: true
                   fileType:
                     type: string
                     x-dcl-go-name: FileType
                     x-dcl-go-type: ImageShieldedInstanceInitialStateKekFileTypeEnum
                     description: 'The file type of source file. Possible values: UNDEFINED,
                       BIN, X509'
-                    x-kubernetes-immutable: true
                     enum:
                     - UNDEFINED
                     - BIN
@@ -383,20 +359,17 @@ components:
               x-dcl-go-name: Pk
               x-dcl-go-type: ImageShieldedInstanceInitialStatePk
               description: The Platform Key (PK).
-              x-kubernetes-immutable: true
               properties:
                 content:
                   type: string
                   x-dcl-go-name: Content
                   description: The raw content in the secure keys file.
-                  x-kubernetes-immutable: true
                 fileType:
                   type: string
                   x-dcl-go-name: FileType
                   x-dcl-go-type: ImageShieldedInstanceInitialStatePkFileTypeEnum
                   description: 'The file type of source file. Possible values: UNDEFINED,
                     BIN, X509'
-                  x-kubernetes-immutable: true
                   enum:
                   - UNDEFINED
                   - BIN
@@ -419,6 +392,7 @@ components:
             of the source disk. Required if the source disk is protected by a customer-supplied
             encryption key.
           x-kubernetes-immutable: true
+          x-dcl-mutable-unreadable: true
           properties:
             kmsKeyName:
               type: string
@@ -504,6 +478,7 @@ components:
         sourceImageId:
           type: string
           x-dcl-go-name: SourceImageId
+          readOnly: true
           description: '[Output Only] The ID value of the image used to create this
             image. This value may be used to determine whether the image was taken
             from the current or a previous instance of a given image name.'
@@ -559,6 +534,7 @@ components:
         sourceSnapshotId:
           type: string
           x-dcl-go-name: SourceSnapshotId
+          readOnly: true
           description: '[Output Only] The ID value of the snapshot used to create
             this image. This value may be used to determine whether the snapshot was
             taken from the current or a previous instance of a given snapshot name.'
