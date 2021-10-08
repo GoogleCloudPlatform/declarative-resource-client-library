@@ -38,7 +38,7 @@ variables:
   type: org_id
 - name: billing_account
   type: billing_account
-- name: instance
-  type: resource_name
 - name: project
   type: project
+- name: instance
+  type: resource_name

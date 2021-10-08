@@ -30,6 +30,8 @@ variables:
   type: resource_name
 - name: project
   type: project
+- name: group
+  type: resource_name
 - name: project
   type: project
 - name: project
@@ -38,8 +40,6 @@ variables:
   type: region
 - name: zone
   type: zone
-- name: group
-  type: resource_name
 - name: service
   type: resource_name
 - name: project
