@@ -23,11 +23,9 @@ dependencies:
 variables:
 - name: project
   type: project
-- name: function
-  type: resource_name
 - name: region
   type: region
+- name: function
+  type: resource_name
 - name: group
   type: resource_name
-- name: project
-  type: project

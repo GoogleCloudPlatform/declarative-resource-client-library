@@ -18,8 +18,6 @@ versions:
 - alpha
 resource: samples/minimal.private_cloud.json
 variables:
-- name: zone
-  type: zone
 - name: project
   type: project
 - name: management
@@ -28,3 +26,5 @@ variables:
   type: resource_name
 - name: project
   type: project
+- name: zone
+  type: zone

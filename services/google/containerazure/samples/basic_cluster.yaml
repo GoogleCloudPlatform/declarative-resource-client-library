@@ -26,15 +26,15 @@ variables:
   type: azure_database_encryption_key_version
 - name: cluster
   type: resource_name
+- name: azure_subscription
+  type: azure_subscription
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
+- name: azure_subscription
+  type: azure_subscription
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
+- name: byo_multicloud_prefix
+  type: byo_multicloud_prefix
 - name: project
   type: project
-- name: azure_subscription
-  type: azure_subscription
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
-- name: azure_subscription
-  type: azure_subscription
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix

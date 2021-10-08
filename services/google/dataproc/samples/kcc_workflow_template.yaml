@@ -21,17 +21,11 @@ resource: samples/kcc.workflow_template.json
 dependencies:
 - samples/basic.autoscaling_policy.json
 variables:
-- name: project
-  type: project
-- name: region
-  type: region
 - name: name
   type: resource_name
-- name: template_name
-  type: resource_name
-- name: region
-  type: region
 - name: project
   type: project
 - name: region
   type: region
+- name: template_name
+  type: resource_name
