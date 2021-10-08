@@ -26,13 +26,13 @@ variables:
   type: resource_name
 - name: project
   type: project
+- name: range
+  type: resource_name
 - name: compute_subnetwork
   type: resource_name
 - name: region
   type: region
-- name: range
+- name: name
   type: resource_name
 - name: project
   type: project
-- name: name
-  type: resource_name

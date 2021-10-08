@@ -24,9 +24,9 @@ variables:
   type: project
 - name: policy_inst
   type: resource_name
-- name: policy
-  type: resource_name
 - name: project
   type: project
 - name: package
+  type: resource_name
+- name: policy
   type: resource_name

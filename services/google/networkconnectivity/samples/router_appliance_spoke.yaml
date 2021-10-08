@@ -31,11 +31,11 @@ updates:
   - samples/first.compute.subnetwork.json
   - samples/first.compute.network.json
 variables:
-- name: connectivity_network1
+- name: hub
   type: resource_name
 - name: project
   type: project
-- name: hub
+- name: connectivity_network1
   type: resource_name
 - name: connectivity_subnet1
   type: resource_name
