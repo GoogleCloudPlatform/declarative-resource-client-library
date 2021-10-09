@@ -24,22 +24,26 @@ dependencies:
 - samples/basic.network.json
 - samples/basic.subnetwork.json
 variables:
-- name: group
-  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
 - name: zone
   type: zone
+- name: group
+  type: resource_name
 - name: instance1
   type: resource_name
 - name: compute_network
   type: resource_name
+- name: region
+  type: region
 - name: range
   type: resource_name
 - name: compute_subnetwork
   type: resource_name
+- name: project
+  type: project
 - name: project
   type: project
 - name: zone
