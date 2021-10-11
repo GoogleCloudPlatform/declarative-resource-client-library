@@ -41,3 +41,5 @@ variables:
   type: zone
 - name: instance2
   type: resource_name
+- name: project
+  type: project

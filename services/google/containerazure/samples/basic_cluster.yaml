@@ -28,3 +28,5 @@ variables:
   type: project
 - name: azure_database_encryption_key_version
   type: azure_database_encryption_key_version
+- name: project
+  type: project

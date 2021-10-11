@@ -40,7 +40,3 @@ variables:
   type: resource_name
 - name: attachment
   type: resource_name
-- name: project
-  type: project
-- name: region
-  type: region
