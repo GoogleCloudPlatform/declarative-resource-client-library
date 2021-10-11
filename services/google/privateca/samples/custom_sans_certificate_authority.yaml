@@ -20,6 +20,8 @@ resource: samples/custom_sans.certificate_authority.json
 dependencies:
 - samples/devops.ca_pool.json
 variables:
+- name: region
+  type: region
 - name: pool
   type: resource_name
 - name: project

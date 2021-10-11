@@ -29,18 +29,14 @@ dependencies:
 - samples/basic.address.json
 - samples/basic.network.json
 variables:
-- name: project
-  type: project
 - name: region
   type: region
 - name: address
   type: resource_name
+- name: project
+  type: project
 - name: compute_network
   type: resource_name
-- name: project
-  type: project
-- name: project
-  type: project
 - name: gateway
   type: resource_name
 - name: region
@@ -51,10 +47,10 @@ variables:
   type: project
 - name: region
   type: region
-- name: region
-  type: region
 - name: project
   type: project
+- name: region
+  type: region
 - name: project
   type: project
 - name: region
@@ -81,5 +77,3 @@ variables:
   type: resource_name
 - name: name
   type: resource_name
-- name: project
-  type: project

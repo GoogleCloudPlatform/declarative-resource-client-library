@@ -70,6 +70,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/identitytoolkit"
 	identitytoolkit_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/identitytoolkit/alpha"
 	identitytoolkit_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/identitytoolkit/beta"
+	krmapihosting_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/krmapihosting/alpha"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/logging"
 	logging_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/logging/alpha"
 	logging_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/logging/beta"
@@ -439,6 +440,8 @@ func Services() *Directory {
 	d.AddResource("alpha", "identitytoolkit", "Tenant", identitytoolkit_alpha.YAML_tenant)
 	d.AddResource("alpha", "identitytoolkit", dcl.TitleToSnakeCase("TenantOAuthIdpConfig"), identitytoolkit_alpha.YAML_tenant_oauth_idp_config)
 	d.AddResource("alpha", "identitytoolkit", "TenantOAuthIdpConfig", identitytoolkit_alpha.YAML_tenant_oauth_idp_config)
+	d.AddResource("alpha", "krmapihosting", dcl.TitleToSnakeCase("Instance"), krmapihosting_alpha.YAML_instance)
+	d.AddResource("alpha", "krmapihosting", "Instance", krmapihosting_alpha.YAML_instance)
 	d.AddResource("alpha", "logging", dcl.TitleToSnakeCase("LogExclusion"), logging_alpha.YAML_log_exclusion)
 	d.AddResource("alpha", "logging", "LogExclusion", logging_alpha.YAML_log_exclusion)
 	d.AddResource("alpha", "monitoring", dcl.TitleToSnakeCase("Dashboard"), monitoring_alpha.YAML_dashboard)

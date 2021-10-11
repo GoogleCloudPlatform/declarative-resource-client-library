@@ -1,0 +1,21 @@
+{
+  "project": "{{project}}",
+  "location": "us-central1",
+  "name": "{{id}}",
+  "labels": {
+    "label-one": "value-one"
+  },
+  "managementConfig": {
+    "standardManagementConfig": {
+      "network": "{{ref:basic.compute.network.json:name}}",
+      "masterIpv4CidrBlock": "172.16.123.64/28",
+      "clusterCidrBlock": "/20",
+      "servicesCidrBlock": "/24"
+    }
+  },
+  "bundlesConfig": {
+    "configControllerConfig": {
+      "enabled": true
+    }
+  }
+}

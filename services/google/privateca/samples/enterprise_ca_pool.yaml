@@ -21,9 +21,9 @@ updates:
 - resource: samples/update_enterprise.ca_pool.json
   dependencies: []
 variables:
+- name: region
+  type: region
 - name: pool
   type: resource_name
 - name: project
   type: project
-- name: region
-  type: region

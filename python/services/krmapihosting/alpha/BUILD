@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="krmapihosting/alpha", resources=["krm_api_host"])
+connector(name="krmapihosting/alpha", resources=["instance"])

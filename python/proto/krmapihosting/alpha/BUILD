@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="krmapihosting/alpha", resources=["krm_api_host"])
+proto_package(name="krmapihosting/alpha", resources=["instance"])

@@ -122,6 +122,8 @@ import (
 
 	identitytoolkit_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/identitytoolkit/alpha_connector"
 
+	krmapihosting_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/krmapihosting/alpha_connector"
+
 	logging_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/logging/connector"
 
 	logging_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/logging/beta_connector"
@@ -282,6 +284,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	identitytoolkit_beta_connector.RegisterServers(grpcServer)
 
 	identitytoolkit_alpha_connector.RegisterServers(grpcServer)
+
+	krmapihosting_alpha_connector.RegisterServers(grpcServer)
 
 	logging_connector.RegisterServers(grpcServer)
 
