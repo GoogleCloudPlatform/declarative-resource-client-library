@@ -197,6 +197,7 @@ type ClusterControlPlane struct {
 	DatabaseEncryption        *ClusterControlPlaneDatabaseEncryption        `json:"databaseEncryption"`
 	Tags                      map[string]string                             `json:"tags"`
 	AwsServicesAuthentication *ClusterControlPlaneAwsServicesAuthentication `json:"awsServicesAuthentication"`
+	ProxyConfig               *ClusterControlPlaneProxyConfig               `json:"proxyConfig"`
 }
 
 type jsonClusterControlPlane ClusterControlPlane
@@ -235,6 +236,8 @@ func (r *ClusterControlPlane) UnmarshalJSON(data []byte) error {
 		r.Tags = res.Tags
 
 		r.AwsServicesAuthentication = res.AwsServicesAuthentication
+
+		r.ProxyConfig = res.ProxyConfig
 
 	}
 	return nil
@@ -505,6 +508,55 @@ func (r *ClusterControlPlaneAwsServicesAuthentication) String() string {
 }
 
 func (r *ClusterControlPlaneAwsServicesAuthentication) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ClusterControlPlaneProxyConfig struct {
+	empty         bool    `json:"-"`
+	SecretArn     *string `json:"secretArn"`
+	SecretVersion *string `json:"secretVersion"`
+}
+
+type jsonClusterControlPlaneProxyConfig ClusterControlPlaneProxyConfig
+
+func (r *ClusterControlPlaneProxyConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterControlPlaneProxyConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterControlPlaneProxyConfig
+	} else {
+
+		r.SecretArn = res.SecretArn
+
+		r.SecretVersion = res.SecretVersion
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ClusterControlPlaneProxyConfig is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyClusterControlPlaneProxyConfig *ClusterControlPlaneProxyConfig = &ClusterControlPlaneProxyConfig{empty: true}
+
+func (r *ClusterControlPlaneProxyConfig) Empty() bool {
+	return r.empty
+}
+
+func (r *ClusterControlPlaneProxyConfig) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ClusterControlPlaneProxyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

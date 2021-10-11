@@ -281,6 +281,7 @@ class ClusterControlPlane(object):
         database_encryption: dict = None,
         tags: dict = None,
         aws_services_authentication: dict = None,
+        proxy_config: dict = None,
     ):
         self.version = version
         self.instance_type = instance_type
@@ -293,6 +294,7 @@ class ClusterControlPlane(object):
         self.database_encryption = database_encryption
         self.tags = tags
         self.aws_services_authentication = aws_services_authentication
+        self.proxy_config = proxy_config
 
     @classmethod
     def to_proto(self, resource):
@@ -350,6 +352,12 @@ class ClusterControlPlane(object):
             )
         else:
             res.ClearField("aws_services_authentication")
+        if ClusterControlPlaneProxyConfig.to_proto(resource.proxy_config):
+            res.proxy_config.CopyFrom(
+                ClusterControlPlaneProxyConfig.to_proto(resource.proxy_config)
+            )
+        else:
+            res.ClearField("proxy_config")
         return res
 
     @classmethod
@@ -372,6 +380,9 @@ class ClusterControlPlane(object):
             tags=Primitive.from_proto(resource.tags),
             aws_services_authentication=ClusterControlPlaneAwsServicesAuthentication.from_proto(
                 resource.aws_services_authentication
+            ),
+            proxy_config=ClusterControlPlaneProxyConfig.from_proto(
+                resource.proxy_config
             ),
         )
 
@@ -621,6 +632,46 @@ class ClusterControlPlaneAwsServicesAuthenticationArray(object):
             ClusterControlPlaneAwsServicesAuthentication.from_proto(i)
             for i in resources
         ]
+
+
+class ClusterControlPlaneProxyConfig(object):
+    def __init__(self, secret_arn: str = None, secret_version: str = None):
+        self.secret_arn = secret_arn
+        self.secret_version = secret_version
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.ContainerawsAlphaClusterControlPlaneProxyConfig()
+        if Primitive.to_proto(resource.secret_arn):
+            res.secret_arn = Primitive.to_proto(resource.secret_arn)
+        if Primitive.to_proto(resource.secret_version):
+            res.secret_version = Primitive.to_proto(resource.secret_version)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterControlPlaneProxyConfig(
+            secret_arn=Primitive.from_proto(resource.secret_arn),
+            secret_version=Primitive.from_proto(resource.secret_version),
+        )
+
+
+class ClusterControlPlaneProxyConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ClusterControlPlaneProxyConfig.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ClusterControlPlaneProxyConfig.from_proto(i) for i in resources]
 
 
 class ClusterAuthorization(object):

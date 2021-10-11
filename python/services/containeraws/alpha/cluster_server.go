@@ -94,6 +94,7 @@ func ProtoToContainerawsAlphaClusterControlPlane(p *alphapb.ContainerawsAlphaClu
 		MainVolume:                ProtoToContainerawsAlphaClusterControlPlaneMainVolume(p.GetMainVolume()),
 		DatabaseEncryption:        ProtoToContainerawsAlphaClusterControlPlaneDatabaseEncryption(p.GetDatabaseEncryption()),
 		AwsServicesAuthentication: ProtoToContainerawsAlphaClusterControlPlaneAwsServicesAuthentication(p.GetAwsServicesAuthentication()),
+		ProxyConfig:               ProtoToContainerawsAlphaClusterControlPlaneProxyConfig(p.GetProxyConfig()),
 	}
 	for _, r := range p.GetSubnetIds() {
 		obj.SubnetIds = append(obj.SubnetIds, r)
@@ -162,6 +163,18 @@ func ProtoToContainerawsAlphaClusterControlPlaneAwsServicesAuthentication(p *alp
 	obj := &alpha.ClusterControlPlaneAwsServicesAuthentication{
 		RoleArn:         dcl.StringOrNil(p.GetRoleArn()),
 		RoleSessionName: dcl.StringOrNil(p.GetRoleSessionName()),
+	}
+	return obj
+}
+
+// ProtoToClusterControlPlaneProxyConfig converts a ClusterControlPlaneProxyConfig object from its proto representation.
+func ProtoToContainerawsAlphaClusterControlPlaneProxyConfig(p *alphapb.ContainerawsAlphaClusterControlPlaneProxyConfig) *alpha.ClusterControlPlaneProxyConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterControlPlaneProxyConfig{
+		SecretArn:     dcl.StringOrNil(p.GetSecretArn()),
+		SecretVersion: dcl.StringOrNil(p.GetSecretVersion()),
 	}
 	return obj
 }
@@ -297,6 +310,7 @@ func ContainerawsAlphaClusterControlPlaneToProto(o *alpha.ClusterControlPlane) *
 	p.SetMainVolume(ContainerawsAlphaClusterControlPlaneMainVolumeToProto(o.MainVolume))
 	p.SetDatabaseEncryption(ContainerawsAlphaClusterControlPlaneDatabaseEncryptionToProto(o.DatabaseEncryption))
 	p.SetAwsServicesAuthentication(ContainerawsAlphaClusterControlPlaneAwsServicesAuthenticationToProto(o.AwsServicesAuthentication))
+	p.SetProxyConfig(ContainerawsAlphaClusterControlPlaneProxyConfigToProto(o.ProxyConfig))
 	sSubnetIds := make([]string, len(o.SubnetIds))
 	for i, r := range o.SubnetIds {
 		sSubnetIds[i] = r
@@ -369,6 +383,17 @@ func ContainerawsAlphaClusterControlPlaneAwsServicesAuthenticationToProto(o *alp
 	p := &alphapb.ContainerawsAlphaClusterControlPlaneAwsServicesAuthentication{}
 	p.SetRoleArn(dcl.ValueOrEmptyString(o.RoleArn))
 	p.SetRoleSessionName(dcl.ValueOrEmptyString(o.RoleSessionName))
+	return p
+}
+
+// ClusterControlPlaneProxyConfigToProto converts a ClusterControlPlaneProxyConfig object to its proto representation.
+func ContainerawsAlphaClusterControlPlaneProxyConfigToProto(o *alpha.ClusterControlPlaneProxyConfig) *alphapb.ContainerawsAlphaClusterControlPlaneProxyConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ContainerawsAlphaClusterControlPlaneProxyConfig{}
+	p.SetSecretArn(dcl.ValueOrEmptyString(o.SecretArn))
+	p.SetSecretVersion(dcl.ValueOrEmptyString(o.SecretVersion))
 	return p
 }
 

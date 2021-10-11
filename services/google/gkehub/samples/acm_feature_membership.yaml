@@ -49,10 +49,10 @@ variables:
   type: resource_name
 - name: org_id
   type: org_id
-- name: billing_account
-  type: billing_account
 - name: id1
   type: resource_name
+- name: billing_account
+  type: billing_account
 - name: id2
   type: resource_name
 - name: zone
@@ -61,5 +61,3 @@ variables:
   type: resource_name
 - name: membership1
   type: resource_name
-- name: zone
-  type: zone

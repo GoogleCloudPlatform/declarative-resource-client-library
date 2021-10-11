@@ -10,7 +10,7 @@
   },
   "awsRegion": "{{aws_region}}",
   "controlPlane": {
-    "version": "1.19.10-gke.1000",
+    "version": "1.21-next",
     "subnetIds": ["{{aws_subnet}}"],
     "iamInstanceProfile": "{{byo_multicloud_prefix}}-1p-dev-controlplane",
     "databaseEncryption": {

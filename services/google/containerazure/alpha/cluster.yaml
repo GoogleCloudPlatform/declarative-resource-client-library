@@ -131,16 +131,14 @@ components:
             `AzureClient` names are formatted as `projects/<project-number>/locations/<region>/azureClients/<client-id>`.
             See Resource Names (https:cloud.google.com/apis/design/resource_names)
             for more details on Google Cloud resource names.
-          x-kubernetes-immutable: true
           x-dcl-references:
-          - resource: Gkemulticloud/AzureClient
+          - resource: ContainerAzure/AzureClient
             field: name
         controlPlane:
           type: object
           x-dcl-go-name: ControlPlane
           x-dcl-go-type: ClusterControlPlane
           description: Required. Configuration related to the cluster control plane.
-          x-kubernetes-immutable: true
           required:
           - version
           - subnetId
@@ -187,6 +185,58 @@ components:
                     a default value is provided. See the specific reference in the
                     parent resource.
                   x-kubernetes-immutable: true
+            proxyConfig:
+              type: object
+              x-dcl-go-name: ProxyConfig
+              x-dcl-go-type: ClusterControlPlaneProxyConfig
+              description: Proxy configuration for outbound HTTP(S) traffic.
+              x-kubernetes-immutable: true
+              required:
+              - resourceGroupId
+              - secretId
+              properties:
+                resourceGroupId:
+                  type: string
+                  x-dcl-go-name: ResourceGroupId
+                  description: The ARM ID the of the resource group containing proxy
+                    keyvault. Resource group ids are formatted as `/subscriptions/<subscription-id>/resourceGroups/<resource-group-name>`
+                  x-kubernetes-immutable: true
+                secretId:
+                  type: string
+                  x-dcl-go-name: SecretId
+                  description: The URL the of the proxy setting secret with its version.
+                    Secret ids are formatted as `https:<key-vault-name>.vault.azure.net/secrets/<secret-name>/<secret-version>`.
+                  x-kubernetes-immutable: true
+            replicaPlacements:
+              type: array
+              x-dcl-go-name: ReplicaPlacements
+              description: Configuration for where to place the control plane replicas.
+                Up to three replica placement instances can be specified. If replica_placements
+                is set, the replica placement instances will be applied to the three
+                control plane replicas as evenly as possible.
+              x-kubernetes-immutable: true
+              x-dcl-send-empty: true
+              x-dcl-list-type: list
+              items:
+                type: object
+                x-dcl-go-type: ClusterControlPlaneReplicaPlacements
+                required:
+                - subnetId
+                - azureAvailabilityZone
+                properties:
+                  azureAvailabilityZone:
+                    type: string
+                    x-dcl-go-name: AzureAvailabilityZone
+                    description: For a given replica, the Azure availability zone
+                      where to provision the control plane VM and the ETCD disk.
+                    x-kubernetes-immutable: true
+                  subnetId:
+                    type: string
+                    x-dcl-go-name: SubnetId
+                    description: For a given replica, the ARM ID of the subnet where
+                      the control plane VM is deployed. Make sure it's a subnet under
+                      the virtual network in the cluster configuration.
+                    x-kubernetes-immutable: true
             rootVolume:
               type: object
               x-dcl-go-name: RootVolume
@@ -240,8 +290,7 @@ components:
               x-dcl-go-name: Version
               description: Required. The Kubernetes version to run on control plane
                 replicas (e.g. `1.19.10-gke.1000`). You can list all supported versions
-                on a given Google Cloud region by calling .
-              x-kubernetes-immutable: true
+                on a given Google Cloud region by calling GetAzureServerConfig.
             vmSize:
               type: string
               x-dcl-go-name: VmSize
@@ -261,7 +310,6 @@ components:
           x-dcl-go-name: Description
           description: Optional. A human readable description of this cluster. Cannot
             be longer than 255 UTF-8 encoded bytes.
-          x-kubernetes-immutable: true
         endpoint:
           type: string
           x-dcl-go-name: Endpoint

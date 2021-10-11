@@ -127,6 +127,11 @@ func (r *ClusterControlPlane) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.ProxyConfig) {
+		if err := r.ProxyConfig.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *ClusterControlPlaneSshConfig) validate() error {
@@ -153,6 +158,15 @@ func (r *ClusterControlPlaneAwsServicesAuthentication) validate() error {
 	}
 	return nil
 }
+func (r *ClusterControlPlaneProxyConfig) validate() error {
+	if err := dcl.Required(r, "secretArn"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "secretVersion"); err != nil {
+		return err
+	}
+	return nil
+}
 func (r *ClusterAuthorization) validate() error {
 	if err := dcl.Required(r, "adminUsers"); err != nil {
 		return err
@@ -169,10 +183,8 @@ func (r *ClusterWorkloadIdentityConfig) validate() error {
 	return nil
 }
 func (r *Cluster) basePath() string {
-	params := map[string]interface{}{
-		"location": dcl.ValueOrEmptyString(r.Location),
-	}
-	return dcl.Nprintf("https://{{location}}-gkemulticloud.googleapis.com/v1", params)
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://autopush-gkemulticloud.sandbox.googleapis.com/v1", params)
 }
 
 func (r *Cluster) getURL(userBasePath string) (string, error) {
@@ -220,6 +232,106 @@ func (r *Cluster) deleteURL(userBasePath string) (string, error) {
 // API such as Create, Update, or Delete.
 type clusterApiOperation interface {
 	do(context.Context, *Cluster, *Client) error
+}
+
+// newUpdateClusterUpdateAwsClusterRequest creates a request for an
+// Cluster resource's UpdateAwsCluster update type by filling in the update
+// fields based on the intended state of the resource.
+func newUpdateClusterUpdateAwsClusterRequest(ctx context.Context, f *Cluster, c *Client) (map[string]interface{}, error) {
+	req := map[string]interface{}{}
+
+	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+		req["description"] = v
+	}
+	if v, err := expandClusterControlPlane(c, f.ControlPlane); err != nil {
+		return nil, fmt.Errorf("error expanding ControlPlane into controlPlane: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["controlPlane"] = v
+	}
+	if v := f.Annotations; !dcl.IsEmptyValueIndirect(v) {
+		req["annotations"] = v
+	}
+	b, err := c.getClusterRaw(ctx, f)
+	if err != nil {
+		return nil, err
+	}
+	var m map[string]interface{}
+	if err := json.Unmarshal(b, &m); err != nil {
+		return nil, err
+	}
+	rawEtag, err := dcl.GetMapEntry(
+		m,
+		[]string{"etag"},
+	)
+	if err != nil {
+		c.Config.Logger.WarningWithContextf(ctx, "Failed to fetch from JSON Path: %v", err)
+	} else {
+		req["etag"] = rawEtag.(string)
+	}
+	return req, nil
+}
+
+// marshalUpdateClusterUpdateAwsClusterRequest converts the update into
+// the final JSON request body.
+func marshalUpdateClusterUpdateAwsClusterRequest(c *Client, m map[string]interface{}) ([]byte, error) {
+
+	return json.Marshal(m)
+}
+
+type updateClusterUpdateAwsClusterOperation struct {
+	// If the update operation has the REQUIRES_APPLY_OPTIONS trait, this will be populated.
+	// Usually it will be nil - this is to prevent us from accidentally depending on apply
+	// options, which should usually be unnecessary.
+	ApplyOptions []dcl.ApplyOption
+	FieldDiffs   []*dcl.FieldDiff
+}
+
+// do creates a request and sends it to the appropriate URL. In most operations,
+// do will transcribe a subset of the resource into a request object and send a
+// PUT request to a single URL.
+
+func (op *updateClusterUpdateAwsClusterOperation) do(ctx context.Context, r *Cluster, c *Client) error {
+	_, err := c.GetCluster(ctx, r)
+	if err != nil {
+		return err
+	}
+
+	u, err := r.updateURL(c.Config.BasePath, "UpdateAwsCluster")
+	if err != nil {
+		return err
+	}
+	mask := dcl.UpdateMask(op.FieldDiffs)
+	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
+	if err != nil {
+		return err
+	}
+
+	req, err := newUpdateClusterUpdateAwsClusterRequest(ctx, r, c)
+	if err != nil {
+		return err
+	}
+
+	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
+	body, err := marshalUpdateClusterUpdateAwsClusterRequest(c, req)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	var o operations.StandardGCPOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
+	}
+	err = o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.basePath(), "GET")
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (c *Client) listClusterRaw(ctx context.Context, r *Cluster, pageToken string, pageSize int32) ([]byte, error) {
@@ -812,6 +924,7 @@ func canonicalizeClusterControlPlane(des, initial *ClusterControlPlane, opts ...
 		cDes.Tags = des.Tags
 	}
 	cDes.AwsServicesAuthentication = canonicalizeClusterControlPlaneAwsServicesAuthentication(des.AwsServicesAuthentication, initial.AwsServicesAuthentication, opts...)
+	cDes.ProxyConfig = canonicalizeClusterControlPlaneProxyConfig(des.ProxyConfig, initial.ProxyConfig, opts...)
 
 	return cDes
 }
@@ -872,6 +985,7 @@ func canonicalizeNewClusterControlPlane(c *Client, des, nw *ClusterControlPlane)
 	nw.MainVolume = canonicalizeNewClusterControlPlaneMainVolume(c, des.MainVolume, nw.MainVolume)
 	nw.DatabaseEncryption = canonicalizeNewClusterControlPlaneDatabaseEncryption(c, des.DatabaseEncryption, nw.DatabaseEncryption)
 	nw.AwsServicesAuthentication = canonicalizeNewClusterControlPlaneAwsServicesAuthentication(c, des.AwsServicesAuthentication, nw.AwsServicesAuthentication)
+	nw.ProxyConfig = canonicalizeNewClusterControlPlaneProxyConfig(c, des.ProxyConfig, nw.ProxyConfig)
 
 	return nw
 }
@@ -1532,6 +1646,129 @@ func canonicalizeNewClusterControlPlaneAwsServicesAuthenticationSlice(c *Client,
 	return items
 }
 
+func canonicalizeClusterControlPlaneProxyConfig(des, initial *ClusterControlPlaneProxyConfig, opts ...dcl.ApplyOption) *ClusterControlPlaneProxyConfig {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &ClusterControlPlaneProxyConfig{}
+
+	if dcl.StringCanonicalize(des.SecretArn, initial.SecretArn) || dcl.IsZeroValue(des.SecretArn) {
+		cDes.SecretArn = initial.SecretArn
+	} else {
+		cDes.SecretArn = des.SecretArn
+	}
+	if dcl.StringCanonicalize(des.SecretVersion, initial.SecretVersion) || dcl.IsZeroValue(des.SecretVersion) {
+		cDes.SecretVersion = initial.SecretVersion
+	} else {
+		cDes.SecretVersion = des.SecretVersion
+	}
+
+	return cDes
+}
+
+func canonicalizeClusterControlPlaneProxyConfigSlice(des, initial []ClusterControlPlaneProxyConfig, opts ...dcl.ApplyOption) []ClusterControlPlaneProxyConfig {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterControlPlaneProxyConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterControlPlaneProxyConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterControlPlaneProxyConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterControlPlaneProxyConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewClusterControlPlaneProxyConfig(c *Client, des, nw *ClusterControlPlaneProxyConfig) *ClusterControlPlaneProxyConfig {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ClusterControlPlaneProxyConfig while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.SecretArn, nw.SecretArn) {
+		nw.SecretArn = des.SecretArn
+	}
+	if dcl.StringCanonicalize(des.SecretVersion, nw.SecretVersion) {
+		nw.SecretVersion = des.SecretVersion
+	}
+
+	return nw
+}
+
+func canonicalizeNewClusterControlPlaneProxyConfigSet(c *Client, des, nw []ClusterControlPlaneProxyConfig) []ClusterControlPlaneProxyConfig {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ClusterControlPlaneProxyConfig
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareClusterControlPlaneProxyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewClusterControlPlaneProxyConfigSlice(c *Client, des, nw []ClusterControlPlaneProxyConfig) []ClusterControlPlaneProxyConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ClusterControlPlaneProxyConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterControlPlaneProxyConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeClusterAuthorization(des, initial *ClusterAuthorization, opts ...dcl.ApplyOption) *ClusterAuthorization {
 	if des == nil {
 		return initial
@@ -1909,7 +2146,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1993,7 +2230,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Annotations, actual.Annotations, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Annotations")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Annotations, actual.Annotations, dcl.Info{OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("Annotations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2093,7 +2330,7 @@ func compareClusterControlPlaneNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2164,6 +2401,13 @@ func compareClusterControlPlaneNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 	}
 
 	if ds, err := dcl.Diff(desired.AwsServicesAuthentication, actual.AwsServicesAuthentication, dcl.Info{ObjectFunction: compareClusterControlPlaneAwsServicesAuthenticationNewStyle, EmptyObject: EmptyClusterControlPlaneAwsServicesAuthentication, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AwsServicesAuthentication")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ProxyConfig, actual.ProxyConfig, dcl.Info{ObjectFunction: compareClusterControlPlaneProxyConfigNewStyle, EmptyObject: EmptyClusterControlPlaneProxyConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ProxyConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2366,6 +2610,42 @@ func compareClusterControlPlaneAwsServicesAuthenticationNewStyle(d, a interface{
 	return diffs, nil
 }
 
+func compareClusterControlPlaneProxyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterControlPlaneProxyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterControlPlaneProxyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterControlPlaneProxyConfig or *ClusterControlPlaneProxyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterControlPlaneProxyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterControlPlaneProxyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterControlPlaneProxyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.SecretArn, actual.SecretArn, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecretArn")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SecretVersion, actual.SecretVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecretVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterAuthorizationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
@@ -2484,6 +2764,17 @@ func (r *Cluster) urlNormalized() *Cluster {
 }
 
 func (r *Cluster) updateURL(userBasePath, updateName string) (string, error) {
+	nr := r.urlNormalized()
+	if updateName == "UpdateAwsCluster" {
+		fields := map[string]interface{}{
+			"project":  dcl.ValueOrEmptyString(nr.Project),
+			"location": dcl.ValueOrEmptyString(nr.Location),
+			"name":     dcl.ValueOrEmptyString(nr.Name),
+		}
+		return dcl.URL("projects/{{project}}/locations/{{location}}/awsClusters/{{name}}", nr.basePath(), userBasePath, fields), nil
+
+	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -2854,6 +3145,11 @@ func expandClusterControlPlane(c *Client, f *ClusterControlPlane) (map[string]in
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["awsServicesAuthentication"] = v
 	}
+	if v, err := expandClusterControlPlaneProxyConfig(c, f.ProxyConfig); err != nil {
+		return nil, fmt.Errorf("error expanding ProxyConfig into proxyConfig: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["proxyConfig"] = v
+	}
 
 	return m, nil
 }
@@ -2882,6 +3178,7 @@ func flattenClusterControlPlane(c *Client, i interface{}) *ClusterControlPlane {
 	r.DatabaseEncryption = flattenClusterControlPlaneDatabaseEncryption(c, m["databaseEncryption"])
 	r.Tags = dcl.FlattenKeyValuePairs(m["tags"])
 	r.AwsServicesAuthentication = flattenClusterControlPlaneAwsServicesAuthentication(c, m["awsServicesAuthentication"])
+	r.ProxyConfig = flattenClusterControlPlaneProxyConfig(c, m["proxyConfig"])
 
 	return r
 }
@@ -3484,6 +3781,124 @@ func flattenClusterControlPlaneAwsServicesAuthentication(c *Client, i interface{
 	return r
 }
 
+// expandClusterControlPlaneProxyConfigMap expands the contents of ClusterControlPlaneProxyConfig into a JSON
+// request object.
+func expandClusterControlPlaneProxyConfigMap(c *Client, f map[string]ClusterControlPlaneProxyConfig) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandClusterControlPlaneProxyConfig(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandClusterControlPlaneProxyConfigSlice expands the contents of ClusterControlPlaneProxyConfig into a JSON
+// request object.
+func expandClusterControlPlaneProxyConfigSlice(c *Client, f []ClusterControlPlaneProxyConfig) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandClusterControlPlaneProxyConfig(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenClusterControlPlaneProxyConfigMap flattens the contents of ClusterControlPlaneProxyConfig from a JSON
+// response object.
+func flattenClusterControlPlaneProxyConfigMap(c *Client, i interface{}) map[string]ClusterControlPlaneProxyConfig {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterControlPlaneProxyConfig{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterControlPlaneProxyConfig{}
+	}
+
+	items := make(map[string]ClusterControlPlaneProxyConfig)
+	for k, item := range a {
+		items[k] = *flattenClusterControlPlaneProxyConfig(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenClusterControlPlaneProxyConfigSlice flattens the contents of ClusterControlPlaneProxyConfig from a JSON
+// response object.
+func flattenClusterControlPlaneProxyConfigSlice(c *Client, i interface{}) []ClusterControlPlaneProxyConfig {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ClusterControlPlaneProxyConfig{}
+	}
+
+	if len(a) == 0 {
+		return []ClusterControlPlaneProxyConfig{}
+	}
+
+	items := make([]ClusterControlPlaneProxyConfig, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenClusterControlPlaneProxyConfig(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandClusterControlPlaneProxyConfig expands an instance of ClusterControlPlaneProxyConfig into a JSON
+// request object.
+func expandClusterControlPlaneProxyConfig(c *Client, f *ClusterControlPlaneProxyConfig) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.SecretArn; !dcl.IsEmptyValueIndirect(v) {
+		m["secretArn"] = v
+	}
+	if v := f.SecretVersion; !dcl.IsEmptyValueIndirect(v) {
+		m["secretVersion"] = v
+	}
+
+	return m, nil
+}
+
+// flattenClusterControlPlaneProxyConfig flattens an instance of ClusterControlPlaneProxyConfig from a JSON
+// response object.
+func flattenClusterControlPlaneProxyConfig(c *Client, i interface{}) *ClusterControlPlaneProxyConfig {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ClusterControlPlaneProxyConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterControlPlaneProxyConfig
+	}
+	r.SecretArn = dcl.FlattenString(m["secretArn"])
+	r.SecretVersion = dcl.FlattenString(m["secretVersion"])
+
+	return r
+}
+
 // expandClusterAuthorizationMap expands the contents of ClusterAuthorization into a JSON
 // request object.
 func expandClusterAuthorizationMap(c *Client, f map[string]ClusterAuthorization) (map[string]interface{}, error) {
@@ -4071,6 +4486,9 @@ func convertFieldDiffsToClusterDiffs(config *dcl.Config, fds []*dcl.FieldDiff, o
 
 func convertOpNameToClusterApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (clusterApiOperation, error) {
 	switch opName {
+
+	case "updateClusterUpdateAwsClusterOperation":
+		return &updateClusterUpdateAwsClusterOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", opName)

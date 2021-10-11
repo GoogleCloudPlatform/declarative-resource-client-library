@@ -125,10 +125,8 @@ func (r *NodePoolMaxPodsConstraint) validate() error {
 	return nil
 }
 func (r *NodePool) basePath() string {
-	params := map[string]interface{}{
-		"location": dcl.ValueOrEmptyString(r.Location),
-	}
-	return dcl.Nprintf("https://{{location}}-gkemulticloud.googleapis.com/v1", params)
+	params := map[string]interface{}{}
+	return dcl.Nprintf("https://autopush-gkemulticloud.sandbox.googleapis.com/v1", params)
 }
 
 func (r *NodePool) getURL(userBasePath string) (string, error) {
@@ -180,6 +178,98 @@ func (r *NodePool) deleteURL(userBasePath string) (string, error) {
 // API such as Create, Update, or Delete.
 type nodePoolApiOperation interface {
 	do(context.Context, *NodePool, *Client) error
+}
+
+// newUpdateNodePoolUpdateAwsNodePoolRequest creates a request for an
+// NodePool resource's UpdateAwsNodePool update type by filling in the update
+// fields based on the intended state of the resource.
+func newUpdateNodePoolUpdateAwsNodePoolRequest(ctx context.Context, f *NodePool, c *Client) (map[string]interface{}, error) {
+	req := map[string]interface{}{}
+
+	if v := f.Annotations; !dcl.IsEmptyValueIndirect(v) {
+		req["annotations"] = v
+	}
+	b, err := c.getNodePoolRaw(ctx, f)
+	if err != nil {
+		return nil, err
+	}
+	var m map[string]interface{}
+	if err := json.Unmarshal(b, &m); err != nil {
+		return nil, err
+	}
+	rawEtag, err := dcl.GetMapEntry(
+		m,
+		[]string{"etag"},
+	)
+	if err != nil {
+		c.Config.Logger.WarningWithContextf(ctx, "Failed to fetch from JSON Path: %v", err)
+	} else {
+		req["etag"] = rawEtag.(string)
+	}
+	return req, nil
+}
+
+// marshalUpdateNodePoolUpdateAwsNodePoolRequest converts the update into
+// the final JSON request body.
+func marshalUpdateNodePoolUpdateAwsNodePoolRequest(c *Client, m map[string]interface{}) ([]byte, error) {
+
+	return json.Marshal(m)
+}
+
+type updateNodePoolUpdateAwsNodePoolOperation struct {
+	// If the update operation has the REQUIRES_APPLY_OPTIONS trait, this will be populated.
+	// Usually it will be nil - this is to prevent us from accidentally depending on apply
+	// options, which should usually be unnecessary.
+	ApplyOptions []dcl.ApplyOption
+	FieldDiffs   []*dcl.FieldDiff
+}
+
+// do creates a request and sends it to the appropriate URL. In most operations,
+// do will transcribe a subset of the resource into a request object and send a
+// PUT request to a single URL.
+
+func (op *updateNodePoolUpdateAwsNodePoolOperation) do(ctx context.Context, r *NodePool, c *Client) error {
+	_, err := c.GetNodePool(ctx, r)
+	if err != nil {
+		return err
+	}
+
+	u, err := r.updateURL(c.Config.BasePath, "UpdateAwsNodePool")
+	if err != nil {
+		return err
+	}
+	mask := dcl.UpdateMask(op.FieldDiffs)
+	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
+	if err != nil {
+		return err
+	}
+
+	req, err := newUpdateNodePoolUpdateAwsNodePoolRequest(ctx, r, c)
+	if err != nil {
+		return err
+	}
+
+	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
+	body, err := marshalUpdateNodePoolUpdateAwsNodePoolRequest(c, req)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	var o operations.StandardGCPOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
+	}
+	err = o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.basePath(), "GET")
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (c *Client) listNodePoolRaw(ctx context.Context, r *NodePool, pageToken string, pageSize int32) ([]byte, error) {
@@ -1422,7 +1512,7 @@ func diffNodePool(c *Client, desired, actual *NodePool, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Annotations, actual.Annotations, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Annotations")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Annotations, actual.Annotations, dcl.Info{OperationSelector: dcl.TriggersOperation("updateNodePoolUpdateAwsNodePoolOperation")}, fn.AddNest("Annotations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1741,6 +1831,18 @@ func (r *NodePool) urlNormalized() *NodePool {
 }
 
 func (r *NodePool) updateURL(userBasePath, updateName string) (string, error) {
+	nr := r.urlNormalized()
+	if updateName == "UpdateAwsNodePool" {
+		fields := map[string]interface{}{
+			"project":  dcl.ValueOrEmptyString(nr.Project),
+			"location": dcl.ValueOrEmptyString(nr.Location),
+			"cluster":  dcl.ValueOrEmptyString(nr.Cluster),
+			"name":     dcl.ValueOrEmptyString(nr.Name),
+		}
+		return dcl.URL("projects/{{project}}/locations/{{location}}/awsClusters/{{cluster}}/awsNodePools/{{name}}", nr.basePath(), userBasePath, fields), nil
+
+	}
+
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -2842,6 +2944,9 @@ func convertFieldDiffsToNodePoolDiffs(config *dcl.Config, fds []*dcl.FieldDiff, 
 
 func convertOpNameToNodePoolApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (nodePoolApiOperation, error) {
 	switch opName {
+
+	case "updateNodePoolUpdateAwsNodePoolOperation":
+		return &updateNodePoolUpdateAwsNodePoolOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", opName)

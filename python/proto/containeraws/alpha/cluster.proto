@@ -85,6 +85,7 @@ message ContainerawsAlphaClusterControlPlane {
   ContainerawsAlphaClusterControlPlaneDatabaseEncryption database_encryption = 9;
   map<string, string> tags = 10;
   ContainerawsAlphaClusterControlPlaneAwsServicesAuthentication aws_services_authentication = 11;
+  ContainerawsAlphaClusterControlPlaneProxyConfig proxy_config = 12;
 }
 
 message ContainerawsAlphaClusterControlPlaneSshConfig {
@@ -112,6 +113,11 @@ message ContainerawsAlphaClusterControlPlaneDatabaseEncryption {
 message ContainerawsAlphaClusterControlPlaneAwsServicesAuthentication {
   string role_arn = 1;
   string role_session_name = 2;
+}
+
+message ContainerawsAlphaClusterControlPlaneProxyConfig {
+  string secret_arn = 1;
+  string secret_version = 2;
 }
 
 message ContainerawsAlphaClusterAuthorization {

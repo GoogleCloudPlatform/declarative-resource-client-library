@@ -66,6 +66,10 @@ func ProtoToContainerazureAlphaClusterControlPlane(p *alphapb.ContainerazureAlph
 		RootVolume:         ProtoToContainerazureAlphaClusterControlPlaneRootVolume(p.GetRootVolume()),
 		MainVolume:         ProtoToContainerazureAlphaClusterControlPlaneMainVolume(p.GetMainVolume()),
 		DatabaseEncryption: ProtoToContainerazureAlphaClusterControlPlaneDatabaseEncryption(p.GetDatabaseEncryption()),
+		ProxyConfig:        ProtoToContainerazureAlphaClusterControlPlaneProxyConfig(p.GetProxyConfig()),
+	}
+	for _, r := range p.GetReplicaPlacements() {
+		obj.ReplicaPlacements = append(obj.ReplicaPlacements, *ProtoToContainerazureAlphaClusterControlPlaneReplicaPlacements(r))
 	}
 	return obj
 }
@@ -111,6 +115,30 @@ func ProtoToContainerazureAlphaClusterControlPlaneDatabaseEncryption(p *alphapb.
 	obj := &alpha.ClusterControlPlaneDatabaseEncryption{
 		ResourceGroupId:  dcl.StringOrNil(p.GetResourceGroupId()),
 		KmsKeyIdentifier: dcl.StringOrNil(p.GetKmsKeyIdentifier()),
+	}
+	return obj
+}
+
+// ProtoToClusterControlPlaneProxyConfig converts a ClusterControlPlaneProxyConfig object from its proto representation.
+func ProtoToContainerazureAlphaClusterControlPlaneProxyConfig(p *alphapb.ContainerazureAlphaClusterControlPlaneProxyConfig) *alpha.ClusterControlPlaneProxyConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterControlPlaneProxyConfig{
+		ResourceGroupId: dcl.StringOrNil(p.GetResourceGroupId()),
+		SecretId:        dcl.StringOrNil(p.GetSecretId()),
+	}
+	return obj
+}
+
+// ProtoToClusterControlPlaneReplicaPlacements converts a ClusterControlPlaneReplicaPlacements object from its proto representation.
+func ProtoToContainerazureAlphaClusterControlPlaneReplicaPlacements(p *alphapb.ContainerazureAlphaClusterControlPlaneReplicaPlacements) *alpha.ClusterControlPlaneReplicaPlacements {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterControlPlaneReplicaPlacements{
+		SubnetId:              dcl.StringOrNil(p.GetSubnetId()),
+		AzureAvailabilityZone: dcl.StringOrNil(p.GetAzureAvailabilityZone()),
 	}
 	return obj
 }
@@ -220,11 +248,17 @@ func ContainerazureAlphaClusterControlPlaneToProto(o *alpha.ClusterControlPlane)
 	p.SetRootVolume(ContainerazureAlphaClusterControlPlaneRootVolumeToProto(o.RootVolume))
 	p.SetMainVolume(ContainerazureAlphaClusterControlPlaneMainVolumeToProto(o.MainVolume))
 	p.SetDatabaseEncryption(ContainerazureAlphaClusterControlPlaneDatabaseEncryptionToProto(o.DatabaseEncryption))
+	p.SetProxyConfig(ContainerazureAlphaClusterControlPlaneProxyConfigToProto(o.ProxyConfig))
 	mTags := make(map[string]string, len(o.Tags))
 	for k, r := range o.Tags {
 		mTags[k] = r
 	}
 	p.SetTags(mTags)
+	sReplicaPlacements := make([]*alphapb.ContainerazureAlphaClusterControlPlaneReplicaPlacements, len(o.ReplicaPlacements))
+	for i, r := range o.ReplicaPlacements {
+		sReplicaPlacements[i] = ContainerazureAlphaClusterControlPlaneReplicaPlacementsToProto(&r)
+	}
+	p.SetReplicaPlacements(sReplicaPlacements)
 	return p
 }
 
@@ -266,6 +300,28 @@ func ContainerazureAlphaClusterControlPlaneDatabaseEncryptionToProto(o *alpha.Cl
 	p := &alphapb.ContainerazureAlphaClusterControlPlaneDatabaseEncryption{}
 	p.SetResourceGroupId(dcl.ValueOrEmptyString(o.ResourceGroupId))
 	p.SetKmsKeyIdentifier(dcl.ValueOrEmptyString(o.KmsKeyIdentifier))
+	return p
+}
+
+// ClusterControlPlaneProxyConfigToProto converts a ClusterControlPlaneProxyConfig object to its proto representation.
+func ContainerazureAlphaClusterControlPlaneProxyConfigToProto(o *alpha.ClusterControlPlaneProxyConfig) *alphapb.ContainerazureAlphaClusterControlPlaneProxyConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ContainerazureAlphaClusterControlPlaneProxyConfig{}
+	p.SetResourceGroupId(dcl.ValueOrEmptyString(o.ResourceGroupId))
+	p.SetSecretId(dcl.ValueOrEmptyString(o.SecretId))
+	return p
+}
+
+// ClusterControlPlaneReplicaPlacementsToProto converts a ClusterControlPlaneReplicaPlacements object to its proto representation.
+func ContainerazureAlphaClusterControlPlaneReplicaPlacementsToProto(o *alpha.ClusterControlPlaneReplicaPlacements) *alphapb.ContainerazureAlphaClusterControlPlaneReplicaPlacements {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ContainerazureAlphaClusterControlPlaneReplicaPlacements{}
+	p.SetSubnetId(dcl.ValueOrEmptyString(o.SubnetId))
+	p.SetAzureAvailabilityZone(dcl.ValueOrEmptyString(o.AzureAvailabilityZone))
 	return p
 }
 

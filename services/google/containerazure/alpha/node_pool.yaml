@@ -94,7 +94,6 @@ components:
             be a DNS subdomain. Name must be 63 characters or less, begin and end
             with alphanumerics, with dashes (-), underscores (_), dots (.), and alphanumerics
             between.'
-          x-kubernetes-immutable: true
         autoscaling:
           type: object
           x-dcl-go-name: Autoscaling
@@ -297,4 +296,3 @@ components:
           x-dcl-go-name: Version
           description: Required. The Kubernetes version (e.g. `1.19.10-gke.1000`)
             running on this node pool.
-          x-kubernetes-immutable: true

@@ -20,7 +20,7 @@ versions:
 - alpha
 resource: samples/organization.folder.json
 variables:
-- name: org_id
-  type: org_id
 - name: folder
   type: resource_name
+- name: org_id
+  type: org_id

@@ -69,6 +69,8 @@ message ContainerazureAlphaClusterControlPlane {
   ContainerazureAlphaClusterControlPlaneMainVolume main_volume = 6;
   ContainerazureAlphaClusterControlPlaneDatabaseEncryption database_encryption = 7;
   map<string, string> tags = 8;
+  ContainerazureAlphaClusterControlPlaneProxyConfig proxy_config = 9;
+  repeated ContainerazureAlphaClusterControlPlaneReplicaPlacements replica_placements = 10;
 }
 
 message ContainerazureAlphaClusterControlPlaneSshConfig {
@@ -86,6 +88,16 @@ message ContainerazureAlphaClusterControlPlaneMainVolume {
 message ContainerazureAlphaClusterControlPlaneDatabaseEncryption {
   string resource_group_id = 1;
   string kms_key_identifier = 2;
+}
+
+message ContainerazureAlphaClusterControlPlaneProxyConfig {
+  string resource_group_id = 1;
+  string secret_id = 2;
+}
+
+message ContainerazureAlphaClusterControlPlaneReplicaPlacements {
+  string subnet_id = 1;
+  string azure_availability_zone = 2;
 }
 
 message ContainerazureAlphaClusterAuthorization {

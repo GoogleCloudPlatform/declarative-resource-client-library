@@ -40,6 +40,6 @@
     "securityGroupIds": ["{{aws_security_group}}"]
   },
   "annotations": {
-    "label-one": "value-one"
+    "label-two": "value-two"
   }
 }

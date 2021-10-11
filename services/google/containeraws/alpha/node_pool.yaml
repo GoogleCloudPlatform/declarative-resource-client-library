@@ -94,7 +94,6 @@ components:
             be a DNS subdomain. Name must be 63 characters or less, begin and end
             with alphanumerics, with dashes (-), underscores (_), dots (.), and alphanumerics
             between.'
-          x-kubernetes-immutable: true
         autoscaling:
           type: object
           x-dcl-go-name: Autoscaling

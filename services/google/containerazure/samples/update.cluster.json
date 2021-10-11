@@ -2,8 +2,8 @@
   "name": "{{cluster}}",
   "project": "{{project}}",
   "location": "us-west1",
-  "client": "projects/{{project}}/locations/us-west1/azureClients/testclient1",
-  "description": "A sample azure cluster",
+  "client": "projects/{{project}}/locations/us-west1/azureClients/testclient2",
+  "description": "An updated sample azure cluster",
   "azureRegion": "westus2",
   "networking": {
     "virtualNetworkId": "/subscriptions/{{azure_subscription}}/resourceGroups/{{byo_multicloud_prefix}}-dev-byo/providers/Microsoft.Network/virtualNetworks/{{byo_multicloud_prefix}}-dev-vnet",
@@ -12,7 +12,7 @@
   },
   "resourceGroupId": "/subscriptions/{{azure_subscription}}/resourceGroups/{{byo_multicloud_prefix}}-dev-cluster",
   "controlPlane": {
-    "version": "1.20.10-gke.300",
+    "version": "1.21-next",
     "subnetId": "/subscriptions/{{azure_subscription}}/resourceGroups/{{byo_multicloud_prefix}}-dev-byo/providers/Microsoft.Network/virtualNetworks/{{byo_multicloud_prefix}}-dev-vnet/subnets/default",
     "vmSize": "Standard_DS2_v2",
     "sshConfig": {

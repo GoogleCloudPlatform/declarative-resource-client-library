@@ -295,6 +295,8 @@ class ClusterControlPlane(object):
         main_volume: dict = None,
         database_encryption: dict = None,
         tags: dict = None,
+        proxy_config: dict = None,
+        replica_placements: list = None,
     ):
         self.version = version
         self.subnet_id = subnet_id
@@ -304,6 +306,8 @@ class ClusterControlPlane(object):
         self.main_volume = main_volume
         self.database_encryption = database_encryption
         self.tags = tags
+        self.proxy_config = proxy_config
+        self.replica_placements = replica_placements
 
     @classmethod
     def to_proto(self, resource):
@@ -345,6 +349,20 @@ class ClusterControlPlane(object):
             res.ClearField("database_encryption")
         if Primitive.to_proto(resource.tags):
             res.tags = Primitive.to_proto(resource.tags)
+        if ClusterControlPlaneProxyConfig.to_proto(resource.proxy_config):
+            res.proxy_config.CopyFrom(
+                ClusterControlPlaneProxyConfig.to_proto(resource.proxy_config)
+            )
+        else:
+            res.ClearField("proxy_config")
+        if ClusterControlPlaneReplicaPlacementsArray.to_proto(
+            resource.replica_placements
+        ):
+            res.replica_placements.extend(
+                ClusterControlPlaneReplicaPlacementsArray.to_proto(
+                    resource.replica_placements
+                )
+            )
         return res
 
     @classmethod
@@ -363,6 +381,12 @@ class ClusterControlPlane(object):
                 resource.database_encryption
             ),
             tags=Primitive.from_proto(resource.tags),
+            proxy_config=ClusterControlPlaneProxyConfig.from_proto(
+                resource.proxy_config
+            ),
+            replica_placements=ClusterControlPlaneReplicaPlacementsArray.from_proto(
+                resource.replica_placements
+            ),
         )
 
 
@@ -524,6 +548,90 @@ class ClusterControlPlaneDatabaseEncryptionArray(object):
     @classmethod
     def from_proto(self, resources):
         return [ClusterControlPlaneDatabaseEncryption.from_proto(i) for i in resources]
+
+
+class ClusterControlPlaneProxyConfig(object):
+    def __init__(self, resource_group_id: str = None, secret_id: str = None):
+        self.resource_group_id = resource_group_id
+        self.secret_id = secret_id
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.ContainerazureAlphaClusterControlPlaneProxyConfig()
+        if Primitive.to_proto(resource.resource_group_id):
+            res.resource_group_id = Primitive.to_proto(resource.resource_group_id)
+        if Primitive.to_proto(resource.secret_id):
+            res.secret_id = Primitive.to_proto(resource.secret_id)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterControlPlaneProxyConfig(
+            resource_group_id=Primitive.from_proto(resource.resource_group_id),
+            secret_id=Primitive.from_proto(resource.secret_id),
+        )
+
+
+class ClusterControlPlaneProxyConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ClusterControlPlaneProxyConfig.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ClusterControlPlaneProxyConfig.from_proto(i) for i in resources]
+
+
+class ClusterControlPlaneReplicaPlacements(object):
+    def __init__(self, subnet_id: str = None, azure_availability_zone: str = None):
+        self.subnet_id = subnet_id
+        self.azure_availability_zone = azure_availability_zone
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.ContainerazureAlphaClusterControlPlaneReplicaPlacements()
+        if Primitive.to_proto(resource.subnet_id):
+            res.subnet_id = Primitive.to_proto(resource.subnet_id)
+        if Primitive.to_proto(resource.azure_availability_zone):
+            res.azure_availability_zone = Primitive.to_proto(
+                resource.azure_availability_zone
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterControlPlaneReplicaPlacements(
+            subnet_id=Primitive.from_proto(resource.subnet_id),
+            azure_availability_zone=Primitive.from_proto(
+                resource.azure_availability_zone
+            ),
+        )
+
+
+class ClusterControlPlaneReplicaPlacementsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ClusterControlPlaneReplicaPlacements.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ClusterControlPlaneReplicaPlacements.from_proto(i) for i in resources]
 
 
 class ClusterAuthorization(object):
