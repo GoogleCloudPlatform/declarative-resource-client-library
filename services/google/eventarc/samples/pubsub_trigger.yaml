@@ -29,11 +29,9 @@ variables:
   type: resource_name
 - name: region
   type: region
-- name: topic
-  type: resource_name
 - name: project
   type: project
-- name: name
+- name: topic
   type: resource_name
 - name: project
   type: project
@@ -41,3 +39,5 @@ variables:
   type: service_account
 - name: project
   type: project
+- name: name
+  type: resource_name

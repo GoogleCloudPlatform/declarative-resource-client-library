@@ -33,9 +33,9 @@ variables:
   type: resource_name
 - name: billing_account
   type: billing_account
-- name: zone
-  type: zone
 - name: cluster1
   type: resource_name
+- name: zone
+  type: zone
 - name: membership1
   type: resource_name

@@ -37,7 +37,7 @@ variables:
   type: region
 - name: range
   type: resource_name
-- name: project
-  type: project
 - name: name
   type: resource_name
+- name: project
+  type: project
