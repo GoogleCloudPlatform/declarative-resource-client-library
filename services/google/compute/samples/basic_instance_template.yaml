@@ -21,7 +21,7 @@ updates:
 - resource: samples/update.instance_template.json
   dependencies: []
 variables:
-- name: project
-  type: project
 - name: template1
   type: resource_name
+- name: project
+  type: project

@@ -19,7 +19,7 @@ versions:
 - beta
 resource: samples/minimal.metric_descriptor.json
 variables:
-- name: project
-  type: project
 - name: suffix
   type: resource_name
+- name: project
+  type: project

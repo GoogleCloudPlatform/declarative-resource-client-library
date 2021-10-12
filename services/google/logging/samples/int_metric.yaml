@@ -18,7 +18,7 @@ versions:
 - ga
 resource: samples/int.log_metric.json
 variables:
-- name: project
-  type: project
 - name: metric
   type: resource_name
+- name: project
+  type: project
