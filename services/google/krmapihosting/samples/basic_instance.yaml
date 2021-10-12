@@ -20,6 +20,8 @@ resource: samples/basic.instance.json
 dependencies:
 - samples/basic.compute.network.json
 variables:
+- name: project
+  type: project
 - name: configcontroller_network
   type: resource_name
 - name: project

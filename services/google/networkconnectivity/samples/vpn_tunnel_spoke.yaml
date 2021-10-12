@@ -40,71 +40,43 @@ dependencies:
 - samples/gw2_if1.compute.router_interface.json
 - samples/gw2_if1.compute.vpn_tunnel.json
 variables:
-- name: hub
+- name: connectivity_network2
   type: resource_name
 - name: project
   type: project
-- name: connectivity_network2
+- name: hub
   type: resource_name
 - name: connectivity_network1
-  type: resource_name
-- name: gateway2
   type: resource_name
 - name: project
   type: project
 - name: region
   type: region
+- name: connectivity_subnet2
+  type: resource_name
+- name: project
+  type: project
 - name: connectivity_router1
   type: resource_name
 - name: project
   type: project
-- name: connectivity_router2
-  type: resource_name
-- name: project
-  type: project
-- name: region
-  type: region
-- name: connectivity_subnet1
-  type: resource_name
-- name: project
-  type: project
-- name: region
-  type: region
 - name: region
   type: region
 - name: gateway1
   type: resource_name
 - name: project
   type: project
-- name: project
-  type: project
-- name: connectivity_subnet2
-  type: resource_name
-- name: connectivity_peer1
+- name: gateway2
   type: resource_name
 - name: project
   type: project
-- name: region
-  type: region
-- name: connectivity_tunnel3
+- name: connectivity_subnet1
   type: resource_name
 - name: project
   type: project
 - name: region
   type: region
-- name: connectivity_tunnel2
-  type: resource_name
-- name: project
-  type: project
-- name: region
-  type: region
-- name: project
-  type: project
-- name: region
-  type: region
-- name: connectivity_peer4
-  type: resource_name
-- name: connectivity_tunnel1
+- name: connectivity_router2
   type: resource_name
 - name: project
   type: project
@@ -116,14 +88,42 @@ variables:
   type: project
 - name: region
   type: region
+- name: connectivity_tunnel1
+  type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
+- name: connectivity_tunnel3
+  type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
+- name: connectivity_peer4
+  type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
+- name: connectivity_peer1
+  type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
 - name: connectivity_peer3
   type: resource_name
 - name: project
   type: project
 - name: region
   type: region
+- name: connectivity_tunnel2
+  type: resource_name
 - name: project
   type: project
+- name: region
+  type: region
 - name: region
   type: region
 - name: connectivity_tunnel4
@@ -134,18 +134,20 @@ variables:
   type: region
 - name: connectivity_interface1
   type: resource_name
+- name: project
+  type: project
 - name: connectivity_interface2
   type: resource_name
 - name: project
   type: project
 - name: region
   type: region
-- name: region
-  type: region
 - name: connectivity_interface3
   type: resource_name
 - name: project
   type: project
+- name: region
+  type: region
 - name: connectivity_interface4
   type: resource_name
 - name: project

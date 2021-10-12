@@ -511,9 +511,9 @@ class ClusterControlPlaneMainVolumeArray(object):
 
 
 class ClusterControlPlaneDatabaseEncryption(object):
-    def __init__(self, resource_group_id: str = None, kms_key_identifier: str = None):
+    def __init__(self, resource_group_id: str = None, key_id: str = None):
         self.resource_group_id = resource_group_id
-        self.kms_key_identifier = kms_key_identifier
+        self.key_id = key_id
 
     @classmethod
     def to_proto(self, resource):
@@ -523,8 +523,8 @@ class ClusterControlPlaneDatabaseEncryption(object):
         res = cluster_pb2.ContainerazureAlphaClusterControlPlaneDatabaseEncryption()
         if Primitive.to_proto(resource.resource_group_id):
             res.resource_group_id = Primitive.to_proto(resource.resource_group_id)
-        if Primitive.to_proto(resource.kms_key_identifier):
-            res.kms_key_identifier = Primitive.to_proto(resource.kms_key_identifier)
+        if Primitive.to_proto(resource.key_id):
+            res.key_id = Primitive.to_proto(resource.key_id)
         return res
 
     @classmethod
@@ -534,7 +534,7 @@ class ClusterControlPlaneDatabaseEncryption(object):
 
         return ClusterControlPlaneDatabaseEncryption(
             resource_group_id=Primitive.from_proto(resource.resource_group_id),
-            kms_key_identifier=Primitive.from_proto(resource.kms_key_identifier),
+            key_id=Primitive.from_proto(resource.key_id),
         )
 
 

@@ -113,8 +113,8 @@ func ProtoToContainerazureAlphaClusterControlPlaneDatabaseEncryption(p *alphapb.
 		return nil
 	}
 	obj := &alpha.ClusterControlPlaneDatabaseEncryption{
-		ResourceGroupId:  dcl.StringOrNil(p.GetResourceGroupId()),
-		KmsKeyIdentifier: dcl.StringOrNil(p.GetKmsKeyIdentifier()),
+		ResourceGroupId: dcl.StringOrNil(p.GetResourceGroupId()),
+		KeyId:           dcl.StringOrNil(p.GetKeyId()),
 	}
 	return obj
 }
@@ -299,7 +299,7 @@ func ContainerazureAlphaClusterControlPlaneDatabaseEncryptionToProto(o *alpha.Cl
 	}
 	p := &alphapb.ContainerazureAlphaClusterControlPlaneDatabaseEncryption{}
 	p.SetResourceGroupId(dcl.ValueOrEmptyString(o.ResourceGroupId))
-	p.SetKmsKeyIdentifier(dcl.ValueOrEmptyString(o.KmsKeyIdentifier))
+	p.SetKeyId(dcl.ValueOrEmptyString(o.KeyId))
 	return p
 }
 

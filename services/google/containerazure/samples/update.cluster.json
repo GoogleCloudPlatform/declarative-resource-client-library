@@ -26,7 +26,7 @@
     },
     "databaseEncryption": {
       "resourceGroupId": "/subscriptions/{{azure_subscription}}/resourceGroups/{{byo_multicloud_prefix}}-dev-cluster",
-      "kmsKeyIdentifier": "https://{{byo_multicloud_prefix}}-dev-keyvault.vault.azure.net/keys/{{byo_multicloud_prefix}}-dev-key/{{azure_database_encryption_key_version}}"
+      "keyId": "/subscriptions/{{azure_subscription}}/resourceGroups/{{byo_multicloud_prefix}}-dev-cluster/providers/Microsoft.KeyVault/vaults/{{byo_multicloud_prefix}}-dev-keyvault/keys/{{byo_multicloud_prefix}}-dev-key"
     },
     "tags": {
       "owner": "mmv2",

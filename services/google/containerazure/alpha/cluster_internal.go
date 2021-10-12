@@ -142,7 +142,7 @@ func (r *ClusterControlPlaneDatabaseEncryption) validate() error {
 	if err := dcl.Required(r, "resourceGroupId"); err != nil {
 		return err
 	}
-	if err := dcl.Required(r, "kmsKeyIdentifier"); err != nil {
+	if err := dcl.Required(r, "keyId"); err != nil {
 		return err
 	}
 	return nil
@@ -1398,10 +1398,10 @@ func canonicalizeClusterControlPlaneDatabaseEncryption(des, initial *ClusterCont
 	} else {
 		cDes.ResourceGroupId = des.ResourceGroupId
 	}
-	if dcl.StringCanonicalize(des.KmsKeyIdentifier, initial.KmsKeyIdentifier) || dcl.IsZeroValue(des.KmsKeyIdentifier) {
-		cDes.KmsKeyIdentifier = initial.KmsKeyIdentifier
+	if dcl.StringCanonicalize(des.KeyId, initial.KeyId) || dcl.IsZeroValue(des.KeyId) {
+		cDes.KeyId = initial.KeyId
 	} else {
-		cDes.KmsKeyIdentifier = des.KmsKeyIdentifier
+		cDes.KeyId = des.KeyId
 	}
 
 	return cDes
@@ -1452,8 +1452,8 @@ func canonicalizeNewClusterControlPlaneDatabaseEncryption(c *Client, des, nw *Cl
 	if dcl.StringCanonicalize(des.ResourceGroupId, nw.ResourceGroupId) {
 		nw.ResourceGroupId = des.ResourceGroupId
 	}
-	if dcl.StringCanonicalize(des.KmsKeyIdentifier, nw.KmsKeyIdentifier) {
-		nw.KmsKeyIdentifier = des.KmsKeyIdentifier
+	if dcl.StringCanonicalize(des.KeyId, nw.KeyId) {
+		nw.KeyId = des.KeyId
 	}
 
 	return nw
@@ -2502,7 +2502,7 @@ func compareClusterControlPlaneDatabaseEncryptionNewStyle(d, a interface{}, fn d
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KmsKeyIdentifier, actual.KmsKeyIdentifier, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KmsKeyIdentifier")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyId, actual.KeyId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3552,8 +3552,8 @@ func expandClusterControlPlaneDatabaseEncryption(c *Client, f *ClusterControlPla
 	if v := f.ResourceGroupId; !dcl.IsEmptyValueIndirect(v) {
 		m["resourceGroupId"] = v
 	}
-	if v := f.KmsKeyIdentifier; !dcl.IsEmptyValueIndirect(v) {
-		m["kmsKeyIdentifier"] = v
+	if v := f.KeyId; !dcl.IsEmptyValueIndirect(v) {
+		m["keyId"] = v
 	}
 
 	return m, nil
@@ -3573,7 +3573,7 @@ func flattenClusterControlPlaneDatabaseEncryption(c *Client, i interface{}) *Clu
 		return EmptyClusterControlPlaneDatabaseEncryption
 	}
 	r.ResourceGroupId = dcl.FlattenString(m["resourceGroupId"])
-	r.KmsKeyIdentifier = dcl.FlattenString(m["kmsKeyIdentifier"])
+	r.KeyId = dcl.FlattenString(m["keyId"])
 
 	return r
 }

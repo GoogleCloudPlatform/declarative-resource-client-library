@@ -87,7 +87,7 @@ message ContainerazureAlphaClusterControlPlaneMainVolume {
 
 message ContainerazureAlphaClusterControlPlaneDatabaseEncryption {
   string resource_group_id = 1;
-  string kms_key_identifier = 2;
+  string key_id = 2;
 }
 
 message ContainerazureAlphaClusterControlPlaneProxyConfig {

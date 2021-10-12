@@ -22,13 +22,11 @@ dependencies:
 - samples/basic.attestor.json
 - samples/basic.containeranalysis.note.json
 variables:
+- name: package
+  type: resource_name
 - name: note
   type: resource_name
 - name: project
   type: project
-- name: package
-  type: resource_name
 - name: attestor
   type: resource_name
-- name: project
-  type: project

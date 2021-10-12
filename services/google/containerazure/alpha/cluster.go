@@ -341,9 +341,9 @@ func (r *ClusterControlPlaneMainVolume) HashCode() string {
 }
 
 type ClusterControlPlaneDatabaseEncryption struct {
-	empty            bool    `json:"-"`
-	ResourceGroupId  *string `json:"resourceGroupId"`
-	KmsKeyIdentifier *string `json:"kmsKeyIdentifier"`
+	empty           bool    `json:"-"`
+	ResourceGroupId *string `json:"resourceGroupId"`
+	KeyId           *string `json:"keyId"`
 }
 
 type jsonClusterControlPlaneDatabaseEncryption ClusterControlPlaneDatabaseEncryption
@@ -363,7 +363,7 @@ func (r *ClusterControlPlaneDatabaseEncryption) UnmarshalJSON(data []byte) error
 
 		r.ResourceGroupId = res.ResourceGroupId
 
-		r.KmsKeyIdentifier = res.KmsKeyIdentifier
+		r.KeyId = res.KeyId
 
 	}
 	return nil

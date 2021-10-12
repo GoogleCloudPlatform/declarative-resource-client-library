@@ -153,13 +153,15 @@ components:
               x-kubernetes-immutable: true
               required:
               - resourceGroupId
-              - kmsKeyIdentifier
+              - keyId
               properties:
-                kmsKeyIdentifier:
+                keyId:
                   type: string
-                  x-dcl-go-name: KmsKeyIdentifier
-                  description: 'Required. The URL the of the Azure Key Vault key (with
-                    its version) to use to encrypt / decrypt data. For example: `https://vault-id.vault.azure.net/keys/key-id/<version>`'
+                  x-dcl-go-name: KeyId
+                  description: 'The ARM ID of the Azure Key Vault key to encrypt /
+                    decrypt data. For example: `/subscriptions/<subscription-id>/resourceGroups/<resource-group-id>/providers/Microsoft.KeyVault/vaults/<key-vault-id>/keys/<key-name>`
+                    Encryption will always take the latest version of the key and
+                    hence specific version is not supported.'
                   x-kubernetes-immutable: true
                 resourceGroupId:
                   type: string
