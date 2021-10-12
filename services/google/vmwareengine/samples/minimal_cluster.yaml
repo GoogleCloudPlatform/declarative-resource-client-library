@@ -20,8 +20,6 @@ resource: samples/minimal.cluster.json
 dependencies:
 - samples/minimal.private_cloud.json
 variables:
-- name: project
-  type: project
 - name: management
   type: resource_name
 - name: cloud
@@ -32,7 +30,5 @@ variables:
   type: zone
 - name: cluster
   type: resource_name
-- name: project
-  type: project
 - name: zone
   type: zone

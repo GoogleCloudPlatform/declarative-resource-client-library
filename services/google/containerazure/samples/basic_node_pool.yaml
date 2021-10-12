@@ -24,10 +24,10 @@ updates:
   dependencies:
   - samples/minimal.cluster.json
 variables:
-- name: project
-  type: project
 - name: cluster
   type: resource_name
+- name: project
+  type: project
 - name: azure_subscription
   type: azure_subscription
 - name: byo_multicloud_prefix

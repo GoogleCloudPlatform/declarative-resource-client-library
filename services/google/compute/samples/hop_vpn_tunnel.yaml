@@ -29,27 +29,25 @@ dependencies:
 - samples/basic.address.json
 - samples/basic.network.json
 variables:
+- name: address
+  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
-- name: address
-  type: resource_name
 - name: compute_network
   type: resource_name
-- name: project
-  type: project
-- name: project
-  type: project
+- name: router
+  type: resource_name
 - name: gateway
   type: resource_name
 - name: region
   type: region
-- name: project
-  type: project
 - name: region
   type: region
-- name: router
+- name: project
+  type: project
+- name: gateway
   type: resource_name
 - name: project
   type: project
@@ -57,28 +55,16 @@ variables:
   type: region
 - name: forwarding_rule
   type: resource_name
-- name: project
-  type: project
 - name: region
   type: region
 - name: project
   type: project
-- name: region
-  type: region
-- name: udp_forwarding_rule_2
-  type: resource_name
-- name: region
-  type: region
 - name: udp_forwarding_rule_1
   type: resource_name
-- name: project
-  type: project
+- name: udp_forwarding_rule_2
+  type: resource_name
 - name: tunnel
   type: resource_name
-- name: project
-  type: project
-- name: region
-  type: region
 - name: name
   type: resource_name
 - name: project

@@ -50,27 +50,17 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: connectivity_subnet1
+- name: gateway2
   type: resource_name
 - name: project
   type: project
 - name: region
   type: region
-- name: connectivity_router1
-  type: resource_name
-- name: project
-  type: project
-- name: project
-  type: project
 - name: connectivity_router2
   type: resource_name
-- name: connectivity_subnet2
-  type: resource_name
 - name: project
   type: project
-- name: region
-  type: region
-- name: gateway2
+- name: connectivity_subnet2
   type: resource_name
 - name: project
   type: project
@@ -78,17 +68,35 @@ variables:
   type: resource_name
 - name: project
   type: project
+- name: region
+  type: region
+- name: connectivity_subnet1
+  type: resource_name
 - name: project
   type: project
-- name: connectivity_tunnel4
+- name: connectivity_router1
   type: resource_name
+- name: project
+  type: project
+- name: connectivity_tunnel1
+  type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
 - name: connectivity_peer3
   type: resource_name
 - name: project
   type: project
 - name: region
   type: region
-- name: connectivity_tunnel3
+- name: connectivity_tunnel4
+  type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
+- name: connectivity_peer1
   type: resource_name
 - name: project
   type: project
@@ -100,42 +108,30 @@ variables:
   type: project
 - name: region
   type: region
-- name: connectivity_peer4
+- name: connectivity_tunnel3
   type: resource_name
 - name: project
   type: project
+- name: region
+  type: region
+- name: project
+  type: project
+- name: region
+  type: region
+- name: connectivity_peer4
+  type: resource_name
 - name: region
   type: region
 - name: connectivity_tunnel2
   type: resource_name
 - name: project
   type: project
-- name: region
-  type: region
-- name: region
-  type: region
-- name: connectivity_tunnel1
-  type: resource_name
-- name: project
-  type: project
-- name: connectivity_peer1
-  type: resource_name
-- name: project
-  type: project
-- name: region
-  type: region
-- name: connectivity_interface1
-  type: resource_name
-- name: project
-  type: project
-- name: region
-  type: region
-- name: project
-  type: project
-- name: region
-  type: region
 - name: connectivity_interface4
   type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
 - name: connectivity_interface2
   type: resource_name
 - name: project
@@ -148,11 +144,17 @@ variables:
   type: project
 - name: region
   type: region
+- name: region
+  type: region
+- name: connectivity_interface1
+  type: resource_name
+- name: project
+  type: project
+- name: project
+  type: project
 - name: spoke
   type: resource_name
 - name: project
   type: project
 - name: region
   type: region
-- name: project
-  type: project
