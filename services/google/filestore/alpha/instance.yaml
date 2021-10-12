@@ -183,7 +183,7 @@ components:
                 description: The resource name of the backup, in the format `projects/{project_number}/locations/{location_id}/backups/{backup_id}`,
                   that this file share has been restored from.
                 x-dcl-references:
-                - resource: File/Backup
+                - resource: Filestore/Backup
                   field: name
         labels:
           type: object

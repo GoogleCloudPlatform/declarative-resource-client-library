@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="osconfig/beta", resources=["guest_policy"])
+connector(name="osconfig/beta", resources=["guest_policy","os_policy_assignment"])

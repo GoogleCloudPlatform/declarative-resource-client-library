@@ -54,10 +54,10 @@ class OSPolicyAssignment(object):
         self.service_account_file = service_account_file
 
     def apply(self):
-        stub = os_policy_assignment_pb2_grpc.OsconfigAlphaOSPolicyAssignmentServiceStub(
+        stub = os_policy_assignment_pb2_grpc.OsconfigBetaOSPolicyAssignmentServiceStub(
             channel.Channel()
         )
-        request = os_policy_assignment_pb2.ApplyOsconfigAlphaOSPolicyAssignmentRequest()
+        request = os_policy_assignment_pb2.ApplyOsconfigBetaOSPolicyAssignmentRequest()
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
@@ -88,7 +88,7 @@ class OSPolicyAssignment(object):
 
         request.service_account_file = self.service_account_file
 
-        response = stub.ApplyOsconfigAlphaOSPolicyAssignment(request)
+        response = stub.ApplyOsconfigBetaOSPolicyAssignment(request)
         self.name = Primitive.from_proto(response.name)
         self.description = Primitive.from_proto(response.description)
         self.os_policies = OSPolicyAssignmentOSPoliciesArray.from_proto(
@@ -112,12 +112,10 @@ class OSPolicyAssignment(object):
         self.location = Primitive.from_proto(response.location)
 
     def delete(self):
-        stub = os_policy_assignment_pb2_grpc.OsconfigAlphaOSPolicyAssignmentServiceStub(
+        stub = os_policy_assignment_pb2_grpc.OsconfigBetaOSPolicyAssignmentServiceStub(
             channel.Channel()
         )
-        request = (
-            os_policy_assignment_pb2.DeleteOsconfigAlphaOSPolicyAssignmentRequest()
-        )
+        request = os_policy_assignment_pb2.DeleteOsconfigBetaOSPolicyAssignmentRequest()
         request.service_account_file = self.service_account_file
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
@@ -147,23 +145,23 @@ class OSPolicyAssignment(object):
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
 
-        response = stub.DeleteOsconfigAlphaOSPolicyAssignment(request)
+        response = stub.DeleteOsconfigBetaOSPolicyAssignment(request)
 
     @classmethod
     def list(self, project, location, service_account_file=""):
-        stub = os_policy_assignment_pb2_grpc.OsconfigAlphaOSPolicyAssignmentServiceStub(
+        stub = os_policy_assignment_pb2_grpc.OsconfigBetaOSPolicyAssignmentServiceStub(
             channel.Channel()
         )
-        request = os_policy_assignment_pb2.ListOsconfigAlphaOSPolicyAssignmentRequest()
+        request = os_policy_assignment_pb2.ListOsconfigBetaOSPolicyAssignmentRequest()
         request.service_account_file = service_account_file
         request.Project = project
 
         request.Location = location
 
-        return stub.ListOsconfigAlphaOSPolicyAssignment(request).items
+        return stub.ListOsconfigBetaOSPolicyAssignment(request).items
 
     def to_proto(self):
-        resource = os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignment()
+        resource = os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignment()
         if Primitive.to_proto(self.name):
             resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.description):
@@ -209,7 +207,7 @@ class OSPolicyAssignmentOSPolicies(object):
         if not resource:
             return None
 
-        res = os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPolicies()
+        res = os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPolicies()
         if Primitive.to_proto(resource.id):
             res.id = Primitive.to_proto(resource.id)
         if Primitive.to_proto(resource.description):
@@ -271,7 +269,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroups(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroups()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroups()
         )
         if OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersArray.to_proto(
             resource.inventory_filters
@@ -333,7 +331,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters()
         )
         if Primitive.to_proto(resource.os_short_name):
             res.os_short_name = Primitive.to_proto(resource.os_short_name)
@@ -391,7 +389,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResources(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResources()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResources()
         )
         if Primitive.to_proto(resource.id):
             res.id = Primitive.to_proto(resource.id)
@@ -504,7 +502,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg()
         )
         if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum.to_proto(
             resource.desired_state
@@ -645,7 +643,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt()
         )
         if Primitive.to_proto(resource.name):
             res.name = Primitive.to_proto(resource.name)
@@ -690,7 +688,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb()
         )
         if OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.to_proto(
             resource.source
@@ -756,7 +754,7 @@ class OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile()
         )
         if OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote.to_proto(
             resource.remote
@@ -830,7 +828,7 @@ class OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote()
         )
         if Primitive.to_proto(resource.uri):
             res.uri = Primitive.to_proto(resource.uri)
@@ -883,7 +881,7 @@ class OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs()
         )
         if Primitive.to_proto(resource.bucket):
             res.bucket = Primitive.to_proto(resource.bucket)
@@ -933,7 +931,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum()
         )
         if Primitive.to_proto(resource.name):
             res.name = Primitive.to_proto(resource.name)
@@ -977,7 +975,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper()
         )
         if Primitive.to_proto(resource.name):
             res.name = Primitive.to_proto(resource.name)
@@ -1022,7 +1020,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm()
         )
         if OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.to_proto(
             resource.source
@@ -1079,7 +1077,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget()
         )
         if Primitive.to_proto(resource.name):
             res.name = Primitive.to_proto(resource.name)
@@ -1124,7 +1122,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi()
         )
         if OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.to_proto(
             resource.source
@@ -1186,7 +1184,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository()
         )
         if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt.to_proto(
             resource.apt
@@ -1290,7 +1288,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt()
         )
         if OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum.to_proto(
             resource.archive_type
@@ -1363,7 +1361,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum()
         )
         if Primitive.to_proto(resource.id):
             res.id = Primitive.to_proto(resource.id)
@@ -1427,7 +1425,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(object
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper()
         )
         if Primitive.to_proto(resource.id):
             res.id = Primitive.to_proto(resource.id)
@@ -1485,7 +1483,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo()
         )
         if Primitive.to_proto(resource.name):
             res.name = Primitive.to_proto(resource.name)
@@ -1535,7 +1533,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec()
         )
         if OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec.to_proto(
             resource.validate
@@ -1613,7 +1611,7 @@ class OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(ob
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec()
         )
         if OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.to_proto(
             resource.file
@@ -1702,7 +1700,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile()
         )
         if OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.to_proto(
             resource.file
@@ -1782,7 +1780,7 @@ class OSPolicyAssignmentInstanceFilter(object):
         if not resource:
             return None
 
-        res = os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentInstanceFilter()
+        res = os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentInstanceFilter()
         if Primitive.to_proto(resource.all):
             res.all = Primitive.to_proto(resource.all)
         if OSPolicyAssignmentInstanceFilterInclusionLabelsArray.to_proto(
@@ -1852,7 +1850,7 @@ class OSPolicyAssignmentInstanceFilterInclusionLabels(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentInstanceFilterInclusionLabels()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentInstanceFilterInclusionLabels()
         )
         if Primitive.to_proto(resource.labels):
             res.labels = Primitive.to_proto(resource.labels)
@@ -1896,7 +1894,7 @@ class OSPolicyAssignmentInstanceFilterExclusionLabels(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentInstanceFilterExclusionLabels()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentInstanceFilterExclusionLabels()
         )
         if Primitive.to_proto(resource.labels):
             res.labels = Primitive.to_proto(resource.labels)
@@ -1941,7 +1939,7 @@ class OSPolicyAssignmentInstanceFilterInventories(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentInstanceFilterInventories()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentInstanceFilterInventories()
         )
         if Primitive.to_proto(resource.os_short_name):
             res.os_short_name = Primitive.to_proto(resource.os_short_name)
@@ -1986,7 +1984,7 @@ class OSPolicyAssignmentRollout(object):
         if not resource:
             return None
 
-        res = os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentRollout()
+        res = os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentRollout()
         if OSPolicyAssignmentRolloutDisruptionBudget.to_proto(
             resource.disruption_budget
         ):
@@ -2037,7 +2035,7 @@ class OSPolicyAssignmentRolloutDisruptionBudget(object):
             return None
 
         res = (
-            os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentRolloutDisruptionBudget()
+            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentRolloutDisruptionBudget()
         )
         if Primitive.to_proto(resource.fixed):
             res.fixed = Primitive.to_proto(resource.fixed)
@@ -2077,18 +2075,18 @@ class OSPolicyAssignmentOSPoliciesModeEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesModeEnum.Value(
-            "OsconfigAlphaOSPolicyAssignmentOSPoliciesModeEnum%s" % resource
+        return os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesModeEnum.Value(
+            "OsconfigBetaOSPolicyAssignmentOSPoliciesModeEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesModeEnum.Name(
+        return os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesModeEnum.Name(
             resource
         )[
-            len("OsconfigAlphaOSPolicyAssignmentOSPoliciesModeEnum") :
+            len("OsconfigBetaOSPolicyAssignmentOSPoliciesModeEnum") :
         ]
 
 
@@ -2097,8 +2095,8 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum(obj
     def to_proto(self, resource):
         if not resource:
             return resource
-        return os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum.Value(
-            "OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum%s"
+        return os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum.Value(
+            "OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum%s"
             % resource
         )
 
@@ -2106,11 +2104,11 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum(obj
     def from_proto(self, resource):
         if not resource:
             return resource
-        return os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum.Name(
+        return os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum.Name(
             resource
         )[
             len(
-                "OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum"
+                "OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum"
             ) :
         ]
 
@@ -2122,8 +2120,8 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTyp
     def to_proto(self, resource):
         if not resource:
             return resource
-        return os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum.Value(
-            "OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum%s"
+        return os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum.Value(
+            "OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum%s"
             % resource
         )
 
@@ -2131,11 +2129,11 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTyp
     def from_proto(self, resource):
         if not resource:
             return resource
-        return os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum.Name(
+        return os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum.Name(
             resource
         )[
             len(
-                "OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum"
+                "OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum"
             ) :
         ]
 
@@ -2147,8 +2145,8 @@ class OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInt
     def to_proto(self, resource):
         if not resource:
             return resource
-        return os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum.Value(
-            "OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum%s"
+        return os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum.Value(
+            "OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum%s"
             % resource
         )
 
@@ -2156,11 +2154,11 @@ class OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInt
     def from_proto(self, resource):
         if not resource:
             return resource
-        return os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum.Name(
+        return os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum.Name(
             resource
         )[
             len(
-                "OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum"
+                "OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum"
             ) :
         ]
 
@@ -2170,8 +2168,8 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum.Value(
-            "OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum%s"
+        return os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum.Value(
+            "OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum%s"
             % resource
         )
 
@@ -2179,11 +2177,11 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum(object):
     def from_proto(self, resource):
         if not resource:
             return resource
-        return os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum.Name(
+        return os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum.Name(
             resource
         )[
             len(
-                "OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum"
+                "OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum"
             ) :
         ]
 
@@ -2193,18 +2191,18 @@ class OSPolicyAssignmentRolloutStateEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentRolloutStateEnum.Value(
-            "OsconfigAlphaOSPolicyAssignmentRolloutStateEnum%s" % resource
+        return os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentRolloutStateEnum.Value(
+            "OsconfigBetaOSPolicyAssignmentRolloutStateEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return os_policy_assignment_pb2.OsconfigAlphaOSPolicyAssignmentRolloutStateEnum.Name(
+        return os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentRolloutStateEnum.Name(
             resource
         )[
-            len("OsconfigAlphaOSPolicyAssignmentRolloutStateEnum") :
+            len("OsconfigBetaOSPolicyAssignmentRolloutStateEnum") :
         ]
 
 

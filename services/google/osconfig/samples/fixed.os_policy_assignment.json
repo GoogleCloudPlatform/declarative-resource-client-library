@@ -10,10 +10,12 @@
       "mode": "VALIDATION",
       "resourceGroups": [
         {
-          "osFilter": {
-            "osShortName": "centos",
-            "osVersion": "8.*"
-          },
+          "inventoryFilters": [
+            {
+              "osShortName": "centos",
+              "osVersion": "8.*"
+            }
+          ],
           "resources": [
             {
               "id": "apt",
@@ -211,7 +213,6 @@
   ],
   "instanceFilter": {
     "all": false,
-    "osShortNames": ["centos"],
     "inclusionLabels": [
       {
         "labels": {
@@ -224,6 +225,12 @@
         "labels": {
           "label-two": "value-two"
         }
+      }
+    ],
+    "inventories": [
+      {
+        "osShortName": "centos",
+        "osVersion": "8.*"
       }
     ]
   },

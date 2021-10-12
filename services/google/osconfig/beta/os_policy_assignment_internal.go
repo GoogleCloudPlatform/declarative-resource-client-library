@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package alpha
+package beta
 
 import (
 	"bytes"
@@ -392,7 +392,7 @@ func (r *OSPolicyAssignmentRolloutDisruptionBudget) validate() error {
 }
 func (r *OSPolicyAssignment) basePath() string {
 	params := map[string]interface{}{}
-	return dcl.Nprintf("https://osconfig.googleapis.com/v1alpha/", params)
+	return dcl.Nprintf("https://osconfig.googleapis.com/v1beta/", params)
 }
 
 func (r *OSPolicyAssignment) getURL(userBasePath string) (string, error) {

@@ -204,7 +204,10 @@
     }
   ],
   "instanceFilter": {
-    "all": true
+    "all": true,
+    "inclusionLabels": [],
+    "exclusionLabels": [],
+    "inventories": []
   },
   "rollout": {
     "disruptionBudget": {

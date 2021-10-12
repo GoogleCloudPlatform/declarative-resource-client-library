@@ -134,41 +134,14 @@ class GuestPolicy(object):
 
         response = stub.DeleteOsconfigBetaGuestPolicy(request)
 
-    def list(self):
+    @classmethod
+    def list(self, project, service_account_file=""):
         stub = guest_policy_pb2_grpc.OsconfigBetaGuestPolicyServiceStub(
             channel.Channel()
         )
         request = guest_policy_pb2.ListOsconfigBetaGuestPolicyRequest()
-        request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
-        if Primitive.to_proto(self.description):
-            request.resource.description = Primitive.to_proto(self.description)
-
-        if GuestPolicyAssignment.to_proto(self.assignment):
-            request.resource.assignment.CopyFrom(
-                GuestPolicyAssignment.to_proto(self.assignment)
-            )
-        else:
-            request.resource.ClearField("assignment")
-        if GuestPolicyPackagesArray.to_proto(self.packages):
-            request.resource.packages.extend(
-                GuestPolicyPackagesArray.to_proto(self.packages)
-            )
-        if GuestPolicyPackageRepositoriesArray.to_proto(self.package_repositories):
-            request.resource.package_repositories.extend(
-                GuestPolicyPackageRepositoriesArray.to_proto(self.package_repositories)
-            )
-        if GuestPolicyRecipesArray.to_proto(self.recipes):
-            request.resource.recipes.extend(
-                GuestPolicyRecipesArray.to_proto(self.recipes)
-            )
-        if Primitive.to_proto(self.etag):
-            request.resource.etag = Primitive.to_proto(self.etag)
-
-        if Primitive.to_proto(self.project):
-            request.resource.project = Primitive.to_proto(self.project)
+        request.service_account_file = service_account_file
+        request.Project = project
 
         return stub.ListOsconfigBetaGuestPolicy(request).items
 

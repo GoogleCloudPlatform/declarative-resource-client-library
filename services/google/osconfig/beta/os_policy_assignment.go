@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package alpha
+package beta
 
 import (
 	"context"
@@ -1713,7 +1713,7 @@ func (r *OSPolicyAssignment) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
 		Service: "os_config",
 		Type:    "OSPolicyAssignment",
-		Version: "alpha",
+		Version: "beta",
 	}
 }
 

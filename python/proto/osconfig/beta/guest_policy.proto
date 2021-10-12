@@ -12,11 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 syntax = "proto3";
+// All generated protos should be opaque, with "xxx_hidden_" prepended to their field names.
+
 
 package dcl;
 
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
+
 
 enum OsconfigBetaGuestPolicyPackagesDesiredStateEnum {
   OsconfigBetaGuestPolicyPackagesDesiredStateEnumNO_VALUE_DO_NOT_USE = 0;
@@ -294,7 +297,7 @@ message DeleteOsconfigBetaGuestPolicyRequest {
 
 message ListOsconfigBetaGuestPolicyRequest {
   string service_account_file = 1;
-	OsconfigBetaGuestPolicy resource = 2;
+  string Project = 2;
 }
 
 message ListOsconfigBetaGuestPolicyResponse {

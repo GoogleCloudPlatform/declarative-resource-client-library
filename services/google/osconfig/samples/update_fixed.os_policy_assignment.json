@@ -10,10 +10,12 @@
       "mode": "ENFORCEMENT",
       "resourceGroups": [
         {
-          "osFilter": {
-            "osShortName": "",
-            "osVersion": "9.*"
-          },
+          "inventoryFilters": [
+            {
+              "osShortName": "",
+              "osVersion": "9.*"
+            }
+          ],
           "resources": [
             {
               "id": "apt",
@@ -199,10 +201,15 @@
     }
   ],
   "instanceFilter": {
-    "all": true,
-    "osShortNames": [],
+    "all": false,
     "inclusionLabels": [],
-    "exclusionLabels": []
+    "exclusionLabels": [],
+    "inventories": [
+      {
+        "osShortName": "",
+        "osVersion": "9.*"
+      }
+    ]
   },
   "rollout": {
     "disruptionBudget": {

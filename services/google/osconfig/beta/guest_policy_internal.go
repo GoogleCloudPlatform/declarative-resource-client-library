@@ -324,17 +324,17 @@ func newUpdateGuestPolicyUpdateGuestPolicyRequest(ctx context.Context, f *GuestP
 	}
 	if v, err := expandGuestPolicyPackagesSlice(c, f.Packages); err != nil {
 		return nil, fmt.Errorf("error expanding Packages into packages: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		req["packages"] = v
 	}
 	if v, err := expandGuestPolicyPackageRepositoriesSlice(c, f.PackageRepositories); err != nil {
 		return nil, fmt.Errorf("error expanding PackageRepositories into packageRepositories: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		req["packageRepositories"] = v
 	}
 	if v, err := expandGuestPolicyRecipesSlice(c, f.Recipes); err != nil {
 		return nil, fmt.Errorf("error expanding Recipes into recipes: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		req["recipes"] = v
 	}
 	if v := f.Etag; !dcl.IsEmptyValueIndirect(v) {
@@ -5926,7 +5926,11 @@ func unmarshalGuestPolicy(b []byte, c *Client) (*GuestPolicy, error) {
 
 func unmarshalMapGuestPolicy(m map[string]interface{}, c *Client) (*GuestPolicy, error) {
 
-	return flattenGuestPolicy(c, m), nil
+	flattened := flattenGuestPolicy(c, m)
+	if flattened == nil {
+		return nil, fmt.Errorf("attempted to flatten empty json object")
+	}
+	return flattened, nil
 }
 
 // expandGuestPolicy expands GuestPolicy into a JSON request object.

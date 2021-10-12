@@ -33,5 +33,3 @@ variables:
   type: resource_name
 - name: image
   type: resource_name
-- name: project
-  type: project

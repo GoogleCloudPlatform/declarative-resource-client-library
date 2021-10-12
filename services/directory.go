@@ -84,6 +84,7 @@ import (
 	orgpolicy_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/orgpolicy/alpha"
 	orgpolicy_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/orgpolicy/beta"
 	osconfig_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/alpha"
+	osconfig_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca"
 	privateca_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca/alpha"
 	privateca_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca/beta"
@@ -340,6 +341,10 @@ func Services() *Directory {
 	d.AddResource("beta", "monitoring", "MonitoredProject", monitoring_beta.YAML_monitored_project)
 	d.AddResource("beta", "orgpolicy", dcl.TitleToSnakeCase("Policy"), orgpolicy_beta.YAML_policy)
 	d.AddResource("beta", "orgpolicy", "Policy", orgpolicy_beta.YAML_policy)
+	d.AddResource("beta", "osconfig", dcl.TitleToSnakeCase("GuestPolicy"), osconfig_beta.YAML_guest_policy)
+	d.AddResource("beta", "osconfig", "GuestPolicy", osconfig_beta.YAML_guest_policy)
+	d.AddResource("beta", "osconfig", dcl.TitleToSnakeCase("OSPolicyAssignment"), osconfig_beta.YAML_os_policy_assignment)
+	d.AddResource("beta", "osconfig", "OSPolicyAssignment", osconfig_beta.YAML_os_policy_assignment)
 	d.AddResource("beta", "pubsub", dcl.TitleToSnakeCase("Topic"), pubsub_beta.YAML_topic)
 	d.AddResource("beta", "pubsub", "Topic", pubsub_beta.YAML_topic)
 	d.AddResource("beta", "storage", dcl.TitleToSnakeCase("Bucket"), storage_beta.YAML_bucket)
