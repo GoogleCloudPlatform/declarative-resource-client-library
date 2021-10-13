@@ -18,9 +18,9 @@ versions:
 - ga
 resource: samples/minimal.certificate_template.json
 variables:
-- name: template
-  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
+- name: template
+  type: resource_name

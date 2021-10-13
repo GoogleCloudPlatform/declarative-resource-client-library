@@ -21,7 +21,7 @@ updates:
 - resource: samples/update.note.json
   dependencies: []
 variables:
-- name: project
-  type: project
 - name: note
   type: resource_name
+- name: project
+  type: project
