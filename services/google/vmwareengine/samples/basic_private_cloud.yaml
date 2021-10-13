@@ -21,8 +21,6 @@ updates:
 - resource: samples/update.private_cloud.json
   dependencies: []
 variables:
-- name: project
-  type: project
 - name: management
   type: resource_name
 - name: cloud

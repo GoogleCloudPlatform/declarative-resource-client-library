@@ -25,11 +25,11 @@ updates:
   dependencies:
   - samples/zonal.disk.json
 variables:
-- name: disk
-  type: resource_name
 - name: project
   type: project
 - name: zone
   type: zone
+- name: disk
+  type: resource_name
 - name: image
   type: resource_name

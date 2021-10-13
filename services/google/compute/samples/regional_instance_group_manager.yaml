@@ -48,12 +48,16 @@ variables:
   type: project
 - name: region
   type: region
+- name: project
+  type: project
 - name: s_check
   type: resource_name
 - name: check
   type: resource_name
 - name: template1
   type: resource_name
+- name: project
+  type: project
 - name: region
   type: region
 - name: project
@@ -62,5 +66,3 @@ variables:
   type: zone
 - name: instance_group_manager
   type: resource_name
-- name: project
-  type: project

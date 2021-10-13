@@ -22,19 +22,17 @@ dependencies:
 - samples/basic.compute.subnetwork.json
 - samples/basic.compute.network.json
 variables:
-- name: project
-  type: project
 - name: dataproc_network
-  type: resource_name
-- name: range
-  type: resource_name
-- name: dataproc_subnetwork
   type: resource_name
 - name: project
   type: project
 - name: region
   type: region
-- name: project
-  type: project
+- name: range
+  type: resource_name
+- name: dataproc_subnetwork
+  type: resource_name
 - name: template_name
   type: resource_name
+- name: region
+  type: region

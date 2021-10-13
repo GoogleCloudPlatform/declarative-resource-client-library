@@ -35,3 +35,5 @@ variables:
   type: resource_name
 - name: map1
   type: resource_name
+- name: project
+  type: project
