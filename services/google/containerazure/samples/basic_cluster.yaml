@@ -21,37 +21,13 @@ updates:
 - resource: samples/update.cluster.json
   dependencies: []
 variables:
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
-- name: azure_proxy_config_secret_version
-  type: azure_proxy_config_secret_version
 - name: azure_subscription
   type: azure_subscription
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
-- name: cluster
-  type: resource_name
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
 - name: project
   type: project
-- name: byo_multicloud_prefix
-  type: byo_multicloud_prefix
+- name: azure_proxy_config_secret_version
+  type: azure_proxy_config_secret_version
+- name: cluster
+  type: resource_name

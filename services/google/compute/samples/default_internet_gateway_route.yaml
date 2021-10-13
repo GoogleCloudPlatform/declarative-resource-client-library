@@ -19,7 +19,7 @@ versions:
 - beta
 resource: samples/default_internet_gateway.route.json
 variables:
-- name: name
-  type: resource_name
 - name: project
   type: project
+- name: name
+  type: resource_name

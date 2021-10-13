@@ -18,7 +18,7 @@ versions:
 - ga
 resource: samples/billing_account.log_exclusion.json
 variables:
-- name: billing_account
-  type: billing_account
 - name: log_exclusion_name
   type: resource_name
+- name: billing_account
+  type: billing_account
