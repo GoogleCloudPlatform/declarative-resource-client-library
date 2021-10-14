@@ -1,0 +1,24 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "client.go",
+        "identitytoolkit_utils.go",
+        "oauth_idp_config.go",
+        "oauth_idp_config_alpha_yaml_embed.go",
+        "oauth_idp_config_internal.go",
+        "tenant.go",
+        "tenant_alpha_yaml_embed.go",
+        "tenant_internal.go",
+        "tenant_oauth_idp_config.go",
+        "tenant_oauth_idp_config_alpha_yaml_embed.go",
+        "tenant_oauth_idp_config_internal.go",
+    ],
+    importpath = "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/identitytoolkit/alpha",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//dcl:go_default_library",
+        "@org_golang_google_api//googleapi:go_default_library",
+    ],
+)

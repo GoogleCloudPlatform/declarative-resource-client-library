@@ -1,0 +1,30 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "aws_cluster.go",
+        "aws_cluster_alpha_yaml_embed.go",
+        "aws_cluster_internal.go",
+        "aws_node_pool.go",
+        "aws_node_pool_alpha_yaml_embed.go",
+        "aws_node_pool_internal.go",
+        "azure_client.go",
+        "azure_client_alpha_yaml_embed.go",
+        "azure_client_internal.go",
+        "azure_cluster.go",
+        "azure_cluster_alpha_yaml_embed.go",
+        "azure_cluster_internal.go",
+        "azure_node_pool.go",
+        "azure_node_pool_alpha_yaml_embed.go",
+        "azure_node_pool_internal.go",
+        "client.go",
+    ],
+    importpath = "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkemulticloud/alpha",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//dcl:go_default_library",
+        "//dcl/operations:go_default_library",
+        "@org_golang_google_api//googleapi:go_default_library",
+    ],
+)

@@ -6,6 +6,7 @@ go_library(
         "canonicalize.go",
         "client.go",
         "config.go",
+        "context.go",
         "declarative.go",
         "diff.go",
         "diff_utils.go",

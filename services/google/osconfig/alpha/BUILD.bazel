@@ -4,6 +4,9 @@ go_library(
     name = "go_default_library",
     srcs = [
         "client.go",
+        "guest_policy.go",
+        "guest_policy_alpha_yaml_embed.go",
+        "guest_policy_internal.go",
         "os_policy_assignment.go",
         "os_policy_assignment_alpha_yaml_embed.go",
         "os_policy_assignment_internal.go",
