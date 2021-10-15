@@ -704,13 +704,13 @@ func canonicalizeAuthorizationPolicyRulesSources(des, initial *AuthorizationPoli
 
 	cDes := &AuthorizationPolicyRulesSources{}
 
-	if dcl.IsZeroValue(des.Principals) {
-		des.Principals = initial.Principals
+	if dcl.StringArrayCanonicalize(des.Principals, initial.Principals) || dcl.IsZeroValue(des.Principals) {
+		cDes.Principals = initial.Principals
 	} else {
 		cDes.Principals = des.Principals
 	}
-	if dcl.IsZeroValue(des.IPBlocks) {
-		des.IPBlocks = initial.IPBlocks
+	if dcl.StringArrayCanonicalize(des.IPBlocks, initial.IPBlocks) || dcl.IsZeroValue(des.IPBlocks) {
+		cDes.IPBlocks = initial.IPBlocks
 	} else {
 		cDes.IPBlocks = des.IPBlocks
 	}
@@ -758,6 +758,13 @@ func canonicalizeNewAuthorizationPolicyRulesSources(c *Client, des, nw *Authoriz
 			return des
 		}
 		return nil
+	}
+
+	if dcl.StringArrayCanonicalize(des.Principals, nw.Principals) {
+		nw.Principals = des.Principals
+	}
+	if dcl.StringArrayCanonicalize(des.IPBlocks, nw.IPBlocks) {
+		nw.IPBlocks = des.IPBlocks
 	}
 
 	return nw
@@ -820,8 +827,8 @@ func canonicalizeAuthorizationPolicyRulesDestinations(des, initial *Authorizatio
 
 	cDes := &AuthorizationPolicyRulesDestinations{}
 
-	if dcl.IsZeroValue(des.Hosts) {
-		des.Hosts = initial.Hosts
+	if dcl.StringArrayCanonicalize(des.Hosts, initial.Hosts) || dcl.IsZeroValue(des.Hosts) {
+		cDes.Hosts = initial.Hosts
 	} else {
 		cDes.Hosts = des.Hosts
 	}
@@ -830,8 +837,8 @@ func canonicalizeAuthorizationPolicyRulesDestinations(des, initial *Authorizatio
 	} else {
 		cDes.Ports = des.Ports
 	}
-	if dcl.IsZeroValue(des.Methods) {
-		des.Methods = initial.Methods
+	if dcl.StringArrayCanonicalize(des.Methods, initial.Methods) || dcl.IsZeroValue(des.Methods) {
+		cDes.Methods = initial.Methods
 	} else {
 		cDes.Methods = des.Methods
 	}
@@ -882,6 +889,12 @@ func canonicalizeNewAuthorizationPolicyRulesDestinations(c *Client, des, nw *Aut
 		return nil
 	}
 
+	if dcl.StringArrayCanonicalize(des.Hosts, nw.Hosts) {
+		nw.Hosts = des.Hosts
+	}
+	if dcl.StringArrayCanonicalize(des.Methods, nw.Methods) {
+		nw.Methods = des.Methods
+	}
 	nw.HttpHeaderMatch = canonicalizeNewAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c, des.HttpHeaderMatch, nw.HttpHeaderMatch)
 
 	return nw
@@ -1356,13 +1369,13 @@ func expandAuthorizationPolicy(c *Client, f *AuthorizationPolicy) (map[string]in
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
-	if v := f.Action; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Action; dcl.ValueShouldBeSent(v) {
 		m["action"] = v
 	}
 	if v, err := expandAuthorizationPolicyRulesSlice(c, f.Rules); err != nil {

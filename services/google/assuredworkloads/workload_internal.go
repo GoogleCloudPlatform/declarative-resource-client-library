@@ -1204,19 +1204,19 @@ func expandWorkload(c *Client, f *Workload) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["displayName"] = v
 	}
-	if v := f.ComplianceRegime; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ComplianceRegime; dcl.ValueShouldBeSent(v) {
 		m["complianceRegime"] = v
 	}
-	if v := f.BillingAccount; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.BillingAccount; dcl.ValueShouldBeSent(v) {
 		m["billingAccount"] = v
 	}
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
-	if v := f.ProvisionedResourcesParent; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ProvisionedResourcesParent; dcl.ValueShouldBeSent(v) {
 		m["provisionedResourcesParent"] = v
 	}
 	if v, err := expandWorkloadKmsSettings(c, f.KmsSettings); err != nil {

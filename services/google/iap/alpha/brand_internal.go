@@ -426,7 +426,7 @@ func unmarshalMapBrand(m map[string]interface{}, c *Client) (*Brand, error) {
 // expandBrand expands Brand into a JSON request object.
 func expandBrand(c *Client, f *Brand) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.ApplicationTitle; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ApplicationTitle; dcl.ValueShouldBeSent(v) {
 		m["applicationTitle"] = v
 	}
 	if v, err := dcl.DeriveField("projects/%s/brands/%s", f.Name, f.Project, f.Name); err != nil {
@@ -434,7 +434,7 @@ func expandBrand(c *Client, f *Brand) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.SupportEmail; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SupportEmail; dcl.ValueShouldBeSent(v) {
 		m["supportEmail"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

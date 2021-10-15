@@ -22,5 +22,6 @@ import (
 func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterPrivatecaBetaCertificateTemplateServiceServer(s, &CertificateTemplateServer{})
 	sdkgrpc.RegisterPrivatecaBetaCaPoolServiceServer(s, &CaPoolServer{})
+	sdkgrpc.RegisterPrivatecaBetaCertificateServiceServer(s, &CertificateServer{})
 	sdkgrpc.RegisterPrivatecaBetaCertificateAuthorityServiceServer(s, &CertificateAuthorityServer{})
 }

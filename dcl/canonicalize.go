@@ -111,6 +111,19 @@ func StringCanonicalize(l, r *string) bool {
 	return false
 }
 
+// StringArrayCanonicalize checks canonicalization for arrays of strings. It matches self-links using NameToSelfLink.
+func StringArrayCanonicalize(l, r []string) bool {
+	if len(l) != len(r) {
+		return false
+	}
+	for i := range l {
+		if !StringCanonicalize(&l[i], &r[i]) {
+			return false
+		}
+	}
+	return true
+}
+
 // BoolCanonicalize checks canonicalization for booleans.
 func BoolCanonicalize(l, r *bool) bool {
 	if l == nil && r == nil {
@@ -130,6 +143,38 @@ func BoolCanonicalize(l, r *bool) bool {
 	right := *r
 
 	return left == right
+}
+
+// OptionalBoolCanonicalize checks cannonicalization for optional booleans.
+func OptionalBoolCanonicalize(l, r *OptionalBool) bool {
+	if l == nil && r == nil {
+		return true
+	}
+
+	left := *l
+	right := *r
+
+	if left.Unset != right.Unset {
+		return false
+	}
+
+	return BoolCanonicalize(l.Value, r.Value)
+}
+
+// OptionalStringCanonicalize checks cannonicalization for optional strings.
+func OptionalStringCanonicalize(l, r *OptionalString) bool {
+	if l == nil && r == nil {
+		return true
+	}
+
+	left := *l
+	right := *r
+
+	if left.Unset != right.Unset {
+		return false
+	}
+
+	return StringCanonicalize(l.Value, r.Value)
 }
 
 // NameToSelfLink returns true if left and right are equivalent for Names / SelfLinks.
@@ -882,4 +927,39 @@ func IsPartialSelfLink(s string) bool {
 func IsSelfLink(s string) bool {
 	r := regexp.MustCompile(`(https:\/\/)?(www\.)?([a-z]*)?googleapis.com\/`)
 	return r.MatchString(s)
+}
+
+// ValueShouldBeSent returns if a value should be sent as part of the JSON request.
+func ValueShouldBeSent(v interface{}) bool {
+	if v == nil {
+		return false
+	}
+
+	iv := reflect.Indirect(reflect.ValueOf(v))
+
+	// All booleans should be sent.
+	if iv.Kind() == reflect.Bool {
+		return true
+	}
+
+	if !iv.IsValid() || iv.IsZero() {
+		return false
+	}
+
+	b, ok := v.(Optional)
+	if ok {
+		if b.IsUnset() {
+			return false
+		}
+
+		_, ok := v.(*OptionalBool)
+		// If it's a bool and we're dealing with unsetness, we should always send.
+		// After all, unset != false for optional values.
+		if ok {
+			return true
+		}
+
+		return !IsEmptyValueIndirect(b.GetValue())
+	}
+	return !IsEmptyValueIndirect(v)
 }

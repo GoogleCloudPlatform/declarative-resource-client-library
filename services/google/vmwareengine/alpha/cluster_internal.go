@@ -710,13 +710,13 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
-	if v := f.NodeTypeId; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.NodeTypeId; dcl.ValueShouldBeSent(v) {
 		m["nodeTypeId"] = v
 	}
-	if v := f.NodeCount; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.NodeCount; dcl.ValueShouldBeSent(v) {
 		m["nodeCount"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

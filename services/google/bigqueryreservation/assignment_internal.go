@@ -544,13 +544,13 @@ func unmarshalMapAssignment(m map[string]interface{}, c *Client) (*Assignment, e
 // expandAssignment expands Assignment into a JSON request object.
 func expandAssignment(c *Client, f *Assignment) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
-	if v := f.Assignee; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Assignee; dcl.ValueShouldBeSent(v) {
 		m["assignee"] = v
 	}
-	if v := f.JobType; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.JobType; dcl.ValueShouldBeSent(v) {
 		m["jobType"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

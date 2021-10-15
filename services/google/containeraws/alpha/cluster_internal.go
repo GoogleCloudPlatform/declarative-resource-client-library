@@ -764,18 +764,18 @@ func canonicalizeClusterNetworking(des, initial *ClusterNetworking, opts ...dcl.
 	} else {
 		cDes.VPCId = des.VPCId
 	}
-	if dcl.IsZeroValue(des.PodAddressCidrBlocks) {
-		des.PodAddressCidrBlocks = initial.PodAddressCidrBlocks
+	if dcl.StringArrayCanonicalize(des.PodAddressCidrBlocks, initial.PodAddressCidrBlocks) || dcl.IsZeroValue(des.PodAddressCidrBlocks) {
+		cDes.PodAddressCidrBlocks = initial.PodAddressCidrBlocks
 	} else {
 		cDes.PodAddressCidrBlocks = des.PodAddressCidrBlocks
 	}
-	if dcl.IsZeroValue(des.ServiceAddressCidrBlocks) {
-		des.ServiceAddressCidrBlocks = initial.ServiceAddressCidrBlocks
+	if dcl.StringArrayCanonicalize(des.ServiceAddressCidrBlocks, initial.ServiceAddressCidrBlocks) || dcl.IsZeroValue(des.ServiceAddressCidrBlocks) {
+		cDes.ServiceAddressCidrBlocks = initial.ServiceAddressCidrBlocks
 	} else {
 		cDes.ServiceAddressCidrBlocks = des.ServiceAddressCidrBlocks
 	}
-	if dcl.IsZeroValue(des.ServiceLoadBalancerSubnetIds) {
-		des.ServiceLoadBalancerSubnetIds = initial.ServiceLoadBalancerSubnetIds
+	if dcl.StringArrayCanonicalize(des.ServiceLoadBalancerSubnetIds, initial.ServiceLoadBalancerSubnetIds) || dcl.IsZeroValue(des.ServiceLoadBalancerSubnetIds) {
+		cDes.ServiceLoadBalancerSubnetIds = initial.ServiceLoadBalancerSubnetIds
 	} else {
 		cDes.ServiceLoadBalancerSubnetIds = des.ServiceLoadBalancerSubnetIds
 	}
@@ -827,6 +827,15 @@ func canonicalizeNewClusterNetworking(c *Client, des, nw *ClusterNetworking) *Cl
 
 	if dcl.StringCanonicalize(des.VPCId, nw.VPCId) {
 		nw.VPCId = des.VPCId
+	}
+	if dcl.StringArrayCanonicalize(des.PodAddressCidrBlocks, nw.PodAddressCidrBlocks) {
+		nw.PodAddressCidrBlocks = des.PodAddressCidrBlocks
+	}
+	if dcl.StringArrayCanonicalize(des.ServiceAddressCidrBlocks, nw.ServiceAddressCidrBlocks) {
+		nw.ServiceAddressCidrBlocks = des.ServiceAddressCidrBlocks
+	}
+	if dcl.StringArrayCanonicalize(des.ServiceLoadBalancerSubnetIds, nw.ServiceLoadBalancerSubnetIds) {
+		nw.ServiceLoadBalancerSubnetIds = des.ServiceLoadBalancerSubnetIds
 	}
 
 	return nw
@@ -900,13 +909,13 @@ func canonicalizeClusterControlPlane(des, initial *ClusterControlPlane, opts ...
 		cDes.InstanceType = des.InstanceType
 	}
 	cDes.SshConfig = canonicalizeClusterControlPlaneSshConfig(des.SshConfig, initial.SshConfig, opts...)
-	if dcl.IsZeroValue(des.SubnetIds) {
-		des.SubnetIds = initial.SubnetIds
+	if dcl.StringArrayCanonicalize(des.SubnetIds, initial.SubnetIds) || dcl.IsZeroValue(des.SubnetIds) {
+		cDes.SubnetIds = initial.SubnetIds
 	} else {
 		cDes.SubnetIds = des.SubnetIds
 	}
-	if dcl.IsZeroValue(des.SecurityGroupIds) {
-		des.SecurityGroupIds = initial.SecurityGroupIds
+	if dcl.StringArrayCanonicalize(des.SecurityGroupIds, initial.SecurityGroupIds) || dcl.IsZeroValue(des.SecurityGroupIds) {
+		cDes.SecurityGroupIds = initial.SecurityGroupIds
 	} else {
 		cDes.SecurityGroupIds = des.SecurityGroupIds
 	}
@@ -978,6 +987,12 @@ func canonicalizeNewClusterControlPlane(c *Client, des, nw *ClusterControlPlane)
 		nw.InstanceType = des.InstanceType
 	}
 	nw.SshConfig = canonicalizeNewClusterControlPlaneSshConfig(c, des.SshConfig, nw.SshConfig)
+	if dcl.StringArrayCanonicalize(des.SubnetIds, nw.SubnetIds) {
+		nw.SubnetIds = des.SubnetIds
+	}
+	if dcl.StringArrayCanonicalize(des.SecurityGroupIds, nw.SecurityGroupIds) {
+		nw.SecurityGroupIds = des.SecurityGroupIds
+	}
 	if dcl.StringCanonicalize(des.IamInstanceProfile, nw.IamInstanceProfile) {
 		nw.IamInstanceProfile = des.IamInstanceProfile
 	}
@@ -2816,7 +2831,7 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
 	if v, err := expandClusterNetworking(c, f.Networking); err != nil {
@@ -2824,7 +2839,7 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["networking"] = v
 	}
-	if v := f.AwsRegion; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AwsRegion; dcl.ValueShouldBeSent(v) {
 		m["awsRegion"] = v
 	}
 	if v, err := expandClusterControlPlane(c, f.ControlPlane); err != nil {
@@ -2837,7 +2852,7 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["authorization"] = v
 	}
-	if v := f.Annotations; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Annotations; dcl.ValueShouldBeSent(v) {
 		m["annotations"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

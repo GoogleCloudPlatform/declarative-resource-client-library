@@ -854,8 +854,8 @@ func canonicalizeFeatureSpecCloudauditlogging(des, initial *FeatureSpecCloudaudi
 
 	cDes := &FeatureSpecCloudauditlogging{}
 
-	if dcl.IsZeroValue(des.AllowlistedServiceAccounts) {
-		des.AllowlistedServiceAccounts = initial.AllowlistedServiceAccounts
+	if dcl.StringArrayCanonicalize(des.AllowlistedServiceAccounts, initial.AllowlistedServiceAccounts) || dcl.IsZeroValue(des.AllowlistedServiceAccounts) {
+		cDes.AllowlistedServiceAccounts = initial.AllowlistedServiceAccounts
 	} else {
 		cDes.AllowlistedServiceAccounts = des.AllowlistedServiceAccounts
 	}
@@ -903,6 +903,10 @@ func canonicalizeNewFeatureSpecCloudauditlogging(c *Client, des, nw *FeatureSpec
 			return des
 		}
 		return nil
+	}
+
+	if dcl.StringArrayCanonicalize(des.AllowlistedServiceAccounts, nw.AllowlistedServiceAccounts) {
+		nw.AllowlistedServiceAccounts = des.AllowlistedServiceAccounts
 	}
 
 	return nw
@@ -1340,6 +1344,9 @@ func canonicalizeNewFeatureStateServicemeshAnalysisMessages(c *Client, des, nw *
 	nw.MessageBase = canonicalizeNewFeatureStateServicemeshAnalysisMessagesMessageBase(c, des.MessageBase, nw.MessageBase)
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
+	}
+	if dcl.StringArrayCanonicalize(des.ResourcePaths, nw.ResourcePaths) {
+		nw.ResourcePaths = des.ResourcePaths
 	}
 
 	return nw
@@ -2128,7 +2135,7 @@ func expandFeature(c *Client, f *Feature) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
 	if v, err := expandFeatureSpec(c, f.Spec); err != nil {

@@ -1001,13 +1001,13 @@ func expandCapacityCommitment(c *Client, f *CapacityCommitment) (map[string]inte
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.SlotCount; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SlotCount; dcl.ValueShouldBeSent(v) {
 		m["slotCount"] = v
 	}
-	if v := f.Plan; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Plan; dcl.ValueShouldBeSent(v) {
 		m["plan"] = v
 	}
-	if v := f.RenewalPlan; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.RenewalPlan; dcl.ValueShouldBeSent(v) {
 		m["renewalPlan"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

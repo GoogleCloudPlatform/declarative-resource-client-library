@@ -1318,7 +1318,7 @@ func unmarshalMapAutoscalingPolicy(m map[string]interface{}, c *Client) (*Autosc
 // expandAutoscalingPolicy expands AutoscalingPolicy into a JSON request object.
 func expandAutoscalingPolicy(c *Client, f *AutoscalingPolicy) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["id"] = v
 	}
 	if v, err := expandAutoscalingPolicyBasicAlgorithm(c, f.BasicAlgorithm); err != nil {

@@ -619,13 +619,13 @@ func expandReservation(c *Client, f *Reservation) (map[string]interface{}, error
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.SlotCapacity; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SlotCapacity; dcl.ValueShouldBeSent(v) {
 		m["slotCapacity"] = v
 	}
-	if v := f.IgnoreIdleSlots; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.IgnoreIdleSlots; dcl.ValueShouldBeSent(v) {
 		m["ignoreIdleSlots"] = v
 	}
-	if v := f.MaxConcurrency; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.MaxConcurrency; dcl.ValueShouldBeSent(v) {
 		m["maxConcurrency"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

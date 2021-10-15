@@ -1574,7 +1574,7 @@ func expandTrigger(c *Client, f *Trigger) (map[string]interface{}, error) {
 	} else {
 		m["eventFilters"] = v
 	}
-	if v := f.ServiceAccount; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ServiceAccount; dcl.ValueShouldBeSent(v) {
 		m["serviceAccount"] = v
 	}
 	if v, err := expandTriggerDestination(c, f.Destination); err != nil {
@@ -1587,7 +1587,7 @@ func expandTrigger(c *Client, f *Trigger) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["transport"] = v
 	}
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

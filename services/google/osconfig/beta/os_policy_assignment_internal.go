@@ -2792,8 +2792,8 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(des, 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi{}
 
 	cDes.Source = canonicalizeOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(des.Source, initial.Source, opts...)
-	if dcl.IsZeroValue(des.Properties) {
-		des.Properties = initial.Properties
+	if dcl.StringArrayCanonicalize(des.Properties, initial.Properties) || dcl.IsZeroValue(des.Properties) {
+		cDes.Properties = initial.Properties
 	} else {
 		cDes.Properties = des.Properties
 	}
@@ -2844,6 +2844,9 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c 
 	}
 
 	nw.Source = canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, des.Source, nw.Source)
+	if dcl.StringArrayCanonicalize(des.Properties, nw.Properties) {
+		nw.Properties = des.Properties
+	}
 
 	return nw
 }
@@ -3075,8 +3078,8 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAp
 	} else {
 		cDes.Distribution = des.Distribution
 	}
-	if dcl.IsZeroValue(des.Components) {
-		des.Components = initial.Components
+	if dcl.StringArrayCanonicalize(des.Components, initial.Components) || dcl.IsZeroValue(des.Components) {
+		cDes.Components = initial.Components
 	} else {
 		cDes.Components = des.Components
 	}
@@ -3136,6 +3139,9 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositor
 	}
 	if dcl.StringCanonicalize(des.Distribution, nw.Distribution) {
 		nw.Distribution = des.Distribution
+	}
+	if dcl.StringArrayCanonicalize(des.Components, nw.Components) {
+		nw.Components = des.Components
 	}
 	if dcl.StringCanonicalize(des.GpgKey, nw.GpgKey) {
 		nw.GpgKey = des.GpgKey
@@ -3216,8 +3222,8 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYu
 	} else {
 		cDes.BaseUrl = des.BaseUrl
 	}
-	if dcl.IsZeroValue(des.GpgKeys) {
-		des.GpgKeys = initial.GpgKeys
+	if dcl.StringArrayCanonicalize(des.GpgKeys, initial.GpgKeys) || dcl.IsZeroValue(des.GpgKeys) {
+		cDes.GpgKeys = initial.GpgKeys
 	} else {
 		cDes.GpgKeys = des.GpgKeys
 	}
@@ -3275,6 +3281,9 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositor
 	}
 	if dcl.StringCanonicalize(des.BaseUrl, nw.BaseUrl) {
 		nw.BaseUrl = des.BaseUrl
+	}
+	if dcl.StringArrayCanonicalize(des.GpgKeys, nw.GpgKeys) {
+		nw.GpgKeys = des.GpgKeys
 	}
 
 	return nw
@@ -3352,8 +3361,8 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZy
 	} else {
 		cDes.BaseUrl = des.BaseUrl
 	}
-	if dcl.IsZeroValue(des.GpgKeys) {
-		des.GpgKeys = initial.GpgKeys
+	if dcl.StringArrayCanonicalize(des.GpgKeys, initial.GpgKeys) || dcl.IsZeroValue(des.GpgKeys) {
+		cDes.GpgKeys = initial.GpgKeys
 	} else {
 		cDes.GpgKeys = des.GpgKeys
 	}
@@ -3411,6 +3420,9 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositor
 	}
 	if dcl.StringCanonicalize(des.BaseUrl, nw.BaseUrl) {
 		nw.BaseUrl = des.BaseUrl
+	}
+	if dcl.StringArrayCanonicalize(des.GpgKeys, nw.GpgKeys) {
+		nw.GpgKeys = des.GpgKeys
 	}
 
 	return nw
@@ -3733,8 +3745,8 @@ func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecreso
 	} else {
 		cDes.Script = des.Script
 	}
-	if dcl.IsZeroValue(des.Args) {
-		des.Args = initial.Args
+	if dcl.StringArrayCanonicalize(des.Args, initial.Args) || dcl.IsZeroValue(des.Args) {
+		cDes.Args = initial.Args
 	} else {
 		cDes.Args = des.Args
 	}
@@ -3797,6 +3809,9 @@ func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecr
 	nw.File = canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, des.File, nw.File)
 	if dcl.StringCanonicalize(des.Script, nw.Script) {
 		nw.Script = des.Script
+	}
+	if dcl.StringArrayCanonicalize(des.Args, nw.Args) {
+		nw.Args = des.Args
 	}
 	if dcl.StringCanonicalize(des.OutputFilePath, nw.OutputFilePath) {
 		nw.OutputFilePath = des.OutputFilePath
@@ -6136,7 +6151,7 @@ func expandOSPolicyAssignment(c *Client, f *OSPolicyAssignment) (map[string]inte
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
 	if v, err := expandOSPolicyAssignmentOSPoliciesSlice(c, f.OSPolicies); err != nil {

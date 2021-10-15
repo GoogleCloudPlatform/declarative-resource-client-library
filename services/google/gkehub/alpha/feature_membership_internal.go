@@ -751,8 +751,8 @@ func canonicalizeFeatureMembershipConfigmanagementPolicyController(des, initial 
 	} else {
 		cDes.Enabled = des.Enabled
 	}
-	if dcl.IsZeroValue(des.ExemptableNamespaces) {
-		des.ExemptableNamespaces = initial.ExemptableNamespaces
+	if dcl.StringArrayCanonicalize(des.ExemptableNamespaces, initial.ExemptableNamespaces) || dcl.IsZeroValue(des.ExemptableNamespaces) {
+		cDes.ExemptableNamespaces = initial.ExemptableNamespaces
 	} else {
 		cDes.ExemptableNamespaces = des.ExemptableNamespaces
 	}
@@ -824,6 +824,9 @@ func canonicalizeNewFeatureMembershipConfigmanagementPolicyController(c *Client,
 
 	if dcl.BoolCanonicalize(des.Enabled, nw.Enabled) {
 		nw.Enabled = des.Enabled
+	}
+	if dcl.StringArrayCanonicalize(des.ExemptableNamespaces, nw.ExemptableNamespaces) {
+		nw.ExemptableNamespaces = des.ExemptableNamespaces
 	}
 	if dcl.BoolCanonicalize(des.ReferentialRulesEnabled, nw.ReferentialRulesEnabled) {
 		nw.ReferentialRulesEnabled = des.ReferentialRulesEnabled

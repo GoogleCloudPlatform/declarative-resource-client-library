@@ -771,7 +771,7 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 	} else {
 		canonicalDesired.ExpirationTime = rawDesired.ExpirationTime
 	}
-	if dcl.IsZeroValue(rawDesired.RelatedNoteNames) {
+	if dcl.StringArrayCanonicalize(rawDesired.RelatedNoteNames, rawInitial.RelatedNoteNames) {
 		canonicalDesired.RelatedNoteNames = rawInitial.RelatedNoteNames
 	} else {
 		canonicalDesired.RelatedNoteNames = rawDesired.RelatedNoteNames
@@ -842,6 +842,9 @@ func canonicalizeNoteNewState(c *Client, rawNew, rawDesired *Note) (*Note, error
 	if dcl.IsNotReturnedByServer(rawNew.RelatedNoteNames) && dcl.IsNotReturnedByServer(rawDesired.RelatedNoteNames) {
 		rawNew.RelatedNoteNames = rawDesired.RelatedNoteNames
 	} else {
+		if dcl.StringArrayCanonicalize(rawDesired.RelatedNoteNames, rawNew.RelatedNoteNames) {
+			rawNew.RelatedNoteNames = rawDesired.RelatedNoteNames
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Vulnerability) && dcl.IsNotReturnedByServer(rawDesired.Vulnerability) {
@@ -2553,8 +2556,8 @@ func canonicalizeNoteImageFingerprint(des, initial *NoteImageFingerprint, opts .
 	} else {
 		cDes.V1Name = des.V1Name
 	}
-	if dcl.IsZeroValue(des.V2Blob) {
-		des.V2Blob = initial.V2Blob
+	if dcl.StringArrayCanonicalize(des.V2Blob, initial.V2Blob) || dcl.IsZeroValue(des.V2Blob) {
+		cDes.V2Blob = initial.V2Blob
 	} else {
 		cDes.V2Blob = des.V2Blob
 	}
@@ -2606,6 +2609,9 @@ func canonicalizeNewNoteImageFingerprint(c *Client, des, nw *NoteImageFingerprin
 
 	if dcl.StringCanonicalize(des.V1Name, nw.V1Name) {
 		nw.V1Name = des.V1Name
+	}
+	if dcl.StringArrayCanonicalize(des.V2Blob, nw.V2Blob) {
+		nw.V2Blob = des.V2Blob
 	}
 	if dcl.StringCanonicalize(des.V2Name, nw.V2Name) {
 		nw.V2Name = des.V2Name
@@ -3186,8 +3192,8 @@ func canonicalizeNoteDeployment(des, initial *NoteDeployment, opts ...dcl.ApplyO
 
 	cDes := &NoteDeployment{}
 
-	if dcl.IsZeroValue(des.ResourceUri) {
-		des.ResourceUri = initial.ResourceUri
+	if dcl.StringArrayCanonicalize(des.ResourceUri, initial.ResourceUri) || dcl.IsZeroValue(des.ResourceUri) {
+		cDes.ResourceUri = initial.ResourceUri
 	} else {
 		cDes.ResourceUri = des.ResourceUri
 	}
@@ -3235,6 +3241,10 @@ func canonicalizeNewNoteDeployment(c *Client, des, nw *NoteDeployment) *NoteDepl
 			return des
 		}
 		return nil
+	}
+
+	if dcl.StringArrayCanonicalize(des.ResourceUri, nw.ResourceUri) {
+		nw.ResourceUri = des.ResourceUri
 	}
 
 	return nw
@@ -4701,10 +4711,10 @@ func expandNote(c *Client, f *Note) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.ShortDescription; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ShortDescription; dcl.ValueShouldBeSent(v) {
 		m["shortDescription"] = v
 	}
-	if v := f.LongDescription; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.LongDescription; dcl.ValueShouldBeSent(v) {
 		m["longDescription"] = v
 	}
 	if v, err := expandNoteRelatedUrlSlice(c, f.RelatedUrl); err != nil {
@@ -4712,7 +4722,7 @@ func expandNote(c *Client, f *Note) (map[string]interface{}, error) {
 	} else {
 		m["relatedUrl"] = v
 	}
-	if v := f.ExpirationTime; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ExpirationTime; dcl.ValueShouldBeSent(v) {
 		m["expirationTime"] = v
 	}
 	m["relatedNoteNames"] = f.RelatedNoteNames

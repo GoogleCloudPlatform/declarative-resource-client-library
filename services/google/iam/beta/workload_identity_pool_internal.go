@@ -602,13 +602,13 @@ func expandWorkloadIdentityPool(c *Client, f *WorkloadIdentityPool) (map[string]
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["displayName"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.Disabled; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Disabled; dcl.ValueShouldBeSent(v) {
 		m["disabled"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

@@ -505,8 +505,8 @@ func canonicalizeTopicMessageStoragePolicy(des, initial *TopicMessageStoragePoli
 
 	cDes := &TopicMessageStoragePolicy{}
 
-	if dcl.IsZeroValue(des.AllowedPersistenceRegions) {
-		des.AllowedPersistenceRegions = initial.AllowedPersistenceRegions
+	if dcl.StringArrayCanonicalize(des.AllowedPersistenceRegions, initial.AllowedPersistenceRegions) || dcl.IsZeroValue(des.AllowedPersistenceRegions) {
+		cDes.AllowedPersistenceRegions = initial.AllowedPersistenceRegions
 	} else {
 		cDes.AllowedPersistenceRegions = des.AllowedPersistenceRegions
 	}
@@ -554,6 +554,10 @@ func canonicalizeNewTopicMessageStoragePolicy(c *Client, des, nw *TopicMessageSt
 			return des
 		}
 		return nil
+	}
+
+	if dcl.StringArrayCanonicalize(des.AllowedPersistenceRegions, nw.AllowedPersistenceRegions) {
+		nw.AllowedPersistenceRegions = des.AllowedPersistenceRegions
 	}
 
 	return nw
@@ -746,10 +750,10 @@ func expandTopic(c *Client, f *Topic) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.KmsKeyName; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.KmsKeyName; dcl.ValueShouldBeSent(v) {
 		m["kmsKeyName"] = v
 	}
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
 	if v, err := expandTopicMessageStoragePolicy(c, f.MessageStoragePolicy); err != nil {

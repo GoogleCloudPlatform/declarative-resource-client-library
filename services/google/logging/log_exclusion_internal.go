@@ -605,16 +605,16 @@ func unmarshalMapLogExclusion(m map[string]interface{}, c *Client) (*LogExclusio
 // expandLogExclusion expands LogExclusion into a JSON request object.
 func expandLogExclusion(c *Client, f *LogExclusion) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Filter; dcl.ValueShouldBeSent(v) {
 		m["filter"] = v
 	}
-	if v := f.Disabled; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Disabled; dcl.ValueShouldBeSent(v) {
 		m["disabled"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

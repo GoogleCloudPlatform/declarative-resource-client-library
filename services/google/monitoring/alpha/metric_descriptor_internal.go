@@ -486,6 +486,9 @@ func canonicalizeMetricDescriptorNewState(c *Client, rawNew, rawDesired *MetricD
 	if dcl.IsNotReturnedByServer(rawNew.MonitoredResourceTypes) && dcl.IsNotReturnedByServer(rawDesired.MonitoredResourceTypes) {
 		rawNew.MonitoredResourceTypes = rawDesired.MonitoredResourceTypes
 	} else {
+		if dcl.StringArrayCanonicalize(rawDesired.MonitoredResourceTypes, rawNew.MonitoredResourceTypes) {
+			rawNew.MonitoredResourceTypes = rawDesired.MonitoredResourceTypes
+		}
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -990,7 +993,7 @@ func unmarshalMapMetricDescriptor(m map[string]interface{}, c *Client) (*MetricD
 // expandMetricDescriptor expands MetricDescriptor into a JSON request object.
 func expandMetricDescriptor(c *Client, f *MetricDescriptor) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Type; dcl.ValueShouldBeSent(v) {
 		m["type"] = v
 	}
 	if v, err := expandMetricDescriptorLabelsSlice(c, f.Labels); err != nil {
@@ -998,19 +1001,19 @@ func expandMetricDescriptor(c *Client, f *MetricDescriptor) (map[string]interfac
 	} else {
 		m["labels"] = v
 	}
-	if v := f.MetricKind; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.MetricKind; dcl.ValueShouldBeSent(v) {
 		m["metricKind"] = v
 	}
-	if v := f.ValueType; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ValueType; dcl.ValueShouldBeSent(v) {
 		m["valueType"] = v
 	}
-	if v := f.Unit; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Unit; dcl.ValueShouldBeSent(v) {
 		m["unit"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["displayName"] = v
 	}
 	if v, err := expandMetricDescriptorMetadata(c, f.Metadata); err != nil {
@@ -1018,7 +1021,7 @@ func expandMetricDescriptor(c *Client, f *MetricDescriptor) (map[string]interfac
 	} else if v != nil {
 		m["metadata"] = v
 	}
-	if v := f.LaunchStage; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.LaunchStage; dcl.ValueShouldBeSent(v) {
 		m["launchStage"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

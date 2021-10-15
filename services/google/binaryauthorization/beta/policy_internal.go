@@ -586,8 +586,8 @@ func canonicalizePolicyAdmissionRule(des, initial *PolicyAdmissionRule, opts ...
 	} else {
 		cDes.EvaluationMode = des.EvaluationMode
 	}
-	if dcl.IsZeroValue(des.RequireAttestationsBy) {
-		des.RequireAttestationsBy = initial.RequireAttestationsBy
+	if dcl.StringArrayCanonicalize(des.RequireAttestationsBy, initial.RequireAttestationsBy) || dcl.IsZeroValue(des.RequireAttestationsBy) {
+		cDes.RequireAttestationsBy = initial.RequireAttestationsBy
 	} else {
 		cDes.RequireAttestationsBy = des.RequireAttestationsBy
 	}
@@ -640,6 +640,10 @@ func canonicalizeNewPolicyAdmissionRule(c *Client, des, nw *PolicyAdmissionRule)
 			return des
 		}
 		return nil
+	}
+
+	if dcl.StringArrayCanonicalize(des.RequireAttestationsBy, nw.RequireAttestationsBy) {
+		nw.RequireAttestationsBy = des.RequireAttestationsBy
 	}
 
 	return nw
@@ -921,13 +925,13 @@ func expandPolicy(c *Client, f *Policy) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["clusterAdmissionRules"] = v
 	}
-	if v := f.KubernetesNamespaceAdmissionRules; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.KubernetesNamespaceAdmissionRules; dcl.ValueShouldBeSent(v) {
 		m["kubernetesNamespaceAdmissionRules"] = v
 	}
-	if v := f.KubernetesServiceAccountAdmissionRules; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.KubernetesServiceAccountAdmissionRules; dcl.ValueShouldBeSent(v) {
 		m["kubernetesServiceAccountAdmissionRules"] = v
 	}
-	if v := f.IstioServiceIdentityAdmissionRules; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.IstioServiceIdentityAdmissionRules; dcl.ValueShouldBeSent(v) {
 		m["istioServiceIdentityAdmissionRules"] = v
 	}
 	if v, err := expandPolicyAdmissionRule(c, f.DefaultAdmissionRule); err != nil {
@@ -935,10 +939,10 @@ func expandPolicy(c *Client, f *Policy) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["defaultAdmissionRule"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.GlobalPolicyEvaluationMode; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GlobalPolicyEvaluationMode; dcl.ValueShouldBeSent(v) {
 		m["globalPolicyEvaluationMode"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

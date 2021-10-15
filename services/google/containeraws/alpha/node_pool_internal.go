@@ -713,8 +713,8 @@ func canonicalizeNodePoolConfig(des, initial *NodePoolConfig, opts ...dcl.ApplyO
 		cDes.IamInstanceProfile = des.IamInstanceProfile
 	}
 	cDes.SshConfig = canonicalizeNodePoolConfigSshConfig(des.SshConfig, initial.SshConfig, opts...)
-	if dcl.IsZeroValue(des.SecurityGroupIds) {
-		des.SecurityGroupIds = initial.SecurityGroupIds
+	if dcl.StringArrayCanonicalize(des.SecurityGroupIds, initial.SecurityGroupIds) || dcl.IsZeroValue(des.SecurityGroupIds) {
+		cDes.SecurityGroupIds = initial.SecurityGroupIds
 	} else {
 		cDes.SecurityGroupIds = des.SecurityGroupIds
 	}
@@ -773,6 +773,9 @@ func canonicalizeNewNodePoolConfig(c *Client, des, nw *NodePoolConfig) *NodePool
 		nw.IamInstanceProfile = des.IamInstanceProfile
 	}
 	nw.SshConfig = canonicalizeNewNodePoolConfigSshConfig(c, des.SshConfig, nw.SshConfig)
+	if dcl.StringArrayCanonicalize(des.SecurityGroupIds, nw.SecurityGroupIds) {
+		nw.SecurityGroupIds = des.SecurityGroupIds
+	}
 
 	return nw
 }
@@ -1884,7 +1887,7 @@ func expandNodePool(c *Client, f *NodePool) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Version; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Version; dcl.ValueShouldBeSent(v) {
 		m["version"] = v
 	}
 	if v, err := expandNodePoolConfig(c, f.Config); err != nil {
@@ -1897,10 +1900,10 @@ func expandNodePool(c *Client, f *NodePool) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["autoscaling"] = v
 	}
-	if v := f.SubnetId; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SubnetId; dcl.ValueShouldBeSent(v) {
 		m["subnetId"] = v
 	}
-	if v := f.Annotations; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Annotations; dcl.ValueShouldBeSent(v) {
 		m["annotations"] = v
 	}
 	if v, err := expandNodePoolMaxPodsConstraint(c, f.MaxPodsConstraint); err != nil {

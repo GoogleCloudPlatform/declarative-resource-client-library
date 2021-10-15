@@ -2053,13 +2053,13 @@ func expandServerTlsPolicy(c *Client, f *ServerTlsPolicy) (map[string]interface{
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
-	if v := f.AllowOpen; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowOpen; dcl.ValueShouldBeSent(v) {
 		m["allowOpen"] = v
 	}
 	if v, err := expandServerTlsPolicyServerCertificate(c, f.ServerCertificate); err != nil {

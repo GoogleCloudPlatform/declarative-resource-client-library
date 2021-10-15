@@ -834,22 +834,22 @@ func unmarshalMapOAuthIdpConfig(m map[string]interface{}, c *Client) (*OAuthIdpC
 // expandOAuthIdpConfig expands OAuthIdpConfig into a JSON request object.
 func expandOAuthIdpConfig(c *Client, f *OAuthIdpConfig) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
-	if v := f.ClientId; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ClientId; dcl.ValueShouldBeSent(v) {
 		m["clientId"] = v
 	}
-	if v := f.Issuer; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Issuer; dcl.ValueShouldBeSent(v) {
 		m["issuer"] = v
 	}
-	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["displayName"] = v
 	}
-	if v := f.Enabled; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Enabled; dcl.ValueShouldBeSent(v) {
 		m["enabled"] = v
 	}
-	if v := f.ClientSecret; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ClientSecret; dcl.ValueShouldBeSent(v) {
 		m["clientSecret"] = v
 	}
 	if v, err := expandOAuthIdpConfigResponseType(c, f.ResponseType); err != nil {

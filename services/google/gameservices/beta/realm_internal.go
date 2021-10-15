@@ -638,16 +638,16 @@ func unmarshalMapRealm(m map[string]interface{}, c *Client) (*Realm, error) {
 // expandRealm expands Realm into a JSON request object.
 func expandRealm(c *Client, f *Realm) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
-	if v := f.TimeZone; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.TimeZone; dcl.ValueShouldBeSent(v) {
 		m["timeZone"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

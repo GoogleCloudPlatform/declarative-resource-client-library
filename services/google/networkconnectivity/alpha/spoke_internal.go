@@ -506,12 +506,12 @@ func canonicalizeSpokeDesiredState(rawDesired, rawInitial *Spoke, opts ...dcl.Ap
 	} else {
 		canonicalDesired.Hub = rawDesired.Hub
 	}
-	if dcl.IsZeroValue(rawDesired.LinkedVpnTunnels) {
+	if dcl.StringArrayCanonicalize(rawDesired.LinkedVpnTunnels, rawInitial.LinkedVpnTunnels) {
 		canonicalDesired.LinkedVpnTunnels = rawInitial.LinkedVpnTunnels
 	} else {
 		canonicalDesired.LinkedVpnTunnels = rawDesired.LinkedVpnTunnels
 	}
-	if dcl.IsZeroValue(rawDesired.LinkedInterconnectAttachments) {
+	if dcl.StringArrayCanonicalize(rawDesired.LinkedInterconnectAttachments, rawInitial.LinkedInterconnectAttachments) {
 		canonicalDesired.LinkedInterconnectAttachments = rawInitial.LinkedInterconnectAttachments
 	} else {
 		canonicalDesired.LinkedInterconnectAttachments = rawDesired.LinkedInterconnectAttachments
@@ -575,11 +575,17 @@ func canonicalizeSpokeNewState(c *Client, rawNew, rawDesired *Spoke) (*Spoke, er
 	if dcl.IsNotReturnedByServer(rawNew.LinkedVpnTunnels) && dcl.IsNotReturnedByServer(rawDesired.LinkedVpnTunnels) {
 		rawNew.LinkedVpnTunnels = rawDesired.LinkedVpnTunnels
 	} else {
+		if dcl.StringArrayCanonicalize(rawDesired.LinkedVpnTunnels, rawNew.LinkedVpnTunnels) {
+			rawNew.LinkedVpnTunnels = rawDesired.LinkedVpnTunnels
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LinkedInterconnectAttachments) && dcl.IsNotReturnedByServer(rawDesired.LinkedInterconnectAttachments) {
 		rawNew.LinkedInterconnectAttachments = rawDesired.LinkedInterconnectAttachments
 	} else {
+		if dcl.StringArrayCanonicalize(rawDesired.LinkedInterconnectAttachments, rawNew.LinkedInterconnectAttachments) {
+			rawNew.LinkedInterconnectAttachments = rawDesired.LinkedInterconnectAttachments
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LinkedRouterApplianceInstances) && dcl.IsNotReturnedByServer(rawDesired.LinkedRouterApplianceInstances) {
@@ -942,13 +948,13 @@ func expandSpoke(c *Client, f *Spoke) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.Hub; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Hub; dcl.ValueShouldBeSent(v) {
 		m["hub"] = v
 	}
 	m["linkedVpnTunnels"] = f.LinkedVpnTunnels

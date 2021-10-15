@@ -504,7 +504,7 @@ func canonicalizeServiceAttachmentDesiredState(rawDesired, rawInitial *ServiceAt
 	} else {
 		canonicalDesired.ConnectionPreference = rawDesired.ConnectionPreference
 	}
-	if dcl.IsZeroValue(rawDesired.NatSubnets) {
+	if dcl.StringArrayCanonicalize(rawDesired.NatSubnets, rawInitial.NatSubnets) {
 		canonicalDesired.NatSubnets = rawInitial.NatSubnets
 	} else {
 		canonicalDesired.NatSubnets = rawDesired.NatSubnets
@@ -514,7 +514,7 @@ func canonicalizeServiceAttachmentDesiredState(rawDesired, rawInitial *ServiceAt
 	} else {
 		canonicalDesired.EnableProxyProtocol = rawDesired.EnableProxyProtocol
 	}
-	if dcl.IsZeroValue(rawDesired.ConsumerRejectLists) {
+	if dcl.StringArrayCanonicalize(rawDesired.ConsumerRejectLists, rawInitial.ConsumerRejectLists) {
 		canonicalDesired.ConsumerRejectLists = rawInitial.ConsumerRejectLists
 	} else {
 		canonicalDesired.ConsumerRejectLists = rawDesired.ConsumerRejectLists
@@ -595,6 +595,9 @@ func canonicalizeServiceAttachmentNewState(c *Client, rawNew, rawDesired *Servic
 	if dcl.IsNotReturnedByServer(rawNew.NatSubnets) && dcl.IsNotReturnedByServer(rawDesired.NatSubnets) {
 		rawNew.NatSubnets = rawDesired.NatSubnets
 	} else {
+		if dcl.StringArrayCanonicalize(rawDesired.NatSubnets, rawNew.NatSubnets) {
+			rawNew.NatSubnets = rawDesired.NatSubnets
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.EnableProxyProtocol) && dcl.IsNotReturnedByServer(rawDesired.EnableProxyProtocol) {
@@ -608,6 +611,9 @@ func canonicalizeServiceAttachmentNewState(c *Client, rawNew, rawDesired *Servic
 	if dcl.IsNotReturnedByServer(rawNew.ConsumerRejectLists) && dcl.IsNotReturnedByServer(rawDesired.ConsumerRejectLists) {
 		rawNew.ConsumerRejectLists = rawDesired.ConsumerRejectLists
 	} else {
+		if dcl.StringArrayCanonicalize(rawDesired.ConsumerRejectLists, rawNew.ConsumerRejectLists) {
+			rawNew.ConsumerRejectLists = rawDesired.ConsumerRejectLists
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ConsumerAcceptLists) && dcl.IsNotReturnedByServer(rawDesired.ConsumerAcceptLists) {
@@ -1301,20 +1307,20 @@ func unmarshalMapServiceAttachment(m map[string]interface{}, c *Client) (*Servic
 // expandServiceAttachment expands ServiceAttachment into a JSON request object.
 func expandServiceAttachment(c *Client, f *ServiceAttachment) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.TargetService; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.TargetService; dcl.ValueShouldBeSent(v) {
 		m["targetService"] = v
 	}
-	if v := f.ConnectionPreference; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ConnectionPreference; dcl.ValueShouldBeSent(v) {
 		m["connectionPreference"] = v
 	}
 	m["natSubnets"] = f.NatSubnets
-	if v := f.EnableProxyProtocol; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.EnableProxyProtocol; dcl.ValueShouldBeSent(v) {
 		m["enableProxyProtocol"] = v
 	}
 	if v, err := dcl.SelfLinkToNameArrayExpander(f.ConsumerRejectLists); err != nil {
@@ -1332,7 +1338,7 @@ func expandServiceAttachment(c *Client, f *ServiceAttachment) (map[string]interf
 	} else if v != nil {
 		m["project"] = v
 	}
-	if v := f.Location; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Location; dcl.ValueShouldBeSent(v) {
 		m["location"] = v
 	}
 

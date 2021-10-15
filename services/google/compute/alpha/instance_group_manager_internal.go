@@ -775,7 +775,7 @@ func canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial *Instan
 		canonicalDesired.InstanceTemplate = rawDesired.InstanceTemplate
 	}
 	canonicalDesired.Versions = canonicalizeInstanceGroupManagerVersionsSlice(rawDesired.Versions, rawInitial.Versions, opts...)
-	if dcl.IsZeroValue(rawDesired.TargetPools) {
+	if dcl.StringArrayCanonicalize(rawDesired.TargetPools, rawInitial.TargetPools) {
 		canonicalDesired.TargetPools = rawInitial.TargetPools
 	} else {
 		canonicalDesired.TargetPools = rawDesired.TargetPools
@@ -896,6 +896,9 @@ func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *Ins
 	if dcl.IsNotReturnedByServer(rawNew.TargetPools) && dcl.IsNotReturnedByServer(rawDesired.TargetPools) {
 		rawNew.TargetPools = rawDesired.TargetPools
 	} else {
+		if dcl.StringArrayCanonicalize(rawDesired.TargetPools, rawNew.TargetPools) {
+			rawNew.TargetPools = rawDesired.TargetPools
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.BaseInstanceName) && dcl.IsNotReturnedByServer(rawDesired.BaseInstanceName) {
@@ -3648,10 +3651,10 @@ func unmarshalMapInstanceGroupManager(m map[string]interface{}, c *Client) (*Ins
 // expandInstanceGroupManager expands InstanceGroupManager into a JSON request object.
 func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
 	if v, err := expandInstanceGroupManagerDistributionPolicy(c, f.DistributionPolicy); err != nil {
@@ -3659,7 +3662,7 @@ func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]
 	} else if v != nil {
 		m["distributionPolicy"] = v
 	}
-	if v := f.InstanceTemplate; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.InstanceTemplate; dcl.ValueShouldBeSent(v) {
 		m["instanceTemplate"] = v
 	}
 	if v, err := expandInstanceGroupManagerVersionsSlice(c, f.Versions); err != nil {
@@ -3668,10 +3671,10 @@ func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]
 		m["versions"] = v
 	}
 	m["targetPools"] = f.TargetPools
-	if v := f.BaseInstanceName; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.BaseInstanceName; dcl.ValueShouldBeSent(v) {
 		m["baseInstanceName"] = v
 	}
-	if v := f.TargetSize; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.TargetSize; dcl.ValueShouldBeSent(v) {
 		m["targetSize"] = v
 	}
 	if v, err := expandInstanceGroupManagerAutoHealingPoliciesSlice(c, f.AutoHealingPolicies); err != nil {
@@ -3694,10 +3697,10 @@ func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]
 	} else if v != nil {
 		m["statefulPolicy"] = v
 	}
-	if v := f.ServiceAccount; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ServiceAccount; dcl.ValueShouldBeSent(v) {
 		m["serviceAccount"] = v
 	}
-	if v := f.FailoverAction; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.FailoverAction; dcl.ValueShouldBeSent(v) {
 		m["failoverAction"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

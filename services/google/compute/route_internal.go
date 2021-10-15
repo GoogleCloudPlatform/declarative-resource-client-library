@@ -454,7 +454,7 @@ func canonicalizeRouteDesiredState(rawDesired, rawInitial *Route, opts ...dcl.Ap
 	} else {
 		canonicalDesired.Network = rawDesired.Network
 	}
-	if dcl.IsZeroValue(rawDesired.Tag) {
+	if dcl.StringArrayCanonicalize(rawDesired.Tag, rawInitial.Tag) {
 		canonicalDesired.Tag = rawInitial.Tag
 	} else {
 		canonicalDesired.Tag = rawDesired.Tag
@@ -537,6 +537,9 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	if dcl.IsNotReturnedByServer(rawNew.Tag) && dcl.IsNotReturnedByServer(rawDesired.Tag) {
 		rawNew.Tag = rawDesired.Tag
 	} else {
+		if dcl.StringArrayCanonicalize(rawDesired.Tag, rawNew.Tag) {
+			rawNew.Tag = rawDesired.Tag
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DestRange) && dcl.IsNotReturnedByServer(rawDesired.DestRange) {
@@ -982,10 +985,10 @@ func unmarshalMapRoute(m map[string]interface{}, c *Client) (*Route, error) {
 // expandRoute expands Route into a JSON request object.
 func expandRoute(c *Client, f *Route) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
 	if v, err := dcl.DeriveField("global/networks/%s", f.Network, f.Network); err != nil {
@@ -994,16 +997,16 @@ func expandRoute(c *Client, f *Route) (map[string]interface{}, error) {
 		m["network"] = v
 	}
 	m["tags"] = f.Tag
-	if v := f.DestRange; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DestRange; dcl.ValueShouldBeSent(v) {
 		m["destRange"] = v
 	}
-	if v := f.Priority; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Priority; dcl.ValueShouldBeSent(v) {
 		m["priority"] = v
 	}
-	if v := f.NextHopInstance; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.NextHopInstance; dcl.ValueShouldBeSent(v) {
 		m["nextHopInstance"] = v
 	}
-	if v := f.NextHopIP; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.NextHopIP; dcl.ValueShouldBeSent(v) {
 		m["nextHopIp"] = v
 	}
 	if v, err := dcl.DeriveField("projects/%s/global/gateways/%s", f.NextHopGateway, f.Project, f.NextHopGateway); err != nil {
@@ -1011,10 +1014,10 @@ func expandRoute(c *Client, f *Route) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["nextHopGateway"] = v
 	}
-	if v := f.NextHopIlb; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.NextHopIlb; dcl.ValueShouldBeSent(v) {
 		m["nextHopIlb"] = v
 	}
-	if v := f.NextHopVpnTunnel; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.NextHopVpnTunnel; dcl.ValueShouldBeSent(v) {
 		m["nextHopVpnTunnel"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

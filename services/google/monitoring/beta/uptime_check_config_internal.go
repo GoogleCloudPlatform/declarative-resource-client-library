@@ -597,7 +597,7 @@ func canonicalizeUptimeCheckConfigDesiredState(rawDesired, rawInitial *UptimeChe
 		canonicalDesired.Timeout = rawDesired.Timeout
 	}
 	canonicalDesired.ContentMatchers = canonicalizeUptimeCheckConfigContentMatchersSlice(rawDesired.ContentMatchers, rawInitial.ContentMatchers, opts...)
-	if dcl.IsZeroValue(rawDesired.SelectedRegions) {
+	if dcl.StringArrayCanonicalize(rawDesired.SelectedRegions, rawInitial.SelectedRegions) {
 		canonicalDesired.SelectedRegions = rawInitial.SelectedRegions
 	} else {
 		canonicalDesired.SelectedRegions = rawDesired.SelectedRegions
@@ -675,6 +675,9 @@ func canonicalizeUptimeCheckConfigNewState(c *Client, rawNew, rawDesired *Uptime
 	if dcl.IsNotReturnedByServer(rawNew.SelectedRegions) && dcl.IsNotReturnedByServer(rawDesired.SelectedRegions) {
 		rawNew.SelectedRegions = rawDesired.SelectedRegions
 	} else {
+		if dcl.StringArrayCanonicalize(rawDesired.SelectedRegions, rawNew.SelectedRegions) {
+			rawNew.SelectedRegions = rawDesired.SelectedRegions
+		}
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -1887,10 +1890,10 @@ func unmarshalMapUptimeCheckConfig(m map[string]interface{}, c *Client) (*Uptime
 // expandUptimeCheckConfig expands UptimeCheckConfig into a JSON request object.
 func expandUptimeCheckConfig(c *Client, f *UptimeCheckConfig) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
-	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["displayName"] = v
 	}
 	if v, err := expandUptimeCheckConfigMonitoredResource(c, f.MonitoredResource); err != nil {
@@ -1913,10 +1916,10 @@ func expandUptimeCheckConfig(c *Client, f *UptimeCheckConfig) (map[string]interf
 	} else if v != nil {
 		m["tcpCheck"] = v
 	}
-	if v := f.Period; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Period; dcl.ValueShouldBeSent(v) {
 		m["period"] = v
 	}
-	if v := f.Timeout; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Timeout; dcl.ValueShouldBeSent(v) {
 		m["timeout"] = v
 	}
 	if v, err := expandUptimeCheckConfigContentMatchersSlice(c, f.ContentMatchers); err != nil {

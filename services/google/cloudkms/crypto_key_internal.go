@@ -802,18 +802,18 @@ func canonicalizeCryptoKeyPrimaryAttestationCertChains(des, initial *CryptoKeyPr
 
 	cDes := &CryptoKeyPrimaryAttestationCertChains{}
 
-	if dcl.IsZeroValue(des.CaviumCerts) {
-		des.CaviumCerts = initial.CaviumCerts
+	if dcl.StringArrayCanonicalize(des.CaviumCerts, initial.CaviumCerts) || dcl.IsZeroValue(des.CaviumCerts) {
+		cDes.CaviumCerts = initial.CaviumCerts
 	} else {
 		cDes.CaviumCerts = des.CaviumCerts
 	}
-	if dcl.IsZeroValue(des.GoogleCardCerts) {
-		des.GoogleCardCerts = initial.GoogleCardCerts
+	if dcl.StringArrayCanonicalize(des.GoogleCardCerts, initial.GoogleCardCerts) || dcl.IsZeroValue(des.GoogleCardCerts) {
+		cDes.GoogleCardCerts = initial.GoogleCardCerts
 	} else {
 		cDes.GoogleCardCerts = des.GoogleCardCerts
 	}
-	if dcl.IsZeroValue(des.GooglePartitionCerts) {
-		des.GooglePartitionCerts = initial.GooglePartitionCerts
+	if dcl.StringArrayCanonicalize(des.GooglePartitionCerts, initial.GooglePartitionCerts) || dcl.IsZeroValue(des.GooglePartitionCerts) {
+		cDes.GooglePartitionCerts = initial.GooglePartitionCerts
 	} else {
 		cDes.GooglePartitionCerts = des.GooglePartitionCerts
 	}
@@ -861,6 +861,16 @@ func canonicalizeNewCryptoKeyPrimaryAttestationCertChains(c *Client, des, nw *Cr
 			return des
 		}
 		return nil
+	}
+
+	if dcl.StringArrayCanonicalize(des.CaviumCerts, nw.CaviumCerts) {
+		nw.CaviumCerts = des.CaviumCerts
+	}
+	if dcl.StringArrayCanonicalize(des.GoogleCardCerts, nw.GoogleCardCerts) {
+		nw.GoogleCardCerts = des.GoogleCardCerts
+	}
+	if dcl.StringArrayCanonicalize(des.GooglePartitionCerts, nw.GooglePartitionCerts) {
+		nw.GooglePartitionCerts = des.GooglePartitionCerts
 	}
 
 	return nw
@@ -1592,13 +1602,13 @@ func expandCryptoKey(c *Client, f *CryptoKey) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Purpose; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Purpose; dcl.ValueShouldBeSent(v) {
 		m["purpose"] = v
 	}
-	if v := f.NextRotationTime; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.NextRotationTime; dcl.ValueShouldBeSent(v) {
 		m["nextRotationTime"] = v
 	}
-	if v := f.RotationPeriod; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.RotationPeriod; dcl.ValueShouldBeSent(v) {
 		m["rotationPeriod"] = v
 	}
 	if v, err := expandCryptoKeyVersionTemplate(c, f.VersionTemplate); err != nil {
@@ -1606,13 +1616,13 @@ func expandCryptoKey(c *Client, f *CryptoKey) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["versionTemplate"] = v
 	}
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
-	if v := f.ImportOnly; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ImportOnly; dcl.ValueShouldBeSent(v) {
 		m["importOnly"] = v
 	}
-	if v := f.DestroyScheduledDuration; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DestroyScheduledDuration; dcl.ValueShouldBeSent(v) {
 		m["destroyScheduledDuration"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

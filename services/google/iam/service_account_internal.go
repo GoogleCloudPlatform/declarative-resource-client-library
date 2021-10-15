@@ -1005,10 +1005,10 @@ func expandServiceAccount(c *Client, f *ServiceAccount) (map[string]interface{},
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["displayName"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
 	if v, err := expandServiceAccountActasResources(c, f.ActasResources); err != nil {

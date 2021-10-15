@@ -2252,13 +2252,13 @@ func expandMembership(c *Client, f *Membership) (map[string]interface{}, error) 
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.ExternalId; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ExternalId; dcl.ValueShouldBeSent(v) {
 		m["externalId"] = v
 	}
 	if v, err := expandMembershipAuthority(c, f.Authority); err != nil {
@@ -2266,7 +2266,7 @@ func expandMembership(c *Client, f *Membership) (map[string]interface{}, error) 
 	} else if v != nil {
 		m["authority"] = v
 	}
-	if v := f.InfrastructureType; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.InfrastructureType; dcl.ValueShouldBeSent(v) {
 		m["infrastructureType"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

@@ -1339,7 +1339,7 @@ func expandFeature(c *Client, f *Feature) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
 	if v, err := expandFeatureSpec(c, f.Spec); err != nil {

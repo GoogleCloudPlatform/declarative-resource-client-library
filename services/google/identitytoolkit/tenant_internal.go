@@ -830,19 +830,19 @@ func expandTenant(c *Client, f *Tenant) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["displayName"] = v
 	}
-	if v := f.AllowPasswordSignup; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AllowPasswordSignup; dcl.ValueShouldBeSent(v) {
 		m["allowPasswordSignup"] = v
 	}
-	if v := f.EnableEmailLinkSignin; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.EnableEmailLinkSignin; dcl.ValueShouldBeSent(v) {
 		m["enableEmailLinkSignin"] = v
 	}
-	if v := f.DisableAuth; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DisableAuth; dcl.ValueShouldBeSent(v) {
 		m["disableAuth"] = v
 	}
-	if v := f.EnableAnonymousUser; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.EnableAnonymousUser; dcl.ValueShouldBeSent(v) {
 		m["enableAnonymousUser"] = v
 	}
 	if v, err := expandTenantMfaConfig(c, f.MfaConfig); err != nil {
@@ -850,7 +850,7 @@ func expandTenant(c *Client, f *Tenant) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["mfaConfig"] = v
 	}
-	if v := f.TestPhoneNumbers; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.TestPhoneNumbers; dcl.ValueShouldBeSent(v) {
 		m["testPhoneNumbers"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

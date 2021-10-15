@@ -362,7 +362,7 @@ func canonicalizeFirewallPolicyRuleDesiredState(rawDesired, rawInitial *Firewall
 	} else {
 		canonicalDesired.Direction = rawDesired.Direction
 	}
-	if dcl.IsZeroValue(rawDesired.TargetResources) {
+	if dcl.StringArrayCanonicalize(rawDesired.TargetResources, rawInitial.TargetResources) {
 		canonicalDesired.TargetResources = rawInitial.TargetResources
 	} else {
 		canonicalDesired.TargetResources = rawDesired.TargetResources
@@ -372,7 +372,7 @@ func canonicalizeFirewallPolicyRuleDesiredState(rawDesired, rawInitial *Firewall
 	} else {
 		canonicalDesired.EnableLogging = rawDesired.EnableLogging
 	}
-	if dcl.IsZeroValue(rawDesired.TargetServiceAccounts) {
+	if dcl.StringArrayCanonicalize(rawDesired.TargetServiceAccounts, rawInitial.TargetServiceAccounts) {
 		canonicalDesired.TargetServiceAccounts = rawInitial.TargetServiceAccounts
 	} else {
 		canonicalDesired.TargetServiceAccounts = rawDesired.TargetServiceAccounts
@@ -428,6 +428,9 @@ func canonicalizeFirewallPolicyRuleNewState(c *Client, rawNew, rawDesired *Firew
 	if dcl.IsNotReturnedByServer(rawNew.TargetResources) && dcl.IsNotReturnedByServer(rawDesired.TargetResources) {
 		rawNew.TargetResources = rawDesired.TargetResources
 	} else {
+		if dcl.StringArrayCanonicalize(rawDesired.TargetResources, rawNew.TargetResources) {
+			rawNew.TargetResources = rawDesired.TargetResources
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.EnableLogging) && dcl.IsNotReturnedByServer(rawDesired.EnableLogging) {
@@ -446,6 +449,9 @@ func canonicalizeFirewallPolicyRuleNewState(c *Client, rawNew, rawDesired *Firew
 	if dcl.IsNotReturnedByServer(rawNew.TargetServiceAccounts) && dcl.IsNotReturnedByServer(rawDesired.TargetServiceAccounts) {
 		rawNew.TargetServiceAccounts = rawDesired.TargetServiceAccounts
 	} else {
+		if dcl.StringArrayCanonicalize(rawDesired.TargetServiceAccounts, rawNew.TargetServiceAccounts) {
+			rawNew.TargetServiceAccounts = rawDesired.TargetServiceAccounts
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Disabled) && dcl.IsNotReturnedByServer(rawDesired.Disabled) {
@@ -489,13 +495,13 @@ func canonicalizeFirewallPolicyRuleMatch(des, initial *FirewallPolicyRuleMatch, 
 
 	cDes := &FirewallPolicyRuleMatch{}
 
-	if dcl.IsZeroValue(des.SrcIPRanges) {
-		des.SrcIPRanges = initial.SrcIPRanges
+	if dcl.StringArrayCanonicalize(des.SrcIPRanges, initial.SrcIPRanges) || dcl.IsZeroValue(des.SrcIPRanges) {
+		cDes.SrcIPRanges = initial.SrcIPRanges
 	} else {
 		cDes.SrcIPRanges = des.SrcIPRanges
 	}
-	if dcl.IsZeroValue(des.DestIPRanges) {
-		des.DestIPRanges = initial.DestIPRanges
+	if dcl.StringArrayCanonicalize(des.DestIPRanges, initial.DestIPRanges) || dcl.IsZeroValue(des.DestIPRanges) {
+		cDes.DestIPRanges = initial.DestIPRanges
 	} else {
 		cDes.DestIPRanges = des.DestIPRanges
 	}
@@ -546,6 +552,12 @@ func canonicalizeNewFirewallPolicyRuleMatch(c *Client, des, nw *FirewallPolicyRu
 		return nil
 	}
 
+	if dcl.StringArrayCanonicalize(des.SrcIPRanges, nw.SrcIPRanges) {
+		nw.SrcIPRanges = des.SrcIPRanges
+	}
+	if dcl.StringArrayCanonicalize(des.DestIPRanges, nw.DestIPRanges) {
+		nw.DestIPRanges = des.DestIPRanges
+	}
 	nw.Layer4Configs = canonicalizeNewFirewallPolicyRuleMatchLayer4ConfigsSlice(c, des.Layer4Configs, nw.Layer4Configs)
 
 	return nw
@@ -613,8 +625,8 @@ func canonicalizeFirewallPolicyRuleMatchLayer4Configs(des, initial *FirewallPoli
 	} else {
 		cDes.IPProtocol = des.IPProtocol
 	}
-	if dcl.IsZeroValue(des.Ports) {
-		des.Ports = initial.Ports
+	if dcl.StringArrayCanonicalize(des.Ports, initial.Ports) || dcl.IsZeroValue(des.Ports) {
+		cDes.Ports = initial.Ports
 	} else {
 		cDes.Ports = des.Ports
 	}
@@ -666,6 +678,9 @@ func canonicalizeNewFirewallPolicyRuleMatchLayer4Configs(c *Client, des, nw *Fir
 
 	if dcl.StringCanonicalize(des.IPProtocol, nw.IPProtocol) {
 		nw.IPProtocol = des.IPProtocol
+	}
+	if dcl.StringArrayCanonicalize(des.Ports, nw.Ports) {
+		nw.Ports = des.Ports
 	}
 
 	return nw
@@ -953,10 +968,10 @@ func unmarshalMapFirewallPolicyRule(m map[string]interface{}, c *Client) (*Firew
 // expandFirewallPolicyRule expands FirewallPolicyRule into a JSON request object.
 func expandFirewallPolicyRule(c *Client, f *FirewallPolicyRule) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.Priority; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Priority; dcl.ValueShouldBeSent(v) {
 		m["priority"] = v
 	}
 	if v, err := expandFirewallPolicyRuleMatch(c, f.Match); err != nil {
@@ -964,21 +979,21 @@ func expandFirewallPolicyRule(c *Client, f *FirewallPolicyRule) (map[string]inte
 	} else if v != nil {
 		m["match"] = v
 	}
-	if v := f.Action; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Action; dcl.ValueShouldBeSent(v) {
 		m["action"] = v
 	}
-	if v := f.Direction; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Direction; dcl.ValueShouldBeSent(v) {
 		m["direction"] = v
 	}
 	m["targetResources"] = f.TargetResources
-	if v := f.EnableLogging; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.EnableLogging; dcl.ValueShouldBeSent(v) {
 		m["enableLogging"] = v
 	}
 	m["targetServiceAccounts"] = f.TargetServiceAccounts
-	if v := f.Disabled; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Disabled; dcl.ValueShouldBeSent(v) {
 		m["disabled"] = v
 	}
-	if v := f.FirewallPolicy; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.FirewallPolicy; dcl.ValueShouldBeSent(v) {
 		m["firewallPolicy"] = v
 	}
 

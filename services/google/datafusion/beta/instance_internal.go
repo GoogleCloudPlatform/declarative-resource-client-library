@@ -894,6 +894,9 @@ func canonicalizeNewInstanceAvailableVersion(c *Client, des, nw *InstanceAvailab
 	if dcl.BoolCanonicalize(des.DefaultVersion, nw.DefaultVersion) {
 		nw.DefaultVersion = des.DefaultVersion
 	}
+	if dcl.StringArrayCanonicalize(des.AvailableFeatures, nw.AvailableFeatures) {
+		nw.AvailableFeatures = des.AvailableFeatures
+	}
 
 	return nw
 }
@@ -1287,19 +1290,19 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Type; dcl.ValueShouldBeSent(v) {
 		m["type"] = v
 	}
-	if v := f.EnableStackdriverLogging; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.EnableStackdriverLogging; dcl.ValueShouldBeSent(v) {
 		m["enableStackdriverLogging"] = v
 	}
-	if v := f.EnableStackdriverMonitoring; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.EnableStackdriverMonitoring; dcl.ValueShouldBeSent(v) {
 		m["enableStackdriverMonitoring"] = v
 	}
-	if v := f.PrivateInstance; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.PrivateInstance; dcl.ValueShouldBeSent(v) {
 		m["privateInstance"] = v
 	}
 	if v, err := expandInstanceNetworkConfig(c, f.NetworkConfig); err != nil {
@@ -1307,22 +1310,22 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["networkConfig"] = v
 	}
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
-	if v := f.Options; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Options; dcl.ValueShouldBeSent(v) {
 		m["options"] = v
 	}
-	if v := f.Zone; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Zone; dcl.ValueShouldBeSent(v) {
 		m["zone"] = v
 	}
-	if v := f.Version; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Version; dcl.ValueShouldBeSent(v) {
 		m["version"] = v
 	}
-	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["displayName"] = v
 	}
-	if v := f.DataprocServiceAccount; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DataprocServiceAccount; dcl.ValueShouldBeSent(v) {
 		m["dataprocServiceAccount"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

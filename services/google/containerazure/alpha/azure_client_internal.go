@@ -572,10 +572,10 @@ func expandAzureClient(c *Client, f *AzureClient) (map[string]interface{}, error
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.TenantId; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.TenantId; dcl.ValueShouldBeSent(v) {
 		m["tenantId"] = v
 	}
-	if v := f.ApplicationId; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ApplicationId; dcl.ValueShouldBeSent(v) {
 		m["applicationId"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

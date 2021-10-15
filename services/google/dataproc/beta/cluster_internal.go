@@ -915,13 +915,13 @@ func canonicalizeClusterClusterConfigGceClusterConfig(des, initial *ClusterClust
 	} else {
 		cDes.ServiceAccount = des.ServiceAccount
 	}
-	if dcl.IsZeroValue(des.ServiceAccountScopes) {
-		des.ServiceAccountScopes = initial.ServiceAccountScopes
+	if dcl.StringArrayCanonicalize(des.ServiceAccountScopes, initial.ServiceAccountScopes) || dcl.IsZeroValue(des.ServiceAccountScopes) {
+		cDes.ServiceAccountScopes = initial.ServiceAccountScopes
 	} else {
 		cDes.ServiceAccountScopes = des.ServiceAccountScopes
 	}
-	if dcl.IsZeroValue(des.Tags) {
-		des.Tags = initial.Tags
+	if dcl.StringArrayCanonicalize(des.Tags, initial.Tags) || dcl.IsZeroValue(des.Tags) {
+		cDes.Tags = initial.Tags
 	} else {
 		cDes.Tags = des.Tags
 	}
@@ -992,6 +992,12 @@ func canonicalizeNewClusterClusterConfigGceClusterConfig(c *Client, des, nw *Clu
 	}
 	if dcl.NameToSelfLink(des.ServiceAccount, nw.ServiceAccount) {
 		nw.ServiceAccount = des.ServiceAccount
+	}
+	if dcl.StringArrayCanonicalize(des.ServiceAccountScopes, nw.ServiceAccountScopes) {
+		nw.ServiceAccountScopes = des.ServiceAccountScopes
+	}
+	if dcl.StringArrayCanonicalize(des.Tags, nw.Tags) {
+		nw.Tags = des.Tags
 	}
 	nw.ReservationAffinity = canonicalizeNewClusterClusterConfigGceClusterConfigReservationAffinity(c, des.ReservationAffinity, nw.ReservationAffinity)
 	nw.NodeGroupAffinity = canonicalizeNewClusterClusterConfigGceClusterConfigNodeGroupAffinity(c, des.NodeGroupAffinity, nw.NodeGroupAffinity)
@@ -1066,8 +1072,8 @@ func canonicalizeClusterClusterConfigGceClusterConfigReservationAffinity(des, in
 	} else {
 		cDes.Key = des.Key
 	}
-	if dcl.IsZeroValue(des.Values) {
-		des.Values = initial.Values
+	if dcl.StringArrayCanonicalize(des.Values, initial.Values) || dcl.IsZeroValue(des.Values) {
+		cDes.Values = initial.Values
 	} else {
 		cDes.Values = des.Values
 	}
@@ -1119,6 +1125,9 @@ func canonicalizeNewClusterClusterConfigGceClusterConfigReservationAffinity(c *C
 
 	if dcl.StringCanonicalize(des.Key, nw.Key) {
 		nw.Key = des.Key
+	}
+	if dcl.StringArrayCanonicalize(des.Values, nw.Values) {
+		nw.Values = des.Values
 	}
 
 	return nw
@@ -1369,6 +1378,9 @@ func canonicalizeNewClusterInstanceGroupConfig(c *Client, des, nw *ClusterInstan
 		return nil
 	}
 
+	if dcl.StringArrayCanonicalize(des.InstanceNames, nw.InstanceNames) {
+		nw.InstanceNames = des.InstanceNames
+	}
 	if dcl.NameToSelfLink(des.Image, nw.Image) {
 		nw.Image = des.Image
 	}
@@ -4782,7 +4794,7 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["projectId"] = v
 	}
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["clusterName"] = v
 	}
 	if v, err := expandClusterClusterConfig(c, f.Config); err != nil {
@@ -4790,7 +4802,7 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["config"] = v
 	}
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

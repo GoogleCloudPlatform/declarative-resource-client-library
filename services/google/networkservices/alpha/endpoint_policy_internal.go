@@ -980,8 +980,8 @@ func canonicalizeEndpointPolicyTrafficPortSelector(des, initial *EndpointPolicyT
 
 	cDes := &EndpointPolicyTrafficPortSelector{}
 
-	if dcl.IsZeroValue(des.Ports) {
-		des.Ports = initial.Ports
+	if dcl.StringArrayCanonicalize(des.Ports, initial.Ports) || dcl.IsZeroValue(des.Ports) {
+		cDes.Ports = initial.Ports
 	} else {
 		cDes.Ports = des.Ports
 	}
@@ -1029,6 +1029,10 @@ func canonicalizeNewEndpointPolicyTrafficPortSelector(c *Client, des, nw *Endpoi
 			return des
 		}
 		return nil
+	}
+
+	if dcl.StringArrayCanonicalize(des.Ports, nw.Ports) {
+		nw.Ports = des.Ports
 	}
 
 	return nw
@@ -1383,13 +1387,13 @@ func expandEndpointPolicy(c *Client, f *EndpointPolicy) (map[string]interface{},
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
-	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Type; dcl.ValueShouldBeSent(v) {
 		m["type"] = v
 	}
-	if v := f.AuthorizationPolicy; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AuthorizationPolicy; dcl.ValueShouldBeSent(v) {
 		m["authorizationPolicy"] = v
 	}
 	if v, err := expandEndpointPolicyEndpointMatcher(c, f.EndpointMatcher); err != nil {
@@ -1402,13 +1406,13 @@ func expandEndpointPolicy(c *Client, f *EndpointPolicy) (map[string]interface{},
 	} else if v != nil {
 		m["trafficPortSelector"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.ServerTlsPolicy; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ServerTlsPolicy; dcl.ValueShouldBeSent(v) {
 		m["serverTlsPolicy"] = v
 	}
-	if v := f.ClientTlsPolicy; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ClientTlsPolicy; dcl.ValueShouldBeSent(v) {
 		m["clientTlsPolicy"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

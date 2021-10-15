@@ -673,8 +673,8 @@ func canonicalizeInstanceFileSharesNfsExportOptions(des, initial *InstanceFileSh
 
 	cDes := &InstanceFileSharesNfsExportOptions{}
 
-	if dcl.IsZeroValue(des.IPRanges) {
-		des.IPRanges = initial.IPRanges
+	if dcl.StringArrayCanonicalize(des.IPRanges, initial.IPRanges) || dcl.IsZeroValue(des.IPRanges) {
+		cDes.IPRanges = initial.IPRanges
 	} else {
 		cDes.IPRanges = des.IPRanges
 	}
@@ -742,6 +742,10 @@ func canonicalizeNewInstanceFileSharesNfsExportOptions(c *Client, des, nw *Insta
 			return des
 		}
 		return nil
+	}
+
+	if dcl.StringArrayCanonicalize(des.IPRanges, nw.IPRanges) {
+		nw.IPRanges = des.IPRanges
 	}
 
 	return nw
@@ -870,6 +874,9 @@ func canonicalizeNewInstanceNetworks(c *Client, des, nw *InstanceNetworks) *Inst
 	}
 	if dcl.StringCanonicalize(des.ReservedIPRange, nw.ReservedIPRange) {
 		nw.ReservedIPRange = des.ReservedIPRange
+	}
+	if dcl.StringArrayCanonicalize(des.IPAddresses, nw.IPAddresses) {
+		nw.IPAddresses = des.IPAddresses
 	}
 
 	return nw
@@ -1243,13 +1250,13 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.Tier; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Tier; dcl.ValueShouldBeSent(v) {
 		m["tier"] = v
 	}
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
 	if v, err := expandInstanceFileSharesSlice(c, f.FileShares); err != nil {

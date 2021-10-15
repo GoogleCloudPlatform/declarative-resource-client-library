@@ -788,13 +788,13 @@ func canonicalizeClusterNetworking(des, initial *ClusterNetworking, opts ...dcl.
 	} else {
 		cDes.VirtualNetworkId = des.VirtualNetworkId
 	}
-	if dcl.IsZeroValue(des.PodAddressCidrBlocks) {
-		des.PodAddressCidrBlocks = initial.PodAddressCidrBlocks
+	if dcl.StringArrayCanonicalize(des.PodAddressCidrBlocks, initial.PodAddressCidrBlocks) || dcl.IsZeroValue(des.PodAddressCidrBlocks) {
+		cDes.PodAddressCidrBlocks = initial.PodAddressCidrBlocks
 	} else {
 		cDes.PodAddressCidrBlocks = des.PodAddressCidrBlocks
 	}
-	if dcl.IsZeroValue(des.ServiceAddressCidrBlocks) {
-		des.ServiceAddressCidrBlocks = initial.ServiceAddressCidrBlocks
+	if dcl.StringArrayCanonicalize(des.ServiceAddressCidrBlocks, initial.ServiceAddressCidrBlocks) || dcl.IsZeroValue(des.ServiceAddressCidrBlocks) {
+		cDes.ServiceAddressCidrBlocks = initial.ServiceAddressCidrBlocks
 	} else {
 		cDes.ServiceAddressCidrBlocks = des.ServiceAddressCidrBlocks
 	}
@@ -846,6 +846,12 @@ func canonicalizeNewClusterNetworking(c *Client, des, nw *ClusterNetworking) *Cl
 
 	if dcl.StringCanonicalize(des.VirtualNetworkId, nw.VirtualNetworkId) {
 		nw.VirtualNetworkId = des.VirtualNetworkId
+	}
+	if dcl.StringArrayCanonicalize(des.PodAddressCidrBlocks, nw.PodAddressCidrBlocks) {
+		nw.PodAddressCidrBlocks = des.PodAddressCidrBlocks
+	}
+	if dcl.StringArrayCanonicalize(des.ServiceAddressCidrBlocks, nw.ServiceAddressCidrBlocks) {
+		nw.ServiceAddressCidrBlocks = des.ServiceAddressCidrBlocks
 	}
 
 	return nw
@@ -2755,16 +2761,16 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.AzureRegion; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AzureRegion; dcl.ValueShouldBeSent(v) {
 		m["azureRegion"] = v
 	}
-	if v := f.ResourceGroupId; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ResourceGroupId; dcl.ValueShouldBeSent(v) {
 		m["resourceGroupId"] = v
 	}
-	if v := f.Client; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Client; dcl.ValueShouldBeSent(v) {
 		m["azureClient"] = v
 	}
 	if v, err := expandClusterNetworking(c, f.Networking); err != nil {
@@ -2782,7 +2788,7 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["authorization"] = v
 	}
-	if v := f.Annotations; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Annotations; dcl.ValueShouldBeSent(v) {
 		m["annotations"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

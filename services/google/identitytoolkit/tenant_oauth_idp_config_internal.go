@@ -858,22 +858,22 @@ func unmarshalMapTenantOAuthIdpConfig(m map[string]interface{}, c *Client) (*Ten
 // expandTenantOAuthIdpConfig expands TenantOAuthIdpConfig into a JSON request object.
 func expandTenantOAuthIdpConfig(c *Client, f *TenantOAuthIdpConfig) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
-	if v := f.ClientId; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ClientId; dcl.ValueShouldBeSent(v) {
 		m["clientId"] = v
 	}
-	if v := f.Issuer; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Issuer; dcl.ValueShouldBeSent(v) {
 		m["issuer"] = v
 	}
-	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["displayName"] = v
 	}
-	if v := f.Enabled; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Enabled; dcl.ValueShouldBeSent(v) {
 		m["enabled"] = v
 	}
-	if v := f.ClientSecret; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ClientSecret; dcl.ValueShouldBeSent(v) {
 		m["clientSecret"] = v
 	}
 	if v, err := expandTenantOAuthIdpConfigResponseType(c, f.ResponseType); err != nil {

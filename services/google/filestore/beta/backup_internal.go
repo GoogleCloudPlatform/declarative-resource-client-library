@@ -721,16 +721,16 @@ func expandBackup(c *Client, f *Backup) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
-	if v := f.SourceInstance; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SourceInstance; dcl.ValueShouldBeSent(v) {
 		m["sourceInstance"] = v
 	}
-	if v := f.SourceFileShare; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SourceFileShare; dcl.ValueShouldBeSent(v) {
 		m["sourceFileShare"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

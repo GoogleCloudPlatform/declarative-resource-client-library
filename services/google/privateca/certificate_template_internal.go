@@ -665,8 +665,8 @@ func canonicalizeCertificateTemplatePredefinedValues(des, initial *CertificateTe
 	cDes.KeyUsage = canonicalizeCertificateTemplatePredefinedValuesKeyUsage(des.KeyUsage, initial.KeyUsage, opts...)
 	cDes.CaOptions = canonicalizeCertificateTemplatePredefinedValuesCaOptions(des.CaOptions, initial.CaOptions, opts...)
 	cDes.PolicyIds = canonicalizeCertificateTemplatePredefinedValuesPolicyIdsSlice(des.PolicyIds, initial.PolicyIds, opts...)
-	if dcl.IsZeroValue(des.AiaOcspServers) {
-		des.AiaOcspServers = initial.AiaOcspServers
+	if dcl.StringArrayCanonicalize(des.AiaOcspServers, initial.AiaOcspServers) || dcl.IsZeroValue(des.AiaOcspServers) {
+		cDes.AiaOcspServers = initial.AiaOcspServers
 	} else {
 		cDes.AiaOcspServers = des.AiaOcspServers
 	}
@@ -720,6 +720,9 @@ func canonicalizeNewCertificateTemplatePredefinedValues(c *Client, des, nw *Cert
 	nw.KeyUsage = canonicalizeNewCertificateTemplatePredefinedValuesKeyUsage(c, des.KeyUsage, nw.KeyUsage)
 	nw.CaOptions = canonicalizeNewCertificateTemplatePredefinedValuesCaOptions(c, des.CaOptions, nw.CaOptions)
 	nw.PolicyIds = canonicalizeNewCertificateTemplatePredefinedValuesPolicyIdsSlice(c, des.PolicyIds, nw.PolicyIds)
+	if dcl.StringArrayCanonicalize(des.AiaOcspServers, nw.AiaOcspServers) {
+		nw.AiaOcspServers = des.AiaOcspServers
+	}
 	nw.AdditionalExtensions = canonicalizeNewCertificateTemplatePredefinedValuesAdditionalExtensionsSlice(c, des.AdditionalExtensions, nw.AdditionalExtensions)
 
 	return nw
@@ -3022,10 +3025,10 @@ func expandCertificateTemplate(c *Client, f *CertificateTemplate) (map[string]in
 	} else if v != nil {
 		m["passthroughExtensions"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

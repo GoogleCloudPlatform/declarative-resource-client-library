@@ -682,7 +682,7 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	} else {
 		canonicalDesired.PortRange = rawDesired.PortRange
 	}
-	if dcl.IsZeroValue(rawDesired.Ports) {
+	if dcl.StringArrayCanonicalize(rawDesired.Ports, rawInitial.Ports) {
 		canonicalDesired.Ports = rawInitial.Ports
 	} else {
 		canonicalDesired.Ports = rawDesired.Ports
@@ -845,6 +845,9 @@ func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *Forwardin
 	if dcl.IsNotReturnedByServer(rawNew.Ports) && dcl.IsNotReturnedByServer(rawDesired.Ports) {
 		rawNew.Ports = rawDesired.Ports
 	} else {
+		if dcl.StringArrayCanonicalize(rawDesired.Ports, rawNew.Ports) {
+			rawNew.Ports = rawDesired.Ports
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Region) && dcl.IsNotReturnedByServer(rawDesired.Region) {
@@ -1518,7 +1521,7 @@ func unmarshalMapForwardingRule(m map[string]interface{}, c *Client) (*Forwardin
 // expandForwardingRule expands ForwardingRule into a JSON request object.
 func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
 	if v, err := dcl.FalseToNil(f.AllPorts); err != nil {
@@ -1531,19 +1534,19 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	} else if v != nil {
 		m["allowGlobalAccess"] = v
 	}
-	if v := f.BackendService; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.BackendService; dcl.ValueShouldBeSent(v) {
 		m["backendService"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.IPAddress; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.IPAddress; dcl.ValueShouldBeSent(v) {
 		m["IPAddress"] = v
 	}
-	if v := f.IPProtocol; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.IPProtocol; dcl.ValueShouldBeSent(v) {
 		m["IPProtocol"] = v
 	}
-	if v := f.IPVersion; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.IPVersion; dcl.ValueShouldBeSent(v) {
 		m["ipVersion"] = v
 	}
 	if v, err := dcl.FalseToNil(f.IsMirroringCollector); err != nil {
@@ -1551,7 +1554,7 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	} else if v != nil {
 		m["isMirroringCollector"] = v
 	}
-	if v := f.LoadBalancingScheme; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.LoadBalancingScheme; dcl.ValueShouldBeSent(v) {
 		m["loadBalancingScheme"] = v
 	}
 	if v, err := expandForwardingRuleMetadataFilterSlice(c, f.MetadataFilter); err != nil {
@@ -1559,7 +1562,7 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	} else {
 		m["metadataFilters"] = v
 	}
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
 	if v, err := dcl.DeriveField("global/networks/%s", f.Network, f.Network); err != nil {
@@ -1567,17 +1570,17 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	} else if v != nil {
 		m["network"] = v
 	}
-	if v := f.NetworkTier; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.NetworkTier; dcl.ValueShouldBeSent(v) {
 		m["networkTier"] = v
 	}
-	if v := f.PortRange; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.PortRange; dcl.ValueShouldBeSent(v) {
 		m["portRange"] = v
 	}
 	m["ports"] = f.Ports
-	if v := f.Region; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Region; dcl.ValueShouldBeSent(v) {
 		m["region"] = v
 	}
-	if v := f.ServiceLabel; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.ServiceLabel; dcl.ValueShouldBeSent(v) {
 		m["serviceLabel"] = v
 	}
 	if v, err := dcl.DeriveField("projects/%s/regions/%s/subnetworks/%s", f.Subnetwork, f.Project, f.Location, f.Subnetwork); err != nil {
@@ -1585,10 +1588,10 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	} else if v != nil {
 		m["subnetwork"] = v
 	}
-	if v := f.Target; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Target; dcl.ValueShouldBeSent(v) {
 		m["target"] = v
 	}
-	if v := f.Project; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Project; dcl.ValueShouldBeSent(v) {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

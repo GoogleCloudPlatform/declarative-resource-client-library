@@ -420,7 +420,7 @@ func canonicalizeRoleDesiredState(rawDesired, rawInitial *Role, opts ...dcl.Appl
 	} else {
 		canonicalDesired.GroupTitle = rawDesired.GroupTitle
 	}
-	if dcl.IsZeroValue(rawDesired.IncludedPermissions) {
+	if dcl.StringArrayCanonicalize(rawDesired.IncludedPermissions, rawInitial.IncludedPermissions) {
 		canonicalDesired.IncludedPermissions = rawInitial.IncludedPermissions
 	} else {
 		canonicalDesired.IncludedPermissions = rawDesired.IncludedPermissions
@@ -440,7 +440,7 @@ func canonicalizeRoleDesiredState(rawDesired, rawInitial *Role, opts ...dcl.Appl
 	} else {
 		canonicalDesired.Deleted = rawDesired.Deleted
 	}
-	if dcl.IsZeroValue(rawDesired.IncludedRoles) {
+	if dcl.StringArrayCanonicalize(rawDesired.IncludedRoles, rawInitial.IncludedRoles) {
 		canonicalDesired.IncludedRoles = rawInitial.IncludedRoles
 	} else {
 		canonicalDesired.IncludedRoles = rawDesired.IncludedRoles
@@ -513,6 +513,9 @@ func canonicalizeRoleNewState(c *Client, rawNew, rawDesired *Role) (*Role, error
 	if dcl.IsNotReturnedByServer(rawNew.IncludedPermissions) && dcl.IsNotReturnedByServer(rawDesired.IncludedPermissions) {
 		rawNew.IncludedPermissions = rawDesired.IncludedPermissions
 	} else {
+		if dcl.StringArrayCanonicalize(rawDesired.IncludedPermissions, rawNew.IncludedPermissions) {
+			rawNew.IncludedPermissions = rawDesired.IncludedPermissions
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Stage) && dcl.IsNotReturnedByServer(rawDesired.Stage) {
@@ -539,6 +542,9 @@ func canonicalizeRoleNewState(c *Client, rawNew, rawDesired *Role) (*Role, error
 	if dcl.IsNotReturnedByServer(rawNew.IncludedRoles) && dcl.IsNotReturnedByServer(rawDesired.IncludedRoles) {
 		rawNew.IncludedRoles = rawDesired.IncludedRoles
 	} else {
+		if dcl.StringArrayCanonicalize(rawDesired.IncludedRoles, rawNew.IncludedRoles) {
+			rawNew.IncludedRoles = rawDesired.IncludedRoles
+		}
 	}
 
 	rawNew.Parent = rawDesired.Parent
@@ -882,10 +888,10 @@ func expandRole(c *Client, f *Role) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Title; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Title; dcl.ValueShouldBeSent(v) {
 		m["title"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
 	if v, err := expandRoleLocalizedValues(c, f.LocalizedValues); err != nil {
@@ -893,23 +899,23 @@ func expandRole(c *Client, f *Role) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["localizedValues"] = v
 	}
-	if v := f.LifecyclePhase; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.LifecyclePhase; dcl.ValueShouldBeSent(v) {
 		m["lifecyclePhase"] = v
 	}
-	if v := f.GroupName; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GroupName; dcl.ValueShouldBeSent(v) {
 		m["groupName"] = v
 	}
-	if v := f.GroupTitle; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.GroupTitle; dcl.ValueShouldBeSent(v) {
 		m["groupTitle"] = v
 	}
 	m["includedPermissions"] = f.IncludedPermissions
-	if v := f.Stage; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Stage; dcl.ValueShouldBeSent(v) {
 		m["stage"] = v
 	}
-	if v := f.Etag; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Etag; dcl.ValueShouldBeSent(v) {
 		m["etag"] = v
 	}
-	if v := f.Deleted; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Deleted; dcl.ValueShouldBeSent(v) {
 		m["deleted"] = v
 	}
 	m["includedRoles"] = f.IncludedRoles

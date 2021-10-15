@@ -347,3 +347,35 @@ func ValueFromRegexOnField(fieldName string, val *string, containerVal *string, 
 
 	return val, nil
 }
+
+// ValueFromOptionalString takes an optional object and returns it primitive.
+func ValueFromOptionalString(i *OptionalString) string {
+	if i.IsUnset() {
+		return ""
+	}
+	return *i.Value
+}
+
+// ValueFromOptionalInt64 takes an optional object and returns it primitive.
+func ValueFromOptionalInt64(i *OptionalInt64) int64 {
+	if i.IsUnset() {
+		return 0
+	}
+	return *i.Value
+}
+
+// ValueFromOptionalFloat64 takes an optional object and returns it primitive.
+func ValueFromOptionalFloat64(i *OptionalFloat64) float64 {
+	if i.IsUnset() {
+		return 0.0
+	}
+	return *i.Value
+}
+
+// ValueFromOptionalBool takes an optional object and returns it primitive.
+func ValueFromOptionalBool(i *OptionalBool) bool {
+	if i.IsUnset() {
+		return false
+	}
+	return *i.Value
+}

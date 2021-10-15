@@ -634,8 +634,8 @@ func canonicalizeWorkloadIdentityPoolProviderAws(des, initial *WorkloadIdentityP
 	} else {
 		cDes.AccountId = des.AccountId
 	}
-	if dcl.IsZeroValue(des.StsUri) {
-		des.StsUri = initial.StsUri
+	if dcl.StringArrayCanonicalize(des.StsUri, initial.StsUri) || dcl.IsZeroValue(des.StsUri) {
+		cDes.StsUri = initial.StsUri
 	} else {
 		cDes.StsUri = des.StsUri
 	}
@@ -755,8 +755,8 @@ func canonicalizeWorkloadIdentityPoolProviderOidc(des, initial *WorkloadIdentity
 	} else {
 		cDes.IssuerUri = des.IssuerUri
 	}
-	if dcl.IsZeroValue(des.AllowedAudiences) {
-		des.AllowedAudiences = initial.AllowedAudiences
+	if dcl.StringArrayCanonicalize(des.AllowedAudiences, initial.AllowedAudiences) || dcl.IsZeroValue(des.AllowedAudiences) {
+		cDes.AllowedAudiences = initial.AllowedAudiences
 	} else {
 		cDes.AllowedAudiences = des.AllowedAudiences
 	}
@@ -808,6 +808,9 @@ func canonicalizeNewWorkloadIdentityPoolProviderOidc(c *Client, des, nw *Workloa
 
 	if dcl.StringCanonicalize(des.IssuerUri, nw.IssuerUri) {
 		nw.IssuerUri = des.IssuerUri
+	}
+	if dcl.StringArrayCanonicalize(des.AllowedAudiences, nw.AllowedAudiences) {
+		nw.AllowedAudiences = des.AllowedAudiences
 	}
 
 	return nw
@@ -1098,19 +1101,19 @@ func expandWorkloadIdentityPoolProvider(c *Client, f *WorkloadIdentityPoolProvid
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["displayName"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.Disabled; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Disabled; dcl.ValueShouldBeSent(v) {
 		m["disabled"] = v
 	}
-	if v := f.AttributeMapping; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AttributeMapping; dcl.ValueShouldBeSent(v) {
 		m["attributeMapping"] = v
 	}
-	if v := f.AttributeCondition; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AttributeCondition; dcl.ValueShouldBeSent(v) {
 		m["attributeCondition"] = v
 	}
 	if v, err := expandWorkloadIdentityPoolProviderAws(c, f.Aws); err != nil {

@@ -1637,7 +1637,7 @@ func expandNodePool(c *Client, f *NodePool) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Version; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Version; dcl.ValueShouldBeSent(v) {
 		m["version"] = v
 	}
 	if v, err := expandNodePoolConfig(c, f.Config); err != nil {
@@ -1645,7 +1645,7 @@ func expandNodePool(c *Client, f *NodePool) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["config"] = v
 	}
-	if v := f.SubnetId; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SubnetId; dcl.ValueShouldBeSent(v) {
 		m["subnetId"] = v
 	}
 	if v, err := expandNodePoolAutoscaling(c, f.Autoscaling); err != nil {
@@ -1653,7 +1653,7 @@ func expandNodePool(c *Client, f *NodePool) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["autoscaling"] = v
 	}
-	if v := f.Annotations; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Annotations; dcl.ValueShouldBeSent(v) {
 		m["annotations"] = v
 	}
 	if v, err := expandNodePoolMaxPodsConstraint(c, f.MaxPodsConstraint); err != nil {
@@ -1661,7 +1661,7 @@ func expandNodePool(c *Client, f *NodePool) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["maxPodsConstraint"] = v
 	}
-	if v := f.AzureAvailabilityZone; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AzureAvailabilityZone; dcl.ValueShouldBeSent(v) {
 		m["azureAvailabilityZone"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

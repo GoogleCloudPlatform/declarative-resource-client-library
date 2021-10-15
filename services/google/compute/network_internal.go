@@ -756,10 +756,10 @@ func unmarshalMapNetwork(m map[string]interface{}, c *Client) (*Network, error) 
 // expandNetwork expands Network into a JSON request object.
 func expandNetwork(c *Client, f *Network) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
 	m["autoCreateSubnetworks"] = f.AutoCreateSubnetworks
@@ -768,7 +768,7 @@ func expandNetwork(c *Client, f *Network) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["routingConfig"] = v
 	}
-	if v := f.Mtu; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Mtu; dcl.ValueShouldBeSent(v) {
 		m["mtu"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

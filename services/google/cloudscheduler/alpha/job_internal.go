@@ -2435,7 +2435,7 @@ func expandJob(c *Client, f *Job) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
 	if v, err := expandJobPubsubTarget(c, f.PubsubTarget); err != nil {
@@ -2453,10 +2453,10 @@ func expandJob(c *Client, f *Job) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["httpTarget"] = v
 	}
-	if v := f.Schedule; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Schedule; dcl.ValueShouldBeSent(v) {
 		m["schedule"] = v
 	}
-	if v := f.TimeZone; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.TimeZone; dcl.ValueShouldBeSent(v) {
 		m["timeZone"] = v
 	}
 	if v, err := expandJobRetryConfig(c, f.RetryConfig); err != nil {
@@ -2464,7 +2464,7 @@ func expandJob(c *Client, f *Job) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["retryConfig"] = v
 	}
-	if v := f.AttemptDeadline; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.AttemptDeadline; dcl.ValueShouldBeSent(v) {
 		m["attemptDeadline"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

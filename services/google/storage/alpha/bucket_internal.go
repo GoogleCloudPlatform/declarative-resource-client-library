@@ -604,18 +604,18 @@ func canonicalizeBucketCors(des, initial *BucketCors, opts ...dcl.ApplyOption) *
 	} else {
 		cDes.MaxAgeSeconds = des.MaxAgeSeconds
 	}
-	if dcl.IsZeroValue(des.Method) {
-		des.Method = initial.Method
+	if dcl.StringArrayCanonicalize(des.Method, initial.Method) || dcl.IsZeroValue(des.Method) {
+		cDes.Method = initial.Method
 	} else {
 		cDes.Method = des.Method
 	}
-	if dcl.IsZeroValue(des.Origin) {
-		des.Origin = initial.Origin
+	if dcl.StringArrayCanonicalize(des.Origin, initial.Origin) || dcl.IsZeroValue(des.Origin) {
+		cDes.Origin = initial.Origin
 	} else {
 		cDes.Origin = des.Origin
 	}
-	if dcl.IsZeroValue(des.ResponseHeader) {
-		des.ResponseHeader = initial.ResponseHeader
+	if dcl.StringArrayCanonicalize(des.ResponseHeader, initial.ResponseHeader) || dcl.IsZeroValue(des.ResponseHeader) {
+		cDes.ResponseHeader = initial.ResponseHeader
 	} else {
 		cDes.ResponseHeader = des.ResponseHeader
 	}
@@ -663,6 +663,16 @@ func canonicalizeNewBucketCors(c *Client, des, nw *BucketCors) *BucketCors {
 			return des
 		}
 		return nil
+	}
+
+	if dcl.StringArrayCanonicalize(des.Method, nw.Method) {
+		nw.Method = des.Method
+	}
+	if dcl.StringArrayCanonicalize(des.Origin, nw.Origin) {
+		nw.Origin = des.Origin
+	}
+	if dcl.StringArrayCanonicalize(des.ResponseHeader, nw.ResponseHeader) {
+		nw.ResponseHeader = des.ResponseHeader
 	}
 
 	return nw
@@ -1080,8 +1090,8 @@ func canonicalizeBucketLifecycleRuleCondition(des, initial *BucketLifecycleRuleC
 	} else {
 		cDes.WithState = des.WithState
 	}
-	if dcl.IsZeroValue(des.MatchesStorageClass) {
-		des.MatchesStorageClass = initial.MatchesStorageClass
+	if dcl.StringArrayCanonicalize(des.MatchesStorageClass, initial.MatchesStorageClass) || dcl.IsZeroValue(des.MatchesStorageClass) {
+		cDes.MatchesStorageClass = initial.MatchesStorageClass
 	} else {
 		cDes.MatchesStorageClass = des.MatchesStorageClass
 	}
@@ -1134,6 +1144,10 @@ func canonicalizeNewBucketLifecycleRuleCondition(c *Client, des, nw *BucketLifec
 			return des
 		}
 		return nil
+	}
+
+	if dcl.StringArrayCanonicalize(des.MatchesStorageClass, nw.MatchesStorageClass) {
+		nw.MatchesStorageClass = des.MatchesStorageClass
 	}
 
 	return nw
@@ -1994,10 +2008,10 @@ func expandBucket(c *Client, f *Bucket) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["project"] = v
 	}
-	if v := f.Location; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Location; dcl.ValueShouldBeSent(v) {
 		m["location"] = v
 	}
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
 	if v, err := expandBucketCorsSlice(c, f.Cors); err != nil {
@@ -2015,7 +2029,7 @@ func expandBucket(c *Client, f *Bucket) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["logging"] = v
 	}
-	if v := f.StorageClass; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.StorageClass; dcl.ValueShouldBeSent(v) {
 		m["storageClass"] = v
 	}
 	if v, err := expandBucketVersioning(c, f.Versioning); err != nil {

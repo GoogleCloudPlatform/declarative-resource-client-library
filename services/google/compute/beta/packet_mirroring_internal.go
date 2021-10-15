@@ -869,8 +869,8 @@ func canonicalizePacketMirroringMirroredResources(des, initial *PacketMirroringM
 
 	cDes.Subnetworks = canonicalizePacketMirroringMirroredResourcesSubnetworksSlice(des.Subnetworks, initial.Subnetworks, opts...)
 	cDes.Instances = canonicalizePacketMirroringMirroredResourcesInstancesSlice(des.Instances, initial.Instances, opts...)
-	if dcl.IsZeroValue(des.Tags) {
-		des.Tags = initial.Tags
+	if dcl.StringArrayCanonicalize(des.Tags, initial.Tags) || dcl.IsZeroValue(des.Tags) {
+		cDes.Tags = initial.Tags
 	} else {
 		cDes.Tags = des.Tags
 	}
@@ -922,6 +922,9 @@ func canonicalizeNewPacketMirroringMirroredResources(c *Client, des, nw *PacketM
 
 	nw.Subnetworks = canonicalizeNewPacketMirroringMirroredResourcesSubnetworksSlice(c, des.Subnetworks, nw.Subnetworks)
 	nw.Instances = canonicalizeNewPacketMirroringMirroredResourcesInstancesSlice(c, des.Instances, nw.Instances)
+	if dcl.StringArrayCanonicalize(des.Tags, nw.Tags) {
+		nw.Tags = des.Tags
+	}
 
 	return nw
 }
@@ -1219,13 +1222,13 @@ func canonicalizePacketMirroringFilter(des, initial *PacketMirroringFilter, opts
 
 	cDes := &PacketMirroringFilter{}
 
-	if dcl.IsZeroValue(des.CidrRanges) {
-		des.CidrRanges = initial.CidrRanges
+	if dcl.StringArrayCanonicalize(des.CidrRanges, initial.CidrRanges) || dcl.IsZeroValue(des.CidrRanges) {
+		cDes.CidrRanges = initial.CidrRanges
 	} else {
 		cDes.CidrRanges = des.CidrRanges
 	}
-	if dcl.IsZeroValue(des.IPProtocols) {
-		des.IPProtocols = initial.IPProtocols
+	if dcl.StringArrayCanonicalize(des.IPProtocols, initial.IPProtocols) || dcl.IsZeroValue(des.IPProtocols) {
+		cDes.IPProtocols = initial.IPProtocols
 	} else {
 		cDes.IPProtocols = des.IPProtocols
 	}
@@ -1278,6 +1281,13 @@ func canonicalizeNewPacketMirroringFilter(c *Client, des, nw *PacketMirroringFil
 			return des
 		}
 		return nil
+	}
+
+	if dcl.StringArrayCanonicalize(des.CidrRanges, nw.CidrRanges) {
+		nw.CidrRanges = des.CidrRanges
+	}
+	if dcl.StringArrayCanonicalize(des.IPProtocols, nw.IPProtocols) {
+		nw.IPProtocols = des.IPProtocols
 	}
 
 	return nw
@@ -1726,10 +1736,10 @@ func unmarshalMapPacketMirroring(m map[string]interface{}, c *Client) (*PacketMi
 // expandPacketMirroring expands PacketMirroring into a JSON request object.
 func expandPacketMirroring(c *Client, f *PacketMirroring) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
-	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
 	if v, err := expandPacketMirroringNetwork(c, f.Network); err != nil {
@@ -1737,7 +1747,7 @@ func expandPacketMirroring(c *Client, f *PacketMirroring) (map[string]interface{
 	} else if v != nil {
 		m["network"] = v
 	}
-	if v := f.Priority; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Priority; dcl.ValueShouldBeSent(v) {
 		m["priority"] = v
 	}
 	if v, err := expandPacketMirroringCollectorIlb(c, f.CollectorIlb); err != nil {
@@ -1755,7 +1765,7 @@ func expandPacketMirroring(c *Client, f *PacketMirroring) (map[string]interface{
 	} else if v != nil {
 		m["filter"] = v
 	}
-	if v := f.Enable; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Enable; dcl.ValueShouldBeSent(v) {
 		m["enable"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

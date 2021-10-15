@@ -613,16 +613,16 @@ func unmarshalMapGroup(m map[string]interface{}, c *Client) (*Group, error) {
 // expandGroup expands Group into a JSON request object.
 func expandGroup(c *Client, f *Group) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["displayName"] = v
 	}
-	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Filter; dcl.ValueShouldBeSent(v) {
 		m["filter"] = v
 	}
-	if v := f.IsCluster; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.IsCluster; dcl.ValueShouldBeSent(v) {
 		m["isCluster"] = v
 	}
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
 	if v, err := dcl.DeriveField("projects/%s/groups/%s", f.ParentName, f.Project, f.ParentName); err != nil {
