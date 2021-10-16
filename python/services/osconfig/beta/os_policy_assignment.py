@@ -690,14 +690,8 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(object):
         res = (
             os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb()
         )
-        if OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.to_proto(
-            resource.source
-        ):
-            res.source.CopyFrom(
-                OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.to_proto(
-                    resource.source
-                )
-            )
+        if OSPolicyAssignmentFile.to_proto(resource.source):
+            res.source.CopyFrom(OSPolicyAssignmentFile.to_proto(resource.source))
         else:
             res.ClearField("source")
         if Primitive.to_proto(resource.pull_deps):
@@ -710,9 +704,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(object):
             return None
 
         return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(
-            source=OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.from_proto(
-                resource.source
-            ),
+            source=OSPolicyAssignmentFile.from_proto(resource.source),
             pull_deps=Primitive.from_proto(resource.pull_deps),
         )
 
@@ -735,7 +727,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebArray(object):
         ]
 
 
-class OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(object):
+class OSPolicyAssignmentFile(object):
     def __init__(
         self,
         remote: dict = None,
@@ -753,27 +745,13 @@ class OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(object):
         if not resource:
             return None
 
-        res = (
-            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile()
-        )
-        if OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote.to_proto(
-            resource.remote
-        ):
-            res.remote.CopyFrom(
-                OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote.to_proto(
-                    resource.remote
-                )
-            )
+        res = os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentFile()
+        if OSPolicyAssignmentFileRemote.to_proto(resource.remote):
+            res.remote.CopyFrom(OSPolicyAssignmentFileRemote.to_proto(resource.remote))
         else:
             res.ClearField("remote")
-        if OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs.to_proto(
-            resource.gcs
-        ):
-            res.gcs.CopyFrom(
-                OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs.to_proto(
-                    resource.gcs
-                )
-            )
+        if OSPolicyAssignmentFileGcs.to_proto(resource.gcs):
+            res.gcs.CopyFrom(OSPolicyAssignmentFileGcs.to_proto(resource.gcs))
         else:
             res.ClearField("gcs")
         if Primitive.to_proto(resource.local_path):
@@ -787,37 +765,27 @@ class OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(object):
         if not resource:
             return None
 
-        return OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(
-            remote=OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote.from_proto(
-                resource.remote
-            ),
-            gcs=OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs.from_proto(
-                resource.gcs
-            ),
+        return OSPolicyAssignmentFile(
+            remote=OSPolicyAssignmentFileRemote.from_proto(resource.remote),
+            gcs=OSPolicyAssignmentFileGcs.from_proto(resource.gcs),
             local_path=Primitive.from_proto(resource.local_path),
             allow_insecure=Primitive.from_proto(resource.allow_insecure),
         )
 
 
-class OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileArray(object):
+class OSPolicyAssignmentFileArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [
-            OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.to_proto(i)
-            for i in resources
-        ]
+        return [OSPolicyAssignmentFile.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [
-            OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.from_proto(i)
-            for i in resources
-        ]
+        return [OSPolicyAssignmentFile.from_proto(i) for i in resources]
 
 
-class OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(object):
+class OSPolicyAssignmentFileRemote(object):
     def __init__(self, uri: str = None, sha256_checksum: str = None):
         self.uri = uri
         self.sha256_checksum = sha256_checksum
@@ -827,9 +795,7 @@ class OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(object):
         if not resource:
             return None
 
-        res = (
-            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote()
-        )
+        res = os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentFileRemote()
         if Primitive.to_proto(resource.uri):
             res.uri = Primitive.to_proto(resource.uri)
         if Primitive.to_proto(resource.sha256_checksum):
@@ -841,35 +807,25 @@ class OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(object):
         if not resource:
             return None
 
-        return OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(
+        return OSPolicyAssignmentFileRemote(
             uri=Primitive.from_proto(resource.uri),
             sha256_checksum=Primitive.from_proto(resource.sha256_checksum),
         )
 
 
-class OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemoteArray(object):
+class OSPolicyAssignmentFileRemoteArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [
-            OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote.to_proto(
-                i
-            )
-            for i in resources
-        ]
+        return [OSPolicyAssignmentFileRemote.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [
-            OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote.from_proto(
-                i
-            )
-            for i in resources
-        ]
+        return [OSPolicyAssignmentFileRemote.from_proto(i) for i in resources]
 
 
-class OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(object):
+class OSPolicyAssignmentFileGcs(object):
     def __init__(self, bucket: str = None, object: str = None, generation: int = None):
         self.bucket = bucket
         self.object = object
@@ -880,9 +836,7 @@ class OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(object):
         if not resource:
             return None
 
-        res = (
-            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs()
-        )
+        res = os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentFileGcs()
         if Primitive.to_proto(resource.bucket):
             res.bucket = Primitive.to_proto(resource.bucket)
         if Primitive.to_proto(resource.object):
@@ -896,29 +850,23 @@ class OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(object):
         if not resource:
             return None
 
-        return OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(
+        return OSPolicyAssignmentFileGcs(
             bucket=Primitive.from_proto(resource.bucket),
             object=Primitive.from_proto(resource.object),
             generation=Primitive.from_proto(resource.generation),
         )
 
 
-class OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsArray(object):
+class OSPolicyAssignmentFileGcsArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [
-            OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs.to_proto(i)
-            for i in resources
-        ]
+        return [OSPolicyAssignmentFileGcs.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [
-            OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs.from_proto(i)
-            for i in resources
-        ]
+        return [OSPolicyAssignmentFileGcs.from_proto(i) for i in resources]
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(object):
@@ -1022,14 +970,8 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(object):
         res = (
             os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm()
         )
-        if OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.to_proto(
-            resource.source
-        ):
-            res.source.CopyFrom(
-                OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.to_proto(
-                    resource.source
-                )
-            )
+        if OSPolicyAssignmentFile.to_proto(resource.source):
+            res.source.CopyFrom(OSPolicyAssignmentFile.to_proto(resource.source))
         else:
             res.ClearField("source")
         if Primitive.to_proto(resource.pull_deps):
@@ -1042,9 +984,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(object):
             return None
 
         return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(
-            source=OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.from_proto(
-                resource.source
-            ),
+            source=OSPolicyAssignmentFile.from_proto(resource.source),
             pull_deps=Primitive.from_proto(resource.pull_deps),
         )
 
@@ -1124,14 +1064,8 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(object):
         res = (
             os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi()
         )
-        if OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.to_proto(
-            resource.source
-        ):
-            res.source.CopyFrom(
-                OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.to_proto(
-                    resource.source
-                )
-            )
+        if OSPolicyAssignmentFile.to_proto(resource.source):
+            res.source.CopyFrom(OSPolicyAssignmentFile.to_proto(resource.source))
         else:
             res.ClearField("source")
         if Primitive.to_proto(resource.properties):
@@ -1144,9 +1078,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(object):
             return None
 
         return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(
-            source=OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.from_proto(
-                resource.source
-            ),
+            source=OSPolicyAssignmentFile.from_proto(resource.source),
             properties=Primitive.from_proto(resource.properties),
         )
 
@@ -1535,24 +1467,12 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(object):
         res = (
             os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec()
         )
-        if OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec.to_proto(
-            resource.validate
-        ):
-            res.validate.CopyFrom(
-                OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec.to_proto(
-                    resource.validate
-                )
-            )
+        if OSPolicyAssignmentExec.to_proto(resource.validate):
+            res.validate.CopyFrom(OSPolicyAssignmentExec.to_proto(resource.validate))
         else:
             res.ClearField("validate")
-        if OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec.to_proto(
-            resource.enforce
-        ):
-            res.enforce.CopyFrom(
-                OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec.to_proto(
-                    resource.enforce
-                )
-            )
+        if OSPolicyAssignmentExec.to_proto(resource.enforce):
+            res.enforce.CopyFrom(OSPolicyAssignmentExec.to_proto(resource.enforce))
         else:
             res.ClearField("enforce")
         return res
@@ -1563,12 +1483,8 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(object):
             return None
 
         return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(
-            validate=OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec.from_proto(
-                resource.validate
-            ),
-            enforce=OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec.from_proto(
-                resource.enforce
-            ),
+            validate=OSPolicyAssignmentExec.from_proto(resource.validate),
+            enforce=OSPolicyAssignmentExec.from_proto(resource.enforce),
         )
 
 
@@ -1590,7 +1506,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecArray(object):
         ]
 
 
-class OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(object):
+class OSPolicyAssignmentExec(object):
     def __init__(
         self,
         file: dict = None,
@@ -1610,27 +1526,17 @@ class OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(ob
         if not resource:
             return None
 
-        res = (
-            os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec()
-        )
-        if OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.to_proto(
-            resource.file
-        ):
-            res.file.CopyFrom(
-                OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.to_proto(
-                    resource.file
-                )
-            )
+        res = os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentExec()
+        if OSPolicyAssignmentFile.to_proto(resource.file):
+            res.file.CopyFrom(OSPolicyAssignmentFile.to_proto(resource.file))
         else:
             res.ClearField("file")
         if Primitive.to_proto(resource.script):
             res.script = Primitive.to_proto(resource.script)
         if Primitive.to_proto(resource.args):
             res.args.extend(Primitive.to_proto(resource.args))
-        if OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum.to_proto(
-            resource.interpreter
-        ):
-            res.interpreter = OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum.to_proto(
+        if OSPolicyAssignmentExecInterpreterEnum.to_proto(resource.interpreter):
+            res.interpreter = OSPolicyAssignmentExecInterpreterEnum.to_proto(
                 resource.interpreter
             )
         if Primitive.to_proto(resource.output_file_path):
@@ -1642,41 +1548,27 @@ class OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(ob
         if not resource:
             return None
 
-        return OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(
-            file=OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.from_proto(
-                resource.file
-            ),
+        return OSPolicyAssignmentExec(
+            file=OSPolicyAssignmentFile.from_proto(resource.file),
             script=Primitive.from_proto(resource.script),
             args=Primitive.from_proto(resource.args),
-            interpreter=OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum.from_proto(
+            interpreter=OSPolicyAssignmentExecInterpreterEnum.from_proto(
                 resource.interpreter
             ),
             output_file_path=Primitive.from_proto(resource.output_file_path),
         )
 
 
-class OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecArray(
-    object
-):
+class OSPolicyAssignmentExecArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [
-            OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec.to_proto(
-                i
-            )
-            for i in resources
-        ]
+        return [OSPolicyAssignmentExec.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [
-            OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec.from_proto(
-                i
-            )
-            for i in resources
-        ]
+        return [OSPolicyAssignmentExec.from_proto(i) for i in resources]
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(object):
@@ -1702,14 +1594,8 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(object):
         res = (
             os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile()
         )
-        if OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.to_proto(
-            resource.file
-        ):
-            res.file.CopyFrom(
-                OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.to_proto(
-                    resource.file
-                )
-            )
+        if OSPolicyAssignmentFile.to_proto(resource.file):
+            res.file.CopyFrom(OSPolicyAssignmentFile.to_proto(resource.file))
         else:
             res.ClearField("file")
         if Primitive.to_proto(resource.content):
@@ -1732,9 +1618,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(object):
             return None
 
         return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(
-            file=OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile.from_proto(
-                resource.file
-            ),
+            file=OSPolicyAssignmentFile.from_proto(resource.file),
             content=Primitive.from_proto(resource.content),
             path=Primitive.from_proto(resource.path),
             state=OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum.from_proto(
@@ -2138,28 +2022,23 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTyp
         ]
 
 
-class OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum(
-    object
-):
+class OSPolicyAssignmentExecInterpreterEnum(object):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum.Value(
-            "OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum%s"
-            % resource
+        return os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentExecInterpreterEnum.Value(
+            "OsconfigBetaOSPolicyAssignmentExecInterpreterEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum.Name(
+        return os_policy_assignment_pb2.OsconfigBetaOSPolicyAssignmentExecInterpreterEnum.Name(
             resource
         )[
-            len(
-                "OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum"
-            ) :
+            len("OsconfigBetaOSPolicyAssignmentExecInterpreterEnum") :
         ]
 
 

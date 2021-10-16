@@ -33,14 +33,12 @@ updates:
   - samples/basic.subnetwork.json
   - samples/basic.network.json
 variables:
-- name: project
-  type: project
 - name: compute_network
   type: resource_name
-- name: instance1
-  type: resource_name
 - name: project
   type: project
+- name: instance1
+  type: resource_name
 - name: zone
   type: zone
 - name: project
@@ -51,9 +49,7 @@ variables:
   type: resource_name
 - name: compute_subnetwork
   type: resource_name
-- name: pool1
-  type: resource_name
-- name: project
-  type: project
 - name: region
   type: region
+- name: pool1
+  type: resource_name

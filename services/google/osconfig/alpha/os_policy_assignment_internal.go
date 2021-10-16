@@ -169,7 +169,7 @@ func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb) validate() e
 	}
 	return nil
 }
-func (r *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile) validate() error {
+func (r *OSPolicyAssignmentFile) validate() error {
 	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"Remote", "Gcs", "LocalPath"}, r.Remote, r.Gcs, r.LocalPath); err != nil {
 		return err
 	}
@@ -185,13 +185,13 @@ func (r *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile) validate()
 	}
 	return nil
 }
-func (r *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote) validate() error {
+func (r *OSPolicyAssignmentFileRemote) validate() error {
 	if err := dcl.Required(r, "uri"); err != nil {
 		return err
 	}
 	return nil
 }
-func (r *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs) validate() error {
+func (r *OSPolicyAssignmentFileGcs) validate() error {
 	if err := dcl.Required(r, "bucket"); err != nil {
 		return err
 	}
@@ -324,7 +324,7 @@ func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec) validate() err
 	}
 	return nil
 }
-func (r *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec) validate() error {
+func (r *OSPolicyAssignmentExec) validate() error {
 	if err := dcl.Required(r, "interpreter"); err != nil {
 		return err
 	}
@@ -1804,7 +1804,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(des, 
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb{}
 
-	cDes.Source = canonicalizeOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(des.Source, initial.Source, opts...)
+	cDes.Source = canonicalizeOSPolicyAssignmentFile(des.Source, initial.Source, opts...)
 	if dcl.BoolCanonicalize(des.PullDeps, initial.PullDeps) || dcl.IsZeroValue(des.PullDeps) {
 		cDes.PullDeps = initial.PullDeps
 	} else {
@@ -1856,7 +1856,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c 
 		return nil
 	}
 
-	nw.Source = canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, des.Source, nw.Source)
+	nw.Source = canonicalizeNewOSPolicyAssignmentFile(c, des.Source, nw.Source)
 	if dcl.BoolCanonicalize(des.PullDeps, nw.PullDeps) {
 		nw.PullDeps = des.PullDeps
 	}
@@ -1907,7 +1907,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSli
 	return items
 }
 
-func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(des, initial *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile, opts ...dcl.ApplyOption) *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile {
+func canonicalizeOSPolicyAssignmentFile(des, initial *OSPolicyAssignmentFile, opts ...dcl.ApplyOption) *OSPolicyAssignmentFile {
 	if des == nil {
 		return initial
 	}
@@ -1949,10 +1949,10 @@ func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(des
 		return des
 	}
 
-	cDes := &OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile{}
+	cDes := &OSPolicyAssignmentFile{}
 
-	cDes.Remote = canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(des.Remote, initial.Remote, opts...)
-	cDes.Gcs = canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(des.Gcs, initial.Gcs, opts...)
+	cDes.Remote = canonicalizeOSPolicyAssignmentFileRemote(des.Remote, initial.Remote, opts...)
+	cDes.Gcs = canonicalizeOSPolicyAssignmentFileGcs(des.Gcs, initial.Gcs, opts...)
 	if dcl.StringCanonicalize(des.LocalPath, initial.LocalPath) || dcl.IsZeroValue(des.LocalPath) {
 		cDes.LocalPath = initial.LocalPath
 	} else {
@@ -1967,16 +1967,16 @@ func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(des
 	return cDes
 }
 
-func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileSlice(des, initial []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile, opts ...dcl.ApplyOption) []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile {
+func canonicalizeOSPolicyAssignmentFileSlice(des, initial []OSPolicyAssignmentFile, opts ...dcl.ApplyOption) []OSPolicyAssignmentFile {
 	if des == nil {
 		return initial
 	}
 
 	if len(des) != len(initial) {
 
-		items := make([]OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile, 0, len(des))
+		items := make([]OSPolicyAssignmentFile, 0, len(des))
 		for _, d := range des {
-			cd := canonicalizeOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(&d, nil, opts...)
+			cd := canonicalizeOSPolicyAssignmentFile(&d, nil, opts...)
 			if cd != nil {
 				items = append(items, *cd)
 			}
@@ -1984,9 +1984,9 @@ func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileSlic
 		return items
 	}
 
-	items := make([]OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile, 0, len(des))
+	items := make([]OSPolicyAssignmentFile, 0, len(des))
 	for i, d := range des {
-		cd := canonicalizeOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(&d, &initial[i], opts...)
+		cd := canonicalizeOSPolicyAssignmentFile(&d, &initial[i], opts...)
 		if cd != nil {
 			items = append(items, *cd)
 		}
@@ -1995,7 +1995,7 @@ func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileSlic
 
 }
 
-func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c *Client, des, nw *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile) *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile {
+func canonicalizeNewOSPolicyAssignmentFile(c *Client, des, nw *OSPolicyAssignmentFile) *OSPolicyAssignmentFile {
 
 	if des == nil {
 		return nw
@@ -2003,14 +2003,14 @@ func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(
 
 	if nw == nil {
 		if dcl.IsNotReturnedByServer(des) {
-			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile while comparing non-nil desired to nil actual.  Returning desired object.")
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentFile while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
 		return nil
 	}
 
-	nw.Remote = canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(c, des.Remote, nw.Remote)
-	nw.Gcs = canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(c, des.Gcs, nw.Gcs)
+	nw.Remote = canonicalizeNewOSPolicyAssignmentFileRemote(c, des.Remote, nw.Remote)
+	nw.Gcs = canonicalizeNewOSPolicyAssignmentFileGcs(c, des.Gcs, nw.Gcs)
 	if dcl.StringCanonicalize(des.LocalPath, nw.LocalPath) {
 		nw.LocalPath = des.LocalPath
 	}
@@ -2021,15 +2021,15 @@ func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(
 	return nw
 }
 
-func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileSet(c *Client, des, nw []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile) []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile {
+func canonicalizeNewOSPolicyAssignmentFileSet(c *Client, des, nw []OSPolicyAssignmentFile) []OSPolicyAssignmentFile {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile
+	var reorderedNew []OSPolicyAssignmentFile
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareOSPolicyAssignmentFileNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2044,7 +2044,7 @@ func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileS
 	return reorderedNew
 }
 
-func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileSlice(c *Client, des, nw []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile) []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile {
+func canonicalizeNewOSPolicyAssignmentFileSlice(c *Client, des, nw []OSPolicyAssignmentFile) []OSPolicyAssignmentFile {
 	if des == nil {
 		return nw
 	}
@@ -2055,16 +2055,16 @@ func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileS
 		return nw
 	}
 
-	var items []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile
+	var items []OSPolicyAssignmentFile
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, &d, &n))
+		items = append(items, *canonicalizeNewOSPolicyAssignmentFile(c, &d, &n))
 	}
 
 	return items
 }
 
-func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(des, initial *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote, opts ...dcl.ApplyOption) *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote {
+func canonicalizeOSPolicyAssignmentFileRemote(des, initial *OSPolicyAssignmentFileRemote, opts ...dcl.ApplyOption) *OSPolicyAssignmentFileRemote {
 	if des == nil {
 		return initial
 	}
@@ -2076,7 +2076,7 @@ func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemo
 		return des
 	}
 
-	cDes := &OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote{}
+	cDes := &OSPolicyAssignmentFileRemote{}
 
 	if dcl.StringCanonicalize(des.Uri, initial.Uri) || dcl.IsZeroValue(des.Uri) {
 		cDes.Uri = initial.Uri
@@ -2092,16 +2092,16 @@ func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemo
 	return cDes
 }
 
-func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemoteSlice(des, initial []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote, opts ...dcl.ApplyOption) []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote {
+func canonicalizeOSPolicyAssignmentFileRemoteSlice(des, initial []OSPolicyAssignmentFileRemote, opts ...dcl.ApplyOption) []OSPolicyAssignmentFileRemote {
 	if des == nil {
 		return initial
 	}
 
 	if len(des) != len(initial) {
 
-		items := make([]OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote, 0, len(des))
+		items := make([]OSPolicyAssignmentFileRemote, 0, len(des))
 		for _, d := range des {
-			cd := canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(&d, nil, opts...)
+			cd := canonicalizeOSPolicyAssignmentFileRemote(&d, nil, opts...)
 			if cd != nil {
 				items = append(items, *cd)
 			}
@@ -2109,9 +2109,9 @@ func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemo
 		return items
 	}
 
-	items := make([]OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote, 0, len(des))
+	items := make([]OSPolicyAssignmentFileRemote, 0, len(des))
 	for i, d := range des {
-		cd := canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(&d, &initial[i], opts...)
+		cd := canonicalizeOSPolicyAssignmentFileRemote(&d, &initial[i], opts...)
 		if cd != nil {
 			items = append(items, *cd)
 		}
@@ -2120,7 +2120,7 @@ func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemo
 
 }
 
-func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(c *Client, des, nw *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote) *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote {
+func canonicalizeNewOSPolicyAssignmentFileRemote(c *Client, des, nw *OSPolicyAssignmentFileRemote) *OSPolicyAssignmentFileRemote {
 
 	if des == nil {
 		return nw
@@ -2128,7 +2128,7 @@ func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileR
 
 	if nw == nil {
 		if dcl.IsNotReturnedByServer(des) {
-			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote while comparing non-nil desired to nil actual.  Returning desired object.")
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentFileRemote while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
 		return nil
@@ -2144,15 +2144,15 @@ func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileR
 	return nw
 }
 
-func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemoteSet(c *Client, des, nw []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote) []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote {
+func canonicalizeNewOSPolicyAssignmentFileRemoteSet(c *Client, des, nw []OSPolicyAssignmentFileRemote) []OSPolicyAssignmentFileRemote {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote
+	var reorderedNew []OSPolicyAssignmentFileRemote
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemoteNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareOSPolicyAssignmentFileRemoteNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2167,7 +2167,7 @@ func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileR
 	return reorderedNew
 }
 
-func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemoteSlice(c *Client, des, nw []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote) []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote {
+func canonicalizeNewOSPolicyAssignmentFileRemoteSlice(c *Client, des, nw []OSPolicyAssignmentFileRemote) []OSPolicyAssignmentFileRemote {
 	if des == nil {
 		return nw
 	}
@@ -2178,16 +2178,16 @@ func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileR
 		return nw
 	}
 
-	var items []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote
+	var items []OSPolicyAssignmentFileRemote
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(c, &d, &n))
+		items = append(items, *canonicalizeNewOSPolicyAssignmentFileRemote(c, &d, &n))
 	}
 
 	return items
 }
 
-func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(des, initial *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs, opts ...dcl.ApplyOption) *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs {
+func canonicalizeOSPolicyAssignmentFileGcs(des, initial *OSPolicyAssignmentFileGcs, opts ...dcl.ApplyOption) *OSPolicyAssignmentFileGcs {
 	if des == nil {
 		return initial
 	}
@@ -2199,7 +2199,7 @@ func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(
 		return des
 	}
 
-	cDes := &OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs{}
+	cDes := &OSPolicyAssignmentFileGcs{}
 
 	if dcl.StringCanonicalize(des.Bucket, initial.Bucket) || dcl.IsZeroValue(des.Bucket) {
 		cDes.Bucket = initial.Bucket
@@ -2220,16 +2220,16 @@ func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(
 	return cDes
 }
 
-func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsSlice(des, initial []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs, opts ...dcl.ApplyOption) []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs {
+func canonicalizeOSPolicyAssignmentFileGcsSlice(des, initial []OSPolicyAssignmentFileGcs, opts ...dcl.ApplyOption) []OSPolicyAssignmentFileGcs {
 	if des == nil {
 		return initial
 	}
 
 	if len(des) != len(initial) {
 
-		items := make([]OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs, 0, len(des))
+		items := make([]OSPolicyAssignmentFileGcs, 0, len(des))
 		for _, d := range des {
-			cd := canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(&d, nil, opts...)
+			cd := canonicalizeOSPolicyAssignmentFileGcs(&d, nil, opts...)
 			if cd != nil {
 				items = append(items, *cd)
 			}
@@ -2237,9 +2237,9 @@ func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsS
 		return items
 	}
 
-	items := make([]OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs, 0, len(des))
+	items := make([]OSPolicyAssignmentFileGcs, 0, len(des))
 	for i, d := range des {
-		cd := canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(&d, &initial[i], opts...)
+		cd := canonicalizeOSPolicyAssignmentFileGcs(&d, &initial[i], opts...)
 		if cd != nil {
 			items = append(items, *cd)
 		}
@@ -2248,7 +2248,7 @@ func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsS
 
 }
 
-func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(c *Client, des, nw *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs) *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs {
+func canonicalizeNewOSPolicyAssignmentFileGcs(c *Client, des, nw *OSPolicyAssignmentFileGcs) *OSPolicyAssignmentFileGcs {
 
 	if des == nil {
 		return nw
@@ -2256,7 +2256,7 @@ func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileG
 
 	if nw == nil {
 		if dcl.IsNotReturnedByServer(des) {
-			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs while comparing non-nil desired to nil actual.  Returning desired object.")
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentFileGcs while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
 		return nil
@@ -2272,15 +2272,15 @@ func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileG
 	return nw
 }
 
-func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsSet(c *Client, des, nw []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs) []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs {
+func canonicalizeNewOSPolicyAssignmentFileGcsSet(c *Client, des, nw []OSPolicyAssignmentFileGcs) []OSPolicyAssignmentFileGcs {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs
+	var reorderedNew []OSPolicyAssignmentFileGcs
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareOSPolicyAssignmentFileGcsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2295,7 +2295,7 @@ func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileG
 	return reorderedNew
 }
 
-func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsSlice(c *Client, des, nw []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs) []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs {
+func canonicalizeNewOSPolicyAssignmentFileGcsSlice(c *Client, des, nw []OSPolicyAssignmentFileGcs) []OSPolicyAssignmentFileGcs {
 	if des == nil {
 		return nw
 	}
@@ -2306,10 +2306,10 @@ func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileG
 		return nw
 	}
 
-	var items []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs
+	var items []OSPolicyAssignmentFileGcs
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(c, &d, &n))
+		items = append(items, *canonicalizeNewOSPolicyAssignmentFileGcs(c, &d, &n))
 	}
 
 	return items
@@ -2559,7 +2559,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(des, 
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm{}
 
-	cDes.Source = canonicalizeOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(des.Source, initial.Source, opts...)
+	cDes.Source = canonicalizeOSPolicyAssignmentFile(des.Source, initial.Source, opts...)
 	if dcl.BoolCanonicalize(des.PullDeps, initial.PullDeps) || dcl.IsZeroValue(des.PullDeps) {
 		cDes.PullDeps = initial.PullDeps
 	} else {
@@ -2611,7 +2611,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c 
 		return nil
 	}
 
-	nw.Source = canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, des.Source, nw.Source)
+	nw.Source = canonicalizeNewOSPolicyAssignmentFile(c, des.Source, nw.Source)
 	if dcl.BoolCanonicalize(des.PullDeps, nw.PullDeps) {
 		nw.PullDeps = des.PullDeps
 	}
@@ -2791,7 +2791,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(des, 
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi{}
 
-	cDes.Source = canonicalizeOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(des.Source, initial.Source, opts...)
+	cDes.Source = canonicalizeOSPolicyAssignmentFile(des.Source, initial.Source, opts...)
 	if dcl.StringArrayCanonicalize(des.Properties, initial.Properties) || dcl.IsZeroValue(des.Properties) {
 		cDes.Properties = initial.Properties
 	} else {
@@ -2843,7 +2843,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c 
 		return nil
 	}
 
-	nw.Source = canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, des.Source, nw.Source)
+	nw.Source = canonicalizeNewOSPolicyAssignmentFile(c, des.Source, nw.Source)
 	if dcl.StringArrayCanonicalize(des.Properties, nw.Properties) {
 		nw.Properties = des.Properties
 	}
@@ -3608,8 +3608,8 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(des, in
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec{}
 
-	cDes.Validate = canonicalizeOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(des.Validate, initial.Validate, opts...)
-	cDes.Enforce = canonicalizeOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(des.Enforce, initial.Enforce, opts...)
+	cDes.Validate = canonicalizeOSPolicyAssignmentExec(des.Validate, initial.Validate, opts...)
+	cDes.Enforce = canonicalizeOSPolicyAssignmentExec(des.Enforce, initial.Enforce, opts...)
 
 	return cDes
 }
@@ -3656,8 +3656,8 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c *C
 		return nil
 	}
 
-	nw.Validate = canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(c, des.Validate, nw.Validate)
-	nw.Enforce = canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(c, des.Enforce, nw.Enforce)
+	nw.Validate = canonicalizeNewOSPolicyAssignmentExec(c, des.Validate, nw.Validate)
+	nw.Enforce = canonicalizeNewOSPolicyAssignmentExec(c, des.Enforce, nw.Enforce)
 
 	return nw
 }
@@ -3705,7 +3705,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecSlice
 	return items
 }
 
-func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(des, initial *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec, opts ...dcl.ApplyOption) *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec {
+func canonicalizeOSPolicyAssignmentExec(des, initial *OSPolicyAssignmentExec, opts ...dcl.ApplyOption) *OSPolicyAssignmentExec {
 	if des == nil {
 		return initial
 	}
@@ -3737,9 +3737,9 @@ func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecreso
 		return des
 	}
 
-	cDes := &OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec{}
+	cDes := &OSPolicyAssignmentExec{}
 
-	cDes.File = canonicalizeOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(des.File, initial.File, opts...)
+	cDes.File = canonicalizeOSPolicyAssignmentFile(des.File, initial.File, opts...)
 	if dcl.StringCanonicalize(des.Script, initial.Script) || dcl.IsZeroValue(des.Script) {
 		cDes.Script = initial.Script
 	} else {
@@ -3764,16 +3764,16 @@ func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecreso
 	return cDes
 }
 
-func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecSlice(des, initial []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec, opts ...dcl.ApplyOption) []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec {
+func canonicalizeOSPolicyAssignmentExecSlice(des, initial []OSPolicyAssignmentExec, opts ...dcl.ApplyOption) []OSPolicyAssignmentExec {
 	if des == nil {
 		return initial
 	}
 
 	if len(des) != len(initial) {
 
-		items := make([]OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec, 0, len(des))
+		items := make([]OSPolicyAssignmentExec, 0, len(des))
 		for _, d := range des {
-			cd := canonicalizeOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(&d, nil, opts...)
+			cd := canonicalizeOSPolicyAssignmentExec(&d, nil, opts...)
 			if cd != nil {
 				items = append(items, *cd)
 			}
@@ -3781,9 +3781,9 @@ func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecreso
 		return items
 	}
 
-	items := make([]OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec, 0, len(des))
+	items := make([]OSPolicyAssignmentExec, 0, len(des))
 	for i, d := range des {
-		cd := canonicalizeOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(&d, &initial[i], opts...)
+		cd := canonicalizeOSPolicyAssignmentExec(&d, &initial[i], opts...)
 		if cd != nil {
 			items = append(items, *cd)
 		}
@@ -3792,7 +3792,7 @@ func canonicalizeOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecreso
 
 }
 
-func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(c *Client, des, nw *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec) *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec {
+func canonicalizeNewOSPolicyAssignmentExec(c *Client, des, nw *OSPolicyAssignmentExec) *OSPolicyAssignmentExec {
 
 	if des == nil {
 		return nw
@@ -3800,13 +3800,13 @@ func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecr
 
 	if nw == nil {
 		if dcl.IsNotReturnedByServer(des) {
-			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec while comparing non-nil desired to nil actual.  Returning desired object.")
+			c.Config.Logger.Info("Found explicitly empty value for OSPolicyAssignmentExec while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
 		return nil
 	}
 
-	nw.File = canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, des.File, nw.File)
+	nw.File = canonicalizeNewOSPolicyAssignmentFile(c, des.File, nw.File)
 	if dcl.StringCanonicalize(des.Script, nw.Script) {
 		nw.Script = des.Script
 	}
@@ -3820,15 +3820,15 @@ func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecr
 	return nw
 }
 
-func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecSet(c *Client, des, nw []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec) []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec {
+func canonicalizeNewOSPolicyAssignmentExecSet(c *Client, des, nw []OSPolicyAssignmentExec) []OSPolicyAssignmentExec {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec
+	var reorderedNew []OSPolicyAssignmentExec
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareOSPolicyAssignmentExecNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3843,7 +3843,7 @@ func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecr
 	return reorderedNew
 }
 
-func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecSlice(c *Client, des, nw []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec) []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec {
+func canonicalizeNewOSPolicyAssignmentExecSlice(c *Client, des, nw []OSPolicyAssignmentExec) []OSPolicyAssignmentExec {
 	if des == nil {
 		return nw
 	}
@@ -3854,10 +3854,10 @@ func canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecr
 		return nw
 	}
 
-	var items []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec
+	var items []OSPolicyAssignmentExec
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(c, &d, &n))
+		items = append(items, *canonicalizeNewOSPolicyAssignmentExec(c, &d, &n))
 	}
 
 	return items
@@ -3897,7 +3897,7 @@ func canonicalizeOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(des, in
 
 	cDes := &OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile{}
 
-	cDes.File = canonicalizeOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(des.File, initial.File, opts...)
+	cDes.File = canonicalizeOSPolicyAssignmentFile(des.File, initial.File, opts...)
 	if dcl.StringCanonicalize(des.Content, initial.Content) || dcl.IsZeroValue(des.Content) {
 		cDes.Content = initial.Content
 	} else {
@@ -3959,7 +3959,7 @@ func canonicalizeNewOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c *C
 		return nil
 	}
 
-	nw.File = canonicalizeNewOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, des.File, nw.File)
+	nw.File = canonicalizeNewOSPolicyAssignmentFile(c, des.File, nw.File)
 	if dcl.StringCanonicalize(des.Content, nw.Content) {
 		nw.Content = des.Content
 	}
@@ -5170,7 +5170,7 @@ func compareOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Source, actual.Source, dcl.Info{ObjectFunction: compareOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileNewStyle, EmptyObject: EmptyOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile, OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Source")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Source, actual.Source, dcl.Info{ObjectFunction: compareOSPolicyAssignmentFileNewStyle, EmptyObject: EmptyOSPolicyAssignmentFile, OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Source")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5186,34 +5186,34 @@ func compareOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebNewStyle(d,
 	return diffs, nil
 }
 
-func compareOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareOSPolicyAssignmentFileNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile)
+	desired, ok := d.(*OSPolicyAssignmentFile)
 	if !ok {
-		desiredNotPointer, ok := d.(OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile)
+		desiredNotPointer, ok := d.(OSPolicyAssignmentFile)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile or *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile", d)
+			return nil, fmt.Errorf("obj %v is not a OSPolicyAssignmentFile or *OSPolicyAssignmentFile", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile)
+	actual, ok := a.(*OSPolicyAssignmentFile)
 	if !ok {
-		actualNotPointer, ok := a.(OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile)
+		actualNotPointer, ok := a.(OSPolicyAssignmentFile)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile", a)
+			return nil, fmt.Errorf("obj %v is not a OSPolicyAssignmentFile", a)
 		}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Remote, actual.Remote, dcl.Info{ObjectFunction: compareOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemoteNewStyle, EmptyObject: EmptyOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote, OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Remote")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Remote, actual.Remote, dcl.Info{ObjectFunction: compareOSPolicyAssignmentFileRemoteNewStyle, EmptyObject: EmptyOSPolicyAssignmentFileRemote, OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Remote")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Gcs, actual.Gcs, dcl.Info{ObjectFunction: compareOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsNewStyle, EmptyObject: EmptyOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs, OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Gcs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Gcs, actual.Gcs, dcl.Info{ObjectFunction: compareOSPolicyAssignmentFileGcsNewStyle, EmptyObject: EmptyOSPolicyAssignmentFileGcs, OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Gcs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5236,22 +5236,22 @@ func compareOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileNewStyle(
 	return diffs, nil
 }
 
-func compareOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemoteNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareOSPolicyAssignmentFileRemoteNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote)
+	desired, ok := d.(*OSPolicyAssignmentFileRemote)
 	if !ok {
-		desiredNotPointer, ok := d.(OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote)
+		desiredNotPointer, ok := d.(OSPolicyAssignmentFileRemote)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote or *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote", d)
+			return nil, fmt.Errorf("obj %v is not a OSPolicyAssignmentFileRemote or *OSPolicyAssignmentFileRemote", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote)
+	actual, ok := a.(*OSPolicyAssignmentFileRemote)
 	if !ok {
-		actualNotPointer, ok := a.(OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote)
+		actualNotPointer, ok := a.(OSPolicyAssignmentFileRemote)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote", a)
+			return nil, fmt.Errorf("obj %v is not a OSPolicyAssignmentFileRemote", a)
 		}
 		actual = &actualNotPointer
 	}
@@ -5272,22 +5272,22 @@ func compareOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemoteNew
 	return diffs, nil
 }
 
-func compareOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareOSPolicyAssignmentFileGcsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs)
+	desired, ok := d.(*OSPolicyAssignmentFileGcs)
 	if !ok {
-		desiredNotPointer, ok := d.(OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs)
+		desiredNotPointer, ok := d.(OSPolicyAssignmentFileGcs)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs or *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs", d)
+			return nil, fmt.Errorf("obj %v is not a OSPolicyAssignmentFileGcs or *OSPolicyAssignmentFileGcs", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs)
+	actual, ok := a.(*OSPolicyAssignmentFileGcs)
 	if !ok {
-		actualNotPointer, ok := a.(OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs)
+		actualNotPointer, ok := a.(OSPolicyAssignmentFileGcs)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs", a)
+			return nil, fmt.Errorf("obj %v is not a OSPolicyAssignmentFileGcs", a)
 		}
 		actual = &actualNotPointer
 	}
@@ -5393,7 +5393,7 @@ func compareOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Source, actual.Source, dcl.Info{ObjectFunction: compareOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileNewStyle, EmptyObject: EmptyOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile, OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Source")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Source, actual.Source, dcl.Info{ObjectFunction: compareOSPolicyAssignmentFileNewStyle, EmptyObject: EmptyOSPolicyAssignmentFile, OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Source")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5458,7 +5458,7 @@ func compareOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Source, actual.Source, dcl.Info{ObjectFunction: compareOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileNewStyle, EmptyObject: EmptyOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile, OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Source")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Source, actual.Source, dcl.Info{ObjectFunction: compareOSPolicyAssignmentFileNewStyle, EmptyObject: EmptyOSPolicyAssignmentFile, OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Source")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5737,14 +5737,14 @@ func compareOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecNewStyle(d, a
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Validate, actual.Validate, dcl.Info{ObjectFunction: compareOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecNewStyle, EmptyObject: EmptyOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec, OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Validate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Validate, actual.Validate, dcl.Info{ObjectFunction: compareOSPolicyAssignmentExecNewStyle, EmptyObject: EmptyOSPolicyAssignmentExec, OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Validate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Enforce, actual.Enforce, dcl.Info{ObjectFunction: compareOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecNewStyle, EmptyObject: EmptyOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec, OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Enforce")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Enforce, actual.Enforce, dcl.Info{ObjectFunction: compareOSPolicyAssignmentExecNewStyle, EmptyObject: EmptyOSPolicyAssignmentExec, OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("Enforce")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5753,27 +5753,27 @@ func compareOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecNewStyle(d, a
 	return diffs, nil
 }
 
-func compareOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareOSPolicyAssignmentExecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec)
+	desired, ok := d.(*OSPolicyAssignmentExec)
 	if !ok {
-		desiredNotPointer, ok := d.(OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec)
+		desiredNotPointer, ok := d.(OSPolicyAssignmentExec)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec or *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec", d)
+			return nil, fmt.Errorf("obj %v is not a OSPolicyAssignmentExec or *OSPolicyAssignmentExec", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec)
+	actual, ok := a.(*OSPolicyAssignmentExec)
 	if !ok {
-		actualNotPointer, ok := a.(OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec)
+		actualNotPointer, ok := a.(OSPolicyAssignmentExec)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec", a)
+			return nil, fmt.Errorf("obj %v is not a OSPolicyAssignmentExec", a)
 		}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.File, actual.File, dcl.Info{ObjectFunction: compareOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileNewStyle, EmptyObject: EmptyOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile, OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("File")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.File, actual.File, dcl.Info{ObjectFunction: compareOSPolicyAssignmentFileNewStyle, EmptyObject: EmptyOSPolicyAssignmentFile, OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("File")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5830,7 +5830,7 @@ func compareOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileNewStyle(d, a
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.File, actual.File, dcl.Info{ObjectFunction: compareOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileNewStyle, EmptyObject: EmptyOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile, OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("File")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.File, actual.File, dcl.Info{ObjectFunction: compareOSPolicyAssignmentFileNewStyle, EmptyObject: EmptyOSPolicyAssignmentFile, OperationSelector: dcl.TriggersOperation("updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation")}, fn.AddNest("File")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7083,7 +7083,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c *Client, 
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, f.Source); err != nil {
+	if v, err := expandOSPolicyAssignmentFile(c, f.Source); err != nil {
 		return nil, fmt.Errorf("error expanding Source into source: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["source"] = v
@@ -7108,22 +7108,22 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(c *Client,
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb
 	}
-	r.Source = flattenOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, m["source"])
+	r.Source = flattenOSPolicyAssignmentFile(c, m["source"])
 	r.PullDeps = dcl.FlattenBool(m["pullDeps"])
 
 	return r
 }
 
-// expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileMap expands the contents of OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile into a JSON
+// expandOSPolicyAssignmentFileMap expands the contents of OSPolicyAssignmentFile into a JSON
 // request object.
-func expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileMap(c *Client, f map[string]OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentFileMap(c *Client, f map[string]OSPolicyAssignmentFile) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, &item)
+		i, err := expandOSPolicyAssignmentFile(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -7135,16 +7135,16 @@ func expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileMap(c *Cli
 	return items, nil
 }
 
-// expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileSlice expands the contents of OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile into a JSON
+// expandOSPolicyAssignmentFileSlice expands the contents of OSPolicyAssignmentFile into a JSON
 // request object.
-func expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileSlice(c *Client, f []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentFileSlice(c *Client, f []OSPolicyAssignmentFile) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, &item)
+		i, err := expandOSPolicyAssignmentFile(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -7155,60 +7155,60 @@ func expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileSlice(c *C
 	return items, nil
 }
 
-// flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileMap flattens the contents of OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile from a JSON
+// flattenOSPolicyAssignmentFileMap flattens the contents of OSPolicyAssignmentFile from a JSON
 // response object.
-func flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileMap(c *Client, i interface{}) map[string]OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile {
+func flattenOSPolicyAssignmentFileMap(c *Client, i interface{}) map[string]OSPolicyAssignmentFile {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile{}
+		return map[string]OSPolicyAssignmentFile{}
 	}
 
 	if len(a) == 0 {
-		return map[string]OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile{}
+		return map[string]OSPolicyAssignmentFile{}
 	}
 
-	items := make(map[string]OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile)
+	items := make(map[string]OSPolicyAssignmentFile)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentFile(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileSlice flattens the contents of OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile from a JSON
+// flattenOSPolicyAssignmentFileSlice flattens the contents of OSPolicyAssignmentFile from a JSON
 // response object.
-func flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileSlice(c *Client, i interface{}) []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile {
+func flattenOSPolicyAssignmentFileSlice(c *Client, i interface{}) []OSPolicyAssignmentFile {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile{}
+		return []OSPolicyAssignmentFile{}
 	}
 
 	if len(a) == 0 {
-		return []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile{}
+		return []OSPolicyAssignmentFile{}
 	}
 
-	items := make([]OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile, 0, len(a))
+	items := make([]OSPolicyAssignmentFile, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentFile(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile expands an instance of OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile into a JSON
+// expandOSPolicyAssignmentFile expands an instance of OSPolicyAssignmentFile into a JSON
 // request object.
-func expandOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c *Client, f *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentFile(c *Client, f *OSPolicyAssignmentFile) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(c, f.Remote); err != nil {
+	if v, err := expandOSPolicyAssignmentFileRemote(c, f.Remote); err != nil {
 		return nil, fmt.Errorf("error expanding Remote into remote: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["remote"] = v
 	}
-	if v, err := expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(c, f.Gcs); err != nil {
+	if v, err := expandOSPolicyAssignmentFileGcs(c, f.Gcs); err != nil {
 		return nil, fmt.Errorf("error expanding Gcs into gcs: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["gcs"] = v
@@ -7223,37 +7223,37 @@ func expandOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c *Client
 	return m, nil
 }
 
-// flattenOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile flattens an instance of OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile from a JSON
+// flattenOSPolicyAssignmentFile flattens an instance of OSPolicyAssignmentFile from a JSON
 // response object.
-func flattenOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c *Client, i interface{}) *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile {
+func flattenOSPolicyAssignmentFile(c *Client, i interface{}) *OSPolicyAssignmentFile {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile{}
+	r := &OSPolicyAssignmentFile{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile
+		return EmptyOSPolicyAssignmentFile
 	}
-	r.Remote = flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(c, m["remote"])
-	r.Gcs = flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(c, m["gcs"])
+	r.Remote = flattenOSPolicyAssignmentFileRemote(c, m["remote"])
+	r.Gcs = flattenOSPolicyAssignmentFileGcs(c, m["gcs"])
 	r.LocalPath = dcl.FlattenString(m["localPath"])
 	r.AllowInsecure = dcl.FlattenBool(m["allowInsecure"])
 
 	return r
 }
 
-// expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemoteMap expands the contents of OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote into a JSON
+// expandOSPolicyAssignmentFileRemoteMap expands the contents of OSPolicyAssignmentFileRemote into a JSON
 // request object.
-func expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemoteMap(c *Client, f map[string]OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentFileRemoteMap(c *Client, f map[string]OSPolicyAssignmentFileRemote) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(c, &item)
+		i, err := expandOSPolicyAssignmentFileRemote(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -7265,16 +7265,16 @@ func expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemoteMap(
 	return items, nil
 }
 
-// expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemoteSlice expands the contents of OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote into a JSON
+// expandOSPolicyAssignmentFileRemoteSlice expands the contents of OSPolicyAssignmentFileRemote into a JSON
 // request object.
-func expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemoteSlice(c *Client, f []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentFileRemoteSlice(c *Client, f []OSPolicyAssignmentFileRemote) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(c, &item)
+		i, err := expandOSPolicyAssignmentFileRemote(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -7285,49 +7285,49 @@ func expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemoteSlic
 	return items, nil
 }
 
-// flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemoteMap flattens the contents of OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote from a JSON
+// flattenOSPolicyAssignmentFileRemoteMap flattens the contents of OSPolicyAssignmentFileRemote from a JSON
 // response object.
-func flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemoteMap(c *Client, i interface{}) map[string]OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote {
+func flattenOSPolicyAssignmentFileRemoteMap(c *Client, i interface{}) map[string]OSPolicyAssignmentFileRemote {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote{}
+		return map[string]OSPolicyAssignmentFileRemote{}
 	}
 
 	if len(a) == 0 {
-		return map[string]OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote{}
+		return map[string]OSPolicyAssignmentFileRemote{}
 	}
 
-	items := make(map[string]OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote)
+	items := make(map[string]OSPolicyAssignmentFileRemote)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentFileRemote(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemoteSlice flattens the contents of OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote from a JSON
+// flattenOSPolicyAssignmentFileRemoteSlice flattens the contents of OSPolicyAssignmentFileRemote from a JSON
 // response object.
-func flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemoteSlice(c *Client, i interface{}) []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote {
+func flattenOSPolicyAssignmentFileRemoteSlice(c *Client, i interface{}) []OSPolicyAssignmentFileRemote {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote{}
+		return []OSPolicyAssignmentFileRemote{}
 	}
 
 	if len(a) == 0 {
-		return []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote{}
+		return []OSPolicyAssignmentFileRemote{}
 	}
 
-	items := make([]OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote, 0, len(a))
+	items := make([]OSPolicyAssignmentFileRemote, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentFileRemote(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote expands an instance of OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote into a JSON
+// expandOSPolicyAssignmentFileRemote expands an instance of OSPolicyAssignmentFileRemote into a JSON
 // request object.
-func expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(c *Client, f *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentFileRemote(c *Client, f *OSPolicyAssignmentFileRemote) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7343,18 +7343,18 @@ func expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(c *
 	return m, nil
 }
 
-// flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote flattens an instance of OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote from a JSON
+// flattenOSPolicyAssignmentFileRemote flattens an instance of OSPolicyAssignmentFileRemote from a JSON
 // response object.
-func flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(c *Client, i interface{}) *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote {
+func flattenOSPolicyAssignmentFileRemote(c *Client, i interface{}) *OSPolicyAssignmentFileRemote {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote{}
+	r := &OSPolicyAssignmentFileRemote{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote
+		return EmptyOSPolicyAssignmentFileRemote
 	}
 	r.Uri = dcl.FlattenString(m["uri"])
 	r.Sha256Checksum = dcl.FlattenString(m["sha256Checksum"])
@@ -7362,16 +7362,16 @@ func flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(c 
 	return r
 }
 
-// expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsMap expands the contents of OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs into a JSON
+// expandOSPolicyAssignmentFileGcsMap expands the contents of OSPolicyAssignmentFileGcs into a JSON
 // request object.
-func expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsMap(c *Client, f map[string]OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentFileGcsMap(c *Client, f map[string]OSPolicyAssignmentFileGcs) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(c, &item)
+		i, err := expandOSPolicyAssignmentFileGcs(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -7383,16 +7383,16 @@ func expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsMap(c *
 	return items, nil
 }
 
-// expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsSlice expands the contents of OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs into a JSON
+// expandOSPolicyAssignmentFileGcsSlice expands the contents of OSPolicyAssignmentFileGcs into a JSON
 // request object.
-func expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsSlice(c *Client, f []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentFileGcsSlice(c *Client, f []OSPolicyAssignmentFileGcs) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(c, &item)
+		i, err := expandOSPolicyAssignmentFileGcs(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -7403,49 +7403,49 @@ func expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsSlice(c
 	return items, nil
 }
 
-// flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsMap flattens the contents of OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs from a JSON
+// flattenOSPolicyAssignmentFileGcsMap flattens the contents of OSPolicyAssignmentFileGcs from a JSON
 // response object.
-func flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsMap(c *Client, i interface{}) map[string]OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs {
+func flattenOSPolicyAssignmentFileGcsMap(c *Client, i interface{}) map[string]OSPolicyAssignmentFileGcs {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs{}
+		return map[string]OSPolicyAssignmentFileGcs{}
 	}
 
 	if len(a) == 0 {
-		return map[string]OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs{}
+		return map[string]OSPolicyAssignmentFileGcs{}
 	}
 
-	items := make(map[string]OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs)
+	items := make(map[string]OSPolicyAssignmentFileGcs)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentFileGcs(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsSlice flattens the contents of OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs from a JSON
+// flattenOSPolicyAssignmentFileGcsSlice flattens the contents of OSPolicyAssignmentFileGcs from a JSON
 // response object.
-func flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsSlice(c *Client, i interface{}) []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs {
+func flattenOSPolicyAssignmentFileGcsSlice(c *Client, i interface{}) []OSPolicyAssignmentFileGcs {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs{}
+		return []OSPolicyAssignmentFileGcs{}
 	}
 
 	if len(a) == 0 {
-		return []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs{}
+		return []OSPolicyAssignmentFileGcs{}
 	}
 
-	items := make([]OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs, 0, len(a))
+	items := make([]OSPolicyAssignmentFileGcs, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentFileGcs(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs expands an instance of OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs into a JSON
+// expandOSPolicyAssignmentFileGcs expands an instance of OSPolicyAssignmentFileGcs into a JSON
 // request object.
-func expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(c *Client, f *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentFileGcs(c *Client, f *OSPolicyAssignmentFileGcs) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -7464,18 +7464,18 @@ func expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(c *Cli
 	return m, nil
 }
 
-// flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs flattens an instance of OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs from a JSON
+// flattenOSPolicyAssignmentFileGcs flattens an instance of OSPolicyAssignmentFileGcs from a JSON
 // response object.
-func flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(c *Client, i interface{}) *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs {
+func flattenOSPolicyAssignmentFileGcs(c *Client, i interface{}) *OSPolicyAssignmentFileGcs {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs{}
+	r := &OSPolicyAssignmentFileGcs{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs
+		return EmptyOSPolicyAssignmentFileGcs
 	}
 	r.Bucket = dcl.FlattenString(m["bucket"])
 	r.Object = dcl.FlattenString(m["object"])
@@ -7801,7 +7801,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c *Client, 
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, f.Source); err != nil {
+	if v, err := expandOSPolicyAssignmentFile(c, f.Source); err != nil {
 		return nil, fmt.Errorf("error expanding Source into source: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["source"] = v
@@ -7826,7 +7826,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(c *Client,
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm
 	}
-	r.Source = flattenOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, m["source"])
+	r.Source = flattenOSPolicyAssignmentFile(c, m["source"])
 	r.PullDeps = dcl.FlattenBool(m["pullDeps"])
 
 	return r
@@ -8035,7 +8035,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c *Client, 
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, f.Source); err != nil {
+	if v, err := expandOSPolicyAssignmentFile(c, f.Source); err != nil {
 		return nil, fmt.Errorf("error expanding Source into source: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["source"] = v
@@ -8060,7 +8060,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(c *Client,
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi
 	}
-	r.Source = flattenOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, m["source"])
+	r.Source = flattenOSPolicyAssignmentFile(c, m["source"])
 	r.Properties = dcl.FlattenStringSlice(m["properties"])
 
 	return r
@@ -8789,12 +8789,12 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c *Client, f 
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(c, f.Validate); err != nil {
+	if v, err := expandOSPolicyAssignmentExec(c, f.Validate); err != nil {
 		return nil, fmt.Errorf("error expanding Validate into validate: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["validate"] = v
 	}
-	if v, err := expandOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(c, f.Enforce); err != nil {
+	if v, err := expandOSPolicyAssignmentExec(c, f.Enforce); err != nil {
 		return nil, fmt.Errorf("error expanding Enforce into enforce: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["enforce"] = v
@@ -8816,22 +8816,22 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(c *Client, i
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec
 	}
-	r.Validate = flattenOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(c, m["validate"])
-	r.Enforce = flattenOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(c, m["enforce"])
+	r.Validate = flattenOSPolicyAssignmentExec(c, m["validate"])
+	r.Enforce = flattenOSPolicyAssignmentExec(c, m["enforce"])
 
 	return r
 }
 
-// expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecMap expands the contents of OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec into a JSON
+// expandOSPolicyAssignmentExecMap expands the contents of OSPolicyAssignmentExec into a JSON
 // request object.
-func expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecMap(c *Client, f map[string]OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentExecMap(c *Client, f map[string]OSPolicyAssignmentExec) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(c, &item)
+		i, err := expandOSPolicyAssignmentExec(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -8843,16 +8843,16 @@ func expandOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceex
 	return items, nil
 }
 
-// expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecSlice expands the contents of OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec into a JSON
+// expandOSPolicyAssignmentExecSlice expands the contents of OSPolicyAssignmentExec into a JSON
 // request object.
-func expandOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecSlice(c *Client, f []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec) ([]map[string]interface{}, error) {
+func expandOSPolicyAssignmentExecSlice(c *Client, f []OSPolicyAssignmentExec) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(c, &item)
+		i, err := expandOSPolicyAssignmentExec(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -8863,55 +8863,55 @@ func expandOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceex
 	return items, nil
 }
 
-// flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecMap flattens the contents of OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec from a JSON
+// flattenOSPolicyAssignmentExecMap flattens the contents of OSPolicyAssignmentExec from a JSON
 // response object.
-func flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecMap(c *Client, i interface{}) map[string]OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec {
+func flattenOSPolicyAssignmentExecMap(c *Client, i interface{}) map[string]OSPolicyAssignmentExec {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec{}
+		return map[string]OSPolicyAssignmentExec{}
 	}
 
 	if len(a) == 0 {
-		return map[string]OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec{}
+		return map[string]OSPolicyAssignmentExec{}
 	}
 
-	items := make(map[string]OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec)
+	items := make(map[string]OSPolicyAssignmentExec)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(c, item.(map[string]interface{}))
+		items[k] = *flattenOSPolicyAssignmentExec(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecSlice flattens the contents of OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec from a JSON
+// flattenOSPolicyAssignmentExecSlice flattens the contents of OSPolicyAssignmentExec from a JSON
 // response object.
-func flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecSlice(c *Client, i interface{}) []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec {
+func flattenOSPolicyAssignmentExecSlice(c *Client, i interface{}) []OSPolicyAssignmentExec {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec{}
+		return []OSPolicyAssignmentExec{}
 	}
 
 	if len(a) == 0 {
-		return []OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec{}
+		return []OSPolicyAssignmentExec{}
 	}
 
-	items := make([]OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec, 0, len(a))
+	items := make([]OSPolicyAssignmentExec, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(c, item.(map[string]interface{})))
+		items = append(items, *flattenOSPolicyAssignmentExec(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec expands an instance of OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec into a JSON
+// expandOSPolicyAssignmentExec expands an instance of OSPolicyAssignmentExec into a JSON
 // request object.
-func expandOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(c *Client, f *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec) (map[string]interface{}, error) {
+func expandOSPolicyAssignmentExec(c *Client, f *OSPolicyAssignmentExec) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, f.File); err != nil {
+	if v, err := expandOSPolicyAssignmentFile(c, f.File); err != nil {
 		return nil, fmt.Errorf("error expanding File into file: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["file"] = v
@@ -8932,23 +8932,23 @@ func expandOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceex
 	return m, nil
 }
 
-// flattenOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec flattens an instance of OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec from a JSON
+// flattenOSPolicyAssignmentExec flattens an instance of OSPolicyAssignmentExec from a JSON
 // response object.
-func flattenOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(c *Client, i interface{}) *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec {
+func flattenOSPolicyAssignmentExec(c *Client, i interface{}) *OSPolicyAssignmentExec {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec{}
+	r := &OSPolicyAssignmentExec{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec
+		return EmptyOSPolicyAssignmentExec
 	}
-	r.File = flattenOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, m["file"])
+	r.File = flattenOSPolicyAssignmentFile(c, m["file"])
 	r.Script = dcl.FlattenString(m["script"])
 	r.Args = dcl.FlattenStringSlice(m["args"])
-	r.Interpreter = flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum(m["interpreter"])
+	r.Interpreter = flattenOSPolicyAssignmentExecInterpreterEnum(m["interpreter"])
 	r.OutputFilePath = dcl.FlattenString(m["outputFilePath"])
 
 	return r
@@ -9043,7 +9043,7 @@ func expandOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c *Client, f 
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, f.File); err != nil {
+	if v, err := expandOSPolicyAssignmentFile(c, f.File); err != nil {
 		return nil, fmt.Errorf("error expanding File into file: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["file"] = v
@@ -9074,7 +9074,7 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(c *Client, i
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile
 	}
-	r.File = flattenOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(c, m["file"])
+	r.File = flattenOSPolicyAssignmentFile(c, m["file"])
 	r.Content = dcl.FlattenString(m["content"])
 	r.Path = dcl.FlattenString(m["path"])
 	r.State = flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum(m["state"])
@@ -9952,55 +9952,55 @@ func flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArch
 	return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumRef(s)
 }
 
-// flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnumMap flattens the contents of OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum from a JSON
+// flattenOSPolicyAssignmentExecInterpreterEnumMap flattens the contents of OSPolicyAssignmentExecInterpreterEnum from a JSON
 // response object.
-func flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnumMap(c *Client, i interface{}) map[string]OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum {
+func flattenOSPolicyAssignmentExecInterpreterEnumMap(c *Client, i interface{}) map[string]OSPolicyAssignmentExecInterpreterEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum{}
+		return map[string]OSPolicyAssignmentExecInterpreterEnum{}
 	}
 
 	if len(a) == 0 {
-		return map[string]OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum{}
+		return map[string]OSPolicyAssignmentExecInterpreterEnum{}
 	}
 
-	items := make(map[string]OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum)
+	items := make(map[string]OSPolicyAssignmentExecInterpreterEnum)
 	for k, item := range a {
-		items[k] = *flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum(item.(interface{}))
+		items[k] = *flattenOSPolicyAssignmentExecInterpreterEnum(item.(interface{}))
 	}
 
 	return items
 }
 
-// flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnumSlice flattens the contents of OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum from a JSON
+// flattenOSPolicyAssignmentExecInterpreterEnumSlice flattens the contents of OSPolicyAssignmentExecInterpreterEnum from a JSON
 // response object.
-func flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnumSlice(c *Client, i interface{}) []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum {
+func flattenOSPolicyAssignmentExecInterpreterEnumSlice(c *Client, i interface{}) []OSPolicyAssignmentExecInterpreterEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum{}
+		return []OSPolicyAssignmentExecInterpreterEnum{}
 	}
 
 	if len(a) == 0 {
-		return []OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum{}
+		return []OSPolicyAssignmentExecInterpreterEnum{}
 	}
 
-	items := make([]OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum, 0, len(a))
+	items := make([]OSPolicyAssignmentExecInterpreterEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum(item.(interface{})))
+		items = append(items, *flattenOSPolicyAssignmentExecInterpreterEnum(item.(interface{})))
 	}
 
 	return items
 }
 
-// flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum asserts that an interface is a string, and returns a
-// pointer to a *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum with the same value as that string.
-func flattenOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum(i interface{}) *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum {
+// flattenOSPolicyAssignmentExecInterpreterEnum asserts that an interface is a string, and returns a
+// pointer to a *OSPolicyAssignmentExecInterpreterEnum with the same value as that string.
+func flattenOSPolicyAssignmentExecInterpreterEnum(i interface{}) *OSPolicyAssignmentExecInterpreterEnum {
 	s, ok := i.(string)
 	if !ok {
-		return OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnumRef("")
+		return OSPolicyAssignmentExecInterpreterEnumRef("")
 	}
 
-	return OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnumRef(s)
+	return OSPolicyAssignmentExecInterpreterEnumRef(s)
 }
 
 // flattenOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnumMap flattens the contents of OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum from a JSON

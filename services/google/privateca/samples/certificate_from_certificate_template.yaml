@@ -11,40 +11,27 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-name: beta_worker_pool
-description: Example for workerpool instance
-type: worker_pool
+name: certificate_from_certificate_template
+description: A Certificate that's being created from a template
+type: certificate
 versions:
-- beta
-resource: samples/beta.worker_pool.json
+- ga
+resource: samples/from_template.certificate.json
 dependencies:
-- samples/basic.compute.network.json
-- samples/basic.compute.address.json
-- samples/basic.servicenetworking.connection.json
-updates:
-- resource: samples/update_beta.worker_pool.json
-  dependencies:
-  - samples/basic.compute.network.json
-  - samples/basic.compute.address.json
-  - samples/basic.servicenetworking.connection.json
+- samples/basic.certificate_authority.json
+- samples/basic.certificate_template.json
 variables:
 - name: project
   type: project
-- name: cloudbuild_network
-  type: resource_name
-- name: project
-  type: project
-- name: address
-  type: resource_name
-- name: project
-  type: project
-- name: project
-  type: project
-- name: resource_name
+- name: ca_name
   type: resource_name
 - name: region
   type: region
+- name: template
+  type: resource_name
 - name: project
   type: project
 - name: project
   type: project
+- name: cert
+  type: resource_name

@@ -19,14 +19,20 @@ versions:
 resource: samples/basic.certificate.json
 dependencies:
 - samples/basic.certificate_authority.json
+updates:
+- resource: samples/update.certificate.json
+  dependencies:
+  - samples/basic.certificate_authority.json
 variables:
-- name: ca_name
-  type: resource_name
 - name: region
   type: region
 - name: project
   type: project
-- name: project
-  type: project
+- name: ca_name
+  type: resource_name
+- name: region
+  type: region
 - name: cert
   type: resource_name
+- name: project
+  type: project

@@ -42,12 +42,12 @@ enum OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAp
   OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumDEB_SRC = 3;
 }
 
-enum OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum {
-  OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnumNO_VALUE_DO_NOT_USE = 0;
-  OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnumINTERPRETER_UNSPECIFIED = 1;
-  OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnumNONE = 2;
-  OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnumSHELL = 3;
-  OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnumPOWERSHELL = 4;
+enum OsconfigBetaOSPolicyAssignmentExecInterpreterEnum {
+  OsconfigBetaOSPolicyAssignmentExecInterpreterEnumNO_VALUE_DO_NOT_USE = 0;
+  OsconfigBetaOSPolicyAssignmentExecInterpreterEnumINTERPRETER_UNSPECIFIED = 1;
+  OsconfigBetaOSPolicyAssignmentExecInterpreterEnumNONE = 2;
+  OsconfigBetaOSPolicyAssignmentExecInterpreterEnumSHELL = 3;
+  OsconfigBetaOSPolicyAssignmentExecInterpreterEnumPOWERSHELL = 4;
 }
 
 enum OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum {
@@ -128,23 +128,23 @@ message OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt {
 }
 
 message OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb {
-  OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile source = 1;
+  OsconfigBetaOSPolicyAssignmentFile source = 1;
   bool pull_deps = 2;
 }
 
-message OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile {
-  OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote remote = 1;
-  OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs gcs = 2;
+message OsconfigBetaOSPolicyAssignmentFile {
+  OsconfigBetaOSPolicyAssignmentFileRemote remote = 1;
+  OsconfigBetaOSPolicyAssignmentFileGcs gcs = 2;
   string local_path = 3;
   bool allow_insecure = 4;
 }
 
-message OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote {
+message OsconfigBetaOSPolicyAssignmentFileRemote {
   string uri = 1;
   string sha256_checksum = 2;
 }
 
-message OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs {
+message OsconfigBetaOSPolicyAssignmentFileGcs {
   string bucket = 1;
   string object = 2;
   int64 generation = 3;
@@ -159,7 +159,7 @@ message OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper
 }
 
 message OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm {
-  OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile source = 1;
+  OsconfigBetaOSPolicyAssignmentFile source = 1;
   bool pull_deps = 2;
 }
 
@@ -168,7 +168,7 @@ message OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget
 }
 
 message OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi {
-  OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile source = 1;
+  OsconfigBetaOSPolicyAssignmentFile source = 1;
   repeated string properties = 2;
 }
 
@@ -207,20 +207,20 @@ message OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositor
 }
 
 message OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec {
-  OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec validate = 1;
-  OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec enforce = 2;
+  OsconfigBetaOSPolicyAssignmentExec validate = 1;
+  OsconfigBetaOSPolicyAssignmentExec enforce = 2;
 }
 
-message OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec {
-  OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile file = 1;
+message OsconfigBetaOSPolicyAssignmentExec {
+  OsconfigBetaOSPolicyAssignmentFile file = 1;
   string script = 2;
   repeated string args = 3;
-  OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum interpreter = 4;
+  OsconfigBetaOSPolicyAssignmentExecInterpreterEnum interpreter = 4;
   string output_file_path = 5;
 }
 
 message OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile {
-  OsconfigBetaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile file = 1;
+  OsconfigBetaOSPolicyAssignmentFile file = 1;
   string content = 2;
   string path = 3;
   OsconfigBetaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum state = 4;

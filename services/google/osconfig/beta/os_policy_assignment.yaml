@@ -58,10 +58,10 @@ paths:
         type: string
 components:
   schemas:
-    Googlecloudosconfigv1Ospolicyresourceexecresourceexec:
+    Exec:
       type: object
       x-dcl-go-name: Validate
-      x-dcl-go-type: OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec
+      x-dcl-go-type: OSPolicyAssignmentExec
       description: Required. What to run to validate this resource is in the desired
         state. An exit code of 100 indicates "in desired state", and exit code of
         101 indicates "not in desired state". Any other exit code indicates a failure
@@ -79,12 +79,12 @@ components:
             type: string
             x-dcl-go-type: string
         file:
-          $ref: '#/components/schemas/Googlecloudosconfigv1Ospolicyresourcefile'
+          $ref: '#/components/schemas/File'
           x-dcl-go-name: File
         interpreter:
           type: string
           x-dcl-go-name: Interpreter
-          x-dcl-go-type: OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum
+          x-dcl-go-type: OSPolicyAssignmentExecInterpreterEnum
           description: 'Required. The script interpreter to use. Possible values:
             INTERPRETER_UNSPECIFIED, NONE, SHELL, POWERSHELL'
           enum:
@@ -105,10 +105,10 @@ components:
           x-dcl-go-name: Script
           description: An inline script. The size of the script is limited to 1024
             characters.
-    Googlecloudosconfigv1Ospolicyresourcefile:
+    File:
       type: object
       x-dcl-go-name: Source
-      x-dcl-go-type: OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile
+      x-dcl-go-type: OSPolicyAssignmentFile
       description: Required. A deb package.
       properties:
         allowInsecure:
@@ -120,7 +120,7 @@ components:
         gcs:
           type: object
           x-dcl-go-name: Gcs
-          x-dcl-go-type: OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs
+          x-dcl-go-type: OSPolicyAssignmentFileGcs
           description: A Cloud Storage object.
           required:
           - bucket
@@ -146,7 +146,7 @@ components:
         remote:
           type: object
           x-dcl-go-name: Remote
-          x-dcl-go-type: OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote
+          x-dcl-go-type: OSPolicyAssignmentFileRemote
           description: A generic remote file.
           required:
           - uri
@@ -403,10 +403,10 @@ components:
                             - validate
                             properties:
                               enforce:
-                                $ref: '#/components/schemas/Googlecloudosconfigv1Ospolicyresourceexecresourceexec'
+                                $ref: '#/components/schemas/Exec'
                                 x-dcl-go-name: Enforce
                               validate:
-                                $ref: '#/components/schemas/Googlecloudosconfigv1Ospolicyresourceexecresourceexec'
+                                $ref: '#/components/schemas/Exec'
                                 x-dcl-go-name: Validate
                           file:
                             type: object
@@ -423,7 +423,7 @@ components:
                                 description: A a file with this content. The size
                                   of the content is limited to 1024 characters.
                               file:
-                                $ref: '#/components/schemas/Googlecloudosconfigv1Ospolicyresourcefile'
+                                $ref: '#/components/schemas/File'
                                 x-dcl-go-name: File
                               path:
                                 type: string
@@ -503,7 +503,7 @@ components:
                                       package` - install when true: `apt-get update
                                       && apt-get -y install package.deb`'
                                   source:
-                                    $ref: '#/components/schemas/Googlecloudosconfigv1Ospolicyresourcefile'
+                                    $ref: '#/components/schemas/File'
                                     x-dcl-go-name: Source
                               desiredState:
                                 type: string
@@ -549,7 +549,7 @@ components:
                                       type: string
                                       x-dcl-go-type: string
                                   source:
-                                    $ref: '#/components/schemas/Googlecloudosconfigv1Ospolicyresourcefile'
+                                    $ref: '#/components/schemas/File'
                                     x-dcl-go-name: Source
                               rpm:
                                 type: object
@@ -568,7 +568,7 @@ components:
                                       `yum -y install package.rpm` or `zypper -y install
                                       package.rpm`'
                                   source:
-                                    $ref: '#/components/schemas/Googlecloudosconfigv1Ospolicyresourcefile'
+                                    $ref: '#/components/schemas/File'
                                     x-dcl-go-name: Source
                               yum:
                                 type: object

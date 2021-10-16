@@ -55,11 +55,9 @@ variables:
   type: resource_name
 - name: id1
   type: resource_name
-- name: zone
-  type: zone
 - name: cluster1
   type: resource_name
-- name: membership1
-  type: resource_name
 - name: zone
   type: zone
+- name: membership1
+  type: resource_name

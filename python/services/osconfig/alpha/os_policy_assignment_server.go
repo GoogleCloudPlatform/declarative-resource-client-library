@@ -60,13 +60,13 @@ func ProtoToOsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepo
 	return nil
 }
 
-// ProtoToOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum converts a OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum enum from its proto representation.
-func ProtoToOsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum(e alphapb.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum) *alpha.OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum {
+// ProtoToOSPolicyAssignmentExecInterpreterEnum converts a OSPolicyAssignmentExecInterpreterEnum enum from its proto representation.
+func ProtoToOsconfigAlphaOSPolicyAssignmentExecInterpreterEnum(e alphapb.OsconfigAlphaOSPolicyAssignmentExecInterpreterEnum) *alpha.OSPolicyAssignmentExecInterpreterEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := alphapb.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum_name[int32(e)]; ok {
-		e := alpha.OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum(n[len("OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum"):])
+	if n, ok := alphapb.OsconfigAlphaOSPolicyAssignmentExecInterpreterEnum_name[int32(e)]; ok {
+		e := alpha.OSPolicyAssignmentExecInterpreterEnum(n[len("OsconfigAlphaOSPolicyAssignmentExecInterpreterEnum"):])
 		return &e
 	}
 	return nil
@@ -190,44 +190,44 @@ func ProtoToOsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgD
 		return nil
 	}
 	obj := &alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb{
-		Source:   ProtoToOsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(p.GetSource()),
+		Source:   ProtoToOsconfigAlphaOSPolicyAssignmentFile(p.GetSource()),
 		PullDeps: dcl.Bool(p.GetPullDeps()),
 	}
 	return obj
 }
 
-// ProtoToOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile converts a OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile object from its proto representation.
-func ProtoToOsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(p *alphapb.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile) *alpha.OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile {
+// ProtoToOSPolicyAssignmentFile converts a OSPolicyAssignmentFile object from its proto representation.
+func ProtoToOsconfigAlphaOSPolicyAssignmentFile(p *alphapb.OsconfigAlphaOSPolicyAssignmentFile) *alpha.OSPolicyAssignmentFile {
 	if p == nil {
 		return nil
 	}
-	obj := &alpha.OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile{
-		Remote:        ProtoToOsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(p.GetRemote()),
-		Gcs:           ProtoToOsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(p.GetGcs()),
+	obj := &alpha.OSPolicyAssignmentFile{
+		Remote:        ProtoToOsconfigAlphaOSPolicyAssignmentFileRemote(p.GetRemote()),
+		Gcs:           ProtoToOsconfigAlphaOSPolicyAssignmentFileGcs(p.GetGcs()),
 		LocalPath:     dcl.StringOrNil(p.GetLocalPath()),
 		AllowInsecure: dcl.Bool(p.GetAllowInsecure()),
 	}
 	return obj
 }
 
-// ProtoToOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote converts a OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote object from its proto representation.
-func ProtoToOsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote(p *alphapb.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote) *alpha.OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote {
+// ProtoToOSPolicyAssignmentFileRemote converts a OSPolicyAssignmentFileRemote object from its proto representation.
+func ProtoToOsconfigAlphaOSPolicyAssignmentFileRemote(p *alphapb.OsconfigAlphaOSPolicyAssignmentFileRemote) *alpha.OSPolicyAssignmentFileRemote {
 	if p == nil {
 		return nil
 	}
-	obj := &alpha.OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote{
+	obj := &alpha.OSPolicyAssignmentFileRemote{
 		Uri:            dcl.StringOrNil(p.GetUri()),
 		Sha256Checksum: dcl.StringOrNil(p.GetSha256Checksum()),
 	}
 	return obj
 }
 
-// ProtoToOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs converts a OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs object from its proto representation.
-func ProtoToOsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs(p *alphapb.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs) *alpha.OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs {
+// ProtoToOSPolicyAssignmentFileGcs converts a OSPolicyAssignmentFileGcs object from its proto representation.
+func ProtoToOsconfigAlphaOSPolicyAssignmentFileGcs(p *alphapb.OsconfigAlphaOSPolicyAssignmentFileGcs) *alpha.OSPolicyAssignmentFileGcs {
 	if p == nil {
 		return nil
 	}
-	obj := &alpha.OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs{
+	obj := &alpha.OSPolicyAssignmentFileGcs{
 		Bucket:     dcl.StringOrNil(p.GetBucket()),
 		Object:     dcl.StringOrNil(p.GetObject()),
 		Generation: dcl.Int64OrNil(p.GetGeneration()),
@@ -263,7 +263,7 @@ func ProtoToOsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgR
 		return nil
 	}
 	obj := &alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm{
-		Source:   ProtoToOsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(p.GetSource()),
+		Source:   ProtoToOsconfigAlphaOSPolicyAssignmentFile(p.GetSource()),
 		PullDeps: dcl.Bool(p.GetPullDeps()),
 	}
 	return obj
@@ -286,7 +286,7 @@ func ProtoToOsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgM
 		return nil
 	}
 	obj := &alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi{
-		Source: ProtoToOsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(p.GetSource()),
+		Source: ProtoToOsconfigAlphaOSPolicyAssignmentFile(p.GetSource()),
 	}
 	for _, r := range p.GetProperties() {
 		obj.Properties = append(obj.Properties, r)
@@ -375,21 +375,21 @@ func ProtoToOsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec
 		return nil
 	}
 	obj := &alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec{
-		Validate: ProtoToOsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(p.GetValidate()),
-		Enforce:  ProtoToOsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(p.GetEnforce()),
+		Validate: ProtoToOsconfigAlphaOSPolicyAssignmentExec(p.GetValidate()),
+		Enforce:  ProtoToOsconfigAlphaOSPolicyAssignmentExec(p.GetEnforce()),
 	}
 	return obj
 }
 
-// ProtoToOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec converts a OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec object from its proto representation.
-func ProtoToOsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec(p *alphapb.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec) *alpha.OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec {
+// ProtoToOSPolicyAssignmentExec converts a OSPolicyAssignmentExec object from its proto representation.
+func ProtoToOsconfigAlphaOSPolicyAssignmentExec(p *alphapb.OsconfigAlphaOSPolicyAssignmentExec) *alpha.OSPolicyAssignmentExec {
 	if p == nil {
 		return nil
 	}
-	obj := &alpha.OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec{
-		File:           ProtoToOsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(p.GetFile()),
+	obj := &alpha.OSPolicyAssignmentExec{
+		File:           ProtoToOsconfigAlphaOSPolicyAssignmentFile(p.GetFile()),
 		Script:         dcl.StringOrNil(p.GetScript()),
-		Interpreter:    ProtoToOsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum(p.GetInterpreter()),
+		Interpreter:    ProtoToOsconfigAlphaOSPolicyAssignmentExecInterpreterEnum(p.GetInterpreter()),
 		OutputFilePath: dcl.StringOrNil(p.GetOutputFilePath()),
 	}
 	for _, r := range p.GetArgs() {
@@ -404,7 +404,7 @@ func ProtoToOsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile
 		return nil
 	}
 	obj := &alpha.OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile{
-		File:        ProtoToOsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile(p.GetFile()),
+		File:        ProtoToOsconfigAlphaOSPolicyAssignmentFile(p.GetFile()),
 		Content:     dcl.StringOrNil(p.GetContent()),
 		Path:        dcl.StringOrNil(p.GetPath()),
 		State:       ProtoToOsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum(p.GetState()),
@@ -544,15 +544,15 @@ func OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryA
 	return alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum(0)
 }
 
-// OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnumToProto converts a OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum enum to its proto representation.
-func OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnumToProto(e *alpha.OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum) alphapb.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum {
+// OSPolicyAssignmentExecInterpreterEnumToProto converts a OSPolicyAssignmentExecInterpreterEnum enum to its proto representation.
+func OsconfigAlphaOSPolicyAssignmentExecInterpreterEnumToProto(e *alpha.OSPolicyAssignmentExecInterpreterEnum) alphapb.OsconfigAlphaOSPolicyAssignmentExecInterpreterEnum {
 	if e == nil {
-		return alphapb.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum(0)
+		return alphapb.OsconfigAlphaOSPolicyAssignmentExecInterpreterEnum(0)
 	}
-	if v, ok := alphapb.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum_value["OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum"+string(*e)]; ok {
-		return alphapb.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum(v)
+	if v, ok := alphapb.OsconfigAlphaOSPolicyAssignmentExecInterpreterEnum_value["OSPolicyAssignmentExecInterpreterEnum"+string(*e)]; ok {
+		return alphapb.OsconfigAlphaOSPolicyAssignmentExecInterpreterEnum(v)
 	}
-	return alphapb.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum(0)
+	return alphapb.OsconfigAlphaOSPolicyAssignmentExecInterpreterEnum(0)
 }
 
 // OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnumToProto converts a OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum enum to its proto representation.
@@ -672,41 +672,41 @@ func OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebToPro
 		return nil
 	}
 	p := &alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb{}
-	p.SetSource(OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileToProto(o.Source))
+	p.SetSource(OsconfigAlphaOSPolicyAssignmentFileToProto(o.Source))
 	p.SetPullDeps(dcl.ValueOrEmptyBool(o.PullDeps))
 	return p
 }
 
-// OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileToProto converts a OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile object to its proto representation.
-func OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileToProto(o *alpha.OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile) *alphapb.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile {
+// OSPolicyAssignmentFileToProto converts a OSPolicyAssignmentFile object to its proto representation.
+func OsconfigAlphaOSPolicyAssignmentFileToProto(o *alpha.OSPolicyAssignmentFile) *alphapb.OsconfigAlphaOSPolicyAssignmentFile {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile{}
-	p.SetRemote(OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemoteToProto(o.Remote))
-	p.SetGcs(OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsToProto(o.Gcs))
+	p := &alphapb.OsconfigAlphaOSPolicyAssignmentFile{}
+	p.SetRemote(OsconfigAlphaOSPolicyAssignmentFileRemoteToProto(o.Remote))
+	p.SetGcs(OsconfigAlphaOSPolicyAssignmentFileGcsToProto(o.Gcs))
 	p.SetLocalPath(dcl.ValueOrEmptyString(o.LocalPath))
 	p.SetAllowInsecure(dcl.ValueOrEmptyBool(o.AllowInsecure))
 	return p
 }
 
-// OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemoteToProto converts a OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote object to its proto representation.
-func OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemoteToProto(o *alpha.OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote) *alphapb.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote {
+// OSPolicyAssignmentFileRemoteToProto converts a OSPolicyAssignmentFileRemote object to its proto representation.
+func OsconfigAlphaOSPolicyAssignmentFileRemoteToProto(o *alpha.OSPolicyAssignmentFileRemote) *alphapb.OsconfigAlphaOSPolicyAssignmentFileRemote {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote{}
+	p := &alphapb.OsconfigAlphaOSPolicyAssignmentFileRemote{}
 	p.SetUri(dcl.ValueOrEmptyString(o.Uri))
 	p.SetSha256Checksum(dcl.ValueOrEmptyString(o.Sha256Checksum))
 	return p
 }
 
-// OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsToProto converts a OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs object to its proto representation.
-func OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcsToProto(o *alpha.OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs) *alphapb.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs {
+// OSPolicyAssignmentFileGcsToProto converts a OSPolicyAssignmentFileGcs object to its proto representation.
+func OsconfigAlphaOSPolicyAssignmentFileGcsToProto(o *alpha.OSPolicyAssignmentFileGcs) *alphapb.OsconfigAlphaOSPolicyAssignmentFileGcs {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs{}
+	p := &alphapb.OsconfigAlphaOSPolicyAssignmentFileGcs{}
 	p.SetBucket(dcl.ValueOrEmptyString(o.Bucket))
 	p.SetObject(dcl.ValueOrEmptyString(o.Object))
 	p.SetGeneration(dcl.ValueOrEmptyInt64(o.Generation))
@@ -739,7 +739,7 @@ func OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmToPro
 		return nil
 	}
 	p := &alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm{}
-	p.SetSource(OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileToProto(o.Source))
+	p.SetSource(OsconfigAlphaOSPolicyAssignmentFileToProto(o.Source))
 	p.SetPullDeps(dcl.ValueOrEmptyBool(o.PullDeps))
 	return p
 }
@@ -760,7 +760,7 @@ func OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiToPro
 		return nil
 	}
 	p := &alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi{}
-	p.SetSource(OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileToProto(o.Source))
+	p.SetSource(OsconfigAlphaOSPolicyAssignmentFileToProto(o.Source))
 	sProperties := make([]string, len(o.Properties))
 	for i, r := range o.Properties {
 		sProperties[i] = r
@@ -851,20 +851,20 @@ func OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecToProto
 		return nil
 	}
 	p := &alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec{}
-	p.SetValidate(OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecToProto(o.Validate))
-	p.SetEnforce(OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecToProto(o.Enforce))
+	p.SetValidate(OsconfigAlphaOSPolicyAssignmentExecToProto(o.Validate))
+	p.SetEnforce(OsconfigAlphaOSPolicyAssignmentExecToProto(o.Enforce))
 	return p
 }
 
-// OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecToProto converts a OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec object to its proto representation.
-func OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecToProto(o *alpha.OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec) *alphapb.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec {
+// OSPolicyAssignmentExecToProto converts a OSPolicyAssignmentExec object to its proto representation.
+func OsconfigAlphaOSPolicyAssignmentExecToProto(o *alpha.OSPolicyAssignmentExec) *alphapb.OsconfigAlphaOSPolicyAssignmentExec {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec{}
-	p.SetFile(OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileToProto(o.File))
+	p := &alphapb.OsconfigAlphaOSPolicyAssignmentExec{}
+	p.SetFile(OsconfigAlphaOSPolicyAssignmentFileToProto(o.File))
 	p.SetScript(dcl.ValueOrEmptyString(o.Script))
-	p.SetInterpreter(OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnumToProto(o.Interpreter))
+	p.SetInterpreter(OsconfigAlphaOSPolicyAssignmentExecInterpreterEnumToProto(o.Interpreter))
 	p.SetOutputFilePath(dcl.ValueOrEmptyString(o.OutputFilePath))
 	sArgs := make([]string, len(o.Args))
 	for i, r := range o.Args {
@@ -880,7 +880,7 @@ func OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileToProto
 		return nil
 	}
 	p := &alphapb.OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile{}
-	p.SetFile(OsconfigAlphaOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileToProto(o.File))
+	p.SetFile(OsconfigAlphaOSPolicyAssignmentFileToProto(o.File))
 	p.SetContent(dcl.ValueOrEmptyString(o.Content))
 	p.SetPath(dcl.ValueOrEmptyString(o.Path))
 	p.SetState(OsconfigAlphaOSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnumToProto(o.State))

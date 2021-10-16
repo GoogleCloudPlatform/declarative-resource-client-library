@@ -127,17 +127,17 @@ func (v OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArchiveT
 	}
 }
 
-// The enum OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum.
-type OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum string
+// The enum OSPolicyAssignmentExecInterpreterEnum.
+type OSPolicyAssignmentExecInterpreterEnum string
 
-// OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnumRef returns a *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum with the value of string s
+// OSPolicyAssignmentExecInterpreterEnumRef returns a *OSPolicyAssignmentExecInterpreterEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnumRef(s string) *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum {
-	v := OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum(s)
+func OSPolicyAssignmentExecInterpreterEnumRef(s string) *OSPolicyAssignmentExecInterpreterEnum {
+	v := OSPolicyAssignmentExecInterpreterEnum(s)
 	return &v
 }
 
-func (v OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum) Validate() error {
+func (v OSPolicyAssignmentExecInterpreterEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -148,7 +148,7 @@ func (v OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecI
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum",
+		Enum:  "OSPolicyAssignmentExecInterpreterEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -536,9 +536,9 @@ func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt) HashCode() s
 }
 
 type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb struct {
-	empty    bool                                                         `json:"-"`
-	Source   *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile `json:"source"`
-	PullDeps *bool                                                        `json:"pullDeps"`
+	empty    bool                    `json:"-"`
+	Source   *OSPolicyAssignmentFile `json:"source"`
+	PullDeps *bool                   `json:"pullDeps"`
 }
 
 type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb
@@ -584,18 +584,18 @@ func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb) HashCode() s
 	return fmt.Sprintf("%x", hash)
 }
 
-type OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile struct {
-	empty         bool                                                               `json:"-"`
-	Remote        *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote `json:"remote"`
-	Gcs           *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs    `json:"gcs"`
-	LocalPath     *string                                                            `json:"localPath"`
-	AllowInsecure *bool                                                              `json:"allowInsecure"`
+type OSPolicyAssignmentFile struct {
+	empty         bool                          `json:"-"`
+	Remote        *OSPolicyAssignmentFileRemote `json:"remote"`
+	Gcs           *OSPolicyAssignmentFileGcs    `json:"gcs"`
+	LocalPath     *string                       `json:"localPath"`
+	AllowInsecure *bool                         `json:"allowInsecure"`
 }
 
-type jsonOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile
+type jsonOSPolicyAssignmentFile OSPolicyAssignmentFile
 
-func (r *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile) UnmarshalJSON(data []byte) error {
-	var res jsonOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile
+func (r *OSPolicyAssignmentFile) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentFile
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -604,7 +604,7 @@ func (r *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile) UnmarshalJ
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile
+		*r = *EmptyOSPolicyAssignmentFile
 	} else {
 
 		r.Remote = res.Remote
@@ -619,36 +619,36 @@ func (r *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile) UnmarshalJ
 	return nil
 }
 
-// This object is used to assert a desired state where this OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile is
+// This object is used to assert a desired state where this OSPolicyAssignmentFile is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile = &OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile{empty: true}
+var EmptyOSPolicyAssignmentFile *OSPolicyAssignmentFile = &OSPolicyAssignmentFile{empty: true}
 
-func (r *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile) Empty() bool {
+func (r *OSPolicyAssignmentFile) Empty() bool {
 	return r.empty
 }
 
-func (r *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile) String() string {
+func (r *OSPolicyAssignmentFile) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile) HashCode() string {
+func (r *OSPolicyAssignmentFile) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote struct {
+type OSPolicyAssignmentFileRemote struct {
 	empty          bool    `json:"-"`
 	Uri            *string `json:"uri"`
 	Sha256Checksum *string `json:"sha256Checksum"`
 }
 
-type jsonOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote
+type jsonOSPolicyAssignmentFileRemote OSPolicyAssignmentFileRemote
 
-func (r *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote) UnmarshalJSON(data []byte) error {
-	var res jsonOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote
+func (r *OSPolicyAssignmentFileRemote) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentFileRemote
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -657,7 +657,7 @@ func (r *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote) Unma
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote
+		*r = *EmptyOSPolicyAssignmentFileRemote
 	} else {
 
 		r.Uri = res.Uri
@@ -668,37 +668,37 @@ func (r *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote) Unma
 	return nil
 }
 
-// This object is used to assert a desired state where this OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote is
+// This object is used to assert a desired state where this OSPolicyAssignmentFileRemote is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote = &OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote{empty: true}
+var EmptyOSPolicyAssignmentFileRemote *OSPolicyAssignmentFileRemote = &OSPolicyAssignmentFileRemote{empty: true}
 
-func (r *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote) Empty() bool {
+func (r *OSPolicyAssignmentFileRemote) Empty() bool {
 	return r.empty
 }
 
-func (r *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote) String() string {
+func (r *OSPolicyAssignmentFileRemote) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileRemote) HashCode() string {
+func (r *OSPolicyAssignmentFileRemote) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs struct {
+type OSPolicyAssignmentFileGcs struct {
 	empty      bool    `json:"-"`
 	Bucket     *string `json:"bucket"`
 	Object     *string `json:"object"`
 	Generation *int64  `json:"generation"`
 }
 
-type jsonOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs
+type jsonOSPolicyAssignmentFileGcs OSPolicyAssignmentFileGcs
 
-func (r *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs) UnmarshalJSON(data []byte) error {
-	var res jsonOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs
+func (r *OSPolicyAssignmentFileGcs) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentFileGcs
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -707,7 +707,7 @@ func (r *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs) Unmarsh
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs
+		*r = *EmptyOSPolicyAssignmentFileGcs
 	} else {
 
 		r.Bucket = res.Bucket
@@ -720,20 +720,20 @@ func (r *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs) Unmarsh
 	return nil
 }
 
-// This object is used to assert a desired state where this OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs is
+// This object is used to assert a desired state where this OSPolicyAssignmentFileGcs is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs = &OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs{empty: true}
+var EmptyOSPolicyAssignmentFileGcs *OSPolicyAssignmentFileGcs = &OSPolicyAssignmentFileGcs{empty: true}
 
-func (r *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs) Empty() bool {
+func (r *OSPolicyAssignmentFileGcs) Empty() bool {
 	return r.empty
 }
 
-func (r *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs) String() string {
+func (r *OSPolicyAssignmentFileGcs) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourcefileGcs) HashCode() string {
+func (r *OSPolicyAssignmentFileGcs) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -833,9 +833,9 @@ func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper) HashCode(
 }
 
 type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm struct {
-	empty    bool                                                         `json:"-"`
-	Source   *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile `json:"source"`
-	PullDeps *bool                                                        `json:"pullDeps"`
+	empty    bool                    `json:"-"`
+	Source   *OSPolicyAssignmentFile `json:"source"`
+	PullDeps *bool                   `json:"pullDeps"`
 }
 
 type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm
@@ -928,9 +928,9 @@ func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget) HashCode(
 }
 
 type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi struct {
-	empty      bool                                                         `json:"-"`
-	Source     *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile `json:"source"`
-	Properties []string                                                     `json:"properties"`
+	empty      bool                    `json:"-"`
+	Source     *OSPolicyAssignmentFile `json:"source"`
+	Properties []string                `json:"properties"`
 }
 
 type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi
@@ -1249,9 +1249,9 @@ func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo) HashC
 }
 
 type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec struct {
-	empty    bool                                                                     `json:"-"`
-	Validate *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec `json:"validate"`
-	Enforce  *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec `json:"enforce"`
+	empty    bool                    `json:"-"`
+	Validate *OSPolicyAssignmentExec `json:"validate"`
+	Enforce  *OSPolicyAssignmentExec `json:"enforce"`
 }
 
 type jsonOSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec
@@ -1297,19 +1297,19 @@ func (r *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec) HashCode() str
 	return fmt.Sprintf("%x", hash)
 }
 
-type OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec struct {
-	empty          bool                                                                                    `json:"-"`
-	File           *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile                            `json:"file"`
-	Script         *string                                                                                 `json:"script"`
-	Args           []string                                                                                `json:"args"`
-	Interpreter    *OSPolicyAssignmentGooglecloudosconfigv1OspolicyresourceexecresourceexecInterpreterEnum `json:"interpreter"`
-	OutputFilePath *string                                                                                 `json:"outputFilePath"`
+type OSPolicyAssignmentExec struct {
+	empty          bool                                   `json:"-"`
+	File           *OSPolicyAssignmentFile                `json:"file"`
+	Script         *string                                `json:"script"`
+	Args           []string                               `json:"args"`
+	Interpreter    *OSPolicyAssignmentExecInterpreterEnum `json:"interpreter"`
+	OutputFilePath *string                                `json:"outputFilePath"`
 }
 
-type jsonOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec
+type jsonOSPolicyAssignmentExec OSPolicyAssignmentExec
 
-func (r *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec) UnmarshalJSON(data []byte) error {
-	var res jsonOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec
+func (r *OSPolicyAssignmentExec) UnmarshalJSON(data []byte) error {
+	var res jsonOSPolicyAssignmentExec
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1318,7 +1318,7 @@ func (r *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec
+		*r = *EmptyOSPolicyAssignmentExec
 	} else {
 
 		r.File = res.File
@@ -1335,20 +1335,20 @@ func (r *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec
 	return nil
 }
 
-// This object is used to assert a desired state where this OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec is
+// This object is used to assert a desired state where this OSPolicyAssignmentExec is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyOSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec = &OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec{empty: true}
+var EmptyOSPolicyAssignmentExec *OSPolicyAssignmentExec = &OSPolicyAssignmentExec{empty: true}
 
-func (r *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec) Empty() bool {
+func (r *OSPolicyAssignmentExec) Empty() bool {
 	return r.empty
 }
 
-func (r *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec) String() string {
+func (r *OSPolicyAssignmentExec) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec) HashCode() string {
+func (r *OSPolicyAssignmentExec) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -1357,7 +1357,7 @@ func (r *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourceexecresourceexec
 
 type OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile struct {
 	empty       bool                                                              `json:"-"`
-	File        *OSPolicyAssignmentGooglecloudosconfigv1Ospolicyresourcefile      `json:"file"`
+	File        *OSPolicyAssignmentFile                                           `json:"file"`
 	Content     *string                                                           `json:"content"`
 	Path        *string                                                           `json:"path"`
 	State       *OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileStateEnum `json:"state"`

@@ -31,7 +31,7 @@ variables:
   type: random_int
 - name: random_int
   type: random_int
-- name: region
-  type: region
 - name: backup
   type: resource_name
+- name: region
+  type: region
