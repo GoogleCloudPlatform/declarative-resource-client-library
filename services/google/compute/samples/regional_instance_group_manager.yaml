@@ -56,9 +56,7 @@ variables:
   type: project
 - name: template2
   type: resource_name
-- name: instance_group_manager
-  type: resource_name
 - name: zone
   type: zone
-- name: region
-  type: region
+- name: instance_group_manager
+  type: resource_name

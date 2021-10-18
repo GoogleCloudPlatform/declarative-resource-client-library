@@ -28,4 +28,5 @@ func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterMonitoringBetaMonitoredProjectServiceServer(s, &MonitoredProjectServer{})
 	sdkgrpc.RegisterMonitoringBetaAlertPolicyServiceServer(s, &AlertPolicyServer{})
 	sdkgrpc.RegisterMonitoringBetaNotificationChannelServiceServer(s, &NotificationChannelServer{})
+	sdkgrpc.RegisterMonitoringBetaServiceServiceServer(s, &ServiceServer{})
 }
