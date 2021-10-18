@@ -58,6 +58,7 @@ func ProtoToNetwork(p *betapb.ComputeBetaNetwork) *beta.Network {
 		Mtu:                   dcl.Int64OrNil(p.GetMtu()),
 		Project:               dcl.StringOrNil(p.GetProject()),
 		SelfLink:              dcl.StringOrNil(p.GetSelfLink()),
+		SelfLinkWithId:        dcl.StringOrNil(p.GetSelfLinkWithId()),
 	}
 	return obj
 }
@@ -94,6 +95,7 @@ func NetworkToProto(resource *beta.Network) *betapb.ComputeBetaNetwork {
 	p.SetMtu(dcl.ValueOrEmptyInt64(resource.Mtu))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
+	p.SetSelfLinkWithId(dcl.ValueOrEmptyString(resource.SelfLinkWithId))
 
 	return p
 }

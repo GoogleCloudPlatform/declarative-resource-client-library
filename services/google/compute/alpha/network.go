@@ -33,6 +33,7 @@ type Network struct {
 	Mtu                   *int64                `json:"mtu"`
 	Project               *string               `json:"project"`
 	SelfLink              *string               `json:"selfLink"`
+	SelfLinkWithId        *string               `json:"selfLinkWithId"`
 }
 
 func (r *Network) String() string {
@@ -136,6 +137,7 @@ func (r *Network) ID() (string, error) {
 		"mtu":                   dcl.ValueOrEmptyString(nr.Mtu),
 		"project":               dcl.ValueOrEmptyString(nr.Project),
 		"selfLink":              dcl.ValueOrEmptyString(nr.SelfLink),
+		"selfLinkWithId":        dcl.ValueOrEmptyString(nr.SelfLinkWithId),
 	}
 	return dcl.Nprintf("projects/{{project}}/global/networks/{{name}}", params), nil
 }

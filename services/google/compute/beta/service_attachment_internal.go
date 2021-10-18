@@ -43,7 +43,7 @@ func (r *ServiceAttachment) validate() error {
 	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
 		return err
 	}
-	if err := dcl.Required(r, "location"); err != nil {
+	if err := dcl.RequiredParameter(r.Location, "Location"); err != nil {
 		return err
 	}
 	if !dcl.IsEmptyValueIndirect(r.PscServiceAttachmentId) {
@@ -525,7 +525,7 @@ func canonicalizeServiceAttachmentDesiredState(rawDesired, rawInitial *ServiceAt
 	} else {
 		canonicalDesired.Project = rawDesired.Project
 	}
-	if dcl.StringCanonicalize(rawDesired.Location, rawInitial.Location) {
+	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
 		canonicalDesired.Location = rawInitial.Location
 	} else {
 		canonicalDesired.Location = rawDesired.Location
@@ -638,13 +638,7 @@ func canonicalizeServiceAttachmentNewState(c *Client, rawNew, rawDesired *Servic
 
 	rawNew.Project = rawDesired.Project
 
-	if dcl.IsNotReturnedByServer(rawNew.Location) && dcl.IsNotReturnedByServer(rawDesired.Location) {
-		rawNew.Location = rawDesired.Location
-	} else {
-		if dcl.StringCanonicalize(rawDesired.Location, rawNew.Location) {
-			rawNew.Location = rawDesired.Location
-		}
-	}
+	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
 }
@@ -1338,7 +1332,9 @@ func expandServiceAttachment(c *Client, f *ServiceAttachment) (map[string]interf
 	} else if v != nil {
 		m["project"] = v
 	}
-	if v := f.Location; dcl.ValueShouldBeSent(v) {
+	if v, err := dcl.EmptyValue(); err != nil {
+		return nil, fmt.Errorf("error expanding Location into location: %w", err)
+	} else if v != nil {
 		m["location"] = v
 	}
 

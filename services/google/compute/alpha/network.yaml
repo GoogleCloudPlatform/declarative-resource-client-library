@@ -138,3 +138,10 @@ components:
           readOnly: true
           description: Server-defined URL for the resource.
           x-kubernetes-immutable: true
+        selfLinkWithId:
+          type: string
+          x-dcl-go-name: SelfLinkWithId
+          readOnly: true
+          description: Server-defined URL for the resource containing the network
+            ID.
+          x-kubernetes-immutable: true

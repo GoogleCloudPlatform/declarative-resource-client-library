@@ -36,6 +36,7 @@ message ComputeAlphaNetwork {
   int64 mtu = 6;
   string project = 7;
   string self_link = 8;
+  string self_link_with_id = 9;
 }
 
 message ComputeAlphaNetworkRoutingConfig {

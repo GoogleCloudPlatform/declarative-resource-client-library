@@ -480,6 +480,14 @@ func canonicalizeNetworkNewState(c *Client, rawNew, rawDesired *Network) (*Netwo
 		}
 	}
 
+	if dcl.IsNotReturnedByServer(rawNew.SelfLinkWithId) && dcl.IsNotReturnedByServer(rawDesired.SelfLinkWithId) {
+		rawNew.SelfLinkWithId = rawDesired.SelfLinkWithId
+	} else {
+		if dcl.StringCanonicalize(rawDesired.SelfLinkWithId, rawNew.SelfLinkWithId) {
+			rawNew.SelfLinkWithId = rawDesired.SelfLinkWithId
+		}
+	}
+
 	return rawNew, nil
 }
 
@@ -665,6 +673,13 @@ func diffNetwork(c *Client, desired, actual *Network, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.SelfLinkWithId, actual.SelfLinkWithId, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLinkWithId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	return newDiffs, nil
 }
 func compareNetworkRoutingConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -706,6 +721,7 @@ func (r *Network) urlNormalized() *Network {
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.SelfLinkWithId = dcl.SelfLinkToName(r.SelfLinkWithId)
 	return &normalized
 }
 
@@ -804,6 +820,7 @@ func flattenNetwork(c *Client, i interface{}) *Network {
 	res.Mtu = dcl.FlattenInteger(m["mtu"])
 	res.Project = dcl.FlattenString(m["project"])
 	res.SelfLink = dcl.FlattenString(m["selfLink"])
+	res.SelfLinkWithId = flattenNetworkSelfLinkWithID(m, m["selfLinkWithId"])
 
 	return res
 }

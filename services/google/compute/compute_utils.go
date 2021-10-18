@@ -19,6 +19,8 @@ import (
 	"context"
 	"fmt"
 	"net"
+	"net/url"
+	"path"
 	"strings"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -582,4 +584,22 @@ func targetPoolInstances() func(fd *dcl.FieldDiff) []string {
 		}
 		return ops
 	}
+}
+
+func flattenNetworkSelfLinkWithID(r map[string]interface{}, _ interface{}) *string {
+	selfLink, ok := r["selfLink"].(string)
+	if !ok {
+		return nil
+	}
+	id, ok := r["id"].(string)
+	if !ok {
+		return nil
+	}
+	u, err := url.Parse(selfLink)
+	if err != nil {
+		return nil
+	}
+	u.Path = fmt.Sprintf("%s/%s", path.Dir(u.Path), id)
+	selfLinkWithID := u.String()
+	return &selfLinkWithID
 }

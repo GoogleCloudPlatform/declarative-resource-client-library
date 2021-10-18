@@ -29,6 +29,7 @@ class Network(object):
         mtu: int = None,
         project: str = None,
         self_link: str = None,
+        self_link_with_id: str = None,
         service_account_file: str = "",
     ):
 
@@ -80,6 +81,7 @@ class Network(object):
         self.mtu = Primitive.from_proto(response.mtu)
         self.project = Primitive.from_proto(response.project)
         self.self_link = Primitive.from_proto(response.self_link)
+        self.self_link_with_id = Primitive.from_proto(response.self_link_with_id)
 
     def delete(self):
         stub = network_pb2_grpc.ComputeBetaNetworkServiceStub(channel.Channel())
