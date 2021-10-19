@@ -25,15 +25,11 @@ updates:
   dependencies:
   - samples/basic.autoscaling_policy.json
 variables:
-- name: project
-  type: project
-- name: region
-  type: region
 - name: name
   type: resource_name
-- name: cluster_name
-  type: resource_name
-- name: region
-  type: region
 - name: project
   type: project
+- name: region
+  type: region
+- name: cluster_name
+  type: resource_name
