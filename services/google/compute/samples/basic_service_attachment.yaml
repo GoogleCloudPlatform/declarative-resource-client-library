@@ -61,12 +61,12 @@ variables:
   type: resource_name
 - name: org_id
   type: org_id
-- name: project
-  type: project
 - name: region
   type: region
 - name: service
   type: resource_name
+- name: project
+  type: project
 - name: project
   type: project
 - name: compute_psc_subnetwork1

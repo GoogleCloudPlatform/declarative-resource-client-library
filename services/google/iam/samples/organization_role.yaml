@@ -23,3 +23,5 @@ variables:
   type: org_id
 - name: _role
   type: resource_name
+- name: org_id
+  type: org_id

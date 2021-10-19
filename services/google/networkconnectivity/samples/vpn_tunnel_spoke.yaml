@@ -44,13 +44,11 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: connectivity_network2
-  type: resource_name
 - name: connectivity_network1
   type: resource_name
-- name: project
-  type: project
-- name: connectivity_subnet2
+- name: connectivity_network2
+  type: resource_name
+- name: connectivity_router1
   type: resource_name
 - name: project
   type: project
@@ -60,7 +58,7 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: gateway1
+- name: connectivity_router2
   type: resource_name
 - name: project
   type: project
@@ -68,7 +66,7 @@ variables:
   type: region
 - name: region
   type: region
-- name: connectivity_router2
+- name: gateway1
   type: resource_name
 - name: project
   type: project
@@ -76,7 +74,7 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: connectivity_router1
+- name: connectivity_subnet2
   type: resource_name
 - name: project
   type: project
@@ -84,15 +82,7 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: region
-  type: region
-- name: connectivity_tunnel2
-  type: resource_name
-- name: project
-  type: project
-- name: region
-  type: region
-- name: connectivity_tunnel4
+- name: connectivity_tunnel1
   type: resource_name
 - name: project
   type: project
@@ -104,13 +94,25 @@ variables:
   type: project
 - name: region
   type: region
+- name: connectivity_tunnel3
+  type: resource_name
 - name: project
   type: project
 - name: region
   type: region
-- name: connectivity_tunnel3
-  type: resource_name
 - name: connectivity_peer2
+  type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
+- name: region
+  type: region
+- name: connectivity_tunnel2
+  type: resource_name
+- name: project
+  type: project
+- name: connectivity_tunnel4
   type: resource_name
 - name: project
   type: project
@@ -122,31 +124,25 @@ variables:
   type: project
 - name: region
   type: region
-- name: connectivity_tunnel1
+- name: connectivity_interface2
   type: resource_name
-- name: project
-  type: project
-- name: region
-  type: region
 - name: project
   type: project
 - name: region
   type: region
 - name: connectivity_interface4
   type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
+- name: project
+  type: project
+- name: region
+  type: region
 - name: connectivity_interface3
   type: resource_name
-- name: project
-  type: project
-- name: region
-  type: region
 - name: connectivity_interface1
-  type: resource_name
-- name: project
-  type: project
-- name: region
-  type: region
-- name: connectivity_interface2
   type: resource_name
 - name: project
   type: project
