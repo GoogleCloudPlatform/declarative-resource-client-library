@@ -34,23 +34,23 @@ variables:
   type: resource_name
 - name: project
   type: project
-- name: region
-  type: region
-- name: zone
-  type: zone
 - name: group
   type: resource_name
 - name: project
   type: project
 - name: project
   type: project
+- name: region
+  type: region
+- name: zone
+  type: zone
 - name: range
   type: resource_name
 - name: compute_subnetwork
   type: resource_name
 - name: project
   type: project
-- name: zone
-  type: zone
 - name: project
   type: project
+- name: zone
+  type: zone

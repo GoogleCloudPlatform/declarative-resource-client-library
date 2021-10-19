@@ -30,12 +30,10 @@ variables:
   type: project
 - name: template1
   type: resource_name
-- name: manager
-  type: resource_name
 - name: region
   type: region
-- name: project
-  type: project
+- name: manager
+  type: resource_name
 - name: autoscaler
   type: resource_name
 - name: region
