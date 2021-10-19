@@ -26,13 +26,13 @@ updates:
   - samples/basic.object.json
   - samples/basic.bucket.json
 variables:
-- name: project
-  type: project
 - name: bucket
   type: resource_name
-- name: content
-  type: resource_name
+- name: project
+  type: project
 - name: object
+  type: resource_name
+- name: content
   type: resource_name
 - name: project
   type: project
