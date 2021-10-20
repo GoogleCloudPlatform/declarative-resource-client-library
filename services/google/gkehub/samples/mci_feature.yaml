@@ -54,7 +54,9 @@ variables:
   type: zone
 - name: cluster1
   type: resource_name
-- name: membership2
-  type: resource_name
 - name: membership1
+  type: resource_name
+- name: zone
+  type: zone
+- name: membership2
   type: resource_name

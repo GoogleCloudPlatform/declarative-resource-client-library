@@ -24,11 +24,13 @@ updates:
   dependencies:
   - samples/first.instance_template.json
 variables:
-- name: project
-  type: project
 - name: template1
   type: resource_name
-- name: region
-  type: region
+- name: project
+  type: project
 - name: manager
   type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region
