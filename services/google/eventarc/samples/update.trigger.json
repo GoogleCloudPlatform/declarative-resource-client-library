@@ -4,7 +4,7 @@
   "name": "{{name}}",
   "destination": {
     "cloudRunService": {
-      "service": "{{ref:secondservice.run.service.json:name}}",
+      "service": "{{ref:secondservice.run1.service.json:name}}",
       "region": "{{region}}"
     }
   },

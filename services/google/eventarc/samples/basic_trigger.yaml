@@ -18,35 +18,29 @@ versions:
 - beta
 resource: samples/basic.trigger.json
 dependencies:
-- samples/basicservice.run.service.json
-- samples/secondservice.run.service.json
+- samples/basicservice.run1.service.json
+- samples/secondservice.run1.service.json
 updates:
 - resource: samples/update.trigger.json
   dependencies:
-  - samples/basicservice.run.service.json
-  - samples/secondservice.run.service.json
+  - samples/basicservice.run1.service.json
+  - samples/secondservice.run1.service.json
 variables:
+- name: project
+  type: project
+- name: name
+  type: resource_name
+- name: name
+  type: resource_name
 - name: region
   type: region
 - name: project
   type: project
 - name: secondname
   type: resource_name
-- name: name
-  type: resource_name
-- name: name
-  type: resource_name
-- name: region
-  type: region
-- name: project
-  type: project
-- name: region
-  type: region
 - name: service_account
   type: service_account
 - name: project
   type: project
-- name: region
-  type: region
 - name: name
   type: resource_name

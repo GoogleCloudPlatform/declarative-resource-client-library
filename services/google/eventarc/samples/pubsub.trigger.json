@@ -5,7 +5,7 @@
   "labels": {},
   "destination": {
     "cloudRunService": {
-      "service": "{{ref:basicservice.run.service.json:name}}",
+      "service": "{{ref:basicservice.run1.service.json:name}}",
       "region": "{{region}}"
     }
   },

@@ -11,26 +11,24 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-name: slo_request_based_good_total_ratio
-description: request based good total ratio slo instance
-type: service_level_objective
+name: certsign_certificate
+description: An example of a complex certificate with certsign enabled.
+type: certificate
 versions:
-- ga
-resource: samples/slo_request_based_good_total_ratio.service_level_objective.json
+- beta
+resource: samples/certsign.certificate.json
 dependencies:
-- samples/basic.service.json
-updates:
-- resource: samples/update_slo_request_based_good_total_ratio.service_level_objective.json
-  dependencies:
-  - samples/basic.service.json
+- samples/basic.certificate_authority.json
 variables:
-- name: name
+- name: region
+  type: region
+- name: project
+  type: project
+- name: ca_name
   type: resource_name
-- name: displayname
+- name: cert
   type: resource_name
 - name: project
   type: project
-- name: name
-  type: resource_name
-- name: displayname
-  type: resource_name
+- name: region
+  type: region
